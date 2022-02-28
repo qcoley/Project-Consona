@@ -9,15 +9,16 @@ import time
 
 class Player:
 
-    def __init__(self, name, gender, race, role, inventory, equipment, quest_items, statistics, skills, level,
-                 experience, health, energy, x_coordinate, y_coordinate, alive_status):
+    def __init__(self, name, gender, race, role, inventory, equipment, quest, quest_status, statistics, skills, level,
+                 experience, health, energy, x_coordinate, y_coordinate, alive_status, rupees):
         self.name = name
         self.gender = gender
         self.race = race
         self.role = role
         self.inventory = inventory
         self.equipment = equipment
-        self.quest_items = quest_items
+        self.quest = quest
+        self.quest_status = quest_status
         self.statistics = statistics
         self.skills = skills
         self.level = level
@@ -29,6 +30,8 @@ class Player:
         self.y_coordinate = y_coordinate
 
         self.alive_status = alive_status
+
+        self.rupees = rupees
 
 
 class Enemy:
@@ -49,14 +52,15 @@ class Enemy:
 
 class NPC:
 
-    def __init__(self, name, gender, race, role, dialog, quest, x_coordinate, y_coordinate, alive_status,
-                 quest_complete, items):
+    def __init__(self, name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate,
+                 alive_status, quest_complete, items, gift):
         self.name = name
         self.gender = gender
         self.race = race
         self.role = role
         self.dialog = dialog
         self.quest = quest
+        self.quest_description = quest_description
 
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
@@ -65,6 +69,7 @@ class NPC:
         self.quest_complete = quest_complete
 
         self.items = items
+        self.gift = gift
 
 
 class Welcome:
@@ -104,14 +109,14 @@ class Water:
 # ----------------------------------------------------------------------------------------------------------------------
 # character creator ----------------------------------------------------------------------------------------------------
 # default character
-default_character = Player("Intrinsic", "male", "sorae", "mage",  # name, gender, race, role
-                           ["doritos", "health potion", "energy potion"],  # inventory
-                           ["magic", "staff", "light", "fancy robes"],  # equipment ('type', 'name')
-                           ["none"],  # quest items
-                           ["vitality", 1, "intellect", 3, "strength", 1, "wisdom", 2],  # stats ('stat', 'amount')
-                           ["beat boxing", "fire ball", "polymorph"], 1, 0, 100, 100,
+default_character = Player("Player", "female", "amuna", "fighter",  # name, gender, race, role
+                           ["health potion", "energy potion"],  # inventory
+                           ["", "", "", ""],  # equipment ('type', 'name')
+                           [""], 1,  # quest, # quest status
+                           ["vitality", 3, "intellect", 1, "strength", 2, "wisdom", 1],  # stats ('stat', 'amount')
+                           ["heavy swing"], 1, 0, 100, 100,
                            # skills, lvl, exp, health, energy
-                           1, 1, True)  # x-coordinate, y-coordinate, alive status
+                           1, 1, True, 0)  # x-coordinate, y-coordinate, alive status, rupees
 
 character_list = [default_character]
 
@@ -122,60 +127,94 @@ snake_2 = Enemy("snake", 100, 100, 2, 4, 11, True, "shiny rock")
 snake_3 = Enemy("snake", 100, 100, 3, 2, 10, True, "shiny rock")
 snake_4 = Enemy("snake", 100, 100, 1, 3, 9, True, "shiny rock")
 
-ghoul_low_1 = Enemy("ghoul", 100, 100, 3, 16, 14, True, "bone dust")
-ghoul_low_2 = Enemy("ghoul", 100, 100, 4, 17, 12, True, "bone dust")
-ghoul_low_3 = Enemy("ghoul", 100, 100, 5, 17, 15, True, "bone dust")
-ghoul_low_4 = Enemy("ghoul", 100, 100, 3, 16, 11, True, "bone dust")
+ghoul_low_1 = Enemy("ghoul", 100, 100, 3, 16, 13, True, "bone dust")
+ghoul_low_2 = Enemy("ghoul", 100, 100, 4, 17, 11, True, "bone dust")
+ghoul_low_3 = Enemy("ghoul", 100, 100, 5, 17, 14, True, "bone dust")
+ghoul_low_4 = Enemy("ghoul", 100, 100, 3, 16, 10, True, "bone dust")
 
 all_enemies = [snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4]
 
 # npcs -----------------------------------------------------------------------------------------------------------------
-# basic npc (name, gender, race, role, dialog, quest, x-coordinate, y-coordinate, alive status, quest complete)
-npc_1 = NPC("Garon", "male", "nuldar", "rogue", "It's dangerous to go alone.", "Take This", 4, 4, True, False,
-            ["Items to be added for thief steal"])
-npc_2 = NPC("Celeste", "female", "sorae", "mage", "Please help Nede... ", "My Companion", 32, 34, True, False,
-            ["Items to be added for thief steal"])
-npc_3 = NPC("Artherian", "male", "amuna", "fighter", "By the light!", "Draconic Dreads", 28, 18, True, False,
-            ["Items to be added for thief steal"])
+# basic npc (name, gender, race, role, dialog, quest, quest description x-coordinate, y-coordinate, alive status,
+# quest complete, items, gift status)
+npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone.", "Stupid Snakes",
+                "Greetings! I don't believe I've seen you around here before. Must be one of the new \nsettlers coming "
+                "in, right? \n\nWell, we're thankful for all the help we can get lately. Look, you seem pretty strong"
+                ",\nbut you're going to need a weapon to survive out here. \n\nI've got something you can have for "
+                "now, but you'll need to find something better if you plan on \nadventuring any further "
+                "into the region. \n\nWhy don't you go and test it out? There's some snakes nearby that have been "
+                "coming up from the \nriver lately, and they've shown an unusual aggressiveness in larger numbers than "
+                "before. \n\nMaybe you could lessen their numbers for us? Ill be sure to give you something worth "
+                "the trouble. \n\nFour snakes should be good! Check just North of here. ", 4, 4, True, False,
+                ["Items to be added for thief steal"], False)
 
-guard_1 = NPC("Amuna Guard", "male", "amuna", "fighter", "Another day", "ID Check", 12, 17, True, False,
-              ["Items to be added for thief steal"])
-guard_2 = NPC("Amuna Guard", "male", "amuna", "fighter", "Another day", "ID Check", 13, 17, True, False,
-              ["Items to be added for thief steal"])
+npc_celeste = NPC("Celeste", "female", "sorae", "mage", "Please help Nede... ", "My Companion",
+                  "quest description placeholder", 32, 34, True, False,
+                  ["Items to be added for thief steal"], False)
 
-all_npcs = [npc_1, npc_2, npc_3, guard_1, guard_2]
+npc_artherian = NPC("Artherian", "male", "amuna", "fighter", "By the light!", "Draconic Dreads",
+                    "quest description placeholder", 28, 18, True, False,
+                    ["Items to be added for thief steal"], False)
+
+guard = NPC("Amuna Guard", "male", "amuna", "fighter", "Another day", "Ghoulish Glee",
+            "quest description placeholder", 13, 15, True, False,
+            ["Items to be added for thief steal"], False)
+
+guard_captain = NPC("Amuna Guard Captain", "female", "amuna", "fighter", "We need help", "Village Repairs",
+                    "quest description placeholder", 12, 6, True, False,
+                    ["Items to be added for thief steal"], False)
+
+all_npcs = [npc_garan, npc_celeste, npc_artherian, guard, guard_captain]
 
 # trees ----------------------------------------------------------------------------------------------------------------
 # any tree (name, model, x-coordinate, y-coordinate)
-tree_1 = Tree("Pine tree", "tree", 4, 6)
-tree_2 = Tree("Pine tree", "tree", 5, 2)
-rock_1 = Tree("Pine tree", "tree", 2, 4)
+tree_1 = Tree("Pine tree", "tree", 4, 7)
+tree_2 = Tree("Pine tree", "tree", 6, 2)
+tree_3 = Tree("Pine tree", "tree", 2, 4)
 
-all_trees = [tree_1, tree_2, rock_1]
+all_trees = [tree_1, tree_2, tree_3]
 
 # water ----------------------------------------------------------------------------------------------------------------
 # water filler (name, model, x-coordinate, y-coordinate)
-water_1 = Water("River", "water", 1, 18)
-water_2 = Water("River", "water", 2, 18)
-water_3 = Water("River", "water", 3, 18)
-water_4 = Water("River", "water", 4, 18)
-water_5 = Water("River", "water", 5, 18)
-water_6 = Water("River", "water", 6, 18)
-water_7 = Water("River", "water", 7, 18)
-water_8 = Water("River", "water", 8, 18)
-water_9 = Water("River", "water", 9, 18)
-water_10 = Water("River", "water", 10, 18)
-water_11 = Water("River", "water", 11, 18)
-water_12 = Water("River", "water", 14, 18)
-water_13 = Water("River", "water", 15, 18)
-water_14 = Water("River", "water", 16, 18)
-water_15 = Water("River", "water", 17, 18)
-water_16 = Water("River", "water", 18, 18)
-water_17 = Water("River", "water", 19, 18)
-water_18 = Water("River", "water", 20, 18)
+water_1 = Water("Rohir River", "water", 1, 18)
+water_2 = Water("Rohir River", "water", 2, 18)
+water_3 = Water("Rohir River", "water", 3, 18)
+water_4 = Water("Rohir River", "water", 4, 18)
+water_5 = Water("Rohir River", "water", 5, 18)
+water_6 = Water("Rohir River", "water", 6, 18)
+water_7 = Water("Rohir River", "water", 7, 18)
+water_8 = Water("Rohir River", "water", 8, 18)
+water_9 = Water("Rohir River", "water", 9, 18)
+water_10 = Water("Rohir River", "water", 10, 18)
+water_11 = Water("Rohir River", "water", 11, 18)
+water_12 = Water("Rohir River", "water", 14, 18)
+water_13 = Water("Rohir River", "water", 15, 18)
+water_14 = Water("Rohir River", "water", 16, 18)
+water_15 = Water("Rohir River", "water", 17, 18)
+water_16 = Water("Rohir River", "water", 18, 18)
+water_17 = Water("Rohir River", "water", 19, 18)
+water_18 = Water("Rohir River", "water", 20, 18)
+water_19 = Water("Rohir River", "water", 1, 17)
+water_20 = Water("Rohir River", "water", 2, 17)
+water_21 = Water("Rohir River", "water", 3, 17)
+water_22 = Water("Rohir River", "water", 4, 17)
+water_23 = Water("Rohir River", "water", 5, 17)
+water_24 = Water("Rohir River", "water", 6, 17)
+water_25 = Water("Rohir River", "water", 7, 17)
+water_26 = Water("Rohir River", "water", 8, 17)
+water_27 = Water("Rohir River", "water", 9, 17)
+water_28 = Water("Rohir River", "water", 10, 17)
+water_29 = Water("Rohir River", "water", 11, 17)
+water_30 = Water("Rohir River", "water", 14, 17)
+water_31 = Water("Rohir River", "water", 15, 17)
+water_32 = Water("Rohir River", "water", 16, 17)
+water_33 = Water("Rohir River", "water", 17, 17)
+water_34 = Water("Rohir River", "water", 18, 17)
 
 all_water = [water_1, water_2, water_3, water_4, water_5, water_6, water_7, water_8, water_9, water_10, water_11,
-             water_12, water_13, water_14, water_15, water_16, water_17, water_18]
+             water_12, water_13, water_14, water_15, water_16, water_17, water_18, water_19, water_20, water_21,
+             water_22, water_23, water_24, water_25, water_26, water_27, water_28, water_29, water_30,
+             water_31, water_32, water_33, water_34]
 
 # buildings ------------------------------------------------------------------------------------------------------------
 # any tree (name, model, x-coordinate, y-coordinate)
@@ -183,8 +222,8 @@ building_1 = Building("Amuna Shop", "Shop", 16, 5)
 building_2 = Building("Amuna Home", "House", 13, 4)
 building_3 = Building("Amuna Home", "House", 14, 7)
 
-tower_1 = Building("Amuna Tower", "Tower", 6, 16)
-tower_2 = Building("Amuna Tower", "Tower", 9, 15)
+tower_1 = Building("Amuna Tower", "Tower", 6, 15)
+tower_2 = Building("Amuna Tower", "Tower", 9, 14)
 
 wall_1 = Building("Castle Wall", "Wall", 19, 1)
 wall_2 = Building("Castle Wall", "Wall", 19, 2)
@@ -205,9 +244,14 @@ wall_16 = Building("Castle Wall", "Wall", 19, 16)
 wall_17 = Building("Castle Wall", "Wall", 19, 17)
 wall_18 = Building("Castle Wall", "Wall", 19, 18)
 
+bridge_1 = Building("Rohir River Bridge", "Bridge", 12, 18)
+bridge_2 = Building("Rohir River Bridge", "Bridge", 13, 18)
+bridge_gate_1 = Building("Rohir River Bridge Gate", "Bridge", 12, 17)
+bridge_gate_2 = Building("Rohir River Bridge Gate", "Bridge", 13, 17)
+
 all_buildings = [building_1, building_2, building_3, tower_1, tower_2, wall_1, wall_2, wall_3, wall_4, wall_5,
                  wall_6, wall_7, wall_8, wall_9, wall_10, wall_11, wall_12, wall_13, wall_14, wall_15, wall_16,
-                 wall_17, wall_18]
+                 wall_17, wall_18, bridge_1, bridge_2, bridge_gate_1, bridge_gate_2]
 
 # welcome message ------------------------------------------------------------------------------------------------------
 # False = hasn't been shown to the player yet. Once true it will not continue to show
@@ -220,8 +264,8 @@ def create_a_character():
     print("\n\n\n*** Character creator ***")
 
     # allows the player to create their own character. Stats and skills assigned based on chosen role.
-    created_character = Player("name", "gender", "race", "role", "inventory", "equipment", "quest item", "stats",
-                               "skills", "level", "xp", "health", "energy", "x-coordinate", "y-coordinate", True)
+    created_character = Player("name", "gender", "race", "role", "inventory", "equipment", "quest", 1, "stats",
+                               "skills", "level", "xp", "health", "energy", "x-coordinate", "y-coordinate", True, 0)
 
     my_name = input("\nWhat would you like your character's name to be? (Type a name): ")
     created_character.name = my_name.strip()
@@ -257,13 +301,13 @@ def create_a_character():
                   "is much they can\nstill learn from others. * The Sorae are associated with the element of earth "
                   "and all the nature\nof which inhabits it. They can be very self-sufficient, much as the plant "
                   "life surrounding their\nworld can produce its own source of energy. But when "
-                  "combined with others they can be much \nstronger for it. "
+                  "cooperative with others they can be much \nstronger for it. "
                   "\n\nNuldar: A hearty race, strong and fierce. The Nuldar do not seek to pass time idle thinking "
                   "of \nthings, for they would rather act and make a difference that they can see and feel. They \nare "
                   "well grounded in their beliefs and hold fast to their strong bonds with family and friends. \nThis "
                   "can cause issues to arise, as they are resistant to change even if it could prove beneficial. "
                   "\nThey are quick to judge and slow to trust, a result of the hardships they have endured in the "
-                  "\nred world of Rohir. * The Nuldar are associated with the element of fire. They burn bright and\nhave "
+                  "\nred world of Rodin. * The Nuldar are associated with the element of fire. They burn bright and\nhave "
                   "forged themselves as diamonds in the flames of their often-difficult lives. "
                   "They must take \ncare not to allow their flames to be extinguished by keeping their hearts close "
                   "and \nwell guarded by their tough spirits. ")
@@ -325,7 +369,7 @@ def create_a_character():
     if chosen_race is True and chosen_role is True:
         if created_character.role == "fighter":
             created_character.inventory = ["health potion", "energy potion", "character lore sheet"]
-            created_character.equipment = ["2H", "", "heavy", ""]
+            created_character.equipment = ["", "", "", ""]
             created_character.statistics = ["vitality", 3, "intellect", 1, "strength", 2, "wisdom", 1]
             created_character.skills = ["heavy swing", ""]  # defender 2nd
             created_character.level = 1
@@ -348,7 +392,7 @@ def create_a_character():
 
         if created_character.role == "mage":
             created_character.inventory = ["health potion", "energy potion", "character lore sheet"]
-            created_character.equipment = ["magic", "", "light", ""]
+            created_character.equipment = ["", "", "", ""]
             created_character.statistics = ["vitality", 1, "intellect", 3, "strength", 1, "wisdom", 2]
             created_character.skills = ["fireball", ""]  # polymorph 2nd
             created_character.level = 1
@@ -371,9 +415,9 @@ def create_a_character():
 
         if created_character.role == "rogue":
             created_character.inventory = ["health potion", "energy potion", "character lore sheet"]
-            created_character.equipment = ["1H", "", "medium", ""]
+            created_character.equipment = ["", "", "", ""]
             created_character.statistics = ["vitality", 2, "intellect", 1, "strength", 3, "wisdom", 1]
-            created_character.skills = ["back stab", ""]  # steal 2nd
+            created_character.skills = ["swift strike", ""]  # steal 2nd
             created_character.level = 1
             created_character.experience = 0
             created_character.health = 100
@@ -443,9 +487,9 @@ def level_up(player):
             # intellect increases player energy
             player.energy = player.energy + player.statistics[3]
 
-            print(f"\n*** Congrats, you leveled up! You are now level: {player.level} ***")
-            print("*** In addition, as a rogue, your stats have been increased to: ***")
-            print(f"*** {player.statistics} ***")
+            print(f"\n******** Congrats, you leveled up! You are now level: {player.level} ***********")
+            print("*********** In addition, as a rogue, your stats have been increased to: ***********")
+            print(f"*********** {player.statistics} ***********")
 
             return player.level
 
@@ -458,7 +502,7 @@ def attack_enemy(player, enemy):
     # fighters do more damage with 2-handed weapons -------------------------
     if player.role == "fighter":
         if player.equipment[0] == "2H":
-            damage = (random.randrange(25, 50) // enemy.level)
+            damage = (random.randrange(20, 40) // enemy.level)
 
             # includes player strength stat to scale overall damage
             stat_scale = damage * player.statistics[5]
@@ -466,7 +510,7 @@ def attack_enemy(player, enemy):
             return stat_scale
 
         else:
-            damage = (random.randrange(0, 5) // enemy.level)
+            damage = (random.randrange(1, 10) // enemy.level)
             print("\n*** You may have an incorrect weapon type equipped! ***")
 
             return damage
@@ -474,7 +518,7 @@ def attack_enemy(player, enemy):
     # mages do more damage with magic weapons --------------------------------
     if player.role == "mage":
         if player.equipment[0] == "magic":
-            damage = (random.randrange(25, 50) // enemy.level)
+            damage = (random.randrange(20, 40) // enemy.level)
 
             # includes player wisdom stat to scale overall damage
             stat_scale = (damage * player.statistics[7]) // 2
@@ -482,7 +526,7 @@ def attack_enemy(player, enemy):
             return stat_scale
 
         else:
-            damage = (random.randrange(0, 5) // enemy.level)
+            damage = (random.randrange(1, 10) // enemy.level)
             print("\n*** You may have an incorrect weapon type equipped! ***")
 
             return damage
@@ -490,7 +534,7 @@ def attack_enemy(player, enemy):
     # rogues do more damage with 1-handed weapons ----------------------------
     if player.role == "rogue":
         if player.equipment[0] == "1H":
-            damage = (random.randrange(25, 50) // enemy.level)
+            damage = (random.randrange(20, 40) // enemy.level)
 
             # includes player strength stat to scale overall damage (strength will be higher for rogues)
             stat_scale = damage * player.statistics[5]
@@ -498,7 +542,7 @@ def attack_enemy(player, enemy):
             return stat_scale
 
         else:
-            damage = (random.randrange(0, 5) // enemy.level)
+            damage = (random.randrange(1, 10) // enemy.level)
             print("\n*** You may have an incorrect weapon type equipped! ***")
 
             return damage
@@ -508,6 +552,10 @@ def attack_player(enemy, player):
     if enemy.kind == "snake":
         base_damage = (random.randrange(10, 30) // player.level)
 
+        # if enemy significantly out levels player they will do additional damage
+        if enemy.level > player.level + 3:
+            base_damage = base_damage + 10
+
         if player.equipment[2] == "heavy":
             final_damage = base_damage - 15
 
@@ -522,10 +570,17 @@ def attack_player(enemy, player):
             final_damage = base_damage - 10
 
             return final_damage
+
+        else:
+            print("\n*** You're not wearing any armor! ***")
+            return base_damage
 
     if enemy.kind == "ghoul":
         base_damage = (random.randrange(20, 30) // player.level)
 
+        if enemy.level > player.level + 3:
+            base_damage = base_damage + 10
+
         if player.equipment[2] == "heavy":
             final_damage = base_damage - 15
 
@@ -540,6 +595,10 @@ def attack_player(enemy, player):
             final_damage = base_damage - 10
 
             return final_damage
+
+        else:
+            print("\n*** You're not wearing any armor! ***")
+            return base_damage
 
 
 def player_move(player, player_direction, water, trees, buildings):
@@ -1000,7 +1059,6 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list)
 # scenarios ------------------------------------------------------------------------------------------------------------
 
 def attack_scenario(player, enemy):
-
     # Verifies player is still in range of enemy
     if player.x_coordinate == enemy.x_coordinate and player.y_coordinate == enemy.y_coordinate:
 
@@ -1054,10 +1112,25 @@ def attack_scenario(player, enemy):
 
                 # enemy has been defeated, will return an amount of xp based on current levels
                 else:
+                    if enemy.kind == "snake":
+                        if player.quest == "Stupid Snakes":
+                            player.quest_status = player.quest_status + 1
+                            print(f"\n*** {player.quest_status} of 4 snakes for [{player.quest}] quest ***")
+                            time.sleep(1)
+
                     experience = int((enemy.level / player.level) * 10)
                     player.experience = player.experience + experience
                     print(f"\nYou killed the {enemy.kind} and gained {experience} experience!\n")
                     print(f"Your current experience is {player.experience}/100")
+
+                    drop_chance = random.randrange(1, 10)
+
+                    # 70% chance to drop merchant item
+                    if drop_chance > 3:
+                        player.inventory.append(enemy.items)
+                        print(f"\nThe {enemy.kind} dropped a [{enemy.items}], which has been added to your "
+                              f"inventory. \n")
+
                     time.sleep(1)
 
                     # player will level up (see level up method)
@@ -1092,6 +1165,122 @@ def attack_scenario(player, enemy):
 
     else:
         return
+
+
+def npc_interaction_scenario(player, npc):
+    # Verifies player is still in range of npc
+    if player.x_coordinate == npc.x_coordinate and player.y_coordinate == npc.y_coordinate:
+
+        # when player talks to garan for the first time, he will give them a basic item for their role
+        if npc.name == "Garan":
+            if not npc.gift:
+                if player.role == "fighter":
+                    player.equipment[0] = "2H"
+                    player.equipment[1] = "rusty sword"
+                    player.equipment[2] = "heavy"
+                    player.equipment[3] = "damaged plate"
+                    npc.gift = True
+
+                if player.role == "mage":
+                    player.equipment[0] = "magic"
+                    player.equipment[1] = "broken staff"
+                    player.equipment[2] = "light"
+                    player.equipment[3] = "tattered robes"
+                    npc.gift = True
+
+                if player.role == "rogue":
+                    player.equipment[0] = "1H"
+                    player.equipment[1] = "dull dagger"
+                    player.equipment[2] = "medium"
+                    player.equipment[3] = "worn jerkin"
+                    npc.gift = True
+
+        print("\n-----------------------------------------------------------------------------------------------------")
+        print(f"\n{npc.name} says: '{npc.dialog}'")
+
+        interaction_choice = input("\nWhat do you want to say? (Information, Quest, Examine or Leave): ")
+
+        if interaction_choice.strip().lower() == "information" or interaction_choice.strip().lower() == "info" \
+                or interaction_choice.strip().lower() == "i":
+
+            if npc.race == "amuna":
+                print(f"\n{npc.name} says: You're currently in the Amuna district of Seldon. \n\nWe're one part of a "
+                      f"new region inhabited by all three known races in an effort to build better \nrelations amongst "
+                      f"our peoples. \n\nIt's a quiet town for the most part, however with the recent takeover of our "
+                      f"capital castle by the \nundead dragon 'Dreth' and his minions, we've had to wall off the most "
+                      f"eastern region to protect \nthe local settlement. \n\nAlthough, even with these precautions in "
+                      f"place some ghouls still manage to creep through. \nPlease be careful if you go to that "
+                      f"area of the district!")
+
+                time.sleep(1)
+
+                npc_interaction_scenario(player, npc)
+
+        if interaction_choice.strip().lower() == "quest" or interaction_choice.strip().lower() == "q":
+
+            # if player has not done this NPCs quest yet
+            if not npc.quest_complete:
+
+                # if NPC has not given player their quest yet
+                if player.quest != npc.quest:
+                    print("---------------------------------------------------------------------------------------------------")
+                    print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                          "~~~~~~~~~~")
+                    print(f"{npc.name} says: {npc.quest_description}")
+                    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                          "~~~~~~~~")
+
+                    quest_choice = input("\nDo you wish to accept this quest? (Type yes or no): ")
+                    if quest_choice == "yes" or quest_choice == "y":
+                        print(f"\nYou chose to accept {npc.name}'s quest [{npc.quest}]. ")
+                        player.quest = npc.quest
+                        player.quest_status = 0
+                        time.sleep(1)
+                        npc_interaction_scenario(player, npc)
+
+                # if player has completed NPCs quest with 4 objectives, will give level and item reward
+                else:
+                    if player.quest_status == 4:
+                        npc.quest_complete = True
+                        print(f"\n*** Quest [{npc.quest}] Complete! ***")
+                        time.sleep(1)
+                        level_up(player)
+
+                        player.rupees = player.rupees + 10
+                        print(f"\n*** NPC {npc.name} has also given you 10 rupees! ")
+
+                        player.inventory.append("health potion")
+                        player.inventory.append("health potion")
+                        print("\n*** You have also gained 2 health potions! "
+                              "These items have been added to your inventory. ***")
+
+                        time.sleep(1)
+                        npc_interaction_scenario(player, npc)
+
+            # NPCs quest has already been completed by player
+            else:
+                print(f"\nYou have already completed {npc.name}'s quest [{npc.quest}]. ")
+                time.sleep(1)
+                npc_interaction_scenario(player, npc)
+
+        # moves player away from NPC to return to regular action screen
+        if interaction_choice.strip().lower() == "leave" or interaction_choice.strip().lower() == "l":
+            print(f"\n*** You say goodbye to {npc.name} and head on your way ***")
+            player.x_coordinate = player.x_coordinate + 1
+            player.y_coordinate = player.y_coordinate + 1
+            print(f"\n*** Your new coordinates are: {player.x_coordinate, player.y_coordinate} ***")
+            time.sleep(1)
+
+        # returns information based on the NPC being interacted with
+        if interaction_choice.strip().lower() == "examine" or interaction_choice.strip().lower() == "exam" or \
+                interaction_choice.strip().lower() == "e":
+
+            print(f"\n*** NPC info: NPC name - {npc.name}, NPC gender - {npc.gender}, NPC race - {npc.race},"
+                  f" NPC role - {npc.role} ***")
+
+        npc_interaction_scenario(player, npc)
+
+    return
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1143,10 +1332,10 @@ def game_run(player, enemies, npcs, trees, water, buildings):
 
                     if npc.alive_status:
                         print(f'\n\n*** You meet an npc {npc.name} ***')
-                        # npc_scenario(player, npc)
+                        npc_interaction_scenario(player, npc)
 
         print("\n\n---------------------------------------------------------------------------------------------------")
-        print("Actions: Check Status, Check Inventory, Check Equipment, Check Skills, Check Location, Check Quests")
+        print("Actions: Check Status, Check Inventory, Check Equipment, Check Skills, Check Location, Check Quest")
         print("         Move, Draw Map, Use item, Use skill, Hotkeys, How to Play, Exit Game")
         print("---------------------------------------------------------------------------------------------------")
         player_choice = input("\nWhat would you like to do? (Type an action): ")
@@ -1249,12 +1438,17 @@ def game_run(player, enemies, npcs, trees, water, buildings):
             print(f"\nYour current status: "
                   f"name: {player.name}, race: {player.race}, gender: {player.gender}, role: {player.role}"
                   f"\nhealth: {player.health}, energy: {player.energy}, "
-                  f"level: {player.level}, experience: {player.experience}")
+                  f"level: {player.level}, experience: {player.experience}, rupees: {player.rupees}")
             time.sleep(1)
 
         if player_choice.strip().lower() == "exit game" or player_choice.strip().lower() == "exit":
             print(f"\n\n*** Thanks for playing! ***\n\n")
             exit()
+
+        if player_choice.strip().lower() == "check quest" or player_choice.strip().lower() == "quest" or \
+                player_choice.strip().lower() == "q":
+
+            print(f"\nYour current quest: [{player.quest}] status: [{player.quest_status} / 4]")
 
     return
 
@@ -1262,12 +1456,11 @@ def game_run(player, enemies, npcs, trees, water, buildings):
 # ----------------------------------------------------------------------------------------------------------------------
 # current game start ---------------------------------------------------------------------------------------------------
 
-# my_character = create_character()
-# create an enemy and npc list for multiple situations (currently only supports 1 enemy and 1 npc)
 
 game_run(default_character, all_enemies, all_npcs, all_trees, all_water, all_buildings)
 
 
+# ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 
 
