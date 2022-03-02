@@ -81,11 +81,12 @@ class Welcome:
 
 class Tree:
 
-    def __init__(self, name, model, x_coordinate, y_coordinate):
+    def __init__(self, name, model, x_coordinate, y_coordinate, gathered):
         self.name = name
         self.model = model
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
+        self.gathered = gathered
 
 
 class Building:
@@ -106,16 +107,24 @@ class Water:
         self.y_coordinate = y_coordinate
 
 
+class Path:
+
+    def __init__(self, name, model, x_coordinate, y_coordinate):
+        self.name = name
+        self.model = model
+        self.x_coordinate = x_coordinate
+        self.y_coordinate = y_coordinate
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # character creator ----------------------------------------------------------------------------------------------------
 # default character
 default_character = Player("Player", "female", "amuna", "fighter",  # name, gender, race, role
                            ["health potion", "energy potion"],  # inventory
                            ["", "", "", ""],  # equipment ('type', 'name')
-                           [""], 1,  # quest, # quest status
+                           [""], 0,  # quest, # quest status
                            ["vitality", 3, "intellect", 1, "strength", 2, "wisdom", 1],  # stats ('stat', 'amount')
-                           ["heavy swing"], 1, 0, 100, 100,
-                           # skills, lvl, exp, health, energy
+                           ["heavy swing"], 1, 0, 100, 100,  # skills, lvl, exp, health, energy
                            1, 1, True, 0)  # x-coordinate, y-coordinate, alive status, rupees
 
 character_list = [default_character]
@@ -125,54 +134,72 @@ character_list = [default_character]
 snake_1 = Enemy("snake", 100, 100, 1, 3, 12, True, "shiny rock")
 snake_2 = Enemy("snake", 100, 100, 2, 4, 11, True, "shiny rock")
 snake_3 = Enemy("snake", 100, 100, 3, 2, 10, True, "shiny rock")
-snake_4 = Enemy("snake", 100, 100, 1, 3, 9, True, "shiny rock")
+snake_4 = Enemy("snake", 100, 100, 2, 3, 9, True, "shiny rock")
+snake_5 = Enemy("snake", 100, 100, 3, 2, 13, True, "shiny rock")
+snake_6 = Enemy("snake", 100, 100, 1, 4, 14, True, "shiny rock")
 
 ghoul_low_1 = Enemy("ghoul", 100, 100, 3, 16, 13, True, "bone dust")
 ghoul_low_2 = Enemy("ghoul", 100, 100, 4, 17, 11, True, "bone dust")
-ghoul_low_3 = Enemy("ghoul", 100, 100, 5, 17, 14, True, "bone dust")
-ghoul_low_4 = Enemy("ghoul", 100, 100, 3, 16, 10, True, "bone dust")
+ghoul_low_3 = Enemy("ghoul", 100, 100, 2, 17, 14, True, "bone dust")
 
-all_enemies = [snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4]
+
+all_enemies = [snake_1, snake_2, snake_3, snake_4, snake_5, snake_6, ghoul_low_1, ghoul_low_2, ghoul_low_3]
 
 # npcs -----------------------------------------------------------------------------------------------------------------
 # basic npc (name, gender, race, role, dialog, quest, quest description x-coordinate, y-coordinate, alive status,
 # quest complete, items, gift status)
 npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone.", "Stupid Snakes",
-                "Greetings! I don't believe I've seen you around here before. Must be one of the new \nsettlers coming "
-                "in, right? \n\nWell, we're thankful for all the help we can get lately. Look, you seem pretty strong"
-                ",\nbut you're going to need a weapon to survive out here. \n\nI've got something you can have for "
-                "now, but you'll need to find something better if you plan on \nadventuring any further "
-                "into the region. \n\nWhy don't you go and test it out? There's some snakes nearby that have been "
-                "coming up from the \nriver lately, and they've shown an unusual aggressiveness in larger numbers than "
-                "before. \n\nMaybe you could lessen their numbers for us? Ill be sure to give you something worth "
-                "the trouble. \n\nFour snakes should be good! Check just North of here. ", 4, 4, True, False,
-                ["Items to be added for thief steal"], False)
+                "Greetings! I don't believe I've seen you around here before. You must be a traveler, \nright? "
+                "Or maybe the request for reinforcements has finally been answered! Well, either way, we're\n"
+                "thankful for all the help we can get. \n\nLook, you seem pretty strong, but you're going to need "
+                "a weapon to survive out here. \n\nI've got something you can have for now, but you'll need to find "
+                "something better if you plan on \njourneying further into the region. Here's a basic weapon and "
+                "some gear. \n\nWhy don't you go and test it out? There's some snakes nearby that have been coming up "
+                "from the \nriver, and they've shown an unusual aggressiveness with larger numbers than I've seen "
+                "before. \n\nMaybe you could take care of some for me? I'll be sure to give you something worth the "
+                "trouble. ", 4, 4, True, False, ["Items to be added for thief steal"], False)
 
 npc_celeste = NPC("Celeste", "female", "sorae", "mage", "Please help Nede... ", "My Companion",
                   "quest description placeholder", 32, 34, True, False,
                   ["Items to be added for thief steal"], False)
 
-npc_artherian = NPC("Artherian", "male", "amuna", "fighter", "By the light!", "Draconic Dreads",
+npc_artherian = NPC("Artherian", "male", "amuna", "fighter", "We must hold!", "Draconic Dreads",
                     "quest description placeholder", 28, 18, True, False,
                     ["Items to be added for thief steal"], False)
 
-guard = NPC("Amuna Guard", "male", "amuna", "fighter", "Another day", "Ghoulish Glee",
-            "quest description placeholder", 13, 15, True, False,
+guard = NPC("Guard", "male", "amuna", "fighter", "Another day", "Ghoulish Glee",
+            "You need to cross the bridge to get to the Nuldar district, you say? \n\nOrdinarily"
+            " I would have no issue granting you passage, however the gates are barred tight \n"
+            "due to the recent wave of ghouls from across the wall. \n\nI cannot leave my post and"
+            " leave the bridge unguarded, but if you could \n take care of the remaining ghouls I"
+            " will signal to unbar the gates and allow you passage \nto the other side. \n\nThe"
+            " ghouls were last spotted just east of here!", 11, 15, True, False,
             ["Items to be added for thief steal"], False)
 
-guard_captain = NPC("Amuna Guard Captain", "female", "amuna", "fighter", "We need help", "Village Repairs",
-                    "quest description placeholder", 12, 6, True, False,
-                    ["Items to be added for thief steal"], False)
+village_matron = NPC("Village Matron Maria", "female", "amuna", "mage", "We need help!", "Village Repairs",
+                    "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
+                    "\n\nThe dark beast Dreth has occupied our former capital, on the other side of the castle walls "
+                    "\nto the east, and our numbers have been spread thin trying to repel its minions and contain "
+                    "the \ndamage they've inflicted. \n\nOur best fighters have been sent in a combined contingent with "
+                    "the other districts to try and \nattack the beast directly, but its left us vulnerable here. "
+                    "The most recent wave of attacks from\nthe castle has left several damages to our village, "
+                    "and if you are able, please gather\nresources and bring them to me to distribute to the "
+                    "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
+                    "trees just west of here. Nera bless you. ", 13, 6, True, False,
+                     ["Items to be added for thief steal"], False)
 
-all_npcs = [npc_garan, npc_celeste, npc_artherian, guard, guard_captain]
+all_npcs = [npc_garan, npc_celeste, npc_artherian, guard, village_matron]
 
 # trees ----------------------------------------------------------------------------------------------------------------
 # any tree (name, model, x-coordinate, y-coordinate)
-tree_1 = Tree("Pine tree", "tree", 4, 7)
-tree_2 = Tree("Pine tree", "tree", 6, 2)
-tree_3 = Tree("Pine tree", "tree", 2, 4)
+tree_1 = Tree("Pine tree", "tree", 7, 5, False)
+tree_2 = Tree("Pine tree", "tree", 6, 2, False)
+tree_3 = Tree("Pine tree", "tree", 2, 4, False)
+tree_4 = Tree("Pine tree", "tree", 3, 6, False)
+tree_5 = Tree("Pine tree", "tree", 8, 3, False)
+tree_6 = Tree("Pine tree", "tree", 5, 8, False)
 
-all_trees = [tree_1, tree_2, tree_3]
+all_trees = [tree_1, tree_2, tree_3, tree_4, tree_5, tree_6]
 
 # water ----------------------------------------------------------------------------------------------------------------
 # water filler (name, model, x-coordinate, y-coordinate)
@@ -218,12 +245,12 @@ all_water = [water_1, water_2, water_3, water_4, water_5, water_6, water_7, wate
 
 # buildings ------------------------------------------------------------------------------------------------------------
 # any tree (name, model, x-coordinate, y-coordinate)
-building_1 = Building("Amuna Shop", "Shop", 16, 5)
-building_2 = Building("Amuna Home", "House", 13, 4)
-building_3 = Building("Amuna Home", "House", 14, 7)
+building_1 = Building("Amuna Shop", "Shop", 17, 4)
+building_2 = Building("Amuna Home", "House", 14, 3)
+building_3 = Building("Amuna Home", "House", 15, 7)
 
-tower_1 = Building("Amuna Tower", "Tower", 6, 15)
-tower_2 = Building("Amuna Tower", "Tower", 9, 14)
+farm_1 = Building("Amuna Farm", "Farm", 6, 15)
+farm_2 = Building("Amuna Farm", "Farm", 9, 14)
 
 wall_1 = Building("Castle Wall", "Wall", 19, 1)
 wall_2 = Building("Castle Wall", "Wall", 19, 2)
@@ -249,9 +276,54 @@ bridge_2 = Building("Rohir River Bridge", "Bridge", 13, 18)
 bridge_gate_1 = Building("Rohir River Bridge Gate", "Bridge", 12, 17)
 bridge_gate_2 = Building("Rohir River Bridge Gate", "Bridge", 13, 17)
 
-all_buildings = [building_1, building_2, building_3, tower_1, tower_2, wall_1, wall_2, wall_3, wall_4, wall_5,
+all_buildings = [building_1, building_2, building_3, farm_1, farm_2, wall_1, wall_2, wall_3, wall_4, wall_5,
                  wall_6, wall_7, wall_8, wall_9, wall_10, wall_11, wall_12, wall_13, wall_14, wall_15, wall_16,
                  wall_17, wall_18, bridge_1, bridge_2, bridge_gate_1, bridge_gate_2]
+
+
+# path ways ------------------------------------------------------------------------------------------------------------
+# any path (name, model, x-coordinate, y-coordinate)
+
+dirt_path_1 = Path("Dirt Path", "Dirt", 10, 1)
+dirt_path_2 = Path("Dirt Path", "Dirt", 11, 1)
+dirt_path_3 = Path("Dirt Path", "Dirt", 10, 2)
+dirt_path_4 = Path("Dirt Path", "Dirt", 11, 2)
+dirt_path_5 = Path("Dirt Path", "Dirt", 10, 3)
+dirt_path_6 = Path("Dirt Path", "Dirt", 11, 3)
+dirt_path_7 = Path("Dirt Path", "Dirt", 10, 4)
+dirt_path_8 = Path("Dirt Path", "Dirt", 11, 4)
+dirt_path_9 = Path("Dirt Path", "Dirt", 10, 5)
+dirt_path_10 = Path("Dirt Path", "Dirt", 11, 5)
+dirt_path_11 = Path("Dirt Path", "Dirt", 10, 6)
+dirt_path_12 = Path("Dirt Path", "Dirt", 11, 6)
+dirt_path_13 = Path("Dirt Path", "Dirt", 10, 7)
+dirt_path_14 = Path("Dirt Path", "Dirt", 11, 7)
+dirt_path_15 = Path("Dirt Path", "Dirt", 10, 8)
+dirt_path_16 = Path("Dirt Path", "Dirt", 11, 8)
+dirt_path_17 = Path("Dirt Path", "Dirt", 10, 9)
+dirt_path_18 = Path("Dirt Path", "Dirt", 11, 9)
+dirt_path_19 = Path("Dirt Path", "Dirt", 11, 10)
+dirt_path_20 = Path("Dirt Path", "Dirt", 12, 10)
+dirt_path_21 = Path("Dirt Path", "Dirt", 12, 11)
+dirt_path_22 = Path("Dirt Path", "Dirt", 13, 11)
+dirt_path_23 = Path("Dirt Path", "Dirt", 12, 12)
+dirt_path_24 = Path("Dirt Path", "Dirt", 13, 12)
+dirt_path_25 = Path("Dirt Path", "Dirt", 12, 13)
+dirt_path_26 = Path("Dirt Path", "Dirt", 13, 13)
+dirt_path_27 = Path("Dirt Path", "Dirt", 12, 14)
+dirt_path_28 = Path("Dirt Path", "Dirt", 13, 14)
+dirt_path_29 = Path("Dirt Path", "Dirt", 12, 15)
+dirt_path_30 = Path("Dirt Path", "Dirt", 13, 15)
+dirt_path_31 = Path("Dirt Path", "Dirt", 12, 16)
+dirt_path_32 = Path("Dirt Path", "Dirt", 13, 16)
+dirt_path_33 = Path("Dirt Path", "Dirt", 12, 17)
+dirt_path_34 = Path("Dirt Path", "Dirt", 13, 17)
+
+all_paths = [dirt_path_1, dirt_path_2, dirt_path_3, dirt_path_4, dirt_path_5, dirt_path_6, dirt_path_7, dirt_path_8,
+             dirt_path_9, dirt_path_10, dirt_path_11, dirt_path_12, dirt_path_13, dirt_path_14, dirt_path_15,
+             dirt_path_16, dirt_path_17, dirt_path_18, dirt_path_19, dirt_path_20, dirt_path_21, dirt_path_22,
+             dirt_path_23, dirt_path_24, dirt_path_25, dirt_path_26, dirt_path_27, dirt_path_28, dirt_path_29,
+             dirt_path_30, dirt_path_31, dirt_path_32, dirt_path_33, dirt_path_34]
 
 # welcome message ------------------------------------------------------------------------------------------------------
 # False = hasn't been shown to the player yet. Once true it will not continue to show
@@ -264,14 +336,23 @@ def create_a_character():
     print("\n\n\n*** Character creator ***")
 
     # allows the player to create their own character. Stats and skills assigned based on chosen role.
-    created_character = Player("name", "gender", "race", "role", "inventory", "equipment", "quest", 1, "stats",
+    created_character = Player("name", "gender", "race", "role", "inventory", "equipment", "quest", 0, "stats",
                                "skills", "level", "xp", "health", "energy", "x-coordinate", "y-coordinate", True, 0)
 
     my_name = input("\nWhat would you like your character's name to be? (Type a name): ")
     created_character.name = my_name.strip()
 
-    my_gender = input("\nWhat would you like your character's gender to be? (Type a gender): ")
-    created_character.gender = my_gender.strip().lower()
+    chosen_gender = False
+    while not chosen_gender:
+
+        my_gender = input("\nWhat would you like your character's gender to be? (Type a gender): ")
+        if my_gender.strip().lower() == "male" or my_gender.strip().lower() == "m":
+            created_character.gender = "male"
+            chosen_gender = True
+
+        if my_gender.strip().lower() == "female" or my_gender.strip().lower() == "f":
+            created_character.gender = "female"
+            chosen_gender = True
 
     # chosen_race = False means player has not chosen race yet and will continue to offer option until
     # race has been chosen, then it will set to true and continue with the creator tool
@@ -279,7 +360,8 @@ def create_a_character():
     while not chosen_race:
         my_race = input(
             "\nWhat would you like your character's race to be? (Type a race, or, type info for race lore): ")
-        if my_race.strip().lower() == "information" or my_race.strip().lower() == "info" or my_race.strip().lower() == "lore":
+        if my_race.strip().lower() == "information" or my_race.strip().lower() == "info" or my_race.strip().lower() == \
+                "lore":
 
             print(
                 "\n---------------------------------------- Race Lore ------------------------------------------------")
@@ -287,12 +369,12 @@ def create_a_character():
                   "\nsatisfy their own needs. A becoming race, proven to be strong and able to adapt well to their "
                   "\nsurroundings. They often bicker amongst themselves, for the years of curiosity and exploring "
                   "\nthe outer reaches of their world have grown them to be large and diverse. It is for this reason \n"
-                  "that a new generation has started a trend of bringing their peoples together, so that they may\ncontinue "
-                  "to thrive amongst the coming chaos. * Associated with the element of water for their \nvast potential "
-                  "as limitless as the oceans surrounding their world. However, the Amuna also \nhave the "
-                  "tendency to change much like the shifting of the tides. This can be a boon if the\nsituation warrants, "
-                  "but this instability can also put them in harm's way. The Amuna’s\ncohesiveness has proven to be "
-                  "their greatest strength if they can come together to realize\nand grasp their shared fate. "
+                  "that a new generation has started a trend of bringing their peoples together, so that they may"
+                  "\ncontinue to thrive amongst the coming chaos. * Associated with the element of water for their "
+                  "\nvast potential as limitless as the oceans surrounding their world. However, the Amuna also \nhave "
+                  "the tendency to change much like the shifting of the tides. This can be a boon if the\nsituation "
+                  "warrants, but this instability can also put them in harm's way. The Amuna’s\ncohesiveness has proven "
+                  "to be their greatest strength if they can come together to realize\nand grasp their shared fate. "
                   "\n\nSorae: Mysterious and wise, the Sorae are not well understood by most other races. But this "
                   "is \nfine with them. As an Eldar race, they view themselves as caretakers and shepherds, "
                   "guiding\nthe new races of the realm or any beings they may see as troubled. Although, this "
@@ -307,8 +389,8 @@ def create_a_character():
                   "well grounded in their beliefs and hold fast to their strong bonds with family and friends. \nThis "
                   "can cause issues to arise, as they are resistant to change even if it could prove beneficial. "
                   "\nThey are quick to judge and slow to trust, a result of the hardships they have endured in the "
-                  "\nred world of Rodin. * The Nuldar are associated with the element of fire. They burn bright and\nhave "
-                  "forged themselves as diamonds in the flames of their often-difficult lives. "
+                  "\nred world of Rodin. * The Nuldar are associated with the element of fire. They burn bright and"
+                  "\nhave forged themselves as diamonds in the flames of their often-difficult lives. "
                   "They must take \ncare not to allow their flames to be extinguished by keeping their hearts close "
                   "and \nwell guarded by their tough spirits. ")
             print(
@@ -451,9 +533,9 @@ def level_up(player):
             # intellect increases player energy
             player.energy = player.energy + player.statistics[3]
 
-            print(f"\n*** Congrats, you leveled up! You are now level: {player.level} ***")
-            print("*** In addition, as a fighter, your stats have been increased to: ***")
-            print(f"*** {player.statistics} ***")
+            print(f"\n*********** Congrats, you leveled up! You are now level: {player.level}                ***********")
+            print("*********** In addition, as a fighter, your stats have been increased to: ***********")
+            print(f"*********** {player.statistics}  ***********")
 
             return player.level
 
@@ -469,9 +551,9 @@ def level_up(player):
             # intellect increases player energy
             player.energy = player.energy + player.statistics[3]
 
-            print(f"\n*** Congrats, you leveled up! You are now level: {player.level} ***")
-            print("*** In addition, as a mage, your stats have been increased to: ***")
-            print(f"*** {player.statistics} ***")
+            print(f"\n******** Congrats, you leveled up! You are now level: {player.level}                 ***********")
+            print("*********** In addition, as a mage, your stats have been increased to: ***********")
+            print(f"*********** {player.statistics} ***********")
 
             return player.level
 
@@ -487,7 +569,7 @@ def level_up(player):
             # intellect increases player energy
             player.energy = player.energy + player.statistics[3]
 
-            print(f"\n******** Congrats, you leveled up! You are now level: {player.level} ***********")
+            print(f"\n******** Congrats, you leveled up! You are now level: {player.level}                 ***********")
             print("*********** In addition, as a rogue, your stats have been increased to: ***********")
             print(f"*********** {player.statistics} ***********")
 
@@ -661,6 +743,22 @@ def player_move(player, player_direction, water, trees, buildings):
                 else:
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
+
+                    if player.quest == "Village Repairs":
+                        if not tree_found.gathered:
+                            if player.quest_status < 4:
+                                print("\nIt appears you can gather some lumber from a large branch that has fallen "
+                                      "near the tree.")
+
+                                lumber_choice = input("\nDo you wish to gather the lumber? (Yes or no): ")
+                                if lumber_choice == "Yes" or lumber_choice == "y":
+                                    if player.quest_status < 4:
+                                        player.quest_status = player.quest_status + 1
+                                        tree_found.gathered = True
+                                        print(f"\n*** You gather the lumber, {player.quest_status}/4 for "
+                                              f"[{player.quest}] ***")
+                        else:
+                            print("\nYou've already gathered lumber from this tree!")
             else:
                 print("\n*** There appears to be a body of water blocking your way.. maybe "
                       "there's a way around it? ***")
@@ -711,6 +809,22 @@ def player_move(player, player_direction, water, trees, buildings):
                 else:
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
+
+                    if player.quest == "Village Repairs":
+                        if not tree_found.gathered:
+                            if player.quest_status < 4:
+                                print("\nIt appears you can gather some lumber from a large branch that has fallen "
+                                      "near the tree.")
+
+                                lumber_choice = input("\nDo you wish to gather the lumber? (Yes or no): ")
+                                if lumber_choice == "Yes" or lumber_choice == "y":
+                                    if player.quest_status < 4:
+                                        player.quest_status = player.quest_status + 1
+                                        tree_found.gathered = True
+                                        print(f"\n*** You gather the lumber, {player.quest_status}/4 for "
+                                              f"[{player.quest}] ***")
+                        else:
+                            print("\nYou've already gathered lumber from this tree!")
             else:
                 print("\n*** There appears to be a body of water blocking your way.. maybe "
                       "there's a way around it? ***")
@@ -761,6 +875,22 @@ def player_move(player, player_direction, water, trees, buildings):
                 else:
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
+
+                    if player.quest == "Village Repairs":
+                        if not tree_found.gathered:
+                            if player.quest_status < 4:
+                                print("\nIt appears you can gather some lumber from a large branch that has fallen "
+                                      "near the tree.")
+
+                                lumber_choice = input("\nDo you wish to gather the lumber? (Yes or no): ")
+                                if lumber_choice == "Yes" or lumber_choice == "y":
+                                    if player.quest_status < 4:
+                                        player.quest_status = player.quest_status + 1
+                                        tree_found.gathered = True
+                                        print(f"\n*** You gather the lumber, {player.quest_status}/4 for "
+                                              f"[{player.quest}] ***")
+                        else:
+                            print("\nYou've already gathered lumber from this tree!")
             else:
                 print("\n*** There appears to be a body of water blocking your way.. maybe "
                       "there's a way around it? ***")
@@ -811,6 +941,23 @@ def player_move(player, player_direction, water, trees, buildings):
                 else:
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
+
+                    # if player is on quest to gather lumber from Adria
+                    if player.quest == "Village Repairs":
+                        if not tree_found.gathered:
+                            if player.quest_status < 4:
+                                print("\nIt appears you can gather some lumber from a large branch that has fallen "
+                                      "near the tree.")
+
+                                lumber_choice = input("\nDo you wish to gather the lumber? (Yes or no): ")
+                                if lumber_choice == "Yes" or lumber_choice == "y":
+                                    if player.quest_status < 4:
+                                        player.quest_status = player.quest_status + 1
+                                        tree_found.gathered = True
+                                        print(f"\n*** You gather the lumber, {player.quest_status}/4 for "
+                                              f"[{player.quest}] ***")
+                        else:
+                            print("\nYou've already gathered lumber from this tree!")
             else:
                 print("\n*** There appears to be a body of water blocking your way.. maybe "
                       "there's a way around it? ***")
@@ -819,7 +966,7 @@ def player_move(player, player_direction, water, trees, buildings):
             print("\n*** You can't move any further right! ***")
 
 
-def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list):
+def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list, path_list):
     print("\n")
     current_map = []
 
@@ -833,6 +980,13 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list)
 
             for x in range(20):
                 current_row.append("_")
+
+                # if path is at current drawing space
+                for path in path_list:
+                    if y == path.y_coordinate:
+                        if x == path.x_coordinate:
+                            current_row.pop(x)
+                            current_row.insert(x, "#")
 
                 # if enemy is alive and at current drawing space
                 for enemy in enemy_list:
@@ -888,6 +1042,13 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list)
             for x in range(20):
                 current_row.append("_")
 
+                # if path is at current drawing space
+                for path in path_list:
+                    if y == path.y_coordinate:
+                        if x == path.x_coordinate:
+                            current_row.pop(x)
+                            current_row.insert(x, "#")
+
                 # if enemy is alive and at current drawing space
                 for enemy in enemy_list:
                     if enemy.alive_status:
@@ -942,6 +1103,13 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list)
             for x in range(20):
                 current_row.append("_")
 
+                # if path is at current drawing space
+                for path in path_list:
+                    if y == path.y_coordinate:
+                        if x == path.x_coordinate:
+                            current_row.pop(x)
+                            current_row.insert(x, "#")
+
                 # if enemy is alive and at current drawing space
                 for enemy in enemy_list:
                     if enemy.alive_status:
@@ -994,7 +1162,14 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list)
             current_map.append(current_row)
 
             for x in range(20):
-                current_row.append("=")
+                current_row.append("_")
+
+                # if path is at current drawing space
+                for path in path_list:
+                    if y == path.y_coordinate:
+                        if x == path.x_coordinate:
+                            current_row.pop(x)
+                            current_row.insert(x, "#")
 
                 # if enemy is alive and at current drawing space
                 for enemy in enemy_list:
@@ -1050,6 +1225,7 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list)
         print(current_map[i])
 
     print("\n*** Map guide: O = player, X = enemy, N = npc, T = tree, W = water, B = building, '_' = ground ***")
+    print("***            # = pathway, M = mountain                                                       ***")
     time.sleep(1)
     return
 
@@ -1112,11 +1288,14 @@ def attack_scenario(player, enemy):
 
                 # enemy has been defeated, will return an amount of xp based on current levels
                 else:
+
+                    # if player is on quest to kill snakes from Garan
                     if enemy.kind == "snake":
                         if player.quest == "Stupid Snakes":
-                            player.quest_status = player.quest_status + 1
-                            print(f"\n*** {player.quest_status} of 4 snakes for [{player.quest}] quest ***")
-                            time.sleep(1)
+                            if player.quest_status < 4:
+                                player.quest_status = player.quest_status + 1
+                                print(f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
+                                time.sleep(1)
 
                     experience = int((enemy.level / player.level) * 10)
                     player.experience = player.experience + experience
@@ -1180,6 +1359,7 @@ def npc_interaction_scenario(player, npc):
                     player.equipment[2] = "heavy"
                     player.equipment[3] = "damaged plate"
                     npc.gift = True
+                    print("\n*** Garan has given you a weapon: [rusty sword] and gear: [damaged plate] ***")
 
                 if player.role == "mage":
                     player.equipment[0] = "magic"
@@ -1187,6 +1367,7 @@ def npc_interaction_scenario(player, npc):
                     player.equipment[2] = "light"
                     player.equipment[3] = "tattered robes"
                     npc.gift = True
+                    print("\n*** Garan has given you a weapon: [broken staff] and gear: [tattered robes] ***")
 
                 if player.role == "rogue":
                     player.equipment[0] = "1H"
@@ -1194,6 +1375,7 @@ def npc_interaction_scenario(player, npc):
                     player.equipment[2] = "medium"
                     player.equipment[3] = "worn jerkin"
                     npc.gift = True
+                    print("\n*** Garan has given you a weapon: [dull dagger] and gear: [worn jerkin] ***")
 
         print("\n-----------------------------------------------------------------------------------------------------")
         print(f"\n{npc.name} says: '{npc.dialog}'")
@@ -1207,9 +1389,9 @@ def npc_interaction_scenario(player, npc):
                 print(f"\n{npc.name} says: You're currently in the Amuna district of Seldon. \n\nWe're one part of a "
                       f"new region inhabited by all three known races in an effort to build better \nrelations amongst "
                       f"our peoples. \n\nIt's a quiet town for the most part, however with the recent takeover of our "
-                      f"capital castle by the \nundead dragon 'Dreth' and his minions, we've had to wall off the most "
+                      f"capital castle by the \nbeast 'Dreth' and his minions, we've had to wall off the most "
                       f"eastern region to protect \nthe local settlement. \n\nAlthough, even with these precautions in "
-                      f"place some ghouls still manage to creep through. \nPlease be careful if you go to that "
+                      f"place some ghouls have still managed to creep through. \nPlease be careful if you go to that "
                       f"area of the district!")
 
                 time.sleep(1)
@@ -1223,7 +1405,8 @@ def npc_interaction_scenario(player, npc):
 
                 # if NPC has not given player their quest yet
                 if player.quest != npc.quest:
-                    print("---------------------------------------------------------------------------------------------------")
+                    print("-------------------------------------------------------------------------------------------"
+                          "--------")
                     print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                           "~~~~~~~~~~")
                     print(f"{npc.name} says: {npc.quest_description}")
@@ -1232,16 +1415,24 @@ def npc_interaction_scenario(player, npc):
 
                     quest_choice = input("\nDo you wish to accept this quest? (Type yes or no): ")
                     if quest_choice == "yes" or quest_choice == "y":
-                        print(f"\nYou chose to accept {npc.name}'s quest [{npc.quest}]. ")
-                        player.quest = npc.quest
-                        player.quest_status = 0
-                        time.sleep(1)
-                        npc_interaction_scenario(player, npc)
+
+                        # if player doesn't already have an active quest (currently only can have one quest at a time)
+                        if player.quest_status == 0:
+                            print(f"\nYou chose to accept {npc.name}'s quest [{npc.quest}]. ")
+                            player.quest = npc.quest
+                            player.quest_status = 0
+                            time.sleep(1)
+                            npc_interaction_scenario(player, npc)
+
+                        else:
+                            print(f"\nYou are already on a quest! [{player.quest}]")
 
                 # if player has completed NPCs quest with 4 objectives, will give level and item reward
                 else:
                     if player.quest_status == 4:
                         npc.quest_complete = True
+                        player.quest_status = 0
+                        player.quest = ""
                         print(f"\n*** Quest [{npc.quest}] Complete! ***")
                         time.sleep(1)
                         level_up(player)
@@ -1274,7 +1465,6 @@ def npc_interaction_scenario(player, npc):
         # returns information based on the NPC being interacted with
         if interaction_choice.strip().lower() == "examine" or interaction_choice.strip().lower() == "exam" or \
                 interaction_choice.strip().lower() == "e":
-
             print(f"\n*** NPC info: NPC name - {npc.name}, NPC gender - {npc.gender}, NPC race - {npc.race},"
                   f" NPC role - {npc.role} ***")
 
@@ -1288,7 +1478,7 @@ def npc_interaction_scenario(player, npc):
 # run stuff ------------------------------------------------------------------------------------------------------------
 
 # basic game run command, can take any player, enemy and npc as parameters
-def game_run(player, enemies, npcs, trees, water, buildings):
+def game_run(player, enemies, npcs, trees, water, buildings, paths):
     chosen = False
     while player.alive_status:
 
@@ -1388,7 +1578,7 @@ def game_run(player, enemies, npcs, trees, water, buildings):
 
         if player_choice.strip().lower() == "draw map" or player_choice.strip().lower() == "draw" or \
                 player_choice.strip().lower() == "d":
-            draw_map(player, enemies, npcs, trees, water, buildings)
+            draw_map(player, enemies, npcs, trees, water, buildings, paths)
 
         if player_choice.strip().lower() == "check inventory" or player_choice.strip().lower() == "inventory" or \
                 player_choice.strip().lower() == "i":
@@ -1447,7 +1637,6 @@ def game_run(player, enemies, npcs, trees, water, buildings):
 
         if player_choice.strip().lower() == "check quest" or player_choice.strip().lower() == "quest" or \
                 player_choice.strip().lower() == "q":
-
             print(f"\nYour current quest: [{player.quest}] status: [{player.quest_status} / 4]")
 
     return
@@ -1457,7 +1646,7 @@ def game_run(player, enemies, npcs, trees, water, buildings):
 # current game start ---------------------------------------------------------------------------------------------------
 
 
-game_run(default_character, all_enemies, all_npcs, all_trees, all_water, all_buildings)
+game_run(default_character, all_enemies, all_npcs, all_trees, all_water, all_buildings, all_paths)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
