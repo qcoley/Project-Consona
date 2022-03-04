@@ -138,12 +138,12 @@ snake_4 = Enemy("snake", 100, 100, 2, 3, 9, True, "shiny rock")
 snake_5 = Enemy("snake", 100, 100, 3, 2, 13, True, "shiny rock")
 snake_6 = Enemy("snake", 100, 100, 1, 4, 14, True, "shiny rock")
 
-ghoul_low_1 = Enemy("ghoul", 100, 100, 3, 16, 13, True, "bone dust")
-ghoul_low_2 = Enemy("ghoul", 100, 100, 4, 17, 11, True, "bone dust")
-ghoul_low_3 = Enemy("ghoul", 100, 100, 2, 17, 14, True, "bone dust")
+ghoul_low_1 = Enemy("ghoul", 100, 100, 4, 16, 13, True, "bone dust")
+ghoul_low_2 = Enemy("ghoul", 100, 100, 5, 17, 11, True, "bone dust")
+ghoul_low_3 = Enemy("ghoul", 100, 100, 3, 17, 14, True, "bone dust")
+ghoul_low_4 = Enemy("ghoul", 100, 100, 4, 15, 12, True, "bone dust")
 
-
-all_enemies = [snake_1, snake_2, snake_3, snake_4, snake_5, snake_6, ghoul_low_1, ghoul_low_2, ghoul_low_3]
+all_enemies = [snake_1, snake_2, snake_3, snake_4, snake_5, snake_6, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4]
 
 # npcs -----------------------------------------------------------------------------------------------------------------
 # basic npc (name, gender, race, role, dialog, quest, quest description x-coordinate, y-coordinate, alive status,
@@ -153,9 +153,9 @@ npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "Or maybe the request for reinforcements has finally been answered! Well, either way, we're\n"
                 "thankful for all the help we can get. \n\nLook, you seem pretty strong, but you're going to need "
                 "a weapon to survive out here. \n\nI've got something you can have for now, but you'll need to find "
-                "something better if you plan on \njourneying further into the region. Here's a basic weapon and "
+                "something better if you plan on \njourneying further into the Region. Here's a basic weapon and "
                 "some gear. \n\nWhy don't you go and test it out? There's some snakes nearby that have been coming up "
-                "from the \nriver, and they've shown an unusual aggressiveness with larger numbers than I've seen "
+                "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
                 "before. \n\nMaybe you could take care of some for me? I'll be sure to give you something worth the "
                 "trouble. ", 4, 4, True, False, ["Items to be added for thief steal"], False)
 
@@ -163,30 +163,34 @@ npc_celeste = NPC("Celeste", "female", "sorae", "mage", "Please help Nede... ", 
                   "quest description placeholder", 32, 34, True, False,
                   ["Items to be added for thief steal"], False)
 
-npc_artherian = NPC("Artherian", "male", "amuna", "fighter", "We must hold!", "Draconic Dreads",
+npc_artherian = NPC("Artherian", "male", "amuna", "fighter", "We must hold!", "Draconian Dreads",
                     "quest description placeholder", 28, 18, True, False,
                     ["Items to be added for thief steal"], False)
 
-guard = NPC("Guard", "male", "amuna", "fighter", "Another day", "Ghoulish Glee",
-            "You need to cross the bridge to get to the Nuldar district, you say? \n\nOrdinarily"
+guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee",
+            "You need to cross the bridge to get to the Korlok District, you say? \n\nOrdinarily"
             " I would have no issue granting you passage, however the gates are barred tight \n"
-            "due to the recent wave of ghouls from across the wall. \n\nI cannot leave my post and"
-            " leave the bridge unguarded, but if you could \n take care of the remaining ghouls I"
+            "due to the recent wave of Ghoul Minions from across the wall. \n\nI cannot leave my post and"
+            " leave the bridge unguarded, but if you could \ntake care of the remaining ghouls I"
             " will signal to unbar the gates and allow you passage \nto the other side. \n\nThe"
-            " ghouls were last spotted just east of here!", 11, 15, True, False,
-            ["Items to be added for thief steal"], False)
+            " ghouls were last spotted just east of here, nearby the northern Castle wall ramparts! ", 11, 15, True,
+            False, ["Items to be added for thief steal"], False)
 
-village_matron = NPC("Village Matron Maria", "female", "amuna", "mage", "We need help!", "Village Repairs",
-                    "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
-                    "\n\nThe dark beast Dreth has occupied our former capital, on the other side of the castle walls "
-                    "\nto the east, and our numbers have been spread thin trying to repel its minions and contain "
-                    "the \ndamage they've inflicted. \n\nOur best fighters have been sent in a combined contingent with "
-                    "the other districts to try and \nattack the beast directly, but its left us vulnerable here. "
-                    "The most recent wave of attacks from\nthe castle has left several damages to our village, "
-                    "and if you are able, please gather\nresources and bring them to me to distribute to the "
-                    "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
-                    "trees just west of here. Nera bless you. ", 13, 6, True, False,
+village_matron = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
+                     "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
+                     "\n\nThe beast Dreth has occupied our former capital Castle, on the other side of the walls "
+                     "\nto the east, and our numbers have been spread thin trying to repel its minions and contain "
+                     "the \ndamage they've inflicted. \n\nOur best fighters have been sent in a combined Vanguard with "
+                     "the other districts to try and \nattack the beast directly, but its left us vulnerable here. "
+                     "The most recent wave of attacks from\nthe castle has left several damages to our village, "
+                     "and if you are able, please gather\nresources and bring them to me to distribute to the "
+                     "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
+                     "trees just west of here. Nera bless you. ", 13, 6, True, False,
                      ["Items to be added for thief steal"], False)
+
+vanguard_captain_adria = NPC("Vanguard Captain Adria", "female", "amuna", "fighter", "We will prevail.",
+                             "Quacking Questions", "Placeholder quest text", 32, 32, True, False,
+                             ["Items to be added for thief steal"], False)
 
 all_npcs = [npc_garan, npc_celeste, npc_artherian, guard, village_matron]
 
@@ -280,60 +284,104 @@ all_buildings = [building_1, building_2, building_3, farm_1, farm_2, wall_1, wal
                  wall_6, wall_7, wall_8, wall_9, wall_10, wall_11, wall_12, wall_13, wall_14, wall_15, wall_16,
                  wall_17, wall_18, bridge_1, bridge_2, bridge_gate_1, bridge_gate_2]
 
-
 # path ways ------------------------------------------------------------------------------------------------------------
 # any path (name, model, x-coordinate, y-coordinate)
 
 dirt_path_1 = Path("Dirt Path", "Dirt", 10, 1)
-dirt_path_2 = Path("Dirt Path", "Dirt", 11, 1)
 dirt_path_3 = Path("Dirt Path", "Dirt", 10, 2)
-dirt_path_4 = Path("Dirt Path", "Dirt", 11, 2)
 dirt_path_5 = Path("Dirt Path", "Dirt", 10, 3)
-dirt_path_6 = Path("Dirt Path", "Dirt", 11, 3)
 dirt_path_7 = Path("Dirt Path", "Dirt", 10, 4)
-dirt_path_8 = Path("Dirt Path", "Dirt", 11, 4)
 dirt_path_9 = Path("Dirt Path", "Dirt", 10, 5)
-dirt_path_10 = Path("Dirt Path", "Dirt", 11, 5)
 dirt_path_11 = Path("Dirt Path", "Dirt", 10, 6)
-dirt_path_12 = Path("Dirt Path", "Dirt", 11, 6)
 dirt_path_13 = Path("Dirt Path", "Dirt", 10, 7)
-dirt_path_14 = Path("Dirt Path", "Dirt", 11, 7)
 dirt_path_15 = Path("Dirt Path", "Dirt", 10, 8)
-dirt_path_16 = Path("Dirt Path", "Dirt", 11, 8)
 dirt_path_17 = Path("Dirt Path", "Dirt", 10, 9)
-dirt_path_18 = Path("Dirt Path", "Dirt", 11, 9)
 dirt_path_19 = Path("Dirt Path", "Dirt", 11, 10)
-dirt_path_20 = Path("Dirt Path", "Dirt", 12, 10)
 dirt_path_21 = Path("Dirt Path", "Dirt", 12, 11)
-dirt_path_22 = Path("Dirt Path", "Dirt", 13, 11)
 dirt_path_23 = Path("Dirt Path", "Dirt", 12, 12)
-dirt_path_24 = Path("Dirt Path", "Dirt", 13, 12)
 dirt_path_25 = Path("Dirt Path", "Dirt", 12, 13)
-dirt_path_26 = Path("Dirt Path", "Dirt", 13, 13)
 dirt_path_27 = Path("Dirt Path", "Dirt", 12, 14)
-dirt_path_28 = Path("Dirt Path", "Dirt", 13, 14)
 dirt_path_29 = Path("Dirt Path", "Dirt", 12, 15)
-dirt_path_30 = Path("Dirt Path", "Dirt", 13, 15)
 dirt_path_31 = Path("Dirt Path", "Dirt", 12, 16)
-dirt_path_32 = Path("Dirt Path", "Dirt", 13, 16)
 dirt_path_33 = Path("Dirt Path", "Dirt", 12, 17)
-dirt_path_34 = Path("Dirt Path", "Dirt", 13, 17)
 
-all_paths = [dirt_path_1, dirt_path_2, dirt_path_3, dirt_path_4, dirt_path_5, dirt_path_6, dirt_path_7, dirt_path_8,
-             dirt_path_9, dirt_path_10, dirt_path_11, dirt_path_12, dirt_path_13, dirt_path_14, dirt_path_15,
-             dirt_path_16, dirt_path_17, dirt_path_18, dirt_path_19, dirt_path_20, dirt_path_21, dirt_path_22,
-             dirt_path_23, dirt_path_24, dirt_path_25, dirt_path_26, dirt_path_27, dirt_path_28, dirt_path_29,
-             dirt_path_30, dirt_path_31, dirt_path_32, dirt_path_33, dirt_path_34]
+all_paths = [dirt_path_1, dirt_path_3, dirt_path_5, dirt_path_7, dirt_path_9, dirt_path_11, dirt_path_13, dirt_path_15,
+             dirt_path_17, dirt_path_19, dirt_path_21, dirt_path_23, dirt_path_25, dirt_path_27, dirt_path_29,
+             dirt_path_31, dirt_path_33]
 
-# welcome message ------------------------------------------------------------------------------------------------------
+# system messages ------------------------------------------------------------------------------------------------------
 # False = hasn't been shown to the player yet. Once true it will not continue to show
-greeting = Welcome("\n\n*** Welcome to RPG-Lite! [Version 0.1A] ***", False)
+greeting = Welcome("\n\n-----------------------------------------------------------------------------------------------"
+                   "-------"
+                   "  \n| * Welcome to RPG-Lite! [Version 0.1A]                                                        "
+                   "      |"
+                   "  \n-----------------------------------------------------------------------------------------------"
+                   "-------"
+                   , False)
+game_start = Welcome("\n-----------------------------------------------------------------------------------------------"
+                     "-------"
+                     "\n| * Your character has entered into the Seldon District within the Consona World Region.       "
+                     "      |"
+                     "\n| * Try drawing your map (by typing 'draw' or 'd' at the action screen)                        "
+                     "      |"
+                     "\n| * And look for nearby NPCs. They may have important information or items for you!            "
+                     "      |"
+                     "\n-----------------------------------------------------------------------------------------------"
+                     "-------",
+                     False)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 # gameplay functions ---------------------------------------------------------------------------------------------------
+
+def enemy_respawn(enemies):
+    for enemy_snake in enemies:
+        if enemy_snake.kind == "snake":
+            enemy_snake.alive_status = True
+            enemy_snake.health = 100
+            enemy_snake.energy = 100
+
+    for enemy_ghoul in enemies:
+        if enemy_ghoul.kind == "ghoul":
+            enemy_ghoul.alive_status = True
+            enemy_ghoul.health = 100
+            enemy_ghoul.energy = 100
+
+
+def enemy_respawn_counter(enemies):
+    snake_respawn_counter = 0
+    ghoul_respawn_counter = 0
+    snakes = []
+    ghouls = []
+    # ------------------------------------------------------------------------------------------------------------------
+    # creates a counter that checks the status of enemies. Add to counter for each dead
+    # if more than 3 are dead, respawn enemies
+
+    for enemy in enemies:
+
+        if enemy.kind == "snake":
+            snakes.append(enemy)
+            if not enemy.alive_status:
+                snake_respawn_counter += 1
+
+        if enemy.kind == "ghoul":
+            ghouls.append(enemy)
+            if not enemy.alive_status:
+                ghoul_respawn_counter += 1
+
+    # ------------------------------------------------------------------------------------------------------------------
+
+    if snake_respawn_counter > 3:
+        enemy_respawn(snakes)
+
+    if ghoul_respawn_counter > 2:
+        enemy_respawn(ghouls)
+
+
 def create_a_character():
-    print("\n\n\n*** Character creator ***")
+    print("\n\n------------------------------------------------------------------------------------------------------"
+          "\n| * Character Creator                                                                                |"
+          "\n------------------------------------------------------------------------------------------------------")
 
     # allows the player to create their own character. Stats and skills assigned based on chosen role.
     created_character = Player("name", "gender", "race", "role", "inventory", "equipment", "quest", 0, "stats",
@@ -364,7 +412,8 @@ def create_a_character():
                 "lore":
 
             print(
-                "\n---------------------------------------- Race Lore ------------------------------------------------")
+                "\n------------------------------------------- Race Lore ----------------------------------------------"
+                "--")
             print("\nAmuna: A well-rounded people. The Amuna seek knowledge and wish to grow, but most use this to "
                   "\nsatisfy their own needs. A becoming race, proven to be strong and able to adapt well to their "
                   "\nsurroundings. They often bicker amongst themselves, for the years of curiosity and exploring "
@@ -373,7 +422,8 @@ def create_a_character():
                   "\ncontinue to thrive amongst the coming chaos. * Associated with the element of water for their "
                   "\nvast potential as limitless as the oceans surrounding their world. However, the Amuna also \nhave "
                   "the tendency to change much like the shifting of the tides. This can be a boon if the\nsituation "
-                  "warrants, but this instability can also put them in harm's way. The Amuna’s\ncohesiveness has proven "
+                  "warrants, but this instability can also put them in harm's way. The Amuna’s\ncohesiveness has "
+                  "proven "
                   "to be their greatest strength if they can come together to realize\nand grasp their shared fate. "
                   "\n\nSorae: Mysterious and wise, the Sorae are not well understood by most other races. But this "
                   "is \nfine with them. As an Eldar race, they view themselves as caretakers and shepherds, "
@@ -394,7 +444,8 @@ def create_a_character():
                   "They must take \ncare not to allow their flames to be extinguished by keeping their hearts close "
                   "and \nwell guarded by their tough spirits. ")
             print(
-                "\n---------------------------------------------------------------------------------------------------")
+                "\n----------------------------------------------------------------------------------------------------"
+                "--")
 
         # player did not choose to read race lore or has read it and made a choice. sets chosen_race to true
         else:
@@ -416,21 +467,25 @@ def create_a_character():
     while not chosen_role:
         my_role = input(
             "\nWhat would you like your character's role to be? (Type a role, or, type info for role lore): ")
-        if my_role.strip().lower() == "information" or my_role.strip().lower() == "info" or my_role.strip().lower() == "lore":
+        if my_role.strip().lower() == "information" or my_role.strip().lower() == "info" or my_role.strip().lower() == \
+                "lore":
 
             print(
-                "\n---------------------------------------- Role Lore ------------------------------------------------")
+                "\n------------------------------------------- Role Lore ----------------------------------------------"
+                "--")
             print("\nFighter: The warrior type role. Fighters have more vitality than the other roles, making them "
                   "\nsignificantly tankier. However, they have less intelligence than the mage role and less strength\n"
                   "than the rogue role. Fighters work best with a 2-handed weapon equipped. "
                   "\n\nMage: The magic type role. Mages have more intellect and wisdom than other roles, making them"
-                  "\nhave higher energy pools. However, they have less vitality than the fighter role and less strength "
+                  "\nhave higher energy pools. However, they have less vitality than the fighter role and less "
+                  "strength "
                   "\nthan the rogue role. Mages work best with a magic type weapon equipped. "
                   "\n\nRogue: The thief type role. Rogues have a high strength stat and will do more damage than other"
                   "\nroles in melee combat. However, they have less vitality than the fighter role and"
                   " less intellect\nthan the mage role. Rogues work best with a 1-handed weapon equipped. ")
             print(
-                "\n---------------------------------------------------------------------------------------------------")
+                "\n----------------------------------------------------------------------------------------------------"
+                "--")
 
         # player did not choose to read role lore or has read it and made a choice. sets chosen_role to true
         else:
@@ -528,15 +583,17 @@ def level_up(player):
             player.statistics[7] = player.statistics[7] + 1  # wisdom
             player.level = player.level + 1
 
-            # vitality increases player health
-            player.health = player.health + player.statistics[1]
-            # intellect increases player energy
-            player.energy = player.energy + player.statistics[3]
+            player.health = 100
+            player.energy = 100
 
-            print(f"\n*********** Congrats, you leveled up! You are now level: {player.level}                ***********")
-            print("*********** In addition, as a fighter, your stats have been increased to: ***********")
-            print(f"*********** {player.statistics}  ***********")
+            print("\n----------------------------------------------------------------------")
+            print(
+                f"| * Congrats, you leveled up! You are now level: {player.level}                   |")
+            print("| * In addition, as a fighter, your stats have been increased to:    |")
+            print(f"| * {player.statistics}      |")
+            print("----------------------------------------------------------------------")
 
+            player.experience = 0
             return player.level
 
         if player.role == "mage":
@@ -546,15 +603,17 @@ def level_up(player):
             player.statistics[7] = player.statistics[7] + 3  # wisdom
             player.level = player.level + 1
 
-            # vitality increases player health
-            player.health = player.health + player.statistics[1]
-            # intellect increases player energy
-            player.energy = player.energy + player.statistics[3]
+            player.health = 100
+            player.energy = 100
 
-            print(f"\n******** Congrats, you leveled up! You are now level: {player.level}                 ***********")
-            print("*********** In addition, as a mage, your stats have been increased to: ***********")
-            print(f"*********** {player.statistics} ***********")
+            print("\n----------------------------------------------------------------------")
+            print(
+                f"| * Congrats, you leveled up! You are now level: {player.level}                   |")
+            print("| * In addition, as a mage, your stats have been increased to:       |")
+            print(f"| * {player.statistics}      |")
+            print("----------------------------------------------------------------------")
 
+            player.experience = 0
             return player.level
 
         if player.role == "rogue":
@@ -564,19 +623,21 @@ def level_up(player):
             player.statistics[7] = player.statistics[7] + 1  # wisdom
             player.level = player.level + 1
 
-            # vitality increases player health
-            player.health = player.health + player.statistics[1]
-            # intellect increases player energy
-            player.energy = player.energy + player.statistics[3]
+            player.health = 100
+            player.energy = 100
 
-            print(f"\n******** Congrats, you leveled up! You are now level: {player.level}                 ***********")
-            print("*********** In addition, as a rogue, your stats have been increased to: ***********")
-            print(f"*********** {player.statistics} ***********")
+            print("\n----------------------------------------------------------------------")
+            print(
+                f"| * Congrats, you leveled up! You are now level: {player.level}                   |")
+            print("| * In addition, as a rogue, your stats have been increased to:      |")
+            print(f"| * {player.statistics}      |")
+            print("----------------------------------------------------------------------")
 
+            player.experience = 0
             return player.level
 
     else:
-        print("\n You're already at max level! (Level 10)")
+        print("\n *** You're already at max level! (Level 10) *** ")
         return player.level
 
 
@@ -631,56 +692,31 @@ def attack_enemy(player, enemy):
 
 
 def attack_player(enemy, player):
-    if enemy.kind == "snake":
-        base_damage = (random.randrange(10, 30) // player.level)
 
-        # if enemy significantly out levels player they will do additional damage
-        if enemy.level > player.level + 3:
-            base_damage = base_damage + 10
+    base_damage = (random.randrange(10, 30) // player.level)
 
-        if player.equipment[2] == "heavy":
-            final_damage = base_damage - 15
+    # if enemy significantly out levels player they will do additional damage
+    if enemy.level > player.level + 3:
+        base_damage = base_damage + 10
 
-            return final_damage
+    if player.equipment[2] == "heavy":
+        final_damage = base_damage - 15
 
-        if player.equipment[2] == "light":
-            final_damage = base_damage - 5
+        return final_damage
 
-            return final_damage
+    if player.equipment[2] == "light":
+        final_damage = base_damage - 5
 
-        if player.equipment[2] == "medium":
-            final_damage = base_damage - 10
+        return final_damage
 
-            return final_damage
+    if player.equipment[2] == "medium":
+        final_damage = base_damage - 10
 
-        else:
-            print("\n*** You're not wearing any armor! ***")
-            return base_damage
+        return final_damage
 
-    if enemy.kind == "ghoul":
-        base_damage = (random.randrange(20, 30) // player.level)
-
-        if enemy.level > player.level + 3:
-            base_damage = base_damage + 10
-
-        if player.equipment[2] == "heavy":
-            final_damage = base_damage - 15
-
-            return final_damage
-
-        if player.equipment[2] == "light":
-            final_damage = base_damage - 5
-
-            return final_damage
-
-        if player.equipment[2] == "medium":
-            final_damage = base_damage - 10
-
-            return final_damage
-
-        else:
-            print("\n*** You're not wearing any armor! ***")
-            return base_damage
+    else:
+        print("\n*** You're not wearing any armor! ***")
+        return base_damage
 
 
 def player_move(player, player_direction, water, trees, buildings):
@@ -942,7 +978,7 @@ def player_move(player, player_direction, water, trees, buildings):
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
 
-                    # if player is on quest to gather lumber from Adria
+                    # if player is on quest to gather lumber for Maurelle
                     if player.quest == "Village Repairs":
                         if not tree_found.gathered:
                             if player.quest_status < 4:
@@ -1044,7 +1080,7 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list,
 
                 # if path is at current drawing space
                 for path in path_list:
-                    if y == path.y_coordinate:
+                    if y + 20 == path.y_coordinate:
                         if x == path.x_coordinate:
                             current_row.pop(x)
                             current_row.insert(x, "#")
@@ -1105,8 +1141,8 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list,
 
                 # if path is at current drawing space
                 for path in path_list:
-                    if y == path.y_coordinate:
-                        if x == path.x_coordinate:
+                    if y + 20 == path.y_coordinate:
+                        if x + 20 == path.x_coordinate:
                             current_row.pop(x)
                             current_row.insert(x, "#")
 
@@ -1167,7 +1203,7 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list,
                 # if path is at current drawing space
                 for path in path_list:
                     if y == path.y_coordinate:
-                        if x == path.x_coordinate:
+                        if x + 20 == path.x_coordinate:
                             current_row.pop(x)
                             current_row.insert(x, "#")
 
@@ -1220,12 +1256,17 @@ def draw_map(player, enemy_list, npc_list, tree_list, water_list, building_list,
     # get map rows from current map list (list of lists) and print
     # starts from 1 to avoid printing empty row
     # reverse is for flipping map to make it read from bottom left (vs. top left) to top right
+
+    print("------------------------------------------------------------------------------------------------------")
     current_map.reverse()
     for i in range(1, len(current_map) - 1):
-        print(current_map[i])
+        print("|-", current_map[i], "--|")
 
-    print("\n*** Map guide: O = player, X = enemy, N = npc, T = tree, W = water, B = building, '_' = ground ***")
-    print("***            # = pathway, M = mountain                                                       ***")
+    print("------------------------------------------------------------------------------------------------------")
+    print("| * Map guide: O = player, X = enemy, N = npc, T = tree, W = water, B = building, '_' = ground       |")
+    print("| *            # = pathway, M = mountain                                                             |")
+    print("------------------------------------------------------------------------------------------------------")
+
     time.sleep(1)
     return
 
@@ -1238,7 +1279,8 @@ def attack_scenario(player, enemy):
     # Verifies player is still in range of enemy
     if player.x_coordinate == enemy.x_coordinate and player.y_coordinate == enemy.y_coordinate:
 
-        print("\n-----------------------------------------------------------------------------------------------------")
+        print("\n-----------------------------------------------------------------------------------------------------"
+              "-")
         combat_choice = input("What do you want to do? (Attack or Run): ")
 
         if combat_choice.strip().lower() == "attack" or combat_choice.strip().lower() == "a":
@@ -1297,10 +1339,19 @@ def attack_scenario(player, enemy):
                                 print(f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
                                 time.sleep(1)
 
-                    experience = int((enemy.level / player.level) * 10)
-                    player.experience = player.experience + experience
-                    print(f"\nYou killed the {enemy.kind} and gained {experience} experience!\n")
-                    print(f"Your current experience is {player.experience}/100")
+                    # if player is on quest to kill snakes from Garan
+                    if enemy.kind == "ghoul":
+                        if player.quest == "Ghoulish Glee":
+                            if player.quest_status < 4:
+                                player.quest_status = player.quest_status + 1
+                                print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
+                                time.sleep(1)
+
+                    if player.level <= enemy.level:
+                        experience = int((enemy.level / player.level) * 5)
+                        player.experience = player.experience + experience
+                        print(f"\nYou killed the {enemy.kind} and gained {experience} experience!\n")
+                        print(f"Your current experience is {player.experience}/100")
 
                     drop_chance = random.randrange(1, 10)
 
@@ -1327,7 +1378,7 @@ def attack_scenario(player, enemy):
             escape_chance = random.randrange(35, 75)
             if escape_chance > 50:
 
-                print("\nYou escaped safely, nice!")
+                print("\nYou escaped safely!")
                 player.x_coordinate = player.x_coordinate + 1
                 player.y_coordinate = player.y_coordinate + 1
                 print(f"\nYour new position coordinates are {player.x_coordinate, player.y_coordinate}")
@@ -1350,33 +1401,6 @@ def npc_interaction_scenario(player, npc):
     # Verifies player is still in range of npc
     if player.x_coordinate == npc.x_coordinate and player.y_coordinate == npc.y_coordinate:
 
-        # when player talks to garan for the first time, he will give them a basic item for their role
-        if npc.name == "Garan":
-            if not npc.gift:
-                if player.role == "fighter":
-                    player.equipment[0] = "2H"
-                    player.equipment[1] = "rusty sword"
-                    player.equipment[2] = "heavy"
-                    player.equipment[3] = "damaged plate"
-                    npc.gift = True
-                    print("\n*** Garan has given you a weapon: [rusty sword] and gear: [damaged plate] ***")
-
-                if player.role == "mage":
-                    player.equipment[0] = "magic"
-                    player.equipment[1] = "broken staff"
-                    player.equipment[2] = "light"
-                    player.equipment[3] = "tattered robes"
-                    npc.gift = True
-                    print("\n*** Garan has given you a weapon: [broken staff] and gear: [tattered robes] ***")
-
-                if player.role == "rogue":
-                    player.equipment[0] = "1H"
-                    player.equipment[1] = "dull dagger"
-                    player.equipment[2] = "medium"
-                    player.equipment[3] = "worn jerkin"
-                    npc.gift = True
-                    print("\n*** Garan has given you a weapon: [dull dagger] and gear: [worn jerkin] ***")
-
         print("\n-----------------------------------------------------------------------------------------------------")
         print(f"\n{npc.name} says: '{npc.dialog}'")
 
@@ -1387,8 +1411,10 @@ def npc_interaction_scenario(player, npc):
 
             if npc.race == "amuna":
                 print(f"\n{npc.name} says: You're currently in the Amuna district of Seldon. \n\nWe're one part of a "
-                      f"new region inhabited by all three known races in an effort to build better \nrelations amongst "
-                      f"our peoples. \n\nIt's a quiet town for the most part, however with the recent takeover of our "
+                      f"new Region named Consona inhabited by all three known races in an effort \nto build better "
+                      f"relations amongst "
+                      f"our peoples. \n\nIt's a quiet District for the most part, however with the recent takeover of "
+                      f"our "
                       f"capital castle by the \nbeast 'Dreth' and his minions, we've had to wall off the most "
                       f"eastern region to protect \nthe local settlement. \n\nAlthough, even with these precautions in "
                       f"place some ghouls have still managed to creep through. \nPlease be careful if you go to that "
@@ -1405,16 +1431,47 @@ def npc_interaction_scenario(player, npc):
 
                 # if NPC has not given player their quest yet
                 if player.quest != npc.quest:
-                    print("-------------------------------------------------------------------------------------------"
-                          "--------")
+
                     print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                          "~~~~~~~~~~")
+                          "~~~~~~~~~~~~")
                     print(f"{npc.name} says: {npc.quest_description}")
                     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                          "~~~~~~~~")
+                          "~~~~~~~~~~")
 
                     quest_choice = input("\nDo you wish to accept this quest? (Type yes or no): ")
                     if quest_choice == "yes" or quest_choice == "y":
+
+                        # when player talks to garan for the first time, he will give them a basic item for their role
+                        if npc.name == "Garan":
+                            if not npc.gift:
+                                if player.role == "fighter":
+                                    player.equipment[0] = "2H"
+                                    player.equipment[1] = "rusty sword"
+                                    player.equipment[2] = "heavy"
+                                    player.equipment[3] = "damaged plate"
+                                    npc.gift = True
+                                    print(
+                                        "\n*** Garan has given you a weapon: [rusty sword] and gear: [damaged plate] "
+                                        "***")
+
+                                if player.role == "mage":
+                                    player.equipment[0] = "magic"
+                                    player.equipment[1] = "broken staff"
+                                    player.equipment[2] = "light"
+                                    player.equipment[3] = "tattered robes"
+                                    npc.gift = True
+                                    print(
+                                        "\n*** Garan has given you a weapon: [broken staff] and gear: [tattered robes] "
+                                        "***")
+
+                                if player.role == "rogue":
+                                    player.equipment[0] = "1H"
+                                    player.equipment[1] = "dull dagger"
+                                    player.equipment[2] = "medium"
+                                    player.equipment[3] = "worn jerkin"
+                                    npc.gift = True
+                                    print(
+                                        "\n*** Garan has given you a weapon: [dull dagger] and gear: [worn jerkin] ***")
 
                         # if player doesn't already have an active quest (currently only can have one quest at a time)
                         if player.quest_status == 0:
@@ -1438,12 +1495,92 @@ def npc_interaction_scenario(player, npc):
                         level_up(player)
 
                         player.rupees = player.rupees + 10
-                        print(f"\n*** NPC {npc.name} has also given you 10 rupees! ")
+                        print(f"\n*** NPC {npc.name} has given you 10 rupees! ***")
+                        time.sleep(2)
 
                         player.inventory.append("health potion")
-                        player.inventory.append("health potion")
-                        print("\n*** You have also gained 2 health potions! "
-                              "These items have been added to your inventory. ***")
+                        print("\n*** You have also gained a health potion! "
+                              "This item has been added to your inventory. ***")
+                        time.sleep(2)
+
+                        if npc.name == "Garan":
+                            print(
+                                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                                "~~~~~~~~~~~~~~~~~")
+                            print(f"{npc.name} says: Thanks for taking care of those snakes! You're clearly a capable"
+                                  f" {player.role}. \n\nWe could use someone like you in the resistance Vanguard. "
+                                  f"Please,"
+                                  f" head east to the nearby Village\nand see if they need any assistance. They were"
+                                  f" attacked recently by a wave of Ghoul Minions. \n\nWe've been out"
+                                  f" picking off the rest of the stragglers, but there will be more work to be done."
+                                  f"\n\nNera bless you, {player.name}.")
+                            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                                  "~~~~~~~~~~~~~~~~~")
+
+                            continue_choice = input("\n*** Press Enter key when ready to continue: ***")
+                            if continue_choice == "lol":
+                                print("Why you do this")
+
+                        if npc.name == "Village Matron Maurelle":
+                            print(
+                                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                                "~~~~~~~~~~~~~~~~~")
+                            print(f"{npc.name} says: Thank you for assisting us in our hour of need,"
+                                  f" {player.name}. \nI fear this isn't the last time we will need to recover from such"
+                                  f" an attack.. \nWe can only beseech the goddess Nera to deliver us from these "
+                                  f"difficult times. \n\nAre you planning on journeying north? If so, you will cross "
+                                  f"into"
+                                  f" the District of Korlok. \nThe Vanguard Captain Adria headed there recently to "
+                                  f"coordinate efforts with the Nuldar \nand our people to forge new"
+                                  f" materials. I don't understand much of the details myself, \nhowever Adria has been"
+                                  f" gone for some time. \n\nI've begun to worry, and she must know of the recent wave "
+                                  f"of "
+                                  f"attacks, as well as the damage we've \nsustained. Please, find Adria in the Korlok"
+                                  f" District to the north and \nrelay my concerns to her!")
+                            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                                  "~~~~~~~~~~~~~~~~~")
+
+                            continue_choice = input("\n*** Press Enter key when ready to continue: ***")
+                            if continue_choice == "lol":
+                                print("Why you do this")
+
+                        if npc.name == "Guard":
+                            print(
+                                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                                "~~~~~~~~~~~~~~~~~")
+                            print(f"{npc.name} says: The Ghoul Minions have been taken care of, then? \nNera's grace"
+                                  f", we may finally gain a moment of respite. \n\nI will signal the other Bridge"
+                                  f" Guards to unbar the gates and allow you to cross.\n\nBe careful, {player.name},"
+                                  f" these are unforgiving times. ")
+                            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+                                  "~~~~~~~~~~~~~~~~~")
+
+                            continue_choice = input("\n*** Press Enter key when ready to continue: ***")
+                            if continue_choice == "lol":
+                                print("Why you do this")
+
+                            player.x_coordinate = 32
+                            player.y_coordinate = 22
+
+                            print("\n\n*** The Bridge Guards have allowed you passage. ")
+                            print("\n*** As you walk through the gates, you look over the side to the water below. "
+                                  "***")
+                            print("\n*** The Rohir River is deep and dark as it is wide. You note there are no "
+                                  "other "
+                                  "ways to cross. ***")
+                            time.sleep(3)
+                            print("\n*** You emerge on the other side of the Bridge ***")
+                            time.sleep(3)
+                            print("\n*** You are now within the Korlok District of the Consona Region World ***")
+                            time.sleep(3)
+                            print("\n*** You feel the heat on your face and look around to notice the bright "
+                                  "oranges "
+                                  "and reds of the terrain, ***")
+                            time.sleep(3)
+                            print("\n*** As well as snow-capped mountain peaks in the distance.. ***")
+                            time.sleep(3)
+                            print("\n*** Where could the Vanguard Captain Adria be? ***")
+                            time.sleep(3)
 
                         time.sleep(1)
                         npc_interaction_scenario(player, npc)
@@ -1457,6 +1594,7 @@ def npc_interaction_scenario(player, npc):
         # moves player away from NPC to return to regular action screen
         if interaction_choice.strip().lower() == "leave" or interaction_choice.strip().lower() == "l":
             print(f"\n*** You say goodbye to {npc.name} and head on your way ***")
+            time.sleep(1)
             player.x_coordinate = player.x_coordinate + 1
             player.y_coordinate = player.y_coordinate + 1
             print(f"\n*** Your new coordinates are: {player.x_coordinate, player.y_coordinate} ***")
@@ -1480,6 +1618,7 @@ def npc_interaction_scenario(player, npc):
 # basic game run command, can take any player, enemy and npc as parameters
 def game_run(player, enemies, npcs, trees, water, buildings, paths):
     chosen = False
+
     while player.alive_status:
 
         if not greeting.shown:
@@ -1512,6 +1651,7 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                 if player.y_coordinate == enemy.y_coordinate:
 
                     if enemy.alive_status:
+                        enemy_respawn_counter(enemies)
                         print(f'\n\n*** You encounter an enemy {enemy.kind}, level {enemy.level} ***')
                         attack_scenario(player, enemy)
 
@@ -1524,24 +1664,33 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                         print(f'\n\n*** You meet an npc {npc.name} ***')
                         npc_interaction_scenario(player, npc)
 
-        print("\n\n---------------------------------------------------------------------------------------------------")
-        print("Actions: Check Status, Check Inventory, Check Equipment, Check Skills, Check Location, Check Quest")
-        print("         Move, Draw Map, Use item, Use skill, Hotkeys, How to Play, Exit Game")
-        print("---------------------------------------------------------------------------------------------------")
+        # Player introduction to Seldon, the starting location.
+        if not game_start.shown:
+            print(game_start.message)
+            game_start.shown = True
+
+        print("\n\n"
+              "------------------------------------------------------------------------------------------------------")
+        print("| Actions: Check Status, Check Inventory, Check Equipment, Check Skills, Check Location, Check Quest |")
+        print("|          Move, Draw Map, Use item, Use skill, Hotkeys, How to Play, Exit Game                      |")
+        print("------------------------------------------------------------------------------------------------------")
+
         player_choice = input("\nWhat would you like to do? (Type an action): ")
 
         if player_choice.strip().lower() == "how to play" or player_choice.strip().lower() == "how" or \
                 player_choice.strip().lower() == "play" or player_choice.strip().lower() == "help":
-            print("\nYour character is on an adventure! The world is open to you to explore freely, so look"
+            print("\nYour character is on an adventure! The world is open to you to explore, so look"
                   " around and \nsee what you can find. Currently all actions are based on text input from"
                   " the user entered into \nthe console. \n\nUpon reaching the action screen, just type the command"
                   " corresponding to the action\nyou would like your character to perform next. For example, to move"
                   " up on the map, type 'move'\nand hit enter. Once in the move menu type 'up' to go up. Following this"
-                  " action you will be returned \nto the main action screen where you can perform more character commands."
+                  "action you will be returned \nto the main action screen where you can perform more character "
+                  "commands. "
                   "\n\nTo see where your character is currently located in the world, type 'draw map' or 'draw' and "
                   "\nthe game will print out a current rendition of the game world to the console, including nearby"
                   "\nenemies and npcs. Pay attention to the map guide to see what each symbol on the map stands for. "
-                  "\n\nTry talking to some nearby NPCs and see if they have any information or quests to give you! \nOr,"
+                  "\n\nTry talking to some nearby NPCs and see if they have any information or quests to give you! "
+                  "\nOr, "
                   " you can try to fight nearby enemies. Just be careful, higher level enemies will do more damage \nto"
                   " you and you can end up dead! At this point the game will end and you can restart. "
                   "\n\nTo talk to an NPC, just move your character to the location you see the NPC printed on the map "
@@ -1553,6 +1702,8 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                   " you've got one!)"
                   "\n\nYou can buy potions and other items from some NPCs nearby buildings. \nSometimes you can also"
                   " sell items dropped from enemies to them, so be sure to check the local shop!")
+            time.sleep(1)
+            time.sleep(1)
 
         if player_choice.strip().lower() == "hotkeys" or player_choice.strip().lower() == "hot" or \
                 player_choice.strip().lower() == "h":
@@ -1638,6 +1789,7 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
         if player_choice.strip().lower() == "check quest" or player_choice.strip().lower() == "quest" or \
                 player_choice.strip().lower() == "q":
             print(f"\nYour current quest: [{player.quest}] status: [{player.quest_status} / 4]")
+            time.sleep(1)
 
     return
 
