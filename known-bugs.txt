@@ -1,3 +1,1 @@
-Mage barrier skill doesn't correctly switch armor type
-
-Ghouls do not do damage like snakes
+New gear bought from merchants and given as rewards will overwrite previous gear. 

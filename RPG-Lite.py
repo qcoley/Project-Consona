@@ -128,6 +128,15 @@ class Shopkeeper:
         self.dialog = dialog
 
 
+class Trainer:
+
+    def __init__(self, name, location, skills, dialog):
+        self.name = name
+        self.location = location
+        self.skills = skills
+        self.dialog = dialog
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # character creator ----------------------------------------------------------------------------------------------------
 # default character
@@ -144,12 +153,12 @@ character_list = [default_character]
 
 # enemies --------------------------------------------------------------------------------------------------------------
 # basic enemy (kind, health, energy, level, x-coordinate, y-coordinate, alive status, inventory)
-snake_1 = Enemy("snake", 100, 100, 1, 3, 12, True, "shiny rock")
-snake_2 = Enemy("snake", 100, 100, 2, 4, 11, True, "shiny rock")
-snake_3 = Enemy("snake", 100, 100, 3, 2, 10, True, "shiny rock")
-snake_4 = Enemy("snake", 100, 100, 2, 3, 9, True, "shiny rock")
-snake_5 = Enemy("snake", 100, 100, 3, 2, 13, True, "shiny rock")
-snake_6 = Enemy("snake", 100, 100, 1, 4, 14, True, "shiny rock")
+snake_1 = Enemy("snake", 100, 100, 1, 3, 13, True, "shiny rock")
+snake_2 = Enemy("snake", 100, 100, 2, 4, 12, True, "shiny rock")
+snake_3 = Enemy("snake", 100, 100, 3, 2, 11, True, "shiny rock")
+snake_4 = Enemy("snake", 100, 100, 2, 3, 10, True, "shiny rock")
+snake_5 = Enemy("snake", 100, 100, 3, 2, 14, True, "shiny rock")
+snake_6 = Enemy("snake", 100, 100, 1, 4, 15, True, "shiny rock")
 
 ghoul_low_1 = Enemy("ghoul", 100, 100, 4, 16, 13, True, "bone dust")
 ghoul_low_2 = Enemy("ghoul", 100, 100, 5, 17, 11, True, "bone dust")
@@ -224,8 +233,25 @@ nuldar_shop_keeper = Shopkeeper("Nuldar Shopkeeper Darunia", "Korlok District", 
                                                                                  "smooth metal staff", "fire robes",
                                                                                  "dark iron daggers",
                                                                                  "resistant jerkin",
-                                                                                 "spiked boots"],
-                                "Welcome, Ohona. ")
+                                                                                 "aren's mighty gloves"],
+                                "Welcome, Onurok.")
+
+# skill trainers -------------------------------------------------------------------------------------------------------
+# (name, location, skills, dialog)
+
+amuna_fighter_trainer = Trainer("Amuna Fighter Trainer Raron", "Seldon District", ["Protection"],
+                                "Hail, fellow fighter. What can I teach you today?")
+amuna_mage_trainer = Trainer("Amuna Mage Trainer Kepora", "Seldon District", ["Chillshot"],
+                             "Hail, fellow mage. What can I teach you today?")
+amuna_rogue_trainer = Trainer("Amuna Rogue Trainer Drago", "Seldon District", ["Evasion Tactics"],
+                              "Hail, fellow rogue. What can I teach you today?")
+
+nuldar_fighter_trainer = Trainer("Nuldar Fighter Trainer Dongo", "Korlok District", ["Aren's Flame"],
+                                 "Kunkoro, big-sword. What may I teach?")
+nuldar_mage_trainer = Trainer("Nuldar Mage Trainer Kepora", "Korlok District", ["Thermal Manipulation"],
+                              "Kunkoro, bright-mind. What may I teach?")
+nuldar_rogue_trainer = Trainer("Nuldar Rogue Trainer Drago", "Korlok District", ["Molten Blades"],
+                               "Kunkoro, silence-seeker. What may I teach?")
 
 # trees ----------------------------------------------------------------------------------------------------------------
 # any tree (name, model, x-coordinate, y-coordinate)
@@ -234,7 +260,7 @@ tree_2 = Tree("Pine tree", "tree", 6, 2, False)
 tree_3 = Tree("Pine tree", "tree", 2, 4, False)
 tree_4 = Tree("Pine tree", "tree", 3, 6, False)
 tree_5 = Tree("Pine tree", "tree", 8, 3, False)
-tree_6 = Tree("Pine tree", "tree", 5, 8, False)
+tree_6 = Tree("Pine tree", "tree", 5, 7, False)
 
 all_trees = [tree_1, tree_2, tree_3, tree_4, tree_5, tree_6]
 
@@ -364,9 +390,7 @@ game_start = Welcome("\n--------------------------------------------------------
                      "-------", False)
 
 game_hint = Welcome("\n### Hint: Most actions can be utilized with the first letter of the action name. "
-                    "\n### Example, if you want to 'move', type 'm', and if you want to 'attack' an enemy type 'a'"
-                    "\n### This also applies to actions such as check status ('s') and check inventory ('i'). "
-                    "\n### To see a complete list of hotkeys, type 'hotkeys' or 'h' at the action screen. ",
+                    "\n### To see a complete list of hotkeys, type 'hotkeys' or 'h' at the action prompt. ",
                     False)
 
 
@@ -381,12 +405,12 @@ def shop_instance(player, shop, district):
 
             print("\n-------------------------------------------------------------------------------------------------"
                   "-----")
-            trade_choice = input(f"\nWhat would you like to do? (type buy, sell, check prices or leave): ")
+            trade_choice = input(f"What would you like to do? (Type Buy, Sell, Check Prices or Leave): ")
             if trade_choice.strip().lower() == "buy" or trade_choice.strip().lower() == "b":
                 print(f"\n{amuna_shop_keeper.inventory}")
                 buy_choice = input("\nWhat would you like to buy? (type an item): ")
 
-                if buy_choice.strip().lower() == "health potion" or buy_choice.strip().lower()  == "health":
+                if buy_choice.strip().lower() == "health potion" or buy_choice.strip().lower() == "health":
                     if player.rupees > 9:
                         print("\n*** You have chosen to buy the health potion ***")
                         player.inventory.append("health potion")
@@ -561,7 +585,6 @@ def shop_instance(player, shop, district):
 
                 if sell_choice.strip().lower() == "shiny rock" or sell_choice.strip().lower() == "shiny" or \
                         sell_choice.strip().lower() == "rock":
-
                     print("\n*** You have chosen to sell the shiny rock ***")
                     player.rupees += 10
                     print("\n*** You have gained 10 Rupees ***")
@@ -573,7 +596,6 @@ def shop_instance(player, shop, district):
 
                 if sell_choice.strip().lower() == "bone dust" or sell_choice.strip().lower() == "bone" or \
                         sell_choice.strip().lower() == "dust":
-
                     print("\n*** You have chosen to sell the bone dust ***")
                     player.rupees += 10
                     print("\n*** You have gained 10 Rupees ***")
@@ -620,12 +642,206 @@ def shop_instance(player, shop, district):
 
 
 def academia_instance(player, academia, district):
-    print("\n*** This feature yet to be implemented. Will allow for training additional skills. ***")
+    # to check if player has already learned an ability
+    skill_flag = False
+
+    if district == "seldon district":
+        if player.x_coordinate == academia.x_coordinate:
+            if player.role == "fighter":
+                print(f"\n{amuna_fighter_trainer.name} says: {amuna_fighter_trainer.dialog}")
+                time.sleep(1)
+
+                print("\n----------------------------------------------------------------------------------------------"
+                      "--------")
+                train_choice = input(f"What would you like to do? (Type Train, Check Skills or Leave): ")
+                if train_choice.strip().lower() == "train" or train_choice.strip().lower() == "t":
+                    print(f"\n{amuna_fighter_trainer.skills}")
+                    skill_learn_choice = input("\nWhat would you like to train? (Type a Skill): ")
+
+                    if skill_learn_choice.strip().lower() == "protection" or skill_learn_choice.strip().lower() == "p":
+                        for x in player.skills:
+                            if x == "protection":
+                                print("\n*** You have already learned this skill! ***")
+                                skill_flag = True
+
+                        # if skill has not already been learned by player character
+                        if not skill_flag:
+                            if player.level > 3:
+                                print("\n*** You have chosen to learn 'Protection' ***")
+                                player.skills.append("protection")
+                                print("\n*** This ability has been added to your skills ***")
+                                time.sleep(1)
+                                print(f"\nTrainer {amuna_fighter_trainer.name} says: Use it wisely.\n")
+                                time.sleep(1)
+                                academia_instance(player, academia, district)
+
+                            else:
+                                print("\n*** You need to be a higher level to learn this skill! ***")
+                                print("\n*** Required level: 4 ***")
+                                print(f"\n*** Current level: {player.level} ***")
+                                time.sleep(1)
+                                academia_instance(player, academia, district)
+
+                if train_choice.strip().lower() == "check skills" or train_choice.strip().lower() == "check" or \
+                        train_choice.strip().lower() == "c":
+                    print(f"\nYour skills: {player.skills}")
+                    print(f"\nTrainer skills: Protection - Grants additional armor for fight duration.")
+
+                    academia_instance(player, academia, district)
+
+                if train_choice.strip().lower() == "leave" or train_choice.strip().lower() == "l":
+                    print(f"\n*** You say goodbye to the trainer {amuna_fighter_trainer.name} "
+                          f"and head on your way. ***")
+                    player.x_coordinate -= 1
+                    time.sleep(1)
+
+                else:
+                    time.sleep(1)
+                    academia_instance(player, academia, district)
+
+            if player.role == "mage":
+                print(f"\n{amuna_mage_trainer.name} says: {amuna_mage_trainer.dialog}")
+                time.sleep(1)
+
+                print("\n----------------------------------------------------------------------------------------------"
+                      "--------")
+                train_choice = input(f"What would you like to do? (Type Train, Check Skills or Leave): ")
+                if train_choice.strip().lower() == "train" or train_choice.strip().lower() == "t":
+                    print(f"\n{amuna_mage_trainer.skills}")
+                    skill_learn_choice = input("\nWhat would you like to train? (Type a Skill): ")
+
+                    if skill_learn_choice.strip().lower() == "chillshot" or skill_learn_choice.strip().lower() == "c":
+                        for x in player.skills:
+                            if x == "chillshot":
+                                print("\n*** You have already learned this skill! ***")
+                                skill_flag = True
+
+                        # if skill has not already been learned by player character
+                        if not skill_flag:
+                            if player.level > 3:
+                                print("\n*** You have chosen to learn 'Chillshot' ***")
+                                player.skills.append("chillshot")
+                                print("\n*** This ability has been added to your skills ***")
+                                time.sleep(1)
+                                print(f"\nTrainer {amuna_mage_trainer.name} says: Use it wisely.\n")
+                                time.sleep(1)
+                                academia_instance(player, academia, district)
+
+                            else:
+                                print("\n*** You need to be a higher level to learn this skill! ***")
+                                print("\n*** Required level: 4 ***")
+                                print(f"\n*** Current level: {player.level} ***")
+                                time.sleep(1)
+                                academia_instance(player, academia, district)
+
+                if train_choice.strip().lower() == "check skills" or train_choice.strip().lower() == "check" or \
+                        train_choice.strip().lower() == "c":
+                    print(f"\nYour skills: {player.skills}")
+                    print(f"\nTrainer skills: Chillshot - Fires a quick shot of ice at target enemy.")
+
+                    academia_instance(player, academia, district)
+
+                if train_choice.strip().lower() == "leave" or train_choice.strip().lower() == "l":
+                    print(f"\n*** You say goodbye to the trainer {amuna_mage_trainer.name} "
+                          f"and head on your way. ***")
+                    player.x_coordinate -= 1
+                    time.sleep(1)
+
+                else:
+                    time.sleep(1)
+                    academia_instance(player, academia, district)
+
+            if player.role == "rogue":
+                print(f"\n{amuna_rogue_trainer.name} says: {amuna_rogue_trainer.dialog}")
+                time.sleep(1)
+
+                print("\n----------------------------------------------------------------------------------------------"
+                      "--------")
+                train_choice = input(f"What would you like to do? (Type Train, Check Skills or Leave): ")
+                if train_choice.strip().lower() == "train" or train_choice.strip().lower() == "t":
+                    print(f"\n{amuna_rogue_trainer.skills}")
+                    skill_learn_choice = input("\nWhat would you like to train? (Type a Skill): ")
+
+                    if skill_learn_choice.strip().lower() == "evasion tactics" or \
+                            skill_learn_choice.strip().lower() == "evasion" \
+                            or skill_learn_choice.strip().lower() == "e":
+                        for x in player.skills:
+                            if x == "evasion tactics":
+                                print("\n*** You have already learned this skill! ***")
+                                skill_flag = True
+
+                        # if skill has not already been learned by player character
+                        if not skill_flag:
+                            if player.level > 3:
+                                print("\n*** You have chosen to learn 'Evasion Tactics' ***")
+                                player.skills.append("evasion tactics")
+                                print("\n*** This ability has been added to your skills ***")
+                                time.sleep(1)
+                                print(f"\nTrainer {amuna_rogue_trainer.name} says: Use it wisely.\n")
+                                time.sleep(1)
+                                academia_instance(player, academia, district)
+
+                            else:
+                                print("\n*** You need to be a higher level to learn this skill! ***")
+                                print("\n*** Required level: 4 ***")
+                                print(f"\n*** Current level: {player.level} ***")
+                                time.sleep(1)
+                                academia_instance(player, academia, district)
+
+                if train_choice.strip().lower() == "check skills" or train_choice.strip().lower() == "check" or \
+                        train_choice.strip().lower() == "c":
+                    print(f"\nYour skills: {player.skills}")
+                    print(f"\nTrainer skills: Evasion Tactics - Allows you to dodge some enemy attacks.")
+
+                    academia_instance(player, academia, district)
+
+                if train_choice.strip().lower() == "leave" or train_choice.strip().lower() == "l":
+                    print(f"\n*** You say goodbye to the trainer {amuna_rogue_trainer.name} "
+                          f"and head on your way. ***")
+                    player.x_coordinate -= 1
+                    time.sleep(1)
+
+                else:
+                    time.sleep(1)
+                    academia_instance(player, academia, district)
+
     return
 
 
 def inn_instance(player, inn, district):
-    print("\n*** This feature yet to be implemented. Will allow for player to rest and recover status. ***")
+    if district == "seldon district":
+        if player.x_coordinate == inn.x_coordinate:
+
+            print(f"\nWelcome to the Seldon District Inn, {player.role}")
+            print("\n----------------------------------------------------------------------------------------------"
+                  "--------")
+            train_choice = input(f"What would you like to do? (Type Rest or Leave): ")
+            if train_choice.strip().lower() == "rest" or train_choice.strip().lower() == "r":
+                print("\nYou have chosen to rest. You head up to the upper floor of the inn and find your room. ")
+                time.sleep(2)
+                print("\nYou find a bed next to a small table holding a candle. You lie down and close your eyes... ")
+                time.sleep(2)
+                print("\n...")
+                time.sleep(1)
+                print("\n...")
+                time.sleep(1)
+                print("\n...")
+                time.sleep(1)
+                print("\n*** You have slept through the night. Your stats have been fully recovered! ***")
+                player.health = 100
+                player.energy = 100
+                time.sleep(1)
+                inn_instance(player, inn, district)
+
+            if train_choice.strip().lower() == "leave" or train_choice.strip().lower() == "l":
+                print(f"\n*** You say leave {inn.name} and head on your way. ***")
+                player.x_coordinate -= 1
+                time.sleep(1)
+
+            else:
+                time.sleep(1)
+                inn_instance(player, inn, district)
+
     return
 
 
@@ -990,24 +1206,23 @@ def attack_enemy(player, enemy):
             return damage
 
 
-def attack_player(enemy, player):
-    base_damage = (random.randrange(10, 20) // player.level)
+def attack_player(player):
+    base_damage = (random.randrange(15, 30) // player.level)
 
-    # if enemy significantly out levels player they will do additional damage
-    if enemy.level > player.level + 3:
-        base_damage = base_damage + 10
-
+    # heavily armored character will take less damage
     if player.equipment[2] == "heavy":
         final_damage = base_damage - 10
 
         return final_damage
 
-    if player.equipment[2] == "light":
+    # lightly armored character will take most damage
+    elif player.equipment[2] == "light":
         final_damage = base_damage - 2
 
         return final_damage
 
-    if player.equipment[2] == "medium":
+    # medium armored character will take more damage
+    elif player.equipment[2] == "medium":
         final_damage = base_damage - 5
 
         return final_damage
@@ -1853,7 +2068,7 @@ def attack_scenario(player, enemy):
 
         print("\n-----------------------------------------------------------------------------------------------------"
               "-")
-        combat_choice = input("What do you want to do? (Attack, Use Skill or Run): ")
+        combat_choice = input("What do you want to do? (Type Attack, Use Skill, Character Status or Run): ")
 
         if combat_choice.strip().lower() == "attack" or combat_choice.strip().lower() == "a":
 
@@ -1871,8 +2086,8 @@ def attack_scenario(player, enemy):
                     time.sleep(1)
 
                     # returns total damage output from enemy as attacked_player value
-                    attacked_player = attack_player(enemy, player)
-                    if attacked_player is not None and attacked_player > 0:
+                    attacked_player = attack_player(player)
+                    if attacked_player > 0:
                         print(f'\nOuch! The {enemy.kind} retaliates and damages you for {attacked_player}.')
                         player.health = player.health - attacked_player
                         time.sleep(1)
@@ -1883,16 +2098,18 @@ def attack_scenario(player, enemy):
                             attack_scenario(player, enemy)
 
                         else:  # your health is zero and you're dead
-                            print("\n*** Oh dear, you are dead... ***")
+                            print("\n*** You've suffered a fatality ***")
                             player.alive_status = False
                             time.sleep(1)
-                            print("\n\n-----------------------------------------"
-                                  "------------------------------------------------------------")
-                            print("-------------------------------------- Game over, try again! "
-                                  "----------------------------------------")
-                            print("-----------------------------------------"
-                                  "------------------------------------------------------------")
-                            time.sleep(1)
+                            print("\n\n"
+                                  "------------------------------------------------------------------------------------"
+                                  "------------------")
+                            print(
+                                f"| * Oh dear, you are dead! Try again.                                               "
+                                f"                 |")
+                            print(
+                                "--------------------------------------------------------------------------------------"
+                                "----------------\n\n")
                             exit()
 
                     else:
@@ -1919,6 +2136,7 @@ def attack_scenario(player, enemy):
                                 print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
                                 time.sleep(1)
 
+                    # only gain experience from enemies equal or higher level
                     if player.level <= enemy.level:
                         experience = int((enemy.level / player.level) * 5)
                         player.experience = player.experience + experience
@@ -1949,57 +2167,260 @@ def attack_scenario(player, enemy):
                 print("\nThis enemy appears to be dead already!")
 
         if combat_choice.strip().lower() == "use skill" or combat_choice.strip().lower() == "skill" \
-                or combat_choice.strip().lower() == "use" or combat_choice.strip().lower() == "s" \
-                or combat_choice.strip().lower() == "s":
+                or combat_choice.strip().lower() == "use" or combat_choice.strip().lower() == "k" \
+                or combat_choice.strip().lower() == "u":
 
-            print(f"\n*** Your skills: {player.skills} ***")
+            print(f"\nYour skills: {player.skills}")
             skill_choice = input("\nWhich skill would you like to use? (type a skill): ")
 
-            if skill_choice.strip().lower() == "heavy swing" or skill_choice.strip().lower() == "heavy" \
-                    or skill_choice.strip().lower() == "swing" or skill_choice.strip().lower() == "h":
-                print(f"\n*** You use prepare to use Heavy Swing on {enemy.kind} ***")
-                time.sleep(1)
-                print(f"\nYou whack the {enemy.kind} for 20 damage!")
-                time.sleep(1)
-                enemy.health = enemy.health - 20
-                print(f"\nThe {enemy.kind}'s health is now {enemy.health}/100.")
-                time.sleep(1)
-                print("\n*** Using this skill has consumed some of your energy! ***")
-                time.sleep(1)
-                player.energy = player.energy - 25
-                print(f"\nYour energy level is now {player.energy}/100")
-                time.sleep(1)
-                attack_scenario(player, enemy)
+            if player.role == "fighter":
+                if skill_choice.strip().lower() == "heavy swing" or skill_choice.strip().lower() == "heavy" \
+                        or skill_choice.strip().lower() == "swing" or skill_choice.strip().lower() == "h":
+                    print(f"\nYou use prepare to use Heavy Swing on {enemy.kind}. ")
+                    time.sleep(1)
+                    print(f"\nYou whack the {enemy.kind} for 20 damage!")
+                    time.sleep(1)
+                    enemy.health = enemy.health - 20
+                    print(f"\nThe {enemy.kind}'s health is now {enemy.health}/100.")
+                    time.sleep(1)
+                    print("\n*** Using this skill has consumed some of your energy! ***")
+                    time.sleep(1)
+                    player.energy = player.energy - 25
+                    print(f"\nYour energy level is now {player.energy}/100.")
 
-            if skill_choice.strip().lower() == "barrier" or skill_choice.strip().lower() == "b":
-                print(f"\n*** You use Barrier on self ***")
+                    # if player skill kills the enemy
+                    if enemy.health <= 0:
 
-                # doesn't work correctly atm
-                # player.equipment[2] = "heavy"
+                        # if player is on quest to kill snakes from Garan
+                        if enemy.kind == "snake":
+                            if player.quest == "Stupid Snakes":
+                                if player.quest_status < 4:
+                                    player.quest_status = player.quest_status + 1
+                                    print(f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
+                                    time.sleep(1)
 
-                time.sleep(1)
-                print("\n*** Using this skill has consumed some of your energy! ***")
-                time.sleep(1)
-                player.energy = player.energy - 25
-                print(f"\nYour energy level is now {player.energy}/100")
-                time.sleep(1)
-                attack_scenario(player, enemy)
+                        # if player is on quest to kill snakes from Garan
+                        if enemy.kind == "ghoul":
+                            if player.quest == "Ghoulish Glee":
+                                if player.quest_status < 4:
+                                    player.quest_status = player.quest_status + 1
+                                    print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
+                                    time.sleep(1)
 
-            if skill_choice.strip().lower() == "swift strike" or skill_choice.strip().lower() == "swift" \
-                    or skill_choice.strip().lower() == "strike" or skill_choice.strip().lower() == "s":
-                print(f"\n*** You use prepare to use Swift Strike on {enemy.kind} ***")
-                time.sleep(1)
-                print(f"\nYou quickly slash the {enemy.kind} for 30 damage!")
-                time.sleep(1)
-                enemy.health = enemy.health - 30
-                print(f"\nThe {enemy.kind}'s health is now {enemy.health}/100.")
-                time.sleep(1)
-                print("\n*** Using this skill has consumed some of your energy! ***")
-                time.sleep(1)
-                player.energy = player.energy - 25
-                print(f"\nYour energy level is now {player.energy}/100")
-                time.sleep(1)
-                attack_scenario(player, enemy)
+                        # only gain experience from enemies equal or higher level
+                        if player.level <= enemy.level:
+                            experience = int((enemy.level / player.level) * 5)
+                            player.experience = player.experience + experience
+                            print(f"\nYou killed the {enemy.kind} and gained {experience} experience!\n")
+                            print(f"Your current experience is {player.experience}/100")
+
+                        drop_chance = random.randrange(1, 10)
+
+                        # 70% chance to drop merchant item
+                        if drop_chance > 3:
+                            player.inventory.append(enemy.items)
+                            print(f"\nThe {enemy.kind} dropped a [{enemy.items}], which has been added to your "
+                                  f"inventory. \n")
+
+                        time.sleep(1)
+
+                        # player will level up (see level up method)
+                        if player.experience > 100:
+                            level_up(player)
+
+                        # doesn't work correctly atm
+                        # player.equipment[2] = original_player_gear_type
+
+                        enemy.alive_status = False
+                        time.sleep(1)
+                        player.x_coordinate -= 1
+
+                    time.sleep(1)
+                    attack_scenario(player, enemy)
+
+                if skill_choice.strip().lower() == "protection" or skill_choice.strip().lower() == "p":
+
+                    # verify player has learned the ability
+                    for x in player.skills:
+                        if x == "protection":
+                            print("\nYou grit your teeth and dig your feet in. You feel ready for anything! ")
+                            print("\n*** Using Protection has given you +10 armor protection! ***")
+                            time.sleep(1)
+                            print("\n*** This effect will last the duration of the fight. ***")
+                            time.sleep(1)
+                            print("\n*** Using this skill has consumed some of your energy! ***")
+                            time.sleep(1)
+                            player.energy = player.energy - 25
+                            print(f"\nYour energy level is now {player.energy}/100.")
+                            time.sleep(1)
+                            attack_scenario(player, enemy)
+
+            if player.role == "mage":
+                if skill_choice.strip().lower() == "barrier" or skill_choice.strip().lower() == "b":
+                    print(f"\nYou use Barrier on self. ")
+                    player.equipment[2] = "heavy"
+                    print("\n*** Using Barrier has given you +10 armor protection! ***")
+                    time.sleep(1)
+                    print("\n*** This effect will last the duration of the fight. ***")
+                    time.sleep(1)
+                    print("\n*** Using this skill has consumed some of your energy! ***")
+                    time.sleep(1)
+                    player.energy = player.energy - 25
+                    print(f"\nYour energy level is now {player.energy}/100.")
+                    time.sleep(1)
+                    attack_scenario(player, enemy)
+
+                if skill_choice.strip().lower() == "chillshot" or skill_choice.strip().lower() == "c":
+                    # verify player has learned the ability
+                    for x in player.skills:
+                        if x == "chillshot":
+                            print(f"\nYou use prepare to use Chillshot on {enemy.kind}. ")
+                            time.sleep(1)
+                            print(f"\nYou slice the air and feel the cold rush forth to the {enemy.kind}!")
+                            time.sleep(1)
+                            print(f"\n{enemy.kind} has taken 20 damage!")
+                            enemy.health = enemy.health - 20
+                            print(f"\nThe {enemy.kind}'s health is now {enemy.health}/100.")
+                            time.sleep(1)
+                            print("\n*** Using this skill has consumed some of your energy! ***")
+                            time.sleep(1)
+                            player.energy = player.energy - 25
+                            print(f"\nYour energy level is now {player.energy}/100.")
+
+                            # if player skill kills the enemy
+                            if enemy.health <= 0:
+
+                                # if player is on quest to kill snakes from Garan
+                                if enemy.kind == "snake":
+                                    if player.quest == "Stupid Snakes":
+                                        if player.quest_status < 4:
+                                            player.quest_status = player.quest_status + 1
+                                            print(
+                                                f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
+                                            time.sleep(1)
+
+                                # if player is on quest to kill snakes from Garan
+                                if enemy.kind == "ghoul":
+                                    if player.quest == "Ghoulish Glee":
+                                        if player.quest_status < 4:
+                                            player.quest_status = player.quest_status + 1
+                                            print(
+                                                f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
+                                            time.sleep(1)
+
+                                # only gain experience from enemies equal or higher level
+                                if player.level <= enemy.level:
+                                    experience = int((enemy.level / player.level) * 5)
+                                    player.experience = player.experience + experience
+                                    print(f"\nYou killed the {enemy.kind} and gained {experience} experience!\n")
+                                    print(f"Your current experience is {player.experience}/100")
+
+                                drop_chance = random.randrange(1, 10)
+
+                                # 70% chance to drop merchant item
+                                if drop_chance > 3:
+                                    player.inventory.append(enemy.items)
+                                    print(f"\nThe {enemy.kind} dropped a [{enemy.items}], which has been added to your "
+                                          f"inventory. \n")
+
+                                time.sleep(1)
+
+                                # player will level up (see level up method)
+                                if player.experience > 100:
+                                    level_up(player)
+
+                                # doesn't work correctly atm
+                                # player.equipment[2] = original_player_gear_type
+
+                                enemy.alive_status = False
+                                time.sleep(1)
+                                player.x_coordinate -= 1
+
+                            time.sleep(1)
+                            attack_scenario(player, enemy)
+
+            if player.role == "rogue":
+                if skill_choice.strip().lower() == "swift strike" or skill_choice.strip().lower() == "swift" \
+                        or skill_choice.strip().lower() == "strike" or skill_choice.strip().lower() == "s":
+                    print(f"\nYou use prepare to use Swift Strike on {enemy.kind}.")
+                    time.sleep(1)
+                    print(f"\nYou quickly slash the {enemy.kind} for 30 damage!")
+                    time.sleep(1)
+                    enemy.health = enemy.health - 30
+                    print(f"\nThe {enemy.kind}'s health is now {enemy.health}/100.")
+                    time.sleep(1)
+                    print("\n*** Using this skill has consumed some of your energy! ***")
+                    time.sleep(1)
+                    player.energy = player.energy - 25
+                    print(f"\nYour energy level is now {player.energy}/100.")
+
+                    # if player skill kills the enemy
+                    if enemy.health <= 0:
+
+                        # if player is on quest to kill snakes from Garan
+                        if enemy.kind == "snake":
+                            if player.quest == "Stupid Snakes":
+                                if player.quest_status < 4:
+                                    player.quest_status = player.quest_status + 1
+                                    print(f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
+                                    time.sleep(1)
+
+                        # if player is on quest to kill snakes from Garan
+                        if enemy.kind == "ghoul":
+                            if player.quest == "Ghoulish Glee":
+                                if player.quest_status < 4:
+                                    player.quest_status = player.quest_status + 1
+                                    print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
+                                    time.sleep(1)
+
+                        # only gain experience from enemies equal or higher level
+                        if player.level <= enemy.level:
+                            experience = int((enemy.level / player.level) * 5)
+                            player.experience = player.experience + experience
+                            print(f"\nYou killed the {enemy.kind} and gained {experience} experience!\n")
+                            print(f"Your current experience is {player.experience}/100")
+
+                        drop_chance = random.randrange(1, 10)
+
+                        # 70% chance to drop merchant item
+                        if drop_chance > 3:
+                            player.inventory.append(enemy.items)
+                            print(f"\nThe {enemy.kind} dropped a [{enemy.items}], which has been added to your "
+                                  f"inventory. \n")
+
+                        time.sleep(1)
+
+                        # player will level up (see level up method)
+                        if player.experience > 100:
+                            level_up(player)
+
+                        # doesn't work correctly atm
+                        # player.equipment[2] = original_player_gear_type
+
+                        enemy.alive_status = False
+                        time.sleep(1)
+                        player.x_coordinate -= 1
+
+                    time.sleep(1)
+                    attack_scenario(player, enemy)
+
+                if skill_choice.strip().lower() == "evasion tactics" or skill_choice.strip().lower() == "evasion" \
+                        or skill_choice.strip().lower() == "e":
+                    # verify player has learned the ability
+                    for x in player.skills:
+                        if x == "evasion tactics":
+                            print(f"\nYou use Evasion Tactics on self. ")
+                            player.equipment[2] = "heavy"
+                            print("\n*** Using Evade has given you additional protection! ***")
+                            time.sleep(1)
+                            print("\n*** This effect will last the duration of the fight. ***")
+                            time.sleep(1)
+                            print("\n*** Using this skill has consumed some of your energy! ***")
+                            time.sleep(1)
+                            player.energy = player.energy - 25
+                            print(f"\nYour energy level is now {player.energy}/100.")
+                            time.sleep(1)
+                            attack_scenario(player, enemy)
 
         if combat_choice.strip().lower() == "run" or combat_choice.strip().lower() == "r":
 
@@ -2007,15 +2428,23 @@ def attack_scenario(player, enemy):
             if escape_chance > 50:
 
                 print("\nYou escaped safely!")
-                player.x_coordinate = player.x_coordinate + 1
-                player.y_coordinate = player.y_coordinate + 1
-                print(f"\nYour new position coordinates are {player.x_coordinate, player.y_coordinate}")
+                time.sleep(1)
+                player.x_coordinate = player.x_coordinate - 1
                 attack_scenario(player, enemy)
 
             else:
                 print(f"\nThe {enemy.kind} blocked your escape!")
                 time.sleep(1)
                 attack_scenario(player, enemy)
+
+        if combat_choice.strip().lower() == "character status" or combat_choice.strip().lower() == "status" \
+                or combat_choice.strip().lower() == "s" or combat_choice.strip().lower() == "c":
+
+            print(f"\n*** Your current status: health: {player.health}, energy: {player.energy} ***")
+            print(f"\n*** Your current equipment: {player.equipment} ***")
+
+            time.sleep(1)
+            attack_scenario(player, enemy)
 
         else:
             if enemy.alive_status:
@@ -2032,7 +2461,7 @@ def npc_interaction_scenario(player, npc):
         print(f"\n{npc.name} says: '{npc.dialog}'")
         print("\n-----------------------------------------------------------------------------------------------------")
 
-        interaction_choice = input("\nWhat do you want to say? (Information, Quest, Examine or Leave): ")
+        interaction_choice = input("What do you want to say? (Information, Quest, Examine or Leave): ")
 
         if interaction_choice.strip().lower() == "information" or interaction_choice.strip().lower() == "info" \
                 or interaction_choice.strip().lower() == "i":
@@ -2124,6 +2553,7 @@ def npc_interaction_scenario(player, npc):
                             print(f"\nYou are already on a quest! [{player.quest}]")
 
                 # if player has completed NPCs quest with 4 objectives, will give level and item reward
+                # as well as additional dialog from NPC related to the narrative
                 else:
                     if player.quest_status == 4:
                         npc.quest_complete = True
@@ -2158,6 +2588,9 @@ def npc_interaction_scenario(player, npc):
                                   "~~~~~~~~~~~~~~~~~")
 
                             continue_choice = input("\n*** Press Enter key when ready to continue: ***")
+
+                            # purpose is to give input a way to continue and not get stuck so that player
+                            # only needs to press enter to continue
                             if continue_choice == "lol":
                                 print("Why you do this")
 
@@ -2181,6 +2614,9 @@ def npc_interaction_scenario(player, npc):
                                   "~~~~~~~~~~~~~~~~~")
 
                             continue_choice = input("\n*** Press Enter key when ready to continue: ***")
+
+                            # purpose is to give input a way to continue and not get stuck so that player
+                            # only needs to press enter to continue
                             if continue_choice == "lol":
                                 print("Why you do this")
 
@@ -2196,6 +2632,9 @@ def npc_interaction_scenario(player, npc):
                                   "~~~~~~~~~~~~~~~~~")
 
                             continue_choice = input("\n*** Press Enter key when ready to continue: ***")
+
+                            # purpose is to give input a way to continue and not get stuck so that player
+                            # only needs to press enter to continue
                             if continue_choice == "lol":
                                 print("Why you do this")
 
@@ -2278,16 +2717,21 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                     # starts character creator tool and returns created character to set to current player
                     player = create_a_character()
 
+                # developer mode character for testing game features
                 elif create_choice == "dev mode":
-                    chosen = True
-                    player = Player("Intrinsic Dev", "male", "sorae", "mage", ["health potion", "health potion",
-                                                                               "energy potion", "energy potion",
-                                                                               "shiny rock", "shiny rock",
-                                                                               "bone dust", "bone dust"],
+                    chosen = True  # name           gender   race     role    inventory
+                    player = Player("Intrinsic Dev", "male", "sorae", "rogue", ["health potion", "health potion",
+                                                                                "energy potion", "energy potion",
+                                                                                "shiny rock", "shiny rock",
+                                                                                "bone dust", "bone dust"],
+                                    # equipment
                                     ["magic", "omega staff", "light", "omega robes"], "", 0,
+                                    # stats
                                     ["vitality", 10, "intellect", 10, "strength", 10, "wisdom", 10],
-                                    ["heavy swing", "barrier", "swift strike"], 10, 0, 100, 100,
-                                    1, 1, True, 500, ["amuna", 105, "nuldar", 105, "sorae", 105], "lamb of god")
+                                    # skills, level, experience, health, energy
+                                    ["heavy swing", "barrier", "swift strike"], 4, 0, 100, 100,
+                                    # x-coordinate, y-coordinate, alive status, rupees, reputation, mount
+                                    1, 1, True, 1000, ["amuna", 105, "nuldar", 105, "sorae", 105], "lamb of god")
 
                 else:
                     chosen = True
@@ -2304,13 +2748,19 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                 if player.y_coordinate == enemy.y_coordinate:
 
                     if enemy.alive_status:
-
                         # check to see how many enemies are alive, if number of dead enemies is large some
                         # will be respawned based on the enemy kind and location
                         enemy_respawn_counter(enemies)
 
+                        # store player gear type for use in replacing after enemy combat encounter
+                        # ex. if player is mage and uses barrier to temporarily gain heavy armor
+                        player_gear_type = player.equipment[2]
+
                         print(f'\n\n*** You encounter an enemy {enemy.kind}, level {enemy.level} ***')
                         attack_scenario(player, enemy)
+
+                        # restores player equipment type after battle
+                        player.equipment[2] = player_gear_type
 
         # if player is in range of npc (to do create dialog/quest from npc in the scenarios section)
         for npc in npcs:
@@ -2324,7 +2774,7 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
         # Player introduction to Seldon, the starting location.
         if not game_start.shown:
             print(game_start.message)
-            time.sleep(3)
+            time.sleep(2)
             game_start.shown = True
 
         print("\n\n"
@@ -2336,7 +2786,7 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
         # Hint for player for action hotkeys, should only show once at action screen
         if not game_hint.shown:
             print(game_hint.message)
-            time.sleep(3)
+            time.sleep(2)
             game_hint.shown = True
 
         player_choice = input("\nWhat would you like to do? (Type an action): ")
@@ -2412,7 +2862,6 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
             time.sleep(1)
 
         if player_choice.strip().lower() == "equipment extra" or player_choice.strip().lower() == "e e":
-
             print(f"\nYour current equipment: {player.equipment}")
             time.sleep(1)
 
@@ -2440,7 +2889,7 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                         if player.health > 100:
                             player.health = 100
 
-                        print("\n*** You drink the health potion and heal for 25 hp! ***")
+                        print("\nYou drink the health potion and heal for 25 hp.")
                         time.sleep(1)
                         break
 
@@ -2454,7 +2903,7 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                         if player.energy > 100:
                             player.energy = 100
 
-                        print("\n*** You drink the energy potion and energy for 25 ep! ***")
+                        print("\nYou drink the energy potion and energy for 25 ep.")
                         time.sleep(1)
                         break
 
