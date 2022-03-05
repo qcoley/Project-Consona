@@ -10,7 +10,7 @@ import time
 class Player:
 
     def __init__(self, name, gender, race, role, inventory, equipment, quest, quest_status, statistics, skills, level,
-                 experience, health, energy, x_coordinate, y_coordinate, alive_status, rupees):
+                 experience, health, energy, x_coordinate, y_coordinate, alive_status, rupees, reputation, mount):
         self.name = name
         self.gender = gender
         self.race = race
@@ -32,6 +32,9 @@ class Player:
         self.alive_status = alive_status
 
         self.rupees = rupees
+        self.reputation = reputation
+
+        self.mount = mount
 
 
 class Enemy:
@@ -116,6 +119,15 @@ class Path:
         self.y_coordinate = y_coordinate
 
 
+class Shopkeeper:
+
+    def __init__(self, name, location, inventory, dialog):
+        self.name = name
+        self.location = location
+        self.inventory = inventory
+        self.dialog = dialog
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # character creator ----------------------------------------------------------------------------------------------------
 # default character
@@ -125,7 +137,8 @@ default_character = Player("Player", "female", "amuna", "fighter",  # name, gend
                            [""], 0,  # quest, # quest status
                            ["vitality", 3, "intellect", 1, "strength", 2, "wisdom", 1],  # stats ('stat', 'amount')
                            ["heavy swing"], 1, 0, 100, 100,  # skills, lvl, exp, health, energy
-                           1, 1, True, 0)  # x-coordinate, y-coordinate, alive status, rupees
+                           1, 1, True, 0, ["amuna", 10, "nuldar", 0, "sorae", 0], "none")
+# x-coordinate, y-coordinate, alive status, rupees, reputation, mount
 
 character_list = [default_character]
 
@@ -156,7 +169,7 @@ npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "something better if you plan on \njourneying further into the Region. Here's a basic weapon and "
                 "some gear. \n\nWhy don't you go and test it out? There's some snakes nearby that have been coming up "
                 "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
-                "before. \n\nMaybe you could take care of some for me? I'll be sure to give you something worth the "
+                "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
                 "trouble. ", 4, 4, True, False, ["Items to be added for thief steal"], False)
 
 npc_celeste = NPC("Celeste", "female", "sorae", "mage", "Please help Nede... ", "My Companion",
@@ -193,6 +206,26 @@ vanguard_captain_adria = NPC("Vanguard Captain Adria", "female", "amuna", "fight
                              ["Items to be added for thief steal"], False)
 
 all_npcs = [npc_garan, npc_celeste, npc_artherian, guard, village_matron]
+
+# shop keepers ---------------------------------------------------------------------------------------------------------
+# (name, location, inventory, dialog)
+
+amuna_shop_keeper = Shopkeeper("Amuna Shopkeeper Beetle", "Seldon District", ["health potion", "energy potion",
+                                                                              "bronze sword", "bronze armor",
+                                                                              "oaken staff", "woven robes",
+                                                                              "sharpened dirks", "padded jerkin",
+                                                                              "chestnut horse"],
+                               "These Ghoul Minion attacks are bad for business!")
+
+nuldar_shop_keeper = Shopkeeper("Nuldar Shopkeeper Darunia", "Korlok District", ["hearty health potion",
+                                                                                 "extra energy potion",
+                                                                                 "iron forged sword",
+                                                                                 "iron forged armor",
+                                                                                 "smooth metal staff", "fire robes",
+                                                                                 "dark iron daggers",
+                                                                                 "resistant jerkin",
+                                                                                 "spiked boots"],
+                                "Welcome, Ohona. ")
 
 # trees ----------------------------------------------------------------------------------------------------------------
 # any tree (name, model, x-coordinate, y-coordinate)
@@ -249,36 +282,36 @@ all_water = [water_1, water_2, water_3, water_4, water_5, water_6, water_7, wate
 
 # buildings ------------------------------------------------------------------------------------------------------------
 # any tree (name, model, x-coordinate, y-coordinate)
-building_1 = Building("Amuna Shop", "Shop", 17, 4)
-building_2 = Building("Amuna Home", "House", 14, 3)
-building_3 = Building("Amuna Home", "House", 15, 7)
+building_1 = Building("Amuna Shop", "shop", 17, 4)
+building_2 = Building("Amuna Academia", "academia", 14, 3)
+building_3 = Building("Amuna Inn", "inn", 15, 7)
 
-farm_1 = Building("Amuna Farm", "Farm", 6, 15)
-farm_2 = Building("Amuna Farm", "Farm", 9, 14)
+farm_1 = Building("Amuna Farm", "farm", 6, 15)
+farm_2 = Building("Amuna Farm", "farm", 9, 14)
 
-wall_1 = Building("Castle Wall", "Wall", 19, 1)
-wall_2 = Building("Castle Wall", "Wall", 19, 2)
-wall_3 = Building("Castle Wall", "Wall", 19, 3)
-wall_4 = Building("Castle Wall", "Wall", 19, 4)
-wall_5 = Building("Castle Wall", "Wall", 19, 5)
-wall_6 = Building("Castle Wall", "Wall", 19, 6)
-wall_7 = Building("Castle Wall", "Wall", 19, 7)
-wall_8 = Building("Castle Wall", "Wall", 19, 8)
-wall_9 = Building("Castle Wall", "Wall", 19, 9)
-wall_10 = Building("Castle Wall", "Wall", 19, 10)
-wall_11 = Building("Castle Wall", "Wall", 19, 11)
-wall_12 = Building("Castle Wall", "Wall", 19, 12)
-wall_13 = Building("Castle Wall", "Wall", 19, 13)
-wall_14 = Building("Castle Wall", "Wall", 19, 14)
-wall_15 = Building("Castle Wall", "Wall", 19, 15)
-wall_16 = Building("Castle Wall", "Wall", 19, 16)
-wall_17 = Building("Castle Wall", "Wall", 19, 17)
-wall_18 = Building("Castle Wall", "Wall", 19, 18)
+wall_1 = Building("Castle Wall", "wall", 19, 1)
+wall_2 = Building("Castle Wall", "wall", 19, 2)
+wall_3 = Building("Castle Wall", "wall", 19, 3)
+wall_4 = Building("Castle Wall", "wall", 19, 4)
+wall_5 = Building("Castle Wall", "wall", 19, 5)
+wall_6 = Building("Castle Wall", "wall", 19, 6)
+wall_7 = Building("Castle Wall", "wall", 19, 7)
+wall_8 = Building("Castle Wall", "wall", 19, 8)
+wall_9 = Building("Castle Wall", "wall", 19, 9)
+wall_10 = Building("Castle Wall", "wall", 19, 10)
+wall_11 = Building("Castle Wall", "wall", 19, 11)
+wall_12 = Building("Castle Wall", "wall", 19, 12)
+wall_13 = Building("Castle Wall", "wall", 19, 13)
+wall_14 = Building("Castle Wall", "wall", 19, 14)
+wall_15 = Building("Castle Wall", "wall", 19, 15)
+wall_16 = Building("Castle Wall", "wall", 19, 16)
+wall_17 = Building("Castle Wall", "wall", 19, 17)
+wall_18 = Building("Castle Wall", "wall", 19, 18)
 
-bridge_1 = Building("Rohir River Bridge", "Bridge", 12, 18)
-bridge_2 = Building("Rohir River Bridge", "Bridge", 13, 18)
-bridge_gate_1 = Building("Rohir River Bridge Gate", "Bridge", 12, 17)
-bridge_gate_2 = Building("Rohir River Bridge Gate", "Bridge", 13, 17)
+bridge_1 = Building("Rohir River Bridge", "bridge", 12, 18)
+bridge_2 = Building("Rohir River Bridge", "bridge", 13, 18)
+bridge_gate_1 = Building("Rohir River Bridge Gate", "bridge", 12, 17)
+bridge_gate_2 = Building("Rohir River Bridge Gate", "bridge", 13, 17)
 
 all_buildings = [building_1, building_2, building_3, farm_1, farm_2, wall_1, wall_2, wall_3, wall_4, wall_5,
                  wall_6, wall_7, wall_8, wall_9, wall_10, wall_11, wall_12, wall_13, wall_14, wall_15, wall_16,
@@ -287,23 +320,23 @@ all_buildings = [building_1, building_2, building_3, farm_1, farm_2, wall_1, wal
 # path ways ------------------------------------------------------------------------------------------------------------
 # any path (name, model, x-coordinate, y-coordinate)
 
-dirt_path_1 = Path("Dirt Path", "Dirt", 10, 1)
-dirt_path_3 = Path("Dirt Path", "Dirt", 10, 2)
-dirt_path_5 = Path("Dirt Path", "Dirt", 10, 3)
-dirt_path_7 = Path("Dirt Path", "Dirt", 10, 4)
-dirt_path_9 = Path("Dirt Path", "Dirt", 10, 5)
-dirt_path_11 = Path("Dirt Path", "Dirt", 10, 6)
-dirt_path_13 = Path("Dirt Path", "Dirt", 10, 7)
-dirt_path_15 = Path("Dirt Path", "Dirt", 10, 8)
-dirt_path_17 = Path("Dirt Path", "Dirt", 10, 9)
-dirt_path_19 = Path("Dirt Path", "Dirt", 11, 10)
-dirt_path_21 = Path("Dirt Path", "Dirt", 12, 11)
-dirt_path_23 = Path("Dirt Path", "Dirt", 12, 12)
-dirt_path_25 = Path("Dirt Path", "Dirt", 12, 13)
-dirt_path_27 = Path("Dirt Path", "Dirt", 12, 14)
-dirt_path_29 = Path("Dirt Path", "Dirt", 12, 15)
-dirt_path_31 = Path("Dirt Path", "Dirt", 12, 16)
-dirt_path_33 = Path("Dirt Path", "Dirt", 12, 17)
+dirt_path_1 = Path("Dirt Path", "dirt", 10, 1)
+dirt_path_3 = Path("Dirt Path", "dirt", 10, 2)
+dirt_path_5 = Path("Dirt Path", "dirt", 10, 3)
+dirt_path_7 = Path("Dirt Path", "dirt", 10, 4)
+dirt_path_9 = Path("Dirt Path", "dirt", 10, 5)
+dirt_path_11 = Path("Dirt Path", "dirt", 10, 6)
+dirt_path_13 = Path("Dirt Path", "dirt", 10, 7)
+dirt_path_15 = Path("Dirt Path", "dirt", 10, 8)
+dirt_path_17 = Path("Dirt Path", "dirt", 10, 9)
+dirt_path_19 = Path("Dirt Path", "dirt", 11, 10)
+dirt_path_21 = Path("Dirt Path", "dirt", 12, 11)
+dirt_path_23 = Path("Dirt Path", "dirt", 12, 12)
+dirt_path_25 = Path("Dirt Path", "dirt", 12, 13)
+dirt_path_27 = Path("Dirt Path", "dirt", 12, 14)
+dirt_path_29 = Path("Dirt Path", "dirt", 12, 15)
+dirt_path_31 = Path("Dirt Path", "dirt", 12, 16)
+dirt_path_33 = Path("Dirt Path", "dirt", 12, 17)
 
 all_paths = [dirt_path_1, dirt_path_3, dirt_path_5, dirt_path_7, dirt_path_9, dirt_path_11, dirt_path_13, dirt_path_15,
              dirt_path_17, dirt_path_19, dirt_path_21, dirt_path_23, dirt_path_25, dirt_path_27, dirt_path_29,
@@ -318,6 +351,7 @@ greeting = Welcome("\n\n--------------------------------------------------------
                    "  \n-----------------------------------------------------------------------------------------------"
                    "-------"
                    , False)
+
 game_start = Welcome("\n-----------------------------------------------------------------------------------------------"
                      "-------"
                      "\n| * Your character has entered into the Seldon District within the Consona World Region.       "
@@ -327,12 +361,270 @@ game_start = Welcome("\n--------------------------------------------------------
                      "\n| * And look for nearby NPCs. They may have important information or items for you!            "
                      "      |"
                      "\n-----------------------------------------------------------------------------------------------"
-                     "-------",
-                     False)
+                     "-------", False)
+
+game_hint = Welcome("\n### Hint: Most actions can be utilized with the first letter of the action name. "
+                    "\n### Example, if you want to 'move', type 'm', and if you want to 'attack' an enemy type 'a'"
+                    "\n### This also applies to actions such as check status ('s') and check inventory ('i'). "
+                    "\n### To see a complete list of hotkeys, type 'hotkeys' or 'h' at the action screen. ",
+                    False)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 # gameplay functions ---------------------------------------------------------------------------------------------------
+
+def shop_instance(player, shop, district):
+    if district == "seldon district":
+        if player.x_coordinate == shop.x_coordinate:
+            print(f"\n{amuna_shop_keeper.name} says: {amuna_shop_keeper.dialog}")
+            time.sleep(1)
+
+            print("\n-------------------------------------------------------------------------------------------------"
+                  "-----")
+            trade_choice = input(f"\nWhat would you like to do? (type buy, sell, check prices or leave): ")
+            if trade_choice.strip().lower() == "buy" or trade_choice.strip().lower() == "b":
+                print(f"\n{amuna_shop_keeper.inventory}")
+                buy_choice = input("\nWhat would you like to buy? (type an item): ")
+
+                if buy_choice.strip().lower() == "health potion" or buy_choice.strip().lower()  == "health":
+                    if player.rupees > 9:
+                        print("\n*** You have chosen to buy the health potion ***")
+                        player.inventory.append("health potion")
+                        print("\n*** This item has been added to your inventory ***")
+                        time.sleep(1)
+                        print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                    else:
+                        print("\n*** You do not have enough Rupees to buy this item! ***")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                if buy_choice.strip().lower() == "energy potion" or buy_choice.strip().lower() == "energy":
+                    if player.rupees > 9:
+                        print("\n*** You have chosen to buy the energy potion ***")
+                        player.inventory.append("energy potion")
+                        print("\n*** This item has been added to your inventory ***")
+                        time.sleep(1)
+                        print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                    else:
+                        print("\n*** You do not have enough Rupees to buy this item! ***")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                if buy_choice.strip().lower() == "bronze sword" or buy_choice.strip().lower() == "sword":
+                    if player.rupees > 49:
+                        print("\n*** You have chosen to buy the bronze sword ***")
+                        player.equipment[0] = "2H"
+                        player.equipment[1] = "bronze sword"
+                        print("\n*** This item has been added to your equipment ***")
+                        time.sleep(1)
+                        print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                    else:
+                        print("\n*** You do not have enough Rupees to buy this item! ***")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                if buy_choice.strip().lower() == "bronze armor" or buy_choice.strip().lower() == "armor":
+                    if player.rupees > 49:
+                        print("\n*** You have chosen to buy the bronze armor ***")
+                        player.equipment[2] = "heavy"
+                        player.equipment[3] = "bronze armor"
+                        print("\n*** This item has been added to your equipment ***")
+                        time.sleep(1)
+                        print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                    else:
+                        print("\n*** You do not have enough Rupees to buy this item! ***")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                if buy_choice.strip().lower() == "oaken staff" or buy_choice.strip().lower() == "staff":
+                    if player.rupees > 49:
+                        print("\n*** You have chosen to buy the oaken staff ***")
+                        player.equipment[0] = "magic"
+                        player.equipment[1] = "oaken staff"
+                        print("\n*** This item has been added to your equipment ***")
+                        time.sleep(1)
+                        print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                    else:
+                        print("\n*** You do not have enough Rupees to buy this item! ***")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                if buy_choice.strip().lower() == "woven robes" or buy_choice.strip().lower() == "robes":
+                    if player.rupees > 49:
+                        print("\n*** You have chosen to buy the woven robes ***")
+                        player.equipment[2] = "light"
+                        player.equipment[3] = "woven robes"
+                        print("\n*** This item has been added to your equipment ***")
+                        time.sleep(1)
+                        print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+                    else:
+                        print("\n*** You do not have enough Rupees to buy this item! ***")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                if buy_choice.strip().lower() == "sharpened dirks" or buy_choice.strip().lower() == "dirks":
+                    if player.rupees > 49:
+                        print("\n*** You have chosen to buy the sharpened dirks ***")
+                        player.equipment[0] = "1H"
+                        player.equipment[1] = "sharpened dirks"
+                        print("\n*** This item has been added to your equipment ***")
+                        time.sleep(1)
+                        print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+                    else:
+                        print("\n*** You do not have enough Rupees to buy this item! ***")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                if buy_choice.strip().lower() == "padded jerkin" or buy_choice.strip().lower() == "jerkin":
+                    if player.rupees > 49:
+                        print("\n*** You have chosen to buy the padded jerkin ***")
+                        player.equipment[2] = "medium"
+                        player.equipment[3] = "padded jerkin"
+                        print("\n*** This item has been added to your equipment ***")
+                        time.sleep(1)
+                        print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                    else:
+                        print("\n*** You do not have enough Rupees to buy this item! ***")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+                if buy_choice.strip().lower() == "chestnut horse" or buy_choice == "horse" or \
+                        buy_choice.strip().lower() == "chestnut":
+
+                    if player.rupees > 500:
+                        if player.reputation[1] > 100:
+                            print("\n*** You have chosen to buy the chestnut horse ***")
+                            player.mount = "chestnut horse"
+                            print("\n*** This item has been added to your mount slot ***")
+                            time.sleep(1)
+                            print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                            time.sleep(1)
+                            shop_instance(player, shop, district)
+
+                        else:
+                            print(f"\n*** Your current reputation with the Amuna is not high enough to buy this. "
+                                  f"***")
+                            time.sleep(1)
+                            print(f"\n*** Your reputation: {player.reputation} ***")
+                            time.sleep(1)
+                    else:
+                        print("\n*** You do not have enough Rupees to buy this item! ***")
+                        time.sleep(1)
+                        shop_instance(player, shop, district)
+
+            if trade_choice.strip().lower() == "sell" or trade_choice.strip().lower() == "s":
+                print(f"\n{player.inventory}")
+                sell_choice = input("\nWhat would you like to sell? (type an item): ")
+
+                if sell_choice.strip().lower() == "health potion" or sell_choice.strip().lower() == "health":
+                    print("\n*** You have chosen to sell the health potion ***")
+                    player.rupees += 5
+                    print("\n*** You have gained 5 Rupees ***")
+                    player.inventory.remove("health potion")
+                    time.sleep(1)
+                    print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                    time.sleep(1)
+                    shop_instance(player, shop, district)
+
+                if sell_choice.strip().lower() == "energy potion" or sell_choice.strip().lower() == "energy":
+                    print("\n*** You have chosen to sell the energy potion ***")
+                    player.rupees += 5
+                    print("\n*** You have gained 5 Rupees ***")
+                    player.inventory.remove("energy potion")
+                    time.sleep(1)
+                    print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                    time.sleep(1)
+                    shop_instance(player, shop, district)
+
+                if sell_choice.strip().lower() == "shiny rock" or sell_choice.strip().lower() == "shiny" or \
+                        sell_choice.strip().lower() == "rock":
+
+                    print("\n*** You have chosen to sell the shiny rock ***")
+                    player.rupees += 10
+                    print("\n*** You have gained 10 Rupees ***")
+                    player.inventory.remove("shiny rock")
+                    time.sleep(1)
+                    print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                    time.sleep(1)
+                    shop_instance(player, shop, district)
+
+                if sell_choice.strip().lower() == "bone dust" or sell_choice.strip().lower() == "bone" or \
+                        sell_choice.strip().lower() == "dust":
+
+                    print("\n*** You have chosen to sell the bone dust ***")
+                    player.rupees += 10
+                    print("\n*** You have gained 10 Rupees ***")
+                    player.inventory.remove("bone dust")
+                    time.sleep(1)
+                    print(f"\nShopkeeper {amuna_shop_keeper.name} says: Thank you!\n")
+                    time.sleep(1)
+                    shop_instance(player, shop, district)
+
+                shop_instance(player, shop, district)
+
+            if trade_choice.strip().lower() == "leave" or trade_choice.strip().lower() == "l":
+                print(f"\n*** You say goodbye to the shop keeper {amuna_shop_keeper.name} and head on your way. ***")
+                player.x_coordinate -= 1
+                time.sleep(1)
+
+            if trade_choice.strip().lower() == "check prices" or trade_choice.strip().lower() == "check" \
+                    or trade_choice.strip().lower() == "c":
+
+                print(f"\n*** Current shop prices: ***")
+                for item in amuna_shop_keeper.inventory:
+                    if item == "health potion":
+                        print("\nHealth potion: 10 Rupees")
+                    if item == "energy potion":
+                        print("\nEnergy potion: 10 Rupees")
+                    if item == "bronze sword":
+                        print("\nBronze Sword: 50 Rupees")
+                    if item == "bronze armor":
+                        print("\nBronze Armor: 50 Rupees")
+                    if item == "oaken staff":
+                        print("\nOaken Staff: 50 Rupees")
+                    if item == "woven robes":
+                        print("\nWoven Robes: 50 Rupees")
+                    if item == "sharpened dirks":
+                        print("\nSharpened Dirks: 50 Rupees")
+                    if item == "padded jerkin":
+                        print("\nPadded Jerkin: 50 Rupees")
+                    if item == "chestnut horse":
+                        print("\nChestnut Horse: 500 Rupees and 100+ Amuna Reputation")
+                print(f"\n*** Your current Rupees: {player.rupees}\n")
+                shop_instance(player, shop, district)
+
+    return
+
+
+def academia_instance(player, academia, district):
+    return
+
+
+def inn_instance(player, inn, district):
+    return
+
 
 def enemy_respawn(enemies):
     for enemy_snake in enemies:
@@ -385,7 +677,8 @@ def create_a_character():
 
     # allows the player to create their own character. Stats and skills assigned based on chosen role.
     created_character = Player("name", "gender", "race", "role", "inventory", "equipment", "quest", 0, "stats",
-                               "skills", "level", "xp", "health", "energy", "x-coordinate", "y-coordinate", True, 0)
+                               "skills", "level", "xp", "health", "energy", "x-coordinate", "y-coordinate", True, 0,
+                               ["amuna", 0, "nuldar", 0, "sorae", 0], "none")
 
     my_name = input("\nWhat would you like your character's name to be? (Type a name): ")
     created_character.name = my_name.strip()
@@ -452,14 +745,17 @@ def create_a_character():
             if my_race.strip().lower() == "amuna" or my_race.strip().lower() == "amu":
                 created_character.race = "amuna"
                 chosen_race = True
+                created_character.reputation[1] = 10
 
             if my_race.strip().lower() == "sorae" or my_race.strip().lower() == "sor":
                 created_character.race = "sorae"
                 chosen_race = True
+                created_character.reputation[5] = 10
 
             if my_race.strip().lower() == "nuldar" or my_race.strip().lower() == "nul":
                 created_character.race = "nuldar"
                 chosen_race = True
+                created_character.reputation[3] = 10
 
     # chosen_role = False means player has not chosen role yet and will continue to offer option until
     # role has been chosen, then it will set to true and continue with the creator tool
@@ -531,7 +827,7 @@ def create_a_character():
             created_character.inventory = ["health potion", "energy potion", "character lore sheet"]
             created_character.equipment = ["", "", "", ""]
             created_character.statistics = ["vitality", 1, "intellect", 3, "strength", 1, "wisdom", 2]
-            created_character.skills = ["fireball", ""]  # polymorph 2nd
+            created_character.skills = ["barrier", ""]  # fireball 2nd?
             created_character.level = 1
             created_character.experience = 0
             created_character.health = 100
@@ -575,7 +871,7 @@ def create_a_character():
 
 
 def level_up(player):
-    if player.level < 11:
+    if player.level < 10:
         if player.role == "fighter":
             player.statistics[1] = player.statistics[1] + 3  # vitality
             player.statistics[3] = player.statistics[3] + 1  # intellect
@@ -637,7 +933,7 @@ def level_up(player):
             return player.level
 
     else:
-        print("\n *** You're already at max level! (Level 10) *** ")
+        print("\n*** You're already at max level! (Level 10) *** ")
         return player.level
 
 
@@ -645,7 +941,7 @@ def attack_enemy(player, enemy):
     # fighters do more damage with 2-handed weapons -------------------------
     if player.role == "fighter":
         if player.equipment[0] == "2H":
-            damage = (random.randrange(20, 40) // enemy.level)
+            damage = (random.randrange(10, 30) // enemy.level)
 
             # includes player strength stat to scale overall damage
             stat_scale = damage * player.statistics[5]
@@ -653,7 +949,7 @@ def attack_enemy(player, enemy):
             return stat_scale
 
         else:
-            damage = (random.randrange(1, 10) // enemy.level)
+            damage = (random.randrange(10, 30) // enemy.level)
             print("\n*** You may have an incorrect weapon type equipped! ***")
 
             return damage
@@ -661,7 +957,7 @@ def attack_enemy(player, enemy):
     # mages do more damage with magic weapons --------------------------------
     if player.role == "mage":
         if player.equipment[0] == "magic":
-            damage = (random.randrange(20, 40) // enemy.level)
+            damage = (random.randrange(10, 30) // enemy.level)
 
             # includes player wisdom stat to scale overall damage
             stat_scale = (damage * player.statistics[7]) // 2
@@ -677,7 +973,7 @@ def attack_enemy(player, enemy):
     # rogues do more damage with 1-handed weapons ----------------------------
     if player.role == "rogue":
         if player.equipment[0] == "1H":
-            damage = (random.randrange(20, 40) // enemy.level)
+            damage = (random.randrange(10, 30) // enemy.level)
 
             # includes player strength stat to scale overall damage (strength will be higher for rogues)
             stat_scale = damage * player.statistics[5]
@@ -692,25 +988,24 @@ def attack_enemy(player, enemy):
 
 
 def attack_player(enemy, player):
-
-    base_damage = (random.randrange(10, 30) // player.level)
+    base_damage = (random.randrange(10, 20) // player.level)
 
     # if enemy significantly out levels player they will do additional damage
     if enemy.level > player.level + 3:
         base_damage = base_damage + 10
 
     if player.equipment[2] == "heavy":
-        final_damage = base_damage - 15
+        final_damage = base_damage - 10
 
         return final_damage
 
     if player.equipment[2] == "light":
-        final_damage = base_damage - 5
+        final_damage = base_damage - 2
 
         return final_damage
 
     if player.equipment[2] == "medium":
-        final_damage = base_damage - 10
+        final_damage = base_damage - 5
 
         return final_damage
 
@@ -776,6 +1071,76 @@ def player_move(player, player_direction, water, trees, buildings):
                     else:
                         print("\n*** There appears to be a building here blocking your way.. ***")
                         print(f"\n*** The building is: {building_found.name} ***")
+
+                        if building_found.model == "shop":
+                            shop_choice = input(f"\nWould you like to enter the shop? (yes or no): ")
+                            if shop_choice.strip().lower() == "yes" or shop_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    # put player in shop, so the shop function can move player when finished and exit
+                                    player.x_coordinate = building_found.x_coordinate
+
+                                    shop_instance(player, building_found, "seldon district")
+
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "eldream district")
+
+                        if building_found.model == "academia":
+                            academia_choice = input(f"\nWould you like to enter the academia? (yes or no): ")
+                            if academia_choice.strip().lower() == "yes" or academia_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "eldream district")
+
+                        if building_found.model == "inn":
+                            inn_choice = input(f"\nWould you like to enter the inn? (yes or no): ")
+                            if inn_choice.strip().lower() == "yes" or inn_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "eldream district")
+
                 else:
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
@@ -842,6 +1207,73 @@ def player_move(player, player_direction, water, trees, buildings):
                     else:
                         print("\n*** There appears to be a building here blocking your way.. ***")
                         print(f"\n*** The building is: {building_found.name} ***")
+
+                        if building_found.model == "shop":
+                            shop_choice = input(f"\nWould you like to enter the shop? (yes or no): ")
+                            if shop_choice.strip().lower() == "yes" or shop_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "eldream district")
+
+                        if building_found.model == "academia":
+                            academia_choice = input(f"\nWould you like to enter the academia? (yes or no): ")
+                            if academia_choice.strip().lower() == "yes" or academia_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "eldream district")
+
+                        if building_found.model == "inn":
+                            inn_choice = input(f"\nWould you like to enter the inn? (yes or no): ")
+                            if inn_choice.strip().lower() == "yes" or inn_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "eldream district")
+
                 else:
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
@@ -908,6 +1340,73 @@ def player_move(player, player_direction, water, trees, buildings):
                     else:
                         print("\n*** There appears to be a building here blocking your way.. ***")
                         print(f"\n*** The building is: {building_found.name} ***")
+
+                        if building_found.model == "shop":
+                            shop_choice = input(f"\nWould you like to enter the shop? (yes or no): ")
+                            if shop_choice.strip().lower() == "yes" or shop_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "eldream district")
+
+                        if building_found.model == "academia":
+                            academia_choice = input(f"\nWould you like to enter the academia? (yes or no): ")
+                            if academia_choice.strip().lower() == "yes" or academia_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "eldream district")
+
+                        if building_found.model == "inn":
+                            inn_choice = input(f"\nWould you like to enter the inn? (yes or no): ")
+                            if inn_choice.strip().lower() == "yes" or inn_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "eldream district")
+
                 else:
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
@@ -974,6 +1473,73 @@ def player_move(player, player_direction, water, trees, buildings):
                     else:
                         print("\n*** There appears to be a building here blocking your way.. ***")
                         print(f"\n*** The building is: {building_found.name} ***")
+
+                        if building_found.model == "shop":
+                            shop_choice = input(f"\nWould you like to enter the shop? (yes or no): ")
+                            if shop_choice.strip().lower() == "yes" or shop_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    shop_instance(player, building_found, "eldream district")
+
+                        if building_found.model == "academia":
+                            academia_choice = input(f"\nWould you like to enter the academia? (yes or no): ")
+                            if academia_choice.strip().lower() == "yes" or academia_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    academia_instance(player, building_found, "eldream district")
+
+                        if building_found.model == "inn":
+                            inn_choice = input(f"\nWould you like to enter the inn? (yes or no): ")
+                            if inn_choice.strip().lower() == "yes" or inn_choice.strip().lower() == "y":
+                                if player.x_coordinate < 20 and player.y_coordinate < 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "seldon district")
+                                if player.x_coordinate < 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "korlok district")
+                                if player.x_coordinate > 20 and player.y_coordinate > 20:
+                                    print(f"\n\n*** You have entered the {building_found.name}. "
+                                          f"You see someone nearby. ***")
+                                    time.sleep(1)
+                                    player.x_coordinate = building_found.x_coordinate
+                                    inn_instance(player, building_found, "eldream district")
+
                 else:
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
@@ -1279,9 +1845,11 @@ def attack_scenario(player, enemy):
     # Verifies player is still in range of enemy
     if player.x_coordinate == enemy.x_coordinate and player.y_coordinate == enemy.y_coordinate:
 
+        original_player_gear_type = player.equipment[2]
+
         print("\n-----------------------------------------------------------------------------------------------------"
               "-")
-        combat_choice = input("What do you want to do? (Attack or Run): ")
+        combat_choice = input("What do you want to do? (Attack, Use Skill or Run): ")
 
         if combat_choice.strip().lower() == "attack" or combat_choice.strip().lower() == "a":
 
@@ -1367,11 +1935,63 @@ def attack_scenario(player, enemy):
                     if player.experience > 100:
                         level_up(player)
 
+                    player.equipment[2] = original_player_gear_type
+
                     enemy.alive_status = False
                     time.sleep(1)
 
             else:
                 print("\nThis enemy appears to be dead already!")
+
+        if combat_choice.strip().lower() == "use skill" or combat_choice.strip().lower() == "skill" \
+                or combat_choice.strip().lower() == "use" or combat_choice.strip().lower() == "s" \
+                or combat_choice.strip().lower() == "s":
+
+            print(f"\n*** Your skills: {player.skills} ***")
+            skill_choice = input("\nWhich skill would you like to use? (type a skill): ")
+
+            if skill_choice.strip().lower() == "heavy swing" or skill_choice.strip().lower() == "heavy" \
+                    or skill_choice.strip().lower() == "swing" or skill_choice.strip().lower() == "h":
+                print(f"\n*** You use prepare to use Heavy Swing on {enemy.kind} ***")
+                time.sleep(1)
+                print(f"\nYou whack the {enemy.kind} for 20 damage!")
+                time.sleep(1)
+                enemy.health = enemy.health - 20
+                print(f"\nThe {enemy.kind}'s health is now {enemy.health}/100.")
+                time.sleep(1)
+                print("\n*** Using this skill has consumed some of your energy! ***")
+                time.sleep(1)
+                player.energy = player.energy - 25
+                print(f"\nYour energy level is now {player.energy}/100")
+                time.sleep(1)
+                attack_scenario(player, enemy)
+
+            if skill_choice.strip().lower() == "barrier" or skill_choice.strip().lower() == "b":
+                print(f"\n*** You use Barrier on self ***")
+                player.equipment[2] = "heavy"
+                time.sleep(1)
+                print("\n*** Using this skill has consumed some of your energy! ***")
+                time.sleep(1)
+                player.energy = player.energy - 25
+                print(f"\nYour energy level is now {player.energy}/100")
+                time.sleep(1)
+                attack_scenario(player, enemy)
+
+            if skill_choice.strip().lower() == "swift strike" or skill_choice.strip().lower() == "swift" \
+                    or skill_choice.strip().lower() == "strike" or skill_choice.strip().lower() == "s":
+                print(f"\n*** You use prepare to use Swift Strike on {enemy.kind} ***")
+                time.sleep(1)
+                print(f"\nYou quickly slash the {enemy.kind} for 30 damage!")
+                time.sleep(1)
+                enemy.health = enemy.health - 30
+                print(f"\nThe {enemy.kind}'s health is now {enemy.health}/100.")
+                time.sleep(1)
+                print("\n*** Using this skill has consumed some of your energy! ***")
+                time.sleep(1)
+                player.energy = player.energy - 25
+                print(f"\nYour energy level is now {player.energy}/100")
+                time.sleep(1)
+                attack_scenario(player, enemy)
 
         if combat_choice.strip().lower() == "run" or combat_choice.strip().lower() == "r":
 
@@ -1401,8 +2021,8 @@ def npc_interaction_scenario(player, npc):
     # Verifies player is still in range of npc
     if player.x_coordinate == npc.x_coordinate and player.y_coordinate == npc.y_coordinate:
 
-        print("\n-----------------------------------------------------------------------------------------------------")
         print(f"\n{npc.name} says: '{npc.dialog}'")
+        print("\n-----------------------------------------------------------------------------------------------------")
 
         interaction_choice = input("\nWhat do you want to say? (Information, Quest, Examine or Leave): ")
 
@@ -1449,29 +2069,38 @@ def npc_interaction_scenario(player, npc):
                                     player.equipment[1] = "rusty sword"
                                     player.equipment[2] = "heavy"
                                     player.equipment[3] = "damaged plate"
+                                    player.inventory.append("health potion")
                                     npc.gift = True
                                     print(
                                         "\n*** Garan has given you a weapon: [rusty sword] and gear: [damaged plate] "
                                         "***")
+                                    print("\n*** Garan has also given you a: Health Potion ***")
+                                    time.sleep(2)
 
                                 if player.role == "mage":
                                     player.equipment[0] = "magic"
                                     player.equipment[1] = "broken staff"
                                     player.equipment[2] = "light"
                                     player.equipment[3] = "tattered robes"
+                                    player.inventory.append("health potion")
                                     npc.gift = True
                                     print(
                                         "\n*** Garan has given you a weapon: [broken staff] and gear: [tattered robes] "
                                         "***")
+                                    print("\n*** Garan has also given you a: Health Potion ***")
+                                    time.sleep(2)
 
                                 if player.role == "rogue":
                                     player.equipment[0] = "1H"
                                     player.equipment[1] = "dull dagger"
                                     player.equipment[2] = "medium"
                                     player.equipment[3] = "worn jerkin"
+                                    player.inventory.append("health potion")
                                     npc.gift = True
                                     print(
                                         "\n*** Garan has given you a weapon: [dull dagger] and gear: [worn jerkin] ***")
+                                    print("\n*** Garan has also given you a: Health Potion ***")
+                                    time.sleep(2)
 
                         # if player doesn't already have an active quest (currently only can have one quest at a time)
                         if player.quest_status == 0:
@@ -1491,8 +2120,9 @@ def npc_interaction_scenario(player, npc):
                         player.quest_status = 0
                         player.quest = ""
                         print(f"\n*** Quest [{npc.quest}] Complete! ***")
-                        time.sleep(1)
+                        time.sleep(2)
                         level_up(player)
+                        time.sleep(2)
 
                         player.rupees = player.rupees + 10
                         print(f"\n*** NPC {npc.name} has given you 10 rupees! ***")
@@ -1563,12 +2193,14 @@ def npc_interaction_scenario(player, npc):
                             player.y_coordinate = 22
 
                             print("\n\n*** The Bridge Guards have allowed you passage. ")
+                            time.sleep(3)
                             print("\n*** As you walk through the gates, you look over the side to the water below. "
                                   "***")
+                            time.sleep(3)
                             print("\n*** The Rohir River is deep and dark as it is wide. You note there are no "
                                   "other "
                                   "ways to cross. ***")
-                            time.sleep(3)
+                            time.sleep(4)
                             print("\n*** You emerge on the other side of the Bridge ***")
                             time.sleep(3)
                             print("\n*** You are now within the Korlok District of the Consona Region World ***")
@@ -1576,7 +2208,7 @@ def npc_interaction_scenario(player, npc):
                             print("\n*** You feel the heat on your face and look around to notice the bright "
                                   "oranges "
                                   "and reds of the terrain, ***")
-                            time.sleep(3)
+                            time.sleep(4)
                             print("\n*** As well as snow-capped mountain peaks in the distance.. ***")
                             time.sleep(3)
                             print("\n*** Where could the Vanguard Captain Adria be? ***")
@@ -1636,6 +2268,17 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                     # starts character creator tool and returns created character to set to current player
                     player = create_a_character()
 
+                elif create_choice == "dev mode":
+                    chosen = True
+                    player = Player("Intrinsic Dev", "male", "sorae", "mage", ["health potion", "health potion",
+                                                                               "energy potion", "energy potion",
+                                                                               "shiny rock", "shiny rock",
+                                                                               "bone dust", "bone dust"],
+                                    ["magic", "omega staff", "light", "omega robes"], "", 0,
+                                    ["vitality", 10, "intellect", 10, "strength", 10, "wisdom", 10],
+                                    ["heavy swing", "barrier", "swift strike"], 10, 0, 100, 100,
+                                    1, 1, True, 500, ["amuna", 105, "nuldar", 105, "sorae", 105], "lamb of god")
+
                 else:
                     chosen = True
                     # continues to use default character
@@ -1667,13 +2310,20 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
         # Player introduction to Seldon, the starting location.
         if not game_start.shown:
             print(game_start.message)
+            time.sleep(3)
             game_start.shown = True
 
         print("\n\n"
               "------------------------------------------------------------------------------------------------------")
         print("| Actions: Check Status, Check Inventory, Check Equipment, Check Skills, Check Location, Check Quest |")
-        print("|          Move, Draw Map, Use item, Use skill, Hotkeys, How to Play, Exit Game                      |")
+        print("|          Move Character, Draw Map, Use item, Use skill, Hotkeys, How to Play, Exit Game            |")
         print("------------------------------------------------------------------------------------------------------")
+
+        # Hint for player for action hotkeys, should only show once at action screen
+        if not game_hint.shown:
+            print(game_hint.message)
+            time.sleep(3)
+            game_hint.shown = True
 
         player_choice = input("\nWhat would you like to do? (Type an action): ")
 
@@ -1718,7 +2368,8 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
             print("\ndraw map = d")
             time.sleep(1)
 
-        if player_choice.strip().lower() == "move" or player_choice.strip().lower() == "m":
+        if player_choice.strip().lower() == "move character" or player_choice.strip().lower() == "move" \
+                or player_choice.strip().lower() == "m":
 
             player_direction = input("\nWhich direction would you like to move in? (Type up, down, left or right): ")
 
@@ -1744,6 +2395,11 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
             for x in range(1, len(player.equipment), 2):
                 equipment.append(player.equipment[x])
             print(f"\nYour current equipment: {equipment}")
+            time.sleep(1)
+
+        if player_choice.strip().lower() == "equipment extra" or player_choice.strip().lower() == "e e":
+
+            print(f"\nYour current equipment: {player.equipment}")
             time.sleep(1)
 
         if player_choice.strip().lower() == "check skills" or player_choice.strip().lower() == "skills" or \
@@ -1774,6 +2430,20 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                         time.sleep(1)
                         break
 
+            if item_choice.strip().lower() == "energy potion" or item_choice.strip().lower() == "energy":
+                for item in player.inventory:
+                    if item == "energy potion":
+                        player.inventory.remove(item)
+                        player.energy = player.energy + 25
+
+                        # player cannot energize over max energy
+                        if player.energy > 100:
+                            player.energy = 100
+
+                        print("\n*** You drink the energy potion and energy for 25 ep! ***")
+                        time.sleep(1)
+                        break
+
         if player_choice.strip().lower() == "check status" or player_choice.strip().lower() == "status" or \
                 player_choice.strip().lower() == "s":
             print(f"\nYour current status: "
@@ -1783,7 +2453,13 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
             time.sleep(1)
 
         if player_choice.strip().lower() == "exit game" or player_choice.strip().lower() == "exit":
-            print(f"\n\n*** Thanks for playing! ***\n\n")
+            print("\n\n\n\n"
+                  "---------------------------------------------------------------------------------------------------"
+                  "---")
+            print(f"| * Thanks for playing!                                                                           "
+                  f"   |")
+            print("---------------------------------------------------------------------------------------------------"
+                  "---\n\n\n\n")
             exit()
 
         if player_choice.strip().lower() == "check quest" or player_choice.strip().lower() == "quest" or \
