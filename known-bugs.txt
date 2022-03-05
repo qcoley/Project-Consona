@@ -1,0 +1,3 @@
+Mage barrier skill doesn't correctly switch armor type
+
+Ghouls do not do damage like snakes

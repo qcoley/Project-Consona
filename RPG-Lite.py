@@ -1,4 +1,4 @@
-# RPG-Lite Concept Scratch Code
+# RPG-Lite Code
 # Intrinsic Q
 
 
@@ -464,7 +464,8 @@ def shop_instance(player, shop, district):
                         time.sleep(1)
                         shop_instance(player, shop, district)
 
-                if buy_choice.strip().lower() == "woven robes" or buy_choice.strip().lower() == "robes":
+                if buy_choice.strip().lower() == "woven robes" or buy_choice.strip().lower() == "robes" \
+                        or buy_choice.strip().lower() == "robe":
                     if player.rupees > 49:
                         print("\n*** You have chosen to buy the woven robes ***")
                         player.equipment[2] = "light"
@@ -619,10 +620,12 @@ def shop_instance(player, shop, district):
 
 
 def academia_instance(player, academia, district):
+    print("\n*** This feature yet to be implemented. Will allow for training additional skills. ***")
     return
 
 
 def inn_instance(player, inn, district):
+    print("\n*** This feature yet to be implemented. Will allow for player to rest and recover status. ***")
     return
 
 
@@ -1845,7 +1848,8 @@ def attack_scenario(player, enemy):
     # Verifies player is still in range of enemy
     if player.x_coordinate == enemy.x_coordinate and player.y_coordinate == enemy.y_coordinate:
 
-        original_player_gear_type = player.equipment[2]
+        # doesn't work correctly atm, for barrier skill
+        # original_player_gear_type = player.equipment[2]
 
         print("\n-----------------------------------------------------------------------------------------------------"
               "-")
@@ -1935,7 +1939,8 @@ def attack_scenario(player, enemy):
                     if player.experience > 100:
                         level_up(player)
 
-                    player.equipment[2] = original_player_gear_type
+                    # doesn't work correctly atm
+                    # player.equipment[2] = original_player_gear_type
 
                     enemy.alive_status = False
                     time.sleep(1)
@@ -1968,7 +1973,10 @@ def attack_scenario(player, enemy):
 
             if skill_choice.strip().lower() == "barrier" or skill_choice.strip().lower() == "b":
                 print(f"\n*** You use Barrier on self ***")
-                player.equipment[2] = "heavy"
+
+                # doesn't work correctly atm
+                # player.equipment[2] = "heavy"
+
                 time.sleep(1)
                 print("\n*** Using this skill has consumed some of your energy! ***")
                 time.sleep(1)
@@ -2038,7 +2046,9 @@ def npc_interaction_scenario(player, npc):
                       f"capital castle by the \nbeast 'Dreth' and his minions, we've had to wall off the most "
                       f"eastern region to protect \nthe local settlement. \n\nAlthough, even with these precautions in "
                       f"place some ghouls have still managed to creep through. \nPlease be careful if you go to that "
-                      f"area of the district!")
+                      f"area of the district! \n\nIf you're looking for a shop to buy and sell items, check the Village"
+                      f"\non the eastern side of the District. \n\nIf you're looking for a trainer to teach you new"
+                      f"skills,\nyou can also find them in the Village as well as an inn to rest!")
 
                 time.sleep(1)
 
@@ -2294,7 +2304,11 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
                 if player.y_coordinate == enemy.y_coordinate:
 
                     if enemy.alive_status:
+
+                        # check to see how many enemies are alive, if number of dead enemies is large some
+                        # will be respawned based on the enemy kind and location
                         enemy_respawn_counter(enemies)
+
                         print(f'\n\n*** You encounter an enemy {enemy.kind}, level {enemy.level} ***')
                         attack_scenario(player, enemy)
 
