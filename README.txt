@@ -1,4 +1,4 @@
-# RPG-Lite Version 0.1A
+## RPG-Lite Version 0.1A
 
 RPG-Lite is a text-based adventure game in the vein of The Legend of Zelda
 with light RPG elements based on games like The Elder Scrolls, 
