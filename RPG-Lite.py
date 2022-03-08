@@ -375,8 +375,7 @@ greeting = Welcome("\n\n--------------------------------------------------------
                    "  \n| * Welcome to RPG-Lite! [Version 0.1A]                                                        "
                    "      |"
                    "  \n-----------------------------------------------------------------------------------------------"
-                   "-------"
-                   , False)
+                   "-------", False)
 
 game_start = Welcome("\n-----------------------------------------------------------------------------------------------"
                      "-------"
@@ -2719,11 +2718,11 @@ def game_run(player, enemies, npcs, trees, water, buildings, paths):
 
                 # developer mode character for testing game features
                 elif create_choice == "dev mode":
-                    chosen = True  # name           gender   race     role    inventory
-                    player = Player("Intrinsic Dev", "male", "sorae", "rogue", ["health potion", "health potion",
-                                                                                "energy potion", "energy potion",
-                                                                                "shiny rock", "shiny rock",
-                                                                                "bone dust", "bone dust"],
+                    chosen = True   # name           gender   race     role    inventory
+                    player = Player("Intrinsic Dev", "male", "sorae", "mage", ["health potion", "health potion",
+                                                                               "energy potion", "energy potion",
+                                                                               "shiny rock", "shiny rock",
+                                                                               "bone dust", "bone dust"],
                                     # equipment
                                     ["magic", "omega staff", "light", "omega robes"], "", 0,
                                     # stats
