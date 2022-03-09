@@ -14,32 +14,78 @@ pygame.display.set_caption("RPG-Lite")
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
-        self.surf = pygame.image.load("stan.png").convert()
+        self.surf = pygame.image.load("character_art/stan.png").convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(70, 700))
 
-    # Move the sprite based on key presses
+    # move the character sprite based on key presses
     def update(self, pressed_keyes):
-        if pressed_keyes[K_w]:
+
+        if pressed_keys[K_w]:
+            if pygame.sprite.spritecollideany(player, environment_objects):
+                self.rect.move_ip(0, 10)
+
             self.rect.move_ip(0, -2)
-            # move_up_sound.play()
-        if pressed_keyes[K_s]:
+
+        if pressed_keys[K_s]:
+            if pygame.sprite.spritecollideany(player, environment_objects):
+                self.rect.move_ip(0, -2)
+
             self.rect.move_ip(0, 2)
-            # move_down_sound.play()
-        if pressed_keyes[K_a]:
+
+        if pressed_keys[K_a]:
+            if pygame.sprite.spritecollideany(player, environment_objects):
+                self.rect.move_ip(4, 0)
+
             self.rect.move_ip(-2, 0)
-        if pressed_keyes[K_d]:
+
+        if pressed_keys[K_d]:
+            if pygame.sprite.spritecollideany(player, environment_objects):
+                self.rect.move_ip(-4, 0)
+
             self.rect.move_ip(2, 0)
 
         # Keep player on the screen
         if self.rect.left < 0:
             self.rect.left = 0
+
         elif self.rect.right > SCREEN_WIDTH:
             self.rect.right = SCREEN_WIDTH
+
         if self.rect.top <= 0:
             self.rect.top = 0
+
         elif self.rect.bottom >= SCREEN_HEIGHT:
             self.rect.bottom = SCREEN_HEIGHT
+
+
+class NPC(pygame.sprite.Sprite):
+
+    def __init__(self, name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate,
+                 alive_status, quest_complete, items, gift, image, color):
+        super(NPC, self).__init__()
+
+        self.name = name
+        self.gender = gender
+        self.race = race
+        self.role = role
+        self.dialog = dialog
+        self.quest = quest
+        self.quest_description = quest_description
+
+        self.x_coordinate = x_coordinate
+        self.y_coordinate = y_coordinate
+
+        self.alive_status = alive_status
+        self.quest_complete = quest_complete
+
+        self.items = items
+        self.gift = gift
+
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey(color, RLEACCEL)
+
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
 
 # Define the enemy object extending pygame.sprite.Sprite
@@ -62,6 +108,32 @@ class Enemy(pygame.sprite.Sprite):
 
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.speed = 1
+
+    def update(self, ranges_x, ranges_y, direction_x, direction_y):
+
+        if ranges_x[0] < self.rect.x < ranges_x[1]:
+            if direction_x == "left":
+                self.rect.move_ip(-1, 0)
+            if direction_x == "right":
+                self.rect.move_ip(1, 0)
+
+        else:
+            if direction_x == "left":
+                self.rect.move_ip(1, 0)
+            if direction_x == "right":
+                self.rect.move_ip(-1, 0)
+
+        if ranges_y[0] < self.rect.x < ranges_y[1]:
+            if direction_y == "down":
+                self.rect.move_ip(0, -1)
+            if direction_y == "up":
+                self.rect.move_ip(0, 1)
+
+        else:
+            if direction_y == "down":
+                self.rect.move_ip(0, 1)
+            if direction_y == "up":
+                self.rect.move_ip(0, -1)
 
 
 class Tree(pygame.sprite.Sprite):
@@ -113,6 +185,10 @@ class Building(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
 
+# ----------------------------------------------------------------------------------------------------------------------
+# gameplay functions ---------------------------------------------------------------------------------------------------
+
+
 # Define the cloud object extending pygame.sprite.Sprite
 # Use an image for a better looking sprite
 # class Cloud(pygame.sprite.Sprite):
@@ -137,7 +213,7 @@ class Building(pygame.sprite.Sprite):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-seldon_district_bg = pygame.image.load("seldon_district.png")
+seldon_district_bg = pygame.image.load("background_textures/seldon_district.png")
 
 pygame.mixer.init()
 pygame.init()
@@ -147,57 +223,108 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 player = Player()
 
-# Enemy: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color
+# NPC: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate,
+#                  alive_status, quest_complete, items, gift, image, color
+npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone.", "Stupid Snakes",
+                "Greetings! I don't believe I've seen you around here before. You must be a traveler, \nright? "
+                "Or maybe the request for reinforcements has finally been answered! Well, either way, we're\n"
+                "thankful for all the help we can get. \n\nLook, you seem pretty strong, but you're going to need "
+                "a weapon to survive out here. \n\nI've got something you can have for now, but you'll need to find "
+                "something better if you plan on \njourneying further into the Region. Here's a basic weapon and "
+                "some gear. \n\nWhy don't you go and test it out? There's some snakes nearby that have been coming up "
+                "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
+                "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
+                "trouble. ", 225, 550, True, False, ["Items to be added for thief steal"], False,
+                "character_art/NPCs/garan.png", (255, 255, 255))
 
-snake_1 = Enemy("snake", 100, 100, 1, 100, 150, True, "shiny rock", "snake.png", (255, 255, 255))
-snake_2 = Enemy("snake", 100, 100, 1, 260, 170, True, "shiny rock", "snake.png", (255, 255, 255))
-snake_3 = Enemy("snake", 100, 100, 1, 100, 250, True, "shiny rock", "snake.png", (255, 255, 255))
-snake_4 = Enemy("snake", 100, 100, 1, 260, 270, True, "shiny rock", "snake.png", (255, 255, 255))
+npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
+                   "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
+                   "\n\nThe beast Dreth has occupied our former capital Castle, on the other side of the walls "
+                   "\nto the east, and our numbers have been spread thin trying to repel its minions and contain "
+                   "the \ndamage they've inflicted. \n\nOur best fighters have been sent in a combined Vanguard with "
+                   "the other districts to try and \nattack the beast directly, but its left us vulnerable here. "
+                   "The most recent wave of attacks from\nthe castle has left several damages to our village, "
+                   "and if you are able, please gather\nresources and bring them to me to distribute to the "
+                   "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
+                   "trees just west of here. Nera bless you. ", 625, 500, True, False,
+                   ["Items to be added for thief steal"], False,
+                   "character_art/NPCs/maurelle.png", (255, 255, 255))
 
-# Tree: name, model, x_coordinate, y_coordinate, gathered, image, color
-pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 570, False, "pine_tree.png", (255, 255, 255))
-pine_tree_2 = Tree("pine tree 2", "pine tree", 180, 420, False, "pine_tree.png", (255, 255, 255))
-pine_tree_4 = Tree("pine tree 4", "pine tree", 280, 660, False, "pine_tree.png", (255, 255, 255))
-pine_tree_5 = Tree("pine tree 5", "pine tree", 380, 480, False, "pine_tree.png", (255, 255, 255))
+npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee",
+                "You need to cross the bridge to get to the Korlok District, you say? \n\nOrdinarily"
+                " I would have no issue granting you passage, however the gates are barred tight \n"
+                "due to the recent wave of Ghoul Minions from across the wall. \n\nI cannot leave my post and"
+                " leave the bridge unguarded, but if you could \ntake care of the remaining ghouls I"
+                " will signal to unbar the gates and allow you passage \nto the other side. \n\nThe"
+                " ghouls were last spotted just east of here, nearby the northern Castle wall ramparts! ", 475, 140,
+                True,
+                False, ["Items to be added for thief steal"], False,
+                "character_art/NPCs/guard.png", (255, 255, 255))
 
-# Water: name, model, x_coordinate, y_coordinate, image, color
-rohir_river_1 = Water("rohir river 1", "rohir river", 75, 50, "rohir_river.png", (255, 255, 255))
-rohir_river_2 = Water("rohir river 2", "rohir river", 225, 50, "rohir_river.png", (255, 255, 255))
-rohir_river_3 = Water("rohir river 3", "rohir river", 375, 50, "rohir_river.png", (255, 255, 255))
-rohir_river_4 = Water("rohir river 4", "rohir river", 675, 50, "rohir_river.png", (255, 255, 255))
-rohir_river_5 = Water("rohir river 5", "rohir river", 825, 50, "rohir_river.png", (255, 255, 255))
-rohir_river_6 = Water("rohir river 5", "rohir river", 975, 50, "rohir_river.png", (255, 255, 255))
+# ----------------------------------------------------------------------------------------------------------------------
+# Enemy: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color --------------------
+snake_1 = Enemy("snake", 100, 100, 1, 100, 150, True, "shiny rock", "enemy_art/snake.png", (255, 255, 255))
+snake_2 = Enemy("snake", 100, 100, 1, 260, 170, True, "shiny rock", "enemy_art/snake.png", (255, 255, 255))
+snake_3 = Enemy("snake", 100, 100, 1, 100, 250, True, "shiny rock", "enemy_art/snake.png", (255, 255, 255))
+snake_4 = Enemy("snake", 100, 100, 1, 260, 270, True, "shiny rock", "enemy_art/snake.png", (255, 255, 255))
 
-# Buildings: name, model, x_coordinate, y_coordinate, image, color
-rohir_river_gate = Building("rohir river gate", "river gate", 525, 50, "rohir_gate_bridge.png", (255, 255, 255))
+ghoul_low_1 = Enemy("ghoul", 100, 100, 4, 675, 200, True, "bone dust", "enemy_art/ghoul.png", (255, 255, 255))
+ghoul_low_2 = Enemy("ghoul", 100, 100, 5, 800, 150, True, "bone dust", "enemy_art/ghoul.png", (255, 255, 255))
+ghoul_low_3 = Enemy("ghoul", 100, 100, 3, 760, 260, True, "bone dust", "enemy_art/ghoul.png", (255, 255, 255))
+ghoul_low_4 = Enemy("ghoul", 100, 100, 4, 875, 225, True, "bone dust", "enemy_art/ghoul.png", (255, 255, 255))
 
-castle_wall_1 = Building("castle wall 1", "castle wall", 975, 695, "castle_wall.png", (255, 255, 255))
-castle_wall_2 = Building("castle wall 2", "castle wall", 975, 550, "castle_wall.png", (255, 255, 255))
-castle_wall_3 = Building("castle wall 3", "castle wall", 975, 400, "castle_wall.png", (255, 255, 255))
-castle_wall_4 = Building("castle wall 4", "castle wall", 975, 250, "castle_wall.png", (255, 255, 255))
-castle_wall_5 = Building("castle wall 5", "castle wall", 975, 175, "castle_wall.png", (255, 255, 255))
+# Tree: name, model, x_coordinate, y_coordinate, gathered, image, color ------------------------------------------------
+pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 570, False, "environment_art/pine_tree.png", (255, 255, 255))
+pine_tree_2 = Tree("pine tree 2", "pine tree", 180, 420, False, "environment_art/pine_tree.png", (255, 255, 255))
+pine_tree_4 = Tree("pine tree 4", "pine tree", 280, 660, False, "environment_art/pine_tree.png", (255, 255, 255))
+pine_tree_5 = Tree("pine tree 5", "pine tree", 380, 480, False, "environment_art/pine_tree.png", (255, 255, 255))
 
-amuna_inn = Building("amuna inn", "amuna building", 650, 675, "amuna_building.png", (255, 255, 255))
-amuna_shop = Building("amuna shop", "amuna building", 720, 450, "amuna_building.png", (255, 255, 255))
-amuna_academia = Building("amuna academia", "amuna building", 850, 595, "amuna_building.png", (255, 255, 255))
+# Water: name, model, x_coordinate, y_coordinate, image, color ---------------------------------------------------------
+rohir_river_1 = Water("rohir river 1", "rohir river", 75, 50, "environment_art/rohir_river.png", (255, 255, 255))
+rohir_river_2 = Water("rohir river 2", "rohir river", 225, 50, "environment_art/rohir_river.png", (255, 255, 255))
+rohir_river_3 = Water("rohir river 3", "rohir river", 375, 50, "environment_art/rohir_river.png", (255, 255, 255))
+rohir_river_4 = Water("rohir river 4", "rohir river", 675, 50, "environment_art/rohir_river.png", (255, 255, 255))
+rohir_river_5 = Water("rohir river 5", "rohir river", 825, 50, "environment_art/rohir_river.png", (255, 255, 255))
+rohir_river_6 = Water("rohir river 5", "rohir river", 975, 50, "environment_art/rohir_river.png", (255, 255, 255))
 
-# groups for sprites
+# Buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
+rohir_river_gate = Building("rohir river gate", "river gate", 525, 50, "environment_art/rohir_gate_bridge.png",
+                            (255, 255, 255))
+
+castle_wall_1 = Building("castle wall 1", "castle wall", 975, 695, "environment_art/castle_wall.png", (255, 255, 255))
+castle_wall_2 = Building("castle wall 2", "castle wall", 975, 550, "environment_art/castle_wall.png", (255, 255, 255))
+castle_wall_3 = Building("castle wall 3", "castle wall", 975, 400, "environment_art/castle_wall.png", (255, 255, 255))
+castle_wall_4 = Building("castle wall 4", "castle wall", 975, 250, "environment_art/castle_wall.png", (255, 255, 255))
+castle_wall_5 = Building("castle wall 5", "castle wall", 975, 175, "environment_art/castle_wall.png", (255, 255, 255))
+
+amuna_inn = Building("amuna inn", "amuna building", 650, 675, "environment_art/amuna_building.png", (255, 255, 255))
+amuna_shop = Building("amuna shop", "amuna building", 720, 450, "environment_art/amuna_building.png", (255, 255, 255))
+amuna_academia = Building("amuna academia", "amuna building", 850, 595, "environment_art/amuna_building.png",
+                          (255, 255, 255))
+
+# ----------------------------------------------------------------------------------------------------------------------
+# groups for sprites ---------------------------------------------------------------------------------------------------
+npcs = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
 trees = pygame.sprite.Group()
 water = pygame.sprite.Group()
 buildings = pygame.sprite.Group()
-
+environment_objects = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 
 # adding sprite objects to groups
-enemies.add(snake_1, snake_2, snake_3, snake_4)
+npcs.add(npc_garan, npc_maurelle, npc_guard)
+enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 trees.add(pine_tree_1, pine_tree_2, pine_tree_4, pine_tree_5)
 water.add(rohir_river_1, rohir_river_2, rohir_river_3, rohir_river_4, rohir_river_5, rohir_river_6)
 buildings.add(rohir_river_gate, amuna_inn, castle_wall_1, castle_wall_2, castle_wall_3, castle_wall_4, castle_wall_5,
               amuna_shop, amuna_academia)
 
+# all environment sprites for collision detection
+environment_objects.add(trees, water, buildings)
+
 # adding all sprites to game screen
-all_sprites.add(player, enemies, trees, water, buildings)
+all_sprites.add(player, npcs, enemies, trees, water, buildings)
 
 # pygame.mixer.music.load("Apoxode_-_Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
@@ -211,13 +338,18 @@ all_sprites.add(player, enemies, trees, water, buildings)
 # move_down_sound.set_volume(0.5)
 # collision_sound.set_volume(0.5)
 
-# Variable to keep our main loop running
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Variable to keep our main loop running -------------------------------------------------------------------------------
 running = True
 
 # Our main loop
 while running:
 
+    enemy_switch = 1
+
     for event in pygame.event.get():
+
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 running = False
@@ -225,34 +357,35 @@ while running:
         elif event.type == QUIT:
             running = False
 
-        # Should we add a new cloud?
-        # elif event.type == ADDCLOUD:
-        # Create the new cloud, and add it to our sprite groups
-        # new_cloud = Cloud()
-        # clouds.add(new_cloud)
-        # all_sprites.add(new_cloud)
-
-    # Get the set of keys pressed and check for user input
     pressed_keys = pygame.key.get_pressed()
     player.update(pressed_keys)
 
-    # Update the position of our enemies and clouds
-    enemies.update()
+    # choose random directions and random enemy to move that direction
+    direction_horizontal = random.choice(["left", "right"])
+    direction_vertical = random.choice(["up", "down"])
+    move_this_snake = random.choice([snake_1, snake_2, snake_3, snake_4])
+    move_this_ghoul = random.choice([ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4])
 
+    # move snakes in random direction within boundaries every 8 fps
+    if pygame.time.get_ticks() % 8 == 0:
+        move_this_snake.update([50, 300], [150, 300], direction_horizontal, direction_vertical)
+        move_this_ghoul.update([650, 900], [150, 300], direction_horizontal, direction_vertical)
+
+    # draw screen 1 background
     screen.blit(seldon_district_bg, (0, 0))
 
-    # Draw all our sprites
+    # draw sprites
     for entity in all_sprites:
         screen.blit(entity.surf, entity.rect)
 
-    # Check if any enemies have collided with the player
+    # check enemy collision with the player
     if pygame.sprite.spritecollideany(player, enemies):
         print("lol")
 
-    # Flip everything to the display
+    # flip to display
     pygame.display.flip()
 
-    # Ensure we maintain a 30 frames per second rate
+    # 30 frames per second game rate
     clock.tick(30)
 
 # we can stop and quit the mixer
