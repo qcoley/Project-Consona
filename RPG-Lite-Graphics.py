@@ -1,62 +1,90 @@
 import pygame
 import random
-
 from pygame.locals import (RLEACCEL, K_w, K_s, K_a, K_d, K_ESCAPE, KEYDOWN, QUIT, )
 
-# Define constants for the screen width and height
+
+# ----------------------------------------------------------------------------------------------------------------------
+# global variables -----------------------------------------------------------------------------------------------------
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 
 pygame.display.set_caption("RPG-Lite")
+vec = pygame.math.Vector2
+
+# acceleration and friction
+ACC = 0.20
+FRIC = -0.20
 
 
-# Define the Player object extending pygame.sprite.Sprite
+# ----------------------------------------------------------------------------------------------------------------------
+# class objects --------------------------------------------------------------------------------------------------------
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
         self.surf = pygame.image.load("character_art/stan.png").convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-        self.rect = self.surf.get_rect(center=(70, 700))
+        self.rect = self.surf.get_rect()
+        self.pos = vec((75, 725))
+
+        # velocity and acceleration vectors for movement physics
+        self.vel = vec(0, 0)
+        self.acc = vec(0, 0)
 
     # move the character sprite based on key presses
-    def update(self, pressed_keyes):
+    def update(self, pressed_keyes, current_zone):
 
-        if pressed_keys[K_w]:
-            if pygame.sprite.spritecollideany(player, environment_objects):
-                self.rect.move_ip(0, 10)
+        # setting acceleration vector on player update frame
+        self.acc = vec(0, 0)
 
-            self.rect.move_ip(0, -2)
+        # control acceleration based on user keys pressed from input parameter -----------------------------------------
+        if pressed_keyes[K_w]:
+            self.acc.y = -ACC
 
-        if pressed_keys[K_s]:
-            if pygame.sprite.spritecollideany(player, environment_objects):
-                self.rect.move_ip(0, -2)
+        if pressed_keyes[K_s]:
+            self.acc.y = ACC
 
-            self.rect.move_ip(0, 2)
+        if pressed_keyes[K_a]:
+            self.acc.x = -ACC
 
-        if pressed_keys[K_a]:
-            if pygame.sprite.spritecollideany(player, environment_objects):
-                self.rect.move_ip(4, 0)
+        if pressed_keyes[K_d]:
+            self.acc.x = ACC
 
-            self.rect.move_ip(-2, 0)
+        # Keep player on the screen ------------------------------------------------------------------------------------
+        if current_zone == "seldon":
+            if self.pos.x < 25:
+                self.pos.x = 25
 
-        if pressed_keys[K_d]:
-            if pygame.sprite.spritecollideany(player, environment_objects):
-                self.rect.move_ip(-4, 0)
+            elif self.pos.x > SCREEN_WIDTH - 115:
+                self.pos.x = SCREEN_WIDTH - 115
 
-            self.rect.move_ip(2, 0)
+            if self.pos.y <= 115:
+                self.pos.y = 115
 
-        # Keep player on the screen
-        if self.rect.left < 0:
-            self.rect.left = 0
+            elif self.pos.y >= SCREEN_HEIGHT - 5:
+                self.pos.y = SCREEN_HEIGHT - 5
 
-        elif self.rect.right > SCREEN_WIDTH:
-            self.rect.right = SCREEN_WIDTH
+        # equations and update player movement based on vectors --------------------------------------------------------
+        self.acc.x += self.vel.x * FRIC
+        self.acc.y += self.vel.y * FRIC
+        self.vel += self.acc
+        self.pos += self.vel + 0.5 * self.acc
+        self.rect.midbottom = self.pos
 
-        if self.rect.top <= 0:
-            self.rect.top = 0
+        # collision detection with environment objects (trees, buildings, etc) -----------------------------------------
+        if pygame.sprite.spritecollide(player, environment_objects, False):
 
-        elif self.rect.bottom >= SCREEN_HEIGHT:
-            self.rect.bottom = SCREEN_HEIGHT
+            # create normal force by applying velocity opposite direction player is trying to move on colliding
+            if pressed_keyes[K_w]:
+                player.vel.y = + .46
+
+            if pressed_keyes[K_s]:
+                player.vel.y = - .46
+
+            if pressed_keyes[K_a]:
+                player.vel.x = + .46
+
+            if pressed_keyes[K_d]:
+                player.vel.x = - .46
 
 
 class NPC(pygame.sprite.Sprite):
@@ -72,23 +100,17 @@ class NPC(pygame.sprite.Sprite):
         self.dialog = dialog
         self.quest = quest
         self.quest_description = quest_description
-
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
-
         self.alive_status = alive_status
         self.quest_complete = quest_complete
-
         self.items = items
         self.gift = gift
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
-
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
 
-# Define the enemy object extending pygame.sprite.Sprite
 class Enemy(pygame.sprite.Sprite):
 
     def __init__(self, kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color):
@@ -102,10 +124,8 @@ class Enemy(pygame.sprite.Sprite):
         self.y_coordinate = y_coordinate
         self.alive_status = alive_status
         self.items = items
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
-
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.speed = 1
 
@@ -146,26 +166,8 @@ class Tree(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.gathered = gathered
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
-
-        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
-
-
-class Water(pygame.sprite.Sprite):
-
-    def __init__(self, name, model, x_coordinate, y_coordinate, image, color):
-        super(Water, self).__init__()
-
-        self.name = name
-        self.model = model
-        self.x_coordinate = x_coordinate
-        self.y_coordinate = y_coordinate
-
-        self.surf = pygame.image.load(image).convert()
-        self.surf.set_colorkey(color, RLEACCEL)
-
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
 
@@ -178,10 +180,8 @@ class Building(pygame.sprite.Sprite):
         self.model = model
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
-
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
 
@@ -213,15 +213,18 @@ class Building(pygame.sprite.Sprite):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-seldon_district_bg = pygame.image.load("background_textures/seldon_district.png")
-
 pygame.mixer.init()
 pygame.init()
-
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+seldon_district_bg = pygame.image.load("background_textures/seldon_district.png")
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# creating objects from defined classes --------------------------------------------------------------------------------
 player = Player()
+
 
 # NPC: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate,
 #                  alive_status, quest_complete, items, gift, image, color
@@ -234,7 +237,7 @@ npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "some gear. \n\nWhy don't you go and test it out? There's some snakes nearby that have been coming up "
                 "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
                 "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
-                "trouble. ", 225, 550, True, False, ["Items to be added for thief steal"], False,
+                "trouble. ", 225, 500, True, False, ["Items to be added for thief steal"], False,
                 "character_art/NPCs/garan.png", (255, 255, 255))
 
 npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
@@ -246,7 +249,7 @@ npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We nee
                    "The most recent wave of attacks from\nthe castle has left several damages to our village, "
                    "and if you are able, please gather\nresources and bring them to me to distribute to the "
                    "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
-                   "trees just west of here. Nera bless you. ", 625, 500, True, False,
+                   "trees just west of here. Nera bless you. ", 715, 525, True, False,
                    ["Items to be added for thief steal"], False,
                    "character_art/NPCs/maurelle.png", (255, 255, 255))
 
@@ -261,6 +264,7 @@ npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish G
                 False, ["Items to be added for thief steal"], False,
                 "character_art/NPCs/guard.png", (255, 255, 255))
 
+
 # ----------------------------------------------------------------------------------------------------------------------
 # Enemy: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color --------------------
 snake_1 = Enemy("snake", 100, 100, 1, 100, 150, True, "shiny rock", "enemy_art/snake.png", (255, 255, 255))
@@ -274,33 +278,17 @@ ghoul_low_3 = Enemy("ghoul", 100, 100, 3, 760, 260, True, "bone dust", "enemy_ar
 ghoul_low_4 = Enemy("ghoul", 100, 100, 4, 875, 225, True, "bone dust", "enemy_art/ghoul.png", (255, 255, 255))
 
 # Tree: name, model, x_coordinate, y_coordinate, gathered, image, color ------------------------------------------------
-pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 570, False, "environment_art/pine_tree.png", (255, 255, 255))
-pine_tree_2 = Tree("pine tree 2", "pine tree", 180, 420, False, "environment_art/pine_tree.png", (255, 255, 255))
-pine_tree_4 = Tree("pine tree 4", "pine tree", 280, 660, False, "environment_art/pine_tree.png", (255, 255, 255))
-pine_tree_5 = Tree("pine tree 5", "pine tree", 380, 480, False, "environment_art/pine_tree.png", (255, 255, 255))
+pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 475, False, "environment_art/pine_tree.png", (255, 255, 255))
+pine_tree_2= Tree("pine tree 4", "pine tree", 280, 660, False, "environment_art/pine_tree.png", (255, 255, 255))
+pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 425, False, "environment_art/pine_tree.png", (255, 255, 255))
 
-# Water: name, model, x_coordinate, y_coordinate, image, color ---------------------------------------------------------
-rohir_river_1 = Water("rohir river 1", "rohir river", 75, 50, "environment_art/rohir_river.png", (255, 255, 255))
-rohir_river_2 = Water("rohir river 2", "rohir river", 225, 50, "environment_art/rohir_river.png", (255, 255, 255))
-rohir_river_3 = Water("rohir river 3", "rohir river", 375, 50, "environment_art/rohir_river.png", (255, 255, 255))
-rohir_river_4 = Water("rohir river 4", "rohir river", 675, 50, "environment_art/rohir_river.png", (255, 255, 255))
-rohir_river_5 = Water("rohir river 5", "rohir river", 825, 50, "environment_art/rohir_river.png", (255, 255, 255))
-rohir_river_6 = Water("rohir river 5", "rohir river", 975, 50, "environment_art/rohir_river.png", (255, 255, 255))
 
 # Buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-rohir_river_gate = Building("rohir river gate", "river gate", 525, 50, "environment_art/rohir_gate_bridge.png",
-                            (255, 255, 255))
-
-castle_wall_1 = Building("castle wall 1", "castle wall", 975, 695, "environment_art/castle_wall.png", (255, 255, 255))
-castle_wall_2 = Building("castle wall 2", "castle wall", 975, 550, "environment_art/castle_wall.png", (255, 255, 255))
-castle_wall_3 = Building("castle wall 3", "castle wall", 975, 400, "environment_art/castle_wall.png", (255, 255, 255))
-castle_wall_4 = Building("castle wall 4", "castle wall", 975, 250, "environment_art/castle_wall.png", (255, 255, 255))
-castle_wall_5 = Building("castle wall 5", "castle wall", 975, 175, "environment_art/castle_wall.png", (255, 255, 255))
-
-amuna_inn = Building("amuna inn", "amuna building", 650, 675, "environment_art/amuna_building.png", (255, 255, 255))
-amuna_shop = Building("amuna shop", "amuna building", 720, 450, "environment_art/amuna_building.png", (255, 255, 255))
-amuna_academia = Building("amuna academia", "amuna building", 850, 595, "environment_art/amuna_building.png",
+amuna_inn = Building("amuna inn", "amuna building", 600, 625, "environment_art/amuna_building.png", (255, 255, 255))
+amuna_shop = Building("amuna shop", "amuna building", 700, 400, "environment_art/amuna_building.png", (255, 255, 255))
+amuna_academia = Building("amuna academia", "amuna building", 875, 540, "environment_art/amuna_building.png",
                           (255, 255, 255))
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # groups for sprites ---------------------------------------------------------------------------------------------------
@@ -312,19 +300,18 @@ buildings = pygame.sprite.Group()
 environment_objects = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 
-# adding sprite objects to groups
+# adding sprite objects to groups --------------------------------------------------------------------------------------
 npcs.add(npc_garan, npc_maurelle, npc_guard)
 enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
-trees.add(pine_tree_1, pine_tree_2, pine_tree_4, pine_tree_5)
-water.add(rohir_river_1, rohir_river_2, rohir_river_3, rohir_river_4, rohir_river_5, rohir_river_6)
-buildings.add(rohir_river_gate, amuna_inn, castle_wall_1, castle_wall_2, castle_wall_3, castle_wall_4, castle_wall_5,
-              amuna_shop, amuna_academia)
+trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
+buildings.add(amuna_inn, amuna_shop, amuna_academia)
 
-# all environment sprites for collision detection
-environment_objects.add(trees, water, buildings)
+
+# all environment sprites for collision detection ----------------------------------------------------------------------
+environment_objects.add(trees, buildings)
 
 # adding all sprites to game screen
-all_sprites.add(player, npcs, enemies, trees, water, buildings)
+all_sprites.add(npcs, enemies, trees, buildings)
 
 # pygame.mixer.music.load("Apoxode_-_Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
@@ -340,17 +327,24 @@ all_sprites.add(player, npcs, enemies, trees, water, buildings)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# Variable to keep our main loop running -------------------------------------------------------------------------------
+# main game loop -------------------------------------------------------------------------------------------------------
 running = True
+
+# what zone the player is in, used for player update and map boundaries
+zone_seldon = True
+zone_korlok = False
+zone_eldream = False
+zone_marrow = False
 
 # Our main loop
 while running:
 
+    # switches between 1 and 0 to select a left or right direction for enemy sprite to move
     enemy_switch = 1
 
     for event in pygame.event.get():
-
         if event.type == KEYDOWN:
+
             if event.key == K_ESCAPE:
                 running = False
 
@@ -358,7 +352,15 @@ while running:
             running = False
 
     pressed_keys = pygame.key.get_pressed()
-    player.update(pressed_keys)
+
+    if zone_seldon:
+        player.update(pressed_keys, "seldon")
+    if zone_korlok:
+        player.update(pressed_keys, "korlok")
+    if zone_eldream:
+        player.update(pressed_keys, "eldream")
+    if zone_marrow:
+        player.update(pressed_keys, "marrow")
 
     # choose random directions and random enemy to move that direction
     direction_horizontal = random.choice(["left", "right"])
@@ -366,8 +368,8 @@ while running:
     move_this_snake = random.choice([snake_1, snake_2, snake_3, snake_4])
     move_this_ghoul = random.choice([ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4])
 
-    # move snakes in random direction within boundaries every 8 fps
-    if pygame.time.get_ticks() % 8 == 0:
+    # move snakes in random direction within boundaries every 20 fps
+    if pygame.time.get_ticks() % 20 == 0:
         move_this_snake.update([50, 300], [150, 300], direction_horizontal, direction_vertical)
         move_this_ghoul.update([650, 900], [150, 300], direction_horizontal, direction_vertical)
 
@@ -377,6 +379,7 @@ while running:
     # draw sprites
     for entity in all_sprites:
         screen.blit(entity.surf, entity.rect)
+    screen.blit(player.surf, player.rect)
 
     # check enemy collision with the player
     if pygame.sprite.spritecollideany(player, enemies):
@@ -386,7 +389,7 @@ while running:
     pygame.display.flip()
 
     # 30 frames per second game rate
-    clock.tick(30)
+    clock.tick(60)
 
 # we can stop and quit the mixer
 pygame.mixer.music.stop()
