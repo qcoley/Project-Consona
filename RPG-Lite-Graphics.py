@@ -24,7 +24,7 @@ class Player(pygame.sprite.Sprite):
         self.surf = pygame.image.load("character_art/stan.png").convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect()
-        self.pos = vec((75, 725))
+        self.pos = vec((130, 670))
 
         # velocity and acceleration vectors for movement physics
         self.vel = vec(0, 0)
@@ -185,6 +185,34 @@ class Building(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
 
+class UiElement(pygame.sprite.Sprite):
+
+    def __init__(self, name, x_coordinate, y_coordinate, image, color, update_flag):
+        super(UiElement, self).__init__()
+
+        self.name = name
+        self.x_coordinate = x_coordinate
+        self.y_coordinate = y_coordinate
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey(color, RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+        self.update_flag = update_flag
+
+
+class Inventory(pygame.sprite.Sprite):
+
+    def __init__(self, contains, x_coordinate, y_coordinate, image, color, update_flag):
+        super(Inventory, self).__init__()
+
+        self.contains = contains
+        self.x_coordinate = x_coordinate
+        self.y_coordinate = y_coordinate
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey(color, RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+        self.update_flag = update_flag
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # gameplay functions ---------------------------------------------------------------------------------------------------
 
@@ -237,7 +265,7 @@ npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "some gear. \n\nWhy don't you go and test it out? There's some snakes nearby that have been coming up "
                 "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
                 "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
-                "trouble. ", 225, 500, True, False, ["Items to be added for thief steal"], False,
+                "trouble. ", 230, 470, True, False, ["Items to be added for thief steal"], False,
                 "character_art/NPCs/garan.png", (255, 255, 255))
 
 npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
@@ -249,7 +277,7 @@ npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We nee
                    "The most recent wave of attacks from\nthe castle has left several damages to our village, "
                    "and if you are able, please gather\nresources and bring them to me to distribute to the "
                    "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
-                   "trees just west of here. Nera bless you. ", 715, 525, True, False,
+                   "trees just west of here. Nera bless you. ", 700, 550, True, False,
                    ["Items to be added for thief steal"], False,
                    "character_art/NPCs/maurelle.png", (255, 255, 255))
 
@@ -279,9 +307,8 @@ ghoul_low_4 = Enemy("ghoul", 100, 100, 4, 875, 225, True, "bone dust", "enemy_ar
 
 # Tree: name, model, x_coordinate, y_coordinate, gathered, image, color ------------------------------------------------
 pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 475, False, "environment_art/pine_tree.png", (255, 255, 255))
-pine_tree_2= Tree("pine tree 4", "pine tree", 280, 660, False, "environment_art/pine_tree.png", (255, 255, 255))
+pine_tree_2 = Tree("pine tree 4", "pine tree", 280, 660, False, "environment_art/pine_tree.png", (255, 255, 255))
 pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 425, False, "environment_art/pine_tree.png", (255, 255, 255))
-
 
 # Buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
 amuna_inn = Building("amuna inn", "amuna building", 600, 625, "environment_art/amuna_building.png", (255, 255, 255))
@@ -289,6 +316,15 @@ amuna_shop = Building("amuna shop", "amuna building", 700, 400, "environment_art
 amuna_academia = Building("amuna academia", "amuna building", 875, 540, "environment_art/amuna_building.png",
                           (255, 255, 255))
 
+# UI Elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
+inventory_button = UiElement("inventory button", 960, 730, "buttons/inventory.png", (255, 255, 255), False)
+character_button = UiElement("character button", 850, 730, "buttons/character.png", (255, 255, 255), False)
+journal_button = UiElement("journal button", 740, 730, "buttons/journal.png", (255, 255, 255), False)
+hp_bar = UiElement("hp bar", 170, 715, "bars/hp_bar.png", (255, 255, 255), False)
+en_bar = UiElement("en bar", 170, 730, "bars/en_bar.png", (255, 255, 255), False)
+xp_bar = UiElement("xp bar", 170, 745, "bars/xp_bar.png", (255, 255, 255), False)
+
+inventory = Inventory(["item 1", "item 2"], 890, 570, "UiElements/inventory.png", (255, 255, 255), False)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # groups for sprites ---------------------------------------------------------------------------------------------------
@@ -298,6 +334,7 @@ trees = pygame.sprite.Group()
 water = pygame.sprite.Group()
 buildings = pygame.sprite.Group()
 environment_objects = pygame.sprite.Group()
+user_interface = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 
 # adding sprite objects to groups --------------------------------------------------------------------------------------
@@ -305,6 +342,7 @@ npcs.add(npc_garan, npc_maurelle, npc_guard)
 enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 buildings.add(amuna_inn, amuna_shop, amuna_academia)
+user_interface.add(inventory_button, character_button, journal_button, hp_bar, en_bar, xp_bar)
 
 
 # all environment sprites for collision detection ----------------------------------------------------------------------
@@ -336,20 +374,61 @@ zone_korlok = False
 zone_eldream = False
 zone_marrow = False
 
-# Our main loop
+# list to contain clicked UI elements
+display_elements = []
+
+# main loop
 while running:
 
     # switches between 1 and 0 to select a left or right direction for enemy sprite to move
     enemy_switch = 1
 
+    # condition to check if inventory button is clicked
+    inventory_clicked = False
+
+    # draw screen 1 background
+    screen.blit(seldon_district_bg, (0, 0))
+
+    # draw sprites
+    for entity in all_sprites:
+        screen.blit(entity.surf, entity.rect)
+
+    screen.blit(player.surf, player.rect)
+
+    for ui_element in user_interface:
+        screen.blit(ui_element.surf, ui_element.rect)
+
+    # get ui windows from clicked display elements and show or blit to screen
+    for window in display_elements:
+        screen.blit(window.surf, window.rect)
+
+    # ------------------------------------------------------------------------------------------------------------------
+    # user input events such as key presses or UI interaction
     for event in pygame.event.get():
         if event.type == KEYDOWN:
 
             if event.key == K_ESCAPE:
                 running = False
 
+        if event.type == pygame.MOUSEBUTTONUP:
+            pos = pygame.mouse.get_pos()
+
+            # get a list of all sprites that are under the mouse cursor
+            clicked_element = [element for element in user_interface if element.rect.collidepoint(pos)]
+
+            # try to get UI element user clicked on and set condition to True if corresponding button is clicked
+            try:
+                if clicked_element[0].__getattribute__("name") == "inventory button":
+                    inventory_clicked = True
+
+            except IndexError as error:
+                pass
+
         elif event.type == QUIT:
             running = False
+
+    if inventory_clicked:
+        display_elements.append(inventory)
 
     pressed_keys = pygame.key.get_pressed()
 
@@ -373,14 +452,6 @@ while running:
         move_this_snake.update([50, 300], [150, 300], direction_horizontal, direction_vertical)
         move_this_ghoul.update([650, 900], [150, 300], direction_horizontal, direction_vertical)
 
-    # draw screen 1 background
-    screen.blit(seldon_district_bg, (0, 0))
-
-    # draw sprites
-    for entity in all_sprites:
-        screen.blit(entity.surf, entity.rect)
-    screen.blit(player.surf, player.rect)
-
     # check enemy collision with the player
     if pygame.sprite.spritecollideany(player, enemies):
         print("lol")
@@ -388,7 +459,7 @@ while running:
     # flip to display
     pygame.display.flip()
 
-    # 30 frames per second game rate
+    # 60 frames per second game rate
     clock.tick(60)
 
 # we can stop and quit the mixer
