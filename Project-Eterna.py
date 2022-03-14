@@ -1,9 +1,11 @@
-import pygame
 import random
-from pygame.locals import (RLEACCEL, K_w, K_s, K_a, K_d, K_ESCAPE, KEYDOWN, QUIT, )
+import time
+import pygame
+from pygame.locals import (RLEACCEL, K_w, K_s, K_a, K_d, K_ESCAPE, KEYDOWN, QUIT)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # global variables -----------------------------------------------------------------------------------------------------
+
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
 
@@ -79,7 +81,7 @@ class Player(pygame.sprite.Sprite):
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = ACC
 
-        # Keep player on the screen ------------------------------------------------------------------------------------
+        # Keep player on the screen, boundaries vary depending on current zone -----------------------------------------
         if current_zone == "seldon":
             if self.pos.x < 25:
                 self.pos.x = 25
@@ -101,7 +103,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.midbottom = self.pos
 
         # collision detection with environment objects (trees, buildings, etc) -----------------------------------------
-        if pygame.sprite.spritecollide(player, environment_objects, False):
+        if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.75)):
 
             # create normal force by applying velocity opposite direction player is trying to move on colliding
             if pressed_keyes[K_w]:
@@ -259,7 +261,7 @@ class Notification(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
 
-# to create a representation of player character for battle screen
+# to create a representation of character for battle screen
 class BattleCharacter(pygame.sprite.Sprite):
     def __init__(self, name, x_coordinate, y_coordinate, image, color):
         super(BattleCharacter, self).__init__()
@@ -270,23 +272,46 @@ class BattleCharacter(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
+    def update(self, image):
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
-# to create a representation of enemy for battle screen
-class BattleEnemy(pygame.sprite.Sprite):
-    def __init__(self, name, x_coordinate, y_coordinate, image, color):
-        super(BattleEnemy, self).__init__()
+
+class Item(pygame.sprite.Sprite):
+
+    def __init__(self, name, model, x_coordinate, y_coordinate, image, color):
+        super(Item, self).__init__()
+
         self.name = name
+        self.model = model
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
+    def update(self, x_coord, y_coord, image):
+        self.x_coordinate = x_coord
+        self.y_coordinate = y_coord
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # gameplay functions ---------------------------------------------------------------------------------------------------
 
 def attack_scenario(enemy_combating, combat_event):
+    # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
+    combat_event_dictionary = {
+        "damage done": 0,
+        "damage taken": 0,
+        "item dropped": "",
+        "experience gained": 0,
+        "quest update": "",
+        "enemy defeated": False,
+        "escaped": False
+    }
     if combat_event == "attack":
 
         if enemy_combating.alive_status:
@@ -299,31 +324,34 @@ def attack_scenario(enemy_combating, combat_event):
             # if enemy is not dead yet
             if enemy_combating.health > 0:
 
-                print(f"\nYou did {attacked_enemy} damage to the {enemy_combating.kind}, "
-                      f"who's health is now {enemy_combating.health}/100.")
+                attacked_enemy_string = f" You did {attacked_enemy} damage to {enemy_combating.name}."
+
+                # add damage to enemy to event dictionary to be returned to main loop ------------------------------
+                combat_event_dictionary["damage done"] = attacked_enemy_string
 
                 # returns total damage output from enemy as attacked_player value
                 attacked_player = attack_player()
                 if attacked_player > 0:
-                    print(
-                        f'\nOuch! The {enemy_combating.kind} retaliates and damages you for '
-                        f'{attacked_player}.')
+                    attacked_player_string = f"You take {attacked_player} damage from {enemy_combating.name}."
                     player.health = player.health - attacked_player
 
-                    if player.health > 0:
-                        print(f"\nYour health is now: {player.health}/100.")
+                    # add damage done to player from enemy to dictionary -------------------------------------------
+                    combat_event_dictionary["damage taken"] = attacked_player_string
 
-                    else:  # your health is zero and you're dead
-                        print("\n*** You've suffered a fatality ***")
+                    # enemy has defeated player, game over
+                    if player.health < 0:
                         player.alive_status = False
                         player.kill()
 
-                        print("| * Oh dear, you are dead! Try again.")
+                    return combat_event_dictionary
 
                 else:
-                    print(
-                        f'\nThe {enemy_combating.kind} '
-                        f'attempted to retaliate, but missed and did no damage!')
+                    enemy_miss_string = f'{enemy_combating.name} missed.'
+
+                    # add to dictionary that enemy did no damage to player -----------------------------------------
+                    combat_event_dictionary["damage taken"] = enemy_miss_string
+
+                    return combat_event_dictionary
 
             # enemy has been defeated, will return an amount of xp based on current levels
             else:
@@ -333,45 +361,60 @@ def attack_scenario(enemy_combating, combat_event):
                     if player.quest == "Stupid Snakes":
                         if player.quest_status < 4:
                             player.quest_status = player.quest_status + 1
-                            print(
-                                f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
+                            quest_string = f"*** {player.quest_status}/4 snakes for [{player.quest}] quest ***"
+
+                            # add to dictionary player quest updates if enemy was an objective of quest for player -
+                            combat_event_dictionary["quest update"] = quest_string
+                else:
+                    combat_event_dictionary["quest update"] = "No quest"
 
                 # if player is on quest to kill snakes from Garan
                 if enemy_combating.kind == "ghoul":
                     if player.quest == "Ghoulish Glee":
                         if player.quest_status < 4:
                             player.quest_status = player.quest_status + 1
-                            print(
-                                f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
+                            quest_string = f"*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***"
+
+                            # add to dictionary player quest updates if enemy was an objective of quest for player -
+                            combat_event_dictionary["quest update"] = quest_string
+                else:
+                    combat_event_dictionary["quest update"] = "No"
 
                 # only gain experience from enemies equal or higher level
                 if player.level <= enemy_combating.level:
                     experience = int((enemy_combating.level / player.level) * 5)
                     player.experience = player.experience + experience
-                    print(
-                        f"\nYou killed the {enemy_combating.kind} and gained {experience} experience!\n")
-                    print(f"Your current experience is {player.experience}/100")
+
+                    enemy_experience = f"Gained {experience} experience."
+
+                    # add to dictionary experience given from defeating enemy --------------------------------------
+                    combat_event_dictionary["experience gained"] = enemy_experience
 
                 drop_chance = random.randrange(1, 10)
 
                 # 70% chance to drop merchant item
                 if drop_chance > 3:
                     player.items.append(enemy_combating.items)
-                    print(f"\nThe {enemy_combating.kind} dropped a [{enemy_combating.items}], "
-                          f"which has been added to your "
-                          f"inventory. \n")
+
+                    enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]. "
+
+                    # add to dictionary anything dropped from enemy upon their defeat ------------------------------
+                    combat_event_dictionary["item dropped"] = enemy_dropped_this
+
+                else:
+                    combat_event_dictionary["item dropped"] = "No"
 
                 # player will level up (see level up method)
                 if player.experience > 100:
                     level_up()
 
-                # doesn't work correctly atm
-                # player.equipment[2] = original_player_gear_type
-
                 enemy_combating.alive_status = False
                 enemy_combating.kill()
 
-                return True
+                # add to dictionary True if enemy has been defeated so scenario will end ---------------------------
+                combat_event_dictionary["enemy defeated"] = True
+
+                return combat_event_dictionary
 
         else:
             print("\nThis enemy appears to be dead already!")
@@ -381,13 +424,23 @@ def attack_scenario(enemy_combating, combat_event):
         escape_chance = random.randrange(35, 75)
         if escape_chance > 50:
 
-            print("\nYou escaped safely!")
-            return True
+            # add dialog for escape if successful. just overwrites first message in dictionary
+            combat_event_dictionary["damage done"] = "You got away safely."
+
+            # boolean to add to dictionary and return to main function if escape was successful
+            combat_event_dictionary["escaped"] = True
+
+            return combat_event_dictionary
 
         else:
 
-            print(f"\nThe {enemy.kind} blocked your escape!")
-            return False
+            # add dialog for escape if not successful. just overwrites first message in dictionary
+            combat_event_dictionary["damage done"] = f"{enemy_combating.name} blocked your escape."
+
+            # boolean to add to dictionary and return to main function if escape was successful
+            combat_event_dictionary["escaped"] = False
+
+            return combat_event_dictionary
 
 
 def npc_interaction_scenario(npc):
@@ -2045,11 +2098,13 @@ seldon_district_battle = pygame.image.load("art/environment_art/background_textu
 # display notifications to user (shown, x_coordinate, y_coordinate, image, color) --------------------------------------
 greeting = Notification("greeting", False, 500, 325, "art/ui_elements/notifications/welcome.png", (255, 255, 255))
 
+# ----------------------------------------------------------------------------------------------------------------------
+# inventory items ------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------
 # creating objects from defined classes --------------------------------------------------------------------------------
 player = Player("Player", "male", "amuna", "mage",  # name, gender, race, role
-                ["health potion", "energy potion"],  # inventory
+                [],  # inventory
                 ["magic", "purple staff", "light", "evergreen robes"],  # equipment ('type', 'name')
                 [""], 0,  # quest, # quest status
                 ["vitality", 1, "intellect", 3, "strength", 1, "wisdom", 2],  # stats ('stat', 'amount')
@@ -2096,22 +2151,26 @@ npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish G
 
 # ----------------------------------------------------------------------------------------------------------------------
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color ------------------
-snake_1 = Enemy("snake", "snake", 100, 100, 1, 100, 150, True, "shiny rock", "art/enemy_art/snake.png",
-                (255, 255, 255))
-snake_2 = Enemy("snake", "snake", 100, 100, 2, 260, 170, True, "shiny rock", "art/enemy_art/snake.png",
-                (255, 255, 255))
-snake_3 = Enemy("snake", "snake", 100, 100, 1, 100, 250, True, "shiny rock", "art/enemy_art/snake.png",
-                (255, 255, 255))
-snake_4 = Enemy("snake", "snake", 100, 100, 2, 260, 270, True, "shiny rock", "art/enemy_art/snake.png",
-                (255, 255, 255))
+snake_1 = Enemy("Snake", "snake", 100, 100, 1, 100, 150, True, Item("shiny rock", "rock", 200, 200,
+                                                                    "art/item_art/shiny_rock.png", (255, 255, 255)),
+                "art/enemy_art/snake.png", (255, 255, 255))
+snake_2 = Enemy("Snake", "snake", 100, 100, 2, 260, 170, True, Item("shiny rock", "rock", 200, 200,
+                                                                    "art/item_art/shiny_rock.png", (255, 255, 255)),
+                "art/enemy_art/snake.png", (255, 255, 255))
+snake_3 = Enemy("Snake", "snake", 100, 100, 1, 100, 250, True, Item("shiny rock", "rock", 200, 200,
+                                                                    "art/item_art/shiny_rock.png", (255, 255, 255)),
+                "art/enemy_art/snake.png", (255, 255, 255))
+snake_4 = Enemy("Snake", "snake", 100, 100, 2, 260, 270, True, Item("shiny rock", "rock", 200, 200,
+                                                                    "art/item_art/shiny_rock.png", (255, 255, 255)),
+                "art/enemy_art/snake.png", (255, 255, 255))
 
-ghoul_low_1 = Enemy("ghoul", "ghoul", 100, 100, 4, 675, 200, True, "bone dust", "art/enemy_art/ghoul.png",
+ghoul_low_1 = Enemy("Ghoul", "ghoul", 100, 100, 4, 675, 200, True, "bone dust", "art/enemy_art/ghoul.png",
                     (255, 255, 255))
-ghoul_low_2 = Enemy("ghoul", "ghoul", 100, 100, 5, 800, 150, True, "bone dust", "art/enemy_art/ghoul.png",
+ghoul_low_2 = Enemy("Ghoul", "ghoul", 100, 100, 5, 800, 150, True, "bone dust", "art/enemy_art/ghoul.png",
                     (255, 255, 255))
-ghoul_low_3 = Enemy("ghoul", "ghoul", 100, 100, 3, 760, 260, True, "bone dust", "art/enemy_art/ghoul.png",
+ghoul_low_3 = Enemy("Ghoul", "ghoul", 100, 100, 3, 760, 260, True, "bone dust", "art/enemy_art/ghoul.png",
                     (255, 255, 255))
-ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 875, 225, True, "bone dust", "art/enemy_art/ghoul.png",
+ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 4, 875, 225, True, "bone dust", "art/enemy_art/ghoul.png",
                     (255, 255, 255))
 
 # trees: name, model, x_coordinate, y_coordinate, gathered, image, color -----------------------------------------------
@@ -2150,10 +2209,9 @@ xp_bar = UiElement("xp bar", 170, 65, "art/ui_elements/bars/xp/xp_bar_full.png",
 enemy_hp_bar = UiElement("enemy hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png",
                          (255, 255, 255), False)
 
-inventory = Inventory(["item 1", "item 2"], 890, 525, "art/ui_elements/inventory.png", (255, 255, 255), False)
+inventory = Inventory([], 890, 525, "art/ui_elements/inventory.png", (255, 255, 255), False)
 
 message_box = UiElement("message_box", 175, 705, "art/ui_elements/message_box.png", (255, 255, 255), False)
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 # battle sprites -------------------------------------------------------------------------------------------------------
@@ -2161,18 +2219,17 @@ stan_battle_sprite = BattleCharacter("stan battle", 300, 460,
                                      "art/character_art/player_character/default/battle/stan_battle.png",
                                      (255, 255, 255))
 
-snake_battle_sprite = BattleEnemy("snake battle", 700, 250,
-                                  "art/enemy_art/battle/snake_battle.png",
-                                  (255, 255, 255))
+snake_battle_sprite = BattleCharacter("snake battle", 700, 250,
+                                      "art/enemy_art/battle/snake_battle.png",
+                                      (255, 255, 255))
 
-ghoul_battle_sprite = BattleEnemy("ghoul battle", 700, 250,
-                                  "art/enemy_art/battle/ghoul_battle.png",
-                                  (255, 255, 255))
+ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250,
+                                      "art/enemy_art/battle/ghoul_battle.png",
+                                      (255, 255, 255))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # setting font and size for text to screen updates ---------------------------------------------------------------------
-font = pygame.font.Font('freesansbold.ttf', 14)
-
+font = pygame.font.SysFont('calibri', 16, bold=True, italic=False)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # groups for sprites ---------------------------------------------------------------------------------------------------
@@ -2218,6 +2275,12 @@ all_sprites.add(npcs, enemies, trees, buildings)
 # condition to allow or block player movement (combat or npc interaction)
 movement_able = True
 
+# condition for battle sequences so that buttons can't be spam clicked
+click_able = True
+
+# condition to check if combat occurred on current game loop iteration to update sprites at end of loop
+combat_happened = False
+
 # condition to check if inventory button is clicked
 inventory_clicked = False
 
@@ -2227,11 +2290,18 @@ zone_korlok = False
 zone_eldream = False
 zone_marrow = False
 
-# list to contain clicked UI elements
+# list to contain clicked UI elements for display
 display_elements = []
 
-# combat text string to be updated on scenario
-combat_text = "you did damage and took some too"
+# list to contain current player items for display
+player_items = []
+
+# combat text strings to be updated on scenario, shown on UI message box
+# initially set to these default strings but will be overwritten
+info_text_1 = "Project Eterna"
+info_text_2 = "Version 0.1A"
+info_text_3 = ""
+info_text_4 = ""
 
 # main loop
 while player.alive_status:
@@ -2264,6 +2334,10 @@ while player.alive_status:
     for window in display_elements:
         screen.blit(window.surf, window.rect)
 
+    # get item from current items based on players inventory and show or blit to screen with inventory window
+    for item in player_items:
+        screen.blit(item.surf, item.rect)
+
     health_bar_update(player)
     energy_bar_update(player)
     experience_bar_update(player)
@@ -2275,27 +2349,44 @@ while player.alive_status:
     # get current player rupee count and create surf and rectangle to blit to screen
     text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
     text_rupee_rect = text_rupee_surf.get_rect()
-    text_rupee_rect.center = (975, 675)
+    text_rupee_rect.center = (975, 677)
     screen.blit(text_rupee_surf, text_rupee_rect)
 
     # get current player district and create surf and rectangle to blit to screen
     text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
     text_zone_rect = text_zone_surf.get_rect()
-    text_zone_rect.center = (865, 675)
+    text_zone_rect.center = (865, 677)
     screen.blit(text_zone_surf, text_zone_rect)
 
     # get current player district and create surf and rectangle to blit to screen
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
     text_level_rect = text_level_surf.get_rect()
-    text_level_rect.center = (760, 675)
+    text_level_rect.center = (760, 677)
     screen.blit(text_level_surf, text_level_rect)
 
-    # current combat text
-    text_combat_info_surf = font.render(combat_text, True, "black",
-                                        "light yellow")
-    text_combat_info_rect = text_combat_info_surf.get_rect()
-    text_combat_info_rect.center = (150, 675)
-    screen.blit(text_combat_info_surf, text_combat_info_rect)
+    # current combat text, first line
+    text_combat_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
+    text_combat_info_rect_1 = text_combat_info_surf_1.get_rect()
+    text_combat_info_rect_1.center = (140, 680)
+    screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
+
+    # current combat text, second line
+    text_combat_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
+    text_combat_info_rect_2 = text_combat_info_surf_2.get_rect()
+    text_combat_info_rect_2.center = (140, 700)
+    screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
+
+    # current combat text, third line
+    text_combat_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
+    text_combat_info_rect_3 = text_combat_info_surf_3.get_rect()
+    text_combat_info_rect_3.center = (140, 720)
+    screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
+
+    # current combat text, fourth line
+    text_combat_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
+    text_combat_info_rect_4 = text_combat_info_surf_4.get_rect()
+    text_combat_info_rect_4.center = (140, 740)
+    screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
 
     # ------------------------------------------------------------------------------------------------------------------
     # user input events such as key presses or UI interaction
@@ -2321,11 +2412,32 @@ while player.alive_status:
 
                         if len(display_elements) > 0:
                             display_elements.pop(0)
+                            player_items.clear()
 
                     # user clicked inventory button for the first time. show inventory window
                     else:
                         inventory_clicked = True
                         display_elements.insert(0, inventory)
+
+                        # if player has items in their inventory
+                        if len(player.items) > 0:
+                            first_coord = 800
+                            second_coord = 440
+
+                            inventory_counter = 0
+                            # go through player items and assign inventory slots (coordinates) to them
+                            for item in player.items:
+                                if item.name == "shiny rock":
+                                    item.update(first_coord, second_coord, "art/item_art/shiny_rock.png")
+                                    player_items.append(item)
+
+                                # add 75 to the items x-coordinate value so the next item will be added to next slot
+                                first_coord += 60
+
+                                # add 100 to items y coordinate if the first row of (4) slots has been filled
+                                inventory_counter += 1
+                                if inventory_counter % 4 == 0:
+                                    second_coord += 100
 
             except IndexError:
                 pass
@@ -2333,30 +2445,109 @@ while player.alive_status:
         elif event.type == QUIT:
             exit()
 
-        combat_button = combat_event_button(event)
+        if click_able:
+            combat_button = combat_event_button(event)
+            combat_timer_start = time.time()
 
-        # enter combat scenario and attack enemy. will return true if enemy has been defeated and allow movement
-        if combat_button == "attack":
-            enemy = pygame.sprite.spritecollideany(player, enemies)
-            if enemy:
-                combat_text = "updated combat text"
-                if attack_scenario(enemy, "attack") is True:
-                    movement_able = True
+            # Info returned from combat scenario function in form of dictionary ----------------------------------------
+            # "damage done": 0,
+            # "damage taken": 0,
+            # "item dropped": "",
+            # "experience gained": 0,
+            # "quest update": "",
+            # "enemy defeated": False,
+            # "escaped": False
+            # ----------------------------------------------------------------------------------------------------------
 
-        if combat_button == "skill":
-            enemy = pygame.sprite.spritecollideany(player, enemies)
-            if enemy:
-                if attack_scenario(enemy, "skill") is True:
-                    movement_able = True
+            # enter combat scenario and attack enemy. attack_scenario will return all combat info in form of list
+            if combat_button == "attack":
+                stan_battle_sprite.update("art/character_art/player_character/default/battle/"
+                                          "stan_battle_attacking.png")
 
-        # if player chooses run in combat, set their position to determined location which will disengage them
-        # from combat scenario and allow them to move again
-        if combat_button == "run":
-            enemy = pygame.sprite.spritecollideany(player, enemies)
-            if enemy:
-                if attack_scenario(enemy, "run") is True:
-                    movement_able = True
-                    player.pos = vec((500, 300))
+                enemy = pygame.sprite.spritecollideany(player, enemies)
+                if enemy:
+
+                    if enemy.kind == "snake":
+                        snake_battle_sprite.update("art/enemy_art/battle/snake_battle_attacking.png")
+
+                    combat_events = attack_scenario(enemy, "attack")
+                    combat_happened = True
+
+                    # add all combat scenario happenings from function to message box
+                    # if any of the values are currently zero, or no, just return a blank string to message box
+                    if combat_events["damage done"] == 0:
+                        info_text_1 = ""
+                    else:
+                        info_text_1 = str(combat_events["damage done"])
+
+                    if combat_events["damage taken"] == 0:
+                        info_text_2 = ""
+                    else:
+                        info_text_2 = str(combat_events["damage taken"])
+
+                    if combat_events["item dropped"] != "No" and combat_events["enemy defeated"]:
+                        info_text_1 = str(combat_events["item dropped"])
+
+                    if combat_events["experience gained"] != 0 and combat_events["enemy defeated"]:
+                        info_text_2 = str(combat_events["experience gained"])
+
+                    # if player was successful in defeating enemy, combat scenario ends and movement is allowed
+                    # set combat happened to false, allowing iteration to continue without delay from combat animation
+                    if combat_events["enemy defeated"]:
+                        movement_able = True
+                        combat_happened = False
+
+            if combat_button == "skill":
+
+                enemy = pygame.sprite.spritecollideany(player, enemies)
+                if enemy:
+
+                    combat_events = attack_scenario(enemy, "skill")
+
+                    # add all combat scenario happenings from function to message box
+                    # if any of the values are currently zero, or no, just return a blank string to message box
+                    if combat_events["damage done"] == 0:
+                        info_text_1 = ""
+                    else:
+                        info_text_1 = str(combat_events["damage done"])
+
+                    if combat_events["damage taken"] == 0:
+                        info_text_2 = ""
+                    else:
+                        info_text_2 = str(combat_events["damage taken"])
+
+                    if combat_events["item dropped"] == "No":
+                        info_text_1 = ""
+                    else:
+                        info_text_1 = str(combat_events["item dropped"])
+
+                    if combat_events["experience gained"] == 0:
+                        info_text_2 = ""
+                    else:
+                        info_text_2 = str(combat_events["experience gained"])
+
+                    # if player was successful in defeating enemy, combat scenario ends and movement is allowed
+                    if combat_events["enemy defeated"]:
+                        movement_able = True
+                        combat_happened = False
+
+            # if player chooses run in combat, set their position to determined location which will disengage them
+            # from combat scenario and allow them to move again
+            if combat_button == "run":
+
+                enemy = pygame.sprite.spritecollideany(player, enemies)
+                if enemy:
+                    combat_events = attack_scenario(enemy, "run")
+
+                    # if combat scenario returns true that player is able to escape enemy, move player to safe location
+                    # to exit the encounter and re-enable movement
+                    if combat_events["escaped"]:
+                        info_text_1 = str(combat_events["damage done"])
+                        movement_able = True
+                        player.pos = vec((500, 300))
+
+                    else:
+                        info_text_1 = str(combat_events["damage done"])
 
     # get current pressed keys from user and apply zone boundaries depending on current players zone
     pressed_keys = pygame.key.get_pressed()
@@ -2401,7 +2592,8 @@ while player.alive_status:
             move_this_snake.update([50, 300], [150, 300], direction_horizontal, direction_vertical)
             move_this_ghoul.update([650, 900], [150, 300], direction_horizontal, direction_vertical)
 
-    # player rect collides with an enemy rect
+    # ------------------------------------------------------------------------------------------------------------------
+    # player rect collides with an enemy rect --------------------------------------------------------------------------
     enemy = pygame.sprite.spritecollideany(player, enemies)
     if enemy:
 
@@ -2431,16 +2623,20 @@ while player.alive_status:
                 # get current enemy name and create surf and rectangle to blit to screen
                 text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black", "light yellow")
                 text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                text_enemy_name_rect.center = (805, 730)
+                text_enemy_name_rect.center = (800, 732)
                 screen.blit(text_enemy_name_surf, text_enemy_name_rect)
 
                 # get current enemy level and create surf and rectangle to blit to screen
                 text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black", "light yellow")
                 text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                text_enemy_level_rect.center = (910, 730)
+                text_enemy_level_rect.center = (910, 732)
                 screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
-                screen.blit(text_combat_info_surf, text_combat_info_rect)
+                # combat info text for message box. initially blank and updated during combat scenario
+                screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
+                screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
+                screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
+                screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
 
             if enemy.__getattribute__("kind") == "ghoul":
                 screen.blit(seldon_district_battle, (0, 0))
@@ -2459,22 +2655,52 @@ while player.alive_status:
                 # get current enemy name and create surf and rectangle to blit to screen
                 text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black", "light yellow")
                 text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                text_enemy_name_rect.center = (805, 730)
+                text_enemy_name_rect.center = (805, 732)
                 screen.blit(text_enemy_name_surf, text_enemy_name_rect)
 
                 # get current enemy level and create surf and rectangle to blit to screen
                 text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black", "light yellow")
                 text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                text_enemy_level_rect.center = (910, 730)
+                text_enemy_level_rect.center = (910, 732)
                 screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
-                screen.blit(text_combat_info_surf, text_combat_info_rect)
+                # combat info text for message box. initially blank and updated during combat scenario
+                screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
+                screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
+                screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
+                screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
 
-    # flip to display
-    pygame.display.flip()
+    # allow player to click and update sprite to resting when combat didn't happen this turn
+    if not combat_happened:
+        click_able = True
+        stan_battle_sprite.update("art/character_art/player_character/default/battle/stan_battle.png")
+        snake_battle_sprite.update("art/enemy_art/battle/snake_battle.png")
 
-    # 60 frames per second game rate
-    clock.tick(60)
+        # flip to display ----------------------------------------------------------------------------------------------
+        pygame.display.flip()
+
+        # --------------------------------------------------------------------------------------------------------------
+        # 60 frames per second game rate
+        clock.tick(60)
+
+    # if combat happened this turn, don't allow player to click again immediately and update battle sprite to attack
+    if combat_happened:
+        click_able = False
+        stan_battle_sprite.update("art/character_art/player_character/default/battle/stan_battle_attacking.png")
+        snake_battle_sprite.update("art/enemy_art/battle/snake_battle_attacking.png")
+
+        # flip to display ----------------------------------------------------------------------------------------------
+        pygame.display.flip()
+
+        # when combat happens, wait after flipping (updating) display to allow animation time to show
+        pygame.time.wait(1500)
+
+        # reset combat animation and ability to click on next iteration
+        combat_happened = False
+
+        # --------------------------------------------------------------------------------------------------------------
+        # 60 frames per second game rate
+        clock.tick(60)
 
 # we can stop and quit the mixer
 pygame.mixer.music.stop()
