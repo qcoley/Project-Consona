@@ -1362,7 +1362,7 @@ def player_move(player, player_direction, water, trees, buildings):
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
 
-                    if player.quest == "Village Repairs":
+                    if player.quest_to_give == "Village Repairs":
                         if not tree_found.gathered:
                             if player.quest_status < 4:
                                 print("\nIt appears you can gather some lumber from a large branch that has fallen "
@@ -1374,7 +1374,7 @@ def player_move(player, player_direction, water, trees, buildings):
                                         player.quest_status = player.quest_status + 1
                                         tree_found.gathered = True
                                         print(f"\n*** You gather the lumber, {player.quest_status}/4 for "
-                                              f"[{player.quest}] ***")
+                                              f"[{player.quest_to_give}] ***")
                         else:
                             print("\nYou've already gathered lumber from this tree!")
             else:
@@ -1495,7 +1495,7 @@ def player_move(player, player_direction, water, trees, buildings):
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
 
-                    if player.quest == "Village Repairs":
+                    if player.quest_to_give == "Village Repairs":
                         if not tree_found.gathered:
                             if player.quest_status < 4:
                                 print("\nIt appears you can gather some lumber from a large branch that has fallen "
@@ -1507,7 +1507,7 @@ def player_move(player, player_direction, water, trees, buildings):
                                         player.quest_status = player.quest_status + 1
                                         tree_found.gathered = True
                                         print(f"\n*** You gather the lumber, {player.quest_status}/4 for "
-                                              f"[{player.quest}] ***")
+                                              f"[{player.quest_to_give}] ***")
                         else:
                             print("\nYou've already gathered lumber from this tree!")
             else:
@@ -1628,7 +1628,7 @@ def player_move(player, player_direction, water, trees, buildings):
                     print("\n*** There appears to be a tree here blocking your way.. ***")
                     print(f"\n*** The tree is: {tree_found.name} ***")
 
-                    if player.quest == "Village Repairs":
+                    if player.quest_to_give == "Village Repairs":
                         if not tree_found.gathered:
                             if player.quest_status < 4:
                                 print("\nIt appears you can gather some lumber from a large branch that has fallen "
@@ -1640,7 +1640,7 @@ def player_move(player, player_direction, water, trees, buildings):
                                         player.quest_status = player.quest_status + 1
                                         tree_found.gathered = True
                                         print(f"\n*** You gather the lumber, {player.quest_status}/4 for "
-                                              f"[{player.quest}] ***")
+                                              f"[{player.quest_to_give}] ***")
                         else:
                             print("\nYou've already gathered lumber from this tree!")
             else:
@@ -1762,7 +1762,7 @@ def player_move(player, player_direction, water, trees, buildings):
                     print(f"\n*** The tree is: {tree_found.name} ***")
 
                     # if player is on quest to gather lumber for Maurelle
-                    if player.quest == "Village Repairs":
+                    if player.quest_to_give == "Village Repairs":
                         if not tree_found.gathered:
                             if player.quest_status < 4:
                                 print("\nIt appears you can gather some lumber from a large branch that has fallen "
@@ -1774,7 +1774,7 @@ def player_move(player, player_direction, water, trees, buildings):
                                         player.quest_status = player.quest_status + 1
                                         tree_found.gathered = True
                                         print(f"\n*** You gather the lumber, {player.quest_status}/4 for "
-                                              f"[{player.quest}] ***")
+                                              f"[{player.quest_to_give}] ***")
                         else:
                             print("\nYou've already gathered lumber from this tree!")
             else:
@@ -2121,18 +2121,18 @@ def attack_scenario(player, enemy):
 
                     # if player is on quest to kill snakes from Garan
                     if enemy.kind == "snake":
-                        if player.quest == "Stupid Snakes":
+                        if player.quest_to_give == "Stupid Snakes":
                             if player.quest_status < 4:
                                 player.quest_status = player.quest_status + 1
-                                print(f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
+                                print(f"\n*** {player.quest_status}/4 snakes for [{player.quest_to_give}] quest ***")
                                 time.sleep(1)
 
                     # if player is on quest to kill snakes from Garan
                     if enemy.kind == "ghoul":
-                        if player.quest == "Ghoulish Glee":
+                        if player.quest_to_give == "Ghoulish Glee":
                             if player.quest_status < 4:
                                 player.quest_status = player.quest_status + 1
-                                print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
+                                print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest_to_give}] quest ***")
                                 time.sleep(1)
 
                     # only gain experience from enemies equal or higher level
@@ -2192,18 +2192,18 @@ def attack_scenario(player, enemy):
 
                         # if player is on quest to kill snakes from Garan
                         if enemy.kind == "snake":
-                            if player.quest == "Stupid Snakes":
+                            if player.quest_to_give == "Stupid Snakes":
                                 if player.quest_status < 4:
                                     player.quest_status = player.quest_status + 1
-                                    print(f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
+                                    print(f"\n*** {player.quest_status}/4 snakes for [{player.quest_to_give}] quest ***")
                                     time.sleep(1)
 
                         # if player is on quest to kill snakes from Garan
                         if enemy.kind == "ghoul":
-                            if player.quest == "Ghoulish Glee":
+                            if player.quest_to_give == "Ghoulish Glee":
                                 if player.quest_status < 4:
                                     player.quest_status = player.quest_status + 1
-                                    print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
+                                    print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest_to_give}] quest ***")
                                     time.sleep(1)
 
                         # only gain experience from enemies equal or higher level
@@ -2291,20 +2291,20 @@ def attack_scenario(player, enemy):
 
                                 # if player is on quest to kill snakes from Garan
                                 if enemy.kind == "snake":
-                                    if player.quest == "Stupid Snakes":
+                                    if player.quest_to_give == "Stupid Snakes":
                                         if player.quest_status < 4:
                                             player.quest_status = player.quest_status + 1
                                             print(
-                                                f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
+                                                f"\n*** {player.quest_status}/4 snakes for [{player.quest_to_give}] quest ***")
                                             time.sleep(1)
 
                                 # if player is on quest to kill snakes from Garan
                                 if enemy.kind == "ghoul":
-                                    if player.quest == "Ghoulish Glee":
+                                    if player.quest_to_give == "Ghoulish Glee":
                                         if player.quest_status < 4:
                                             player.quest_status = player.quest_status + 1
                                             print(
-                                                f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
+                                                f"\n*** {player.quest_status}/4 ghouls for [{player.quest_to_give}] quest ***")
                                             time.sleep(1)
 
                                 # only gain experience from enemies equal or higher level
@@ -2358,18 +2358,18 @@ def attack_scenario(player, enemy):
 
                         # if player is on quest to kill snakes from Garan
                         if enemy.kind == "snake":
-                            if player.quest == "Stupid Snakes":
+                            if player.quest_to_give == "Stupid Snakes":
                                 if player.quest_status < 4:
                                     player.quest_status = player.quest_status + 1
-                                    print(f"\n*** {player.quest_status}/4 snakes for [{player.quest}] quest ***")
+                                    print(f"\n*** {player.quest_status}/4 snakes for [{player.quest_to_give}] quest ***")
                                     time.sleep(1)
 
                         # if player is on quest to kill snakes from Garan
                         if enemy.kind == "ghoul":
-                            if player.quest == "Ghoulish Glee":
+                            if player.quest_to_give == "Ghoulish Glee":
                                 if player.quest_status < 4:
                                     player.quest_status = player.quest_status + 1
-                                    print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***")
+                                    print(f"\n*** {player.quest_status}/4 ghouls for [{player.quest_to_give}] quest ***")
                                     time.sleep(1)
 
                         # only gain experience from enemies equal or higher level
@@ -2488,7 +2488,7 @@ def npc_interaction_scenario(player, npc):
             if not npc.quest_complete:
 
                 # if NPC has not given player their quest yet
-                if player.quest != npc.quest:
+                if player.quest_to_give != npc.quest_to_give:
 
                     print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                           "~~~~~~~~~~~~")
@@ -2542,14 +2542,14 @@ def npc_interaction_scenario(player, npc):
 
                         # if player doesn't already have an active quest (currently only can have one quest at a time)
                         if player.quest_status == 0:
-                            print(f"\nYou chose to accept {npc.name}'s quest [{npc.quest}]. ")
-                            player.quest = npc.quest
+                            print(f"\nYou chose to accept {npc.name}'s quest [{npc.quest_to_give}]. ")
+                            player.quest_to_give = npc.quest_to_give
                             player.quest_status = 0
                             time.sleep(1)
                             npc_interaction_scenario(player, npc)
 
                         else:
-                            print(f"\nYou are already on a quest! [{player.quest}]")
+                            print(f"\nYou are already on a quest! [{player.quest_to_give}]")
 
                 # if player has completed NPCs quest with 4 objectives, will give level and item reward
                 # as well as additional dialog from NPC related to the narrative
@@ -2557,8 +2557,8 @@ def npc_interaction_scenario(player, npc):
                     if player.quest_status == 4:
                         npc.quest_complete = True
                         player.quest_status = 0
-                        player.quest = ""
-                        print(f"\n*** Quest [{npc.quest}] Complete! ***")
+                        player.quest_to_give = ""
+                        print(f"\n*** Quest [{npc.quest_to_give}] Complete! ***")
                         time.sleep(2)
                         level_up(player)
                         time.sleep(2)
@@ -2667,7 +2667,7 @@ def npc_interaction_scenario(player, npc):
 
             # NPCs quest has already been completed by player
             else:
-                print(f"\nYou have already completed {npc.name}'s quest [{npc.quest}]. ")
+                print(f"\nYou have already completed {npc.name}'s quest [{npc.quest_to_give}]. ")
                 time.sleep(1)
                 npc_interaction_scenario(player, npc)
 

@@ -20,8 +20,9 @@ FRIC = -0.20
 # class objects --------------------------------------------------------------------------------------------------------
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, name, gender, race, role, items, equipment, quest, quest_status, statistics, skills, level,
-                 experience, health, energy, alive_status, rupees, reputation, mount, current_zone):
+    def __init__(self, name, gender, race, role, items, equipment, current_quest, quest_status, quest_dictionary,
+                 statistics, skills, level, experience, health, energy, alive_status, rupees, reputation, mount,
+                 current_zone):
 
         super(Player, self).__init__()
         self.surf = pygame.image.load("art/character_art/player_character/default/stan_down.png").convert()
@@ -39,8 +40,9 @@ class Player(pygame.sprite.Sprite):
         self.role = role
         self.items = items
         self.equipment = equipment
-        self.quest = quest
+        self.current_quest = current_quest
         self.quest_status = quest_status
+        self.quest_dictionary = quest_dictionary
         self.statistics = statistics
         self.skills = skills
         self.level = level
@@ -121,7 +123,7 @@ class Player(pygame.sprite.Sprite):
 
 class NPC(pygame.sprite.Sprite):
 
-    def __init__(self, name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate,
+    def __init__(self, name, gender, race, role, dialog, quest_to_give, quest_description, x_coordinate, y_coordinate,
                  alive_status, quest_complete, items, gift, image, color):
         super(NPC, self).__init__()
 
@@ -130,7 +132,7 @@ class NPC(pygame.sprite.Sprite):
         self.race = race
         self.role = role
         self.dialog = dialog
-        self.quest = quest
+        self.quest_to_give = quest_to_give
         self.quest_description = quest_description
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
@@ -359,10 +361,10 @@ def attack_scenario(enemy_combating, combat_event):
 
                 # if player is on quest to kill snakes from Garan
                 if enemy_combating.kind == "snake":
-                    if player.quest == "Stupid Snakes":
+                    if player.current_quest == "Sneaky Snakes":
                         if player.quest_status < 4:
                             player.quest_status = player.quest_status + 1
-                            quest_string = f"*** {player.quest_status}/4 snakes for [{player.quest}] quest ***"
+                            quest_string = f"*** {player.quest_status}/4 snakes for [{player.current_quest}] quest ***"
 
                             # add to dictionary player quest updates if enemy was an objective of quest for player -
                             combat_event_dictionary["quest update"] = quest_string
@@ -371,10 +373,10 @@ def attack_scenario(enemy_combating, combat_event):
 
                 # if player is on quest to kill snakes from Garan
                 if enemy_combating.kind == "ghoul":
-                    if player.quest == "Ghoulish Glee":
+                    if player.current_quest == "Ghoulish Ghosts":
                         if player.quest_status < 4:
                             player.quest_status = player.quest_status + 1
-                            quest_string = f"*** {player.quest_status}/4 ghouls for [{player.quest}] quest ***"
+                            quest_string = f"*** {player.quest_status}/4 ghouls for [{player.current_quest}] quest ***"
 
                             # add to dictionary player quest updates if enemy was an objective of quest for player -
                             combat_event_dictionary["quest update"] = quest_string
@@ -477,7 +479,7 @@ def npc_interaction_scenario(npc):
             if not npc.quest_complete:
 
                 # if NPC has not given player their quest yet
-                if player.quest != npc.quest:
+                if player.quest != npc.quest_to_give:
 
                     print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
                           "~~~~~~~~~~~~")
@@ -528,8 +530,8 @@ def npc_interaction_scenario(npc):
 
                         # if player doesn't already have an active quest (currently only can have one quest at a time)
                         if player.quest_status == 0:
-                            print(f"\nYou chose to accept {npc.name}'s quest [{npc.quest}]. ")
-                            player.quest = npc.quest
+                            print(f"\nYou chose to accept {npc.name}'s quest [{npc.quest_to_give}]. ")
+                            player.quest = npc.quest_to_give
                             player.quest_status = 0
 
                             npc_interaction_scenario(npc)
@@ -544,7 +546,7 @@ def npc_interaction_scenario(npc):
                         npc.quest_complete = True
                         player.quest_status = 0
                         player.quest = ""
-                        print(f"\n*** Quest [{npc.quest}] Complete! ***")
+                        print(f"\n*** Quest [{npc.quest_to_give}] Complete! ***")
 
                         level_up()
 
@@ -648,7 +650,7 @@ def npc_interaction_scenario(npc):
 
             # NPCs quest has already been completed by player
             else:
-                print(f"\nYou have already completed {npc.name}'s quest [{npc.quest}]. ")
+                print(f"\nYou have already completed {npc.name}'s quest [{npc.quest_to_give}]. ")
 
                 npc_interaction_scenario(npc)
 
@@ -2114,7 +2116,8 @@ def inventory_event_item(inventory_event):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-pygame.mixer.init()
+# pygame.mixer.init()
+
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -2139,11 +2142,12 @@ energy_potion = Item("energy potion", "potion", 200, 200, "art/item_art/energy_p
 # default player character ---------------------------------------------------------------------------------------------
 player = Player("Player", "male", "amuna", "mage",  # name, gender, race, role
                 [health_potion, energy_potion],  # inventory
-                ["magic", "purple staff", "light", "evergreen robes"],  # equipment ('type', 'name')
-                [""], 0,  # quest, # quest status
+                ["magic", "basic staff", "light", "green robes"],  # equipment ('type', 'name')
+                # current quest, quest status (x/4), quest dictionary (quest: done)
+                [""], 0, {"Sneaky Snakes": False, "Village Repairs": False, "Ghoulish Ghosts": False},
                 ["vitality", 1, "intellect", 3, "strength", 1, "wisdom", 2],  # stats ('stat', 'amount')
                 ["barrier"], 1, 0, 100, 100,  # skills, lvl, exp, health, energy
-                False, 0, ["amuna", 10, "nuldar", 0, "sorae", 0], "none", "")  # alive, rupees, reputation, mount
+                True, 0, ["amuna", 10, "nuldar", 0, "sorae", 0], "", "")  # alive, rupees, reputation, mount, zone
 
 # nps: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate --------------------------
 #                  alive_status, quest_complete, items, gift, image, color
@@ -2217,18 +2221,20 @@ pine_tree_2 = Tree("pine tree 4", "pine tree", 260, 660, False, "art/environment
 pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 400, False, "art/environment_art/pine_tree.png", (255, 255, 255))
 
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-amuna_inn = Building("amuna inn", "amuna building", 600, 625, "art/environment_art/amuna_building.png", (255, 255, 255))
-amuna_shop = Building("amuna shop", "amuna building", 700, 400,
-                      "art/environment_art/amuna_building.png", (255, 255, 255))
-amuna_academia = Building("amuna academia", "amuna building", 875, 565, "art/environment_art/amuna_building.png",
+amuna_inn = Building("amuna inn", "amuna building", 600, 625, "art/environment_art/amuna_building.png",
+                     (255, 255, 255))
+amuna_shop = Building("amuna shop", "amuna building", 700, 400, "art/environment_art/amuna_building.png",
+                      (255, 255, 255))
+amuna_academia = Building("amuna academia", "amuna building", 875, 545, "art/environment_art/amuna_building.png",
                           (255, 255, 255))
 
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
-inventory_button = UiElement("inventory button", 960, 730,
-                             "art/ui_elements/buttons/inventory.png", (255, 255, 255), False)
-character_button = UiElement("character button", 850, 730,
-                             "art/ui_elements/buttons/character.png", (255, 255, 255), False)
-journal_button = UiElement("journal button", 740, 730, "art/ui_elements/buttons/journal.png", (255, 255, 255), False)
+inventory_button = UiElement("inventory button", 960, 730, "art/ui_elements/buttons/inventory.png",
+                             (255, 255, 255), False)
+character_button = UiElement("character button", 850, 730, "art/ui_elements/buttons/character.png",
+                             (255, 255, 255), False)
+journal_button = UiElement("journal button", 740, 730, "art/ui_elements/buttons/journal.png",
+                           (255, 255, 255), False)
 
 attack_button = UiElement("attack button", 740, 675, "art/ui_elements/buttons/battle_screen/attack.png",
                           (255, 255, 255), False)
@@ -2246,8 +2252,7 @@ hp_bar = UiElement("hp bar", 170, 25, "art/ui_elements/bars/health/hp_bar_full.p
 en_bar = UiElement("en bar", 170, 45, "art/ui_elements/bars/energy/en_bar_full.png", (255, 255, 255), False)
 xp_bar = UiElement("xp bar", 170, 65, "art/ui_elements/bars/xp/xp_bar_full.png", (255, 255, 255), False)
 
-enemy_hp_bar = UiElement("enemy hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png",
-                         (255, 255, 255), False)
+enemy_hp_bar = UiElement("enemy hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255), False)
 
 inventory = Inventory([], 890, 525, "art/ui_elements/inventory.png", (255, 255, 255), False)
 
@@ -2288,7 +2293,7 @@ enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 buildings.add(amuna_inn, amuna_shop, amuna_academia)
 user_interface.add(inventory_button, character_button, journal_button, attack_button, skill_button, run_button,
-                   player_status, message_box, continue_button)
+                   player_status, message_box)
 
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
@@ -2394,6 +2399,7 @@ while game_running:
         screen.blit(en_bar.surf, en_bar.rect)
         screen.blit(xp_bar.surf, xp_bar.rect)
 
+        # text updates to screen for things like current zone, rupee count, combat text, etc. --------------------------
         # --------------------------------------------------------------------------------------------------------------
         # get current player rupee count and create surf and rectangle to blit to screen
         text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
@@ -2695,8 +2701,8 @@ while game_running:
         # move snakes in random direction within boundaries every 20 fps
         if movement_able:
             if pygame.time.get_ticks() % 20 == 0:
-                move_this_snake.update([50, 300], [150, 300], direction_horizontal, direction_vertical)
-                move_this_ghoul.update([650, 900], [150, 300], direction_horizontal, direction_vertical)
+                move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical)
+                move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical)
 
         # --------------------------------------------------------------------------------------------------------------
         # player rect collides with an enemy rect ----------------------------------------------------------------------
@@ -2834,25 +2840,22 @@ while game_running:
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
 
-                # get a list of all sprites that are under the mouse cursor
-                clicked_element = [element for element in user_interface if element.rect.collidepoint(pos)]
+                # player chooses to continue, reset character experience and half health and energy
+                if continue_button.rect.collidepoint(pos):
 
-                # try to get UI element user clicked on and set condition to True if corresponding button is clicked
-                try:
-                    if clicked_element[0].__getattribute__("name") == "continue button":
-                        print("clicked")
+                    movement_able = True
+                    player.pos = vec((435, 700))
+                    player.health = 50
+                    player.energy = 50
+                    player.experience = 0
 
-                        player.alive_status = True
-
-                except IndexError:
-                    pass
+                    player.alive_status = True
 
             elif event.type == QUIT:
                 exit()
 
         pygame.display.flip()
 
-
 # we can stop and quit the mixer
-pygame.mixer.music.stop()
-pygame.mixer.quit()
+# pygame.mixer.music.stop()
+# pygame.mixer.quit()
