@@ -13,6 +13,10 @@ World of Warcraft. Coded in Python using PyGame.
 
 ![Seldon_Battle](https://user-images.githubusercontent.com/49097168/158510889-21cfeb37-35b5-4914-aeaa-c7d4e19ea246.png)
 
+# Journey Across The Region
+
+![Consona_Map](https://user-images.githubusercontent.com/49097168/158511104-8c4c8d8e-ebeb-4ee5-ac6c-d7bf409fa84c.png)
+
 # Installation
 
 The game itself currently requires no installation provided you have Python 
