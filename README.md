@@ -15,7 +15,7 @@ World of Warcraft. Coded in Python using PyGame.
 
 # Journey Across The Region
 
-![Consona_Map](https://user-images.githubusercontent.com/49097168/158511104-8c4c8d8e-ebeb-4ee5-ac6c-d7bf409fa84c.png)
+![consona_region_map](https://user-images.githubusercontent.com/49097168/158511207-7d0c367e-daed-48cd-a482-c5b33a57398b.png)
 
 # Installation
 
