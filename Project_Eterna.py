@@ -1,5 +1,6 @@
 import random
 import pygame
+from pygame import K_f
 from pygame.locals import (RLEACCEL, K_w, K_s, K_a, K_d, K_ESCAPE, KEYDOWN, QUIT)
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -305,7 +306,7 @@ class Item(pygame.sprite.Sprite):
 # gameplay functions ---------------------------------------------------------------------------------------------------
 
 def attack_scenario(enemy_combating, combat_event):
-    # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
+    # get the all the stuff that happened in combat and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done": 0,
         "damage taken": 0,
@@ -2125,6 +2126,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # background textures --------------------------------------------------------------------------------------------------
 seldon_district_bg = pygame.image.load("art/environment_art/background_textures/seldon_district.png")
 seldon_district_battle = pygame.image.load("art/environment_art/background_textures/seldon_battle_screen.png")
+seldon_district_shop = pygame.image.load("art/environment_art/background_textures/seldon_shop.png")
 game_over_screen = pygame.image.load("art/screens/game_over.png")
 
 # creating objects from defined classes --------------------------------------------------------------------------------
@@ -2221,11 +2223,14 @@ pine_tree_2 = Tree("pine tree 4", "pine tree", 260, 660, False, "art/environment
 pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 400, False, "art/environment_art/pine_tree.png", (255, 255, 255))
 
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-amuna_inn = Building("amuna inn", "amuna building", 600, 625, "art/environment_art/amuna_building.png",
+amuna_inn = Building("inn", "amuna building", 600, 625,
+                     "art/environment_art/buildings/amuna_building_inn.png",
                      (255, 255, 255))
-amuna_shop = Building("amuna shop", "amuna building", 700, 400, "art/environment_art/amuna_building.png",
+amuna_shop = Building("shop", "amuna building", 700, 400,
+                      "art/environment_art/buildings/amuna_building_shop.png",
                       (255, 255, 255))
-amuna_academia = Building("amuna academia", "amuna building", 875, 545, "art/environment_art/amuna_building.png",
+amuna_academia = Building("academia", "amuna building", 875, 545,
+                          "art/environment_art/buildings/amuna_building_academia.png",
                           (255, 255, 255))
 
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
@@ -2242,8 +2247,16 @@ skill_button = UiElement("skill button", 850, 675, "art/ui_elements/buttons/batt
                          (255, 255, 255), False)
 run_button = UiElement("run button", 960, 675, "art/ui_elements/buttons/battle_screen/run.png",
                        (255, 255, 255), False)
+
 continue_button = UiElement("continue button", 500, 600, "art/ui_elements/buttons/continue_button.png",
                             (255, 255, 255), False)
+
+buy_button = UiElement("buy button", 740, 675, "art/ui_elements/buttons/shop/buy.png",
+                       (255, 255, 255), False)
+sell_button = UiElement("sell button", 850, 675, "art/ui_elements/buttons/shop/sell.png",
+                        (255, 255, 255), False)
+leave_button = UiElement("leave button", 960, 675, "art/ui_elements/buttons/shop/leave.png",
+                         (255, 255, 255), False)
 
 player_status = UiElement("player status", 850, 675, "art/ui_elements/status/player.png", (255, 255, 255), False)
 enemy_status = UiElement("enemy status", 850, 730, "art/ui_elements/status/enemy.png", (255, 255, 255), False)
@@ -2332,6 +2345,9 @@ combat_happened = False
 # condition to check if inventory button is clicked
 inventory_clicked = False
 
+# condition to check if a player has chosen to interact with a collided sprite
+interacted = False
+
 # what zone the player is in, used for player update and map boundaries
 zone_seldon = True
 zone_korlok = False
@@ -2346,7 +2362,7 @@ player_items = []
 
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
-info_text_1 = "Project Eterna"
+info_text_1 = ""
 info_text_2 = ""
 info_text_3 = ""
 info_text_4 = ""
@@ -2392,6 +2408,7 @@ while game_running:
         for item in player_items:
             screen.blit(item.surf, item.rect)
 
+        # update player health, energy and experience bar on each iteration of main loop -------------------------------
         health_bar_update(player)
         energy_bar_update(player)
         experience_bar_update(player)
@@ -2447,6 +2464,9 @@ while game_running:
         # user input events such as key presses or UI interaction
         for event in pygame.event.get():
             if event.type == KEYDOWN:
+
+                if event.key == K_f:
+                    interacted = True
 
                 if event.key == K_ESCAPE:
                     exit()
@@ -2603,6 +2623,7 @@ while game_running:
                         if combat_events["enemy defeated"]:
                             movement_able = True
                             combat_happened = False
+                            interacted = False
 
                 if combat_button == "skill":
 
@@ -2654,6 +2675,7 @@ while game_running:
                         if combat_events["escaped"]:
                             info_text_1 = str(combat_events["damage done"])
                             movement_able = True
+                            interacted = False
                             player.pos = vec((500, 400))
 
                         else:
@@ -2701,91 +2723,146 @@ while game_running:
         # move snakes in random direction within boundaries every 20 fps
         if movement_able:
             if pygame.time.get_ticks() % 20 == 0:
-                move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical)
-                move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical)
+                move_this_snake.update([50, 250], [200, 300], direction_horizontal, direction_vertical)
+                move_this_ghoul.update([650, 850], [200, 300], direction_horizontal, direction_vertical)
 
         # --------------------------------------------------------------------------------------------------------------
         # player rect collides with an enemy rect ----------------------------------------------------------------------
         enemy = pygame.sprite.spritecollideany(player, enemies)
         if enemy:
 
-            # don't allow player to move while in combat
-            movement_able = False
+            # if player has collided with an enemy but has not yet attacked it
+            # doesn't continue to show if interaction has occurred
+            if not interacted:
+                info_text_1 = "Press 'f' key to attack enemy."
 
-            # update enemies health before displaying (blit) combat screen elements
-            health_bar_update_enemy(enemy)
+            if interacted:
+
+                # clear press f to attack message once encounter begins
+                if info_text_1 == "Press 'f' key to attack enemy.":
+                    info_text_1 = ""
+                    info_text_2 = ""
+
+                # doesn't allow player to move while in combat
+                movement_able = False
+
+                # update enemies health before displaying (blit) combat screen elements
+                health_bar_update_enemy(enemy)
+
+                if zone_seldon:
+
+                    # if enemy is snake in seldon zone, push everything to top layer of screen for battle
+                    if enemy.__getattribute__("kind") == "snake":
+                        screen.blit(seldon_district_battle, (0, 0))
+                        screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(attack_button.surf, attack_button.rect)
+                        screen.blit(skill_button.surf, skill_button.rect)
+                        screen.blit(run_button.surf, run_button.rect)
+                        screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                        screen.blit(enemy_hp_bar.surf, enemy_hp_bar.rect)
+                        screen.blit(enemy_status.surf, enemy_status.rect)
+                        screen.blit(message_box.surf, message_box.rect)
+
+                        # get current enemy name and create surf and rectangle to blit to screen
+                        text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black",
+                                                           "light yellow")
+                        text_enemy_name_rect = text_enemy_name_surf.get_rect()
+                        text_enemy_name_rect.center = (800, 732)
+                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+
+                        # get current enemy level and create surf and rectangle to blit to screen
+                        text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black",
+                                                            "light yellow")
+                        text_enemy_level_rect = text_enemy_level_surf.get_rect()
+                        text_enemy_level_rect.center = (910, 732)
+                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+
+                        # combat info text for message box. initially blank and updated during combat scenario
+                        screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
+                        screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
+                        screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
+                        screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
+
+                    if enemy.__getattribute__("kind") == "ghoul":
+                        screen.blit(seldon_district_battle, (0, 0))
+                        screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(attack_button.surf, attack_button.rect)
+                        screen.blit(skill_button.surf, skill_button.rect)
+                        screen.blit(run_button.surf, run_button.rect)
+                        screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                        screen.blit(enemy_hp_bar.surf, enemy_hp_bar.rect)
+                        screen.blit(enemy_status.surf, enemy_status.rect)
+                        screen.blit(message_box.surf, message_box.rect)
+
+                        # get current enemy name and create surf and rectangle to blit to screen
+                        text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black",
+                                                           "light yellow")
+                        text_enemy_name_rect = text_enemy_name_surf.get_rect()
+                        text_enemy_name_rect.center = (805, 732)
+                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+
+                        # get current enemy level and create surf and rectangle to blit to screen
+                        text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black",
+                                                            "light yellow")
+                        text_enemy_level_rect = text_enemy_level_surf.get_rect()
+                        text_enemy_level_rect.center = (910, 732)
+                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+
+                        # combat info text for message box. initially blank and updated during combat scenario
+                        screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
+                        screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
+                        screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
+                        screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
+
+        # --------------------------------------------------------------------------------------------------------------
+        # player rect collides with an enemy rect ----------------------------------------------------------------------
+        building = pygame.sprite.spritecollideany(player, buildings)
+        if building:
+
+            # if player has collided with a building but has not yet interacted with it
+            # doesn't continue to show if interaction has occurred
+            if not interacted:
+                info_text_1 = "Press 'f' key to enter building."
 
             if zone_seldon:
 
-                # if enemy is snake in seldon zone, push everything to top layer of screen for battle
-                if enemy.__getattribute__("kind") == "snake":
-                    screen.blit(seldon_district_battle, (0, 0))
-                    screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
-                    screen.blit(hp_bar.surf, hp_bar.rect)
-                    screen.blit(en_bar.surf, en_bar.rect)
-                    screen.blit(xp_bar.surf, xp_bar.rect)
-                    screen.blit(attack_button.surf, attack_button.rect)
-                    screen.blit(skill_button.surf, skill_button.rect)
-                    screen.blit(run_button.surf, run_button.rect)
-                    screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                    screen.blit(enemy_hp_bar.surf, enemy_hp_bar.rect)
-                    screen.blit(enemy_status.surf, enemy_status.rect)
-                    screen.blit(message_box.surf, message_box.rect)
+                if interacted:
 
-                    # get current enemy name and create surf and rectangle to blit to screen
-                    text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black",
-                                                       "light yellow")
-                    text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                    text_enemy_name_rect.center = (800, 732)
-                    screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                    # if enemy is snake in seldon zone, push everything to top layer of screen for battle
+                    if building.__getattribute__("name") == "shop":
+                        # add shop related stuff
+                        screen.blit(seldon_district_shop, (0, 0))
+                        screen.blit(buy_button.surf, buy_button.rect)
+                        screen.blit(sell_button.surf, sell_button.rect)
+                        screen.blit(leave_button.surf, leave_button.rect)
 
-                    # get current enemy level and create surf and rectangle to blit to screen
-                    text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black",
-                                                        "light yellow")
-                    text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                    text_enemy_level_rect.center = (910, 732)
-                    screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+                        # reset interacted switch
+                        # interacted = False
 
-                    # combat info text for message box. initially blank and updated during combat scenario
-                    screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
-                    screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
-                    screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
-                    screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
+                    if building.__getattribute__("name") == "inn":
+                        # add inn related stuff
+                        print("inn")
 
-                if enemy.__getattribute__("kind") == "ghoul":
-                    screen.blit(seldon_district_battle, (0, 0))
-                    screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
-                    screen.blit(hp_bar.surf, hp_bar.rect)
-                    screen.blit(en_bar.surf, en_bar.rect)
-                    screen.blit(xp_bar.surf, xp_bar.rect)
-                    screen.blit(attack_button.surf, attack_button.rect)
-                    screen.blit(skill_button.surf, skill_button.rect)
-                    screen.blit(run_button.surf, run_button.rect)
-                    screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                    screen.blit(enemy_hp_bar.surf, enemy_hp_bar.rect)
-                    screen.blit(enemy_status.surf, enemy_status.rect)
-                    screen.blit(message_box.surf, message_box.rect)
+                        # reset interacted switch
+                        interacted = False
 
-                    # get current enemy name and create surf and rectangle to blit to screen
-                    text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black",
-                                                       "light yellow")
-                    text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                    text_enemy_name_rect.center = (805, 732)
-                    screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+        # --------------------------------------------------------------------------------------------------------------
+        # if player is not currently in range of a sprite that can be interacted with, clear message box ---------------
+        sprite = pygame.sprite.spritecollideany(player, all_sprites)
+        if not sprite:
+            info_text_1 = ""
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
-                    # get current enemy level and create surf and rectangle to blit to screen
-                    text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black",
-                                                        "light yellow")
-                    text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                    text_enemy_level_rect.center = (910, 732)
-                    screen.blit(text_enemy_level_surf, text_enemy_level_rect)
-
-                    # combat info text for message box. initially blank and updated during combat scenario
-                    screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
-                    screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
-                    screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
-                    screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
-
+        # --------------------------------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------------------------------
         # allow player to click and update sprite to resting when combat didn't happen this turn
         if not combat_happened:
             click_able = True
@@ -2842,6 +2919,11 @@ while game_running:
 
                 # player chooses to continue, reset character experience and half health and energy
                 if continue_button.rect.collidepoint(pos):
+
+                    # reset enemy health when player continues
+                    for enemy in enemies:
+                        enemy.health = 100
+                        enemy.energy = 100
 
                     movement_able = True
                     player.pos = vec((435, 700))
