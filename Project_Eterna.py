@@ -302,6 +302,24 @@ class Item(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
+class Shopkeeper:
+
+    def __init__(self, name, location, shop_inventory, dialog):
+        self.name = name
+        self.location = location
+        self.shop_inventory = shop_inventory
+        self.dialog = dialog
+
+
+class Trainer:
+
+    def __init__(self, name, location, skills, dialog):
+        self.name = name
+        self.location = location
+        self.skills = skills
+        self.dialog = dialog
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # gameplay functions ---------------------------------------------------------------------------------------------------
 
@@ -2067,12 +2085,12 @@ def combat_event_button(combat_event):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# getting event based on user click related to combat scenario (attack, skill and run buttons).
+# getting event based on item player clicks when inventory window is open.
 def inventory_event_item(inventory_event):
     if inventory_event.type == pygame.MOUSEBUTTONUP:
         mouse_pos = pygame.mouse.get_pos()
 
-        # get a list of all sprites that are under the mouse cursor
+        # get sprite that collided with mouse curser
         clicked_combat_element = [element for element in player_items if element.rect.collidepoint(mouse_pos)]
 
         # try to get UI element user clicked on and set condition to True if corresponding button is clicked
@@ -2189,6 +2207,46 @@ npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish G
                 False, ["Items to be added for thief steal"], False,
                 "art/character_art/NPCs/guard.png", (255, 255, 255))
 
+# shop keepers ---------------------------------------------------------------------------------------------------------
+# (name, location, inventory, dialog)
+amuna_shop_keeper = Shopkeeper("Amuna Shopkeeper Beetle", "Seldon District", [
+    Item("health potion", "potion", 200, 200, "art/item_art/health_potion.png", (255, 255, 255)),
+    Item("energy potion", "potion", 200, 200, "art/item_art/energy_potion.png", (255, 255, 255)),
+    Item("bronze sword", "sword", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
+    Item("bronze armor", "armor", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
+    Item("oak staff", "staff", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
+    Item("woven robe", "robe", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
+    Item("sharp dirk", "dagger", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
+    Item("padded tunic", "tunic", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
+    Item("chestnut horse", "mount", 200, 200, "art/item_art/temp_item.png", (255, 255, 255))],
+    "These Ghoul Minion attacks are bad for business!")
+
+nuldar_shop_keeper = Shopkeeper("Nuldar Shopkeeper Darunia", "Korlok District", ["hearty health potion",
+                                                                                 "extra energy potion",
+                                                                                 "iron forged sword",
+                                                                                 "iron forged armor",
+                                                                                 "smooth metal staff", "fire robes",
+                                                                                 "dark iron daggers",
+                                                                                 "resistant jerkin",
+                                                                                 "aren's mighty gloves"],
+                                "Welcome, Onurok.")
+
+# skill trainers -------------------------------------------------------------------------------------------------------
+# (name, location, skills, dialog)
+amuna_fighter_trainer = Trainer("Amuna Fighter Trainer Raron", "Seldon District", ["Protection"],
+                                "Hail, fellow fighter. What can I teach you today?")
+amuna_mage_trainer = Trainer("Amuna Mage Trainer Kepora", "Seldon District", ["Chillshot"],
+                             "Hail, fellow mage. What can I teach you today?")
+amuna_rogue_trainer = Trainer("Amuna Rogue Trainer Drago", "Seldon District", ["Evasion Tactics"],
+                              "Hail, fellow rogue. What can I teach you today?")
+
+nuldar_fighter_trainer = Trainer("Nuldar Fighter Trainer Dongo", "Korlok District", ["Aren's Flame"],
+                                 "Kunkoro, big-sword. What may I teach?")
+nuldar_mage_trainer = Trainer("Nuldar Mage Trainer Kepora", "Korlok District", ["Thermal Manipulation"],
+                              "Kunkoro, bright-mind. What may I teach?")
+nuldar_rogue_trainer = Trainer("Nuldar Rogue Trainer Drago", "Korlok District", ["Molten Blades"],
+                               "Kunkoro, silence-seeker. What may I teach?")
+
 # ----------------------------------------------------------------------------------------------------------------------
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color ------------------
 snake_1 = Enemy("Snake", "snake", 100, 100, 1, 100, 150, True, Item("shiny rock", "rock", 200, 200,
@@ -2268,6 +2326,8 @@ xp_bar = UiElement("xp bar", 170, 65, "art/ui_elements/bars/xp/xp_bar_full.png",
 enemy_hp_bar = UiElement("enemy hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255), False)
 
 inventory = Inventory([], 890, 525, "art/ui_elements/inventory.png", (255, 255, 255), False)
+buy_shop_inventory = Inventory([], 890, 525, "art/ui_elements/buy_inventory.png", (255, 255, 255), False)
+sell_shop_inventory = Inventory([], 890, 525, "art/ui_elements/sell_inventory.png", (255, 255, 255), False)
 
 message_box = UiElement("message_box", 175, 705, "art/ui_elements/message_box.png", (255, 255, 255), False)
 
@@ -2305,8 +2365,8 @@ npcs.add(npc_garan, npc_maurelle, npc_guard)
 enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 buildings.add(amuna_inn, amuna_shop, amuna_academia)
-user_interface.add(inventory_button, character_button, journal_button, attack_button, skill_button, run_button,
-                   player_status, message_box)
+user_interface.add(buy_button, sell_button, leave_button, inventory_button, character_button, journal_button,
+                   attack_button, skill_button, run_button, player_status, message_box)
 
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
@@ -2330,21 +2390,22 @@ all_sprites.add(npcs, enemies, trees, buildings)
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # main loop variables --------------------------------------------------------------------------------------------------
-
 game_running = True
 
 # condition to allow or block player movement (combat or npc interaction)
 movement_able = True
-
 # condition for battle sequences so that buttons can't be spam clicked
 click_able = True
 
-# condition to check if combat occurred on current game loop iteration to update sprites at end of loop
-combat_happened = False
-
 # condition to check if inventory button is clicked
 inventory_clicked = False
+# condition to check if buy button is clicked (shop)
+buy_clicked = False
+# condition to check if sell button is clicked (shop)
+sell_clicked = False
 
+# condition to check if combat occurred on current game loop iteration to update sprites at end of loop
+combat_happened = False
 # condition to check if a player has chosen to interact with a collided sprite
 interacted = False
 
@@ -2356,9 +2417,12 @@ zone_marrow = False
 
 # list to contain clicked UI elements for display
 display_elements = []
-
 # list to contain current player items for display
 player_items = []
+# list to contain current shop items for sale
+shop_items_buy = []
+# list to contain current player items to sell
+shop_items_sell = []
 
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
@@ -2461,6 +2525,7 @@ while game_running:
         screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
 
         # --------------------------------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------------------------------
         # user input events such as key presses or UI interaction
         for event in pygame.event.get():
             if event.type == KEYDOWN:
@@ -2474,7 +2539,7 @@ while game_running:
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
 
-                # get a list of all sprites that are under the mouse cursor
+                # check which sprite collided with the mouse cursor
                 clicked_element = [element for element in user_interface if element.rect.collidepoint(pos)]
 
                 # try to get UI element user clicked on and set condition to True if corresponding button is clicked
@@ -2523,6 +2588,75 @@ while game_running:
                                     if inventory_counter % 4 == 0:
                                         second_coord += 100
 
+                    # player is in shop and buy button is active, if clicked will show the shopkeeper's inventory
+                    if clicked_element[0].__getattribute__("name") == "buy button":
+
+                        # if user clicks buy button again, set condition to false which will hide window
+                        if buy_clicked:
+                            buy_clicked = False
+
+                            if len(display_elements) > 0:
+                                display_elements.pop(0)
+                                player_items.clear()
+
+                        # player clicked buy button for the first time. show window
+                        else:
+                            buy_clicked = True
+                            display_elements.insert(0, buy_shop_inventory)
+
+                            # if player has items in their inventory
+                            if len(amuna_shop_keeper.shop_inventory) > 0:
+                                first_coord_shop = 800
+                                second_coord_shop = 440
+
+                                inventory_counter_shop = 0
+                                # go through player items and assign inventory slots (coordinates) to them
+                                for shop_item in amuna_shop_keeper.shop_inventory:
+                                    if shop_item.name == "health potion":
+                                        shop_item.update(first_coord_shop, second_coord_shop,
+                                                         "art/item_art/health_potion.png")
+                                        shop_items_buy.append(shop_item)
+                                    if shop_item.name == "energy potion":
+                                        shop_item.update(first_coord_shop, second_coord_shop,
+                                                         "art/item_art/energy_potion.png")
+                                        shop_items_buy.append(shop_item)
+                                    if shop_item.name == "bronze sword":
+                                        shop_item.update(first_coord_shop, second_coord_shop,
+                                                         "art/item_art/temp_item.png")
+                                        shop_items_buy.append(shop_item)
+                                    if shop_item.name == "bronze armor":
+                                        shop_item.update(first_coord_shop, second_coord_shop,
+                                                         "art/item_art/temp_item.png")
+                                        shop_items_buy.append(shop_item)
+                                    if shop_item.name == "oak staff":
+                                        shop_item.update(first_coord_shop, second_coord_shop,
+                                                         "art/item_art/temp_item.png")
+                                        shop_items_buy.append(shop_item)
+                                    if shop_item.name == "woven robe":
+                                        shop_item.update(first_coord_shop, second_coord_shop,
+                                                         "art/item_art/temp_item.png")
+                                        shop_items_buy.append(shop_item)
+                                    if shop_item.name == "sharp dirk":
+                                        shop_item.update(first_coord_shop, second_coord_shop,
+                                                         "art/item_art/temp_item.png")
+                                        shop_items_buy.append(shop_item)
+                                    if shop_item.name == "padded tunic":
+                                        shop_item.update(first_coord_shop, second_coord_shop,
+                                                         "art/item_art/temp_item.png")
+                                        shop_items_buy.append(shop_item)
+                                    if shop_item.name == "chestnut horse":
+                                        shop_item.update(first_coord_shop, second_coord_shop,
+                                                         "art/item_art/temp_item.png")
+                                        shop_items_buy.append(shop_item)
+
+                                    # add 75 to the items x-coordinate value so the next item will be added to next slot
+                                    first_coord_shop += 60
+
+                                    # add 100 to items y coordinate value if the first row of (4) slots has been filled
+                                    inventory_counter_shop += 1
+                                    if inventory_counter_shop % 4 == 0:
+                                        second_coord_shop += 100
+
                 except IndexError:
                     pass
 
@@ -2530,6 +2664,7 @@ while game_running:
                 exit()
 
             # ----------------------------------------------------------------------------------------------------------
+            # player using items within inventory ----------------------------------------------------------------------
             # if inventory has been clicked and inventory window is open, get item within inventory window that was
             # clicked
             if inventory_clicked:
