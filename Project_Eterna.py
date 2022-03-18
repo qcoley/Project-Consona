@@ -149,7 +149,7 @@ class NPC(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
 
     def __init__(self, name, kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image,
-                 color):
+                 color, health_bar):
         super(Enemy, self).__init__()
 
         self.name = name
@@ -165,6 +165,7 @@ class Enemy(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.speed = 1
+        self.health_bar = health_bar
 
     def update(self, ranges_x, ranges_y, direction_x, direction_y):
 
@@ -235,6 +236,10 @@ class UiElement(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.update_flag = update_flag
 
+    def update(self, image):
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
 
 class Inventory(pygame.sprite.Sprite):
 
@@ -302,29 +307,11 @@ class Item(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
-class Shopkeeper:
-
-    def __init__(self, name, location, shop_inventory, dialog):
-        self.name = name
-        self.location = location
-        self.shop_inventory = shop_inventory
-        self.dialog = dialog
-
-
-class Trainer:
-
-    def __init__(self, name, location, skills, dialog):
-        self.name = name
-        self.location = location
-        self.skills = skills
-        self.dialog = dialog
-
-
 # ----------------------------------------------------------------------------------------------------------------------
 # gameplay functions ---------------------------------------------------------------------------------------------------
 
 def attack_scenario(enemy_combating, combat_event):
-    # get the all the stuff that happened in combat and return it to main loop via dictionary keys and values
+    # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done": 0,
         "damage taken": 0,
@@ -338,6 +325,7 @@ def attack_scenario(enemy_combating, combat_event):
     if combat_event == "attack":
 
         if enemy_combating.alive_status:
+
             # returns players damage to the enemy based on level and equipment
             attacked_enemy = attack_enemy(enemy_combating)
 
@@ -835,1265 +823,79 @@ def level_up():
         return player.level
 
 
+# ----------------------------------------------------------------------------------------------------------------------
 # gets current player health and updates hp bar image on screen according to the health value from 0-100
 def health_bar_update(character):
-    if character.health == 100:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_full.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 99:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_99.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 98:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_98.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 97:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_97.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 96:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_96.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 95:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_95.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 94:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_94.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 93:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_93.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 92:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_92.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 91:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_91.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 90:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_90.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 89:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_89.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 88:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_88.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 87:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_87.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 86:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_86.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 85:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_85.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 84:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_84.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 83:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_83.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 82:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_82.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 81:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_81.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 80:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_80.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 79:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_79.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 78:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_78.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 77:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_77.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 76:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_76.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 75:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_75.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 74:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_74.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 73:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_73.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 72:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_72.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 71:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_71.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 70:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_70.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 69:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_69.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 68:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_68.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 67:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_67.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 66:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_66.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 65:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_65.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 64:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_64.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 63:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_63.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 62:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_62.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 61:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_61.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 60:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_60.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 59:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_59.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 58:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_58.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 57:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_57.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 56:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_56.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 55:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_55.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 54:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_54.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 53:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_53.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 52:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_52.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 51:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_51.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 50:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_50.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 49:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_49.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 48:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_48.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 47:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_47.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 46:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_46.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 45:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_45.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 44:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_44.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 43:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_43.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 42:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_42.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 41:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_41.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 40:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_40.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 39:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_39.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 38:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_38.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 37:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_37.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 36:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_36.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 35:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_35.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 34:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_34.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 33:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_33.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 32:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_32.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 31:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_31.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 30:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_30.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 29:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_29.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 28:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_28.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 27:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_27.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 26:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_26.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 25:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_25.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 24:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_24.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 23:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_23.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 22:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_22.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 21:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_21.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 20:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_20.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 19:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_19.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 18:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_18.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 17:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_17.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 16:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_16.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 15:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_15.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 14:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_14.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 13:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_13.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 12:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_12.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 11:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_11.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 10:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_10.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 9:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_9.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 8:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_8.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 7:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_7.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 6:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_6.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 5:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_5.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 4:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_4.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 3:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_3.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 2:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_2.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 1:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_1.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 0:
-        hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_0.png").convert()
-        hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
+    for i in range(0, 100):
+        if character.health == i:
+            hp_bar.update("art/ui_elements/bars/health/hp_bar_" + str(i) + ".png")
 
 
+# player energy bar update
 def energy_bar_update(character):
-    if character.energy == 100:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_full.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 99:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_99.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 98:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_98.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 97:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_97.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 96:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_96.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 95:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_95.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 94:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_94.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 93:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_93.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 92:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_92.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 91:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_91.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 90:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_90.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 89:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_89.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 88:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_88.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 87:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_87.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 86:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_86.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 85:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_85.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 84:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_84.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 83:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_83.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 82:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_82.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 81:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_81.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 80:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_80.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 79:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_79.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 78:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_78.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 77:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_77.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 76:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_76.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 75:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_75.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 74:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_74.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 73:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_73.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 72:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_72.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 71:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_71.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 70:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_70.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 69:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_69.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 68:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_68.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 67:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_67.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 66:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_66.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 65:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_65.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 64:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_64.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 63:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_63.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 62:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_62.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 61:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_61.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 60:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_60.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 59:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_59.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 58:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_58.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 57:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_57.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 56:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_56.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 55:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_55.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 54:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_54.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 53:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_53.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 52:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_52.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 51:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_51.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 50:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_50.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 49:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_49.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 48:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_48.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 47:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_47.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 46:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_46.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 45:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_45.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 44:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_44.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 43:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_43.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 42:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_42.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 41:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_41.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 40:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_40.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 39:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_39.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 38:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_38.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 37:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_37.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 36:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_36.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 35:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_35.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 34:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_34.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 33:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_33.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 32:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_32.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 31:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_31.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 30:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_30.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 29:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_29.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 28:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_28.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 27:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_27.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 26:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_26.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 25:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_25.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 24:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_24.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 23:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_23.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 22:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_22.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 21:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_21.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 20:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_20.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 19:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_19.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 18:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_18.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 17:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_17.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 16:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_16.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 15:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_15.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 14:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_14.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 13:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_13.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 12:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_12.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 11:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_11.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 10:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_10.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 9:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_9.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 8:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_8.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 7:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_7.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 6:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_6.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 5:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_5.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 4:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_4.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 3:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_3.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 2:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_2.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 1:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_1.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.energy == 0:
-        en_bar.surf = pygame.image.load("art/ui_elements/bars/energy/en_bar_0.png").convert()
-        en_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
+    for i in range(0, 100):
+        if character.energy == i:
+            en_bar.update("art/ui_elements/bars/energy/en_bar_" + str(i) + ".png")
 
 
-def experience_bar_update(character):
-    if character.experience == 100:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_full.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 99:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_99.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 98:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_98.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 97:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_97.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 96:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_96.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 95:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_95.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 94:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_94.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 93:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_93.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 92:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_92.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 91:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_91.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 90:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_90.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 89:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_89.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 88:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_88.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 87:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_87.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 86:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_86.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 85:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_85.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 84:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_84.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 83:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_83.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 82:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_82.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 81:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_81.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 80:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_80.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 79:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_79.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 78:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_78.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 77:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_77.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 76:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_76.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 75:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_75.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 74:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_74.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 73:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_73.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 72:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_72.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 71:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_71.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 70:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_70.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 69:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_69.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 68:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_68.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 67:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_67.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 66:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_66.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 65:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_65.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 64:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_64.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 63:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_63.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 62:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_62.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 61:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_61.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 60:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_60.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 59:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_59.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 58:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_58.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 57:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_57.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 56:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_56.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 55:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_55.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 54:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_54.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 53:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_53.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 52:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_52.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 51:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_51.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 50:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_50.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 49:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_49.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 48:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_48.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 47:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_47.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 46:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_46.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 45:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_45.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 44:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_44.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 43:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_43.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 42:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_42.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 41:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_41.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 40:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_40.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 39:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_39.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 38:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_38.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 37:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_37.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 36:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_36.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 35:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_35.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 34:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_34.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 33:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_33.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 32:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_32.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 31:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_31.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 30:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_30.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 29:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_29.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 28:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_28.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 27:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_27.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 26:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_26.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 25:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_25.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 24:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_24.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 23:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_23.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 22:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_22.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 21:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_21.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 20:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_20.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 19:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_19.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 18:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_18.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 17:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_17.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 16:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_16.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 15:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_15.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 14:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_14.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 13:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_13.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 12:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_12.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 11:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_11.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 10:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_10.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 9:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_9.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 8:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_8.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 7:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_7.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 6:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_6.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 5:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_5.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 4:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_4.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 3:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_3.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 2:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_2.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 1:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_1.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.experience == 0:
-        xp_bar.surf = pygame.image.load("art/ui_elements/bars/xp/xp_bar_0.png").convert()
-        xp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
+# player xp bar update
+def xp_bar_update(character):
+    for i in range(0, 100):
+        if character.experience == i:
+            xp_bar.update("art/ui_elements/bars/xp/xp_bar_" + str(i) + ".png")
 
 
+# enemy health bar update
 def health_bar_update_enemy(character):
-    if character.health == 100:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_full.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 99:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_99.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 98:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_98.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 97:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_97.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 96:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_96.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 95:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_95.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 94:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_94.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 93:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_93.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 92:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_92.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 91:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_91.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 90:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_90.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 89:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_89.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 88:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_88.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 87:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_87.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 86:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_86.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 85:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_85.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 84:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_84.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 83:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_83.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 82:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_82.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 81:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_81.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 80:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_80.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 79:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_79.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 78:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_78.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 77:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_77.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 76:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_76.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 75:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_75.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 74:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_74.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 73:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_73.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 72:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_72.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 71:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_71.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 70:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_70.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 69:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_69.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 68:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_68.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 67:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_67.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 66:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_66.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 65:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_65.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 64:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_64.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 63:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_63.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 62:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_62.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 61:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_61.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 60:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_60.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 59:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_59.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 58:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_58.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 57:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_57.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 56:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_56.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 55:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_55.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 54:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_54.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 53:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_53.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 52:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_52.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 51:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_51.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 50:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_50.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 49:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_49.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 48:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_48.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 47:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_47.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 46:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_46.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 45:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_45.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 44:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_44.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 43:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_43.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 42:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_42.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 41:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_41.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 40:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_40.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 39:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_39.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 38:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_38.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 37:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_37.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 36:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_36.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 35:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_35.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 34:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_34.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 33:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_33.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 32:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_32.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 31:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_31.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 30:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_30.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 29:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_29.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 28:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_28.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 27:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_27.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 26:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_26.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 25:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_25.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 24:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_24.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 23:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_23.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 22:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_22.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 21:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_21.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 20:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_20.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 19:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_19.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 18:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_18.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 17:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_17.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 16:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_16.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 15:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_15.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 14:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_14.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 13:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_13.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 12:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_12.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 11:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_11.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 10:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_10.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 9:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_9.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 8:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_8.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 7:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_7.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 6:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_6.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 5:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_5.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 4:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_4.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 3:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_3.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 2:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_2.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 1:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_1.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
-    if character.health == 0:
-        enemy_hp_bar.surf = pygame.image.load("art/ui_elements/bars/health/hp_bar_0.png").convert()
-        enemy_hp_bar.surf.set_colorkey((255, 255, 255), RLEACCEL)
+    for i in range(0, 100):
+        if character.health == i:
+            character.health_bar.update("art/ui_elements/bars/health/hp_bar_" + str(i) + ".png")
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# getting event based on user click related to combat scenario (attack, skill and run buttons)
+def combat_event_button(combat_event):
+    if combat_event.type == pygame.MOUSEBUTTONUP:
+        combat_mouse = pygame.mouse.get_pos()
+
+        # if mouse rect collides with attack button, skill button or run button return string representing it
+        if attack_button.rect.collidepoint(combat_mouse):
+            return "attack"
+
+        if skill_button.rect.collidepoint(combat_mouse):
+            return "skill"
+
+        if run_button.rect.collidepoint(combat_mouse):
+            return "run"
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# getting event based on user click related to shop scenario (buy, sell and leave buttons)
+def shop_event_button(shop_event):
+    if shop_event.type == pygame.MOUSEBUTTONUP:
+        shop_mouse = pygame.mouse.get_pos()
+
+        # if mouse rect collides with buy button, sell button or leave button return string representing it
+        if buy_button.rect.collidepoint(shop_mouse):
+            return "buy"
+
+        if sell_button.rect.collidepoint(shop_mouse):
+            return "sell"
+
+        if leave_button.rect.collidepoint(shop_mouse):
+            return "leave"
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 # getting event based on user click related to combat scenario (attack, skill and run buttons).
-def combat_event_button(combat_event):
-    if combat_event.type == pygame.MOUSEBUTTONUP:
-        mouse_pos = pygame.mouse.get_pos()
-
-        # get a list of all sprites that are under the mouse cursor
-        clicked_combat_element = [element for element in user_interface if element.rect.collidepoint(mouse_pos)]
-
-        # try to get UI element user clicked on and set condition to True if corresponding button is clicked
-        try:
-            if clicked_combat_element[0].__getattribute__("name") == "attack button":
-                return "attack"
-
-            if clicked_combat_element[0].__getattribute__("name") == "skill button":
-                return "skill"
-
-            if clicked_combat_element[0].__getattribute__("name") == "run button":
-                return "run"
-
-        except IndexError:
-            pass
-
-
-# ----------------------------------------------------------------------------------------------------------------------
-# getting event based on item player clicks when inventory window is open.
 def inventory_event_item(inventory_event):
     if inventory_event.type == pygame.MOUSEBUTTONUP:
-        mouse_pos = pygame.mouse.get_pos()
+        inventory_mouse = pygame.mouse.get_pos()
 
-        # get sprite that collided with mouse curser
-        clicked_combat_element = [element for element in player_items if element.rect.collidepoint(mouse_pos)]
+        # list of sprites that collided with mouse cursor rect
+        clicked_combat_element = [element for element in player_items if element.rect.collidepoint(inventory_mouse)]
 
-        # try to get UI element user clicked on and set condition to True if corresponding button is clicked
+        # try to get inventory item player clicked based on it's name and return it
         try:
             if clicked_combat_element[0].__getattribute__("name") == "health potion":
                 return clicked_combat_element[0]
@@ -2139,29 +941,32 @@ def inventory_event_item(inventory_event):
 
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))  # 1024 x 768
 
 # background textures --------------------------------------------------------------------------------------------------
 seldon_district_bg = pygame.image.load("art/environment_art/background_textures/seldon_district.png")
 seldon_district_battle = pygame.image.load("art/environment_art/background_textures/seldon_battle_screen.png")
 seldon_district_shop = pygame.image.load("art/environment_art/background_textures/seldon_shop.png")
+
 game_over_screen = pygame.image.load("art/screens/game_over.png")
 
 # creating objects from defined classes --------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------
 # display notifications to user (shown, x_coordinate, y_coordinate, image, color) --------------------------------------
-greeting = Notification("greeting", False, 500, 325, "art/ui_elements/notifications/welcome.png", (255, 255, 255))
+greeting = Notification("greeting", False, 512, 384, "art/ui_elements/notifications/welcome.png", (255, 255, 255))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # inventory items ------------------------------------------------------------------------------------------------------
 health_potion = Item("health potion", "potion", 200, 200, "art/item_art/health_potion.png", (255, 255, 255))
 energy_potion = Item("energy potion", "potion", 200, 200, "art/item_art/energy_potion.png", (255, 255, 255))
+shiny_rock = Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255))
+bone_dust = Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # default player character ---------------------------------------------------------------------------------------------
 player = Player("Player", "male", "amuna", "mage",  # name, gender, race, role
-                [health_potion, energy_potion],  # inventory
+                [health_potion, energy_potion, shiny_rock, bone_dust],  # inventory
                 ["magic", "basic staff", "light", "green robes"],  # equipment ('type', 'name')
                 # current quest, quest status (x/4), quest dictionary (quest: done)
                 [""], 0, {"Sneaky Snakes": False, "Village Repairs": False, "Ghoulish Ghosts": False},
@@ -2180,7 +985,7 @@ npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "some gear. \n\nWhy don't you go and test it out? There's some snakes nearby that have been coming up "
                 "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
                 "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
-                "trouble. ", 230, 470, True, False, ["Items to be added for thief steal"], False,
+                "trouble. ", 240, 480, True, False, ["Items to be added for thief steal"], False,
                 "art/character_art/NPCs/garan.png", (255, 255, 255))
 
 npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
@@ -2192,7 +997,7 @@ npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We nee
                    "The most recent wave of attacks from\nthe castle has left several damages to our village, "
                    "and if you are able, please gather\nresources and bring them to me to distribute to the "
                    "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
-                   "trees just west of here. Nera bless you. ", 755, 525, True, False,
+                   "trees just west of here. Nera bless you. ", 755, 515, True, False,
                    ["Items to be added for thief steal"], False,
                    "art/character_art/NPCs/maurelle.png", (255, 255, 255))
 
@@ -2207,73 +1012,49 @@ npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish G
                 False, ["Items to be added for thief steal"], False,
                 "art/character_art/NPCs/guard.png", (255, 255, 255))
 
-# shop keepers ---------------------------------------------------------------------------------------------------------
-# (name, location, inventory, dialog)
-amuna_shop_keeper = Shopkeeper("Amuna Shopkeeper Beetle", "Seldon District", [
-    Item("health potion", "potion", 200, 200, "art/item_art/health_potion.png", (255, 255, 255)),
-    Item("energy potion", "potion", 200, 200, "art/item_art/energy_potion.png", (255, 255, 255)),
-    Item("bronze sword", "sword", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
-    Item("bronze armor", "armor", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
-    Item("oak staff", "staff", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
-    Item("woven robe", "robe", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
-    Item("sharp dirk", "dagger", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
-    Item("padded tunic", "tunic", 200, 200, "art/item_art/temp_item.png", (255, 255, 255)),
-    Item("chestnut horse", "mount", 200, 200, "art/item_art/temp_item.png", (255, 255, 255))],
-    "These Ghoul Minion attacks are bad for business!")
-
-nuldar_shop_keeper = Shopkeeper("Nuldar Shopkeeper Darunia", "Korlok District", ["hearty health potion",
-                                                                                 "extra energy potion",
-                                                                                 "iron forged sword",
-                                                                                 "iron forged armor",
-                                                                                 "smooth metal staff", "fire robes",
-                                                                                 "dark iron daggers",
-                                                                                 "resistant jerkin",
-                                                                                 "aren's mighty gloves"],
-                                "Welcome, Onurok.")
-
-# skill trainers -------------------------------------------------------------------------------------------------------
-# (name, location, skills, dialog)
-amuna_fighter_trainer = Trainer("Amuna Fighter Trainer Raron", "Seldon District", ["Protection"],
-                                "Hail, fellow fighter. What can I teach you today?")
-amuna_mage_trainer = Trainer("Amuna Mage Trainer Kepora", "Seldon District", ["Chillshot"],
-                             "Hail, fellow mage. What can I teach you today?")
-amuna_rogue_trainer = Trainer("Amuna Rogue Trainer Drago", "Seldon District", ["Evasion Tactics"],
-                              "Hail, fellow rogue. What can I teach you today?")
-
-nuldar_fighter_trainer = Trainer("Nuldar Fighter Trainer Dongo", "Korlok District", ["Aren's Flame"],
-                                 "Kunkoro, big-sword. What may I teach?")
-nuldar_mage_trainer = Trainer("Nuldar Mage Trainer Kepora", "Korlok District", ["Thermal Manipulation"],
-                              "Kunkoro, bright-mind. What may I teach?")
-nuldar_rogue_trainer = Trainer("Nuldar Rogue Trainer Drago", "Korlok District", ["Molten Blades"],
-                               "Kunkoro, silence-seeker. What may I teach?")
-
 # ----------------------------------------------------------------------------------------------------------------------
-# enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color ------------------
-snake_1 = Enemy("Snake", "snake", 100, 100, 1, 100, 150, True, Item("shiny rock", "rock", 200, 200,
-                                                                    "art/item_art/shiny_rock.png", (255, 255, 255)),
-                "art/enemy_art/snake.png", (255, 255, 255))
-snake_2 = Enemy("Snake", "snake", 100, 100, 2, 260, 170, True, Item("shiny rock", "rock", 200, 200,
-                                                                    "art/item_art/shiny_rock.png", (255, 255, 255)),
-                "art/enemy_art/snake.png", (255, 255, 255))
-snake_3 = Enemy("Snake", "snake", 100, 100, 1, 100, 250, True, Item("shiny rock", "rock", 200, 200,
-                                                                    "art/item_art/shiny_rock.png", (255, 255, 255)),
-                "art/enemy_art/snake.png", (255, 255, 255))
-snake_4 = Enemy("Snake", "snake", 100, 100, 2, 260, 270, True, Item("shiny rock", "rock", 200, 200,
-                                                                    "art/item_art/shiny_rock.png", (255, 255, 255)),
-                "art/enemy_art/snake.png", (255, 255, 255))
+# enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar ------
+snake_1 = Enemy("Snake", "snake", 100, 100, 1, 100, 150, True,
+                Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
+                "art/enemy_art/snake.png", (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                          False))
+snake_2 = Enemy("Snake", "snake", 100, 100, 2, 260, 170, True,
+                Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
+                "art/enemy_art/snake.png", (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                          False))
+snake_3 = Enemy("Snake", "snake", 100, 100, 1, 100, 250, True,
+                Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
+                "art/enemy_art/snake.png", (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                          False))
+snake_4 = Enemy("Snake", "snake", 100, 100, 2, 260, 270, True,
+                Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
+                "art/enemy_art/snake.png", (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                          False))
 
-ghoul_low_1 = Enemy("Ghoul", "ghoul", 100, 100, 4, 675, 200, True, Item("bone dust", "dust", 200, 200,
-                                                                        "art/item_art/bone_dust.png", (255, 255, 255)),
-                    "art/enemy_art/ghoul.png", (255, 255, 255))
-ghoul_low_2 = Enemy("Ghoul", "ghoul", 100, 100, 5, 800, 150, True, Item("bone dust", "dust", 200, 200,
-                                                                        "art/item_art/bone_dust.png", (255, 255, 255)),
-                    "art/enemy_art/ghoul.png", (255, 255, 255))
-ghoul_low_3 = Enemy("Ghoul", "ghoul", 100, 100, 3, 760, 260, True, Item("bone dust", "dust", 200, 200,
-                                                                        "art/item_art/bone_dust.png", (255, 255, 255)),
-                    "art/enemy_art/ghoul.png", (255, 255, 255))
-ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 4, 875, 225, True, Item("bone dust", "dust", 200, 200,
-                                                                        "art/item_art/bone_dust.png", (255, 255, 255)),
-                    "art/enemy_art/ghoul.png", (255, 255, 255))
+ghoul_low_1 = Enemy("Ghoul", "ghoul", 100, 100, 4, 675, 200, True,
+                    Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
+                    "art/enemy_art/ghoul.png", (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                              False))
+ghoul_low_2 = Enemy("Ghoul", "ghoul", 100, 100, 5, 800, 150, True,
+                    Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
+                    "art/enemy_art/ghoul.png", (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                              False))
+ghoul_low_3 = Enemy("Ghoul", "ghoul", 100, 100, 3, 760, 260, True,
+                    Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
+                    "art/enemy_art/ghoul.png", (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                              False))
+ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 4, 875, 225, True,
+                    Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
+                    "art/enemy_art/ghoul.png", (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                              False))
 
 # trees: name, model, x_coordinate, y_coordinate, gathered, image, color -----------------------------------------------
 pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 475, False, "art/environment_art/pine_tree.png", (255, 255, 255))
@@ -2281,13 +1062,13 @@ pine_tree_2 = Tree("pine tree 4", "pine tree", 260, 660, False, "art/environment
 pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 400, False, "art/environment_art/pine_tree.png", (255, 255, 255))
 
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-amuna_inn = Building("inn", "amuna building", 600, 625,
+amuna_inn = Building("amuna inn", "amuna building", 600, 600,
                      "art/environment_art/buildings/amuna_building_inn.png",
                      (255, 255, 255))
-amuna_shop = Building("shop", "amuna building", 700, 400,
+amuna_shop = Building("amuna shop", "amuna building", 650, 400,
                       "art/environment_art/buildings/amuna_building_shop.png",
                       (255, 255, 255))
-amuna_academia = Building("academia", "amuna building", 875, 545,
+amuna_academia = Building("amuna academia", "amuna building", 875, 500,
                           "art/environment_art/buildings/amuna_building_academia.png",
                           (255, 255, 255))
 
@@ -2299,24 +1080,22 @@ character_button = UiElement("character button", 850, 730, "art/ui_elements/butt
 journal_button = UiElement("journal button", 740, 730, "art/ui_elements/buttons/journal.png",
                            (255, 255, 255), False)
 
-attack_button = UiElement("attack button", 740, 675, "art/ui_elements/buttons/battle_screen/attack.png",
+attack_button = UiElement("attack button", 740, 670, "art/ui_elements/buttons/battle_screen/attack.png",
                           (255, 255, 255), False)
-skill_button = UiElement("skill button", 850, 675, "art/ui_elements/buttons/battle_screen/skill.png",
+skill_button = UiElement("skill button", 850, 670, "art/ui_elements/buttons/battle_screen/skill.png",
                          (255, 255, 255), False)
-run_button = UiElement("run button", 960, 675, "art/ui_elements/buttons/battle_screen/run.png",
+run_button = UiElement("run button", 960, 670, "art/ui_elements/buttons/battle_screen/run.png",
                        (255, 255, 255), False)
-
 continue_button = UiElement("continue button", 500, 600, "art/ui_elements/buttons/continue_button.png",
                             (255, 255, 255), False)
-
-buy_button = UiElement("buy button", 740, 675, "art/ui_elements/buttons/shop/buy.png",
+buy_button = UiElement("buy button", 740, 730, "art/ui_elements/buttons/shop/buy.png",
                        (255, 255, 255), False)
-sell_button = UiElement("sell button", 850, 675, "art/ui_elements/buttons/shop/sell.png",
+sell_button = UiElement("sell button", 850, 730, "art/ui_elements/buttons/shop/sell.png",
                         (255, 255, 255), False)
-leave_button = UiElement("leave button", 960, 675, "art/ui_elements/buttons/shop/leave.png",
+leave_button = UiElement("leave button", 960, 730, "art/ui_elements/buttons/shop/leave.png",
                          (255, 255, 255), False)
 
-player_status = UiElement("player status", 850, 675, "art/ui_elements/status/player.png", (255, 255, 255), False)
+player_status = UiElement("player status", 850, 670, "art/ui_elements/status/player.png", (255, 255, 255), False)
 enemy_status = UiElement("enemy status", 850, 730, "art/ui_elements/status/enemy.png", (255, 255, 255), False)
 
 hp_bar = UiElement("hp bar", 170, 25, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255), False)
@@ -2325,11 +1104,12 @@ xp_bar = UiElement("xp bar", 170, 65, "art/ui_elements/bars/xp/xp_bar_full.png",
 
 enemy_hp_bar = UiElement("enemy hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255), False)
 
-inventory = Inventory([], 890, 525, "art/ui_elements/inventory.png", (255, 255, 255), False)
-buy_shop_inventory = Inventory([], 890, 525, "art/ui_elements/buy_inventory.png", (255, 255, 255), False)
-sell_shop_inventory = Inventory([], 890, 525, "art/ui_elements/sell_inventory.png", (255, 255, 255), False)
+inventory = Inventory([], 890, 515, "art/ui_elements/inventory.png", (255, 255, 255), False)
 
-message_box = UiElement("message_box", 175, 705, "art/ui_elements/message_box.png", (255, 255, 255), False)
+message_box = UiElement("message box", 175, 700, "art/ui_elements/message_box.png", (255, 255, 255), False)
+
+status_bar_backdrop = UiElement("status bar backdrop", 165, 45, "art/ui_elements/status_bar_backdrop.png",
+                                (255, 255, 255), False)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # battle sprites -------------------------------------------------------------------------------------------------------
@@ -2365,8 +1145,9 @@ npcs.add(npc_garan, npc_maurelle, npc_guard)
 enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 buildings.add(amuna_inn, amuna_shop, amuna_academia)
-user_interface.add(buy_button, sell_button, leave_button, inventory_button, character_button, journal_button,
-                   attack_button, skill_button, run_button, player_status, message_box)
+
+user_interface.add(buy_button, sell_button, leave_button, character_button, journal_button, inventory_button,
+                   attack_button, skill_button, run_button, player_status, message_box, status_bar_backdrop)
 
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
@@ -2386,28 +1167,25 @@ all_sprites.add(npcs, enemies, trees, buildings)
 # move_down_sound.set_volume(0.5)
 # collision_sound.set_volume(0.5)
 
-
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # main loop variables --------------------------------------------------------------------------------------------------
 game_running = True
 
+# condition to check if player has chosen to interact with sprite
+interacted = False
 # condition to allow or block player movement (combat or npc interaction)
 movement_able = True
 # condition for battle sequences so that buttons can't be spam clicked
-click_able = True
-
-# condition to check if inventory button is clicked
-inventory_clicked = False
-# condition to check if buy button is clicked (shop)
-buy_clicked = False
-# condition to check if sell button is clicked (shop)
-sell_clicked = False
-
+combat_cooldown = False
 # condition to check if combat occurred on current game loop iteration to update sprites at end of loop
 combat_happened = False
-# condition to check if a player has chosen to interact with a collided sprite
-interacted = False
+# condition to check if inventory button is clicked
+inventory_clicked = False
+# condition to check if enemy has just been defeated so that the message box doesn't instantly clear and shows updates
+loot_update = False
+# condition to check if player has started combat encounter with enemy to clear message box (before adding combat text)
+encounter_started = False
 
 # what zone the player is in, used for player update and map boundaries
 zone_seldon = True
@@ -2419,10 +1197,6 @@ zone_marrow = False
 display_elements = []
 # list to contain current player items for display
 player_items = []
-# list to contain current shop items for sale
-shop_items_buy = []
-# list to contain current player items to sell
-shop_items_sell = []
 
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
@@ -2437,6 +1211,21 @@ info_text_4 = ""
 while game_running:
 
     if player.alive_status:
+
+        # clear loot update after some time has passed (ab 3 seconds)
+        if pygame.time.get_ticks() % 180 == 0:
+            loot_update = False
+
+        # if player is not currently in range of sprite, or using inventory, or recently defeated enemy for loot update,
+        # clear message box
+        sprite = pygame.sprite.spritecollideany(player, all_sprites)
+        if not sprite:
+            if not inventory_clicked:
+                if not loot_update:
+                    info_text_1 = ""
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
 
         if zone_seldon:
             player.current_zone = "Seldon"
@@ -2472,10 +1261,10 @@ while game_running:
         for item in player_items:
             screen.blit(item.surf, item.rect)
 
-        # update player health, energy and experience bar on each iteration of main loop -------------------------------
         health_bar_update(player)
         energy_bar_update(player)
-        experience_bar_update(player)
+        xp_bar_update(player)
+
         screen.blit(hp_bar.surf, hp_bar.rect)
         screen.blit(en_bar.surf, en_bar.rect)
         screen.blit(xp_bar.surf, xp_bar.rect)
@@ -2485,66 +1274,66 @@ while game_running:
         # get current player rupee count and create surf and rectangle to blit to screen
         text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
         text_rupee_rect = text_rupee_surf.get_rect()
-        text_rupee_rect.center = (975, 677)
+        text_rupee_rect.center = (975, 672)
         screen.blit(text_rupee_surf, text_rupee_rect)
 
         # get current player district and create surf and rectangle to blit to screen
         text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
         text_zone_rect = text_zone_surf.get_rect()
-        text_zone_rect.center = (865, 677)
+        text_zone_rect.center = (865, 672)
         screen.blit(text_zone_surf, text_zone_rect)
 
         # get current player district and create surf and rectangle to blit to screen
         text_level_surf = font.render(str(player.level), True, "black", "light yellow")
         text_level_rect = text_level_surf.get_rect()
-        text_level_rect.center = (760, 677)
+        text_level_rect.center = (760, 672)
         screen.blit(text_level_surf, text_level_rect)
 
-        # current combat text, first line
-        text_combat_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
-        text_combat_info_rect_1 = text_combat_info_surf_1.get_rect()
-        text_combat_info_rect_1.center = (140, 680)
-        screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
+        # current info text, first line
+        text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
+        text_combat_info_rect_1 = text_info_surf_1.get_rect()
+        text_combat_info_rect_1.center = (145, 690)
+        screen.blit(text_info_surf_1, text_combat_info_rect_1)
 
-        # current combat text, second line
-        text_combat_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
-        text_combat_info_rect_2 = text_combat_info_surf_2.get_rect()
-        text_combat_info_rect_2.center = (140, 700)
-        screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
+        # current info text, second line
+        text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
+        text_combat_info_rect_2 = text_info_surf_2.get_rect()
+        text_combat_info_rect_2.center = (145, 710)
+        screen.blit(text_info_surf_2, text_combat_info_rect_2)
 
-        # current combat text, third line
-        text_combat_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
-        text_combat_info_rect_3 = text_combat_info_surf_3.get_rect()
-        text_combat_info_rect_3.center = (140, 720)
-        screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
+        # current info text, third line
+        text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
+        text_combat_info_rect_3 = text_info_surf_3.get_rect()
+        text_combat_info_rect_3.center = (145, 730)
+        screen.blit(text_info_surf_3, text_combat_info_rect_3)
 
-        # current combat text, fourth line
-        text_combat_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
-        text_combat_info_rect_4 = text_combat_info_surf_4.get_rect()
-        text_combat_info_rect_4.center = (140, 740)
-        screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
+        # current info text, fourth line
+        text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
+        text_combat_info_rect_4 = text_info_surf_4.get_rect()
+        text_combat_info_rect_4.center = (145, 750)
+        screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
         # --------------------------------------------------------------------------------------------------------------
-        # --------------------------------------------------------------------------------------------------------------
-        # user input events such as key presses or UI interaction
+        # all user input events such as key presses or UI interaction
         for event in pygame.event.get():
             if event.type == KEYDOWN:
 
-                if event.key == K_f:
-                    interacted = True
-
+                # escape key was pressed, exit game
                 if event.key == K_ESCAPE:
                     exit()
 
+                # "F" key for player interaction
+                if event.key == K_f:
+                    interacted = True
+
+            # if something was clicked on screen by mouse cursor, get its position and see what sprite it collided with
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
 
-                # check which sprite collided with the mouse cursor
-                clicked_element = [element for element in user_interface if element.rect.collidepoint(pos)]
+                # if mouse cursor collided with inventory button when player clicked
+                if inventory_button.rect.collidepoint(pos):
 
-                # try to get UI element user clicked on and set condition to True if corresponding button is clicked
-                try:
-                    if clicked_element[0].__getattribute__("name") == "inventory button":
+                    if not encounter_started:
 
                         # if user clicks inventory button again, set condition to false which will hide inventory window
                         if inventory_clicked:
@@ -2562,7 +1351,7 @@ while game_running:
                             # if player has items in their inventory
                             if len(player.items) > 0:
                                 first_coord = 800
-                                second_coord = 440
+                                second_coord = 425
 
                                 inventory_counter = 0
                                 # go through player items and assign inventory slots (coordinates) to them
@@ -2570,103 +1359,36 @@ while game_running:
                                     if item.name == "shiny rock":
                                         item.update(first_coord, second_coord, "art/item_art/shiny_rock.png")
                                         player_items.append(item)
+                                        inventory_counter += 1
                                     if item.name == "bone dust":
                                         item.update(first_coord, second_coord, "art/item_art/bone_dust.png")
                                         player_items.append(item)
+                                        inventory_counter += 1
                                     if item.name == "health potion":
                                         item.update(first_coord, second_coord, "art/item_art/health_potion.png")
                                         player_items.append(item)
+                                        inventory_counter += 1
                                     if item.name == "energy potion":
                                         item.update(first_coord, second_coord, "art/item_art/energy_potion.png")
                                         player_items.append(item)
+                                        inventory_counter += 1
 
                                     # add 75 to the items x-coordinate value so the next item will be added to next slot
                                     first_coord += 60
 
-                                    # add 100 to items y coordinate value if the first row of (4) slots has been filled
-                                    inventory_counter += 1
-                                    if inventory_counter % 4 == 0:
-                                        second_coord += 100
-
-                    # player is in shop and buy button is active, if clicked will show the shopkeeper's inventory
-                    if clicked_element[0].__getattribute__("name") == "buy button":
-
-                        # if user clicks buy button again, set condition to false which will hide window
-                        if buy_clicked:
-                            buy_clicked = False
-
-                            if len(display_elements) > 0:
-                                display_elements.pop(0)
-                                player_items.clear()
-
-                        # player clicked buy button for the first time. show window
-                        else:
-                            buy_clicked = True
-                            display_elements.insert(0, buy_shop_inventory)
-
-                            # if player has items in their inventory
-                            if len(amuna_shop_keeper.shop_inventory) > 0:
-                                first_coord_shop = 800
-                                second_coord_shop = 440
-
-                                inventory_counter_shop = 0
-                                # go through player items and assign inventory slots (coordinates) to them
-                                for shop_item in amuna_shop_keeper.shop_inventory:
-                                    if shop_item.name == "health potion":
-                                        shop_item.update(first_coord_shop, second_coord_shop,
-                                                         "art/item_art/health_potion.png")
-                                        shop_items_buy.append(shop_item)
-                                    if shop_item.name == "energy potion":
-                                        shop_item.update(first_coord_shop, second_coord_shop,
-                                                         "art/item_art/energy_potion.png")
-                                        shop_items_buy.append(shop_item)
-                                    if shop_item.name == "bronze sword":
-                                        shop_item.update(first_coord_shop, second_coord_shop,
-                                                         "art/item_art/temp_item.png")
-                                        shop_items_buy.append(shop_item)
-                                    if shop_item.name == "bronze armor":
-                                        shop_item.update(first_coord_shop, second_coord_shop,
-                                                         "art/item_art/temp_item.png")
-                                        shop_items_buy.append(shop_item)
-                                    if shop_item.name == "oak staff":
-                                        shop_item.update(first_coord_shop, second_coord_shop,
-                                                         "art/item_art/temp_item.png")
-                                        shop_items_buy.append(shop_item)
-                                    if shop_item.name == "woven robe":
-                                        shop_item.update(first_coord_shop, second_coord_shop,
-                                                         "art/item_art/temp_item.png")
-                                        shop_items_buy.append(shop_item)
-                                    if shop_item.name == "sharp dirk":
-                                        shop_item.update(first_coord_shop, second_coord_shop,
-                                                         "art/item_art/temp_item.png")
-                                        shop_items_buy.append(shop_item)
-                                    if shop_item.name == "padded tunic":
-                                        shop_item.update(first_coord_shop, second_coord_shop,
-                                                         "art/item_art/temp_item.png")
-                                        shop_items_buy.append(shop_item)
-                                    if shop_item.name == "chestnut horse":
-                                        shop_item.update(first_coord_shop, second_coord_shop,
-                                                         "art/item_art/temp_item.png")
-                                        shop_items_buy.append(shop_item)
-
-                                    # add 75 to the items x-coordinate value so the next item will be added to next slot
-                                    first_coord_shop += 60
-
-                                    # add 100 to items y coordinate value if the first row of (4) slots has been filled
-                                    inventory_counter_shop += 1
-                                    if inventory_counter_shop % 4 == 0:
-                                        second_coord_shop += 100
-
-                except IndexError:
-                    pass
+                                    # add 60 to items y coordinate value if the first row of (4) slots has been filled
+                                    # reset first coordinate and counter to start in the leftmost slot again
+                                    if inventory_counter > 3:
+                                        second_coord += 60
+                                        first_coord = 800
+                                        inventory_counter = 0
 
             elif event.type == QUIT:
                 exit()
 
             # ----------------------------------------------------------------------------------------------------------
-            # player using items within inventory ----------------------------------------------------------------------
             # if inventory has been clicked and inventory window is open, get item within inventory window that was
-            # clicked
+            # clicked and use the item based on its name attribute. health potion heals, energy potion energizes, etc
             if inventory_clicked:
                 inventory_item = inventory_event_item(event)
 
@@ -2674,20 +1396,30 @@ while game_running:
                     if inventory_item.__getattribute__("name") == "health potion":
                         if player.health == 100:
                             info_text_1 = "You're already at full health."
+                            info_text_2 = ""
 
                         else:
                             player.health = player.health + 25
+                            # if health potion heals over 100 hp, just set to 100 (max health)
+                            if player.health > 100:
+                                player.health = 100
                             info_text_1 = "The potion heals you for 25 hp."
+                            info_text_2 = ""
+
                             player_items.remove(inventory_item)
                             player.items.remove(inventory_item)
 
                     if inventory_item.__getattribute__("name") == "energy potion":
                         if player.energy == 100:
                             info_text_1 = "You're already at full energy."
+                            info_text_2 = ""
 
                         else:
                             player.energy = player.energy + 25
-                            info_text_1 = "The potion energizes you for 25 ep."
+                            # if energy potion energizes over 100 hp, just set to 100 (max energy)
+                            if player.energy > 100:
+                                player.energy = 100
+                            info_text_1 = "The potion energizes you for 25 en."
                             player_items.remove(inventory_item)
                             player.items.remove(inventory_item)
 
@@ -2696,131 +1428,156 @@ while game_running:
                         info_text_2 = ""
 
                     if inventory_item.__getattribute__("name") == "bone dust":
-                        info_text_1 = "Dusty. Maybe someone would buy it?"
+                        info_text_1 = "Dusty. Maybe you can sell it?"
                         info_text_2 = ""
 
                 except AttributeError:
                     pass
 
             # ----------------------------------------------------------------------------------------------------------
-            # if player is able to perform combat action this turn, get event from button press and perform action
-            if click_able:
-                combat_button = combat_event_button(event)
+            # if player collides with enemy sprite, doesn't have combat cooldown,
+            # and chooses to interact with it then get event from button press and perform action
+            enemy = pygame.sprite.spritecollideany(player, enemies)
+            if enemy:
 
-                # Info returned from combat scenario function in form of dictionary ------------------------------------
-                # "damage done": 0,
-                # "damage taken": 0,
-                # "item dropped": "",
-                # "experience gained": 0,
-                # "quest update": "",
-                # "enemy defeated": False,
-                # "escaped": False
-                # ------------------------------------------------------------------------------------------------------
+                # update enemy health bar on each iteration
+                health_bar_update_enemy(enemy)
 
-                # enter combat scenario and attack enemy. attack_scenario will return all combat info in form of list
-                if combat_button == "attack":
-                    stan_battle_sprite.update("art/character_art/player_character/default/battle/"
-                                              "stan_battle_attacking.png")
+                if not combat_cooldown:
+                    if interacted:
 
-                    enemy = pygame.sprite.spritecollideany(player, enemies)
-                    if enemy:
-
-                        if enemy.kind == "snake":
-                            snake_battle_sprite.update("art/enemy_art/battle/snake_battle_attacking.png")
-
-                        if enemy.kind == "ghoul":
-                            ghoul_battle_sprite.update("art/enemy_art/battle/ghoul_battle_attacking.png")
-
-                        combat_events = attack_scenario(enemy, "attack")
-                        combat_happened = True
-
-                        # add all combat scenario happenings from function to message box
-                        # if any of the values are currently zero, or no, just return a blank string to message box
-                        if combat_events["damage done"] == 0:
+                        # if player has just started combat, clear message box, change condition to True
+                        # so that it doesn't continuously clear box after combat text is added
+                        if not encounter_started:
                             info_text_1 = ""
-                        else:
-                            info_text_1 = str(combat_events["damage done"])
-
-                        if combat_events["damage taken"] == 0:
                             info_text_2 = ""
-                        else:
-                            info_text_2 = str(combat_events["damage taken"])
+                            info_text_3 = ""
+                            info_text_4 = ""
+                            encounter_started = True
 
-                        if combat_events["item dropped"] != "No" and combat_events["enemy defeated"]:
-                            info_text_1 = str(combat_events["item dropped"])
+                        # get which button player pressed during combat scenario (attack, skill or run)
+                        combat_button = combat_event_button(event)
 
-                        if combat_events["experience gained"] != 0 and combat_events["enemy defeated"]:
-                            info_text_2 = str(combat_events["experience gained"])
+                        # Info returned from combat scenario function in form of dictionary ----------------------------
+                        # "damage done": 0,
+                        # "damage taken": 0,
+                        # "item dropped": "",
+                        # "experience gained": 0,
+                        # "quest update": "",
+                        # "enemy defeated": False,
+                        # "escaped": False
+                        # ----------------------------------------------------------------------------------------------
 
-                        # if player was successful in defeating enemy, combat scenario ends and movement is allowed
-                        # set combat happened to false, allowing iteration to continue without delay from combat
-                        # animation
-                        if combat_events["enemy defeated"]:
-                            movement_able = True
-                            combat_happened = False
-                            interacted = False
+                        # enter combat scenario and attack enemy. attack_scenario will return all info in form of list
+                        if combat_button == "attack":
 
-                if combat_button == "skill":
+                            # update player character sprite for combat animation
+                            stan_battle_sprite.update("art/character_art/player_character/default/battle/"
+                                                      "stan_battle_attacking.png")
 
-                    enemy = pygame.sprite.spritecollideany(player, enemies)
-                    if enemy:
-                        combat_events = attack_scenario(enemy, "skill")
+                            # update to attacking sprite surface for combat animation
+                            if enemy.kind == "snake":
+                                snake_battle_sprite.update("art/enemy_art/battle/snake_battle_attacking.png")
 
-                        # commented out until skill functions added to prevent game crash
-                        """
-                        # add all combat scenario happenings from function to message box
-                        # if any of the values are currently zero, or no, just return a blank string to message box
-                        if combat_events["damage done"] == 0:
-                            info_text_1 = ""
-                        else:
-                            info_text_1 = str(combat_events["damage done"])
-    
-                        if combat_events["damage taken"] == 0:
-                            info_text_2 = ""
-                        else:
-                            info_text_2 = str(combat_events["damage taken"])
-    
-                        if combat_events["item dropped"] == "No":
-                            info_text_1 = ""
-                        else:
-                            info_text_1 = str(combat_events["item dropped"])
-    
-                        if combat_events["experience gained"] == 0:
-                            info_text_2 = ""
-                        else:
-                            info_text_2 = str(combat_events["experience gained"])
-    
-                        # if player was successful in defeating enemy, combat scenario ends and movement is allowed
-                        if combat_events["enemy defeated"]:
-                            movement_able = True
-                            combat_happened = False
-                        """
+                            if enemy.kind == "ghoul":
+                                ghoul_battle_sprite.update("art/enemy_art/battle/ghoul_battle_attacking.png")
 
-                # if player chooses run in combat, set their position to determined location which will disengage them
-                # from combat scenario and allow them to move again
-                if combat_button == "run":
+                            # combat event function that handles and returns damage and health
+                            combat_events = attack_scenario(enemy, "attack")
+                            combat_happened = True
 
-                    enemy = pygame.sprite.spritecollideany(player, enemies)
-                    if enemy:
-                        combat_events = attack_scenario(enemy, "run")
+                            # add all combat scenario happenings from function to message box
+                            # if any of the values are currently zero, or no, return blank string to message box
+                            if combat_events["damage done"] == 0:
+                                info_text_1 = ""
+                            else:
+                                info_text_1 = str(combat_events["damage done"])
 
-                        # if combat scenario returns true that player is able to escape enemy, move player to
-                        # safe location
-                        # to exit the encounter and re-enable movement
-                        if combat_events["escaped"]:
-                            info_text_1 = str(combat_events["damage done"])
-                            movement_able = True
-                            interacted = False
-                            player.pos = vec((500, 400))
+                            if combat_events["damage taken"] == 0:
+                                info_text_2 = ""
+                            else:
+                                info_text_2 = str(combat_events["damage taken"])
 
-                        else:
-                            info_text_1 = str(combat_events["damage done"])
+                            if combat_events["item dropped"] != "No" and combat_events["enemy defeated"]:
+                                info_text_1 = str(combat_events["item dropped"])
 
-        # get current pressed keys from user and apply zone boundaries depending on current players zone
+                            if combat_events["experience gained"] != 0 and combat_events["enemy defeated"]:
+                                info_text_2 = str(combat_events["experience gained"])
+
+                            # if player was successful in defeating enemy, combat scenario ends, movement is allowed
+                            # set combat happened false, allowing iterations to continue without cooldown
+                            # reset encounter_started condition so that next enemy will clear message box
+                            if combat_events["enemy defeated"]:
+                                movement_able = True
+                                combat_happened = False
+                                interacted = False
+                                loot_update = True
+                                encounter_started = False
+
+                        if combat_button == "skill":
+                            combat_events = attack_scenario(enemy, "skill")
+
+                        # if player chooses run in combat
+                        if combat_button == "run":
+
+                            combat_events = attack_scenario(enemy, "run")
+
+                            # if combat scenario returns true that player is able to escape enemy, move player to
+                            # safe location to exit the encounter and re-enable movement for player character
+                            # set loot update to true to allow escape message to show for a short time
+                            if combat_events["escaped"]:
+                                info_text_1 = str(combat_events["damage done"])
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+
+                                movement_able = True
+                                interacted = False
+                                loot_update = True
+                                encounter_started = False
+                                player.pos = vec((500, 400))
+
+                            else:
+                                info_text_1 = str(combat_events["damage done"])
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+
+            # ----------------------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            building = pygame.sprite.spritecollideany(player, buildings)
+            if building:
+                if interacted:
+
+                    # if player has just started shop scenario, clear message box
+                    if not encounter_started:
+                        info_text_1 = ""
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
+                        encounter_started = True
+
+                    # get which button player pressed during shop scenario (buy, sell or leave)
+                    shop_button = shop_event_button(event)
+
+                    if shop_button == "buy":
+                        print("you clicked buy.")
+
+                    if shop_button == "sell":
+                        print("you clicked sell.")
+
+                    # if player chooses to leave shop, set conditions to allow normal gameplay loop
+                    if shop_button == "leave":
+                        movement_able = True
+                        interacted = False
+                        loot_update = True
+                        encounter_started = False
+
+        # --------------------------------------------------------------------------------------------------------------
+        # get current pressed keys from player and apply zone boundaries depending on current players current zone
         pressed_keys = pygame.key.get_pressed()
 
-        # get players current zone status and apply the keys update to movement based on zone boundaries
-        # defined in update()
+        # Apply pressed keys update to movement based on zone boundaries, defined in player.update()
         if zone_seldon:
             if movement_able:
                 player.update(pressed_keys, "seldon")
@@ -2834,12 +1591,12 @@ while game_running:
             if movement_able:
                 player.update(pressed_keys, "marrow")
 
-        # if greeting message has not been shown yet, add it to display elements to be blit to screen
+        # if greeting message has not been shown yet, add it to display elements to be drawn
         if not greeting.shown:
             display_elements.append(greeting)
             greeting.shown = True
 
-        # if greeting has been shown, after a few seconds (based on framerate) remove it from screen
+        # if greeting has been shown, after a few seconds remove it from screen
         if greeting.shown:
             if pygame.time.get_ticks() > 3000:
                 for notification in display_elements:
@@ -2849,6 +1606,7 @@ while game_running:
                     except AttributeError:
                         pass
 
+        # enemy movement updates ---------------------------------------------------------------------------------------
         # choose random directions and random enemy to move that direction ---------------------------------------------
         direction_horizontal = random.choice(["left", "right"])
         direction_vertical = random.choice(["up", "down"])
@@ -2858,38 +1616,25 @@ while game_running:
         # move snakes in random direction within boundaries every 20 fps
         if movement_able:
             if pygame.time.get_ticks() % 20 == 0:
-                move_this_snake.update([50, 250], [200, 300], direction_horizontal, direction_vertical)
-                move_this_ghoul.update([650, 850], [200, 300], direction_horizontal, direction_vertical)
+                move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical)
+                move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical)
 
         # --------------------------------------------------------------------------------------------------------------
         # player rect collides with an enemy rect ----------------------------------------------------------------------
         enemy = pygame.sprite.spritecollideany(player, enemies)
         if enemy:
-
-            # if player has collided with an enemy but has not yet attacked it
-            # doesn't continue to show if interaction has occurred
-            if not interacted:
-                info_text_1 = "Press 'f' key to attack enemy."
-
+            # player has pressed "F" key to interact with enemy (attack)
             if interacted:
-
-                # clear press f to attack message once encounter begins
-                if info_text_1 == "Press 'f' key to attack enemy.":
-                    info_text_1 = ""
-                    info_text_2 = ""
-
-                # doesn't allow player to move while in combat
+                # don't allow player to move while in combat
                 movement_able = False
 
-                # update enemies health before displaying (blit) combat screen elements
-                health_bar_update_enemy(enemy)
-
                 if zone_seldon:
-
-                    # if enemy is snake in seldon zone, push everything to top layer of screen for battle
+                    # --------------------------------------------------------------------------------------------------
+                    # if enemy is snake in seldon zone, chose snake sprite and seldon backdrop
                     if enemy.__getattribute__("kind") == "snake":
                         screen.blit(seldon_district_battle, (0, 0))
                         screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
+                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
@@ -2897,33 +1642,35 @@ while game_running:
                         screen.blit(skill_button.surf, skill_button.rect)
                         screen.blit(run_button.surf, run_button.rect)
                         screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                        screen.blit(enemy_hp_bar.surf, enemy_hp_bar.rect)
+                        screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
                         screen.blit(enemy_status.surf, enemy_status.rect)
                         screen.blit(message_box.surf, message_box.rect)
 
-                        # get current enemy name and create surf and rectangle to blit to screen
+                        # get current enemy name and create surf and rectangle to draw to screen
                         text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black",
                                                            "light yellow")
                         text_enemy_name_rect = text_enemy_name_surf.get_rect()
                         text_enemy_name_rect.center = (800, 732)
                         screen.blit(text_enemy_name_surf, text_enemy_name_rect)
 
-                        # get current enemy level and create surf and rectangle to blit to screen
+                        # get current enemy level and create surf and rectangle to draw to screen
                         text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black",
                                                             "light yellow")
                         text_enemy_level_rect = text_enemy_level_surf.get_rect()
                         text_enemy_level_rect.center = (910, 732)
                         screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
-                        # combat info text for message box. initially blank and updated during combat scenario
-                        screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
-                        screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
-                        screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
-                        screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
+                        # draw message box text to screen, updated during combat scenario
+                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
+                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
+                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
+                    # --------------------------------------------------------------------------------------------------
                     if enemy.__getattribute__("kind") == "ghoul":
                         screen.blit(seldon_district_battle, (0, 0))
                         screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
+                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
@@ -2931,76 +1678,83 @@ while game_running:
                         screen.blit(skill_button.surf, skill_button.rect)
                         screen.blit(run_button.surf, run_button.rect)
                         screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                        screen.blit(enemy_hp_bar.surf, enemy_hp_bar.rect)
+                        screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
                         screen.blit(enemy_status.surf, enemy_status.rect)
                         screen.blit(message_box.surf, message_box.rect)
 
-                        # get current enemy name and create surf and rectangle to blit to screen
                         text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black",
                                                            "light yellow")
                         text_enemy_name_rect = text_enemy_name_surf.get_rect()
                         text_enemy_name_rect.center = (805, 732)
                         screen.blit(text_enemy_name_surf, text_enemy_name_rect)
 
-                        # get current enemy level and create surf and rectangle to blit to screen
                         text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black",
                                                             "light yellow")
                         text_enemy_level_rect = text_enemy_level_surf.get_rect()
                         text_enemy_level_rect.center = (910, 732)
                         screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
-                        # combat info text for message box. initially blank and updated during combat scenario
-                        screen.blit(text_combat_info_surf_1, text_combat_info_rect_1)
-                        screen.blit(text_combat_info_surf_2, text_combat_info_rect_2)
-                        screen.blit(text_combat_info_surf_3, text_combat_info_rect_3)
-                        screen.blit(text_combat_info_surf_4, text_combat_info_rect_4)
+                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
+                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
+                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
+
+            else:
+                # don't show if player has recently defeated enemy, so that it doesn't overwrite loot and xp info
+                if not loot_update:
+                    # lets player know if they are in range of enemy they can press f to attack it
+                    info_text_1 = "Press 'F' key to attack enemy."
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
 
         # --------------------------------------------------------------------------------------------------------------
-        # player rect collides with an enemy rect ----------------------------------------------------------------------
+        # player rect collides with a building rect --------------------------------------------------------------------
         building = pygame.sprite.spritecollideany(player, buildings)
         if building:
+            # player has pressed "F" key to interact with building (enter building)
+            if interacted:
+                # don't allow player to move while in building
+                movement_able = False
 
-            # if player has collided with a building but has not yet interacted with it
-            # doesn't continue to show if interaction has occurred
-            if not interacted:
-                info_text_1 = "Press 'f' key to enter building."
-
-            if zone_seldon:
-
-                if interacted:
-
-                    # if enemy is snake in seldon zone, push everything to top layer of screen for battle
-                    if building.__getattribute__("name") == "shop":
-                        # add shop related stuff
+                if zone_seldon:
+                    # --------------------------------------------------------------------------------------------------
+                    # if enemy is snake in seldon zone, chose snake sprite and seldon backdrop
+                    if building.__getattribute__("name") == "amuna shop":
                         screen.blit(seldon_district_shop, (0, 0))
+                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+
                         screen.blit(buy_button.surf, buy_button.rect)
                         screen.blit(sell_button.surf, sell_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
 
-                        # reset interacted switch
-                        # interacted = False
+                        screen.blit(player_status.surf, player_status.rect)
+                        screen.blit(text_level_surf, text_level_rect)
+                        screen.blit(text_zone_surf, text_zone_rect)
+                        screen.blit(text_rupee_surf, text_rupee_rect)
 
-                    if building.__getattribute__("name") == "inn":
-                        # add inn related stuff
-                        print("inn")
+                        screen.blit(message_box.surf, message_box.rect)
+                        # draw message box text to screen, updated during combat scenario
+                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
+                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
+                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
-                        # reset interacted switch
-                        interacted = False
+            else:
+                # don't show if player has recently defeated enemy, so that it doesn't overwrite loot and xp info
+                if not loot_update:
+                    # lets player know if they are in range of enemy they can press f to attack it
+                    info_text_1 = "Press 'F' key to enter building."
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
 
-        # --------------------------------------------------------------------------------------------------------------
-        # if player is not currently in range of a sprite that can be interacted with, clear message box ---------------
-        sprite = pygame.sprite.spritecollideany(player, all_sprites)
-        if not sprite:
-            info_text_1 = ""
-            info_text_2 = ""
-            info_text_3 = ""
-            info_text_4 = ""
-
-        # --------------------------------------------------------------------------------------------------------------
-        # --------------------------------------------------------------------------------------------------------------
-        # allow player to click and update sprite to resting when combat didn't happen this turn
+        # combat didn't happen this iteration, reset sprites to default surface image
         if not combat_happened:
-            click_able = True
+            combat_cooldown = False
             stan_battle_sprite.update("art/character_art/player_character/default/battle/stan_battle.png")
             snake_battle_sprite.update("art/enemy_art/battle/snake_battle.png")
             ghoul_battle_sprite.update("art/enemy_art/battle/ghoul_battle.png")
@@ -3012,17 +1766,17 @@ while game_running:
             # 60 frames per second game rate
             clock.tick(60)
 
-        # if combat happened this turn, don't allow player to click again immediately and update battle sprite to attack
+        # combat happened this turn, update sprites for battle and apply short cooldown to attack again
         if combat_happened:
-            click_able = False
+            combat_cooldown = True
             stan_battle_sprite.update("art/character_art/player_character/default/battle/stan_battle_attacking.png")
             snake_battle_sprite.update("art/enemy_art/battle/snake_battle_attacking.png")
             ghoul_battle_sprite.update("art/enemy_art/battle/ghoul_battle_attacking.png")
 
-            # flip to display ------------------------------------------------------------------------------------------
+            # flip (update) to display ---------------------------------------------------------------------------------
             pygame.display.flip()
 
-            # when combat happens, wait after flipping (updating) display to allow animation time to show
+            # when combat happens, wait after flipping display to allow animation time to show
             # 1000 milliseconds = 1 second
             pygame.time.wait(1000)
 
@@ -3037,7 +1791,7 @@ while game_running:
     # ------------------------------------------------------------------------------------------------------------------
     # player has died, show game over and give continue option
     else:
-        # draw game over screen
+        # draw game over screen and continue button
         screen.blit(game_over_screen, (0, 0))
         screen.blit(continue_button.surf, continue_button.rect)
 
@@ -3052,20 +1806,17 @@ while game_running:
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
 
-                # player chooses to continue, reset character experience and half health and energy
+                # player chooses to continue, reset character experience and half health and energy on respawn
                 if continue_button.rect.collidepoint(pos):
-
-                    # reset enemy health when player continues
-                    for enemy in enemies:
-                        enemy.health = 100
-                        enemy.energy = 100
-
                     movement_able = True
+                    # reset interaction, so it doesn't immediately interact again on subsequent sprite collisions
+                    interacted = False
                     player.pos = vec((435, 700))
                     player.health = 50
                     player.energy = 50
                     player.experience = 0
-
+                    for enemy in enemies:
+                        enemy.health = 100
                     player.alive_status = True
 
             elif event.type == QUIT:
