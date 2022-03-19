@@ -319,7 +319,9 @@ def attack_scenario(enemy_combating, combat_event):
         "experience gained": 0,
         "quest update": "",
         "enemy defeated": False,
-        "escaped": False
+        "escaped": False,
+        "level up status": "",
+        "level up attributes": ""
     }
 
     if combat_event == "attack":
@@ -337,7 +339,7 @@ def attack_scenario(enemy_combating, combat_event):
 
                 attacked_enemy_string = f" You did {attacked_enemy} damage to {enemy_combating.name}."
 
-                # add damage to enemy to event dictionary to be returned to main loop ------------------------------
+                # add damage to enemy to event dictionary to be returned to main loop ----------------------------------
                 combat_event_dictionary["damage done"] = attacked_enemy_string
 
                 # returns total damage output from enemy as attacked_player value
@@ -346,11 +348,11 @@ def attack_scenario(enemy_combating, combat_event):
                     attacked_player_string = f"You take {attacked_player} damage from {enemy_combating.name}."
                     player.health = player.health - attacked_player
 
-                    # add damage done to player from enemy to dictionary -------------------------------------------
+                    # add damage done to player from enemy to dictionary -----------------------------------------------
                     combat_event_dictionary["damage taken"] = attacked_player_string
 
                     # enemy has defeated player, game over
-                    if player.health < 0:
+                    if player.health <= 0:
                         player.alive_status = False
 
                     return combat_event_dictionary
@@ -358,15 +360,18 @@ def attack_scenario(enemy_combating, combat_event):
                 else:
                     enemy_miss_string = f'{enemy_combating.name} missed.'
 
-                    # add to dictionary that enemy did no damage to player -----------------------------------------
+                    # add to dictionary that enemy did no damage to player ---------------------------------------------
                     combat_event_dictionary["damage taken"] = enemy_miss_string
 
                     return combat_event_dictionary
 
-            # enemy has been defeated, will return an amount of xp based on current levels
+            # ----------------------------------------------------------------------------------------------------------
+            # enemy has been defeated, will return an amount of xp based on current levels -----------------------------
             else:
 
-                # if player is on quest to kill snakes from Garan
+                # ------------------------------------------------------------------------------------------------------
+                # quest checks -----------------------------------------------------------------------------------------
+                # if player is on quest to kill snakes
                 if enemy_combating.kind == "snake":
                     if player.current_quest == "Sneaky Snakes":
                         if player.quest_status < 4:
@@ -376,9 +381,9 @@ def attack_scenario(enemy_combating, combat_event):
                             # add to dictionary player quest updates if enemy was an objective of quest for player -
                             combat_event_dictionary["quest update"] = quest_string
                 else:
-                    combat_event_dictionary["quest update"] = "No quest"
+                    combat_event_dictionary["quest update"] = "No"
 
-                # if player is on quest to kill snakes from Garan
+                # if player is on quest to kill ghouls
                 if enemy_combating.kind == "ghoul":
                     if player.current_quest == "Ghoulish Ghosts":
                         if player.quest_status < 4:
@@ -389,39 +394,44 @@ def attack_scenario(enemy_combating, combat_event):
                             combat_event_dictionary["quest update"] = quest_string
                 else:
                     combat_event_dictionary["quest update"] = "No"
+                # ------------------------------------------------------------------------------------------------------
 
-                # only gain experience from enemies equal or higher level
-                if player.level <= enemy_combating.level:
-                    experience = int((enemy_combating.level / player.level) * 5)
+                # ------------------------------------------------------------------------------------------------------
+                # experienced gained by player from defeating enemy ----------------------------------------------------
+                if player.level <= enemy_combating.level + 1:
+                    experience = int((enemy_combating.level / player.level) * 10)
                     player.experience = player.experience + experience
 
                     enemy_experience = f"Gained {experience} experience."
 
-                    # add to dictionary experience given from defeating enemy --------------------------------------
+                    # add to dictionary experience given from defeating enemy ------------------------------------------
                     combat_event_dictionary["experience gained"] = enemy_experience
 
                 drop_chance = random.randrange(1, 10)
 
-                # 70% chance to drop merchant item
+                # ------------------------------------------------------------------------------------------------------
+                # 70% chance to drop merchant item sellable by player for rupees at shops ------------------------------
                 if drop_chance > 3:
                     player.items.append(enemy_combating.items)
 
                     enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]. "
 
-                    # add to dictionary anything dropped from enemy upon their defeat ------------------------------
+                    # add to dictionary anything dropped from enemy upon their defeat ----------------------------------
                     combat_event_dictionary["item dropped"] = enemy_dropped_this
 
                 else:
                     combat_event_dictionary["item dropped"] = "No"
 
-                # player will level up (see level up method)
-                if player.experience > 100:
-                    level_up()
+                # player will level up (see level up method) -----------------------------------------------------------
+                if player.experience >= 100:
+                    level_up_info = level_up()
+                    combat_event_dictionary["level up status"] = str(level_up_info["new level"])
+                    combat_event_dictionary["level up attributes"] = str(level_up_info["player stats"])
 
                 enemy_combating.alive_status = False
                 enemy_combating.kill()
 
-                # add to dictionary True if enemy has been defeated so scenario will end ---------------------------
+                # add to dictionary True if enemy has been defeated so scenario will end -------------------------------
                 combat_event_dictionary["enemy defeated"] = True
 
                 return combat_event_dictionary
@@ -436,7 +446,6 @@ def attack_scenario(enemy_combating, combat_event):
 
             # add dialog for escape if successful. just overwrites first message in dictionary
             combat_event_dictionary["damage done"] = "You got away safely."
-
             # boolean to add to dictionary and return to main function if escape was successful
             combat_event_dictionary["escaped"] = True
 
@@ -446,11 +455,149 @@ def attack_scenario(enemy_combating, combat_event):
 
             # add dialog for escape if not successful. just overwrites first message in dictionary
             combat_event_dictionary["damage done"] = f"{enemy_combating.name} blocked your escape."
-
             # boolean to add to dictionary and return to main function if escape was successful
             combat_event_dictionary["escaped"] = False
 
             return combat_event_dictionary
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# player attacks enemy, gets damage to enemy done based on player's role and equipment ---------------------------------
+def attack_enemy(enemy_attacked):
+    # fighters do more damage with 2-handed weapons -------------------------
+    if player.role == "fighter":
+        if player.equipment[0] == "2H":
+            damage = (random.randrange(10, 35) // enemy_attacked.level)
+
+            # includes player strength stat to scale overall damage
+            # stat_scale = damage * player.statistics[5]
+
+            return damage
+
+        else:
+            damage = (random.randrange(1, 10) // enemy_attacked.level)
+
+            return damage
+
+    # mages do more damage with magic weapons --------------------------------
+    if player.role == "mage":
+        if player.equipment[0] == "magic":
+            damage = (random.randrange(10, 35) // enemy_attacked.level)
+
+            # includes player wisdom stat to scale overall damage
+            # stat_scale = (damage * player.statistics[7]) // 2
+
+            return damage
+
+        else:
+            damage = (random.randrange(1, 10) // enemy_attacked.level)
+
+            return damage
+
+    # rogues do more damage with 1-handed weapons ----------------------------
+    if player.role == "rogue":
+        if player.equipment[0] == "1H":
+            damage = (random.randrange(10, 35) // enemy_attacked.level)
+
+            # includes player strength stat to scale overall damage (strength will be higher for rogues)
+            # stat_scale = damage * player.statistics[5]
+
+            return damage
+
+        else:
+            damage = (random.randrange(1, 10) // enemy_attacked.level)
+
+            return damage
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# enemy attacks player, gets damage to player done, subtract players defense level (gear) ------------------------------
+def attack_player():
+    base_damage = (random.randrange(5, 15))
+
+    # heavily armored character will take less damage
+    if player.equipment[2] == "heavy":
+        final_damage = base_damage - 10
+
+        return final_damage
+
+    # lightly armored character will take most damage
+    elif player.equipment[2] == "light":
+        final_damage = base_damage - 2
+
+        return final_damage
+
+    # medium armored character will take more damage
+    elif player.equipment[2] == "medium":
+        final_damage = base_damage - 5
+
+        return final_damage
+
+    else:
+
+        return base_damage
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# player levels up, assign attributes based on player's role, return attributes and new level --------------------------
+def level_up():
+    level_up_dictionary = {"new level": 0, "player stats": []}
+
+    if player.level < 20:
+        if player.role == "fighter":
+            player.statistics[1] = player.statistics[1] + 3  # vitality
+            player.statistics[3] = player.statistics[3] + 1  # intellect
+            player.statistics[5] = player.statistics[5] + 2  # strength
+            player.statistics[7] = player.statistics[7] + 1  # wisdom
+            player.level = player.level + 1
+
+            # reset player health, energy and experience points
+            player.health = 100
+            player.energy = 100
+            player.experience = 0
+
+            level_up_dictionary["new level"] = "You are now level: " + f"{player.level}"
+            level_up_dictionary["player stats"] = f"{player.statistics}"
+
+            return level_up_dictionary
+
+        if player.role == "mage":
+            player.statistics[1] = player.statistics[1] + 1  # vitality
+            player.statistics[3] = player.statistics[3] + 2  # intellect
+            player.statistics[5] = player.statistics[5] + 1  # strength
+            player.statistics[7] = player.statistics[7] + 3  # wisdom
+            player.level = player.level + 1
+
+            # reset player health, energy and experience points
+            player.health = 100
+            player.energy = 100
+            player.experience = 0
+
+            level_up_dictionary["new level"] = "You are now level: " + f"{player.level}"
+            level_up_dictionary["player stats"] = f"{player.statistics}"
+
+            return level_up_dictionary
+
+        if player.role == "rogue":
+            player.statistics[1] = player.statistics[1] + 2  # vitality
+            player.statistics[3] = player.statistics[3] + 1  # intellect
+            player.statistics[5] = player.statistics[5] + 3  # strength
+            player.statistics[7] = player.statistics[7] + 1  # wisdom
+            player.level = player.level + 1
+
+            # reset player health, energy and experience points
+            player.health = 100
+            player.energy = 100
+            player.experience = 0
+
+            level_up_dictionary["new level"] = "You are now level: " + f"{player.level}"
+            level_up_dictionary["player stats"] = f"{player.statistics}"
+
+            return level_up_dictionary
+
+    else:
+        level_up_dictionary["new level"] = "You are already max level. "
+        return level_up_dictionary
 
 
 def npc_interaction_scenario(npc):
@@ -680,174 +827,32 @@ def npc_interaction_scenario(npc):
     return
 
 
-def attack_enemy(enemy_attacked):
-    # fighters do more damage with 2-handed weapons -------------------------
-    if player.role == "fighter":
-        if player.equipment[0] == "2H":
-            damage = (random.randrange(10, 40) // enemy_attacked.level)
-
-            # includes player strength stat to scale overall damage
-            stat_scale = damage * player.statistics[5]
-
-            return stat_scale
-
-        else:
-            damage = (random.randrange(1, 10) // enemy_attacked.level)
-            print("\n*** You may have an incorrect weapon type equipped! ***")
-
-            return damage
-
-    # mages do more damage with magic weapons --------------------------------
-    if player.role == "mage":
-        if player.equipment[0] == "magic":
-            damage = (random.randrange(10, 40) // enemy_attacked.level)
-
-            # includes player wisdom stat to scale overall damage
-            stat_scale = (damage * player.statistics[7]) // 2
-
-            return stat_scale
-
-        else:
-            damage = (random.randrange(1, 10) // enemy_attacked.level)
-            print("\n*** You may have an incorrect weapon type equipped! ***")
-
-            return damage
-
-    # rogues do more damage with 1-handed weapons ----------------------------
-    if player.role == "rogue":
-        if player.equipment[0] == "1H":
-            damage = (random.randrange(10, 40) // enemy_attacked.level)
-
-            # includes player strength stat to scale overall damage (strength will be higher for rogues)
-            stat_scale = damage * player.statistics[5]
-
-            return stat_scale
-
-        else:
-            damage = (random.randrange(1, 10) // enemy_attacked.level)
-            print("\n*** You may have an incorrect weapon type equipped! ***")
-
-            return damage
-
-
-def attack_player():
-    base_damage = (random.randrange(5, 15) // player.level)
-
-    # heavily armored character will take less damage
-    if player.equipment[2] == "heavy":
-        final_damage = base_damage - 10
-
-        return final_damage
-
-    # lightly armored character will take most damage
-    elif player.equipment[2] == "light":
-        final_damage = base_damage - 2
-
-        return final_damage
-
-    # medium armored character will take more damage
-    elif player.equipment[2] == "medium":
-        final_damage = base_damage - 5
-
-        return final_damage
-
-    else:
-        print("\n*** You're not wearing any armor! ***")
-        return base_damage
-
-
-def level_up():
-    if player.level < 10:
-        if player.role == "fighter":
-            player.statistics[1] = player.statistics[1] + 3  # vitality
-            player.statistics[3] = player.statistics[3] + 1  # intellect
-            player.statistics[5] = player.statistics[5] + 2  # strength
-            player.statistics[7] = player.statistics[7] + 1  # wisdom
-            player.level = player.level + 1
-
-            player.health = 100
-            player.energy = 100
-
-            print("\n----------------------------------------------------------------------")
-            print(
-                f"| * Congrats, you leveled up! You are now level: {player.level}                   |")
-            print("| * In addition, as a fighter, your stats have been increased to:    |")
-            print(f"| * {player.statistics}      |")
-            print("----------------------------------------------------------------------")
-
-            player.experience = 0
-            return player.level
-
-        if player.role == "mage":
-            player.statistics[1] = player.statistics[1] + 1  # vitality
-            player.statistics[3] = player.statistics[3] + 2  # intellect
-            player.statistics[5] = player.statistics[5] + 1  # strength
-            player.statistics[7] = player.statistics[7] + 3  # wisdom
-            player.level = player.level + 1
-
-            player.health = 100
-            player.energy = 100
-
-            print("\n----------------------------------------------------------------------")
-            print(
-                f"| * Congrats, you leveled up! You are now level: {player.level}                   |")
-            print("| * In addition, as a mage, your stats have been increased to:       |")
-            print(f"| * {player.statistics}      |")
-            print("----------------------------------------------------------------------")
-
-            player.experience = 0
-            return player.level
-
-        if player.role == "rogue":
-            player.statistics[1] = player.statistics[1] + 2  # vitality
-            player.statistics[3] = player.statistics[3] + 1  # intellect
-            player.statistics[5] = player.statistics[5] + 3  # strength
-            player.statistics[7] = player.statistics[7] + 1  # wisdom
-            player.level = player.level + 1
-
-            player.health = 100
-            player.energy = 100
-
-            print("\n----------------------------------------------------------------------")
-            print(
-                f"| * Congrats, you leveled up! You are now level: {player.level}                   |")
-            print("| * In addition, as a rogue, your stats have been increased to:      |")
-            print(f"| * {player.statistics}      |")
-            print("----------------------------------------------------------------------")
-
-            player.experience = 0
-            return player.level
-
-    else:
-        print("\n*** You're already at max level! (Level 10) *** ")
-        return player.level
-
-
+# ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # gets current player health and updates hp bar image on screen according to the health value from 0-100
 def health_bar_update(character):
-    for i in range(0, 100):
+    for i in range(0, 101):
         if character.health == i:
             hp_bar.update("art/ui_elements/bars/health/hp_bar_" + str(i) + ".png")
 
 
 # player energy bar update
 def energy_bar_update(character):
-    for i in range(0, 100):
+    for i in range(0, 101):
         if character.energy == i:
             en_bar.update("art/ui_elements/bars/energy/en_bar_" + str(i) + ".png")
 
 
 # player xp bar update
 def xp_bar_update(character):
-    for i in range(0, 100):
+    for i in range(0, 101):
         if character.experience == i:
             xp_bar.update("art/ui_elements/bars/xp/xp_bar_" + str(i) + ".png")
 
 
 # enemy health bar update
 def health_bar_update_enemy(character):
-    for i in range(0, 100):
+    for i in range(0, 101):
         if character.health == i:
             character.health_bar.update("art/ui_elements/bars/health/hp_bar_" + str(i) + ".png")
 
@@ -887,30 +892,113 @@ def shop_event_button(shop_event):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# getting event based on user click related to combat scenario (attack, skill and run buttons).
+# getting item player clicked based on it's name and return the corresponding item, for clicking on inventory items
 def inventory_event_item(inventory_event):
     if inventory_event.type == pygame.MOUSEBUTTONUP:
         inventory_mouse = pygame.mouse.get_pos()
 
         # list of sprites that collided with mouse cursor rect
-        clicked_combat_element = [element for element in player_items if element.rect.collidepoint(inventory_mouse)]
+        clicked_element = [element for element in player_items if element.rect.collidepoint(inventory_mouse)]
 
         # try to get inventory item player clicked based on it's name and return it
         try:
-            if clicked_combat_element[0].__getattribute__("name") == "health potion":
-                return clicked_combat_element[0]
+            if clicked_element[0].__getattribute__("name") == "health potion":
+                return clicked_element[0]
 
-            if clicked_combat_element[0].__getattribute__("name") == "energy potion":
-                return clicked_combat_element[0]
+            if clicked_element[0].__getattribute__("name") == "energy potion":
+                return clicked_element[0]
 
-            if clicked_combat_element[0].__getattribute__("name") == "shiny rock":
-                return clicked_combat_element[0]
+            if clicked_element[0].__getattribute__("name") == "shiny rock":
+                return clicked_element[0]
 
-            if clicked_combat_element[0].__getattribute__("name") == "bone dust":
-                return clicked_combat_element[0]
+            if clicked_element[0].__getattribute__("name") == "bone dust":
+                return clicked_element[0]
 
         except IndexError:
             pass
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# getting item player clicked based on it's name and return the corresponding item, for clicking on buy items
+def buy_event_item(buy_event):
+    if buy_event.type == pygame.MOUSEBUTTONUP:
+        buy_mouse = pygame.mouse.get_pos()
+
+        # list of sprites that collided with mouse cursor rect
+        clicked_element = [element for element in shopkeeper_items if element.rect.collidepoint(buy_mouse)]
+
+        # try to get inventory item player clicked based on it's name and return it
+        try:
+            if clicked_element[0].__getattribute__("name") == "health potion":
+                return clicked_element[0]
+
+            if clicked_element[0].__getattribute__("name") == "energy potion":
+                return clicked_element[0]
+
+            if clicked_element[0].__getattribute__("name") == "shiny rock":
+                return clicked_element[0]
+
+            if clicked_element[0].__getattribute__("name") == "bone dust":
+                return clicked_element[0]
+
+        except IndexError:
+            pass
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# getting item player clicked based on it's name and return the corresponding item, for clicking on sell items
+def sell_event_item(sell_event):
+    if sell_event.type == pygame.MOUSEBUTTONUP:
+        sell_mouse = pygame.mouse.get_pos()
+
+        # list of sprites that collided with mouse cursor rect
+        clicked_element = [element for element in sell_player_items if element.rect.collidepoint(sell_mouse)]
+
+        # try to get inventory item player clicked based on it's name and return it
+        try:
+            if clicked_element[0].__getattribute__("name") == "health potion":
+                return clicked_element[0]
+
+            if clicked_element[0].__getattribute__("name") == "energy potion":
+                return clicked_element[0]
+
+            if clicked_element[0].__getattribute__("name") == "shiny rock":
+                return clicked_element[0]
+
+            if clicked_element[0].__getattribute__("name") == "bone dust":
+                return clicked_element[0]
+
+        except IndexError:
+            pass
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+def enemy_respawn():
+    snake_counter = 0
+    ghoul_counter = 0
+
+    # generate random coordinates and level for new enemy to spawn within boundaries and level range
+    random_snake_x = random.randrange(150, 300)
+    random_snake_y = random.randrange(150, 300)
+    random_snake_level = random.randrange(1, 4)
+
+    for mob in enemies:
+        if mob.__getattribute__("kind") == "snake":
+            snake_counter += 1
+        if mob.__getattribute__("kind") == "ghoul":
+            ghoul_counter += 1
+
+    # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+    if snake_counter < 3:
+        new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+                          Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
+                          "art/enemy_art/snake.png", (255, 255, 255),
+                          UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png",
+                                    (255, 255, 255),
+                                    False))
+        snakes.add(new_snake)
+        enemies.add(new_snake)
+        all_sprites.add(new_snake)
 
 
 # Define the cloud object extending pygame.sprite.Sprite
@@ -966,13 +1054,13 @@ bone_dust = Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (2
 # ----------------------------------------------------------------------------------------------------------------------
 # default player character ---------------------------------------------------------------------------------------------
 player = Player("Player", "male", "amuna", "mage",  # name, gender, race, role
-                [health_potion, energy_potion, shiny_rock, bone_dust],  # inventory
+                [health_potion, energy_potion],  # inventory
                 ["magic", "basic staff", "light", "green robes"],  # equipment ('type', 'name')
                 # current quest, quest status (x/4), quest dictionary (quest: done)
                 [""], 0, {"Sneaky Snakes": False, "Village Repairs": False, "Ghoulish Ghosts": False},
                 ["vitality", 1, "intellect", 3, "strength", 1, "wisdom", 2],  # stats ('stat', 'amount')
-                ["barrier"], 1, 0, 100, 100,  # skills, lvl, exp, health, energy
-                True, 0, ["amuna", 10, "nuldar", 0, "sorae", 0], "", "")  # alive, rupees, reputation, mount, zone
+                ["barrier"], 1, 90, 100, 100,  # skills, lvl, exp, health, energy
+                True, 10, ["amuna", 10, "nuldar", 0, "sorae", 0], "", "")  # alive, rupees, reputation, mount, zone
 
 # nps: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate --------------------------
 #                  alive_status, quest_complete, items, gift, image, color
@@ -985,7 +1073,7 @@ npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "some gear. \n\nWhy don't you go and test it out? There's some snakes nearby that have been coming up "
                 "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
                 "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
-                "trouble. ", 240, 480, True, False, ["Items to be added for thief steal"], False,
+                "trouble. ", 240, 480, True, False, ["Items to be added for steal"], False,
                 "art/character_art/NPCs/garan.png", (255, 255, 255))
 
 npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
@@ -998,7 +1086,7 @@ npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We nee
                    "and if you are able, please gather\nresources and bring them to me to distribute to the "
                    "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
                    "trees just west of here. Nera bless you. ", 755, 515, True, False,
-                   ["Items to be added for thief steal"], False,
+                   ["Items to be added for steal"], False,
                    "art/character_art/NPCs/maurelle.png", (255, 255, 255))
 
 npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee",
@@ -1009,51 +1097,63 @@ npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish G
                 " will signal to unbar the gates and allow you passage \nto the other side. \n\nThe"
                 " ghouls were last spotted just east of here, nearby the northern Castle wall ramparts! ", 475, 140,
                 True,
-                False, ["Items to be added for thief steal"], False,
+                False, ["Items to be added for steal"], False,
                 "art/character_art/NPCs/guard.png", (255, 255, 255))
+
+npc_amuna_shopkeeper = NPC("Amuna Shopkeeper", "male", "amuna", "trader", "These ghoul attacks are bad for business!",
+                           "", "", 700, 700, True, False, [
+                               Item("health potion", "potion", 200, 200, "art/item_art/health_potion.png",
+                                    (255, 255, 255)),
+                               Item("energy potion", "potion", 200, 200, "art/item_art/energy_potion.png",
+                                    (255, 255, 255)),
+                               Item("bronze sword", "2H", 200, 200, "art/item_art/temp_item.png",
+                                    (255, 255, 255)),
+                               Item("bronze armor", "heavy", 200, 200, "art/item_art/temp_item.png",
+                                    (255, 255, 255))
+                           ], False, "art/character_art/NPCs/amuna_shopkeeper.png", (255, 255, 255))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar ------
 snake_1 = Enemy("Snake", "snake", 100, 100, 1, 100, 150, True,
                 Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
                 "art/enemy_art/snake.png", (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
                           False))
 snake_2 = Enemy("Snake", "snake", 100, 100, 2, 260, 170, True,
                 Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
                 "art/enemy_art/snake.png", (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
                           False))
 snake_3 = Enemy("Snake", "snake", 100, 100, 1, 100, 250, True,
                 Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
                 "art/enemy_art/snake.png", (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
                           False))
 snake_4 = Enemy("Snake", "snake", 100, 100, 2, 260, 270, True,
                 Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
                 "art/enemy_art/snake.png", (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
                           False))
 
 ghoul_low_1 = Enemy("Ghoul", "ghoul", 100, 100, 4, 675, 200, True,
                     Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
                     "art/enemy_art/ghoul.png", (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
                               False))
 ghoul_low_2 = Enemy("Ghoul", "ghoul", 100, 100, 5, 800, 150, True,
                     Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
                     "art/enemy_art/ghoul.png", (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
                               False))
 ghoul_low_3 = Enemy("Ghoul", "ghoul", 100, 100, 3, 760, 260, True,
                     Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
                     "art/enemy_art/ghoul.png", (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
                               False))
 ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 4, 875, 225, True,
                     Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
                     "art/enemy_art/ghoul.png", (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
                               False))
 
 # trees: name, model, x_coordinate, y_coordinate, gathered, image, color -----------------------------------------------
@@ -1062,13 +1162,13 @@ pine_tree_2 = Tree("pine tree 4", "pine tree", 260, 660, False, "art/environment
 pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 400, False, "art/environment_art/pine_tree.png", (255, 255, 255))
 
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-amuna_inn = Building("amuna inn", "amuna building", 600, 600,
+amuna_inn = Building("amuna inn", "inn", 600, 600,
                      "art/environment_art/buildings/amuna_building_inn.png",
                      (255, 255, 255))
-amuna_shop = Building("amuna shop", "amuna building", 650, 400,
+amuna_shop = Building("amuna shop", "shop", 650, 400,
                       "art/environment_art/buildings/amuna_building_shop.png",
                       (255, 255, 255))
-amuna_academia = Building("amuna academia", "amuna building", 875, 500,
+amuna_academia = Building("amuna academia", "academia", 875, 500,
                           "art/environment_art/buildings/amuna_building_academia.png",
                           (255, 255, 255))
 
@@ -1098,13 +1198,18 @@ leave_button = UiElement("leave button", 960, 730, "art/ui_elements/buttons/shop
 player_status = UiElement("player status", 850, 670, "art/ui_elements/status/player.png", (255, 255, 255), False)
 enemy_status = UiElement("enemy status", 850, 730, "art/ui_elements/status/enemy.png", (255, 255, 255), False)
 
-hp_bar = UiElement("hp bar", 170, 25, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255), False)
-en_bar = UiElement("en bar", 170, 45, "art/ui_elements/bars/energy/en_bar_full.png", (255, 255, 255), False)
-xp_bar = UiElement("xp bar", 170, 65, "art/ui_elements/bars/xp/xp_bar_full.png", (255, 255, 255), False)
+hp_bar = UiElement("hp bar", 170, 25, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255), False)
+en_bar = UiElement("en bar", 170, 45, "art/ui_elements/bars/energy/en_bar_100.png", (255, 255, 255), False)
+xp_bar = UiElement("xp bar", 170, 65, "art/ui_elements/bars/xp/xp_bar_100.png", (255, 255, 255), False)
 
-enemy_hp_bar = UiElement("enemy hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_full.png", (255, 255, 255), False)
+enemy_hp_bar = UiElement("enemy hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255), False)
 
 inventory = Inventory([], 890, 515, "art/ui_elements/inventory.png", (255, 255, 255), False)
+
+# shop windows ---------------------------------------------------------------------------------------------------------
+buy_inventory = Inventory([], 890, 490, "art/ui_elements/buy_inventory.png", (255, 255, 255), False)
+sell_inventory = Inventory([], 890, 490, "art/ui_elements/sell_inventory.png", (255, 255, 255), False)
+# ----------------------------------------------------------------------------------------------------------------------
 
 message_box = UiElement("message box", 175, 700, "art/ui_elements/message_box.png", (255, 255, 255), False)
 
@@ -1139,6 +1244,13 @@ buildings = pygame.sprite.Group()
 environment_objects = pygame.sprite.Group()
 user_interface = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
+
+# specific enemy groups for movement and respawn -----------------------------------------------------------------------
+snakes = pygame.sprite.Group()
+snakes.add(snake_1, snake_2, snake_3, snake_4)
+
+ghouls = pygame.sprite.Group()
+ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 
 # adding sprite objects to groups --------------------------------------------------------------------------------------
 npcs.add(npc_garan, npc_maurelle, npc_guard)
@@ -1182,10 +1294,20 @@ combat_cooldown = False
 combat_happened = False
 # condition to check if inventory button is clicked
 inventory_clicked = False
+# condition to check if buy button is clicked in shop
+buy_clicked = False
+# condition to check if sell button is clicked in shop
+sell_clicked = False
 # condition to check if enemy has just been defeated so that the message box doesn't instantly clear and shows updates
 loot_update = False
 # condition to check if player has started combat encounter with enemy to clear message box (before adding combat text)
 encounter_started = False
+# condition to check if player is in a shop building
+in_shop = False
+# condition to check if player has bought an item from shop
+item_bought = False
+# condition to check if player has sold an item to shop
+item_sold = False
 
 # what zone the player is in, used for player update and map boundaries
 zone_seldon = True
@@ -1197,6 +1319,14 @@ zone_marrow = False
 display_elements = []
 # list to contain current player items for display
 player_items = []
+# separate list based on same player inventory but used to populate sell window in shop
+sell_player_items = []
+# list to contain buy inventory window for display within shop
+buy_shop_elements = []
+# list to contain sell inventory window for display within shop
+sell_shop_elements = []
+# list to contain current shop items for display
+shopkeeper_items = []
 
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
@@ -1239,6 +1369,8 @@ while game_running:
         # switches between 1 and 0 to select a left or right direction for enemy sprite to move
         enemy_switch = 1
 
+        enemy_respawn()
+
         # draw screen 1 background
         screen.blit(seldon_district_bg, (0, 0))
 
@@ -1261,6 +1393,25 @@ while game_running:
         for item in player_items:
             screen.blit(item.surf, item.rect)
 
+        # for shop encounter -------------------------------------------------------------------------------------------
+        # get ui windows from clicked buy or sell buttons and draw here at the beginning of iteration
+        # so that rest of the code can use its information. drawn again at end of iteration to ensure viewable
+        if in_shop:
+            for window in buy_shop_elements:
+                screen.blit(window.surf, window.rect)
+            for window in sell_shop_elements:
+                screen.blit(window.surf, window.rect)
+
+            # get item from current items based on shopkeeper's inventory and draw with buy window
+            for shop_item in shopkeeper_items:
+                screen.blit(shop_item.surf, shop_item.rect)
+
+            # get item from current items based on player's inventory and draw with sell window
+            for sell_item in sell_player_items:
+                screen.blit(sell_item.surf, sell_item.rect)
+
+        # update players status bars -----------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------------------------------
         health_bar_update(player)
         energy_bar_update(player)
         xp_bar_update(player)
@@ -1289,30 +1440,31 @@ while game_running:
         text_level_rect.center = (760, 672)
         screen.blit(text_level_surf, text_level_rect)
 
-        # current info text, first line
+        # current info text for message box in lower left corner of screen, first line
         text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
         text_combat_info_rect_1 = text_info_surf_1.get_rect()
-        text_combat_info_rect_1.center = (145, 690)
+        text_combat_info_rect_1.midleft = (30, 680)
         screen.blit(text_info_surf_1, text_combat_info_rect_1)
 
-        # current info text, second line
+        # current info text for message box in lower left corner of screen, second line
         text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
         text_combat_info_rect_2 = text_info_surf_2.get_rect()
-        text_combat_info_rect_2.center = (145, 710)
+        text_combat_info_rect_2.midleft = (30, 700)
         screen.blit(text_info_surf_2, text_combat_info_rect_2)
 
-        # current info text, third line
+        # current info text for message box in lower left corner of screen, third line
         text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
         text_combat_info_rect_3 = text_info_surf_3.get_rect()
-        text_combat_info_rect_3.center = (145, 730)
+        text_combat_info_rect_3.midleft = (30, 720)
         screen.blit(text_info_surf_3, text_combat_info_rect_3)
 
-        # current info text, fourth line
+        # current info text for message box in lower left corner of screen, fourth line
         text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
         text_combat_info_rect_4 = text_info_surf_4.get_rect()
-        text_combat_info_rect_4.center = (145, 750)
+        text_combat_info_rect_4.midleft = (30, 740)
         screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
+        # --------------------------------------------------------------------------------------------------------------
         # --------------------------------------------------------------------------------------------------------------
         # all user input events such as key presses or UI interaction
         for event in pygame.event.get():
@@ -1333,12 +1485,17 @@ while game_running:
                 # if mouse cursor collided with inventory button when player clicked
                 if inventory_button.rect.collidepoint(pos):
 
+                    # don't show regular inventory window while combat or shop encounter is happening
                     if not encounter_started:
 
                         # if user clicks inventory button again, set condition to false which will hide inventory window
                         if inventory_clicked:
                             inventory_clicked = False
 
+                            # remove inventory window from display and clear temporary list used to populate it
+                            # temporary list was used because items need to be cleared for iteration when inventory
+                            # window is removed from screen (can't just remove players actual items from their inv.)
+                            # so that the items don't continue to draw on screen after inventory window has been closed.
                             if len(display_elements) > 0:
                                 display_elements.pop(0)
                                 player_items.clear()
@@ -1356,20 +1513,20 @@ while game_running:
                                 inventory_counter = 0
                                 # go through player items and assign inventory slots (coordinates) to them
                                 for item in player.items:
-                                    if item.name == "shiny rock":
-                                        item.update(first_coord, second_coord, "art/item_art/shiny_rock.png")
-                                        player_items.append(item)
-                                        inventory_counter += 1
-                                    if item.name == "bone dust":
-                                        item.update(first_coord, second_coord, "art/item_art/bone_dust.png")
-                                        player_items.append(item)
-                                        inventory_counter += 1
                                     if item.name == "health potion":
                                         item.update(first_coord, second_coord, "art/item_art/health_potion.png")
                                         player_items.append(item)
                                         inventory_counter += 1
                                     if item.name == "energy potion":
                                         item.update(first_coord, second_coord, "art/item_art/energy_potion.png")
+                                        player_items.append(item)
+                                        inventory_counter += 1
+                                    if item.name == "shiny rock":
+                                        item.update(first_coord, second_coord, "art/item_art/shiny_rock.png")
+                                        player_items.append(item)
+                                        inventory_counter += 1
+                                    if item.name == "bone dust":
+                                        item.update(first_coord, second_coord, "art/item_art/bone_dust.png")
                                         player_items.append(item)
                                         inventory_counter += 1
 
@@ -1387,56 +1544,60 @@ while game_running:
                 exit()
 
             # ----------------------------------------------------------------------------------------------------------
-            # if inventory has been clicked and inventory window is open, get item within inventory window that was
+            # if item has been clicked and inventory window is open, get item within inventory window that was
             # clicked and use the item based on its name attribute. health potion heals, energy potion energizes, etc
             if inventory_clicked:
-                inventory_item = inventory_event_item(event)
+                # make sure that click to use items is separate from click to buy or sell by checking if in shop
+                if not in_shop:
 
-                try:
-                    if inventory_item.__getattribute__("name") == "health potion":
-                        if player.health == 100:
-                            info_text_1 = "You're already at full health."
+                    inventory_item = inventory_event_item(event)
+
+                    try:
+                        if inventory_item.__getattribute__("name") == "health potion":
+                            if player.health == 100:
+                                info_text_1 = "You're already at full health."
+                                info_text_2 = ""
+
+                            else:
+                                player.health = player.health + 25
+                                # if health potion heals over 100 hp, just set to 100 (max health)
+                                if player.health > 100:
+                                    player.health = 100
+                                info_text_1 = "The potion heals you for 25 hp."
+                                info_text_2 = ""
+
+                                player_items.remove(inventory_item)
+                                player.items.remove(inventory_item)
+
+                        if inventory_item.__getattribute__("name") == "energy potion":
+                            if player.energy == 100:
+                                info_text_1 = "You're already at full energy."
+                                info_text_2 = ""
+                                energy_bar_update(player)
+
+                            else:
+                                player.energy = player.energy + 25
+                                # if energy potion energizes over 100 hp, just set to 100 (max energy)
+                                if player.energy > 100:
+                                    player.energy = 100
+                                info_text_1 = "The potion energizes you for 25 en."
+                                player_items.remove(inventory_item)
+                                player.items.remove(inventory_item)
+
+                        if inventory_item.__getattribute__("name") == "shiny rock":
+                            info_text_1 = "Oh, shiny. Maybe you can sell it?"
                             info_text_2 = ""
 
-                        else:
-                            player.health = player.health + 25
-                            # if health potion heals over 100 hp, just set to 100 (max health)
-                            if player.health > 100:
-                                player.health = 100
-                            info_text_1 = "The potion heals you for 25 hp."
+                        if inventory_item.__getattribute__("name") == "bone dust":
+                            info_text_1 = "Eh, dusty. Maybe you can sell it?"
                             info_text_2 = ""
 
-                            player_items.remove(inventory_item)
-                            player.items.remove(inventory_item)
-
-                    if inventory_item.__getattribute__("name") == "energy potion":
-                        if player.energy == 100:
-                            info_text_1 = "You're already at full energy."
-                            info_text_2 = ""
-
-                        else:
-                            player.energy = player.energy + 25
-                            # if energy potion energizes over 100 hp, just set to 100 (max energy)
-                            if player.energy > 100:
-                                player.energy = 100
-                            info_text_1 = "The potion energizes you for 25 en."
-                            player_items.remove(inventory_item)
-                            player.items.remove(inventory_item)
-
-                    if inventory_item.__getattribute__("name") == "shiny rock":
-                        info_text_1 = "Oh shiny. Maybe you can sell it?"
-                        info_text_2 = ""
-
-                    if inventory_item.__getattribute__("name") == "bone dust":
-                        info_text_1 = "Dusty. Maybe you can sell it?"
-                        info_text_2 = ""
-
-                except AttributeError:
-                    pass
+                    except AttributeError:
+                        pass
 
             # ----------------------------------------------------------------------------------------------------------
             # if player collides with enemy sprite, doesn't have combat cooldown,
-            # and chooses to interact with it then get event from button press and perform action
+            # and chooses to interact with it then get event from button press and start combat encounter
             enemy = pygame.sprite.spritecollideany(player, enemies)
             if enemy:
 
@@ -1466,6 +1627,8 @@ while game_running:
                         # "quest update": "",
                         # "enemy defeated": False,
                         # "escaped": False
+                        # "level up status": "",
+                        # "level up attributes": ""
                         # ----------------------------------------------------------------------------------------------
 
                         # enter combat scenario and attack enemy. attack_scenario will return all info in form of list
@@ -1492,17 +1655,23 @@ while game_running:
                                 info_text_1 = ""
                             else:
                                 info_text_1 = str(combat_events["damage done"])
-
                             if combat_events["damage taken"] == 0:
                                 info_text_2 = ""
                             else:
                                 info_text_2 = str(combat_events["damage taken"])
 
-                            if combat_events["item dropped"] != "No" and combat_events["enemy defeated"]:
-                                info_text_1 = str(combat_events["item dropped"])
+                            # adds item dropped and experienced gained messages to box if enemy was defeated
+                            if combat_events["enemy defeated"]:
+                                if combat_events["item dropped"] != "No":
+                                    info_text_1 = str(combat_events["item dropped"])
+                                if combat_events["experience gained"] != 0:
+                                    info_text_2 = str(combat_events["experience gained"])
 
-                            if combat_events["experience gained"] != 0 and combat_events["enemy defeated"]:
-                                info_text_2 = str(combat_events["experience gained"])
+                            # if enemy was defeated and player leveled up, add messages related to box
+                            if combat_events["enemy defeated"]:
+                                if combat_events["level up status"] != "":
+                                    info_text_3 = str(combat_events["level up status"])
+                                    info_text_4 = str(combat_events["level up attributes"])
 
                             # if player was successful in defeating enemy, combat scenario ends, movement is allowed
                             # set combat happened false, allowing iterations to continue without cooldown
@@ -1544,35 +1713,274 @@ while game_running:
                                 info_text_4 = ""
 
             # ----------------------------------------------------------------------------------------------------------
-            # ----------------------------------------------------------------------------------------------------------
+            # player collides with building, enters if chosen to interact and starts related scenario (shop, inn etc) --
             building = pygame.sprite.spritecollideany(player, buildings)
             if building:
                 if interacted:
+                    if building.__getattribute__("model") == "shop":
 
-                    # if player has just started shop scenario, clear message box
-                    if not encounter_started:
-                        info_text_1 = ""
-                        info_text_2 = ""
-                        info_text_3 = ""
-                        info_text_4 = ""
-                        encounter_started = True
+                        # so that subsequent code which allows clicking on the items knows they are for buying or sell.
+                        in_shop = True
 
-                    # get which button player pressed during shop scenario (buy, sell or leave)
-                    shop_button = shop_event_button(event)
+                        # if player left regular inventory window open when they entered shop, remove it from display
+                        # and set its condition to false, so it doesn't have to be double-clicked to view after
+                        if len(display_elements) > 0:
+                            display_elements.pop(0)
+                            player_items.clear()
+                        inventory_clicked = False
 
-                    if shop_button == "buy":
-                        print("you clicked buy.")
+                        # if player has just started shop scenario, clear message box
+                        if not encounter_started:
+                            info_text_1 = ""
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
+                            encounter_started = True
 
-                    if shop_button == "sell":
-                        print("you clicked sell.")
+                            # reset items bought condition on new shop encounter so that message is shown to player
+                            # that they can click to buy or sell items. The condition makes it to where this doesn't
+                            # keep showing after they've bought or sold an item (they know at that point).
+                            item_bought = False
+                            item_sold = False
 
-                    # if player chooses to leave shop, set conditions to allow normal gameplay loop
-                    if shop_button == "leave":
-                        movement_able = True
-                        interacted = False
-                        loot_update = True
-                        encounter_started = False
+                        # get which button player pressed during shop scenario (buy, sell or leave)
+                        shop_button = shop_event_button(event)
 
+                        if shop_button == "buy":
+                            # don't allow buy and sell windows to display at the same time
+                            if not sell_clicked:
+
+                                # if player hasn't bought an item yet, show message that item can be clicked to buy
+                                if not item_bought:
+                                    info_text_1 = "Click an item to buy."
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+
+                                # if user clicks buy button again, set condition to false which will hide buy window
+                                if buy_clicked:
+                                    buy_clicked = False
+
+                                    # remove buy window from display and clear temporary list used to populate it
+                                    if len(buy_shop_elements) > 0:
+                                        buy_shop_elements.pop(0)
+                                        shopkeeper_items.clear()
+
+                                # user clicked buy button for the first time. show buy window --------------------------
+                                else:
+                                    buy_clicked = True
+                                    buy_shop_elements.insert(0, buy_inventory)
+
+                                    # if shopkeeper has items in their inventory (they should but condition will verify)
+                                    if len(npc_amuna_shopkeeper.items) > 0:
+                                        buy_first_coord = 800
+                                        buy_second_coord = 425
+
+                                        # ------------------------------------------------------------------------------
+                                        buy_inventory_counter = 0
+                                        # go through shop items and assign inventory slots (coordinates) to them
+                                        for shop_item in npc_amuna_shopkeeper.items:
+                                            if shop_item.name == "health potion":
+                                                shop_item.update(buy_first_coord, buy_second_coord,
+                                                                 "art/item_art/health_potion.png")
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
+                                            if shop_item.name == "energy potion":
+                                                shop_item.update(buy_first_coord, buy_second_coord,
+                                                                 "art/item_art/energy_potion.png")
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
+
+                                            # add 75 to the items x-coordinate value, next item will be added to next
+                                            # slot
+                                            buy_first_coord += 60
+
+                                            # add 60 to items y coordinate value if first row of (4) slots has been
+                                            # filled reset first coordinate and counter to start in the leftmost
+                                            # slot again
+                                            if buy_inventory_counter > 3:
+                                                buy_second_coord += 60
+                                                buy_first_coord = 800
+                                                buy_inventory_counter = 0
+
+                        # ----------------------------------------------------------------------------------------------
+                        if shop_button == "sell":
+                            # don't allow buy and sell windows to display at the same time
+                            if not buy_clicked:
+
+                                # if player hasn't sold an item yet, show message that item can be clicked to sell
+                                if not item_sold:
+                                    info_text_1 = "Click an item to sell."
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+
+                                # if user clicks sell button again, set condition to false which will hide sell window
+                                if sell_clicked:
+                                    sell_clicked = False
+
+                                    # remove sell window from display and clear temporary list used to populate it
+                                    if len(sell_player_items) > 0:
+                                        sell_shop_elements.pop(0)
+                                        sell_player_items.clear()
+
+                                # user clicked sell button for the first time. show sell window
+                                else:
+                                    sell_clicked = True
+                                    sell_shop_elements.insert(0, sell_inventory)
+
+                                    # if player has items in their inventory to be sold
+                                    if len(player.items) > 0:
+                                        sell_first_coord = 800
+                                        sell_second_coord = 425
+
+                                        # ------------------------------------------------------------------------------
+                                        sell_inventory_counter = 0
+                                        # go through player items and assign inventory slots (coordinates) to them
+                                        for sell_item in player.items:
+                                            if sell_item.name == "health potion":
+                                                sell_item.update(sell_first_coord, sell_second_coord,
+                                                                 "art/item_art/health_potion.png")
+                                                sell_player_items.append(sell_item)
+                                                sell_inventory_counter += 1
+                                            if sell_item.name == "energy potion":
+                                                sell_item.update(sell_first_coord, sell_second_coord,
+                                                                 "art/item_art/energy_potion.png")
+                                                sell_player_items.append(sell_item)
+                                                sell_inventory_counter += 1
+                                            if sell_item.name == "shiny rock":
+                                                sell_item.update(sell_first_coord, sell_second_coord,
+                                                                 "art/item_art/shiny_rock.png")
+                                                sell_player_items.append(sell_item)
+                                                sell_inventory_counter += 1
+                                            if sell_item.name == "bone dust":
+                                                sell_item.update(sell_first_coord, sell_second_coord,
+                                                                 "art/item_art/bone_dust.png")
+                                                sell_player_items.append(sell_item)
+                                                sell_inventory_counter += 1
+
+                                            # add 75 to the items x-coordinate value, next item will be added to next
+                                            # slot
+                                            sell_first_coord += 60
+
+                                            # add 60 to items y coordinate value if first row of (4) slots has been
+                                            # filled reset first coordinate and counter to start in the leftmost slot
+                                            # again
+                                            if sell_inventory_counter > 3:
+                                                sell_second_coord += 60
+                                                sell_first_coord = 800
+                                                sell_inventory_counter = 0
+
+                        # ----------------------------------------------------------------------------------------------
+                        # if player chooses to leave shop, set conditions to allow normal gameplay loop
+                        if shop_button == "leave":
+
+                            # clear out sell and buy windows if left open ----------------------------------------------
+                            if len(sell_player_items) > 0:
+                                sell_shop_elements.pop(0)
+                                sell_player_items.clear()
+
+                            if len(buy_shop_elements) > 0:
+                                buy_shop_elements.pop(0)
+                                shopkeeper_items.clear()
+                            # ------------------------------------------------------------------------------------------
+                            buy_clicked = False
+                            sell_clicked = False
+                            movement_able = True
+                            interacted = False
+                            loot_update = True
+                            encounter_started = False
+                            in_shop = False
+
+            # handles clicks in buy window, shop encounter -------------------------------------------------------------
+            # if item has been clicked and buy window is open, get item within buy window that was clicked
+            if buy_clicked:
+                if in_shop:
+                    buy_item = buy_event_item(event)
+
+                    try:
+                        # player has clicked health potion. If player has enough rupees it will buy item
+                        # and add to their inventory. Also subtracts the price of item from current rupee count
+                        if buy_item.__getattribute__("name") == "health potion":
+
+                            if player.rupees > 9:
+                                info_text_1 = "Bought Health Potion for 10 rupees."
+                                info_text_2 = "Health Potion added to inventory."
+                                player.items.append(
+                                    Item("health potion", "potion", 200, 200,
+                                         "art/item_art/health_potion.png", (255, 255, 255)))
+                                player.rupees = player.rupees - 10
+                                item_bought = True
+
+                            else:
+                                info_text_1 = "You do not have enough rupees."
+                                info_text_2 = "Health Potion cost 10 rupees."
+
+                        if buy_item.__getattribute__("name") == "energy potion":
+
+                            if player.rupees > 9:
+                                info_text_1 = "Bought Energy Potion for 10 rupees."
+                                info_text_2 = "Energy Potion added to inventory."
+                                player.items.append(
+                                    Item("energy potion", "potion", 200, 200,
+                                         "art/item_art/energy_potion.png", (255, 255, 255)))
+                                player.rupees = player.rupees - 10
+                                item_bought = True
+
+                            else:
+                                info_text_1 = "You do not have enough rupees."
+                                info_text_2 = "Energy Potion cost 10 rupees."
+
+                    except AttributeError:
+                        pass
+
+            # handles clicks in sell window, shop encounter ------------------------------------------------------------
+            # if item has been clicked and sell window is open, get item within sell window that was clicked
+            if sell_clicked:
+                if in_shop:
+                    sell_item = sell_event_item(event)
+
+                    try:
+                        # player has clicked health potion. This will sell the item, removing it from player's
+                        # inventory and giving them "x" rupees to add to their current count
+                        if sell_item.__getattribute__("name") == "health potion":
+                            info_text_1 = "Sold Health Potion for 5 rupees."
+                            info_text_2 = "Health Potion removed from inventory."
+                            player.items.remove(sell_item)
+                            sell_player_items.remove(sell_item)
+                            player.rupees = player.rupees + 5
+                            item_sold = True
+
+                        if sell_item.__getattribute__("name") == "energy potion":
+                            info_text_1 = "Sold Energy Potion for 5 rupees."
+                            info_text_2 = "Energy Potion removed from inventory."
+                            player.items.remove(sell_item)
+                            sell_player_items.remove(sell_item)
+                            player.rupees = player.rupees + 5
+                            item_sold = True
+
+                        if sell_item.__getattribute__("name") == "shiny rock":
+                            info_text_1 = "Sold Shiny Rock for 10 rupees."
+                            info_text_2 = "Shiny Rock removed from inventory."
+                            player.items.remove(sell_item)
+                            sell_player_items.remove(sell_item)
+                            player.rupees = player.rupees + 10
+                            item_sold = True
+
+                        if sell_item.__getattribute__("name") == "bone dust":
+                            info_text_1 = "Sold Bone Dust for 10 rupees."
+                            info_text_2 = "Bone Dust removed from inventory."
+                            player.items.remove(sell_item)
+                            sell_player_items.remove(sell_item)
+                            player.rupees = player.rupees + 10
+                            item_sold = True
+
+                    except AttributeError:
+                        pass
+
+        # outside of event loop ----------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------------------------------
         # --------------------------------------------------------------------------------------------------------------
         # get current pressed keys from player and apply zone boundaries depending on current players current zone
         pressed_keys = pygame.key.get_pressed()
@@ -1608,17 +2016,23 @@ while game_running:
 
         # enemy movement updates ---------------------------------------------------------------------------------------
         # choose random directions and random enemy to move that direction ---------------------------------------------
+
         direction_horizontal = random.choice(["left", "right"])
         direction_vertical = random.choice(["up", "down"])
-        move_this_snake = random.choice([snake_1, snake_2, snake_3, snake_4])
-        move_this_ghoul = random.choice([ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4])
 
-        # move snakes in random direction within boundaries every 20 fps
+        move_this_snake = random.choice(snakes.sprites())
+        move_this_ghoul = random.choice(ghouls.sprites())
+
+        # move snakes in random direction within boundaries
         if movement_able:
             if pygame.time.get_ticks() % 20 == 0:
                 move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical)
                 move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical)
 
+        # --------------------------------------------------------------------------------------------------------------
+        # the code in this next section draws scenario related graphics on top of every other graphic
+        # at the end of iteration to ensure it is on top and viewable by player (if they are in the encounter
+        # where those graphics are needed, like combat and shop scenarios etc.) checks by verifying current collision
         # --------------------------------------------------------------------------------------------------------------
         # player rect collides with an enemy rect ----------------------------------------------------------------------
         enemy = pygame.sprite.spritecollideany(player, enemies)
@@ -1704,9 +2118,6 @@ while game_running:
                 if not loot_update:
                     # lets player know if they are in range of enemy they can press f to attack it
                     info_text_1 = "Press 'F' key to attack enemy."
-                    info_text_2 = ""
-                    info_text_3 = ""
-                    info_text_4 = ""
 
         # --------------------------------------------------------------------------------------------------------------
         # player rect collides with a building rect --------------------------------------------------------------------
@@ -1719,7 +2130,7 @@ while game_running:
 
                 if zone_seldon:
                     # --------------------------------------------------------------------------------------------------
-                    # if enemy is snake in seldon zone, chose snake sprite and seldon backdrop
+                    # if building is a shop in the seldon zone
                     if building.__getattribute__("name") == "amuna shop":
                         screen.blit(seldon_district_shop, (0, 0))
                         screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
@@ -1743,14 +2154,29 @@ while game_running:
                         screen.blit(text_info_surf_3, text_combat_info_rect_3)
                         screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
+                        # ----------------------------------------------------------------------------------------------
+                        if buy_clicked:
+                            for window in buy_shop_elements:
+                                screen.blit(window.surf, window.rect)
+
+                            # get item from shopkeeper's inventory and draw with buy window
+                            for shop_item in shopkeeper_items:
+                                screen.blit(shop_item.surf, shop_item.rect)
+
+                        # ----------------------------------------------------------------------------------------------
+                        if sell_clicked:
+                            for window in sell_shop_elements:
+                                screen.blit(window.surf, window.rect)
+
+                            # get item from player's inventory and draw with sell window
+                            for sell_item in sell_player_items:
+                                screen.blit(sell_item.surf, sell_item.rect)
+
             else:
                 # don't show if player has recently defeated enemy, so that it doesn't overwrite loot and xp info
                 if not loot_update:
                     # lets player know if they are in range of enemy they can press f to attack it
                     info_text_1 = "Press 'F' key to enter building."
-                    info_text_2 = ""
-                    info_text_3 = ""
-                    info_text_4 = ""
 
         # combat didn't happen this iteration, reset sprites to default surface image
         if not combat_happened:
