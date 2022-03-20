@@ -1,5 +1,8 @@
+import os
 import random
+import sys
 import pygame
+
 from pygame import K_f
 from pygame.locals import (RLEACCEL, K_w, K_s, K_a, K_d, K_ESCAPE, KEYDOWN, QUIT)
 
@@ -26,7 +29,7 @@ class Player(pygame.sprite.Sprite):
                  current_zone):
 
         super(Player, self).__init__()
-        self.surf = pygame.image.load("art/character_art/player_character/default/stan_down.png").convert()
+        self.surf = pygame.image.load(stan_down_url).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect()
         self.pos = vec((435, 700))
@@ -64,23 +67,27 @@ class Player(pygame.sprite.Sprite):
 
         # control acceleration based on user keys pressed from input parameter -----------------------------------------
         if pressed_keyes[K_w]:
-            self.surf = pygame.image.load("art/character_art/player_character/default/stan_up.png").convert()
+            self.surf = \
+                pygame.image.load(stan_up_url).convert()
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = ACC
             self.acc.y = -ACC
 
         if pressed_keyes[K_s]:
-            self.surf = pygame.image.load("art/character_art/player_character/default/stan_down.png").convert()
+            self.surf = \
+                pygame.image.load(stan_down_url).convert()
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = ACC
 
         if pressed_keyes[K_a]:
-            self.surf = pygame.image.load("art/character_art/player_character/default/stan_left.png").convert()
+            self.surf = \
+                pygame.image.load(stan_left_url).convert()
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = -ACC
 
         if pressed_keyes[K_d]:
-            self.surf = pygame.image.load("art/character_art/player_character/default/stan_right.png").convert()
+            self.surf = \
+                pygame.image.load(stan_right_url).convert()
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = ACC
 
@@ -223,6 +230,7 @@ class Building(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
 
+# any UI element like buttons, bars, status etc.
 class UiElement(pygame.sprite.Sprite):
 
     def __init__(self, name, x_coordinate, y_coordinate, image, color, update_flag):
@@ -255,6 +263,7 @@ class Inventory(pygame.sprite.Sprite):
         self.update_flag = update_flag
 
 
+# pop up notifications, like the welcome screen image when game starts
 class Notification(pygame.sprite.Sprite):
 
     def __init__(self, name, shown, x_coordinate, y_coordinate, image, color):
@@ -305,6 +314,18 @@ class Item(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# function for building executable with PyInstaller adding the data files needed (images, sounds)
+def resource_path(relative_path):
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -535,28 +556,28 @@ def attack_player(mob):
 
     # add additional damage if enemy is a higher level than player. the higher the level difference, the more damage ---
     if difference >= 1:
-        base_damage = base_damage + 5
+        base_damage = base_damage + 3
     if difference >= 2:
-        base_damage = base_damage + 8
+        base_damage = base_damage + 5
     if difference >= 3:
-        base_damage = base_damage + 10
+        base_damage = base_damage + 8
     # ------------------------------------------------------------------------------------------------------------------
 
     # heavily armored character will take less damage
     if player.equipment[2] == "heavy":
-        final_damage = base_damage - 8
+        final_damage = base_damage - 10
 
         return final_damage
 
     # lightly armored character will take most damage
     elif player.equipment[2] == "light":
-        final_damage = base_damage - 2
+        final_damage = base_damage - 4
 
         return final_damage
 
     # medium armored character will take more damage
     elif player.equipment[2] == "medium":
-        final_damage = base_damage - 5
+        final_damage = base_damage - 7
 
         return final_damage
 
@@ -858,30 +879,826 @@ def npc_interaction_scenario(npc):
 # ----------------------------------------------------------------------------------------------------------------------
 # gets current player health and updates hp bar image on screen according to the health value from 0-100
 def health_bar_update(character):
-    for i in range(0, 101):
-        if character.health == i:
-            hp_bar.update("art/ui_elements/bars/health/hp_bar_" + str(i) + ".png")
+    if character.health == 100:
+        hp_bar.update(health_100_url)
+    if character.health == 99:
+        hp_bar.update(health_99_url)
+    if character.health == 98:
+        hp_bar.update(health_98_url)
+    if character.health == 97:
+        hp_bar.update(health_97_url)
+    if character.health == 96:
+        hp_bar.update(health_96_url)
+    if character.health == 95:
+        hp_bar.update(health_95_url)
+    if character.health == 94:
+        hp_bar.update(health_94_url)
+    if character.health == 93:
+        hp_bar.update(health_93_url)
+    if character.health == 92:
+        hp_bar.update(health_92_url)
+    if character.health == 91:
+        hp_bar.update(health_91_url)
+    if character.health == 90:
+        hp_bar.update(health_90_url)
+    if character.health == 89:
+        hp_bar.update(health_89_url)
+    if character.health == 88:
+        hp_bar.update(health_88_url)
+    if character.health == 87:
+        hp_bar.update(health_87_url)
+    if character.health == 86:
+        hp_bar.update(health_86_url)
+    if character.health == 85:
+        hp_bar.update(health_85_url)
+    if character.health == 84:
+        hp_bar.update(health_84_url)
+    if character.health == 83:
+        hp_bar.update(health_83_url)
+    if character.health == 82:
+        hp_bar.update(health_82_url)
+    if character.health == 81:
+        hp_bar.update(health_81_url)
+    if character.health == 80:
+        hp_bar.update(health_80_url)
+    if character.health == 79:
+        hp_bar.update(health_79_url)
+    if character.health == 78:
+        hp_bar.update(health_78_url)
+    if character.health == 77:
+        hp_bar.update(health_77_url)
+    if character.health == 76:
+        hp_bar.update(health_76_url)
+    if character.health == 75:
+        hp_bar.update(health_75_url)
+    if character.health == 74:
+        hp_bar.update(health_74_url)
+    if character.health == 73:
+        hp_bar.update(health_73_url)
+    if character.health == 72:
+        hp_bar.update(health_72_url)
+    if character.health == 71:
+        hp_bar.update(health_71_url)
+    if character.health == 70:
+        hp_bar.update(health_70_url)
+    if character.health == 69:
+        hp_bar.update(health_69_url)
+    if character.health == 68:
+        hp_bar.update(health_68_url)
+    if character.health == 67:
+        hp_bar.update(health_67_url)
+    if character.health == 66:
+        hp_bar.update(health_66_url)
+    if character.health == 65:
+        hp_bar.update(health_65_url)
+    if character.health == 64:
+        hp_bar.update(health_64_url)
+    if character.health == 63:
+        hp_bar.update(health_63_url)
+    if character.health == 62:
+        hp_bar.update(health_62_url)
+    if character.health == 61:
+        hp_bar.update(health_61_url)
+    if character.health == 60:
+        hp_bar.update(health_60_url)
+    if character.health == 59:
+        hp_bar.update(health_59_url)
+    if character.health == 58:
+        hp_bar.update(health_58_url)
+    if character.health == 57:
+        hp_bar.update(health_57_url)
+    if character.health == 56:
+        hp_bar.update(health_56_url)
+    if character.health == 55:
+        hp_bar.update(health_55_url)
+    if character.health == 54:
+        hp_bar.update(health_54_url)
+    if character.health == 53:
+        hp_bar.update(health_53_url)
+    if character.health == 52:
+        hp_bar.update(health_52_url)
+    if character.health == 51:
+        hp_bar.update(health_51_url)
+    if character.health == 50:
+        hp_bar.update(health_50_url)
+    if character.health == 49:
+        hp_bar.update(health_49_url)
+    if character.health == 48:
+        hp_bar.update(health_48_url)
+    if character.health == 47:
+        hp_bar.update(health_47_url)
+    if character.health == 46:
+        hp_bar.update(health_46_url)
+    if character.health == 45:
+        hp_bar.update(health_45_url)
+    if character.health == 44:
+        hp_bar.update(health_44_url)
+    if character.health == 43:
+        hp_bar.update(health_43_url)
+    if character.health == 42:
+        hp_bar.update(health_42_url)
+    if character.health == 41:
+        hp_bar.update(health_41_url)
+    if character.health == 40:
+        hp_bar.update(health_40_url)
+    if character.health == 39:
+        hp_bar.update(health_39_url)
+    if character.health == 38:
+        hp_bar.update(health_38_url)
+    if character.health == 37:
+        hp_bar.update(health_37_url)
+    if character.health == 36:
+        hp_bar.update(health_36_url)
+    if character.health == 35:
+        hp_bar.update(health_35_url)
+    if character.health == 34:
+        hp_bar.update(health_34_url)
+    if character.health == 33:
+        hp_bar.update(health_33_url)
+    if character.health == 32:
+        hp_bar.update(health_32_url)
+    if character.health == 31:
+        hp_bar.update(health_31_url)
+    if character.health == 30:
+        hp_bar.update(health_30_url)
+    if character.health == 29:
+        hp_bar.update(health_29_url)
+    if character.health == 28:
+        hp_bar.update(health_28_url)
+    if character.health == 27:
+        hp_bar.update(health_27_url)
+    if character.health == 26:
+        hp_bar.update(health_26_url)
+    if character.health == 25:
+        hp_bar.update(health_25_url)
+    if character.health == 24:
+        hp_bar.update(health_24_url)
+    if character.health == 23:
+        hp_bar.update(health_23_url)
+    if character.health == 22:
+        hp_bar.update(health_22_url)
+    if character.health == 21:
+        hp_bar.update(health_21_url)
+    if character.health == 20:
+        hp_bar.update(health_20_url)
+    if character.health == 19:
+        hp_bar.update(health_19_url)
+    if character.health == 18:
+        hp_bar.update(health_18_url)
+    if character.health == 17:
+        hp_bar.update(health_17_url)
+    if character.health == 16:
+        hp_bar.update(health_16_url)
+    if character.health == 15:
+        hp_bar.update(health_15_url)
+    if character.health == 14:
+        hp_bar.update(health_14_url)
+    if character.health == 13:
+        hp_bar.update(health_13_url)
+    if character.health == 12:
+        hp_bar.update(health_12_url)
+    if character.health == 11:
+        hp_bar.update(health_11_url)
+    if character.health == 10:
+        hp_bar.update(health_10_url)
+    if character.health == 9:
+        hp_bar.update(health_9_url)
+    if character.health == 8:
+        hp_bar.update(health_8_url)
+    if character.health == 7:
+        hp_bar.update(health_7_url)
+    if character.health == 6:
+        hp_bar.update(health_6_url)
+    if character.health == 5:
+        hp_bar.update(health_5_url)
+    if character.health == 4:
+        hp_bar.update(health_4_url)
+    if character.health == 3:
+        hp_bar.update(health_3_url)
+    if character.health == 2:
+        hp_bar.update(health_2_url)
+    if character.health == 1:
+        hp_bar.update(health_1_url)
+    if character.health == 0:
+        hp_bar.update(health_0_url)
 
 
 # player energy bar update
 def energy_bar_update(character):
-    for i in range(0, 101):
-        if character.energy == i:
-            en_bar.update("art/ui_elements/bars/energy/en_bar_" + str(i) + ".png")
+    if character.energy == 100:
+        en_bar.update(energy_100_url)
+    if character.energy == 99:
+        en_bar.update(energy_99_url)
+    if character.energy == 98:
+        en_bar.update(energy_98_url)
+    if character.energy == 97:
+        en_bar.update(energy_97_url)
+    if character.energy == 96:
+        en_bar.update(energy_96_url)
+    if character.energy == 95:
+        en_bar.update(energy_95_url)
+    if character.energy == 94:
+        en_bar.update(energy_94_url)
+    if character.energy == 93:
+        en_bar.update(energy_93_url)
+    if character.energy == 92:
+        en_bar.update(energy_92_url)
+    if character.energy == 91:
+        en_bar.update(energy_91_url)
+    if character.energy == 90:
+        en_bar.update(energy_90_url)
+    if character.energy == 89:
+        en_bar.update(energy_89_url)
+    if character.energy == 88:
+        en_bar.update(energy_88_url)
+    if character.energy == 87:
+        en_bar.update(energy_87_url)
+    if character.energy == 86:
+        en_bar.update(energy_86_url)
+    if character.energy == 85:
+        en_bar.update(energy_85_url)
+    if character.energy == 84:
+        en_bar.update(energy_84_url)
+    if character.energy == 83:
+        en_bar.update(energy_83_url)
+    if character.energy == 82:
+        en_bar.update(energy_82_url)
+    if character.energy == 81:
+        en_bar.update(energy_81_url)
+    if character.energy == 80:
+        en_bar.update(energy_80_url)
+    if character.energy == 79:
+        en_bar.update(energy_79_url)
+    if character.energy == 78:
+        en_bar.update(energy_78_url)
+    if character.energy == 77:
+        en_bar.update(energy_77_url)
+    if character.energy == 76:
+        en_bar.update(energy_76_url)
+    if character.energy == 75:
+        en_bar.update(energy_75_url)
+    if character.energy == 74:
+        en_bar.update(energy_74_url)
+    if character.energy == 73:
+        en_bar.update(energy_73_url)
+    if character.energy == 72:
+        en_bar.update(energy_72_url)
+    if character.energy == 71:
+        en_bar.update(energy_71_url)
+    if character.energy == 70:
+        en_bar.update(energy_70_url)
+    if character.energy == 69:
+        en_bar.update(energy_69_url)
+    if character.energy == 68:
+        en_bar.update(energy_68_url)
+    if character.energy == 67:
+        en_bar.update(energy_67_url)
+    if character.energy == 66:
+        en_bar.update(energy_66_url)
+    if character.energy == 65:
+        en_bar.update(energy_65_url)
+    if character.energy == 64:
+        en_bar.update(energy_64_url)
+    if character.energy == 63:
+        en_bar.update(energy_63_url)
+    if character.energy == 62:
+        en_bar.update(energy_62_url)
+    if character.energy == 61:
+        en_bar.update(energy_61_url)
+    if character.energy == 60:
+        en_bar.update(energy_60_url)
+    if character.energy == 59:
+        en_bar.update(energy_59_url)
+    if character.energy == 58:
+        en_bar.update(energy_58_url)
+    if character.energy == 57:
+        en_bar.update(energy_57_url)
+    if character.energy == 56:
+        en_bar.update(energy_56_url)
+    if character.energy == 55:
+        en_bar.update(energy_55_url)
+    if character.energy == 54:
+        en_bar.update(energy_54_url)
+    if character.energy == 53:
+        en_bar.update(energy_53_url)
+    if character.energy == 52:
+        en_bar.update(energy_52_url)
+    if character.energy == 51:
+        en_bar.update(energy_51_url)
+    if character.energy == 50:
+        en_bar.update(energy_50_url)
+    if character.energy == 49:
+        en_bar.update(energy_49_url)
+    if character.energy == 48:
+        en_bar.update(energy_48_url)
+    if character.energy == 47:
+        en_bar.update(energy_47_url)
+    if character.energy == 46:
+        en_bar.update(energy_46_url)
+    if character.energy == 45:
+        en_bar.update(energy_45_url)
+    if character.energy == 44:
+        en_bar.update(energy_44_url)
+    if character.energy == 43:
+        en_bar.update(energy_43_url)
+    if character.energy == 42:
+        en_bar.update(energy_42_url)
+    if character.energy == 41:
+        en_bar.update(energy_41_url)
+    if character.energy == 40:
+        en_bar.update(energy_40_url)
+    if character.energy == 39:
+        en_bar.update(energy_39_url)
+    if character.energy == 38:
+        en_bar.update(energy_38_url)
+    if character.energy == 37:
+        en_bar.update(energy_37_url)
+    if character.energy == 36:
+        en_bar.update(energy_36_url)
+    if character.energy == 35:
+        en_bar.update(energy_35_url)
+    if character.energy == 34:
+        en_bar.update(energy_34_url)
+    if character.energy == 33:
+        en_bar.update(energy_33_url)
+    if character.energy == 32:
+        en_bar.update(energy_32_url)
+    if character.energy == 31:
+        en_bar.update(energy_31_url)
+    if character.energy == 30:
+        en_bar.update(energy_30_url)
+    if character.energy == 29:
+        en_bar.update(energy_29_url)
+    if character.energy == 28:
+        en_bar.update(energy_28_url)
+    if character.energy == 27:
+        en_bar.update(energy_27_url)
+    if character.energy == 26:
+        en_bar.update(energy_26_url)
+    if character.energy == 25:
+        en_bar.update(energy_25_url)
+    if character.energy == 24:
+        en_bar.update(energy_24_url)
+    if character.energy == 23:
+        en_bar.update(energy_23_url)
+    if character.energy == 22:
+        en_bar.update(energy_22_url)
+    if character.energy == 21:
+        en_bar.update(energy_21_url)
+    if character.energy == 20:
+        en_bar.update(energy_20_url)
+    if character.energy == 19:
+        en_bar.update(energy_19_url)
+    if character.energy == 18:
+        en_bar.update(energy_18_url)
+    if character.energy == 17:
+        en_bar.update(energy_17_url)
+    if character.energy == 16:
+        en_bar.update(energy_16_url)
+    if character.energy == 15:
+        en_bar.update(energy_15_url)
+    if character.energy == 14:
+        en_bar.update(energy_14_url)
+    if character.energy == 13:
+        en_bar.update(energy_13_url)
+    if character.energy == 12:
+        en_bar.update(energy_12_url)
+    if character.energy == 11:
+        en_bar.update(energy_11_url)
+    if character.energy == 10:
+        en_bar.update(energy_10_url)
+    if character.energy == 9:
+        en_bar.update(energy_9_url)
+    if character.energy == 8:
+        en_bar.update(energy_8_url)
+    if character.energy == 7:
+        en_bar.update(energy_7_url)
+    if character.energy == 6:
+        en_bar.update(energy_6_url)
+    if character.energy == 5:
+        en_bar.update(energy_5_url)
+    if character.energy == 4:
+        en_bar.update(energy_4_url)
+    if character.energy == 3:
+        en_bar.update(energy_3_url)
+    if character.energy == 2:
+        en_bar.update(energy_2_url)
+    if character.energy == 1:
+        en_bar.update(energy_1_url)
+    if character.energy == 0:
+        en_bar.update(energy_0_url)
 
 
 # player xp bar update
 def xp_bar_update(character):
-    for i in range(0, 101):
-        if character.experience == i:
-            xp_bar.update("art/ui_elements/bars/xp/xp_bar_" + str(i) + ".png")
+    if character.experience == 100:
+        xp_bar.update(xp_100_url)
+    if character.experience == 99:
+        xp_bar.update(xp_99_url)
+    if character.experience == 98:
+        xp_bar.update(xp_98_url)
+    if character.experience == 97:
+        xp_bar.update(xp_97_url)
+    if character.experience == 96:
+        xp_bar.update(xp_96_url)
+    if character.experience == 95:
+        xp_bar.update(xp_95_url)
+    if character.experience == 94:
+        xp_bar.update(xp_94_url)
+    if character.experience == 93:
+        xp_bar.update(xp_93_url)
+    if character.experience == 92:
+        xp_bar.update(xp_92_url)
+    if character.experience == 91:
+        xp_bar.update(xp_91_url)
+    if character.experience == 90:
+        xp_bar.update(xp_90_url)
+    if character.experience == 89:
+        xp_bar.update(xp_89_url)
+    if character.experience == 88:
+        xp_bar.update(xp_88_url)
+    if character.experience == 87:
+        xp_bar.update(xp_87_url)
+    if character.experience == 86:
+        xp_bar.update(xp_86_url)
+    if character.experience == 85:
+        xp_bar.update(xp_85_url)
+    if character.experience == 84:
+        xp_bar.update(xp_84_url)
+    if character.experience == 83:
+        xp_bar.update(xp_83_url)
+    if character.experience == 82:
+        xp_bar.update(xp_82_url)
+    if character.experience == 81:
+        xp_bar.update(xp_81_url)
+    if character.experience == 80:
+        xp_bar.update(xp_80_url)
+    if character.experience == 79:
+        xp_bar.update(xp_79_url)
+    if character.experience == 78:
+        xp_bar.update(xp_78_url)
+    if character.experience == 77:
+        xp_bar.update(xp_77_url)
+    if character.experience == 76:
+        xp_bar.update(xp_76_url)
+    if character.experience == 75:
+        xp_bar.update(xp_75_url)
+    if character.experience == 74:
+        xp_bar.update(xp_74_url)
+    if character.experience == 73:
+        xp_bar.update(xp_73_url)
+    if character.experience == 72:
+        xp_bar.update(xp_72_url)
+    if character.experience == 71:
+        xp_bar.update(xp_71_url)
+    if character.experience == 70:
+        xp_bar.update(xp_70_url)
+    if character.experience == 69:
+        xp_bar.update(xp_69_url)
+    if character.experience == 68:
+        xp_bar.update(xp_68_url)
+    if character.experience == 67:
+        xp_bar.update(xp_67_url)
+    if character.experience == 66:
+        xp_bar.update(xp_66_url)
+    if character.experience == 65:
+        xp_bar.update(xp_65_url)
+    if character.experience == 64:
+        xp_bar.update(xp_64_url)
+    if character.experience == 63:
+        xp_bar.update(xp_63_url)
+    if character.experience == 62:
+        xp_bar.update(xp_62_url)
+    if character.experience == 61:
+        xp_bar.update(xp_61_url)
+    if character.experience == 60:
+        xp_bar.update(xp_60_url)
+    if character.experience == 59:
+        xp_bar.update(xp_59_url)
+    if character.experience == 58:
+        xp_bar.update(xp_58_url)
+    if character.experience == 57:
+        xp_bar.update(xp_57_url)
+    if character.experience == 56:
+        xp_bar.update(xp_56_url)
+    if character.experience == 55:
+        xp_bar.update(xp_55_url)
+    if character.experience == 54:
+        xp_bar.update(xp_54_url)
+    if character.experience == 53:
+        xp_bar.update(xp_53_url)
+    if character.experience == 52:
+        xp_bar.update(xp_52_url)
+    if character.experience == 51:
+        xp_bar.update(xp_51_url)
+    if character.experience == 50:
+        xp_bar.update(xp_50_url)
+    if character.experience == 49:
+        xp_bar.update(xp_49_url)
+    if character.experience == 48:
+        xp_bar.update(xp_48_url)
+    if character.experience == 47:
+        xp_bar.update(xp_47_url)
+    if character.experience == 46:
+        xp_bar.update(xp_46_url)
+    if character.experience == 45:
+        xp_bar.update(xp_45_url)
+    if character.experience == 44:
+        xp_bar.update(xp_44_url)
+    if character.experience == 43:
+        xp_bar.update(xp_43_url)
+    if character.experience == 42:
+        xp_bar.update(xp_42_url)
+    if character.experience == 41:
+        xp_bar.update(xp_41_url)
+    if character.experience == 40:
+        xp_bar.update(xp_40_url)
+    if character.experience == 39:
+        xp_bar.update(xp_39_url)
+    if character.experience == 38:
+        xp_bar.update(xp_38_url)
+    if character.experience == 37:
+        xp_bar.update(xp_37_url)
+    if character.experience == 36:
+        xp_bar.update(xp_36_url)
+    if character.experience == 35:
+        xp_bar.update(xp_35_url)
+    if character.experience == 34:
+        xp_bar.update(xp_34_url)
+    if character.experience == 33:
+        xp_bar.update(xp_33_url)
+    if character.experience == 32:
+        xp_bar.update(xp_32_url)
+    if character.experience == 31:
+        xp_bar.update(xp_31_url)
+    if character.experience == 30:
+        xp_bar.update(xp_30_url)
+    if character.experience == 29:
+        xp_bar.update(xp_29_url)
+    if character.experience == 28:
+        xp_bar.update(xp_28_url)
+    if character.experience == 27:
+        xp_bar.update(xp_27_url)
+    if character.experience == 26:
+        xp_bar.update(xp_26_url)
+    if character.experience == 25:
+        xp_bar.update(xp_25_url)
+    if character.experience == 24:
+        xp_bar.update(xp_24_url)
+    if character.experience == 23:
+        xp_bar.update(xp_23_url)
+    if character.experience == 22:
+        xp_bar.update(xp_22_url)
+    if character.experience == 21:
+        xp_bar.update(xp_21_url)
+    if character.experience == 20:
+        xp_bar.update(xp_20_url)
+    if character.experience == 19:
+        xp_bar.update(xp_19_url)
+    if character.experience == 18:
+        xp_bar.update(xp_18_url)
+    if character.experience == 17:
+        xp_bar.update(xp_17_url)
+    if character.experience == 16:
+        xp_bar.update(xp_16_url)
+    if character.experience == 15:
+        xp_bar.update(xp_15_url)
+    if character.experience == 14:
+        xp_bar.update(xp_14_url)
+    if character.experience == 13:
+        xp_bar.update(xp_13_url)
+    if character.experience == 12:
+        xp_bar.update(xp_12_url)
+    if character.experience == 11:
+        xp_bar.update(xp_11_url)
+    if character.experience == 10:
+        xp_bar.update(xp_10_url)
+    if character.experience == 9:
+        xp_bar.update(xp_9_url)
+    if character.experience == 8:
+        xp_bar.update(xp_8_url)
+    if character.experience == 7:
+        xp_bar.update(xp_7_url)
+    if character.experience == 6:
+        xp_bar.update(xp_6_url)
+    if character.experience == 5:
+        xp_bar.update(xp_5_url)
+    if character.experience == 4:
+        xp_bar.update(xp_4_url)
+    if character.experience == 3:
+        xp_bar.update(xp_3_url)
+    if character.experience == 2:
+        xp_bar.update(xp_2_url)
+    if character.experience == 1:
+        xp_bar.update(xp_1_url)
+    if character.experience == 0:
+        xp_bar.update(xp_0_url)
 
 
 # enemy health bar update
 def health_bar_update_enemy(character):
-    for i in range(0, 101):
-        if character.health == i:
-            character.health_bar.update("art/ui_elements/bars/health/hp_bar_" + str(i) + ".png")
+    if character.health == 100:
+        character.health_bar.update(health_100_url)
+    if character.health == 99:
+        character.health_bar.update(health_99_url)
+    if character.health == 98:
+        character.health_bar.update(health_98_url)
+    if character.health == 97:
+        character.health_bar.update(health_97_url)
+    if character.health == 96:
+        character.health_bar.update(health_96_url)
+    if character.health == 95:
+        character.health_bar.update(health_95_url)
+    if character.health == 94:
+        character.health_bar.update(health_94_url)
+    if character.health == 93:
+        character.health_bar.update(health_93_url)
+    if character.health == 92:
+        character.health_bar.update(health_92_url)
+    if character.health == 91:
+        character.health_bar.update(health_91_url)
+    if character.health == 90:
+        character.health_bar.update(health_90_url)
+    if character.health == 89:
+        character.health_bar.update(health_89_url)
+    if character.health == 88:
+        character.health_bar.update(health_88_url)
+    if character.health == 87:
+        character.health_bar.update(health_87_url)
+    if character.health == 86:
+        character.health_bar.update(health_86_url)
+    if character.health == 85:
+        character.health_bar.update(health_85_url)
+    if character.health == 84:
+        character.health_bar.update(health_84_url)
+    if character.health == 83:
+        character.health_bar.update(health_83_url)
+    if character.health == 82:
+        character.health_bar.update(health_82_url)
+    if character.health == 81:
+        character.health_bar.update(health_81_url)
+    if character.health == 80:
+        character.health_bar.update(health_80_url)
+    if character.health == 79:
+        character.health_bar.update(health_79_url)
+    if character.health == 78:
+        character.health_bar.update(health_78_url)
+    if character.health == 77:
+        character.health_bar.update(health_77_url)
+    if character.health == 76:
+        character.health_bar.update(health_76_url)
+    if character.health == 75:
+        character.health_bar.update(health_75_url)
+    if character.health == 74:
+        character.health_bar.update(health_74_url)
+    if character.health == 73:
+        character.health_bar.update(health_73_url)
+    if character.health == 72:
+        character.health_bar.update(health_72_url)
+    if character.health == 71:
+        character.health_bar.update(health_71_url)
+    if character.health == 70:
+        character.health_bar.update(health_70_url)
+    if character.health == 69:
+        character.health_bar.update(health_69_url)
+    if character.health == 68:
+        character.health_bar.update(health_68_url)
+    if character.health == 67:
+        character.health_bar.update(health_67_url)
+    if character.health == 66:
+        character.health_bar.update(health_66_url)
+    if character.health == 65:
+        character.health_bar.update(health_65_url)
+    if character.health == 64:
+        character.health_bar.update(health_64_url)
+    if character.health == 63:
+        character.health_bar.update(health_63_url)
+    if character.health == 62:
+        character.health_bar.update(health_62_url)
+    if character.health == 61:
+        character.health_bar.update(health_61_url)
+    if character.health == 60:
+        character.health_bar.update(health_60_url)
+    if character.health == 59:
+        character.health_bar.update(health_59_url)
+    if character.health == 58:
+        character.health_bar.update(health_58_url)
+    if character.health == 57:
+        character.health_bar.update(health_57_url)
+    if character.health == 56:
+        character.health_bar.update(health_56_url)
+    if character.health == 55:
+        character.health_bar.update(health_55_url)
+    if character.health == 54:
+        character.health_bar.update(health_54_url)
+    if character.health == 53:
+        character.health_bar.update(health_53_url)
+    if character.health == 52:
+        character.health_bar.update(health_52_url)
+    if character.health == 51:
+        character.health_bar.update(health_51_url)
+    if character.health == 50:
+        character.health_bar.update(health_50_url)
+    if character.health == 49:
+        character.health_bar.update(health_49_url)
+    if character.health == 48:
+        character.health_bar.update(health_48_url)
+    if character.health == 47:
+        character.health_bar.update(health_47_url)
+    if character.health == 46:
+        character.health_bar.update(health_46_url)
+    if character.health == 45:
+        character.health_bar.update(health_45_url)
+    if character.health == 44:
+        character.health_bar.update(health_44_url)
+    if character.health == 43:
+        character.health_bar.update(health_43_url)
+    if character.health == 42:
+        character.health_bar.update(health_42_url)
+    if character.health == 41:
+        character.health_bar.update(health_41_url)
+    if character.health == 40:
+        character.health_bar.update(health_40_url)
+    if character.health == 39:
+        character.health_bar.update(health_39_url)
+    if character.health == 38:
+        character.health_bar.update(health_38_url)
+    if character.health == 37:
+        character.health_bar.update(health_37_url)
+    if character.health == 36:
+        character.health_bar.update(health_36_url)
+    if character.health == 35:
+        character.health_bar.update(health_35_url)
+    if character.health == 34:
+        character.health_bar.update(health_34_url)
+    if character.health == 33:
+        character.health_bar.update(health_33_url)
+    if character.health == 32:
+        character.health_bar.update(health_32_url)
+    if character.health == 31:
+        character.health_bar.update(health_31_url)
+    if character.health == 30:
+        character.health_bar.update(health_30_url)
+    if character.health == 29:
+        character.health_bar.update(health_29_url)
+    if character.health == 28:
+        character.health_bar.update(health_28_url)
+    if character.health == 27:
+        character.health_bar.update(health_27_url)
+    if character.health == 26:
+        character.health_bar.update(health_26_url)
+    if character.health == 25:
+        character.health_bar.update(health_25_url)
+    if character.health == 24:
+        character.health_bar.update(health_24_url)
+    if character.health == 23:
+        character.health_bar.update(health_23_url)
+    if character.health == 22:
+        character.health_bar.update(health_22_url)
+    if character.health == 21:
+        character.health_bar.update(health_21_url)
+    if character.health == 20:
+        character.health_bar.update(health_20_url)
+    if character.health == 19:
+        character.health_bar.update(health_19_url)
+    if character.health == 18:
+        character.health_bar.update(health_18_url)
+    if character.health == 17:
+        character.health_bar.update(health_17_url)
+    if character.health == 16:
+        character.health_bar.update(health_16_url)
+    if character.health == 15:
+        character.health_bar.update(health_15_url)
+    if character.health == 14:
+        character.health_bar.update(health_14_url)
+    if character.health == 13:
+        character.health_bar.update(health_13_url)
+    if character.health == 12:
+        character.health_bar.update(health_12_url)
+    if character.health == 11:
+        character.health_bar.update(health_11_url)
+    if character.health == 10:
+        character.health_bar.update(health_10_url)
+    if character.health == 9:
+        character.health_bar.update(health_9_url)
+    if character.health == 8:
+        character.health_bar.update(health_8_url)
+    if character.health == 7:
+        character.health_bar.update(health_7_url)
+    if character.health == 6:
+        character.health_bar.update(health_6_url)
+    if character.health == 5:
+        character.health_bar.update(health_5_url)
+    if character.health == 4:
+        character.health_bar.update(health_4_url)
+    if character.health == 3:
+        character.health_bar.update(health_3_url)
+    if character.health == 2:
+        character.health_bar.update(health_2_url)
+    if character.health == 1:
+        character.health_bar.update(health_1_url)
+    if character.health == 0:
+        character.health_bar.update(health_0_url)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1024,11 +1841,9 @@ def enemy_respawn():
     # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
     if snake_counter < 3:
         new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                          Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
-                          "art/enemy_art/snake.png", (255, 255, 255),
-                          UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png",
-                                    (255, 255, 255),
-                                    False))
+                          Item("shiny rock", "rock", 200, 200, shiny_rock_url,
+                               (255, 255, 255)), snake_url, (255, 255, 255),
+                          UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
         snakes.add(new_snake)
         enemies.add(new_snake)
         all_sprites.add(new_snake)
@@ -1036,11 +1851,9 @@ def enemy_respawn():
     # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
     if ghoul_counter < 3:
         new_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
-                          Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
-                          "art/enemy_art/ghoul.png", (255, 255, 255),
-                          UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png",
-                                    (255, 255, 255),
-                                    False))
+                          Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255)),
+                          ghoul_url, (255, 255, 255),
+                          UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
         ghouls.add(new_ghoul)
         enemies.add(new_ghoul)
         all_sprites.add(new_ghoul)
@@ -1073,29 +1886,401 @@ def enemy_respawn():
 # will be used for music later -----------------------------------------------------------------------------------------
 # pygame.mixer.init()
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+# asset urls -----------------------------------------------------------------------------------------------------------
+stan_down_url = resource_path('resources/art/character_art/player_character/default/stan_down.png')
+stan_left_url = resource_path('resources/art/character_art/player_character/default/stan_left.png')
+stan_right_url = resource_path('resources/art/character_art/player_character/default/stan_right.png')
+stan_up_url = resource_path('resources/art/character_art/player_character/default/stan_up.png')
+stan_battle_url = resource_path('resources/art/character_art/player_character/default/battle/stan_battle.png')
+stan_attack_url = resource_path('resources/art/character_art/player_character/default/battle/stan_battle_attacking.png')
+
+amuna_shopkeeper_url = resource_path('resources/art/character_art/NPCs/amuna_shopkeeper.png')
+garan_url = resource_path('resources/art/character_art/NPCs/garan.png')
+guard_url = resource_path('resources/art/character_art/NPCs/guard.png')
+maurelle_url = resource_path('resources/art/character_art/NPCs/maurelle.png')
+
+snake_url = resource_path('resources/art/enemy_art/snake.png')
+ghoul_url = resource_path('resources/art/enemy_art/ghoul.png')
+snake_battle_url = resource_path('resources/art/enemy_art/battle/snake_battle.png')
+snake_attack_url = resource_path('resources/art/enemy_art/battle/snake_battle_attacking.png')
+ghoul_battle_url = resource_path('resources/art/enemy_art/battle/ghoul_battle.png')
+ghoul_attack_url = resource_path('resources/art/enemy_art/battle/ghoul_battle_attacking.png')
+
+seldon_bg_url = resource_path('resources/art/environment_art/background_textures/seldon_district.png')
+seldon_battle_url = resource_path('resources/art/environment_art/background_textures/seldon_battle_screen.png')
+seldon_shop_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_shop.png')
+
+seldon_academia_url = resource_path('resources/art/environment_art/buildings/amuna_building_academia.png')
+seldon_inn_url = resource_path('resources/art/environment_art/buildings/amuna_building_inn.png')
+seldon_shop_url = resource_path('resources/art/environment_art/buildings/amuna_building_shop.png')
+
+pine_tree_url = resource_path('resources/art/environment_art/pine_tree.png')
+
+health_pot_url = resource_path('resources/art/item_art/health_potion.png')
+energy_pot_url = resource_path('resources/art/item_art/energy_potion.png')
+shiny_rock_url = resource_path('resources/art/item_art/shiny_rock.png')
+bone_dust_url = resource_path('resources/art/item_art/bone_dust.png')
+temp_item_url = resource_path('resources/art/item_art/temp_item.png')
+
+game_over_screen_url = resource_path('resources/art/screens/game_over.png')
+
+bar_backdrop_url = resource_path('resources/art/ui_elements/status_bar_backdrop.png')
+enemy_bar_backdrop_url = resource_path('resources/art/ui_elements/enemy_status_bar_backdrop.png')
+buy_inventory_url = resource_path('resources/art/ui_elements/buy_inventory.png')
+sell_inventory_url = resource_path('resources/art/ui_elements/sell_inventory.png')
+inventory_url = resource_path('resources/art/ui_elements/inventory.png')
+message_box_url = resource_path('resources/art/ui_elements/message_box.png')
+player_status_url = resource_path('resources/art/ui_elements/status/player.png')
+enemy_status_url = resource_path('resources/art/ui_elements/status/enemy.png')
+welcome_image_url = resource_path('resources/art/ui_elements/notifications/welcome.png')
+character_button_url = resource_path('resources/art/ui_elements/buttons/character.png')
+continue_button_url = resource_path('resources/art/ui_elements/buttons/continue_button.png')
+interact_button_url = resource_path('resources/art/ui_elements/buttons/interact.png')
+inventory_button_url = resource_path('resources/art/ui_elements/buttons/inventory.png')
+journal_button_url = resource_path('resources/art/ui_elements/buttons/journal.png')
+buy_button_url = resource_path('resources/art/ui_elements/buttons/shop/buy.png')
+sell_button_url = resource_path('resources/art/ui_elements/buttons/shop/sell.png')
+leave_button_url = resource_path('resources/art/ui_elements/buttons/shop/leave.png')
+attack_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/attack.png')
+skill_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/skill.png')
+run_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/run.png')
+
+health_100_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_100.png')
+health_99_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_99.png')
+health_98_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_98.png')
+health_97_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_97.png')
+health_96_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_96.png')
+health_95_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_95.png')
+health_94_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_94.png')
+health_93_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_93.png')
+health_92_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_92.png')
+health_91_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_91.png')
+health_90_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_90.png')
+health_89_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_89.png')
+health_88_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_88.png')
+health_87_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_87.png')
+health_86_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_86.png')
+health_85_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_85.png')
+health_84_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_84.png')
+health_83_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_83.png')
+health_82_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_82.png')
+health_81_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_81.png')
+health_80_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_80.png')
+health_79_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_79.png')
+health_78_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_78.png')
+health_77_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_77.png')
+health_76_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_76.png')
+health_75_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_75.png')
+health_74_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_74.png')
+health_73_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_73.png')
+health_72_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_72.png')
+health_71_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_71.png')
+health_70_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_70.png')
+health_69_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_69.png')
+health_68_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_68.png')
+health_67_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_67.png')
+health_66_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_66.png')
+health_65_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_65.png')
+health_64_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_64.png')
+health_63_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_63.png')
+health_62_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_62.png')
+health_61_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_61.png')
+health_60_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_60.png')
+health_59_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_59.png')
+health_58_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_58.png')
+health_57_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_57.png')
+health_56_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_56.png')
+health_55_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_55.png')
+health_54_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_54.png')
+health_53_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_53.png')
+health_52_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_52.png')
+health_51_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_51.png')
+health_50_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_50.png')
+health_49_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_49.png')
+health_48_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_48.png')
+health_47_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_47.png')
+health_46_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_46.png')
+health_45_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_45.png')
+health_44_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_44.png')
+health_43_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_43.png')
+health_42_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_42.png')
+health_41_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_41.png')
+health_40_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_40.png')
+health_39_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_39.png')
+health_38_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_38.png')
+health_37_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_37.png')
+health_36_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_36.png')
+health_35_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_35.png')
+health_34_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_34.png')
+health_33_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_33.png')
+health_32_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_32.png')
+health_31_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_31.png')
+health_30_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_30.png')
+health_29_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_29.png')
+health_28_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_28.png')
+health_27_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_27.png')
+health_26_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_26.png')
+health_25_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_25.png')
+health_24_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_24.png')
+health_23_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_23.png')
+health_22_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_22.png')
+health_21_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_21.png')
+health_20_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_20.png')
+health_19_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_19.png')
+health_18_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_18.png')
+health_17_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_17.png')
+health_16_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_16.png')
+health_15_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_15.png')
+health_14_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_14.png')
+health_13_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_13.png')
+health_12_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_12.png')
+health_11_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_11.png')
+health_10_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_10.png')
+health_9_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_9.png')
+health_8_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_8.png')
+health_7_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_7.png')
+health_6_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_6.png')
+health_5_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_5.png')
+health_4_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_4.png')
+health_3_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_3.png')
+health_2_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_2.png')
+health_1_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_1.png')
+health_0_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_0.png')
+
+energy_100_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_100.png')
+energy_99_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_99.png')
+energy_98_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_98.png')
+energy_97_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_97.png')
+energy_96_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_96.png')
+energy_95_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_95.png')
+energy_94_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_94.png')
+energy_93_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_93.png')
+energy_92_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_92.png')
+energy_91_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_91.png')
+energy_90_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_90.png')
+energy_89_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_89.png')
+energy_88_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_88.png')
+energy_87_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_87.png')
+energy_86_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_86.png')
+energy_85_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_85.png')
+energy_84_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_84.png')
+energy_83_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_83.png')
+energy_82_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_82.png')
+energy_81_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_81.png')
+energy_80_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_80.png')
+energy_79_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_79.png')
+energy_78_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_78.png')
+energy_77_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_77.png')
+energy_76_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_76.png')
+energy_75_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_75.png')
+energy_74_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_74.png')
+energy_73_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_73.png')
+energy_72_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_72.png')
+energy_71_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_71.png')
+energy_70_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_70.png')
+energy_69_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_69.png')
+energy_68_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_68.png')
+energy_67_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_67.png')
+energy_66_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_66.png')
+energy_65_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_65.png')
+energy_64_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_64.png')
+energy_63_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_63.png')
+energy_62_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_62.png')
+energy_61_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_61.png')
+energy_60_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_60.png')
+energy_59_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_59.png')
+energy_58_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_58.png')
+energy_57_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_57.png')
+energy_56_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_56.png')
+energy_55_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_55.png')
+energy_54_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_54.png')
+energy_53_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_53.png')
+energy_52_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_52.png')
+energy_51_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_51.png')
+energy_50_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_50.png')
+energy_49_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_49.png')
+energy_48_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_48.png')
+energy_47_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_47.png')
+energy_46_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_46.png')
+energy_45_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_45.png')
+energy_44_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_44.png')
+energy_43_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_43.png')
+energy_42_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_42.png')
+energy_41_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_41.png')
+energy_40_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_40.png')
+energy_39_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_39.png')
+energy_38_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_38.png')
+energy_37_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_37.png')
+energy_36_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_36.png')
+energy_35_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_35.png')
+energy_34_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_34.png')
+energy_33_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_33.png')
+energy_32_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_32.png')
+energy_31_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_31.png')
+energy_30_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_30.png')
+energy_29_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_29.png')
+energy_28_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_28.png')
+energy_27_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_27.png')
+energy_26_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_26.png')
+energy_25_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_25.png')
+energy_24_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_24.png')
+energy_23_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_23.png')
+energy_22_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_22.png')
+energy_21_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_21.png')
+energy_20_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_20.png')
+energy_19_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_19.png')
+energy_18_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_18.png')
+energy_17_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_17.png')
+energy_16_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_16.png')
+energy_15_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_15.png')
+energy_14_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_14.png')
+energy_13_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_13.png')
+energy_12_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_12.png')
+energy_11_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_11.png')
+energy_10_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_10.png')
+energy_9_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_9.png')
+energy_8_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_8.png')
+energy_7_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_7.png')
+energy_6_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_6.png')
+energy_5_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_5.png')
+energy_4_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_4.png')
+energy_3_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_3.png')
+energy_2_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_2.png')
+energy_1_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_1.png')
+energy_0_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_0.png')
+
+xp_100_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_100.png')
+xp_99_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_99.png')
+xp_98_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_98.png')
+xp_97_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_97.png')
+xp_96_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_96.png')
+xp_95_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_95.png')
+xp_94_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_94.png')
+xp_93_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_93.png')
+xp_92_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_92.png')
+xp_91_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_91.png')
+xp_90_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_90.png')
+xp_89_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_89.png')
+xp_88_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_88.png')
+xp_87_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_87.png')
+xp_86_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_86.png')
+xp_85_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_85.png')
+xp_84_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_84.png')
+xp_83_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_83.png')
+xp_82_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_82.png')
+xp_81_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_81.png')
+xp_80_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_80.png')
+xp_79_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_79.png')
+xp_78_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_78.png')
+xp_77_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_77.png')
+xp_76_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_76.png')
+xp_75_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_75.png')
+xp_74_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_74.png')
+xp_73_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_73.png')
+xp_72_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_72.png')
+xp_71_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_71.png')
+xp_70_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_70.png')
+xp_69_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_69.png')
+xp_68_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_68.png')
+xp_67_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_67.png')
+xp_66_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_66.png')
+xp_65_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_65.png')
+xp_64_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_64.png')
+xp_63_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_63.png')
+xp_62_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_62.png')
+xp_61_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_61.png')
+xp_60_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_60.png')
+xp_59_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_59.png')
+xp_58_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_58.png')
+xp_57_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_57.png')
+xp_56_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_56.png')
+xp_55_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_55.png')
+xp_54_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_54.png')
+xp_53_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_53.png')
+xp_52_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_52.png')
+xp_51_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_51.png')
+xp_50_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_50.png')
+xp_49_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_49.png')
+xp_48_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_48.png')
+xp_47_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_47.png')
+xp_46_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_46.png')
+xp_45_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_45.png')
+xp_44_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_44.png')
+xp_43_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_43.png')
+xp_42_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_42.png')
+xp_41_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_41.png')
+xp_40_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_40.png')
+xp_39_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_39.png')
+xp_38_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_38.png')
+xp_37_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_37.png')
+xp_36_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_36.png')
+xp_35_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_35.png')
+xp_34_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_34.png')
+xp_33_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_33.png')
+xp_32_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_32.png')
+xp_31_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_31.png')
+xp_30_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_30.png')
+xp_29_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_29.png')
+xp_28_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_28.png')
+xp_27_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_27.png')
+xp_26_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_26.png')
+xp_25_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_25.png')
+xp_24_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_24.png')
+xp_23_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_23.png')
+xp_22_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_22.png')
+xp_21_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_21.png')
+xp_20_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_20.png')
+xp_19_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_19.png')
+xp_18_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_18.png')
+xp_17_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_17.png')
+xp_16_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_16.png')
+xp_15_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_15.png')
+xp_14_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_14.png')
+xp_13_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_13.png')
+xp_12_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_12.png')
+xp_11_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_11.png')
+xp_10_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_10.png')
+xp_9_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_9.png')
+xp_8_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_8.png')
+xp_7_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_7.png')
+xp_6_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_6.png')
+xp_5_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_5.png')
+xp_4_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_4.png')
+xp_3_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_3.png')
+xp_2_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_2.png')
+xp_1_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_1.png')
+xp_0_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_0.png')
+
+cat_url = resource_path('resources/art/critter_art/cat.png')
+
+# ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
 # initialize game, set clock for framerate, set screen size ------------------------------------------------------------
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))  # 1024 x 768
 
 # background textures --------------------------------------------------------------------------------------------------
-seldon_district_bg = pygame.image.load("art/environment_art/background_textures/seldon_district.png")
-seldon_district_battle = pygame.image.load("art/environment_art/background_textures/seldon_battle_screen.png")
-seldon_district_shop = pygame.image.load("art/environment_art/background_textures/seldon_shop.png")
+seldon_district_bg = pygame.image.load(seldon_bg_url)
+seldon_district_battle = pygame.image.load(seldon_battle_url)
+seldon_district_shop = pygame.image.load(seldon_shop_screen_url)
 
-game_over_screen = pygame.image.load("art/screens/game_over.png")
+game_over_screen = pygame.image.load(game_over_screen_url)
 
 # creating objects from defined classes --------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # display notifications to user (shown, x_coordinate, y_coordinate, image, color) --------------------------------------
-greeting = Notification("greeting", False, 512, 384, "art/ui_elements/notifications/welcome.png", (255, 255, 255))
+greeting = Notification("greeting", False, 512, 384, welcome_image_url, (255, 255, 255))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # inventory items ------------------------------------------------------------------------------------------------------
-health_potion = Item("health potion", "potion", 200, 200, "art/item_art/health_potion.png", (255, 255, 255))
-energy_potion = Item("energy potion", "potion", 200, 200, "art/item_art/energy_potion.png", (255, 255, 255))
-shiny_rock = Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255))
-bone_dust = Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255))
+health_potion = Item("health potion", "potion", 200, 200, health_pot_url, (255, 255, 255))
+energy_potion = Item("energy potion", "potion", 200, 200, energy_pot_url, (255, 255, 255))
+shiny_rock = Item("shiny rock", "rock", 200, 200, shiny_rock_url, (255, 255, 255))
+bone_dust = Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # default player character ---------------------------------------------------------------------------------------------
@@ -1106,7 +2291,7 @@ player = Player("Stan", "male", "amuna", "mage",  # name, gender, race, role
                 [""], 0, {"Sneaky Snakes": False, "Village Repairs": False, "Ghoulish Ghosts": False},
                 ["vitality", 1, "intellect", 3, "strength", 1, "wisdom", 2],  # stats ('stat', 'amount')
                 ["barrier"], 1, 5, 100, 100,  # skills, lvl, exp, health, energy
-                True, 10, ["amuna", 10, "nuldar", 0, "sorae", 0], "", "")  # alive, rupees, reputation, mount, zone
+                True, 20, ["amuna", 10, "nuldar", 0, "sorae", 0], "", "")  # alive, rupees, reputation, mount, zone
 
 # nps: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate --------------------------
 #                  alive_status, quest_complete, items, gift, image, color
@@ -1120,7 +2305,7 @@ npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
                 "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
                 "trouble. ", 240, 480, True, False, ["Items to be added for steal"], False,
-                "art/character_art/NPCs/garan.png", (255, 255, 255))
+                garan_url, (255, 255, 255))
 
 npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
                    "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
@@ -1133,7 +2318,7 @@ npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We nee
                    "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
                    "trees just west of here. Nera bless you. ", 755, 515, True, False,
                    ["Items to be added for steal"], False,
-                   "art/character_art/NPCs/maurelle.png", (255, 255, 255))
+                   maurelle_url, (255, 255, 255))
 
 npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee",
                 "You need to cross the bridge to get to the Korlok District, you say? \n\nOrdinarily"
@@ -1144,142 +2329,103 @@ npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish G
                 " ghouls were last spotted just east of here, nearby the northern Castle wall ramparts! ", 475, 140,
                 True,
                 False, ["Items to be added for steal"], False,
-                "art/character_art/NPCs/guard.png", (255, 255, 255))
+                guard_url, (255, 255, 255))
 
 npc_amuna_shopkeeper = NPC("Amuna Shopkeeper", "male", "amuna", "trader", "These ghoul attacks are bad for business!",
                            "", "", 700, 700, True, False, [
-                               Item("health potion", "potion", 200, 200, "art/item_art/health_potion.png",
+                               Item("health potion", "potion", 200, 200, health_pot_url,
                                     (255, 255, 255)),
-                               Item("energy potion", "potion", 200, 200, "art/item_art/energy_potion.png",
+                               Item("energy potion", "potion", 200, 200, energy_pot_url,
                                     (255, 255, 255)),
-                               Item("bronze sword", "2H", 200, 200, "art/item_art/temp_item.png",
+                               Item("bronze sword", "2H", 200, 200, temp_item_url,
                                     (255, 255, 255)),
-                               Item("bronze armor", "heavy", 200, 200, "art/item_art/temp_item.png",
+                               Item("bronze armor", "heavy", 200, 200, temp_item_url,
                                     (255, 255, 255))
-                           ], False, "art/character_art/NPCs/amuna_shopkeeper.png", (255, 255, 255))
+                           ], False, amuna_shopkeeper_url, (255, 255, 255))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar ------
 snake_1 = Enemy("Snake", "snake", 100, 100, 1, 100, 150, True,
-                Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
-                "art/enemy_art/snake.png", (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
-                          False))
+                Item("shiny rock", "rock", 200, 200, shiny_rock_url, (255, 255, 255)),
+                snake_url, (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 snake_2 = Enemy("Snake", "snake", 100, 100, 2, 260, 170, True,
-                Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
-                "art/enemy_art/snake.png", (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
-                          False))
+                Item("shiny rock", "rock", 200, 200, shiny_rock_url, (255, 255, 255)),
+                snake_url, (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 snake_3 = Enemy("Snake", "snake", 100, 100, 1, 100, 250, True,
-                Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
-                "art/enemy_art/snake.png", (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
-                          False))
+                Item("shiny rock", "rock", 200, 200, shiny_rock_url, (255, 255, 255)),
+                snake_url, (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 snake_4 = Enemy("Snake", "snake", 100, 100, 2, 260, 270, True,
-                Item("shiny rock", "rock", 200, 200, "art/item_art/shiny_rock.png", (255, 255, 255)),
-                "art/enemy_art/snake.png", (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
-                          False))
+                Item("shiny rock", "rock", 200, 200, shiny_rock_url, (255, 255, 255)),
+                snake_url, (255, 255, 255),
+                UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 
 ghoul_low_1 = Enemy("Ghoul", "ghoul", 100, 100, 4, 675, 200, True,
-                    Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
-                    "art/enemy_art/ghoul.png", (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
-                              False))
+                    Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255)),
+                    ghoul_url, (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 ghoul_low_2 = Enemy("Ghoul", "ghoul", 100, 100, 5, 800, 150, True,
-                    Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
-                    "art/enemy_art/ghoul.png", (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
-                              False))
+                    Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255)),
+                    ghoul_url, (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 ghoul_low_3 = Enemy("Ghoul", "ghoul", 100, 100, 3, 760, 260, True,
-                    Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
-                    "art/enemy_art/ghoul.png", (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
-                              False))
+                    Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255)),
+                    ghoul_url, (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 4, 875, 225, True,
-                    Item("bone dust", "dust", 200, 200, "art/item_art/bone_dust.png", (255, 255, 255)),
-                    "art/enemy_art/ghoul.png", (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255),
-                              False))
+                    Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255)),
+                    ghoul_url, (255, 255, 255),
+                    UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 
 # trees: name, model, x_coordinate, y_coordinate, gathered, image, color -----------------------------------------------
-pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 475, False, "art/environment_art/pine_tree.png", (255, 255, 255))
-pine_tree_2 = Tree("pine tree 4", "pine tree", 260, 660, False, "art/environment_art/pine_tree.png", (255, 255, 255))
-pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 400, False, "art/environment_art/pine_tree.png", (255, 255, 255))
+pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 475, False, pine_tree_url, (255, 255, 255))
+pine_tree_2 = Tree("pine tree 4", "pine tree", 260, 660, False, pine_tree_url, (255, 255, 255))
+pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 400, False, pine_tree_url, (255, 255, 255))
 
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-amuna_inn = Building("amuna inn", "inn", 600, 600,
-                     "art/environment_art/buildings/amuna_building_inn.png",
-                     (255, 255, 255))
-amuna_shop = Building("amuna shop", "shop", 650, 400,
-                      "art/environment_art/buildings/amuna_building_shop.png",
-                      (255, 255, 255))
-amuna_academia = Building("amuna academia", "academia", 875, 500,
-                          "art/environment_art/buildings/amuna_building_academia.png",
-                          (255, 255, 255))
+amuna_inn = Building("amuna inn", "inn", 600, 600, seldon_inn_url, (255, 255, 255))
+amuna_shop = Building("amuna shop", "shop", 650, 400, seldon_shop_url, (255, 255, 255))
+amuna_academia = Building("amuna academia", "academia", 875, 500, seldon_academia_url, (255, 255, 255))
 
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
-inventory_button = UiElement("inventory button", 960, 730, "art/ui_elements/buttons/inventory.png",
-                             (255, 255, 255), False)
-character_button = UiElement("character button", 850, 730, "art/ui_elements/buttons/character.png",
-                             (255, 255, 255), False)
-journal_button = UiElement("journal button", 740, 730, "art/ui_elements/buttons/journal.png",
-                           (255, 255, 255), False)
+inventory_button = UiElement("inventory button", 960, 730, inventory_button_url, (255, 255, 255), False)
+character_button = UiElement("character button", 850, 730, character_button_url, (255, 255, 255), False)
+journal_button = UiElement("journal button", 740, 730, journal_button_url, (255, 255, 255), False)
 
-attack_button = UiElement("attack button", 740, 670, "art/ui_elements/buttons/battle_screen/attack.png",
-                          (255, 255, 255), False)
-skill_button = UiElement("skill button", 850, 670, "art/ui_elements/buttons/battle_screen/skill.png",
-                         (255, 255, 255), False)
-run_button = UiElement("run button", 960, 670, "art/ui_elements/buttons/battle_screen/run.png",
-                       (255, 255, 255), False)
-continue_button = UiElement("continue button", 500, 600, "art/ui_elements/buttons/continue_button.png",
-                            (255, 255, 255), False)
-buy_button = UiElement("buy button", 740, 730, "art/ui_elements/buttons/shop/buy.png",
-                       (255, 255, 255), False)
-sell_button = UiElement("sell button", 850, 730, "art/ui_elements/buttons/shop/sell.png",
-                        (255, 255, 255), False)
-leave_button = UiElement("leave button", 960, 730, "art/ui_elements/buttons/shop/leave.png",
-                         (255, 255, 255), False)
+attack_button = UiElement("attack button", 740, 670, attack_button_url, (255, 255, 255), False)
+skill_button = UiElement("skill button", 850, 670, skill_button_url, (255, 255, 255), False)
+run_button = UiElement("run button", 960, 670, run_button_url, (255, 255, 255), False)
+continue_button = UiElement("continue button", 500, 600, continue_button_url, (255, 255, 255), False)
+buy_button = UiElement("buy button", 740, 730, buy_button_url, (255, 255, 255), False)
+sell_button = UiElement("sell button", 850, 730, sell_button_url, (255, 255, 255), False)
+leave_button = UiElement("leave button", 960, 730, leave_button_url, (255, 255, 255), False)
 
-player_status = UiElement("player status", 850, 670, "art/ui_elements/status/player.png", (255, 255, 255), False)
-enemy_status = UiElement("enemy status", 850, 730, "art/ui_elements/status/enemy.png", (255, 255, 255), False)
+player_status = UiElement("player status", 850, 670, player_status_url, (255, 255, 255), False)
+enemy_status = UiElement("enemy status", 850, 730, enemy_status_url, (255, 255, 255), False)
 
-hp_bar = UiElement("hp bar", 170, 25, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255), False)
-en_bar = UiElement("en bar", 170, 45, "art/ui_elements/bars/energy/en_bar_100.png", (255, 255, 255), False)
-xp_bar = UiElement("xp bar", 170, 65, "art/ui_elements/bars/xp/xp_bar_100.png", (255, 255, 255), False)
+hp_bar = UiElement("hp bar", 170, 25, health_100_url, (255, 255, 255), False)
+en_bar = UiElement("en bar", 170, 45, energy_100_url, (255, 255, 255), False)
+xp_bar = UiElement("xp bar", 170, 65, xp_100_url, (255, 255, 255), False)
 
-enemy_hp_bar = UiElement("enemy hp bar", 700, 90, "art/ui_elements/bars/health/hp_bar_100.png", (255, 255, 255), False)
-
-inventory = Inventory([], 890, 515, "art/ui_elements/inventory.png", (255, 255, 255), False)
+inventory = Inventory([], 890, 515, inventory_url, (255, 255, 255), False)
 
 # shop windows ---------------------------------------------------------------------------------------------------------
-buy_inventory = Inventory([], 890, 490, "art/ui_elements/buy_inventory.png", (255, 255, 255), False)
-sell_inventory = Inventory([], 890, 490, "art/ui_elements/sell_inventory.png", (255, 255, 255), False)
+buy_inventory = Inventory([], 890, 490, buy_inventory_url, (255, 255, 255), False)
+sell_inventory = Inventory([], 890, 490, sell_inventory_url, (255, 255, 255), False)
 # ----------------------------------------------------------------------------------------------------------------------
 
-message_box = UiElement("message box", 175, 700, "art/ui_elements/message_box.png", (255, 255, 255), False)
-
-status_bar_backdrop = UiElement("status bar backdrop", 165, 45,
-                                "art/ui_elements/status_bar_backdrop.png",
-                                (255, 255, 255), False)
-
-enemy_status_bar_backdrop = UiElement("enemy status bar backdrop", 695, 90,
-                                      "art/ui_elements/enemy_status_bar_backdrop.png",
-                                      (255, 255, 255), False)
+message_box = UiElement("message box", 175, 700, message_box_url, (255, 255, 255), False)
+status_bar_backdrop = UiElement("status bar backdrop", 165, 45, bar_backdrop_url, (255, 255, 255), False)
+enemy_status_bar_backdrop = UiElement("enemy status bar backdrop", 695, 90, enemy_bar_backdrop_url, (255, 255, 255),
+                                      False)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # battle sprites -------------------------------------------------------------------------------------------------------
-stan_battle_sprite = BattleCharacter("stan battle", 300, 460,
-                                     "art/character_art/player_character/default/battle/stan_battle.png",
-                                     (255, 255, 255))
-
-snake_battle_sprite = BattleCharacter("snake battle", 700, 250,
-                                      "art/enemy_art/battle/snake_battle.png",
-                                      (255, 255, 255))
-
-ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250,
-                                      "art/enemy_art/battle/ghoul_battle.png",
-                                      (255, 255, 255))
+stan_battle_sprite = BattleCharacter("stan battle", 300, 460, stan_battle_url, (255, 255, 255))
+snake_battle_sprite = BattleCharacter("snake battle", 700, 250, snake_battle_url, (255, 255, 255))
+ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, ghoul_battle_url, (255, 255, 255))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # setting font and size for text to screen updates ---------------------------------------------------------------------
@@ -1571,19 +2717,19 @@ while game_running:
                                 # go through player items and assign inventory slots (coordinates) to them
                                 for item in player.items:
                                     if item.name == "health potion":
-                                        item.update(first_coord, second_coord, "art/item_art/health_potion.png")
+                                        item.update(first_coord, second_coord, health_pot_url)
                                         player_items.append(item)
                                         inventory_counter += 1
                                     if item.name == "energy potion":
-                                        item.update(first_coord, second_coord, "art/item_art/energy_potion.png")
+                                        item.update(first_coord, second_coord, energy_pot_url)
                                         player_items.append(item)
                                         inventory_counter += 1
                                     if item.name == "shiny rock":
-                                        item.update(first_coord, second_coord, "art/item_art/shiny_rock.png")
+                                        item.update(first_coord, second_coord, shiny_rock_url)
                                         player_items.append(item)
                                         inventory_counter += 1
                                     if item.name == "bone dust":
-                                        item.update(first_coord, second_coord, "art/item_art/bone_dust.png")
+                                        item.update(first_coord, second_coord, bone_dust_url)
                                         player_items.append(item)
                                         inventory_counter += 1
 
@@ -1692,15 +2838,14 @@ while game_running:
                         if combat_button == "attack":
 
                             # update player character sprite for combat animation
-                            stan_battle_sprite.update("art/character_art/player_character/default/battle/"
-                                                      "stan_battle_attacking.png")
+                            stan_battle_sprite.update(stan_attack_url)
 
                             # update to attacking sprite surface for combat animation
                             if enemy.kind == "snake":
-                                snake_battle_sprite.update("art/enemy_art/battle/snake_battle_attacking.png")
+                                snake_battle_sprite.update(snake_attack_url)
 
                             if enemy.kind == "ghoul":
-                                ghoul_battle_sprite.update("art/enemy_art/battle/ghoul_battle_attacking.png")
+                                ghoul_battle_sprite.update(ghoul_attack_url)
 
                             # combat event function that handles and returns damage and health
                             combat_events = attack_scenario(enemy, "attack")
@@ -1838,13 +2983,11 @@ while game_running:
                                         # go through shop items and assign inventory slots (coordinates) to them
                                         for shop_item in npc_amuna_shopkeeper.items:
                                             if shop_item.name == "health potion":
-                                                shop_item.update(buy_first_coord, buy_second_coord,
-                                                                 "art/item_art/health_potion.png")
+                                                shop_item.update(buy_first_coord, buy_second_coord, health_pot_url)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
                                             if shop_item.name == "energy potion":
-                                                shop_item.update(buy_first_coord, buy_second_coord,
-                                                                 "art/item_art/energy_potion.png")
+                                                shop_item.update(buy_first_coord, buy_second_coord, energy_pot_url)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
 
@@ -1896,23 +3039,19 @@ while game_running:
                                         # go through player items and assign inventory slots (coordinates) to them
                                         for sell_item in player.items:
                                             if sell_item.name == "health potion":
-                                                sell_item.update(sell_first_coord, sell_second_coord,
-                                                                 "art/item_art/health_potion.png")
+                                                sell_item.update(sell_first_coord, sell_second_coord, health_pot_url)
                                                 sell_player_items.append(sell_item)
                                                 sell_inventory_counter += 1
                                             if sell_item.name == "energy potion":
-                                                sell_item.update(sell_first_coord, sell_second_coord,
-                                                                 "art/item_art/energy_potion.png")
+                                                sell_item.update(sell_first_coord, sell_second_coord, energy_pot_url)
                                                 sell_player_items.append(sell_item)
                                                 sell_inventory_counter += 1
                                             if sell_item.name == "shiny rock":
-                                                sell_item.update(sell_first_coord, sell_second_coord,
-                                                                 "art/item_art/shiny_rock.png")
+                                                sell_item.update(sell_first_coord, sell_second_coord, shiny_rock_url)
                                                 sell_player_items.append(sell_item)
                                                 sell_inventory_counter += 1
                                             if sell_item.name == "bone dust":
-                                                sell_item.update(sell_first_coord, sell_second_coord,
-                                                                 "art/item_art/bone_dust.png")
+                                                sell_item.update(sell_first_coord, sell_second_coord, bone_dust_url)
                                                 sell_player_items.append(sell_item)
                                                 sell_inventory_counter += 1
 
@@ -1965,8 +3104,7 @@ while game_running:
                                     info_text_1 = "Bought Health Potion for 10 rupees."
                                     info_text_2 = "Health Potion added to inventory."
                                     player.items.append(
-                                        Item("health potion", "potion", 200, 200,
-                                             "art/item_art/health_potion.png", (255, 255, 255)))
+                                        Item("health potion", "potion", 200, 200, health_pot_url, (255, 255, 255)))
                                     player.rupees = player.rupees - 10
                                     item_bought = True
 
@@ -1984,8 +3122,7 @@ while game_running:
                                     info_text_1 = "Bought Energy Potion for 10 rupees."
                                     info_text_2 = "Energy Potion added to inventory."
                                     player.items.append(
-                                        Item("energy potion", "potion", 200, 200,
-                                             "art/item_art/energy_potion.png", (255, 255, 255)))
+                                        Item("energy potion", "potion", 200, 200, energy_pot_url, (255, 255, 255)))
                                     player.rupees = player.rupees - 10
                                     item_bought = True
 
@@ -2248,9 +3385,9 @@ while game_running:
         # combat didn't happen this iteration, reset sprites to default surface image
         if not combat_happened:
             combat_cooldown = False
-            stan_battle_sprite.update("art/character_art/player_character/default/battle/stan_battle.png")
-            snake_battle_sprite.update("art/enemy_art/battle/snake_battle.png")
-            ghoul_battle_sprite.update("art/enemy_art/battle/ghoul_battle.png")
+            stan_battle_sprite.update(stan_battle_url)
+            snake_battle_sprite.update(snake_battle_url)
+            ghoul_battle_sprite.update(ghoul_battle_url)
 
             # flip to display ------------------------------------------------------------------------------------------
             pygame.display.flip()
@@ -2262,9 +3399,9 @@ while game_running:
         # combat happened this turn, update sprites for battle and apply short cooldown to attack again
         if combat_happened:
             combat_cooldown = True
-            stan_battle_sprite.update("art/character_art/player_character/default/battle/stan_battle_attacking.png")
-            snake_battle_sprite.update("art/enemy_art/battle/snake_battle_attacking.png")
-            ghoul_battle_sprite.update("art/enemy_art/battle/ghoul_battle_attacking.png")
+            stan_battle_sprite.update(stan_attack_url)
+            snake_battle_sprite.update(snake_attack_url)
+            ghoul_battle_sprite.update(ghoul_attack_url)
 
             # flip (update) to display ---------------------------------------------------------------------------------
             pygame.display.flip()
@@ -2308,6 +3445,7 @@ while game_running:
                     inventory_clicked = False
                     sell_clicked = False
                     buy_clicked = False
+                    encounter_started = False
 
                     player.pos = vec((435, 700))
                     player.health = 50
@@ -2325,6 +3463,7 @@ while game_running:
 
         pygame.display.flip()
 
+# related to music - implement later
 # we can stop and quit the mixer
 # pygame.mixer.music.stop()
 # pygame.mixer.quit()

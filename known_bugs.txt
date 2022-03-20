@@ -1,0 +1,1 @@
+New gear bought from merchants and given as rewards will overwrite previous gear. 
