@@ -1917,6 +1917,8 @@ seldon_inn_url = resource_path('resources/art/environment_art/buildings/amuna_bu
 seldon_shop_url = resource_path('resources/art/environment_art/buildings/amuna_building_shop.png')
 
 pine_tree_url = resource_path('resources/art/environment_art/pine_tree.png')
+seldon_grass_url = resource_path('resources/art/environment_art/seldon_grass.png')
+seldon_flower_url = resource_path('resources/art/environment_art/seldon_flower.png')
 
 health_pot_url = resource_path('resources/art/item_art/health_potion.png')
 energy_pot_url = resource_path('resources/art/item_art/energy_potion.png')
@@ -2255,6 +2257,8 @@ xp_0_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_0.png')
 
 cat_url = resource_path('resources/art/critter_art/cat.png')
 
+quest_logs_url = resource_path('resources/art/quest_items/logs.png')
+
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2379,14 +2383,25 @@ ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 4, 875, 225, True,
                     ghoul_url, (255, 255, 255),
                     UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 
-# trees: name, model, x_coordinate, y_coordinate, gathered, image, color -----------------------------------------------
+# environmental objects: name, model, x_coordinate, y_coordinate, gathered, image, color -------------------------------
 pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 475, False, pine_tree_url, (255, 255, 255))
 pine_tree_2 = Tree("pine tree 4", "pine tree", 260, 660, False, pine_tree_url, (255, 255, 255))
 pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 400, False, pine_tree_url, (255, 255, 255))
 
+seldon_grass_1 = Item("seldon grass", "grass", 380, 145, seldon_grass_url, (255, 255, 255))
+seldon_grass_2 = Item("seldon grass", "grass", 290, 215, seldon_grass_url, (255, 255, 255))
+seldon_grass_3 = Item("seldon grass", "grass", 425, 255, seldon_grass_url, (255, 255, 255))
+seldon_grass_4 = Item("seldon grass", "grass", 175, 155, seldon_grass_url, (255, 255, 255))
+seldon_grass_5 = Item("seldon grass", "grass", 160, 275, seldon_grass_url, (255, 255, 255))
+seldon_grass_6 = Item("seldon grass", "grass", 50, 200, seldon_grass_url, (255, 255, 255))
+
+seldon_flower_1 = Item("seldon flower", "flower", 580, 410, seldon_flower_url, (255, 255, 255))
+seldon_flower_2 = Item("seldon flower", "flower", 700, 620, seldon_flower_url, (255, 255, 255))
+seldon_flower_3 = Item("seldon flower", "flower", 800, 470, seldon_flower_url, (255, 255, 255))
+
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-amuna_inn = Building("amuna inn", "inn", 600, 600, seldon_inn_url, (255, 255, 255))
-amuna_shop = Building("amuna shop", "shop", 650, 400, seldon_shop_url, (255, 255, 255))
+amuna_inn = Building("amuna inn", "inn", 620, 620, seldon_inn_url, (255, 255, 255))
+amuna_shop = Building("amuna shop", "shop", 660, 400, seldon_shop_url, (255, 255, 255))
 amuna_academia = Building("amuna academia", "academia", 875, 500, seldon_academia_url, (255, 255, 255))
 
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
@@ -2411,6 +2426,11 @@ xp_bar = UiElement("xp bar", 170, 65, xp_100_url, (255, 255, 255), False)
 
 inventory = Inventory([], 890, 515, inventory_url, (255, 255, 255), False)
 
+quest_logs_1 = Item("pine logs", "quest", 65, 575, quest_logs_url, (255, 255, 255))
+quest_logs_2 = Item("pine logs", "quest", 315, 615, quest_logs_url, (255, 255, 255))
+quest_logs_3 = Item("pine logs", "quest", 432, 462, quest_logs_url, (255, 255, 255))
+quest_logs_4 = Item("pine logs", "quest", 105, 575, quest_logs_url, (255, 255, 255))
+
 # shop windows ---------------------------------------------------------------------------------------------------------
 buy_inventory = Inventory([], 890, 490, buy_inventory_url, (255, 255, 255), False)
 sell_inventory = Inventory([], 890, 490, sell_inventory_url, (255, 255, 255), False)
@@ -2433,10 +2453,12 @@ font = pygame.font.SysFont('calibri', 16, bold=True, italic=False)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # groups for sprites ---------------------------------------------------------------------------------------------------
+quest_items = pygame.sprite.Group()
 npcs = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
 trees = pygame.sprite.Group()
-water = pygame.sprite.Group()
+grass = pygame.sprite.Group()
+flowers = pygame.sprite.Group()
 buildings = pygame.sprite.Group()
 environment_objects = pygame.sprite.Group()
 user_interface = pygame.sprite.Group()
@@ -2453,6 +2475,8 @@ ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 npcs.add(npc_garan, npc_maurelle, npc_guard)
 enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
+grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon_grass_5, seldon_grass_6)
+flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(amuna_inn, amuna_shop, amuna_academia)
 
 user_interface.add(buy_button, sell_button, leave_button, character_button, journal_button, inventory_button,
@@ -2461,8 +2485,11 @@ user_interface.add(buy_button, sell_button, leave_button, character_button, jour
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
 
+# quest item sprites for gathering -------------------------------------------------------------------------------------
+quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4)
+
 # adding all sprites to game screen
-all_sprites.add(npcs, enemies, trees, buildings)
+all_sprites.add(npcs, enemies, trees, buildings, grass, flowers, quest_items)
 
 # pygame.mixer.music.load("Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
