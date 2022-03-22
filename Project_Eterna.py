@@ -113,7 +113,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.midbottom = self.pos
 
         # collision detection with environment objects (trees, buildings, etc) -----------------------------------------
-        if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.75)):
+        if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.50)):
 
             # create normal force by applying velocity opposite direction player is trying to move on colliding
             if pressed_keyes[K_w]:
@@ -151,6 +151,10 @@ class NPC(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+
+    def update(self, image):
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -1896,10 +1900,21 @@ stan_up_url = resource_path('resources/art/character_art/player_character/defaul
 stan_battle_url = resource_path('resources/art/character_art/player_character/default/battle/stan_battle.png')
 stan_attack_url = resource_path('resources/art/character_art/player_character/default/battle/stan_battle_attacking.png')
 
-amuna_shopkeeper_url = resource_path('resources/art/character_art/NPCs/amuna_shopkeeper.png')
-garan_url = resource_path('resources/art/character_art/NPCs/garan.png')
-guard_url = resource_path('resources/art/character_art/NPCs/guard.png')
-maurelle_url = resource_path('resources/art/character_art/NPCs/maurelle.png')
+amuna_shopkeeper_url = resource_path('resources/art/character_art/NPCs/shops/amuna_shopkeeper.png')
+garan_url = resource_path('resources/art/character_art/NPCs/garan/garan.png')
+garan_left_url = resource_path('resources/art/character_art/NPCs/garan/garan_left.png')
+garan_right_url = resource_path('resources/art/character_art/NPCs/garan/garan_right.png')
+garan_back_url = resource_path('resources/art/character_art/NPCs/garan/garan_back.png')
+
+guard_url = resource_path('resources/art/character_art/NPCs/guards/guard.png')
+guard_left_url = resource_path('resources/art/character_art/NPCs/guards/guard_left.png')
+guard_right_url = resource_path('resources/art/character_art/NPCs/guards/guard_right.png')
+guard_back_url = resource_path('resources/art/character_art/NPCs/guards/guard_back.png')
+
+maurelle_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle.png')
+maurelle_left_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_left.png')
+maurelle_right_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_right.png')
+maurelle_back_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_back.png')
 
 snake_url = resource_path('resources/art/enemy_art/snake.png')
 ghoul_url = resource_path('resources/art/enemy_art/ghoul.png')
@@ -2311,7 +2326,7 @@ npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "trouble. ", 240, 480, True, False, ["Items to be added for steal"], False,
                 garan_url, (255, 255, 255))
 
-npc_maurelle = NPC("Village Matron Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
+npc_maurelle = NPC("Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
                    "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
                    "\n\nThe beast Dreth has occupied our former capital Castle, on the other side of the walls "
                    "\nto the east, and our numbers have been spread thin trying to repel its minions and contain "
@@ -2400,7 +2415,7 @@ seldon_flower_2 = Item("seldon flower", "flower", 700, 620, seldon_flower_url, (
 seldon_flower_3 = Item("seldon flower", "flower", 800, 470, seldon_flower_url, (255, 255, 255))
 
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-amuna_inn = Building("amuna inn", "inn", 620, 620, seldon_inn_url, (255, 255, 255))
+amuna_inn = Building("amuna inn", "inn", 625, 620, seldon_inn_url, (255, 255, 255))
 amuna_shop = Building("amuna shop", "shop", 660, 400, seldon_shop_url, (255, 255, 255))
 amuna_academia = Building("amuna academia", "academia", 875, 500, seldon_academia_url, (255, 255, 255))
 
@@ -3245,7 +3260,6 @@ while game_running:
 
         # enemy movement updates ---------------------------------------------------------------------------------------
         # choose random directions and random enemy to move that direction ---------------------------------------------
-
         direction_horizontal = random.choice(["left", "right"])
         direction_vertical = random.choice(["up", "down"])
 
@@ -3257,6 +3271,45 @@ while game_running:
             if pygame.time.get_ticks() % 20 == 0:
                 move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical)
                 move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical)
+
+        # npc movement updates -----------------------------------------------------------------------------------------
+        # choose random facing direction and random npc to move face that direction ------------------------------------
+        face_direction = random.choice(["front", "back", "left", "right"])
+        face_this_npc = random.choice(npcs.sprites())
+
+        if pygame.time.get_ticks() % 180 == 0:
+
+            if face_direction == "front":
+                if face_this_npc.name == "Garan":
+                    npc_garan.update(garan_url)
+                if face_this_npc.name == "Maurelle":
+                    npc_maurelle.update(maurelle_url)
+                if face_this_npc.name == "Guard":
+                    npc_guard.update(guard_url)
+
+            if face_direction == "back":
+                if face_this_npc.name == "Garan":
+                    npc_garan.update(garan_back_url)
+                if face_this_npc.name == "Maurelle":
+                    npc_maurelle.update(maurelle_back_url)
+                if face_this_npc.name == "Guard":
+                    npc_guard.update(guard_back_url)
+
+            if face_direction == "left":
+                if face_this_npc.name == "Garan":
+                    npc_garan.update(garan_left_url)
+                if face_this_npc.name == "Maurelle":
+                    npc_maurelle.update(maurelle_left_url)
+                if face_this_npc.name == "Guard":
+                    npc_guard.update(guard_left_url)
+
+            if face_direction == "right":
+                if face_this_npc.name == "Garan":
+                    npc_garan.update(garan_right_url)
+                if face_this_npc.name == "Maurelle":
+                    npc_maurelle.update(maurelle_right_url)
+                if face_this_npc.name == "Guard":
+                    npc_guard.update(guard_right_url)
 
         # --------------------------------------------------------------------------------------------------------------
         # the code in this next section draws scenario related graphics on top of every other graphic
