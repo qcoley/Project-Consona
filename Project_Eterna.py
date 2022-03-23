@@ -1740,6 +1740,20 @@ def shop_event_button(shop_event):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
+# getting event based on user click related to shop scenario (buy, sell and leave buttons)
+def inn_event_button(inn_event):
+    if inn_event.type == pygame.MOUSEBUTTONUP:
+        inn_mouse = pygame.mouse.get_pos()
+
+        # if mouse rect collides with buy button, sell button or leave button return string representing it
+        if rest_button.rect.collidepoint(inn_mouse):
+            return "rest"
+
+        if leave_button.rect.collidepoint(inn_mouse):
+            return "leave"
+
+
+# ----------------------------------------------------------------------------------------------------------------------
 # getting item player clicked based on it's name and return the corresponding item, for clicking on inventory items
 def inventory_event_item(inventory_event):
     if inventory_event.type == pygame.MOUSEBUTTONUP:
@@ -1926,6 +1940,7 @@ ghoul_attack_url = resource_path('resources/art/enemy_art/battle/ghoul_battle_at
 seldon_bg_url = resource_path('resources/art/environment_art/background_textures/seldon_district.png')
 seldon_battle_url = resource_path('resources/art/environment_art/background_textures/seldon_battle_screen.png')
 seldon_shop_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_shop.png')
+seldon_inn_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_inn.png')
 
 seldon_academia_url = resource_path('resources/art/environment_art/buildings/amuna_building_academia.png')
 seldon_inn_url = resource_path('resources/art/environment_art/buildings/amuna_building_inn.png')
@@ -1942,6 +1957,7 @@ bone_dust_url = resource_path('resources/art/item_art/bone_dust.png')
 temp_item_url = resource_path('resources/art/item_art/temp_item.png')
 
 game_over_screen_url = resource_path('resources/art/screens/game_over.png')
+nera_sleep_screen_url = resource_path('resources/art/screens/nera_sleep_screen.png')
 
 bar_backdrop_url = resource_path('resources/art/ui_elements/status_bar_backdrop.png')
 enemy_bar_backdrop_url = resource_path('resources/art/ui_elements/enemy_status_bar_backdrop.png')
@@ -1963,6 +1979,7 @@ leave_button_url = resource_path('resources/art/ui_elements/buttons/shop/leave.p
 attack_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/attack.png')
 skill_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/skill.png')
 run_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/run.png')
+rest_button_url = resource_path('resources/art/ui_elements/buttons/inn/rest.png')
 
 health_100_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_100.png')
 health_99_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_99.png')
@@ -2286,8 +2303,10 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))  # 1024 x 768
 seldon_district_bg = pygame.image.load(seldon_bg_url)
 seldon_district_battle = pygame.image.load(seldon_battle_url)
 seldon_district_shop = pygame.image.load(seldon_shop_screen_url)
+seldon_district_inn = pygame.image.load(seldon_inn_screen_url)
 
 game_over_screen = pygame.image.load(game_over_screen_url)
+nera_sleep_screen = pygame.image.load(nera_sleep_screen_url)
 
 # creating objects from defined classes --------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2431,6 +2450,7 @@ continue_button = UiElement("continue button", 500, 600, continue_button_url, (2
 buy_button = UiElement("buy button", 740, 730, buy_button_url, (255, 255, 255), False)
 sell_button = UiElement("sell button", 850, 730, sell_button_url, (255, 255, 255), False)
 leave_button = UiElement("leave button", 960, 730, leave_button_url, (255, 255, 255), False)
+rest_button = UiElement("rest button", 740, 730, rest_button_url, (255, 255, 255), False)
 
 player_status = UiElement("player status", 850, 670, player_status_url, (255, 255, 255), False)
 enemy_status = UiElement("enemy status", 850, 730, enemy_status_url, (255, 255, 255), False)
@@ -2494,8 +2514,9 @@ grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon
 flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(amuna_inn, amuna_shop, amuna_academia)
 
-user_interface.add(buy_button, sell_button, leave_button, character_button, journal_button, inventory_button,
-                   attack_button, skill_button, run_button, player_status, message_box, status_bar_backdrop)
+user_interface.add(rest_button, buy_button, sell_button, leave_button, character_button, journal_button,
+                   inventory_button, attack_button, skill_button, run_button, player_status, message_box,
+                   status_bar_backdrop)
 
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
@@ -2537,16 +2558,22 @@ inventory_clicked = False
 buy_clicked = False
 # condition to check if sell button is clicked in shop
 sell_clicked = False
+# condition to check if rest button is clicked in inn
+rest_clicked = False
 # condition to check if enemy has just been defeated so that the message box doesn't instantly clear and shows updates
 loot_update = False
 # condition to check if player has started combat encounter with enemy to clear message box (before adding combat text)
 encounter_started = False
 # condition to check if player is in a shop building
 in_shop = False
+# condition to check if player is in an inn building
+in_inn = False
 # condition to check if player has bought an item from shop
 item_bought = False
 # condition to check if player has sold an item to shop
 item_sold = False
+# condition to check if player has rested in an inn
+rest = False
 
 # what zone the player is in, used for player update and map boundaries
 zone_seldon = True
@@ -3130,6 +3157,50 @@ while game_running:
                             encounter_started = False
                             in_shop = False
 
+                    # --------------------------------------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
+                    if building.__getattribute__("model") == "inn":
+
+                        # so that subsequent code which allows clicking on the items knows they are for buying or sell.
+                        in_inn = True
+
+                        # if player left regular inventory window open when they entered shop, remove it from display
+                        # and set its condition to false, so it doesn't have to be double-clicked to view after
+                        if len(display_elements) > 0:
+                            display_elements.pop(0)
+                            player_items.clear()
+                        inventory_clicked = False
+
+                        # if player has just started inn scenario, clear message box
+                        if not encounter_started:
+                            info_text_1 = ""
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
+                            encounter_started = True
+
+                        # get which button player pressed during shop scenario (buy, sell or leave)
+                        inn_button = inn_event_button(event)
+
+                        if inn_button == "rest":
+                            pygame.time.wait(2000)
+                            rest = True
+
+                        # ----------------------------------------------------------------------------------------------
+                        # if player chooses to leave shop, set conditions to allow normal gameplay loop
+                        if inn_button == "leave":
+                            buy_clicked = False
+                            sell_clicked = False
+                            rest_clicked = False
+                            movement_able = True
+                            interacted = False
+                            loot_update = True
+                            encounter_started = False
+                            in_inn = False
+                            rest = False
+
+            # inventory item click handlers ----------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
             # handles clicks in buy window, shop encounter -------------------------------------------------------------
             # if item has been clicked and buy window is open, get item within buy window that was clicked
             if buy_clicked:
@@ -3432,7 +3503,7 @@ while game_running:
                         screen.blit(text_rupee_surf, text_rupee_rect)
 
                         screen.blit(message_box.surf, message_box.rect)
-                        # draw message box text to screen, updated during combat scenario
+                        # draw message box text to screen, updated during scenario
                         screen.blit(text_info_surf_1, text_combat_info_rect_1)
                         screen.blit(text_info_surf_2, text_combat_info_rect_2)
                         screen.blit(text_info_surf_3, text_combat_info_rect_3)
@@ -3455,6 +3526,35 @@ while game_running:
                             # get item from player's inventory and draw with sell window
                             for sell_item in sell_player_items:
                                 screen.blit(sell_item.surf, sell_item.rect)
+
+                    # --------------------------------------------------------------------------------------------------
+                    # if building is an inn in the seldon zone
+                    if building.__getattribute__("name") == "amuna inn":
+                        screen.blit(seldon_district_inn, (0, 0))
+                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+
+                        screen.blit(rest_button.surf, rest_button.rect)
+                        screen.blit(leave_button.surf, leave_button.rect)
+
+                        screen.blit(player_status.surf, player_status.rect)
+                        screen.blit(text_level_surf, text_level_rect)
+                        screen.blit(text_zone_surf, text_zone_rect)
+                        screen.blit(text_rupee_surf, text_rupee_rect)
+
+                        screen.blit(message_box.surf, message_box.rect)
+                        # draw message box text to screen, updated during scenario
+                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
+                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
+                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
+
+                        # ----------------------------------------------------------------------------------------------
+                        if rest_clicked:
+                            if not rest:
+                                screen.blit(nera_sleep_screen, (0, 0))
 
             else:
                 # don't show if player has recently defeated enemy, so that it doesn't overwrite loot and xp info
