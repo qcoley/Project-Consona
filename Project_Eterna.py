@@ -1,10 +1,9 @@
 import os
 import random
 import sys
-import pygame
 
-from pygame import K_f
-from pygame.locals import (RLEACCEL, K_w, K_s, K_a, K_d, K_ESCAPE, KEYDOWN, QUIT)
+import pygame
+from pygame.locals import *
 
 # ----------------------------------------------------------------------------------------------------------------------
 # global variables -----------------------------------------------------------------------------------------------------
@@ -96,14 +95,14 @@ class Player(pygame.sprite.Sprite):
             if self.pos.x < 25:
                 self.pos.x = 25
 
-            elif self.pos.x > SCREEN_WIDTH - 115:
-                self.pos.x = SCREEN_WIDTH - 115
+            elif self.pos.x > width - 115:
+                self.pos.x = width - 115
 
             if self.pos.y <= 115:
                 self.pos.y = 115
 
-            elif self.pos.y >= SCREEN_HEIGHT - 5:
-                self.pos.y = SCREEN_HEIGHT - 5
+            elif self.pos.y >= height - 5:
+                self.pos.y = height - 5
 
         # equations and update player movement based on vectors --------------------------------------------------------
         self.acc.x += self.vel.x * FRIC
@@ -326,7 +325,7 @@ def resource_path(relative_path):
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
-    except Exception:
+    except AttributeError:
         base_path = os.path.abspath(".")
 
     return os.path.join(base_path, relative_path)
@@ -2297,7 +2296,9 @@ quest_logs_url = resource_path('resources/art/quest_items/logs.png')
 # initialize game, set clock for framerate, set screen size ------------------------------------------------------------
 pygame.init()
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))  # 1024 x 768
+width = round(pygame.display.get_desktop_sizes()[0][0] / 2)
+height = round(pygame.display.get_desktop_sizes()[0][1] / 2)
+screen = pygame.display.set_mode((width, height), RESIZABLE, pygame.NOFRAME)  # 1024 x 768
 
 # background textures --------------------------------------------------------------------------------------------------
 seldon_district_bg = pygame.image.load(seldon_bg_url)
@@ -2484,7 +2485,7 @@ ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, ghoul_battle_url
 
 # ----------------------------------------------------------------------------------------------------------------------
 # setting font and size for text to screen updates ---------------------------------------------------------------------
-font = pygame.font.SysFont('calibri', 16, bold=True, italic=False)
+font = pygame.font.SysFont('freesansbold.ttf', 16, bold=True, italic=False)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # groups for sprites ---------------------------------------------------------------------------------------------------
@@ -2749,6 +2750,9 @@ while game_running:
                 # "F" key for player interaction
                 if event.key == K_f:
                     interacted = True
+
+                if event.type == WINDOWRESIZED:
+                    s_width, s_height = screen.get_width(), screen.get_height()
 
             # if something was clicked on screen by mouse cursor, get its position and see what sprite it collided with
             if event.type == pygame.MOUSEBUTTONUP:
@@ -3249,7 +3253,7 @@ while game_running:
                     except AttributeError:
                         pass
 
-            # handles clicks in sell window, shop encounter ------------------------------------------------------------
+            # handle clicks in sell window, shop encounter ------------------------------------------------------------
             # if item has been clicked and sell window is open, get item within sell window that was clicked
             if sell_clicked:
                 if in_shop:
@@ -3569,6 +3573,20 @@ while game_running:
             snake_battle_sprite.update(snake_battle_url)
             ghoul_battle_sprite.update(ghoul_battle_url)
 
+            # screen scaling -------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            # if size of player's display resolution is less than what the default resolution scaling is set for
+            # go through all sprites and make their image and rect attributes smaller
+            if pygame.display.get_desktop_sizes()[0][0] // 2 < 1024 \
+                    and pygame.display.get_desktop_sizes()[0][1] // 2 < 768:
+                for sprite in all_sprites:
+                    sprite.surf = pygame.transform.smoothscale(sprite.surf, (30, 30))
+                    sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    sprite.rect = sprite.surf.get_rect \
+                        (center=(sprite.__getattribute__("x_coordinate"), sprite.__getattribute__("y_coordinate")))
+
+            # ----------------------------------------------------------------------------------------------------------
+
             # flip to display ------------------------------------------------------------------------------------------
             pygame.display.flip()
 
@@ -3582,6 +3600,19 @@ while game_running:
             stan_battle_sprite.update(stan_attack_url)
             snake_battle_sprite.update(snake_attack_url)
             ghoul_battle_sprite.update(ghoul_attack_url)
+
+            # screen scaling -------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            # if size of player's display resolution is less than what the default resolution scaling is set for
+            # go through all sprites and make their image and rect attributes smaller
+            if pygame.display.get_desktop_sizes()[0][0] // 2 < 1024 \
+                    and pygame.display.get_desktop_sizes()[0][1] // 2 < 768:
+                for sprite in all_sprites:
+                    sprite.surf = pygame.transform.smoothscale(sprite.surf, (30, 30))
+                    sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    sprite.rect = sprite.surf.get_rect \
+                        (center=(sprite.__getattribute__("x_coordinate"), sprite.__getattribute__("y_coordinate")))
+            # ----------------------------------------------------------------------------------------------------------
 
             # flip (update) to display ---------------------------------------------------------------------------------
             pygame.display.flip()
