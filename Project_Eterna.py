@@ -66,43 +66,87 @@ class Player(pygame.sprite.Sprite):
 
         # control acceleration based on user keys pressed from input parameter -----------------------------------------
         if pressed_keyes[K_w]:
-            self.surf = \
-                pygame.image.load(stan_up_url).convert()
+            self.surf = pygame.image.load(stan_up_url).convert()
+
+            if scaled_800:
+                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
+                                                                       player.surf.get_height() * .78))
+                self.rect = player.surf.get_rect(center=player.pos * .78)
+
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-            self.acc.y = ACC
             self.acc.y = -ACC
 
+            if scaled_800:
+                self.acc.y *= .78
+
         if pressed_keyes[K_s]:
-            self.surf = \
-                pygame.image.load(stan_down_url).convert()
+            self.surf = pygame.image.load(stan_down_url).convert()
+
+            if scaled_800:
+                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
+                                                                       player.surf.get_height() * .78))
+                self.rect = player.surf.get_rect(center=player.pos * .78)
+
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = ACC
 
+            if scaled_800:
+                self.acc.y *= .78
+
         if pressed_keyes[K_a]:
-            self.surf = \
-                pygame.image.load(stan_left_url).convert()
+            self.surf = pygame.image.load(stan_left_url).convert()
+
+            if scaled_800:
+                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
+                                                                       player.surf.get_height() * .78))
+                self.rect = player.surf.get_rect(center=player.pos * .78)
+
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = -ACC
 
+            if scaled_800:
+                self.acc.x *= .78
+
         if pressed_keyes[K_d]:
-            self.surf = \
-                pygame.image.load(stan_right_url).convert()
+            self.surf = pygame.image.load(stan_right_url).convert()
+
+            if scaled_800:
+                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
+                                                                       player.surf.get_height() * .78))
+                self.rect = player.surf.get_rect(center=player.pos * .78)
+
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = ACC
 
+            if scaled_800:
+                self.acc.x *= .78
+
         # Keep player on the screen, boundaries vary depending on current zone -----------------------------------------
         if current_zone == "seldon":
-            if self.pos.x < 25:
-                self.pos.x = 25
+            if scaled_800:
+                if self.pos.x < 25 * .78:
+                    self.pos.x = 25 * .78
 
-            elif self.pos.x > width - 115:
-                self.pos.x = width - 115
+                elif self.pos.x > width - 115 * .78:
+                    self.pos.x = width - 115 * .78
 
-            if self.pos.y <= 115:
-                self.pos.y = 115
+                if self.pos.y <= 115 * .78:
+                    self.pos.y = 115 * .78
 
-            elif self.pos.y >= height - 5:
-                self.pos.y = height - 5
+                elif self.pos.y >= height - 5 * .78:
+                    self.pos.y = height - 5 * .78
+            else:
+                if self.pos.x < 25:
+                    self.pos.x = 25
+
+                elif self.pos.x > width - 115:
+                    self.pos.x = width - 115
+
+                if self.pos.y <= 115:
+                    self.pos.y = 115
+
+                elif self.pos.y >= height - 5:
+                    self.pos.y = height - 5
 
         # equations and update player movement based on vectors --------------------------------------------------------
         self.acc.x += self.vel.x * FRIC
@@ -111,21 +155,39 @@ class Player(pygame.sprite.Sprite):
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos
 
+        if scaled_800:
+            self.acc.x = self.acc.x * .78
+            self.acc.y = self.acc.y * .78
+
         # collision detection with environment objects (trees, buildings, etc) -----------------------------------------
         if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.50)):
 
-            # create normal force by applying velocity opposite direction player is trying to move on colliding
-            if pressed_keyes[K_w]:
-                player.vel.y = + .46
+            if scaled_800:
+                if pressed_keyes[K_w]:
+                    player.vel.y = + .46 * .78
 
-            if pressed_keyes[K_s]:
-                player.vel.y = - .46
+                if pressed_keyes[K_s]:
+                    player.vel.y = - .46 * .78
 
-            if pressed_keyes[K_a]:
-                player.vel.x = + .46
+                if pressed_keyes[K_a]:
+                    player.vel.x = + .46 * .78
 
-            if pressed_keyes[K_d]:
-                player.vel.x = - .46
+                if pressed_keyes[K_d]:
+                    player.vel.x = - .46 * .78
+
+            else:
+                # create normal force by applying velocity opposite direction player is trying to move on colliding
+                if pressed_keyes[K_w]:
+                    player.vel.y = + .46
+
+                if pressed_keyes[K_s]:
+                    player.vel.y = - .46
+
+                if pressed_keyes[K_a]:
+                    player.vel.x = + .46
+
+                if pressed_keyes[K_d]:
+                    player.vel.x = - .46
 
 
 class NPC(pygame.sprite.Sprite):
@@ -153,6 +215,10 @@ class NPC(pygame.sprite.Sprite):
 
     def update(self, image):
         self.surf = pygame.image.load(image).convert()
+        if scaled_800:
+            self.surf = pygame.transform.smoothscale(self.surf,
+                                                     (self.surf.get_width() * .78, self.surf.get_height() * .78))
+
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
 
@@ -249,6 +315,10 @@ class UiElement(pygame.sprite.Sprite):
 
     def update(self, image):
         self.surf = pygame.image.load(image).convert()
+        if scaled_800:
+            self.surf = pygame.transform.smoothscale(self.surf,
+                                                     (self.surf.get_width() * .78, self.surf.get_height() * .78))
+
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
 
@@ -295,6 +365,10 @@ class BattleCharacter(pygame.sprite.Sprite):
 
     def update(self, image):
         self.surf = pygame.image.load(image).convert()
+        if scaled_800:
+            self.surf = pygame.transform.smoothscale(self.surf,
+                                                     (self.surf.get_width() * .78, self.surf.get_height() * .78))
+
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
 
@@ -315,6 +389,11 @@ class Item(pygame.sprite.Sprite):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = pygame.image.load(image).convert()
+
+        if scaled_800:
+            self.surf = pygame.transform.smoothscale(self.surf,
+                                                     (self.surf.get_width() * .78, self.surf.get_height() * .78))
+
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
@@ -1759,7 +1838,8 @@ def inventory_event_item(inventory_event):
         inventory_mouse = pygame.mouse.get_pos()
 
         # list of sprites that collided with mouse cursor rect
-        clicked_element = [element for element in player_items if element.rect.collidepoint(inventory_mouse)]
+        clicked_element = [inventory_element for inventory_element in player_items
+                           if inventory_element.rect.collidepoint(inventory_mouse)]
 
         # try to get inventory item player clicked based on it's name and return it
         try:
@@ -1786,7 +1866,7 @@ def buy_event_item(buy_event):
         buy_mouse = pygame.mouse.get_pos()
 
         # list of sprites that collided with mouse cursor rect
-        clicked_element = [element for element in shopkeeper_items if element.rect.collidepoint(buy_mouse)]
+        clicked_element = [buy_element for buy_element in shopkeeper_items if buy_element.rect.collidepoint(buy_mouse)]
 
         # try to get inventory item player clicked based on it's name and return it
         try:
@@ -1813,7 +1893,8 @@ def sell_event_item(sell_event):
         sell_mouse = pygame.mouse.get_pos()
 
         # list of sprites that collided with mouse cursor rect
-        clicked_element = [element for element in sell_player_items if element.rect.collidepoint(sell_mouse)]
+        clicked_element = [sell_element for sell_element in sell_player_items if
+                           sell_element.rect.collidepoint(sell_mouse)]
 
         # try to get inventory item player clicked based on it's name and return it
         try:
@@ -1979,6 +2060,11 @@ attack_button_url = resource_path('resources/art/ui_elements/buttons/battle_scre
 skill_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/skill.png')
 run_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/run.png')
 rest_button_url = resource_path('resources/art/ui_elements/buttons/inn/rest.png')
+screen_size_button_url = resource_path('resources/art/ui_elements/buttons/screen_size.png')
+screen_size_window_url = resource_path('resources/art/ui_elements/resize_options.png')
+s_1200x900_url = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/1200.png')
+s_1024x768_url = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/1024.png')
+s_800x600_url = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/800.png')
 
 health_100_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_100.png')
 health_99_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_99.png')
@@ -2296,9 +2382,9 @@ quest_logs_url = resource_path('resources/art/quest_items/logs.png')
 # initialize game, set clock for framerate, set screen size ------------------------------------------------------------
 pygame.init()
 clock = pygame.time.Clock()
-width = round(pygame.display.get_desktop_sizes()[0][0] / 2)
-height = round(pygame.display.get_desktop_sizes()[0][1] / 2)
-screen = pygame.display.set_mode((width, height), RESIZABLE, pygame.NOFRAME)  # 1024 x 768
+width = 1024
+height = 768
+screen = pygame.display.set_mode((width, height))
 
 # background textures --------------------------------------------------------------------------------------------------
 seldon_district_bg = pygame.image.load(seldon_bg_url)
@@ -2452,6 +2538,12 @@ buy_button = UiElement("buy button", 740, 730, buy_button_url, (255, 255, 255), 
 sell_button = UiElement("sell button", 850, 730, sell_button_url, (255, 255, 255), False)
 leave_button = UiElement("leave button", 960, 730, leave_button_url, (255, 255, 255), False)
 rest_button = UiElement("rest button", 740, 730, rest_button_url, (255, 255, 255), False)
+screen_button = UiElement("screen size button", 960, 25, screen_size_button_url, (255, 255, 255), False)
+screen_resize_window = UiElement("screen resize window", 940, 113, screen_size_window_url, (255, 255, 255), False)
+
+s_1200x900_button = UiElement("1200x900", 940, 85, s_1200x900_url, (255, 255, 255), False)
+s_1024x768_button = UiElement("1024x768", 940, 110, s_1024x768_url, (255, 255, 255), False)
+s_800x600_button = UiElement("800x600", 940, 135, s_800x600_url, (255, 255, 255), False)
 
 player_status = UiElement("player status", 850, 670, player_status_url, (255, 255, 255), False)
 enemy_status = UiElement("enemy status", 850, 730, enemy_status_url, (255, 255, 255), False)
@@ -2498,7 +2590,12 @@ flowers = pygame.sprite.Group()
 buildings = pygame.sprite.Group()
 environment_objects = pygame.sprite.Group()
 user_interface = pygame.sprite.Group()
+conditional_interface = pygame.sprite.Group()
+screen_resize_buttons = pygame.sprite.Group()
+battle_elements = pygame.sprite.Group()
+
 all_sprites = pygame.sprite.Group()
+total_elements = pygame.sprite.Group()
 
 # specific enemy groups for movement and respawn -----------------------------------------------------------------------
 snakes = pygame.sprite.Group()
@@ -2514,10 +2611,13 @@ trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon_grass_5, seldon_grass_6)
 flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(amuna_inn, amuna_shop, amuna_academia)
+screen_resize_buttons.add(s_1200x900_button, s_1024x768_button, s_800x600_button)
 
 user_interface.add(rest_button, buy_button, sell_button, leave_button, character_button, journal_button,
-                   inventory_button, attack_button, skill_button, run_button, player_status, message_box,
+                   inventory_button, screen_button, attack_button, skill_button, run_button, player_status, message_box,
                    status_bar_backdrop)
+
+conditional_interface.add(inventory, buy_inventory, sell_inventory, screen_resize_window)
 
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
@@ -2525,8 +2625,14 @@ environment_objects.add(trees, buildings)
 # quest item sprites for gathering -------------------------------------------------------------------------------------
 quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4)
 
+# battle element sprites for combat scenario ---------------------------------------------------------------------------
+battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status_bar_backdrop)
+
 # adding all sprites to game screen
 all_sprites.add(npcs, enemies, trees, buildings, grass, flowers, quest_items)
+
+total_elements.add(npcs, enemies, trees, buildings, grass, flowers, quest_items, battle_elements, environment_objects,
+                   conditional_interface, user_interface, screen_resize_buttons)
 
 # pygame.mixer.music.load("Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
@@ -2561,6 +2667,8 @@ buy_clicked = False
 sell_clicked = False
 # condition to check if rest button is clicked in inn
 rest_clicked = False
+# condition to check if screen resize button has been clicked
+screen_clicked = False
 # condition to check if enemy has just been defeated so that the message box doesn't instantly clear and shows updates
 loot_update = False
 # condition to check if player has started combat encounter with enemy to clear message box (before adding combat text)
@@ -2575,6 +2683,10 @@ item_bought = False
 item_sold = False
 # condition to check if player has rested in an inn
 rest = False
+# conditions to check current screen size scaling
+scaled_800 = False
+scaled_1024 = True
+scaled_1200 = False
 
 # what zone the player is in, used for player update and map boundaries
 zone_seldon = True
@@ -2594,6 +2706,8 @@ buy_shop_elements = []
 sell_shop_elements = []
 # list to contain current shop items for display
 shopkeeper_items = []
+# list to contain screen size elements for display
+screen_size_elements = []
 
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
@@ -2607,6 +2721,13 @@ info_text_4 = ""
 # main loop ------------------------------------------------------------------------------------------------------------
 while game_running:
 
+    # screen scaling ---------------------------------------------------------------------------------------------------
+    # ------------------------------------------------------------------------------------------------------------------
+    scale_w, scale_h = pygame.display.get_surface().get_size()
+
+    # while player is alive --------------------------------------------------------------------------------------------
+    # ------------------------------------------------------------------------------------------------------------------
+    # ------------------------------------------------------------------------------------------------------------------
     if player.alive_status:
 
         # clear loot update after some time has passed (ab 3 seconds)
@@ -2666,6 +2787,15 @@ while game_running:
         for item in player_items:
             screen.blit(item.surf, item.rect)
 
+        # get screen option elements and draw window
+        for size_window in screen_size_elements:
+            screen.blit(size_window.surf, size_window.rect)
+
+        # if screen resize option button has been clicked, draw buttons for options with size window
+        if screen_clicked:
+            for size_button in screen_resize_buttons:
+                screen.blit(size_button.surf, size_button.rect)
+
         # for shop encounter -------------------------------------------------------------------------------------------
         # get ui windows from clicked buy or sell buttons and draw here at the beginning of iteration
         # so that rest of the code can use its information. drawn again at end of iteration to ensure viewable
@@ -2698,44 +2828,72 @@ while game_running:
         # get current player rupee count and create surf and rectangle to blit to screen
         text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
         text_rupee_rect = text_rupee_surf.get_rect()
-        text_rupee_rect.center = (975, 672)
-        screen.blit(text_rupee_surf, text_rupee_rect)
+        if scaled_800:
+            text_rupee_rect.center = (975 * .78, 672 * .78)
+            screen.blit(text_rupee_surf, text_rupee_rect)
+        else:
+            text_rupee_rect.center = (975, 672)
+            screen.blit(text_rupee_surf, text_rupee_rect)
 
         # get current player district and create surf and rectangle to blit to screen
         text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
         text_zone_rect = text_zone_surf.get_rect()
-        text_zone_rect.center = (865, 672)
-        screen.blit(text_zone_surf, text_zone_rect)
+        if scaled_800:
+            text_zone_rect.center = (865 * .78, 672 * .78)
+            screen.blit(text_zone_surf, text_zone_rect)
+        else:
+            text_zone_rect.center = (865, 672)
+            screen.blit(text_zone_surf, text_zone_rect)
 
         # get current player district and create surf and rectangle to blit to screen
         text_level_surf = font.render(str(player.level), True, "black", "light yellow")
         text_level_rect = text_level_surf.get_rect()
-        text_level_rect.center = (760, 672)
-        screen.blit(text_level_surf, text_level_rect)
+        if scaled_800:
+            text_level_rect.center = (760 * .78, 672 * .78)
+            screen.blit(text_level_surf, text_level_rect)
+        else:
+            text_level_rect.center = (760, 672)
+            screen.blit(text_level_surf, text_level_rect)
 
         # current info text for message box in lower left corner of screen, first line
         text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
         text_combat_info_rect_1 = text_info_surf_1.get_rect()
-        text_combat_info_rect_1.midleft = (30, 680)
-        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+        if scaled_800:
+            text_combat_info_rect_1.midleft = (30 * .78, 680 * .78)
+            screen.blit(text_info_surf_1, text_combat_info_rect_1)
+        else:
+            text_combat_info_rect_1.midleft = (30, 680)
+            screen.blit(text_info_surf_1, text_combat_info_rect_1)
 
         # current info text for message box in lower left corner of screen, second line
         text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
         text_combat_info_rect_2 = text_info_surf_2.get_rect()
-        text_combat_info_rect_2.midleft = (30, 700)
-        screen.blit(text_info_surf_2, text_combat_info_rect_2)
+        if scaled_800:
+            text_combat_info_rect_2.midleft = (30 * .78, 700 * .78)
+            screen.blit(text_info_surf_2, text_combat_info_rect_2)
+        else:
+            text_combat_info_rect_2.midleft = (30, 700)
+            screen.blit(text_info_surf_2, text_combat_info_rect_2)
 
         # current info text for message box in lower left corner of screen, third line
         text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
         text_combat_info_rect_3 = text_info_surf_3.get_rect()
-        text_combat_info_rect_3.midleft = (30, 720)
-        screen.blit(text_info_surf_3, text_combat_info_rect_3)
+        if scaled_800:
+            text_combat_info_rect_3.midleft = (30 * .78, 720 * .78)
+            screen.blit(text_info_surf_3, text_combat_info_rect_3)
+        else:
+            text_combat_info_rect_3.midleft = (30, 720)
+            screen.blit(text_info_surf_3, text_combat_info_rect_3)
 
         # current info text for message box in lower left corner of screen, fourth line
         text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
         text_combat_info_rect_4 = text_info_surf_4.get_rect()
-        text_combat_info_rect_4.midleft = (30, 740)
-        screen.blit(text_info_surf_4, text_combat_info_rect_4)
+        if scaled_800:
+            text_combat_info_rect_4.midleft = (30 * .78, 740 * .78)
+            screen.blit(text_info_surf_4, text_combat_info_rect_4)
+        else:
+            text_combat_info_rect_4.midleft = (30, 740)
+            screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
         # --------------------------------------------------------------------------------------------------------------
         # --------------------------------------------------------------------------------------------------------------
@@ -2751,14 +2909,47 @@ while game_running:
                 if event.key == K_f:
                     interacted = True
 
-                if event.type == WINDOWRESIZED:
-                    s_width, s_height = screen.get_width(), screen.get_height()
+                if event.type == VIDEORESIZE:
+                    screen = pygame.display.set_mode((event.width, event.height), pygame.RESIZABLE)
 
             # if something was clicked on screen by mouse cursor, get its position and see what sprite it collided with
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
 
-                # if mouse cursor collided with inventory button when player clicked
+                # if screen resize button is clicked and if one of the option buttons for sizes is clicked
+                # set the current screen resolution to that size
+                if screen_clicked:
+                    if s_800x600_button.rect.collidepoint(pos):
+                        width = 800
+                        height = 600
+                        screen = pygame.display.set_mode((width, height))
+
+                    if s_1024x768_button.rect.collidepoint(pos):
+                        width = 1024
+                        height = 768
+                        screen = pygame.display.set_mode((width, height))
+
+                    if s_1200x900_button.rect.collidepoint(pos):
+                        width = 1200
+                        height = 900
+                        screen = pygame.display.set_mode((width, height))
+
+                # if mouse cursor collided with screen resize button when player clicked -------------------------------
+                if screen_button.rect.collidepoint(pos):
+
+                    if screen_clicked:
+                        screen_clicked = False
+
+                        if len(screen_size_elements) > 0:
+                            screen_size_elements.pop(0)
+
+                    # user clicked inventory button for the first time. show inventory window
+                    else:
+                        screen_clicked = True
+                        screen_size_elements.insert(0, screen_resize_window)
+
+                # ------------------------------------------------------------------------------------------------------
+                # if mouse cursor collided with inventory button when player clicked -----------------------------------
                 if inventory_button.rect.collidepoint(pos):
 
                     # don't show regular inventory window while combat or shop encounter is happening
@@ -2786,6 +2977,10 @@ while game_running:
                                 first_coord = 800
                                 second_coord = 425
 
+                                if scaled_800:
+                                    first_coord = first_coord * .78
+                                    second_coord = second_coord * .78
+
                                 inventory_counter = 0
                                 # go through player items and assign inventory slots (coordinates) to them
                                 for item in player.items:
@@ -2808,6 +3003,8 @@ while game_running:
 
                                     # add 75 to the items x-coordinate value so the next item will be added to next slot
                                     first_coord += 60
+                                    if scaled_800:
+                                        first_coord = first_coord - 13.2
 
                                     # add 60 to items y coordinate value if the first row of (4) slots has been filled
                                     # reset first coordinate and counter to start in the leftmost slot again
@@ -2815,6 +3012,10 @@ while game_running:
                                         second_coord += 60
                                         first_coord = 800
                                         inventory_counter = 0
+
+                                        if scaled_800:
+                                            first_coord = first_coord * .78
+                                            second_coord = second_coord * .78
 
             elif event.type == QUIT:
                 exit()
@@ -3051,6 +3252,10 @@ while game_running:
                                         buy_first_coord = 800
                                         buy_second_coord = 425
 
+                                        if scaled_800:
+                                            buy_first_coord = buy_first_coord * .78
+                                            buy_second_coord = buy_second_coord * .78
+
                                         # ------------------------------------------------------------------------------
                                         buy_inventory_counter = 0
                                         # go through shop items and assign inventory slots (coordinates) to them
@@ -3067,6 +3272,8 @@ while game_running:
                                             # add 75 to the items x-coordinate value, next item will be added to next
                                             # slot
                                             buy_first_coord += 60
+                                            if scaled_800:
+                                                buy_first_coord = buy_first_coord - 13.2
 
                                             # add 60 to items y coordinate value if first row of (4) slots has been
                                             # filled reset first coordinate and counter to start in the leftmost
@@ -3075,6 +3282,10 @@ while game_running:
                                                 buy_second_coord += 60
                                                 buy_first_coord = 800
                                                 buy_inventory_counter = 0
+
+                                                if scaled_800:
+                                                    buy_first_coord = buy_first_coord * .78
+                                                    buy_second_coord = buy_second_coord * .78
 
                         # ----------------------------------------------------------------------------------------------
                         if shop_button == "sell":
@@ -3107,6 +3318,10 @@ while game_running:
                                         sell_first_coord = 800
                                         sell_second_coord = 425
 
+                                        if scaled_800:
+                                            sell_first_coord = sell_first_coord * .78
+                                            sell_second_coord = sell_second_coord * .78
+
                                         # ------------------------------------------------------------------------------
                                         sell_inventory_counter = 0
                                         # go through player items and assign inventory slots (coordinates) to them
@@ -3131,6 +3346,8 @@ while game_running:
                                             # add 75 to the items x-coordinate value, next item will be added to next
                                             # slot
                                             sell_first_coord += 60
+                                            if scaled_800:
+                                                sell_first_coord = sell_first_coord - 13.2
 
                                             # add 60 to items y coordinate value if first row of (4) slots has been
                                             # filled reset first coordinate and counter to start in the leftmost slot
@@ -3139,6 +3356,10 @@ while game_running:
                                                 sell_second_coord += 60
                                                 sell_first_coord = 800
                                                 sell_inventory_counter = 0
+
+                                                if scaled_800:
+                                                    sell_first_coord = sell_first_coord * .78
+                                                    sell_second_coord = sell_second_coord * .78
 
                         # ----------------------------------------------------------------------------------------------
                         # if player chooses to leave shop, set conditions to allow normal gameplay loop
@@ -3203,7 +3424,7 @@ while game_running:
                             in_inn = False
                             rest = False
 
-            # inventory item click handlers ----------------------------------------------------------------------------
+            # shop item click handlers ---------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # handles clicks in buy window, shop encounter -------------------------------------------------------------
             # if item has been clicked and buy window is open, get item within buy window that was clicked
@@ -3573,20 +3794,202 @@ while game_running:
             snake_battle_sprite.update(snake_battle_url)
             ghoul_battle_sprite.update(ghoul_battle_url)
 
-            # screen scaling -------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if size of player's display resolution is less than what the default resolution scaling is set for
             # go through all sprites and make their image and rect attributes smaller
-            if pygame.display.get_desktop_sizes()[0][0] // 2 < 1024 \
-                    and pygame.display.get_desktop_sizes()[0][1] // 2 < 768:
-                for sprite in all_sprites:
-                    sprite.surf = pygame.transform.smoothscale(sprite.surf, (30, 30))
-                    sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    sprite.rect = sprite.surf.get_rect \
-                        (center=(sprite.__getattribute__("x_coordinate"), sprite.__getattribute__("y_coordinate")))
+            # scales here at the end of iteration to ensure all sprites updated during iteration are also scaled -------
+            if scale_w < 1024 or scale_h < 768:
+                if not scaled_800:
+                    for sprite in all_sprites:
+                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                   (sprite.surf.get_width() * .78,
+                                                                    sprite.surf.get_height() * .78))
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                   sprite.__getattribute__("y_coordinate") * .78))
+                    for element in user_interface:
+                        element.surf = pygame.transform.smoothscale(element.surf,
+                                                                    (element.surf.get_width() * .78,
+                                                                     element.surf.get_height() * .78))
+                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
+                                                                     element.__getattribute__("y_coordinate") * .78))
+                    for element in conditional_interface:
+                        element.surf = pygame.transform.smoothscale(element.surf,
+                                                                    (element.surf.get_width() * .78,
+                                                                     element.surf.get_height() * .78))
+                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
+                                                                     element.__getattribute__("y_coordinate") * .78))
+                    for button in screen_resize_buttons:
+                        button.surf = pygame.transform.smoothscale(button.surf,
+                                                                   (button.surf.get_width() * .78,
+                                                                    button.surf.get_height() * .78))
+                        button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
+                                                                   button.__getattribute__("y_coordinate") * .78))
+                    for sprite in battle_elements:
+                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                   (sprite.surf.get_width() * .78,
+                                                                    sprite.surf.get_height() * .78))
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                   sprite.__getattribute__("y_coordinate") * .78))
+
+                    seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                    seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                    seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                    seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+
+                    player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
+                                                                             player.surf.get_height() * .78))
+                    player.rect = player.surf.get_rect(center=player.pos * .78)
+                    player.pos *= .78
+
+                    scaled_800 = True
+                    scaled_1024 = False
+                    scaled_1200 = False
 
             # ----------------------------------------------------------------------------------------------------------
+            if scale_w == 1024 or scale_h == 768:
+                if not scaled_1024:
+                    if scaled_800:
+                        for sprite in all_sprites:
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .78,
+                                                                        sprite.surf.get_height() / .78))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .78,
+                                                                       sprite.__getattribute__("y_coordinate") / .78))
+                        for element in user_interface:
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() / .78,
+                                                                         element.surf.get_height() / .78))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .78,
+                                                                         element.__getattribute__("y_coordinate")
+                                                                         / .78))
+                        for element in conditional_interface:
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() / .78,
+                                                                         element.surf.get_height() / .78))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .78,
+                                                                         element.__getattribute__("y_coordinate")
+                                                                         / .78))
+                        for button in screen_resize_buttons:
+                            button.surf = pygame.transform.smoothscale(button.surf,
+                                                                       (button.surf.get_width() / .78,
+                                                                        button.surf.get_height() / .78))
+                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .78,
+                                                                       button.__getattribute__("y_coordinate") / .78))
+                        for sprite in battle_elements:
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .78,
+                                                                        sprite.surf.get_height() / .78))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .78,
+                                                                       sprite.__getattribute__("y_coordinate") / .78))
 
+                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+
+                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .78,
+                                                                                 player.surf.get_height() / .78))
+                        player.rect = player.surf.get_rect(center=player.pos / .78)
+                        player.pos /= .78
+
+                    if scaled_1200:
+                        for sprite in all_sprites:
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() * .78,
+                                                                        sprite.surf.get_height() * .78))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                       sprite.__getattribute__("y_coordinate") * .78))
+                        for element in user_interface:
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() * .78,
+                                                                         element.surf.get_height() * .78))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
+                                                                         element.__getattribute__(
+                                                                             "y_coordinate") * .78))
+                        for element in conditional_interface:
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() * .78,
+                                                                         element.surf.get_height() * .78))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
+                                                                         element.__getattribute__(
+                                                                             "y_coordinate") * .78))
+                        for button in screen_resize_buttons:
+                            button.surf = pygame.transform.smoothscale(button.surf,
+                                                                       (button.surf.get_width() * .78,
+                                                                        button.surf.get_height() * .78))
+                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
+                                                                       button.__getattribute__("y_coordinate") * .78))
+                        for sprite in battle_elements:
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() * .78,
+                                                                        sprite.surf.get_height() * .78))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                       sprite.__getattribute__("y_coordinate") * .78))
+
+                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+
+                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
+                                                                                 player.surf.get_height() * .78))
+                        player.rect = player.surf.get_rect(center=player.pos * .78)
+                        player.pos *= .78
+
+                    # conditions updated after scaling
+                    scaled_800 = False
+                    scaled_1024 = True
+                    scaled_1200 = False
+
+            # ----------------------------------------------------------------------------------------------------------
+            if scale_w > 1024 or scale_h > 768:
+                if not scaled_1200:
+                    for sprite in all_sprites:
+                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                   (sprite.surf.get_width() / .86,
+                                                                    sprite.surf.get_height() / .86))
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
+                                                                   sprite.__getattribute__("y_coordinate") / .86))
+                    for element in user_interface:
+                        element.surf = pygame.transform.smoothscale(element.surf,
+                                                                    (element.surf.get_width() / .86,
+                                                                     element.surf.get_height() / .86))
+                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
+                                                                     element.__getattribute__("y_coordinate") / .86))
+                    for element in conditional_interface:
+                        element.surf = pygame.transform.smoothscale(element.surf,
+                                                                    (element.surf.get_width() / .86,
+                                                                     element.surf.get_height() / .86))
+                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
+                                                                     element.__getattribute__("y_coordinate") / .86))
+                    for button in screen_resize_buttons:
+                        button.surf = pygame.transform.smoothscale(button.surf,
+                                                                   (button.surf.get_width() / .86,
+                                                                    button.surf.get_height() / .86))
+                        button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .86,
+                                                                   button.__getattribute__("y_coordinate") / .86))
+                    for sprite in battle_elements:
+                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                   (sprite.surf.get_width() / .86,
+                                                                    sprite.surf.get_height() / .86))
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
+                                                                   sprite.__getattribute__("y_coordinate") / .86))
+
+                    seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                    seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                    seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                    seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+
+                    player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
+                                                                             player.surf.get_height() / .86))
+                    player.rect = player.surf.get_rect(center=player.pos / .86)
+                    player.pos /= .86
+
+                    # conditions updated after scaling
+                    scaled_800 = False
+                    scaled_1024 = False
+                    scaled_1200 = True
+            # ----------------------------------------------------------------------------------------------------------
             # flip to display ------------------------------------------------------------------------------------------
             pygame.display.flip()
 
@@ -3594,6 +3997,9 @@ while game_running:
             # 60 frames per second game rate
             clock.tick(60)
 
+        # --------------------------------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------------------------------
         # combat happened this turn, update sprites for battle and apply short cooldown to attack again
         if combat_happened:
             combat_cooldown = True
@@ -3601,19 +4007,199 @@ while game_running:
             snake_battle_sprite.update(snake_attack_url)
             ghoul_battle_sprite.update(ghoul_attack_url)
 
-            # screen scaling -------------------------------------------------------------------------------------------
-            # ----------------------------------------------------------------------------------------------------------
-            # if size of player's display resolution is less than what the default resolution scaling is set for
-            # go through all sprites and make their image and rect attributes smaller
-            if pygame.display.get_desktop_sizes()[0][0] // 2 < 1024 \
-                    and pygame.display.get_desktop_sizes()[0][1] // 2 < 768:
-                for sprite in all_sprites:
-                    sprite.surf = pygame.transform.smoothscale(sprite.surf, (30, 30))
-                    sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    sprite.rect = sprite.surf.get_rect \
-                        (center=(sprite.__getattribute__("x_coordinate"), sprite.__getattribute__("y_coordinate")))
-            # ----------------------------------------------------------------------------------------------------------
+            # sprite scaling at end of iteration to get updates --------------------------------------------------------
+            if scale_w < 1024 or scale_h < 768:
+                if not scaled_800:
+                    for sprite in all_sprites:
+                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                   (sprite.surf.get_width() * .78,
+                                                                    sprite.surf.get_height() * .78))
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                   sprite.__getattribute__("y_coordinate") * .78))
+                    for element in user_interface:
+                        element.surf = pygame.transform.smoothscale(element.surf,
+                                                                    (element.surf.get_width() * .78,
+                                                                     element.surf.get_height() * .78))
+                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
+                                                                     element.__getattribute__("y_coordinate") * .78))
+                    for element in conditional_interface:
+                        element.surf = pygame.transform.smoothscale(element.surf,
+                                                                    (element.surf.get_width() * .78,
+                                                                     element.surf.get_height() * .78))
+                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
+                                                                     element.__getattribute__("y_coordinate") * .78))
+                    for button in screen_resize_buttons:
+                        button.surf = pygame.transform.smoothscale(button.surf,
+                                                                   (button.surf.get_width() * .78,
+                                                                    button.surf.get_height() * .78))
+                        button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
+                                                                   button.__getattribute__("y_coordinate") * .78))
+                    for sprite in battle_elements:
+                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                   (sprite.surf.get_width() * .78,
+                                                                    sprite.surf.get_height() * .78))
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                   sprite.__getattribute__("y_coordinate") * .78))
 
+                    seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                    seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                    seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                    seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+
+                    player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
+                                                                             player.surf.get_height() * .78))
+                    player.rect = player.surf.get_rect(center=player.pos * .78)
+                    player.pos *= .78
+
+                    scaled_800 = True
+                    scaled_1024 = False
+                    scaled_1200 = False
+
+            if scale_w == 1024 or scale_h == 768:
+                if not scaled_1024:
+                    if scaled_800:
+                        for sprite in all_sprites:
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .78,
+                                                                        sprite.surf.get_height() / .78))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .78,
+                                                                       sprite.__getattribute__("y_coordinate") / .78))
+                        for element in user_interface:
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() / .78,
+                                                                         element.surf.get_height() / .78))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .78,
+                                                                         element.__getattribute__("y_coordinate")
+                                                                         / .78))
+                        for element in conditional_interface:
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() / .78,
+                                                                         element.surf.get_height() / .78))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .78,
+                                                                         element.__getattribute__("y_coordinate")
+                                                                         / .78))
+                        for button in screen_resize_buttons:
+                            button.surf = pygame.transform.smoothscale(button.surf,
+                                                                       (button.surf.get_width() / .78,
+                                                                        button.surf.get_height() / .78))
+                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .78,
+                                                                       button.__getattribute__("y_coordinate") / .78))
+                        for sprite in battle_elements:
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .78,
+                                                                        sprite.surf.get_height() / .78))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .78,
+                                                                       sprite.__getattribute__("y_coordinate") / .78))
+
+                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+
+                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .78,
+                                                                                 player.surf.get_height() / .78))
+                        player.rect = player.surf.get_rect(center=player.pos / .78)
+                        player.pos /= .78
+
+                    if scaled_1200:
+                        for sprite in all_sprites:
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() * .78,
+                                                                        sprite.surf.get_height() * .78))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                       sprite.__getattribute__("y_coordinate") * .78))
+                        for element in user_interface:
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() * .78,
+                                                                         element.surf.get_height() * .78))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
+                                                                         element.__getattribute__(
+                                                                             "y_coordinate") * .78))
+                        for element in conditional_interface:
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() * .78,
+                                                                         element.surf.get_height() * .78))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
+                                                                         element.__getattribute__(
+                                                                             "y_coordinate") * .78))
+                        for button in screen_resize_buttons:
+                            button.surf = pygame.transform.smoothscale(button.surf,
+                                                                       (button.surf.get_width() * .78,
+                                                                        button.surf.get_height() * .78))
+                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
+                                                                       button.__getattribute__("y_coordinate") * .78))
+                        for sprite in battle_elements:
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() * .78,
+                                                                        sprite.surf.get_height() * .78))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                       sprite.__getattribute__("y_coordinate") * .78))
+
+                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+
+                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
+                                                                                 player.surf.get_height() * .78))
+                        player.rect = player.surf.get_rect(center=player.pos * .78)
+                        player.pos *= .78
+
+                    # conditions updated after scaling
+                    scaled_800 = False
+                    scaled_1024 = True
+                    scaled_1200 = False
+
+            # ----------------------------------------------------------------------------------------------------------
+            if scale_w > 1024 or scale_h > 768:
+                if not scaled_1200:
+                    for sprite in all_sprites:
+                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                   (sprite.surf.get_width() / .84,
+                                                                    sprite.surf.get_height() / .84))
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .84,
+                                                                   sprite.__getattribute__("y_coordinate") / .84))
+                    for element in user_interface:
+                        element.surf = pygame.transform.smoothscale(element.surf,
+                                                                    (element.surf.get_width() / .84,
+                                                                     element.surf.get_height() / .84))
+                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .84,
+                                                                     element.__getattribute__("y_coordinate") / .84))
+                    for element in conditional_interface:
+                        element.surf = pygame.transform.smoothscale(element.surf,
+                                                                    (element.surf.get_width() / .84,
+                                                                     element.surf.get_height() / .84))
+                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .84,
+                                                                     element.__getattribute__("y_coordinate") / .84))
+                    for button in screen_resize_buttons:
+                        button.surf = pygame.transform.smoothscale(button.surf,
+                                                                   (button.surf.get_width() / .84,
+                                                                    button.surf.get_height() / .84))
+                        button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .84,
+                                                                   button.__getattribute__("y_coordinate") / .84))
+                    for sprite in battle_elements:
+                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                   (sprite.surf.get_width() / .84,
+                                                                    sprite.surf.get_height() / .84))
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .84,
+                                                                   sprite.__getattribute__("y_coordinate") / .84))
+
+                    seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                    seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                    seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                    seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+
+                    player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .84,
+                                                                             player.surf.get_height() / .84))
+                    player.rect = player.surf.get_rect(center=player.pos / .84)
+                    player.pos /= .84
+
+                    # conditions updated after scaling
+                    scaled_800 = False
+                    scaled_1024 = False
+                    scaled_1200 = True
+
+            # ----------------------------------------------------------------------------------------------------------
             # flip (update) to display ---------------------------------------------------------------------------------
             pygame.display.flip()
 
