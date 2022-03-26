@@ -72,12 +72,18 @@ class Player(pygame.sprite.Sprite):
                 self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
                                                                        player.surf.get_height() * .78))
                 self.rect = player.surf.get_rect(center=player.pos * .78)
+            if scaled_1200:
+                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
+                                                                       player.surf.get_height() / .86))
+                self.rect = player.surf.get_rect(center=player.pos / .86)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = -ACC
 
             if scaled_800:
-                self.acc.y *= .78
+                self.acc.y *= .60
+            if scaled_1200:
+                self.acc.y /= .60
 
         if pressed_keyes[K_s]:
             self.surf = pygame.image.load(stan_down_url).convert()
@@ -86,12 +92,18 @@ class Player(pygame.sprite.Sprite):
                 self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
                                                                        player.surf.get_height() * .78))
                 self.rect = player.surf.get_rect(center=player.pos * .78)
+            if scaled_1200:
+                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
+                                                                       player.surf.get_height() / .86))
+                self.rect = player.surf.get_rect(center=player.pos / .86)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = ACC
 
             if scaled_800:
-                self.acc.y *= .78
+                self.acc.y *= .60
+            if scaled_1200:
+                self.acc.y /= .60
 
         if pressed_keyes[K_a]:
             self.surf = pygame.image.load(stan_left_url).convert()
@@ -100,12 +112,18 @@ class Player(pygame.sprite.Sprite):
                 self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
                                                                        player.surf.get_height() * .78))
                 self.rect = player.surf.get_rect(center=player.pos * .78)
+            if scaled_1200:
+                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
+                                                                       player.surf.get_height() / .86))
+                self.rect = player.surf.get_rect(center=player.pos / .86)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = -ACC
 
             if scaled_800:
-                self.acc.x *= .78
+                self.acc.x *= .60
+            if scaled_1200:
+                self.acc.x /= .60
 
         if pressed_keyes[K_d]:
             self.surf = pygame.image.load(stan_right_url).convert()
@@ -114,12 +132,18 @@ class Player(pygame.sprite.Sprite):
                 self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
                                                                        player.surf.get_height() * .78))
                 self.rect = player.surf.get_rect(center=player.pos * .78)
+            if scaled_1200:
+                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
+                                                                       player.surf.get_height() / .86))
+                self.rect = player.surf.get_rect(center=player.pos / .86)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = ACC
 
             if scaled_800:
-                self.acc.x *= .78
+                self.acc.x *= .60
+            if scaled_1200:
+                self.acc.x /= .60
 
         # Keep player on the screen, boundaries vary depending on current zone -----------------------------------------
         if current_zone == "seldon":
@@ -135,6 +159,20 @@ class Player(pygame.sprite.Sprite):
 
                 elif self.pos.y >= height - 5 * .78:
                     self.pos.y = height - 5 * .78
+
+            if scaled_1200:
+                if self.pos.x < 25 / .86:
+                    self.pos.x = 25 / .86
+
+                elif self.pos.x > width - 115 / .86:
+                    self.pos.x = width - 115 / .86
+
+                if self.pos.y <= 115 / .86:
+                    self.pos.y = 115 / .86
+
+                elif self.pos.y >= height - 5 / .86:
+                    self.pos.y = height - 5 / .86
+
             else:
                 if self.pos.x < 25:
                     self.pos.x = 25
@@ -155,25 +193,34 @@ class Player(pygame.sprite.Sprite):
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos
 
-        if scaled_800:
-            self.acc.x = self.acc.x * .78
-            self.acc.y = self.acc.y * .78
-
         # collision detection with environment objects (trees, buildings, etc) -----------------------------------------
         if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.50)):
 
             if scaled_800:
                 if pressed_keyes[K_w]:
-                    player.vel.y = + .46 * .78
+                    player.vel.y = + .46 * .60
 
                 if pressed_keyes[K_s]:
-                    player.vel.y = - .46 * .78
+                    player.vel.y = - .46 * .60
 
                 if pressed_keyes[K_a]:
-                    player.vel.x = + .46 * .78
+                    player.vel.x = + .46 * .60
 
                 if pressed_keyes[K_d]:
-                    player.vel.x = - .46 * .78
+                    player.vel.x = - .46 * .60
+
+            if scaled_1200:
+                if pressed_keyes[K_w]:
+                    player.vel.y = + .46 / .60
+
+                if pressed_keyes[K_s]:
+                    player.vel.y = - .46 / .60
+
+                if pressed_keyes[K_a]:
+                    player.vel.x = + .46 / .60
+
+                if pressed_keyes[K_d]:
+                    player.vel.x = - .46 / .60
 
             else:
                 # create normal force by applying velocity opposite direction player is trying to move on colliding
@@ -213,11 +260,14 @@ class NPC(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
-    def update(self, image):
+    def update(self, image, x_coord, y_coord):
         self.surf = pygame.image.load(image).convert()
         if scaled_800:
             self.surf = pygame.transform.smoothscale(self.surf,
                                                      (self.surf.get_width() * .78, self.surf.get_height() * .78))
+        if scaled_1200:
+            self.surf = pygame.transform.smoothscale(self.surf,
+                                                     (self.surf.get_width() / .86, self.surf.get_height() / .86))
 
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -318,6 +368,9 @@ class UiElement(pygame.sprite.Sprite):
         if scaled_800:
             self.surf = pygame.transform.smoothscale(self.surf,
                                                      (self.surf.get_width() * .78, self.surf.get_height() * .78))
+        if scaled_1200:
+            self.surf = pygame.transform.smoothscale(self.surf,
+                                                     (self.surf.get_width() / .86, self.surf.get_height() / .86))
 
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -368,6 +421,9 @@ class BattleCharacter(pygame.sprite.Sprite):
         if scaled_800:
             self.surf = pygame.transform.smoothscale(self.surf,
                                                      (self.surf.get_width() * .78, self.surf.get_height() * .78))
+        if scaled_1200:
+            self.surf = pygame.transform.smoothscale(self.surf,
+                                                     (self.surf.get_width() / .86, self.surf.get_height() / .86))
 
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -393,9 +449,18 @@ class Item(pygame.sprite.Sprite):
         if scaled_800:
             self.surf = pygame.transform.smoothscale(self.surf,
                                                      (self.surf.get_width() * .78, self.surf.get_height() * .78))
+        if scaled_1200:
+            self.surf = pygame.transform.smoothscale(self.surf,
+                                                     (self.surf.get_width() / .86, self.surf.get_height() / .86))
 
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+
+        if scaled_800:
+            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+        if scaled_1200:
+            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+        else:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1944,7 +2009,7 @@ def enemy_respawn():
                           UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
         snakes.add(new_snake)
         enemies.add(new_snake)
-        all_sprites.add(new_snake)
+        most_sprites.add(new_snake)
 
     # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
     if ghoul_counter < 3:
@@ -1954,7 +2019,7 @@ def enemy_respawn():
                           UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
         ghouls.add(new_ghoul)
         enemies.add(new_ghoul)
-        all_sprites.add(new_ghoul)
+        most_sprites.add(new_ghoul)
 
 
 # leftover code from template to add moving clouds, can be used later for other scenery or critters --------------------
@@ -1983,6 +2048,7 @@ def enemy_respawn():
 
 # will be used for music later -----------------------------------------------------------------------------------------
 # pygame.mixer.init()
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2409,7 +2475,7 @@ bone_dust = Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255))
 
 # ----------------------------------------------------------------------------------------------------------------------
 # default player character ---------------------------------------------------------------------------------------------
-player = Player("Stan", "male", "amuna", "mage",  # name, gender, race, role
+player = Player("stan", "male", "amuna", "mage",  # name, gender, race, role
                 [health_potion, energy_potion],  # inventory
                 ["magic", "basic staff", "medium", "green robes"],  # equipment ('type', 'name')
                 # current quest, quest status (x/4), quest dictionary (quest: done)
@@ -2420,7 +2486,7 @@ player = Player("Stan", "male", "amuna", "mage",  # name, gender, race, role
 
 # nps: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate --------------------------
 #                  alive_status, quest_complete, items, gift, image, color
-npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone.", "Stupid Snakes",
+npc_garan = NPC("garan", "male", "amuna", "rogue", "It's dangerous to go alone.", "Stupid Snakes",
                 "Greetings! I don't believe I've seen you around here before. You must be a traveler, \nright? "
                 "Or maybe the request for reinforcements has finally been answered! Well, either way, we're\n"
                 "thankful for all the help we can get. \n\nLook, you seem pretty strong, but you're going to need "
@@ -2432,7 +2498,7 @@ npc_garan = NPC("Garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "trouble. ", 240, 480, True, False, ["Items to be added for steal"], False,
                 garan_url, (255, 255, 255))
 
-npc_maurelle = NPC("Maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
+npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
                    "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
                    "\n\nThe beast Dreth has occupied our former capital Castle, on the other side of the walls "
                    "\nto the east, and our numbers have been spread thin trying to repel its minions and contain "
@@ -2445,7 +2511,7 @@ npc_maurelle = NPC("Maurelle", "female", "amuna", "mage", "We need help!", "Vill
                    ["Items to be added for steal"], False,
                    maurelle_url, (255, 255, 255))
 
-npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee",
+npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee",
                 "You need to cross the bridge to get to the Korlok District, you say? \n\nOrdinarily"
                 " I would have no issue granting you passage, however the gates are barred tight \n"
                 "due to the recent wave of Ghoul Minions from across the wall. \n\nI cannot leave my post and"
@@ -2456,7 +2522,7 @@ npc_guard = NPC("Guard", "male", "amuna", "fighter", "Another day.", "Ghoulish G
                 False, ["Items to be added for steal"], False,
                 guard_url, (255, 255, 255))
 
-npc_amuna_shopkeeper = NPC("Amuna Shopkeeper", "male", "amuna", "trader", "These ghoul attacks are bad for business!",
+npc_amuna_shopkeeper = NPC("amuna shopkeeper", "male", "amuna", "trader", "These ghoul attacks are bad for business!",
                            "", "", 700, 700, True, False, [
                                Item("health potion", "potion", 200, 200, health_pot_url,
                                     (255, 255, 255)),
@@ -2470,44 +2536,44 @@ npc_amuna_shopkeeper = NPC("Amuna Shopkeeper", "male", "amuna", "trader", "These
 
 # ----------------------------------------------------------------------------------------------------------------------
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar ------
-snake_1 = Enemy("Snake", "snake", 100, 100, 1, 100, 150, True,
+snake_1 = Enemy("snake", "snake", 100, 100, 1, 100, 150, True,
                 Item("shiny rock", "rock", 200, 200, shiny_rock_url, (255, 255, 255)),
                 snake_url, (255, 255, 255),
                 UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
-snake_2 = Enemy("Snake", "snake", 100, 100, 2, 260, 170, True,
+snake_2 = Enemy("snake", "snake", 100, 100, 2, 260, 170, True,
                 Item("shiny rock", "rock", 200, 200, shiny_rock_url, (255, 255, 255)),
                 snake_url, (255, 255, 255),
                 UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
-snake_3 = Enemy("Snake", "snake", 100, 100, 1, 100, 250, True,
+snake_3 = Enemy("snake", "snake", 100, 100, 1, 100, 250, True,
                 Item("shiny rock", "rock", 200, 200, shiny_rock_url, (255, 255, 255)),
                 snake_url, (255, 255, 255),
                 UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
-snake_4 = Enemy("Snake", "snake", 100, 100, 2, 260, 270, True,
+snake_4 = Enemy("snake", "snake", 100, 100, 2, 260, 270, True,
                 Item("shiny rock", "rock", 200, 200, shiny_rock_url, (255, 255, 255)),
                 snake_url, (255, 255, 255),
                 UiElement("snake hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 
-ghoul_low_1 = Enemy("Ghoul", "ghoul", 100, 100, 4, 675, 200, True,
+ghoul_low_1 = Enemy("ghoul", "ghoul", 100, 100, 4, 675, 200, True,
                     Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255)),
                     ghoul_url, (255, 255, 255),
                     UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
-ghoul_low_2 = Enemy("Ghoul", "ghoul", 100, 100, 5, 800, 150, True,
+ghoul_low_2 = Enemy("ghoul", "ghoul", 100, 100, 5, 800, 150, True,
                     Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255)),
                     ghoul_url, (255, 255, 255),
                     UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
-ghoul_low_3 = Enemy("Ghoul", "ghoul", 100, 100, 3, 760, 260, True,
+ghoul_low_3 = Enemy("ghoul", "ghoul", 100, 100, 3, 760, 260, True,
                     Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255)),
                     ghoul_url, (255, 255, 255),
                     UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
-ghoul_low_4 = Enemy("Ghoul", "ghoul", 100, 100, 4, 875, 225, True,
+ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 875, 225, True,
                     Item("bone dust", "dust", 200, 200, bone_dust_url, (255, 255, 255)),
                     ghoul_url, (255, 255, 255),
                     UiElement("ghoul hp bar", 700, 90, health_100_url, (255, 255, 255), False))
 
 # environmental objects: name, model, x_coordinate, y_coordinate, gathered, image, color -------------------------------
-pine_tree_1 = Tree("pine tree 1", "pine tree", 80, 475, False, pine_tree_url, (255, 255, 255))
-pine_tree_2 = Tree("pine tree 4", "pine tree", 260, 660, False, pine_tree_url, (255, 255, 255))
-pine_tree_3 = Tree("pine tree 5", "pine tree", 380, 400, False, pine_tree_url, (255, 255, 255))
+pine_tree_1 = Tree("pine tree", "pine tree", 80, 475, False, pine_tree_url, (255, 255, 255))
+pine_tree_2 = Tree("pine tree", "pine tree", 260, 660, False, pine_tree_url, (255, 255, 255))
+pine_tree_3 = Tree("pine tree", "pine tree", 380, 400, False, pine_tree_url, (255, 255, 255))
 
 seldon_grass_1 = Item("seldon grass", "grass", 380, 145, seldon_grass_url, (255, 255, 255))
 seldon_grass_2 = Item("seldon grass", "grass", 290, 215, seldon_grass_url, (255, 255, 255))
@@ -2521,9 +2587,9 @@ seldon_flower_2 = Item("seldon flower", "flower", 700, 620, seldon_flower_url, (
 seldon_flower_3 = Item("seldon flower", "flower", 800, 470, seldon_flower_url, (255, 255, 255))
 
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-amuna_inn = Building("amuna inn", "inn", 625, 620, seldon_inn_url, (255, 255, 255))
-amuna_shop = Building("amuna shop", "shop", 660, 400, seldon_shop_url, (255, 255, 255))
-amuna_academia = Building("amuna academia", "academia", 875, 500, seldon_academia_url, (255, 255, 255))
+seldon_inn = Building("seldon inn", "inn", 625, 620, seldon_inn_url, (255, 255, 255))
+seldon_shop = Building("seldon shop", "shop", 660, 400, seldon_shop_url, (255, 255, 255))
+seldon_academia = Building("seldon academia", "academia", 875, 500, seldon_academia_url, (255, 255, 255))
 
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
 inventory_button = UiElement("inventory button", 960, 730, inventory_button_url, (255, 255, 255), False)
@@ -2541,23 +2607,23 @@ rest_button = UiElement("rest button", 740, 730, rest_button_url, (255, 255, 255
 screen_button = UiElement("screen size button", 960, 25, screen_size_button_url, (255, 255, 255), False)
 screen_resize_window = UiElement("screen resize window", 940, 113, screen_size_window_url, (255, 255, 255), False)
 
-s_1200x900_button = UiElement("1200x900", 940, 85, s_1200x900_url, (255, 255, 255), False)
-s_1024x768_button = UiElement("1024x768", 940, 110, s_1024x768_url, (255, 255, 255), False)
-s_800x600_button = UiElement("800x600", 940, 135, s_800x600_url, (255, 255, 255), False)
+s_1200x900_button = UiElement("s_1200x900", 940, 85, s_1200x900_url, (255, 255, 255), False)
+s_1024x768_button = UiElement("s_1024x768", 940, 110, s_1024x768_url, (255, 255, 255), False)
+s_800x600_button = UiElement("s_800x600", 940, 135, s_800x600_url, (255, 255, 255), False)
 
 player_status = UiElement("player status", 850, 670, player_status_url, (255, 255, 255), False)
 enemy_status = UiElement("enemy status", 850, 730, enemy_status_url, (255, 255, 255), False)
 
-hp_bar = UiElement("hp bar", 170, 25, health_100_url, (255, 255, 255), False)
-en_bar = UiElement("en bar", 170, 45, energy_100_url, (255, 255, 255), False)
-xp_bar = UiElement("xp bar", 170, 65, xp_100_url, (255, 255, 255), False)
+hp_bar = UiElement("health_100", 170, 25, health_100_url, (255, 255, 255), False)
+en_bar = UiElement("energy_100", 170, 45, energy_100_url, (255, 255, 255), False)
+xp_bar = UiElement("xp_100", 170, 65, xp_100_url, (255, 255, 255), False)
 
 inventory = Inventory([], 890, 515, inventory_url, (255, 255, 255), False)
 
-quest_logs_1 = Item("pine logs", "quest", 65, 575, quest_logs_url, (255, 255, 255))
-quest_logs_2 = Item("pine logs", "quest", 315, 615, quest_logs_url, (255, 255, 255))
-quest_logs_3 = Item("pine logs", "quest", 432, 462, quest_logs_url, (255, 255, 255))
-quest_logs_4 = Item("pine logs", "quest", 105, 575, quest_logs_url, (255, 255, 255))
+quest_logs_1 = Item("quest logs", "quest", 65, 575, quest_logs_url, (255, 255, 255))
+quest_logs_2 = Item("quest logs", "quest", 315, 615, quest_logs_url, (255, 255, 255))
+quest_logs_3 = Item("quest logs", "quest", 432, 462, quest_logs_url, (255, 255, 255))
+quest_logs_4 = Item("quest logs", "quest", 105, 575, quest_logs_url, (255, 255, 255))
 
 # shop windows ---------------------------------------------------------------------------------------------------------
 buy_inventory = Inventory([], 890, 490, buy_inventory_url, (255, 255, 255), False)
@@ -2565,8 +2631,8 @@ sell_inventory = Inventory([], 890, 490, sell_inventory_url, (255, 255, 255), Fa
 # ----------------------------------------------------------------------------------------------------------------------
 
 message_box = UiElement("message box", 175, 700, message_box_url, (255, 255, 255), False)
-status_bar_backdrop = UiElement("status bar backdrop", 165, 45, bar_backdrop_url, (255, 255, 255), False)
-enemy_status_bar_backdrop = UiElement("enemy status bar backdrop", 695, 90, enemy_bar_backdrop_url, (255, 255, 255),
+status_bar_backdrop = UiElement("bar backdrop", 165, 45, bar_backdrop_url, (255, 255, 255), False)
+enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 695, 90, enemy_bar_backdrop_url, (255, 255, 255),
                                       False)
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2593,8 +2659,9 @@ user_interface = pygame.sprite.Group()
 conditional_interface = pygame.sprite.Group()
 screen_resize_buttons = pygame.sprite.Group()
 battle_elements = pygame.sprite.Group()
+enemy_hp_bars = pygame.sprite.Group()
 
-all_sprites = pygame.sprite.Group()
+most_sprites = pygame.sprite.Group()
 total_elements = pygame.sprite.Group()
 
 # specific enemy groups for movement and respawn -----------------------------------------------------------------------
@@ -2610,14 +2677,14 @@ enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon_grass_5, seldon_grass_6)
 flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
-buildings.add(amuna_inn, amuna_shop, amuna_academia)
+buildings.add(seldon_inn, seldon_shop, seldon_academia)
 screen_resize_buttons.add(s_1200x900_button, s_1024x768_button, s_800x600_button)
 
 user_interface.add(rest_button, buy_button, sell_button, leave_button, character_button, journal_button,
                    inventory_button, screen_button, attack_button, skill_button, run_button, player_status, message_box,
                    status_bar_backdrop)
 
-conditional_interface.add(inventory, buy_inventory, sell_inventory, screen_resize_window)
+conditional_interface.add(inventory, buy_inventory, sell_inventory, screen_resize_window, hp_bar, en_bar, xp_bar)
 
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
@@ -2628,11 +2695,11 @@ quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4)
 # battle element sprites for combat scenario ---------------------------------------------------------------------------
 battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status_bar_backdrop)
 
-# adding all sprites to game screen
-all_sprites.add(npcs, enemies, trees, buildings, grass, flowers, quest_items)
+for bar_enemy in enemies:
+    enemy_hp_bars.add(bar_enemy.__getattribute__("health_bar"))
 
-total_elements.add(npcs, enemies, trees, buildings, grass, flowers, quest_items, battle_elements, environment_objects,
-                   conditional_interface, user_interface, screen_resize_buttons)
+# adding all sprites to game screen
+most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items)
 
 # pygame.mixer.music.load("Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
@@ -2708,6 +2775,8 @@ sell_shop_elements = []
 shopkeeper_items = []
 # list to contain screen size elements for display
 screen_size_elements = []
+# list for saving original sprite information (image) to use in scaling for different screen resolutions
+original_sprite_scales = []
 
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
@@ -2720,6 +2789,14 @@ info_text_4 = ""
 # ----------------------------------------------------------------------------------------------------------------------
 # main loop ------------------------------------------------------------------------------------------------------------
 while game_running:
+
+    # scale font size to current screen resolution
+    if scaled_800:
+        font = pygame.font.SysFont('freesansbold.ttf', 14, bold=True, italic=False)
+    if scaled_1024:
+        font = pygame.font.SysFont('freesansbold.ttf', 16, bold=True, italic=False)
+    if scaled_1200:
+        font = pygame.font.SysFont('freesansbold.ttf', 18, bold=True, italic=False)
 
     # screen scaling ---------------------------------------------------------------------------------------------------
     # ------------------------------------------------------------------------------------------------------------------
@@ -2737,7 +2814,7 @@ while game_running:
 
         # if player is not currently in range of sprite, or using inventory, or recently defeated enemy for loot update,
         # clear message box
-        sprite = pygame.sprite.spritecollideany(player, all_sprites)
+        sprite = pygame.sprite.spritecollideany(player, most_sprites)
         if not sprite:
             if not inventory_clicked:
                 if not loot_update:
@@ -2769,8 +2846,12 @@ while game_running:
         screen.blit(seldon_district_bg, (0, 0))
 
         # draw sprites -------------------------------------------------------------------------------------------------
-        for entity in all_sprites:
+        for entity in most_sprites:
             screen.blit(entity.surf, entity.rect)
+
+        # draw enemies -------------------------------------------------------------------------------------------------
+        for enemy_sprite in enemies:
+            screen.blit(enemy_sprite.surf, enemy_sprite.rect)
 
         # draw player --------------------------------------------------------------------------------------------------
         screen.blit(player.surf, player.rect)
@@ -2831,6 +2912,9 @@ while game_running:
         if scaled_800:
             text_rupee_rect.center = (975 * .78, 672 * .78)
             screen.blit(text_rupee_surf, text_rupee_rect)
+        if scaled_1200:
+            text_rupee_rect.center = (975 / .86, 672 / .86)
+            screen.blit(text_rupee_surf, text_rupee_rect)
         else:
             text_rupee_rect.center = (975, 672)
             screen.blit(text_rupee_surf, text_rupee_rect)
@@ -2840,6 +2924,9 @@ while game_running:
         text_zone_rect = text_zone_surf.get_rect()
         if scaled_800:
             text_zone_rect.center = (865 * .78, 672 * .78)
+            screen.blit(text_zone_surf, text_zone_rect)
+        if scaled_1200:
+            text_zone_rect.center = (865 / .86, 672 / .86)
             screen.blit(text_zone_surf, text_zone_rect)
         else:
             text_zone_rect.center = (865, 672)
@@ -2851,6 +2938,9 @@ while game_running:
         if scaled_800:
             text_level_rect.center = (760 * .78, 672 * .78)
             screen.blit(text_level_surf, text_level_rect)
+        if scaled_1200:
+            text_level_rect.center = (760 / .86, 672 / .86)
+            screen.blit(text_level_surf, text_level_rect)
         else:
             text_level_rect.center = (760, 672)
             screen.blit(text_level_surf, text_level_rect)
@@ -2860,6 +2950,9 @@ while game_running:
         text_combat_info_rect_1 = text_info_surf_1.get_rect()
         if scaled_800:
             text_combat_info_rect_1.midleft = (30 * .78, 680 * .78)
+            screen.blit(text_info_surf_1, text_combat_info_rect_1)
+        if scaled_1200:
+            text_combat_info_rect_1.midleft = (30 / .86, 680 / .86)
             screen.blit(text_info_surf_1, text_combat_info_rect_1)
         else:
             text_combat_info_rect_1.midleft = (30, 680)
@@ -2871,6 +2964,9 @@ while game_running:
         if scaled_800:
             text_combat_info_rect_2.midleft = (30 * .78, 700 * .78)
             screen.blit(text_info_surf_2, text_combat_info_rect_2)
+        if scaled_1200:
+            text_combat_info_rect_2.midleft = (30 / .86, 700 / .86)
+            screen.blit(text_info_surf_2, text_combat_info_rect_2)
         else:
             text_combat_info_rect_2.midleft = (30, 700)
             screen.blit(text_info_surf_2, text_combat_info_rect_2)
@@ -2881,6 +2977,9 @@ while game_running:
         if scaled_800:
             text_combat_info_rect_3.midleft = (30 * .78, 720 * .78)
             screen.blit(text_info_surf_3, text_combat_info_rect_3)
+        if scaled_1200:
+            text_combat_info_rect_3.midleft = (30 / .86, 720 / .86)
+            screen.blit(text_info_surf_3, text_combat_info_rect_3)
         else:
             text_combat_info_rect_3.midleft = (30, 720)
             screen.blit(text_info_surf_3, text_combat_info_rect_3)
@@ -2890,6 +2989,9 @@ while game_running:
         text_combat_info_rect_4 = text_info_surf_4.get_rect()
         if scaled_800:
             text_combat_info_rect_4.midleft = (30 * .78, 740 * .78)
+            screen.blit(text_info_surf_4, text_combat_info_rect_4)
+        if scaled_1200:
+            text_combat_info_rect_4.midleft = (30 / .86, 740 / .86)
             screen.blit(text_info_surf_4, text_combat_info_rect_4)
         else:
             text_combat_info_rect_4.midleft = (30, 740)
@@ -2920,9 +3022,12 @@ while game_running:
                 # set the current screen resolution to that size
                 if screen_clicked:
                     if s_800x600_button.rect.collidepoint(pos):
-                        width = 800
-                        height = 600
-                        screen = pygame.display.set_mode((width, height))
+                        if scaled_1024:
+                            width = 800
+                            height = 600
+                            screen = pygame.display.set_mode((width, height))
+                        else:
+                            info_text_1 = "Please scale back to 1024x768 before down-scaling"
 
                     if s_1024x768_button.rect.collidepoint(pos):
                         width = 1024
@@ -2930,9 +3035,12 @@ while game_running:
                         screen = pygame.display.set_mode((width, height))
 
                     if s_1200x900_button.rect.collidepoint(pos):
-                        width = 1200
-                        height = 900
-                        screen = pygame.display.set_mode((width, height))
+                        if scaled_1024:
+                            width = 1200
+                            height = 900
+                            screen = pygame.display.set_mode((width, height))
+                        else:
+                            info_text_1 = "Please scale back to 1024x768 before up-scaling"
 
                 # if mouse cursor collided with screen resize button when player clicked -------------------------------
                 if screen_button.rect.collidepoint(pos):
@@ -3576,36 +3684,36 @@ while game_running:
         if pygame.time.get_ticks() % 180 == 0:
 
             if face_direction == "front":
-                if face_this_npc.name == "Garan":
-                    npc_garan.update(garan_url)
-                if face_this_npc.name == "Maurelle":
-                    npc_maurelle.update(maurelle_url)
-                if face_this_npc.name == "Guard":
-                    npc_guard.update(guard_url)
+                if face_this_npc.name == "garan":
+                    npc_garan.update(garan_url, npc_garan.x_coordinate, npc_garan.y_coordinate)
+                if face_this_npc.name == "maurelle":
+                    npc_maurelle.update(maurelle_url, npc_maurelle.x_coordinate, npc_maurelle.y_coordinate)
+                if face_this_npc.name == "guard":
+                    npc_guard.update(guard_url, npc_guard.x_coordinate, npc_guard.y_coordinate)
 
             if face_direction == "back":
-                if face_this_npc.name == "Garan":
-                    npc_garan.update(garan_back_url)
-                if face_this_npc.name == "Maurelle":
-                    npc_maurelle.update(maurelle_back_url)
-                if face_this_npc.name == "Guard":
-                    npc_guard.update(guard_back_url)
+                if face_this_npc.name == "garan":
+                    npc_garan.update(garan_back_url, npc_garan.x_coordinate, npc_garan.y_coordinate)
+                if face_this_npc.name == "maurelle":
+                    npc_maurelle.update(maurelle_back_url, npc_maurelle.x_coordinate, npc_maurelle.y_coordinate)
+                if face_this_npc.name == "guard":
+                    npc_guard.update(guard_back_url, npc_guard.x_coordinate, npc_guard.y_coordinate)
 
             if face_direction == "left":
-                if face_this_npc.name == "Garan":
-                    npc_garan.update(garan_left_url)
-                if face_this_npc.name == "Maurelle":
-                    npc_maurelle.update(maurelle_left_url)
-                if face_this_npc.name == "Guard":
-                    npc_guard.update(guard_left_url)
+                if face_this_npc.name == "garan":
+                    npc_garan.update(garan_left_url, npc_garan.x_coordinate, npc_garan.y_coordinate)
+                if face_this_npc.name == "maurelle":
+                    npc_maurelle.update(maurelle_left_url, npc_maurelle.x_coordinate, npc_maurelle.y_coordinate)
+                if face_this_npc.name == "guard":
+                    npc_guard.update(guard_left_url, npc_guard.x_coordinate, npc_guard.y_coordinate)
 
             if face_direction == "right":
-                if face_this_npc.name == "Garan":
-                    npc_garan.update(garan_right_url)
-                if face_this_npc.name == "Maurelle":
-                    npc_maurelle.update(maurelle_right_url)
-                if face_this_npc.name == "Guard":
-                    npc_guard.update(guard_right_url)
+                if face_this_npc.name == "garan":
+                    npc_garan.update(garan_right_url, npc_garan.x_coordinate, npc_garan.y_coordinate)
+                if face_this_npc.name == "maurelle":
+                    npc_maurelle.update(maurelle_right_url, npc_maurelle.x_coordinate, npc_maurelle.y_coordinate)
+                if face_this_npc.name == "guard":
+                    npc_guard.update(guard_right_url, npc_guard.x_coordinate, npc_guard.y_coordinate)
 
         # --------------------------------------------------------------------------------------------------------------
         # the code in this next section draws scenario related graphics on top of every other graphic
@@ -3711,7 +3819,7 @@ while game_running:
                 if zone_seldon:
                     # --------------------------------------------------------------------------------------------------
                     # if building is a shop in the seldon zone
-                    if building.__getattribute__("name") == "amuna shop":
+                    if building.__getattribute__("name") == "seldon shop":
                         screen.blit(seldon_district_shop, (0, 0))
                         screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
@@ -3754,7 +3862,7 @@ while game_running:
 
                     # --------------------------------------------------------------------------------------------------
                     # if building is an inn in the seldon zone
-                    if building.__getattribute__("name") == "amuna inn":
+                    if building.__getattribute__("name") == "seldon inn":
                         screen.blit(seldon_district_inn, (0, 0))
                         screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
@@ -3794,147 +3902,167 @@ while game_running:
             snake_battle_sprite.update(snake_battle_url)
             ghoul_battle_sprite.update(ghoul_battle_url)
 
+            # scaling --------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if size of player's display resolution is less than what the default resolution scaling is set for
             # go through all sprites and make their image and rect attributes smaller
             # scales here at the end of iteration to ensure all sprites updated during iteration are also scaled -------
             if scale_w < 1024 or scale_h < 768:
                 if not scaled_800:
-                    for sprite in all_sprites:
-                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                   (sprite.surf.get_width() * .78,
-                                                                    sprite.surf.get_height() * .78))
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                   sprite.__getattribute__("y_coordinate") * .78))
-                    for element in user_interface:
-                        element.surf = pygame.transform.smoothscale(element.surf,
-                                                                    (element.surf.get_width() * .78,
-                                                                     element.surf.get_height() * .78))
-                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                     element.__getattribute__("y_coordinate") * .78))
-                    for element in conditional_interface:
-                        element.surf = pygame.transform.smoothscale(element.surf,
-                                                                    (element.surf.get_width() * .78,
-                                                                     element.surf.get_height() * .78))
-                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                     element.__getattribute__("y_coordinate") * .78))
-                    for button in screen_resize_buttons:
-                        button.surf = pygame.transform.smoothscale(button.surf,
-                                                                   (button.surf.get_width() * .78,
-                                                                    button.surf.get_height() * .78))
-                        button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
-                                                                   button.__getattribute__("y_coordinate") * .78))
-                    for sprite in battle_elements:
-                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                   (sprite.surf.get_width() * .78,
-                                                                    sprite.surf.get_height() * .78))
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                   sprite.__getattribute__("y_coordinate") * .78))
 
-                    seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                    seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                    seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                    seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+                    # if going to 800x600 from 1200x900, revert to original image first before applying new scale
+                    if scaled_1024:
 
-                    player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
-                                                                             player.surf.get_height() * .78))
-                    player.rect = player.surf.get_rect(center=player.pos * .78)
-                    player.pos *= .78
+                        # clear sprite list before appending to ensure correct index
+                        original_sprite_scales.clear()
 
-                    scaled_800 = True
-                    scaled_1024 = False
-                    scaled_1200 = False
-
-            # ----------------------------------------------------------------------------------------------------------
-            if scale_w == 1024 or scale_h == 768:
-                if not scaled_1024:
-                    if scaled_800:
-                        for sprite in all_sprites:
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .78,
-                                                                        sprite.surf.get_height() / .78))
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .78,
-                                                                       sprite.__getattribute__("y_coordinate") / .78))
-                        for element in user_interface:
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() / .78,
-                                                                         element.surf.get_height() / .78))
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .78,
-                                                                         element.__getattribute__("y_coordinate")
-                                                                         / .78))
-                        for element in conditional_interface:
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() / .78,
-                                                                         element.surf.get_height() / .78))
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .78,
-                                                                         element.__getattribute__("y_coordinate")
-                                                                         / .78))
-                        for button in screen_resize_buttons:
-                            button.surf = pygame.transform.smoothscale(button.surf,
-                                                                       (button.surf.get_width() / .78,
-                                                                        button.surf.get_height() / .78))
-                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .78,
-                                                                       button.__getattribute__("y_coordinate") / .78))
-                        for sprite in battle_elements:
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .78,
-                                                                        sprite.surf.get_height() / .78))
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .78,
-                                                                       sprite.__getattribute__("y_coordinate") / .78))
-
-                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
-
-                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .78,
-                                                                                 player.surf.get_height() / .78))
-                        player.rect = player.surf.get_rect(center=player.pos / .78)
-                        player.pos /= .78
-
-                    if scaled_1200:
-                        for sprite in all_sprites:
+                        for sprite in most_sprites:
+                            # save sprites original image to use when re-scaling to original sprite size and location
+                            original_sprite_scales.append(sprite.surf)
                             sprite.surf = pygame.transform.smoothscale(sprite.surf,
                                                                        (sprite.surf.get_width() * .78,
                                                                         sprite.surf.get_height() * .78))
+                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                       sprite.__getattribute__("y_coordinate") * .78))
+                        for sprite in enemies:
+                            original_sprite_scales.append(sprite.surf)
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() * .78,
+                                                                        sprite.surf.get_height() * .78))
+                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
                                                                        sprite.__getattribute__("y_coordinate") * .78))
                         for element in user_interface:
+                            original_sprite_scales.append(element.surf)
                             element.surf = pygame.transform.smoothscale(element.surf,
                                                                         (element.surf.get_width() * .78,
                                                                          element.surf.get_height() * .78))
+                            element.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                         element.__getattribute__(
-                                                                             "y_coordinate") * .78))
+                                                                         element.__getattribute__("y_coordinate") * .78
+                                                                         ))
                         for element in conditional_interface:
+                            original_sprite_scales.append(element.surf)
                             element.surf = pygame.transform.smoothscale(element.surf,
                                                                         (element.surf.get_width() * .78,
                                                                          element.surf.get_height() * .78))
+                            element.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                         element.__getattribute__(
-                                                                             "y_coordinate") * .78))
+                                                                         element.__getattribute__("y_coordinate") * .78
+                                                                         ))
                         for button in screen_resize_buttons:
+                            original_sprite_scales.append(button.surf)
                             button.surf = pygame.transform.smoothscale(button.surf,
                                                                        (button.surf.get_width() * .78,
                                                                         button.surf.get_height() * .78))
+                            button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
                                                                        button.__getattribute__("y_coordinate") * .78))
                         for sprite in battle_elements:
+                            original_sprite_scales.append(sprite.surf)
                             sprite.surf = pygame.transform.smoothscale(sprite.surf,
                                                                        (sprite.surf.get_width() * .78,
                                                                         sprite.surf.get_height() * .78))
+                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
                                                                        sprite.__getattribute__("y_coordinate") * .78))
-
+                        for hp_bars in enemy_hp_bars:
+                            original_sprite_scales.append(hp_bars.surf)
+                            hp_bars.surf = pygame.transform.smoothscale(hp_bars.surf,
+                                                                        (hp_bars.surf.get_width() * .78,
+                                                                         hp_bars.surf.get_height() * .78))
+                            hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.__getattribute__("x_coordinate") * .78,
+                                                                         hp_bars.__getattribute__("y_coordinate") * .78
+                                                                         ))
                         seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
                         seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
                         seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
                         seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
-
+                        original_sprite_scales.append(player.surf)
                         player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
                                                                                  player.surf.get_height() * .78))
-                        player.rect = player.surf.get_rect(center=player.pos * .78)
                         player.pos *= .78
+                        player.rect = player.surf.get_rect(center=player.pos * .78)
+
+                        scaled_800 = True
+                        scaled_1024 = False
+                        scaled_1200 = False
+
+            # ----------------------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            if scale_w == 1024 or scale_h == 768:
+                if not scaled_1024:
+
+                    # count current sprite iteration when looping through sprites to have an index value to pull from
+                    # original sprite surface list to reassign sprites original image
+                    surface_counter = 0
+
+                    for sprite in most_sprites:
+                        sprite.surf = original_sprite_scales[surface_counter]
+                        sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.x_coordinate, sprite.y_coordinate))
+                        surface_counter += 1
+                    for an_enemy in enemies:
+                        if an_enemy.name == "ghoul":
+                            an_enemy.surf = original_sprite_scales[surface_counter + 4]
+                            an_enemy.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            an_enemy.rect = an_enemy.surf.get_rect(center=(an_enemy.x_coordinate,
+                                                                           an_enemy.y_coordinate))
+                        elif an_enemy.name == "snake":
+                            an_enemy.surf = original_sprite_scales[surface_counter]
+                            an_enemy.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            an_enemy.rect = an_enemy.surf.get_rect(center=(an_enemy.x_coordinate,
+                                                                           an_enemy.y_coordinate))
+
+                    # account for 8 enemies even if one is defeated or respawned to ensure proper indexing
+                    surface_counter += 8
+
+                    for element in user_interface:
+                        element.surf = original_sprite_scales[surface_counter]
+                        element.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        element.rect = element.surf.get_rect(center=(element.x_coordinate, element.y_coordinate))
+                        surface_counter += 1
+                    for element in conditional_interface:
+                        element.surf = original_sprite_scales[surface_counter]
+                        element.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        element.rect = element.surf.get_rect(center=(element.x_coordinate, element.y_coordinate))
+                        surface_counter += 1
+                    for button in screen_resize_buttons:
+                        button.surf = original_sprite_scales[surface_counter]
+                        button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        button.rect = button.surf.get_rect(center=(button.x_coordinate, button.y_coordinate))
+                        surface_counter += 1
+                    for sprite in battle_elements:
+                        sprite.surf = original_sprite_scales[surface_counter]
+                        sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.x_coordinate, sprite.y_coordinate))
+                        surface_counter += 1
+                    for hp_bars in enemy_hp_bars:
+                        hp_bars.surf = original_sprite_scales[surface_counter]
+                        hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.x_coordinate, hp_bars.y_coordinate))
+
+                    # 8 enemy health bars currently. hardcode this so counter doesn't get messed up when an enemy is
+                    # defeated and removed from game. this will insure the indexing is correct when rebuilding surfs
+                    # on reverting to original screen size and sprites
+                    surface_counter += 8
+
+                    player.surf = original_sprite_scales[surface_counter]
+                    # if scaling up from 800x600, then apply /.78 to player rect and position to adjust to new res.
+                    if scaled_800:
+                        player.pos /= .78
+                        player.rect = player.surf.get_rect(center=player.pos / .78)
+                    # if scaling down from 1200x900, then apply *.78 to player rect and position to adjust to new res.
+                    if scaled_1200:
+                        player.pos *= .86
+                        player.rect = player.surf.get_rect(center=player.pos * .86)
+
+                    seldon_district_bg = pygame.image.load(seldon_bg_url)
+                    seldon_district_shop = pygame.image.load(seldon_shop_screen_url)
+                    seldon_district_inn = pygame.image.load(seldon_inn_screen_url)
+                    seldon_district_battle = pygame.image.load(seldon_battle_url)
 
                     # conditions updated after scaling
                     scaled_800 = False
@@ -3942,53 +4070,86 @@ while game_running:
                     scaled_1200 = False
 
             # ----------------------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
             if scale_w > 1024 or scale_h > 768:
                 if not scaled_1200:
-                    for sprite in all_sprites:
-                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                   (sprite.surf.get_width() / .86,
-                                                                    sprite.surf.get_height() / .86))
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
-                                                                   sprite.__getattribute__("y_coordinate") / .86))
-                    for element in user_interface:
-                        element.surf = pygame.transform.smoothscale(element.surf,
-                                                                    (element.surf.get_width() / .86,
-                                                                     element.surf.get_height() / .86))
-                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
-                                                                     element.__getattribute__("y_coordinate") / .86))
-                    for element in conditional_interface:
-                        element.surf = pygame.transform.smoothscale(element.surf,
-                                                                    (element.surf.get_width() / .86,
-                                                                     element.surf.get_height() / .86))
-                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
-                                                                     element.__getattribute__("y_coordinate") / .86))
-                    for button in screen_resize_buttons:
-                        button.surf = pygame.transform.smoothscale(button.surf,
-                                                                   (button.surf.get_width() / .86,
-                                                                    button.surf.get_height() / .86))
-                        button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .86,
-                                                                   button.__getattribute__("y_coordinate") / .86))
-                    for sprite in battle_elements:
-                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                   (sprite.surf.get_width() / .86,
-                                                                    sprite.surf.get_height() / .86))
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
-                                                                   sprite.__getattribute__("y_coordinate") / .86))
+                    # scale back to original resolution before up-scaling
+                    if scaled_1024:
 
-                    seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                    seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                    seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                    seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+                        # clear sprite list before appending to ensure correct index
+                        original_sprite_scales.clear()
 
-                    player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
-                                                                             player.surf.get_height() / .86))
-                    player.rect = player.surf.get_rect(center=player.pos / .86)
-                    player.pos /= .86
+                        for sprite in most_sprites:
+                            # save sprites original image to use when re-scaling to original sprite size and location
+                            original_sprite_scales.append(sprite.surf)
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .86,
+                                                                        sprite.surf.get_height() / .86))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
+                                                                       sprite.__getattribute__("y_coordinate") / .86))
+                        for sprite in enemies:
+                            original_sprite_scales.append(sprite.surf)
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .86,
+                                                                        sprite.surf.get_height() / .86))
+                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
+                                                                       sprite.__getattribute__("y_coordinate") / .86))
+                        for element in user_interface:
+                            original_sprite_scales.append(element.surf)
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() / .86,
+                                                                         element.surf.get_height() / .86))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
+                                                                         element.__getattribute__("y_coordinate") / .86
+                                                                         ))
+                        for element in conditional_interface:
+                            original_sprite_scales.append(element.surf)
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() / .86,
+                                                                         element.surf.get_height() / .86))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
+                                                                         element.__getattribute__("y_coordinate") / .86
+                                                                         ))
+                        for button in screen_resize_buttons:
+                            original_sprite_scales.append(button.surf)
+                            button.surf = pygame.transform.smoothscale(button.surf,
+                                                                       (button.surf.get_width() / .86,
+                                                                        button.surf.get_height() / .86))
+                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .86,
+                                                                       button.__getattribute__("y_coordinate") / .86))
+                        for sprite in battle_elements:
+                            original_sprite_scales.append(sprite.surf)
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .86,
+                                                                        sprite.surf.get_height() / .86))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
+                                                                       sprite.__getattribute__("y_coordinate") / .86))
+                        for hp_bars in enemy_hp_bars:
+                            original_sprite_scales.append(hp_bars.surf)
+                            hp_bars.surf = pygame.transform.smoothscale(hp_bars.surf,
+                                                                        (hp_bars.surf.get_width() / .86,
+                                                                         hp_bars.surf.get_height() / .86))
+                            hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.__getattribute__("x_coordinate") / .86,
+                                                                         hp_bars.__getattribute__("y_coordinate") / .86
+                                                                         ))
 
-                    # conditions updated after scaling
-                    scaled_800 = False
-                    scaled_1024 = False
-                    scaled_1200 = True
+                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+                        original_sprite_scales.append(player.surf)
+                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
+                                                                                 player.surf.get_height() / .86))
+                        player.rect = player.surf.get_rect(center=player.pos / .86)
+                        player.pos /= .86
+
+                        # conditions updated after scaling
+                        scaled_800 = False
+                        scaled_1024 = False
+                        scaled_1200 = True
+
             # ----------------------------------------------------------------------------------------------------------
             # flip to display ------------------------------------------------------------------------------------------
             pygame.display.flip()
@@ -4007,143 +4168,165 @@ while game_running:
             snake_battle_sprite.update(snake_attack_url)
             ghoul_battle_sprite.update(ghoul_attack_url)
 
-            # sprite scaling at end of iteration to get updates --------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
             if scale_w < 1024 or scale_h < 768:
                 if not scaled_800:
-                    for sprite in all_sprites:
-                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                   (sprite.surf.get_width() * .78,
-                                                                    sprite.surf.get_height() * .78))
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                   sprite.__getattribute__("y_coordinate") * .78))
-                    for element in user_interface:
-                        element.surf = pygame.transform.smoothscale(element.surf,
-                                                                    (element.surf.get_width() * .78,
-                                                                     element.surf.get_height() * .78))
-                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                     element.__getattribute__("y_coordinate") * .78))
-                    for element in conditional_interface:
-                        element.surf = pygame.transform.smoothscale(element.surf,
-                                                                    (element.surf.get_width() * .78,
-                                                                     element.surf.get_height() * .78))
-                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                     element.__getattribute__("y_coordinate") * .78))
-                    for button in screen_resize_buttons:
-                        button.surf = pygame.transform.smoothscale(button.surf,
-                                                                   (button.surf.get_width() * .78,
-                                                                    button.surf.get_height() * .78))
-                        button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
-                                                                   button.__getattribute__("y_coordinate") * .78))
-                    for sprite in battle_elements:
-                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                   (sprite.surf.get_width() * .78,
-                                                                    sprite.surf.get_height() * .78))
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                   sprite.__getattribute__("y_coordinate") * .78))
 
-                    seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                    seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                    seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                    seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+                    # if going to 800x600 from 1200x900, revert to original image first before applying new scale
+                    if scaled_1024:
 
-                    player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
-                                                                             player.surf.get_height() * .78))
-                    player.rect = player.surf.get_rect(center=player.pos * .78)
-                    player.pos *= .78
+                        # clear sprite list before appending to ensure correct index
+                        original_sprite_scales.clear()
 
-                    scaled_800 = True
-                    scaled_1024 = False
-                    scaled_1200 = False
-
-            if scale_w == 1024 or scale_h == 768:
-                if not scaled_1024:
-                    if scaled_800:
-                        for sprite in all_sprites:
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .78,
-                                                                        sprite.surf.get_height() / .78))
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .78,
-                                                                       sprite.__getattribute__("y_coordinate") / .78))
-                        for element in user_interface:
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() / .78,
-                                                                         element.surf.get_height() / .78))
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .78,
-                                                                         element.__getattribute__("y_coordinate")
-                                                                         / .78))
-                        for element in conditional_interface:
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() / .78,
-                                                                         element.surf.get_height() / .78))
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .78,
-                                                                         element.__getattribute__("y_coordinate")
-                                                                         / .78))
-                        for button in screen_resize_buttons:
-                            button.surf = pygame.transform.smoothscale(button.surf,
-                                                                       (button.surf.get_width() / .78,
-                                                                        button.surf.get_height() / .78))
-                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .78,
-                                                                       button.__getattribute__("y_coordinate") / .78))
-                        for sprite in battle_elements:
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .78,
-                                                                        sprite.surf.get_height() / .78))
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .78,
-                                                                       sprite.__getattribute__("y_coordinate") / .78))
-
-                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
-
-                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .78,
-                                                                                 player.surf.get_height() / .78))
-                        player.rect = player.surf.get_rect(center=player.pos / .78)
-                        player.pos /= .78
-
-                    if scaled_1200:
-                        for sprite in all_sprites:
+                        for sprite in most_sprites:
+                            # save sprites original image to use when re-scaling to original sprite size and location
+                            original_sprite_scales.append(sprite.surf)
                             sprite.surf = pygame.transform.smoothscale(sprite.surf,
                                                                        (sprite.surf.get_width() * .78,
                                                                         sprite.surf.get_height() * .78))
+                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
+                                                                       sprite.__getattribute__("y_coordinate") * .78))
+                        for sprite in enemies:
+                            original_sprite_scales.append(sprite.surf)
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() * .78,
+                                                                        sprite.surf.get_height() * .78))
+                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
                                                                        sprite.__getattribute__("y_coordinate") * .78))
                         for element in user_interface:
+                            original_sprite_scales.append(element.surf)
                             element.surf = pygame.transform.smoothscale(element.surf,
                                                                         (element.surf.get_width() * .78,
                                                                          element.surf.get_height() * .78))
+                            element.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                         element.__getattribute__(
-                                                                             "y_coordinate") * .78))
+                                                                         element.__getattribute__("y_coordinate") * .78
+                                                                         ))
                         for element in conditional_interface:
+                            original_sprite_scales.append(element.surf)
                             element.surf = pygame.transform.smoothscale(element.surf,
                                                                         (element.surf.get_width() * .78,
                                                                          element.surf.get_height() * .78))
+                            element.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                         element.__getattribute__(
-                                                                             "y_coordinate") * .78))
+                                                                         element.__getattribute__("y_coordinate") * .78
+                                                                         ))
                         for button in screen_resize_buttons:
+                            original_sprite_scales.append(button.surf)
                             button.surf = pygame.transform.smoothscale(button.surf,
                                                                        (button.surf.get_width() * .78,
                                                                         button.surf.get_height() * .78))
+                            button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
                                                                        button.__getattribute__("y_coordinate") * .78))
                         for sprite in battle_elements:
+                            original_sprite_scales.append(sprite.surf)
                             sprite.surf = pygame.transform.smoothscale(sprite.surf,
                                                                        (sprite.surf.get_width() * .78,
                                                                         sprite.surf.get_height() * .78))
+                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
                                                                        sprite.__getattribute__("y_coordinate") * .78))
-
+                        for hp_bars in enemy_hp_bars:
+                            original_sprite_scales.append(hp_bars.surf)
+                            hp_bars.surf = pygame.transform.smoothscale(hp_bars.surf,
+                                                                        (hp_bars.surf.get_width() * .78,
+                                                                         hp_bars.surf.get_height() * .78))
+                            hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.__getattribute__("x_coordinate") * .78,
+                                                                         hp_bars.__getattribute__("y_coordinate") * .78
+                                                                         ))
                         seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
                         seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
                         seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
                         seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
-
+                        original_sprite_scales.append(player.surf)
                         player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
                                                                                  player.surf.get_height() * .78))
-                        player.rect = player.surf.get_rect(center=player.pos * .78)
                         player.pos *= .78
+                        player.rect = player.surf.get_rect(center=player.pos * .78)
+
+                        scaled_800 = True
+                        scaled_1024 = False
+                        scaled_1200 = False
+
+            # ----------------------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            if scale_w == 1024 or scale_h == 768:
+                if not scaled_1024:
+
+                    # count current sprite iteration when looping through sprites to have an index value to pull from
+                    # original sprite surface list to reassign sprites original image
+                    surface_counter = 0
+
+                    for sprite in most_sprites:
+                        sprite.surf = original_sprite_scales[surface_counter]
+                        sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.x_coordinate, sprite.y_coordinate))
+                        surface_counter += 1
+                    for an_enemy in enemies:
+                        if an_enemy.name == "ghoul":
+                            an_enemy.surf = original_sprite_scales[surface_counter + 4]
+                            an_enemy.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            an_enemy.rect = an_enemy.surf.get_rect(center=(an_enemy.x_coordinate,
+                                                                           an_enemy.y_coordinate))
+                        elif an_enemy.name == "snake":
+                            an_enemy.surf = original_sprite_scales[surface_counter]
+                            an_enemy.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            an_enemy.rect = an_enemy.surf.get_rect(center=(an_enemy.x_coordinate,
+                                                                           an_enemy.y_coordinate))
+
+                    # account for 8 enemies even if one is defeated or respawned to ensure proper indexing
+                    surface_counter += 8
+
+                    for element in user_interface:
+                        element.surf = original_sprite_scales[surface_counter]
+                        element.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        element.rect = element.surf.get_rect(center=(element.x_coordinate, element.y_coordinate))
+                        surface_counter += 1
+                    for element in conditional_interface:
+                        element.surf = original_sprite_scales[surface_counter]
+                        element.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        element.rect = element.surf.get_rect(center=(element.x_coordinate, element.y_coordinate))
+                        surface_counter += 1
+                    for button in screen_resize_buttons:
+                        button.surf = original_sprite_scales[surface_counter]
+                        button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        button.rect = button.surf.get_rect(center=(button.x_coordinate, button.y_coordinate))
+                        surface_counter += 1
+                    for sprite in battle_elements:
+                        sprite.surf = original_sprite_scales[surface_counter]
+                        sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sprite.rect = sprite.surf.get_rect(center=(sprite.x_coordinate, sprite.y_coordinate))
+                        surface_counter += 1
+                    for hp_bars in enemy_hp_bars:
+                        hp_bars.surf = original_sprite_scales[surface_counter]
+                        hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.x_coordinate, hp_bars.y_coordinate))
+
+                    # 8 enemy health bars currently. hardcode this so counter doesn't get messed up when an enemy is
+                    # defeated and removed from game. this will insure the indexing is correct when rebuilding surfs
+                    # on reverting to original screen size and sprites
+                    surface_counter += 8
+
+                    player.surf = original_sprite_scales[surface_counter]
+                    # if scaling up from 800x600, then apply /.78 to player rect and position to adjust to new res.
+                    if scaled_800:
+                        player.pos /= .78
+                        player.rect = player.surf.get_rect(center=player.pos / .78)
+                    # if scaling down from 1200x900, then apply *.78 to player rect and position to adjust to new res.
+                    if scaled_1200:
+                        player.pos *= .86
+                        player.rect = player.surf.get_rect(center=player.pos * .86)
+
+                    seldon_district_bg = pygame.image.load(seldon_bg_url)
+                    seldon_district_shop = pygame.image.load(seldon_shop_screen_url)
+                    seldon_district_inn = pygame.image.load(seldon_inn_screen_url)
+                    seldon_district_battle = pygame.image.load(seldon_battle_url)
 
                     # conditions updated after scaling
                     scaled_800 = False
@@ -4151,53 +4334,85 @@ while game_running:
                     scaled_1200 = False
 
             # ----------------------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
             if scale_w > 1024 or scale_h > 768:
                 if not scaled_1200:
-                    for sprite in all_sprites:
-                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                   (sprite.surf.get_width() / .84,
-                                                                    sprite.surf.get_height() / .84))
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .84,
-                                                                   sprite.__getattribute__("y_coordinate") / .84))
-                    for element in user_interface:
-                        element.surf = pygame.transform.smoothscale(element.surf,
-                                                                    (element.surf.get_width() / .84,
-                                                                     element.surf.get_height() / .84))
-                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .84,
-                                                                     element.__getattribute__("y_coordinate") / .84))
-                    for element in conditional_interface:
-                        element.surf = pygame.transform.smoothscale(element.surf,
-                                                                    (element.surf.get_width() / .84,
-                                                                     element.surf.get_height() / .84))
-                        element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .84,
-                                                                     element.__getattribute__("y_coordinate") / .84))
-                    for button in screen_resize_buttons:
-                        button.surf = pygame.transform.smoothscale(button.surf,
-                                                                   (button.surf.get_width() / .84,
-                                                                    button.surf.get_height() / .84))
-                        button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .84,
-                                                                   button.__getattribute__("y_coordinate") / .84))
-                    for sprite in battle_elements:
-                        sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                   (sprite.surf.get_width() / .84,
-                                                                    sprite.surf.get_height() / .84))
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .84,
-                                                                   sprite.__getattribute__("y_coordinate") / .84))
+                    # scale back to original resolution before up-scaling
+                    if scaled_1024:
 
-                    seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                    seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                    seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                    seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+                        # clear sprite list before appending to ensure correct index
+                        original_sprite_scales.clear()
 
-                    player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .84,
-                                                                             player.surf.get_height() / .84))
-                    player.rect = player.surf.get_rect(center=player.pos / .84)
-                    player.pos /= .84
+                        for sprite in most_sprites:
+                            # save sprites original image to use when re-scaling to original sprite size and location
+                            original_sprite_scales.append(sprite.surf)
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .86,
+                                                                        sprite.surf.get_height() / .86))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
+                                                                       sprite.__getattribute__("y_coordinate") / .86))
+                        for sprite in enemies:
+                            original_sprite_scales.append(sprite.surf)
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .86,
+                                                                        sprite.surf.get_height() / .86))
+                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
+                                                                       sprite.__getattribute__("y_coordinate") / .86))
+                        for element in user_interface:
+                            original_sprite_scales.append(element.surf)
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() / .86,
+                                                                         element.surf.get_height() / .86))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
+                                                                         element.__getattribute__("y_coordinate") / .86
+                                                                         ))
+                        for element in conditional_interface:
+                            original_sprite_scales.append(element.surf)
+                            element.surf = pygame.transform.smoothscale(element.surf,
+                                                                        (element.surf.get_width() / .86,
+                                                                         element.surf.get_height() / .86))
+                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
+                                                                         element.__getattribute__("y_coordinate") / .86
+                                                                         ))
+                        for button in screen_resize_buttons:
+                            original_sprite_scales.append(button.surf)
+                            button.surf = pygame.transform.smoothscale(button.surf,
+                                                                       (button.surf.get_width() / .86,
+                                                                        button.surf.get_height() / .86))
+                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .86,
+                                                                       button.__getattribute__("y_coordinate") / .86))
+                        for sprite in battle_elements:
+                            original_sprite_scales.append(sprite.surf)
+                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
+                                                                       (sprite.surf.get_width() / .86,
+                                                                        sprite.surf.get_height() / .86))
+                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
+                                                                       sprite.__getattribute__("y_coordinate") / .86))
+                        for hp_bars in enemy_hp_bars:
+                            original_sprite_scales.append(hp_bars.surf)
+                            hp_bars.surf = pygame.transform.smoothscale(hp_bars.surf,
+                                                                        (hp_bars.surf.get_width() / .86,
+                                                                         hp_bars.surf.get_height() / .86))
+                            hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.__getattribute__("x_coordinate") / .86,
+                                                                         hp_bars.__getattribute__("y_coordinate") / .86
+                                                                         ))
 
-                    # conditions updated after scaling
-                    scaled_800 = False
-                    scaled_1024 = False
-                    scaled_1200 = True
+                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
+                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
+                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
+                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
+                        original_sprite_scales.append(player.surf)
+                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
+                                                                                 player.surf.get_height() / .86))
+                        player.rect = player.surf.get_rect(center=player.pos / .86)
+                        player.pos /= .86
+
+                        # conditions updated after scaling
+                        scaled_800 = False
+                        scaled_1024 = False
+                        scaled_1200 = True
 
             # ----------------------------------------------------------------------------------------------------------
             # flip (update) to display ---------------------------------------------------------------------------------
