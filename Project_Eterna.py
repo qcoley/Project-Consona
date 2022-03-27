@@ -68,18 +68,18 @@ class Player(pygame.sprite.Sprite):
         if pressed_keyes[K_w]:
             self.surf = pygame.image.load(stan_up_url).convert()
 
+            # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_800:
-                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
-                                                                       player.surf.get_height() * .78))
+                self.surf = pygame.image.load(stan_up_url_800).convert()
                 self.rect = player.surf.get_rect(center=player.pos * .78)
             if scaled_1200:
-                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
-                                                                       player.surf.get_height() / .86))
+                self.surf = pygame.image.load(stan_up_url_1200).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .86)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = -ACC
 
+            # set acceleration value based on current resolution scale
             if scaled_800:
                 self.acc.y *= .60
             if scaled_1200:
@@ -88,18 +88,18 @@ class Player(pygame.sprite.Sprite):
         if pressed_keyes[K_s]:
             self.surf = pygame.image.load(stan_down_url).convert()
 
+            # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_800:
-                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
-                                                                       player.surf.get_height() * .78))
+                self.surf = pygame.image.load(stan_down_url_800).convert()
                 self.rect = player.surf.get_rect(center=player.pos * .78)
             if scaled_1200:
-                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
-                                                                       player.surf.get_height() / .86))
+                self.surf = pygame.image.load(stan_down_url_1200).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .86)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = ACC
 
+            # set acceleration value based on current resolution scale
             if scaled_800:
                 self.acc.y *= .60
             if scaled_1200:
@@ -108,18 +108,18 @@ class Player(pygame.sprite.Sprite):
         if pressed_keyes[K_a]:
             self.surf = pygame.image.load(stan_left_url).convert()
 
+            # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_800:
-                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
-                                                                       player.surf.get_height() * .78))
+                self.surf = pygame.image.load(stan_left_url_800).convert()
                 self.rect = player.surf.get_rect(center=player.pos * .78)
             if scaled_1200:
-                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
-                                                                       player.surf.get_height() / .86))
+                self.surf = pygame.image.load(stan_left_url_1200).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .86)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = -ACC
 
+            # set acceleration value based on current resolution scale
             if scaled_800:
                 self.acc.x *= .60
             if scaled_1200:
@@ -128,18 +128,18 @@ class Player(pygame.sprite.Sprite):
         if pressed_keyes[K_d]:
             self.surf = pygame.image.load(stan_right_url).convert()
 
+            # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_800:
-                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
-                                                                       player.surf.get_height() * .78))
+                self.surf = pygame.image.load(stan_right_url_800).convert()
                 self.rect = player.surf.get_rect(center=player.pos * .78)
             if scaled_1200:
-                self.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
-                                                                       player.surf.get_height() / .86))
+                self.surf = pygame.image.load(stan_right_url_1200).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .86)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = ACC
 
+            # set acceleration value based on current resolution scale
             if scaled_800:
                 self.acc.x *= .60
             if scaled_1200:
@@ -147,42 +147,36 @@ class Player(pygame.sprite.Sprite):
 
         # Keep player on the screen, boundaries vary depending on current zone -----------------------------------------
         if current_zone == "seldon":
+
+            # set boundaries scaled to current resolution for 800x600
             if scaled_800:
                 if self.pos.x < 25 * .78:
                     self.pos.x = 25 * .78
-
                 elif self.pos.x > width - 115 * .78:
                     self.pos.x = width - 115 * .78
-
                 if self.pos.y <= 115 * .78:
                     self.pos.y = 115 * .78
-
                 elif self.pos.y >= height - 5 * .78:
                     self.pos.y = height - 5 * .78
 
+            # set boundaries scaled to current resolution for 1200x900
             if scaled_1200:
                 if self.pos.x < 25 / .86:
                     self.pos.x = 25 / .86
-
                 elif self.pos.x > width - 115 / .86:
                     self.pos.x = width - 115 / .86
-
                 if self.pos.y <= 115 / .86:
                     self.pos.y = 115 / .86
-
                 elif self.pos.y >= height - 5 / .86:
                     self.pos.y = height - 5 / .86
 
             else:
                 if self.pos.x < 25:
                     self.pos.x = 25
-
                 elif self.pos.x > width - 115:
                     self.pos.x = width - 115
-
                 if self.pos.y <= 115:
                     self.pos.y = 115
-
                 elif self.pos.y >= height - 5:
                     self.pos.y = height - 5
 
@@ -196,29 +190,25 @@ class Player(pygame.sprite.Sprite):
         # collision detection with environment objects (trees, buildings, etc) -----------------------------------------
         if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.50)):
 
+            # scale current player velocity based on smaller resolution screen (800x600)
             if scaled_800:
                 if pressed_keyes[K_w]:
                     player.vel.y = + .46 * .60
-
                 if pressed_keyes[K_s]:
                     player.vel.y = - .46 * .60
-
                 if pressed_keyes[K_a]:
                     player.vel.x = + .46 * .60
-
                 if pressed_keyes[K_d]:
                     player.vel.x = - .46 * .60
 
+            # scale current player velocity based on larger resolution screen (1200x900)
             if scaled_1200:
                 if pressed_keyes[K_w]:
                     player.vel.y = + .46 / .60
-
                 if pressed_keyes[K_s]:
                     player.vel.y = - .46 / .60
-
                 if pressed_keyes[K_a]:
                     player.vel.x = + .46 / .60
-
                 if pressed_keyes[K_d]:
                     player.vel.x = - .46 / .60
 
@@ -226,13 +216,10 @@ class Player(pygame.sprite.Sprite):
                 # create normal force by applying velocity opposite direction player is trying to move on colliding
                 if pressed_keyes[K_w]:
                     player.vel.y = + .46
-
                 if pressed_keyes[K_s]:
                     player.vel.y = - .46
-
                 if pressed_keyes[K_a]:
                     player.vel.x = + .46
-
                 if pressed_keyes[K_d]:
                     player.vel.x = - .46
 
@@ -260,16 +247,19 @@ class NPC(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
-    def update(self, image, x_coord, y_coord):
-        self.surf = pygame.image.load(image).convert()
-        if scaled_800:
-            self.surf = pygame.transform.smoothscale(self.surf,
-                                                     (self.surf.get_width() * .78, self.surf.get_height() * .78))
-        if scaled_1200:
-            self.surf = pygame.transform.smoothscale(self.surf,
-                                                     (self.surf.get_width() / .86, self.surf.get_height() / .86))
+    def update(self, x_coord, y_coord, image):
+        self.x_coordinate = x_coord
+        self.y_coordinate = y_coord
 
+        self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+        if scaled_800:
+            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+        if scaled_1200:
+            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+        else:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -293,8 +283,23 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = 1
         self.health_bar = health_bar
 
-    def update(self, ranges_x, ranges_y, direction_x, direction_y):
+    def update(self, ranges_x, ranges_y, direction_x, direction_y, x_coord, y_coord, image):
 
+        self.x_coordinate = x_coord
+        self.y_coordinate = y_coord
+
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+        if scaled_800:
+            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+        if scaled_1200:
+            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+        else:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+
+        # --------------------------------------------------------------------------------------------------------------
+        # movement on map
         if ranges_x[0] < self.rect.x < ranges_x[1]:
             if direction_x == "left":
                 self.rect.move_ip(-1, 0)
@@ -334,6 +339,20 @@ class Tree(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
+    def update(self, x_coord, y_coord, image):
+        self.x_coordinate = x_coord
+        self.y_coordinate = y_coord
+
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+        if scaled_800:
+            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+        if scaled_1200:
+            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+        else:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+
 
 class Building(pygame.sprite.Sprite):
 
@@ -347,6 +366,20 @@ class Building(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+
+    def update(self, x_coord, y_coord, image):
+        self.x_coordinate = x_coord
+        self.y_coordinate = y_coord
+
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+        if scaled_800:
+            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+        if scaled_1200:
+            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+        else:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 # any UI element like buttons, bars, status etc.
@@ -363,16 +396,19 @@ class UiElement(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.update_flag = update_flag
 
-    def update(self, image):
-        self.surf = pygame.image.load(image).convert()
-        if scaled_800:
-            self.surf = pygame.transform.smoothscale(self.surf,
-                                                     (self.surf.get_width() * .78, self.surf.get_height() * .78))
-        if scaled_1200:
-            self.surf = pygame.transform.smoothscale(self.surf,
-                                                     (self.surf.get_width() / .86, self.surf.get_height() / .86))
+    def update(self, x_coord, y_coord, image):
+        self.x_coordinate = x_coord
+        self.y_coordinate = y_coord
 
+        self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+        if scaled_800:
+            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+        if scaled_1200:
+            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+        else:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Inventory(pygame.sprite.Sprite):
@@ -387,6 +423,20 @@ class Inventory(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.update_flag = update_flag
+
+    def update(self, x_coord, y_coord, image):
+        self.x_coordinate = x_coord
+        self.y_coordinate = y_coord
+
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+        if scaled_800:
+            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+        if scaled_1200:
+            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+        else:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 # pop up notifications, like the welcome screen image when game starts
@@ -403,6 +453,20 @@ class Notification(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
+    def update(self, x_coord, y_coord, image):
+        self.x_coordinate = x_coord
+        self.y_coordinate = y_coord
+
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+        if scaled_800:
+            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+        if scaled_1200:
+            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+        else:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+
 
 # to create a representation of character for battle screen
 class BattleCharacter(pygame.sprite.Sprite):
@@ -416,16 +480,19 @@ class BattleCharacter(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
-    def update(self, image):
-        self.surf = pygame.image.load(image).convert()
-        if scaled_800:
-            self.surf = pygame.transform.smoothscale(self.surf,
-                                                     (self.surf.get_width() * .78, self.surf.get_height() * .78))
-        if scaled_1200:
-            self.surf = pygame.transform.smoothscale(self.surf,
-                                                     (self.surf.get_width() / .86, self.surf.get_height() / .86))
+    def update(self, x_coord, y_coord, image):
+        self.x_coordinate = x_coord
+        self.y_coordinate = y_coord
 
+        self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+        if scaled_800:
+            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+        if scaled_1200:
+            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+        else:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Item(pygame.sprite.Sprite):
@@ -444,15 +511,8 @@ class Item(pygame.sprite.Sprite):
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
+
         self.surf = pygame.image.load(image).convert()
-
-        if scaled_800:
-            self.surf = pygame.transform.smoothscale(self.surf,
-                                                     (self.surf.get_width() * .78, self.surf.get_height() * .78))
-        if scaled_1200:
-            self.surf = pygame.transform.smoothscale(self.surf,
-                                                     (self.surf.get_width() / .86, self.surf.get_height() / .86))
-
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if scaled_800:
@@ -1027,619 +1087,619 @@ def npc_interaction_scenario(npc):
 # gets current player health and updates hp bar image on screen according to the health value from 0-100
 def health_bar_update(character):
     if character.health == 100:
-        hp_bar.update(health_100_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_100_url)
     if character.health == 99:
-        hp_bar.update(health_99_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_99_url)
     if character.health == 98:
-        hp_bar.update(health_98_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_98_url)
     if character.health == 97:
-        hp_bar.update(health_97_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_97_url)
     if character.health == 96:
-        hp_bar.update(health_96_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_96_url)
     if character.health == 95:
-        hp_bar.update(health_95_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_95_url)
     if character.health == 94:
-        hp_bar.update(health_94_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_94_url)
     if character.health == 93:
-        hp_bar.update(health_93_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_93_url)
     if character.health == 92:
-        hp_bar.update(health_92_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_92_url)
     if character.health == 91:
-        hp_bar.update(health_91_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_91_url)
     if character.health == 90:
-        hp_bar.update(health_90_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_90_url)
     if character.health == 89:
-        hp_bar.update(health_89_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_89_url)
     if character.health == 88:
-        hp_bar.update(health_88_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_88_url)
     if character.health == 87:
-        hp_bar.update(health_87_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_87_url)
     if character.health == 86:
-        hp_bar.update(health_86_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_86_url)
     if character.health == 85:
-        hp_bar.update(health_85_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_85_url)
     if character.health == 84:
-        hp_bar.update(health_84_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_84_url)
     if character.health == 83:
-        hp_bar.update(health_83_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_83_url)
     if character.health == 82:
-        hp_bar.update(health_82_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_82_url)
     if character.health == 81:
-        hp_bar.update(health_81_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_81_url)
     if character.health == 80:
-        hp_bar.update(health_80_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_80_url)
     if character.health == 79:
-        hp_bar.update(health_79_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_79_url)
     if character.health == 78:
-        hp_bar.update(health_78_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_78_url)
     if character.health == 77:
-        hp_bar.update(health_77_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_77_url)
     if character.health == 76:
-        hp_bar.update(health_76_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_76_url)
     if character.health == 75:
-        hp_bar.update(health_75_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_75_url)
     if character.health == 74:
-        hp_bar.update(health_74_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_74_url)
     if character.health == 73:
-        hp_bar.update(health_73_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_73_url)
     if character.health == 72:
-        hp_bar.update(health_72_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_72_url)
     if character.health == 71:
-        hp_bar.update(health_71_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_71_url)
     if character.health == 70:
-        hp_bar.update(health_70_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_70_url)
     if character.health == 69:
-        hp_bar.update(health_69_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_69_url)
     if character.health == 68:
-        hp_bar.update(health_68_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_68_url)
     if character.health == 67:
-        hp_bar.update(health_67_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_67_url)
     if character.health == 66:
-        hp_bar.update(health_66_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_66_url)
     if character.health == 65:
-        hp_bar.update(health_65_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_65_url)
     if character.health == 64:
-        hp_bar.update(health_64_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_64_url)
     if character.health == 63:
-        hp_bar.update(health_63_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_63_url)
     if character.health == 62:
-        hp_bar.update(health_62_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_62_url)
     if character.health == 61:
-        hp_bar.update(health_61_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_61_url)
     if character.health == 60:
-        hp_bar.update(health_60_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_60_url)
     if character.health == 59:
-        hp_bar.update(health_59_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_59_url)
     if character.health == 58:
-        hp_bar.update(health_58_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_58_url)
     if character.health == 57:
-        hp_bar.update(health_57_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_57_url)
     if character.health == 56:
-        hp_bar.update(health_56_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_56_url)
     if character.health == 55:
-        hp_bar.update(health_55_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_55_url)
     if character.health == 54:
-        hp_bar.update(health_54_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_54_url)
     if character.health == 53:
-        hp_bar.update(health_53_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_53_url)
     if character.health == 52:
-        hp_bar.update(health_52_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_52_url)
     if character.health == 51:
-        hp_bar.update(health_51_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_51_url)
     if character.health == 50:
-        hp_bar.update(health_50_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_50_url)
     if character.health == 49:
-        hp_bar.update(health_49_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_49_url)
     if character.health == 48:
-        hp_bar.update(health_48_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_48_url)
     if character.health == 47:
-        hp_bar.update(health_47_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_47_url)
     if character.health == 46:
-        hp_bar.update(health_46_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_46_url)
     if character.health == 45:
-        hp_bar.update(health_45_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_45_url)
     if character.health == 44:
-        hp_bar.update(health_44_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_44_url)
     if character.health == 43:
-        hp_bar.update(health_43_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_43_url)
     if character.health == 42:
-        hp_bar.update(health_42_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_42_url)
     if character.health == 41:
-        hp_bar.update(health_41_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_41_url)
     if character.health == 40:
-        hp_bar.update(health_40_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_40_url)
     if character.health == 39:
-        hp_bar.update(health_39_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_39_url)
     if character.health == 38:
-        hp_bar.update(health_38_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_38_url)
     if character.health == 37:
-        hp_bar.update(health_37_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_37_url)
     if character.health == 36:
-        hp_bar.update(health_36_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_36_url)
     if character.health == 35:
-        hp_bar.update(health_35_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_35_url)
     if character.health == 34:
-        hp_bar.update(health_34_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_34_url)
     if character.health == 33:
-        hp_bar.update(health_33_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_33_url)
     if character.health == 32:
-        hp_bar.update(health_32_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_32_url)
     if character.health == 31:
-        hp_bar.update(health_31_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_31_url)
     if character.health == 30:
-        hp_bar.update(health_30_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_30_url)
     if character.health == 29:
-        hp_bar.update(health_29_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_29_url)
     if character.health == 28:
-        hp_bar.update(health_28_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_28_url)
     if character.health == 27:
-        hp_bar.update(health_27_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_27_url)
     if character.health == 26:
-        hp_bar.update(health_26_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_26_url)
     if character.health == 25:
-        hp_bar.update(health_25_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_25_url)
     if character.health == 24:
-        hp_bar.update(health_24_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_24_url)
     if character.health == 23:
-        hp_bar.update(health_23_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_23_url)
     if character.health == 22:
-        hp_bar.update(health_22_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_22_url)
     if character.health == 21:
-        hp_bar.update(health_21_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_21_url)
     if character.health == 20:
-        hp_bar.update(health_20_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_20_url)
     if character.health == 19:
-        hp_bar.update(health_19_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_19_url)
     if character.health == 18:
-        hp_bar.update(health_18_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_18_url)
     if character.health == 17:
-        hp_bar.update(health_17_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_17_url)
     if character.health == 16:
-        hp_bar.update(health_16_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_16_url)
     if character.health == 15:
-        hp_bar.update(health_15_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_15_url)
     if character.health == 14:
-        hp_bar.update(health_14_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_14_url)
     if character.health == 13:
-        hp_bar.update(health_13_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_13_url)
     if character.health == 12:
-        hp_bar.update(health_12_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_12_url)
     if character.health == 11:
-        hp_bar.update(health_11_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_11_url)
     if character.health == 10:
-        hp_bar.update(health_10_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_10_url)
     if character.health == 9:
-        hp_bar.update(health_9_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_9_url)
     if character.health == 8:
-        hp_bar.update(health_8_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_8_url)
     if character.health == 7:
-        hp_bar.update(health_7_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_7_url)
     if character.health == 6:
-        hp_bar.update(health_6_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_6_url)
     if character.health == 5:
-        hp_bar.update(health_5_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_5_url)
     if character.health == 4:
-        hp_bar.update(health_4_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_4_url)
     if character.health == 3:
-        hp_bar.update(health_3_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_3_url)
     if character.health == 2:
-        hp_bar.update(health_2_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_2_url)
     if character.health == 1:
-        hp_bar.update(health_1_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_1_url)
     if character.health == 0:
-        hp_bar.update(health_0_url)
+        hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_0_url)
 
 
 # player energy bar update
 def energy_bar_update(character):
     if character.energy == 100:
-        en_bar.update(energy_100_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_100_url)
     if character.energy == 99:
-        en_bar.update(energy_99_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_99_url)
     if character.energy == 98:
-        en_bar.update(energy_98_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_98_url)
     if character.energy == 97:
-        en_bar.update(energy_97_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_97_url)
     if character.energy == 96:
-        en_bar.update(energy_96_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_96_url)
     if character.energy == 95:
-        en_bar.update(energy_95_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_95_url)
     if character.energy == 94:
-        en_bar.update(energy_94_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_94_url)
     if character.energy == 93:
-        en_bar.update(energy_93_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_93_url)
     if character.energy == 92:
-        en_bar.update(energy_92_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_92_url)
     if character.energy == 91:
-        en_bar.update(energy_91_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_91_url)
     if character.energy == 90:
-        en_bar.update(energy_90_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_90_url)
     if character.energy == 89:
-        en_bar.update(energy_89_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_89_url)
     if character.energy == 88:
-        en_bar.update(energy_88_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_88_url)
     if character.energy == 87:
-        en_bar.update(energy_87_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_87_url)
     if character.energy == 86:
-        en_bar.update(energy_86_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_86_url)
     if character.energy == 85:
-        en_bar.update(energy_85_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_85_url)
     if character.energy == 84:
-        en_bar.update(energy_84_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_84_url)
     if character.energy == 83:
-        en_bar.update(energy_83_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_83_url)
     if character.energy == 82:
-        en_bar.update(energy_82_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_82_url)
     if character.energy == 81:
-        en_bar.update(energy_81_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_81_url)
     if character.energy == 80:
-        en_bar.update(energy_80_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_80_url)
     if character.energy == 79:
-        en_bar.update(energy_79_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_79_url)
     if character.energy == 78:
-        en_bar.update(energy_78_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_78_url)
     if character.energy == 77:
-        en_bar.update(energy_77_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_77_url)
     if character.energy == 76:
-        en_bar.update(energy_76_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_76_url)
     if character.energy == 75:
-        en_bar.update(energy_75_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_75_url)
     if character.energy == 74:
-        en_bar.update(energy_74_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_74_url)
     if character.energy == 73:
-        en_bar.update(energy_73_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_73_url)
     if character.energy == 72:
-        en_bar.update(energy_72_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_72_url)
     if character.energy == 71:
-        en_bar.update(energy_71_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_71_url)
     if character.energy == 70:
-        en_bar.update(energy_70_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_70_url)
     if character.energy == 69:
-        en_bar.update(energy_69_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_69_url)
     if character.energy == 68:
-        en_bar.update(energy_68_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_68_url)
     if character.energy == 67:
-        en_bar.update(energy_67_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_67_url)
     if character.energy == 66:
-        en_bar.update(energy_66_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_66_url)
     if character.energy == 65:
-        en_bar.update(energy_65_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_65_url)
     if character.energy == 64:
-        en_bar.update(energy_64_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_64_url)
     if character.energy == 63:
-        en_bar.update(energy_63_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_63_url)
     if character.energy == 62:
-        en_bar.update(energy_62_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_62_url)
     if character.energy == 61:
-        en_bar.update(energy_61_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_61_url)
     if character.energy == 60:
-        en_bar.update(energy_60_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_60_url)
     if character.energy == 59:
-        en_bar.update(energy_59_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_59_url)
     if character.energy == 58:
-        en_bar.update(energy_58_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_58_url)
     if character.energy == 57:
-        en_bar.update(energy_57_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_57_url)
     if character.energy == 56:
-        en_bar.update(energy_56_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_56_url)
     if character.energy == 55:
-        en_bar.update(energy_55_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_55_url)
     if character.energy == 54:
-        en_bar.update(energy_54_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_54_url)
     if character.energy == 53:
-        en_bar.update(energy_53_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_53_url)
     if character.energy == 52:
-        en_bar.update(energy_52_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_52_url)
     if character.energy == 51:
-        en_bar.update(energy_51_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_51_url)
     if character.energy == 50:
-        en_bar.update(energy_50_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_50_url)
     if character.energy == 49:
-        en_bar.update(energy_49_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_49_url)
     if character.energy == 48:
-        en_bar.update(energy_48_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_48_url)
     if character.energy == 47:
-        en_bar.update(energy_47_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_47_url)
     if character.energy == 46:
-        en_bar.update(energy_46_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_46_url)
     if character.energy == 45:
-        en_bar.update(energy_45_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_45_url)
     if character.energy == 44:
-        en_bar.update(energy_44_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_44_url)
     if character.energy == 43:
-        en_bar.update(energy_43_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_43_url)
     if character.energy == 42:
-        en_bar.update(energy_42_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_42_url)
     if character.energy == 41:
-        en_bar.update(energy_41_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_41_url)
     if character.energy == 40:
-        en_bar.update(energy_40_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_40_url)
     if character.energy == 39:
-        en_bar.update(energy_39_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_39_url)
     if character.energy == 38:
-        en_bar.update(energy_38_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_38_url)
     if character.energy == 37:
-        en_bar.update(energy_37_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_37_url)
     if character.energy == 36:
-        en_bar.update(energy_36_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_36_url)
     if character.energy == 35:
-        en_bar.update(energy_35_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_35_url)
     if character.energy == 34:
-        en_bar.update(energy_34_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_34_url)
     if character.energy == 33:
-        en_bar.update(energy_33_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_33_url)
     if character.energy == 32:
-        en_bar.update(energy_32_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_32_url)
     if character.energy == 31:
-        en_bar.update(energy_31_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_31_url)
     if character.energy == 30:
-        en_bar.update(energy_30_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_30_url)
     if character.energy == 29:
-        en_bar.update(energy_29_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_29_url)
     if character.energy == 28:
-        en_bar.update(energy_28_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_28_url)
     if character.energy == 27:
-        en_bar.update(energy_27_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_27_url)
     if character.energy == 26:
-        en_bar.update(energy_26_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_26_url)
     if character.energy == 25:
-        en_bar.update(energy_25_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_25_url)
     if character.energy == 24:
-        en_bar.update(energy_24_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_24_url)
     if character.energy == 23:
-        en_bar.update(energy_23_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_23_url)
     if character.energy == 22:
-        en_bar.update(energy_22_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_22_url)
     if character.energy == 21:
-        en_bar.update(energy_21_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_21_url)
     if character.energy == 20:
-        en_bar.update(energy_20_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_20_url)
     if character.energy == 19:
-        en_bar.update(energy_19_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_19_url)
     if character.energy == 18:
-        en_bar.update(energy_18_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_18_url)
     if character.energy == 17:
-        en_bar.update(energy_17_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_17_url)
     if character.energy == 16:
-        en_bar.update(energy_16_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_16_url)
     if character.energy == 15:
-        en_bar.update(energy_15_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_15_url)
     if character.energy == 14:
-        en_bar.update(energy_14_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_14_url)
     if character.energy == 13:
-        en_bar.update(energy_13_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_13_url)
     if character.energy == 12:
-        en_bar.update(energy_12_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_12_url)
     if character.energy == 11:
-        en_bar.update(energy_11_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_11_url)
     if character.energy == 10:
-        en_bar.update(energy_10_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_10_url)
     if character.energy == 9:
-        en_bar.update(energy_9_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_9_url)
     if character.energy == 8:
-        en_bar.update(energy_8_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_8_url)
     if character.energy == 7:
-        en_bar.update(energy_7_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_7_url)
     if character.energy == 6:
-        en_bar.update(energy_6_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_6_url)
     if character.energy == 5:
-        en_bar.update(energy_5_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_5_url)
     if character.energy == 4:
-        en_bar.update(energy_4_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_4_url)
     if character.energy == 3:
-        en_bar.update(energy_3_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_3_url)
     if character.energy == 2:
-        en_bar.update(energy_2_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_2_url)
     if character.energy == 1:
-        en_bar.update(energy_1_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_1_url)
     if character.energy == 0:
-        en_bar.update(energy_0_url)
+        en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_0_url)
 
 
 # player xp bar update
 def xp_bar_update(character):
     if character.experience == 100:
-        xp_bar.update(xp_100_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_100_url)
     if character.experience == 99:
-        xp_bar.update(xp_99_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_99_url)
     if character.experience == 98:
-        xp_bar.update(xp_98_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_98_url)
     if character.experience == 97:
-        xp_bar.update(xp_97_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_97_url)
     if character.experience == 96:
-        xp_bar.update(xp_96_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_96_url)
     if character.experience == 95:
-        xp_bar.update(xp_95_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_95_url)
     if character.experience == 94:
-        xp_bar.update(xp_94_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_94_url)
     if character.experience == 93:
-        xp_bar.update(xp_93_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_93_url)
     if character.experience == 92:
-        xp_bar.update(xp_92_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_92_url)
     if character.experience == 91:
-        xp_bar.update(xp_91_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_91_url)
     if character.experience == 90:
-        xp_bar.update(xp_90_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_90_url)
     if character.experience == 89:
-        xp_bar.update(xp_89_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_89_url)
     if character.experience == 88:
-        xp_bar.update(xp_88_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_88_url)
     if character.experience == 87:
-        xp_bar.update(xp_87_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_87_url)
     if character.experience == 86:
-        xp_bar.update(xp_86_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_86_url)
     if character.experience == 85:
-        xp_bar.update(xp_85_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_85_url)
     if character.experience == 84:
-        xp_bar.update(xp_84_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_84_url)
     if character.experience == 83:
-        xp_bar.update(xp_83_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_83_url)
     if character.experience == 82:
-        xp_bar.update(xp_82_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_82_url)
     if character.experience == 81:
-        xp_bar.update(xp_81_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_81_url)
     if character.experience == 80:
-        xp_bar.update(xp_80_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_80_url)
     if character.experience == 79:
-        xp_bar.update(xp_79_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_79_url)
     if character.experience == 78:
-        xp_bar.update(xp_78_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_78_url)
     if character.experience == 77:
-        xp_bar.update(xp_77_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_77_url)
     if character.experience == 76:
-        xp_bar.update(xp_76_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_76_url)
     if character.experience == 75:
-        xp_bar.update(xp_75_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_75_url)
     if character.experience == 74:
-        xp_bar.update(xp_74_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_74_url)
     if character.experience == 73:
-        xp_bar.update(xp_73_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_73_url)
     if character.experience == 72:
-        xp_bar.update(xp_72_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_72_url)
     if character.experience == 71:
-        xp_bar.update(xp_71_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_71_url)
     if character.experience == 70:
-        xp_bar.update(xp_70_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_70_url)
     if character.experience == 69:
-        xp_bar.update(xp_69_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_69_url)
     if character.experience == 68:
-        xp_bar.update(xp_68_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_68_url)
     if character.experience == 67:
-        xp_bar.update(xp_67_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_67_url)
     if character.experience == 66:
-        xp_bar.update(xp_66_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_66_url)
     if character.experience == 65:
-        xp_bar.update(xp_65_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_65_url)
     if character.experience == 64:
-        xp_bar.update(xp_64_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_64_url)
     if character.experience == 63:
-        xp_bar.update(xp_63_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_63_url)
     if character.experience == 62:
-        xp_bar.update(xp_62_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_62_url)
     if character.experience == 61:
-        xp_bar.update(xp_61_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_61_url)
     if character.experience == 60:
-        xp_bar.update(xp_60_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_60_url)
     if character.experience == 59:
-        xp_bar.update(xp_59_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_59_url)
     if character.experience == 58:
-        xp_bar.update(xp_58_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_58_url)
     if character.experience == 57:
-        xp_bar.update(xp_57_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_57_url)
     if character.experience == 56:
-        xp_bar.update(xp_56_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_56_url)
     if character.experience == 55:
-        xp_bar.update(xp_55_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_55_url)
     if character.experience == 54:
-        xp_bar.update(xp_54_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_54_url)
     if character.experience == 53:
-        xp_bar.update(xp_53_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_53_url)
     if character.experience == 52:
-        xp_bar.update(xp_52_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_52_url)
     if character.experience == 51:
-        xp_bar.update(xp_51_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_51_url)
     if character.experience == 50:
-        xp_bar.update(xp_50_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_50_url)
     if character.experience == 49:
-        xp_bar.update(xp_49_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_49_url)
     if character.experience == 48:
-        xp_bar.update(xp_48_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_48_url)
     if character.experience == 47:
-        xp_bar.update(xp_47_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_47_url)
     if character.experience == 46:
-        xp_bar.update(xp_46_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_46_url)
     if character.experience == 45:
-        xp_bar.update(xp_45_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_45_url)
     if character.experience == 44:
-        xp_bar.update(xp_44_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_44_url)
     if character.experience == 43:
-        xp_bar.update(xp_43_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_43_url)
     if character.experience == 42:
-        xp_bar.update(xp_42_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_42_url)
     if character.experience == 41:
-        xp_bar.update(xp_41_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_41_url)
     if character.experience == 40:
-        xp_bar.update(xp_40_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_40_url)
     if character.experience == 39:
-        xp_bar.update(xp_39_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_39_url)
     if character.experience == 38:
-        xp_bar.update(xp_38_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_38_url)
     if character.experience == 37:
-        xp_bar.update(xp_37_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_37_url)
     if character.experience == 36:
-        xp_bar.update(xp_36_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_36_url)
     if character.experience == 35:
-        xp_bar.update(xp_35_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_35_url)
     if character.experience == 34:
-        xp_bar.update(xp_34_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_34_url)
     if character.experience == 33:
-        xp_bar.update(xp_33_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_33_url)
     if character.experience == 32:
-        xp_bar.update(xp_32_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_32_url)
     if character.experience == 31:
-        xp_bar.update(xp_31_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_31_url)
     if character.experience == 30:
-        xp_bar.update(xp_30_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_30_url)
     if character.experience == 29:
-        xp_bar.update(xp_29_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_29_url)
     if character.experience == 28:
-        xp_bar.update(xp_28_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_28_url)
     if character.experience == 27:
-        xp_bar.update(xp_27_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_27_url)
     if character.experience == 26:
-        xp_bar.update(xp_26_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_26_url)
     if character.experience == 25:
-        xp_bar.update(xp_25_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_25_url)
     if character.experience == 24:
-        xp_bar.update(xp_24_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_24_url)
     if character.experience == 23:
-        xp_bar.update(xp_23_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_23_url)
     if character.experience == 22:
-        xp_bar.update(xp_22_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_22_url)
     if character.experience == 21:
-        xp_bar.update(xp_21_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_21_url)
     if character.experience == 20:
-        xp_bar.update(xp_20_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_20_url)
     if character.experience == 19:
-        xp_bar.update(xp_19_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_19_url)
     if character.experience == 18:
-        xp_bar.update(xp_18_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_18_url)
     if character.experience == 17:
-        xp_bar.update(xp_17_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_17_url)
     if character.experience == 16:
-        xp_bar.update(xp_16_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_16_url)
     if character.experience == 15:
-        xp_bar.update(xp_15_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_15_url)
     if character.experience == 14:
-        xp_bar.update(xp_14_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_14_url)
     if character.experience == 13:
-        xp_bar.update(xp_13_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_13_url)
     if character.experience == 12:
-        xp_bar.update(xp_12_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_12_url)
     if character.experience == 11:
-        xp_bar.update(xp_11_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_11_url)
     if character.experience == 10:
-        xp_bar.update(xp_10_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_10_url)
     if character.experience == 9:
-        xp_bar.update(xp_9_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_9_url)
     if character.experience == 8:
-        xp_bar.update(xp_8_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_8_url)
     if character.experience == 7:
-        xp_bar.update(xp_7_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_7_url)
     if character.experience == 6:
-        xp_bar.update(xp_6_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_6_url)
     if character.experience == 5:
-        xp_bar.update(xp_5_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_5_url)
     if character.experience == 4:
-        xp_bar.update(xp_4_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_4_url)
     if character.experience == 3:
-        xp_bar.update(xp_3_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_3_url)
     if character.experience == 2:
-        xp_bar.update(xp_2_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_2_url)
     if character.experience == 1:
-        xp_bar.update(xp_1_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_1_url)
     if character.experience == 0:
-        xp_bar.update(xp_0_url)
+        xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_0_url)
 
 
 # enemy health bar update
@@ -2053,84 +2113,214 @@ def enemy_respawn():
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # asset urls -----------------------------------------------------------------------------------------------------------
+stan_down_url_800 = resource_path('resources/art/character_art/player_character/default/stan_down_800.png')
 stan_down_url = resource_path('resources/art/character_art/player_character/default/stan_down.png')
+stan_down_url_1200 = resource_path('resources/art/character_art/player_character/default/stan_down_1200.png')
+stan_left_url_800 = resource_path('resources/art/character_art/player_character/default/stan_left_800.png')
 stan_left_url = resource_path('resources/art/character_art/player_character/default/stan_left.png')
+stan_left_url_1200 = resource_path('resources/art/character_art/player_character/default/stan_left_1200.png')
+stan_right_url_800 = resource_path('resources/art/character_art/player_character/default/stan_right_800.png')
 stan_right_url = resource_path('resources/art/character_art/player_character/default/stan_right.png')
+stan_right_url_1200 = resource_path('resources/art/character_art/player_character/default/stan_right_1200.png')
+stan_up_url_800 = resource_path('resources/art/character_art/player_character/default/stan_up_800.png')
 stan_up_url = resource_path('resources/art/character_art/player_character/default/stan_up.png')
+stan_up_url_1200 = resource_path('resources/art/character_art/player_character/default/stan_up_1200.png')
+stan_battle_url_800 = resource_path('resources/art/character_art/player_character/default/battle/stan_battle_800.png')
 stan_battle_url = resource_path('resources/art/character_art/player_character/default/battle/stan_battle.png')
+stan_battle_url_1200 = resource_path('resources/art/character_art/player_character/default/battle/stan_battle_1200.png')
+stan_attack_url_800 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                    'stan_battle_attacking_800.png')
 stan_attack_url = resource_path('resources/art/character_art/player_character/default/battle/stan_battle_attacking.png')
+stan_attack_url_1200 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                     'stan_battle_attacking_1200.png')
 
 amuna_shopkeeper_url = resource_path('resources/art/character_art/NPCs/shops/amuna_shopkeeper.png')
+
+garan_url_800 = resource_path('resources/art/character_art/NPCs/garan/garan_800.png')
 garan_url = resource_path('resources/art/character_art/NPCs/garan/garan.png')
+garan_url_1200 = resource_path('resources/art/character_art/NPCs/garan/garan_1200.png')
+garan_left_url_800 = resource_path('resources/art/character_art/NPCs/garan/garan_left_800.png')
 garan_left_url = resource_path('resources/art/character_art/NPCs/garan/garan_left.png')
+garan_left_url_1200 = resource_path('resources/art/character_art/NPCs/garan/garan_left_1200.png')
+garan_right_url_800 = resource_path('resources/art/character_art/NPCs/garan/garan_right_800.png')
 garan_right_url = resource_path('resources/art/character_art/NPCs/garan/garan_right.png')
+garan_right_url_1200 = resource_path('resources/art/character_art/NPCs/garan/garan_right_1200.png')
+garan_back_url_800 = resource_path('resources/art/character_art/NPCs/garan/garan_back_800.png')
 garan_back_url = resource_path('resources/art/character_art/NPCs/garan/garan_back.png')
+garan_back_url_1200 = resource_path('resources/art/character_art/NPCs/garan/garan_back_1200.png')
 
+guard_url_800 = resource_path('resources/art/character_art/NPCs/guards/guard_800.png')
 guard_url = resource_path('resources/art/character_art/NPCs/guards/guard.png')
+guard_url_1200 = resource_path('resources/art/character_art/NPCs/guards/guard_1200.png')
+guard_left_url_800 = resource_path('resources/art/character_art/NPCs/guards/guard_left_800.png')
 guard_left_url = resource_path('resources/art/character_art/NPCs/guards/guard_left.png')
+guard_left_url_1200 = resource_path('resources/art/character_art/NPCs/guards/guard_left_1200.png')
+guard_right_url_800 = resource_path('resources/art/character_art/NPCs/guards/guard_right_800.png')
 guard_right_url = resource_path('resources/art/character_art/NPCs/guards/guard_right.png')
+guard_right_url_1200 = resource_path('resources/art/character_art/NPCs/guards/guard_right_1200.png')
+guard_back_url_800 = resource_path('resources/art/character_art/NPCs/guards/guard_back_800.png')
 guard_back_url = resource_path('resources/art/character_art/NPCs/guards/guard_back.png')
+guard_back_url_1200 = resource_path('resources/art/character_art/NPCs/guards/guard_back_1200.png')
 
+maurelle_url_800 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_800.png')
 maurelle_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle.png')
+maurelle_url_1200 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_1200.png')
+maurelle_left_url_800 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_left_800.png')
 maurelle_left_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_left.png')
+maurelle_left_url_1200 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_left_1200.png')
+maurelle_right_url_800 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_right_800.png')
 maurelle_right_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_right.png')
+maurelle_right_url_1200 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_right_1200.png')
+maurelle_back_url_800 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_back_800.png')
 maurelle_back_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_back.png')
+maurelle_back_url_1200 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_back_1200.png')
 
+snake_url_800 = resource_path('resources/art/enemy_art/snake_800.png')
 snake_url = resource_path('resources/art/enemy_art/snake.png')
+snake_url_1200 = resource_path('resources/art/enemy_art/snake_1200.png')
+ghoul_url_800 = resource_path('resources/art/enemy_art/ghoul_800.png')
 ghoul_url = resource_path('resources/art/enemy_art/ghoul.png')
+ghoul_url_1200 = resource_path('resources/art/enemy_art/ghoul_1200.png')
+snake_battle_url_800 = resource_path('resources/art/enemy_art/battle/snake_battle_800.png')
 snake_battle_url = resource_path('resources/art/enemy_art/battle/snake_battle.png')
+snake_battle_url_1200 = resource_path('resources/art/enemy_art/battle/snake_battle_1200.png')
+snake_attack_url_800 = resource_path('resources/art/enemy_art/battle/snake_battle_attacking_800.png')
 snake_attack_url = resource_path('resources/art/enemy_art/battle/snake_battle_attacking.png')
+snake_attack_url_1200 = resource_path('resources/art/enemy_art/battle/snake_battle_attacking_1200.png')
+ghoul_battle_url_800 = resource_path('resources/art/enemy_art/battle/ghoul_battle_800.png')
 ghoul_battle_url = resource_path('resources/art/enemy_art/battle/ghoul_battle.png')
+ghoul_battle_url_1200 = resource_path('resources/art/enemy_art/battle/ghoul_battle_1200.png')
+ghoul_attack_url_800 = resource_path('resources/art/enemy_art/battle/ghoul_battle_attacking_800.png')
 ghoul_attack_url = resource_path('resources/art/enemy_art/battle/ghoul_battle_attacking.png')
+ghoul_attack_url_1200 = resource_path('resources/art/enemy_art/battle/ghoul_battle_attacking_1200.png')
 
-seldon_bg_url = resource_path('resources/art/environment_art/background_textures/seldon_district.png')
-seldon_battle_url = resource_path('resources/art/environment_art/background_textures/seldon_battle_screen.png')
+seldon_bg_screen_url_800 = resource_path('resources/art/environment_art/background_textures/seldon_district_800.png')
+seldon_bg_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_district.png')
+seldon_bg_screen_url_1200 = resource_path('resources/art/environment_art/background_textures/seldon_district_1200.png')
+seldon_battle_screen_url_800 = resource_path('resources/art/environment_art/background_textures/'
+                                             'seldon_battle_screen_800.png')
+seldon_battle_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_battle_screen.png')
+seldon_battle_screen_url_1200 = resource_path('resources/art/environment_art/background_textures/'
+                                              'seldon_battle_screen_1200.png')
+seldon_shop_screen_url_800 = resource_path('resources/art/environment_art/background_textures/seldon_shop_800.png')
 seldon_shop_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_shop.png')
+seldon_shop_screen_url_1200 = resource_path('resources/art/environment_art/background_textures/seldon_shop_1200.png')
+seldon_inn_screen_url_800 = resource_path('resources/art/environment_art/background_textures/seldon_inn_800.png')
 seldon_inn_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_inn.png')
+seldon_inn_screen_url_1200 = resource_path('resources/art/environment_art/background_textures/seldon_inn_1200.png')
 
+seldon_academia_url_800 = resource_path('resources/art/environment_art/buildings/amuna_building_academia_800.png')
 seldon_academia_url = resource_path('resources/art/environment_art/buildings/amuna_building_academia.png')
+seldon_academia_url_1200 = resource_path('resources/art/environment_art/buildings/amuna_building_academia_1200.png')
+seldon_inn_url_800 = resource_path('resources/art/environment_art/buildings/amuna_building_inn_800.png')
 seldon_inn_url = resource_path('resources/art/environment_art/buildings/amuna_building_inn.png')
+seldon_inn_url_1200 = resource_path('resources/art/environment_art/buildings/amuna_building_inn_1200.png')
+seldon_shop_url_800 = resource_path('resources/art/environment_art/buildings/amuna_building_shop_800.png')
 seldon_shop_url = resource_path('resources/art/environment_art/buildings/amuna_building_shop.png')
+seldon_shop_url_1200 = resource_path('resources/art/environment_art/buildings/amuna_building_shop_1200.png')
 
+pine_tree_url_800 = resource_path('resources/art/environment_art/pine_tree_800.png')
 pine_tree_url = resource_path('resources/art/environment_art/pine_tree.png')
+pine_tree_url_1200 = resource_path('resources/art/environment_art/pine_tree_1200.png')
+seldon_grass_url_800 = resource_path('resources/art/environment_art/seldon_grass_800.png')
 seldon_grass_url = resource_path('resources/art/environment_art/seldon_grass.png')
+seldon_grass_url_1200 = resource_path('resources/art/environment_art/seldon_grass_1200.png')
+seldon_flower_url_800 = resource_path('resources/art/environment_art/seldon_flower_800.png')
 seldon_flower_url = resource_path('resources/art/environment_art/seldon_flower.png')
+seldon_flower_url_1200 = resource_path('resources/art/environment_art/seldon_flower_1200.png')
 
+health_pot_url_800 = resource_path('resources/art/item_art/health_potion_800.png')
 health_pot_url = resource_path('resources/art/item_art/health_potion.png')
+health_pot_url_1200 = resource_path('resources/art/item_art/health_potion_1200.png')
+energy_pot_url_800 = resource_path('resources/art/item_art/energy_potion_800.png')
 energy_pot_url = resource_path('resources/art/item_art/energy_potion.png')
+energy_pot_url_1200 = resource_path('resources/art/item_art/energy_potion_1200.png')
+shiny_rock_url_800 = resource_path('resources/art/item_art/shiny_rock_800.png')
 shiny_rock_url = resource_path('resources/art/item_art/shiny_rock.png')
+shiny_rock_url_1200 = resource_path('resources/art/item_art/shiny_rock_1200.png')
+bone_dust_url_800 = resource_path('resources/art/item_art/bone_dust_800.png')
 bone_dust_url = resource_path('resources/art/item_art/bone_dust.png')
+bone_dust_url_1200 = resource_path('resources/art/item_art/bone_dust_1200.png')
+temp_item_url_800 = resource_path('resources/art/item_art/temp_item_800.png')
 temp_item_url = resource_path('resources/art/item_art/temp_item.png')
+temp_item_url_1200 = resource_path('resources/art/item_art/temp_item_1200.png')
 
+game_over_screen_url_800 = resource_path('resources/art/screens/game_over_800.png')
 game_over_screen_url = resource_path('resources/art/screens/game_over.png')
+game_over_screen_url_1200 = resource_path('resources/art/screens/game_over_1200.png')
 nera_sleep_screen_url = resource_path('resources/art/screens/nera_sleep_screen.png')
 
 bar_backdrop_url = resource_path('resources/art/ui_elements/status_bar_backdrop.png')
 enemy_bar_backdrop_url = resource_path('resources/art/ui_elements/enemy_status_bar_backdrop.png')
+buy_inventory_url_800 = resource_path('resources/art/ui_elements/buy_inventory_800.png')
 buy_inventory_url = resource_path('resources/art/ui_elements/buy_inventory.png')
+buy_inventory_url_1200 = resource_path('resources/art/ui_elements/buy_inventory_1200.png')
+sell_inventory_url_800 = resource_path('resources/art/ui_elements/sell_inventory_800.png')
 sell_inventory_url = resource_path('resources/art/ui_elements/sell_inventory.png')
+sell_inventory_url_1200 = resource_path('resources/art/ui_elements/sell_inventory_1200.png')
+inventory_url_800 = resource_path('resources/art/ui_elements/inventory_800.png')
 inventory_url = resource_path('resources/art/ui_elements/inventory.png')
+inventory_url_1200 = resource_path('resources/art/ui_elements/inventory_1200.png')
+message_box_url_800 = resource_path('resources/art/ui_elements/message_box_800.png')
 message_box_url = resource_path('resources/art/ui_elements/message_box.png')
-player_status_url = resource_path('resources/art/ui_elements/status/player.png')
-enemy_status_url = resource_path('resources/art/ui_elements/status/enemy.png')
+message_box_url_1200 = resource_path('resources/art/ui_elements/message_box_1200.png')
+player_status_url_800 = resource_path('resources/art/ui_elements/status/player_status_backdrop_800.png')
+player_status_url = resource_path('resources/art/ui_elements/status/player_status_backdrop.png')
+player_status_url_1200 = resource_path('resources/art/ui_elements/status/player_status_backdrop_1200.png')
+enemy_status_url_800 = resource_path('resources/art/ui_elements/status/enemy_status_backdrop_800.png')
+enemy_status_url = resource_path('resources/art/ui_elements/status/enemy_status_backdrop.png')
+enemy_status_url_1200 = resource_path('resources/art/ui_elements/status/enemy_status_backdrop_1200.png')
+welcome_image_url_800 = resource_path('resources/art/ui_elements/notifications/welcome_800.png')
 welcome_image_url = resource_path('resources/art/ui_elements/notifications/welcome.png')
+welcome_image_url_1200 = resource_path('resources/art/ui_elements/notifications/welcome_1200.png')
+character_button_url_800 = resource_path('resources/art/ui_elements/buttons/character_800.png')
 character_button_url = resource_path('resources/art/ui_elements/buttons/character.png')
+character_button_url_1200 = resource_path('resources/art/ui_elements/buttons/character_1200.png')
+continue_button_url_800 = resource_path('resources/art/ui_elements/buttons/continue_button_800.png')
 continue_button_url = resource_path('resources/art/ui_elements/buttons/continue_button.png')
-interact_button_url = resource_path('resources/art/ui_elements/buttons/interact.png')
+continue_button_url_1200 = resource_path('resources/art/ui_elements/buttons/continue_button_1200.png')
+inventory_button_url_800 = resource_path('resources/art/ui_elements/buttons/inventory_800.png')
 inventory_button_url = resource_path('resources/art/ui_elements/buttons/inventory.png')
+inventory_button_url_1200 = resource_path('resources/art/ui_elements/buttons/inventory_1200.png')
+journal_button_url_800 = resource_path('resources/art/ui_elements/buttons/journal_800.png')
 journal_button_url = resource_path('resources/art/ui_elements/buttons/journal.png')
+journal_button_url_1200 = resource_path('resources/art/ui_elements/buttons/journal_1200.png')
+buy_button_url_800 = resource_path('resources/art/ui_elements/buttons/shop/buy_800.png')
 buy_button_url = resource_path('resources/art/ui_elements/buttons/shop/buy.png')
+buy_button_url_1200 = resource_path('resources/art/ui_elements/buttons/shop/buy_1200.png')
+sell_button_url_800 = resource_path('resources/art/ui_elements/buttons/shop/sell_800.png')
 sell_button_url = resource_path('resources/art/ui_elements/buttons/shop/sell.png')
+sell_button_url_1200 = resource_path('resources/art/ui_elements/buttons/shop/sell_1200.png')
+leave_button_url_800 = resource_path('resources/art/ui_elements/buttons/shop/leave_800.png')
 leave_button_url = resource_path('resources/art/ui_elements/buttons/shop/leave.png')
+leave_button_url_1200 = resource_path('resources/art/ui_elements/buttons/shop/leave_1200.png')
+attack_button_url_800 = resource_path('resources/art/ui_elements/buttons/battle_screen/attack_800.png')
 attack_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/attack.png')
+attack_button_url_1200 = resource_path('resources/art/ui_elements/buttons/battle_screen/attack_1200.png')
+skill_button_url_800 = resource_path('resources/art/ui_elements/buttons/battle_screen/skill_800.png')
 skill_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/skill.png')
+skill_button_url_1200 = resource_path('resources/art/ui_elements/buttons/battle_screen/skill_1200.png')
+run_button_url_800 = resource_path('resources/art/ui_elements/buttons/battle_screen/run_800.png')
 run_button_url = resource_path('resources/art/ui_elements/buttons/battle_screen/run.png')
+run_button_url_1200 = resource_path('resources/art/ui_elements/buttons/battle_screen/run_1200.png')
+rest_button_url_800 = resource_path('resources/art/ui_elements/buttons/inn/rest_800.png')
 rest_button_url = resource_path('resources/art/ui_elements/buttons/inn/rest.png')
+rest_button_url_1200 = resource_path('resources/art/ui_elements/buttons/inn/rest_1200.png')
+screen_size_button_url_800 = resource_path('resources/art/ui_elements/buttons/screen_size_800.png')
 screen_size_button_url = resource_path('resources/art/ui_elements/buttons/screen_size.png')
+screen_size_button_url_1200 = resource_path('resources/art/ui_elements/buttons/screen_size_1200.png')
+screen_size_window_url_800 = resource_path('resources/art/ui_elements/resize_options_800.png')
 screen_size_window_url = resource_path('resources/art/ui_elements/resize_options.png')
+screen_size_window_url_1200 = resource_path('resources/art/ui_elements/resize_options_1200.png')
+s_1200x900_url_800 = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/1200_800.png')
 s_1200x900_url = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/1200.png')
+s_1200x900_url_1200 = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/1200_1200.png')
+s_1024x768_url_800 = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/1024_800.png')
 s_1024x768_url = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/1024.png')
+s_1024x768_url_1200 = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/1024_1200.png')
+s_800x600_url_800 = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/800_800.png')
 s_800x600_url = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/800.png')
+s_800x600_url_1200 = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/800_1200.png')
 
 health_100_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_100.png')
 health_99_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_99.png')
@@ -2440,7 +2630,9 @@ xp_0_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_0.png')
 
 cat_url = resource_path('resources/art/critter_art/cat.png')
 
+quest_logs_url_800 = resource_path('resources/art/quest_items/logs_800.png')
 quest_logs_url = resource_path('resources/art/quest_items/logs.png')
+quest_logs_url_1200 = resource_path('resources/art/quest_items/logs_1200.png')
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2453,8 +2645,8 @@ height = 768
 screen = pygame.display.set_mode((width, height))
 
 # background textures --------------------------------------------------------------------------------------------------
-seldon_district_bg = pygame.image.load(seldon_bg_url)
-seldon_district_battle = pygame.image.load(seldon_battle_url)
+seldon_district_bg = pygame.image.load(seldon_bg_screen_url)
+seldon_district_battle = pygame.image.load(seldon_battle_screen_url)
 seldon_district_shop = pygame.image.load(seldon_shop_screen_url)
 seldon_district_inn = pygame.image.load(seldon_inn_screen_url)
 
@@ -2798,10 +2990,6 @@ while game_running:
     if scaled_1200:
         font = pygame.font.SysFont('freesansbold.ttf', 18, bold=True, italic=False)
 
-    # screen scaling ---------------------------------------------------------------------------------------------------
-    # ------------------------------------------------------------------------------------------------------------------
-    scale_w, scale_h = pygame.display.get_surface().get_size()
-
     # while player is alive --------------------------------------------------------------------------------------------
     # ------------------------------------------------------------------------------------------------------------------
     # ------------------------------------------------------------------------------------------------------------------
@@ -3022,25 +3210,22 @@ while game_running:
                 # set the current screen resolution to that size
                 if screen_clicked:
                     if s_800x600_button.rect.collidepoint(pos):
-                        if scaled_1024:
+                        if not scaled_800:
                             width = 800
                             height = 600
                             screen = pygame.display.set_mode((width, height))
-                        else:
-                            info_text_1 = "Please scale back to 1024x768 before down-scaling"
 
                     if s_1024x768_button.rect.collidepoint(pos):
-                        width = 1024
-                        height = 768
-                        screen = pygame.display.set_mode((width, height))
+                        if not scaled_1024:
+                            width = 1024
+                            height = 768
+                            screen = pygame.display.set_mode((width, height))
 
                     if s_1200x900_button.rect.collidepoint(pos):
-                        if scaled_1024:
+                        if not scaled_1200:
                             width = 1200
                             height = 900
                             screen = pygame.display.set_mode((width, height))
-                        else:
-                            info_text_1 = "Please scale back to 1024x768 before up-scaling"
 
                 # if mouse cursor collided with screen resize button when player clicked -------------------------------
                 if screen_button.rect.collidepoint(pos):
@@ -3092,22 +3277,57 @@ while game_running:
                                 inventory_counter = 0
                                 # go through player items and assign inventory slots (coordinates) to them
                                 for item in player.items:
-                                    if item.name == "health potion":
-                                        item.update(first_coord, second_coord, health_pot_url)
-                                        player_items.append(item)
-                                        inventory_counter += 1
-                                    if item.name == "energy potion":
-                                        item.update(first_coord, second_coord, energy_pot_url)
-                                        player_items.append(item)
-                                        inventory_counter += 1
-                                    if item.name == "shiny rock":
-                                        item.update(first_coord, second_coord, shiny_rock_url)
-                                        player_items.append(item)
-                                        inventory_counter += 1
-                                    if item.name == "bone dust":
-                                        item.update(first_coord, second_coord, bone_dust_url)
-                                        player_items.append(item)
-                                        inventory_counter += 1
+                                    if scaled_800:
+                                        if item.name == "health potion":
+                                            item.update(first_coord, second_coord, health_pot_url_800)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                        if item.name == "energy potion":
+                                            item.update(first_coord, second_coord, energy_pot_url_800)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                        if item.name == "shiny rock":
+                                            item.update(first_coord, second_coord, shiny_rock_url_800)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                        if item.name == "bone dust":
+                                            item.update(first_coord, second_coord, bone_dust_url_800)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                    if scaled_1024:
+                                        if item.name == "health potion":
+                                            item.update(first_coord, second_coord, health_pot_url)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                        if item.name == "energy potion":
+                                            item.update(first_coord, second_coord, energy_pot_url)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                        if item.name == "shiny rock":
+                                            item.update(first_coord, second_coord, shiny_rock_url)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                        if item.name == "bone dust":
+                                            item.update(first_coord, second_coord, bone_dust_url)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                    if scaled_1200:
+                                        if item.name == "health potion":
+                                            item.update(first_coord, second_coord, health_pot_url_1200)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                        if item.name == "energy potion":
+                                            item.update(first_coord, second_coord, energy_pot_url_1200)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                        if item.name == "shiny rock":
+                                            item.update(first_coord, second_coord, shiny_rock_url_1200)
+                                            player_items.append(item)
+                                            inventory_counter += 1
+                                        if item.name == "bone dust":
+                                            item.update(first_coord, second_coord, bone_dust_url_1200)
+                                            player_items.append(item)
+                                            inventory_counter += 1
 
                                     # add 75 to the items x-coordinate value so the next item will be added to next slot
                                     first_coord += 60
@@ -3220,14 +3440,47 @@ while game_running:
                         if combat_button == "attack":
 
                             # update player character sprite for combat animation
-                            stan_battle_sprite.update(stan_attack_url)
+                            if scaled_800:
+                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                          stan_battle_sprite.y_coordinate,
+                                                          stan_attack_url_800)
+                            if scaled_1024:
+                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                          stan_battle_sprite.y_coordinate,
+                                                          stan_attack_url)
+                            if scaled_1200:
+                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                          stan_battle_sprite.y_coordinate,
+                                                          stan_attack_url_1200)
 
                             # update to attacking sprite surface for combat animation
                             if enemy.kind == "snake":
-                                snake_battle_sprite.update(snake_attack_url)
+                                if scaled_800:
+                                    snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                               snake_battle_sprite.y_coordinate,
+                                                               snake_attack_url_800)
+                                if scaled_1024:
+                                    snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                               snake_battle_sprite.y_coordinate,
+                                                               snake_attack_url)
+                                if scaled_1200:
+                                    snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                               snake_battle_sprite.y_coordinate,
+                                                               snake_attack_url_1200)
 
                             if enemy.kind == "ghoul":
-                                ghoul_battle_sprite.update(ghoul_attack_url)
+                                if scaled_800:
+                                    ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                               ghoul_battle_sprite.y_coordinate,
+                                                               ghoul_attack_url_800)
+                                if scaled_1024:
+                                    ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                               ghoul_battle_sprite.y_coordinate,
+                                                               ghoul_attack_url)
+                                if scaled_1200:
+                                    ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                               ghoul_battle_sprite.y_coordinate,
+                                                               ghoul_attack_url_1200)
 
                             # combat event function that handles and returns damage and health
                             combat_events = attack_scenario(enemy, "attack")
@@ -3369,11 +3622,30 @@ while game_running:
                                         # go through shop items and assign inventory slots (coordinates) to them
                                         for shop_item in npc_amuna_shopkeeper.items:
                                             if shop_item.name == "health potion":
-                                                shop_item.update(buy_first_coord, buy_second_coord, health_pot_url)
+                                                if scaled_800:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     health_pot_url_800)
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     health_pot_url)
+                                                if scaled_1200:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     health_pot_url_1200)
+
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
+
                                             if shop_item.name == "energy potion":
-                                                shop_item.update(buy_first_coord, buy_second_coord, energy_pot_url)
+                                                if scaled_800:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     energy_pot_url_800)
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     energy_pot_url)
+                                                if scaled_1200:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     energy_pot_url_1200)
+
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
 
@@ -3435,19 +3707,58 @@ while game_running:
                                         # go through player items and assign inventory slots (coordinates) to them
                                         for sell_item in player.items:
                                             if sell_item.name == "health potion":
-                                                sell_item.update(sell_first_coord, sell_second_coord, health_pot_url)
+                                                if scaled_800:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     health_pot_url_800)
+                                                if scaled_1024:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     health_pot_url)
+                                                if scaled_1200:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     health_pot_url_1200)
+
                                                 sell_player_items.append(sell_item)
                                                 sell_inventory_counter += 1
+
                                             if sell_item.name == "energy potion":
-                                                sell_item.update(sell_first_coord, sell_second_coord, energy_pot_url)
+                                                if scaled_800:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     energy_pot_url_800)
+                                                if scaled_1024:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     energy_pot_url)
+                                                if scaled_1200:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     energy_pot_url_1200)
+
                                                 sell_player_items.append(sell_item)
                                                 sell_inventory_counter += 1
+
                                             if sell_item.name == "shiny rock":
-                                                sell_item.update(sell_first_coord, sell_second_coord, shiny_rock_url)
+                                                if scaled_800:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     shiny_rock_url_800)
+                                                if scaled_1024:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     shiny_rock_url)
+                                                if scaled_1200:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     shiny_rock_url_1200)
+
                                                 sell_player_items.append(sell_item)
                                                 sell_inventory_counter += 1
+
                                             if sell_item.name == "bone dust":
-                                                sell_item.update(sell_first_coord, sell_second_coord, bone_dust_url)
+                                                if scaled_800:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     bone_dust_url_800)
+                                                if scaled_1024:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     bone_dust_url)
+                                                if scaled_1200:
+                                                    sell_item.update(sell_first_coord, sell_second_coord,
+                                                                     bone_dust_url_1200)
+
                                                 sell_player_items.append(sell_item)
                                                 sell_inventory_counter += 1
 
@@ -3520,7 +3831,7 @@ while game_running:
                             rest = True
 
                         # ----------------------------------------------------------------------------------------------
-                        # if player chooses to leave shop, set conditions to allow normal gameplay loop
+                        # if player chooses to leave inn, set conditions to allow normal gameplay loop
                         if inn_button == "leave":
                             buy_clicked = False
                             sell_clicked = False
@@ -3549,8 +3860,20 @@ while game_running:
                                 if player.rupees > 9:
                                     info_text_1 = "Bought Health Potion for 10 rupees."
                                     info_text_2 = "Health Potion added to inventory."
-                                    player.items.append(
-                                        Item("health potion", "potion", 200, 200, health_pot_url, (255, 255, 255)))
+
+                                    if scaled_800:
+                                        player.items.append(
+                                            Item("health potion", "potion", 200, 200, health_pot_url_800,
+                                                 (255, 255, 255)))
+                                    if scaled_1024:
+                                        player.items.append(
+                                            Item("health potion", "potion", 200, 200, health_pot_url,
+                                                 (255, 255, 255)))
+                                    if scaled_1200:
+                                        player.items.append(
+                                            Item("health potion", "potion", 200, 200, health_pot_url_1200,
+                                                 (255, 255, 255)))
+
                                     player.rupees = player.rupees - 10
                                     item_bought = True
 
@@ -3567,8 +3890,20 @@ while game_running:
                                 if player.rupees > 9:
                                     info_text_1 = "Bought Energy Potion for 10 rupees."
                                     info_text_2 = "Energy Potion added to inventory."
-                                    player.items.append(
-                                        Item("energy potion", "potion", 200, 200, energy_pot_url, (255, 255, 255)))
+
+                                    if scaled_800:
+                                        player.items.append(
+                                            Item("energy potion", "potion", 200, 200, energy_pot_url_800,
+                                                 (255, 255, 255)))
+                                    if scaled_1024:
+                                        player.items.append(
+                                            Item("energy potion", "potion", 200, 200, energy_pot_url,
+                                                 (255, 255, 255)))
+                                    if scaled_1200:
+                                        player.items.append(
+                                            Item("energy potion", "potion", 200, 200, energy_pot_url_1200,
+                                                 (255, 255, 255)))
+
                                     player.rupees = player.rupees - 10
                                     item_bought = True
 
@@ -3673,8 +4008,21 @@ while game_running:
         # move snakes in random direction within boundaries
         if movement_able:
             if pygame.time.get_ticks() % 20 == 0:
-                move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical)
-                move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical)
+                if scaled_800:
+                    move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical,
+                                           move_this_snake.x_coordinate, move_this_snake.y_coordinate, snake_url_800)
+                    move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical,
+                                           move_this_ghoul.x_coordinate, move_this_ghoul.y_coordinate, ghoul_url_800)
+                if scaled_1024:
+                    move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical,
+                                           move_this_snake.x_coordinate, move_this_snake.y_coordinate, snake_url)
+                    move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical,
+                                           move_this_ghoul.x_coordinate, move_this_ghoul.y_coordinate, ghoul_url)
+                if scaled_1200:
+                    move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical,
+                                           move_this_snake.x_coordinate, move_this_snake.y_coordinate, snake_url_1200)
+                    move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical,
+                                           move_this_ghoul.x_coordinate, move_this_ghoul.y_coordinate, ghoul_url_1200)
 
         # npc movement updates -----------------------------------------------------------------------------------------
         # choose random facing direction and random npc to move face that direction ------------------------------------
@@ -3684,36 +4032,100 @@ while game_running:
         if pygame.time.get_ticks() % 180 == 0:
 
             if face_direction == "front":
-                if face_this_npc.name == "garan":
-                    npc_garan.update(garan_url, npc_garan.x_coordinate, npc_garan.y_coordinate)
-                if face_this_npc.name == "maurelle":
-                    npc_maurelle.update(maurelle_url, npc_maurelle.x_coordinate, npc_maurelle.y_coordinate)
-                if face_this_npc.name == "guard":
-                    npc_guard.update(guard_url, npc_guard.x_coordinate, npc_guard.y_coordinate)
+                if scaled_800:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_url_800)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_url_800)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_url_800)
+                if scaled_1024:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_url)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_url)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_url)
+                if scaled_1200:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_url_1200)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_url_1200)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_url_1200)
 
             if face_direction == "back":
-                if face_this_npc.name == "garan":
-                    npc_garan.update(garan_back_url, npc_garan.x_coordinate, npc_garan.y_coordinate)
-                if face_this_npc.name == "maurelle":
-                    npc_maurelle.update(maurelle_back_url, npc_maurelle.x_coordinate, npc_maurelle.y_coordinate)
-                if face_this_npc.name == "guard":
-                    npc_guard.update(guard_back_url, npc_guard.x_coordinate, npc_guard.y_coordinate)
+                if scaled_800:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_back_url_800)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_back_url_800)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_back_url_800)
+                if scaled_1024:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_back_url)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_back_url)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_back_url)
+                if scaled_1200:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_back_url_1200)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate,
+                                            npc_maurelle.y_coordinate, maurelle_back_url_1200)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_back_url_1200)
 
             if face_direction == "left":
-                if face_this_npc.name == "garan":
-                    npc_garan.update(garan_left_url, npc_garan.x_coordinate, npc_garan.y_coordinate)
-                if face_this_npc.name == "maurelle":
-                    npc_maurelle.update(maurelle_left_url, npc_maurelle.x_coordinate, npc_maurelle.y_coordinate)
-                if face_this_npc.name == "guard":
-                    npc_guard.update(guard_left_url, npc_guard.x_coordinate, npc_guard.y_coordinate)
+                if scaled_800:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_left_url_800)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_left_url_800)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_left_url_800)
+                if scaled_1024:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_left_url)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_left_url)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_left_url)
+                if scaled_1200:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_left_url_1200)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate,
+                                            npc_maurelle.y_coordinate, maurelle_left_url_1200)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_left_url_1200)
 
             if face_direction == "right":
-                if face_this_npc.name == "garan":
-                    npc_garan.update(garan_right_url, npc_garan.x_coordinate, npc_garan.y_coordinate)
-                if face_this_npc.name == "maurelle":
-                    npc_maurelle.update(maurelle_right_url, npc_maurelle.x_coordinate, npc_maurelle.y_coordinate)
-                if face_this_npc.name == "guard":
-                    npc_guard.update(guard_right_url, npc_guard.x_coordinate, npc_guard.y_coordinate)
+                if scaled_800:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_right_url_800)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate,
+                                            npc_maurelle.y_coordinate, maurelle_right_url_800)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_right_url_800)
+                if scaled_1024:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_right_url)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_right_url)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_right_url)
+                if scaled_1200:
+                    if face_this_npc.name == "garan":
+                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_right_url_1200)
+                    if face_this_npc.name == "maurelle":
+                        npc_maurelle.update(npc_maurelle.x_coordinate,
+                                            npc_maurelle.y_coordinate, maurelle_right_url_1200)
+                    if face_this_npc.name == "guard":
+                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_right_url_1200)
 
         # --------------------------------------------------------------------------------------------------------------
         # the code in this next section draws scenario related graphics on top of every other graphic
@@ -3898,101 +4310,181 @@ while game_running:
         # combat didn't happen this iteration, reset sprites to default surface image
         if not combat_happened:
             combat_cooldown = False
-            stan_battle_sprite.update(stan_battle_url)
-            snake_battle_sprite.update(snake_battle_url)
-            ghoul_battle_sprite.update(ghoul_battle_url)
+            if scaled_800:
+                stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                          stan_battle_url_800)
+                snake_battle_sprite.update(snake_battle_sprite.x_coordinate, snake_battle_sprite.y_coordinate,
+                                           snake_battle_url_800)
+                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate, ghoul_battle_sprite.y_coordinate,
+                                           ghoul_battle_url_800)
+            if scaled_1024:
+                stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                          stan_battle_url)
+                snake_battle_sprite.update(snake_battle_sprite.x_coordinate, snake_battle_sprite.y_coordinate,
+                                           snake_battle_url)
+                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate, ghoul_battle_sprite.y_coordinate,
+                                           ghoul_battle_url)
+            if scaled_1200:
+                stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                          stan_battle_url_1200)
+                snake_battle_sprite.update(snake_battle_sprite.x_coordinate, snake_battle_sprite.y_coordinate,
+                                           snake_battle_url_1200)
+                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate, ghoul_battle_sprite.y_coordinate,
+                                           ghoul_battle_url_1200)
 
             # scaling --------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if size of player's display resolution is less than what the default resolution scaling is set for
             # go through all sprites and make their image and rect attributes smaller
             # scales here at the end of iteration to ensure all sprites updated during iteration are also scaled -------
-            if scale_w < 1024 or scale_h < 768:
+            if width < 1024 or height < 768:
+
                 if not scaled_800:
+                    npc_garan.update(npc_garan.x_coordinate * .78,
+                                     npc_garan.y_coordinate * .78, garan_url_800)
+                    npc_maurelle.update(npc_maurelle.x_coordinate * .78,
+                                        npc_maurelle.y_coordinate * .78, maurelle_url_800)
+                    npc_guard.update(npc_guard.x_coordinate * .78,
+                                     npc_guard.y_coordinate * .78, guard_url_800)
 
-                    # if going to 800x600 from 1200x900, revert to original image first before applying new scale
-                    if scaled_1024:
+                    for snake in enemies:
+                        if snake.name == "snake":
+                            snake.surf = pygame.image.load(snake_url_800).convert()
+                            snake.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            snake.rect = snake.surf.get_rect(
+                                center=(snake.x_coordinate * .78, snake.y_coordinate * .78))
+                    for ghoul in enemies:
+                        if ghoul.name == "ghoul":
+                            ghoul.surf = pygame.image.load(ghoul_url_800).convert()
+                            ghoul.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            ghoul.rect = ghoul.surf.get_rect(
+                                center=(ghoul.x_coordinate * .78, ghoul.y_coordinate * .78))
+                    for tree in trees:
+                        tree.surf = pygame.image.load(pine_tree_url_800).convert()
+                        tree.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        tree.rect = tree.surf.get_rect(
+                            center=(tree.x_coordinate * .78, tree.y_coordinate * .78))
+                    for flower in flowers:
+                        flower.surf = pygame.image.load(seldon_flower_url_800).convert()
+                        flower.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        flower.rect = flower.surf.get_rect(
+                            center=(flower.x_coordinate * .78, flower.y_coordinate * .78))
+                    for grass in grass:
+                        grass.surf = pygame.image.load(seldon_grass_url_800).convert()
+                        grass.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        grass.rect = grass.surf.get_rect(
+                            center=(grass.x_coordinate * .78, grass.y_coordinate * .78))
 
-                        # clear sprite list before appending to ensure correct index
-                        original_sprite_scales.clear()
+                    seldon_inn.surf = pygame.image.load(seldon_inn_url_800).convert()
+                    seldon_inn.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_inn.rect = seldon_inn.surf.get_rect(
+                        center=(seldon_inn.x_coordinate * .78, seldon_inn.y_coordinate * .78))
 
-                        for sprite in most_sprites:
-                            # save sprites original image to use when re-scaling to original sprite size and location
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() * .78,
-                                                                        sprite.surf.get_height() * .78))
-                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                       sprite.__getattribute__("y_coordinate") * .78))
-                        for sprite in enemies:
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() * .78,
-                                                                        sprite.surf.get_height() * .78))
-                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                       sprite.__getattribute__("y_coordinate") * .78))
-                        for element in user_interface:
-                            original_sprite_scales.append(element.surf)
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() * .78,
-                                                                         element.surf.get_height() * .78))
-                            element.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                         element.__getattribute__("y_coordinate") * .78
-                                                                         ))
-                        for element in conditional_interface:
-                            original_sprite_scales.append(element.surf)
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() * .78,
-                                                                         element.surf.get_height() * .78))
-                            element.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                         element.__getattribute__("y_coordinate") * .78
-                                                                         ))
-                        for button in screen_resize_buttons:
-                            original_sprite_scales.append(button.surf)
-                            button.surf = pygame.transform.smoothscale(button.surf,
-                                                                       (button.surf.get_width() * .78,
-                                                                        button.surf.get_height() * .78))
-                            button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
-                                                                       button.__getattribute__("y_coordinate") * .78))
-                        for sprite in battle_elements:
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() * .78,
-                                                                        sprite.surf.get_height() * .78))
-                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                       sprite.__getattribute__("y_coordinate") * .78))
-                        for hp_bars in enemy_hp_bars:
-                            original_sprite_scales.append(hp_bars.surf)
-                            hp_bars.surf = pygame.transform.smoothscale(hp_bars.surf,
-                                                                        (hp_bars.surf.get_width() * .78,
-                                                                         hp_bars.surf.get_height() * .78))
-                            hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.__getattribute__("x_coordinate") * .78,
-                                                                         hp_bars.__getattribute__("y_coordinate") * .78
-                                                                         ))
-                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
-                        original_sprite_scales.append(player.surf)
-                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
-                                                                                 player.surf.get_height() * .78))
-                        player.pos *= .78
-                        player.rect = player.surf.get_rect(center=player.pos * .78)
+                    seldon_shop.surf = pygame.image.load(seldon_shop_url_800).convert()
+                    seldon_shop.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_shop.rect = seldon_shop.surf.get_rect(
+                        center=(seldon_shop.x_coordinate * .78, seldon_shop.y_coordinate * .78))
 
-                        scaled_800 = True
-                        scaled_1024 = False
-                        scaled_1200 = False
+                    seldon_academia.surf = pygame.image.load(seldon_academia_url_800).convert()
+                    seldon_academia.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_academia.rect = seldon_academia.surf.get_rect(
+                        center=(seldon_academia.x_coordinate * .78, seldon_academia.y_coordinate * .78))
+
+                    inventory_button.surf = pygame.image.load(inventory_button_url_800).convert()
+                    inventory_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    inventory_button.rect = inventory_button.surf.get_rect(
+                        center=(inventory_button.x_coordinate * .78, inventory_button.y_coordinate * .78))
+
+                    character_button.surf = pygame.image.load(character_button_url_800).convert()
+                    character_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    character_button.rect = character_button.surf.get_rect(
+                        center=(character_button.x_coordinate * .78, character_button.y_coordinate * .78))
+
+                    journal_button.surf = pygame.image.load(journal_button_url_800).convert()
+                    journal_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    journal_button.rect = journal_button.surf.get_rect(
+                        center=(journal_button.x_coordinate * .78, journal_button.y_coordinate * .78))
+
+                    attack_button.surf = pygame.image.load(attack_button_url_800).convert()
+                    attack_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    attack_button.rect = attack_button.surf.get_rect(
+                        center=(attack_button.x_coordinate * .78, attack_button.y_coordinate * .78))
+
+                    skill_button.surf = pygame.image.load(skill_button_url_800).convert()
+                    skill_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    skill_button.rect = skill_button.surf.get_rect(
+                        center=(skill_button.x_coordinate * .78, skill_button.y_coordinate * .78))
+
+                    run_button.surf = pygame.image.load(run_button_url_800).convert()
+                    run_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    run_button.rect = run_button.surf.get_rect(
+                        center=(run_button.x_coordinate * .78, run_button.y_coordinate * .78))
+
+                    continue_button.surf = pygame.image.load(continue_button_url_800).convert()
+                    continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    continue_button.rect = continue_button.surf.get_rect(
+                        center=(continue_button.x_coordinate * .78, continue_button.y_coordinate * .78))
+
+                    buy_button.surf = pygame.image.load(buy_button_url_800).convert()
+                    buy_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    buy_button.rect = buy_button.surf.get_rect(
+                        center=(buy_button.x_coordinate * .78, buy_button.y_coordinate * .78))
+
+                    sell_button.surf = pygame.image.load(sell_button_url_800).convert()
+                    sell_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    sell_button.rect = sell_button.surf.get_rect(
+                        center=(sell_button.x_coordinate * .78, sell_button.y_coordinate * .78))
+
+                    leave_button.surf = pygame.image.load(leave_button_url_800).convert()
+                    leave_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    leave_button.rect = leave_button.surf.get_rect(
+                        center=(leave_button.x_coordinate * .78, leave_button.y_coordinate * .78))
+
+                    rest_button.surf = pygame.image.load(rest_button_url_800).convert()
+                    rest_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    rest_button.rect = rest_button.surf.get_rect(
+                        center=(rest_button.x_coordinate * .78, rest_button.y_coordinate * .78))
+
+                    screen_button.surf = pygame.image.load(screen_size_button_url_800).convert()
+                    screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    screen_button.rect = screen_button.surf.get_rect(
+                        center=(screen_button.x_coordinate * .78, screen_button.y_coordinate * .78))
+
+                    screen_resize_window.surf = pygame.image.load(screen_size_window_url_800).convert()
+                    screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    screen_resize_window.rect = screen_resize_window.surf.get_rect(
+                        center=(screen_resize_window.x_coordinate * .78, screen_resize_window.y_coordinate * .78))
+
+                    s_1200x900_button.surf = pygame.image.load(s_1200x900_url_800).convert()
+                    s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    s_1200x900_button.rect = s_1200x900_button.surf.get_rect(
+                        center=(s_1200x900_button.x_coordinate * .78, s_1200x900_button.y_coordinate * .78))
+
+                    s_1024x768_button.surf = pygame.image.load(s_1024x768_url_800).convert()
+                    s_1024x768_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    s_1024x768_button.rect = s_1024x768_button.surf.get_rect(
+                        center=(s_1024x768_button.x_coordinate * .78, s_1024x768_button.y_coordinate * .78))
+
+                    s_800x600_button.surf = pygame.image.load(s_800x600_url_800).convert()
+                    s_800x600_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    s_800x600_button.rect = s_800x600_button.surf.get_rect(
+                        center=(s_800x600_button.x_coordinate * .78, s_800x600_button.y_coordinate * .78))
+
+                    seldon_district_bg = pygame.image.load(seldon_bg_screen_url_800)
+                    seldon_district_shop = pygame.image.load(seldon_shop_screen_url_800)
+                    seldon_district_inn = pygame.image.load(seldon_inn_screen_url_800)
+                    seldon_district_battle = pygame.image.load(seldon_battle_screen_url_800)
+                    player.surf = pygame.image.load(stan_down_url_800).convert()
+                    player.pos *= .78
+                    player.rect = player.surf.get_rect(center=player.pos * .78)
+
+                    scaled_800 = True
+                    scaled_1024 = False
+                    scaled_1200 = False
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
-            if scale_w == 1024 or scale_h == 768:
+            if width == 1024 or height == 768:
                 if not scaled_1024:
 
                     # count current sprite iteration when looping through sprites to have an index value to pull from
@@ -4059,10 +4551,10 @@ while game_running:
                         player.pos *= .86
                         player.rect = player.surf.get_rect(center=player.pos * .86)
 
-                    seldon_district_bg = pygame.image.load(seldon_bg_url)
+                    seldon_district_bg = pygame.image.load(seldon_bg_screen_url)
                     seldon_district_shop = pygame.image.load(seldon_shop_screen_url)
                     seldon_district_inn = pygame.image.load(seldon_inn_screen_url)
-                    seldon_district_battle = pygame.image.load(seldon_battle_url)
+                    seldon_district_battle = pygame.image.load(seldon_battle_screen_url)
 
                     # conditions updated after scaling
                     scaled_800 = False
@@ -4071,7 +4563,7 @@ while game_running:
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
-            if scale_w > 1024 or scale_h > 768:
+            if width > 1024 or height > 768:
                 if not scaled_1200:
                     # scale back to original resolution before up-scaling
                     if scaled_1024:
@@ -4171,7 +4663,7 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
-            if scale_w < 1024 or scale_h < 768:
+            if width < 1024 or height < 768:
                 if not scaled_800:
 
                     # if going to 800x600 from 1200x900, revert to original image first before applying new scale
@@ -4256,7 +4748,7 @@ while game_running:
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
-            if scale_w == 1024 or scale_h == 768:
+            if width == 1024 or height == 768:
                 if not scaled_1024:
 
                     # count current sprite iteration when looping through sprites to have an index value to pull from
@@ -4323,10 +4815,10 @@ while game_running:
                         player.pos *= .86
                         player.rect = player.surf.get_rect(center=player.pos * .86)
 
-                    seldon_district_bg = pygame.image.load(seldon_bg_url)
+                    seldon_district_bg = pygame.image.load(seldon_bg_screen_url)
                     seldon_district_shop = pygame.image.load(seldon_shop_screen_url)
                     seldon_district_inn = pygame.image.load(seldon_inn_screen_url)
-                    seldon_district_battle = pygame.image.load(seldon_battle_url)
+                    seldon_district_battle = pygame.image.load(seldon_battle_screen_url)
 
                     # conditions updated after scaling
                     scaled_800 = False
@@ -4335,7 +4827,7 @@ while game_running:
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
-            if scale_w > 1024 or scale_h > 768:
+            if width > 1024 or height > 768:
                 if not scaled_1200:
                     # scale back to original resolution before up-scaling
                     if scaled_1024:
