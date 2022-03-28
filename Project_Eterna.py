@@ -247,19 +247,10 @@ class NPC(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
-    def update(self, x_coord, y_coord, image):
-        self.x_coordinate = x_coord
-        self.y_coordinate = y_coord
+    def update(self, image):
 
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-
-        if scaled_800:
-            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
-        if scaled_1200:
-            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
-        else:
-            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -283,7 +274,9 @@ class Enemy(pygame.sprite.Sprite):
         self.speed = 1
         self.health_bar = health_bar
 
-    def update(self, ranges_x, ranges_y, direction_x, direction_y, x_coord, y_coord, image):
+    # update separate into 2 functions to handle image updates and position updates
+    # so that they both don't need the same parameters to change one or the other in main interation
+    def update_image(self, x_coord, y_coord, image):
 
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
@@ -291,12 +284,9 @@ class Enemy(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
-        if scaled_800:
-            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
-        if scaled_1200:
-            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
-        else:
-            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+    # update separate into 2 functions to handle image updates and position updates
+    # so that they both don't need the same parameters to change one or the other in main interation
+    def update_position(self, ranges_x, ranges_y, direction_x, direction_y):
 
         # --------------------------------------------------------------------------------------------------------------
         # movement on map
@@ -1705,207 +1695,208 @@ def xp_bar_update(character):
 # enemy health bar update
 def health_bar_update_enemy(character):
     if character.health == 100:
-        character.health_bar.update(health_100_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate,
+                                    health_100_url)
     if character.health == 99:
-        character.health_bar.update(health_99_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_99_url)
     if character.health == 98:
-        character.health_bar.update(health_98_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_98_url)
     if character.health == 97:
-        character.health_bar.update(health_97_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_97_url)
     if character.health == 96:
-        character.health_bar.update(health_96_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_96_url)
     if character.health == 95:
-        character.health_bar.update(health_95_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_95_url)
     if character.health == 94:
-        character.health_bar.update(health_94_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_94_url)
     if character.health == 93:
-        character.health_bar.update(health_93_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_93_url)
     if character.health == 92:
-        character.health_bar.update(health_92_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_92_url)
     if character.health == 91:
-        character.health_bar.update(health_91_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_91_url)
     if character.health == 90:
-        character.health_bar.update(health_90_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_90_url)
     if character.health == 89:
-        character.health_bar.update(health_89_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_89_url)
     if character.health == 88:
-        character.health_bar.update(health_88_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_88_url)
     if character.health == 87:
-        character.health_bar.update(health_87_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_87_url)
     if character.health == 86:
-        character.health_bar.update(health_86_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_86_url)
     if character.health == 85:
-        character.health_bar.update(health_85_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_85_url)
     if character.health == 84:
-        character.health_bar.update(health_84_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_84_url)
     if character.health == 83:
-        character.health_bar.update(health_83_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_83_url)
     if character.health == 82:
-        character.health_bar.update(health_82_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_82_url)
     if character.health == 81:
-        character.health_bar.update(health_81_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_81_url)
     if character.health == 80:
-        character.health_bar.update(health_80_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_80_url)
     if character.health == 79:
-        character.health_bar.update(health_79_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_79_url)
     if character.health == 78:
-        character.health_bar.update(health_78_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_78_url)
     if character.health == 77:
-        character.health_bar.update(health_77_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_77_url)
     if character.health == 76:
-        character.health_bar.update(health_76_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_76_url)
     if character.health == 75:
-        character.health_bar.update(health_75_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_75_url)
     if character.health == 74:
-        character.health_bar.update(health_74_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_74_url)
     if character.health == 73:
-        character.health_bar.update(health_73_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_73_url)
     if character.health == 72:
-        character.health_bar.update(health_72_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_72_url)
     if character.health == 71:
-        character.health_bar.update(health_71_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_71_url)
     if character.health == 70:
-        character.health_bar.update(health_70_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_70_url)
     if character.health == 69:
-        character.health_bar.update(health_69_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_69_url)
     if character.health == 68:
-        character.health_bar.update(health_68_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_68_url)
     if character.health == 67:
-        character.health_bar.update(health_67_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_67_url)
     if character.health == 66:
-        character.health_bar.update(health_66_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_66_url)
     if character.health == 65:
-        character.health_bar.update(health_65_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_65_url)
     if character.health == 64:
-        character.health_bar.update(health_64_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_64_url)
     if character.health == 63:
-        character.health_bar.update(health_63_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_63_url)
     if character.health == 62:
-        character.health_bar.update(health_62_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_62_url)
     if character.health == 61:
-        character.health_bar.update(health_61_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_61_url)
     if character.health == 60:
-        character.health_bar.update(health_60_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_60_url)
     if character.health == 59:
-        character.health_bar.update(health_59_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_59_url)
     if character.health == 58:
-        character.health_bar.update(health_58_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_58_url)
     if character.health == 57:
-        character.health_bar.update(health_57_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_57_url)
     if character.health == 56:
-        character.health_bar.update(health_56_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_56_url)
     if character.health == 55:
-        character.health_bar.update(health_55_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_55_url)
     if character.health == 54:
-        character.health_bar.update(health_54_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_54_url)
     if character.health == 53:
-        character.health_bar.update(health_53_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_53_url)
     if character.health == 52:
-        character.health_bar.update(health_52_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_52_url)
     if character.health == 51:
-        character.health_bar.update(health_51_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_51_url)
     if character.health == 50:
-        character.health_bar.update(health_50_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_50_url)
     if character.health == 49:
-        character.health_bar.update(health_49_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_49_url)
     if character.health == 48:
-        character.health_bar.update(health_48_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_48_url)
     if character.health == 47:
-        character.health_bar.update(health_47_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_47_url)
     if character.health == 46:
-        character.health_bar.update(health_46_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_46_url)
     if character.health == 45:
-        character.health_bar.update(health_45_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_45_url)
     if character.health == 44:
-        character.health_bar.update(health_44_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_44_url)
     if character.health == 43:
-        character.health_bar.update(health_43_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_43_url)
     if character.health == 42:
-        character.health_bar.update(health_42_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_42_url)
     if character.health == 41:
-        character.health_bar.update(health_41_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_41_url)
     if character.health == 40:
-        character.health_bar.update(health_40_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_40_url)
     if character.health == 39:
-        character.health_bar.update(health_39_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_39_url)
     if character.health == 38:
-        character.health_bar.update(health_38_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_38_url)
     if character.health == 37:
-        character.health_bar.update(health_37_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_37_url)
     if character.health == 36:
-        character.health_bar.update(health_36_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_36_url)
     if character.health == 35:
-        character.health_bar.update(health_35_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_35_url)
     if character.health == 34:
-        character.health_bar.update(health_34_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_34_url)
     if character.health == 33:
-        character.health_bar.update(health_33_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_33_url)
     if character.health == 32:
-        character.health_bar.update(health_32_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_32_url)
     if character.health == 31:
-        character.health_bar.update(health_31_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_31_url)
     if character.health == 30:
-        character.health_bar.update(health_30_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_30_url)
     if character.health == 29:
-        character.health_bar.update(health_29_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_29_url)
     if character.health == 28:
-        character.health_bar.update(health_28_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_28_url)
     if character.health == 27:
-        character.health_bar.update(health_27_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_27_url)
     if character.health == 26:
-        character.health_bar.update(health_26_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_26_url)
     if character.health == 25:
-        character.health_bar.update(health_25_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_25_url)
     if character.health == 24:
-        character.health_bar.update(health_24_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_24_url)
     if character.health == 23:
-        character.health_bar.update(health_23_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_23_url)
     if character.health == 22:
-        character.health_bar.update(health_22_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_22_url)
     if character.health == 21:
-        character.health_bar.update(health_21_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_21_url)
     if character.health == 20:
-        character.health_bar.update(health_20_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_20_url)
     if character.health == 19:
-        character.health_bar.update(health_19_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_19_url)
     if character.health == 18:
-        character.health_bar.update(health_18_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_18_url)
     if character.health == 17:
-        character.health_bar.update(health_17_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_17_url)
     if character.health == 16:
-        character.health_bar.update(health_16_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_16_url)
     if character.health == 15:
-        character.health_bar.update(health_15_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_15_url)
     if character.health == 14:
-        character.health_bar.update(health_14_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_14_url)
     if character.health == 13:
-        character.health_bar.update(health_13_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_13_url)
     if character.health == 12:
-        character.health_bar.update(health_12_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_12_url)
     if character.health == 11:
-        character.health_bar.update(health_11_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_11_url)
     if character.health == 10:
-        character.health_bar.update(health_10_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_10_url)
     if character.health == 9:
-        character.health_bar.update(health_9_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_9_url)
     if character.health == 8:
-        character.health_bar.update(health_8_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_8_url)
     if character.health == 7:
-        character.health_bar.update(health_7_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_7_url)
     if character.health == 6:
-        character.health_bar.update(health_6_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_6_url)
     if character.health == 5:
-        character.health_bar.update(health_5_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_5_url)
     if character.health == 4:
-        character.health_bar.update(health_4_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_4_url)
     if character.health == 3:
-        character.health_bar.update(health_3_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_3_url)
     if character.health == 2:
-        character.health_bar.update(health_2_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_2_url)
     if character.health == 1:
-        character.health_bar.update(health_1_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_1_url)
     if character.health == 0:
-        character.health_bar.update(health_0_url)
+        character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate, health_0_url)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2988,7 +2979,7 @@ while game_running:
     if scaled_1024:
         font = pygame.font.SysFont('freesansbold.ttf', 16, bold=True, italic=False)
     if scaled_1200:
-        font = pygame.font.SysFont('freesansbold.ttf', 18, bold=True, italic=False)
+        font = pygame.font.SysFont('freesansbold.ttf', 20, bold=True, italic=False)
 
     # while player is alive --------------------------------------------------------------------------------------------
     # ------------------------------------------------------------------------------------------------------------------
@@ -3210,10 +3201,14 @@ while game_running:
                 # set the current screen resolution to that size
                 if screen_clicked:
                     if s_800x600_button.rect.collidepoint(pos):
-                        if not scaled_800:
-                            width = 800
-                            height = 600
-                            screen = pygame.display.set_mode((width, height))
+                        if scaled_1024:
+                            if not scaled_800:
+                                width = 800
+                                height = 600
+                                screen = pygame.display.set_mode((width, height))
+                        else:
+                            info_text_1 = "Scale to original resolution before down-scaling"
+                            loot_update = True
 
                     if s_1024x768_button.rect.collidepoint(pos):
                         if not scaled_1024:
@@ -3222,10 +3217,14 @@ while game_running:
                             screen = pygame.display.set_mode((width, height))
 
                     if s_1200x900_button.rect.collidepoint(pos):
-                        if not scaled_1200:
-                            width = 1200
-                            height = 900
-                            screen = pygame.display.set_mode((width, height))
+                        if scaled_1024:
+                            if not scaled_1200:
+                                width = 1200
+                                height = 900
+                                screen = pygame.display.set_mode((width, height))
+                        else:
+                            info_text_1 = "Scale to original resolution before up-scaling"
+                            loot_update = True
 
                 # if mouse cursor collided with screen resize button when player clicked -------------------------------
                 if screen_button.rect.collidepoint(pos):
@@ -3273,6 +3272,9 @@ while game_running:
                                 if scaled_800:
                                     first_coord = first_coord * .78
                                     second_coord = second_coord * .78
+                                if scaled_1200:
+                                    first_coord = first_coord - 2
+                                    second_coord = second_coord - 2
 
                                 inventory_counter = 0
                                 # go through player items and assign inventory slots (coordinates) to them
@@ -3333,6 +3335,8 @@ while game_running:
                                     first_coord += 60
                                     if scaled_800:
                                         first_coord = first_coord - 13.2
+                                    if scaled_1200:
+                                        first_coord = first_coord + 2
 
                                     # add 60 to items y coordinate value if the first row of (4) slots has been filled
                                     # reset first coordinate and counter to start in the leftmost slot again
@@ -3541,7 +3545,14 @@ while game_running:
                                 interacted = False
                                 loot_update = True
                                 encounter_started = False
-                                player.pos = vec((500, 400))
+
+                                # set position on map based on current resolution scale
+                                if scaled_800:
+                                    player.pos = vec((400, 300))
+                                if scaled_1024:
+                                    player.pos = vec((500, 400))
+                                if scaled_1200:
+                                    player.pos = vec((600, 500))
 
                             else:
                                 info_text_1 = str(combat_events["damage done"])
@@ -3616,6 +3627,9 @@ while game_running:
                                         if scaled_800:
                                             buy_first_coord = buy_first_coord * .78
                                             buy_second_coord = buy_second_coord * .78
+                                        if scaled_1200:
+                                            buy_first_coord = buy_first_coord - 2
+                                            buy_second_coord = buy_second_coord - 2
 
                                         # ------------------------------------------------------------------------------
                                         buy_inventory_counter = 0
@@ -3654,6 +3668,8 @@ while game_running:
                                             buy_first_coord += 60
                                             if scaled_800:
                                                 buy_first_coord = buy_first_coord - 13.2
+                                            if scaled_1200:
+                                                buy_first_coord = buy_first_coord + 2
 
                                             # add 60 to items y coordinate value if first row of (4) slots has been
                                             # filled reset first coordinate and counter to start in the leftmost
@@ -3701,6 +3717,9 @@ while game_running:
                                         if scaled_800:
                                             sell_first_coord = sell_first_coord * .78
                                             sell_second_coord = sell_second_coord * .78
+                                        if scaled_1200:
+                                            sell_first_coord = sell_first_coord - 2
+                                            sell_second_coord = sell_second_coord - 2
 
                                         # ------------------------------------------------------------------------------
                                         sell_inventory_counter = 0
@@ -3767,6 +3786,8 @@ while game_running:
                                             sell_first_coord += 60
                                             if scaled_800:
                                                 sell_first_coord = sell_first_coord - 13.2
+                                            if scaled_1200:
+                                                sell_first_coord = sell_first_coord + 2
 
                                             # add 60 to items y coordinate value if first row of (4) slots has been
                                             # filled reset first coordinate and counter to start in the leftmost slot
@@ -4008,21 +4029,9 @@ while game_running:
         # move snakes in random direction within boundaries
         if movement_able:
             if pygame.time.get_ticks() % 20 == 0:
-                if scaled_800:
-                    move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical,
-                                           move_this_snake.x_coordinate, move_this_snake.y_coordinate, snake_url_800)
-                    move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical,
-                                           move_this_ghoul.x_coordinate, move_this_ghoul.y_coordinate, ghoul_url_800)
-                if scaled_1024:
-                    move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical,
-                                           move_this_snake.x_coordinate, move_this_snake.y_coordinate, snake_url)
-                    move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical,
-                                           move_this_ghoul.x_coordinate, move_this_ghoul.y_coordinate, ghoul_url)
-                if scaled_1200:
-                    move_this_snake.update([50, 300], [200, 300], direction_horizontal, direction_vertical,
-                                           move_this_snake.x_coordinate, move_this_snake.y_coordinate, snake_url_1200)
-                    move_this_ghoul.update([650, 900], [200, 300], direction_horizontal, direction_vertical,
-                                           move_this_ghoul.x_coordinate, move_this_ghoul.y_coordinate, ghoul_url_1200)
+
+                move_this_snake.update_position([50, 300], [200, 300], direction_horizontal, direction_vertical)
+                move_this_ghoul.update_position([650, 900], [200, 300], direction_horizontal, direction_vertical)
 
         # npc movement updates -----------------------------------------------------------------------------------------
         # choose random facing direction and random npc to move face that direction ------------------------------------
@@ -4034,98 +4043,94 @@ while game_running:
             if face_direction == "front":
                 if scaled_800:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_url_800)
+                        npc_garan.update(garan_url_800)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_url_800)
+                        npc_maurelle.update(maurelle_url_800)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_url_800)
+                        npc_guard.update(guard_url_800)
                 if scaled_1024:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_url)
+                        npc_garan.update(garan_url)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_url)
+                        npc_maurelle.update(maurelle_url)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_url)
+                        npc_guard.update(guard_url)
                 if scaled_1200:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_url_1200)
+                        npc_garan.update(garan_url_1200)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_url_1200)
+                        npc_maurelle.update(maurelle_url_1200)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_url_1200)
+                        npc_guard.update(guard_url_1200)
 
             if face_direction == "back":
                 if scaled_800:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_back_url_800)
+                        npc_garan.update(garan_back_url_800)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_back_url_800)
+                        npc_maurelle.update(maurelle_back_url_800)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_back_url_800)
+                        npc_guard.update(guard_back_url_800)
                 if scaled_1024:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_back_url)
+                        npc_garan.update(garan_back_url)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_back_url)
+                        npc_maurelle.update(maurelle_back_url)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_back_url)
+                        npc_guard.update(guard_back_url)
                 if scaled_1200:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_back_url_1200)
+                        npc_garan.update(garan_back_url_1200)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate,
-                                            npc_maurelle.y_coordinate, maurelle_back_url_1200)
+                        npc_maurelle.update(maurelle_back_url_1200)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_back_url_1200)
+                        npc_guard.update(guard_back_url_1200)
 
             if face_direction == "left":
                 if scaled_800:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_left_url_800)
+                        npc_garan.update(garan_left_url_800)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_left_url_800)
+                        npc_maurelle.update(maurelle_left_url_800)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_left_url_800)
+                        npc_guard.update(guard_left_url_800)
                 if scaled_1024:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_left_url)
+                        npc_garan.update(garan_left_url)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_left_url)
+                        npc_maurelle.update(maurelle_left_url)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_left_url)
+                        npc_guard.update(guard_left_url)
                 if scaled_1200:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_left_url_1200)
+                        npc_garan.update(garan_left_url_1200)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate,
-                                            npc_maurelle.y_coordinate, maurelle_left_url_1200)
+                        npc_maurelle.update(maurelle_left_url_1200)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_left_url_1200)
+                        npc_guard.update(guard_left_url_1200)
 
             if face_direction == "right":
                 if scaled_800:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_right_url_800)
+                        npc_garan.update(garan_right_url_800)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate,
-                                            npc_maurelle.y_coordinate, maurelle_right_url_800)
+                        npc_maurelle.update(maurelle_right_url_800)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_right_url_800)
+                        npc_guard.update(guard_right_url_800)
                 if scaled_1024:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_right_url)
+                        npc_garan.update(garan_right_url)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate, npc_maurelle.y_coordinate, maurelle_right_url)
+                        npc_maurelle.update(maurelle_right_url)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_right_url)
+                        npc_guard.update(guard_right_url)
                 if scaled_1200:
                     if face_this_npc.name == "garan":
-                        npc_garan.update(npc_garan.x_coordinate, npc_garan.y_coordinate, garan_right_url_1200)
+                        npc_garan.update(garan_right_url_1200)
                     if face_this_npc.name == "maurelle":
-                        npc_maurelle.update(npc_maurelle.x_coordinate,
-                                            npc_maurelle.y_coordinate, maurelle_right_url_1200)
+                        npc_maurelle.update(maurelle_right_url_1200)
                     if face_this_npc.name == "guard":
-                        npc_guard.update(npc_guard.x_coordinate, npc_guard.y_coordinate, guard_right_url_1200)
+                        npc_guard.update(guard_right_url_1200)
 
         # --------------------------------------------------------------------------------------------------------------
         # the code in this next section draws scenario related graphics on top of every other graphic
@@ -4163,14 +4168,24 @@ while game_running:
                         text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black",
                                                            "light yellow")
                         text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                        text_enemy_name_rect.center = (800, 732)
+                        if scaled_800:
+                            text_enemy_name_rect.center = (800 * .78, 732 * .78)
+                        if scaled_1024:
+                            text_enemy_name_rect.center = (800, 732)
+                        if scaled_1200:
+                            text_enemy_name_rect.center = (800 / .86, 732 / .86)
                         screen.blit(text_enemy_name_surf, text_enemy_name_rect)
 
                         # get current enemy level and create surf and rectangle to draw to screen
                         text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black",
                                                             "light yellow")
                         text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                        text_enemy_level_rect.center = (910, 732)
+                        if scaled_800:
+                            text_enemy_level_rect.center = (910 * .78, 732 * .78)
+                        if scaled_1024:
+                            text_enemy_level_rect.center = (910, 732)
+                        if scaled_1200:
+                            text_enemy_level_rect.center = (910 / .86, 732 / .86)
                         screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
                         # draw message box text to screen, updated during combat scenario
@@ -4196,16 +4211,28 @@ while game_running:
                         screen.blit(enemy_status.surf, enemy_status.rect)
                         screen.blit(message_box.surf, message_box.rect)
 
+                        # get current enemy name and create surf and rectangle to draw to screen
                         text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True, "black",
                                                            "light yellow")
                         text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                        text_enemy_name_rect.center = (805, 732)
+                        if scaled_800:
+                            text_enemy_name_rect.center = (800 * .78, 732 * .78)
+                        if scaled_1024:
+                            text_enemy_name_rect.center = (800, 732)
+                        if scaled_1200:
+                            text_enemy_name_rect.center = (800 / .86, 732 / .86)
                         screen.blit(text_enemy_name_surf, text_enemy_name_rect)
 
+                        # get current enemy level and create surf and rectangle to draw to screen
                         text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True, "black",
                                                             "light yellow")
                         text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                        text_enemy_level_rect.center = (910, 732)
+                        if scaled_800:
+                            text_enemy_level_rect.center = (910 * .78, 732 * .78)
+                        if scaled_1024:
+                            text_enemy_level_rect.center = (910, 732)
+                        if scaled_1200:
+                            text_enemy_level_rect.center = (910 / .86, 732 / .86)
                         screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
                         screen.blit(text_info_surf_1, text_combat_info_rect_1)
@@ -4237,17 +4264,15 @@ while game_running:
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
-
                         screen.blit(buy_button.surf, buy_button.rect)
                         screen.blit(sell_button.surf, sell_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
-
                         screen.blit(player_status.surf, player_status.rect)
                         screen.blit(text_level_surf, text_level_rect)
                         screen.blit(text_zone_surf, text_zone_rect)
                         screen.blit(text_rupee_surf, text_rupee_rect)
-
                         screen.blit(message_box.surf, message_box.rect)
+
                         # draw message box text to screen, updated during scenario
                         screen.blit(text_info_surf_1, text_combat_info_rect_1)
                         screen.blit(text_info_surf_2, text_combat_info_rect_2)
@@ -4280,16 +4305,14 @@ while game_running:
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
-
                         screen.blit(rest_button.surf, rest_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
-
                         screen.blit(player_status.surf, player_status.rect)
                         screen.blit(text_level_surf, text_level_rect)
                         screen.blit(text_zone_surf, text_zone_rect)
                         screen.blit(text_rupee_surf, text_rupee_rect)
-
                         screen.blit(message_box.surf, message_box.rect)
+
                         # draw message box text to screen, updated during scenario
                         screen.blit(text_info_surf_1, text_combat_info_rect_1)
                         screen.blit(text_info_surf_2, text_combat_info_rect_2)
@@ -4339,224 +4362,421 @@ while game_running:
             # scales here at the end of iteration to ensure all sprites updated during iteration are also scaled -------
             if width < 1024 or height < 768:
 
-                if not scaled_800:
-                    npc_garan.update(npc_garan.x_coordinate * .78,
-                                     npc_garan.y_coordinate * .78, garan_url_800)
-                    npc_maurelle.update(npc_maurelle.x_coordinate * .78,
-                                        npc_maurelle.y_coordinate * .78, maurelle_url_800)
-                    npc_guard.update(npc_guard.x_coordinate * .78,
-                                     npc_guard.y_coordinate * .78, guard_url_800)
+                # need to be original resolution before downscaling to 800x600
+                if scaled_1024:
+                    # if not currently scaled to resolution of 800x600 (so that it's not applied exponentially)
+                    # after scale is set, condition will update to scaled_800 = true which prevents subsequent scaling
+                    if not scaled_800:
 
-                    for snake in enemies:
-                        if snake.name == "snake":
-                            snake.surf = pygame.image.load(snake_url_800).convert()
-                            snake.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            snake.rect = snake.surf.get_rect(
-                                center=(snake.x_coordinate * .78, snake.y_coordinate * .78))
-                    for ghoul in enemies:
-                        if ghoul.name == "ghoul":
-                            ghoul.surf = pygame.image.load(ghoul_url_800).convert()
-                            ghoul.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            ghoul.rect = ghoul.surf.get_rect(
-                                center=(ghoul.x_coordinate * .78, ghoul.y_coordinate * .78))
-                    for tree in trees:
-                        tree.surf = pygame.image.load(pine_tree_url_800).convert()
-                        tree.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        tree.rect = tree.surf.get_rect(
-                            center=(tree.x_coordinate * .78, tree.y_coordinate * .78))
-                    for flower in flowers:
-                        flower.surf = pygame.image.load(seldon_flower_url_800).convert()
-                        flower.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        flower.rect = flower.surf.get_rect(
-                            center=(flower.x_coordinate * .78, flower.y_coordinate * .78))
-                    for grass in grass:
-                        grass.surf = pygame.image.load(seldon_grass_url_800).convert()
-                        grass.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        grass.rect = grass.surf.get_rect(
-                            center=(grass.x_coordinate * .78, grass.y_coordinate * .78))
+                        # ----------------------------------------------------------------------------------------------
+                        # since the status bars aren't scaled (too many images) just adjust them to new coords.
+                        hp_bar.x_coordinate = hp_bar.x_coordinate * .98
+                        hp_bar.y_coordinate = hp_bar.y_coordinate * .86
+                        hp_bar.rect = hp_bar.surf.get_rect(
+                                center=(hp_bar.x_coordinate * .98, hp_bar.y_coordinate * .86))
+                        en_bar.x_coordinate = en_bar.x_coordinate * .98
+                        en_bar.y_coordinate = en_bar.y_coordinate * .86
+                        en_bar.rect = en_bar.surf.get_rect(
+                            center=(en_bar.x_coordinate * .98, en_bar.y_coordinate * .86))
+                        xp_bar.x_coordinate = xp_bar.x_coordinate * .98
+                        xp_bar.y_coordinate = xp_bar.y_coordinate * .86
+                        xp_bar.rect = xp_bar.surf.get_rect(
+                            center=(xp_bar.x_coordinate * .98, xp_bar.y_coordinate * .86))
 
-                    seldon_inn.surf = pygame.image.load(seldon_inn_url_800).convert()
-                    seldon_inn.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    seldon_inn.rect = seldon_inn.surf.get_rect(
-                        center=(seldon_inn.x_coordinate * .78, seldon_inn.y_coordinate * .78))
+                        status_bar_backdrop.x_coordinate = status_bar_backdrop.x_coordinate * .99
+                        status_bar_backdrop.y_coordinate = status_bar_backdrop.y_coordinate * .94
+                        status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
+                            center=(status_bar_backdrop.x_coordinate * .99, status_bar_backdrop.y_coordinate * .94))
+                        # ----------------------------------------------------------------------------------------------
 
-                    seldon_shop.surf = pygame.image.load(seldon_shop_url_800).convert()
-                    seldon_shop.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    seldon_shop.rect = seldon_shop.surf.get_rect(
-                        center=(seldon_shop.x_coordinate * .78, seldon_shop.y_coordinate * .78))
+                        greeting.surf = pygame.image.load(welcome_image_url_800).convert()
+                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        greeting.rect = greeting.surf.get_rect(
+                                center=(greeting.x_coordinate * .78, greeting.y_coordinate * .78))
+                        message_box.surf = pygame.image.load(message_box_url_800).convert()
+                        message_box.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        message_box.rect = message_box.surf.get_rect(
+                            center=(message_box.x_coordinate * .78, message_box.y_coordinate * .78))
 
-                    seldon_academia.surf = pygame.image.load(seldon_academia_url_800).convert()
-                    seldon_academia.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    seldon_academia.rect = seldon_academia.surf.get_rect(
-                        center=(seldon_academia.x_coordinate * .78, seldon_academia.y_coordinate * .78))
+                        npc_garan.update(garan_url_800)
+                        npc_garan.rect = npc_garan.surf.get_rect(
+                            center=(npc_garan.x_coordinate * .78, npc_garan.y_coordinate * .78))
+                        npc_maurelle.update(maurelle_url_800)
+                        npc_maurelle.rect = npc_maurelle.surf.get_rect(
+                            center=(npc_maurelle.x_coordinate * .78, npc_maurelle.y_coordinate * .78))
+                        npc_guard.update(guard_url_800)
+                        npc_guard.rect = npc_guard.surf.get_rect(
+                            center=(npc_guard.x_coordinate * .78, npc_guard.y_coordinate * .78))
 
-                    inventory_button.surf = pygame.image.load(inventory_button_url_800).convert()
-                    inventory_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    inventory_button.rect = inventory_button.surf.get_rect(
-                        center=(inventory_button.x_coordinate * .78, inventory_button.y_coordinate * .78))
+                        for snake in enemies:
+                            if snake.name == "snake":
+                                snake.surf = pygame.image.load(snake_url_800).convert()
+                                snake.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                snake.rect = snake.surf.get_rect(
+                                    center=(snake.x_coordinate * .78, snake.y_coordinate * .78))
+                        for ghoul in enemies:
+                            if ghoul.name == "ghoul":
+                                ghoul.surf = pygame.image.load(ghoul_url_800).convert()
+                                ghoul.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                ghoul.rect = ghoul.surf.get_rect(
+                                    center=(ghoul.x_coordinate * .78, ghoul.y_coordinate * .78))
+                        for tree in trees:
+                            tree.surf = pygame.image.load(pine_tree_url_800).convert()
+                            tree.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            tree.rect = tree.surf.get_rect(
+                                center=(tree.x_coordinate * .78, tree.y_coordinate * .78))
+                        for flower in flowers:
+                            flower.surf = pygame.image.load(seldon_flower_url_800).convert()
+                            flower.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            flower.rect = flower.surf.get_rect(
+                                center=(flower.x_coordinate * .78, flower.y_coordinate * .78))
+                        for some_grass in grass:
+                            some_grass.surf = pygame.image.load(seldon_grass_url_800).convert()
+                            some_grass.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            some_grass.rect = some_grass.surf.get_rect(
+                                center=(some_grass.x_coordinate * .78, some_grass.y_coordinate * .78))
+                        for item in quest_items:
+                            if item.name == "quest logs":
+                                item.surf = pygame.image.load(quest_logs_url_800).convert()
+                                item.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                item.rect = item.surf.get_rect(
+                                    center=(item.x_coordinate * .78, item.y_coordinate * .78))
 
-                    character_button.surf = pygame.image.load(character_button_url_800).convert()
-                    character_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    character_button.rect = character_button.surf.get_rect(
-                        center=(character_button.x_coordinate * .78, character_button.y_coordinate * .78))
+                        seldon_inn.surf = pygame.image.load(seldon_inn_url_800).convert()
+                        seldon_inn.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_inn.rect = seldon_inn.surf.get_rect(
+                            center=(seldon_inn.x_coordinate * .78, seldon_inn.y_coordinate * .78))
+                        seldon_shop.surf = pygame.image.load(seldon_shop_url_800).convert()
+                        seldon_shop.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_shop.rect = seldon_shop.surf.get_rect(
+                            center=(seldon_shop.x_coordinate * .78, seldon_shop.y_coordinate * .78))
+                        seldon_academia.surf = pygame.image.load(seldon_academia_url_800).convert()
+                        seldon_academia.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_academia.rect = seldon_academia.surf.get_rect(
+                            center=(seldon_academia.x_coordinate * .78, seldon_academia.y_coordinate * .78))
+                        inventory_button.surf = pygame.image.load(inventory_button_url_800).convert()
+                        inventory_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        inventory_button.rect = inventory_button.surf.get_rect(
+                            center=(inventory_button.x_coordinate * .78, inventory_button.y_coordinate * .78))
+                        character_button.surf = pygame.image.load(character_button_url_800).convert()
+                        character_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        character_button.rect = character_button.surf.get_rect(
+                            center=(character_button.x_coordinate * .78, character_button.y_coordinate * .78))
+                        journal_button.surf = pygame.image.load(journal_button_url_800).convert()
+                        journal_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        journal_button.rect = journal_button.surf.get_rect(
+                            center=(journal_button.x_coordinate * .78, journal_button.y_coordinate * .78))
+                        attack_button.surf = pygame.image.load(attack_button_url_800).convert()
+                        attack_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        attack_button.rect = attack_button.surf.get_rect(
+                            center=(attack_button.x_coordinate * .78, attack_button.y_coordinate * .78))
+                        skill_button.surf = pygame.image.load(skill_button_url_800).convert()
+                        skill_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        skill_button.rect = skill_button.surf.get_rect(
+                            center=(skill_button.x_coordinate * .78, skill_button.y_coordinate * .78))
+                        run_button.surf = pygame.image.load(run_button_url_800).convert()
+                        run_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        run_button.rect = run_button.surf.get_rect(
+                            center=(run_button.x_coordinate * .78, run_button.y_coordinate * .78))
+                        continue_button.surf = pygame.image.load(continue_button_url_800).convert()
+                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        continue_button.rect = continue_button.surf.get_rect(
+                            center=(continue_button.x_coordinate * .78, continue_button.y_coordinate * .78))
+                        buy_button.surf = pygame.image.load(buy_button_url_800).convert()
+                        buy_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        buy_button.rect = buy_button.surf.get_rect(
+                            center=(buy_button.x_coordinate * .78, buy_button.y_coordinate * .78))
+                        sell_button.surf = pygame.image.load(sell_button_url_800).convert()
+                        sell_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sell_button.rect = sell_button.surf.get_rect(
+                            center=(sell_button.x_coordinate * .78, sell_button.y_coordinate * .78))
+                        leave_button.surf = pygame.image.load(leave_button_url_800).convert()
+                        leave_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        leave_button.rect = leave_button.surf.get_rect(
+                            center=(leave_button.x_coordinate * .78, leave_button.y_coordinate * .78))
+                        rest_button.surf = pygame.image.load(rest_button_url_800).convert()
+                        rest_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        rest_button.rect = rest_button.surf.get_rect(
+                            center=(rest_button.x_coordinate * .78, rest_button.y_coordinate * .78))
+                        screen_button.surf = pygame.image.load(screen_size_button_url_800).convert()
+                        screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        screen_button.rect = screen_button.surf.get_rect(
+                            center=(screen_button.x_coordinate * .78, screen_button.y_coordinate * .78))
+                        screen_resize_window.surf = pygame.image.load(screen_size_window_url_800).convert()
+                        screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        screen_resize_window.rect = screen_resize_window.surf.get_rect(
+                            center=(screen_resize_window.x_coordinate * .78, screen_resize_window.y_coordinate * .78))
+                        s_1200x900_button.surf = pygame.image.load(s_1200x900_url_800).convert()
+                        s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_1200x900_button.rect = s_1200x900_button.surf.get_rect(
+                            center=(s_1200x900_button.x_coordinate * .78, s_1200x900_button.y_coordinate * .78))
+                        s_1024x768_button.surf = pygame.image.load(s_1024x768_url_800).convert()
+                        s_1024x768_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_1024x768_button.rect = s_1024x768_button.surf.get_rect(
+                            center=(s_1024x768_button.x_coordinate * .78, s_1024x768_button.y_coordinate * .78))
+                        s_800x600_button.surf = pygame.image.load(s_800x600_url_800).convert()
+                        s_800x600_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_800x600_button.rect = s_800x600_button.surf.get_rect(
+                            center=(s_800x600_button.x_coordinate * .78, s_800x600_button.y_coordinate * .78))
+                        player_status.surf = pygame.image.load(player_status_url_800).convert()
+                        player_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        player_status.rect = player_status.surf.get_rect(
+                            center=(player_status.x_coordinate * .78, player_status.y_coordinate * .78))
+                        enemy_status.surf = pygame.image.load(enemy_status_url_800).convert()
+                        enemy_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        enemy_status.rect = enemy_status.surf.get_rect(
+                            center=(enemy_status.x_coordinate * .78, enemy_status.y_coordinate * .78))
+                        inventory.surf = pygame.image.load(inventory_url_800).convert()
+                        inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        inventory.rect = inventory.surf.get_rect(
+                            center=(inventory.x_coordinate * .78, inventory.y_coordinate * .78))
+                        buy_inventory.surf = pygame.image.load(buy_inventory_url_800).convert()
+                        buy_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        buy_inventory.rect = buy_inventory.surf.get_rect(
+                            center=(buy_inventory.x_coordinate * .78, buy_inventory.y_coordinate * .78))
+                        sell_inventory.surf = pygame.image.load(sell_inventory_url_800).convert()
+                        sell_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sell_inventory.rect = sell_inventory.surf.get_rect(
+                            center=(sell_inventory.x_coordinate * .78, sell_inventory.y_coordinate * .78))
 
-                    journal_button.surf = pygame.image.load(journal_button_url_800).convert()
-                    journal_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    journal_button.rect = journal_button.surf.get_rect(
-                        center=(journal_button.x_coordinate * .78, journal_button.y_coordinate * .78))
+                        seldon_district_bg = pygame.image.load(seldon_bg_screen_url_800)
+                        seldon_district_shop = pygame.image.load(seldon_shop_screen_url_800)
+                        seldon_district_inn = pygame.image.load(seldon_inn_screen_url_800)
+                        seldon_district_battle = pygame.image.load(seldon_battle_screen_url_800)
 
-                    attack_button.surf = pygame.image.load(attack_button_url_800).convert()
-                    attack_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    attack_button.rect = attack_button.surf.get_rect(
-                        center=(attack_button.x_coordinate * .78, attack_button.y_coordinate * .78))
+                        player.surf = pygame.image.load(stan_down_url_800).convert()
+                        player.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        player.pos *= .78
+                        player.rect = player.surf.get_rect(center=player.pos * .78)
 
-                    skill_button.surf = pygame.image.load(skill_button_url_800).convert()
-                    skill_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    skill_button.rect = skill_button.surf.get_rect(
-                        center=(skill_button.x_coordinate * .78, skill_button.y_coordinate * .78))
+                        stan_battle_sprite.x_coordinate = stan_battle_sprite.x_coordinate * .78
+                        stan_battle_sprite.y_coordinate = stan_battle_sprite.y_coordinate * .78
+                        snake_battle_sprite.x_coordinate = snake_battle_sprite.x_coordinate * .78
+                        snake_battle_sprite.y_coordinate = snake_battle_sprite.y_coordinate * .78
+                        ghoul_battle_sprite.x_coordinate = ghoul_battle_sprite.x_coordinate * .78
+                        ghoul_battle_sprite.y_coordinate = ghoul_battle_sprite.y_coordinate * .78
 
-                    run_button.surf = pygame.image.load(run_button_url_800).convert()
-                    run_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    run_button.rect = run_button.surf.get_rect(
-                        center=(run_button.x_coordinate * .78, run_button.y_coordinate * .78))
+                        enemy_status_bar_backdrop.x_coordinate = enemy_status_bar_backdrop.x_coordinate * .78
+                        enemy_status_bar_backdrop.y_coordinate = enemy_status_bar_backdrop.y_coordinate * .78
 
-                    continue_button.surf = pygame.image.load(continue_button_url_800).convert()
-                    continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    continue_button.rect = continue_button.surf.get_rect(
-                        center=(continue_button.x_coordinate * .78, continue_button.y_coordinate * .78))
+                        enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
+                            center=(enemy_status_bar_backdrop.x_coordinate,
+                                    enemy_status_bar_backdrop.y_coordinate))
 
-                    buy_button.surf = pygame.image.load(buy_button_url_800).convert()
-                    buy_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    buy_button.rect = buy_button.surf.get_rect(
-                        center=(buy_button.x_coordinate * .78, buy_button.y_coordinate * .78))
+                        for enemy_hp in enemies:
+                            enemy_hp.health_bar.x_coordinate = enemy_hp.health_bar.x_coordinate * .78
+                            enemy_hp.health_bar.y_coordinate = enemy_hp.health_bar.y_coordinate * .78
 
-                    sell_button.surf = pygame.image.load(sell_button_url_800).convert()
-                    sell_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    sell_button.rect = sell_button.surf.get_rect(
-                        center=(sell_button.x_coordinate * .78, sell_button.y_coordinate * .78))
-
-                    leave_button.surf = pygame.image.load(leave_button_url_800).convert()
-                    leave_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    leave_button.rect = leave_button.surf.get_rect(
-                        center=(leave_button.x_coordinate * .78, leave_button.y_coordinate * .78))
-
-                    rest_button.surf = pygame.image.load(rest_button_url_800).convert()
-                    rest_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    rest_button.rect = rest_button.surf.get_rect(
-                        center=(rest_button.x_coordinate * .78, rest_button.y_coordinate * .78))
-
-                    screen_button.surf = pygame.image.load(screen_size_button_url_800).convert()
-                    screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    screen_button.rect = screen_button.surf.get_rect(
-                        center=(screen_button.x_coordinate * .78, screen_button.y_coordinate * .78))
-
-                    screen_resize_window.surf = pygame.image.load(screen_size_window_url_800).convert()
-                    screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    screen_resize_window.rect = screen_resize_window.surf.get_rect(
-                        center=(screen_resize_window.x_coordinate * .78, screen_resize_window.y_coordinate * .78))
-
-                    s_1200x900_button.surf = pygame.image.load(s_1200x900_url_800).convert()
-                    s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    s_1200x900_button.rect = s_1200x900_button.surf.get_rect(
-                        center=(s_1200x900_button.x_coordinate * .78, s_1200x900_button.y_coordinate * .78))
-
-                    s_1024x768_button.surf = pygame.image.load(s_1024x768_url_800).convert()
-                    s_1024x768_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    s_1024x768_button.rect = s_1024x768_button.surf.get_rect(
-                        center=(s_1024x768_button.x_coordinate * .78, s_1024x768_button.y_coordinate * .78))
-
-                    s_800x600_button.surf = pygame.image.load(s_800x600_url_800).convert()
-                    s_800x600_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                    s_800x600_button.rect = s_800x600_button.surf.get_rect(
-                        center=(s_800x600_button.x_coordinate * .78, s_800x600_button.y_coordinate * .78))
-
-                    seldon_district_bg = pygame.image.load(seldon_bg_screen_url_800)
-                    seldon_district_shop = pygame.image.load(seldon_shop_screen_url_800)
-                    seldon_district_inn = pygame.image.load(seldon_inn_screen_url_800)
-                    seldon_district_battle = pygame.image.load(seldon_battle_screen_url_800)
-                    player.surf = pygame.image.load(stan_down_url_800).convert()
-                    player.pos *= .78
-                    player.rect = player.surf.get_rect(center=player.pos * .78)
-
-                    scaled_800 = True
-                    scaled_1024 = False
-                    scaled_1200 = False
+                        scaled_800 = True
+                        scaled_1024 = False
+                        scaled_1200 = False
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             if width == 1024 or height == 768:
+                # if not currently scaled to resolution of 1024x768 (so that it's not applied exponentially)
+                # after scale is set, the condition will update to scaled_1024 = true which prevents subsequent scaling
                 if not scaled_1024:
 
-                    # count current sprite iteration when looping through sprites to have an index value to pull from
-                    # original sprite surface list to reassign sprites original image
-                    surface_counter = 0
+                    # --------------------------------------------------------------------------------------------------
+                    hp_bar.x_coordinate = 170
+                    hp_bar.y_coordinate = 25
+                    hp_bar.rect = hp_bar.surf.get_rect(center=(hp_bar.x_coordinate, hp_bar.y_coordinate))
+                    en_bar.x_coordinate = 170
+                    en_bar.y_coordinate = 45
+                    en_bar.rect = en_bar.surf.get_rect(center=(en_bar.x_coordinate, en_bar.y_coordinate))
+                    xp_bar.x_coordinate = 170
+                    xp_bar.y_coordinate = 65
+                    xp_bar.rect = xp_bar.surf.get_rect(center=(xp_bar.x_coordinate, xp_bar.y_coordinate))
 
-                    for sprite in most_sprites:
-                        sprite.surf = original_sprite_scales[surface_counter]
-                        sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.x_coordinate, sprite.y_coordinate))
-                        surface_counter += 1
-                    for an_enemy in enemies:
-                        if an_enemy.name == "ghoul":
-                            an_enemy.surf = original_sprite_scales[surface_counter + 4]
-                            an_enemy.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            an_enemy.rect = an_enemy.surf.get_rect(center=(an_enemy.x_coordinate,
-                                                                           an_enemy.y_coordinate))
-                        elif an_enemy.name == "snake":
-                            an_enemy.surf = original_sprite_scales[surface_counter]
-                            an_enemy.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            an_enemy.rect = an_enemy.surf.get_rect(center=(an_enemy.x_coordinate,
-                                                                           an_enemy.y_coordinate))
+                    status_bar_backdrop.x_coordinate = 165
+                    status_bar_backdrop.y_coordinate = 45
+                    status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
+                        center=(status_bar_backdrop.x_coordinate, status_bar_backdrop.y_coordinate))
+                    # --------------------------------------------------------------------------------------------------
 
-                    # account for 8 enemies even if one is defeated or respawned to ensure proper indexing
-                    surface_counter += 8
+                    greeting.surf = pygame.image.load(welcome_image_url).convert()
+                    greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    greeting.rect = greeting.surf.get_rect(center=(512, 384))
+                    message_box.surf = pygame.image.load(message_box_url).convert()
+                    message_box.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    message_box.rect = message_box.surf.get_rect(center=(175, 700))
 
-                    for element in user_interface:
-                        element.surf = original_sprite_scales[surface_counter]
-                        element.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        element.rect = element.surf.get_rect(center=(element.x_coordinate, element.y_coordinate))
-                        surface_counter += 1
-                    for element in conditional_interface:
-                        element.surf = original_sprite_scales[surface_counter]
-                        element.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        element.rect = element.surf.get_rect(center=(element.x_coordinate, element.y_coordinate))
-                        surface_counter += 1
-                    for button in screen_resize_buttons:
-                        button.surf = original_sprite_scales[surface_counter]
-                        button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        button.rect = button.surf.get_rect(center=(button.x_coordinate, button.y_coordinate))
-                        surface_counter += 1
-                    for sprite in battle_elements:
-                        sprite.surf = original_sprite_scales[surface_counter]
-                        sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.x_coordinate, sprite.y_coordinate))
-                        surface_counter += 1
-                    for hp_bars in enemy_hp_bars:
-                        hp_bars.surf = original_sprite_scales[surface_counter]
-                        hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.x_coordinate, hp_bars.y_coordinate))
+                    npc_garan.update(garan_url)
+                    npc_garan.rect = npc_garan.surf.get_rect(center=(240, 480))
+                    npc_maurelle.update(maurelle_url)
+                    npc_maurelle.rect = npc_maurelle.surf.get_rect(center=(755, 515))
+                    npc_guard.update(guard_url)
+                    npc_guard.rect = npc_guard.surf.get_rect(center=(475, 140))
 
-                    # 8 enemy health bars currently. hardcode this so counter doesn't get messed up when an enemy is
-                    # defeated and removed from game. this will insure the indexing is correct when rebuilding surfs
-                    # on reverting to original screen size and sprites
-                    surface_counter += 8
+                    for snake in enemies:
+                        if snake.name == "snake":
+                            snake.surf = pygame.image.load(snake_url).convert()
+                            snake.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            snake.rect = snake.surf.get_rect(center=(snake.x_coordinate, snake.y_coordinate))
 
-                    player.surf = original_sprite_scales[surface_counter]
-                    # if scaling up from 800x600, then apply /.78 to player rect and position to adjust to new res.
-                    if scaled_800:
-                        player.pos /= .78
-                        player.rect = player.surf.get_rect(center=player.pos / .78)
-                    # if scaling down from 1200x900, then apply *.78 to player rect and position to adjust to new res.
-                    if scaled_1200:
-                        player.pos *= .86
-                        player.rect = player.surf.get_rect(center=player.pos * .86)
+                    for ghoul in enemies:
+                        if ghoul.name == "ghoul":
+                            ghoul.surf = pygame.image.load(ghoul_url).convert()
+                            ghoul.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            ghoul.rect = ghoul.surf.get_rect(center=(ghoul.x_coordinate, ghoul.y_coordinate))
+
+                    # setting default images and coordinates for these items -------------------------------------------
+                    pine_tree_1.surf = pygame.image.load(pine_tree_url).convert()
+                    pine_tree_1.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    pine_tree_1.rect = pine_tree_1.surf.get_rect(center=(80, 475))
+                    pine_tree_2.surf = pygame.image.load(pine_tree_url).convert()
+                    pine_tree_2.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    pine_tree_2.rect = pine_tree_2.surf.get_rect(center=(260, 660))
+                    pine_tree_3.surf = pygame.image.load(pine_tree_url).convert()
+                    pine_tree_3.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    pine_tree_3.rect = pine_tree_3.surf.get_rect(center=(380, 400))
+                    seldon_flower_1.surf = pygame.image.load(seldon_flower_url).convert()
+                    seldon_flower_1.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_flower_1.rect = seldon_flower_1.surf.get_rect(center=(580, 410))
+                    seldon_flower_2.surf = pygame.image.load(seldon_flower_url).convert()
+                    seldon_flower_2.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_flower_2.rect = seldon_flower_2.surf.get_rect(center=(700, 620))
+                    seldon_flower_3.surf = pygame.image.load(seldon_flower_url).convert()
+                    seldon_flower_3.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_flower_3.rect = seldon_flower_3.surf.get_rect(center=(800, 470))
+                    seldon_grass_1.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_1.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_1.rect = seldon_grass_1.surf.get_rect(center=(380, 145))
+                    seldon_grass_2.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_2.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_2.rect = seldon_grass_2.surf.get_rect(center=(290, 215))
+                    seldon_grass_3.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_3.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_3.rect = seldon_grass_3.surf.get_rect(center=(425, 255))
+                    seldon_grass_4.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_4.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_4.rect = seldon_grass_4.surf.get_rect(center=(175, 155))
+                    seldon_grass_5.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_5.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_5.rect = seldon_grass_5.surf.get_rect(center=(160, 275))
+                    seldon_grass_6.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_6.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_6.rect = seldon_grass_6.surf.get_rect(center=(50, 200))
+                    quest_logs_1.surf = pygame.image.load(quest_logs_url).convert()
+                    quest_logs_1.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    quest_logs_1.rect = quest_logs_1.surf.get_rect(center=(65, 575))
+                    quest_logs_2.surf = pygame.image.load(quest_logs_url).convert()
+                    quest_logs_2.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    quest_logs_2.rect = quest_logs_2.surf.get_rect(center=(315, 615))
+                    quest_logs_3.surf = pygame.image.load(quest_logs_url).convert()
+                    quest_logs_3.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    quest_logs_3.rect = quest_logs_3.surf.get_rect(center=(432, 462))
+                    quest_logs_4.surf = pygame.image.load(quest_logs_url).convert()
+                    quest_logs_4.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    quest_logs_4.rect = quest_logs_4.surf.get_rect(center=(105, 575))
+                    # --------------------------------------------------------------------------------------------------
+
+                    seldon_inn.surf = pygame.image.load(seldon_inn_url).convert()
+                    seldon_inn.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_inn.rect = seldon_inn.surf.get_rect(center=(625, 620))
+                    seldon_shop.surf = pygame.image.load(seldon_shop_url).convert()
+                    seldon_shop.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_shop.rect = seldon_shop.surf.get_rect(center=(660, 400))
+                    seldon_academia.surf = pygame.image.load(seldon_academia_url).convert()
+                    seldon_academia.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_academia.rect = seldon_academia.surf.get_rect(center=(875, 500))
+                    inventory_button.surf = pygame.image.load(inventory_button_url).convert()
+                    inventory_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    inventory_button.rect = inventory_button.surf.get_rect(center=(960, 730))
+                    character_button.surf = pygame.image.load(character_button_url).convert()
+                    character_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    character_button.rect = character_button.surf.get_rect(center=(850, 730))
+                    journal_button.surf = pygame.image.load(journal_button_url).convert()
+                    journal_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    journal_button.rect = journal_button.surf.get_rect(center=(740, 730))
+                    attack_button.surf = pygame.image.load(attack_button_url).convert()
+                    attack_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    attack_button.rect = attack_button.surf.get_rect(center=(740, 670))
+                    skill_button.surf = pygame.image.load(skill_button_url).convert()
+                    skill_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    skill_button.rect = skill_button.surf.get_rect(center=(850, 670))
+                    run_button.surf = pygame.image.load(run_button_url).convert()
+                    run_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    run_button.rect = run_button.surf.get_rect(center=(960, 670))
+                    continue_button.surf = pygame.image.load(continue_button_url).convert()
+                    continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    continue_button.rect = continue_button.surf.get_rect(center=(500, 600))
+                    buy_button.surf = pygame.image.load(buy_button_url).convert()
+                    buy_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    buy_button.rect = buy_button.surf.get_rect(center=(740, 730))
+                    sell_button.surf = pygame.image.load(sell_button_url).convert()
+                    sell_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    sell_button.rect = sell_button.surf.get_rect(center=(850, 730))
+                    leave_button.surf = pygame.image.load(leave_button_url).convert()
+                    leave_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    leave_button.rect = leave_button.surf.get_rect(center=(960, 730))
+                    rest_button.surf = pygame.image.load(rest_button_url).convert()
+                    rest_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    rest_button.rect = rest_button.surf.get_rect(center=(740, 730))
+                    screen_button.surf = pygame.image.load(screen_size_button_url).convert()
+                    screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    screen_button.rect = screen_button.surf.get_rect(center=(960, 25))
+                    screen_resize_window.surf = pygame.image.load(screen_size_window_url).convert()
+                    screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    screen_resize_window.rect = screen_resize_window.surf.get_rect(center=(940, 113))
+                    s_1200x900_button.surf = pygame.image.load(s_1200x900_url).convert()
+                    s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    s_1200x900_button.rect = s_1200x900_button.surf.get_rect(center=(940, 85))
+                    s_1024x768_button.surf = pygame.image.load(s_1024x768_url).convert()
+                    s_1024x768_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    s_1024x768_button.rect = s_1024x768_button.surf.get_rect(center=(940, 110))
+                    s_800x600_button.surf = pygame.image.load(s_800x600_url).convert()
+                    s_800x600_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    s_800x600_button.rect = s_800x600_button.surf.get_rect(center=(940, 135))
+                    player_status.surf = pygame.image.load(player_status_url).convert()
+                    player_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    player_status.rect = player_status.surf.get_rect(center=(850, 670))
+                    enemy_status.surf = pygame.image.load(enemy_status_url).convert()
+                    enemy_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    enemy_status.rect = enemy_status.surf.get_rect(center=(850, 730))
+                    inventory.surf = pygame.image.load(inventory_url).convert()
+                    inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    inventory.rect = inventory.surf.get_rect(center=(890, 515))
+                    buy_inventory.surf = pygame.image.load(buy_inventory_url).convert()
+                    buy_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    buy_inventory.rect = buy_inventory.surf.get_rect(center=(890, 490))
+                    sell_inventory.surf = pygame.image.load(sell_inventory_url).convert()
+                    sell_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    sell_inventory.rect = sell_inventory.surf.get_rect(center=(890, 490))
 
                     seldon_district_bg = pygame.image.load(seldon_bg_screen_url)
                     seldon_district_shop = pygame.image.load(seldon_shop_screen_url)
                     seldon_district_inn = pygame.image.load(seldon_inn_screen_url)
                     seldon_district_battle = pygame.image.load(seldon_battle_screen_url)
 
-                    # conditions updated after scaling
+                    player.surf = pygame.image.load(stan_down_url).convert()
+                    player.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    if scaled_800:
+                        player.pos /= .78
+                        player.rect = player.surf.get_rect(center=player.pos / .78)
+                    if scaled_1200:
+                        player.pos *= .86
+                        player.rect = player.surf.get_rect(center=player.pos * .86)
+
+                    stan_battle_sprite.x_coordinate = 300
+                    stan_battle_sprite.y_coordinate = 460
+                    snake_battle_sprite.x_coordinate = 700
+                    snake_battle_sprite.y_coordinate = 250
+                    ghoul_battle_sprite.x_coordinate = 700
+                    ghoul_battle_sprite.y_coordinate = 250
+
+                    enemy_status_bar_backdrop.x_coordinate = 695
+                    enemy_status_bar_backdrop.y_coordinate = 90
+
+                    enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
+                        center=(enemy_status_bar_backdrop.x_coordinate,
+                                enemy_status_bar_backdrop.y_coordinate))
+
+                    for enemy_hp in enemies:
+                        enemy_hp.health_bar.x_coordinate = 700
+                        enemy_hp.health_bar.y_coordinate = 90
+
                     scaled_800 = False
                     scaled_1024 = True
                     scaled_1200 = False
@@ -4564,80 +4784,206 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             if width > 1024 or height > 768:
-                if not scaled_1200:
-                    # scale back to original resolution before up-scaling
-                    if scaled_1024:
+                # need to be original resolution before downscaling to 800x600
+                if scaled_1024:
+                    # if not currently scaled to resolution of 1200x900 (so that it's not applied exponentially)
+                    # after scale is set, condition will update to scaled_1200 = true which prevents subsequent scaling
+                    if not scaled_1200:
 
-                        # clear sprite list before appending to ensure correct index
-                        original_sprite_scales.clear()
+                        # ----------------------------------------------------------------------------------------------
+                        # since the status bars aren't scaled (too many images) just adjust them to new coords.
+                        hp_bar.x_coordinate = hp_bar.x_coordinate * .86
+                        hp_bar.y_coordinate = hp_bar.y_coordinate * .86
+                        hp_bar.rect = hp_bar.surf.get_rect(
+                            center=(hp_bar.x_coordinate, hp_bar.y_coordinate))
+                        en_bar.x_coordinate = en_bar.x_coordinate * .86
+                        en_bar.y_coordinate = en_bar.y_coordinate * .86
+                        en_bar.rect = en_bar.surf.get_rect(
+                            center=(en_bar.x_coordinate, en_bar.y_coordinate))
+                        xp_bar.x_coordinate = xp_bar.x_coordinate * .86
+                        xp_bar.y_coordinate = xp_bar.y_coordinate * .86
+                        xp_bar.rect = xp_bar.surf.get_rect(
+                            center=(xp_bar.x_coordinate, xp_bar.y_coordinate))
+                        # ----------------------------------------------------------------------------------------------
 
-                        for sprite in most_sprites:
-                            # save sprites original image to use when re-scaling to original sprite size and location
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .86,
-                                                                        sprite.surf.get_height() / .86))
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
-                                                                       sprite.__getattribute__("y_coordinate") / .86))
-                        for sprite in enemies:
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .86,
-                                                                        sprite.surf.get_height() / .86))
-                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
-                                                                       sprite.__getattribute__("y_coordinate") / .86))
-                        for element in user_interface:
-                            original_sprite_scales.append(element.surf)
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() / .86,
-                                                                         element.surf.get_height() / .86))
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
-                                                                         element.__getattribute__("y_coordinate") / .86
-                                                                         ))
-                        for element in conditional_interface:
-                            original_sprite_scales.append(element.surf)
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() / .86,
-                                                                         element.surf.get_height() / .86))
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
-                                                                         element.__getattribute__("y_coordinate") / .86
-                                                                         ))
-                        for button in screen_resize_buttons:
-                            original_sprite_scales.append(button.surf)
-                            button.surf = pygame.transform.smoothscale(button.surf,
-                                                                       (button.surf.get_width() / .86,
-                                                                        button.surf.get_height() / .86))
-                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .86,
-                                                                       button.__getattribute__("y_coordinate") / .86))
-                        for sprite in battle_elements:
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .86,
-                                                                        sprite.surf.get_height() / .86))
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
-                                                                       sprite.__getattribute__("y_coordinate") / .86))
-                        for hp_bars in enemy_hp_bars:
-                            original_sprite_scales.append(hp_bars.surf)
-                            hp_bars.surf = pygame.transform.smoothscale(hp_bars.surf,
-                                                                        (hp_bars.surf.get_width() / .86,
-                                                                         hp_bars.surf.get_height() / .86))
-                            hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.__getattribute__("x_coordinate") / .86,
-                                                                         hp_bars.__getattribute__("y_coordinate") / .86
-                                                                         ))
+                        greeting.surf = pygame.image.load(welcome_image_url_1200).convert()
+                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        greeting.rect = greeting.surf.get_rect(
+                            center=(greeting.x_coordinate / .86, greeting.y_coordinate / .86))
+                        message_box.surf = pygame.image.load(message_box_url_1200).convert()
+                        message_box.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        message_box.rect = message_box.surf.get_rect(
+                            center=(message_box.x_coordinate / .86, message_box.y_coordinate / .86))
 
-                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
-                        original_sprite_scales.append(player.surf)
-                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
-                                                                                 player.surf.get_height() / .86))
-                        player.rect = player.surf.get_rect(center=player.pos / .86)
+                        npc_garan.update(garan_url_1200)
+                        npc_garan.rect = npc_garan.surf.get_rect(
+                            center=(npc_garan.x_coordinate / .86, npc_garan.y_coordinate / .86))
+                        npc_maurelle.update(maurelle_url_1200)
+                        npc_maurelle.rect = npc_maurelle.surf.get_rect(
+                            center=(npc_maurelle.x_coordinate / .86, npc_maurelle.y_coordinate / .86))
+                        npc_guard.update(guard_url_1200)
+                        npc_guard.rect = npc_guard.surf.get_rect(
+                            center=(npc_guard.x_coordinate / .86, npc_guard.y_coordinate / .86))
+
+                        for snake in enemies:
+                            if snake.name == "snake":
+                                snake.surf = pygame.image.load(snake_url_1200).convert()
+                                snake.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                snake.rect = snake.surf.get_rect(
+                                    center=(snake.x_coordinate / .86, snake.y_coordinate / .86))
+                        for ghoul in enemies:
+                            if ghoul.name == "ghoul":
+                                ghoul.surf = pygame.image.load(ghoul_url_1200).convert()
+                                ghoul.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                ghoul.rect = ghoul.surf.get_rect(
+                                    center=(ghoul.x_coordinate / .86, ghoul.y_coordinate / .86))
+                        for tree in trees:
+                            tree.surf = pygame.image.load(pine_tree_url_1200).convert()
+                            tree.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            tree.rect = tree.surf.get_rect(
+                                center=(tree.x_coordinate / .86, tree.y_coordinate / .86))
+                        for flower in flowers:
+                            flower.surf = pygame.image.load(seldon_flower_url_1200).convert()
+                            flower.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            flower.rect = flower.surf.get_rect(
+                                center=(flower.x_coordinate / .86, flower.y_coordinate / .86))
+                        for some_grass in grass:
+                            some_grass.surf = pygame.image.load(seldon_grass_url_1200).convert()
+                            some_grass.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            some_grass.rect = some_grass.surf.get_rect(
+                                center=(some_grass.x_coordinate / .86, some_grass.y_coordinate / .86))
+                        for item in quest_items:
+                            if item.name == "quest logs":
+                                item.surf = pygame.image.load(quest_logs_url_1200).convert()
+                                item.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                item.rect = item.surf.get_rect(
+                                    center=(item.x_coordinate / .86, item.y_coordinate / .86))
+
+                        seldon_inn.surf = pygame.image.load(seldon_inn_url_1200).convert()
+                        seldon_inn.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_inn.rect = seldon_inn.surf.get_rect(
+                            center=(seldon_inn.x_coordinate / .86, seldon_inn.y_coordinate / .86))
+                        seldon_shop.surf = pygame.image.load(seldon_shop_url_1200).convert()
+                        seldon_shop.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_shop.rect = seldon_shop.surf.get_rect(
+                            center=(seldon_shop.x_coordinate / .86, seldon_shop.y_coordinate / .86))
+                        seldon_academia.surf = pygame.image.load(seldon_academia_url_1200).convert()
+                        seldon_academia.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_academia.rect = seldon_academia.surf.get_rect(
+                            center=(seldon_academia.x_coordinate / .86, seldon_academia.y_coordinate / .86))
+                        inventory_button.surf = pygame.image.load(inventory_button_url_1200).convert()
+                        inventory_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        inventory_button.rect = inventory_button.surf.get_rect(
+                            center=((inventory_button.x_coordinate / .86) + 6, inventory_button.y_coordinate / .86))
+                        character_button.surf = pygame.image.load(character_button_url_1200).convert()
+                        character_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        character_button.rect = character_button.surf.get_rect(
+                            center=(character_button.x_coordinate / .86, character_button.y_coordinate / .86))
+                        journal_button.surf = pygame.image.load(journal_button_url_1200).convert()
+                        journal_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        journal_button.rect = journal_button.surf.get_rect(
+                            center=((journal_button.x_coordinate / .86) - 6, journal_button.y_coordinate / .86))
+                        attack_button.surf = pygame.image.load(attack_button_url_1200).convert()
+                        attack_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        attack_button.rect = attack_button.surf.get_rect(
+                            center=((attack_button.x_coordinate / .86) - 6, attack_button.y_coordinate / .86))
+                        skill_button.surf = pygame.image.load(skill_button_url_1200).convert()
+                        skill_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        skill_button.rect = skill_button.surf.get_rect(
+                            center=(skill_button.x_coordinate / .86, skill_button.y_coordinate / .86))
+                        run_button.surf = pygame.image.load(run_button_url_1200).convert()
+                        run_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        run_button.rect = run_button.surf.get_rect(
+                            center=((run_button.x_coordinate / .86) + 6, run_button.y_coordinate / .86))
+                        continue_button.surf = pygame.image.load(continue_button_url_1200).convert()
+                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        continue_button.rect = continue_button.surf.get_rect(
+                            center=(continue_button.x_coordinate / .86, continue_button.y_coordinate / .86))
+                        buy_button.surf = pygame.image.load(buy_button_url_1200).convert()
+                        buy_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        buy_button.rect = buy_button.surf.get_rect(
+                            center=((buy_button.x_coordinate / .86) - 6, buy_button.y_coordinate / .86))
+                        sell_button.surf = pygame.image.load(sell_button_url_1200).convert()
+                        sell_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sell_button.rect = sell_button.surf.get_rect(
+                            center=(sell_button.x_coordinate / .86, sell_button.y_coordinate / .86))
+                        leave_button.surf = pygame.image.load(leave_button_url_1200).convert()
+                        leave_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        leave_button.rect = leave_button.surf.get_rect(
+                            center=((leave_button.x_coordinate / .86) + 6, leave_button.y_coordinate / .86))
+                        rest_button.surf = pygame.image.load(rest_button_url_1200).convert()
+                        rest_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        rest_button.rect = rest_button.surf.get_rect(
+                            center=((rest_button.x_coordinate / .86) - 6, rest_button.y_coordinate / .86))
+                        screen_button.surf = pygame.image.load(screen_size_button_url_1200).convert()
+                        screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        screen_button.rect = screen_button.surf.get_rect(
+                            center=(screen_button.x_coordinate / .86, screen_button.y_coordinate / .86))
+                        screen_resize_window.surf = pygame.image.load(screen_size_window_url_1200).convert()
+                        screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        screen_resize_window.rect = screen_resize_window.surf.get_rect(
+                            center=(screen_resize_window.x_coordinate / .86, screen_resize_window.y_coordinate / .86))
+                        s_1200x900_button.surf = pygame.image.load(s_1200x900_url_1200).convert()
+                        s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_1200x900_button.rect = s_1200x900_button.surf.get_rect(
+                            center=(s_1200x900_button.x_coordinate / .86, s_1200x900_button.y_coordinate / .86))
+                        s_1024x768_button.surf = pygame.image.load(s_1024x768_url_1200).convert()
+                        s_1024x768_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_1024x768_button.rect = s_1024x768_button.surf.get_rect(
+                            center=(s_1024x768_button.x_coordinate / .86, s_1024x768_button.y_coordinate / .86))
+                        s_800x600_button.surf = pygame.image.load(s_800x600_url_1200).convert()
+                        s_800x600_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_800x600_button.rect = s_800x600_button.surf.get_rect(
+                            center=(s_800x600_button.x_coordinate / .86, s_800x600_button.y_coordinate / .86))
+                        player_status.surf = pygame.image.load(player_status_url_1200).convert()
+                        player_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        player_status.rect = player_status.surf.get_rect(
+                            center=(player_status.x_coordinate / .86, player_status.y_coordinate / .86))
+                        enemy_status.surf = pygame.image.load(enemy_status_url_1200).convert()
+                        enemy_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        enemy_status.rect = enemy_status.surf.get_rect(
+                            center=(enemy_status.x_coordinate / .86, enemy_status.y_coordinate / .86))
+                        inventory.surf = pygame.image.load(inventory_url_1200).convert()
+                        inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        inventory.rect = inventory.surf.get_rect(
+                            center=(inventory.x_coordinate / .86, inventory.y_coordinate / .86))
+                        buy_inventory.surf = pygame.image.load(buy_inventory_url_1200).convert()
+                        buy_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        buy_inventory.rect = buy_inventory.surf.get_rect(
+                            center=(buy_inventory.x_coordinate / .86, buy_inventory.y_coordinate / .86))
+                        sell_inventory.surf = pygame.image.load(sell_inventory_url_1200).convert()
+                        sell_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sell_inventory.rect = sell_inventory.surf.get_rect(
+                            center=(sell_inventory.x_coordinate / .86, sell_inventory.y_coordinate / .86))
+
+                        seldon_district_bg = pygame.image.load(seldon_bg_screen_url_1200)
+                        seldon_district_shop = pygame.image.load(seldon_shop_screen_url_1200)
+                        seldon_district_inn = pygame.image.load(seldon_inn_screen_url_1200)
+                        seldon_district_battle = pygame.image.load(seldon_battle_screen_url_1200)
+
+                        player.surf = pygame.image.load(stan_down_url_1200).convert()
+                        player.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         player.pos /= .86
+                        player.rect = player.surf.get_rect(center=player.pos / .86)
 
-                        # conditions updated after scaling
+                        stan_battle_sprite.x_coordinate = stan_battle_sprite.x_coordinate / .91
+                        stan_battle_sprite.y_coordinate = stan_battle_sprite.y_coordinate / .91
+                        snake_battle_sprite.x_coordinate = snake_battle_sprite.x_coordinate / .91
+                        snake_battle_sprite.y_coordinate = snake_battle_sprite.y_coordinate / .91
+                        ghoul_battle_sprite.x_coordinate = ghoul_battle_sprite.x_coordinate / .91
+                        ghoul_battle_sprite.y_coordinate = ghoul_battle_sprite.y_coordinate / .91
+
+                        enemy_status_bar_backdrop.x_coordinate = enemy_status_bar_backdrop.x_coordinate / .78
+                        enemy_status_bar_backdrop.y_coordinate = enemy_status_bar_backdrop.y_coordinate / .78
+
+                        enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
+                            center=(enemy_status_bar_backdrop.x_coordinate,
+                                    enemy_status_bar_backdrop.y_coordinate))
+
+                        for enemy_hp in enemies:
+                            enemy_hp.health_bar.x_coordinate = enemy_hp.health_bar.x_coordinate / .91
+                            enemy_hp.health_bar.y_coordinate = enemy_hp.health_bar.y_coordinate / .91
+
                         scaled_800 = False
                         scaled_1024 = False
                         scaled_1200 = True
@@ -4656,91 +5002,221 @@ while game_running:
         # combat happened this turn, update sprites for battle and apply short cooldown to attack again
         if combat_happened:
             combat_cooldown = True
-            stan_battle_sprite.update(stan_attack_url)
-            snake_battle_sprite.update(snake_attack_url)
-            ghoul_battle_sprite.update(ghoul_attack_url)
+            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                      stan_attack_url)
+            snake_battle_sprite.update(snake_battle_sprite.x_coordinate, snake_battle_sprite.y_coordinate,
+                                       snake_attack_url)
+            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate, ghoul_battle_sprite.y_coordinate,
+                                       ghoul_attack_url)
 
             # ----------------------------------------------------------------------------------------------------------
-            # ----------------------------------------------------------------------------------------------------------
-            # ----------------------------------------------------------------------------------------------------------
+            # scales here at the end of iteration to ensure all sprites updated during iteration are also scaled -------
             if width < 1024 or height < 768:
-                if not scaled_800:
 
-                    # if going to 800x600 from 1200x900, revert to original image first before applying new scale
-                    if scaled_1024:
+                # need to be original resolution before downscaling to 800x600
+                if scaled_1024:
+                    # if not currently scaled to resolution of 800x600 (so that it's not applied exponentially)
+                    # after scale is set, condition will update to scaled_800 = true which prevents subsequent scaling
+                    if not scaled_800:
 
-                        # clear sprite list before appending to ensure correct index
-                        original_sprite_scales.clear()
+                        # ----------------------------------------------------------------------------------------------
+                        # since the status bars aren't scaled (too many images) just adjust them to new coords.
+                        hp_bar.x_coordinate = hp_bar.x_coordinate * .98
+                        hp_bar.y_coordinate = hp_bar.y_coordinate * .86
+                        hp_bar.rect = hp_bar.surf.get_rect(
+                            center=(hp_bar.x_coordinate * .98, hp_bar.y_coordinate * .86))
+                        en_bar.x_coordinate = en_bar.x_coordinate * .98
+                        en_bar.y_coordinate = en_bar.y_coordinate * .86
+                        en_bar.rect = en_bar.surf.get_rect(
+                            center=(en_bar.x_coordinate * .98, en_bar.y_coordinate * .86))
+                        xp_bar.x_coordinate = xp_bar.x_coordinate * .98
+                        xp_bar.y_coordinate = xp_bar.y_coordinate * .86
+                        xp_bar.rect = xp_bar.surf.get_rect(
+                            center=(xp_bar.x_coordinate * .98, xp_bar.y_coordinate * .86))
 
-                        for sprite in most_sprites:
-                            # save sprites original image to use when re-scaling to original sprite size and location
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() * .78,
-                                                                        sprite.surf.get_height() * .78))
-                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                       sprite.__getattribute__("y_coordinate") * .78))
-                        for sprite in enemies:
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() * .78,
-                                                                        sprite.surf.get_height() * .78))
-                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                       sprite.__getattribute__("y_coordinate") * .78))
-                        for element in user_interface:
-                            original_sprite_scales.append(element.surf)
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() * .78,
-                                                                         element.surf.get_height() * .78))
-                            element.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                         element.__getattribute__("y_coordinate") * .78
-                                                                         ))
-                        for element in conditional_interface:
-                            original_sprite_scales.append(element.surf)
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() * .78,
-                                                                         element.surf.get_height() * .78))
-                            element.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") * .78,
-                                                                         element.__getattribute__("y_coordinate") * .78
-                                                                         ))
-                        for button in screen_resize_buttons:
-                            original_sprite_scales.append(button.surf)
-                            button.surf = pygame.transform.smoothscale(button.surf,
-                                                                       (button.surf.get_width() * .78,
-                                                                        button.surf.get_height() * .78))
-                            button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") * .78,
-                                                                       button.__getattribute__("y_coordinate") * .78))
-                        for sprite in battle_elements:
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() * .78,
-                                                                        sprite.surf.get_height() * .78))
-                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") * .78,
-                                                                       sprite.__getattribute__("y_coordinate") * .78))
-                        for hp_bars in enemy_hp_bars:
-                            original_sprite_scales.append(hp_bars.surf)
-                            hp_bars.surf = pygame.transform.smoothscale(hp_bars.surf,
-                                                                        (hp_bars.surf.get_width() * .78,
-                                                                         hp_bars.surf.get_height() * .78))
-                            hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.__getattribute__("x_coordinate") * .78,
-                                                                         hp_bars.__getattribute__("y_coordinate") * .78
-                                                                         ))
-                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
-                        original_sprite_scales.append(player.surf)
-                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() * .78,
-                                                                                 player.surf.get_height() * .78))
+                        status_bar_backdrop.x_coordinate = status_bar_backdrop.x_coordinate * .99
+                        status_bar_backdrop.y_coordinate = status_bar_backdrop.y_coordinate * .94
+                        status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
+                            center=(status_bar_backdrop.x_coordinate * .99, status_bar_backdrop.y_coordinate * .94))
+                        # ----------------------------------------------------------------------------------------------
+
+                        greeting.surf = pygame.image.load(welcome_image_url_800).convert()
+                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        greeting.rect = greeting.surf.get_rect(
+                            center=(greeting.x_coordinate * .78, greeting.y_coordinate * .78))
+                        message_box.surf = pygame.image.load(message_box_url_800).convert()
+                        message_box.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        message_box.rect = message_box.surf.get_rect(
+                            center=(message_box.x_coordinate * .78, message_box.y_coordinate * .78))
+
+                        npc_garan.update(garan_url_800)
+                        npc_garan.rect = npc_garan.surf.get_rect(
+                            center=(npc_garan.x_coordinate * .78, npc_garan.y_coordinate * .78))
+                        npc_maurelle.update(maurelle_url_800)
+                        npc_maurelle.rect = npc_maurelle.surf.get_rect(
+                            center=(npc_maurelle.x_coordinate * .78, npc_maurelle.y_coordinate * .78))
+                        npc_guard.update(guard_url_800)
+                        npc_guard.rect = npc_guard.surf.get_rect(
+                            center=(npc_guard.x_coordinate * .78, npc_guard.y_coordinate * .78))
+
+                        for snake in enemies:
+                            if snake.name == "snake":
+                                snake.surf = pygame.image.load(snake_url_800).convert()
+                                snake.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                snake.rect = snake.surf.get_rect(
+                                    center=(snake.x_coordinate * .78, snake.y_coordinate * .78))
+                        for ghoul in enemies:
+                            if ghoul.name == "ghoul":
+                                ghoul.surf = pygame.image.load(ghoul_url_800).convert()
+                                ghoul.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                ghoul.rect = ghoul.surf.get_rect(
+                                    center=(ghoul.x_coordinate * .78, ghoul.y_coordinate * .78))
+                        for tree in trees:
+                            tree.surf = pygame.image.load(pine_tree_url_800).convert()
+                            tree.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            tree.rect = tree.surf.get_rect(
+                                center=(tree.x_coordinate * .78, tree.y_coordinate * .78))
+                        for flower in flowers:
+                            flower.surf = pygame.image.load(seldon_flower_url_800).convert()
+                            flower.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            flower.rect = flower.surf.get_rect(
+                                center=(flower.x_coordinate * .78, flower.y_coordinate * .78))
+                        for some_grass in grass:
+                            some_grass.surf = pygame.image.load(seldon_grass_url_800).convert()
+                            some_grass.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            some_grass.rect = some_grass.surf.get_rect(
+                                center=(some_grass.x_coordinate * .78, some_grass.y_coordinate * .78))
+                        for item in quest_items:
+                            if item.name == "quest logs":
+                                item.surf = pygame.image.load(quest_logs_url_800).convert()
+                                item.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                item.rect = item.surf.get_rect(
+                                    center=(item.x_coordinate * .78, item.y_coordinate * .78))
+
+                        seldon_inn.surf = pygame.image.load(seldon_inn_url_800).convert()
+                        seldon_inn.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_inn.rect = seldon_inn.surf.get_rect(
+                            center=(seldon_inn.x_coordinate * .78, seldon_inn.y_coordinate * .78))
+                        seldon_shop.surf = pygame.image.load(seldon_shop_url_800).convert()
+                        seldon_shop.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_shop.rect = seldon_shop.surf.get_rect(
+                            center=(seldon_shop.x_coordinate * .78, seldon_shop.y_coordinate * .78))
+                        seldon_academia.surf = pygame.image.load(seldon_academia_url_800).convert()
+                        seldon_academia.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_academia.rect = seldon_academia.surf.get_rect(
+                            center=(seldon_academia.x_coordinate * .78, seldon_academia.y_coordinate * .78))
+                        inventory_button.surf = pygame.image.load(inventory_button_url_800).convert()
+                        inventory_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        inventory_button.rect = inventory_button.surf.get_rect(
+                            center=(inventory_button.x_coordinate * .78, inventory_button.y_coordinate * .78))
+                        character_button.surf = pygame.image.load(character_button_url_800).convert()
+                        character_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        character_button.rect = character_button.surf.get_rect(
+                            center=(character_button.x_coordinate * .78, character_button.y_coordinate * .78))
+                        journal_button.surf = pygame.image.load(journal_button_url_800).convert()
+                        journal_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        journal_button.rect = journal_button.surf.get_rect(
+                            center=(journal_button.x_coordinate * .78, journal_button.y_coordinate * .78))
+                        attack_button.surf = pygame.image.load(attack_button_url_800).convert()
+                        attack_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        attack_button.rect = attack_button.surf.get_rect(
+                            center=(attack_button.x_coordinate * .78, attack_button.y_coordinate * .78))
+                        skill_button.surf = pygame.image.load(skill_button_url_800).convert()
+                        skill_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        skill_button.rect = skill_button.surf.get_rect(
+                            center=(skill_button.x_coordinate * .78, skill_button.y_coordinate * .78))
+                        run_button.surf = pygame.image.load(run_button_url_800).convert()
+                        run_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        run_button.rect = run_button.surf.get_rect(
+                            center=(run_button.x_coordinate * .78, run_button.y_coordinate * .78))
+                        continue_button.surf = pygame.image.load(continue_button_url_800).convert()
+                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        continue_button.rect = continue_button.surf.get_rect(
+                            center=(continue_button.x_coordinate * .78, continue_button.y_coordinate * .78))
+                        buy_button.surf = pygame.image.load(buy_button_url_800).convert()
+                        buy_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        buy_button.rect = buy_button.surf.get_rect(
+                            center=(buy_button.x_coordinate * .78, buy_button.y_coordinate * .78))
+                        sell_button.surf = pygame.image.load(sell_button_url_800).convert()
+                        sell_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sell_button.rect = sell_button.surf.get_rect(
+                            center=(sell_button.x_coordinate * .78, sell_button.y_coordinate * .78))
+                        leave_button.surf = pygame.image.load(leave_button_url_800).convert()
+                        leave_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        leave_button.rect = leave_button.surf.get_rect(
+                            center=(leave_button.x_coordinate * .78, leave_button.y_coordinate * .78))
+                        rest_button.surf = pygame.image.load(rest_button_url_800).convert()
+                        rest_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        rest_button.rect = rest_button.surf.get_rect(
+                            center=(rest_button.x_coordinate * .78, rest_button.y_coordinate * .78))
+                        screen_button.surf = pygame.image.load(screen_size_button_url_800).convert()
+                        screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        screen_button.rect = screen_button.surf.get_rect(
+                            center=(screen_button.x_coordinate * .78, screen_button.y_coordinate * .78))
+                        screen_resize_window.surf = pygame.image.load(screen_size_window_url_800).convert()
+                        screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        screen_resize_window.rect = screen_resize_window.surf.get_rect(
+                            center=(screen_resize_window.x_coordinate * .78, screen_resize_window.y_coordinate * .78))
+                        s_1200x900_button.surf = pygame.image.load(s_1200x900_url_800).convert()
+                        s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_1200x900_button.rect = s_1200x900_button.surf.get_rect(
+                            center=(s_1200x900_button.x_coordinate * .78, s_1200x900_button.y_coordinate * .78))
+                        s_1024x768_button.surf = pygame.image.load(s_1024x768_url_800).convert()
+                        s_1024x768_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_1024x768_button.rect = s_1024x768_button.surf.get_rect(
+                            center=(s_1024x768_button.x_coordinate * .78, s_1024x768_button.y_coordinate * .78))
+                        s_800x600_button.surf = pygame.image.load(s_800x600_url_800).convert()
+                        s_800x600_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_800x600_button.rect = s_800x600_button.surf.get_rect(
+                            center=(s_800x600_button.x_coordinate * .78, s_800x600_button.y_coordinate * .78))
+                        player_status.surf = pygame.image.load(player_status_url_800).convert()
+                        player_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        player_status.rect = player_status.surf.get_rect(
+                            center=(player_status.x_coordinate * .78, player_status.y_coordinate * .78))
+                        enemy_status.surf = pygame.image.load(enemy_status_url_800).convert()
+                        enemy_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        enemy_status.rect = enemy_status.surf.get_rect(
+                            center=(enemy_status.x_coordinate * .78, enemy_status.y_coordinate * .78))
+                        inventory.surf = pygame.image.load(inventory_url_800).convert()
+                        inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        inventory.rect = inventory.surf.get_rect(
+                            center=(inventory.x_coordinate * .78, inventory.y_coordinate * .78))
+                        buy_inventory.surf = pygame.image.load(buy_inventory_url_800).convert()
+                        buy_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        buy_inventory.rect = buy_inventory.surf.get_rect(
+                            center=(buy_inventory.x_coordinate * .78, buy_inventory.y_coordinate * .78))
+                        sell_inventory.surf = pygame.image.load(sell_inventory_url_800).convert()
+                        sell_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sell_inventory.rect = sell_inventory.surf.get_rect(
+                            center=(sell_inventory.x_coordinate * .78, sell_inventory.y_coordinate * .78))
+
+                        seldon_district_bg = pygame.image.load(seldon_bg_screen_url_800)
+                        seldon_district_shop = pygame.image.load(seldon_shop_screen_url_800)
+                        seldon_district_inn = pygame.image.load(seldon_inn_screen_url_800)
+                        seldon_district_battle = pygame.image.load(seldon_battle_screen_url_800)
+
+                        player.surf = pygame.image.load(stan_down_url_800).convert()
+                        player.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         player.pos *= .78
                         player.rect = player.surf.get_rect(center=player.pos * .78)
+
+                        stan_battle_sprite.x_coordinate = stan_battle_sprite.x_coordinate * .78
+                        stan_battle_sprite.y_coordinate = stan_battle_sprite.y_coordinate * .78
+                        snake_battle_sprite.x_coordinate = snake_battle_sprite.x_coordinate * .78
+                        snake_battle_sprite.y_coordinate = snake_battle_sprite.y_coordinate * .78
+                        ghoul_battle_sprite.x_coordinate = ghoul_battle_sprite.x_coordinate * .78
+                        ghoul_battle_sprite.y_coordinate = ghoul_battle_sprite.y_coordinate * .78
+
+                        enemy_status_bar_backdrop.x_coordinate = enemy_status_bar_backdrop.x_coordinate * .78
+                        enemy_status_bar_backdrop.y_coordinate = enemy_status_bar_backdrop.y_coordinate * .78
+
+                        enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
+                            center=(enemy_status_bar_backdrop.x_coordinate,
+                                    enemy_status_bar_backdrop.y_coordinate))
+
+                        for enemy_hp in enemies:
+                            enemy_hp.health_bar.x_coordinate = enemy_hp.health_bar.x_coordinate * .78
+                            enemy_hp.health_bar.y_coordinate = enemy_hp.health_bar.y_coordinate * .78
 
                         scaled_800 = True
                         scaled_1024 = False
@@ -4749,78 +5225,209 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             if width == 1024 or height == 768:
+                # if not currently scaled to resolution of 1024x768 (so that it's not applied exponentially)
+                # after scale is set, the condition will update to scaled_1024 = true which prevents subsequent scaling
                 if not scaled_1024:
 
-                    # count current sprite iteration when looping through sprites to have an index value to pull from
-                    # original sprite surface list to reassign sprites original image
-                    surface_counter = 0
+                    # --------------------------------------------------------------------------------------------------
+                    hp_bar.x_coordinate = 170
+                    hp_bar.y_coordinate = 25
+                    hp_bar.rect = hp_bar.surf.get_rect(center=(hp_bar.x_coordinate, hp_bar.y_coordinate))
+                    en_bar.x_coordinate = 170
+                    en_bar.y_coordinate = 45
+                    en_bar.rect = en_bar.surf.get_rect(center=(en_bar.x_coordinate, en_bar.y_coordinate))
+                    xp_bar.x_coordinate = 170
+                    xp_bar.y_coordinate = 65
+                    xp_bar.rect = xp_bar.surf.get_rect(center=(xp_bar.x_coordinate, xp_bar.y_coordinate))
 
-                    for sprite in most_sprites:
-                        sprite.surf = original_sprite_scales[surface_counter]
-                        sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.x_coordinate, sprite.y_coordinate))
-                        surface_counter += 1
-                    for an_enemy in enemies:
-                        if an_enemy.name == "ghoul":
-                            an_enemy.surf = original_sprite_scales[surface_counter + 4]
-                            an_enemy.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            an_enemy.rect = an_enemy.surf.get_rect(center=(an_enemy.x_coordinate,
-                                                                           an_enemy.y_coordinate))
-                        elif an_enemy.name == "snake":
-                            an_enemy.surf = original_sprite_scales[surface_counter]
-                            an_enemy.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            an_enemy.rect = an_enemy.surf.get_rect(center=(an_enemy.x_coordinate,
-                                                                           an_enemy.y_coordinate))
+                    status_bar_backdrop.x_coordinate = 165
+                    status_bar_backdrop.y_coordinate = 45
+                    status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
+                        center=(status_bar_backdrop.x_coordinate, status_bar_backdrop.y_coordinate))
+                    # --------------------------------------------------------------------------------------------------
 
-                    # account for 8 enemies even if one is defeated or respawned to ensure proper indexing
-                    surface_counter += 8
+                    greeting.surf = pygame.image.load(welcome_image_url).convert()
+                    greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    greeting.rect = greeting.surf.get_rect(center=(512, 384))
+                    message_box.surf = pygame.image.load(message_box_url).convert()
+                    message_box.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    message_box.rect = message_box.surf.get_rect(center=(175, 700))
 
-                    for element in user_interface:
-                        element.surf = original_sprite_scales[surface_counter]
-                        element.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        element.rect = element.surf.get_rect(center=(element.x_coordinate, element.y_coordinate))
-                        surface_counter += 1
-                    for element in conditional_interface:
-                        element.surf = original_sprite_scales[surface_counter]
-                        element.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        element.rect = element.surf.get_rect(center=(element.x_coordinate, element.y_coordinate))
-                        surface_counter += 1
-                    for button in screen_resize_buttons:
-                        button.surf = original_sprite_scales[surface_counter]
-                        button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        button.rect = button.surf.get_rect(center=(button.x_coordinate, button.y_coordinate))
-                        surface_counter += 1
-                    for sprite in battle_elements:
-                        sprite.surf = original_sprite_scales[surface_counter]
-                        sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        sprite.rect = sprite.surf.get_rect(center=(sprite.x_coordinate, sprite.y_coordinate))
-                        surface_counter += 1
-                    for hp_bars in enemy_hp_bars:
-                        hp_bars.surf = original_sprite_scales[surface_counter]
-                        hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.x_coordinate, hp_bars.y_coordinate))
+                    npc_garan.update(garan_url)
+                    npc_garan.rect = npc_garan.surf.get_rect(center=(240, 480))
+                    npc_maurelle.update(maurelle_url)
+                    npc_maurelle.rect = npc_maurelle.surf.get_rect(center=(755, 515))
+                    npc_guard.update(guard_url)
+                    npc_guard.rect = npc_guard.surf.get_rect(center=(475, 140))
 
-                    # 8 enemy health bars currently. hardcode this so counter doesn't get messed up when an enemy is
-                    # defeated and removed from game. this will insure the indexing is correct when rebuilding surfs
-                    # on reverting to original screen size and sprites
-                    surface_counter += 8
+                    for snake in enemies:
+                        if snake.name == "snake":
+                            snake.surf = pygame.image.load(snake_url).convert()
+                            snake.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            snake.rect = snake.surf.get_rect(center=(snake.x_coordinate, snake.y_coordinate))
 
-                    player.surf = original_sprite_scales[surface_counter]
-                    # if scaling up from 800x600, then apply /.78 to player rect and position to adjust to new res.
-                    if scaled_800:
-                        player.pos /= .78
-                        player.rect = player.surf.get_rect(center=player.pos / .78)
-                    # if scaling down from 1200x900, then apply *.78 to player rect and position to adjust to new res.
-                    if scaled_1200:
-                        player.pos *= .86
-                        player.rect = player.surf.get_rect(center=player.pos * .86)
+                    for ghoul in enemies:
+                        if ghoul.name == "ghoul":
+                            ghoul.surf = pygame.image.load(ghoul_url).convert()
+                            ghoul.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            ghoul.rect = ghoul.surf.get_rect(center=(ghoul.x_coordinate, ghoul.y_coordinate))
+
+                    # setting default images and coordinates for these items -------------------------------------------
+                    pine_tree_1.surf = pygame.image.load(pine_tree_url).convert()
+                    pine_tree_1.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    pine_tree_1.rect = pine_tree_1.surf.get_rect(center=(80, 475))
+                    pine_tree_2.surf = pygame.image.load(pine_tree_url).convert()
+                    pine_tree_2.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    pine_tree_2.rect = pine_tree_2.surf.get_rect(center=(260, 660))
+                    pine_tree_3.surf = pygame.image.load(pine_tree_url).convert()
+                    pine_tree_3.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    pine_tree_3.rect = pine_tree_3.surf.get_rect(center=(380, 400))
+                    seldon_flower_1.surf = pygame.image.load(seldon_flower_url).convert()
+                    seldon_flower_1.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_flower_1.rect = seldon_flower_1.surf.get_rect(center=(580, 410))
+                    seldon_flower_2.surf = pygame.image.load(seldon_flower_url).convert()
+                    seldon_flower_2.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_flower_2.rect = seldon_flower_2.surf.get_rect(center=(700, 620))
+                    seldon_flower_3.surf = pygame.image.load(seldon_flower_url).convert()
+                    seldon_flower_3.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_flower_3.rect = seldon_flower_3.surf.get_rect(center=(800, 470))
+                    seldon_grass_1.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_1.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_1.rect = seldon_grass_1.surf.get_rect(center=(380, 145))
+                    seldon_grass_2.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_2.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_2.rect = seldon_grass_2.surf.get_rect(center=(290, 215))
+                    seldon_grass_3.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_3.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_3.rect = seldon_grass_3.surf.get_rect(center=(425, 255))
+                    seldon_grass_4.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_4.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_4.rect = seldon_grass_4.surf.get_rect(center=(175, 155))
+                    seldon_grass_5.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_5.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_5.rect = seldon_grass_5.surf.get_rect(center=(160, 275))
+                    seldon_grass_6.surf = pygame.image.load(seldon_grass_url).convert()
+                    seldon_grass_6.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_grass_6.rect = seldon_grass_6.surf.get_rect(center=(50, 200))
+                    quest_logs_1.surf = pygame.image.load(quest_logs_url).convert()
+                    quest_logs_1.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    quest_logs_1.rect = quest_logs_1.surf.get_rect(center=(65, 575))
+                    quest_logs_2.surf = pygame.image.load(quest_logs_url).convert()
+                    quest_logs_2.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    quest_logs_2.rect = quest_logs_2.surf.get_rect(center=(315, 615))
+                    quest_logs_3.surf = pygame.image.load(quest_logs_url).convert()
+                    quest_logs_3.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    quest_logs_3.rect = quest_logs_3.surf.get_rect(center=(432, 462))
+                    quest_logs_4.surf = pygame.image.load(quest_logs_url).convert()
+                    quest_logs_4.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    quest_logs_4.rect = quest_logs_4.surf.get_rect(center=(105, 575))
+                    # --------------------------------------------------------------------------------------------------
+
+                    seldon_inn.surf = pygame.image.load(seldon_inn_url).convert()
+                    seldon_inn.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_inn.rect = seldon_inn.surf.get_rect(center=(625, 620))
+                    seldon_shop.surf = pygame.image.load(seldon_shop_url).convert()
+                    seldon_shop.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_shop.rect = seldon_shop.surf.get_rect(center=(660, 400))
+                    seldon_academia.surf = pygame.image.load(seldon_academia_url).convert()
+                    seldon_academia.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    seldon_academia.rect = seldon_academia.surf.get_rect(center=(875, 500))
+                    inventory_button.surf = pygame.image.load(inventory_button_url).convert()
+                    inventory_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    inventory_button.rect = inventory_button.surf.get_rect(center=(960, 730))
+                    character_button.surf = pygame.image.load(character_button_url).convert()
+                    character_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    character_button.rect = character_button.surf.get_rect(center=(850, 730))
+                    journal_button.surf = pygame.image.load(journal_button_url).convert()
+                    journal_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    journal_button.rect = journal_button.surf.get_rect(center=(740, 730))
+                    attack_button.surf = pygame.image.load(attack_button_url).convert()
+                    attack_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    attack_button.rect = attack_button.surf.get_rect(center=(740, 670))
+                    skill_button.surf = pygame.image.load(skill_button_url).convert()
+                    skill_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    skill_button.rect = skill_button.surf.get_rect(center=(850, 670))
+                    run_button.surf = pygame.image.load(run_button_url).convert()
+                    run_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    run_button.rect = run_button.surf.get_rect(center=(960, 670))
+                    continue_button.surf = pygame.image.load(continue_button_url).convert()
+                    continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    continue_button.rect = continue_button.surf.get_rect(center=(500, 600))
+                    buy_button.surf = pygame.image.load(buy_button_url).convert()
+                    buy_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    buy_button.rect = buy_button.surf.get_rect(center=(740, 730))
+                    sell_button.surf = pygame.image.load(sell_button_url).convert()
+                    sell_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    sell_button.rect = sell_button.surf.get_rect(center=(850, 730))
+                    leave_button.surf = pygame.image.load(leave_button_url).convert()
+                    leave_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    leave_button.rect = leave_button.surf.get_rect(center=(960, 730))
+                    rest_button.surf = pygame.image.load(rest_button_url).convert()
+                    rest_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    rest_button.rect = rest_button.surf.get_rect(center=(740, 730))
+                    screen_button.surf = pygame.image.load(screen_size_button_url).convert()
+                    screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    screen_button.rect = screen_button.surf.get_rect(center=(960, 25))
+                    screen_resize_window.surf = pygame.image.load(screen_size_window_url).convert()
+                    screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    screen_resize_window.rect = screen_resize_window.surf.get_rect(center=(940, 113))
+                    s_1200x900_button.surf = pygame.image.load(s_1200x900_url).convert()
+                    s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    s_1200x900_button.rect = s_1200x900_button.surf.get_rect(center=(940, 85))
+                    s_1024x768_button.surf = pygame.image.load(s_1024x768_url).convert()
+                    s_1024x768_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    s_1024x768_button.rect = s_1024x768_button.surf.get_rect(center=(940, 110))
+                    s_800x600_button.surf = pygame.image.load(s_800x600_url).convert()
+                    s_800x600_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    s_800x600_button.rect = s_800x600_button.surf.get_rect(center=(940, 135))
+                    player_status.surf = pygame.image.load(player_status_url).convert()
+                    player_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    player_status.rect = player_status.surf.get_rect(center=(850, 670))
+                    enemy_status.surf = pygame.image.load(enemy_status_url).convert()
+                    enemy_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    enemy_status.rect = enemy_status.surf.get_rect(center=(850, 730))
+                    inventory.surf = pygame.image.load(inventory_url).convert()
+                    inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    inventory.rect = inventory.surf.get_rect(center=(890, 515))
+                    buy_inventory.surf = pygame.image.load(buy_inventory_url).convert()
+                    buy_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    buy_inventory.rect = buy_inventory.surf.get_rect(center=(890, 490))
+                    sell_inventory.surf = pygame.image.load(sell_inventory_url).convert()
+                    sell_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    sell_inventory.rect = sell_inventory.surf.get_rect(center=(890, 490))
 
                     seldon_district_bg = pygame.image.load(seldon_bg_screen_url)
                     seldon_district_shop = pygame.image.load(seldon_shop_screen_url)
                     seldon_district_inn = pygame.image.load(seldon_inn_screen_url)
                     seldon_district_battle = pygame.image.load(seldon_battle_screen_url)
 
-                    # conditions updated after scaling
+                    player.surf = pygame.image.load(stan_down_url).convert()
+                    player.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    if scaled_800:
+                        player.pos /= .78
+                        player.rect = player.surf.get_rect(center=player.pos / .78)
+                    if scaled_1200:
+                        player.pos *= .86
+                        player.rect = player.surf.get_rect(center=player.pos * .86)
+
+                    stan_battle_sprite.x_coordinate = 300
+                    stan_battle_sprite.y_coordinate = 460
+                    snake_battle_sprite.x_coordinate = 700
+                    snake_battle_sprite.y_coordinate = 250
+                    ghoul_battle_sprite.x_coordinate = 700
+                    ghoul_battle_sprite.y_coordinate = 250
+
+                    enemy_status_bar_backdrop.x_coordinate = 695
+                    enemy_status_bar_backdrop.y_coordinate = 90
+
+                    enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
+                        center=(enemy_status_bar_backdrop.x_coordinate,
+                                enemy_status_bar_backdrop.y_coordinate))
+
+                    for enemy_hp in enemies:
+                        enemy_hp.health_bar.x_coordinate = 700
+                        enemy_hp.health_bar.y_coordinate = 90
+
                     scaled_800 = False
                     scaled_1024 = True
                     scaled_1200 = False
@@ -4828,80 +5435,206 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             if width > 1024 or height > 768:
-                if not scaled_1200:
-                    # scale back to original resolution before up-scaling
-                    if scaled_1024:
+                # need to be original resolution before downscaling to 800x600
+                if scaled_1024:
+                    # if not currently scaled to resolution of 1200x900 (so that it's not applied exponentially)
+                    # after scale is set, condition will update to scaled_1200 = true which prevents subsequent scaling
+                    if not scaled_1200:
 
-                        # clear sprite list before appending to ensure correct index
-                        original_sprite_scales.clear()
+                        # ----------------------------------------------------------------------------------------------
+                        # since the status bars aren't scaled (too many images) just adjust them to new coords.
+                        hp_bar.x_coordinate = hp_bar.x_coordinate * .86
+                        hp_bar.y_coordinate = hp_bar.y_coordinate * .86
+                        hp_bar.rect = hp_bar.surf.get_rect(
+                            center=(hp_bar.x_coordinate, hp_bar.y_coordinate))
+                        en_bar.x_coordinate = en_bar.x_coordinate * .86
+                        en_bar.y_coordinate = en_bar.y_coordinate * .86
+                        en_bar.rect = en_bar.surf.get_rect(
+                            center=(en_bar.x_coordinate, en_bar.y_coordinate))
+                        xp_bar.x_coordinate = xp_bar.x_coordinate * .86
+                        xp_bar.y_coordinate = xp_bar.y_coordinate * .86
+                        xp_bar.rect = xp_bar.surf.get_rect(
+                            center=(xp_bar.x_coordinate, xp_bar.y_coordinate))
+                        # ----------------------------------------------------------------------------------------------
 
-                        for sprite in most_sprites:
-                            # save sprites original image to use when re-scaling to original sprite size and location
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .86,
-                                                                        sprite.surf.get_height() / .86))
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
-                                                                       sprite.__getattribute__("y_coordinate") / .86))
-                        for sprite in enemies:
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .86,
-                                                                        sprite.surf.get_height() / .86))
-                            sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
-                                                                       sprite.__getattribute__("y_coordinate") / .86))
-                        for element in user_interface:
-                            original_sprite_scales.append(element.surf)
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() / .86,
-                                                                         element.surf.get_height() / .86))
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
-                                                                         element.__getattribute__("y_coordinate") / .86
-                                                                         ))
-                        for element in conditional_interface:
-                            original_sprite_scales.append(element.surf)
-                            element.surf = pygame.transform.smoothscale(element.surf,
-                                                                        (element.surf.get_width() / .86,
-                                                                         element.surf.get_height() / .86))
-                            element.rect = element.surf.get_rect(center=(element.__getattribute__("x_coordinate") / .86,
-                                                                         element.__getattribute__("y_coordinate") / .86
-                                                                         ))
-                        for button in screen_resize_buttons:
-                            original_sprite_scales.append(button.surf)
-                            button.surf = pygame.transform.smoothscale(button.surf,
-                                                                       (button.surf.get_width() / .86,
-                                                                        button.surf.get_height() / .86))
-                            button.rect = button.surf.get_rect(center=(button.__getattribute__("x_coordinate") / .86,
-                                                                       button.__getattribute__("y_coordinate") / .86))
-                        for sprite in battle_elements:
-                            original_sprite_scales.append(sprite.surf)
-                            sprite.surf = pygame.transform.smoothscale(sprite.surf,
-                                                                       (sprite.surf.get_width() / .86,
-                                                                        sprite.surf.get_height() / .86))
-                            sprite.rect = sprite.surf.get_rect(center=(sprite.__getattribute__("x_coordinate") / .86,
-                                                                       sprite.__getattribute__("y_coordinate") / .86))
-                        for hp_bars in enemy_hp_bars:
-                            original_sprite_scales.append(hp_bars.surf)
-                            hp_bars.surf = pygame.transform.smoothscale(hp_bars.surf,
-                                                                        (hp_bars.surf.get_width() / .86,
-                                                                         hp_bars.surf.get_height() / .86))
-                            hp_bars.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            hp_bars.rect = hp_bars.surf.get_rect(center=(hp_bars.__getattribute__("x_coordinate") / .86,
-                                                                         hp_bars.__getattribute__("y_coordinate") / .86
-                                                                         ))
+                        greeting.surf = pygame.image.load(welcome_image_url_1200).convert()
+                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        greeting.rect = greeting.surf.get_rect(
+                            center=(greeting.x_coordinate / .86, greeting.y_coordinate / .86))
+                        message_box.surf = pygame.image.load(message_box_url_1200).convert()
+                        message_box.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        message_box.rect = message_box.surf.get_rect(
+                            center=(message_box.x_coordinate / .86, message_box.y_coordinate / .86))
 
-                        seldon_district_bg = pygame.transform.scale(seldon_district_bg, (scale_w, scale_h))
-                        seldon_district_shop = pygame.transform.scale(seldon_district_shop, (scale_w, scale_h))
-                        seldon_district_inn = pygame.transform.scale(seldon_district_inn, (scale_w, scale_h))
-                        seldon_district_battle = pygame.transform.scale(seldon_district_battle, (scale_w, scale_h))
-                        original_sprite_scales.append(player.surf)
-                        player.surf = pygame.transform.smoothscale(player.surf, (player.surf.get_width() / .86,
-                                                                                 player.surf.get_height() / .86))
-                        player.rect = player.surf.get_rect(center=player.pos / .86)
+                        npc_garan.update(garan_url_1200)
+                        npc_garan.rect = npc_garan.surf.get_rect(
+                            center=(npc_garan.x_coordinate / .86, npc_garan.y_coordinate / .86))
+                        npc_maurelle.update(maurelle_url_1200)
+                        npc_maurelle.rect = npc_maurelle.surf.get_rect(
+                            center=(npc_maurelle.x_coordinate / .86, npc_maurelle.y_coordinate / .86))
+                        npc_guard.update(guard_url_1200)
+                        npc_guard.rect = npc_guard.surf.get_rect(
+                            center=(npc_guard.x_coordinate / .86, npc_guard.y_coordinate / .86))
+
+                        for snake in enemies:
+                            if snake.name == "snake":
+                                snake.surf = pygame.image.load(snake_url_1200).convert()
+                                snake.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                snake.rect = snake.surf.get_rect(
+                                    center=(snake.x_coordinate / .86, snake.y_coordinate / .86))
+                        for ghoul in enemies:
+                            if ghoul.name == "ghoul":
+                                ghoul.surf = pygame.image.load(ghoul_url_1200).convert()
+                                ghoul.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                ghoul.rect = ghoul.surf.get_rect(
+                                    center=(ghoul.x_coordinate / .86, ghoul.y_coordinate / .86))
+                        for tree in trees:
+                            tree.surf = pygame.image.load(pine_tree_url_1200).convert()
+                            tree.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            tree.rect = tree.surf.get_rect(
+                                center=(tree.x_coordinate / .86, tree.y_coordinate / .86))
+                        for flower in flowers:
+                            flower.surf = pygame.image.load(seldon_flower_url_1200).convert()
+                            flower.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            flower.rect = flower.surf.get_rect(
+                                center=(flower.x_coordinate / .86, flower.y_coordinate / .86))
+                        for some_grass in grass:
+                            some_grass.surf = pygame.image.load(seldon_grass_url_1200).convert()
+                            some_grass.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            some_grass.rect = some_grass.surf.get_rect(
+                                center=(some_grass.x_coordinate / .86, some_grass.y_coordinate / .86))
+                        for item in quest_items:
+                            if item.name == "quest logs":
+                                item.surf = pygame.image.load(quest_logs_url_1200).convert()
+                                item.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                item.rect = item.surf.get_rect(
+                                    center=(item.x_coordinate / .86, item.y_coordinate / .86))
+
+                        seldon_inn.surf = pygame.image.load(seldon_inn_url_1200).convert()
+                        seldon_inn.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_inn.rect = seldon_inn.surf.get_rect(
+                            center=(seldon_inn.x_coordinate / .86, seldon_inn.y_coordinate / .86))
+                        seldon_shop.surf = pygame.image.load(seldon_shop_url_1200).convert()
+                        seldon_shop.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_shop.rect = seldon_shop.surf.get_rect(
+                            center=(seldon_shop.x_coordinate / .86, seldon_shop.y_coordinate / .86))
+                        seldon_academia.surf = pygame.image.load(seldon_academia_url_1200).convert()
+                        seldon_academia.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        seldon_academia.rect = seldon_academia.surf.get_rect(
+                            center=(seldon_academia.x_coordinate / .86, seldon_academia.y_coordinate / .86))
+                        inventory_button.surf = pygame.image.load(inventory_button_url_1200).convert()
+                        inventory_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        inventory_button.rect = inventory_button.surf.get_rect(
+                            center=((inventory_button.x_coordinate / .86) + 6, inventory_button.y_coordinate / .86))
+                        character_button.surf = pygame.image.load(character_button_url_1200).convert()
+                        character_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        character_button.rect = character_button.surf.get_rect(
+                            center=(character_button.x_coordinate / .86, character_button.y_coordinate / .86))
+                        journal_button.surf = pygame.image.load(journal_button_url_1200).convert()
+                        journal_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        journal_button.rect = journal_button.surf.get_rect(
+                            center=((journal_button.x_coordinate / .86) - 6, journal_button.y_coordinate / .86))
+                        attack_button.surf = pygame.image.load(attack_button_url_1200).convert()
+                        attack_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        attack_button.rect = attack_button.surf.get_rect(
+                            center=((attack_button.x_coordinate / .86) - 6, attack_button.y_coordinate / .86))
+                        skill_button.surf = pygame.image.load(skill_button_url_1200).convert()
+                        skill_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        skill_button.rect = skill_button.surf.get_rect(
+                            center=(skill_button.x_coordinate / .86, skill_button.y_coordinate / .86))
+                        run_button.surf = pygame.image.load(run_button_url_1200).convert()
+                        run_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        run_button.rect = run_button.surf.get_rect(
+                            center=((run_button.x_coordinate / .86) + 6, run_button.y_coordinate / .86))
+                        continue_button.surf = pygame.image.load(continue_button_url_1200).convert()
+                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        continue_button.rect = continue_button.surf.get_rect(
+                            center=(continue_button.x_coordinate / .86, continue_button.y_coordinate / .86))
+                        buy_button.surf = pygame.image.load(buy_button_url_1200).convert()
+                        buy_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        buy_button.rect = buy_button.surf.get_rect(
+                            center=((buy_button.x_coordinate / .86) - 6, buy_button.y_coordinate / .86))
+                        sell_button.surf = pygame.image.load(sell_button_url_1200).convert()
+                        sell_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sell_button.rect = sell_button.surf.get_rect(
+                            center=(sell_button.x_coordinate / .86, sell_button.y_coordinate / .86))
+                        leave_button.surf = pygame.image.load(leave_button_url_1200).convert()
+                        leave_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        leave_button.rect = leave_button.surf.get_rect(
+                            center=((leave_button.x_coordinate / .86) + 6, leave_button.y_coordinate / .86))
+                        rest_button.surf = pygame.image.load(rest_button_url_1200).convert()
+                        rest_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        rest_button.rect = rest_button.surf.get_rect(
+                            center=((rest_button.x_coordinate / .86) - 6, rest_button.y_coordinate / .86))
+                        screen_button.surf = pygame.image.load(screen_size_button_url_1200).convert()
+                        screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        screen_button.rect = screen_button.surf.get_rect(
+                            center=(screen_button.x_coordinate / .86, screen_button.y_coordinate / .86))
+                        screen_resize_window.surf = pygame.image.load(screen_size_window_url_1200).convert()
+                        screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        screen_resize_window.rect = screen_resize_window.surf.get_rect(
+                            center=(screen_resize_window.x_coordinate / .86, screen_resize_window.y_coordinate / .86))
+                        s_1200x900_button.surf = pygame.image.load(s_1200x900_url_1200).convert()
+                        s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_1200x900_button.rect = s_1200x900_button.surf.get_rect(
+                            center=(s_1200x900_button.x_coordinate / .86, s_1200x900_button.y_coordinate / .86))
+                        s_1024x768_button.surf = pygame.image.load(s_1024x768_url_1200).convert()
+                        s_1024x768_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_1024x768_button.rect = s_1024x768_button.surf.get_rect(
+                            center=(s_1024x768_button.x_coordinate / .86, s_1024x768_button.y_coordinate / .86))
+                        s_800x600_button.surf = pygame.image.load(s_800x600_url_1200).convert()
+                        s_800x600_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s_800x600_button.rect = s_800x600_button.surf.get_rect(
+                            center=(s_800x600_button.x_coordinate / .86, s_800x600_button.y_coordinate / .86))
+                        player_status.surf = pygame.image.load(player_status_url_1200).convert()
+                        player_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        player_status.rect = player_status.surf.get_rect(
+                            center=(player_status.x_coordinate / .86, player_status.y_coordinate / .86))
+                        enemy_status.surf = pygame.image.load(enemy_status_url_1200).convert()
+                        enemy_status.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        enemy_status.rect = enemy_status.surf.get_rect(
+                            center=(enemy_status.x_coordinate / .86, enemy_status.y_coordinate / .86))
+                        inventory.surf = pygame.image.load(inventory_url_1200).convert()
+                        inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        inventory.rect = inventory.surf.get_rect(
+                            center=(inventory.x_coordinate / .86, inventory.y_coordinate / .86))
+                        buy_inventory.surf = pygame.image.load(buy_inventory_url_1200).convert()
+                        buy_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        buy_inventory.rect = buy_inventory.surf.get_rect(
+                            center=(buy_inventory.x_coordinate / .86, buy_inventory.y_coordinate / .86))
+                        sell_inventory.surf = pygame.image.load(sell_inventory_url_1200).convert()
+                        sell_inventory.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        sell_inventory.rect = sell_inventory.surf.get_rect(
+                            center=(sell_inventory.x_coordinate / .86, sell_inventory.y_coordinate / .86))
+
+                        seldon_district_bg = pygame.image.load(seldon_bg_screen_url_1200)
+                        seldon_district_shop = pygame.image.load(seldon_shop_screen_url_1200)
+                        seldon_district_inn = pygame.image.load(seldon_inn_screen_url_1200)
+                        seldon_district_battle = pygame.image.load(seldon_battle_screen_url_1200)
+
+                        player.surf = pygame.image.load(stan_down_url_1200).convert()
+                        player.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         player.pos /= .86
+                        player.rect = player.surf.get_rect(center=player.pos / .86)
 
-                        # conditions updated after scaling
+                        stan_battle_sprite.x_coordinate = stan_battle_sprite.x_coordinate / .91
+                        stan_battle_sprite.y_coordinate = stan_battle_sprite.y_coordinate / .91
+                        snake_battle_sprite.x_coordinate = snake_battle_sprite.x_coordinate / .91
+                        snake_battle_sprite.y_coordinate = snake_battle_sprite.y_coordinate / .91
+                        ghoul_battle_sprite.x_coordinate = ghoul_battle_sprite.x_coordinate / .91
+                        ghoul_battle_sprite.y_coordinate = ghoul_battle_sprite.y_coordinate / .91
+
+                        enemy_status_bar_backdrop.x_coordinate = enemy_status_bar_backdrop.x_coordinate / .78
+                        enemy_status_bar_backdrop.y_coordinate = enemy_status_bar_backdrop.y_coordinate / .78
+
+                        enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
+                            center=(enemy_status_bar_backdrop.x_coordinate,
+                                    enemy_status_bar_backdrop.y_coordinate))
+
+                        for enemy_hp in enemies:
+                            enemy_hp.health_bar.x_coordinate = enemy_hp.health_bar.x_coordinate / .91
+                            enemy_hp.health_bar.y_coordinate = enemy_hp.health_bar.y_coordinate / .91
+
                         scaled_800 = False
                         scaled_1024 = False
                         scaled_1200 = True
