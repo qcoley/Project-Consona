@@ -4330,6 +4330,9 @@ while game_running:
                     # lets player know if they are in range of enemy they can press f to attack it
                     info_text_1 = "Press 'F' key to enter building."
 
+        # code below is end of iteration combat condition for sprite updates and resolution scaling
+        # --------------------------------------------------------------------------------------------------------------
+        # --------------------------------------------------------------------------------------------------------------
         # combat didn't happen this iteration, reset sprites to default surface image
         if not combat_happened:
             combat_cooldown = False
@@ -4566,6 +4569,15 @@ while game_running:
                         for enemy_hp in enemies:
                             enemy_hp.health_bar.x_coordinate = enemy_hp.health_bar.x_coordinate * .78
                             enemy_hp.health_bar.y_coordinate = enemy_hp.health_bar.y_coordinate * .78
+
+                        screen.blit(text_rupee_surf, text_rupee_rect)
+                        screen.blit(text_zone_surf, text_zone_rect)
+                        screen.blit(text_level_surf, text_level_rect)
+
+                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
+                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
+                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
                         scaled_800 = True
                         scaled_1024 = False
@@ -5002,12 +5014,28 @@ while game_running:
         # combat happened this turn, update sprites for battle and apply short cooldown to attack again
         if combat_happened:
             combat_cooldown = True
-            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
-                                      stan_attack_url)
-            snake_battle_sprite.update(snake_battle_sprite.x_coordinate, snake_battle_sprite.y_coordinate,
-                                       snake_attack_url)
-            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate, ghoul_battle_sprite.y_coordinate,
-                                       ghoul_attack_url)
+
+            if scaled_800:
+                stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                          stan_attack_url_800)
+                snake_battle_sprite.update(snake_battle_sprite.x_coordinate, snake_battle_sprite.y_coordinate,
+                                           snake_attack_url_800)
+                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate, ghoul_battle_sprite.y_coordinate,
+                                           ghoul_attack_url_800)
+            if scaled_1024:
+                stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                          stan_attack_url)
+                snake_battle_sprite.update(snake_battle_sprite.x_coordinate, snake_battle_sprite.y_coordinate,
+                                           snake_attack_url)
+                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate, ghoul_battle_sprite.y_coordinate,
+                                           ghoul_attack_url)
+            if scaled_1200:
+                stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                          stan_attack_url_1200)
+                snake_battle_sprite.update(snake_battle_sprite.x_coordinate, snake_battle_sprite.y_coordinate,
+                                           snake_attack_url_1200)
+                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate, ghoul_battle_sprite.y_coordinate,
+                                           ghoul_attack_url_1200)
 
             # ----------------------------------------------------------------------------------------------------------
             # scales here at the end of iteration to ensure all sprites updated during iteration are also scaled -------
