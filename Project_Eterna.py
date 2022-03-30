@@ -2635,7 +2635,7 @@ pygame.init()
 clock = pygame.time.Clock()
 width = 1024
 height = 768
-screen = pygame.display.set_mode((width, height))
+screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 
 # background textures --------------------------------------------------------------------------------------------------
 seldon_district_bg = pygame.image.load(seldon_bg_screen_url)
@@ -3093,91 +3093,84 @@ while game_running:
         text_rupee_rect = text_rupee_surf.get_rect()
         if scaled_800:
             text_rupee_rect.center = (975 * .78, 672 * .78)
-            screen.blit(text_rupee_surf, text_rupee_rect)
         if scaled_1200:
             text_rupee_rect.center = (975 / .86, 672 / .86)
-            screen.blit(text_rupee_surf, text_rupee_rect)
-        else:
+        if scaled_1024:
             text_rupee_rect.center = (975, 672)
-            screen.blit(text_rupee_surf, text_rupee_rect)
+
+        screen.blit(text_rupee_surf, text_rupee_rect)
 
         # get current player district and create surf and rectangle to blit to screen
         text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
         text_zone_rect = text_zone_surf.get_rect()
         if scaled_800:
             text_zone_rect.center = (865 * .78, 672 * .78)
-            screen.blit(text_zone_surf, text_zone_rect)
         if scaled_1200:
             text_zone_rect.center = (865 / .86, 672 / .86)
-            screen.blit(text_zone_surf, text_zone_rect)
-        else:
+        if scaled_1024:
             text_zone_rect.center = (865, 672)
-            screen.blit(text_zone_surf, text_zone_rect)
+
+        screen.blit(text_zone_surf, text_zone_rect)
 
         # get current player district and create surf and rectangle to blit to screen
         text_level_surf = font.render(str(player.level), True, "black", "light yellow")
         text_level_rect = text_level_surf.get_rect()
         if scaled_800:
             text_level_rect.center = (760 * .78, 672 * .78)
-            screen.blit(text_level_surf, text_level_rect)
         if scaled_1200:
             text_level_rect.center = (760 / .86, 672 / .86)
-            screen.blit(text_level_surf, text_level_rect)
-        else:
+        if scaled_1024:
             text_level_rect.center = (760, 672)
-            screen.blit(text_level_surf, text_level_rect)
+
+        screen.blit(text_level_surf, text_level_rect)
 
         # current info text for message box in lower left corner of screen, first line
         text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
         text_combat_info_rect_1 = text_info_surf_1.get_rect()
         if scaled_800:
             text_combat_info_rect_1.midleft = (30 * .78, 680 * .78)
-            screen.blit(text_info_surf_1, text_combat_info_rect_1)
         if scaled_1200:
             text_combat_info_rect_1.midleft = (30 / .86, 680 / .86)
-            screen.blit(text_info_surf_1, text_combat_info_rect_1)
-        else:
+        if scaled_1024:
             text_combat_info_rect_1.midleft = (30, 680)
-            screen.blit(text_info_surf_1, text_combat_info_rect_1)
+
+        screen.blit(text_info_surf_1, text_combat_info_rect_1)
 
         # current info text for message box in lower left corner of screen, second line
         text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
         text_combat_info_rect_2 = text_info_surf_2.get_rect()
         if scaled_800:
             text_combat_info_rect_2.midleft = (30 * .78, 700 * .78)
-            screen.blit(text_info_surf_2, text_combat_info_rect_2)
         if scaled_1200:
             text_combat_info_rect_2.midleft = (30 / .86, 700 / .86)
-            screen.blit(text_info_surf_2, text_combat_info_rect_2)
-        else:
+        if scaled_1024:
             text_combat_info_rect_2.midleft = (30, 700)
-            screen.blit(text_info_surf_2, text_combat_info_rect_2)
+
+        screen.blit(text_info_surf_2, text_combat_info_rect_2)
 
         # current info text for message box in lower left corner of screen, third line
         text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
         text_combat_info_rect_3 = text_info_surf_3.get_rect()
         if scaled_800:
             text_combat_info_rect_3.midleft = (30 * .78, 720 * .78)
-            screen.blit(text_info_surf_3, text_combat_info_rect_3)
         if scaled_1200:
             text_combat_info_rect_3.midleft = (30 / .86, 720 / .86)
-            screen.blit(text_info_surf_3, text_combat_info_rect_3)
-        else:
+        if scaled_1024:
             text_combat_info_rect_3.midleft = (30, 720)
-            screen.blit(text_info_surf_3, text_combat_info_rect_3)
+
+        screen.blit(text_info_surf_3, text_combat_info_rect_3)
 
         # current info text for message box in lower left corner of screen, fourth line
         text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
         text_combat_info_rect_4 = text_info_surf_4.get_rect()
         if scaled_800:
             text_combat_info_rect_4.midleft = (30 * .78, 740 * .78)
-            screen.blit(text_info_surf_4, text_combat_info_rect_4)
         if scaled_1200:
             text_combat_info_rect_4.midleft = (30 / .86, 740 / .86)
-            screen.blit(text_info_surf_4, text_combat_info_rect_4)
-        else:
+        if scaled_1024:
             text_combat_info_rect_4.midleft = (30, 740)
-            screen.blit(text_info_surf_4, text_combat_info_rect_4)
+
+        screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
         # --------------------------------------------------------------------------------------------------------------
         # --------------------------------------------------------------------------------------------------------------
@@ -3217,7 +3210,7 @@ while game_running:
                             if not scaled_800:
                                 width = 800
                                 height = 600
-                                screen = pygame.display.set_mode((width, height))
+                                screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
                         else:
                             info_text_1 = "Scale to original resolution before down-scaling"
                             loot_update = True
@@ -3226,14 +3219,14 @@ while game_running:
                         if not scaled_1024:
                             width = 1024
                             height = 768
-                            screen = pygame.display.set_mode((width, height))
+                            screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 
                     if s_1200x900_button.rect.collidepoint(pos):
                         if scaled_1024:
                             if not scaled_1200:
                                 width = 1200
                                 height = 900
-                                screen = pygame.display.set_mode((width, height))
+                                screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
                         else:
                             info_text_1 = "Scale to original resolution before up-scaling"
                             loot_update = True
