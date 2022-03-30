@@ -248,7 +248,6 @@ class NPC(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, image):
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -2312,6 +2311,9 @@ s_1024x768_url_1200 = resource_path('resources/art/ui_elements/buttons/screen_si
 s_800x600_url_800 = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/800_800.png')
 s_800x600_url = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/800.png')
 s_800x600_url_1200 = resource_path('resources/art/ui_elements/buttons/screen_size_buttons/800_1200.png')
+unstuck_button_url_800 = resource_path('resources/art/ui_elements/buttons/unstuck_800.png')
+unstuck_button_url = resource_path('resources/art/ui_elements/buttons/unstuck.png')
+unstuck_button_url_1200 = resource_path('resources/art/ui_elements/buttons/unstuck_1200.png')
 
 health_100_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_100.png')
 health_99_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_99.png')
@@ -2789,6 +2791,7 @@ leave_button = UiElement("leave button", 960, 730, leave_button_url, (255, 255, 
 rest_button = UiElement("rest button", 740, 730, rest_button_url, (255, 255, 255), False)
 screen_button = UiElement("screen size button", 960, 25, screen_size_button_url, (255, 255, 255), False)
 screen_resize_window = UiElement("screen resize window", 940, 113, screen_size_window_url, (255, 255, 255), False)
+unstuck_button = UiElement("unstuck button", 850, 25, unstuck_button_url, (255, 255, 255), False)
 
 s_1200x900_button = UiElement("s_1200x900", 940, 85, s_1200x900_url, (255, 255, 255), False)
 s_1024x768_button = UiElement("s_1024x768", 940, 110, s_1024x768_url, (255, 255, 255), False)
@@ -2864,8 +2867,8 @@ buildings.add(seldon_inn, seldon_shop, seldon_academia)
 screen_resize_buttons.add(s_1200x900_button, s_1024x768_button, s_800x600_button)
 
 user_interface.add(rest_button, buy_button, sell_button, leave_button, character_button, journal_button,
-                   inventory_button, screen_button, attack_button, skill_button, run_button, player_status, message_box,
-                   status_bar_backdrop)
+                   inventory_button, screen_button, unstuck_button, attack_button, skill_button, run_button,
+                   player_status, message_box, status_bar_backdrop)
 
 conditional_interface.add(inventory, buy_inventory, sell_inventory, screen_resize_window, hp_bar, en_bar, xp_bar)
 
@@ -3196,6 +3199,15 @@ while game_running:
             # if something was clicked on screen by mouse cursor, get its position and see what sprite it collided with
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
+
+                if unstuck_button.rect.collidepoint(pos):
+
+                    if scaled_800:
+                        player.pos = vec((400, 300))
+                    if scaled_1024:
+                        player.pos = vec((500, 400))
+                    if scaled_1200:
+                        player.pos = vec((600, 500))
 
                 # if screen resize button is clicked and if one of the option buttons for sizes is clicked
                 # set the current screen resolution to that size
@@ -4029,7 +4041,6 @@ while game_running:
         # move snakes in random direction within boundaries
         if movement_able:
             if pygame.time.get_ticks() % 20 == 0:
-
                 move_this_snake.update_position([50, 300], [200, 300], direction_horizontal, direction_vertical)
                 move_this_ghoul.update_position([650, 900], [200, 300], direction_horizontal, direction_vertical)
 
@@ -4376,7 +4387,7 @@ while game_running:
                         hp_bar.x_coordinate = hp_bar.x_coordinate * .98
                         hp_bar.y_coordinate = hp_bar.y_coordinate * .86
                         hp_bar.rect = hp_bar.surf.get_rect(
-                                center=(hp_bar.x_coordinate * .98, hp_bar.y_coordinate * .86))
+                            center=(hp_bar.x_coordinate * .98, hp_bar.y_coordinate * .86))
                         en_bar.x_coordinate = en_bar.x_coordinate * .98
                         en_bar.y_coordinate = en_bar.y_coordinate * .86
                         en_bar.rect = en_bar.surf.get_rect(
@@ -4395,7 +4406,7 @@ while game_running:
                         greeting.surf = pygame.image.load(welcome_image_url_800).convert()
                         greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         greeting.rect = greeting.surf.get_rect(
-                                center=(greeting.x_coordinate * .78, greeting.y_coordinate * .78))
+                            center=(greeting.x_coordinate * .78, greeting.y_coordinate * .78))
                         message_box.surf = pygame.image.load(message_box_url_800).convert()
                         message_box.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         message_box.rect = message_box.surf.get_rect(
@@ -4505,6 +4516,10 @@ while game_running:
                         screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         screen_button.rect = screen_button.surf.get_rect(
                             center=(screen_button.x_coordinate * .78, screen_button.y_coordinate * .78))
+                        unstuck_button.surf = pygame.image.load(unstuck_button_url_800).convert()
+                        unstuck_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        unstuck_button.rect = unstuck_button.surf.get_rect(
+                            center=(unstuck_button.x_coordinate * .78, unstuck_button.y_coordinate * .78))
                         screen_resize_window.surf = pygame.image.load(screen_size_window_url_800).convert()
                         screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         screen_resize_window.rect = screen_resize_window.surf.get_rect(
@@ -4569,15 +4584,6 @@ while game_running:
                         for enemy_hp in enemies:
                             enemy_hp.health_bar.x_coordinate = enemy_hp.health_bar.x_coordinate * .78
                             enemy_hp.health_bar.y_coordinate = enemy_hp.health_bar.y_coordinate * .78
-
-                        screen.blit(text_rupee_surf, text_rupee_rect)
-                        screen.blit(text_zone_surf, text_zone_rect)
-                        screen.blit(text_level_surf, text_level_rect)
-
-                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
-                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
-                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
-                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
                         scaled_800 = True
                         scaled_1024 = False
@@ -4729,6 +4735,9 @@ while game_running:
                     screen_button.surf = pygame.image.load(screen_size_button_url).convert()
                     screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                     screen_button.rect = screen_button.surf.get_rect(center=(960, 25))
+                    unstuck_button.surf = pygame.image.load(unstuck_button_url).convert()
+                    unstuck_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    unstuck_button.rect = unstuck_button.surf.get_rect(center=(850, 25))
                     screen_resize_window.surf = pygame.image.load(screen_size_window_url).convert()
                     screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
                     screen_resize_window.rect = screen_resize_window.surf.get_rect(center=(940, 113))
@@ -4931,6 +4940,10 @@ while game_running:
                         screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         screen_button.rect = screen_button.surf.get_rect(
                             center=(screen_button.x_coordinate / .86, screen_button.y_coordinate / .86))
+                        unstuck_button.surf = pygame.image.load(unstuck_button_url_1200).convert()
+                        unstuck_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        unstuck_button.rect = unstuck_button.surf.get_rect(
+                            center=(unstuck_button.x_coordinate / .86, unstuck_button.y_coordinate / .86))
                         screen_resize_window.surf = pygame.image.load(screen_size_window_url_1200).convert()
                         screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         screen_resize_window.rect = screen_resize_window.surf.get_rect(
@@ -5181,10 +5194,15 @@ while game_running:
                         screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         screen_button.rect = screen_button.surf.get_rect(
                             center=(screen_button.x_coordinate * .78, screen_button.y_coordinate * .78))
+                        unstuck_button.surf = pygame.image.load(unstuck_button_url_800).convert()
+                        unstuck_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        unstuck_button.rect = unstuck_button.surf.get_rect(
+                            center=(unstuck_button.x_coordinate * .78, unstuck_button.y_coordinate * .78))
                         screen_resize_window.surf = pygame.image.load(screen_size_window_url_800).convert()
                         screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         screen_resize_window.rect = screen_resize_window.surf.get_rect(
-                            center=(screen_resize_window.x_coordinate * .78, screen_resize_window.y_coordinate * .78))
+                            center=(
+                                screen_resize_window.x_coordinate * .78, screen_resize_window.y_coordinate * .78))
                         s_1200x900_button.surf = pygame.image.load(s_1200x900_url_800).convert()
                         s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s_1200x900_button.rect = s_1200x900_button.surf.get_rect(
@@ -5396,6 +5414,9 @@ while game_running:
                     screen_button.surf = pygame.image.load(screen_size_button_url).convert()
                     screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                     screen_button.rect = screen_button.surf.get_rect(center=(960, 25))
+                    unstuck_button.surf = pygame.image.load(unstuck_button_url).convert()
+                    unstuck_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                    unstuck_button.rect = unstuck_button.surf.get_rect(center=(850, 25))
                     screen_resize_window.surf = pygame.image.load(screen_size_window_url).convert()
                     screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
                     screen_resize_window.rect = screen_resize_window.surf.get_rect(center=(940, 113))
@@ -5598,10 +5619,15 @@ while game_running:
                         screen_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         screen_button.rect = screen_button.surf.get_rect(
                             center=(screen_button.x_coordinate / .86, screen_button.y_coordinate / .86))
+                        unstuck_button.surf = pygame.image.load(unstuck_button_url_1200).convert()
+                        unstuck_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        unstuck_button.rect = unstuck_button.surf.get_rect(
+                            center=(unstuck_button.x_coordinate / .86, unstuck_button.y_coordinate / .86))
                         screen_resize_window.surf = pygame.image.load(screen_size_window_url_1200).convert()
                         screen_resize_window.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         screen_resize_window.rect = screen_resize_window.surf.get_rect(
-                            center=(screen_resize_window.x_coordinate / .86, screen_resize_window.y_coordinate / .86))
+                            center=(
+                                screen_resize_window.x_coordinate / .86, screen_resize_window.y_coordinate / .86))
                         s_1200x900_button.surf = pygame.image.load(s_1200x900_url_1200).convert()
                         s_1200x900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s_1200x900_button.rect = s_1200x900_button.surf.get_rect(
