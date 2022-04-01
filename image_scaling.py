@@ -1,0 +1,250 @@
+import resource_urls
+
+
+def image_scaling(object_to_scale):
+
+    if object_to_scale.image_size == "1024":
+
+        if object_to_scale.name == "player":
+            return resource_urls.stan_down_url_1024
+
+        if object_to_scale.name == "greeting":
+            return resource_urls.welcome_image_url_1024
+
+        if object_to_scale.name == "stan battle":
+            return resource_urls.stan_battle_url_1024
+        if object_to_scale.name == "snake battle":
+            return resource_urls.snake_battle_url_1024
+        if object_to_scale.name == "ghoul battle":
+            return resource_urls.ghoul_battle_url_1024
+
+        if object_to_scale.name == "garan":
+            return resource_urls.garan_url_1024
+        if object_to_scale.name == "maurelle":
+            return resource_urls.maurelle_url_1024
+        if object_to_scale.name == "guard":
+            return resource_urls.guard_url_1024
+
+        if object_to_scale.name == "snake":
+            return resource_urls.snake_url_1024
+        if object_to_scale.name == "ghoul":
+            return resource_urls.ghoul_url_1024
+
+        if object_to_scale.name == "tree":
+            return resource_urls.pine_tree_url_1024
+        if object_to_scale.name == "grass":
+            return resource_urls.seldon_grass_url_1024
+        if object_to_scale.name == "flower":
+            return resource_urls.seldon_flower_url_1024
+
+        if object_to_scale.name == "inn":
+            return resource_urls.seldon_inn_url_1024
+        if object_to_scale.name == "shop":
+            return resource_urls.seldon_shop_url_1024
+        if object_to_scale.name == "academia":
+            return resource_urls.seldon_academia_url_1024
+
+        if object_to_scale.name == "character button":
+            return resource_urls.character_button_url_1024
+        if object_to_scale.name == "journal button":
+            return resource_urls.journal_button_url_1024
+        if object_to_scale.name == "start button":
+            return resource_urls.start_button_url_1024
+        if object_to_scale.name == "character button":
+            return resource_urls.character_button_url_1024
+        if object_to_scale.name == "s1024x576 button":
+            return resource_urls.s1024_x_576_button_url_1024
+        if object_to_scale.name == "s1280x720 button":
+            return resource_urls.s1280_x_720_button_url_1024
+        if object_to_scale.name == "s1600x900 button":
+            return resource_urls.s1600_x_900_button_url_1024
+        if object_to_scale.name == "continue button":
+            return resource_urls.continue_button_url_1024
+        if object_to_scale.name == "buy button":
+            return resource_urls.buy_button_url_1024
+        if object_to_scale.name == "leave button":
+            return resource_urls.leave_button_url_1024
+        if object_to_scale.name == "rest button":
+            return resource_urls.rest_button_url_1024
+        if object_to_scale.name == "unstuck button":
+            return resource_urls.unstuck_button_url_1024
+
+        if object_to_scale.name == "skill bar":
+            return resource_urls.skill_bar_url_1024
+        if object_to_scale.name == "attack button":
+            return resource_urls.mage_attack_button_url_1024
+        if object_to_scale.name == "enemy status":
+            return resource_urls.enemy_status_url_1024
+
+        if object_to_scale.name == "quest":
+            return resource_urls.quest_logs_url_1024
+
+        if object_to_scale.name == "buy inventory":
+            return resource_urls.buy_button_url_1024
+        if object_to_scale.name == "message box":
+            return resource_urls.message_box_url_1024
+
+    # ------------------------------------------------------------------------------------------------------------------
+    if object_to_scale.image_size == "1280":
+
+        if object_to_scale.name == "player":
+            return resource_urls.stan_down_url
+
+        if object_to_scale.name == "greeting":
+            return resource_urls.welcome_image_url
+
+        if object_to_scale.name == "stan battle":
+            return resource_urls.stan_battle_url
+        if object_to_scale.name == "snake battle":
+            return resource_urls.snake_battle_url
+        if object_to_scale.name == "ghoul battle":
+            return resource_urls.ghoul_battle_url
+
+        if object_to_scale.name == "garan":
+            return resource_urls.garan_url
+        if object_to_scale.name == "maurelle":
+            return resource_urls.maurelle_url
+        if object_to_scale.name == "guard":
+            return resource_urls.guard_url
+
+        if object_to_scale.name == "snake":
+            return resource_urls.snake_url
+        if object_to_scale.name == "ghoul":
+            return resource_urls.ghoul_url
+
+        if object_to_scale.name == "tree":
+            return resource_urls.pine_tree_url
+        if object_to_scale.name == "grass":
+            return resource_urls.seldon_grass_url
+        if object_to_scale.name == "flower":
+            return resource_urls.seldon_flower_url
+
+        if object_to_scale.name == "inn":
+            return resource_urls.seldon_inn_url
+        if object_to_scale.name == "shop":
+            return resource_urls.seldon_shop_url
+        if object_to_scale.name == "academia":
+            return resource_urls.seldon_academia_url
+
+        if object_to_scale.name == "character button":
+            return resource_urls.character_button_url
+        if object_to_scale.name == "journal button":
+            return resource_urls.journal_button_url
+        if object_to_scale.name == "start button":
+            return resource_urls.start_button_url
+        if object_to_scale.name == "character button":
+            return resource_urls.character_button_url
+        if object_to_scale.name == "s1024x576 button":
+            return resource_urls.s1024_x_576_button_url
+        if object_to_scale.name == "s1280x720 button":
+            return resource_urls.s1280_x_720_button_url
+        if object_to_scale.name == "s1600x900 button":
+            return resource_urls.s1600_x_900_button_url
+        if object_to_scale.name == "continue button":
+            return resource_urls.continue_button_url
+        if object_to_scale.name == "buy button":
+            return resource_urls.buy_button_url
+        if object_to_scale.name == "leave button":
+            return resource_urls.leave_button_url
+        if object_to_scale.name == "rest button":
+            return resource_urls.rest_button_url
+        if object_to_scale.name == "unstuck button":
+            return resource_urls.unstuck_button_url
+
+        if object_to_scale.name == "skill bar":
+            return resource_urls.skill_bar_url
+        if object_to_scale.name == "attack button":
+            return resource_urls.mage_attack_button_url
+        if object_to_scale.name == "enemy status":
+            return resource_urls.enemy_status_url
+
+        if object_to_scale.name == "quest":
+            return resource_urls.quest_logs_url
+
+        if object_to_scale.name == "buy inventory":
+            return resource_urls.buy_button_url
+        if object_to_scale.name == "message box":
+            return resource_urls.message_box_url
+
+    # ------------------------------------------------------------------------------------------------------------------
+    if object_to_scale.image_size == "1600":
+
+        if object_to_scale.name == "player":
+            return resource_urls.stan_down_url_1600
+
+        if object_to_scale.name == "greeting":
+            return resource_urls.welcome_image_url_1600
+
+        if object_to_scale.name == "stan battle":
+            return resource_urls.stan_battle_url_1600
+        if object_to_scale.name == "snake battle":
+            return resource_urls.snake_battle_url_1600
+        if object_to_scale.name == "ghoul battle":
+            return resource_urls.ghoul_battle_url_1600
+
+        if object_to_scale.name == "garan":
+            return resource_urls.garan_url_1600
+        if object_to_scale.name == "maurelle":
+            return resource_urls.maurelle_url_1600
+        if object_to_scale.name == "guard":
+            return resource_urls.guard_url_1600
+
+        if object_to_scale.name == "snake":
+            return resource_urls.snake_url_1600
+        if object_to_scale.name == "ghoul":
+            return resource_urls.ghoul_url_1600
+
+        if object_to_scale.name == "tree":
+            return resource_urls.pine_tree_url_1600
+        if object_to_scale.name == "grass":
+            return resource_urls.seldon_grass_url_1600
+        if object_to_scale.name == "flower":
+            return resource_urls.seldon_flower_url_1600
+
+        if object_to_scale.name == "inn":
+            return resource_urls.seldon_inn_url_1600
+        if object_to_scale.name == "shop":
+            return resource_urls.seldon_shop_url_1600
+        if object_to_scale.name == "academia":
+            return resource_urls.seldon_academia_url_1600
+
+        if object_to_scale.name == "character button":
+            return resource_urls.character_button_url_1600
+        if object_to_scale.name == "journal button":
+            return resource_urls.journal_button_url_1600
+        if object_to_scale.name == "start button":
+            return resource_urls.start_button_url_1600
+        if object_to_scale.name == "character button":
+            return resource_urls.character_button_url_1600
+        if object_to_scale.name == "s1024x576 button":
+            return resource_urls.s1024_x_576_button_url_1600
+        if object_to_scale.name == "s1280x720 button":
+            return resource_urls.s1280_x_720_button_url_1600
+        if object_to_scale.name == "s1600x900 button":
+            return resource_urls.s1600_x_900_button_url_1600
+        if object_to_scale.name == "continue button":
+            return resource_urls.continue_button_url_1600
+        if object_to_scale.name == "buy button":
+            return resource_urls.buy_button_url_1600
+        if object_to_scale.name == "leave button":
+            return resource_urls.leave_button_url_1600
+        if object_to_scale.name == "rest button":
+            return resource_urls.rest_button_url_1600
+        if object_to_scale.name == "unstuck button":
+            return resource_urls.unstuck_button_url_1600
+
+        if object_to_scale.name == "skill bar":
+            return resource_urls.skill_bar_url_1600
+        if object_to_scale.name == "attack button":
+            return resource_urls.mage_attack_button_url_1600
+        if object_to_scale.name == "enemy status":
+            return resource_urls.enemy_status_url_1600
+
+        if object_to_scale.name == "quest":
+            return resource_urls.quest_logs_url_1600
+
+        if object_to_scale.name == "buy inventory":
+            return resource_urls.buy_button_url_1600
+        if object_to_scale.name == "message box":
+            return resource_urls.message_box_url_1600
+

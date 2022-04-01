@@ -7,6 +7,7 @@ from pygame.locals import *
 
 import resource_urls
 import bar_updates
+import image_scaling
 
 # ----------------------------------------------------------------------------------------------------------------------
 # global variables -----------------------------------------------------------------------------------------------------
@@ -34,7 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.surf = pygame.image.load(resource_urls.stan_down_url).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect()
-        self.pos = vec((435, 700))
+        self.pos = vec((450, 650))
 
         # velocity and acceleration vectors for movement physics
         self.vel = vec(0, 0)
@@ -74,10 +75,10 @@ class Player(pygame.sprite.Sprite):
             # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_1024:
                 self.surf = pygame.image.load(resource_urls.stan_up_url_1024).convert()
-                self.rect = player.surf.get_rect(center=player.pos * .78)
+                self.rect = player.surf.get_rect(center=player.pos * .80)
             if scaled_1600:
                 self.surf = pygame.image.load(resource_urls.stan_up_url_1600).convert()
-                self.rect = player.surf.get_rect(center=player.pos / .86)
+                self.rect = player.surf.get_rect(center=player.pos / .80)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = -ACC
@@ -94,10 +95,10 @@ class Player(pygame.sprite.Sprite):
             # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_1024:
                 self.surf = pygame.image.load(resource_urls.stan_down_url_1024).convert()
-                self.rect = player.surf.get_rect(center=player.pos * .78)
+                self.rect = player.surf.get_rect(center=player.pos * .80)
             if scaled_1600:
                 self.surf = pygame.image.load(resource_urls.stan_down_url_1600).convert()
-                self.rect = player.surf.get_rect(center=player.pos / .86)
+                self.rect = player.surf.get_rect(center=player.pos / .80)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = ACC
@@ -114,10 +115,10 @@ class Player(pygame.sprite.Sprite):
             # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_1024:
                 self.surf = pygame.image.load(resource_urls.stan_left_url_1024).convert()
-                self.rect = player.surf.get_rect(center=player.pos * .78)
+                self.rect = player.surf.get_rect(center=player.pos * .80)
             if scaled_1600:
                 self.surf = pygame.image.load(resource_urls.stan_left_url_1600).convert()
-                self.rect = player.surf.get_rect(center=player.pos / .86)
+                self.rect = player.surf.get_rect(center=player.pos / .80)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = -ACC
@@ -134,10 +135,10 @@ class Player(pygame.sprite.Sprite):
             # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_1024:
                 self.surf = pygame.image.load(resource_urls.stan_right_url_1024).convert()
-                self.rect = player.surf.get_rect(center=player.pos * .78)
+                self.rect = player.surf.get_rect(center=player.pos * .80)
             if scaled_1600:
                 self.surf = pygame.image.load(resource_urls.stan_right_url_1600).convert()
-                self.rect = player.surf.get_rect(center=player.pos / .86)
+                self.rect = player.surf.get_rect(center=player.pos / .80)
 
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = ACC
@@ -153,14 +154,14 @@ class Player(pygame.sprite.Sprite):
 
             # set boundaries scaled to current resolution for 1024x576
             if scaled_1024:
-                if self.pos.x < 25 * .78:
-                    self.pos.x = 25 * .78
-                elif self.pos.x > width - 115 * .78:
-                    self.pos.x = width - 115 * .78
+                if self.pos.x < 25 * .80:
+                    self.pos.x = 25 * .80
+                elif self.pos.x > width - 115 * .80:
+                    self.pos.x = width - 115 * .80
                 if self.pos.y <= 115 * .78:
                     self.pos.y = 115 * .78
-                elif self.pos.y >= height - 5 * .78:
-                    self.pos.y = height - 5 * .78
+                elif self.pos.y >= height - 5 * .80:
+                    self.pos.y = height - 5 * .80
 
             # set boundaries scaled to current resolution for 1280x720
             if scaled_1280:
@@ -175,14 +176,14 @@ class Player(pygame.sprite.Sprite):
 
             # set boundaries scaled to current resolution for 1600x900
             if scaled_1600:
-                if self.pos.x < 25 / .86:
-                    self.pos.x = 25 / .86
-                elif self.pos.x > width - 115 / .86:
-                    self.pos.x = width - 115 / .86
-                if self.pos.y <= 115 / .86:
-                    self.pos.y = 115 / .86
-                elif self.pos.y >= height - 5 / .86:
-                    self.pos.y = height - 5 / .86
+                if self.pos.x < 25 / .80:
+                    self.pos.x = 25 / .80
+                elif self.pos.x > width - 115 / .80:
+                    self.pos.x = width - 115 / .80
+                if self.pos.y <= 115 / .80:
+                    self.pos.y = 115 / .80
+                elif self.pos.y >= height - 5 / .80:
+                    self.pos.y = height - 5 / .80
 
         # equations and update player movement based on vectors --------------------------------------------------------
         self.acc.x += self.vel.x * FRIC
@@ -205,6 +206,17 @@ class Player(pygame.sprite.Sprite):
                 if pressed_keyes[K_d]:
                     player.vel.x = - .46 * .60
 
+            if scaled_1280:
+                # create normal force by applying velocity opposite direction player is trying to move on colliding
+                if pressed_keyes[K_w]:
+                    player.vel.y = + .46
+                if pressed_keyes[K_s]:
+                    player.vel.y = - .46
+                if pressed_keyes[K_a]:
+                    player.vel.x = + .46
+                if pressed_keyes[K_d]:
+                    player.vel.x = - .46
+
             # scale current player velocity based on larger resolution screen (1200x900)
             if scaled_1600:
                 if pressed_keyes[K_w]:
@@ -216,22 +228,11 @@ class Player(pygame.sprite.Sprite):
                 if pressed_keyes[K_d]:
                     player.vel.x = - .46 / .60
 
-            else:
-                # create normal force by applying velocity opposite direction player is trying to move on colliding
-                if pressed_keyes[K_w]:
-                    player.vel.y = + .46
-                if pressed_keyes[K_s]:
-                    player.vel.y = - .46
-                if pressed_keyes[K_a]:
-                    player.vel.x = + .46
-                if pressed_keyes[K_d]:
-                    player.vel.x = - .46
-
 
 class NPC(pygame.sprite.Sprite):
 
     def __init__(self, name, gender, race, role, dialog, quest_to_give, quest_description, x_coordinate, y_coordinate,
-                 alive_status, quest_complete, items, gift, image, color):
+                 alive_status, quest_complete, items, gift, image, color, image_size):
         super(NPC, self).__init__()
 
         self.name = name
@@ -250,6 +251,7 @@ class NPC(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+        self.image_size = image_size
 
     def update(self, image):
         self.surf = pygame.image.load(image).convert()
@@ -259,7 +261,7 @@ class NPC(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
 
     def __init__(self, name, kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image,
-                 color, health_bar):
+                 color, health_bar, image_size):
         super(Enemy, self).__init__()
 
         self.name = name
@@ -276,6 +278,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.speed = 1
         self.health_bar = health_bar
+        self.image_size = image_size
 
     # update separate into 2 functions to handle image updates and position updates
     # so that they both don't need the same parameters to change one or the other in main interation
@@ -320,7 +323,7 @@ class Enemy(pygame.sprite.Sprite):
 
 class Tree(pygame.sprite.Sprite):
 
-    def __init__(self, name, model, x_coordinate, y_coordinate, gathered, image, color):
+    def __init__(self, name, model, x_coordinate, y_coordinate, gathered, image, color, image_size):
         super(Tree, self).__init__()
 
         self.name = name
@@ -331,6 +334,7 @@ class Tree(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+        self.image_size = image_size
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
@@ -340,16 +344,16 @@ class Tree(pygame.sprite.Sprite):
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if scaled_1024:
-            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+            self.rect = self.surf.get_rect(center=(x_coord * .80, y_coord * .80))
         if scaled_1600:
-            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+            self.rect = self.surf.get_rect(center=(x_coord / .80, y_coord / .80))
         else:
             self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Building(pygame.sprite.Sprite):
 
-    def __init__(self, name, model, x_coordinate, y_coordinate, image, color):
+    def __init__(self, name, model, x_coordinate, y_coordinate, image, color, image_size):
         super(Building, self).__init__()
 
         self.name = name
@@ -359,6 +363,7 @@ class Building(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+        self.image_size = image_size
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
@@ -368,9 +373,9 @@ class Building(pygame.sprite.Sprite):
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if scaled_1024:
-            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+            self.rect = self.surf.get_rect(center=(x_coord * .80, y_coord * .80))
         if scaled_1600:
-            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+            self.rect = self.surf.get_rect(center=(x_coord / .80, y_coord / .80))
         else:
             self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
@@ -378,7 +383,7 @@ class Building(pygame.sprite.Sprite):
 # any UI element like buttons, bars, status etc.
 class UiElement(pygame.sprite.Sprite):
 
-    def __init__(self, name, x_coordinate, y_coordinate, image, color, update_flag):
+    def __init__(self, name, x_coordinate, y_coordinate, image, color, update_flag, image_size):
         super(UiElement, self).__init__()
 
         self.name = name
@@ -388,6 +393,7 @@ class UiElement(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.update_flag = update_flag
+        self.image_size = image_size
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
@@ -397,18 +403,19 @@ class UiElement(pygame.sprite.Sprite):
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if scaled_1024:
-            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+            self.rect = self.surf.get_rect(center=(x_coord * .80, y_coord * .80))
         if scaled_1600:
-            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+            self.rect = self.surf.get_rect(center=(x_coord / .80, y_coord / .80))
         else:
             self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Inventory(pygame.sprite.Sprite):
 
-    def __init__(self, contains, x_coordinate, y_coordinate, image, color, update_flag):
+    def __init__(self, name, contains, x_coordinate, y_coordinate, image, color, update_flag, image_size):
         super(Inventory, self).__init__()
 
+        self.name = name
         self.contains = contains
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
@@ -416,6 +423,7 @@ class Inventory(pygame.sprite.Sprite):
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.update_flag = update_flag
+        self.image_size = image_size
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
@@ -425,9 +433,9 @@ class Inventory(pygame.sprite.Sprite):
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if scaled_1024:
-            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+            self.rect = self.surf.get_rect(center=(x_coord * .80, y_coord * .80))
         if scaled_1600:
-            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+            self.rect = self.surf.get_rect(center=(x_coord / .80, y_coord / .80))
         else:
             self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
@@ -435,7 +443,7 @@ class Inventory(pygame.sprite.Sprite):
 # pop up notifications, like the welcome screen image when game starts
 class Notification(pygame.sprite.Sprite):
 
-    def __init__(self, name, shown, x_coordinate, y_coordinate, image, color):
+    def __init__(self, name, shown, x_coordinate, y_coordinate, image, color, image_size):
         super(Notification, self).__init__()
 
         self.name = name
@@ -445,6 +453,7 @@ class Notification(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+        self.image_size = image_size
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
@@ -454,9 +463,9 @@ class Notification(pygame.sprite.Sprite):
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if scaled_1024:
-            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+            self.rect = self.surf.get_rect(center=(x_coord * .80, y_coord * .80))
         if scaled_1600:
-            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+            self.rect = self.surf.get_rect(center=(x_coord / .80, y_coord / .80))
         else:
             self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
@@ -464,7 +473,7 @@ class Notification(pygame.sprite.Sprite):
 # to create a representation of character for battle screen
 class BattleCharacter(pygame.sprite.Sprite):
 
-    def __init__(self, name, x_coordinate, y_coordinate, image, color):
+    def __init__(self, name, x_coordinate, y_coordinate, image, color, image_size):
         super(BattleCharacter, self).__init__()
         self.name = name
         self.x_coordinate = x_coordinate
@@ -472,6 +481,7 @@ class BattleCharacter(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+        self.image_size = image_size
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
@@ -481,16 +491,16 @@ class BattleCharacter(pygame.sprite.Sprite):
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if scaled_1024:
-            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+            self.rect = self.surf.get_rect(center=(x_coord * .80, y_coord * .80))
         if scaled_1600:
-            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+            self.rect = self.surf.get_rect(center=(x_coord / .80, y_coord / .80))
         else:
             self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Item(pygame.sprite.Sprite):
 
-    def __init__(self, name, model, x_coordinate, y_coordinate, image, color):
+    def __init__(self, name, model, x_coordinate, y_coordinate, image, color, image_size):
         super(Item, self).__init__()
 
         self.name = name
@@ -500,6 +510,7 @@ class Item(pygame.sprite.Sprite):
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey(color, RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+        self.image_size = image_size
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
@@ -509,9 +520,9 @@ class Item(pygame.sprite.Sprite):
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if scaled_1024:
-            self.rect = self.surf.get_rect(center=(x_coord * .78, y_coord * .78))
+            self.rect = self.surf.get_rect(center=(x_coord * .80, y_coord * .80))
         if scaled_1600:
-            self.rect = self.surf.get_rect(center=(x_coord / .86, y_coord / .86))
+            self.rect = self.surf.get_rect(center=(x_coord / .80, y_coord / .80))
         else:
             self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
@@ -1096,11 +1107,11 @@ def combat_event_button(combat_event):
         if attack_button.rect.collidepoint(combat_mouse):
             return "attack"
 
-        if skill_button.rect.collidepoint(combat_mouse):
-            return "skill"
+        # if skill_button.rect.collidepoint(combat_mouse):
+            # return "skill"
 
-        if run_button.rect.collidepoint(combat_mouse):
-            return "run"
+        # if run_button.rect.collidepoint(combat_mouse):
+            # return "run"
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1241,20 +1252,56 @@ def enemy_respawn():
 
     # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
     if snake_counter < 3:
-        new_snake = Enemy("Snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                          Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url,
-                               (255, 255, 255)), snake_url, (255, 255, 255),
-                          UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+        if scaled_1024:
+            new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+                              Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url_1024,
+                                   (255, 255, 255), "1024"), snake_url_1024, (255, 255, 255),
+                              UiElement("snake hp bar", 700, 90, resource_urls.health_100_url_1024, (255, 255, 255),
+                                        False, "1024"),
+                              "1024")
+        if scaled_1280:
+            new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+                              Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url,
+                                   (255, 255, 255), "1280"), snake_url, (255, 255, 255),
+                              UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False,
+                                        "1280"),
+                              "1280")
+        if scaled_1600:
+            new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+                              Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url_1600,
+                                   (255, 255, 255), "1600"), snake_url_1600, (255, 255, 255),
+                              UiElement("snake hp bar", 700, 90, resource_urls.health_100_url_1600, (255, 255, 255),
+                                        False, "1600"),
+                              "1600")
+
         snakes.add(new_snake)
         enemies.add(new_snake)
         most_sprites.add(new_snake)
 
     # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
     if ghoul_counter < 3:
-        new_ghoul = Enemy("Ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
-                          Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255)),
-                          ghoul_url, (255, 255, 255),
-                          UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+        if scaled_1024:
+            new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
+                              Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url_1024,
+                                   (255, 255, 255), "1024"), ghoul_url_1024, (255, 255, 255),
+                              UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url_1024, (255, 255, 255),
+                                        False, "1024"),
+                              "1024")
+        if scaled_1280:
+            new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
+                              Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url,
+                                   (255, 255, 255), "1280"), ghoul_url, (255, 255, 255),
+                              UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False,
+                                        "1280"),
+                              "1280")
+        if scaled_1600:
+            new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
+                              Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url_1600,
+                                   (255, 255, 255), "1600"), ghoul_url_1600, (255, 255, 255),
+                              UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url_1600, (255, 255, 255),
+                                        False, "1600"),
+                              "1600")
+
         ghouls.add(new_ghoul)
         enemies.add(new_ghoul)
         most_sprites.add(new_ghoul)
@@ -1291,7 +1338,6 @@ def enemy_respawn():
 # ----------------------------------------------------------------------------------------------------------------------
 # initialize game, set clock for framerate, set screen size ------------------------------------------------------------
 pygame.init()
-clock = pygame.time.Clock()
 width = 1280
 height = 720
 screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
@@ -1309,18 +1355,18 @@ nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url)
 # creating objects from defined classes --------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # display notifications to user (shown, x_coordinate, y_coordinate, image, color) --------------------------------------
-greeting = Notification("greeting", False, 510, 365, resource_urls.welcome_image_url, (255, 255, 255))
+greeting = Notification("greeting", False, 510, 365, resource_urls.welcome_image_url, (255, 255, 255), "1280")
 
 # ----------------------------------------------------------------------------------------------------------------------
 # inventory items ------------------------------------------------------------------------------------------------------
-health_potion = Item("health potion", "potion", 200, 200, resource_urls.health_pot_url, (255, 255, 255))
-energy_potion = Item("energy potion", "potion", 200, 200, resource_urls.energy_pot_url, (255, 255, 255))
-shiny_rock = Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255))
-bone_dust = Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255))
+health_potion = Item("health potion", "potion", 200, 200, resource_urls.health_pot_url, (255, 255, 255), "1280")
+energy_potion = Item("energy potion", "potion", 200, 200, resource_urls.energy_pot_url, (255, 255, 255), "1280")
+shiny_rock = Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255), "1280")
+bone_dust = Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255), "1280")
 
 # ----------------------------------------------------------------------------------------------------------------------
 # default player character ---------------------------------------------------------------------------------------------
-player = Player("stan", "male", "amuna", "mage",  # name, gender, race, role
+player = Player("player", "male", "amuna", "mage",  # name, gender, race, role
                 [health_potion, energy_potion],  # inventory
                 ["magic", "basic staff", "medium", "green robes"],  # equipment ('type', 'name')
                 # current quest, quest status (x/4), quest dictionary (quest: done)
@@ -1341,7 +1387,7 @@ npc_garan = NPC("garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
                 "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
                 "trouble. ", 210, 430, True, False, ["Items to be added for steal"], False,
-                resource_urls.garan_url, (255, 255, 255))
+                resource_urls.garan_url, (255, 255, 255), "1280")
 
 npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
                    "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
@@ -1354,7 +1400,7 @@ npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Vill
                    "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
                    "trees just west of here. Nera bless you. ", 760, 520, True, False,
                    ["Items to be added for steal"], False,
-                   resource_urls.maurelle_url, (255, 255, 255))
+                   resource_urls.maurelle_url, (255, 255, 255), "1280")
 
 npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee",
                 "You need to cross the bridge to get to the Korlok District, you say? \n\nOrdinarily"
@@ -1365,127 +1411,151 @@ npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghoulish G
                 " ghouls were last spotted just east of here, nearby the northern Castle wall ramparts! ", 460, 120,
                 True,
                 False, ["Items to be added for steal"], False,
-                resource_urls.guard_url, (255, 255, 255))
+                resource_urls.guard_url, (255, 255, 255), "1280")
 
 npc_amuna_shopkeeper = NPC("amuna shopkeeper", "male", "amuna", "trader", "These ghoul attacks are bad for business!",
                            "", "", 700, 700, True, False, [
                                Item("health potion", "potion", 200, 200, resource_urls.health_pot_url,
-                                    (255, 255, 255)),
+                                    (255, 255, 255), "1280"),
                                Item("energy potion", "potion", 200, 200, resource_urls.energy_pot_url,
-                                    (255, 255, 255)),
+                                    (255, 255, 255), "1280"),
                                Item("bronze sword", "2H", 200, 200, resource_urls.temp_item_url,
-                                    (255, 255, 255)),
+                                    (255, 255, 255), "1280"),
                                Item("bronze armor", "heavy", 200, 200, resource_urls.temp_item_url,
-                                    (255, 255, 255))
-                           ], False, resource_urls.amuna_shopkeeper_url, (255, 255, 255))
+                                    (255, 255, 255), "1280")
+                           ], False, resource_urls.amuna_shopkeeper_url, (255, 255, 255), "1280")
 
 # ----------------------------------------------------------------------------------------------------------------------
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar ------
 snake_1 = Enemy("snake", "snake", 100, 100, 1, 80, 130, True,
-                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255)),
+                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255), "1280"),
                 resource_urls.snake_url, (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+                UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False, "1280"),
+                "1280")
 snake_2 = Enemy("snake", "snake", 100, 100, 2, 285, 150, True,
-                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255)),
+                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255), "1280"),
                 resource_urls.snake_url, (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+                UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False, "1280"),
+                "1280")
 snake_3 = Enemy("snake", "snake", 100, 100, 1, 80, 230, True,
-                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255)),
+                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255), "1280"),
                 resource_urls.snake_url, (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+                UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False, "1280"),
+                "1280")
 snake_4 = Enemy("snake", "snake", 100, 100, 2, 285, 250, True,
-                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255)),
+                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255), "1280"),
                 resource_urls.snake_url, (255, 255, 255),
-                UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+                UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False, "1280"),
+                "1280")
 
 ghoul_low_1 = Enemy("ghoul", "ghoul", 100, 100, 4, 665, 180, True,
-                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255)),
+                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255), "1280"),
                     resource_urls.ghoul_url, (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+                    UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False, "1280"),
+                    "1280")
 ghoul_low_2 = Enemy("ghoul", "ghoul", 100, 100, 5, 800, 130, True,
-                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255)),
+                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255), "1280"),
                     resource_urls.ghoul_url, (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+                    UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False, "1280"),
+                    "1280")
 ghoul_low_3 = Enemy("ghoul", "ghoul", 100, 100, 3, 760, 240, True,
-                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255)),
+                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255), "1280"),
                     resource_urls.ghoul_url, (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+                    UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False, "1280"),
+                    "1280")
 ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 890, 205, True,
-                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255)),
+                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255), "1280"),
                     resource_urls.ghoul_url, (255, 255, 255),
-                    UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False))
+                    UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False, "1280"),
+                    "1280")
 
 # environmental objects: name, model, x_coordinate, y_coordinate, gathered, image, color -------------------------------
-pine_tree_1 = Tree("pine tree", "pine tree", 80, 445, False, resource_urls.pine_tree_url, (255, 255, 255))
-pine_tree_2 = Tree("pine tree", "pine tree", 260, 590, False, resource_urls.pine_tree_url, (255, 255, 255))
-pine_tree_3 = Tree("pine tree", "pine tree", 340, 400, False, resource_urls.pine_tree_url, (255, 255, 255))
+pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, resource_urls.pine_tree_url, (255, 255, 255), "1280")
+pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, resource_urls.pine_tree_url, (255, 255, 255), "1280")
+pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, resource_urls.pine_tree_url, (255, 255, 255), "1280")
 
-seldon_grass_1 = Item("seldon grass", "grass", 360, 125, resource_urls.seldon_grass_url, (255, 255, 255))
-seldon_grass_2 = Item("seldon grass", "grass", 270, 195, resource_urls.seldon_grass_url, (255, 255, 255))
-seldon_grass_3 = Item("seldon grass", "grass", 405, 235, resource_urls.seldon_grass_url, (255, 255, 255))
-seldon_grass_4 = Item("seldon grass", "grass", 165, 135, resource_urls.seldon_grass_url, (255, 255, 255))
-seldon_grass_5 = Item("seldon grass", "grass", 150, 255, resource_urls.seldon_grass_url, (255, 255, 255))
-seldon_grass_6 = Item("seldon grass", "grass", 50, 180, resource_urls.seldon_grass_url, (255, 255, 255))
+seldon_grass_1 = Item("grass", "seldon grass", 360, 125, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
+seldon_grass_2 = Item("grass", "seldon grass", 270, 195, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
+seldon_grass_3 = Item("grass", "seldon grass", 405, 235, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
+seldon_grass_4 = Item("grass", "seldon grass", 165, 135, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
+seldon_grass_5 = Item("grass", "seldon grass", 150, 255, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
+seldon_grass_6 = Item("grass", "seldon grass", 50, 180, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
 
-seldon_flower_1 = Item("seldon flower", "flower", 590, 410, resource_urls.seldon_flower_url, (255, 255, 255))
-seldon_flower_2 = Item("seldon flower", "flower", 705, 600, resource_urls.seldon_flower_url, (255, 255, 255))
-seldon_flower_3 = Item("seldon flower", "flower", 800, 440, resource_urls.seldon_flower_url, (255, 255, 255))
+seldon_flower_1 = Item("flower", "seldon flower", 590, 410, resource_urls.seldon_flower_url, (255, 255, 255), "1280")
+seldon_flower_2 = Item("flower", "seldon flower", 705, 600, resource_urls.seldon_flower_url, (255, 255, 255), "1280")
+seldon_flower_3 = Item("flower", "seldon flower", 800, 440, resource_urls.seldon_flower_url, (255, 255, 255), "1280")
 
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-seldon_inn = Building("seldon inn", "inn", 635, 600, resource_urls.seldon_inn_url, (255, 255, 255))
-seldon_shop = Building("seldon shop", "shop", 665, 400, resource_urls.seldon_shop_url, (255, 255, 255))
-seldon_academia = Building("seldon academia", "academia", 875, 440, resource_urls.seldon_academia_url, (255, 255, 255))
+seldon_inn = Building("inn", "seldon inn", 635, 600, resource_urls.seldon_inn_url, (255, 255, 255), "1280")
+seldon_shop = Building("shop", "seldon shop", 665, 400, resource_urls.seldon_shop_url, (255, 255, 255), "1280")
+seldon_academia = Building("academia", "seldon academia", 875, 440, resource_urls.seldon_academia_url, (255, 255, 255),
+                           "1280")
 
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
-character_button = UiElement("character button", 860, 680, resource_urls.character_button_url, (255, 255, 255), False)
-journal_button = UiElement("journal button", 970, 680, resource_urls.journal_button_url, (255, 255, 255), False)
+character_button = UiElement("character button", 860, 680, resource_urls.character_button_url, (255, 255, 255), False,
+                             "1280")
+journal_button = UiElement("journal button", 970, 680, resource_urls.journal_button_url, (255, 255, 255), False,
+                           "1280")
 
 # start screen elements: -----------------------------------------------------------------------------------------------
-start_button = UiElement("start button", 637, 298, resource_urls.start_button_url, (255, 255, 255), False)
-s1024_x_576_button = UiElement("1024 x 576 button", 640, 498, resource_urls.s1024_x_576_button_url, (255, 255, 255),
-                               False)
-s1280_x_720_button = UiElement("1280 x 720 button", 640, 569, resource_urls.s1280_x_720_button_url, (255, 255, 255),
-                               False)
-s1600_x_900_button = UiElement("1600 x 900 button", 640, 641, resource_urls.s1600_x_900_button_url, (255, 255, 255),
-                               False)
+start_button = UiElement("start button", 640, 274, resource_urls.start_button_url, (255, 255, 255), False, "1280")
+s1024_x_576_button = UiElement("s1024x576 button", 640, 402, resource_urls.s1024_x_576_button_url, (255, 255, 255),
+                               False, "1280")
+s1280_x_720_button = UiElement("s1280x720 button", 640, 472, resource_urls.s1280_x_720_button_url, (255, 255, 255),
+                               False, "1280")
+s1600_x_900_button = UiElement("s1280x720 button", 640, 542, resource_urls.s1600_x_900_button_url, (255, 255, 255),
+                               False, "1280")
 # ----------------------------------------------------------------------------------------------------------------------
 
-continue_button = UiElement("continue button", 500, 600, resource_urls.continue_button_url, (255, 255, 255), False)
-buy_button = UiElement("buy button", 860, 680, resource_urls.buy_button_url, (255, 255, 255), False)
-leave_button = UiElement("leave button", 970, 680, resource_urls.leave_button_url, (255, 255, 255), False)
-rest_button = UiElement("rest button", 860, 680, resource_urls.rest_button_url, (255, 255, 255), False)
-unstuck_button = UiElement("unstuck button", 970, 25, resource_urls.unstuck_button_url, (255, 255, 255), False)
+continue_button = UiElement("continue button", 500, 600, resource_urls.continue_button_url, (255, 255, 255), False,
+                            "1280")
+buy_button = UiElement("buy button", 860, 680, resource_urls.buy_button_url, (255, 255, 255), False,
+                       "1280")
+leave_button = UiElement("leave button", 970, 680, resource_urls.leave_button_url, (255, 255, 255), False,
+                         "1280")
+rest_button = UiElement("rest button", 860, 680, resource_urls.rest_button_url, (255, 255, 255), False,
+                        "1280")
+unstuck_button = UiElement("unstuck button", 970, 25, resource_urls.unstuck_button_url, (255, 255, 255), False,
+                           "1280")
 
-skill_bar = UiElement("skill bar", 885, 627, resource_urls.skill_bar_url, (255, 255, 255), False)
+skill_bar = UiElement("skill bar", 855, 627, resource_urls.skill_bar_url, (255, 255, 255), False,
+                      "1280")
+attack_button = UiElement("attack button", 750, 627, resource_urls.mage_attack_button_url, (255, 255, 255), False,
+                          "1280")
 
-enemy_status = UiElement("enemy status", 855, 680, resource_urls.enemy_status_url, (255, 255, 255), False)
+enemy_status = UiElement("enemy status", 855, 680, resource_urls.enemy_status_url, (255, 255, 255), False,
+                         "1280")
 
-hp_bar = UiElement("health_100", 170, 25, resource_urls.health_100_url, (255, 255, 255), False)
-en_bar = UiElement("energy_100", 170, 45, resource_urls.energy_100_url, (255, 255, 255), False)
-xp_bar = UiElement("xp_100", 170, 65, resource_urls.xp_100_url, (255, 255, 255), False)
+hp_bar = UiElement("health bar", 170, 25, resource_urls.health_100_url, (255, 255, 255), False,
+                   "1280")
+en_bar = UiElement("energy bar", 170, 45, resource_urls.energy_100_url, (255, 255, 255), False,
+                   "1280")
+xp_bar = UiElement("xp bar", 170, 65, resource_urls.xp_100_url, (255, 255, 255), False,
+                   "1280")
 
-inventory = Inventory([], 890, 515, resource_urls.inventory_url, (255, 255, 255), False)
+inventory = Inventory("inventory", [], 890, 515, resource_urls.inventory_url, (255, 255, 255), False, "1280")
 
-quest_logs_1 = Item("quest logs", "quest", 60, 540, resource_urls.quest_logs_url, (255, 255, 255))
-quest_logs_2 = Item("quest logs", "quest", 315, 560, resource_urls.quest_logs_url, (255, 255, 255))
-quest_logs_3 = Item("quest logs", "quest", 415, 435, resource_urls.quest_logs_url, (255, 255, 255))
-quest_logs_4 = Item("quest logs", "quest", 100, 540, resource_urls.quest_logs_url, (255, 255, 255))
+quest_logs_1 = Item("quest", "quest logs", 60, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
+quest_logs_2 = Item("quest", "quest logs", 315, 560, resource_urls.quest_logs_url, (255, 255, 255), "1280")
+quest_logs_3 = Item("quest", "quest logs", 415, 435, resource_urls.quest_logs_url, (255, 255, 255), "1280")
+quest_logs_4 = Item("quest", "quest logs", 100, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 
 # shop window ---------------------------------------------------------------------------------------------------------
-buy_inventory = Inventory([], 890, 490, resource_urls.buy_inventory_url, (255, 255, 255), False)
+buy_inventory = Inventory("buy inventory", [], 890, 490, resource_urls.buy_inventory_url, (255, 255, 255), False,
+                          "1280")
 # ----------------------------------------------------------------------------------------------------------------------
 
-message_box = UiElement("message box", 173, 650, resource_urls.message_box_url, (255, 255, 255), False)
-status_bar_backdrop = UiElement("bar backdrop", 165, 45, resource_urls.bar_backdrop_url, (255, 255, 255), False)
+message_box = UiElement("message box", 173, 650, resource_urls.message_box_url, (255, 255, 255), False, "1280")
+status_bar_backdrop = UiElement("bar backdrop", 165, 45, resource_urls.bar_backdrop_url, (255, 255, 255), False, "1280")
 enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 695, 90, resource_urls.enemy_bar_backdrop_url,
                                       (255, 255, 255),
-                                      False)
+                                      False, "1280")
 
 # ----------------------------------------------------------------------------------------------------------------------
 # battle sprites -------------------------------------------------------------------------------------------------------
-stan_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.stan_battle_url, (255, 255, 255))
-snake_battle_sprite = BattleCharacter("snake battle", 700, 250, resource_urls.snake_battle_url, (255, 255, 255))
-ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, resource_urls.ghoul_battle_url, (255, 255, 255))
+stan_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.stan_battle_url, (255, 255, 255), "1280")
+snake_battle_sprite = BattleCharacter("snake battle", 700, 250, resource_urls.snake_battle_url, (255, 255, 255), "1280")
+ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, resource_urls.ghoul_battle_url, (255, 255, 255), "1280")
 
 # ----------------------------------------------------------------------------------------------------------------------
 # setting font and size for text to screen updates ---------------------------------------------------------------------
@@ -1507,7 +1577,6 @@ battle_elements = pygame.sprite.Group()
 enemy_hp_bars = pygame.sprite.Group()
 
 most_sprites = pygame.sprite.Group()
-total_elements = pygame.sprite.Group()
 
 # specific enemy groups for movement and respawn -----------------------------------------------------------------------
 snakes = pygame.sprite.Group()
@@ -1524,8 +1593,7 @@ grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon
 flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
 
-user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box,
-                   status_bar_backdrop)
+user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box)
 
 conditional_interface.add(inventory, buy_inventory, hp_bar, en_bar, xp_bar)
 
@@ -1599,6 +1667,8 @@ rest = False
 scaled_1024 = False
 scaled_1280 = True
 scaled_1600 = False
+# condition to check if initial player position has been set to current resolution scale
+player_initial_pos_set = False
 
 # what zone the player is in, used for player update and map boundaries
 zone_seldon = True
@@ -1653,41 +1723,274 @@ while game_running:
                 if start_button.rect.collidepoint(pos):
                     start_chosen = True
 
+                # screen resolution scaling. applies to all game sprites and images
+                # 1024 x 576 (down-scale) resolution -------------------------------------------------------------------
                 if s1024_x_576_button.rect.collidepoint(pos):
-                    width = 1024
-                    height = 576
-                    screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-                    scaled_1024 = True
-                    scaled_1280 = False
-                    scaled_1600 = False
+                    if not scaled_1024:
+                        width = 1024
+                        height = 576
+                        screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 
+                        start_screen = pygame.image.load(resource_urls.start_screen_url_1024)
+                        seldon_district_bg = pygame.image.load(resource_urls.seldon_bg_screen_url_1024)
+                        seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen_url_1024)
+                        seldon_district_inn = pygame.image.load(resource_urls.seldon_inn_screen_url_1024)
+                        seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url_1024)
+                        nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url_1024)
+                        game_over_screen = pygame.image.load(resource_urls.game_over_screen_url_1024)
+
+                        # start screen buttons scaling -----------------------------------------------------------------
+                        s1024_x_576_button.image_size = "1024"
+                        s1024_x_576_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(s1024_x_576_button)).convert()
+                        s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
+                                center=(s1024_x_576_button.x_coordinate * .80, s1024_x_576_button.y_coordinate * .80))
+                        s1280_x_720_button.image_size = "1024"
+                        s1280_x_720_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(s1280_x_720_button)).convert()
+                        s1280_x_720_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s1280_x_720_button.rect = s1280_x_720_button.surf.get_rect(
+                            center=(s1280_x_720_button.x_coordinate * .80, s1280_x_720_button.y_coordinate * .80))
+                        s1600_x_900_button.image_size = "1024"
+                        s1600_x_900_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(s1600_x_900_button)).convert()
+                        s1600_x_900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s1600_x_900_button.rect = s1600_x_900_button.surf.get_rect(
+                            center=(s1600_x_900_button.x_coordinate * .80, s1600_x_900_button.y_coordinate * .80))
+                        start_button.image_size = "1024"
+                        start_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(start_button)).convert()
+                        start_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        start_button.rect = start_button.surf.get_rect(
+                            center=(start_button.x_coordinate * .80, start_button.y_coordinate * .80))
+                        greeting.image_size = "1024"
+                        greeting.surf = pygame.image.load(
+                            image_scaling.image_scaling(greeting)).convert()
+                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        greeting.rect = greeting.surf.get_rect(
+                            center=(greeting.x_coordinate * .80, greeting.y_coordinate * .80))
+                        # ----------------------------------------------------------------------------------------------
+
+                        for sprite_to_scale in most_sprites:
+                            sprite_to_scale.image_size = "1024"
+                            sprite_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(sprite_to_scale)).convert()
+                            sprite_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
+                                center=(sprite_to_scale.x_coordinate * .80, sprite_to_scale.y_coordinate * .80))
+
+                        for element_to_scale in user_interface:
+                            element_to_scale.image_size = "1024"
+                            element_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(element_to_scale)).convert()
+                            element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            element_to_scale.rect = element_to_scale.surf.get_rect(
+                                center=(element_to_scale.x_coordinate * .80, element_to_scale.y_coordinate * .80))
+
+                        for enemy_to_scale in enemies:
+                            enemy_to_scale.image_size = "1024"
+                            enemy_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(enemy_to_scale)).convert()
+                            enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
+                                center=(enemy_to_scale.x_coordinate * .80, enemy_to_scale.y_coordinate * .80))
+
+                        player.image_size = "1024"
+                        player.surf = pygame.image.load(
+                            image_scaling.image_scaling(player)).convert()
+                        player.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+                        scaled_1024 = True
+                        scaled_1280 = False
+                        scaled_1600 = False
+
+                # 1280 x 720 (original) resolution ---------------------------------------------------------------------
                 if s1280_x_720_button.rect.collidepoint(pos):
-                    width = 1280
-                    height = 720
-                    screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-                    scaled_1024 = False
-                    scaled_1280 = True
-                    scaled_1600 = False
+                    if not scaled_1280:
+                        width = 1280
+                        height = 720
+                        screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 
+                        start_screen = pygame.image.load(resource_urls.start_screen_url)
+                        seldon_district_bg = pygame.image.load(resource_urls.seldon_bg_screen_url)
+                        seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen_url)
+                        seldon_district_inn = pygame.image.load(resource_urls.seldon_inn_screen_url)
+                        seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url)
+                        nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url)
+                        game_over_screen = pygame.image.load(resource_urls.game_over_screen_url)
+
+                        # start screen buttons scaling -----------------------------------------------------------------
+                        s1024_x_576_button.image_size = "1280"
+                        s1024_x_576_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(s1024_x_576_button)).convert()
+                        s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
+                            center=(s1024_x_576_button.x_coordinate, s1024_x_576_button.y_coordinate))
+                        s1280_x_720_button.image_size = "1280"
+                        s1280_x_720_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(s1280_x_720_button)).convert()
+                        s1280_x_720_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s1280_x_720_button.rect = s1280_x_720_button.surf.get_rect(
+                            center=(s1280_x_720_button.x_coordinate, s1280_x_720_button.y_coordinate))
+                        s1600_x_900_button.image_size = "1280"
+                        s1600_x_900_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(s1600_x_900_button)).convert()
+                        s1600_x_900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s1600_x_900_button.rect = s1600_x_900_button.surf.get_rect(
+                            center=(s1600_x_900_button.x_coordinate, s1600_x_900_button.y_coordinate))
+                        start_button.image_size = "1280"
+                        start_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(start_button)).convert()
+                        start_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        start_button.rect = start_button.surf.get_rect(
+                            center=(start_button.x_coordinate, start_button.y_coordinate))
+                        greeting.image_size = "1280"
+                        greeting.surf = pygame.image.load(
+                            image_scaling.image_scaling(greeting)).convert()
+                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        greeting.rect = greeting.surf.get_rect(
+                            center=(greeting.x_coordinate, greeting.y_coordinate))
+                        # ----------------------------------------------------------------------------------------------
+
+                        for sprite_to_scale in most_sprites:
+                            sprite_to_scale.image_size = "1280"
+                            sprite_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(sprite_to_scale)).convert()
+                            sprite_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
+                                center=(sprite_to_scale.x_coordinate, sprite_to_scale.y_coordinate))
+
+                        for element_to_scale in user_interface:
+                            element_to_scale.image_size = "1280"
+                            element_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(element_to_scale)).convert()
+                            element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            element_to_scale.rect = element_to_scale.surf.get_rect(
+                                center=(element_to_scale.x_coordinate, element_to_scale.y_coordinate))
+
+                        for enemy_to_scale in enemies:
+                            enemy_to_scale.image_size = "1280"
+                            enemy_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(enemy_to_scale)).convert()
+                            enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
+                                center=(enemy_to_scale.x_coordinate, enemy_to_scale.y_coordinate))
+
+                        player.image_size = "1024"
+                        player.surf = pygame.image.load(
+                            image_scaling.image_scaling(player)).convert()
+                        player.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+                        scaled_1024 = False
+                        scaled_1280 = True
+                        scaled_1600 = False
+
+                # 1600 x 900 (up-scale) resolution ---------------------------------------------------------------------
                 if s1600_x_900_button.rect.collidepoint(pos):
-                    width = 1600
-                    height = 900
-                    screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
-                    scaled_1024 = False
-                    scaled_1280 = False
-                    scaled_1600 = True
+                    if not scaled_1600:
+                        width = 1600
+                        height = 900
+                        screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
+
+                        start_screen = pygame.image.load(resource_urls.start_screen_url_1600)
+                        seldon_district_bg = pygame.image.load(resource_urls.seldon_bg_screen_url_1600)
+                        seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen_url_1600)
+                        seldon_district_inn = pygame.image.load(resource_urls.seldon_inn_screen_url_1600)
+                        seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url_1600)
+                        nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url_1600)
+                        game_over_screen = pygame.image.load(resource_urls.game_over_screen_url_1600)
+
+                        # start screen buttons scaling -----------------------------------------------------------------
+                        s1024_x_576_button.image_size = "1600"
+                        s1024_x_576_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(s1024_x_576_button)).convert()
+                        s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
+                            center=(s1024_x_576_button.x_coordinate / .80, s1024_x_576_button.y_coordinate / .80))
+                        s1280_x_720_button.image_size = "1600"
+                        s1280_x_720_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(s1280_x_720_button)).convert()
+                        s1280_x_720_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s1280_x_720_button.rect = s1280_x_720_button.surf.get_rect(
+                            center=(s1280_x_720_button.x_coordinate / .80, s1280_x_720_button.y_coordinate / .80))
+                        s1600_x_900_button.image_size = "1600"
+                        s1600_x_900_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(s1600_x_900_button)).convert()
+                        s1600_x_900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        s1600_x_900_button.rect = s1600_x_900_button.surf.get_rect(
+                            center=(s1600_x_900_button.x_coordinate / .80, s1600_x_900_button.y_coordinate / .80))
+                        start_button.image_size = "1600"
+                        start_button.surf = pygame.image.load(
+                            image_scaling.image_scaling(start_button)).convert()
+                        start_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        start_button.rect = start_button.surf.get_rect(
+                            center=(start_button.x_coordinate / .80, start_button.y_coordinate / .80))
+                        greeting.image_size = "1600"
+                        greeting.surf = pygame.image.load(
+                            image_scaling.image_scaling(greeting)).convert()
+                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        greeting.rect = greeting.surf.get_rect(
+                            center=(greeting.x_coordinate / .80, greeting.y_coordinate / .80))
+                        # ----------------------------------------------------------------------------------------------
+
+                        for sprite_to_scale in most_sprites:
+                            sprite_to_scale.image_size = "1600"
+                            sprite_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(sprite_to_scale)).convert()
+                            sprite_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
+                                center=(sprite_to_scale.x_coordinate / .80, sprite_to_scale.y_coordinate / .80))
+
+                        for element_to_scale in user_interface:
+                            element_to_scale.image_size = "1600"
+                            element_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(element_to_scale)).convert()
+                            element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            element_to_scale.rect = element_to_scale.surf.get_rect(
+                                center=(element_to_scale.x_coordinate / .80, element_to_scale.y_coordinate / .80))
+
+                        for enemy_to_scale in enemies:
+                            enemy_to_scale.image_size = "1600"
+                            enemy_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(enemy_to_scale)).convert()
+                            enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
+                                center=(enemy_to_scale.x_coordinate / .80, enemy_to_scale.y_coordinate / .80))
+
+                        player.image_size = "1600"
+                        player.surf = pygame.image.load(
+                            image_scaling.image_scaling(player)).convert()
+                        player.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
+                        scaled_1024 = False
+                        scaled_1280 = False
+                        scaled_1600 = True
 
             elif event.type == QUIT:
                 exit()
 
         pygame.display.flip()
 
-    # if player has chosen to start game
+    # if player has chosen to start game -------------------------------------------------------------------------------
     if start_chosen:
+
+        # start game clock
+        clock = pygame.time.Clock()
+
+        # update initial player position based on chosen resolution scaling at start screen
+        # set condition to true after position is set, so it doesn't keep applying
+        if not player_initial_pos_set:
+            if scaled_1024:
+                player.pos = player.pos * .80
+                player_initial_pos_set = True
+            if scaled_1600:
+                player.pos = player.pos / .80
+                player_initial_pos_set = True
 
         # scale font size to current screen resolution
         if scaled_1024:
-            font = pygame.font.SysFont('freesansbold.ttf', 18, bold=True, italic=False)
+            font = pygame.font.SysFont('freesansbold.ttf', 16, bold=True, italic=False)
         if scaled_1280:
             font = pygame.font.SysFont('freesansbold.ttf', 20, bold=True, italic=False)
         if scaled_1600:
@@ -1736,18 +2039,18 @@ while game_running:
                     # draw screen 1 background
                     screen.blit(seldon_district_bg, (0, 0))
 
-                    # draw sprites -------------------------------------------------------------------------------------
+                    # draw sprites
                     for entity in most_sprites:
                         screen.blit(entity.surf, entity.rect)
 
-                    # draw enemies -------------------------------------------------------------------------------------
+                    # draw enemies
                     for enemy_sprite in enemies:
                         screen.blit(enemy_sprite.surf, enemy_sprite.rect)
 
-                    # draw player --------------------------------------------------------------------------------------
+                    # draw player
                     screen.blit(player.surf, player.rect)
 
-                    # draw user interface elements ---------------------------------------------------------------------
+                    # draw user interface elements
                     for ui_element in user_interface:
                         screen.blit(ui_element.surf, ui_element.rect)
 
@@ -1770,16 +2073,15 @@ while game_running:
                     screen.blit(xp_bar.surf, xp_bar.rect)
 
                     # text updates to screen for things like current zone, rupee count, combat text, etc. --------------
-                    # --------------------------------------------------------------------------------------------------
                     # get current player rupee count and create surf and rectangle to blit to screen
                     text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
                     text_rupee_rect = text_rupee_surf.get_rect()
                     if scaled_1024:
-                        text_rupee_rect.center = (1245 * .78, 373 * .78)
+                        text_rupee_rect.center = (1225 * .80, 362 * .80)
                     if scaled_1280:
                         text_rupee_rect.center = (1225, 362)
                     if scaled_1600:
-                        text_rupee_rect.center = (1245 / .86, 373 / .86)
+                        text_rupee_rect.center = (1225 / .80, 362 / .80)
 
                     screen.blit(text_rupee_surf, text_rupee_rect)
 
@@ -1787,11 +2089,11 @@ while game_running:
                     text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
                     text_zone_rect = text_zone_surf.get_rect()
                     if scaled_1024:
-                        text_zone_rect.center = (1140 * .78, 373 * .78)
+                        text_zone_rect.center = (1120 * .80, 693 * .80)
                     if scaled_1280:
                         text_zone_rect.center = (1120, 693)
                     if scaled_1600:
-                        text_zone_rect.center = (1140 / .86, 373 / .86)
+                        text_zone_rect.center = (1120 / .80, 693 / .80)
 
                     screen.blit(text_zone_surf, text_zone_rect)
 
@@ -1799,11 +2101,11 @@ while game_running:
                     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
                     text_level_rect = text_level_surf.get_rect()
                     if scaled_1024:
-                        text_level_rect.center = (1035 * .78, 373 * .78)
+                        text_level_rect.center = (1105 * .80, 362 * .80)
                     if scaled_1280:
                         text_level_rect.center = (1105, 362)
                     if scaled_1600:
-                        text_level_rect.center = (1035 / .86, 373 / .86)
+                        text_level_rect.center = (1105 / .80, 362 / .80)
 
                     screen.blit(text_level_surf, text_level_rect)
 
@@ -1811,11 +2113,11 @@ while game_running:
                     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
                     text_combat_info_rect_1 = text_info_surf_1.get_rect()
                     if scaled_1024:
-                        text_combat_info_rect_1.midleft = (30 * .78, 635 * .78)
+                        text_combat_info_rect_1.midleft = (30 * .80, 635 * .80)
                     if scaled_1280:
                         text_combat_info_rect_1.midleft = (30, 635)
                     if scaled_1600:
-                        text_combat_info_rect_1.midleft = (30 / .86, 635 / .86)
+                        text_combat_info_rect_1.midleft = (30 / .80, 635 / .80)
 
                     screen.blit(text_info_surf_1, text_combat_info_rect_1)
 
@@ -1823,11 +2125,11 @@ while game_running:
                     text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
                     text_combat_info_rect_2 = text_info_surf_2.get_rect()
                     if scaled_1024:
-                        text_combat_info_rect_2.midleft = (30 * .78, 655 * .78)
+                        text_combat_info_rect_2.midleft = (30 * .80, 655 * .80)
                     if scaled_1280:
                         text_combat_info_rect_2.midleft = (30, 655)
                     if scaled_1600:
-                        text_combat_info_rect_2.midleft = (30 / .86, 655 / .86)
+                        text_combat_info_rect_2.midleft = (30 / .80, 655 / .80)
 
                     screen.blit(text_info_surf_2, text_combat_info_rect_2)
 
@@ -1835,11 +2137,11 @@ while game_running:
                     text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
                     text_combat_info_rect_3 = text_info_surf_3.get_rect()
                     if scaled_1024:
-                        text_combat_info_rect_3.midleft = (30 * .78, 675 * .78)
+                        text_combat_info_rect_3.midleft = (30 * .80, 675 * .80)
                     if scaled_1280:
                         text_combat_info_rect_3.midleft = (30, 675)
                     if scaled_1600:
-                        text_combat_info_rect_3.midleft = (30 / .86, 675 / .86)
+                        text_combat_info_rect_3.midleft = (30 / .80, 675 / .80)
 
                     screen.blit(text_info_surf_3, text_combat_info_rect_3)
 
@@ -1847,22 +2149,23 @@ while game_running:
                     text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
                     text_combat_info_rect_4 = text_info_surf_4.get_rect()
                     if scaled_1024:
-                        text_combat_info_rect_4.midleft = (30 * .78, 695 * .78)
+                        text_combat_info_rect_4.midleft = (30 * .80, 695 * .80)
                     if scaled_1280:
                         text_combat_info_rect_4.midleft = (30, 695)
                     if scaled_1600:
-                        text_combat_info_rect_4.midleft = (30 / .86, 695 / .86)
+                        text_combat_info_rect_4.midleft = (30 / .80, 695 / .80)
 
                     screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
-                    # if player has items in their inventory
+                    # create inventory window items --------------------------------------------------------------------
+                    # if player has items in their inventory -----------------------------------------------------------
                     if len(player.items) > 0:
                         first_coord = 1063
                         second_coord = 462
 
                         if scaled_1024:
-                            first_coord = first_coord * .78
-                            second_coord = second_coord * .78
+                            first_coord = first_coord * .80
+                            second_coord = second_coord * .80
                         if scaled_1600:
                             first_coord = first_coord - 2
                             second_coord = second_coord - 2
@@ -1937,8 +2240,8 @@ while game_running:
                                 inventory_counter = 0
 
                                 if scaled_1024:
-                                    first_coord = first_coord * .78
-                                    second_coord = second_coord * .78
+                                    first_coord = first_coord * .80
+                                    second_coord = second_coord * .80
 
                     # --------------------------------------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
@@ -1962,11 +2265,11 @@ while game_running:
                             if unstuck_button.rect.collidepoint(pos):
 
                                 if scaled_1024:
-                                    player.pos = vec((400, 400))
+                                    player.pos = vec((850 * .80, 650 * .80))
                                 if scaled_1280:
-                                    player.pos = vec((500, 500))
+                                    player.pos = vec((850, 650))
                                 if scaled_1600:
-                                    player.pos = vec((600, 600))
+                                    player.pos = vec((850 / .80, 650 / .80))
 
                         elif event.type == QUIT:
                             exit()
@@ -2034,6 +2337,15 @@ while game_running:
                                     in_district_over_world = False
                                     in_battle = True
 
+                                else:
+
+                                    # don't show if player has recently defeated enemy,
+                                    # so that it doesn't overwrite loot and xp info
+                                    if not info_update:
+
+                                        # lets player know if they are in range of enemy they can press f to attack it
+                                        info_text_1 = "Press 'F' key to attack enemy."
+
                         # ----------------------------------------------------------------------------------------------
                         # player collides with building, enters if chosen to interact and starts related scenario
                         building = pygame.sprite.spritecollideany(player, buildings)
@@ -2074,9 +2386,9 @@ while game_running:
                         display_elements.append(greeting)
                         greeting.shown = True
 
-                    # if greeting has been shown, after a few seconds remove it from screen
+                    # if greeting has been shown, after player has moved, remove greeting from screen
                     if greeting.shown:
-                        if pygame.time.get_ticks() > 3000:
+                        if pygame.time.get_ticks() > 9000:
                             for notification in display_elements:
                                 try:
                                     if notification.__getattribute__("name") == "greeting":
@@ -2199,10 +2511,240 @@ while game_running:
                                 if face_this_npc.name == "guard":
                                     npc_guard.update(resource_urls.guard_right_url_1600)
 
-                # if player is in battle
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in battle -------------------------------------------------------------------------------
                 if in_battle:
-                    # grab battle code from previous commit and add here in separate iteration
-                    print("battle")
+
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+
+                            # escape key was pressed, exit game
+                            if event.key == K_ESCAPE:
+                                exit()
+
+                        elif event.type == QUIT:
+                            exit()
+
+                        # if something was clicked on screen by mouse cursor,
+                        # get its position and see what sprite it collided with
+                        if event.type == pygame.MOUSEBUTTONUP:
+                            pos = pygame.mouse.get_pos()
+
+                    enemy = pygame.sprite.spritecollideany(player, enemies)
+                    if enemy:
+
+                        # update enemy health bar on each iteration
+                        health_bar_update_enemy(enemy)
+
+                        if not combat_cooldown:
+                            if interacted:
+
+                                # don't allow player to move while in combat
+                                movement_able = False
+
+                                # if player has just started combat, clear message box, change condition to True
+                                # so that it doesn't continuously clear box after combat text is added
+                                if not encounter_started:
+                                    info_text_1 = ""
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    encounter_started = True
+
+                                # get which button player pressed during combat scenario (attack, skill or run)
+                                combat_button = combat_event_button(event)
+
+                                # Info returned from combat scenario function in form of dictionary --------------------
+                                # "damage done": 0,
+                                # "damage taken": 0,
+                                # "item dropped": "",
+                                # "experience gained": 0,
+                                # "quest update": "",
+                                # "enemy defeated": False,
+                                # "escaped": False
+                                # "level up status": "",
+                                # "level up attributes": ""
+                                # --------------------------------------------------------------------------------------
+
+                                # enter combat scenario and attack enemy. attack_scenario will return all info in
+                                # form of list
+                                if combat_button == "attack":
+
+                                    # update player character sprite for combat animation
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url)
+
+                                    # update to attacking sprite surface for combat animation
+                                    if enemy.kind == "snake":
+                                        snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                                   snake_battle_sprite.y_coordinate,
+                                                                   resource_urls.snake_attack_url)
+
+                                    if enemy.kind == "ghoul":
+                                        ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                                   ghoul_battle_sprite.y_coordinate,
+                                                                   resource_urls.ghoul_attack_url)
+
+                                    # combat event function that handles and returns damage and health
+                                    combat_events = attack_scenario(enemy, "attack")
+                                    combat_happened = True
+
+                                    # add all combat scenario happenings from function to message box
+                                    # if any of the values are currently zero, or no, return blank string to message box
+                                    if combat_events["damage done"] == 0:
+                                        info_text_1 = ""
+                                    else:
+                                        info_text_1 = str(combat_events["damage done"])
+                                    if combat_events["damage taken"] == 0:
+                                        info_text_2 = ""
+                                    else:
+                                        info_text_2 = str(combat_events["damage taken"])
+
+                                    # adds item dropped and experienced gained messages to box if enemy was defeated
+                                    if combat_events["enemy defeated"]:
+                                        if combat_events["item dropped"] != "No":
+                                            info_text_1 = str(combat_events["item dropped"])
+                                        if combat_events["experience gained"] != 0:
+                                            info_text_2 = str(combat_events["experience gained"])
+
+                                    # if enemy was defeated and player leveled up, add messages related to box
+                                    if combat_events["enemy defeated"]:
+                                        if combat_events["level up status"] != "":
+                                            info_text_3 = str(combat_events["level up status"])
+                                            info_text_4 = str(combat_events["level up attributes"])
+
+                                    # if player was successful in defeating enemy, combat ends, movement is allowed
+                                    # set combat happened false, allowing iterations to continue without cooldown
+                                    # reset encounter_started condition so that next enemy will clear message box
+                                    if combat_events["enemy defeated"]:
+                                        movement_able = True
+                                        combat_happened = False
+                                        interacted = False
+                                        loot_update = True
+                                        encounter_started = False
+
+                        # ----------------------------------------------------------------------------------------------
+                        # if enemy is snake in seldon zone, chose snake sprite and seldon backdrop
+                        if enemy.__getattribute__("kind") == "snake":
+                            screen.blit(seldon_district_battle, (0, 0))
+                            screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
+                            screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(skill_bar.surf, skill_bar.rect)
+                            screen.blit(attack_button.surf, attack_button.rect)
+                            screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                            screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
+                            screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
+                            screen.blit(enemy_status.surf, enemy_status.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+
+                            # get current enemy name and create surf and rectangle to draw to screen
+                            text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True,
+                                                               "black",
+                                                               "light yellow")
+                            text_enemy_name_rect = text_enemy_name_surf.get_rect()
+                            if scaled_1024:
+                                text_enemy_name_rect.center = (800 * .80, 732 * .80)
+                            if scaled_1280:
+                                text_enemy_name_rect.center = (800, 732)
+                            if scaled_1600:
+                                text_enemy_name_rect.center = (800 / .80, 732 / .80)
+                            screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+
+                            # get current enemy level and create surf and rectangle to draw to screen
+                            text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True,
+                                                                "black",
+                                                                "light yellow")
+                            text_enemy_level_rect = text_enemy_level_surf.get_rect()
+                            if scaled_1024:
+                                text_enemy_level_rect.center = (910 * .80, 732 * .80)
+                            if scaled_1280:
+                                text_enemy_level_rect.center = (910, 732)
+                            if scaled_1600:
+                                text_enemy_level_rect.center = (910 / .80, 732 / .80)
+                            screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+
+                            # draw message box text to screen, updated during combat scenario
+                            screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                            screen.blit(text_info_surf_2, text_combat_info_rect_2)
+                            screen.blit(text_info_surf_3, text_combat_info_rect_3)
+                            screen.blit(text_info_surf_4, text_combat_info_rect_4)
+
+                            # flip to display --------------------------------------------------------------------------
+                            pygame.display.flip()
+
+                        # ----------------------------------------------------------------------------------------------
+                        if enemy.__getattribute__("kind") == "ghoul":
+                            screen.blit(seldon_district_battle, (0, 0))
+                            screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
+                            screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(skill_bar.surf, skill_bar.rect)
+                            screen.blit(attack_button.surf, attack_button.rect)
+                            screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                            screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
+                            screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
+                            screen.blit(enemy_status.surf, enemy_status.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+
+                            # get current enemy name and create surf and rectangle to draw to screen
+                            text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True,
+                                                               "black",
+                                                               "light yellow")
+                            text_enemy_name_rect = text_enemy_name_surf.get_rect()
+                            if scaled_1024:
+                                text_enemy_name_rect.center = (800 * .80, 732 * .80)
+                            if scaled_1280:
+                                text_enemy_name_rect.center = (800, 732)
+                            if scaled_1600:
+                                text_enemy_name_rect.center = (800 / .80, 732 / .80)
+                            screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+
+                            # get current enemy level and create surf and rectangle to draw to screen
+                            text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True,
+                                                                "black",
+                                                                "light yellow")
+                            text_enemy_level_rect = text_enemy_level_surf.get_rect()
+                            if scaled_1024:
+                                text_enemy_level_rect.center = (910 * .80, 732 * .80)
+                            if scaled_1280:
+                                text_enemy_level_rect.center = (910, 732)
+                            if scaled_1600:
+                                text_enemy_level_rect.center = (910 / .80, 732 / .80)
+                            screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+
+                            screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                            screen.blit(text_info_surf_2, text_combat_info_rect_2)
+                            screen.blit(text_info_surf_3, text_combat_info_rect_3)
+                            screen.blit(text_info_surf_4, text_combat_info_rect_4)
+
+                            # flip to display --------------------------------------------------------------------------
+                            pygame.display.flip()
+
+                        # ----------------------------------------------------------------------------------------------
+                        # ----------------------------------------------------------------------------------------------
+                        # combat didn't happen this iteration, reset sprites to default surface image
+                        if not combat_happened:
+
+                            combat_cooldown = False
+
+                        # combat happened this turn, update sprites for battle and apply short cooldown to attack again
+                        if combat_happened:
+
+                            combat_cooldown = True
+
+                            # when combat happens, wait after flipping display to allow animation time to show
+                            # 1000 milliseconds = 1 second
+                            pygame.time.wait(1000)
+
+                            # reset combat animation and ability to click on next iteration
+                            combat_happened = False
 
                 # if player is in shop
                 if in_shop:
