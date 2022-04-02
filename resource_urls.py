@@ -194,8 +194,12 @@ unstuck_button_url_1024 = resource_path('resources/art/ui_elements/buttons/unstu
 unstuck_button_url = resource_path('resources/art/ui_elements/buttons/unstuck.png')
 unstuck_button_url_1600 = resource_path('resources/art/ui_elements/buttons/unstuck_1600.png')
 
+skill_bar_url_1024 = resource_path('resources/art/ui_elements/buttons/battle/skill_bar_1024.png')
 skill_bar_url = resource_path('resources/art/ui_elements/buttons/battle/skill_bar.png')
+skill_bar_url_1600 = resource_path('resources/art/ui_elements/buttons/battle/skill_bar_1600.png')
+mage_attack_button_url_1024 = resource_path('resources/art/ui_elements/buttons/battle/magic/attack_1024.png')
 mage_attack_button_url = resource_path('resources/art/ui_elements/buttons/battle/magic/attack.png')
+mage_attack_button_url_1600 = resource_path('resources/art/ui_elements/buttons/battle/magic/attack_1600.png')
 
 start_button_url_1024 = resource_path('resources/art/ui_elements/buttons/start_screen/start_button_1024.png')
 start_button_url = resource_path('resources/art/ui_elements/buttons/start_screen/start_button.png')

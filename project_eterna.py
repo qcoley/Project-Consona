@@ -492,10 +492,10 @@ class BattleCharacter(pygame.sprite.Sprite):
 
         if scaled_1024:
             self.rect = self.surf.get_rect(center=(x_coord * .80, y_coord * .80))
+        if scaled_1280:
+            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
         if scaled_1600:
             self.rect = self.surf.get_rect(center=(x_coord / .80, y_coord / .80))
-        else:
-            self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Item(pygame.sprite.Sprite):
@@ -1108,10 +1108,10 @@ def combat_event_button(combat_event):
             return "attack"
 
         # if skill_button.rect.collidepoint(combat_mouse):
-            # return "skill"
+        # return "skill"
 
         # if run_button.rect.collidepoint(combat_mouse):
-            # return "run"
+        # return "run"
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1255,22 +1255,22 @@ def enemy_respawn():
         if scaled_1024:
             new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
                               Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url_1024,
-                                   (255, 255, 255), "1024"), snake_url_1024, (255, 255, 255),
-                              UiElement("snake hp bar", 700, 90, resource_urls.health_100_url_1024, (255, 255, 255),
+                                   (255, 255, 255), "1024"), resource_urls.snake_url_1024, (255, 255, 255),
+                              UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255),
                                         False, "1024"),
                               "1024")
         if scaled_1280:
             new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
                               Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url,
-                                   (255, 255, 255), "1280"), snake_url, (255, 255, 255),
+                                   (255, 255, 255), "1280"), resource_urls.snake_url, (255, 255, 255),
                               UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False,
                                         "1280"),
                               "1280")
         if scaled_1600:
             new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
                               Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url_1600,
-                                   (255, 255, 255), "1600"), snake_url_1600, (255, 255, 255),
-                              UiElement("snake hp bar", 700, 90, resource_urls.health_100_url_1600, (255, 255, 255),
+                                   (255, 255, 255), "1600"), resource_urls.snake_url_1600, (255, 255, 255),
+                              UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255),
                                         False, "1600"),
                               "1600")
 
@@ -1283,22 +1283,22 @@ def enemy_respawn():
         if scaled_1024:
             new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
                               Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url_1024,
-                                   (255, 255, 255), "1024"), ghoul_url_1024, (255, 255, 255),
-                              UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url_1024, (255, 255, 255),
+                                   (255, 255, 255), "1024"), resource_urls.ghoul_url_1024, (255, 255, 255),
+                              UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255),
                                         False, "1024"),
                               "1024")
         if scaled_1280:
             new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
                               Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url,
-                                   (255, 255, 255), "1280"), ghoul_url, (255, 255, 255),
+                                   (255, 255, 255), "1280"), resource_urls.ghoul_url, (255, 255, 255),
                               UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False,
                                         "1280"),
                               "1280")
         if scaled_1600:
             new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
                               Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url_1600,
-                                   (255, 255, 255), "1600"), ghoul_url_1600, (255, 255, 255),
-                              UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url_1600, (255, 255, 255),
+                                   (255, 255, 255), "1600"), resource_urls.ghoul_url_1600, (255, 255, 255),
+                              UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255),
                                         False, "1600"),
                               "1600")
 
@@ -1604,7 +1604,8 @@ environment_objects.add(trees, buildings)
 quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4)
 
 # battle element sprites for combat scenario ---------------------------------------------------------------------------
-battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status_bar_backdrop)
+battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status,
+                    skill_bar, attack_button)
 
 for bar_enemy in enemies:
     enemy_hp_bars.add(bar_enemy.__getattribute__("health_bar"))
@@ -1745,7 +1746,7 @@ while game_running:
                             image_scaling.image_scaling(s1024_x_576_button)).convert()
                         s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
-                                center=(s1024_x_576_button.x_coordinate * .80, s1024_x_576_button.y_coordinate * .80))
+                            center=(s1024_x_576_button.x_coordinate * .80, s1024_x_576_button.y_coordinate * .80))
                         s1280_x_720_button.image_size = "1024"
                         s1280_x_720_button.surf = pygame.image.load(
                             image_scaling.image_scaling(s1280_x_720_button)).convert()
@@ -1795,6 +1796,15 @@ while game_running:
                             enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
                                 center=(enemy_to_scale.x_coordinate * .80, enemy_to_scale.y_coordinate * .80))
+
+                        for battle_element_to_scale in battle_elements:
+                            battle_element_to_scale.image_size = "1024"
+                            battle_element_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(battle_element_to_scale)).convert()
+                            battle_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
+                                center=(battle_element_to_scale.x_coordinate * .80,
+                                        battle_element_to_scale.y_coordinate * .80))
 
                         player.image_size = "1024"
                         player.surf = pygame.image.load(
@@ -1877,7 +1887,16 @@ while game_running:
                             enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
                                 center=(enemy_to_scale.x_coordinate, enemy_to_scale.y_coordinate))
 
-                        player.image_size = "1024"
+                        for battle_element_to_scale in battle_elements:
+                            battle_element_to_scale.image_size = "1280"
+                            battle_element_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(battle_element_to_scale)).convert()
+                            battle_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
+                                center=(battle_element_to_scale.x_coordinate,
+                                        battle_element_to_scale.y_coordinate))
+
+                        player.image_size = "1280"
                         player.surf = pygame.image.load(
                             image_scaling.image_scaling(player)).convert()
                         player.surf.set_colorkey((255, 255, 255), RLEACCEL)
@@ -1958,6 +1977,15 @@ while game_running:
                             enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
                                 center=(enemy_to_scale.x_coordinate / .80, enemy_to_scale.y_coordinate / .80))
 
+                        for battle_element_to_scale in battle_elements:
+                            battle_element_to_scale.image_size = "1600"
+                            battle_element_to_scale.surf = pygame.image.load(
+                                image_scaling.image_scaling(battle_element_to_scale)).convert()
+                            battle_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
+                                center=(battle_element_to_scale.x_coordinate / .80,
+                                        battle_element_to_scale.y_coordinate / .80))
+
                         player.image_size = "1600"
                         player.surf = pygame.image.load(
                             image_scaling.image_scaling(player)).convert()
@@ -1970,7 +1998,7 @@ while game_running:
             elif event.type == QUIT:
                 exit()
 
-        pygame.display.flip()
+            pygame.display.flip()
 
     # if player has chosen to start game -------------------------------------------------------------------------------
     if start_chosen:
@@ -2068,6 +2096,7 @@ while game_running:
                     energy_bar_update(player)
                     xp_bar_update(player)
 
+                    screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                     screen.blit(hp_bar.surf, hp_bar.rect)
                     screen.blit(en_bar.surf, en_bar.rect)
                     screen.blit(xp_bar.surf, xp_bar.rect)
@@ -2342,7 +2371,6 @@ while game_running:
                                     # don't show if player has recently defeated enemy,
                                     # so that it doesn't overwrite loot and xp info
                                     if not info_update:
-
                                         # lets player know if they are in range of enemy they can press f to attack it
                                         info_text_1 = "Press 'F' key to attack enemy."
 
@@ -2388,7 +2416,7 @@ while game_running:
 
                     # if greeting has been shown, after player has moved, remove greeting from screen
                     if greeting.shown:
-                        if pygame.time.get_ticks() > 9000:
+                        if pygame.time.get_ticks() > 4000:
                             for notification in display_elements:
                                 try:
                                     if notification.__getattribute__("name") == "greeting":
@@ -2516,6 +2544,195 @@ while game_running:
                 # if player is in battle -------------------------------------------------------------------------------
                 if in_battle:
 
+                    # updates players inventory items if item is used in combat scenario (ex. health pot.)
+                    for item in player_items:
+                        screen.blit(item.surf, item.rect)
+
+                    # update players status bars -----------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
+                    health_bar_update(player)
+                    energy_bar_update(player)
+                    xp_bar_update(player)
+
+                    screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                    screen.blit(hp_bar.surf, hp_bar.rect)
+                    screen.blit(en_bar.surf, en_bar.rect)
+                    screen.blit(xp_bar.surf, xp_bar.rect)
+
+                    # text updates to screen for things like current zone, rupee count, combat text, etc. --------------
+                    # get current player rupee count and create surf and rectangle to blit to screen
+                    text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
+                    text_rupee_rect = text_rupee_surf.get_rect()
+                    if scaled_1024:
+                        text_rupee_rect.center = (1225 * .80, 362 * .80)
+                    if scaled_1280:
+                        text_rupee_rect.center = (1225, 362)
+                    if scaled_1600:
+                        text_rupee_rect.center = (1225 / .80, 362 / .80)
+
+                    screen.blit(text_rupee_surf, text_rupee_rect)
+
+                    # get current player district and create surf and rectangle to blit to screen
+                    text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
+                    text_zone_rect = text_zone_surf.get_rect()
+                    if scaled_1024:
+                        text_zone_rect.center = (1120 * .80, 693 * .80)
+                    if scaled_1280:
+                        text_zone_rect.center = (1120, 693)
+                    if scaled_1600:
+                        text_zone_rect.center = (1120 / .80, 693 / .80)
+
+                    screen.blit(text_zone_surf, text_zone_rect)
+
+                    # get current player district and create surf and rectangle to blit to screen
+                    text_level_surf = font.render(str(player.level), True, "black", "light yellow")
+                    text_level_rect = text_level_surf.get_rect()
+                    if scaled_1024:
+                        text_level_rect.center = (1105 * .80, 362 * .80)
+                    if scaled_1280:
+                        text_level_rect.center = (1105, 362)
+                    if scaled_1600:
+                        text_level_rect.center = (1105 / .80, 362 / .80)
+
+                    screen.blit(text_level_surf, text_level_rect)
+
+                    # current info text for message box in lower left corner of screen, first line
+                    text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
+                    text_combat_info_rect_1 = text_info_surf_1.get_rect()
+                    if scaled_1024:
+                        text_combat_info_rect_1.midleft = (30 * .80, 635 * .80)
+                    if scaled_1280:
+                        text_combat_info_rect_1.midleft = (30, 635)
+                    if scaled_1600:
+                        text_combat_info_rect_1.midleft = (30 / .80, 635 / .80)
+
+                    screen.blit(text_info_surf_1, text_combat_info_rect_1)
+
+                    # current info text for message box in lower left corner of screen, second line
+                    text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
+                    text_combat_info_rect_2 = text_info_surf_2.get_rect()
+                    if scaled_1024:
+                        text_combat_info_rect_2.midleft = (30 * .80, 655 * .80)
+                    if scaled_1280:
+                        text_combat_info_rect_2.midleft = (30, 655)
+                    if scaled_1600:
+                        text_combat_info_rect_2.midleft = (30 / .80, 655 / .80)
+
+                    screen.blit(text_info_surf_2, text_combat_info_rect_2)
+
+                    # current info text for message box in lower left corner of screen, third line
+                    text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
+                    text_combat_info_rect_3 = text_info_surf_3.get_rect()
+                    if scaled_1024:
+                        text_combat_info_rect_3.midleft = (30 * .80, 675 * .80)
+                    if scaled_1280:
+                        text_combat_info_rect_3.midleft = (30, 675)
+                    if scaled_1600:
+                        text_combat_info_rect_3.midleft = (30 / .80, 675 / .80)
+
+                    screen.blit(text_info_surf_3, text_combat_info_rect_3)
+
+                    # current info text for message box in lower left corner of screen, fourth line
+                    text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
+                    text_combat_info_rect_4 = text_info_surf_4.get_rect()
+                    if scaled_1024:
+                        text_combat_info_rect_4.midleft = (30 * .80, 695 * .80)
+                    if scaled_1280:
+                        text_combat_info_rect_4.midleft = (30, 695)
+                    if scaled_1600:
+                        text_combat_info_rect_4.midleft = (30 / .80, 695 / .80)
+
+                    screen.blit(text_info_surf_4, text_combat_info_rect_4)
+
+                    # create inventory window items --------------------------------------------------------------------
+                    # if player has items in their inventory -----------------------------------------------------------
+                    if len(player.items) > 0:
+                        first_coord = 1063
+                        second_coord = 462
+
+                        if scaled_1024:
+                            first_coord = first_coord * .80
+                            second_coord = second_coord * .80
+                        if scaled_1600:
+                            first_coord = first_coord - 2
+                            second_coord = second_coord - 2
+
+                        inventory_counter = 0
+                        # go through player items and assign inventory slots (coordinates) to them
+                        for item in player.items:
+                            if scaled_1024:
+                                if item.name == "health potion":
+                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1024)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "energy potion":
+                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1024)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "shiny rock":
+                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1024)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "bone dust":
+                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1024)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                            if scaled_1280:
+                                if item.name == "health potion":
+                                    item.update(first_coord, second_coord, resource_urls.health_pot_url)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "energy potion":
+                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "shiny rock":
+                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "bone dust":
+                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                            if scaled_1600:
+                                if item.name == "health potion":
+                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1600)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "energy potion":
+                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1600)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "shiny rock":
+                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1600)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "bone dust":
+                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1600)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+
+                            # add 75 to the items x-coordinate value so the next item will be added to next slot
+                            first_coord += 60
+                            if scaled_1024:
+                                first_coord = first_coord - 13.2
+                            if scaled_1600:
+                                first_coord = first_coord + 2
+
+                            # add 60 to items y coordinate value if the first row of (4) slots has been filled
+                            # reset first coordinate and counter to start in the leftmost slot again
+                            if inventory_counter > 3:
+                                second_coord += 60
+                                first_coord = 800
+                                inventory_counter = 0
+
+                                if scaled_1024:
+                                    first_coord = first_coord * .80
+                                    second_coord = second_coord * .80
+
+                    # battle scenario event loop
+                    # --------------------------------------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
 
@@ -2526,242 +2743,373 @@ while game_running:
                         elif event.type == QUIT:
                             exit()
 
-                        # if something was clicked on screen by mouse cursor,
-                        # get its position and see what sprite it collided with
-                        if event.type == pygame.MOUSEBUTTONUP:
-                            pos = pygame.mouse.get_pos()
-
-                    enemy = pygame.sprite.spritecollideany(player, enemies)
-                    if enemy:
-
-                        # update enemy health bar on each iteration
-                        health_bar_update_enemy(enemy)
-
-                        if not combat_cooldown:
-                            if interacted:
-
-                                # don't allow player to move while in combat
-                                movement_able = False
-
-                                # if player has just started combat, clear message box, change condition to True
-                                # so that it doesn't continuously clear box after combat text is added
-                                if not encounter_started:
-                                    info_text_1 = ""
+                        # ----------------------------------------------------------------------------------------------
+                        # ----------------------------------------------------------------------------------------------
+                        inventory_item = inventory_event_item(event)
+                        try:
+                            if inventory_item.__getattribute__("name") == "health potion":
+                                if player.health == 100:
+                                    info_text_1 = "You're already at full health."
                                     info_text_2 = ""
-                                    info_text_3 = ""
-                                    info_text_4 = ""
-                                    encounter_started = True
+                                    info_update = True
 
-                                # get which button player pressed during combat scenario (attack, skill or run)
-                                combat_button = combat_event_button(event)
+                                else:
+                                    player.health = player.health + 40
+                                    # if health potion heals over 100 hp, just set to 100 (max health)
+                                    if player.health > 100:
+                                        player.health = 100
+                                    info_text_1 = "The potion heals you for 40 hp."
+                                    info_text_2 = ""
+                                    info_update = True
 
-                                # Info returned from combat scenario function in form of dictionary --------------------
-                                # "damage done": 0,
-                                # "damage taken": 0,
-                                # "item dropped": "",
-                                # "experience gained": 0,
-                                # "quest update": "",
-                                # "enemy defeated": False,
-                                # "escaped": False
-                                # "level up status": "",
-                                # "level up attributes": ""
-                                # --------------------------------------------------------------------------------------
+                                    player_items.remove(inventory_item)
+                                    player.items.remove(inventory_item)
 
-                                # enter combat scenario and attack enemy. attack_scenario will return all info in
-                                # form of list
-                                if combat_button == "attack":
+                            if inventory_item.__getattribute__("name") == "energy potion":
+                                if player.energy == 100:
+                                    info_text_1 = "You're already at full energy."
+                                    info_text_2 = ""
+                                    info_update = True
 
-                                    # update player character sprite for combat animation
-                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                              stan_battle_sprite.y_coordinate,
-                                                              resource_urls.stan_attack_url)
+                                else:
+                                    player.energy = player.energy + 40
+                                    # if energy potion energizes over 100 hp, just set to 100 (max energy)
+                                    if player.energy > 100:
+                                        player.energy = 100
+                                    info_text_1 = "The potion energizes you for 40 en."
+                                    info_text_2 = ""
+                                    info_update = True
 
-                                    # update to attacking sprite surface for combat animation
-                                    if enemy.kind == "snake":
-                                        snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                                   snake_battle_sprite.y_coordinate,
-                                                                   resource_urls.snake_attack_url)
+                                    player_items.remove(inventory_item)
+                                    player.items.remove(inventory_item)
 
-                                    if enemy.kind == "ghoul":
-                                        ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                                   ghoul_battle_sprite.y_coordinate,
-                                                                   resource_urls.ghoul_attack_url)
+                        except AttributeError:
+                            pass
 
-                                    # combat event function that handles and returns damage and health
-                                    combat_events = attack_scenario(enemy, "attack")
-                                    combat_happened = True
+                        enemy = pygame.sprite.spritecollideany(player, enemies)
+                        if enemy:
 
-                                    # add all combat scenario happenings from function to message box
-                                    # if any of the values are currently zero, or no, return blank string to message box
-                                    if combat_events["damage done"] == 0:
+                            # update enemy health bar on each iteration
+                            health_bar_update_enemy(enemy)
+
+                            if not combat_cooldown:
+                                if interacted:
+
+                                    # don't allow player to move while in combat
+                                    movement_able = False
+
+                                    # if player has just started combat, clear message box, change condition to True
+                                    # so that it doesn't continuously clear box after combat text is added
+                                    if not encounter_started:
                                         info_text_1 = ""
-                                    else:
-                                        info_text_1 = str(combat_events["damage done"])
-                                    if combat_events["damage taken"] == 0:
                                         info_text_2 = ""
-                                    else:
-                                        info_text_2 = str(combat_events["damage taken"])
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        encounter_started = True
 
-                                    # adds item dropped and experienced gained messages to box if enemy was defeated
-                                    if combat_events["enemy defeated"]:
-                                        if combat_events["item dropped"] != "No":
-                                            info_text_1 = str(combat_events["item dropped"])
-                                        if combat_events["experience gained"] != 0:
-                                            info_text_2 = str(combat_events["experience gained"])
+                                    # get which button player pressed during combat scenario (attack, skill or run)
+                                    combat_button = combat_event_button(event)
 
-                                    # if enemy was defeated and player leveled up, add messages related to box
-                                    if combat_events["enemy defeated"]:
-                                        if combat_events["level up status"] != "":
-                                            info_text_3 = str(combat_events["level up status"])
-                                            info_text_4 = str(combat_events["level up attributes"])
+                                    # Info returned from combat scenario function in form of dictionary ----------------
+                                    # "damage done": 0,
+                                    # "damage taken": 0,
+                                    # "item dropped": "",
+                                    # "experience gained": 0,
+                                    # "quest update": "",
+                                    # "enemy defeated": False,
+                                    # "escaped": False
+                                    # "level up status": "",
+                                    # "level up attributes": ""
+                                    # ----------------------------------------------------------------------------------
 
-                                    # if player was successful in defeating enemy, combat ends, movement is allowed
-                                    # set combat happened false, allowing iterations to continue without cooldown
-                                    # reset encounter_started condition so that next enemy will clear message box
-                                    if combat_events["enemy defeated"]:
-                                        movement_able = True
-                                        combat_happened = False
-                                        interacted = False
-                                        loot_update = True
-                                        encounter_started = False
+                                    # enter combat scenario and attack enemy. attack_scenario will return all info in
+                                    # form of list
+                                    if combat_button == "attack":
 
-                        # ----------------------------------------------------------------------------------------------
-                        # if enemy is snake in seldon zone, chose snake sprite and seldon backdrop
-                        if enemy.__getattribute__("kind") == "snake":
-                            screen.blit(seldon_district_battle, (0, 0))
-                            screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
-                            screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
-                            screen.blit(skill_bar.surf, skill_bar.rect)
-                            screen.blit(attack_button.surf, attack_button.rect)
-                            screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                            screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
-                            screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
-                            screen.blit(enemy_status.surf, enemy_status.rect)
-                            screen.blit(message_box.surf, message_box.rect)
+                                        if scaled_1024:
+                                            # update player character sprite for combat animation
+                                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                      stan_battle_sprite.y_coordinate,
+                                                                      resource_urls.stan_attack_url_1024)
 
-                            # get current enemy name and create surf and rectangle to draw to screen
-                            text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True,
-                                                               "black",
-                                                               "light yellow")
-                            text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                            if scaled_1024:
-                                text_enemy_name_rect.center = (800 * .80, 732 * .80)
-                            if scaled_1280:
-                                text_enemy_name_rect.center = (800, 732)
-                            if scaled_1600:
-                                text_enemy_name_rect.center = (800 / .80, 732 / .80)
-                            screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                                            # update to attacking sprite surface for combat animation
+                                            if enemy.kind == "snake":
+                                                snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                                           snake_battle_sprite.y_coordinate,
+                                                                           resource_urls.snake_attack_url_1024)
 
-                            # get current enemy level and create surf and rectangle to draw to screen
-                            text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True,
-                                                                "black",
-                                                                "light yellow")
-                            text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                            if scaled_1024:
-                                text_enemy_level_rect.center = (910 * .80, 732 * .80)
-                            if scaled_1280:
-                                text_enemy_level_rect.center = (910, 732)
-                            if scaled_1600:
-                                text_enemy_level_rect.center = (910 / .80, 732 / .80)
-                            screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+                                            if enemy.kind == "ghoul":
+                                                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                                           ghoul_battle_sprite.y_coordinate,
+                                                                           resource_urls.ghoul_attack_url_1024)
 
-                            # draw message box text to screen, updated during combat scenario
-                            screen.blit(text_info_surf_1, text_combat_info_rect_1)
-                            screen.blit(text_info_surf_2, text_combat_info_rect_2)
-                            screen.blit(text_info_surf_3, text_combat_info_rect_3)
-                            screen.blit(text_info_surf_4, text_combat_info_rect_4)
+                                        if scaled_1280:
+                                            # update player character sprite for combat animation
+                                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                      stan_battle_sprite.y_coordinate,
+                                                                      resource_urls.stan_attack_url)
 
-                            # flip to display --------------------------------------------------------------------------
-                            pygame.display.flip()
+                                            # update to attacking sprite surface for combat animation
+                                            if enemy.kind == "snake":
+                                                snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                                           snake_battle_sprite.y_coordinate,
+                                                                           resource_urls.snake_attack_url)
 
-                        # ----------------------------------------------------------------------------------------------
-                        if enemy.__getattribute__("kind") == "ghoul":
-                            screen.blit(seldon_district_battle, (0, 0))
-                            screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
-                            screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
-                            screen.blit(skill_bar.surf, skill_bar.rect)
-                            screen.blit(attack_button.surf, attack_button.rect)
-                            screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                            screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
-                            screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
-                            screen.blit(enemy_status.surf, enemy_status.rect)
-                            screen.blit(message_box.surf, message_box.rect)
+                                            if enemy.kind == "ghoul":
+                                                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                                           ghoul_battle_sprite.y_coordinate,
+                                                                           resource_urls.ghoul_attack_url)
 
-                            # get current enemy name and create surf and rectangle to draw to screen
-                            text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True,
-                                                               "black",
-                                                               "light yellow")
-                            text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                            if scaled_1024:
-                                text_enemy_name_rect.center = (800 * .80, 732 * .80)
-                            if scaled_1280:
-                                text_enemy_name_rect.center = (800, 732)
-                            if scaled_1600:
-                                text_enemy_name_rect.center = (800 / .80, 732 / .80)
-                            screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                                        if scaled_1600:
+                                            # update player character sprite for combat animation
+                                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                      stan_battle_sprite.y_coordinate,
+                                                                      resource_urls.stan_attack_url_1600)
 
-                            # get current enemy level and create surf and rectangle to draw to screen
-                            text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True,
-                                                                "black",
-                                                                "light yellow")
-                            text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                            if scaled_1024:
-                                text_enemy_level_rect.center = (910 * .80, 732 * .80)
-                            if scaled_1280:
-                                text_enemy_level_rect.center = (910, 732)
-                            if scaled_1600:
-                                text_enemy_level_rect.center = (910 / .80, 732 / .80)
-                            screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+                                            # update to attacking sprite surface for combat animation
+                                            if enemy.kind == "snake":
+                                                snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                                           snake_battle_sprite.y_coordinate,
+                                                                           resource_urls.snake_attack_url_1600)
 
-                            screen.blit(text_info_surf_1, text_combat_info_rect_1)
-                            screen.blit(text_info_surf_2, text_combat_info_rect_2)
-                            screen.blit(text_info_surf_3, text_combat_info_rect_3)
-                            screen.blit(text_info_surf_4, text_combat_info_rect_4)
+                                            if enemy.kind == "ghoul":
+                                                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                                           ghoul_battle_sprite.y_coordinate,
+                                                                           resource_urls.ghoul_attack_url_1600)
 
-                            # flip to display --------------------------------------------------------------------------
-                            pygame.display.flip()
+                                        # combat event function that handles and returns damage and health
+                                        combat_events = attack_scenario(enemy, "attack")
+                                        combat_happened = True
 
-                        # ----------------------------------------------------------------------------------------------
-                        # ----------------------------------------------------------------------------------------------
-                        # combat didn't happen this iteration, reset sprites to default surface image
-                        if not combat_happened:
+                                        # add all combat scenario happenings from function to message box
+                                        # if any of the values are currently zero, or no, return blank string
+                                        if combat_events["damage done"] == 0:
+                                            info_text_1 = ""
+                                        else:
+                                            info_text_1 = str(combat_events["damage done"])
+                                        if combat_events["damage taken"] == 0:
+                                            info_text_2 = ""
+                                        else:
+                                            info_text_2 = str(combat_events["damage taken"])
 
-                            combat_cooldown = False
+                                        # adds item dropped and experienced gained messages to box if enemy was defeated
+                                        if combat_events["enemy defeated"]:
+                                            if combat_events["item dropped"] != "No":
+                                                info_text_1 = str(combat_events["item dropped"])
+                                            if combat_events["experience gained"] != 0:
+                                                info_text_2 = str(combat_events["experience gained"])
 
-                        # combat happened this turn, update sprites for battle and apply short cooldown to attack again
-                        if combat_happened:
+                                        # if enemy was defeated and player leveled up, add messages related to box
+                                        if combat_events["enemy defeated"]:
+                                            if combat_events["level up status"] != "":
+                                                info_text_3 = str(combat_events["level up status"])
+                                                info_text_4 = str(combat_events["level up attributes"])
 
-                            combat_cooldown = True
+                                        # if player was successful in defeating enemy, combat ends, movement is allowed
+                                        # set combat happened false, allowing iterations to continue without cooldown
+                                        # reset encounter_started condition so that next enemy will clear message box
+                                        if combat_events["enemy defeated"]:
+                                            movement_able = True
+                                            combat_happened = False
+                                            interacted = False
+                                            loot_update = True
+                                            encounter_started = False
+                                            in_battle = False
+                                            in_district_over_world = True
 
-                            # when combat happens, wait after flipping display to allow animation time to show
-                            # 1000 milliseconds = 1 second
-                            pygame.time.wait(1000)
+                    # ----------------------------------------------------------------------------------------------
+                    # if enemy is snake in seldon zone, chose snake sprite and seldon backdrop
+                    if enemy.__getattribute__("kind") == "snake":
+                        screen.blit(seldon_district_battle, (0, 0))
+                        screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
+                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(skill_bar.surf, skill_bar.rect)
+                        screen.blit(attack_button.surf, attack_button.rect)
+                        screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                        screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
+                        screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
+                        screen.blit(enemy_status.surf, enemy_status.rect)
+                        screen.blit(message_box.surf, message_box.rect)
 
-                            # reset combat animation and ability to click on next iteration
-                            combat_happened = False
+                        # get current enemy name and create surf and rectangle to draw to screen
+                        text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True,
+                                                           "black",
+                                                           "light yellow")
+                        text_enemy_name_rect = text_enemy_name_surf.get_rect()
+                        if scaled_1024:
+                            text_enemy_name_rect.center = (800 * .80, 680 * .80)
+                        if scaled_1280:
+                            text_enemy_name_rect.center = (800, 680)
+                        if scaled_1600:
+                            text_enemy_name_rect.center = (800 / .80, 680 / .80)
+                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
 
-                # if player is in shop
+                        # get current enemy level and create surf and rectangle to draw to screen
+                        text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True,
+                                                            "black",
+                                                            "light yellow")
+                        text_enemy_level_rect = text_enemy_level_surf.get_rect()
+                        if scaled_1024:
+                            text_enemy_level_rect.center = (915 * .80, 680 * .80)
+                        if scaled_1280:
+                            text_enemy_level_rect.center = (915, 680)
+                        if scaled_1600:
+                            text_enemy_level_rect.center = (915 / .80, 680 / .80)
+                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+
+                        # draw message box text to screen, updated during combat scenario
+                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
+                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
+                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
+
+                    # ----------------------------------------------------------------------------------------------
+                    if enemy.__getattribute__("kind") == "ghoul":
+                        screen.blit(seldon_district_battle, (0, 0))
+                        screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
+                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(skill_bar.surf, skill_bar.rect)
+                        screen.blit(attack_button.surf, attack_button.rect)
+                        screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                        screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
+                        screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
+                        screen.blit(enemy_status.surf, enemy_status.rect)
+                        screen.blit(message_box.surf, message_box.rect)
+
+                        # get current enemy name and create surf and rectangle to draw to screen
+                        text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True,
+                                                           "black",
+                                                           "light yellow")
+                        text_enemy_name_rect = text_enemy_name_surf.get_rect()
+                        if scaled_1024:
+                            text_enemy_name_rect.center = (800 * .80, 680 * .80)
+                        if scaled_1280:
+                            text_enemy_name_rect.center = (800, 680)
+                        if scaled_1600:
+                            text_enemy_name_rect.center = (800 / .80, 680 / .80)
+                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+
+                        # get current enemy level and create surf and rectangle to draw to screen
+                        text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True,
+                                                            "black",
+                                                            "light yellow")
+                        text_enemy_level_rect = text_enemy_level_surf.get_rect()
+                        if scaled_1024:
+                            text_enemy_level_rect.center = (915 * .80, 680 * .80)
+                        if scaled_1280:
+                            text_enemy_level_rect.center = (915, 680)
+                        if scaled_1600:
+                            text_enemy_level_rect.center = (915 / .80, 680 / .80)
+                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+
+                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
+                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
+                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
+
+                    # ----------------------------------------------------------------------------------------------
+                    # ----------------------------------------------------------------------------------------------
+                    # combat didn't happen this iteration, reset sprites to default surface image
+                    if not combat_happened:
+
+                        if scaled_1024:
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                                      resource_urls.stan_battle_url_1024)
+                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                       snake_battle_sprite.y_coordinate,
+                                                       resource_urls.snake_battle_url_1024)
+                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                       ghoul_battle_sprite.y_coordinate,
+                                                       resource_urls.ghoul_battle_url_1024)
+                        if scaled_1280:
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                                      resource_urls.stan_battle_url)
+                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                       snake_battle_sprite.y_coordinate,
+                                                       resource_urls.snake_battle_url)
+                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                       ghoul_battle_sprite.y_coordinate,
+                                                       resource_urls.ghoul_battle_url)
+                        if scaled_1600:
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                                      resource_urls.stan_battle_url_1600)
+                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                       snake_battle_sprite.y_coordinate,
+                                                       resource_urls.snake_battle_url_1600)
+                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                       ghoul_battle_sprite.y_coordinate,
+                                                       resource_urls.ghoul_battle_url_1600)
+
+                        combat_cooldown = False
+
+                    # combat happened this turn, update sprites for battle and apply short cooldown to attack again
+                    if combat_happened:
+
+                        if scaled_1024:
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                                      resource_urls.stan_attack_url_1024)
+                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                       snake_battle_sprite.y_coordinate,
+                                                       resource_urls.snake_attack_url_1024)
+                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                       ghoul_battle_sprite.y_coordinate,
+                                                       resource_urls.ghoul_attack_url_1024)
+                        if scaled_1280:
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                                      resource_urls.stan_attack_url)
+                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                       snake_battle_sprite.y_coordinate,
+                                                       resource_urls.snake_attack_url)
+                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                       ghoul_battle_sprite.y_coordinate,
+                                                       resource_urls.ghoul_attack_url)
+                        if scaled_1600:
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                                                      resource_urls.stan_attack_url_1600)
+                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                       snake_battle_sprite.y_coordinate,
+                                                       resource_urls.snake_attack_url_1600)
+                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                       ghoul_battle_sprite.y_coordinate,
+                                                       resource_urls.ghoul_attack_url_1600)
+
+                        # flip to display ------------------------------------------------------------------------------
+                        # needs to flip here to show the new attacking sprites for the 1-second duration
+                        pygame.display.flip()
+
+                        combat_cooldown = True
+
+                        # when combat happens, wait after flipping display to allow animation time to show
+                        # 1000 milliseconds = 1 second
+                        pygame.time.wait(1000)
+
+                        # reset combat animation and ability to click on next iteration
+                        combat_happened = False
+
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in shop ---------------------------------------------------------------------------------
                 if in_shop:
                     # grab shop code from previous commit and add here in separate iteration
                     print("shop")
 
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
                 # if player is in inn
                 if in_inn:
                     # grab inn code from previous commit and add here in separate iteration
                     print("inn")
 
-                # ----------------------------------------------------------------------------------
-                # flip to display ------------------------------------------------------------------------------
+                # flip to display --------------------------------------------------------------------------------------
                 pygame.display.flip()
 
-                # ----------------------------------------------------------------------------------------------
-                # 60 frames per second game rate
+                # 60 frames per second game rate -----------------------------------------------------------------------
                 clock.tick(60)
 
             # ----------------------------------------------------------------------------------------------------------

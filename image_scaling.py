@@ -11,13 +11,6 @@ def image_scaling(object_to_scale):
         if object_to_scale.name == "greeting":
             return resource_urls.welcome_image_url_1024
 
-        if object_to_scale.name == "stan battle":
-            return resource_urls.stan_battle_url_1024
-        if object_to_scale.name == "snake battle":
-            return resource_urls.snake_battle_url_1024
-        if object_to_scale.name == "ghoul battle":
-            return resource_urls.ghoul_battle_url_1024
-
         if object_to_scale.name == "garan":
             return resource_urls.garan_url_1024
         if object_to_scale.name == "maurelle":
@@ -75,6 +68,12 @@ def image_scaling(object_to_scale):
             return resource_urls.mage_attack_button_url_1024
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url_1024
+        if object_to_scale.name == "stan battle":
+            return resource_urls.stan_battle_url_1024
+        if object_to_scale.name == "snake battle":
+            return resource_urls.snake_battle_url_1024
+        if object_to_scale.name == "ghoul battle":
+            return resource_urls.ghoul_battle_url_1024
 
         if object_to_scale.name == "quest":
             return resource_urls.quest_logs_url_1024
@@ -92,13 +91,6 @@ def image_scaling(object_to_scale):
 
         if object_to_scale.name == "greeting":
             return resource_urls.welcome_image_url
-
-        if object_to_scale.name == "stan battle":
-            return resource_urls.stan_battle_url
-        if object_to_scale.name == "snake battle":
-            return resource_urls.snake_battle_url
-        if object_to_scale.name == "ghoul battle":
-            return resource_urls.ghoul_battle_url
 
         if object_to_scale.name == "garan":
             return resource_urls.garan_url
@@ -157,6 +149,12 @@ def image_scaling(object_to_scale):
             return resource_urls.mage_attack_button_url
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url
+        if object_to_scale.name == "stan battle":
+            return resource_urls.stan_battle_url
+        if object_to_scale.name == "snake battle":
+            return resource_urls.snake_battle_url
+        if object_to_scale.name == "ghoul battle":
+            return resource_urls.ghoul_battle_url
 
         if object_to_scale.name == "quest":
             return resource_urls.quest_logs_url
@@ -174,13 +172,6 @@ def image_scaling(object_to_scale):
 
         if object_to_scale.name == "greeting":
             return resource_urls.welcome_image_url_1600
-
-        if object_to_scale.name == "stan battle":
-            return resource_urls.stan_battle_url_1600
-        if object_to_scale.name == "snake battle":
-            return resource_urls.snake_battle_url_1600
-        if object_to_scale.name == "ghoul battle":
-            return resource_urls.ghoul_battle_url_1600
 
         if object_to_scale.name == "garan":
             return resource_urls.garan_url_1600
@@ -239,6 +230,12 @@ def image_scaling(object_to_scale):
             return resource_urls.mage_attack_button_url_1600
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url_1600
+        if object_to_scale.name == "stan battle":
+            return resource_urls.stan_battle_url_1600
+        if object_to_scale.name == "snake battle":
+            return resource_urls.snake_battle_url_1600
+        if object_to_scale.name == "ghoul battle":
+            return resource_urls.ghoul_battle_url_1600
 
         if object_to_scale.name == "quest":
             return resource_urls.quest_logs_url_1600

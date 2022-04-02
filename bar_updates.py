@@ -207,6 +207,9 @@ def health_bar_update(character):
     if character.health == 0:
         return resource_urls.health_0_url
 
+    else:
+        return resource_urls.health_0_url
+
 
 # player energy bar update
 def energy_bar_update(character):
@@ -413,6 +416,9 @@ def energy_bar_update(character):
     if character.energy == 0:
         return resource_urls.energy_0_url
 
+    else:
+        return resource_urls.energy_0_url
+
 
 # player xp bar update
 def xp_bar_update(character):
@@ -617,4 +623,7 @@ def xp_bar_update(character):
     if character.experience == 1:
         return resource_urls.xp_1_url
     if character.experience == 0:
+        return resource_urls.xp_0_url
+
+    else:
         return resource_urls.xp_0_url
