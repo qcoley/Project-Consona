@@ -1,7 +1,7 @@
 import resource_urls
 
 
-def image_scaling(object_to_scale):
+def screen_scaling(object_to_scale):
 
     if object_to_scale.image_size == "1024":
 

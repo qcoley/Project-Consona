@@ -7,7 +7,7 @@ from pygame.locals import *
 
 import resource_urls
 import bar_updates
-import image_scaling
+import screen_scaling
 
 # ----------------------------------------------------------------------------------------------------------------------
 # global variables -----------------------------------------------------------------------------------------------------
@@ -149,6 +149,7 @@ class Player(pygame.sprite.Sprite):
             if scaled_1600:
                 self.acc.x /= .60
 
+        # --------------------------------------------------------------------------------------------------------------
         # Keep player on the screen, boundaries vary depending on current zone -----------------------------------------
         if current_zone == "seldon":
 
@@ -192,6 +193,7 @@ class Player(pygame.sprite.Sprite):
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos
 
+        # --------------------------------------------------------------------------------------------------------------
         # collision detection with environment objects (trees, buildings, etc) -----------------------------------------
         if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.50)):
 
@@ -1507,7 +1509,7 @@ s1600_x_900_button = UiElement("s1280x720 button", 640, 542, resource_urls.s1600
                                False, "1280")
 # ----------------------------------------------------------------------------------------------------------------------
 
-continue_button = UiElement("continue button", 500, 600, resource_urls.continue_button_url, (255, 255, 255), False,
+continue_button = UiElement("continue button", 625, 575, resource_urls.continue_button_url, (255, 255, 255), False,
                             "1280")
 buy_button = UiElement("buy button", 860, 680, resource_urls.buy_button_url, (255, 255, 255), False,
                        "1280")
@@ -1607,11 +1609,8 @@ quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4)
 battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status,
                     skill_bar, attack_button)
 
-for bar_enemy in enemies:
-    enemy_hp_bars.add(bar_enemy.__getattribute__("health_bar"))
-
 # adding all sprites to game screen
-most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items)
+most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items, enemies)
 
 # pygame.mixer.music.load("Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
@@ -1702,6 +1701,8 @@ info_text_4 = ""
 # main loop ------------------------------------------------------------------------------------------------------------
 while game_running:
 
+    screen.fill((255, 255, 255))  # (255, 255, 255) RGB value for WHITE
+
     if not start_chosen:
         screen.blit(start_screen, (0, 0))
         screen.blit(start_button.surf, start_button.rect)
@@ -1743,31 +1744,31 @@ while game_running:
                         # start screen buttons scaling -----------------------------------------------------------------
                         s1024_x_576_button.image_size = "1024"
                         s1024_x_576_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(s1024_x_576_button)).convert()
+                            screen_scaling.screen_scaling(s1024_x_576_button)).convert()
                         s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
                             center=(s1024_x_576_button.x_coordinate * .80, s1024_x_576_button.y_coordinate * .80))
                         s1280_x_720_button.image_size = "1024"
                         s1280_x_720_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(s1280_x_720_button)).convert()
+                            screen_scaling.screen_scaling(s1280_x_720_button)).convert()
                         s1280_x_720_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1280_x_720_button.rect = s1280_x_720_button.surf.get_rect(
                             center=(s1280_x_720_button.x_coordinate * .80, s1280_x_720_button.y_coordinate * .80))
                         s1600_x_900_button.image_size = "1024"
                         s1600_x_900_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(s1600_x_900_button)).convert()
+                            screen_scaling.screen_scaling(s1600_x_900_button)).convert()
                         s1600_x_900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1600_x_900_button.rect = s1600_x_900_button.surf.get_rect(
                             center=(s1600_x_900_button.x_coordinate * .80, s1600_x_900_button.y_coordinate * .80))
                         start_button.image_size = "1024"
                         start_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(start_button)).convert()
+                            screen_scaling.screen_scaling(start_button)).convert()
                         start_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         start_button.rect = start_button.surf.get_rect(
                             center=(start_button.x_coordinate * .80, start_button.y_coordinate * .80))
                         greeting.image_size = "1024"
                         greeting.surf = pygame.image.load(
-                            image_scaling.image_scaling(greeting)).convert()
+                            screen_scaling.screen_scaling(greeting)).convert()
                         greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         greeting.rect = greeting.surf.get_rect(
                             center=(greeting.x_coordinate * .80, greeting.y_coordinate * .80))
@@ -1776,7 +1777,7 @@ while game_running:
                         for sprite_to_scale in most_sprites:
                             sprite_to_scale.image_size = "1024"
                             sprite_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(sprite_to_scale)).convert()
+                                screen_scaling.screen_scaling(sprite_to_scale)).convert()
                             sprite_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
                                 center=(sprite_to_scale.x_coordinate * .80, sprite_to_scale.y_coordinate * .80))
@@ -1784,7 +1785,7 @@ while game_running:
                         for element_to_scale in user_interface:
                             element_to_scale.image_size = "1024"
                             element_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(element_to_scale)).convert()
+                                screen_scaling.screen_scaling(element_to_scale)).convert()
                             element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             element_to_scale.rect = element_to_scale.surf.get_rect(
                                 center=(element_to_scale.x_coordinate * .80, element_to_scale.y_coordinate * .80))
@@ -1792,7 +1793,7 @@ while game_running:
                         for enemy_to_scale in enemies:
                             enemy_to_scale.image_size = "1024"
                             enemy_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(enemy_to_scale)).convert()
+                                screen_scaling.screen_scaling(enemy_to_scale)).convert()
                             enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
                                 center=(enemy_to_scale.x_coordinate * .80, enemy_to_scale.y_coordinate * .80))
@@ -1800,15 +1801,24 @@ while game_running:
                         for battle_element_to_scale in battle_elements:
                             battle_element_to_scale.image_size = "1024"
                             battle_element_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(battle_element_to_scale)).convert()
+                                screen_scaling.screen_scaling(battle_element_to_scale)).convert()
                             battle_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
                                 center=(battle_element_to_scale.x_coordinate * .80,
                                         battle_element_to_scale.y_coordinate * .80))
 
+                        # continue button (game over screen) scaling ---------------------------------------------------
+                        continue_button.image_size = "1024"
+                        continue_button.surf = pygame.image.load(
+                            screen_scaling.screen_scaling(continue_button)).convert()
+                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        continue_button.rect = continue_button.surf.get_rect(
+                            center=(continue_button.x_coordinate * .80, continue_button.y_coordinate * .80))
+                        # ----------------------------------------------------------------------------------------------
+
                         player.image_size = "1024"
                         player.surf = pygame.image.load(
-                            image_scaling.image_scaling(player)).convert()
+                            screen_scaling.screen_scaling(player)).convert()
                         player.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
                         scaled_1024 = True
@@ -1833,31 +1843,31 @@ while game_running:
                         # start screen buttons scaling -----------------------------------------------------------------
                         s1024_x_576_button.image_size = "1280"
                         s1024_x_576_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(s1024_x_576_button)).convert()
+                            screen_scaling.screen_scaling(s1024_x_576_button)).convert()
                         s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
                             center=(s1024_x_576_button.x_coordinate, s1024_x_576_button.y_coordinate))
                         s1280_x_720_button.image_size = "1280"
                         s1280_x_720_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(s1280_x_720_button)).convert()
+                            screen_scaling.screen_scaling(s1280_x_720_button)).convert()
                         s1280_x_720_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1280_x_720_button.rect = s1280_x_720_button.surf.get_rect(
                             center=(s1280_x_720_button.x_coordinate, s1280_x_720_button.y_coordinate))
                         s1600_x_900_button.image_size = "1280"
                         s1600_x_900_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(s1600_x_900_button)).convert()
+                            screen_scaling.screen_scaling(s1600_x_900_button)).convert()
                         s1600_x_900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1600_x_900_button.rect = s1600_x_900_button.surf.get_rect(
                             center=(s1600_x_900_button.x_coordinate, s1600_x_900_button.y_coordinate))
                         start_button.image_size = "1280"
                         start_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(start_button)).convert()
+                            screen_scaling.screen_scaling(start_button)).convert()
                         start_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         start_button.rect = start_button.surf.get_rect(
                             center=(start_button.x_coordinate, start_button.y_coordinate))
                         greeting.image_size = "1280"
                         greeting.surf = pygame.image.load(
-                            image_scaling.image_scaling(greeting)).convert()
+                            screen_scaling.screen_scaling(greeting)).convert()
                         greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         greeting.rect = greeting.surf.get_rect(
                             center=(greeting.x_coordinate, greeting.y_coordinate))
@@ -1866,7 +1876,7 @@ while game_running:
                         for sprite_to_scale in most_sprites:
                             sprite_to_scale.image_size = "1280"
                             sprite_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(sprite_to_scale)).convert()
+                                screen_scaling.screen_scaling(sprite_to_scale)).convert()
                             sprite_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
                                 center=(sprite_to_scale.x_coordinate, sprite_to_scale.y_coordinate))
@@ -1874,7 +1884,7 @@ while game_running:
                         for element_to_scale in user_interface:
                             element_to_scale.image_size = "1280"
                             element_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(element_to_scale)).convert()
+                                screen_scaling.screen_scaling(element_to_scale)).convert()
                             element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             element_to_scale.rect = element_to_scale.surf.get_rect(
                                 center=(element_to_scale.x_coordinate, element_to_scale.y_coordinate))
@@ -1882,7 +1892,7 @@ while game_running:
                         for enemy_to_scale in enemies:
                             enemy_to_scale.image_size = "1280"
                             enemy_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(enemy_to_scale)).convert()
+                                screen_scaling.screen_scaling(enemy_to_scale)).convert()
                             enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
                                 center=(enemy_to_scale.x_coordinate, enemy_to_scale.y_coordinate))
@@ -1890,7 +1900,7 @@ while game_running:
                         for battle_element_to_scale in battle_elements:
                             battle_element_to_scale.image_size = "1280"
                             battle_element_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(battle_element_to_scale)).convert()
+                                screen_scaling.screen_scaling(battle_element_to_scale)).convert()
                             battle_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
                                 center=(battle_element_to_scale.x_coordinate,
@@ -1898,7 +1908,7 @@ while game_running:
 
                         player.image_size = "1280"
                         player.surf = pygame.image.load(
-                            image_scaling.image_scaling(player)).convert()
+                            screen_scaling.screen_scaling(player)).convert()
                         player.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
                         scaled_1024 = False
@@ -1923,31 +1933,31 @@ while game_running:
                         # start screen buttons scaling -----------------------------------------------------------------
                         s1024_x_576_button.image_size = "1600"
                         s1024_x_576_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(s1024_x_576_button)).convert()
+                            screen_scaling.screen_scaling(s1024_x_576_button)).convert()
                         s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
                             center=(s1024_x_576_button.x_coordinate / .80, s1024_x_576_button.y_coordinate / .80))
                         s1280_x_720_button.image_size = "1600"
                         s1280_x_720_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(s1280_x_720_button)).convert()
+                            screen_scaling.screen_scaling(s1280_x_720_button)).convert()
                         s1280_x_720_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1280_x_720_button.rect = s1280_x_720_button.surf.get_rect(
                             center=(s1280_x_720_button.x_coordinate / .80, s1280_x_720_button.y_coordinate / .80))
                         s1600_x_900_button.image_size = "1600"
                         s1600_x_900_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(s1600_x_900_button)).convert()
+                            screen_scaling.screen_scaling(s1600_x_900_button)).convert()
                         s1600_x_900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         s1600_x_900_button.rect = s1600_x_900_button.surf.get_rect(
                             center=(s1600_x_900_button.x_coordinate / .80, s1600_x_900_button.y_coordinate / .80))
                         start_button.image_size = "1600"
                         start_button.surf = pygame.image.load(
-                            image_scaling.image_scaling(start_button)).convert()
+                            screen_scaling.screen_scaling(start_button)).convert()
                         start_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         start_button.rect = start_button.surf.get_rect(
                             center=(start_button.x_coordinate / .80, start_button.y_coordinate / .80))
                         greeting.image_size = "1600"
                         greeting.surf = pygame.image.load(
-                            image_scaling.image_scaling(greeting)).convert()
+                            screen_scaling.screen_scaling(greeting)).convert()
                         greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         greeting.rect = greeting.surf.get_rect(
                             center=(greeting.x_coordinate / .80, greeting.y_coordinate / .80))
@@ -1956,7 +1966,7 @@ while game_running:
                         for sprite_to_scale in most_sprites:
                             sprite_to_scale.image_size = "1600"
                             sprite_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(sprite_to_scale)).convert()
+                                screen_scaling.screen_scaling(sprite_to_scale)).convert()
                             sprite_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
                                 center=(sprite_to_scale.x_coordinate / .80, sprite_to_scale.y_coordinate / .80))
@@ -1964,7 +1974,7 @@ while game_running:
                         for element_to_scale in user_interface:
                             element_to_scale.image_size = "1600"
                             element_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(element_to_scale)).convert()
+                                screen_scaling.screen_scaling(element_to_scale)).convert()
                             element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             element_to_scale.rect = element_to_scale.surf.get_rect(
                                 center=(element_to_scale.x_coordinate / .80, element_to_scale.y_coordinate / .80))
@@ -1972,7 +1982,7 @@ while game_running:
                         for enemy_to_scale in enemies:
                             enemy_to_scale.image_size = "1600"
                             enemy_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(enemy_to_scale)).convert()
+                                screen_scaling.screen_scaling(enemy_to_scale)).convert()
                             enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
                                 center=(enemy_to_scale.x_coordinate / .80, enemy_to_scale.y_coordinate / .80))
@@ -1980,7 +1990,7 @@ while game_running:
                         for battle_element_to_scale in battle_elements:
                             battle_element_to_scale.image_size = "1600"
                             battle_element_to_scale.surf = pygame.image.load(
-                                image_scaling.image_scaling(battle_element_to_scale)).convert()
+                                screen_scaling.screen_scaling(battle_element_to_scale)).convert()
                             battle_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
                                 center=(battle_element_to_scale.x_coordinate / .80,
@@ -1988,7 +1998,7 @@ while game_running:
 
                         player.image_size = "1600"
                         player.surf = pygame.image.load(
-                            image_scaling.image_scaling(player)).convert()
+                            screen_scaling.screen_scaling(player)).convert()
                         player.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
                         scaled_1024 = False
@@ -2064,6 +2074,9 @@ while game_running:
                     # new enemy is added to sprite groups and will be random level and location in boundaries of type
                     enemy_respawn()
 
+                    # create blank background to be drawn on top of for each iteration
+                    screen.fill((255, 255, 255))  # (255, 255, 255) RGB value for WHITE
+
                     # draw screen 1 background
                     screen.blit(seldon_district_bg, (0, 0))
 
@@ -2081,10 +2094,6 @@ while game_running:
                     # draw user interface elements
                     for ui_element in user_interface:
                         screen.blit(ui_element.surf, ui_element.rect)
-
-                    # get item from current items based on players inventory and draw with inventory window
-                    for item in player_items:
-                        screen.blit(item.surf, item.rect)
 
                     # get screen option elements and draw window
                     for window in display_elements:
@@ -2186,6 +2195,11 @@ while game_running:
 
                     screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
+                    # clear list used for drawing player items to screen before going through inventory and drawing
+                    # this removes items that may have been used and left in list from previous iterations,
+                    # so they are not re-drawn after being used.
+                    player_items.clear()
+
                     # create inventory window items --------------------------------------------------------------------
                     # if player has items in their inventory -----------------------------------------------------------
                     if len(player.items) > 0:
@@ -2254,7 +2268,7 @@ while game_running:
                                     player_items.append(item)
                                     inventory_counter += 1
 
-                            # add 75 to the items x-coordinate value so the next item will be added to next slot
+                            # add 60 to the items x-coordinate value so the next item will be added to next slot
                             first_coord += 60
                             if scaled_1024:
                                 first_coord = first_coord - 13.2
@@ -2272,6 +2286,10 @@ while game_running:
                                     first_coord = first_coord * .80
                                     second_coord = second_coord * .80
 
+                        # get item from current items based on players inventory and draw with inventory window
+                        for item in player_items:
+                            screen.blit(item.surf, item.rect)
+
                     # --------------------------------------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
                     # all user input events such as key presses or UI interaction
@@ -2286,8 +2304,7 @@ while game_running:
                             if event.key == K_f:
                                 interacted = True
 
-                        # if something was clicked on screen by mouse cursor,
-                        # get its position and see what sprite it collided with
+                        # if the unstuck button was clicked, move the player to bottom right corner of screen
                         if event.type == pygame.MOUSEBUTTONUP:
                             pos = pygame.mouse.get_pos()
 
@@ -2303,11 +2320,11 @@ while game_running:
                         elif event.type == QUIT:
                             exit()
 
-                        # ----------------------------------------------------------------------------------------------
+                        # inventory click handler ----------------------------------------------------------------------
                         # ----------------------------------------------------------------------------------------------
                         inventory_item = inventory_event_item(event)
                         try:
-                            if inventory_item.__getattribute__("name") == "health potion":
+                            if inventory_item.name == "health potion":
                                 if player.health == 100:
                                     info_text_1 = "You're already at full health."
                                     info_text_2 = ""
@@ -2325,7 +2342,7 @@ while game_running:
                                     player_items.remove(inventory_item)
                                     player.items.remove(inventory_item)
 
-                            if inventory_item.__getattribute__("name") == "energy potion":
+                            if inventory_item.name == "energy potion":
                                 if player.energy == 100:
                                     info_text_1 = "You're already at full energy."
                                     info_text_2 = ""
@@ -2343,12 +2360,12 @@ while game_running:
                                     player_items.remove(inventory_item)
                                     player.items.remove(inventory_item)
 
-                            if inventory_item.__getattribute__("name") == "shiny rock":
+                            if inventory_item.name == "shiny rock":
                                 info_text_1 = "Oh, shiny. Maybe you can sell it?"
                                 info_text_2 = ""
                                 info_update = True
 
-                            if inventory_item.__getattribute__("name") == "bone dust":
+                            if inventory_item.name == "bone dust":
                                 info_text_1 = "Eh, dusty. Maybe you can sell it?"
                                 info_text_2 = ""
                                 info_update = True
@@ -2359,20 +2376,15 @@ while game_running:
                         # ----------------------------------------------------------------------------------------------
                         # if player collides with enemy sprite, doesn't have combat cooldown,
                         # and chooses to interact with it then get event from button press and start combat encounter
-                        enemy = pygame.sprite.spritecollideany(player, enemies)
+                        enemy = pygame.sprite.spritecollideany(player, enemies, pygame.sprite.collide_rect_ratio(1.50))
                         if enemy:
-                            if not combat_cooldown:
-                                if interacted:
-                                    in_district_over_world = False
-                                    in_battle = True
 
-                                else:
+                            # lets player know if they are in range of enemy they can press f to attack it
+                            info_text_1 = "Press 'F' key to attack enemy."
 
-                                    # don't show if player has recently defeated enemy,
-                                    # so that it doesn't overwrite loot and xp info
-                                    if not info_update:
-                                        # lets player know if they are in range of enemy they can press f to attack it
-                                        info_text_1 = "Press 'F' key to attack enemy."
+                            if interacted:
+                                in_district_over_world = False
+                                in_battle = True
 
                         # ----------------------------------------------------------------------------------------------
                         # player collides with building, enters if chosen to interact and starts related scenario
@@ -2544,10 +2556,6 @@ while game_running:
                 # if player is in battle -------------------------------------------------------------------------------
                 if in_battle:
 
-                    # updates players inventory items if item is used in combat scenario (ex. health pot.)
-                    for item in player_items:
-                        screen.blit(item.surf, item.rect)
-
                     # update players status bars -----------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
                     health_bar_update(player)
@@ -2644,6 +2652,11 @@ while game_running:
 
                     screen.blit(text_info_surf_4, text_combat_info_rect_4)
 
+                    # clear list used for drawing player items to screen before going through inventory and drawing
+                    # this removes items that may have been used and left in list from previous iterations,
+                    # so they are not re-drawn after being used.
+                    player_items.clear()
+
                     # create inventory window items --------------------------------------------------------------------
                     # if player has items in their inventory -----------------------------------------------------------
                     if len(player.items) > 0:
@@ -2730,6 +2743,10 @@ while game_running:
                                     first_coord = first_coord * .80
                                     second_coord = second_coord * .80
 
+                        # updates players inventory items if item is used in combat scenario (ex. health pot.)
+                        for item in player_items:
+                            screen.blit(item.surf, item.rect)
+
                     # battle scenario event loop
                     # --------------------------------------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
@@ -2744,10 +2761,10 @@ while game_running:
                             exit()
 
                         # ----------------------------------------------------------------------------------------------
-                        # ----------------------------------------------------------------------------------------------
+                        # inventory click handler ----------------------------------------------------------------------
                         inventory_item = inventory_event_item(event)
                         try:
-                            if inventory_item.__getattribute__("name") == "health potion":
+                            if inventory_item.name == "health potion":
                                 if player.health == 100:
                                     info_text_1 = "You're already at full health."
                                     info_text_2 = ""
@@ -2765,7 +2782,7 @@ while game_running:
                                     player_items.remove(inventory_item)
                                     player.items.remove(inventory_item)
 
-                            if inventory_item.__getattribute__("name") == "energy potion":
+                            if inventory_item.name == "energy potion":
                                 if player.energy == 100:
                                     info_text_1 = "You're already at full energy."
                                     info_text_2 = ""
@@ -2877,6 +2894,8 @@ while game_running:
                                                                            ghoul_battle_sprite.y_coordinate,
                                                                            resource_urls.ghoul_attack_url_1600)
 
+                                        # ------------------------------------------------------------------------------
+                                        # ------------------------------------------------------------------------------
                                         # combat event function that handles and returns damage and health
                                         combat_events = attack_scenario(enemy, "attack")
                                         combat_happened = True
@@ -2917,7 +2936,10 @@ while game_running:
                                             in_battle = False
                                             in_district_over_world = True
 
-                    # ----------------------------------------------------------------------------------------------
+                    # outside of event loop ----------------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
+                    # below is where battle scene and enemy are drawn to screen ----------------------------------------
+                    # --------------------------------------------------------------------------------------------------
                     # if enemy is snake in seldon zone, chose snake sprite and seldon backdrop
                     if enemy.__getattribute__("kind") == "snake":
                         screen.blit(seldon_district_battle, (0, 0))
@@ -3142,6 +3164,8 @@ while game_running:
                             sell_clicked = False
                             buy_clicked = False
                             encounter_started = False
+                            in_battle = False
+                            in_district_over_world = True
 
                             player.pos = vec((435, 700))
                             player.health = 50
