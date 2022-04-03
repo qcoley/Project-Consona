@@ -7,15 +7,15 @@ World of Warcraft. Coded in Python using PyGame.
 
 # Start Your Adventure
 
-![Seldon_District](https://user-images.githubusercontent.com/49097168/158510760-b4cd1c3d-9681-4698-a79d-1e422ba4424e.png)
+![Seldon_District](https://user-images.githubusercontent.com/49097168/161449747-f97fe311-d185-49f4-b8a6-f6315864f91e.png)
 
 # Battle Enemies 
 
-![Seldon_Battle](https://user-images.githubusercontent.com/49097168/158510889-21cfeb37-35b5-4914-aeaa-c7d4e19ea246.png)
+![Seldon_Battle](https://user-images.githubusercontent.com/49097168/161449753-94324d10-d3e5-474e-9cc5-0d894d921f51.png)
 
 # Journey Across The Region
 
-![consona_region_map](https://user-images.githubusercontent.com/49097168/158511207-7d0c367e-daed-48cd-a482-c5b33a57398b.png)
+![start_screen_original](https://user-images.githubusercontent.com/49097168/161449843-74a77324-94da-4e4e-87fc-c816e38f2679.png)
 
 # Installation
 
@@ -28,7 +28,8 @@ Start a console (command prompt in Windows, terminal in macOS and Linux),
 navigate to the location of the game file ("RPG-Lite.py") and run it by
 typing "./RPG-Lite.py" (type "python RPG-Lite.py" on Windows). This will 
 start the game and allow you to create a character. Once in the game you 
-can start your adventure!
+can start your adventure! On some systems, you may also right click the 
+game file ("RPG-Lite.py") and choose to "Open with --> Python".
 
 # Contributing
 Pull requests are welcome. For major changes, please open an issue first 
