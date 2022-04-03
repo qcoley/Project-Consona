@@ -2,8 +2,8 @@
 
 Project Eterna is an adventure game in the vein of The Legend of Zelda
 with light RPG elements based on and inspired by games like The Elder Scrolls, 
-Star Wars Knights of the Old Republic, Ultima, Everquest, Runescape and 
-World of Warcraft. Coded in Python using PyGame.
+Ultima, Everquest, Runescape, World of Warcraft among others. 
+Coded in Python 3.10 using PyGame 2.1.2.
 
 # Start Your Adventure
 
