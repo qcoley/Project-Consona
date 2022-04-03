@@ -1112,9 +1112,6 @@ def combat_event_button(combat_event):
         # if skill_button.rect.collidepoint(combat_mouse):
         # return "skill"
 
-        # if run_button.rect.collidepoint(combat_mouse):
-        # return "run"
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 # getting event based on user click related to shop scenario (buy, sell and leave buttons)
@@ -1125,9 +1122,6 @@ def shop_event_button(shop_event):
         # if mouse rect collides with buy button, sell button or leave button return string representing it
         if buy_button.rect.collidepoint(shop_mouse):
             return "buy"
-
-        # if sell_button.rect.collidepoint(shop_mouse):
-        # return "sell"
 
         if leave_button.rect.collidepoint(shop_mouse):
             return "leave"
@@ -1159,16 +1153,16 @@ def inventory_event_item(inventory_event):
 
         # try to get inventory item player clicked based on it's name and return it
         try:
-            if clicked_element[0].__getattribute__("name") == "health potion":
+            if clicked_element[0].name == "health potion":
                 return clicked_element[0]
 
-            if clicked_element[0].__getattribute__("name") == "energy potion":
+            if clicked_element[0].name == "energy potion":
                 return clicked_element[0]
 
-            if clicked_element[0].__getattribute__("name") == "shiny rock":
+            if clicked_element[0].name == "shiny rock":
                 return clicked_element[0]
 
-            if clicked_element[0].__getattribute__("name") == "bone dust":
+            if clicked_element[0].name == "bone dust":
                 return clicked_element[0]
 
         except IndexError:
@@ -1186,16 +1180,16 @@ def buy_event_item(buy_event):
 
         # try to get inventory item player clicked based on it's name and return it
         try:
-            if clicked_element[0].__getattribute__("name") == "health potion":
+            if clicked_element[0].name == "health potion":
                 return clicked_element[0]
 
-            if clicked_element[0].__getattribute__("name") == "energy potion":
+            if clicked_element[0].name == "energy potion":
                 return clicked_element[0]
 
-            if clicked_element[0].__getattribute__("name") == "shiny rock":
+            if clicked_element[0].name == "shiny rock":
                 return clicked_element[0]
 
-            if clicked_element[0].__getattribute__("name") == "bone dust":
+            if clicked_element[0].name == "bone dust":
                 return clicked_element[0]
 
         except IndexError:
@@ -1209,21 +1203,21 @@ def sell_event_item(sell_event):
         sell_mouse = pygame.mouse.get_pos()
 
         # list of sprites that collided with mouse cursor rect
-        clicked_element = [sell_element for sell_element in sell_player_items if
+        clicked_element = [sell_element for sell_element in player_items if
                            sell_element.rect.collidepoint(sell_mouse)]
 
         # try to get inventory item player clicked based on it's name and return it
         try:
-            if clicked_element[0].__getattribute__("name") == "health potion":
+            if clicked_element[0].name == "health potion":
                 return clicked_element[0]
 
-            if clicked_element[0].__getattribute__("name") == "energy potion":
+            if clicked_element[0].name == "energy potion":
                 return clicked_element[0]
 
-            if clicked_element[0].__getattribute__("name") == "shiny rock":
+            if clicked_element[0].name == "shiny rock":
                 return clicked_element[0]
 
-            if clicked_element[0].__getattribute__("name") == "bone dust":
+            if clicked_element[0].name == "bone dust":
                 return clicked_element[0]
 
         except IndexError:
@@ -1237,19 +1231,36 @@ def enemy_respawn():
     ghoul_counter = 0
 
     # generate random coordinates and level for new enemy to spawn within boundaries and level range
-    random_snake_x = random.randrange(150, 300)
-    random_snake_y = random.randrange(150, 300)
-    random_snake_level = random.randrange(1, 4)
+    if scaled_1024:
+        random_snake_x = random.randrange(120, 240)
+        random_snake_y = random.randrange(120, 240)
+        random_snake_level = random.randrange(1, 4)
 
-    random_ghoul_x = random.randrange(650, 900)
-    random_ghoul_y = random.randrange(150, 300)
-    random_ghoul_level = random.randrange(3, 6)
+        random_ghoul_x = random.randrange(520, 720)
+        random_ghoul_y = random.randrange(120, 240)
+        random_ghoul_level = random.randrange(3, 6)
+    if scaled_1280:
+        random_snake_x = random.randrange(150, 300)
+        random_snake_y = random.randrange(150, 300)
+        random_snake_level = random.randrange(1, 4)
+
+        random_ghoul_x = random.randrange(650, 900)
+        random_ghoul_y = random.randrange(150, 300)
+        random_ghoul_level = random.randrange(3, 6)
+    if scaled_1600:
+        random_snake_x = random.randrange(188, 375)
+        random_snake_y = random.randrange(188, 375)
+        random_snake_level = random.randrange(1, 4)
+
+        random_ghoul_x = random.randrange(812, 1125)
+        random_ghoul_y = random.randrange(188, 375)
+        random_ghoul_level = random.randrange(3, 6)
 
     # count current enemies active in game
     for mob in enemies:
-        if mob.__getattribute__("kind") == "snake":
+        if mob.name == "snake":
             snake_counter += 1
-        if mob.__getattribute__("kind") == "ghoul":
+        if mob.name == "ghoul":
             ghoul_counter += 1
 
     # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
@@ -1369,7 +1380,7 @@ bone_dust = Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (25
 # ----------------------------------------------------------------------------------------------------------------------
 # default player character ---------------------------------------------------------------------------------------------
 player = Player("player", "male", "amuna", "mage",  # name, gender, race, role
-                [health_potion, energy_potion],  # inventory
+                [health_potion, energy_potion, shiny_rock, bone_dust],  # inventory
                 ["magic", "basic staff", "medium", "green robes"],  # equipment ('type', 'name')
                 # current quest, quest status (x/4), quest dictionary (quest: done)
                 [""], 0, {"Sneaky Snakes": False, "Village Repairs": False, "Ghoulish Ghosts": False},
@@ -1543,7 +1554,7 @@ quest_logs_3 = Item("quest", "quest logs", 415, 435, resource_urls.quest_logs_ur
 quest_logs_4 = Item("quest", "quest logs", 100, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 
 # shop window ---------------------------------------------------------------------------------------------------------
-buy_inventory = Inventory("buy inventory", [], 890, 490, resource_urls.buy_inventory_url, (255, 255, 255), False,
+buy_inventory = Inventory("buy inventory", [], 900, 500, resource_urls.buy_inventory_url, (255, 255, 255), False,
                           "1280")
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -1597,7 +1608,7 @@ buildings.add(seldon_inn, seldon_shop, seldon_academia)
 
 user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box)
 
-conditional_interface.add(inventory, buy_inventory, hp_bar, en_bar, xp_bar)
+conditional_interface.add(buy_inventory)
 
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
@@ -1678,12 +1689,8 @@ zone_marrow = False
 
 # list to contain current player items for display
 player_items = []
-# separate list based on same player inventory but used to populate sell window in shop
-sell_player_items = []
 # list to contain buy inventory window for display within shop
 buy_shop_elements = []
-# list to contain sell inventory window for display within shop
-sell_shop_elements = []
 # list to contain current shop items for display
 shopkeeper_items = []
 # list to contain screen size elements for display
@@ -1700,8 +1707,6 @@ info_text_4 = ""
 # ----------------------------------------------------------------------------------------------------------------------
 # main loop ------------------------------------------------------------------------------------------------------------
 while game_running:
-
-    screen.fill((255, 255, 255))  # (255, 255, 255) RGB value for WHITE
 
     if not start_chosen:
         screen.blit(start_screen, (0, 0))
@@ -1807,6 +1812,15 @@ while game_running:
                                 center=(battle_element_to_scale.x_coordinate * .80,
                                         battle_element_to_scale.y_coordinate * .80))
 
+                        for conditional_element_to_scale in conditional_interface:
+                            conditional_element_to_scale.image_size = "1024"
+                            conditional_element_to_scale.surf = pygame.image.load(
+                                screen_scaling.screen_scaling(conditional_element_to_scale)).convert()
+                            conditional_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            conditional_element_to_scale.rect = conditional_element_to_scale.surf.get_rect(
+                                center=(conditional_element_to_scale.x_coordinate * .80,
+                                        conditional_element_to_scale.y_coordinate * .80))
+
                         # continue button (game over screen) scaling ---------------------------------------------------
                         continue_button.image_size = "1024"
                         continue_button.surf = pygame.image.load(
@@ -1906,6 +1920,24 @@ while game_running:
                                 center=(battle_element_to_scale.x_coordinate,
                                         battle_element_to_scale.y_coordinate))
 
+                        for conditional_element_to_scale in conditional_interface:
+                            conditional_element_to_scale.image_size = "1280"
+                            conditional_element_to_scale.surf = pygame.image.load(
+                                screen_scaling.screen_scaling(conditional_element_to_scale)).convert()
+                            conditional_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            conditional_element_to_scale.rect = conditional_element_to_scale.surf.get_rect(
+                                center=(conditional_element_to_scale.x_coordinate,
+                                        conditional_element_to_scale.y_coordinate))
+
+                        # continue button (game over screen) scaling ---------------------------------------------------
+                        continue_button.image_size = "1280"
+                        continue_button.surf = pygame.image.load(
+                            screen_scaling.screen_scaling(continue_button)).convert()
+                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        continue_button.rect = continue_button.surf.get_rect(
+                            center=(continue_button.x_coordinate, continue_button.y_coordinate))
+                        # ----------------------------------------------------------------------------------------------
+
                         player.image_size = "1280"
                         player.surf = pygame.image.load(
                             screen_scaling.screen_scaling(player)).convert()
@@ -1995,6 +2027,24 @@ while game_running:
                             battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
                                 center=(battle_element_to_scale.x_coordinate / .80,
                                         battle_element_to_scale.y_coordinate / .80))
+
+                        for conditional_element_to_scale in conditional_interface:
+                            conditional_element_to_scale.image_size = "1600"
+                            conditional_element_to_scale.surf = pygame.image.load(
+                                screen_scaling.screen_scaling(conditional_element_to_scale)).convert()
+                            conditional_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                            conditional_element_to_scale.rect = conditional_element_to_scale.surf.get_rect(
+                                center=(conditional_element_to_scale.x_coordinate / .80,
+                                        conditional_element_to_scale.y_coordinate / .80))
+
+                        # continue button (game over screen) scaling ---------------------------------------------------
+                        continue_button.image_size = "1600"
+                        continue_button.surf = pygame.image.load(
+                            screen_scaling.screen_scaling(continue_button)).convert()
+                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                        continue_button.rect = continue_button.surf.get_rect(
+                            center=(continue_button.x_coordinate / .80, continue_button.y_coordinate / .80))
+                        # ----------------------------------------------------------------------------------------------
 
                         player.image_size = "1600"
                         player.surf = pygame.image.load(
@@ -2104,6 +2154,17 @@ while game_running:
                     health_bar_update(player)
                     energy_bar_update(player)
                     xp_bar_update(player)
+
+                    # corrects position of player status bars and backdrop if scaled to 1600x900 resolution
+                    if scaled_1600:
+                        status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
+                            center=(status_bar_backdrop.x_coordinate / .80, status_bar_backdrop.y_coordinate / .80))
+                        hp_bar.rect = hp_bar.surf.get_rect(
+                            center=(hp_bar.x_coordinate / .80 - 1, hp_bar.y_coordinate / .80 + 5))
+                        en_bar.rect = en_bar.surf.get_rect(
+                            center=(en_bar.x_coordinate / .80 - 1, en_bar.y_coordinate / .80))
+                        xp_bar.rect = xp_bar.surf.get_rect(
+                            center=(xp_bar.x_coordinate / .80 - 1, xp_bar.y_coordinate / .80 - 5))
 
                     screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                     screen.blit(hp_bar.surf, hp_bar.rect)
@@ -2279,12 +2340,12 @@ while game_running:
                             # reset first coordinate and counter to start in the leftmost slot again
                             if inventory_counter > 3:
                                 second_coord += 60
-                                first_coord = 800
+                                first_coord = 1063
                                 inventory_counter = 0
 
                                 if scaled_1024:
                                     first_coord = first_coord * .80
-                                    second_coord = second_coord * .80
+                                    second_coord = second_coord * .80 + 80
 
                         # get item from current items based on players inventory and draw with inventory window
                         for item in player_items:
@@ -2376,7 +2437,7 @@ while game_running:
                         # ----------------------------------------------------------------------------------------------
                         # if player collides with enemy sprite, doesn't have combat cooldown,
                         # and chooses to interact with it then get event from button press and start combat encounter
-                        enemy = pygame.sprite.spritecollideany(player, enemies, pygame.sprite.collide_rect_ratio(1.50))
+                        enemy = pygame.sprite.spritecollideany(player, enemies)
                         if enemy:
 
                             # lets player know if they are in range of enemy they can press f to attack it
@@ -2390,18 +2451,20 @@ while game_running:
                         # player collides with building, enters if chosen to interact and starts related scenario
                         building = pygame.sprite.spritecollideany(player, buildings)
                         if building:
+
+                            # lets player know if they are in range of building they can press f to enter it
+                            info_text_1 = "Press 'F' key to enter building."
+
                             if interacted:
-                                if building.__getattribute__("model") == "shop":
+                                if building.name == "shop":
                                     in_district_over_world = False
                                     in_shop = True
 
-                                # --------------------------------------------------------------------------------------
-                                # --------------------------------------------------------------------------------------
-                                if building.__getattribute__("model") == "inn":
+                                if building.name == "inn":
                                     in_district_over_world = False
                                     in_inn = True
 
-                    # outside of event loop ----------------------------------------------------------------------------
+                    # outside of main event loop -----------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
                     # get current pressed keys from player and apply zone boundaries depending on current players
                     # current zone
@@ -2447,10 +2510,21 @@ while game_running:
                     # move snakes in random direction within boundaries
                     if movement_able:
                         if pygame.time.get_ticks() % 20 == 0:
-                            move_this_snake.update_position([30, 400], [150, 350], direction_horizontal,
-                                                            direction_vertical)
-                            move_this_ghoul.update_position([650, 920], [150, 350], direction_horizontal,
-                                                            direction_vertical)
+                            if scaled_1024:
+                                move_this_snake.update_position([30 * .80, 400 * .80], [150 * .80, 350 * .80],
+                                                                direction_horizontal, direction_vertical)
+                                move_this_ghoul.update_position([650 * .80, 920 * .80], [150 * .80, 350 * .80],
+                                                                direction_horizontal, direction_vertical)
+                            if scaled_1280:
+                                move_this_snake.update_position([30, 400], [150, 350],
+                                                                direction_horizontal, direction_vertical)
+                                move_this_ghoul.update_position([650, 920], [150, 350],
+                                                                direction_horizontal, direction_vertical)
+                            if scaled_1600:
+                                move_this_snake.update_position([30 / .80, 400 / .80], [150 / .80, 350 / .80],
+                                                                direction_horizontal, direction_vertical)
+                                move_this_ghoul.update_position([650 / .80, 920 / .80], [150 / .80, 350 / .80],
+                                                                direction_horizontal, direction_vertical)
 
                     # npc movement updates -----------------------------------------------------------------------------
                     # choose random facing direction and random npc to move face that direction ------------------------
@@ -2562,95 +2636,17 @@ while game_running:
                     energy_bar_update(player)
                     xp_bar_update(player)
 
-                    screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-                    screen.blit(hp_bar.surf, hp_bar.rect)
-                    screen.blit(en_bar.surf, en_bar.rect)
-                    screen.blit(xp_bar.surf, xp_bar.rect)
-
-                    # text updates to screen for things like current zone, rupee count, combat text, etc. --------------
-                    # get current player rupee count and create surf and rectangle to blit to screen
-                    text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
-                    text_rupee_rect = text_rupee_surf.get_rect()
-                    if scaled_1024:
-                        text_rupee_rect.center = (1225 * .80, 362 * .80)
-                    if scaled_1280:
-                        text_rupee_rect.center = (1225, 362)
+                    # update function will reset coordinates so fix scaling here for 1600x900 (temp. solution maybe)
                     if scaled_1600:
-                        text_rupee_rect.center = (1225 / .80, 362 / .80)
-
-                    screen.blit(text_rupee_surf, text_rupee_rect)
-
-                    # get current player district and create surf and rectangle to blit to screen
-                    text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
-                    text_zone_rect = text_zone_surf.get_rect()
-                    if scaled_1024:
-                        text_zone_rect.center = (1120 * .80, 693 * .80)
-                    if scaled_1280:
-                        text_zone_rect.center = (1120, 693)
-                    if scaled_1600:
-                        text_zone_rect.center = (1120 / .80, 693 / .80)
-
-                    screen.blit(text_zone_surf, text_zone_rect)
-
-                    # get current player district and create surf and rectangle to blit to screen
-                    text_level_surf = font.render(str(player.level), True, "black", "light yellow")
-                    text_level_rect = text_level_surf.get_rect()
-                    if scaled_1024:
-                        text_level_rect.center = (1105 * .80, 362 * .80)
-                    if scaled_1280:
-                        text_level_rect.center = (1105, 362)
-                    if scaled_1600:
-                        text_level_rect.center = (1105 / .80, 362 / .80)
-
-                    screen.blit(text_level_surf, text_level_rect)
-
-                    # current info text for message box in lower left corner of screen, first line
-                    text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
-                    text_combat_info_rect_1 = text_info_surf_1.get_rect()
-                    if scaled_1024:
-                        text_combat_info_rect_1.midleft = (30 * .80, 635 * .80)
-                    if scaled_1280:
-                        text_combat_info_rect_1.midleft = (30, 635)
-                    if scaled_1600:
-                        text_combat_info_rect_1.midleft = (30 / .80, 635 / .80)
-
-                    screen.blit(text_info_surf_1, text_combat_info_rect_1)
-
-                    # current info text for message box in lower left corner of screen, second line
-                    text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
-                    text_combat_info_rect_2 = text_info_surf_2.get_rect()
-                    if scaled_1024:
-                        text_combat_info_rect_2.midleft = (30 * .80, 655 * .80)
-                    if scaled_1280:
-                        text_combat_info_rect_2.midleft = (30, 655)
-                    if scaled_1600:
-                        text_combat_info_rect_2.midleft = (30 / .80, 655 / .80)
-
-                    screen.blit(text_info_surf_2, text_combat_info_rect_2)
-
-                    # current info text for message box in lower left corner of screen, third line
-                    text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
-                    text_combat_info_rect_3 = text_info_surf_3.get_rect()
-                    if scaled_1024:
-                        text_combat_info_rect_3.midleft = (30 * .80, 675 * .80)
-                    if scaled_1280:
-                        text_combat_info_rect_3.midleft = (30, 675)
-                    if scaled_1600:
-                        text_combat_info_rect_3.midleft = (30 / .80, 675 / .80)
-
-                    screen.blit(text_info_surf_3, text_combat_info_rect_3)
-
-                    # current info text for message box in lower left corner of screen, fourth line
-                    text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
-                    text_combat_info_rect_4 = text_info_surf_4.get_rect()
-                    if scaled_1024:
-                        text_combat_info_rect_4.midleft = (30 * .80, 695 * .80)
-                    if scaled_1280:
-                        text_combat_info_rect_4.midleft = (30, 695)
-                    if scaled_1600:
-                        text_combat_info_rect_4.midleft = (30 / .80, 695 / .80)
-
-                    screen.blit(text_info_surf_4, text_combat_info_rect_4)
+                        status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
+                            center=(
+                                status_bar_backdrop.x_coordinate / .80, status_bar_backdrop.y_coordinate / .80))
+                        hp_bar.rect = hp_bar.surf.get_rect(
+                            center=(hp_bar.x_coordinate / .80 - 1, hp_bar.y_coordinate / .80 + 5))
+                        en_bar.rect = en_bar.surf.get_rect(
+                            center=(en_bar.x_coordinate / .80 - 1, en_bar.y_coordinate / .80))
+                        xp_bar.rect = xp_bar.surf.get_rect(
+                            center=(xp_bar.x_coordinate / .80 - 1, xp_bar.y_coordinate / .80 - 5))
 
                     # clear list used for drawing player items to screen before going through inventory and drawing
                     # this removes items that may have been used and left in list from previous iterations,
@@ -2736,16 +2732,12 @@ while game_running:
                             # reset first coordinate and counter to start in the leftmost slot again
                             if inventory_counter > 3:
                                 second_coord += 60
-                                first_coord = 800
+                                first_coord = 1063
                                 inventory_counter = 0
 
                                 if scaled_1024:
                                     first_coord = first_coord * .80
-                                    second_coord = second_coord * .80
-
-                        # updates players inventory items if item is used in combat scenario (ex. health pot.)
-                        for item in player_items:
-                            screen.blit(item.surf, item.rect)
+                                    second_coord = second_coord * .80 + 80
 
                     # battle scenario event loop
                     # --------------------------------------------------------------------------------------------------
@@ -2809,7 +2801,13 @@ while game_running:
                             # update enemy health bar on each iteration
                             health_bar_update_enemy(enemy)
 
+                            # don't let player attack again immediately by spam clicking button
+                            # the combat cooldown at the end of battle sequence has a time delay which prevents this
+                            # but an additional check is used here so the button click won't register for
+                            # multiple attacks to happen after the delay is over
                             if not combat_cooldown:
+
+                                # if interact key 'f' has been pressed
                                 if interacted:
 
                                     # don't allow player to move while in combat
@@ -2936,104 +2934,123 @@ while game_running:
                                             in_battle = False
                                             in_district_over_world = True
 
-                    # outside of event loop ----------------------------------------------------------------------------
+                    # outside of battle event loop ---------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
                     # below is where battle scene and enemy are drawn to screen ----------------------------------------
                     # --------------------------------------------------------------------------------------------------
-                    # if enemy is snake in seldon zone, chose snake sprite and seldon backdrop
-                    if enemy.__getattribute__("kind") == "snake":
-                        screen.blit(seldon_district_battle, (0, 0))
-                        screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
-                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        screen.blit(skill_bar.surf, skill_bar.rect)
-                        screen.blit(attack_button.surf, attack_button.rect)
-                        screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                        screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
-                        screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
-                        screen.blit(enemy_status.surf, enemy_status.rect)
-                        screen.blit(message_box.surf, message_box.rect)
+                    try:
+                        if zone_seldon:
+                            screen.blit(seldon_district_battle, (0, 0))
+                            screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
+                            screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(skill_bar.surf, skill_bar.rect)
+                            screen.blit(attack_button.surf, attack_button.rect)
+                            if enemy.name == "snake":
+                                screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                            if enemy.name == "ghoul":
+                                screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                            if scaled_1024:
+                                enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
+                                    center=(enemy_status_bar_backdrop.x_coordinate * .80,
+                                            enemy_status_bar_backdrop.y_coordinate * .80))
+                                enemy.health_bar.rect = enemy.health_bar.surf.get_rect(
+                                    center=(enemy.health_bar.x_coordinate * .80,
+                                            enemy.health_bar.y_coordinate * .80))
+                            if scaled_1600:
+                                enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
+                                    center=(enemy_status_bar_backdrop.x_coordinate / .80,
+                                            enemy_status_bar_backdrop.y_coordinate / .80))
+                                enemy.health_bar.rect = enemy.health_bar.surf.get_rect(
+                                    center=(enemy.health_bar.x_coordinate / .80,
+                                            enemy.health_bar.y_coordinate / .80))
+                            screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
+                            screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
+                            screen.blit(enemy_status.surf, enemy_status.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(text_rupee_surf, text_rupee_rect)
+                            screen.blit(text_zone_surf, text_zone_rect)
+                            screen.blit(text_level_surf, text_level_rect)
 
-                        # get current enemy name and create surf and rectangle to draw to screen
-                        text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True,
-                                                           "black",
-                                                           "light yellow")
-                        text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                        if scaled_1024:
-                            text_enemy_name_rect.center = (800 * .80, 680 * .80)
-                        if scaled_1280:
-                            text_enemy_name_rect.center = (800, 680)
-                        if scaled_1600:
-                            text_enemy_name_rect.center = (800 / .80, 680 / .80)
-                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                            # updates players inventory items if item is used in combat scenario (ex. health pot.)
+                            for item in player_items:
+                                screen.blit(item.surf, item.rect)
 
-                        # get current enemy level and create surf and rectangle to draw to screen
-                        text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True,
-                                                            "black",
-                                                            "light yellow")
-                        text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                        if scaled_1024:
-                            text_enemy_level_rect.center = (915 * .80, 680 * .80)
-                        if scaled_1280:
-                            text_enemy_level_rect.center = (915, 680)
-                        if scaled_1600:
-                            text_enemy_level_rect.center = (915 / .80, 680 / .80)
-                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+                            # ------------------------------------------------------------------------------------------
+                            # message box texts need to be recreated for battle scenario to ensure they are updated
+                            # by the battle scenario and not just blitting the text from before with the messages
+                            # from the district over-world instance
+                            text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
+                            text_combat_info_rect_1 = text_info_surf_1.get_rect()
+                            if scaled_1024:
+                                text_combat_info_rect_1.midleft = (30 * .80, 635 * .80)
+                            if scaled_1280:
+                                text_combat_info_rect_1.midleft = (30, 635)
+                            if scaled_1600:
+                                text_combat_info_rect_1.midleft = (30 / .80, 635 / .80)
+                            screen.blit(text_info_surf_1, text_combat_info_rect_1)
 
-                        # draw message box text to screen, updated during combat scenario
-                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
-                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
-                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
-                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
+                            text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
+                            text_combat_info_rect_2 = text_info_surf_2.get_rect()
+                            if scaled_1024:
+                                text_combat_info_rect_2.midleft = (30 * .80, 655 * .80)
+                            if scaled_1280:
+                                text_combat_info_rect_2.midleft = (30, 655)
+                            if scaled_1600:
+                                text_combat_info_rect_2.midleft = (30 / .80, 655 / .80)
+                            screen.blit(text_info_surf_2, text_combat_info_rect_2)
 
-                    # ----------------------------------------------------------------------------------------------
-                    if enemy.__getattribute__("kind") == "ghoul":
-                        screen.blit(seldon_district_battle, (0, 0))
-                        screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
-                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        screen.blit(skill_bar.surf, skill_bar.rect)
-                        screen.blit(attack_button.surf, attack_button.rect)
-                        screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                        screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
-                        screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
-                        screen.blit(enemy_status.surf, enemy_status.rect)
-                        screen.blit(message_box.surf, message_box.rect)
+                            text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
+                            text_combat_info_rect_3 = text_info_surf_3.get_rect()
+                            if scaled_1024:
+                                text_combat_info_rect_3.midleft = (30 * .80, 675 * .80)
+                            if scaled_1280:
+                                text_combat_info_rect_3.midleft = (30, 675)
+                            if scaled_1600:
+                                text_combat_info_rect_3.midleft = (30 / .80, 675 / .80)
+                            screen.blit(text_info_surf_3, text_combat_info_rect_3)
 
-                        # get current enemy name and create surf and rectangle to draw to screen
-                        text_enemy_name_surf = font.render(str(enemy.__getattribute__("name")), True,
-                                                           "black",
-                                                           "light yellow")
-                        text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                        if scaled_1024:
-                            text_enemy_name_rect.center = (800 * .80, 680 * .80)
-                        if scaled_1280:
-                            text_enemy_name_rect.center = (800, 680)
-                        if scaled_1600:
-                            text_enemy_name_rect.center = (800 / .80, 680 / .80)
-                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                            text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
+                            text_combat_info_rect_4 = text_info_surf_4.get_rect()
+                            if scaled_1024:
+                                text_combat_info_rect_4.midleft = (30 * .80, 695 * .80)
+                            if scaled_1280:
+                                text_combat_info_rect_4.midleft = (30, 695)
+                            if scaled_1600:
+                                text_combat_info_rect_4.midleft = (30 / .80, 695 / .80)
+                            screen.blit(text_info_surf_4, text_combat_info_rect_4)
+                            # ------------------------------------------------------------------------------------------
 
-                        # get current enemy level and create surf and rectangle to draw to screen
-                        text_enemy_level_surf = font.render(str(enemy.__getattribute__("level")), True,
-                                                            "black",
-                                                            "light yellow")
-                        text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                        if scaled_1024:
-                            text_enemy_level_rect.center = (915 * .80, 680 * .80)
-                        if scaled_1280:
-                            text_enemy_level_rect.center = (915, 680)
-                        if scaled_1600:
-                            text_enemy_level_rect.center = (915 / .80, 680 / .80)
-                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+                            # get current enemy name and create surf and rectangle to draw to screen
+                            text_enemy_name_surf = font.render(str(enemy.name), True, "black", "light yellow")
+                            text_enemy_name_rect = text_enemy_name_surf.get_rect()
+                            if scaled_1024:
+                                text_enemy_name_rect.center = (800 * .80, 680 * .80)
+                            if scaled_1280:
+                                text_enemy_name_rect.center = (800, 680)
+                            if scaled_1600:
+                                text_enemy_name_rect.center = (800 / .80, 680 / .80)
+                            screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                            # get current enemy level and create surf and rectangle to draw to screen
+                            text_enemy_level_surf = font.render(str(enemy.level), True, "black", "light yellow")
+                            text_enemy_level_rect = text_enemy_level_surf.get_rect()
+                            if scaled_1024:
+                                text_enemy_level_rect.center = (915 * .80, 680 * .80)
+                            if scaled_1280:
+                                text_enemy_level_rect.center = (915, 680)
+                            if scaled_1600:
+                                text_enemy_level_rect.center = (915 / .80, 680 / .80)
+                            screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
-                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
-                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
-                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
-                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
+                    # after enemy is defeated, it may return a none type for collision. in this case just ignore
+                    except AttributeError:
+                        pass
 
                     # ----------------------------------------------------------------------------------------------
                     # ----------------------------------------------------------------------------------------------
@@ -3041,7 +3058,8 @@ while game_running:
                     if not combat_happened:
 
                         if scaled_1024:
-                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                      stan_battle_sprite.y_coordinate,
                                                       resource_urls.stan_battle_url_1024)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
@@ -3049,8 +3067,10 @@ while game_running:
                             ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                        ghoul_battle_sprite.y_coordinate,
                                                        resource_urls.ghoul_battle_url_1024)
+
                         if scaled_1280:
-                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                      stan_battle_sprite.y_coordinate,
                                                       resource_urls.stan_battle_url)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
@@ -3059,7 +3079,8 @@ while game_running:
                                                        ghoul_battle_sprite.y_coordinate,
                                                        resource_urls.ghoul_battle_url)
                         if scaled_1600:
-                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                      stan_battle_sprite.y_coordinate,
                                                       resource_urls.stan_battle_url_1600)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
@@ -3074,7 +3095,8 @@ while game_running:
                     if combat_happened:
 
                         if scaled_1024:
-                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                      stan_battle_sprite.y_coordinate,
                                                       resource_urls.stan_attack_url_1024)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
@@ -3083,7 +3105,8 @@ while game_running:
                                                        ghoul_battle_sprite.y_coordinate,
                                                        resource_urls.ghoul_attack_url_1024)
                         if scaled_1280:
-                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                      stan_battle_sprite.y_coordinate,
                                                       resource_urls.stan_attack_url)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
@@ -3092,7 +3115,8 @@ while game_running:
                                                        ghoul_battle_sprite.y_coordinate,
                                                        resource_urls.ghoul_attack_url)
                         if scaled_1600:
-                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate, stan_battle_sprite.y_coordinate,
+                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                      stan_battle_sprite.y_coordinate,
                                                       resource_urls.stan_attack_url_1600)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
@@ -3111,15 +3135,442 @@ while game_running:
                         # 1000 milliseconds = 1 second
                         pygame.time.wait(1000)
 
-                        # reset combat animation and ability to click on next iteration
+                        # reset combat animation and ability to click without delay on next iteration
                         combat_happened = False
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
                 # if player is in shop ---------------------------------------------------------------------------------
                 if in_shop:
-                    # grab shop code from previous commit and add here in separate iteration
-                    print("shop")
+
+                    # update players status bars -----------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
+                    health_bar_update(player)
+                    energy_bar_update(player)
+                    xp_bar_update(player)
+
+                    # clear list used for drawing player items to screen before going through inventory and drawing
+                    # this removes items that may have been used and left in list from previous iterations,
+                    # so they are not re-drawn after being used.
+                    player_items.clear()
+
+                    # create inventory window items --------------------------------------------------------------------
+                    # if player has items in their inventory -----------------------------------------------------------
+                    if len(player.items) > 0:
+                        first_coord = 1063
+                        second_coord = 462
+
+                        if scaled_1024:
+                            first_coord = first_coord * .80
+                            second_coord = second_coord * .80
+                        if scaled_1600:
+                            first_coord = first_coord - 2
+                            second_coord = second_coord - 2
+
+                        inventory_counter = 0
+                        # go through player items and assign inventory slots (coordinates) to them
+                        for item in player.items:
+                            if scaled_1024:
+                                if item.name == "health potion":
+                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1024)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "energy potion":
+                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1024)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "shiny rock":
+                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1024)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "bone dust":
+                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1024)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                            if scaled_1280:
+                                if item.name == "health potion":
+                                    item.update(first_coord, second_coord, resource_urls.health_pot_url)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "energy potion":
+                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "shiny rock":
+                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "bone dust":
+                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                            if scaled_1600:
+                                if item.name == "health potion":
+                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1600)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "energy potion":
+                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1600)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "shiny rock":
+                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1600)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+                                if item.name == "bone dust":
+                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1600)
+                                    player_items.append(item)
+                                    inventory_counter += 1
+
+                            # add 75 to the items x-coordinate value so the next item will be added to next slot
+                            first_coord += 60
+                            if scaled_1024:
+                                first_coord = first_coord - 13.2
+                            if scaled_1600:
+                                first_coord = first_coord + 2
+
+                            # add 60 to items y coordinate value if the first row of (4) slots has been filled
+                            # reset first coordinate and counter to start in the leftmost slot again
+                            if inventory_counter > 3:
+                                second_coord += 60
+                                first_coord = 1063
+                                inventory_counter = 0
+
+                                if scaled_1024:
+                                    first_coord = first_coord * .80
+                                    second_coord = second_coord * .80 + 80
+
+                        # updates players inventory items if item is used in combat scenario (ex. health pot.)
+                        for item in player_items:
+                            screen.blit(item.surf, item.rect)
+
+                    # shop scenario event loop
+                    # --------------------------------------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+
+                            # escape key was pressed, exit game
+                            if event.key == K_ESCAPE:
+                                exit()
+
+                        elif event.type == QUIT:
+                            exit()
+
+                        # ----------------------------------------------------------------------------------------------
+                        shop = pygame.sprite.spritecollideany(player, buildings)
+                        if building.name == "shop":
+                            # if player has just started shop scenario, clear message box
+                            if not encounter_started:
+                                info_text_1 = "Click an inventory item to sell it."
+                                info_text_2 = "Or, click buy button to buy an item."
+                                info_text_3 = ""
+                                info_text_4 = ""
+                                encounter_started = True
+
+                                # reset items bought condition on new shop encounter so that message is shown to
+                                # player that they can click to buy or sell items.
+                                item_bought = False
+                                item_sold = False
+
+                            # get which button player pressed during shop scenario (buy or leave)-------------------
+                            shop_button = shop_event_button(event)
+
+                            if shop_button == "buy":
+                                # if player hasn't bought an item yet, show message that item can be clicked to buy
+                                if not item_bought:
+                                    info_text_1 = "Click an item to buy."
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+
+                                # if user clicks buy button again, set condition to false which will hide buy window
+                                if buy_clicked:
+                                    buy_clicked = False
+
+                                    # remove buy window from display and clear temporary list used to populate it
+                                    if len(buy_shop_elements) > 0:
+                                        buy_shop_elements.pop(0)
+                                        shopkeeper_items.clear()
+
+                                # user clicked buy button for the first time. show buy window ----------------------
+                                else:
+                                    buy_clicked = True
+                                    buy_shop_elements.insert(0, buy_inventory)
+
+                                    # if shopkeeper has items in their inventory
+                                    if len(npc_amuna_shopkeeper.items) > 0:
+                                        buy_first_coord = 810
+                                        buy_second_coord = 435
+
+                                        if scaled_1024:
+                                            buy_first_coord = buy_first_coord * .80
+                                            buy_second_coord = buy_second_coord * .80
+                                        if scaled_1600:
+                                            buy_first_coord = buy_first_coord - 2
+                                            buy_second_coord = buy_second_coord - 2
+
+                                        # --------------------------------------------------------------------------
+                                        buy_inventory_counter = 0
+                                        # go through shop items and assign inventory slots (coordinates) to them
+                                        for shop_item in npc_amuna_shopkeeper.items:
+                                            if shop_item.name == "health potion":
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.health_pot_url_1024)
+                                                if scaled_1280:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.health_pot_url)
+                                                if scaled_1600:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.health_pot_url_1600)
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
+
+                                            if shop_item.name == "energy potion":
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.energy_pot_url_1024)
+                                                if scaled_1280:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.energy_pot_url)
+                                                if scaled_1600:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.energy_pot_url_1600)
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
+
+                                            buy_first_coord += 60
+                                            if scaled_1024:
+                                                buy_first_coord = buy_first_coord - 13.2
+                                            if scaled_1600:
+                                                buy_first_coord = buy_first_coord + 2
+
+                                            if buy_inventory_counter > 3:
+                                                buy_second_coord += 60
+                                                buy_first_coord = 1063
+                                                buy_inventory_counter = 0
+
+                                                if scaled_1024:
+                                                    buy_first_coord = buy_first_coord * .80
+                                                    buy_second_coord = buy_second_coord * .80 + 80
+
+                            # --------------------------------------------------------------------------------------
+                            # if player chooses to leave shop, set conditions to allow normal gameplay loop
+                            if shop_button == "leave":
+
+                                if len(buy_shop_elements) > 0:
+                                    buy_shop_elements.pop(0)
+                                    shopkeeper_items.clear()
+
+                                # ----------------------------------------------------------------------------------
+                                buy_clicked = False
+                                movement_able = True
+                                interacted = False
+                                info_update = True
+                                encounter_started = False
+                                in_shop = False
+                                in_district_over_world = True
+
+                            # ------------------------------------------------------------------------------------------
+                            # shop click handlers ----------------------------------------------------------------------
+                            if buy_clicked:
+                                buy_item = buy_event_item(event)
+
+                                try:
+                                    # player has clicked health potion. If player has enough rupees it will buy item
+                                    # and add to their inventory. Also subtracts the price from current rupee count
+                                    if buy_item.name == "health potion":
+                                        if len(player.items) < 16:
+                                            if player.rupees > 9:
+                                                info_text_1 = "Bought Health Potion for 10 rupees."
+                                                info_text_2 = "Health Potion added to inventory."
+
+                                                if scaled_1024:
+                                                    player.items.append(
+                                                        Item("health potion", "potion", 200, 200,
+                                                             resource_urls.health_pot_url_1024,
+                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(
+                                                        Item("health potion", "potion", 200, 200,
+                                                             resource_urls.health_pot_url,
+                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(
+                                                        Item("health potion", "potion", 200, 200,
+                                                             resource_urls.health_pot_url_1600,
+                                                             (255, 255, 255), "1600"))
+
+                                                player.rupees = player.rupees - 10
+                                                item_bought = True
+
+                                            else:
+                                                info_text_1 = "You do not have enough rupees."
+                                                info_text_2 = "Health Potion cost 10 rupees."
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
+
+                                    if buy_item.name == "energy potion":
+                                        if len(player.items) < 16:
+                                            if player.rupees > 9:
+                                                info_text_1 = "Bought Energy Potion for 10 rupees."
+                                                info_text_2 = "Energy Potion added to inventory."
+
+                                                if scaled_1024:
+                                                    player.items.append(
+                                                        Item("energy potion", "potion", 200, 200,
+                                                             resource_urls.energy_pot_url_1024,
+                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(
+                                                        Item("energy potion", "potion", 200, 200,
+                                                             resource_urls.energy_pot_url,
+                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(
+                                                        Item("energy potion", "potion", 200, 200,
+                                                             resource_urls.energy_pot_url_1600,
+                                                             (255, 255, 255), "1600"))
+
+                                                player.rupees = player.rupees - 10
+                                                item_bought = True
+
+                                            else:
+                                                info_text_1 = "You do not have enough rupees."
+                                                info_text_2 = "Energy Potion cost 10 rupees."
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
+
+                                except AttributeError:
+                                    pass
+
+                            # handles sell item clicks -----------------------------------------------------------------
+                            sell_item = sell_event_item(event)
+                            try:
+                                # player has clicked health potion. This will sell the item, removing it from
+                                # inventory and giving them "x" rupees to add to their current count
+                                if sell_item.name == "health potion":
+                                    info_text_1 = "Sold Health Potion for 5 rupees."
+                                    info_text_2 = "Health Potion removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 5
+                                    item_sold = True
+
+                                if sell_item.name == "energy potion":
+                                    info_text_1 = "Sold Energy Potion for 5 rupees."
+                                    info_text_2 = "Energy Potion removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 5
+                                    item_sold = True
+
+                                if sell_item.name == "shiny rock":
+                                    info_text_1 = "Sold Shiny Rock for 5 rupees."
+                                    info_text_2 = "Shiny Rock removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 5
+                                    item_sold = True
+
+                                if sell_item.name == "bone dust":
+                                    info_text_1 = "Sold Bone Dust for 10 rupees."
+                                    info_text_2 = "Bone Dust removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 10
+                                    item_sold = True
+
+                            except AttributeError:
+                                pass
+
+                    # outside of shop event loop -----------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
+                    # if building is a shop in the seldon zone
+                    if building.name == "shop":
+                        screen.blit(seldon_district_shop, (0, 0))
+                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(buy_button.surf, buy_button.rect)
+                        screen.blit(leave_button.surf, leave_button.rect)
+                        screen.blit(text_level_surf, text_level_rect)
+                        screen.blit(text_zone_surf, text_zone_rect)
+                        screen.blit(text_rupee_surf, text_rupee_rect)
+                        screen.blit(message_box.surf, message_box.rect)
+
+                        # updates players inventory items if item is used in combat scenario (ex. health pot.)
+                        for item in player_items:
+                            screen.blit(item.surf, item.rect)
+
+                        # ------------------------------------------------------------------------------------------
+                        # message box texts need to be recreated for scenario to ensure they are updated
+                        # by the scenario and not just blitting the text from before with the messages
+                        # from the district over-world instance
+                        text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
+                        text_combat_info_rect_1 = text_info_surf_1.get_rect()
+                        if scaled_1024:
+                            text_combat_info_rect_1.midleft = (30 * .80, 635 * .80)
+                        if scaled_1280:
+                            text_combat_info_rect_1.midleft = (30, 635)
+                        if scaled_1600:
+                            text_combat_info_rect_1.midleft = (30 / .80, 635 / .80)
+                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+
+                        text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
+                        text_combat_info_rect_2 = text_info_surf_2.get_rect()
+                        if scaled_1024:
+                            text_combat_info_rect_2.midleft = (30 * .80, 655 * .80)
+                        if scaled_1280:
+                            text_combat_info_rect_2.midleft = (30, 655)
+                        if scaled_1600:
+                            text_combat_info_rect_2.midleft = (30 / .80, 655 / .80)
+                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
+
+                        text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
+                        text_combat_info_rect_3 = text_info_surf_3.get_rect()
+                        if scaled_1024:
+                            text_combat_info_rect_3.midleft = (30 * .80, 675 * .80)
+                        if scaled_1280:
+                            text_combat_info_rect_3.midleft = (30, 675)
+                        if scaled_1600:
+                            text_combat_info_rect_3.midleft = (30 / .80, 675 / .80)
+                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
+
+                        text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
+                        text_combat_info_rect_4 = text_info_surf_4.get_rect()
+                        if scaled_1024:
+                            text_combat_info_rect_4.midleft = (30 * .80, 695 * .80)
+                        if scaled_1280:
+                            text_combat_info_rect_4.midleft = (30, 695)
+                        if scaled_1600:
+                            text_combat_info_rect_4.midleft = (30 / .80, 695 / .80)
+                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
+
+                        text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
+                        text_rupee_rect = text_rupee_surf.get_rect()
+                        if scaled_1024:
+                            text_rupee_rect.center = (1225 * .80, 362 * .80)
+                        if scaled_1280:
+                            text_rupee_rect.center = (1225, 362)
+                        if scaled_1600:
+                            text_rupee_rect.center = (1225 / .80, 362 / .80)
+
+                        screen.blit(text_rupee_surf, text_rupee_rect)
+                        # ----------------------------------------------------------------------------------------------
+                        # ----------------------------------------------------------------------------------------------
+                        if buy_clicked:
+                            for window in buy_shop_elements:
+                                screen.blit(window.surf, window.rect)
+
+                            # get item from shopkeeper's inventory and draw with buy window
+                            for shop_item in shopkeeper_items:
+                                screen.blit(shop_item.surf, shop_item.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -3128,6 +3579,9 @@ while game_running:
                     # grab inn code from previous commit and add here in separate iteration
                     print("inn")
 
+                # end of iteration -------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
                 # flip to display --------------------------------------------------------------------------------------
                 pygame.display.flip()
 

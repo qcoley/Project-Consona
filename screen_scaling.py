@@ -79,7 +79,7 @@ def screen_scaling(object_to_scale):
             return resource_urls.quest_logs_url_1024
 
         if object_to_scale.name == "buy inventory":
-            return resource_urls.buy_button_url_1024
+            return resource_urls.buy_inventory_url_1024
         if object_to_scale.name == "message box":
             return resource_urls.message_box_url_1024
 
@@ -160,7 +160,7 @@ def screen_scaling(object_to_scale):
             return resource_urls.quest_logs_url
 
         if object_to_scale.name == "buy inventory":
-            return resource_urls.buy_button_url
+            return resource_urls.buy_inventory_url
         if object_to_scale.name == "message box":
             return resource_urls.message_box_url
 
@@ -241,7 +241,7 @@ def screen_scaling(object_to_scale):
             return resource_urls.quest_logs_url_1600
 
         if object_to_scale.name == "buy inventory":
-            return resource_urls.buy_button_url_1600
+            return resource_urls.buy_inventory_url_1600
         if object_to_scale.name == "message box":
             return resource_urls.message_box_url_1600
 
