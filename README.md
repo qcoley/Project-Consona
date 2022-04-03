@@ -1,4 +1,4 @@
-# Project Eterna Version 0.1A (See version-doc.txt)
+# Project Eterna
 
 Project Eterna is an adventure game in the vein of The Legend of Zelda
 with light RPG elements based on and inspired by games like The Elder Scrolls, 
