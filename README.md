@@ -7,11 +7,11 @@ World of Warcraft. Coded in Python using PyGame.
 
 # Start Your Adventure
 
-![Seldon_District](https://user-images.githubusercontent.com/49097168/161449747-f97fe311-d185-49f4-b8a6-f6315864f91e.png)
+![begin](https://user-images.githubusercontent.com/49097168/161449876-3aa04d3e-05c3-4350-89cf-9519a1196e06.png)
 
 # Battle Enemies 
 
-![Seldon_Battle](https://user-images.githubusercontent.com/49097168/161449753-94324d10-d3e5-474e-9cc5-0d894d921f51.png)
+![battle](https://user-images.githubusercontent.com/49097168/161449882-1aff3c07-af68-430f-a569-ebb32dc5de5a.png)
 
 # Journey Across The Region
 
