@@ -110,6 +110,11 @@ seldon_shop_screen_url_1600 = resource_path('resources/art/environment_art/backg
 seldon_inn_screen_url_1024 = resource_path('resources/art/environment_art/background_textures/seldon_inn_1024.png')
 seldon_inn_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_inn.png')
 seldon_inn_screen_url_1600 = resource_path('resources/art/environment_art/background_textures/seldon_inn_1600.png')
+seldon_academia_screen_url_1024 = resource_path('resources/art/environment_art/background_textures/ '
+                                                'seldon_academia_1024.png')
+seldon_academia_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_academia.png')
+seldon_academia_screen_url_1600 = resource_path('resources/art/environment_art/background_textures/'
+                                                'seldon_academia_1600.png')
 
 seldon_academia_url_1024 = resource_path('resources/art/environment_art/buildings/amuna_building_academia_1024.png')
 seldon_academia_url = resource_path('resources/art/environment_art/buildings/amuna_building_academia.png')
@@ -190,6 +195,9 @@ leave_button_url_1600 = resource_path('resources/art/ui_elements/buttons/shop/le
 rest_button_url_1024 = resource_path('resources/art/ui_elements/buttons/inn/rest_1024.png')
 rest_button_url = resource_path('resources/art/ui_elements/buttons/inn/rest.png')
 rest_button_url_1600 = resource_path('resources/art/ui_elements/buttons/inn/rest_1600.png')
+learn_button_url_1024 = resource_path('resources/art/ui_elements/buttons/academia/learn_1024.png')
+learn_button_url = resource_path('resources/art/ui_elements/buttons/academia/learn.png')
+learn_button_url_1600 = resource_path('resources/art/ui_elements/buttons/academia/learn_1600.png')
 unstuck_button_url_1024 = resource_path('resources/art/ui_elements/buttons/unstuck_1024.png')
 unstuck_button_url = resource_path('resources/art/ui_elements/buttons/unstuck.png')
 unstuck_button_url_1600 = resource_path('resources/art/ui_elements/buttons/unstuck_1600.png')

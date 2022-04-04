@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+import time
 
 import pygame
 from pygame.locals import *
@@ -9,18 +10,15 @@ import resource_urls
 import bar_updates
 import screen_scaling
 
-# ----------------------------------------------------------------------------------------------------------------------
-# global variables -----------------------------------------------------------------------------------------------------
 
+# global variables -----------------------------------------------------------------------------------------------------
 SCREEN_WIDTH = 1024
 SCREEN_HEIGHT = 768
+ACC = 0.20  # acceleration
+FRIC = -0.20  # friction
 
 pygame.display.set_caption("Project Eterna")
 vec = pygame.math.Vector2
-
-# acceleration and friction
-ACC = 0.20
-FRIC = -0.20
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -79,7 +77,6 @@ class Player(pygame.sprite.Sprite):
             if scaled_1600:
                 self.surf = pygame.image.load(resource_urls.stan_up_url_1600).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .80)
-
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = -ACC
 
@@ -99,7 +96,6 @@ class Player(pygame.sprite.Sprite):
             if scaled_1600:
                 self.surf = pygame.image.load(resource_urls.stan_down_url_1600).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .80)
-
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.y = ACC
 
@@ -119,7 +115,6 @@ class Player(pygame.sprite.Sprite):
             if scaled_1600:
                 self.surf = pygame.image.load(resource_urls.stan_left_url_1600).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .80)
-
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = -ACC
 
@@ -139,7 +134,6 @@ class Player(pygame.sprite.Sprite):
             if scaled_1600:
                 self.surf = pygame.image.load(resource_urls.stan_right_url_1600).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .80)
-
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
             self.acc.x = ACC
 
@@ -163,7 +157,6 @@ class Player(pygame.sprite.Sprite):
                     self.pos.y = 115 * .78
                 elif self.pos.y >= height - 5 * .80:
                     self.pos.y = height - 5 * .80
-
             # set boundaries scaled to current resolution for 1280x720
             if scaled_1280:
                 if self.pos.x < 25:
@@ -174,7 +167,6 @@ class Player(pygame.sprite.Sprite):
                     self.pos.y = 115
                 elif self.pos.y >= height - 5:
                     self.pos.y = height - 5
-
             # set boundaries scaled to current resolution for 1600x900
             if scaled_1600:
                 if self.pos.x < 25 / .80:
@@ -193,7 +185,6 @@ class Player(pygame.sprite.Sprite):
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos
 
-        # --------------------------------------------------------------------------------------------------------------
         # collision detection with environment objects (trees, buildings, etc) -----------------------------------------
         if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.50)):
 
@@ -207,7 +198,6 @@ class Player(pygame.sprite.Sprite):
                     player.vel.x = + .46 * .60
                 if pressed_keyes[K_d]:
                     player.vel.x = - .46 * .60
-
             if scaled_1280:
                 # create normal force by applying velocity opposite direction player is trying to move on colliding
                 if pressed_keyes[K_w]:
@@ -218,7 +208,6 @@ class Player(pygame.sprite.Sprite):
                     player.vel.x = + .46
                 if pressed_keyes[K_d]:
                     player.vel.x = - .46
-
             # scale current player velocity based on larger resolution screen (1200x900)
             if scaled_1600:
                 if pressed_keyes[K_w]:
@@ -288,7 +277,6 @@ class Enemy(pygame.sprite.Sprite):
 
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -296,26 +284,22 @@ class Enemy(pygame.sprite.Sprite):
     # so that they both don't need the same parameters to change one or the other in main interation
     def update_position(self, ranges_x, ranges_y, direction_x, direction_y):
 
-        # --------------------------------------------------------------------------------------------------------------
-        # movement on map
+        # movement on map ----------------------------------------------------------------------------------------------
         if ranges_x[0] < self.rect.x < ranges_x[1]:
             if direction_x == "left":
                 self.rect.move_ip(-1, 0)
             if direction_x == "right":
                 self.rect.move_ip(1, 0)
-
         else:
             if direction_x == "left":
                 self.rect.move_ip(1, 0)
             if direction_x == "right":
                 self.rect.move_ip(-1, 0)
-
         if ranges_y[0] < self.rect.x < ranges_y[1]:
             if direction_y == "down":
                 self.rect.move_ip(0, -1)
             if direction_y == "up":
                 self.rect.move_ip(0, 1)
-
         else:
             if direction_y == "down":
                 self.rect.move_ip(0, 1)
@@ -341,7 +325,6 @@ class Tree(pygame.sprite.Sprite):
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -370,7 +353,6 @@ class Building(pygame.sprite.Sprite):
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -400,7 +382,6 @@ class UiElement(pygame.sprite.Sprite):
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -430,7 +411,6 @@ class Inventory(pygame.sprite.Sprite):
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -460,7 +440,6 @@ class Notification(pygame.sprite.Sprite):
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -488,7 +467,6 @@ class BattleCharacter(pygame.sprite.Sprite):
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -517,7 +495,6 @@ class Item(pygame.sprite.Sprite):
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
-
         self.surf = pygame.image.load(image).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -529,7 +506,6 @@ class Item(pygame.sprite.Sprite):
             self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
-# ----------------------------------------------------------------------------------------------------------------------
 # gameplay functions ---------------------------------------------------------------------------------------------------
 
 def attack_scenario(enemy_combating, combat_event):
@@ -545,14 +521,11 @@ def attack_scenario(enemy_combating, combat_event):
         "level up status": "",
         "level up attributes": ""
     }
-
     if combat_event == "attack":
-
         if enemy_combating.alive_status:
 
             # returns players damage to the enemy based on level and equipment
             attacked_enemy_health = attack_enemy(enemy_combating)
-
             enemy_combating.health = enemy_combating.health - attacked_enemy_health
             health_bar_update_enemy(enemy_combating)
 
@@ -560,7 +533,6 @@ def attack_scenario(enemy_combating, combat_event):
             if enemy_combating.health > 0:
 
                 attacked_enemy_string = f" You did {attacked_enemy_health} damage to {enemy_combating.name}."
-
                 # add damage to enemy to event dictionary to be returned to main loop ----------------------------------
                 combat_event_dictionary["damage done"] = attacked_enemy_string
 
@@ -569,7 +541,6 @@ def attack_scenario(enemy_combating, combat_event):
                 if attacked_player_health > 0:
                     attacked_player_string = f"You take {attacked_player_health} damage from {enemy_combating.name}."
                     player.health = player.health - attacked_player_health
-
                     # add damage done to player from enemy to dictionary -----------------------------------------------
                     combat_event_dictionary["damage taken"] = attacked_player_string
 
@@ -581,7 +552,6 @@ def attack_scenario(enemy_combating, combat_event):
 
                 else:
                     enemy_miss_string = f'{enemy_combating.name} missed.'
-
                     # add to dictionary that enemy did no damage to player ---------------------------------------------
                     combat_event_dictionary["damage taken"] = enemy_miss_string
 
@@ -599,7 +569,6 @@ def attack_scenario(enemy_combating, combat_event):
                         if player.quest_status < 4:
                             player.quest_status = player.quest_status + 1
                             quest_string = f"*** {player.quest_status}/4 snakes for [{player.current_quest}] quest ***"
-
                             # add to dictionary player quest updates if enemy was an objective of quest for player -
                             combat_event_dictionary["quest update"] = quest_string
                 else:
@@ -611,7 +580,6 @@ def attack_scenario(enemy_combating, combat_event):
                         if player.quest_status < 4:
                             player.quest_status = player.quest_status + 1
                             quest_string = f"*** {player.quest_status}/4 ghouls for [{player.current_quest}] quest ***"
-
                             # add to dictionary player quest updates if enemy was an objective of quest for player -
                             combat_event_dictionary["quest update"] = quest_string
                 else:
@@ -625,7 +593,6 @@ def attack_scenario(enemy_combating, combat_event):
                     player.experience = player.experience + experience
 
                     enemy_experience = f"Gained {experience} experience."
-
                     # add to dictionary experience given from defeating enemy ------------------------------------------
                     combat_event_dictionary["experience gained"] = enemy_experience
 
@@ -639,7 +606,6 @@ def attack_scenario(enemy_combating, combat_event):
                         player.items.append(enemy_combating.items)
 
                         enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]."
-
                         # add to dictionary anything dropped from enemy upon their defeat ------------------------------
                         combat_event_dictionary["item dropped"] = enemy_dropped_this
 
@@ -654,7 +620,6 @@ def attack_scenario(enemy_combating, combat_event):
                     level_up_info = level_up()
                     combat_event_dictionary["level up status"] = str(level_up_info["new level"])
                     combat_event_dictionary["level up attributes"] = str(level_up_info["player stats"])
-
                 enemy_combating.alive_status = False
                 enemy_combating.kill()
 
@@ -671,7 +636,6 @@ def attack_scenario(enemy_combating, combat_event):
         # 50% chance of player escaping encounter
         escape_chance = random.randrange(0, 50)
         if escape_chance > 25:
-
             # add dialog for escape if successful. just overwrites first message in dictionary
             combat_event_dictionary["damage done"] = "You got away safely."
             # boolean to add to dictionary and return to main function if escape was successful
@@ -680,7 +644,6 @@ def attack_scenario(enemy_combating, combat_event):
             return combat_event_dictionary
 
         else:
-
             # add dialog for escape if not successful. just overwrites first message in dictionary
             combat_event_dictionary["damage done"] = f"{enemy_combating.name} blocked your escape."
             # boolean to add to dictionary and return to main function if escape was successful
@@ -703,11 +666,9 @@ def attack_enemy(mob):
     # fighters do more damage with 2-handed weapons
     if player.role == "fighter":
         if player.equipment[0] == "2H":
-
             # do damage to enemy from 10-35 divided by level difference. ex. 20 dmg // 4 level = 5 overall dmg
             # level difference based on player and enemies level. player lvl 5, enemy lvl 10 = 5 difference
             damage = (random.randrange(10, 35) // difference)
-
             # includes player strength stat to scale overall damage
             # stat_scale = damage * player.statistics[5]
 
@@ -722,7 +683,6 @@ def attack_enemy(mob):
     if player.role == "mage":
         if player.equipment[0] == "magic":
             damage = (random.randrange(10, 35) // difference)
-
             # includes player wisdom stat to scale overall damage
             # stat_scale = (damage * player.statistics[7]) // 2
 
@@ -737,7 +697,6 @@ def attack_enemy(mob):
     if player.role == "rogue":
         if player.equipment[0] == "1H":
             damage = (random.randrange(10, 35) // difference)
-
             # includes player strength stat to scale overall damage (strength will be higher for rogues)
             # stat_scale = damage * player.statistics[5]
 
@@ -762,24 +721,20 @@ def attack_player(mob):
         base_damage = base_damage + 5
     if difference >= 3:
         base_damage = base_damage + 8
-    # ------------------------------------------------------------------------------------------------------------------
 
     # heavily armored character will take less damage
     if player.equipment[2] == "heavy":
         final_damage = base_damage - 10
-
         return final_damage
 
     # lightly armored character will take most damage
     elif player.equipment[2] == "light":
         final_damage = base_damage - 4
-
         return final_damage
 
     # medium armored character will take more damage
     elif player.equipment[2] == "medium":
         final_damage = base_damage - 7
-
         return final_damage
 
     # player is not wearing armor, return full damage
@@ -804,7 +759,6 @@ def level_up():
             player.health = 100
             player.energy = 100
             player.experience = 0
-
             level_up_dictionary["new level"] = "You are now level: " + f"{player.level}"
             level_up_dictionary["player stats"] = f"{player.statistics}"
 
@@ -821,7 +775,6 @@ def level_up():
             player.health = 100
             player.energy = 100
             player.experience = 0
-
             level_up_dictionary["new level"] = "You are now level: " + f"{player.level}"
             level_up_dictionary["player stats"] = f"{player.statistics}"
 
@@ -838,7 +791,6 @@ def level_up():
             player.health = 100
             player.energy = 100
             player.experience = 0
-
             level_up_dictionary["new level"] = "You are now level: " + f"{player.level}"
             level_up_dictionary["player stats"] = f"{player.statistics}"
 
@@ -850,229 +802,8 @@ def level_up():
 
 
 def npc_interaction_scenario(npc):
-    # Verifies player is still in range of npc
-    if player.x_coordinate == npc.x_coordinate and player.y_coordinate == npc.y_coordinate:
-
-        print(f"\n{npc.name} says: '{npc.dialog}'")
-        print("\n-----------------------------------------------------------------------------------------------------")
-
-        interaction_choice = input("What do you want to say? (Information, Quest, Examine or Leave): ")
-
-        if interaction_choice.strip().lower() == "information" or interaction_choice.strip().lower() == "info" \
-                or interaction_choice.strip().lower() == "i":
-
-            if npc.race == "amuna":
-                print(f"\n{npc.name} says: You're currently in the Amuna district of Seldon. \n\nWe're one part of a "
-                      f"new Region named Consona inhabited by all three known races in an effort \nto build better "
-                      f"relations amongst "
-                      f"our peoples. \n\nIt's a quiet District for the most part, however with the recent takeover of "
-                      f"our "
-                      f"capital castle by the \nbeast 'Dreth' and his minions, we've had to wall off the most "
-                      f"eastern region to protect \nthe local settlement. \n\nAlthough, even with these precautions in "
-                      f"place some ghouls have still managed to creep through. \nPlease be careful if you go to that "
-                      f"area of the district! \n\nIf you're looking for a shop to buy and sell items, check the Village"
-                      f"\non the eastern side of the District. \n\nIf you're looking for a trainer to teach you new"
-                      f"skills,\nyou can also find them in the Village as well as an inn to rest!")
-
-                npc_interaction_scenario(npc)
-
-        if interaction_choice.strip().lower() == "quest" or interaction_choice.strip().lower() == "q":
-
-            # if player has not done this NPCs quest yet
-            if not npc.quest_complete:
-
-                # if NPC has not given player their quest yet
-                if player.quest != npc.quest_to_give:
-
-                    print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                          "~~~~~~~~~~~~")
-                    print(f"{npc.name} says: {npc.quest_description}")
-                    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                          "~~~~~~~~~~")
-
-                    quest_choice = input("\nDo you wish to accept this quest? (Type yes or no): ")
-                    if quest_choice == "yes" or quest_choice == "y":
-
-                        # when player talks to garan for the first time, he will give them a basic item for their role
-                        if npc.name == "Garan":
-                            if not npc.gift:
-                                if player.role == "fighter":
-                                    player.equipment[0] = "2H"
-                                    player.equipment[1] = "rusty sword"
-                                    player.equipment[2] = "heavy"
-                                    player.equipment[3] = "damaged plate"
-                                    player.items.append("health potion")
-                                    npc.gift = True
-                                    print(
-                                        "\n*** Garan has given you a weapon: [rusty sword] and gear: [damaged plate] "
-                                        "***")
-                                    print("\n*** Garan has also given you a: Health Potion ***")
-
-                                if player.role == "mage":
-                                    player.equipment[0] = "magic"
-                                    player.equipment[1] = "broken staff"
-                                    player.equipment[2] = "light"
-                                    player.equipment[3] = "tattered robes"
-                                    player.items.append("health potion")
-                                    npc.gift = True
-                                    print(
-                                        "\n*** Garan has given you a weapon: [broken staff] and gear: [tattered robes] "
-                                        "***")
-                                    print("\n*** Garan has also given you a: Health Potion ***")
-
-                                if player.role == "rogue":
-                                    player.equipment[0] = "1H"
-                                    player.equipment[1] = "dull dagger"
-                                    player.equipment[2] = "medium"
-                                    player.equipment[3] = "worn jerkin"
-                                    player.items.append("health potion")
-                                    npc.gift = True
-                                    print(
-                                        "\n*** Garan has given you a weapon: [dull dagger] and gear: [worn jerkin] ***")
-                                    print("\n*** Garan has also given you a: Health Potion ***")
-
-                        # if player doesn't already have an active quest (currently only can have one quest at a time)
-                        if player.quest_status == 0:
-                            print(f"\nYou chose to accept {npc.name}'s quest [{npc.quest_to_give}]. ")
-                            player.quest = npc.quest_to_give
-                            player.quest_status = 0
-
-                            npc_interaction_scenario(npc)
-
-                        else:
-                            print(f"\nYou are already on a quest! [{player.quest}]")
-
-                # if player has completed NPCs quest with 4 objectives, will give level and item reward
-                # as well as additional dialog from NPC related to the narrative
-                else:
-                    if player.quest_status == 4:
-                        npc.quest_complete = True
-                        player.quest_status = 0
-                        player.quest = ""
-                        print(f"\n*** Quest [{npc.quest_to_give}] Complete! ***")
-
-                        level_up()
-
-                        player.rupees = player.rupees + 10
-                        print(f"\n*** NPC {npc.name} has given you 10 rupees! ***")
-
-                        player.items.append("health potion")
-                        print("\n*** You have also gained a health potion! "
-                              "This item has been added to your inventory. ***")
-
-                        if npc.name == "Garan":
-                            print(
-                                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                                "~~~~~~~~~~~~~~~~~")
-                            print(f"{npc.name} says: Thanks for taking care of those snakes! You're clearly a capable"
-                                  f" {player.role}. \n\nWe could use someone like you in the resistance Vanguard. "
-                                  f"Please,"
-                                  f" head east to the nearby Village\nand see if they need any assistance. They were"
-                                  f" attacked recently by a wave of Ghoul Minions. \n\nWe've been out"
-                                  f" picking off the rest of the stragglers, but there will be more work to be done."
-                                  f"\n\nNera bless you, {player.name}.")
-                            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                                  "~~~~~~~~~~~~~~~~~")
-
-                            continue_choice = input("\n*** Press Enter key when ready to continue: ***")
-
-                            # purpose is to give input a way to continue and not get stuck so that player
-                            # only needs to press enter to continue
-                            if continue_choice == "lol":
-                                print("Why you do this")
-
-                        if npc.name == "Village Matron Maurelle":
-                            print(
-                                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                                "~~~~~~~~~~~~~~~~~")
-                            print(f"{npc.name} says: Thank you for assisting us in our hour of need,"
-                                  f" {player.name}. \nI fear this isn't the last time we will need to recover from such"
-                                  f" an attack.. \nWe can only beseech the goddess Nera to deliver us from these "
-                                  f"difficult times. \n\nAre you planning on journeying north? If so, you will cross "
-                                  f"into"
-                                  f" the District of Korlok. \nThe Vanguard Captain Adria headed there recently to "
-                                  f"coordinate efforts with the Nuldar \nand our people to forge new"
-                                  f" materials. I don't understand much of the details myself, \nhowever Adria has been"
-                                  f" gone for some time. \n\nI've begun to worry, and she must know of the recent wave "
-                                  f"of "
-                                  f"attacks, as well as the damage we've \nsustained. Please, find Adria in the Korlok"
-                                  f" District to the north and \nrelay my concerns to her!")
-                            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                                  "~~~~~~~~~~~~~~~~~")
-
-                            continue_choice = input("\n*** Press Enter key when ready to continue: ***")
-
-                            # purpose is to give input a way to continue and not get stuck so that player
-                            # only needs to press enter to continue
-                            if continue_choice == "lol":
-                                print("Why you do this")
-
-                        if npc.name == "Guard":
-                            print(
-                                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                                "~~~~~~~~~~~~~~~~~")
-                            print(f"{npc.name} says: The Ghoul Minions have been taken care of, then? \nNera's grace"
-                                  f", we may finally gain a moment of respite. \n\nI will signal the other Bridge"
-                                  f" Guards to unbar the gates and allow you to cross.\n\nBe careful, {player.name},"
-                                  f" these are unforgiving times. ")
-                            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-                                  "~~~~~~~~~~~~~~~~~")
-
-                            continue_choice = input("\n*** Press Enter key when ready to continue: ***")
-
-                            # purpose is to give input a way to continue and not get stuck so that player
-                            # only needs to press enter to continue
-                            if continue_choice == "lol":
-                                print("Why you do this")
-
-                            player.x_coordinate = 32
-                            player.y_coordinate = 22
-
-                            print("\n\n*** The Bridge Guards have allowed you passage. ")
-
-                            print("\n*** As you walk through the gates, you look over the side to the water below. "
-                                  "***")
-
-                            print("\n*** The Rohir River is deep and dark as it is wide. You note there are no "
-                                  "other "
-                                  "ways to cross. ***")
-
-                            print("\n*** You emerge on the other side of the Bridge ***")
-
-                            print("\n*** You are now within the Korlok District of the Consona Region World ***")
-
-                            print("\n*** You feel the heat on your face and look around to notice the bright "
-                                  "oranges "
-                                  "and reds of the terrain, ***")
-
-                            print("\n*** As well as snow-capped mountain peaks in the distance.. ***")
-
-                            print("\n*** Where could the Vanguard Captain Adria be? ***")
-
-                        npc_interaction_scenario(npc)
-
-            # NPCs quest has already been completed by player
-            else:
-                print(f"\nYou have already completed {npc.name}'s quest [{npc.quest_to_give}]. ")
-
-                npc_interaction_scenario(npc)
-
-        # moves player away from NPC to return to regular action screen
-        if interaction_choice.strip().lower() == "leave" or interaction_choice.strip().lower() == "l":
-            print(f"\n*** You say goodbye to {npc.name} and head on your way ***")
-
-            player.x_coordinate = player.x_coordinate + 1
-            player.y_coordinate = player.y_coordinate + 1
-            print(f"\n*** Your new coordinates are: {player.x_coordinate, player.y_coordinate} ***")
-
-        # returns information based on the NPC being interacted with
-        if interaction_choice.strip().lower() == "examine" or interaction_choice.strip().lower() == "exam" or \
-                interaction_choice.strip().lower() == "e":
-            print(f"\n*** NPC info: NPC name - {npc.name}, NPC gender - {npc.gender}, NPC race - {npc.race},"
-                  f" NPC role - {npc.role} ***")
-
-        npc_interaction_scenario(npc)
-
+    print(npc)
+    # npc dialog and quest system will be here
     return
 
 
@@ -1108,7 +839,6 @@ def combat_event_button(combat_event):
         # if mouse rect collides with attack button, skill button or run button return string representing it
         if attack_button.rect.collidepoint(combat_mouse):
             return "attack"
-
         # if skill_button.rect.collidepoint(combat_mouse):
         # return "skill"
 
@@ -1122,7 +852,6 @@ def shop_event_button(shop_event):
         # if mouse rect collides with buy button, sell button or leave button return string representing it
         if buy_button.rect.collidepoint(shop_mouse):
             return "buy"
-
         if leave_button.rect.collidepoint(shop_mouse):
             return "leave"
 
@@ -1136,15 +865,14 @@ def inn_event_button(inn_event):
         # if mouse rect collides with buy button, sell button or leave button return string representing it
         if rest_button.rect.collidepoint(inn_mouse):
             return "rest"
-
         if leave_button.rect.collidepoint(inn_mouse):
             return "leave"
 
 
 # ----------------------------------------------------------------------------------------------------------------------
 # getting item player clicked based on it's name and return the corresponding item, for clicking on inventory items
-def inventory_event_item(inventory_event):
-    if inventory_event.type == pygame.MOUSEBUTTONUP:
+def inventory_event_item(inventory_event_here):
+    if inventory_event_here.type == pygame.MOUSEBUTTONUP:
         inventory_mouse = pygame.mouse.get_pos()
 
         # list of sprites that collided with mouse cursor rect
@@ -1155,13 +883,10 @@ def inventory_event_item(inventory_event):
         try:
             if clicked_element[0].name == "health potion":
                 return clicked_element[0]
-
             if clicked_element[0].name == "energy potion":
                 return clicked_element[0]
-
             if clicked_element[0].name == "shiny rock":
                 return clicked_element[0]
-
             if clicked_element[0].name == "bone dust":
                 return clicked_element[0]
 
@@ -1182,13 +907,10 @@ def buy_event_item(buy_event):
         try:
             if clicked_element[0].name == "health potion":
                 return clicked_element[0]
-
             if clicked_element[0].name == "energy potion":
                 return clicked_element[0]
-
             if clicked_element[0].name == "shiny rock":
                 return clicked_element[0]
-
             if clicked_element[0].name == "bone dust":
                 return clicked_element[0]
 
@@ -1210,13 +932,10 @@ def sell_event_item(sell_event):
         try:
             if clicked_element[0].name == "health potion":
                 return clicked_element[0]
-
             if clicked_element[0].name == "energy potion":
                 return clicked_element[0]
-
             if clicked_element[0].name == "shiny rock":
                 return clicked_element[0]
-
             if clicked_element[0].name == "bone dust":
                 return clicked_element[0]
 
@@ -1235,7 +954,6 @@ def enemy_respawn():
         random_snake_x = random.randrange(120, 240)
         random_snake_y = random.randrange(120, 240)
         random_snake_level = random.randrange(1, 4)
-
         random_ghoul_x = random.randrange(520, 720)
         random_ghoul_y = random.randrange(120, 240)
         random_ghoul_level = random.randrange(3, 6)
@@ -1243,7 +961,6 @@ def enemy_respawn():
         random_snake_x = random.randrange(150, 300)
         random_snake_y = random.randrange(150, 300)
         random_snake_level = random.randrange(1, 4)
-
         random_ghoul_x = random.randrange(650, 900)
         random_ghoul_y = random.randrange(150, 300)
         random_ghoul_level = random.randrange(3, 6)
@@ -1251,7 +968,6 @@ def enemy_respawn():
         random_snake_x = random.randrange(188, 375)
         random_snake_y = random.randrange(188, 375)
         random_snake_level = random.randrange(1, 4)
-
         random_ghoul_x = random.randrange(812, 1125)
         random_ghoul_y = random.randrange(188, 375)
         random_ghoul_level = random.randrange(3, 6)
@@ -1286,7 +1002,6 @@ def enemy_respawn():
                               UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255),
                                         False, "1600"),
                               "1600")
-
         snakes.add(new_snake)
         enemies.add(new_snake)
         most_sprites.add(new_snake)
@@ -1314,41 +1029,241 @@ def enemy_respawn():
                               UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255),
                                         False, "1600"),
                               "1600")
-
         ghouls.add(new_ghoul)
         enemies.add(new_ghoul)
         most_sprites.add(new_ghoul)
 
 
-# leftover code from template to add moving clouds, can be used later for other scenery or critters --------------------
-# Define the cloud object extending pygame.sprite.Sprite
-# Use an image for a better looking sprite
-# class Cloud(pygame.sprite.Sprite):
-# def __init__(self):
-# super(Cloud, self).__init__()
-# self.surf = pygame.image.load("cloud.png").convert()
-# self.surf.set_colorkey((0, 0, 0), RLEACCEL)
-# The starting position is randomly generated
-# self.rect = self.surf.get_rect(
-# center=(
-# random.randint(SCREEN_WIDTH + 20, SCREEN_WIDTH + 100),
-# random.randint(0, SCREEN_HEIGHT),
-# )
-# )
+def status_and_inventory_updates():
+    # update players status bars -----------------------------------------------------------------------
+    health_bar_update(player)
+    energy_bar_update(player)
+    xp_bar_update(player)
 
-# Move the cloud based on a constant speed
-# Remove it when it passes the left edge of the screen
-# def update(self):
-# self.rect.move_ip(-5, 0)
-# if self.rect.right < 0:
-# self.kill()
-# ----------------------------------------------------------------------------------------------------------------------
+    # update function will reset coordinates so fix scaling here for 1600x900 (temp. solution maybe)
+    if scaled_1600:
+        status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
+            center=(status_bar_backdrop.x_coordinate / .80, status_bar_backdrop.y_coordinate / .80))
+        hp_bar.rect = hp_bar.surf.get_rect(
+            center=(hp_bar.x_coordinate / .80 - 1, hp_bar.y_coordinate / .80 + 5))
+        en_bar.rect = en_bar.surf.get_rect(
+            center=(en_bar.x_coordinate / .80 - 1, en_bar.y_coordinate / .80))
+        xp_bar.rect = xp_bar.surf.get_rect(
+            center=(xp_bar.x_coordinate / .80 - 1, xp_bar.y_coordinate / .80 - 5))
+
+    # clear list used for drawing player items to screen before going through inventory and drawing
+    # this removes items that may have been used and left in list from previous iterations,
+    # so they are not re-drawn after being used.
+    player_items.clear()
+
+    # create inventory window items ------------------------------------------------------------------------------------
+    # if player has items in their inventory ---------------------------------------------------------------------------
+    if len(player.items) > 0:
+        first_coord = 1063
+        second_coord = 462
+
+        if scaled_1024:
+            first_coord = first_coord * .80
+            second_coord = second_coord * .80
+        if scaled_1600:
+            first_coord = first_coord - 2
+            second_coord = second_coord - 2
+
+        inventory_counter = 0
+        # go through player items and assign inventory slots (coordinates) to them
+        for item_here in player.items:
+            if scaled_1024:
+                if item_here.name == "health potion":
+                    item_here.update(first_coord, second_coord, resource_urls.health_pot_url_1024)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "energy potion":
+                    item_here.update(first_coord, second_coord, resource_urls.energy_pot_url_1024)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "shiny rock":
+                    item_here.update(first_coord, second_coord, resource_urls.shiny_rock_url_1024)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "bone dust":
+                    item_here.update(first_coord, second_coord, resource_urls.bone_dust_url_1024)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+            if scaled_1280:
+                if item_here.name == "health potion":
+                    item_here.update(first_coord, second_coord, resource_urls.health_pot_url)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "energy potion":
+                    item_here.update(first_coord, second_coord, resource_urls.energy_pot_url)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "shiny rock":
+                    item_here.update(first_coord, second_coord, resource_urls.shiny_rock_url)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "bone dust":
+                    item_here.update(first_coord, second_coord, resource_urls.bone_dust_url)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+            if scaled_1600:
+                if item_here.name == "health potion":
+                    item_here.update(first_coord, second_coord, resource_urls.health_pot_url_1600)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "energy potion":
+                    item_here.update(first_coord, second_coord, resource_urls.energy_pot_url_1600)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "shiny rock":
+                    item_here.update(first_coord, second_coord, resource_urls.shiny_rock_url_1600)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "bone dust":
+                    item_here.update(first_coord, second_coord, resource_urls.bone_dust_url_1600)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+
+            # add 75 to the items x-coordinate value so the next item will be added to next slot
+            first_coord += 60
+            if scaled_1024:
+                first_coord = first_coord - 13.2
+            if scaled_1600:
+                first_coord = first_coord + 2
+
+            # add 60 to items y coordinate value if the first row of (4) slots has been filled
+            # reset first coordinate and counter to start in the leftmost slot again
+            if inventory_counter > 3:
+                second_coord += 60
+                first_coord = 1063
+                inventory_counter = 0
+                if scaled_1024:
+                    first_coord = first_coord * .80
+                    second_coord = second_coord * .80 + 80
+
+        # updates players inventory items if item is used in combat scenario (ex. health pot.)
+        for item_here in player_items:
+            screen.blit(item_here.surf, item_here.rect)
+
+
+def inventory_click_handler():
+    return_dict = {"item message": ""}
+    # inventory click handler ------------------------------------------------------------------------------------------
+    inventory_item = inventory_event_item(event)
+
+    try:
+        if inventory_item.name == "health potion":
+            if player.health == 100:
+                return_dict["item message"] = "You're already at full health."
+
+            else:
+                player.health = player.health + 40
+                # if health potion heals over 100 hp, just set to 100 (max health)
+                if player.health > 100:
+                    player.health = 100
+                player_items.remove(inventory_item)
+                player.items.remove(inventory_item)
+                return_dict["item message"] = "The potion heals you for 40 hp."
+
+        elif inventory_item.name == "energy potion":
+            if player.energy == 100:
+                return_dict["item message"] = "You're already at full energy."
+
+            else:
+                player.energy = player.energy + 40
+                # if energy potion energizes over 100 hp, just set to 100 (max energy)
+                if player.energy > 100:
+                    player.energy = 100
+                player_items.remove(inventory_item)
+                player.items.remove(inventory_item)
+                return_dict["item message"] = "The potion energizes you for 40 en."
+
+        elif inventory_item.name == "shiny rock":
+            return_dict["item message"] = "Oh, shiny. Maybe you can sell it?"
+
+        elif inventory_item.name == "bone dust":
+            return_dict["item message"] = "Eh, dusty. Maybe you can sell it?"
+    except AttributeError:
+        pass
+
+    return return_dict
+
+
+def text_info_draw():
+    # get current player rupee count and create surf and rectangle to blit to screen------------------------------------
+    text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
+    text_rupee_rect = text_rupee_surf.get_rect()
+    if scaled_1024:
+        text_rupee_rect.center = (1225 * .80, 362 * .80)
+    if scaled_1280:
+        text_rupee_rect.center = (1225, 362)
+    if scaled_1600:
+        text_rupee_rect.center = (1225 / .80, 362 / .80)
+    screen.blit(text_rupee_surf, text_rupee_rect)
+    # get current player district and create surf and rectangle to blit to screen---------------------------------------
+    text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
+    text_zone_rect = text_zone_surf.get_rect()
+    if scaled_1024:
+        text_zone_rect.center = (1120 * .80, 693 * .80)
+    if scaled_1280:
+        text_zone_rect.center = (1120, 693)
+    if scaled_1600:
+        text_zone_rect.center = (1120 / .80, 693 / .80)
+    screen.blit(text_zone_surf, text_zone_rect)
+    # get current player district and create surf and rectangle to blit to screen---------------------------------------
+    text_level_surf = font.render(str(player.level), True, "black", "light yellow")
+    text_level_rect = text_level_surf.get_rect()
+    if scaled_1024:
+        text_level_rect.center = (1105 * .80, 362 * .80)
+    if scaled_1280:
+        text_level_rect.center = (1105, 362)
+    if scaled_1600:
+        text_level_rect.center = (1105 / .80, 362 / .80)
+    screen.blit(text_level_surf, text_level_rect)
+    # current info text for message box in lower left corner of screen, first line--------------------------------------
+    text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
+    text_info_rect_1 = text_info_surf_1.get_rect()
+    if scaled_1024:
+        text_info_rect_1.midleft = (30 * .80, 630 * .80)
+    if scaled_1280:
+        text_info_rect_1.midleft = (30, 630)
+    if scaled_1600:
+        text_info_rect_1.midleft = (30 / .80, 630 / .80)
+    screen.blit(text_info_surf_1, text_info_rect_1)
+    # current info text for message box in lower left corner of screen, second line-------------------------------------
+    text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
+    text_info_rect_2 = text_info_surf_2.get_rect()
+    if scaled_1024:
+        text_info_rect_2.midleft = (30 * .80, 650 * .80)
+    if scaled_1280:
+        text_info_rect_2.midleft = (30, 650)
+    if scaled_1600:
+        text_info_rect_2.midleft = (30 / .80, 650 / .80)
+    screen.blit(text_info_surf_2, text_info_rect_2)
+    # current info text for message box in lower left corner of screen, third line--------------------------------------
+    text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
+    text_info_rect_3 = text_info_surf_3.get_rect()
+    if scaled_1024:
+        text_info_rect_3.midleft = (30 * .80, 670 * .80)
+    if scaled_1280:
+        text_info_rect_3.midleft = (30, 670)
+    if scaled_1600:
+        text_info_rect_3.midleft = (30 / .80, 670 / .80)
+    screen.blit(text_info_surf_3, text_info_rect_3)
+    # current info text for message box in lower left corner of screen, fourth line-------------------------------------
+    text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
+    text_info_rect_4 = text_info_surf_4.get_rect()
+    if scaled_1024:
+        text_info_rect_4.midleft = (30 * .80, 690 * .80)
+    if scaled_1280:
+        text_info_rect_4.midleft = (30, 690)
+    if scaled_1600:
+        text_info_rect_4.midleft = (30 / .80, 690 / .80)
+    screen.blit(text_info_surf_4, text_info_rect_4)
+
 
 # will be used for music later -----------------------------------------------------------------------------------------
 # pygame.mixer.init()
-
-# ----------------------------------------------------------------------------------------------------------------------
-# ----------------------------------------------------------------------------------------------------------------------
 # initialize game, set clock for framerate, set screen size ------------------------------------------------------------
 pygame.init()
 width = 1280
@@ -1360,24 +1275,23 @@ seldon_district_bg = pygame.image.load(resource_urls.seldon_bg_screen_url)
 seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url)
 seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen_url)
 seldon_district_inn = pygame.image.load(resource_urls.seldon_inn_screen_url)
+seldon_district_academia = pygame.image.load(resource_urls.seldon_academia_screen_url)
 
 game_over_screen = pygame.image.load(resource_urls.game_over_screen_url)
 start_screen = pygame.image.load(resource_urls.start_screen_url)
 nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url)
 
 # creating objects from defined classes --------------------------------------------------------------------------------
-# ----------------------------------------------------------------------------------------------------------------------
+
 # display notifications to user (shown, x_coordinate, y_coordinate, image, color) --------------------------------------
 greeting = Notification("greeting", False, 510, 365, resource_urls.welcome_image_url, (255, 255, 255), "1280")
 
-# ----------------------------------------------------------------------------------------------------------------------
 # inventory items ------------------------------------------------------------------------------------------------------
 health_potion = Item("health potion", "potion", 200, 200, resource_urls.health_pot_url, (255, 255, 255), "1280")
 energy_potion = Item("energy potion", "potion", 200, 200, resource_urls.energy_pot_url, (255, 255, 255), "1280")
 shiny_rock = Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255), "1280")
 bone_dust = Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255), "1280")
 
-# ----------------------------------------------------------------------------------------------------------------------
 # default player character ---------------------------------------------------------------------------------------------
 player = Player("player", "male", "amuna", "mage",  # name, gender, race, role
                 [health_potion, energy_potion, shiny_rock, bone_dust],  # inventory
@@ -1401,7 +1315,6 @@ npc_garan = NPC("garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
                 "trouble. ", 210, 430, True, False, ["Items to be added for steal"], False,
                 resource_urls.garan_url, (255, 255, 255), "1280")
-
 npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
                    "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
                    "\n\nThe beast Dreth has occupied our former capital Castle, on the other side of the walls "
@@ -1414,7 +1327,6 @@ npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Vill
                    "trees just west of here. Nera bless you. ", 760, 520, True, False,
                    ["Items to be added for steal"], False,
                    resource_urls.maurelle_url, (255, 255, 255), "1280")
-
 npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee",
                 "You need to cross the bridge to get to the Korlok District, you say? \n\nOrdinarily"
                 " I would have no issue granting you passage, however the gates are barred tight \n"
@@ -1425,7 +1337,6 @@ npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghoulish G
                 True,
                 False, ["Items to be added for steal"], False,
                 resource_urls.guard_url, (255, 255, 255), "1280")
-
 npc_amuna_shopkeeper = NPC("amuna shopkeeper", "male", "amuna", "trader", "These ghoul attacks are bad for business!",
                            "", "", 700, 700, True, False, [
                                Item("health potion", "potion", 200, 200, resource_urls.health_pot_url,
@@ -1460,7 +1371,6 @@ snake_4 = Enemy("snake", "snake", 100, 100, 2, 285, 250, True,
                 resource_urls.snake_url, (255, 255, 255),
                 UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False, "1280"),
                 "1280")
-
 ghoul_low_1 = Enemy("ghoul", "ghoul", 100, 100, 4, 665, 180, True,
                     Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255), "1280"),
                     resource_urls.ghoul_url, (255, 255, 255),
@@ -1486,14 +1396,12 @@ ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 890, 205, True,
 pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, resource_urls.pine_tree_url, (255, 255, 255), "1280")
 pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, resource_urls.pine_tree_url, (255, 255, 255), "1280")
 pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, resource_urls.pine_tree_url, (255, 255, 255), "1280")
-
 seldon_grass_1 = Item("grass", "seldon grass", 360, 125, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
 seldon_grass_2 = Item("grass", "seldon grass", 270, 195, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
 seldon_grass_3 = Item("grass", "seldon grass", 405, 235, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
 seldon_grass_4 = Item("grass", "seldon grass", 165, 135, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
 seldon_grass_5 = Item("grass", "seldon grass", 150, 255, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
 seldon_grass_6 = Item("grass", "seldon grass", 50, 180, resource_urls.seldon_grass_url, (255, 255, 255), "1280")
-
 seldon_flower_1 = Item("flower", "seldon flower", 590, 410, resource_urls.seldon_flower_url, (255, 255, 255), "1280")
 seldon_flower_2 = Item("flower", "seldon flower", 705, 600, resource_urls.seldon_flower_url, (255, 255, 255), "1280")
 seldon_flower_3 = Item("flower", "seldon flower", 800, 440, resource_urls.seldon_flower_url, (255, 255, 255), "1280")
@@ -1518,8 +1426,8 @@ s1280_x_720_button = UiElement("s1280x720 button", 640, 472, resource_urls.s1280
                                False, "1280")
 s1600_x_900_button = UiElement("s1280x720 button", 640, 542, resource_urls.s1600_x_900_button_url, (255, 255, 255),
                                False, "1280")
-# ----------------------------------------------------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------------------------------------------------
 continue_button = UiElement("continue button", 625, 575, resource_urls.continue_button_url, (255, 255, 255), False,
                             "1280")
 buy_button = UiElement("buy button", 860, 680, resource_urls.buy_button_url, (255, 255, 255), False,
@@ -1528,17 +1436,16 @@ leave_button = UiElement("leave button", 970, 680, resource_urls.leave_button_ur
                          "1280")
 rest_button = UiElement("rest button", 860, 680, resource_urls.rest_button_url, (255, 255, 255), False,
                         "1280")
+learn_button = UiElement("learn button", 860, 680, resource_urls.learn_button_url, (255, 255, 255), False,
+                         "1280")
 unstuck_button = UiElement("unstuck button", 970, 25, resource_urls.unstuck_button_url, (255, 255, 255), False,
                            "1280")
-
 skill_bar = UiElement("skill bar", 855, 627, resource_urls.skill_bar_url, (255, 255, 255), False,
                       "1280")
 attack_button = UiElement("attack button", 750, 627, resource_urls.mage_attack_button_url, (255, 255, 255), False,
                           "1280")
-
 enemy_status = UiElement("enemy status", 855, 680, resource_urls.enemy_status_url, (255, 255, 255), False,
                          "1280")
-
 hp_bar = UiElement("health bar", 170, 25, resource_urls.health_100_url, (255, 255, 255), False,
                    "1280")
 en_bar = UiElement("energy bar", 170, 45, resource_urls.energy_100_url, (255, 255, 255), False,
@@ -1556,25 +1463,22 @@ quest_logs_4 = Item("quest", "quest logs", 100, 540, resource_urls.quest_logs_ur
 # shop window ---------------------------------------------------------------------------------------------------------
 buy_inventory = Inventory("buy inventory", [], 900, 500, resource_urls.buy_inventory_url, (255, 255, 255), False,
                           "1280")
-# ----------------------------------------------------------------------------------------------------------------------
 
+# ----------------------------------------------------------------------------------------------------------------------
 message_box = UiElement("message box", 173, 650, resource_urls.message_box_url, (255, 255, 255), False, "1280")
 status_bar_backdrop = UiElement("bar backdrop", 165, 45, resource_urls.bar_backdrop_url, (255, 255, 255), False, "1280")
 enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 695, 90, resource_urls.enemy_bar_backdrop_url,
                                       (255, 255, 255),
                                       False, "1280")
 
-# ----------------------------------------------------------------------------------------------------------------------
 # battle sprites -------------------------------------------------------------------------------------------------------
 stan_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.stan_battle_url, (255, 255, 255), "1280")
 snake_battle_sprite = BattleCharacter("snake battle", 700, 250, resource_urls.snake_battle_url, (255, 255, 255), "1280")
 ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, resource_urls.ghoul_battle_url, (255, 255, 255), "1280")
 
-# ----------------------------------------------------------------------------------------------------------------------
 # setting font and size for text to screen updates ---------------------------------------------------------------------
 font = pygame.font.SysFont('freesansbold.ttf', 16, bold=True, italic=False)
 
-# ----------------------------------------------------------------------------------------------------------------------
 # groups for sprites ---------------------------------------------------------------------------------------------------
 quest_items = pygame.sprite.Group()
 npcs = pygame.sprite.Group()
@@ -1588,66 +1492,60 @@ user_interface = pygame.sprite.Group()
 conditional_interface = pygame.sprite.Group()
 battle_elements = pygame.sprite.Group()
 enemy_hp_bars = pygame.sprite.Group()
-
 most_sprites = pygame.sprite.Group()
+scaling_sprites = pygame.sprite.Group()
+start_screen_sprites = pygame.sprite.Group()
+game_over_screen_sprites = pygame.sprite.Group()
 
 # specific enemy groups for movement and respawn -----------------------------------------------------------------------
 snakes = pygame.sprite.Group()
 snakes.add(snake_1, snake_2, snake_3, snake_4)
-
 ghouls = pygame.sprite.Group()
 ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
-
-# adding sprite objects to groups --------------------------------------------------------------------------------------
+# adding most sprite objects to groups ---------------------------------------------------------------------------------
 npcs.add(npc_garan, npc_maurelle, npc_guard)
 enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon_grass_5, seldon_grass_6)
 flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
-
 user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box)
-
 conditional_interface.add(buy_inventory)
-
+start_screen_sprites.add(s1024_x_576_button, s1280_x_720_button, s1600_x_900_button, start_button)
+game_over_screen_sprites.add(continue_button)
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
-
 # quest item sprites for gathering -------------------------------------------------------------------------------------
 quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4)
-
 # battle element sprites for combat scenario ---------------------------------------------------------------------------
-battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status,
-                    skill_bar, attack_button)
-
-# adding all sprites to game screen
+battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status, skill_bar,
+                    attack_button)
+# adding most sprites to this group for drawing and related functions
 most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items, enemies)
+# adding these sprites to a scaling sprite group which is used to reference sprites that should be scaled
+scaling_sprites.add(most_sprites, user_interface, enemies, battle_elements, conditional_interface, start_screen_sprites,
+                    game_over_screen_sprites, greeting)
 
+# code related to sound effects that will be used later ----------------------------------------------------------------
 # pygame.mixer.music.load("Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
-
 # move_up_sound = pygame.mixer.Sound("Rising_putter.ogg")
 # move_down_sound = pygame.mixer.Sound("Falling_putter.ogg")
 # collision_sound = pygame.mixer.Sound("Collision.ogg")
-
 # Set the base volume for all sounds
 # move_up_sound.set_volume(0.5)
 # move_down_sound.set_volume(0.5)
 # collision_sound.set_volume(0.5)
 
-# ----------------------------------------------------------------------------------------------------------------------
-# ----------------------------------------------------------------------------------------------------------------------
 # main loop variables --------------------------------------------------------------------------------------------------
 game_running = True
-
 start_chosen = False
 player_created = True
-
 in_battle = False
 in_shop = False
 in_inn = False
+in_academia = False
 in_district_over_world = True
-
 # condition to check if player has chosen to interact with sprite
 interacted = False
 # condition to allow or block player movement (combat or npc interaction)
@@ -1664,8 +1562,11 @@ sell_clicked = False
 rest_clicked = False
 # condition to check if screen resize button has been clicked
 screen_clicked = False
+learn_clicked = False
 # condition to keep message box text for amount of time, so it's not cleared when player is not in range of sprite
 info_update = False
+# condition to keep loot text for amount of time, so it's not cleared when player is not in range of sprite
+loot_update = False
 # condition to check if player has started combat encounter with enemy to clear message box (before adding combat text)
 encounter_started = False
 # condition to check if player has bought an item from shop
@@ -1673,14 +1574,15 @@ item_bought = False
 # condition to check if player has sold an item to shop
 item_sold = False
 # condition to check if player has rested in an inn
-rest = False
+rested = False
 # conditions to check current screen size scaling
 scaled_1024 = False
 scaled_1280 = True
 scaled_1600 = False
 # condition to check if initial player position has been set to current resolution scale
 player_initial_pos_set = False
-
+# condition that checks if inn screen has been faded when player rests
+faded_inn_screen = False
 # what zone the player is in, used for player update and map boundaries
 zone_seldon = True
 zone_korlok = False
@@ -1702,8 +1604,9 @@ info_text_1 = ""
 info_text_2 = ""
 info_text_3 = ""
 info_text_4 = ""
+# text updates from battle instance to apply to main over-world message box
+battle_info_to_return_to_main_loop = {"experience": 0, "item dropped": "", "leveled_up": False}
 
-# ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # main loop ------------------------------------------------------------------------------------------------------------
 while game_running:
@@ -1719,18 +1622,17 @@ while game_running:
         # user input events such as key presses or UI interaction
         for event in pygame.event.get():
             if event.type == KEYDOWN:
-
                 if event.key == K_ESCAPE:
                     exit()
 
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
-
                 # player chooses to continue, reset character experience and half health and energy on respawn
                 if start_button.rect.collidepoint(pos):
                     start_chosen = True
+                    # start timer for greeting message when button is clicked
+                    tic = time.perf_counter()
 
-                # screen resolution scaling. applies to all game sprites and images
                 # 1024 x 576 (down-scale) resolution -------------------------------------------------------------------
                 if s1024_x_576_button.rect.collidepoint(pos):
                     if not scaled_1024:
@@ -1742,93 +1644,18 @@ while game_running:
                         seldon_district_bg = pygame.image.load(resource_urls.seldon_bg_screen_url_1024)
                         seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen_url_1024)
                         seldon_district_inn = pygame.image.load(resource_urls.seldon_inn_screen_url_1024)
+                        seldon_district_academia = pygame.image.load(resource_urls.seldon_academia_screen_url_1024)
                         seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url_1024)
                         nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url_1024)
                         game_over_screen = pygame.image.load(resource_urls.game_over_screen_url_1024)
 
-                        # start screen buttons scaling -----------------------------------------------------------------
-                        s1024_x_576_button.image_size = "1024"
-                        s1024_x_576_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(s1024_x_576_button)).convert()
-                        s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
-                            center=(s1024_x_576_button.x_coordinate * .80, s1024_x_576_button.y_coordinate * .80))
-                        s1280_x_720_button.image_size = "1024"
-                        s1280_x_720_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(s1280_x_720_button)).convert()
-                        s1280_x_720_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        s1280_x_720_button.rect = s1280_x_720_button.surf.get_rect(
-                            center=(s1280_x_720_button.x_coordinate * .80, s1280_x_720_button.y_coordinate * .80))
-                        s1600_x_900_button.image_size = "1024"
-                        s1600_x_900_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(s1600_x_900_button)).convert()
-                        s1600_x_900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        s1600_x_900_button.rect = s1600_x_900_button.surf.get_rect(
-                            center=(s1600_x_900_button.x_coordinate * .80, s1600_x_900_button.y_coordinate * .80))
-                        start_button.image_size = "1024"
-                        start_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(start_button)).convert()
-                        start_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        start_button.rect = start_button.surf.get_rect(
-                            center=(start_button.x_coordinate * .80, start_button.y_coordinate * .80))
-                        greeting.image_size = "1024"
-                        greeting.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(greeting)).convert()
-                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        greeting.rect = greeting.surf.get_rect(
-                            center=(greeting.x_coordinate * .80, greeting.y_coordinate * .80))
-                        # ----------------------------------------------------------------------------------------------
-
-                        for sprite_to_scale in most_sprites:
+                        for sprite_to_scale in scaling_sprites:
                             sprite_to_scale.image_size = "1024"
                             sprite_to_scale.surf = pygame.image.load(
                                 screen_scaling.screen_scaling(sprite_to_scale)).convert()
                             sprite_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
                                 center=(sprite_to_scale.x_coordinate * .80, sprite_to_scale.y_coordinate * .80))
-
-                        for element_to_scale in user_interface:
-                            element_to_scale.image_size = "1024"
-                            element_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(element_to_scale)).convert()
-                            element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            element_to_scale.rect = element_to_scale.surf.get_rect(
-                                center=(element_to_scale.x_coordinate * .80, element_to_scale.y_coordinate * .80))
-
-                        for enemy_to_scale in enemies:
-                            enemy_to_scale.image_size = "1024"
-                            enemy_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(enemy_to_scale)).convert()
-                            enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
-                                center=(enemy_to_scale.x_coordinate * .80, enemy_to_scale.y_coordinate * .80))
-
-                        for battle_element_to_scale in battle_elements:
-                            battle_element_to_scale.image_size = "1024"
-                            battle_element_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(battle_element_to_scale)).convert()
-                            battle_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
-                                center=(battle_element_to_scale.x_coordinate * .80,
-                                        battle_element_to_scale.y_coordinate * .80))
-
-                        for conditional_element_to_scale in conditional_interface:
-                            conditional_element_to_scale.image_size = "1024"
-                            conditional_element_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(conditional_element_to_scale)).convert()
-                            conditional_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            conditional_element_to_scale.rect = conditional_element_to_scale.surf.get_rect(
-                                center=(conditional_element_to_scale.x_coordinate * .80,
-                                        conditional_element_to_scale.y_coordinate * .80))
-
-                        # continue button (game over screen) scaling ---------------------------------------------------
-                        continue_button.image_size = "1024"
-                        continue_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(continue_button)).convert()
-                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        continue_button.rect = continue_button.surf.get_rect(
-                            center=(continue_button.x_coordinate * .80, continue_button.y_coordinate * .80))
-                        # ----------------------------------------------------------------------------------------------
 
                         player.image_size = "1024"
                         player.surf = pygame.image.load(
@@ -1850,93 +1677,18 @@ while game_running:
                         seldon_district_bg = pygame.image.load(resource_urls.seldon_bg_screen_url)
                         seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen_url)
                         seldon_district_inn = pygame.image.load(resource_urls.seldon_inn_screen_url)
+                        seldon_district_academia = pygame.image.load(resource_urls.seldon_academia_screen_url)
                         seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url)
                         nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url)
                         game_over_screen = pygame.image.load(resource_urls.game_over_screen_url)
 
-                        # start screen buttons scaling -----------------------------------------------------------------
-                        s1024_x_576_button.image_size = "1280"
-                        s1024_x_576_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(s1024_x_576_button)).convert()
-                        s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
-                            center=(s1024_x_576_button.x_coordinate, s1024_x_576_button.y_coordinate))
-                        s1280_x_720_button.image_size = "1280"
-                        s1280_x_720_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(s1280_x_720_button)).convert()
-                        s1280_x_720_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        s1280_x_720_button.rect = s1280_x_720_button.surf.get_rect(
-                            center=(s1280_x_720_button.x_coordinate, s1280_x_720_button.y_coordinate))
-                        s1600_x_900_button.image_size = "1280"
-                        s1600_x_900_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(s1600_x_900_button)).convert()
-                        s1600_x_900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        s1600_x_900_button.rect = s1600_x_900_button.surf.get_rect(
-                            center=(s1600_x_900_button.x_coordinate, s1600_x_900_button.y_coordinate))
-                        start_button.image_size = "1280"
-                        start_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(start_button)).convert()
-                        start_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        start_button.rect = start_button.surf.get_rect(
-                            center=(start_button.x_coordinate, start_button.y_coordinate))
-                        greeting.image_size = "1280"
-                        greeting.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(greeting)).convert()
-                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        greeting.rect = greeting.surf.get_rect(
-                            center=(greeting.x_coordinate, greeting.y_coordinate))
-                        # ----------------------------------------------------------------------------------------------
-
-                        for sprite_to_scale in most_sprites:
+                        for sprite_to_scale in scaling_sprites:
                             sprite_to_scale.image_size = "1280"
                             sprite_to_scale.surf = pygame.image.load(
                                 screen_scaling.screen_scaling(sprite_to_scale)).convert()
                             sprite_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
                                 center=(sprite_to_scale.x_coordinate, sprite_to_scale.y_coordinate))
-
-                        for element_to_scale in user_interface:
-                            element_to_scale.image_size = "1280"
-                            element_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(element_to_scale)).convert()
-                            element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            element_to_scale.rect = element_to_scale.surf.get_rect(
-                                center=(element_to_scale.x_coordinate, element_to_scale.y_coordinate))
-
-                        for enemy_to_scale in enemies:
-                            enemy_to_scale.image_size = "1280"
-                            enemy_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(enemy_to_scale)).convert()
-                            enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
-                                center=(enemy_to_scale.x_coordinate, enemy_to_scale.y_coordinate))
-
-                        for battle_element_to_scale in battle_elements:
-                            battle_element_to_scale.image_size = "1280"
-                            battle_element_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(battle_element_to_scale)).convert()
-                            battle_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
-                                center=(battle_element_to_scale.x_coordinate,
-                                        battle_element_to_scale.y_coordinate))
-
-                        for conditional_element_to_scale in conditional_interface:
-                            conditional_element_to_scale.image_size = "1280"
-                            conditional_element_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(conditional_element_to_scale)).convert()
-                            conditional_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            conditional_element_to_scale.rect = conditional_element_to_scale.surf.get_rect(
-                                center=(conditional_element_to_scale.x_coordinate,
-                                        conditional_element_to_scale.y_coordinate))
-
-                        # continue button (game over screen) scaling ---------------------------------------------------
-                        continue_button.image_size = "1280"
-                        continue_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(continue_button)).convert()
-                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        continue_button.rect = continue_button.surf.get_rect(
-                            center=(continue_button.x_coordinate, continue_button.y_coordinate))
-                        # ----------------------------------------------------------------------------------------------
 
                         player.image_size = "1280"
                         player.surf = pygame.image.load(
@@ -1958,93 +1710,18 @@ while game_running:
                         seldon_district_bg = pygame.image.load(resource_urls.seldon_bg_screen_url_1600)
                         seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen_url_1600)
                         seldon_district_inn = pygame.image.load(resource_urls.seldon_inn_screen_url_1600)
+                        seldon_district_academia = pygame.image.load(resource_urls.seldon_academia_screen_url_1600)
                         seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url_1600)
                         nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url_1600)
                         game_over_screen = pygame.image.load(resource_urls.game_over_screen_url_1600)
 
-                        # start screen buttons scaling -----------------------------------------------------------------
-                        s1024_x_576_button.image_size = "1600"
-                        s1024_x_576_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(s1024_x_576_button)).convert()
-                        s1024_x_576_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        s1024_x_576_button.rect = s1024_x_576_button.surf.get_rect(
-                            center=(s1024_x_576_button.x_coordinate / .80, s1024_x_576_button.y_coordinate / .80))
-                        s1280_x_720_button.image_size = "1600"
-                        s1280_x_720_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(s1280_x_720_button)).convert()
-                        s1280_x_720_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        s1280_x_720_button.rect = s1280_x_720_button.surf.get_rect(
-                            center=(s1280_x_720_button.x_coordinate / .80, s1280_x_720_button.y_coordinate / .80))
-                        s1600_x_900_button.image_size = "1600"
-                        s1600_x_900_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(s1600_x_900_button)).convert()
-                        s1600_x_900_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        s1600_x_900_button.rect = s1600_x_900_button.surf.get_rect(
-                            center=(s1600_x_900_button.x_coordinate / .80, s1600_x_900_button.y_coordinate / .80))
-                        start_button.image_size = "1600"
-                        start_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(start_button)).convert()
-                        start_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        start_button.rect = start_button.surf.get_rect(
-                            center=(start_button.x_coordinate / .80, start_button.y_coordinate / .80))
-                        greeting.image_size = "1600"
-                        greeting.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(greeting)).convert()
-                        greeting.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        greeting.rect = greeting.surf.get_rect(
-                            center=(greeting.x_coordinate / .80, greeting.y_coordinate / .80))
-                        # ----------------------------------------------------------------------------------------------
-
-                        for sprite_to_scale in most_sprites:
+                        for sprite_to_scale in scaling_sprites:
                             sprite_to_scale.image_size = "1600"
                             sprite_to_scale.surf = pygame.image.load(
                                 screen_scaling.screen_scaling(sprite_to_scale)).convert()
                             sprite_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
                             sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
                                 center=(sprite_to_scale.x_coordinate / .80, sprite_to_scale.y_coordinate / .80))
-
-                        for element_to_scale in user_interface:
-                            element_to_scale.image_size = "1600"
-                            element_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(element_to_scale)).convert()
-                            element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            element_to_scale.rect = element_to_scale.surf.get_rect(
-                                center=(element_to_scale.x_coordinate / .80, element_to_scale.y_coordinate / .80))
-
-                        for enemy_to_scale in enemies:
-                            enemy_to_scale.image_size = "1600"
-                            enemy_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(enemy_to_scale)).convert()
-                            enemy_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            enemy_to_scale.rect = enemy_to_scale.surf.get_rect(
-                                center=(enemy_to_scale.x_coordinate / .80, enemy_to_scale.y_coordinate / .80))
-
-                        for battle_element_to_scale in battle_elements:
-                            battle_element_to_scale.image_size = "1600"
-                            battle_element_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(battle_element_to_scale)).convert()
-                            battle_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            battle_element_to_scale.rect = battle_element_to_scale.surf.get_rect(
-                                center=(battle_element_to_scale.x_coordinate / .80,
-                                        battle_element_to_scale.y_coordinate / .80))
-
-                        for conditional_element_to_scale in conditional_interface:
-                            conditional_element_to_scale.image_size = "1600"
-                            conditional_element_to_scale.surf = pygame.image.load(
-                                screen_scaling.screen_scaling(conditional_element_to_scale)).convert()
-                            conditional_element_to_scale.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            conditional_element_to_scale.rect = conditional_element_to_scale.surf.get_rect(
-                                center=(conditional_element_to_scale.x_coordinate / .80,
-                                        conditional_element_to_scale.y_coordinate / .80))
-
-                        # continue button (game over screen) scaling ---------------------------------------------------
-                        continue_button.image_size = "1600"
-                        continue_button.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(continue_button)).convert()
-                        continue_button.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                        continue_button.rect = continue_button.surf.get_rect(
-                            center=(continue_button.x_coordinate / .80, continue_button.y_coordinate / .80))
-                        # ----------------------------------------------------------------------------------------------
 
                         player.image_size = "1600"
                         player.surf = pygame.image.load(
@@ -2062,7 +1739,6 @@ while game_running:
 
     # if player has chosen to start game -------------------------------------------------------------------------------
     if start_chosen:
-
         # start game clock
         clock = pygame.time.Clock()
 
@@ -2086,17 +1762,17 @@ while game_running:
 
         # if player has created character or chosen default
         if player_created:
-
             # if player is currently alive
             if player.alive_status:
-
                 # if player is in over world
                 if in_district_over_world:
 
-                    # clear loot update after some time has passed (ab 3 seconds)
-                    # seems to be inconsistent currently
-                    if pygame.time.get_ticks() % 183 == 0:
+                    # clear info update after some time has passed
+                    if pygame.time.get_ticks() % 287 == 0:
                         info_update = False
+                    # clear loot update after some time has passed
+                    if pygame.time.get_ticks() % 347 == 0:
+                        loot_update = False
 
                     # if player is not currently in range of sprite and there is not an active info update,
                     # clear message box
@@ -2105,6 +1781,7 @@ while game_running:
                         if not info_update:
                             info_text_1 = ""
                             info_text_2 = ""
+                        if not loot_update:
                             info_text_3 = ""
                             info_text_4 = ""
 
@@ -2119,41 +1796,27 @@ while game_running:
 
                     # switches between 1 and 0 to select a left or right direction for enemy sprite to move
                     enemy_switch = 1
-
                     # gets defeated enemy count and will respawn a new enemy type if count is greater than specified
-                    # new enemy is added to sprite groups and will be random level and location in boundaries of type
                     enemy_respawn()
-
                     # create blank background to be drawn on top of for each iteration
                     screen.fill((255, 255, 255))  # (255, 255, 255) RGB value for WHITE
-
                     # draw screen 1 background
                     screen.blit(seldon_district_bg, (0, 0))
 
                     # draw sprites
                     for entity in most_sprites:
                         screen.blit(entity.surf, entity.rect)
-
                     # draw enemies
                     for enemy_sprite in enemies:
                         screen.blit(enemy_sprite.surf, enemy_sprite.rect)
-
                     # draw player
                     screen.blit(player.surf, player.rect)
-
                     # draw user interface elements
                     for ui_element in user_interface:
                         screen.blit(ui_element.surf, ui_element.rect)
-
                     # get screen option elements and draw window
                     for window in display_elements:
                         screen.blit(window.surf, window.rect)
-
-                    # update players status bars -----------------------------------------------------------------------
-                    # --------------------------------------------------------------------------------------------------
-                    health_bar_update(player)
-                    energy_bar_update(player)
-                    xp_bar_update(player)
 
                     # corrects position of player status bars and backdrop if scaled to 1600x900 resolution
                     if scaled_1600:
@@ -2171,196 +1834,24 @@ while game_running:
                     screen.blit(en_bar.surf, en_bar.rect)
                     screen.blit(xp_bar.surf, xp_bar.rect)
 
-                    # text updates to screen for things like current zone, rupee count, combat text, etc. --------------
-                    # get current player rupee count and create surf and rectangle to blit to screen
-                    text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
-                    text_rupee_rect = text_rupee_surf.get_rect()
-                    if scaled_1024:
-                        text_rupee_rect.center = (1225 * .80, 362 * .80)
-                    if scaled_1280:
-                        text_rupee_rect.center = (1225, 362)
-                    if scaled_1600:
-                        text_rupee_rect.center = (1225 / .80, 362 / .80)
+                    # draw texts to the screen, like message box, player rupees and level
+                    text_info_draw()
+                    # update players current inventory and status
+                    status_and_inventory_updates()
 
-                    screen.blit(text_rupee_surf, text_rupee_rect)
-
-                    # get current player district and create surf and rectangle to blit to screen
-                    text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
-                    text_zone_rect = text_zone_surf.get_rect()
-                    if scaled_1024:
-                        text_zone_rect.center = (1120 * .80, 693 * .80)
-                    if scaled_1280:
-                        text_zone_rect.center = (1120, 693)
-                    if scaled_1600:
-                        text_zone_rect.center = (1120 / .80, 693 / .80)
-
-                    screen.blit(text_zone_surf, text_zone_rect)
-
-                    # get current player district and create surf and rectangle to blit to screen
-                    text_level_surf = font.render(str(player.level), True, "black", "light yellow")
-                    text_level_rect = text_level_surf.get_rect()
-                    if scaled_1024:
-                        text_level_rect.center = (1105 * .80, 362 * .80)
-                    if scaled_1280:
-                        text_level_rect.center = (1105, 362)
-                    if scaled_1600:
-                        text_level_rect.center = (1105 / .80, 362 / .80)
-
-                    screen.blit(text_level_surf, text_level_rect)
-
-                    # current info text for message box in lower left corner of screen, first line
-                    text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
-                    text_combat_info_rect_1 = text_info_surf_1.get_rect()
-                    if scaled_1024:
-                        text_combat_info_rect_1.midleft = (30 * .80, 635 * .80)
-                    if scaled_1280:
-                        text_combat_info_rect_1.midleft = (30, 635)
-                    if scaled_1600:
-                        text_combat_info_rect_1.midleft = (30 / .80, 635 / .80)
-
-                    screen.blit(text_info_surf_1, text_combat_info_rect_1)
-
-                    # current info text for message box in lower left corner of screen, second line
-                    text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
-                    text_combat_info_rect_2 = text_info_surf_2.get_rect()
-                    if scaled_1024:
-                        text_combat_info_rect_2.midleft = (30 * .80, 655 * .80)
-                    if scaled_1280:
-                        text_combat_info_rect_2.midleft = (30, 655)
-                    if scaled_1600:
-                        text_combat_info_rect_2.midleft = (30 / .80, 655 / .80)
-
-                    screen.blit(text_info_surf_2, text_combat_info_rect_2)
-
-                    # current info text for message box in lower left corner of screen, third line
-                    text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
-                    text_combat_info_rect_3 = text_info_surf_3.get_rect()
-                    if scaled_1024:
-                        text_combat_info_rect_3.midleft = (30 * .80, 675 * .80)
-                    if scaled_1280:
-                        text_combat_info_rect_3.midleft = (30, 675)
-                    if scaled_1600:
-                        text_combat_info_rect_3.midleft = (30 / .80, 675 / .80)
-
-                    screen.blit(text_info_surf_3, text_combat_info_rect_3)
-
-                    # current info text for message box in lower left corner of screen, fourth line
-                    text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
-                    text_combat_info_rect_4 = text_info_surf_4.get_rect()
-                    if scaled_1024:
-                        text_combat_info_rect_4.midleft = (30 * .80, 695 * .80)
-                    if scaled_1280:
-                        text_combat_info_rect_4.midleft = (30, 695)
-                    if scaled_1600:
-                        text_combat_info_rect_4.midleft = (30 / .80, 695 / .80)
-
-                    screen.blit(text_info_surf_4, text_combat_info_rect_4)
-
-                    # clear list used for drawing player items to screen before going through inventory and drawing
-                    # this removes items that may have been used and left in list from previous iterations,
-                    # so they are not re-drawn after being used.
-                    player_items.clear()
-
-                    # create inventory window items --------------------------------------------------------------------
-                    # if player has items in their inventory -----------------------------------------------------------
-                    if len(player.items) > 0:
-                        first_coord = 1063
-                        second_coord = 462
-
-                        if scaled_1024:
-                            first_coord = first_coord * .80
-                            second_coord = second_coord * .80
-                        if scaled_1600:
-                            first_coord = first_coord - 2
-                            second_coord = second_coord - 2
-
-                        inventory_counter = 0
-                        # go through player items and assign inventory slots (coordinates) to them
-                        for item in player.items:
-                            if scaled_1024:
-                                if item.name == "health potion":
-                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "energy potion":
-                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "shiny rock":
-                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "bone dust":
-                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                            if scaled_1280:
-                                if item.name == "health potion":
-                                    item.update(first_coord, second_coord, resource_urls.health_pot_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "energy potion":
-                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "shiny rock":
-                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "bone dust":
-                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                            if scaled_1600:
-                                if item.name == "health potion":
-                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "energy potion":
-                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "shiny rock":
-                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "bone dust":
-                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-
-                            # add 60 to the items x-coordinate value so the next item will be added to next slot
-                            first_coord += 60
-                            if scaled_1024:
-                                first_coord = first_coord - 13.2
-                            if scaled_1600:
-                                first_coord = first_coord + 2
-
-                            # add 60 to items y coordinate value if the first row of (4) slots has been filled
-                            # reset first coordinate and counter to start in the leftmost slot again
-                            if inventory_counter > 3:
-                                second_coord += 60
-                                first_coord = 1063
-                                inventory_counter = 0
-
-                                if scaled_1024:
-                                    first_coord = first_coord * .80
-                                    second_coord = second_coord * .80 + 80
-
-                        # get item from current items based on players inventory and draw with inventory window
-                        for item in player_items:
-                            screen.blit(item.surf, item.rect)
+                    # if battle happened, get battle info (item or experience gained) and apply to message box
+                    if battle_info_to_return_to_main_loop["item dropped"] != "":
+                        if loot_update:
+                            info_text_3 = str(battle_info_to_return_to_main_loop["item dropped"])
+                            info_text_4 = str(battle_info_to_return_to_main_loop["experience"])
 
                     # --------------------------------------------------------------------------------------------------
-                    # --------------------------------------------------------------------------------------------------
-                    # all user input events such as key presses or UI interaction
+                    # all in-game events such as key presses or UI interaction
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
-
                             # escape key was pressed, exit game
                             if event.key == K_ESCAPE:
                                 exit()
-
                             # "F" key for player interaction
                             if event.key == K_f:
                                 interacted = True
@@ -2368,9 +1859,7 @@ while game_running:
                         # if the unstuck button was clicked, move the player to bottom right corner of screen
                         if event.type == pygame.MOUSEBUTTONUP:
                             pos = pygame.mouse.get_pos()
-
                             if unstuck_button.rect.collidepoint(pos):
-
                                 if scaled_1024:
                                     player.pos = vec((850 * .80, 650 * .80))
                                 if scaled_1280:
@@ -2381,68 +1870,14 @@ while game_running:
                         elif event.type == QUIT:
                             exit()
 
-                        # inventory click handler ----------------------------------------------------------------------
-                        # ----------------------------------------------------------------------------------------------
-                        inventory_item = inventory_event_item(event)
-                        try:
-                            if inventory_item.name == "health potion":
-                                if player.health == 100:
-                                    info_text_1 = "You're already at full health."
-                                    info_text_2 = ""
-                                    info_update = True
-
-                                else:
-                                    player.health = player.health + 40
-                                    # if health potion heals over 100 hp, just set to 100 (max health)
-                                    if player.health > 100:
-                                        player.health = 100
-                                    info_text_1 = "The potion heals you for 40 hp."
-                                    info_text_2 = ""
-                                    info_update = True
-
-                                    player_items.remove(inventory_item)
-                                    player.items.remove(inventory_item)
-
-                            if inventory_item.name == "energy potion":
-                                if player.energy == 100:
-                                    info_text_1 = "You're already at full energy."
-                                    info_text_2 = ""
-                                    info_update = True
-
-                                else:
-                                    player.energy = player.energy + 40
-                                    # if energy potion energizes over 100 hp, just set to 100 (max energy)
-                                    if player.energy > 100:
-                                        player.energy = 100
-                                    info_text_1 = "The potion energizes you for 40 en."
-                                    info_text_2 = ""
-                                    info_update = True
-
-                                    player_items.remove(inventory_item)
-                                    player.items.remove(inventory_item)
-
-                            if inventory_item.name == "shiny rock":
-                                info_text_1 = "Oh, shiny. Maybe you can sell it?"
-                                info_text_2 = ""
-                                info_update = True
-
-                            if inventory_item.name == "bone dust":
-                                info_text_1 = "Eh, dusty. Maybe you can sell it?"
-                                info_text_2 = ""
-                                info_update = True
-
-                        except AttributeError:
-                            pass
-
                         # ----------------------------------------------------------------------------------------------
                         # if player collides with enemy sprite, doesn't have combat cooldown,
                         # and chooses to interact with it then get event from button press and start combat encounter
                         enemy = pygame.sprite.spritecollideany(player, enemies)
                         if enemy:
-
                             # lets player know if they are in range of enemy they can press f to attack it
-                            info_text_1 = "Press 'F' key to attack enemy."
-
+                            info_text_1 = f"Press 'F' key to attack {enemy.name}."
+                            info_text_2 = f"{enemy.name} level: {enemy.level}"
                             if interacted:
                                 in_district_over_world = False
                                 in_battle = True
@@ -2451,23 +1886,30 @@ while game_running:
                         # player collides with building, enters if chosen to interact and starts related scenario
                         building = pygame.sprite.spritecollideany(player, buildings)
                         if building:
-
                             # lets player know if they are in range of building they can press f to enter it
-                            info_text_1 = "Press 'F' key to enter building."
-
+                            info_text_1 = f"Press 'F' key to enter {building.name}."
+                            info_text_2 = ""
                             if interacted:
                                 if building.name == "shop":
                                     in_district_over_world = False
                                     in_shop = True
-
                                 if building.name == "inn":
                                     in_district_over_world = False
                                     in_inn = True
+                                if building.name == "academia":
+                                    in_district_over_world = False
+                                    in_academia = True
+
+                        # function to handle inventory item clicks. apply item message to message box if not empty str.
+                        inventory_event = inventory_click_handler()
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                            info_update = True
 
                     # outside of main event loop -----------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
-                    # get current pressed keys from player and apply zone boundaries depending on current players
-                    # current zone
+                    # get current pressed keys from player and apply zone boundaries depending on current zone
                     pressed_keys = pygame.key.get_pressed()
 
                     # Apply pressed keys update to movement based on zone boundaries, defined in player.update()
@@ -2489,12 +1931,16 @@ while game_running:
                         display_elements.append(greeting)
                         greeting.shown = True
 
-                    # if greeting has been shown, after player has moved, remove greeting from screen
+                    # get time elapsed since player started game
+                    toc = time.perf_counter()
+
+                    # if greeting has been shown, and time has elapsed, hide greeting window from screen
                     if greeting.shown:
-                        if pygame.time.get_ticks() > 4000:
+                        # if time elapsed has been greater than 5 seconds, hide the greeting window
+                        if toc - tic > 2.5:
                             for notification in display_elements:
                                 try:
-                                    if notification.__getattribute__("name") == "greeting":
+                                    if notification.name == "greeting":
                                         display_elements.remove(notification)
                                 except AttributeError:
                                     pass
@@ -2503,7 +1949,6 @@ while game_running:
                     # choose random directions and random enemy to move that direction ---------------------------------
                     direction_horizontal = random.choice(["left", "right"])
                     direction_vertical = random.choice(["up", "down"])
-
                     move_this_snake = random.choice(snakes.sprites())
                     move_this_ghoul = random.choice(ghouls.sprites())
 
@@ -2532,7 +1977,6 @@ while game_running:
                     face_this_npc = random.choice(npcs.sprites())
 
                     if pygame.time.get_ticks() % 180 == 0:
-
                         if face_direction == "front":
                             if scaled_1024:
                                 if face_this_npc.name == "garan":
@@ -2555,7 +1999,6 @@ while game_running:
                                     npc_maurelle.update(resource_urls.maurelle_url_1600)
                                 if face_this_npc.name == "guard":
                                     npc_guard.update(resource_urls.guard_url_1600)
-
                         if face_direction == "back":
                             if scaled_1024:
                                 if face_this_npc.name == "garan":
@@ -2578,7 +2021,6 @@ while game_running:
                                     npc_maurelle.update(resource_urls.maurelle_back_url_1600)
                                 if face_this_npc.name == "guard":
                                     npc_guard.update(resource_urls.guard_back_url_1600)
-
                         if face_direction == "left":
                             if scaled_1024:
                                 if face_this_npc.name == "garan":
@@ -2601,7 +2043,6 @@ while game_running:
                                     npc_maurelle.update(resource_urls.maurelle_left_url_1600)
                                 if face_this_npc.name == "guard":
                                     npc_guard.update(resource_urls.guard_left_url_1600)
-
                         if face_direction == "right":
                             if scaled_1024:
                                 if face_this_npc.name == "garan":
@@ -2630,170 +2071,26 @@ while game_running:
                 # if player is in battle -------------------------------------------------------------------------------
                 if in_battle:
 
-                    # update players status bars -----------------------------------------------------------------------
-                    # --------------------------------------------------------------------------------------------------
-                    health_bar_update(player)
-                    energy_bar_update(player)
-                    xp_bar_update(player)
-
-                    # update function will reset coordinates so fix scaling here for 1600x900 (temp. solution maybe)
-                    if scaled_1600:
-                        status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
-                            center=(
-                                status_bar_backdrop.x_coordinate / .80, status_bar_backdrop.y_coordinate / .80))
-                        hp_bar.rect = hp_bar.surf.get_rect(
-                            center=(hp_bar.x_coordinate / .80 - 1, hp_bar.y_coordinate / .80 + 5))
-                        en_bar.rect = en_bar.surf.get_rect(
-                            center=(en_bar.x_coordinate / .80 - 1, en_bar.y_coordinate / .80))
-                        xp_bar.rect = xp_bar.surf.get_rect(
-                            center=(xp_bar.x_coordinate / .80 - 1, xp_bar.y_coordinate / .80 - 5))
-
-                    # clear list used for drawing player items to screen before going through inventory and drawing
-                    # this removes items that may have been used and left in list from previous iterations,
-                    # so they are not re-drawn after being used.
-                    player_items.clear()
-
-                    # create inventory window items --------------------------------------------------------------------
-                    # if player has items in their inventory -----------------------------------------------------------
-                    if len(player.items) > 0:
-                        first_coord = 1063
-                        second_coord = 462
-
-                        if scaled_1024:
-                            first_coord = first_coord * .80
-                            second_coord = second_coord * .80
-                        if scaled_1600:
-                            first_coord = first_coord - 2
-                            second_coord = second_coord - 2
-
-                        inventory_counter = 0
-                        # go through player items and assign inventory slots (coordinates) to them
-                        for item in player.items:
-                            if scaled_1024:
-                                if item.name == "health potion":
-                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "energy potion":
-                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "shiny rock":
-                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "bone dust":
-                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                            if scaled_1280:
-                                if item.name == "health potion":
-                                    item.update(first_coord, second_coord, resource_urls.health_pot_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "energy potion":
-                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "shiny rock":
-                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "bone dust":
-                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                            if scaled_1600:
-                                if item.name == "health potion":
-                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "energy potion":
-                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "shiny rock":
-                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "bone dust":
-                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-
-                            # add 75 to the items x-coordinate value so the next item will be added to next slot
-                            first_coord += 60
-                            if scaled_1024:
-                                first_coord = first_coord - 13.2
-                            if scaled_1600:
-                                first_coord = first_coord + 2
-
-                            # add 60 to items y coordinate value if the first row of (4) slots has been filled
-                            # reset first coordinate and counter to start in the leftmost slot again
-                            if inventory_counter > 3:
-                                second_coord += 60
-                                first_coord = 1063
-                                inventory_counter = 0
-
-                                if scaled_1024:
-                                    first_coord = first_coord * .80
-                                    second_coord = second_coord * .80 + 80
+                    # update players current inventory and status
+                    status_and_inventory_updates()
 
                     # battle scenario event loop
                     # --------------------------------------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
-
-                            # escape key was pressed, exit game
                             if event.key == K_ESCAPE:
                                 exit()
 
                         elif event.type == QUIT:
                             exit()
 
-                        # ----------------------------------------------------------------------------------------------
-                        # inventory click handler ----------------------------------------------------------------------
-                        inventory_item = inventory_event_item(event)
-                        try:
-                            if inventory_item.name == "health potion":
-                                if player.health == 100:
-                                    info_text_1 = "You're already at full health."
-                                    info_text_2 = ""
-                                    info_update = True
-
-                                else:
-                                    player.health = player.health + 40
-                                    # if health potion heals over 100 hp, just set to 100 (max health)
-                                    if player.health > 100:
-                                        player.health = 100
-                                    info_text_1 = "The potion heals you for 40 hp."
-                                    info_text_2 = ""
-                                    info_update = True
-
-                                    player_items.remove(inventory_item)
-                                    player.items.remove(inventory_item)
-
-                            if inventory_item.name == "energy potion":
-                                if player.energy == 100:
-                                    info_text_1 = "You're already at full energy."
-                                    info_text_2 = ""
-                                    info_update = True
-
-                                else:
-                                    player.energy = player.energy + 40
-                                    # if energy potion energizes over 100 hp, just set to 100 (max energy)
-                                    if player.energy > 100:
-                                        player.energy = 100
-                                    info_text_1 = "The potion energizes you for 40 en."
-                                    info_text_2 = ""
-                                    info_update = True
-
-                                    player_items.remove(inventory_item)
-                                    player.items.remove(inventory_item)
-
-                        except AttributeError:
-                            pass
+                        # function to handle inventory item clicks. apply item message to message box if not empty str.
+                        inventory_event = inventory_click_handler()
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                            info_update = True
 
                         enemy = pygame.sprite.spritecollideany(player, enemies)
                         if enemy:
@@ -2806,10 +2103,8 @@ while game_running:
                             # but an additional check is used here so the button click won't register for
                             # multiple attacks to happen after the delay is over
                             if not combat_cooldown:
-
                                 # if interact key 'f' has been pressed
                                 if interacted:
-
                                     # don't allow player to move while in combat
                                     movement_able = False
 
@@ -2835,7 +2130,6 @@ while game_running:
                                     # "escaped": False
                                     # "level up status": "",
                                     # "level up attributes": ""
-                                    # ----------------------------------------------------------------------------------
 
                                     # enter combat scenario and attack enemy. attack_scenario will return all info in
                                     # form of list
@@ -2846,47 +2140,39 @@ while game_running:
                                             stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                       stan_battle_sprite.y_coordinate,
                                                                       resource_urls.stan_attack_url_1024)
-
                                             # update to attacking sprite surface for combat animation
                                             if enemy.kind == "snake":
                                                 snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                            snake_battle_sprite.y_coordinate,
                                                                            resource_urls.snake_attack_url_1024)
-
                                             if enemy.kind == "ghoul":
                                                 ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                                            ghoul_battle_sprite.y_coordinate,
                                                                            resource_urls.ghoul_attack_url_1024)
-
                                         if scaled_1280:
                                             # update player character sprite for combat animation
                                             stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                       stan_battle_sprite.y_coordinate,
                                                                       resource_urls.stan_attack_url)
-
                                             # update to attacking sprite surface for combat animation
                                             if enemy.kind == "snake":
                                                 snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                            snake_battle_sprite.y_coordinate,
                                                                            resource_urls.snake_attack_url)
-
                                             if enemy.kind == "ghoul":
                                                 ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                                            ghoul_battle_sprite.y_coordinate,
                                                                            resource_urls.ghoul_attack_url)
-
                                         if scaled_1600:
                                             # update player character sprite for combat animation
                                             stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                       stan_battle_sprite.y_coordinate,
                                                                       resource_urls.stan_attack_url_1600)
-
                                             # update to attacking sprite surface for combat animation
                                             if enemy.kind == "snake":
                                                 snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                            snake_battle_sprite.y_coordinate,
                                                                            resource_urls.snake_attack_url_1600)
-
                                             if enemy.kind == "ghoul":
                                                 ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                                            ghoul_battle_sprite.y_coordinate,
@@ -2910,17 +2196,19 @@ while game_running:
                                             info_text_2 = str(combat_events["damage taken"])
 
                                         # adds item dropped and experienced gained messages to box if enemy was defeated
+                                        # appends to dictionary to return to main loop outside of battle
                                         if combat_events["enemy defeated"]:
                                             if combat_events["item dropped"] != "No":
-                                                info_text_1 = str(combat_events["item dropped"])
+                                                battle_info_to_return_to_main_loop["item dropped"] = \
+                                                    str(combat_events["item dropped"])
                                             if combat_events["experience gained"] != 0:
-                                                info_text_2 = str(combat_events["experience gained"])
+                                                battle_info_to_return_to_main_loop["experience"] = \
+                                                    str(combat_events["experience gained"])
 
                                         # if enemy was defeated and player leveled up, add messages related to box
                                         if combat_events["enemy defeated"]:
                                             if combat_events["level up status"] != "":
-                                                info_text_3 = str(combat_events["level up status"])
-                                                info_text_4 = str(combat_events["level up attributes"])
+                                                battle_info_to_return_to_main_loop["leveled_up"] = True
 
                                         # if player was successful in defeating enemy, combat ends, movement is allowed
                                         # set combat happened false, allowing iterations to continue without cooldown
@@ -2936,8 +2224,7 @@ while game_running:
 
                     # outside of battle event loop ---------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
-                    # below is where battle scene and enemy are drawn to screen ----------------------------------------
-                    # --------------------------------------------------------------------------------------------------
+                    # battle scene and enemy are drawn to screen -------------------------------------------------------
                     try:
                         if zone_seldon:
                             screen.blit(seldon_district_battle, (0, 0))
@@ -2974,58 +2261,12 @@ while game_running:
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
-                            screen.blit(text_rupee_surf, text_rupee_rect)
-                            screen.blit(text_zone_surf, text_zone_rect)
-                            screen.blit(text_level_surf, text_level_rect)
 
                             # updates players inventory items if item is used in combat scenario (ex. health pot.)
                             for item in player_items:
                                 screen.blit(item.surf, item.rect)
 
-                            # ------------------------------------------------------------------------------------------
-                            # message box texts need to be recreated for battle scenario to ensure they are updated
-                            # by the battle scenario and not just blitting the text from before with the messages
-                            # from the district over-world instance
-                            text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
-                            text_combat_info_rect_1 = text_info_surf_1.get_rect()
-                            if scaled_1024:
-                                text_combat_info_rect_1.midleft = (30 * .80, 635 * .80)
-                            if scaled_1280:
-                                text_combat_info_rect_1.midleft = (30, 635)
-                            if scaled_1600:
-                                text_combat_info_rect_1.midleft = (30 / .80, 635 / .80)
-                            screen.blit(text_info_surf_1, text_combat_info_rect_1)
-
-                            text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
-                            text_combat_info_rect_2 = text_info_surf_2.get_rect()
-                            if scaled_1024:
-                                text_combat_info_rect_2.midleft = (30 * .80, 655 * .80)
-                            if scaled_1280:
-                                text_combat_info_rect_2.midleft = (30, 655)
-                            if scaled_1600:
-                                text_combat_info_rect_2.midleft = (30 / .80, 655 / .80)
-                            screen.blit(text_info_surf_2, text_combat_info_rect_2)
-
-                            text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
-                            text_combat_info_rect_3 = text_info_surf_3.get_rect()
-                            if scaled_1024:
-                                text_combat_info_rect_3.midleft = (30 * .80, 675 * .80)
-                            if scaled_1280:
-                                text_combat_info_rect_3.midleft = (30, 675)
-                            if scaled_1600:
-                                text_combat_info_rect_3.midleft = (30 / .80, 675 / .80)
-                            screen.blit(text_info_surf_3, text_combat_info_rect_3)
-
-                            text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
-                            text_combat_info_rect_4 = text_info_surf_4.get_rect()
-                            if scaled_1024:
-                                text_combat_info_rect_4.midleft = (30 * .80, 695 * .80)
-                            if scaled_1280:
-                                text_combat_info_rect_4.midleft = (30, 695)
-                            if scaled_1600:
-                                text_combat_info_rect_4.midleft = (30 / .80, 695 / .80)
-                            screen.blit(text_info_surf_4, text_combat_info_rect_4)
-                            # ------------------------------------------------------------------------------------------
+                            text_info_draw()
 
                             # get current enemy name and create surf and rectangle to draw to screen
                             text_enemy_name_surf = font.render(str(enemy.name), True, "black", "light yellow")
@@ -3048,12 +2289,11 @@ while game_running:
                                 text_enemy_level_rect.center = (915 / .80, 680 / .80)
                             screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
-                    # after enemy is defeated, it may return a none type for collision. in this case just ignore
+                    # after enemy is defeated, it may return a none type for collision. in this case, just ignore error
                     except AttributeError:
                         pass
 
-                    # ----------------------------------------------------------------------------------------------
-                    # ----------------------------------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
                     # combat didn't happen this iteration, reset sprites to default surface image
                     if not combat_happened:
 
@@ -3067,7 +2307,6 @@ while game_running:
                             ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                        ghoul_battle_sprite.y_coordinate,
                                                        resource_urls.ghoul_battle_url_1024)
-
                         if scaled_1280:
                             stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                       stan_battle_sprite.y_coordinate,
@@ -3088,7 +2327,6 @@ while game_running:
                             ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                        ghoul_battle_sprite.y_coordinate,
                                                        resource_urls.ghoul_battle_url_1600)
-
                         combat_cooldown = False
 
                     # combat happened this turn, update sprites for battle and apply short cooldown to attack again
@@ -3124,7 +2362,6 @@ while game_running:
                             ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                        ghoul_battle_sprite.y_coordinate,
                                                        resource_urls.ghoul_attack_url_1600)
-
                         # flip to display ------------------------------------------------------------------------------
                         # needs to flip here to show the new attacking sprites for the 1-second duration
                         pygame.display.flip()
@@ -3139,119 +2376,16 @@ while game_running:
                         combat_happened = False
 
                 # ------------------------------------------------------------------------------------------------------
-                # ------------------------------------------------------------------------------------------------------
-                # ------------------------------------------------------------------------------------------------------
                 # if player is in shop ---------------------------------------------------------------------------------
                 if in_shop:
 
-                    # update players status bars -----------------------------------------------------------------------
-                    # --------------------------------------------------------------------------------------------------
-                    health_bar_update(player)
-                    energy_bar_update(player)
-                    xp_bar_update(player)
-
-                    # clear list used for drawing player items to screen before going through inventory and drawing
-                    # this removes items that may have been used and left in list from previous iterations,
-                    # so they are not re-drawn after being used.
-                    player_items.clear()
-
-                    # create inventory window items --------------------------------------------------------------------
-                    # if player has items in their inventory -----------------------------------------------------------
-                    if len(player.items) > 0:
-                        first_coord = 1063
-                        second_coord = 462
-
-                        if scaled_1024:
-                            first_coord = first_coord * .80
-                            second_coord = second_coord * .80
-                        if scaled_1600:
-                            first_coord = first_coord - 2
-                            second_coord = second_coord - 2
-
-                        inventory_counter = 0
-                        # go through player items and assign inventory slots (coordinates) to them
-                        for item in player.items:
-                            if scaled_1024:
-                                if item.name == "health potion":
-                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "energy potion":
-                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "shiny rock":
-                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "bone dust":
-                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1024)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                            if scaled_1280:
-                                if item.name == "health potion":
-                                    item.update(first_coord, second_coord, resource_urls.health_pot_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "energy potion":
-                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "shiny rock":
-                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "bone dust":
-                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                            if scaled_1600:
-                                if item.name == "health potion":
-                                    item.update(first_coord, second_coord, resource_urls.health_pot_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "energy potion":
-                                    item.update(first_coord, second_coord, resource_urls.energy_pot_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "shiny rock":
-                                    item.update(first_coord, second_coord, resource_urls.shiny_rock_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-                                if item.name == "bone dust":
-                                    item.update(first_coord, second_coord, resource_urls.bone_dust_url_1600)
-                                    player_items.append(item)
-                                    inventory_counter += 1
-
-                            # add 75 to the items x-coordinate value so the next item will be added to next slot
-                            first_coord += 60
-                            if scaled_1024:
-                                first_coord = first_coord - 13.2
-                            if scaled_1600:
-                                first_coord = first_coord + 2
-
-                            # add 60 to items y coordinate value if the first row of (4) slots has been filled
-                            # reset first coordinate and counter to start in the leftmost slot again
-                            if inventory_counter > 3:
-                                second_coord += 60
-                                first_coord = 1063
-                                inventory_counter = 0
-
-                                if scaled_1024:
-                                    first_coord = first_coord * .80
-                                    second_coord = second_coord * .80 + 80
-
-                        # updates players inventory items if item is used in combat scenario (ex. health pot.)
-                        for item in player_items:
-                            screen.blit(item.surf, item.rect)
+                    status_and_inventory_updates()
 
                     # shop scenario event loop
                     # --------------------------------------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
-
-                            # escape key was pressed, exit game
                             if event.key == K_ESCAPE:
                                 exit()
 
@@ -3288,7 +2422,6 @@ while game_running:
                                 # if user clicks buy button again, set condition to false which will hide buy window
                                 if buy_clicked:
                                     buy_clicked = False
-
                                     # remove buy window from display and clear temporary list used to populate it
                                     if len(buy_shop_elements) > 0:
                                         buy_shop_elements.pop(0)
@@ -3346,25 +2479,21 @@ while game_running:
                                                 buy_first_coord = buy_first_coord - 13.2
                                             if scaled_1600:
                                                 buy_first_coord = buy_first_coord + 2
-
                                             if buy_inventory_counter > 3:
                                                 buy_second_coord += 60
                                                 buy_first_coord = 1063
                                                 buy_inventory_counter = 0
-
                                                 if scaled_1024:
                                                     buy_first_coord = buy_first_coord * .80
                                                     buy_second_coord = buy_second_coord * .80 + 80
 
-                            # --------------------------------------------------------------------------------------
+                            # ------------------------------------------------------------------------------------------
                             # if player chooses to leave shop, set conditions to allow normal gameplay loop
                             if shop_button == "leave":
 
                                 if len(buy_shop_elements) > 0:
                                     buy_shop_elements.pop(0)
                                     shopkeeper_items.clear()
-
-                                # ----------------------------------------------------------------------------------
                                 buy_clicked = False
                                 movement_able = True
                                 interacted = False
@@ -3384,7 +2513,7 @@ while game_running:
                                     if buy_item.name == "health potion":
                                         if len(player.items) < 16:
                                             if player.rupees > 9:
-                                                info_text_1 = "Bought Health Potion for 10 rupees."
+                                                info_text_1 = "You Bought Health Potion for 10 rupees."
                                                 info_text_2 = "Health Potion added to inventory."
 
                                                 if scaled_1024:
@@ -3402,10 +2531,8 @@ while game_running:
                                                         Item("health potion", "potion", 200, 200,
                                                              resource_urls.health_pot_url_1600,
                                                              (255, 255, 255), "1600"))
-
                                                 player.rupees = player.rupees - 10
                                                 item_bought = True
-
                                             else:
                                                 info_text_1 = "You do not have enough rupees."
                                                 info_text_2 = "Health Potion cost 10 rupees."
@@ -3434,10 +2561,8 @@ while game_running:
                                                         Item("energy potion", "potion", 200, 200,
                                                              resource_urls.energy_pot_url_1600,
                                                              (255, 255, 255), "1600"))
-
                                                 player.rupees = player.rupees - 10
                                                 item_bought = True
-
                                             else:
                                                 info_text_1 = "You do not have enough rupees."
                                                 info_text_2 = "Energy Potion cost 10 rupees."
@@ -3460,7 +2585,6 @@ while game_running:
                                     player_items.remove(sell_item)
                                     player.rupees = player.rupees + 5
                                     item_sold = True
-
                                 if sell_item.name == "energy potion":
                                     info_text_1 = "Sold Energy Potion for 5 rupees."
                                     info_text_2 = "Energy Potion removed from inventory."
@@ -3468,7 +2592,6 @@ while game_running:
                                     player_items.remove(sell_item)
                                     player.rupees = player.rupees + 5
                                     item_sold = True
-
                                 if sell_item.name == "shiny rock":
                                     info_text_1 = "Sold Shiny Rock for 5 rupees."
                                     info_text_2 = "Shiny Rock removed from inventory."
@@ -3476,7 +2599,6 @@ while game_running:
                                     player_items.remove(sell_item)
                                     player.rupees = player.rupees + 5
                                     item_sold = True
-
                                 if sell_item.name == "bone dust":
                                     info_text_1 = "Sold Bone Dust for 10 rupees."
                                     info_text_2 = "Bone Dust removed from inventory."
@@ -3499,70 +2621,13 @@ while game_running:
                         screen.blit(xp_bar.surf, xp_bar.rect)
                         screen.blit(buy_button.surf, buy_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(text_level_surf, text_level_rect)
-                        screen.blit(text_zone_surf, text_zone_rect)
-                        screen.blit(text_rupee_surf, text_rupee_rect)
                         screen.blit(message_box.surf, message_box.rect)
 
-                        # updates players inventory items if item is used in combat scenario (ex. health pot.)
                         for item in player_items:
                             screen.blit(item.surf, item.rect)
 
-                        # ------------------------------------------------------------------------------------------
-                        # message box texts need to be recreated for scenario to ensure they are updated
-                        # by the scenario and not just blitting the text from before with the messages
-                        # from the district over-world instance
-                        text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
-                        text_combat_info_rect_1 = text_info_surf_1.get_rect()
-                        if scaled_1024:
-                            text_combat_info_rect_1.midleft = (30 * .80, 635 * .80)
-                        if scaled_1280:
-                            text_combat_info_rect_1.midleft = (30, 635)
-                        if scaled_1600:
-                            text_combat_info_rect_1.midleft = (30 / .80, 635 / .80)
-                        screen.blit(text_info_surf_1, text_combat_info_rect_1)
+                        text_info_draw()
 
-                        text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
-                        text_combat_info_rect_2 = text_info_surf_2.get_rect()
-                        if scaled_1024:
-                            text_combat_info_rect_2.midleft = (30 * .80, 655 * .80)
-                        if scaled_1280:
-                            text_combat_info_rect_2.midleft = (30, 655)
-                        if scaled_1600:
-                            text_combat_info_rect_2.midleft = (30 / .80, 655 / .80)
-                        screen.blit(text_info_surf_2, text_combat_info_rect_2)
-
-                        text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
-                        text_combat_info_rect_3 = text_info_surf_3.get_rect()
-                        if scaled_1024:
-                            text_combat_info_rect_3.midleft = (30 * .80, 675 * .80)
-                        if scaled_1280:
-                            text_combat_info_rect_3.midleft = (30, 675)
-                        if scaled_1600:
-                            text_combat_info_rect_3.midleft = (30 / .80, 675 / .80)
-                        screen.blit(text_info_surf_3, text_combat_info_rect_3)
-
-                        text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
-                        text_combat_info_rect_4 = text_info_surf_4.get_rect()
-                        if scaled_1024:
-                            text_combat_info_rect_4.midleft = (30 * .80, 695 * .80)
-                        if scaled_1280:
-                            text_combat_info_rect_4.midleft = (30, 695)
-                        if scaled_1600:
-                            text_combat_info_rect_4.midleft = (30 / .80, 695 / .80)
-                        screen.blit(text_info_surf_4, text_combat_info_rect_4)
-
-                        text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
-                        text_rupee_rect = text_rupee_surf.get_rect()
-                        if scaled_1024:
-                            text_rupee_rect.center = (1225 * .80, 362 * .80)
-                        if scaled_1280:
-                            text_rupee_rect.center = (1225, 362)
-                        if scaled_1600:
-                            text_rupee_rect.center = (1225 / .80, 362 / .80)
-
-                        screen.blit(text_rupee_surf, text_rupee_rect)
-                        # ----------------------------------------------------------------------------------------------
                         # ----------------------------------------------------------------------------------------------
                         if buy_clicked:
                             for window in buy_shop_elements:
@@ -3576,8 +2641,210 @@ while game_running:
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in inn
                 if in_inn:
-                    # grab inn code from previous commit and add here in separate iteration
-                    print("inn")
+
+                    # update players current inventory and status
+                    status_and_inventory_updates()
+
+                    # inn scenario event loop
+                    # --------------------------------------------------------------------------------------------------
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+                            if event.key == K_ESCAPE:
+                                exit()
+
+                        # function to handle inventory item clicks. apply item message to message box if not empty str.
+                        inventory_event = inventory_click_handler()
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                            info_update = True
+
+                        elif event.type == QUIT:
+                            exit()
+
+                        # ----------------------------------------------------------------------------------------------
+                        inn = pygame.sprite.spritecollideany(player, buildings)
+                        if building.name == "inn":
+                            # if player has just started inn scenario, clear message box
+                            if not encounter_started:
+                                info_text_1 = "Click rest button to sleep."
+                                info_text_2 = "Sleep regains health and energy."
+                                info_text_3 = ""
+                                info_text_4 = ""
+                                encounter_started = True
+
+                            # get which button player pressed during inn scenario (rest or leave)-----------------------
+                            inn_button = inn_event_button(event)
+                            if inn_button == "rest":
+                                # if player has not yet rested this instance
+                                if not rested:
+                                    rest_clicked = True
+                                    info_text_1 = "You feel well rested."
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+
+                                # if player has already rested this instance
+                                else:
+                                    info_text_1 = "You've already rested."
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+
+                        # ----------------------------------------------------------------------------------------------
+                        # if player chooses to leave shop, set conditions to allow normal gameplay loop
+                        if inn_button == "leave":
+                            rest_clicked = False
+                            movement_able = True
+                            interacted = False
+                            info_update = True
+                            encounter_started = False
+                            in_inn = False
+                            in_district_over_world = True
+                            # reset rest condition and screen fade effect so next instance player can rest again
+                            rested = False
+                            faded_inn_screen = False
+
+                    # outside of inn event loop ------------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
+                    # if building is an inn in the seldon zone
+                    if building.name == "inn":
+
+                        # if player has just rested, fade inn screen back in with alpha value loop
+                        if rested:
+                            # so this only happens once and not each iteration
+                            if not faded_inn_screen:
+                                for alpha in range(0, 50):
+                                    seldon_district_inn.set_alpha(alpha)
+                                    screen.blit(seldon_district_inn, (0, 0))
+                                    # flip sleep screen to display -----------------------------------------------------
+                                    pygame.display.flip()
+
+                                faded_inn_screen = True
+
+                            else:
+                                seldon_district_inn.set_alpha(255)
+                                screen.blit(seldon_district_inn, (0, 0))
+
+                        if not rested:
+                            seldon_district_inn.set_alpha(255)
+                            screen.blit(seldon_district_inn, (0, 0))
+
+                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(rest_button.surf, rest_button.rect)
+                        screen.blit(leave_button.surf, leave_button.rect)
+                        screen.blit(message_box.surf, message_box.rect)
+
+                        # updates players inventory items if item is used in scenario (ex. health pot.)
+                        for item in player_items:
+                            screen.blit(item.surf, item.rect)
+
+                        text_info_draw()
+
+                        # ----------------------------------------------------------------------------------------------
+                        if rest_clicked:
+                            if not rested:
+
+                                # set sleep screen to fade in with alpha value loop. Flip each iteration to show
+                                for alpha in range(0, 255):
+                                    nera_sleep_screen.set_alpha(alpha)
+                                    screen.blit(nera_sleep_screen, (0, 0))
+
+                                    # flip sleep screen to display each iteration to show fade -------------------------
+                                    pygame.display.flip()
+
+                                # when rest happens, wait after flipping display to allow rest time
+                                # 1000 milliseconds = 1 second
+
+                                pygame.time.delay(2500)
+
+                                player.health = 100
+                                player.energy = 100
+                                rested = True
+
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in academia
+                if in_academia:
+
+                    # update players current inventory and status
+                    status_and_inventory_updates()
+
+                    # inn scenario event loop
+                    # --------------------------------------------------------------------------------------------------
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+                            if event.key == K_ESCAPE:
+                                exit()
+
+                        # function to handle inventory item clicks. apply item message to message box if not empty str.
+                        inventory_event = inventory_click_handler()
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                            info_update = True
+
+                        elif event.type == QUIT:
+                            exit()
+
+                        # ----------------------------------------------------------------------------------------------
+                        academia = pygame.sprite.spritecollideany(player, buildings)
+                        if building.name == "academia":
+                            # if player has just started inn scenario, clear message box
+                            if not encounter_started:
+                                info_text_1 = ""
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+                                encounter_started = True
+
+                            # get which button player pressed during inn scenario (rest or leave)-----------------------
+                            academia_button = inn_event_button(event)
+                            if academia_button == "learn":
+                                # if player has not yet rested this instance
+                                if not learned:
+                                    rest_clicked = True
+                                    info_text_1 = "You feel well rested."
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+
+                        # ----------------------------------------------------------------------------------------------
+                        # if player chooses to leave shop, set conditions to allow normal gameplay loop
+                        if academia_button == "leave":
+                            learn_clicked = False
+                            movement_able = True
+                            interacted = False
+                            info_update = True
+                            encounter_started = False
+                            in_academia = False
+                            in_district_over_world = True
+
+                    # outside of inn event loop ------------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
+                    # if building is an inn in the seldon zone
+                    if building.name == "academia":
+                        screen.blit(seldon_district_academia, (0, 0))
+                        screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(learn_button.surf, learn_button.rect)
+                        screen.blit(leave_button.surf, leave_button.rect)
+                        screen.blit(message_box.surf, message_box.rect)
+
+                        # updates players inventory items if item is used in scenario (ex. health pot.)
+                        for item in player_items:
+                            screen.blit(item.surf, item.rect)
+
+                        text_info_draw()
+
+                        # ----------------------------------------------------------------------------------------------
+                        if learn_clicked:
+                            print("learn the things")
 
                 # end of iteration -------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
