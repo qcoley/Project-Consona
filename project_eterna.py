@@ -1,15 +1,12 @@
-import os
 import random
-import sys
 import time
 
 import pygame
 from pygame.locals import *
 
-import resource_urls
 import bar_updates
+import resource_urls
 import screen_scaling
-
 
 # global variables -----------------------------------------------------------------------------------------------------
 SCREEN_WIDTH = 1024
@@ -950,27 +947,25 @@ def enemy_respawn():
     ghoul_counter = 0
 
     # generate random coordinates and level for new enemy to spawn within boundaries and level range
+    # if not scaled, coordinates set to default boundaries
+    random_snake_x = random.randrange(150, 300)
+    random_snake_y = random.randrange(150, 300)
+    random_snake_level = random.randrange(1, 4)
+    random_ghoul_x = random.randrange(650, 900)
+    random_ghoul_y = random.randrange(150, 300)
+    random_ghoul_level = random.randrange(3, 6)
+
+    # if scaled, apply scaled coordinates for boundaries
     if scaled_1024:
         random_snake_x = random.randrange(120, 240)
         random_snake_y = random.randrange(120, 240)
-        random_snake_level = random.randrange(1, 4)
         random_ghoul_x = random.randrange(520, 720)
         random_ghoul_y = random.randrange(120, 240)
-        random_ghoul_level = random.randrange(3, 6)
-    if scaled_1280:
-        random_snake_x = random.randrange(150, 300)
-        random_snake_y = random.randrange(150, 300)
-        random_snake_level = random.randrange(1, 4)
-        random_ghoul_x = random.randrange(650, 900)
-        random_ghoul_y = random.randrange(150, 300)
-        random_ghoul_level = random.randrange(3, 6)
     if scaled_1600:
         random_snake_x = random.randrange(188, 375)
         random_snake_y = random.randrange(188, 375)
-        random_snake_level = random.randrange(1, 4)
         random_ghoul_x = random.randrange(812, 1125)
         random_ghoul_y = random.randrange(188, 375)
-        random_ghoul_level = random.randrange(3, 6)
 
     # count current enemies active in game
     for mob in enemies:
@@ -981,6 +976,14 @@ def enemy_respawn():
 
     # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
     if snake_counter < 3:
+        # if not scaled, set images attributed to enemy with default values
+        new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+                          Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url,
+                               (255, 255, 255), "1280"), resource_urls.snake_url, (255, 255, 255),
+                          UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False,
+                                    "1280"),
+                          "1280")
+        # if scaled, then set enemy with images attributed to current resolution
         if scaled_1024:
             new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
                               Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url_1024,
@@ -988,13 +991,6 @@ def enemy_respawn():
                               UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255),
                                         False, "1024"),
                               "1024")
-        if scaled_1280:
-            new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                              Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url,
-                                   (255, 255, 255), "1280"), resource_urls.snake_url, (255, 255, 255),
-                              UiElement("snake hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False,
-                                        "1280"),
-                              "1280")
         if scaled_1600:
             new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
                               Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url_1600,
@@ -1008,6 +1004,12 @@ def enemy_respawn():
 
     # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
     if ghoul_counter < 3:
+        new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
+                          Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url,
+                               (255, 255, 255), "1280"), resource_urls.ghoul_url, (255, 255, 255),
+                          UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False,
+                                    "1280"),
+                          "1280")
         if scaled_1024:
             new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
                               Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url_1024,
@@ -1015,13 +1017,6 @@ def enemy_respawn():
                               UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255),
                                         False, "1024"),
                               "1024")
-        if scaled_1280:
-            new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
-                              Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url,
-                                   (255, 255, 255), "1280"), resource_urls.ghoul_url, (255, 255, 255),
-                              UiElement("ghoul hp bar", 700, 90, resource_urls.health_100_url, (255, 255, 255), False,
-                                        "1280"),
-                              "1280")
         if scaled_1600:
             new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
                               Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url_1600,
@@ -1575,6 +1570,8 @@ item_bought = False
 item_sold = False
 # condition to check if player has rested in an inn
 rested = False
+# condition to check if player has a learned a skill from the academia
+learned = False
 # conditions to check current screen size scaling
 scaled_1024 = False
 scaled_1280 = True

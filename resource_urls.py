@@ -110,7 +110,7 @@ seldon_shop_screen_url_1600 = resource_path('resources/art/environment_art/backg
 seldon_inn_screen_url_1024 = resource_path('resources/art/environment_art/background_textures/seldon_inn_1024.png')
 seldon_inn_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_inn.png')
 seldon_inn_screen_url_1600 = resource_path('resources/art/environment_art/background_textures/seldon_inn_1600.png')
-seldon_academia_screen_url_1024 = resource_path('resources/art/environment_art/background_textures/ '
+seldon_academia_screen_url_1024 = resource_path('resources/art/environment_art/background_textures/'
                                                 'seldon_academia_1024.png')
 seldon_academia_screen_url = resource_path('resources/art/environment_art/background_textures/seldon_academia.png')
 seldon_academia_screen_url_1600 = resource_path('resources/art/environment_art/background_textures/'
