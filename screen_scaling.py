@@ -64,8 +64,12 @@ def screen_scaling(object_to_scale):
 
         if object_to_scale.name == "skill bar":
             return resource_urls.skill_bar_url_1024
-        if object_to_scale.name == "attack button":
+        if object_to_scale.name == "mage attack button":
             return resource_urls.mage_attack_button_url_1024
+        if object_to_scale.name == "fighter attack button":
+            return resource_urls.fighter_attack_button_url_1024
+        if object_to_scale.name == "scout attack button":
+            return resource_urls.scout_attack_button_url_1024
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url_1024
         if object_to_scale.name == "stan battle":
@@ -145,8 +149,12 @@ def screen_scaling(object_to_scale):
 
         if object_to_scale.name == "skill bar":
             return resource_urls.skill_bar_url
-        if object_to_scale.name == "attack button":
+        if object_to_scale.name == "mage attack button":
             return resource_urls.mage_attack_button_url
+        if object_to_scale.name == "fighter attack button":
+            return resource_urls.fighter_attack_button_url
+        if object_to_scale.name == "scout attack button":
+            return resource_urls.scout_attack_button_url
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url
         if object_to_scale.name == "stan battle":
@@ -226,8 +234,12 @@ def screen_scaling(object_to_scale):
 
         if object_to_scale.name == "skill bar":
             return resource_urls.skill_bar_url_1600
-        if object_to_scale.name == "attack button":
+        if object_to_scale.name == "mage attack button":
             return resource_urls.mage_attack_button_url_1600
+        if object_to_scale.name == "fighter attack button":
+            return resource_urls.fighter_attack_button_url_1600
+        if object_to_scale.name == "scout attack button":
+            return resource_urls.scout_attack_button_url_1600
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url_1600
         if object_to_scale.name == "stan battle":

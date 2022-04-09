@@ -23,7 +23,7 @@ vec = pygame.math.Vector2
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, name, gender, race, role, items, equipment, current_quest, quest_status, quest_dictionary,
-                 statistics, skills, level, experience, health, energy, alive_status, rupees, reputation, mount,
+                 knowledge, skills, level, experience, health, energy, alive_status, rupees, reputation, mount,
                  current_zone):
 
         super(Player, self).__init__()
@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
         self.current_quest = current_quest
         self.quest_status = quest_status
         self.quest_dictionary = quest_dictionary
-        self.statistics = statistics
+        self.knowledge = knowledge
         self.skills = skills
         self.level = level
         self.experience = experience
@@ -477,11 +477,11 @@ class BattleCharacter(pygame.sprite.Sprite):
 
 class Item(pygame.sprite.Sprite):
 
-    def __init__(self, name, model, x_coordinate, y_coordinate, image, color, image_size):
+    def __init__(self, name, type, x_coordinate, y_coordinate, image, color, image_size):
         super(Item, self).__init__()
 
         self.name = name
-        self.model = model
+        self.type = type
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = pygame.image.load(image).convert()
@@ -628,26 +628,6 @@ def attack_scenario(enemy_combating, combat_event):
         else:
             print("\nThis enemy appears to be dead already!")
 
-    if combat_event == "run":
-
-        # 50% chance of player escaping encounter
-        escape_chance = random.randrange(0, 50)
-        if escape_chance > 25:
-            # add dialog for escape if successful. just overwrites first message in dictionary
-            combat_event_dictionary["damage done"] = "You got away safely."
-            # boolean to add to dictionary and return to main function if escape was successful
-            combat_event_dictionary["escaped"] = True
-
-            return combat_event_dictionary
-
-        else:
-            # add dialog for escape if not successful. just overwrites first message in dictionary
-            combat_event_dictionary["damage done"] = f"{enemy_combating.name} blocked your escape."
-            # boolean to add to dictionary and return to main function if escape was successful
-            combat_event_dictionary["escaped"] = False
-
-            return combat_event_dictionary
-
 
 # ----------------------------------------------------------------------------------------------------------------------
 # player attacks enemy, gets damage to enemy done based on player's role and equipment ---------------------------------
@@ -660,49 +640,22 @@ def attack_enemy(mob):
     else:
         difference = 1
 
-    # fighters do more damage with 2-handed weapons
     if player.role == "fighter":
-        if player.equipment[0] == "2H":
-            # do damage to enemy from 10-35 divided by level difference. ex. 20 dmg // 4 level = 5 overall dmg
-            # level difference based on player and enemies level. player lvl 5, enemy lvl 10 = 5 difference
-            damage = (random.randrange(10, 35) // difference)
-            # includes player strength stat to scale overall damage
-            # stat_scale = damage * player.statistics[5]
+        # do damage to enemy from 10-35 divided by level difference. ex. 20 dmg // 4 level diff. = 5 overall dmg
+        damage = (random.randrange(10, 20) // difference)
+        return damage
 
-            return damage
-
-        else:
-            damage = (random.randrange(1, 10) // difference)
-
-            return damage
-
-    # mages do more damage with magic weapons
     if player.role == "mage":
-        if player.equipment[0] == "magic":
-            damage = (random.randrange(10, 35) // difference)
-            # includes player wisdom stat to scale overall damage
-            # stat_scale = (damage * player.statistics[7]) // 2
+        damage = (random.randrange(20, 40) // difference)
+        return damage
 
-            return damage
+    if player.role == "scout":
+        damage = (random.randrange(15, 30) // difference)
+        return damage
 
-        else:
-            damage = (random.randrange(1, 10) // difference)
-
-            return damage
-
-    # rogues do more damage with 1-handed weapons
-    if player.role == "rogue":
-        if player.equipment[0] == "1H":
-            damage = (random.randrange(10, 35) // difference)
-            # includes player strength stat to scale overall damage (strength will be higher for rogues)
-            # stat_scale = damage * player.statistics[5]
-
-            return damage
-
-        else:
-            damage = (random.randrange(1, 10) // difference)
-
-            return damage
+    else:
+        damage = (random.randrange(1, 5) // difference)
+        return damage
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -719,20 +672,22 @@ def attack_player(mob):
     if difference >= 3:
         base_damage = base_damage + 8
 
-    # heavily armored character will take less damage
-    if player.equipment[2] == "heavy":
-        final_damage = base_damage - 10
-        return final_damage
+    if player.equipment["chest"] != "":
 
-    # lightly armored character will take most damage
-    elif player.equipment[2] == "light":
-        final_damage = base_damage - 4
-        return final_damage
+        # heavily armored character will take less damage
+        if player.equipment["chest"].type == "heavy":
+            final_damage = base_damage - 14
+            return final_damage
 
-    # medium armored character will take more damage
-    elif player.equipment[2] == "medium":
-        final_damage = base_damage - 7
-        return final_damage
+        # lightly armored character will take most damage
+        elif player.equipment["chest"].type == "light":
+            final_damage = base_damage - 3
+            return final_damage
+
+        # medium armored character will take more damage
+        elif player.equipment["chest"].type == "medium":
+            final_damage = base_damage - 8
+            return final_damage
 
     # player is not wearing armor, return full damage
     else:
@@ -746,10 +701,6 @@ def level_up():
 
     if player.level < 20:
         if player.role == "fighter":
-            player.statistics[1] = player.statistics[1] + 3  # vitality
-            player.statistics[3] = player.statistics[3] + 1  # intellect
-            player.statistics[5] = player.statistics[5] + 2  # strength
-            player.statistics[7] = player.statistics[7] + 1  # wisdom
             player.level = player.level + 1
 
             # reset player health, energy and experience points
@@ -757,15 +708,10 @@ def level_up():
             player.energy = 100
             player.experience = 0
             level_up_dictionary["new level"] = "You are now level: " + f"{player.level}"
-            level_up_dictionary["player stats"] = f"{player.statistics}"
 
             return level_up_dictionary
 
         if player.role == "mage":
-            player.statistics[1] = player.statistics[1] + 1  # vitality
-            player.statistics[3] = player.statistics[3] + 2  # intellect
-            player.statistics[5] = player.statistics[5] + 1  # strength
-            player.statistics[7] = player.statistics[7] + 3  # wisdom
             player.level = player.level + 1
 
             # reset player health, energy and experience points
@@ -773,15 +719,10 @@ def level_up():
             player.energy = 100
             player.experience = 0
             level_up_dictionary["new level"] = "You are now level: " + f"{player.level}"
-            level_up_dictionary["player stats"] = f"{player.statistics}"
 
             return level_up_dictionary
 
-        if player.role == "rogue":
-            player.statistics[1] = player.statistics[1] + 2  # vitality
-            player.statistics[3] = player.statistics[3] + 1  # intellect
-            player.statistics[5] = player.statistics[5] + 3  # strength
-            player.statistics[7] = player.statistics[7] + 1  # wisdom
+        if player.role == "scout":
             player.level = player.level + 1
 
             # reset player health, energy and experience points
@@ -789,7 +730,6 @@ def level_up():
             player.energy = 100
             player.experience = 0
             level_up_dictionary["new level"] = "You are now level: " + f"{player.level}"
-            level_up_dictionary["player stats"] = f"{player.statistics}"
 
             return level_up_dictionary
 
@@ -834,10 +774,14 @@ def combat_event_button(combat_event):
         combat_mouse = pygame.mouse.get_pos()
 
         # if mouse rect collides with attack button, skill button or run button return string representing it
-        if attack_button.rect.collidepoint(combat_mouse):
+        if mage_attack_button.rect.collidepoint(combat_mouse):
             return "attack"
-        # if skill_button.rect.collidepoint(combat_mouse):
-        # return "skill"
+
+        if fighter_attack_button.rect.collidepoint(combat_mouse):
+            return "attack"
+
+        if scout_attack_button.rect.collidepoint(combat_mouse):
+            return "attack"
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -885,6 +829,47 @@ def inventory_event_item(inventory_event_here):
             if clicked_element[0].name == "shiny rock":
                 return clicked_element[0]
             if clicked_element[0].name == "bone dust":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic staff":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic sword":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic bow":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic robes":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic armor":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic tunic":
+                return clicked_element[0]
+
+        except IndexError:
+            pass
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# getting item player clicked based on it's name and return the corresponding item, for clicking on inventory items
+def equipment_event_item(equipment_event_here):
+    if equipment_event_here.type == pygame.MOUSEBUTTONUP:
+        equipment_mouse = pygame.mouse.get_pos()
+
+        # list of sprites that collided with mouse cursor rect
+        clicked_element = [equipment_element for equipment_element in player_equipment
+                           if equipment_element.rect.collidepoint(equipment_mouse)]
+
+        # try to get inventory item player clicked based on it's name and return it
+        try:
+            if clicked_element[0].name == "basic staff":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic sword":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic bow":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic robes":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic armor":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic tunic":
                 return clicked_element[0]
 
         except IndexError:
@@ -1030,10 +1015,22 @@ def enemy_respawn():
 
 
 def status_and_inventory_updates():
-    # update players status bars -----------------------------------------------------------------------
+    # update players status bars ---------------------------------------------------------------------------------------
     health_bar_update(player)
     energy_bar_update(player)
     xp_bar_update(player)
+
+    # set player's current role based on the type of weapon they have equipped -----------------------------------------
+    if player.equipment["weapon"] != "":
+        if player.equipment["weapon"].type == "mage":
+            player.role = "mage"
+        if player.equipment["weapon"].type == "fighter":
+            player.role = "fighter"
+        if player.equipment["weapon"].type == "scout":
+            player.role = "scout"
+    else:
+        player.role = ""
+    # ------------------------------------------------------------------------------------------------------------------
 
     # update function will reset coordinates so fix scaling here for 1600x900 (temp. solution maybe)
     if scaled_1600:
@@ -1064,78 +1061,152 @@ def status_and_inventory_updates():
             first_coord = first_coord - 2
             second_coord = second_coord - 2
 
-        inventory_counter = 0
-        # go through player items and assign inventory slots (coordinates) to them
-        for item_here in player.items:
-            if scaled_1024:
-                if item_here.name == "health potion":
-                    item_here.update(first_coord, second_coord, resource_urls.health_pot_url_1024)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "energy potion":
-                    item_here.update(first_coord, second_coord, resource_urls.energy_pot_url_1024)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "shiny rock":
-                    item_here.update(first_coord, second_coord, resource_urls.shiny_rock_url_1024)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "bone dust":
-                    item_here.update(first_coord, second_coord, resource_urls.bone_dust_url_1024)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-            if scaled_1280:
-                if item_here.name == "health potion":
-                    item_here.update(first_coord, second_coord, resource_urls.health_pot_url)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "energy potion":
-                    item_here.update(first_coord, second_coord, resource_urls.energy_pot_url)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "shiny rock":
-                    item_here.update(first_coord, second_coord, resource_urls.shiny_rock_url)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "bone dust":
-                    item_here.update(first_coord, second_coord, resource_urls.bone_dust_url)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-            if scaled_1600:
-                if item_here.name == "health potion":
-                    item_here.update(first_coord, second_coord, resource_urls.health_pot_url_1600)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "energy potion":
-                    item_here.update(first_coord, second_coord, resource_urls.energy_pot_url_1600)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "shiny rock":
-                    item_here.update(first_coord, second_coord, resource_urls.shiny_rock_url_1600)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "bone dust":
-                    item_here.update(first_coord, second_coord, resource_urls.bone_dust_url_1600)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-
-            # add 75 to the items x-coordinate value so the next item will be added to next slot
-            first_coord += 60
-            if scaled_1024:
-                first_coord = first_coord - 13.2
-            if scaled_1600:
-                first_coord = first_coord + 2
-
-            # add 60 to items y coordinate value if the first row of (4) slots has been filled
-            # reset first coordinate and counter to start in the leftmost slot again
-            if inventory_counter > 3:
-                second_coord += 60
-                first_coord = 1063
-                inventory_counter = 0
+        try:
+            inventory_counter = 0
+            # go through player items and assign inventory slots (coordinates) to them
+            for item_here in player.items:
                 if scaled_1024:
-                    first_coord = first_coord * .80
-                    second_coord = second_coord * .80 + 80
+                    if item_here.name == "health potion":
+                        item_here.update(first_coord, second_coord, resource_urls.health_pot_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "energy potion":
+                        item_here.update(first_coord, second_coord, resource_urls.energy_pot_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "shiny rock":
+                        item_here.update(first_coord, second_coord, resource_urls.shiny_rock_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "bone dust":
+                        item_here.update(first_coord, second_coord, resource_urls.bone_dust_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic staff":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_staff_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic sword":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_sword_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic bow":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_bow_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic robes":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_robes_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic armor":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_armor_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic tunic":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_tunic_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                if scaled_1280:
+                    if item_here.name == "health potion":
+                        item_here.update(first_coord, second_coord, resource_urls.health_pot_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "energy potion":
+                        item_here.update(first_coord, second_coord, resource_urls.energy_pot_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "shiny rock":
+                        item_here.update(first_coord, second_coord, resource_urls.shiny_rock_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "bone dust":
+                        item_here.update(first_coord, second_coord, resource_urls.bone_dust_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic staff":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_staff_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic sword":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_sword_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic bow":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_bow_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic robes":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_robes_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic armor":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_armor_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic tunic":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_tunic_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                if scaled_1600:
+                    if item_here.name == "health potion":
+                        item_here.update(first_coord, second_coord, resource_urls.health_pot_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "energy potion":
+                        item_here.update(first_coord, second_coord, resource_urls.energy_pot_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "shiny rock":
+                        item_here.update(first_coord, second_coord, resource_urls.shiny_rock_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "bone dust":
+                        item_here.update(first_coord, second_coord, resource_urls.bone_dust_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic staff":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_staff_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic sword":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_sword_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic bow":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_bow_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic robes":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_robes_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic armor":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_armor_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "basic tunic":
+                        item_here.update(first_coord, second_coord, resource_urls.basic_tunic_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
 
+                # add 75 to the items x-coordinate value so the next item will be added to next slot
+                first_coord += 60
+                if scaled_1024:
+                    first_coord = first_coord - 13.2
+                if scaled_1600:
+                    first_coord = first_coord + 2
+
+                # add 60 to items y coordinate value if the first row of (4) slots has been filled
+                # reset first coordinate and counter to start in the leftmost slot again
+                if inventory_counter > 3:
+                    second_coord += 60
+                    first_coord = 1063
+                    inventory_counter = 0
+                    if scaled_1024:
+                        first_coord = first_coord * .80
+                        second_coord = second_coord * .80 + 80
+        except AttributeError:
+            pass
         # updates players inventory items if item is used in combat scenario (ex. health pot.)
         for item_here in player_items:
             screen.blit(item_here.surf, item_here.rect)
@@ -1150,7 +1221,6 @@ def inventory_click_handler():
         if inventory_item.name == "health potion":
             if player.health == 100:
                 return_dict["item message"] = "You're already at full health."
-
             else:
                 player.health = player.health + 40
                 # if health potion heals over 100 hp, just set to 100 (max health)
@@ -1163,7 +1233,6 @@ def inventory_click_handler():
         elif inventory_item.name == "energy potion":
             if player.energy == 100:
                 return_dict["item message"] = "You're already at full energy."
-
             else:
                 player.energy = player.energy + 40
                 # if energy potion energizes over 100 hp, just set to 100 (max energy)
@@ -1175,9 +1244,186 @@ def inventory_click_handler():
 
         elif inventory_item.name == "shiny rock":
             return_dict["item message"] = "Oh, shiny. Maybe you can sell it?"
-
         elif inventory_item.name == "bone dust":
             return_dict["item message"] = "Eh, dusty. Maybe you can sell it?"
+
+        elif inventory_item.name == "basic staff":
+            if player.equipment["weapon"] == "":
+                player.equipment["weapon"] = basic_staff
+                player_items.remove(inventory_item)
+                player.items.remove(inventory_item)
+                return_dict["item message"] = "Basic Staff weapon equipped"
+        elif inventory_item.name == "basic sword":
+            if player.equipment["weapon"] == "":
+                player.equipment["weapon"] = basic_sword
+                player_items.remove(inventory_item)
+                player.items.remove(inventory_item)
+                return_dict["item message"] = "Basic Sword weapon equipped"
+        elif inventory_item.name == "basic bow":
+            if player.equipment["weapon"] == "":
+                player.equipment["weapon"] = basic_bow
+                player_items.remove(inventory_item)
+                player.items.remove(inventory_item)
+                return_dict["item message"] = "Basic Bow weapon equipped"
+
+        elif inventory_item.name == "basic robes":
+            if player.equipment["chest"] == "":
+                if player.role == "mage":
+                    player.equipment["chest"] = basic_robes
+                    player_items.remove(inventory_item)
+                    player.items.remove(inventory_item)
+                    return_dict["item message"] = "Basic Robes chest equipped"
+                else:
+                    return_dict["item message"] = "Only mages wear light armor."
+        elif inventory_item.name == "basic armor":
+            if player.equipment["chest"] == "":
+                if player.role == "fighter":
+                    player.equipment["chest"] = basic_armor
+                    player_items.remove(inventory_item)
+                    player.items.remove(inventory_item)
+                    return_dict["item message"] = "Basic Armor chest equipped"
+                else:
+                    return_dict["item message"] = "Only fighters wear heavy armor."
+        elif inventory_item.name == "basic tunic":
+            if player.equipment["chest"] == "":
+                if player.role == "scout":
+                    player.equipment["chest"] = basic_tunic
+                    player_items.remove(inventory_item)
+                    player.items.remove(inventory_item)
+                    return_dict["item message"] = "Basic Tunic chest equipped"
+                else:
+                    return_dict["item message"] = "Only scouts wear medium armor."
+
+    except AttributeError:
+        pass
+
+    return return_dict
+
+
+def equipment_updates():
+    player_equipment.clear()
+
+    if scaled_1024:
+        if player.equipment["weapon"] == basic_staff:
+            basic_staff.update(865, 228, resource_urls.basic_staff_url_1024)
+            player_equipment.append(basic_staff)
+        if player.equipment["weapon"] == basic_sword:
+            basic_sword.update(865, 228, resource_urls.basic_sword_url_1024)
+            player_equipment.append(basic_sword)
+        if player.equipment["weapon"] == basic_bow:
+            basic_bow.update(865, 228, resource_urls.basic_bow_url_1024)
+            player_equipment.append(basic_bow)
+        if player.equipment["chest"] == basic_robes:
+            basic_robes.update(923, 158, resource_urls.basic_robes_url_1024)
+            player_equipment.append(basic_robes)
+        if player.equipment["chest"] == basic_armor:
+            basic_armor.update(923, 158, resource_urls.basic_armor_url_1024)
+            player_equipment.append(basic_armor)
+        if player.equipment["chest"] == basic_tunic:
+            basic_tunic.update(923, 158, resource_urls.basic_tunic_url_1024)
+            player_equipment.append(basic_tunic)
+
+    if scaled_1280:
+        if player.equipment["weapon"] == basic_staff:
+            basic_staff.update(1078, 285, resource_urls.basic_staff_url)
+            player_equipment.append(basic_staff)
+        if player.equipment["weapon"] == basic_sword:
+            basic_sword.update(1078, 285, resource_urls.basic_sword_url)
+            player_equipment.append(basic_sword)
+        if player.equipment["weapon"] == basic_bow:
+            basic_bow.update(1078, 285, resource_urls.basic_bow_url)
+            player_equipment.append(basic_bow)
+        if player.equipment["chest"] == basic_robes:
+            basic_robes.update(1153, 195, resource_urls.basic_robes_url)
+            player_equipment.append(basic_robes)
+        if player.equipment["chest"] == basic_armor:
+            basic_armor.update(1153, 195, resource_urls.basic_armor_url)
+            player_equipment.append(basic_armor)
+        if player.equipment["chest"] == basic_tunic:
+            basic_tunic.update(1153, 195, resource_urls.basic_tunic_url)
+            player_equipment.append(basic_tunic)
+
+    if scaled_1600:
+        if player.equipment["weapon"] == basic_staff:
+            basic_staff.update(1080, 285, resource_urls.basic_staff_url_1600)
+            player_equipment.append(basic_staff)
+        if player.equipment["weapon"] == basic_sword:
+            basic_sword.update(1080, 285, resource_urls.basic_sword_url_1600)
+            player_equipment.append(basic_sword)
+        if player.equipment["weapon"] == basic_bow:
+            basic_bow.update(1080, 285, resource_urls.basic_bow_url_1600)
+            player_equipment.append(basic_bow)
+        if player.equipment["chest"] == basic_robes:
+            basic_robes.update(1155, 195, resource_urls.basic_robes_url_1600)
+            player_equipment.append(basic_robes)
+        if player.equipment["chest"] == basic_armor:
+            basic_armor.update(1155, 195, resource_urls.basic_armor_url_1600)
+            player_equipment.append(basic_armor)
+        if player.equipment["chest"] == basic_tunic:
+            basic_tunic.update(1155, 195, resource_urls.basic_tunic_url_1600)
+            player_equipment.append(basic_tunic)
+
+    # updates players inventory items if item is used in combat scenario (ex. health pot.)
+    for equipment_here in player_equipment:
+        screen.blit(equipment_here.surf, equipment_here.rect)
+
+
+def equipment_click_handler():
+    return_dict = {"equipment message": ""}
+    # inventory click handler ------------------------------------------------------------------------------------------
+    equipment_item = equipment_event_item(event)
+
+    try:
+        if equipment_item.name == "basic staff":
+            if len(player.items) < 15:
+                player.equipment["weapon"] = ""
+                player.items.append(player.equipment["chest"])
+                player.equipment["chest"] = ""
+                player.items.append(basic_staff)
+                return_dict["equipment message"] = "Basic Staff weapon un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+        if equipment_item.name == "basic sword":
+            if len(player.items) < 15:
+                player.equipment["weapon"] = ""
+                player.items.append(player.equipment["chest"])
+                player.equipment["chest"] = ""
+                player.items.append(basic_sword)
+                return_dict["equipment message"] = "Basic Sword weapon un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+        if equipment_item.name == "basic bow":
+            if len(player.items) < 15:
+                player.equipment["weapon"] = ""
+                player.items.append(player.equipment["chest"])
+                player.equipment["chest"] = ""
+                player.items.append(basic_bow)
+                return_dict["equipment message"] = "Basic Bow weapon un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+
+        if equipment_item.name == "basic robes":
+            if len(player.items) < 16:
+                player.equipment["chest"] = ""
+                player.items.append(basic_robes)
+                return_dict["equipment message"] = "Basic Robes chest un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+        if equipment_item.name == "basic armor":
+            if len(player.items) < 16:
+                player.equipment["chest"] = ""
+                player.items.append(basic_armor)
+                return_dict["equipment message"] = "Basic Armor chest un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+        if equipment_item.name == "basic tunic":
+            if len(player.items) < 16:
+                player.equipment["chest"] = ""
+                player.items.append(basic_tunic)
+                return_dict["equipment message"] = "Basic Tunic chest un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+
     except AttributeError:
         pass
 
@@ -1189,21 +1435,21 @@ def text_info_draw():
     text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
     text_rupee_rect = text_rupee_surf.get_rect()
     if scaled_1024:
-        text_rupee_rect.center = (1225 * .80, 362 * .80)
+        text_rupee_rect.center = (1120 * .80, 693 * .80)
     if scaled_1280:
-        text_rupee_rect.center = (1225, 362)
+        text_rupee_rect.center = (1120, 693)
     if scaled_1600:
-        text_rupee_rect.center = (1225 / .80, 362 / .80)
+        text_rupee_rect.center = (1120 / .80, 693 / .80)
     screen.blit(text_rupee_surf, text_rupee_rect)
     # get current player district and create surf and rectangle to blit to screen---------------------------------------
     text_zone_surf = font.render(str(player.current_zone), True, "black", "light yellow")
     text_zone_rect = text_zone_surf.get_rect()
     if scaled_1024:
-        text_zone_rect.center = (1120 * .80, 693 * .80)
+        text_zone_rect.center = (1225 * .80, 693 * .80)
     if scaled_1280:
-        text_zone_rect.center = (1120, 693)
+        text_zone_rect.center = (1225, 693)
     if scaled_1600:
-        text_zone_rect.center = (1120 / .80, 693 / .80)
+        text_zone_rect.center = (1225 / .80, 693 / .80)
     screen.blit(text_zone_surf, text_zone_rect)
     # get current player district and create surf and rectangle to blit to screen---------------------------------------
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
@@ -1215,6 +1461,16 @@ def text_info_draw():
     if scaled_1600:
         text_level_rect.center = (1105 / .80, 362 / .80)
     screen.blit(text_level_surf, text_level_rect)
+    # get current player role and create surf and rectangle to blit to screen---------------------------------------
+    text_role_surf = font.render(str(player.role), True, "black", "light yellow")
+    text_role_rect = text_role_surf.get_rect()
+    if scaled_1024:
+        text_role_rect.center = (1105 * .80, 362 * .80)
+    if scaled_1280:
+        text_role_rect.center = (1220, 362)
+    if scaled_1600:
+        text_role_rect.center = (1105 / .80, 362 / .80)
+    screen.blit(text_role_surf, text_role_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
     text_info_rect_1 = text_info_surf_1.get_rect()
@@ -1287,15 +1543,26 @@ energy_potion = Item("energy potion", "potion", 200, 200, resource_urls.energy_p
 shiny_rock = Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock_url, (255, 255, 255), "1280")
 bone_dust = Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (255, 255, 255), "1280")
 
+# starter equipment ----------------------------------------------------------------------------------------------------
+basic_staff = Item("basic staff", "mage", 200, 200, resource_urls.basic_staff_url, (255, 255, 255), "1280")
+basic_sword = Item("basic sword", "fighter", 200, 200, resource_urls.basic_sword_url, (255, 255, 255), "1280")
+basic_bow = Item("basic bow", "scout", 200, 200, resource_urls.basic_bow_url, (255, 255, 255), "1280")
+basic_robes = Item("basic robes", "light", 200, 200, resource_urls.basic_robes_url, (255, 255, 255), "1280")
+basic_armor = Item("basic armor", "heavy", 200, 200, resource_urls.basic_armor_url, (255, 255, 255), "1280")
+basic_tunic = Item("basic tunic", "medium", 200, 200, resource_urls.basic_tunic_url, (255, 255, 255), "1280")
+
 # default player character ---------------------------------------------------------------------------------------------
-player = Player("player", "male", "amuna", "mage",  # name, gender, race, role
-                [health_potion, energy_potion, shiny_rock, bone_dust],  # inventory
-                ["magic", "basic staff", "medium", "green robes"],  # equipment ('type', 'name')
+player = Player("player", "female", "amuna", "",  # name, gender, race, role
+                [health_potion, energy_potion, shiny_rock, bone_dust, basic_sword, basic_bow, basic_armor, basic_tunic],
+                # inventory
+                {"weapon": basic_staff, "chest": basic_robes},  # equipment ('type', 'name')
                 # current quest, quest status (x/4), quest dictionary (quest: done)
-                [""], 0, {"Sneaky Snakes": False, "Village Repairs": False, "Ghoulish Ghosts": False},
-                ["vitality", 1, "intellect", 3, "strength", 1, "wisdom", 2],  # stats ('stat', 'amount')
-                ["barrier"], 1, 5, 100, 100,  # skills, lvl, exp, health, energy
-                True, 20, ["amuna", 10, "nuldar", 0, "sorae", 0], "", "")  # alive, rupees, reputation, mount, zone
+                [""], {"sneaky_snakes": 0, "village_repairs": 0, "ghouled_again": 0},
+                {"sneaky_snakes": False, "village_repairs": False, "ghouled_again": False},
+                {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
+                {}, 1, 0, 100, 100,  # skills, lvl, exp, health, energy
+                True, 20, {"amuna": 10, "nuldar": 0, "sorae": 0}, "", "")  # alive, rupees, reputation, mount,
+# zone, magic knowledge, fighter knowledge, scout knowledge
 
 # nps: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate --------------------------
 #                  alive_status, quest_complete, items, gift, image, color
@@ -1435,10 +1702,16 @@ learn_button = UiElement("learn button", 860, 680, resource_urls.learn_button_ur
                          "1280")
 unstuck_button = UiElement("unstuck button", 970, 25, resource_urls.unstuck_button_url, (255, 255, 255), False,
                            "1280")
+# ----------------------------------------------------------------------------------------------------------------------
 skill_bar = UiElement("skill bar", 855, 627, resource_urls.skill_bar_url, (255, 255, 255), False,
                       "1280")
-attack_button = UiElement("attack button", 750, 627, resource_urls.mage_attack_button_url, (255, 255, 255), False,
-                          "1280")
+mage_attack_button = UiElement("mage attack button", 750, 627, resource_urls.mage_attack_button_url,
+                               (255, 255, 255), False, "1280")
+fighter_attack_button = UiElement("fighter attack button", 750, 627, resource_urls.fighter_attack_button_url,
+                                  (255, 255, 255), False, "1280")
+scout_attack_button = UiElement("scout attack button", 750, 627, resource_urls.scout_attack_button_url,
+                                (255, 255, 255), False, "1280")
+# ----------------------------------------------------------------------------------------------------------------------
 enemy_status = UiElement("enemy status", 855, 680, resource_urls.enemy_status_url, (255, 255, 255), False,
                          "1280")
 hp_bar = UiElement("health bar", 170, 25, resource_urls.health_100_url, (255, 255, 255), False,
@@ -1514,7 +1787,7 @@ environment_objects.add(trees, buildings)
 quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4)
 # battle element sprites for combat scenario ---------------------------------------------------------------------------
 battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status, skill_bar,
-                    attack_button)
+                    mage_attack_button)
 # adding most sprites to this group for drawing and related functions
 most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items, enemies)
 # adding these sprites to a scaling sprite group which is used to reference sprites that should be scaled
@@ -1588,6 +1861,8 @@ zone_marrow = False
 
 # list to contain current player items for display
 player_items = []
+# list to contain current player equipment for display
+player_equipment = []
 # list to contain buy inventory window for display within shop
 buy_shop_elements = []
 # list to contain current shop items for display
@@ -1835,6 +2110,8 @@ while game_running:
                     text_info_draw()
                     # update players current inventory and status
                     status_and_inventory_updates()
+                    # update players current equipment
+                    equipment_updates()
 
                     # if battle happened, get battle info (item or experience gained) and apply to message box
                     if battle_info_to_return_to_main_loop["item dropped"] != "":
@@ -1901,6 +2178,13 @@ while game_running:
                         inventory_event = inventory_click_handler()
                         if inventory_event["item message"] != "":
                             info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                            info_update = True
+
+                        # function to handle inventory item clicks. apply item message to message box if not empty str.
+                        equipment_event = equipment_click_handler()
+                        if equipment_event["equipment message"] != "":
+                            info_text_1 = equipment_event["equipment message"]
                             info_text_2 = ""
                             info_update = True
 
@@ -2070,6 +2354,8 @@ while game_running:
 
                     # update players current inventory and status
                     status_and_inventory_updates()
+                    # update players current equipment
+                    equipment_updates()
 
                     # battle scenario event loop
                     # --------------------------------------------------------------------------------------------------
@@ -2211,6 +2497,15 @@ while game_running:
                                         # set combat happened false, allowing iterations to continue without cooldown
                                         # reset encounter_started condition so that next enemy will clear message box
                                         if combat_events["enemy defeated"]:
+
+                                            # player will gain knowledge based on their current role
+                                            if player.role == "mage":
+                                                player.knowledge["mage"] += 10
+                                            if player.role == "fighter":
+                                                player.knowledge["fighter"] += 10
+                                            if player.role == "scout":
+                                                player.knowledge["scout"] += 10
+
                                             movement_able = True
                                             combat_happened = False
                                             interacted = False
@@ -2231,7 +2526,12 @@ while game_running:
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(skill_bar.surf, skill_bar.rect)
-                            screen.blit(attack_button.surf, attack_button.rect)
+                            if player.role == "mage":
+                                screen.blit(mage_attack_button.surf, mage_attack_button.rect)
+                            if player.role == "fighter":
+                                screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
+                            if player.role == "scout":
+                                screen.blit(scout_attack_button.surf, scout_attack_button.rect)
                             if enemy.name == "snake":
                                 screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                             if enemy.name == "ghoul":
@@ -2262,6 +2562,8 @@ while game_running:
                             # updates players inventory items if item is used in combat scenario (ex. health pot.)
                             for item in player_items:
                                 screen.blit(item.surf, item.rect)
+                            for equipment in player_equipment:
+                                screen.blit(equipment.surf, equipment.rect)
 
                             text_info_draw()
 
@@ -2377,6 +2679,7 @@ while game_running:
                 if in_shop:
 
                     status_and_inventory_updates()
+                    equipment_updates()
 
                     # shop scenario event loop
                     # --------------------------------------------------------------------------------------------------
@@ -2622,6 +2925,8 @@ while game_running:
 
                         for item in player_items:
                             screen.blit(item.surf, item.rect)
+                        for equipment in player_equipment:
+                            screen.blit(equipment.surf, equipment.rect)
 
                         text_info_draw()
 
@@ -2639,8 +2944,8 @@ while game_running:
                 # if player is in inn
                 if in_inn:
 
-                    # update players current inventory and status
                     status_and_inventory_updates()
+                    equipment_updates()
 
                     # inn scenario event loop
                     # --------------------------------------------------------------------------------------------------
@@ -2649,10 +2954,14 @@ while game_running:
                             if event.key == K_ESCAPE:
                                 exit()
 
-                        # function to handle inventory item clicks. apply item message to message box if not empty str.
                         inventory_event = inventory_click_handler()
                         if inventory_event["item message"] != "":
                             info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                            info_update = True
+                        equipment_event = equipment_click_handler()
+                        if equipment_event["equipment message"] != "":
+                            info_text_1 = equipment_event["equipment message"]
                             info_text_2 = ""
                             info_update = True
 
@@ -2735,9 +3044,10 @@ while game_running:
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
 
-                        # updates players inventory items if item is used in scenario (ex. health pot.)
                         for item in player_items:
                             screen.blit(item.surf, item.rect)
+                        for equipment in player_equipment:
+                            screen.blit(equipment.surf, equipment.rect)
 
                         text_info_draw()
 
@@ -2767,8 +3077,8 @@ while game_running:
                 # if player is in academia
                 if in_academia:
 
-                    # update players current inventory and status
                     status_and_inventory_updates()
+                    equipment_updates()
 
                     # inn scenario event loop
                     # --------------------------------------------------------------------------------------------------
@@ -2777,10 +3087,14 @@ while game_running:
                             if event.key == K_ESCAPE:
                                 exit()
 
-                        # function to handle inventory item clicks. apply item message to message box if not empty str.
                         inventory_event = inventory_click_handler()
                         if inventory_event["item message"] != "":
                             info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                            info_update = True
+                        equipment_event = equipment_click_handler()
+                        if equipment_event["equipment message"] != "":
+                            info_text_1 = equipment_event["equipment message"]
                             info_text_2 = ""
                             info_update = True
 
@@ -2833,9 +3147,10 @@ while game_running:
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
 
-                        # updates players inventory items if item is used in scenario (ex. health pot.)
                         for item in player_items:
                             screen.blit(item.surf, item.rect)
+                        for equipment in player_equipment:
+                            screen.blit(equipment.surf, equipment.rect)
 
                         text_info_draw()
 
