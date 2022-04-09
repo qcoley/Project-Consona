@@ -182,6 +182,12 @@ nera_sleep_screen_url_1024 = resource_path('resources/art/screens/nera_sleep_scr
 nera_sleep_screen_url = resource_path('resources/art/screens/nera_sleep_screen.png')
 nera_sleep_screen_url_1600 = resource_path('resources/art/screens/nera_sleep_screen_1600.png')
 
+character_sheet_url_1024 = resource_path('resources/art/ui_elements/character_sheet_1024.png')
+character_sheet_url = resource_path('resources/art/ui_elements/character_sheet.png')
+character_sheet_url_1600 = resource_path('resources/art/ui_elements/character_sheet_1600.png')
+journal_url_1024 = resource_path('resources/art/ui_elements/journal_1024.png')
+journal_url = resource_path('resources/art/ui_elements/journal.png')
+journal_url_1600 = resource_path('resources/art/ui_elements/journal_1600.png')
 bar_backdrop_url = resource_path('resources/art/ui_elements/status_bar_backdrop.png')
 enemy_bar_backdrop_url = resource_path('resources/art/ui_elements/enemy_status_bar_backdrop.png')
 buy_inventory_url_1024 = resource_path('resources/art/ui_elements/buy_inventory_1024.png')

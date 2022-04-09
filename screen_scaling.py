@@ -86,6 +86,10 @@ def screen_scaling(object_to_scale):
             return resource_urls.buy_inventory_url_1024
         if object_to_scale.name == "message box":
             return resource_urls.message_box_url_1024
+        if object_to_scale.name == "character sheet":
+            return resource_urls.character_sheet_url_1024
+        if object_to_scale.name == "journal":
+            return resource_urls.journal_url_1024
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1280":
@@ -171,6 +175,10 @@ def screen_scaling(object_to_scale):
             return resource_urls.buy_inventory_url
         if object_to_scale.name == "message box":
             return resource_urls.message_box_url
+        if object_to_scale.name == "character sheet":
+            return resource_urls.character_sheet_url
+        if object_to_scale.name == "journal":
+            return resource_urls.journal_url
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1600":
@@ -256,4 +264,8 @@ def screen_scaling(object_to_scale):
             return resource_urls.buy_inventory_url_1600
         if object_to_scale.name == "message box":
             return resource_urls.message_box_url_1600
+        if object_to_scale.name == "character sheet":
+            return resource_urls.character_sheet_url_1600
+        if object_to_scale.name == "journal":
+            return resource_urls.journal_url_1600
 

@@ -22,7 +22,7 @@ vec = pygame.math.Vector2
 # class objects --------------------------------------------------------------------------------------------------------
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, name, gender, race, role, items, equipment, current_quest, quest_status, quest_dictionary,
+    def __init__(self, name, gender, race, role, items, equipment, current_quests, quest_progress, quest_status,
                  knowledge, skills, level, experience, health, energy, alive_status, rupees, reputation, mount,
                  current_zone):
 
@@ -42,9 +42,9 @@ class Player(pygame.sprite.Sprite):
         self.role = role
         self.items = items
         self.equipment = equipment
-        self.current_quest = current_quest
+        self.current_quests = current_quests
+        self.quest_progress = quest_progress
         self.quest_status = quest_status
-        self.quest_dictionary = quest_dictionary
         self.knowledge = knowledge
         self.skills = skills
         self.level = level
@@ -1513,6 +1513,190 @@ def text_info_draw():
     screen.blit(text_info_surf_4, text_info_rect_4)
 
 
+def character_sheet_info_draw():
+    text_name_surf = font.render(str(player.name), True, "black", "light yellow")
+    text_name_rect = text_name_surf.get_rect()
+    if scaled_1024:
+        text_name_rect.center = (650 * .80, 152 * .80)
+    if scaled_1280:
+        text_name_rect.center = (650, 152)
+    if scaled_1600:
+        text_name_rect.center = (650 / .80, 152 / .80)
+    text_race_surf = font.render(str(player.race), True, "black", "light yellow")
+    text_race_rect = text_race_surf.get_rect()
+    if scaled_1024:
+        text_race_rect.center = (642 * .80, 190 * .80)
+    if scaled_1280:
+        text_race_rect.center = (642, 190)
+    if scaled_1600:
+        text_race_rect.center = (642 / .80, 190 / .80)
+    text_gender_surf = font.render(str(player.gender), True, "black", "light yellow")
+    text_gender_rect = text_gender_surf.get_rect()
+    if scaled_1024:
+        text_gender_rect.center = (658 * .80, 228 * .80)
+    if scaled_1280:
+        text_gender_rect.center = (658, 228)
+    if scaled_1600:
+        text_gender_rect.center = (658 / .80, 228 / .80)
+    text_rolled_surf = font.render(str(player.role), True, "black", "light yellow")
+    text_rolled_rect = text_rolled_surf.get_rect()
+    if scaled_1024:
+        text_rolled_rect.center = (630 * .80, 267 * .80)
+    if scaled_1280:
+        text_rolled_rect.center = (630, 267)
+    if scaled_1600:
+        text_rolled_rect.center = (630 / .80, 267 / .80)
+    text_leveled_surf = font.render(str(player.level), True, "black", "light yellow")
+    text_leveled_rect = text_leveled_surf.get_rect()
+    if scaled_1024:
+        text_leveled_rect.center = (618 * .80, 328 * .80)
+    if scaled_1280:
+        text_leveled_rect.center = (618, 328)
+    if scaled_1600:
+        text_leveled_rect.center = (618 / .80, 328 / .80)
+    text_mage_surf = font.render(str(player.knowledge["mage"]), True, "black", "light yellow")
+    text_mage_rect = text_mage_surf.get_rect()
+    if scaled_1024:
+        text_mage_rect.center = (710 * .80, 366 * .80)
+    if scaled_1280:
+        text_mage_rect.center = (710, 366)
+    if scaled_1600:
+        text_mage_rect.center = (710 / .80, 366 / .80)
+    text_fighter_surf = font.render(str(player.knowledge["fighter"]), True, "black", "light yellow")
+    text_fighter_rect = text_fighter_surf.get_rect()
+    if scaled_1024:
+        text_fighter_rect.center = (718 * .80, 404 * .80)
+    if scaled_1280:
+        text_fighter_rect.center = (718, 404)
+    if scaled_1600:
+        text_fighter_rect.center = (718 / .80, 404 / .80)
+    text_scout_surf = font.render(str(player.knowledge["scout"]), True, "black", "light yellow")
+    text_scout_rect = text_scout_surf.get_rect()
+    if scaled_1024:
+        text_scout_rect.center = (710 * .80, 443 * .80)
+    if scaled_1280:
+        text_scout_rect.center = (710, 443)
+    if scaled_1600:
+        text_scout_rect.center = (710 / .80, 443 / .80)
+
+    text_amuna_surf = font.render(str(player.reputation["amuna"]), True, "black", "light yellow")
+    text_amuna_rect = text_amuna_surf.get_rect()
+    if scaled_1024:
+        text_amuna_rect.center = (720 * .80, 517 * .80)
+    if scaled_1280:
+        text_amuna_rect.center = (720, 517)
+    if scaled_1600:
+        text_amuna_rect.center = (720 / .80, 517 / .80)
+    text_nuldar_surf = font.render(str(player.reputation["nuldar"]), True, "black", "light yellow")
+    text_nuldar_rect = text_nuldar_surf.get_rect()
+    if scaled_1024:
+        text_nuldar_rect.center = (715 * .80, 556 * .80)
+    if scaled_1280:
+        text_nuldar_rect.center = (715, 556)
+    if scaled_1600:
+        text_nuldar_rect.center = (715 / .80, 556 / .80)
+    text_sorae_surf = font.render(str(player.reputation["sorae"]), True, "black", "light yellow")
+    text_sorae_rect = text_sorae_surf.get_rect()
+    if scaled_1024:
+        text_sorae_rect.center = (708 * .80, 594 * .80)
+    if scaled_1280:
+        text_sorae_rect.center = (708, 594)
+    if scaled_1600:
+        text_sorae_rect.center = (708 / .80, 594 / .80)
+
+    character_sheet_text.append((text_name_surf, text_name_rect))
+    character_sheet_text.append((text_race_surf, text_race_rect))
+    character_sheet_text.append((text_gender_surf, text_gender_rect))
+    character_sheet_text.append((text_rolled_surf, text_rolled_rect))
+    character_sheet_text.append((text_leveled_surf, text_leveled_rect))
+    character_sheet_text.append((text_mage_surf, text_mage_rect))
+    character_sheet_text.append((text_fighter_surf, text_fighter_rect))
+    character_sheet_text.append((text_scout_surf, text_scout_rect))
+    character_sheet_text.append((text_amuna_surf, text_amuna_rect))
+    character_sheet_text.append((text_nuldar_surf, text_nuldar_rect))
+    character_sheet_text.append((text_sorae_surf, text_sorae_rect))
+
+    character_sheet_window.append(character_sheet)
+
+
+def journal_info_draw():
+    text_quest1_surf = font.render(str(list(player.current_quests)[0]), True, "black", "light yellow")
+    text_quest1_rect = text_quest1_surf.get_rect()
+    if scaled_1024:
+        text_quest1_rect.center = (650 * .80, 145 * .80)
+    if scaled_1280:
+        text_quest1_rect.center = (650, 145)
+    if scaled_1600:
+        text_quest1_rect.center = (650 / .80, 145 / .80)
+    text_quest1_info_surf = font.render(str(list(player.current_quests.values())[0]), True, "black", "light yellow")
+    text_quest1_info_rect = text_quest1_info_surf.get_rect()
+    if scaled_1024:
+        text_quest1_info_rect.center = (760 * .80 + 5, 190 * .80)
+    if scaled_1280:
+        text_quest1_info_rect.center = (760, 190)
+    if scaled_1600:
+        text_quest1_info_rect.center = (760 / .80, 190 / .80)
+    text_quest2_surf = font.render(str(list(player.current_quests)[1]), True, "black", "light yellow")
+    text_quest2_rect = text_quest2_surf.get_rect()
+    if scaled_1024:
+        text_quest2_rect.center = (650 * .80, 272 * .80)
+    if scaled_1280:
+        text_quest2_rect.center = (650, 272)
+    if scaled_1600:
+        text_quest2_rect.center = (650 / .80, 272 / .80)
+    text_quest2_info_surf = font.render(str(list(player.current_quests.values())[1]), True, "black", "light yellow")
+    text_quest2_info_rect = text_quest2_info_surf.get_rect()
+    if scaled_1024:
+        text_quest2_info_rect.center = (725 * .80 + 5, 320 * .80)
+    if scaled_1280:
+        text_quest2_info_rect.center = (725, 320)
+    if scaled_1600:
+        text_quest2_info_rect.center = (725 / .80, 320 / .80)
+    text_quest3_surf = font.render(str(list(player.current_quests)[2]), True, "black", "light yellow")
+    text_quest3_rect = text_quest3_surf.get_rect()
+    if scaled_1024:
+        text_quest3_rect.center = (650 * .80, 405 * .80)
+    if scaled_1280:
+        text_quest3_rect.center = (650, 405)
+    if scaled_1600:
+        text_quest3_rect.center = (650 / .80, 405 / .80)
+    text_quest3_info_surf = font.render(str(list(player.current_quests.values())[2]), True, "black", "light yellow")
+    text_quest3_info_rect = text_quest3_info_surf.get_rect()
+    if scaled_1024:
+        text_quest3_info_rect.center = (755 * .80 + 5, 755 * .80)
+    if scaled_1280:
+        text_quest3_info_rect.center = (755, 455)
+    if scaled_1600:
+        text_quest3_info_rect.center = (755 / .80, 755 / .80)
+    text_quest4_surf = font.render(str(list(player.current_quests)[3]), True, "black", "light yellow")
+    text_quest4_rect = text_quest4_surf.get_rect()
+    if scaled_1024:
+        text_quest4_rect.center = (660 * .80, 538 * .80)
+    if scaled_1280:
+        text_quest4_rect.center = (660, 538)
+    if scaled_1600:
+        text_quest4_rect.center = (660 / .80, 538 / .80)
+    text_quest4_info_surf = font.render(str(list(player.current_quests.values())[3]), True, "black", "light yellow")
+    text_quest4_info_rect = text_quest4_info_surf.get_rect()
+    if scaled_1024:
+        text_quest4_info_rect.center = (618 * .80 + 5, 585 * .80)
+    if scaled_1280:
+        text_quest4_info_rect.center = (618, 585)
+    if scaled_1600:
+        text_quest4_info_rect.center = (618 / .80, 585 / .80)
+
+    journal_text.append((text_quest1_surf, text_quest1_rect))
+    journal_text.append((text_quest1_info_surf, text_quest1_info_rect))
+    journal_text.append((text_quest2_surf, text_quest2_rect))
+    journal_text.append((text_quest2_info_surf, text_quest2_info_rect))
+    journal_text.append((text_quest3_surf, text_quest3_rect))
+    journal_text.append((text_quest3_info_surf, text_quest3_info_rect))
+    journal_text.append((text_quest4_surf, text_quest4_rect))
+    journal_text.append((text_quest4_info_surf, text_quest4_info_rect))
+
+    journal_window.append(journal)
+
+
 # will be used for music later -----------------------------------------------------------------------------------------
 # pygame.mixer.init()
 # initialize game, set clock for framerate, set screen size ------------------------------------------------------------
@@ -1556,8 +1740,12 @@ player = Player("player", "female", "amuna", "",  # name, gender, race, role
                 [health_potion, energy_potion, shiny_rock, bone_dust, basic_sword, basic_bow, basic_armor, basic_tunic],
                 # inventory
                 {"weapon": basic_staff, "chest": basic_robes},  # equipment ('type', 'name')
-                # current quest, quest status (x/4), quest dictionary (quest: done)
-                [""], {"sneaky_snakes": 0, "village_repairs": 0, "ghouled_again": 0},
+                # current quests, quest progress (x/4), quest status (quest: done)
+                {"sneaky_snakes": "Garan has asked you to kill snakes near the Rohir River banks.",
+                 "village_repairs": "Maurelle has asked you to gather lumber for repairs.",
+                 "ghouled_again": "The gate guard asked you to kill ghouls near the castle wall.",
+                 "placeholder quest": "placeholder quest info"},
+                {"sneaky_snakes": 0, "village_repairs": 0, "ghouled_again": 0},
                 {"sneaky_snakes": False, "village_repairs": False, "ghouled_again": False},
                 {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
                 {}, 1, 0, 100, 100,  # skills, lvl, exp, health, energy
@@ -1566,39 +1754,13 @@ player = Player("player", "female", "amuna", "",  # name, gender, race, role
 
 # nps: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate --------------------------
 #                  alive_status, quest_complete, items, gift, image, color
-npc_garan = NPC("garan", "male", "amuna", "rogue", "It's dangerous to go alone.", "Stupid Snakes",
-                "Greetings! I don't believe I've seen you around here before. You must be a traveler, \nright? "
-                "Or maybe the request for reinforcements has finally been answered! Well, either way, we're\n"
-                "thankful for all the help we can get. \n\nLook, you seem pretty strong, but you're going to need "
-                "a weapon to survive out here. \n\nI've got something you can have for now, but you'll need to find "
-                "something better if you plan on \njourneying further into the Region. Here's a basic weapon and "
-                "some gear. \n\nWhy don't you go and test it out? There's some snakes nearby that have been coming up "
-                "from the \nriver. They've shown an unusual aggressiveness with larger numbers than I've seen "
-                "before. \n\nMaybe you could take care of them for me? I'll be sure to give you something worth the "
-                "trouble. ", 210, 430, True, False, ["Items to be added for steal"], False,
-                resource_urls.garan_url, (255, 255, 255), "1280")
-npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs",
-                   "You there! I don't know who you are, or why you're here, but we could \nreally use your help!"
-                   "\n\nThe beast Dreth has occupied our former capital Castle, on the other side of the walls "
-                   "\nto the east, and our numbers have been spread thin trying to repel its minions and contain "
-                   "the \ndamage they've inflicted. \n\nOur best fighters have been sent in a combined Vanguard with "
-                   "the other districts to try and \nattack the beast directly, but its left us vulnerable here. "
-                   "The most recent wave of attacks from\nthe castle has left several damages to our village, "
-                   "and if you are able, please gather\nresources and bring them to me to distribute to the "
-                   "villagers conducting the repairs and \nfortifications. \n\nYou can gather some lumber from the "
-                   "trees just west of here. Nera bless you. ", 760, 520, True, False,
-                   ["Items to be added for steal"], False,
-                   resource_urls.maurelle_url, (255, 255, 255), "1280")
-npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee",
-                "You need to cross the bridge to get to the Korlok District, you say? \n\nOrdinarily"
-                " I would have no issue granting you passage, however the gates are barred tight \n"
-                "due to the recent wave of Ghoul Minions from across the wall. \n\nI cannot leave my post and"
-                " leave the bridge unguarded, but if you could \ntake care of the remaining ghouls I"
-                " will signal to unbar the gates and allow you passage \nto the other side. \n\nThe"
-                " ghouls were last spotted just east of here, nearby the northern Castle wall ramparts! ", 460, 120,
-                True,
-                False, ["Items to be added for steal"], False,
-                resource_urls.guard_url, (255, 255, 255), "1280")
+npc_garan = NPC("garan", "male", "amuna", "rogue", "It's dangerous to go alone.", "Stupid Snakes", "", 210, 430,
+                True, False, ["Items"], False, resource_urls.garan_url, (255, 255, 255), "1280")
+npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs", "", 760, 520,
+                   True, False, ["Items"], False, resource_urls.maurelle_url, (255, 255, 255), "1280")
+npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee", "", 460, 120,
+                True, False, ["Items"], False, resource_urls.guard_url, (255, 255, 255), "1280")
+
 npc_amuna_shopkeeper = NPC("amuna shopkeeper", "male", "amuna", "trader", "These ghoul attacks are bad for business!",
                            "", "", 700, 700, True, False, [
                                Item("health potion", "potion", 200, 200, resource_urls.health_pot_url,
@@ -1722,6 +1884,9 @@ xp_bar = UiElement("xp bar", 170, 65, resource_urls.xp_100_url, (255, 255, 255),
                    "1280")
 
 inventory = Inventory("inventory", [], 890, 515, resource_urls.inventory_url, (255, 255, 255), False, "1280")
+journal = UiElement("journal", 770, 380, resource_urls.journal_url, (255, 255, 255), False, "1280")
+character_sheet = UiElement("character sheet", 770, 380, resource_urls.character_sheet_url, (255, 255, 255), False,
+                            "1280")
 
 quest_logs_1 = Item("quest", "quest logs", 60, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 quest_logs_2 = Item("quest", "quest logs", 315, 560, resource_urls.quest_logs_url, (255, 255, 255), "1280")
@@ -1736,8 +1901,7 @@ buy_inventory = Inventory("buy inventory", [], 900, 500, resource_urls.buy_inven
 message_box = UiElement("message box", 173, 650, resource_urls.message_box_url, (255, 255, 255), False, "1280")
 status_bar_backdrop = UiElement("bar backdrop", 165, 45, resource_urls.bar_backdrop_url, (255, 255, 255), False, "1280")
 enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 695, 90, resource_urls.enemy_bar_backdrop_url,
-                                      (255, 255, 255),
-                                      False, "1280")
+                                      (255, 255, 255), False, "1280")
 
 # battle sprites -------------------------------------------------------------------------------------------------------
 stan_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.stan_battle_url, (255, 255, 255), "1280")
@@ -1777,7 +1941,8 @@ trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon_grass_5, seldon_grass_6)
 flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
-user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box)
+user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box,
+                   character_sheet, journal)
 conditional_interface.add(buy_inventory)
 start_screen_sprites.add(s1024_x_576_button, s1280_x_720_button, s1600_x_900_button, start_button)
 game_over_screen_sprites.add(continue_button)
@@ -1830,7 +1995,13 @@ sell_clicked = False
 rest_clicked = False
 # condition to check if screen resize button has been clicked
 screen_clicked = False
+
 learn_clicked = False
+
+# condition to check if the character button has been clicked
+character_button_clicked = False
+# condition to check if the journal button has been clicked
+journal_button_clicked = False
 # condition to keep message box text for amount of time, so it's not cleared when player is not in range of sprite
 info_update = False
 # condition to keep loot text for amount of time, so it's not cleared when player is not in range of sprite
@@ -1869,6 +2040,14 @@ buy_shop_elements = []
 shopkeeper_items = []
 # list to contain screen size elements for display
 display_elements = []
+# list to contain character sheet text information
+character_sheet_text = []
+# list to contain character sheet window
+character_sheet_window = []
+# list to contain journal text information (quests)
+journal_text = []
+# list to contain journal window
+journal_window = []
 
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
@@ -2026,11 +2205,11 @@ while game_running:
 
         # scale font size to current screen resolution
         if scaled_1024:
-            font = pygame.font.SysFont('freesansbold.ttf', 16, bold=True, italic=False)
+            font = pygame.font.SysFont('freesansbold.ttf', 15, bold=True, italic=False)
         if scaled_1280:
             font = pygame.font.SysFont('freesansbold.ttf', 20, bold=True, italic=False)
         if scaled_1600:
-            font = pygame.font.SysFont('freesansbold.ttf', 24, bold=True, italic=False)
+            font = pygame.font.SysFont('freesansbold.ttf', 25, bold=True, italic=False)
 
         # if player has created character or chosen default
         if player_created:
@@ -2090,6 +2269,18 @@ while game_running:
                     for window in display_elements:
                         screen.blit(window.surf, window.rect)
 
+                    # get text information and window related to character sheet and draw
+                    for character_window in character_sheet_window:
+                        screen.blit(character_window.surf, character_window.rect)
+                    for character_text in character_sheet_text:
+                        screen.blit(character_text[0], character_text[1])
+
+                    # get text information and window related to journal and draw
+                    for journals_window in journal_window:
+                        screen.blit(journals_window.surf, journals_window.rect)
+                    for journals_text in journal_text:
+                        screen.blit(journals_text[0], journals_text[1])
+
                     # corrects position of player status bars and backdrop if scaled to 1600x900 resolution
                     if scaled_1600:
                         status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
@@ -2140,6 +2331,28 @@ while game_running:
                                     player.pos = vec((850, 650))
                                 if scaled_1600:
                                     player.pos = vec((850 / .80, 650 / .80))
+
+                            # if character button is clicked, call draw function and show elements. second click hides
+                            if character_button.rect.collidepoint(pos):
+                                if character_button_clicked:
+                                    character_button_clicked = False
+                                    character_sheet_text.clear()
+                                    character_sheet_window.clear()
+
+                                else:
+                                    character_button_clicked = True
+                                    character_sheet_info_draw()
+
+                            # if journal button is clicked, call draw function and show elements. second click hides
+                            if journal_button.rect.collidepoint(pos):
+                                if journal_button_clicked:
+                                    journal_button_clicked = False
+                                    journal_text.clear()
+                                    journal_window.clear()
+
+                                else:
+                                    journal_button_clicked = True
+                                    journal_info_draw()
 
                         elif event.type == QUIT:
                             exit()
