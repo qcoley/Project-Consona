@@ -562,10 +562,10 @@ def attack_scenario(enemy_combating, combat_event):
                 # quest checks -----------------------------------------------------------------------------------------
                 # if player is on quest to kill snakes
                 if enemy_combating.kind == "snake":
-                    if player.current_quest == "Sneaky Snakes":
-                        if player.quest_status < 4:
-                            player.quest_status = player.quest_status + 1
-                            quest_string = f"*** {player.quest_status}/4 snakes for [{player.current_quest}] quest ***"
+                    if player.quest_status["sneaky snakes"]:
+                        if player.quest_progress["sneaky snakes"] < 4:
+                            player.quest_progress["sneaky snakes"] = player.quest_progress["sneaky snakes"] + 1
+                            quest_string = f"{player.quest_progress['sneaky snakes']}/4 snakes"
                             # add to dictionary player quest updates if enemy was an objective of quest for player -
                             combat_event_dictionary["quest update"] = quest_string
                 else:
@@ -573,10 +573,10 @@ def attack_scenario(enemy_combating, combat_event):
 
                 # if player is on quest to kill ghouls
                 if enemy_combating.kind == "ghoul":
-                    if player.current_quest == "Ghoulish Ghosts":
-                        if player.quest_status < 4:
-                            player.quest_status = player.quest_status + 1
-                            quest_string = f"*** {player.quest_status}/4 ghouls for [{player.current_quest}] quest ***"
+                    if player.quest_status["ghouled again"]:
+                        if player.quest_progress["ghouled again"] < 4:
+                            player.quest_progress["ghouled again"] = player.quest_progress["ghouled again"] + 1
+                            quest_string = f"{player.quest_status['ghouled again']}/4 ghouls"
                             # add to dictionary player quest updates if enemy was an objective of quest for player -
                             combat_event_dictionary["quest update"] = quest_string
                 else:
@@ -776,10 +776,8 @@ def combat_event_button(combat_event):
         # if mouse rect collides with attack button, skill button or run button return string representing it
         if mage_attack_button.rect.collidepoint(combat_mouse):
             return "attack"
-
         if fighter_attack_button.rect.collidepoint(combat_mouse):
             return "attack"
-
         if scout_attack_button.rect.collidepoint(combat_mouse):
             return "attack"
 
@@ -1465,11 +1463,11 @@ def text_info_draw():
     text_role_surf = font.render(str(player.role), True, "black", "light yellow")
     text_role_rect = text_role_surf.get_rect()
     if scaled_1024:
-        text_role_rect.center = (1105 * .80, 362 * .80)
+        text_role_rect.center = (1220 * .80, 362 * .80)
     if scaled_1280:
         text_role_rect.center = (1220, 362)
     if scaled_1600:
-        text_role_rect.center = (1105 / .80, 362 / .80)
+        text_role_rect.center = (1220 / .80, 362 / .80)
     screen.blit(text_role_surf, text_role_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
@@ -1521,7 +1519,7 @@ def character_sheet_info_draw():
     if scaled_1280:
         text_name_rect.center = (650, 152)
     if scaled_1600:
-        text_name_rect.center = (650 / .80, 152 / .80)
+        text_name_rect.center = (650 / .80, 152 / .80 + 10)
     text_race_surf = font.render(str(player.race), True, "black", "light yellow")
     text_race_rect = text_race_surf.get_rect()
     if scaled_1024:
@@ -1529,7 +1527,7 @@ def character_sheet_info_draw():
     if scaled_1280:
         text_race_rect.center = (642, 190)
     if scaled_1600:
-        text_race_rect.center = (642 / .80, 190 / .80)
+        text_race_rect.center = (642 / .80, 190 / .80 + 10)
     text_gender_surf = font.render(str(player.gender), True, "black", "light yellow")
     text_gender_rect = text_gender_surf.get_rect()
     if scaled_1024:
@@ -1537,7 +1535,7 @@ def character_sheet_info_draw():
     if scaled_1280:
         text_gender_rect.center = (658, 228)
     if scaled_1600:
-        text_gender_rect.center = (658 / .80, 228 / .80)
+        text_gender_rect.center = (658 / .80, 228 / .80 + 10)
     text_rolled_surf = font.render(str(player.role), True, "black", "light yellow")
     text_rolled_rect = text_rolled_surf.get_rect()
     if scaled_1024:
@@ -1545,7 +1543,7 @@ def character_sheet_info_draw():
     if scaled_1280:
         text_rolled_rect.center = (630, 267)
     if scaled_1600:
-        text_rolled_rect.center = (630 / .80, 267 / .80)
+        text_rolled_rect.center = (630 / .80, 267 / .80 + 5)
     text_leveled_surf = font.render(str(player.level), True, "black", "light yellow")
     text_leveled_rect = text_leveled_surf.get_rect()
     if scaled_1024:
@@ -1553,7 +1551,7 @@ def character_sheet_info_draw():
     if scaled_1280:
         text_leveled_rect.center = (618, 328)
     if scaled_1600:
-        text_leveled_rect.center = (618 / .80, 328 / .80)
+        text_leveled_rect.center = (618 / .80 + 8, 328 / .80 + 2)
     text_mage_surf = font.render(str(player.knowledge["mage"]), True, "black", "light yellow")
     text_mage_rect = text_mage_surf.get_rect()
     if scaled_1024:
@@ -1578,7 +1576,6 @@ def character_sheet_info_draw():
         text_scout_rect.center = (710, 443)
     if scaled_1600:
         text_scout_rect.center = (710 / .80, 443 / .80)
-
     text_amuna_surf = font.render(str(player.reputation["amuna"]), True, "black", "light yellow")
     text_amuna_rect = text_amuna_surf.get_rect()
     if scaled_1024:
@@ -1586,7 +1583,7 @@ def character_sheet_info_draw():
     if scaled_1280:
         text_amuna_rect.center = (720, 517)
     if scaled_1600:
-        text_amuna_rect.center = (720 / .80, 517 / .80)
+        text_amuna_rect.center = (720 / .80, 517 / .80 - 5)
     text_nuldar_surf = font.render(str(player.reputation["nuldar"]), True, "black", "light yellow")
     text_nuldar_rect = text_nuldar_surf.get_rect()
     if scaled_1024:
@@ -1594,7 +1591,7 @@ def character_sheet_info_draw():
     if scaled_1280:
         text_nuldar_rect.center = (715, 556)
     if scaled_1600:
-        text_nuldar_rect.center = (715 / .80, 556 / .80)
+        text_nuldar_rect.center = (715 / .80, 556 / .80 - 10)
     text_sorae_surf = font.render(str(player.reputation["sorae"]), True, "black", "light yellow")
     text_sorae_rect = text_sorae_surf.get_rect()
     if scaled_1024:
@@ -1602,7 +1599,7 @@ def character_sheet_info_draw():
     if scaled_1280:
         text_sorae_rect.center = (708, 594)
     if scaled_1600:
-        text_sorae_rect.center = (708 / .80, 594 / .80)
+        text_sorae_rect.center = (708 / .80, 594 / .80 - 10)
 
     character_sheet_text.append((text_name_surf, text_name_rect))
     character_sheet_text.append((text_race_surf, text_race_rect))
@@ -1627,7 +1624,7 @@ def journal_info_draw():
     if scaled_1280:
         text_quest1_rect.center = (650, 145)
     if scaled_1600:
-        text_quest1_rect.center = (650 / .80, 145 / .80)
+        text_quest1_rect.center = (650 / .80, 145 / .80 + 10)
     text_quest1_info_surf = font.render(str(list(player.current_quests.values())[0]), True, "black", "light yellow")
     text_quest1_info_rect = text_quest1_info_surf.get_rect()
     if scaled_1024:
@@ -1635,7 +1632,7 @@ def journal_info_draw():
     if scaled_1280:
         text_quest1_info_rect.center = (760, 190)
     if scaled_1600:
-        text_quest1_info_rect.center = (760 / .80, 190 / .80)
+        text_quest1_info_rect.center = (760 / .80 + 5, 190 / .80)
     text_quest2_surf = font.render(str(list(player.current_quests)[1]), True, "black", "light yellow")
     text_quest2_rect = text_quest2_surf.get_rect()
     if scaled_1024:
@@ -1643,7 +1640,7 @@ def journal_info_draw():
     if scaled_1280:
         text_quest2_rect.center = (650, 272)
     if scaled_1600:
-        text_quest2_rect.center = (650 / .80, 272 / .80)
+        text_quest2_rect.center = (650 / .80, 272 / .80 + 5)
     text_quest2_info_surf = font.render(str(list(player.current_quests.values())[1]), True, "black", "light yellow")
     text_quest2_info_rect = text_quest2_info_surf.get_rect()
     if scaled_1024:
@@ -1659,7 +1656,7 @@ def journal_info_draw():
     if scaled_1280:
         text_quest3_rect.center = (650, 405)
     if scaled_1600:
-        text_quest3_rect.center = (650 / .80, 405 / .80)
+        text_quest3_rect.center = (650 / .80, 405 / .80 - 2)
     text_quest3_info_surf = font.render(str(list(player.current_quests.values())[2]), True, "black", "light yellow")
     text_quest3_info_rect = text_quest3_info_surf.get_rect()
     if scaled_1024:
@@ -1675,7 +1672,7 @@ def journal_info_draw():
     if scaled_1280:
         text_quest4_rect.center = (660, 538)
     if scaled_1600:
-        text_quest4_rect.center = (660 / .80, 538 / .80)
+        text_quest4_rect.center = (660 / .80, 538 / .80 - 10)
     text_quest4_info_surf = font.render(str(list(player.current_quests.values())[3]), True, "black", "light yellow")
     text_quest4_info_rect = text_quest4_info_surf.get_rect()
     if scaled_1024:
@@ -1683,7 +1680,7 @@ def journal_info_draw():
     if scaled_1280:
         text_quest4_info_rect.center = (618, 585)
     if scaled_1600:
-        text_quest4_info_rect.center = (618 / .80, 585 / .80)
+        text_quest4_info_rect.center = (618 / .80, 585 / .80 - 10)
 
     journal_text.append((text_quest1_surf, text_quest1_rect))
     journal_text.append((text_quest1_info_surf, text_quest1_info_rect))
@@ -1741,12 +1738,12 @@ player = Player("player", "female", "amuna", "",  # name, gender, race, role
                 # inventory
                 {"weapon": basic_staff, "chest": basic_robes},  # equipment ('type', 'name')
                 # current quests, quest progress (x/4), quest status (quest: done)
-                {"sneaky_snakes": "Garan has asked you to kill snakes near the Rohir River banks.",
-                 "village_repairs": "Maurelle has asked you to gather lumber for repairs.",
-                 "ghouled_again": "The gate guard asked you to kill ghouls near the castle wall.",
+                {"sneaky snakes": "Garan has asked you to kill snakes near the Rohir River banks.",
+                 "village repairs": "Maurelle has asked you to gather lumber for repairs.",
+                 "ghouled again": "The gate guard asked you to kill ghouls near the castle wall.",
                  "placeholder quest": "placeholder quest info"},
-                {"sneaky_snakes": 0, "village_repairs": 0, "ghouled_again": 0},
-                {"sneaky_snakes": False, "village_repairs": False, "ghouled_again": False},
+                {"sneaky snakes": 0, "village repairs": 0, "ghouled again": 0},
+                {"sneaky snakes": False, "village repairs": False, "ghouled again": False},
                 {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
                 {}, 1, 0, 100, 100,  # skills, lvl, exp, health, energy
                 True, 20, {"amuna": 10, "nuldar": 0, "sorae": 0}, "", "")  # alive, rupees, reputation, mount,
@@ -1941,9 +1938,8 @@ trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon_grass_5, seldon_grass_6)
 flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
-user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box,
-                   character_sheet, journal)
-conditional_interface.add(buy_inventory)
+user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box)
+conditional_interface.add(buy_inventory, character_sheet, journal)
 start_screen_sprites.add(s1024_x_576_button, s1280_x_720_button, s1600_x_900_button, start_button)
 game_over_screen_sprites.add(continue_button)
 # all environment sprites for collision detection ----------------------------------------------------------------------
