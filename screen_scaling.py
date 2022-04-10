@@ -4,39 +4,32 @@ import resource_urls
 def screen_scaling(object_to_scale):
 
     if object_to_scale.image_size == "1024":
-
         if object_to_scale.name == "player":
             return resource_urls.stan_down_url_1024
-
         if object_to_scale.name == "greeting":
             return resource_urls.welcome_image_url_1024
-
         if object_to_scale.name == "garan":
             return resource_urls.garan_url_1024
         if object_to_scale.name == "maurelle":
             return resource_urls.maurelle_url_1024
         if object_to_scale.name == "guard":
             return resource_urls.guard_url_1024
-
         if object_to_scale.name == "snake":
             return resource_urls.snake_url_1024
         if object_to_scale.name == "ghoul":
             return resource_urls.ghoul_url_1024
-
         if object_to_scale.name == "tree":
             return resource_urls.pine_tree_url_1024
         if object_to_scale.name == "grass":
             return resource_urls.seldon_grass_url_1024
         if object_to_scale.name == "flower":
             return resource_urls.seldon_flower_url_1024
-
         if object_to_scale.name == "inn":
             return resource_urls.seldon_inn_url_1024
         if object_to_scale.name == "shop":
             return resource_urls.seldon_shop_url_1024
         if object_to_scale.name == "academia":
             return resource_urls.seldon_academia_url_1024
-
         if object_to_scale.name == "character button":
             return resource_urls.character_button_url_1024
         if object_to_scale.name == "journal button":
@@ -61,7 +54,6 @@ def screen_scaling(object_to_scale):
             return resource_urls.rest_button_url_1024
         if object_to_scale.name == "unstuck button":
             return resource_urls.unstuck_button_url_1024
-
         if object_to_scale.name == "skill bar":
             return resource_urls.skill_bar_url_1024
         if object_to_scale.name == "mage attack button":
@@ -78,10 +70,8 @@ def screen_scaling(object_to_scale):
             return resource_urls.snake_battle_url_1024
         if object_to_scale.name == "ghoul battle":
             return resource_urls.ghoul_battle_url_1024
-
         if object_to_scale.name == "quest":
             return resource_urls.quest_logs_url_1024
-
         if object_to_scale.name == "buy inventory":
             return resource_urls.buy_inventory_url_1024
         if object_to_scale.name == "message box":
@@ -90,42 +80,37 @@ def screen_scaling(object_to_scale):
             return resource_urls.character_sheet_url_1024
         if object_to_scale.name == "journal":
             return resource_urls.journal_url_1024
+        if object_to_scale.name == "level up window":
+            return resource_urls.level_up_url_1024
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1280":
-
         if object_to_scale.name == "player":
             return resource_urls.stan_down_url
-
         if object_to_scale.name == "greeting":
             return resource_urls.welcome_image_url
-
         if object_to_scale.name == "garan":
             return resource_urls.garan_url
         if object_to_scale.name == "maurelle":
             return resource_urls.maurelle_url
         if object_to_scale.name == "guard":
             return resource_urls.guard_url
-
         if object_to_scale.name == "snake":
             return resource_urls.snake_url
         if object_to_scale.name == "ghoul":
             return resource_urls.ghoul_url
-
         if object_to_scale.name == "tree":
             return resource_urls.pine_tree_url
         if object_to_scale.name == "grass":
             return resource_urls.seldon_grass_url
         if object_to_scale.name == "flower":
             return resource_urls.seldon_flower_url
-
         if object_to_scale.name == "inn":
             return resource_urls.seldon_inn_url
         if object_to_scale.name == "shop":
             return resource_urls.seldon_shop_url
         if object_to_scale.name == "academia":
             return resource_urls.seldon_academia_url
-
         if object_to_scale.name == "character button":
             return resource_urls.character_button_url
         if object_to_scale.name == "journal button":
@@ -150,7 +135,6 @@ def screen_scaling(object_to_scale):
             return resource_urls.rest_button_url
         if object_to_scale.name == "unstuck button":
             return resource_urls.unstuck_button_url
-
         if object_to_scale.name == "skill bar":
             return resource_urls.skill_bar_url
         if object_to_scale.name == "mage attack button":
@@ -167,10 +151,8 @@ def screen_scaling(object_to_scale):
             return resource_urls.snake_battle_url
         if object_to_scale.name == "ghoul battle":
             return resource_urls.ghoul_battle_url
-
         if object_to_scale.name == "quest":
             return resource_urls.quest_logs_url
-
         if object_to_scale.name == "buy inventory":
             return resource_urls.buy_inventory_url
         if object_to_scale.name == "message box":
@@ -179,42 +161,37 @@ def screen_scaling(object_to_scale):
             return resource_urls.character_sheet_url
         if object_to_scale.name == "journal":
             return resource_urls.journal_url
+        if object_to_scale.name == "level up window":
+            return resource_urls.level_up_url
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1600":
-
         if object_to_scale.name == "player":
             return resource_urls.stan_down_url_1600
-
         if object_to_scale.name == "greeting":
             return resource_urls.welcome_image_url_1600
-
         if object_to_scale.name == "garan":
             return resource_urls.garan_url_1600
         if object_to_scale.name == "maurelle":
             return resource_urls.maurelle_url_1600
         if object_to_scale.name == "guard":
             return resource_urls.guard_url_1600
-
         if object_to_scale.name == "snake":
             return resource_urls.snake_url_1600
         if object_to_scale.name == "ghoul":
             return resource_urls.ghoul_url_1600
-
         if object_to_scale.name == "tree":
             return resource_urls.pine_tree_url_1600
         if object_to_scale.name == "grass":
             return resource_urls.seldon_grass_url_1600
         if object_to_scale.name == "flower":
             return resource_urls.seldon_flower_url_1600
-
         if object_to_scale.name == "inn":
             return resource_urls.seldon_inn_url_1600
         if object_to_scale.name == "shop":
             return resource_urls.seldon_shop_url_1600
         if object_to_scale.name == "academia":
             return resource_urls.seldon_academia_url_1600
-
         if object_to_scale.name == "character button":
             return resource_urls.character_button_url_1600
         if object_to_scale.name == "journal button":
@@ -239,7 +216,6 @@ def screen_scaling(object_to_scale):
             return resource_urls.rest_button_url_1600
         if object_to_scale.name == "unstuck button":
             return resource_urls.unstuck_button_url_1600
-
         if object_to_scale.name == "skill bar":
             return resource_urls.skill_bar_url_1600
         if object_to_scale.name == "mage attack button":
@@ -256,10 +232,8 @@ def screen_scaling(object_to_scale):
             return resource_urls.snake_battle_url_1600
         if object_to_scale.name == "ghoul battle":
             return resource_urls.ghoul_battle_url_1600
-
         if object_to_scale.name == "quest":
             return resource_urls.quest_logs_url_1600
-
         if object_to_scale.name == "buy inventory":
             return resource_urls.buy_inventory_url_1600
         if object_to_scale.name == "message box":
@@ -268,4 +242,6 @@ def screen_scaling(object_to_scale):
             return resource_urls.character_sheet_url_1600
         if object_to_scale.name == "journal":
             return resource_urls.journal_url_1600
+        if object_to_scale.name == "level up window":
+            return resource_urls.level_up_url_1600
 
