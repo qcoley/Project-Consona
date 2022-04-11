@@ -52,6 +52,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.leave_button_url_1024
         if object_to_scale.name == "rest button":
             return resource_urls.rest_button_url_1024
+        if object_to_scale.name == "mage learn button":
+            return resource_urls.learn_button_url_1024
+        if object_to_scale.name == "fighter learn button":
+            return resource_urls.learn_button_url_1024
+        if object_to_scale.name == "scout learn button":
+            return resource_urls.learn_button_url_1024
         if object_to_scale.name == "unstuck button":
             return resource_urls.unstuck_button_url_1024
         if object_to_scale.name == "skill bar":
@@ -133,6 +139,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.leave_button_url
         if object_to_scale.name == "rest button":
             return resource_urls.rest_button_url
+        if object_to_scale.name == "mage learn button":
+            return resource_urls.learn_button_url
+        if object_to_scale.name == "fighter learn button":
+            return resource_urls.learn_button_url
+        if object_to_scale.name == "scout learn button":
+            return resource_urls.learn_button_url
         if object_to_scale.name == "unstuck button":
             return resource_urls.unstuck_button_url
         if object_to_scale.name == "skill bar":
@@ -214,6 +226,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.leave_button_url_1600
         if object_to_scale.name == "rest button":
             return resource_urls.rest_button_url_1600
+        if object_to_scale.name == "mage learn button":
+            return resource_urls.learn_button_url_1600
+        if object_to_scale.name == "fighter learn button":
+            return resource_urls.learn_button_url_1600
+        if object_to_scale.name == "scout learn button":
+            return resource_urls.learn_button_url_1600
         if object_to_scale.name == "unstuck button":
             return resource_urls.unstuck_button_url_1600
         if object_to_scale.name == "skill bar":

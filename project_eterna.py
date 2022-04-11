@@ -724,7 +724,7 @@ def shop_event_button(shop_event):
 
 
 # ----------------------------------------------------------------------------------------------------------------------
-# getting event based on user click related to shop scenario (buy, sell and leave buttons)
+# getting event based on user click related to inn scenario
 def inn_event_button(inn_event):
     if inn_event.type == pygame.MOUSEBUTTONUP:
         inn_mouse = pygame.mouse.get_pos()
@@ -732,6 +732,22 @@ def inn_event_button(inn_event):
         if rest_button.rect.collidepoint(inn_mouse):
             return "rest"
         if leave_button.rect.collidepoint(inn_mouse):
+            return "leave"
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# getting event based on user click related to academia scenario
+def academia_event_button(academia_event):
+    if academia_event.type == pygame.MOUSEBUTTONUP:
+        academia_mouse = pygame.mouse.get_pos()
+        # if mouse rect collides with buy button, sell button or leave button return string representing it
+        if mage_learn_button.rect.collidepoint(academia_mouse):
+            return "mage learn"
+        if fighter_learn_button.rect.collidepoint(academia_mouse):
+            return "fighter learn"
+        if scout_learn_button.rect.collidepoint(academia_mouse):
+            return "scout learn"
+        if leave_button.rect.collidepoint(academia_mouse):
             return "leave"
 
 
@@ -1822,8 +1838,12 @@ leave_button = UiElement("leave button", 970, 680, resource_urls.leave_button_ur
                          "1280")
 rest_button = UiElement("rest button", 860, 680, resource_urls.rest_button_url, (255, 255, 255), False,
                         "1280")
-learn_button = UiElement("learn button", 860, 680, resource_urls.learn_button_url, (255, 255, 255), False,
-                         "1280")
+mage_learn_button = UiElement("mage learn button", 650, 250, resource_urls.learn_button_url, (255, 255, 255),
+                              False, "1280")
+fighter_learn_button = UiElement("fighter learn button", 420, 330, resource_urls.learn_button_url, (255, 255, 255),
+                                 False, "1280")
+scout_learn_button = UiElement("scout learn button", 560, 410, resource_urls.learn_button_url, (255, 255, 255),
+                               False, "1280")
 unstuck_button = UiElement("unstuck button", 970, 25, resource_urls.unstuck_button_url, (255, 255, 255), False,
                            "1280")
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1849,6 +1869,9 @@ journal = UiElement("journal", 770, 380, resource_urls.journal_url, (255, 255, 2
 level_up_win = UiElement("level up window", 520, 375, resource_urls.level_up_url, (255, 255, 255), False, "1280")
 character_sheet = UiElement("character sheet", 770, 380, resource_urls.character_sheet_url, (255, 255, 255), False,
                             "1280")
+mage_book = UiElement("mage book", 670, 375, resource_urls.mage_book_url, (255, 255, 255), False, "1280")
+fighter_book = UiElement("fighter book", 670, 375, resource_urls.fighter_book_url, (255, 255, 255), False, "1280")
+scout_book = UiElement("scout book", 670, 375, resource_urls.scout_book_url, (255, 255, 255), False, "1280")
 quest_logs_1 = Item("quest", "quest logs", 60, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 quest_logs_2 = Item("quest", "quest logs", 315, 560, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 quest_logs_3 = Item("quest", "quest logs", 415, 435, resource_urls.quest_logs_url, (255, 255, 255), "1280")
@@ -1951,7 +1974,9 @@ rest_clicked = False
 # condition to check if screen resize button has been clicked
 screen_clicked = False
 
-learn_clicked = False
+mage_learn_clicked = False
+fighter_learn_clicked = False
+scout_learn_clicked = False
 
 # condition to check if the character button has been clicked
 character_button_clicked = False
@@ -2011,6 +2036,7 @@ journal_window = []
 level_up_text = []
 # list to contain level up window
 level_up_window = []
+
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
 info_text_1 = ""
@@ -3259,21 +3285,19 @@ while game_running:
                         if building.name == "academia":
                             # if player has just started inn scenario, clear message box
                             if not encounter_started:
-                                info_text_1 = ""
+                                info_text_1 = "Click a book to learn."
                                 info_text_2 = ""
                                 info_text_3 = ""
                                 info_text_4 = ""
                                 encounter_started = True
                             # get which button player pressed during inn scenario (rest or leave)-----------------------
-                            academia_button = inn_event_button(event)
-                            if academia_button == "learn":
-                                # if player has not yet rested this instance
-                                if not learned:
-                                    rest_clicked = True
-                                    info_text_1 = "You feel well rested."
-                                    info_text_2 = ""
-                                    info_text_3 = ""
-                                    info_text_4 = ""
+                            academia_button = academia_event_button(event)
+                            if academia_button == "mage learn":
+                                mage_learn_clicked = True
+                            if academia_button == "fighter learn":
+                                fighter_learn_clicked = True
+                            if academia_button == "scout learn":
+                                scout_learn_clicked = True
 
                         # ----------------------------------------------------------------------------------------------
                         # if player chooses to leave shop, set conditions to allow normal gameplay loop
@@ -3286,6 +3310,10 @@ while game_running:
                             in_academia = False
                             in_district_over_world = True
 
+                            mage_learn_clicked = False
+                            fighter_learn_clicked = False
+                            scout_learn_clicked = False
+
                     # outside of inn event loop ------------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
                     # if building is an inn in the seldon zone
@@ -3295,7 +3323,9 @@ while game_running:
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
-                        screen.blit(learn_button.surf, learn_button.rect)
+                        screen.blit(mage_learn_button.surf, mage_learn_button.rect)
+                        screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
+                        screen.blit(scout_learn_button.surf, scout_learn_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
                         for item in player_items:
@@ -3305,8 +3335,12 @@ while game_running:
                         text_info_draw()
 
                         # ----------------------------------------------------------------------------------------------
-                        if learn_clicked:
-                            print("learn the things")
+                        if mage_learn_clicked:
+                            screen.blit(mage_book.surf, mage_book.rect)
+                        if fighter_learn_clicked:
+                            screen.blit(fighter_book.surf, fighter_book.rect)
+                        if scout_learn_clicked:
+                            screen.blit(scout_book.surf, scout_book.rect)
 
                 # end of iteration -------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
