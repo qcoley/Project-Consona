@@ -88,6 +88,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.journal_url_1024
         if object_to_scale.name == "level up window":
             return resource_urls.level_up_url_1024
+        if object_to_scale.name == "mage book":
+            return resource_urls.mage_book_url_1024
+        if object_to_scale.name == "fighter book":
+            return resource_urls.fighter_book_url_1024
+        if object_to_scale.name == "scout book":
+            return resource_urls.scout_book_url_1024
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1280":
@@ -175,6 +181,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.journal_url
         if object_to_scale.name == "level up window":
             return resource_urls.level_up_url
+        if object_to_scale.name == "mage book":
+            return resource_urls.mage_book_url
+        if object_to_scale.name == "fighter book":
+            return resource_urls.fighter_book_url
+        if object_to_scale.name == "scout book":
+            return resource_urls.scout_book_url
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1600":
@@ -262,4 +274,9 @@ def screen_scaling(object_to_scale):
             return resource_urls.journal_url_1600
         if object_to_scale.name == "level up window":
             return resource_urls.level_up_url_1600
-
+        if object_to_scale.name == "mage book":
+            return resource_urls.mage_book_url_1600
+        if object_to_scale.name == "fighter book":
+            return resource_urls.fighter_book_url_1600
+        if object_to_scale.name == "scout book":
+            return resource_urls.scout_book_url_1600

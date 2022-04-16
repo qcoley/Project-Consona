@@ -1827,7 +1827,7 @@ s1024_x_576_button = UiElement("s1024x576 button", 640, 402, resource_urls.s1024
                                False, "1280")
 s1280_x_720_button = UiElement("s1280x720 button", 640, 472, resource_urls.s1280_x_720_button_url, (255, 255, 255),
                                False, "1280")
-s1600_x_900_button = UiElement("s1280x720 button", 640, 542, resource_urls.s1600_x_900_button_url, (255, 255, 255),
+s1600_x_900_button = UiElement("s1600x900 button", 640, 542, resource_urls.s1600_x_900_button_url, (255, 255, 255),
                                False, "1280")
 # ----------------------------------------------------------------------------------------------------------------------
 continue_button = UiElement("continue button", 625, 575, resource_urls.continue_button_url, (255, 255, 255), False,
@@ -1922,7 +1922,8 @@ grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon
 flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
 user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box)
-conditional_interface.add(buy_inventory, character_sheet, journal, level_up_win)
+conditional_interface.add(buy_inventory, character_sheet, journal, level_up_win, mage_book, fighter_book, scout_book,
+                          mage_learn_button, fighter_learn_button, scout_learn_button)
 start_screen_sprites.add(s1024_x_576_button, s1280_x_720_button, s1600_x_900_button, start_button)
 game_over_screen_sprites.add(continue_button)
 # all environment sprites for collision detection ----------------------------------------------------------------------
@@ -2092,8 +2093,7 @@ while game_running:
                             sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
                                 center=(sprite_to_scale.x_coordinate * .80, sprite_to_scale.y_coordinate * .80))
                         player.image_size = "1024"
-                        player.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(player)).convert()
+                        player.surf = pygame.image.load(screen_scaling.screen_scaling(player)).convert()
                         player.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         scaled_1024 = True
                         scaled_1280 = False
@@ -2121,8 +2121,7 @@ while game_running:
                             sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
                                 center=(sprite_to_scale.x_coordinate, sprite_to_scale.y_coordinate))
                         player.image_size = "1280"
-                        player.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(player)).convert()
+                        player.surf = pygame.image.load(screen_scaling.screen_scaling(player)).convert()
                         player.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         scaled_1024 = False
                         scaled_1280 = True
@@ -2150,8 +2149,7 @@ while game_running:
                             sprite_to_scale.rect = sprite_to_scale.surf.get_rect(
                                 center=(sprite_to_scale.x_coordinate / .80, sprite_to_scale.y_coordinate / .80))
                         player.image_size = "1600"
-                        player.surf = pygame.image.load(
-                            screen_scaling.screen_scaling(player)).convert()
+                        player.surf = pygame.image.load(screen_scaling.screen_scaling(player)).convert()
                         player.surf.set_colorkey((255, 255, 255), RLEACCEL)
                         scaled_1024 = False
                         scaled_1280 = False
