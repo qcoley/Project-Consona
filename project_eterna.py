@@ -23,8 +23,8 @@ vec = pygame.math.Vector2
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, name, gender, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
-                 knowledge, skills, level, experience, health, energy, alive_status, rupees, reputation, mount,
-                 current_zone, defence, offense):
+                 knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health, energy, alive_status,
+                 rupees, reputation, mount, current_zone, defence, offense):
 
         super(Player, self).__init__()
         self.surf = pygame.image.load(resource_urls.stan_down_url).convert()
@@ -46,7 +46,9 @@ class Player(pygame.sprite.Sprite):
         self.quest_progress = quest_progress
         self.quest_status = quest_status
         self.knowledge = knowledge
-        self.skills = skills
+        self.skills_mage = skills_mage
+        self.skills_fighter = skills_fighter
+        self.skills_scout = skills_scout
         self.level = level
         self.experience = experience
         self.health = health
@@ -499,7 +501,6 @@ class Item(pygame.sprite.Sprite):
 
 
 # gameplay functions ---------------------------------------------------------------------------------------------------
-
 def attack_scenario(enemy_combating, combat_event):
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
@@ -570,7 +571,6 @@ def attack_scenario(enemy_combating, combat_event):
                             combat_event_dictionary["quest update"] = quest_string
                 else:
                     combat_event_dictionary["quest update"] = "No"
-                # ------------------------------------------------------------------------------------------------------
 
                 # ------------------------------------------------------------------------------------------------------
                 # experienced gained by player from defeating enemy ----------------------------------------------------
@@ -793,7 +793,7 @@ def equipment_event_item(equipment_event_here):
         # list of sprites that collided with mouse cursor rect
         clicked_element = [equipment_element for equipment_element in player_equipment
                            if equipment_element.rect.collidepoint(equipment_mouse)]
-        # try to get inventory item player clicked based on it's name and return it
+        # try to get equipment item player clicked based on it's name and return it
         try:
             if clicked_element[0].name == "basic staff":
                 return clicked_element[0]
@@ -850,6 +850,29 @@ def sell_event_item(sell_event):
                 return clicked_element[0]
             if clicked_element[0].name == "bone dust":
                 return clicked_element[0]
+        except IndexError:
+            pass
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# getting item player clicked based on it's name and return the corresponding item, for clicking on sell items
+def skill_learn_event_item(skill_learn_event):
+    if skill_learn_event.type == pygame.MOUSEBUTTONUP:
+        skill_learn_mouse = pygame.mouse.get_pos()
+        # list of sprites that collided with mouse cursor rect
+        skill_learn_element = [skill_learn_element for skill_learn_element in skill_learn_items if
+                               skill_learn_element.rect.collidepoint(skill_learn_mouse)]
+
+        # try to get skill player clicked based on it's name and return it
+        try:
+            if skill_learn_element[0].name == "barrier learn button":
+                return skill_learn_element[0]
+            if skill_learn_element[0].name == "hard strike learn button":
+                return skill_learn_element[0]
+            if skill_learn_element[0].name == "sharp sense learn button":
+                return skill_learn_element[0]
+            if skill_learn_element[0].name == "close button":
+                return skill_learn_element[0]
         except IndexError:
             pass
 
@@ -1732,8 +1755,11 @@ player = Player("player", "female", "amuna", "",  # name, gender, race, role
                  "placeholder quest": "placeholder quest info"},
                 {"sneaky snakes": 0, "village repairs": 0, "ghouled again": 0},
                 {"sneaky snakes": False, "village repairs": False, "ghouled again": False},
-                {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
-                {}, 1, 99, 100, 100,  # skills, lvl, exp, health, energy
+                {"mage": 125, "fighter": 117, "scout": 150},  # role knowledge ('role', 'amount')
+                {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
+                {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
+                {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
+                1, 99, 100, 100,  # lvl, exp, health, energy
                 True, 20, {"amuna": 10, "nuldar": 0, "sorae": 0}, "", "", 0, 0)  # alive, rupees, reputation, mount,
 # zone, magic knowledge, fighter knowledge, scout knowledge
 
@@ -1844,8 +1870,14 @@ fighter_learn_button = UiElement("fighter learn button", 420, 330, resource_urls
                                  False, "1280")
 scout_learn_button = UiElement("scout learn button", 560, 410, resource_urls.learn_button_url, (255, 255, 255),
                                False, "1280")
-unstuck_button = UiElement("unstuck button", 970, 25, resource_urls.unstuck_button_url, (255, 255, 255), False,
-                           "1280")
+barrier_learn_button = UiElement("barrier learn button", 505, 300, resource_urls.skill_learn_button_url,
+                                 (255, 255, 255), False, "1280")
+hard_strike_learn_button = UiElement("hard strike learn button", 505, 300, resource_urls.skill_learn_button_url,
+                                     (255, 255, 255), False, "1280")
+sharp_sense_learn_button = UiElement("sharp sense learn button", 505, 300, resource_urls.skill_learn_button_url,
+                                     (255, 255, 255), False, "1280")
+unstuck_button = UiElement("unstuck button", 970, 25, resource_urls.unstuck_button_url, (255, 255, 255), False, "1280")
+close_button = UiElement("close button", 975, 135, resource_urls.close_button_url, (255, 255, 255), False, "1280")
 # ----------------------------------------------------------------------------------------------------------------------
 skill_bar = UiElement("skill bar", 855, 627, resource_urls.skill_bar_url, (255, 255, 255), False,
                       "1280")
@@ -1855,15 +1887,17 @@ fighter_attack_button = UiElement("fighter attack button", 750, 627, resource_ur
                                   (255, 255, 255), False, "1280")
 scout_attack_button = UiElement("scout attack button", 750, 627, resource_urls.scout_attack_button_url,
                                 (255, 255, 255), False, "1280")
+barrier_button = UiElement("barrier button", 820, 627, resource_urls.barrier_button_url,
+                           (255, 255, 255), False, "1280")
+hard_strike_button = UiElement("hard strike button", 820, 627, resource_urls.hard_strike_button_url,
+                               (255, 255, 255), False, "1280")
+sharp_sense_button = UiElement("sharp sense button", 820, 627, resource_urls.sharp_sense_button_url,
+                               (255, 255, 255), False, "1280")
 # ----------------------------------------------------------------------------------------------------------------------
-enemy_status = UiElement("enemy status", 855, 680, resource_urls.enemy_status_url, (255, 255, 255), False,
-                         "1280")
-hp_bar = UiElement("health bar", 170, 25, resource_urls.health_100_url, (255, 255, 255), False,
-                   "1280")
-en_bar = UiElement("energy bar", 170, 45, resource_urls.energy_100_url, (255, 255, 255), False,
-                   "1280")
-xp_bar = UiElement("xp bar", 170, 65, resource_urls.xp_100_url, (255, 255, 255), False,
-                   "1280")
+enemy_status = UiElement("enemy status", 855, 680, resource_urls.enemy_status_url, (255, 255, 255), False, "1280")
+hp_bar = UiElement("health bar", 170, 25, resource_urls.health_100_url, (255, 255, 255), False, "1280")
+en_bar = UiElement("energy bar", 170, 45, resource_urls.energy_100_url, (255, 255, 255), False, "1280")
+xp_bar = UiElement("xp bar", 170, 65, resource_urls.xp_100_url, (255, 255, 255), False, "1280")
 inventory = Inventory("inventory", [], 890, 515, resource_urls.inventory_url, (255, 255, 255), False, "1280")
 journal = UiElement("journal", 770, 380, resource_urls.journal_url, (255, 255, 255), False, "1280")
 level_up_win = UiElement("level up window", 520, 375, resource_urls.level_up_url, (255, 255, 255), False, "1280")
@@ -1876,9 +1910,11 @@ quest_logs_1 = Item("quest", "quest logs", 60, 540, resource_urls.quest_logs_url
 quest_logs_2 = Item("quest", "quest logs", 315, 560, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 quest_logs_3 = Item("quest", "quest logs", 415, 435, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 quest_logs_4 = Item("quest", "quest logs", 100, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
-# shop window ---------------------------------------------------------------------------------------------------------
+# instance windows -----------------------------------------------------------------------------------------------------
 buy_inventory = Inventory("buy inventory", [], 900, 500, resource_urls.buy_inventory_url, (255, 255, 255), False,
                           "1280")
+knowledge_window = UiElement("knowledge window", 635, 680, resource_urls.knowledge_window_url, (255, 255, 255), False,
+                             "1280")
 # ----------------------------------------------------------------------------------------------------------------------
 message_box = UiElement("message box", 173, 650, resource_urls.message_box_url, (255, 255, 255), False, "1280")
 status_bar_backdrop = UiElement("bar backdrop", 165, 45, resource_urls.bar_backdrop_url, (255, 255, 255), False, "1280")
@@ -1923,7 +1959,8 @@ flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
 user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, unstuck_button, message_box)
 conditional_interface.add(buy_inventory, character_sheet, journal, level_up_win, mage_book, fighter_book, scout_book,
-                          mage_learn_button, fighter_learn_button, scout_learn_button)
+                          mage_learn_button, fighter_learn_button, scout_learn_button, barrier_learn_button,
+                          hard_strike_learn_button, sharp_sense_learn_button, close_button)
 start_screen_sprites.add(s1024_x_576_button, s1280_x_720_button, s1600_x_900_button, start_button)
 game_over_screen_sprites.add(continue_button)
 # all environment sprites for collision detection ----------------------------------------------------------------------
@@ -1932,7 +1969,8 @@ environment_objects.add(trees, buildings)
 quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4)
 # battle element sprites for combat scenario ---------------------------------------------------------------------------
 battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status, skill_bar,
-                    mage_attack_button, scout_attack_button, fighter_attack_button)
+                    mage_attack_button, scout_attack_button, fighter_attack_button, barrier_button, hard_strike_button,
+                    sharp_sense_button)
 # adding most sprites to this group for drawing and related functions
 most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items, enemies)
 # adding these sprites to a scaling sprite group which is used to reference sprites that should be scaled
@@ -1974,15 +2012,16 @@ sell_clicked = False
 rest_clicked = False
 # condition to check if screen resize button has been clicked
 screen_clicked = False
-
+# conditions to check if role books have been clicked in academia
 mage_learn_clicked = False
 fighter_learn_clicked = False
 scout_learn_clicked = False
-
 # condition to check if the character button has been clicked
 character_button_clicked = False
 # condition to check if the journal button has been clicked
 journal_button_clicked = False
+# condition to check if window close button has been clicked
+close_button_clicked = False
 # condition to keep message box text for amount of time, so it's not cleared when player is not in range of sprite
 info_update = False
 # condition to keep loot text for amount of time, so it's not cleared when player is not in range of sprite
@@ -1995,8 +2034,10 @@ item_bought = False
 item_sold = False
 # condition to check if player has rested in an inn
 rested = False
-# condition to check if player has a learned a skill from the academia
-learned = False
+# conditions to check if player has a learned these skills from the academia
+barrier_learned = False
+hard_strike_learned = False
+sharp_sense_learned = False
 # condition to check if player gear has been checked for stat bonus
 gear_checked = False
 # condition to check if player weapon has been checked for stat bonus
@@ -2037,6 +2078,10 @@ journal_window = []
 level_up_text = []
 # list to contain level up window
 level_up_window = []
+# list to contain skill learn items for the academia instance
+skill_learn_items = []
+# list to contain books in academia instance for displaying
+books = []
 
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
@@ -2706,10 +2751,16 @@ while game_running:
                             screen.blit(skill_bar.surf, skill_bar.rect)
                             if player.role == "mage":
                                 screen.blit(mage_attack_button.surf, mage_attack_button.rect)
+                                if player.skills_mage["skill 2"] == "barrier":
+                                    screen.blit(barrier_button.surf, barrier_button.rect)
                             if player.role == "fighter":
                                 screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
+                                if player.skills_fighter["skill 2"] == "hard strike":
+                                    screen.blit(hard_strike_button.surf, hard_strike_button.rect)
                             if player.role == "scout":
                                 screen.blit(scout_attack_button.surf, scout_attack_button.rect)
+                                if player.skills_scout["skill 2"] == "sharp sense":
+                                    screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
                             if enemy.name == "snake":
                                 screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                             if enemy.name == "ghoul":
@@ -3283,12 +3334,12 @@ while game_running:
                         if building.name == "academia":
                             # if player has just started inn scenario, clear message box
                             if not encounter_started:
-                                info_text_1 = "Click a book to learn."
-                                info_text_2 = ""
+                                info_text_1 = "Click a book to view skills."
+                                info_text_2 = "Then, click a skill to learn it."
                                 info_text_3 = ""
                                 info_text_4 = ""
                                 encounter_started = True
-                            # get which button player pressed during inn scenario (rest or leave)-----------------------
+                            # get which button player pressed during academia scenario (learn or leave)-----------------
                             academia_button = academia_event_button(event)
                             if academia_button == "mage learn":
                                 mage_learn_clicked = True
@@ -3307,10 +3358,81 @@ while game_running:
                             encounter_started = False
                             in_academia = False
                             in_district_over_world = True
-
                             mage_learn_clicked = False
                             fighter_learn_clicked = False
                             scout_learn_clicked = False
+                            learned = False
+                            books.clear()
+                            skill_learn_items.clear()
+
+                        # get which button player pressed during book skill open (skill or close)-----------------------
+                        book_button = skill_learn_event_item(event)
+                        if mage_learn_clicked:
+                            try:
+                                if book_button.name == "barrier learn button":
+                                    if not barrier_learned:
+                                        if player.knowledge["mage"] > 99:
+                                            player.skills_mage["skill 2"] = "barrier"
+                                            info_text_1 = "'Barrier' skill learned!"
+                                            info_text_2 = "Skill added. 100 knowledge used."
+                                            player.knowledge["mage"] -= 100
+                                            barrier_learned = True
+                                        else:
+                                            info_text_1 = "100 mage knowledge required to learn."
+                                    else:
+                                        info_text_1 = "You've already learned 'Barrier'."
+                                        info_text_2 = ""
+
+                                if book_button.name == "close button":
+                                    mage_learn_clicked = False
+                                    books.clear()
+                                    skill_learn_items.clear()
+                            except AttributeError:
+                                pass
+                        if fighter_learn_clicked:
+                            try:
+                                if book_button.name == "hard strike learn button":
+                                    if not hard_strike_learned:
+                                        if player.knowledge["fighter"] > 99:
+                                            player.skills_fighter["skill 2"] = "hard strike"
+                                            info_text_1 = "'Hard Strike' skill learned!"
+                                            info_text_2 = "Skill added. 100 knowledge used."
+                                            player.knowledge["fighter"] -= 100
+                                            hard_strike_learned = True
+                                        else:
+                                            info_text_1 = "100 fighter knowledge required to learn."
+                                    else:
+                                        info_text_1 = "You've already learned 'Hard Strike'."
+                                        info_text_2 = ""
+
+                                if book_button.name == "close button":
+                                    fighter_learn_clicked = False
+                                    books.clear()
+                                    skill_learn_items.clear()
+                            except AttributeError:
+                                pass
+                        if scout_learn_clicked:
+                            try:
+                                if book_button.name == "sharp sense learn button":
+                                    if not sharp_sense_learned:
+                                        if player.knowledge["scout"] > 99:
+                                            player.skills_scout["skill 2"] = "sharp sense"
+                                            info_text_1 = "'Sharp Sense' skill learned!"
+                                            info_text_2 = "Skill added. 100 knowledge used."
+                                            player.knowledge["scout"] -= 100
+                                            sharp_sense_learned = True
+                                        else:
+                                            info_text_1 = "100 scout knowledge required to learn."
+                                    else:
+                                        info_text_1 = "You've already learned 'Sharp Sense'."
+                                        info_text_2 = ""
+
+                                if book_button.name == "close button":
+                                    scout_learn_clicked = False
+                                    books.clear()
+                                    skill_learn_items.clear()
+                            except AttributeError:
+                                pass
 
                     # outside of inn event loop ------------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
@@ -3330,15 +3452,60 @@ while game_running:
                             screen.blit(item.surf, item.rect)
                         for equipment in player_equipment:
                             screen.blit(equipment.surf, equipment.rect)
+                        for book in books:
+                            screen.blit(book.surf, book.rect)
+                        for skill_item in skill_learn_items:
+                            screen.blit(skill_item.surf, skill_item.rect)
                         text_info_draw()
 
+                        # text and window related to player knowledge amounts ------------------------------------------
+                        screen.blit(knowledge_window.surf, knowledge_window.rect)
+                        text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
+                                                               "light yellow")
+                        text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
+                        if scaled_1024:
+                            text_mage_knowledge_rect.center = (800 * .80, 680 * .80)
+                        if scaled_1280:
+                            text_mage_knowledge_rect.center = (515, 680)
+                        if scaled_1600:
+                            text_mage_knowledge_rect.center = (800 / .80, 680 / .80)
+                        screen.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
+
+                        text_fighter_knowledge_surf = font.render(str(player.knowledge["fighter"]), True, "black",
+                                                                  "light yellow")
+                        text_fighter_knowledge_rect = text_fighter_knowledge_surf.get_rect()
+                        if scaled_1024:
+                            text_fighter_knowledge_rect.center = (800 * .80, 680 * .80)
+                        if scaled_1280:
+                            text_fighter_knowledge_rect.center = (695, 680)
+                        if scaled_1600:
+                            text_fighter_knowledge_rect.center = (800 / .80, 680 / .80)
+                        screen.blit(text_fighter_knowledge_surf, text_fighter_knowledge_rect)
+
+                        text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black",
+                                                                "light yellow")
+                        text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
+                        if scaled_1024:
+                            text_scout_knowledge_rect.center = (800 * .80, 680 * .80)
+                        if scaled_1280:
+                            text_scout_knowledge_rect.center = (865, 680)
+                        if scaled_1600:
+                            text_scout_knowledge_rect.center = (800 / .80, 680 / .80)
+                        screen.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
+
                         # ----------------------------------------------------------------------------------------------
-                        if mage_learn_clicked:
-                            screen.blit(mage_book.surf, mage_book.rect)
-                        if fighter_learn_clicked:
-                            screen.blit(fighter_book.surf, fighter_book.rect)
-                        if scout_learn_clicked:
-                            screen.blit(scout_book.surf, scout_book.rect)
+                        if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
+                            books.append(mage_book)
+                            skill_learn_items.append(barrier_learn_button)
+                            skill_learn_items.append(close_button)
+                        if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
+                            books.append(fighter_book)
+                            skill_learn_items.append(hard_strike_learn_button)
+                            skill_learn_items.append(close_button)
+                        if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
+                            books.append(scout_book)
+                            skill_learn_items.append(sharp_sense_learn_button)
+                            skill_learn_items.append(close_button)
 
                 # end of iteration -------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------

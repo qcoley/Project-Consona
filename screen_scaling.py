@@ -58,6 +58,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.learn_button_url_1024
         if object_to_scale.name == "scout learn button":
             return resource_urls.learn_button_url_1024
+        if object_to_scale.name == "barrier learn button":
+            return resource_urls.skill_learn_button_url_1024
+        if object_to_scale.name == "hard strike learn button":
+            return resource_urls.skill_learn_button_url_1024
+        if object_to_scale.name == "sharp sense learn button":
+            return resource_urls.skill_learn_button_url_1024
         if object_to_scale.name == "unstuck button":
             return resource_urls.unstuck_button_url_1024
         if object_to_scale.name == "skill bar":
@@ -68,6 +74,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.fighter_attack_button_url_1024
         if object_to_scale.name == "scout attack button":
             return resource_urls.scout_attack_button_url_1024
+        if object_to_scale.name == "barrier button":
+            return resource_urls.barrier_button_url_1024
+        if object_to_scale.name == "hard strike button":
+            return resource_urls.hard_strike_button_url_1024
+        if object_to_scale.name == "sharp sense button":
+            return resource_urls.sharp_sense_button_url_1024
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url_1024
         if object_to_scale.name == "stan battle":
@@ -94,6 +106,10 @@ def screen_scaling(object_to_scale):
             return resource_urls.fighter_book_url_1024
         if object_to_scale.name == "scout book":
             return resource_urls.scout_book_url_1024
+        if object_to_scale.name == "close button":
+            return resource_urls.close_button_url_1024
+        if object_to_scale.name == "knowledge window":
+            return resource_urls.knowledge_window_url_1024
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1280":
@@ -151,6 +167,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.learn_button_url
         if object_to_scale.name == "scout learn button":
             return resource_urls.learn_button_url
+        if object_to_scale.name == "barrier learn button":
+            return resource_urls.skill_learn_button_url
+        if object_to_scale.name == "hard strike learn button":
+            return resource_urls.skill_learn_button_url
+        if object_to_scale.name == "sharp sense learn button":
+            return resource_urls.skill_learn_button_url
         if object_to_scale.name == "unstuck button":
             return resource_urls.unstuck_button_url
         if object_to_scale.name == "skill bar":
@@ -161,6 +183,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.fighter_attack_button_url
         if object_to_scale.name == "scout attack button":
             return resource_urls.scout_attack_button_url
+        if object_to_scale.name == "barrier button":
+            return resource_urls.barrier_button_url
+        if object_to_scale.name == "hard strike button":
+            return resource_urls.hard_strike_button_url
+        if object_to_scale.name == "sharp sense button":
+            return resource_urls.sharp_sense_button_url
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url
         if object_to_scale.name == "stan battle":
@@ -187,6 +215,10 @@ def screen_scaling(object_to_scale):
             return resource_urls.fighter_book_url
         if object_to_scale.name == "scout book":
             return resource_urls.scout_book_url
+        if object_to_scale.name == "close button":
+            return resource_urls.close_button_url
+        if object_to_scale.name == "knowledge window":
+            return resource_urls.knowledge_window_url
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1600":
@@ -244,6 +276,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.learn_button_url_1600
         if object_to_scale.name == "scout learn button":
             return resource_urls.learn_button_url_1600
+        if object_to_scale.name == "barrier learn button":
+            return resource_urls.skill_learn_button_url_1600
+        if object_to_scale.name == "hard strike learn button":
+            return resource_urls.skill_learn_button_url_1600
+        if object_to_scale.name == "sharp sense learn button":
+            return resource_urls.skill_learn_button_url_1600
         if object_to_scale.name == "unstuck button":
             return resource_urls.unstuck_button_url_1600
         if object_to_scale.name == "skill bar":
@@ -254,6 +292,12 @@ def screen_scaling(object_to_scale):
             return resource_urls.fighter_attack_button_url_1600
         if object_to_scale.name == "scout attack button":
             return resource_urls.scout_attack_button_url_1600
+        if object_to_scale.name == "barrier button":
+            return resource_urls.barrier_button_url_1600
+        if object_to_scale.name == "hard strike button":
+            return resource_urls.hard_strike_button_url_1600
+        if object_to_scale.name == "sharp sense button":
+            return resource_urls.sharp_sense_button_url_1600
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url_1600
         if object_to_scale.name == "stan battle":
@@ -280,3 +324,7 @@ def screen_scaling(object_to_scale):
             return resource_urls.fighter_book_url_1600
         if object_to_scale.name == "scout book":
             return resource_urls.scout_book_url_1600
+        if object_to_scale.name == "close button":
+            return resource_urls.close_button_url_1600
+        if object_to_scale.name == "knowledge window":
+            return resource_urls.knowledge_window_url_1600
