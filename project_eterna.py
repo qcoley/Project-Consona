@@ -1034,20 +1034,35 @@ def status_and_inventory_updates():
     if player.equipment["weapon"] != "":
         if player.equipment["weapon"].type == "mage":
             player.role = "mage"
+            if scaled_1024:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_1024_mage).convert()
+            if scaled_1280:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_mage).convert()
+            if scaled_1600:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_1600_mage).convert()
 
-            player.surf = pygame.image.load(resource_urls.stan_down_url_mage).convert()
             player.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if player.equipment["weapon"].type == "fighter":
             player.role = "fighter"
+            if scaled_1024:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_1024_fighter).convert()
+            if scaled_1280:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_fighter).convert()
+            if scaled_1600:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_1600_fighter).convert()
 
-            player.surf = pygame.image.load(resource_urls.stan_down_url_fighter).convert()
             player.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if player.equipment["weapon"].type == "scout":
             player.role = "scout"
+            if scaled_1024:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_1024_scout).convert()
+            if scaled_1280:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_scout).convert()
+            if scaled_1600:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_1600_scout).convert()
 
-            player.surf = pygame.image.load(resource_urls.stan_down_url_scout).convert()
             player.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
     # player doesn't have a role without a weapon equipped
@@ -1499,6 +1514,26 @@ def text_info_draw():
     if scaled_1600:
         text_role_rect.center = (1220 / .80, 362 / .80)
     screen.blit(text_role_surf, text_role_rect)
+    # get current player offense and create surf and rectangle to blit to screen----------------------------------------
+    text_offense_surf = font.render(str(player.offense), True, "black", "light yellow")
+    text_offense_rect = text_offense_surf.get_rect()
+    if scaled_1024:
+        text_offense_rect.center = (1135 * .80, 82 * .80)
+    if scaled_1280:
+        text_offense_rect.center = (1135, 82)
+    if scaled_1600:
+        text_offense_rect.center = (1135 / .80, 82 / .80)
+    screen.blit(text_offense_surf, text_offense_rect)
+    # get current player defence and create surf and rectangle to blit to screen----------------------------------------
+    text_defence_surf = font.render(str(player.defence), True, "black", "light yellow")
+    text_defence_rect = text_defence_surf.get_rect()
+    if scaled_1024:
+        text_defence_rect.center = (1135 * .80, 120 * .80)
+    if scaled_1280:
+        text_defence_rect.center = (1135, 120)
+    if scaled_1600:
+        text_defence_rect.center = (1135 / .80, 120 / .80)
+    screen.blit(text_defence_surf, text_defence_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
     text_info_rect_1 = text_info_surf_1.get_rect()
