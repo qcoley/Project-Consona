@@ -45,12 +45,16 @@ stan_battle_url_1024_mage = resource_path('resources/art/character_art/player_ch
                                           'stan_battle_1024_mage.png')
 stan_battle_url_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                      'stan_battle_mage.png')
+stan_battle_url_mage_barrier = resource_path('resources/art/character_art/player_character/default/battle/mage/'
+                                             'stan_battle_mage_barrier.png')
 stan_battle_url_1600_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                           'stan_battle_1600_mage.png')
 stan_attack_url_1024_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                           'stan_battle_attacking_1024_mage.png')
 stan_attack_url_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                      'stan_battle_attacking_mage.png')
+stan_attack_url_mage_barrier = resource_path('resources/art/character_art/player_character/default/battle/mage/'
+                                             'stan_battle_attacking_mage_barrier.png')
 stan_attack_url_1600_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                           'stan_battle_attacking_1600_mage.png')
 

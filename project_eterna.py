@@ -2171,7 +2171,7 @@ enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 695, 90, resource_ur
 # battle sprites -------------------------------------------------------------------------------------------------------
 stan_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.stan_battle_url_mage,
                                      (255, 255, 255), "1280")
-snake_battle_sprite = BattleCharacter("snake battle", 700, 250, resource_urls.snake_battle_url,
+snake_battle_sprite = BattleCharacter("snake battle", 715, 250, resource_urls.snake_battle_url,
                                       (255, 255, 255), "1280")
 ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, resource_urls.ghoul_battle_url,
                                       (255, 255, 255), "1280")
@@ -2926,9 +2926,15 @@ while game_running:
                                         if scaled_1280:
                                             # update player character sprite for combat animation
                                             if player.role == "mage":
-                                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                                          stan_battle_sprite.y_coordinate,
-                                                                          resource_urls.stan_attack_url_mage)
+                                                if barrier_active:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls. \
+                                                                              stan_attack_url_mage_barrier)
+                                                else:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls.stan_attack_url_mage)
                                             if player.role == "fighter":
                                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                           stan_battle_sprite.y_coordinate,
@@ -3275,9 +3281,14 @@ while game_running:
                                                        resource_urls.ghoul_battle_url_1024)
                         if scaled_1280:
                             if player.role == "mage":
-                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                          stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_battle_url_mage)
+                                if barrier_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_mage_barrier)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_mage)
                             if player.role == "fighter":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
@@ -3337,9 +3348,14 @@ while game_running:
                                                        resource_urls.ghoul_attack_url_1024)
                         if scaled_1280:
                             if player.role == "mage":
-                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                          stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_attack_url_mage)
+                                if barrier_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_mage_barrier)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_mage)
                             if player.role == "fighter":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
