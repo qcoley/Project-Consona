@@ -608,8 +608,6 @@ def attack_scenario(enemy_combating, combat_event):
             # ----------------------------------------------------------------------------------------------------------
             # enemy has been defeated, will return an amount of xp based on current levels -----------------------------
             else:
-
-                # ------------------------------------------------------------------------------------------------------
                 # quest checks -----------------------------------------------------------------------------------------
                 # if player is on quest to kill snakes
                 if enemy_combating.kind == "snake":
@@ -638,7 +636,7 @@ def attack_scenario(enemy_combating, combat_event):
                 if player.level <= enemy_combating.level + 1:
                     experience = int((enemy_combating.level / player.level) * 25)
                     player.experience = player.experience + experience
-                    enemy_experience = f"Gained {experience} experience."
+                    enemy_experience = f"{experience} xp "
                     # add to dictionary experience given from defeating enemy ------------------------------------------
                     combat_event_dictionary["experience gained"] = enemy_experience
 
@@ -671,6 +669,105 @@ def attack_scenario(enemy_combating, combat_event):
         else:
             print("\nThis enemy appears to be dead already!")
 
+    # active combat skill, if player is fighter and has learned hard strike from the academia
+    if combat_event == "skill 1":
+        if player.role == "fighter":
+            if hard_strike_learned:
+                if enemy_combating.alive_status:
+                    # returns players damage to the enemy based on level and equipment
+                    striked = random.randrange(20, 40)  # hard strike damage
+                    enemy_combating.health = enemy_combating.health - striked
+                    health_bar_update_enemy(enemy_combating)
+
+                    # if enemy is not dead yet
+                    if enemy_combating.health > 0:
+                        attacked_enemy_string = f"Hard strike did {striked} damage!"
+                        # add damage to enemy to event dictionary to be returned to main loop --------------------------
+                        combat_event_dictionary["damage done"] = attacked_enemy_string
+                        # returns total damage output from enemy as attacked_player_health value
+                        attacked_player_health = attack_player(enemy_combating)
+                        if attacked_player_health > 0:
+                            attacked_player_string = f"You take {attacked_player_health} damage from " \
+                                                     f"{enemy_combating.name}."
+                            player.health = player.health - attacked_player_health
+                            # add damage done to player from enemy to dictionary ---------------------------------------
+                            combat_event_dictionary["damage taken"] = attacked_player_string
+
+                            # enemy has defeated player, game over
+                            if player.health <= 0:
+                                player.alive_status = False
+                            return combat_event_dictionary
+                        else:
+                            enemy_miss_string = f'{enemy_combating.name} missed.'
+                            # add to dictionary that enemy did no damage to player -------------------------------------
+                            combat_event_dictionary["damage taken"] = enemy_miss_string
+                            return combat_event_dictionary
+
+                    # --------------------------------------------------------------------------------------------------
+                    # enemy has been defeated, will return an amount of xp based on current levels ---------------------
+                    else:
+                        # ----------------------------------------------------------------------------------------------
+                        # quest checks ---------------------------------------------------------------------------------
+                        # if player is on quest to kill snakes
+                        if enemy_combating.kind == "snake":
+                            if player.quest_status["sneaky snakes"]:
+                                if player.quest_progress["sneaky snakes"] < 4:
+                                    player.quest_progress["sneaky snakes"] = player.quest_progress["sneaky snakes"] + 1
+                                    quest_string = f"{player.quest_progress['sneaky snakes']}/4 snakes"
+                                    # add to dictionary player quest updates if enemy was an objective of quest
+                                    combat_event_dictionary["quest update"] = quest_string
+                        else:
+                            combat_event_dictionary["quest update"] = "No"
+
+                        # if player is on quest to kill ghouls
+                        if enemy_combating.kind == "ghoul":
+                            if player.quest_status["ghouled again"]:
+                                if player.quest_progress["ghouled again"] < 4:
+                                    player.quest_progress["ghouled again"] = player.quest_progress["ghouled again"] + 1
+                                    quest_string = f"{player.quest_status['ghouled again']}/4 ghouls"
+                                    # add to dictionary player quest updates if enemy was an objective of quest
+                                    combat_event_dictionary["quest update"] = quest_string
+                        else:
+                            combat_event_dictionary["quest update"] = "No"
+
+                        # ----------------------------------------------------------------------------------------------
+                        # experienced gained by player from defeating enemy --------------------------------------------
+                        if player.level <= enemy_combating.level + 1:
+                            experience = int((enemy_combating.level / player.level) * 25)
+                            player.experience = player.experience + experience
+                            enemy_experience = f"{experience} xp "
+                            # add to dictionary experience given from defeating enemy ----------------------------------
+                            combat_event_dictionary["experience gained"] = enemy_experience
+
+                        drop_chance = random.randrange(1, 10)
+                        # ----------------------------------------------------------------------------------------------
+                        # 80% chance to drop merchant item sellable by player for rupees at shops ----------------------
+                        if drop_chance > 2:
+
+                            # doesn't give item to player if their inventory is full
+                            if len(player.items) < 16:
+                                player.items.append(enemy_combating.items)
+                                enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]."
+                                # add to dictionary anything dropped from enemy upon their defeat ----------------------
+                                combat_event_dictionary["item dropped"] = enemy_dropped_this
+                            else:
+                                combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
+                        else:
+                            combat_event_dictionary["item dropped"] = "No"
+
+                        # player will level up (see level up method) ---------------------------------------------------
+                        if player.experience >= 100:
+                            level_up()
+
+                        enemy_combating.alive_status = False
+                        enemy_combating.kill()
+
+                        # add to dictionary True if enemy has been defeated so scenario will end -----------------------
+                        combat_event_dictionary["enemy defeated"] = True
+                        return combat_event_dictionary
+                else:
+                    print("\nThis enemy appears to be dead already!")
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # player attacks enemy, gets damage to enemy done based on player's role and equipment ---------------------------------
@@ -697,7 +794,7 @@ def attack_enemy(mob):
 # enemy attacks player, gets damage to player done, subtract players defense level (gear) ------------------------------
 def attack_player(mob):
     difference = mob.level - player.level
-    base_damage = (random.randrange(10, 15))
+    base_damage = (random.randrange(10, 25))
 
     # add additional damage if enemy is a higher level than player. the higher the level difference, the more damage ---
     if difference >= 1:
@@ -770,6 +867,12 @@ def combat_event_button(combat_event):
             return "attack"
         if scout_attack_button.rect.collidepoint(combat_mouse):
             return "attack"
+        if barrier_button.rect.collidepoint(combat_mouse):
+            return "skill 1"
+        if hard_strike_button.rect.collidepoint(combat_mouse):
+            return "skill 1"
+        if sharp_sense_button.rect.collidepoint(combat_mouse):
+            return "skill 1"
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1609,22 +1712,30 @@ def character_sheet_info_draw():
         text_rolled_rect.center = (630, 267)
     if scaled_1600:
         text_rolled_rect.center = (630 / .80, 267 / .80 + 5)
-    text_defence_surf = font.render(str(player.defence), True, "black", "light yellow")
-    text_defence_rect = text_defence_surf.get_rect()
+    text_health_surf = font.render(str(player.health), True, "black", "light yellow")
+    text_health_rect = text_health_surf.get_rect()
     if scaled_1024:
-        text_defence_rect.center = (900 * .80, 151 * .80)
+        text_health_rect.center = (900 * .80, 151 * .80)
     if scaled_1280:
-        text_defence_rect.center = (900, 151)
+        text_health_rect.center = (900, 151)
     if scaled_1600:
-        text_defence_rect.center = (900 / .80, 151 / .80 + 10)
-    text_offense_surf = font.render(str(player.offense), True, "black", "light yellow")
-    text_offense_rect = text_offense_surf.get_rect()
+        text_health_rect.center = (900 / .80, 151 / .80 + 10)
+    text_energy_surf = font.render(str(player.energy), True, "black", "light yellow")
+    text_energy_rect = text_energy_surf.get_rect()
     if scaled_1024:
-        text_offense_rect.center = (900 * .80, 189 * .80)
+        text_energy_rect.center = (900 * .80, 189 * .80)
     if scaled_1280:
-        text_offense_rect.center = (900, 189)
+        text_energy_rect.center = (900, 189)
     if scaled_1600:
-        text_offense_rect.center = (900 / .80, 189 / .80 + 10)
+        text_energy_rect.center = (900 / .80, 189 / .80 + 10)
+    text_experience_surf = font.render(str(player.experience), True, "black", "light yellow")
+    text_experience_rect = text_experience_surf.get_rect()
+    if scaled_1024:
+        text_experience_rect.center = (922 * .80, 229 * .80)
+    if scaled_1280:
+        text_experience_rect.center = (922, 229)
+    if scaled_1600:
+        text_experience_rect.center = (922 / .80, 229 / .80 + 10)
     text_leveled_surf = font.render(str(player.level), True, "black", "light yellow")
     text_leveled_rect = text_leveled_surf.get_rect()
     if scaled_1024:
@@ -1681,12 +1792,38 @@ def character_sheet_info_draw():
         text_sorae_rect.center = (708, 594)
     if scaled_1600:
         text_sorae_rect.center = (708 / .80, 594 / .80 - 10)
+    text_mage_skills_surf = font.render(str(player.skills_mage["skill 2"]), True, "black", "light yellow")
+    text_mage_skills_rect = text_mage_skills_surf.get_rect()
+    if scaled_1024:
+        text_mage_skills_rect.center = (935 * .80, 366 * .80)
+    if scaled_1280:
+        text_mage_skills_rect.center = (935, 366)
+    if scaled_1600:
+        text_mage_skills_rect.center = (935 / .80, 366 / .80 + 10)
+    text_fighter_skills_surf = font.render(str(player.skills_fighter["skill 2"]), True, "black", "light yellow")
+    text_fighter_skills_rect = text_fighter_skills_surf.get_rect()
+    if scaled_1024:
+        text_fighter_skills_rect.center = (955 * .80, 404 * .80)
+    if scaled_1280:
+        text_fighter_skills_rect.center = (955, 404)
+    if scaled_1600:
+        text_fighter_skills_rect.center = (955 / .80, 404 / .80 + 10)
+    text_scout_skills_surf = font.render(str(player.skills_scout["skill 2"]), True, "black", "light yellow")
+    text_scout_skills_rect = text_scout_skills_surf.get_rect()
+    if scaled_1024:
+        text_scout_skills_rect.center = (950 * .80, 443 * .80)
+    if scaled_1280:
+        text_scout_skills_rect.center = (950, 443)
+    if scaled_1600:
+        text_scout_skills_rect.center = (950 / .80, 443 / .80 + 10)
+
     character_sheet_text.append((text_name_surf, text_name_rect))
     character_sheet_text.append((text_race_surf, text_race_rect))
     character_sheet_text.append((text_gender_surf, text_gender_rect))
     character_sheet_text.append((text_rolled_surf, text_rolled_rect))
-    character_sheet_text.append((text_defence_surf, text_defence_rect))
-    character_sheet_text.append((text_offense_surf, text_offense_rect))
+    character_sheet_text.append((text_health_surf, text_health_rect))
+    character_sheet_text.append((text_energy_surf, text_energy_rect))
+    character_sheet_text.append((text_experience_surf, text_experience_rect))
     character_sheet_text.append((text_leveled_surf, text_leveled_rect))
     character_sheet_text.append((text_mage_surf, text_mage_rect))
     character_sheet_text.append((text_fighter_surf, text_fighter_rect))
@@ -1694,6 +1831,9 @@ def character_sheet_info_draw():
     character_sheet_text.append((text_amuna_surf, text_amuna_rect))
     character_sheet_text.append((text_nuldar_surf, text_nuldar_rect))
     character_sheet_text.append((text_sorae_surf, text_sorae_rect))
+    character_sheet_text.append((text_mage_skills_surf, text_mage_skills_rect))
+    character_sheet_text.append((text_fighter_skills_surf, text_fighter_skills_rect))
+    character_sheet_text.append((text_scout_skills_surf, text_scout_skills_rect))
     character_sheet_window.append(character_sheet)
 
 
@@ -1790,11 +1930,11 @@ def gear_check():
     # check players current gear type. return true after checked so the defense stat doesn't keep adding every iteration
     try:
         if player.equipment["chest"].type == "heavy":
-            player.defence += 15
+            player.defence += 12
         if player.equipment["chest"].type == "medium":
             player.defence += 8
         if player.equipment["chest"].type == "light":
-            player.defence += 3
+            player.defence += 4
     # if exception is raised, player isn't wearing anything because the .type doesn't exist, so set defence to 0
     except AttributeError:
         player.defence = 0
@@ -1852,7 +1992,7 @@ basic_armor = Item("basic armor", "heavy", 200, 200, resource_urls.basic_armor_u
 basic_tunic = Item("basic tunic", "medium", 200, 200, resource_urls.basic_tunic_url, (255, 255, 255), "1280")
 
 # default player character ---------------------------------------------------------------------------------------------
-player = Player("player", "female", "amuna", "",  # name, gender, race, role
+player = Player("player", "male", "amuna", "",  # name, gender, race, role
                 [health_potion, energy_potion, shiny_rock, bone_dust, basic_sword, basic_bow, basic_armor, basic_tunic],
                 # inventory
                 {"weapon": basic_staff, "chest": basic_robes},  # equipment ('type', 'name')
@@ -1863,13 +2003,13 @@ player = Player("player", "female", "amuna", "",  # name, gender, race, role
                  "placeholder quest": "placeholder quest info"},
                 {"sneaky snakes": 0, "village repairs": 0, "ghouled again": 0},
                 {"sneaky snakes": False, "village repairs": False, "ghouled again": False},
-                {"mage": 125, "fighter": 117, "scout": 150},  # role knowledge ('role', 'amount')
+                {"mage": 100, "fighter": 100, "scout": 100},  # role knowledge ('role', 'amount')
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
-                1, 99, 100, 100,  # lvl, exp, health, energy
+                1, 0, 100, 100,  # lvl, exp, health, energy
                 True, 20, {"amuna": 10, "nuldar": 0, "sorae": 0}, "", "", 0, 0)  # alive, rupees, reputation, mount,
-# zone, magic knowledge, fighter knowledge, scout knowledge
+# zone, defence, offense
 
 # nps: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate --------------------------
 #                  alive_status, quest_complete, items, gift, image, color
@@ -2153,6 +2293,9 @@ sharp_sense_learned = False
 gear_checked = False
 # condition to check if player weapon has been checked for stat bonus
 weapon_checked = False
+# conditions to check whether these role skills are active in loop
+barrier_active = False
+sharp_sense_active = False
 # conditions to check current screen size scaling
 scaled_1024 = False
 scaled_1280 = True
@@ -2201,7 +2344,7 @@ info_text_2 = ""
 info_text_3 = ""
 info_text_4 = ""
 # text updates from battle instance to apply to main over-world message box
-battle_info_to_return_to_main_loop = {"experience": 0, "item dropped": "", "leveled_up": False}
+battle_info_to_return_to_main_loop = {"experience": 0, "item dropped": "", "leveled_up": False, "knowledge": ""}
 
 # ----------------------------------------------------------------------------------------------------------------------
 # main loop ------------------------------------------------------------------------------------------------------------
@@ -2442,7 +2585,8 @@ while game_running:
                     if battle_info_to_return_to_main_loop["item dropped"] != "":
                         if loot_update:
                             info_text_3 = str(battle_info_to_return_to_main_loop["item dropped"])
-                            info_text_4 = str(battle_info_to_return_to_main_loop["experience"])
+                            info_text_4 = str(battle_info_to_return_to_main_loop["experience"]) + "and " + \
+                                          str(battle_info_to_return_to_main_loop["knowledge"])
                     if battle_info_to_return_to_main_loop["leveled_up"]:
                         level_up_draw()
 
@@ -2863,10 +3007,27 @@ while game_running:
                                             # player will gain knowledge based on their current role
                                             if player.role == "mage":
                                                 player.knowledge["mage"] += 10
+                                                battle_info_to_return_to_main_loop["knowledge"] = \
+                                                    "10 mage knowledge gained."
                                             if player.role == "fighter":
                                                 player.knowledge["fighter"] += 10
+                                                battle_info_to_return_to_main_loop["knowledge"] = \
+                                                    "10 fighter knowledge gained."
                                             if player.role == "scout":
                                                 player.knowledge["scout"] += 10
+                                                battle_info_to_return_to_main_loop["knowledge"] = \
+                                                    "10 scout knowledge gained."
+
+                                            # if barrier is active on enemy defeat, restore original defence and set off
+                                            if barrier_active:
+                                                barrier_active = False
+                                                player.defence = original_defence
+
+                                            # if sharp sense is active on enemy defeat, restore original offense
+                                            if sharp_sense_active:
+                                                sharp_sense_active = False
+                                                player.offense = original_offense
+
                                             movement_able = True
                                             combat_happened = False
                                             interacted = False
@@ -2875,11 +3036,146 @@ while game_running:
                                             in_battle = False
                                             in_district_over_world = True
 
+                                    # first skill, or second skill bar slot is clicked
+                                    # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
+                                    if combat_button == "skill 1":
+
+                                        # make sure player has enough energy to use the skill
+                                        if player.energy > 34:
+                                            # player is a mage and uses the barrier spell. Set barrier active to true
+                                            # giving them 20 additional defence and subtract 35 energy
+                                            # save original defence value to be re applied upon enemy or player defeat
+                                            if player.role == "mage":
+                                                if barrier_learned:
+                                                    if not barrier_active:
+                                                        info_text_1 = "Barrier spell is active."
+                                                        info_text_2 = "You have gained 20 defence."
+                                                        barrier_active = True
+                                                        original_defence = player.defence
+                                                        player.defence += 20
+                                                        player.energy -= 35
+
+                                                    else:
+                                                        info_text_1 = "Barrier spell is already active."
+
+                                            # player is a scout and uses sharp sense. Set sharp sense active to true
+                                            # giving them 20 additional offense and subtract 35 energy
+                                            # save original offense value to be re applied upon enemy or player defeat
+                                            if player.role == "scout":
+                                                if sharp_sense_learned:
+                                                    if not sharp_sense_active:
+                                                        info_text_1 = "Sharp sense is active."
+                                                        info_text_2 = "You have gained 20 offense."
+                                                        sharp_sense_active = True
+                                                        original_offense = player.offense
+                                                        player.offense += 20
+                                                        player.energy -= 35
+
+                                                    else:
+                                                        info_text_1 = "Sharp sense is already active."
+
+                                            # player is a fighter and uses har strike. This uses the standard "attack"
+                                            # scenario from above, with the input being changed to the skill instead of
+                                            # attack to trigger a different damage value within the attack function
+                                            if player.role == "fighter":
+                                                if hard_strike_learned:
+                                                    # update animations for hard strike attack -------------------------
+                                                    if scaled_1024:
+                                                        if player.role == "fighter":
+                                                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                                      stan_battle_sprite.y_coordinate,
+                                                                                      resource_urls. \
+                                                                                      stan_attack_url_1024_fighter)
+                                                        if enemy.kind == "snake":
+                                                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                                                       snake_battle_sprite.y_coordinate,
+                                                                                       resource_urls. \
+                                                                                       snake_attack_url_1024)
+                                                        if enemy.kind == "ghoul":
+                                                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                                                       ghoul_battle_sprite.y_coordinate,
+                                                                                       resource_urls. \
+                                                                                       ghoul_attack_url_1024)
+                                                    if scaled_1280:
+                                                        if player.role == "fighter":
+                                                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                                      stan_battle_sprite.y_coordinate,
+                                                                                      resource_urls. \
+                                                                                      stan_attack_url_fighter)
+                                                        if enemy.kind == "snake":
+                                                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                                                       snake_battle_sprite.y_coordinate,
+                                                                                       resource_urls.snake_attack_url)
+                                                        if enemy.kind == "ghoul":
+                                                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                                                       ghoul_battle_sprite.y_coordinate,
+                                                                                       resource_urls.ghoul_attack_url)
+                                                    if scaled_1600:
+                                                        if player.role == "fighter":
+                                                            stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                                      stan_battle_sprite.y_coordinate,
+                                                                                      resource_urls. \
+                                                                                      stan_attack_url_1600_fighter)
+                                                        if enemy.kind == "snake":
+                                                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                                                       snake_battle_sprite.y_coordinate,
+                                                                                       resource_urls. \
+                                                                                       snake_attack_url_1600)
+                                                        if enemy.kind == "ghoul":
+                                                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                                                       ghoul_battle_sprite.y_coordinate,
+                                                                                       resource_urls. \
+                                                                                       ghoul_attack_url_1600)
+                                                    # ------------------------------------------------------------------
+
+                                                    combat_events = attack_scenario(enemy, "skill 1")
+                                                    combat_happened = True
+                                                    player.energy -= 35
+                                                    if combat_events["damage done"] == 0:
+                                                        info_text_1 = ""
+                                                    else:
+                                                        info_text_1 = str(combat_events["damage done"])
+                                                    if combat_events["damage taken"] == 0:
+                                                        info_text_2 = ""
+                                                    else:
+                                                        info_text_2 = str(combat_events["damage taken"])
+
+                                                    if combat_events["enemy defeated"]:
+                                                        if combat_events["item dropped"] != "No":
+                                                            battle_info_to_return_to_main_loop["item dropped"] = \
+                                                                str(combat_events["item dropped"])
+                                                        if combat_events["experience gained"] != 0:
+                                                            battle_info_to_return_to_main_loop["experience"] = \
+                                                                str(combat_events["experience gained"])
+
+                                                    if combat_events["enemy defeated"]:
+                                                        if combat_events["level up status"] != "":
+                                                            battle_info_to_return_to_main_loop["leveled_up"] = True
+
+                                                    if combat_events["enemy defeated"]:
+                                                        if player.role == "fighter":
+                                                            player.knowledge["fighter"] += 10
+                                                            battle_info_to_return_to_main_loop["knowledge"] = \
+                                                                "10 fighter knowledge gained."
+
+                                                        movement_able = True
+                                                        combat_happened = False
+                                                        interacted = False
+                                                        loot_update = True
+                                                        encounter_started = False
+                                                        in_battle = False
+                                                        in_district_over_world = True
+
+                                        else:
+                                            info_text_1 = "Not enough energy to use this skill."
+
                     # outside of battle event loop ---------------------------------------------------------------------
                     # --------------------------------------------------------------------------------------------------
                     # battle scene and enemy are drawn to screen -------------------------------------------------------
                     try:
                         if zone_seldon:
+                            # create blank background to be drawn on top of each iteration
+                            screen.fill((255, 255, 255))  # (255, 255, 255) RGB value for WHITE
                             screen.blit(seldon_district_battle, (0, 0))
                             screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
                             screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
@@ -3015,6 +3311,7 @@ while game_running:
                             ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                        ghoul_battle_sprite.y_coordinate,
                                                        resource_urls.ghoul_battle_url_1600)
+                        pygame.display.flip()
                         combat_cooldown = False
 
                     # combat happened this turn, update sprites for battle and apply short cooldown to attack again
@@ -3743,6 +4040,16 @@ while game_running:
                             encounter_started = False
                             in_battle = False
                             in_district_over_world = True
+
+                            # turn off barrier and restore original defence if player mage was killed while active
+                            if barrier_active:
+                                barrier_active = False
+                                player.defence = original_defence
+
+                            # turn off barrier and restore original defence if player mage was killed while active
+                            if sharp_sense_active:
+                                sharp_sense_active = False
+                                player.offense = original_offense
 
                             player.pos = vec((435, 700))
                             player.health = 50
