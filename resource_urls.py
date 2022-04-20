@@ -45,18 +45,26 @@ stan_battle_url_1024_mage = resource_path('resources/art/character_art/player_ch
                                           'stan_battle_1024_mage.png')
 stan_battle_url_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                      'stan_battle_mage.png')
-stan_battle_url_mage_barrier = resource_path('resources/art/character_art/player_character/default/battle/mage/'
-                                             'stan_battle_mage_barrier.png')
 stan_battle_url_1600_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                           'stan_battle_1600_mage.png')
 stan_attack_url_1024_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                           'stan_battle_attacking_1024_mage.png')
 stan_attack_url_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                      'stan_battle_attacking_mage.png')
-stan_attack_url_mage_barrier = resource_path('resources/art/character_art/player_character/default/battle/mage/'
-                                             'stan_battle_attacking_mage_barrier.png')
 stan_attack_url_1600_mage = resource_path('resources/art/character_art/player_character/default/battle/mage/'
                                           'stan_battle_attacking_1600_mage.png')
+stan_attack_url_mage_barrier_1024 = resource_path('resources/art/character_art/player_character/default/battle/mage/'
+                                                  'stan_battle_attacking_mage_barrier_1024.png')
+stan_attack_url_mage_barrier = resource_path('resources/art/character_art/player_character/default/battle/mage/'
+                                             'stan_battle_attacking_mage_barrier.png')
+stan_attack_url_mage_barrier_1600 = resource_path('resources/art/character_art/player_character/default/battle/mage/'
+                                                  'stan_battle_attacking_mage_barrier_1600.png')
+stan_battle_url_mage_barrier_1024 = resource_path('resources/art/character_art/player_character/default/battle/mage/'
+                                                  'stan_battle_mage_barrier_1024.png')
+stan_battle_url_mage_barrier = resource_path('resources/art/character_art/player_character/default/battle/mage/'
+                                             'stan_battle_mage_barrier.png')
+stan_battle_url_mage_barrier_1600 = resource_path('resources/art/character_art/player_character/default/battle/mage/'
+                                                  'stan_battle_mage_barrier_1600.png')
 
 # stan fighter ---------------------------------------------------------------------------------------------------------
 stan_down_url_1024_fighter = resource_path('resources/art/character_art/player_character/default/fighter/'
@@ -79,7 +87,8 @@ stan_right_url_1600_fighter = resource_path('resources/art/character_art/player_
                                             'stan_right_1600_fighter.png')
 stan_up_url_1024_fighter = resource_path('resources/art/character_art/player_character/default/fighter/'
                                          'stan_up_1024_fighter.png')
-stan_up_url_fighter = resource_path('resources/art/character_art/player_character/default/fighter/stan_up_fighter.png')
+stan_up_url_fighter = resource_path('resources/art/character_art/player_character/default/fighter/'
+                                    'stan_up_fighter.png')
 stan_up_url_1600_fighter = resource_path('resources/art/character_art/player_character/default/fighter/'
                                          'stan_up_1600_fighter.png')
 stan_battle_url_1024_fighter = resource_path('resources/art/character_art/player_character/default/battle/fighter/'
@@ -94,11 +103,17 @@ stan_attack_url_fighter = resource_path('resources/art/character_art/player_char
                                         'stan_battle_attacking_fighter.png')
 stan_attack_url_1600_fighter = resource_path('resources/art/character_art/player_character/default/battle/fighter/'
                                              'stan_battle_attacking_1600_fighter.png')
-
+stan_battle_url_fighter_hard_strike_1024 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                                         'fighter/stan_battle_fighter_hard_strike.png')
+stan_battle_url_fighter_hard_strike = resource_path('resources/art/character_art/player_character/default/battle/'
+                                                    'fighter/stan_battle_fighter_hard_strike.png')
+stan_battle_url_fighter_hard_strike_1600 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                                         'fighter/stan_battle_fighter_hard_strike.png')
 # stan scout -----------------------------------------------------------------------------------------------------------
 stan_down_url_1024_scout = resource_path('resources/art/character_art/player_character/default/scout/'
                                          'stan_down_1024_scout.png')
-stan_down_url_scout = resource_path('resources/art/character_art/player_character/default/scout/stan_down_scout.png')
+stan_down_url_scout = resource_path('resources/art/character_art/player_character/default/scout/'
+                                    'stan_down_scout.png')
 stan_down_url_1600_scout = resource_path('resources/art/character_art/player_character/default/scout/'
                                          'stan_down_1600_scout.png')
 stan_left_url_1024_scout = resource_path('resources/art/character_art/player_character/default/scout/'
@@ -131,9 +146,46 @@ stan_attack_url_scout = resource_path('resources/art/character_art/player_charac
                                       'stan_battle_attacking_scout.png')
 stan_attack_url_1600_scout = resource_path('resources/art/character_art/player_character/default/battle/scout/'
                                            'stan_battle_attacking_1600_scout.png')
+stan_battle_url_scout_sharp_sense_1024 = resource_path('resources/art/character_art/player_character/default/battle'
+                                                       '/scout/stan_battle_scout_sharp_sense_1024.png')
+stan_battle_url_scout_sharp_sense = resource_path('resources/art/character_art/player_character/default/battle/scout/'
+                                                  'stan_battle_scout_sharp_sense.png')
+stan_battle_url_scout_sharp_sense_1600 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                                       'scout/stan_battle_scout_sharp_sense_1600.png')
+stan_attack_url_scout_sharp_sense_1024 = resource_path('resources/art/character_art/player_character/default/battle'
+                                                       '/scout/stan_battle_attacking_scout_sharp_sense_1024.png')
+stan_attack_url_scout_sharp_sense = resource_path('resources/art/character_art/player_character/default/battle/scout/'
+                                                  'stan_battle_attacking_scout_sharp_sense.png')
+stan_attack_url_scout_sharp_sense_1600 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                                       'scout/stan_battle_attacking_scout_sharp_sense_1600.png')
+
+# stan no role ---------------------------------------------------------------------------------------------------------
+stan_down_url_1024 = resource_path('resources/art/character_art/player_character/default/no_role/stan_down_1024.png')
+stan_down_url = resource_path('resources/art/character_art/player_character/default/no_role/stan_down.png')
+stan_down_url_1600 = resource_path('resources/art/character_art/player_character/default/no_role/stan_down_1600.png')
+stan_left_url_1024 = resource_path('resources/art/character_art/player_character/default/no_role/stan_left_1024.png')
+stan_left_url = resource_path('resources/art/character_art/player_character/default/no_role/stan_left.png')
+stan_left_url_1600 = resource_path('resources/art/character_art/player_character/default/no_role/stan_left_1600.png')
+stan_right_url_1024 = resource_path('resources/art/character_art/player_character/default/no_role/stan_right_1024.png')
+stan_right_url = resource_path('resources/art/character_art/player_character/default/no_role/stan_right.png')
+stan_right_url_1600 = resource_path('resources/art/character_art/player_character/default/no_role/stan_right_1600.png')
+stan_up_url_1024 = resource_path('resources/art/character_art/player_character/default/no_role/stan_up_1024.png')
+stan_up_url = resource_path('resources/art/character_art/player_character/default/no_role/stan_up.png')
+stan_up_url_1600 = resource_path('resources/art/character_art/player_character/default/no_role/stan_up_1600.png')
+stan_battle_url_1024 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                     'no_role/stan_battle_1024.png')
+stan_battle_url = resource_path('resources/art/character_art/player_character/default/battle/'
+                                'no_role/stan_battle.png')
+stan_battle_url_1600 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                     'no_role/stan_battle_1600.png')
+stan_attack_url_1024 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                     'no_role/stan_battle_attacking_1024.png')
+stan_attack_url = resource_path('resources/art/character_art/player_character/default/battle/'
+                                'no_role/stan_battle_attacking.png')
+stan_attack_url_1600 = resource_path('resources/art/character_art/player_character/default/battle/'
+                                     'no_role/stan_battle_attacking_1600.png')
 
 amuna_shopkeeper_url = resource_path('resources/art/character_art/NPCs/shops/amuna_shopkeeper.png')
-
 garan_url_1024 = resource_path('resources/art/character_art/NPCs/garan/garan_1024.png')
 garan_url = resource_path('resources/art/character_art/NPCs/garan/garan.png')
 garan_url_1600 = resource_path('resources/art/character_art/NPCs/garan/garan_1600.png')
@@ -146,7 +198,6 @@ garan_right_url_1600 = resource_path('resources/art/character_art/NPCs/garan/gar
 garan_back_url_1024 = resource_path('resources/art/character_art/NPCs/garan/garan_back_1024.png')
 garan_back_url = resource_path('resources/art/character_art/NPCs/garan/garan_back.png')
 garan_back_url_1600 = resource_path('resources/art/character_art/NPCs/garan/garan_back_1600.png')
-
 guard_url_1024 = resource_path('resources/art/character_art/NPCs/guards/guard_1024.png')
 guard_url = resource_path('resources/art/character_art/NPCs/guards/guard.png')
 guard_url_1600 = resource_path('resources/art/character_art/NPCs/guards/guard_1600.png')
@@ -159,7 +210,6 @@ guard_right_url_1600 = resource_path('resources/art/character_art/NPCs/guards/gu
 guard_back_url_1024 = resource_path('resources/art/character_art/NPCs/guards/guard_back_1024.png')
 guard_back_url = resource_path('resources/art/character_art/NPCs/guards/guard_back.png')
 guard_back_url_1600 = resource_path('resources/art/character_art/NPCs/guards/guard_back_1600.png')
-
 maurelle_url_1024 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_1024.png')
 maurelle_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle.png')
 maurelle_url_1600 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_1600.png')
@@ -257,7 +307,6 @@ basic_sword_url_1600 = resource_path('resources/art/item_art/equipment/basic_swo
 basic_bow_url_1024 = resource_path('resources/art/item_art/equipment/basic_bow_1024.png')
 basic_bow_url = resource_path('resources/art/item_art/equipment/basic_bow.png')
 basic_bow_url_1600 = resource_path('resources/art/item_art/equipment/basic_bow_1600.png')
-
 basic_robes_url_1024 = resource_path('resources/art/item_art/equipment/basic_robes_1024.png')
 basic_robes_url = resource_path('resources/art/item_art/equipment/basic_robes.png')
 basic_robes_url_1600 = resource_path('resources/art/item_art/equipment/basic_robes_1600.png')
@@ -268,6 +317,12 @@ basic_tunic_url_1024 = resource_path('resources/art/item_art/equipment/basic_tun
 basic_tunic_url = resource_path('resources/art/item_art/equipment/basic_tunic.png')
 basic_tunic_url_1600 = resource_path('resources/art/item_art/equipment/basic_tunic_1600.png')
 
+cat_url = resource_path('resources/art/critter_art/cat.png')
+
+quest_logs_url_1024 = resource_path('resources/art/quest_items/logs_1024.png')
+quest_logs_url = resource_path('resources/art/quest_items/logs.png')
+quest_logs_url_1600 = resource_path('resources/art/quest_items/logs_1600.png')
+
 game_over_screen_url_1024 = resource_path('resources/art/screens/game_over_1024.png')
 game_over_screen_url = resource_path('resources/art/screens/game_over.png')
 game_over_screen_url_1600 = resource_path('resources/art/screens/game_over_1600.png')
@@ -277,7 +332,6 @@ start_screen_url_1600 = resource_path('resources/art/screens/start_screen_1600.p
 nera_sleep_screen_url_1024 = resource_path('resources/art/screens/nera_sleep_screen_1024.png')
 nera_sleep_screen_url = resource_path('resources/art/screens/nera_sleep_screen.png')
 nera_sleep_screen_url_1600 = resource_path('resources/art/screens/nera_sleep_screen_1600.png')
-
 character_sheet_url_1024 = resource_path('resources/art/ui_elements/character_sheet_1024.png')
 character_sheet_url = resource_path('resources/art/ui_elements/character_sheet.png')
 character_sheet_url_1600 = resource_path('resources/art/ui_elements/character_sheet_1600.png')
@@ -482,7 +536,6 @@ health_3_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_3.png
 health_2_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_2.png')
 health_1_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_1.png')
 health_0_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_0.png')
-
 energy_100_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_100.png')
 energy_99_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_99.png')
 energy_98_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_98.png')
@@ -584,7 +637,6 @@ energy_3_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_3.png
 energy_2_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_2.png')
 energy_1_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_1.png')
 energy_0_url = resource_path('resources/art/ui_elements/bars/energy/en_bar_0.png')
-
 xp_100_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_100.png')
 xp_99_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_99.png')
 xp_98_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_98.png')
@@ -686,9 +738,3 @@ xp_3_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_3.png')
 xp_2_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_2.png')
 xp_1_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_1.png')
 xp_0_url = resource_path('resources/art/ui_elements/bars/xp/xp_bar_0.png')
-
-cat_url = resource_path('resources/art/critter_art/cat.png')
-
-quest_logs_url_1024 = resource_path('resources/art/quest_items/logs_1024.png')
-quest_logs_url = resource_path('resources/art/quest_items/logs.png')
-quest_logs_url_1600 = resource_path('resources/art/quest_items/logs_1600.png')

@@ -4,8 +4,8 @@ import resource_urls
 def screen_scaling(object_to_scale):
 
     if object_to_scale.image_size == "1024":
-        if object_to_scale.name == "player":
-            return resource_urls.stan_down_url_1024_mage
+        if object_to_scale.name == "stan":
+            return resource_urls.stan_down_url_1024
         if object_to_scale.name == "greeting":
             return resource_urls.welcome_image_url_1024
         if object_to_scale.name == "garan":
@@ -83,7 +83,7 @@ def screen_scaling(object_to_scale):
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url_1024
         if object_to_scale.name == "stan battle":
-            return resource_urls.stan_battle_url_1024_mage
+            return resource_urls.stan_battle_url_1024
         if object_to_scale.name == "snake battle":
             return resource_urls.snake_battle_url_1024
         if object_to_scale.name == "ghoul battle":
@@ -113,8 +113,8 @@ def screen_scaling(object_to_scale):
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1280":
-        if object_to_scale.name == "player":
-            return resource_urls.stan_down_url_mage
+        if object_to_scale.name == "stan":
+            return resource_urls.stan_down_url
         if object_to_scale.name == "greeting":
             return resource_urls.welcome_image_url
         if object_to_scale.name == "garan":
@@ -192,7 +192,7 @@ def screen_scaling(object_to_scale):
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url
         if object_to_scale.name == "stan battle":
-            return resource_urls.stan_battle_url_mage
+            return resource_urls.stan_battle_url
         if object_to_scale.name == "snake battle":
             return resource_urls.snake_battle_url
         if object_to_scale.name == "ghoul battle":
@@ -222,8 +222,8 @@ def screen_scaling(object_to_scale):
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1600":
-        if object_to_scale.name == "player":
-            return resource_urls.stan_down_url_1600_mage
+        if object_to_scale.name == "stan":
+            return resource_urls.stan_down_url_1600
         if object_to_scale.name == "greeting":
             return resource_urls.welcome_image_url_1600
         if object_to_scale.name == "garan":
@@ -301,7 +301,7 @@ def screen_scaling(object_to_scale):
         if object_to_scale.name == "enemy status":
             return resource_urls.enemy_status_url_1600
         if object_to_scale.name == "stan battle":
-            return resource_urls.stan_battle_url_1600_mage
+            return resource_urls.stan_battle_url_1600
         if object_to_scale.name == "snake battle":
             return resource_urls.snake_battle_url_1600
         if object_to_scale.name == "ghoul battle":

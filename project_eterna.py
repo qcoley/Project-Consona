@@ -27,7 +27,7 @@ class Player(pygame.sprite.Sprite):
                  rupees, reputation, mount, current_zone, defence, offense):
 
         super(Player, self).__init__()
-        self.surf = pygame.image.load(resource_urls.stan_down_url_mage).convert()
+        self.surf = pygame.image.load(resource_urls.stan_down_url).convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect()
         self.pos = vec((450, 650))
@@ -75,7 +75,8 @@ class Player(pygame.sprite.Sprite):
                 self.surf = pygame.image.load(resource_urls.stan_up_url_fighter).convert()
             if player.role == "scout":
                 self.surf = pygame.image.load(resource_urls.stan_up_url_scout).convert()
-
+            if player.role == "":
+                self.surf = pygame.image.load(resource_urls.stan_up_url).convert()
             # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_1024:
                 if player.role == "mage":
@@ -84,6 +85,8 @@ class Player(pygame.sprite.Sprite):
                     self.surf = pygame.image.load(resource_urls.stan_up_url_1024_fighter).convert()
                 if player.role == "scout":
                     self.surf = pygame.image.load(resource_urls.stan_up_url_1024_scout).convert()
+                if player.role == "":
+                    self.surf = pygame.image.load(resource_urls.stan_up_url_1024).convert()
                 self.rect = player.surf.get_rect(center=player.pos * .80)
             if scaled_1600:
                 if player.role == "mage":
@@ -92,11 +95,12 @@ class Player(pygame.sprite.Sprite):
                     self.surf = pygame.image.load(resource_urls.stan_up_url_1600_fighter).convert()
                 if player.role == "scout":
                     self.surf = pygame.image.load(resource_urls.stan_up_url_1600_scout).convert()
+                if player.role == "":
+                    self.surf = pygame.image.load(resource_urls.stan_up_url_1600).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .80)
-
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-            self.acc.y = -ACC
 
+            self.acc.y = -ACC
             # set acceleration value based on current resolution scale
             if scaled_1024:
                 self.acc.y *= .60
@@ -110,7 +114,8 @@ class Player(pygame.sprite.Sprite):
                 self.surf = pygame.image.load(resource_urls.stan_down_url_fighter).convert()
             if player.role == "scout":
                 self.surf = pygame.image.load(resource_urls.stan_down_url_scout).convert()
-
+            if player.role == "":
+                self.surf = pygame.image.load(resource_urls.stan_down_url).convert()
             # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_1024:
                 if player.role == "mage":
@@ -119,6 +124,8 @@ class Player(pygame.sprite.Sprite):
                     self.surf = pygame.image.load(resource_urls.stan_down_url_1024_fighter).convert()
                 if player.role == "scout":
                     self.surf = pygame.image.load(resource_urls.stan_down_url_1024_scout).convert()
+                if player.role == "":
+                    self.surf = pygame.image.load(resource_urls.stan_down_url_1024).convert()
                 self.rect = player.surf.get_rect(center=player.pos * .80)
             if scaled_1600:
                 if player.role == "mage":
@@ -127,10 +134,12 @@ class Player(pygame.sprite.Sprite):
                     self.surf = pygame.image.load(resource_urls.stan_down_url_1600_fighter).convert()
                 if player.role == "scout":
                     self.surf = pygame.image.load(resource_urls.stan_down_url_1600_scout).convert()
+                if player.role == "":
+                    self.surf = pygame.image.load(resource_urls.stan_down_url_1600).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .80)
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-            self.acc.y = ACC
 
+            self.acc.y = ACC
             # set acceleration value based on current resolution scale
             if scaled_1024:
                 self.acc.y *= .60
@@ -144,7 +153,8 @@ class Player(pygame.sprite.Sprite):
                 self.surf = pygame.image.load(resource_urls.stan_left_url_fighter).convert()
             if player.role == "scout":
                 self.surf = pygame.image.load(resource_urls.stan_left_url_scout).convert()
-
+            if player.role == "":
+                self.surf = pygame.image.load(resource_urls.stan_left_url).convert()
             # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_1024:
                 if player.role == "mage":
@@ -153,6 +163,8 @@ class Player(pygame.sprite.Sprite):
                     self.surf = pygame.image.load(resource_urls.stan_left_url_1024_fighter).convert()
                 if player.role == "scout":
                     self.surf = pygame.image.load(resource_urls.stan_left_url_1024_scout).convert()
+                if player.role == "":
+                    self.surf = pygame.image.load(resource_urls.stan_left_url_1024).convert()
                 self.rect = player.surf.get_rect(center=player.pos * .80)
             if scaled_1600:
                 if player.role == "mage":
@@ -161,10 +173,12 @@ class Player(pygame.sprite.Sprite):
                     self.surf = pygame.image.load(resource_urls.stan_left_url_1600_fighter).convert()
                 if player.role == "scout":
                     self.surf = pygame.image.load(resource_urls.stan_left_url_1600_scout).convert()
+                if player.role == "":
+                    self.surf = pygame.image.load(resource_urls.stan_left_url_1600).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .80)
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-            self.acc.x = -ACC
 
+            self.acc.x = -ACC
             # set acceleration value based on current resolution scale
             if scaled_1024:
                 self.acc.x *= .60
@@ -178,7 +192,8 @@ class Player(pygame.sprite.Sprite):
                 self.surf = pygame.image.load(resource_urls.stan_right_url_fighter).convert()
             if player.role == "scout":
                 self.surf = pygame.image.load(resource_urls.stan_right_url_scout).convert()
-
+            if player.role == "":
+                self.surf = pygame.image.load(resource_urls.stan_right_url).convert()
             # when player animation changes to face current walking direction, also apply current resolution scale
             if scaled_1024:
                 if player.role == "mage":
@@ -187,6 +202,8 @@ class Player(pygame.sprite.Sprite):
                     self.surf = pygame.image.load(resource_urls.stan_right_url_1024_fighter).convert()
                 if player.role == "scout":
                     self.surf = pygame.image.load(resource_urls.stan_right_url_1024_scout).convert()
+                if player.role == "":
+                    self.surf = pygame.image.load(resource_urls.stan_right_url_1024).convert()
                 self.rect = player.surf.get_rect(center=player.pos * .80)
             if scaled_1600:
                 if player.role == "mage":
@@ -195,10 +212,12 @@ class Player(pygame.sprite.Sprite):
                     self.surf = pygame.image.load(resource_urls.stan_right_url_1600_fighter).convert()
                 if player.role == "scout":
                     self.surf = pygame.image.load(resource_urls.stan_right_url_1600_scout).convert()
+                if player.role == "":
+                    self.surf = pygame.image.load(resource_urls.stan_right_url_1600).convert()
                 self.rect = player.surf.get_rect(center=player.pos / .80)
             self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-            self.acc.x = ACC
 
+            self.acc.x = ACC
             # set acceleration value based on current resolution scale
             if scaled_1024:
                 self.acc.x *= .60
@@ -208,7 +227,6 @@ class Player(pygame.sprite.Sprite):
         # --------------------------------------------------------------------------------------------------------------
         # Keep player on the screen, boundaries vary depending on current zone -----------------------------------------
         if current_zone == "seldon":
-
             # set boundaries scaled to current resolution for 1024x576
             if scaled_1024:
                 if self.pos.x < 25 * .80:
@@ -287,7 +305,6 @@ class NPC(pygame.sprite.Sprite):
     def __init__(self, name, gender, race, role, dialog, quest_to_give, quest_description, x_coordinate, y_coordinate,
                  alive_status, quest_complete, items, gift, image, color, image_size):
         super(NPC, self).__init__()
-
         self.name = name
         self.gender = gender
         self.race = race
@@ -316,7 +333,6 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, name, kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image,
                  color, health_bar, image_size):
         super(Enemy, self).__init__()
-
         self.name = name
         self.kind = kind
         self.health = health
@@ -336,7 +352,6 @@ class Enemy(pygame.sprite.Sprite):
     # update separate into 2 functions to handle image updates and position updates
     # so that they both don't need the same parameters to change one or the other in main interation
     def update_image(self, x_coord, y_coord, image):
-
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = pygame.image.load(image).convert()
@@ -345,7 +360,6 @@ class Enemy(pygame.sprite.Sprite):
     # update separate into 2 functions to handle image updates and position updates
     # so that they both don't need the same parameters to change one or the other in main interation
     def update_position(self, ranges_x, ranges_y, direction_x, direction_y):
-
         # movement on map ----------------------------------------------------------------------------------------------
         if ranges_x[0] < self.rect.x < ranges_x[1]:
             if direction_x == "left":
@@ -373,7 +387,6 @@ class Tree(pygame.sprite.Sprite):
 
     def __init__(self, name, model, x_coordinate, y_coordinate, gathered, image, color, image_size):
         super(Tree, self).__init__()
-
         self.name = name
         self.model = model
         self.x_coordinate = x_coordinate
@@ -401,7 +414,6 @@ class Building(pygame.sprite.Sprite):
 
     def __init__(self, name, model, x_coordinate, y_coordinate, image, color, image_size):
         super(Building, self).__init__()
-
         self.name = name
         self.model = model
         self.x_coordinate = x_coordinate
@@ -429,7 +441,6 @@ class UiElement(pygame.sprite.Sprite):
 
     def __init__(self, name, x_coordinate, y_coordinate, image, color, update_flag, image_size):
         super(UiElement, self).__init__()
-
         self.name = name
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
@@ -456,7 +467,6 @@ class Inventory(pygame.sprite.Sprite):
 
     def __init__(self, name, contains, x_coordinate, y_coordinate, image, color, update_flag, image_size):
         super(Inventory, self).__init__()
-
         self.name = name
         self.contains = contains
         self.x_coordinate = x_coordinate
@@ -485,7 +495,6 @@ class Notification(pygame.sprite.Sprite):
 
     def __init__(self, name, shown, x_coordinate, y_coordinate, image, color, image_size):
         super(Notification, self).__init__()
-
         self.name = name
         self.shown = shown
         self.x_coordinate = x_coordinate
@@ -538,7 +547,6 @@ class Item(pygame.sprite.Sprite):
 
     def __init__(self, name, type, x_coordinate, y_coordinate, image, color, image_size):
         super(Item, self).__init__()
-
         self.name = name
         self.type = type
         self.x_coordinate = x_coordinate
@@ -786,6 +794,8 @@ def attack_enemy(mob):
         damage = (random.randrange(10, player.offense) // difference)
     if player.role == "fighter":
         damage = (random.randrange(5, player.offense) // difference)
+    if player.role == "":
+        damage = (random.randrange(1, 5) // difference)
 
     return damage
 
@@ -1137,40 +1147,134 @@ def status_and_inventory_updates():
     if player.equipment["weapon"] != "":
         if player.equipment["weapon"].type == "mage":
             player.role = "mage"
-            if scaled_1024:
-                player.surf = pygame.image.load(resource_urls.stan_down_url_1024_mage).convert()
-            if scaled_1280:
-                player.surf = pygame.image.load(resource_urls.stan_down_url_mage).convert()
-            if scaled_1600:
-                player.surf = pygame.image.load(resource_urls.stan_down_url_1600_mage).convert()
-
+            # update player sprite based on their current role and facing direction
+            # this prevents continuously setting the default down position if player was moving a different direction
+            if current_direction == "up":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_up_url_1024_mage).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_up_url_mage).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_up_url_1600_mage).convert()
+            if current_direction == "down":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_down_url_1024_mage).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_down_url_mage).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_down_url_1600_mage).convert()
+            if current_direction == "left":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_left_url_1024_mage).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_left_url_mage).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_left_url_1600_mage).convert()
+            if current_direction == "right":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_right_url_1024_mage).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_right_url_mage).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_right_url_1600_mage).convert()
             player.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if player.equipment["weapon"].type == "fighter":
             player.role = "fighter"
-            if scaled_1024:
-                player.surf = pygame.image.load(resource_urls.stan_down_url_1024_fighter).convert()
-            if scaled_1280:
-                player.surf = pygame.image.load(resource_urls.stan_down_url_fighter).convert()
-            if scaled_1600:
-                player.surf = pygame.image.load(resource_urls.stan_down_url_1600_fighter).convert()
-
+            if current_direction == "up":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_up_url_1024_fighter).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_up_url_fighter).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_up_url_1600_fighter).convert()
+            if current_direction == "down":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_down_url_1024_fighter).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_down_url_fighter).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_down_url_1600_fighter).convert()
+            if current_direction == "left":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_left_url_1024_fighter).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_left_url_fighter).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_left_url_1600_fighter).convert()
+            if current_direction == "right":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_right_url_1024_fighter).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_right_url_fighter).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_right_url_1600_fighter).convert()
             player.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
         if player.equipment["weapon"].type == "scout":
             player.role = "scout"
-            if scaled_1024:
-                player.surf = pygame.image.load(resource_urls.stan_down_url_1024_scout).convert()
-            if scaled_1280:
-                player.surf = pygame.image.load(resource_urls.stan_down_url_scout).convert()
-            if scaled_1600:
-                player.surf = pygame.image.load(resource_urls.stan_down_url_1600_scout).convert()
-
+            if current_direction == "up":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_up_url_1024_scout).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_up_url_scout).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_up_url_1600_scout).convert()
+            if current_direction == "down":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_down_url_1024_scout).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_down_url_scout).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_down_url_1600_scout).convert()
+            if current_direction == "left":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_left_url_1024_scout).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_left_url_scout).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_left_url_1600_scout).convert()
+            if current_direction == "right":
+                if scaled_1024:
+                    player.surf = pygame.image.load(resource_urls.stan_right_url_1024_scout).convert()
+                if scaled_1280:
+                    player.surf = pygame.image.load(resource_urls.stan_right_url_scout).convert()
+                if scaled_1600:
+                    player.surf = pygame.image.load(resource_urls.stan_right_url_1600_scout).convert()
             player.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
     # player doesn't have a role without a weapon equipped
     else:
         player.role = ""
+        if current_direction == "up":
+            if scaled_1024:
+                player.surf = pygame.image.load(resource_urls.stan_up_url_1024).convert()
+            if scaled_1280:
+                player.surf = pygame.image.load(resource_urls.stan_up_url).convert()
+            if scaled_1600:
+                player.surf = pygame.image.load(resource_urls.stan_up_url_1600).convert()
+        if current_direction == "down":
+            if scaled_1024:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_1024).convert()
+            if scaled_1280:
+                player.surf = pygame.image.load(resource_urls.stan_down_url).convert()
+            if scaled_1600:
+                player.surf = pygame.image.load(resource_urls.stan_down_url_1600).convert()
+        if current_direction == "left":
+            if scaled_1024:
+                player.surf = pygame.image.load(resource_urls.stan_left_url_1024).convert()
+            if scaled_1280:
+                player.surf = pygame.image.load(resource_urls.stan_left_url).convert()
+            if scaled_1600:
+                player.surf = pygame.image.load(resource_urls.stan_left_url_1600).convert()
+        if current_direction == "right":
+            if scaled_1024:
+                player.surf = pygame.image.load(resource_urls.stan_right_url_1024).convert()
+            if scaled_1280:
+                player.surf = pygame.image.load(resource_urls.stan_right_url).convert()
+            if scaled_1600:
+                player.surf = pygame.image.load(resource_urls.stan_right_url_1600).convert()
+        player.surf.set_colorkey((255, 255, 255), RLEACCEL)
     # ------------------------------------------------------------------------------------------------------------------
 
     # update function will reset coordinates so fix scaling here for 1600x900 (temp. solution maybe)
@@ -1389,6 +1493,8 @@ def inventory_click_handler():
                 player.items.remove(inventory_item)
                 return_dict["item message"] = "Basic Staff weapon equipped"
                 return_dict["weapon checked"] = False
+            else:
+                return_dict["item message"] = "Un-equip your current weapon first."
         elif inventory_item.name == "basic sword":
             if player.equipment["weapon"] == "":
                 player.equipment["weapon"] = inventory_item
@@ -1396,6 +1502,8 @@ def inventory_click_handler():
                 player.items.remove(inventory_item)
                 return_dict["item message"] = "Basic Sword weapon equipped"
                 return_dict["weapon checked"] = False
+            else:
+                return_dict["item message"] = "Un-equip your current weapon first."
         elif inventory_item.name == "basic bow":
             if player.equipment["weapon"] == "":
                 player.equipment["weapon"] = inventory_item
@@ -1403,6 +1511,8 @@ def inventory_click_handler():
                 player.items.remove(inventory_item)
                 return_dict["item message"] = "Basic Bow weapon equipped"
                 return_dict["weapon checked"] = False
+            else:
+                return_dict["item message"] = "Un-equip your current weapon first."
         elif inventory_item.name == "basic robes":
             if player.equipment["chest"] == "":
                 if player.role == "mage":
@@ -1413,6 +1523,8 @@ def inventory_click_handler():
                     return_dict["gear checked"] = False
                 else:
                     return_dict["item message"] = "Only mages wear light armor."
+            else:
+                return_dict["item message"] = "Un-equip your current gear first."
         elif inventory_item.name == "basic armor":
             if player.equipment["chest"] == "":
                 if player.role == "fighter":
@@ -1423,6 +1535,8 @@ def inventory_click_handler():
                     return_dict["gear checked"] = False
                 else:
                     return_dict["item message"] = "Only fighters wear heavy armor."
+            else:
+                return_dict["item message"] = "Un-equip your current gear first."
         elif inventory_item.name == "basic tunic":
             if player.equipment["chest"] == "":
                 if player.role == "scout":
@@ -1433,6 +1547,8 @@ def inventory_click_handler():
                     return_dict["gear checked"] = False
                 else:
                     return_dict["item message"] = "Only scouts wear medium armor."
+            else:
+                return_dict["item message"] = "Un-equip your current gear first."
     except AttributeError:
         pass
 
@@ -1514,6 +1630,7 @@ def equipment_click_handler():
             if len(player.items) < 15:
                 player.items.append(equipment_item)
                 player.equipment["weapon"] = ""
+                # remove gear along with weapon when weapon is clicked. Add both to inventory
                 if player.equipment["chest"] != "":
                     player.items.append(player.equipment["chest"])
                     player.equipment["chest"] = ""
@@ -1992,10 +2109,10 @@ basic_armor = Item("basic armor", "heavy", 200, 200, resource_urls.basic_armor_u
 basic_tunic = Item("basic tunic", "medium", 200, 200, resource_urls.basic_tunic_url, (255, 255, 255), "1280")
 
 # default player character ---------------------------------------------------------------------------------------------
-player = Player("player", "male", "amuna", "",  # name, gender, race, role
-                [health_potion, energy_potion, shiny_rock, bone_dust, basic_sword, basic_bow, basic_armor, basic_tunic],
-                # inventory
-                {"weapon": basic_staff, "chest": basic_robes},  # equipment ('type', 'name')
+player = Player("stan", "male", "amuna", "",  # name, gender, race, role
+                [health_potion, energy_potion, shiny_rock, bone_dust, basic_staff, basic_robes, basic_sword,
+                 basic_armor, basic_bow, basic_tunic], # inventory
+                {"weapon": "", "chest": ""},  # equipment ('type', 'name')
                 # current quests, quest progress (x/4), quest status (quest: done)
                 {"sneaky snakes": "Garan has asked you to kill snakes near the Rohir River banks.",
                  "village repairs": "Maurelle has asked you to gather lumber for repairs.",
@@ -2169,7 +2286,7 @@ status_bar_backdrop = UiElement("bar backdrop", 165, 45, resource_urls.bar_backd
 enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 695, 90, resource_urls.enemy_bar_backdrop_url,
                                       (255, 255, 255), False, "1280")
 # battle sprites -------------------------------------------------------------------------------------------------------
-stan_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.stan_battle_url_mage,
+stan_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.stan_battle_url,
                                      (255, 255, 255), "1280")
 snake_battle_sprite = BattleCharacter("snake battle", 715, 250, resource_urls.snake_battle_url,
                                       (255, 255, 255), "1280")
@@ -2310,6 +2427,9 @@ zone_korlok = False
 zone_eldream = False
 zone_marrow = False
 
+hard_strike = False
+current_direction = ""
+
 # list to contain current player items for display
 player_items = []
 # list to contain current player equipment for display
@@ -2397,7 +2517,6 @@ while game_running:
                         scaled_1024 = True
                         scaled_1280 = False
                         scaled_1600 = False
-
                 # 1280 x 720 (original) resolution ---------------------------------------------------------------------
                 if s1280_x_720_button.rect.collidepoint(pos):
                     if not scaled_1280:
@@ -2425,7 +2544,6 @@ while game_running:
                         scaled_1024 = False
                         scaled_1280 = True
                         scaled_1600 = False
-
                 # 1600 x 900 (up-scale) resolution ---------------------------------------------------------------------
                 if s1600_x_900_button.rect.collidepoint(pos):
                     if not scaled_1600:
@@ -2455,7 +2573,6 @@ while game_running:
                         scaled_1600 = True
             elif event.type == QUIT:
                 exit()
-
             pygame.display.flip()
 
     # if player has chosen to start game -------------------------------------------------------------------------------
@@ -2493,9 +2610,8 @@ while game_running:
                     if pygame.time.get_ticks() % 287 == 0:
                         info_update = False
                     # clear loot update after some time has passed
-                    if pygame.time.get_ticks() % 347 == 0:
+                    if pygame.time.get_ticks() % 517 == 0:
                         loot_update = False
-
                     # if player is not currently in range of sprite and there is not an active info update,
                     # clear message box
                     sprite = pygame.sprite.spritecollideany(player, most_sprites)
@@ -2514,7 +2630,6 @@ while game_running:
                         player.current_zone = "Eldream"
                     if zone_marrow:
                         player.current_zone = "Marrow"
-
                     # switches between 1 and 0 to select a left or right direction for enemy sprite to move
                     enemy_switch = 1
                     # gets defeated enemy count and will respawn a new enemy type if count is greater than specified
@@ -2647,6 +2762,59 @@ while game_running:
                             info_text_1 = f"Press 'F' key to attack {enemy.name}."
                             info_text_2 = f"{enemy.name} level: {enemy.level}"
                             if interacted:
+                                # update battle sprite before battle starts so there's no visual glitch trying to update
+                                # it based on a change role within the first battle loop iteration
+                                if scaled_1024:
+                                    if player.role == "mage":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_1024_mage)
+                                    if player.role == "fighter":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_1024_fighter)
+                                    if player.role == "scout":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_1024_scout)
+                                    if player.role == "":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_1024)
+                                if scaled_1280:
+                                    if player.role == "mage":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_mage)
+                                    if player.role == "fighter":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_fighter)
+                                    if player.role == "scout":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_scout)
+                                    if player.role == "":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url)
+                                if scaled_1600:
+                                    if player.role == "mage":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_1600_mage)
+                                    if player.role == "fighter":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_1600_fighter)
+                                    if player.role == "scout":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_1600_scout)
+                                    if player.role == "":
+                                        stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                  stan_battle_sprite.y_coordinate,
+                                                                  resource_urls.stan_battle_url_1600)
                                 in_district_over_world = False
                                 in_battle = True
 
@@ -2699,6 +2867,17 @@ while game_running:
                     # get current pressed keys from player and apply zone boundaries depending on current zone
                     pressed_keys = pygame.key.get_pressed()
                     # Apply pressed keys update to movement based on zone boundaries, defined in player.update()
+
+                    # apply direction to current_direction based on current input user keys
+                    # this will be applied when player sprite is updated with new gear
+                    if pressed_keys[K_d]:
+                        current_direction = "right"
+                    if pressed_keys[K_a]:
+                        current_direction = "left"
+                    if pressed_keys[K_w]:
+                        current_direction = "up"
+                    if pressed_keys[K_s]:
+                        current_direction = "down"
                     if zone_seldon:
                         if movement_able:
                             player.update(pressed_keys, "seldon")
@@ -2857,6 +3036,10 @@ while game_running:
                     status_and_inventory_updates()
                     # update players current equipment
                     equipment_updates()
+                    if not gear_checked:
+                        gear_checked = gear_check()
+                    if not weapon_checked:
+                        weapon_checked = weapon_check()
 
                     # battle scenario event loop
                     # --------------------------------------------------------------------------------------------------
@@ -2864,15 +3047,35 @@ while game_running:
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
                                 exit()
-                        elif event.type == QUIT:
-                            exit()
 
+                        # click handlers for main event loop -----------------------------------------------------------
+                        # ----------------------------------------------------------------------------------------------
                         # function to handle inventory item clicks. apply item message to message box if not empty str.
                         inventory_event = inventory_click_handler()
                         if inventory_event["item message"] != "":
                             info_text_1 = inventory_event["item message"]
                             info_text_2 = ""
                             info_update = True
+                        # if click handler returns that an equitable item has been updated, set gear_checked to false
+                        # so that gear check function will run and get players current stats with new item equipped
+                        if not inventory_event["gear checked"]:
+                            gear_checked = False
+                        if not inventory_event["weapon checked"]:
+                            weapon_checked = False
+                        # function to handle equipment item clicks. apply item message to message box if not empty str.
+                        equipment_event = equipment_click_handler()
+                        if equipment_event["equipment message"] != "":
+                            info_text_1 = equipment_event["equipment message"]
+                            info_text_2 = ""
+                            info_update = True
+                        # same as above but for when an equipment item is un-equipped
+                        if not equipment_event["gear checked"]:
+                            gear_checked = False
+                        if not equipment_event["weapon checked"]:
+                            weapon_checked = False
+
+                        elif event.type == QUIT:
+                            exit()
 
                         enemy = pygame.sprite.spritecollideany(player, enemies)
                         if enemy:
@@ -2903,17 +3106,33 @@ while game_running:
                                         if scaled_1024:
                                             # update player character sprite for combat animation
                                             if player.role == "mage":
-                                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                                          stan_battle_sprite.y_coordinate,
-                                                                          resource_urls.stan_attack_url_1024_mage)
+                                                if barrier_active:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls. \
+                                                                              stan_attack_url_mage_barrier_1024)
+                                                else:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls.stan_attack_url_1024_mage)
                                             if player.role == "fighter":
                                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                           stan_battle_sprite.y_coordinate,
                                                                           resource_urls.stan_attack_url_1024_fighter)
                                             if player.role == "scout":
+                                                if sharp_sense_active:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls. \
+                                                                              stan_attack_url_scout_sharp_sense_1024)
+                                                else:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls.stan_attack_url_1024_scout)
+                                            if player.role == "":
                                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                           stan_battle_sprite.y_coordinate,
-                                                                          resource_urls.stan_attack_url_1024_scout)
+                                                                          resource_urls.stan_attack_url_1024)
                                             # update to attacking sprite surface for combat animation
                                             if enemy.kind == "snake":
                                                 snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
@@ -2940,9 +3159,19 @@ while game_running:
                                                                           stan_battle_sprite.y_coordinate,
                                                                           resource_urls.stan_attack_url_fighter)
                                             if player.role == "scout":
+                                                if sharp_sense_active:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls. \
+                                                                              stan_attack_url_scout_sharp_sense)
+                                                else:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls.stan_attack_url_scout)
+                                            if player.role == "":
                                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                           stan_battle_sprite.y_coordinate,
-                                                                          resource_urls.stan_attack_url_scout)
+                                                                          resource_urls.stan_attack_url)
                                             # update to attacking sprite surface for combat animation
                                             if enemy.kind == "snake":
                                                 snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
@@ -2955,17 +3184,33 @@ while game_running:
                                         if scaled_1600:
                                             # update player character sprite for combat animation
                                             if player.role == "mage":
-                                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                                          stan_battle_sprite.y_coordinate,
-                                                                          resource_urls.stan_attack_url_1600_mage)
+                                                if barrier_active:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls. \
+                                                                              stan_attack_url_mage_barrier_1600)
+                                                else:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls.stan_attack_url_1600_mage)
                                             if player.role == "fighter":
                                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                           stan_battle_sprite.y_coordinate,
                                                                           resource_urls.stan_attack_url_1600_fighter)
                                             if player.role == "scout":
+                                                if sharp_sense_active:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls. \
+                                                                              stan_attack_url_scout_sharp_sense_1600)
+                                                else:
+                                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                                              stan_battle_sprite.y_coordinate,
+                                                                              resource_urls.stan_attack_url_1600_scout)
+                                            if player.role == "":
                                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                           stan_battle_sprite.y_coordinate,
-                                                                          resource_urls.stan_attack_url_1600_scout)
+                                                                          resource_urls.stan_attack_url_1600)
                                             # update to attacking sprite surface for combat animation
                                             if enemy.kind == "snake":
                                                 snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
@@ -3085,13 +3330,13 @@ while game_running:
                                             # attack to trigger a different damage value within the attack function
                                             if player.role == "fighter":
                                                 if hard_strike_learned:
+                                                    hard_strike = True
                                                     # update animations for hard strike attack -------------------------
                                                     if scaled_1024:
                                                         if player.role == "fighter":
                                                             stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                                       stan_battle_sprite.y_coordinate,
-                                                                                      resource_urls. \
-                                                                                      stan_attack_url_1024_fighter)
+                                                               resource_urls.stan_battle_url_fighter_hard_strike_1024)
                                                         if enemy.kind == "snake":
                                                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                                        snake_battle_sprite.y_coordinate,
@@ -3106,8 +3351,7 @@ while game_running:
                                                         if player.role == "fighter":
                                                             stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                                       stan_battle_sprite.y_coordinate,
-                                                                                      resource_urls. \
-                                                                                      stan_attack_url_fighter)
+                                                                    resource_urls.stan_battle_url_fighter_hard_strike)
                                                         if enemy.kind == "snake":
                                                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                                        snake_battle_sprite.y_coordinate,
@@ -3120,8 +3364,7 @@ while game_running:
                                                         if player.role == "fighter":
                                                             stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                                                       stan_battle_sprite.y_coordinate,
-                                                                                      resource_urls. \
-                                                                                      stan_attack_url_1600_fighter)
+                                                               resource_urls.stan_battle_url_fighter_hard_strike_1600)
                                                         if enemy.kind == "snake":
                                                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                                        snake_battle_sprite.y_coordinate,
@@ -3183,7 +3426,6 @@ while game_running:
                             # create blank background to be drawn on top of each iteration
                             screen.fill((255, 255, 255))  # (255, 255, 255) RGB value for WHITE
                             screen.blit(seldon_district_battle, (0, 0))
-                            screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
                             screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
@@ -3201,10 +3443,15 @@ while game_running:
                                 screen.blit(scout_attack_button.surf, scout_attack_button.rect)
                                 if player.skills_scout["skill 2"] == "sharp sense":
                                     screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                            if player.role == "":
+                                screen.blit(scout_attack_button.surf, scout_attack_button.rect)
+
                             if enemy.name == "snake":
                                 screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                             if enemy.name == "ghoul":
                                 screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                            # draw player after enemy to show animations on top of enemy and not under
+                            screen.blit(stan_battle_sprite.surf, stan_battle_sprite.rect)
                             if scaled_1024:
                                 enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
                                     center=(enemy_status_bar_backdrop.x_coordinate * .80,
@@ -3253,6 +3500,7 @@ while game_running:
                             if scaled_1600:
                                 text_enemy_level_rect.center = (915 / .80, 680 / .80)
                             screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+
                     # after enemy is defeated, it may return a none type for collision. in this case, just ignore error
                     except AttributeError:
                         pass
@@ -3262,17 +3510,31 @@ while game_running:
                     if not combat_happened:
                         if scaled_1024:
                             if player.role == "mage":
-                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                          stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_battle_url_1024_mage)
+                                if barrier_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_mage_barrier_1024)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_1024_mage)
                             if player.role == "fighter":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
                                                           resource_urls.stan_battle_url_1024_fighter)
                             if player.role == "scout":
+                                if sharp_sense_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_scout_sharp_sense_1024)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_1024_scout)
+                            if player.role == "":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_battle_url_1024_scout)
+                                                          resource_urls.stan_battle_url_1024)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
                                                        resource_urls.snake_battle_url_1024)
@@ -3294,9 +3556,18 @@ while game_running:
                                                           stan_battle_sprite.y_coordinate,
                                                           resource_urls.stan_battle_url_fighter)
                             if player.role == "scout":
+                                if sharp_sense_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_scout_sharp_sense)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_scout)
+                            if player.role == "":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_battle_url_scout)
+                                                          resource_urls.stan_battle_url)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
                                                        resource_urls.snake_battle_url)
@@ -3305,17 +3576,31 @@ while game_running:
                                                        resource_urls.ghoul_battle_url)
                         if scaled_1600:
                             if player.role == "mage":
-                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                          stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_battle_url_1600_mage)
+                                if barrier_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_mage_barrier_1600)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_1600_mage)
                             if player.role == "fighter":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
                                                           resource_urls.stan_battle_url_1600_fighter)
                             if player.role == "scout":
+                                if sharp_sense_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_scout_sharp_sense_1600)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_battle_url_1024_scout)
+                            if player.role == "":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_battle_url_1600_scout)
+                                                          resource_urls.stan_battle_url_1600)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
                                                        resource_urls.snake_battle_url_1600)
@@ -3329,17 +3614,32 @@ while game_running:
                     if combat_happened:
                         if scaled_1024:
                             if player.role == "mage":
-                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                          stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_attack_url_1024_mage)
-                            if player.role == "fighter":
-                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                          stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_attack_url_1024_fighter)
+                                if barrier_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_mage_barrier_1024)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_1024_mage)
+                            if not hard_strike:
+                                if player.role == "fighter":
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_1024_fighter)
                             if player.role == "scout":
+                                if sharp_sense_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_scout_sharp_sense_1024)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_1024_scout)
+                            if player.role == "":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_attack_url_1024_scout)
+                                                          resource_urls.stan_attack_url_1024)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
                                                        resource_urls.snake_attack_url_1024)
@@ -3356,14 +3656,24 @@ while game_running:
                                     stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                               stan_battle_sprite.y_coordinate,
                                                               resource_urls.stan_attack_url_mage)
-                            if player.role == "fighter":
-                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                          stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_attack_url_fighter)
+                            if not hard_strike:
+                                if player.role == "fighter":
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_fighter)
                             if player.role == "scout":
+                                if sharp_sense_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_scout_sharp_sense)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_scout)
+                            if player.role == "":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_attack_url_scout)
+                                                          resource_urls.stan_attack_url)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
                                                        resource_urls.snake_attack_url)
@@ -3372,17 +3682,32 @@ while game_running:
                                                        resource_urls.ghoul_attack_url)
                         if scaled_1600:
                             if player.role == "mage":
-                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                          stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_attack_url_1600_mage)
-                            if player.role == "fighter":
-                                stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
-                                                          stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_attack_url_1600_fighter)
+                                if barrier_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_mage_barrier_1600)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_1600_mage)
+                            if not hard_strike:
+                                if player.role == "fighter":
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_1600_fighter)
                             if player.role == "scout":
+                                if sharp_sense_active:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_scout_sharp_sense_1600)
+                                else:
+                                    stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
+                                                              stan_battle_sprite.y_coordinate,
+                                                              resource_urls.stan_attack_url_1600_scout)
+                            if player.role == "":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
-                                                          resource_urls.stan_attack_url_1600_scout)
+                                                          resource_urls.stan_attack_url_1600)
                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                        snake_battle_sprite.y_coordinate,
                                                        resource_urls.snake_attack_url_1600)
@@ -3398,6 +3723,8 @@ while game_running:
                         pygame.time.wait(1000)
                         # reset combat animation and ability to click without delay on next iteration
                         combat_happened = False
+                        # reset hard strike condition so regular fighter attack animation resumes
+                        hard_strike = False
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in shop ---------------------------------------------------------------------------------
@@ -3665,7 +3992,7 @@ while game_running:
                             if event.key == K_ESCAPE:
                                 exit()
 
-                        # click handlers for main event loop -----------------------------------------------------------
+                        # click handlers for inn event loop ------------------------------------------------------------
                         # ----------------------------------------------------------------------------------------------
                         # function to handle inventory item clicks. apply item message to message box if not empty str.
                         inventory_event = inventory_click_handler()
