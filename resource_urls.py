@@ -223,6 +223,21 @@ maurelle_back_url_1024 = resource_path('resources/art/character_art/NPCs/maurell
 maurelle_back_url = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_back.png')
 maurelle_back_url_1600 = resource_path('resources/art/character_art/NPCs/maurelle/maurelle_back_1600.png')
 
+garan_interaction_url_1024 = resource_path('resources/art/character_art/NPCs/interaction/garan_interaction_1024.png')
+garan_interaction_url = resource_path('resources/art/character_art/NPCs/interaction/garan_interaction.png')
+garan_interaction_url_1600 = resource_path('resources/art/character_art/NPCs/interaction/garan_interaction_1600.png')
+
+maurelle_interaction_url_1024 = resource_path('resources/art/character_art/NPCs/interaction/'
+                                              'maurelle_interaction_1024.png')
+maurelle_interaction_url = resource_path('resources/art/character_art/NPCs/interaction/'
+                                         'maurelle_interaction.png')
+maurelle_interaction_url_1600 = resource_path('resources/art/character_art/NPCs/interaction/'
+                                              'maurelle_interaction_1600.png')
+
+guard_interaction_url_1024 = resource_path('resources/art/character_art/NPCs/interaction/guard_interaction_1024.png')
+guard_interaction_url = resource_path('resources/art/character_art/NPCs/interaction/guard_interaction.png')
+guard_interaction_url_1600 = resource_path('resources/art/character_art/NPCs/interaction/guard_interaction_1600.png')
+
 snake_url_1024 = resource_path('resources/art/enemy_art/snake_1024.png')
 snake_url = resource_path('resources/art/enemy_art/snake.png')
 snake_url_1600 = resource_path('resources/art/enemy_art/snake_1600.png')
@@ -434,6 +449,28 @@ s1280_x_720_button_url_1600 = resource_path('resources/art/ui_elements/buttons/s
 s1600_x_900_button_url_1024 = resource_path('resources/art/ui_elements/buttons/start_screen/1600x900_button_1024.png')
 s1600_x_900_button_url = resource_path('resources/art/ui_elements/buttons/start_screen/1600x900_button.png')
 s1600_x_900_button_url_1600 = resource_path('resources/art/ui_elements/buttons/start_screen/1600x900_button_1600.png')
+
+quest_button_url_1024 = resource_path('resources/art/ui_elements/buttons/npc_interaction/quest_1024.png')
+quest_button_url = resource_path('resources/art/ui_elements/buttons/npc_interaction/quest.png')
+quest_button_url_1600 = resource_path('resources/art/ui_elements/buttons/npc_interaction/quest_1600.png')
+accept_button_url_1024 = resource_path('resources/art/ui_elements/buttons/npc_interaction/accept_1024.png')
+accept_button_url = resource_path('resources/art/ui_elements/buttons/npc_interaction/accept.png')
+accept_button_url_1600 = resource_path('resources/art/ui_elements/buttons/npc_interaction/accept_1600.png')
+decline_button_url_1024 = resource_path('resources/art/ui_elements/buttons/npc_interaction/decline_1024.png')
+decline_button_url = resource_path('resources/art/ui_elements/buttons/npc_interaction/decline.png')
+decline_button_url_1600 = resource_path('resources/art/ui_elements/buttons/npc_interaction/decline_1600.png')
+npc_name_plate_url_1024 = resource_path('resources/art/ui_elements/buttons/npc_interaction/npc_name_plate_1024.png')
+npc_name_plate_url = resource_path('resources/art/ui_elements/buttons/npc_interaction/npc_name_plate.png')
+npc_name_plate_url_1600 = resource_path('resources/art/ui_elements/buttons/npc_interaction/npc_name_plate_1600.png')
+garan_quest_url_1024 = resource_path('resources/art/ui_elements/quests/garan_quest_1024.png')
+garan_quest_url = resource_path('resources/art/ui_elements/quests/garan_quest.png')
+garan_quest_url_1600 = resource_path('resources/art/ui_elements/quests/garan_quest_1600.png')
+maurelle_quest_url_1024 = resource_path('resources/art/ui_elements/quests/maurelle_quest_1024.png')
+maurelle_quest_url = resource_path('resources/art/ui_elements/quests/maurelle_quest.png')
+maurelle_quest_url_1600 = resource_path('resources/art/ui_elements/quests/maurelle_quest_1600.png')
+guard_quest_url_1024 = resource_path('resources/art/ui_elements/quests/guard_quest_1024.png')
+guard_quest_url = resource_path('resources/art/ui_elements/quests/guard_quest.png')
+guard_quest_url_1600 = resource_path('resources/art/ui_elements/quests/guard_quest_1600.png')
 
 health_100_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_100.png')
 health_99_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_99.png')
