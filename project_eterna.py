@@ -24,8 +24,8 @@ vec = pygame.math.Vector2
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, name, gender, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
-                 knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health, energy, alive_status,
-                 rupees, reputation, mount, current_zone, defence, offense):
+                 quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
+                 energy, alive_status, rupees, reputation, mount, current_zone, defence, offense):
 
         super(Player, self).__init__()
         self.surf = pygame.image.load(resource_urls.stan_down_url).convert()
@@ -46,6 +46,7 @@ class Player(pygame.sprite.Sprite):
         self.current_quests = current_quests
         self.quest_progress = quest_progress
         self.quest_status = quest_status
+        self.quest_complete = quest_complete
         self.knowledge = knowledge
         self.skills_mage = skills_mage
         self.skills_fighter = skills_fighter
@@ -831,7 +832,8 @@ def level_up():
         player.health = 100
         player.energy = 100
         player.experience = 0
-        drawing_functions.level_up_draw(scaled_1024, scaled_1280, scaled_1600, player, level_up_font, screen, True)
+        drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280, scaled_1600, player,
+                                        level_up_font, True)
     else:
         level_up_dictionary["new level"] = "You are already max level. "
         return level_up_dictionary
@@ -872,6 +874,8 @@ def combat_event_button(combat_event):
     if combat_event.type == pygame.MOUSEBUTTONUP:
         combat_mouse = pygame.mouse.get_pos()
         # if mouse rect collides with attack button, skill button or run button return string representing it
+        if no_role_attack_button.rect.collidepoint(combat_mouse):
+            return "attack"
         if mage_attack_button.rect.collidepoint(combat_mouse):
             return "attack"
         if fighter_attack_button.rect.collidepoint(combat_mouse):
@@ -1024,6 +1028,18 @@ def buy_event_item(buy_event):
                 return clicked_element[0]
             if clicked_element[0].name == "bone dust":
                 return clicked_element[0]
+            if clicked_element[0].name == "basic staff":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic sword":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic bow":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic robes":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic armor":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic tunic":
+                return clicked_element[0]
         except IndexError:
             pass
 
@@ -1045,6 +1061,20 @@ def sell_event_item(sell_event):
             if clicked_element[0].name == "shiny rock":
                 return clicked_element[0]
             if clicked_element[0].name == "bone dust":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic staff":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic sword":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic bow":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic robes":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic armor":
+                return clicked_element[0]
+            if clicked_element[0].name == "basic tunic":
+                return clicked_element[0]
+            if clicked_element[0].name == "temporary item":
                 return clicked_element[0]
         except IndexError:
             pass
@@ -1370,6 +1400,10 @@ def status_and_inventory_updates():
                         item_here.update(first_coord, second_coord, resource_urls.basic_tunic_url_1024)
                         player_items.append(item_here)
                         inventory_counter += 1
+                    if item_here.name == "temporary item":
+                        item_here.update(first_coord, second_coord, resource_urls.temp_item_url_1024)
+                        player_items.append(item_here)
+                        inventory_counter += 1
                 if scaled_1280:
                     if item_here.name == "health potion":
                         item_here.update(first_coord, second_coord, resource_urls.health_pot_url)
@@ -1411,6 +1445,10 @@ def status_and_inventory_updates():
                         item_here.update(first_coord, second_coord, resource_urls.basic_tunic_url)
                         player_items.append(item_here)
                         inventory_counter += 1
+                    if item_here.name == "temporary item":
+                        item_here.update(first_coord, second_coord, resource_urls.temp_item_url)
+                        player_items.append(item_here)
+                        inventory_counter += 1
                 if scaled_1600:
                     if item_here.name == "health potion":
                         item_here.update(first_coord, second_coord, resource_urls.health_pot_url_1600)
@@ -1450,6 +1488,10 @@ def status_and_inventory_updates():
                         inventory_counter += 1
                     if item_here.name == "basic tunic":
                         item_here.update(first_coord, second_coord, resource_urls.basic_tunic_url_1600)
+                        player_items.append(item_here)
+                        inventory_counter += 1
+                    if item_here.name == "temporary item":
+                        item_here.update(first_coord, second_coord, resource_urls.temp_item_url_1600)
                         player_items.append(item_here)
                         inventory_counter += 1
                 # add 75 to the items x-coordinate value so the next item will be added to next slot
@@ -1578,64 +1620,68 @@ def inventory_click_handler():
 
 
 def equipment_updates():
+
     player_equipment.clear()
-    if scaled_1024:
-        if player.equipment["weapon"] == basic_staff:
-            basic_staff.update(865, 228, resource_urls.basic_staff_url_1024)
-            player_equipment.append(basic_staff)
-        if player.equipment["weapon"] == basic_sword:
-            basic_sword.update(865, 228, resource_urls.basic_sword_url_1024)
-            player_equipment.append(basic_sword)
-        if player.equipment["weapon"] == basic_bow:
-            basic_bow.update(865, 228, resource_urls.basic_bow_url_1024)
-            player_equipment.append(basic_bow)
-        if player.equipment["chest"] == basic_robes:
-            basic_robes.update(923, 158, resource_urls.basic_robes_url_1024)
-            player_equipment.append(basic_robes)
-        if player.equipment["chest"] == basic_armor:
-            basic_armor.update(923, 158, resource_urls.basic_armor_url_1024)
-            player_equipment.append(basic_armor)
-        if player.equipment["chest"] == basic_tunic:
-            basic_tunic.update(923, 158, resource_urls.basic_tunic_url_1024)
-            player_equipment.append(basic_tunic)
-    if scaled_1280:
-        if player.equipment["weapon"] == basic_staff:
-            basic_staff.update(1078, 285, resource_urls.basic_staff_url)
-            player_equipment.append(basic_staff)
-        if player.equipment["weapon"] == basic_sword:
-            basic_sword.update(1078, 285, resource_urls.basic_sword_url)
-            player_equipment.append(basic_sword)
-        if player.equipment["weapon"] == basic_bow:
-            basic_bow.update(1078, 285, resource_urls.basic_bow_url)
-            player_equipment.append(basic_bow)
-        if player.equipment["chest"] == basic_robes:
-            basic_robes.update(1153, 195, resource_urls.basic_robes_url)
-            player_equipment.append(basic_robes)
-        if player.equipment["chest"] == basic_armor:
-            basic_armor.update(1153, 195, resource_urls.basic_armor_url)
-            player_equipment.append(basic_armor)
-        if player.equipment["chest"] == basic_tunic:
-            basic_tunic.update(1153, 195, resource_urls.basic_tunic_url)
-            player_equipment.append(basic_tunic)
-    if scaled_1600:
-        if player.equipment["weapon"] == basic_staff:
-            basic_staff.update(1080, 285, resource_urls.basic_staff_url_1600)
-            player_equipment.append(basic_staff)
-        if player.equipment["weapon"] == basic_sword:
-            basic_sword.update(1080, 285, resource_urls.basic_sword_url_1600)
-            player_equipment.append(basic_sword)
-        if player.equipment["weapon"] == basic_bow:
-            basic_bow.update(1080, 285, resource_urls.basic_bow_url_1600)
-            player_equipment.append(basic_bow)
-        if player.equipment["chest"] == basic_robes:
-            basic_robes.update(1155, 195, resource_urls.basic_robes_url_1600)
-            player_equipment.append(basic_robes)
-        if player.equipment["chest"] == basic_armor:
-            basic_armor.update(1155, 195, resource_urls.basic_armor_url_1600)
-            player_equipment.append(basic_armor)
-        if player.equipment["chest"] == basic_tunic:
-            basic_tunic.update(1155, 195, resource_urls.basic_tunic_url_1600)
-            player_equipment.append(basic_tunic)
+    try:
+        if scaled_1024:
+            if player.equipment["weapon"].name == "basic staff":
+                player.equipment["weapon"].update(865, 228, resource_urls.basic_staff_url_1024)
+                player_equipment.append(player.equipment["weapon"])
+            if player.equipment["weapon"].name == "basic sword":
+                player.equipment["weapon"].update(865, 228, resource_urls.basic_sword_url_1024)
+                player_equipment.append(player.equipment["weapon"])
+            if player.equipment["weapon"].name == "basic bow":
+                player.equipment["weapon"].update(865, 228, resource_urls.basic_bow_url_1024)
+                player_equipment.append(player.equipment["weapon"])
+            if player.equipment["chest"].name == "basic robes":
+                player.equipment["chest"].update(923, 158, resource_urls.basic_robes_url_1024)
+                player_equipment.append(player.equipment["chest"])
+            if player.equipment["chest"].name == "basic armor":
+                player.equipment["chest"].update(923, 158, resource_urls.basic_armor_url_1024)
+                player_equipment.append(player.equipment["chest"])
+            if player.equipment["chest"].name == "basic tunic":
+                player.equipment["chest"].update(923, 158, resource_urls.basic_tunic_url_1024)
+                player_equipment.append(player.equipment["chest"])
+        if scaled_1280:
+            if player.equipment["weapon"].name == "basic staff":
+                player.equipment["weapon"].update(1078, 285, resource_urls.basic_staff_url)
+                player_equipment.append(player.equipment["weapon"])
+            if player.equipment["weapon"].name == "basic sword":
+                player.equipment["weapon"].update(1078, 285, resource_urls.basic_sword_url)
+                player_equipment.append(player.equipment["weapon"])
+            if player.equipment["weapon"].name == "basic bow":
+                player.equipment["weapon"].update(1078, 285, resource_urls.basic_bow_url)
+                player_equipment.append(player.equipment["weapon"])
+            if player.equipment["chest"].name == "basic robes":
+                player.equipment["chest"].update(1153, 195, resource_urls.basic_robes_url)
+                player_equipment.append(player.equipment["chest"])
+            if player.equipment["chest"].name == "basic armor":
+                player.equipment["chest"].update(1153, 195, resource_urls.basic_armor_url)
+                player_equipment.append(player.equipment["chest"])
+            if player.equipment["chest"].name == "basic tunic":
+                player.equipment["chest"].update(1153, 195, resource_urls.basic_tunic_url)
+                player_equipment.append(player.equipment["chest"])
+        if scaled_1600:
+            if player.equipment["weapon"].name == "basic staff":
+                player.equipment["weapon"].update(1080, 285, resource_urls.basic_staff_url_1600)
+                player_equipment.append(player.equipment["weapon"])
+            if player.equipment["weapon"].name == "basic sword":
+                player.equipment["weapon"].update(1080, 285, resource_urls.basic_sword_url_1600)
+                player_equipment.append(player.equipment["weapon"])
+            if player.equipment["weapon"].name == "basic bow":
+                player.equipment["weapon"].update(1080, 285, resource_urls.basic_bow_url_1600)
+                player_equipment.append(player.equipment["weapon"])
+            if player.equipment["chest"].name == "basic robes":
+                player.equipment["chest"].update(1155, 195, resource_urls.basic_robes_url_1600)
+                player_equipment.append(player.equipment["chest"])
+            if player.equipment["chest"].name == "basic armor":
+                player.equipment["chest"].update(1155, 195, resource_urls.basic_armor_url_1600)
+                player_equipment.append(player.equipment["chest"])
+            if player.equipment["chest"].name == "basic tunic":
+                player.equipment["chest"].update(1155, 195, resource_urls.basic_tunic_url_1600)
+                player_equipment.append(player.equipment["chest"])
+    except AttributeError:
+        pass
 
     # updates players inventory items if item is used in combat scenario (ex. health pot.)
     for equipment_here in player_equipment:
@@ -1718,11 +1764,11 @@ def equipment_click_handler():
 def gear_check():
     # check players current gear type. return true after checked so the defense stat doesn't keep adding every iteration
     try:
-        if player.equipment["chest"].type == "heavy":
+        if player.equipment["chest"].type == "fighter":
             player.defence += 12
-        if player.equipment["chest"].type == "medium":
+        if player.equipment["chest"].type == "scout":
             player.defence += 8
-        if player.equipment["chest"].type == "light":
+        if player.equipment["chest"].type == "mage":
             player.defence += 4
     # if exception is raised, player isn't wearing anything because the .type doesn't exist, so set defence to 0
     except AttributeError:
@@ -1782,22 +1828,22 @@ basic_tunic = Item("basic tunic", "medium", 200, 200, resource_urls.basic_tunic_
 
 # default player character ---------------------------------------------------------------------------------------------
 player = Player("stan", "male", "amuna", "",  # name, gender, race, role
-                [health_potion, energy_potion, shiny_rock, bone_dust, basic_staff, basic_robes, basic_sword,
-                 basic_armor, basic_bow, basic_tunic],  # inventory
+                [health_potion, energy_potion],  # inventory
                 {"weapon": "", "chest": ""},  # equipment ('type', 'name')
                 # current quests, quest progress (x/4), quest status (quest: done)
                 {"sneaky snakes": "Speak to Garan to start this quest.",
                  "village repairs": "Speak to Maurelle to start this quest.",
                  "ghouled again": "Speak to the gate Guard to start this quest.",
                  "": ""},
-                {"sneaky snakes": 0, "village repairs": 0, "ghouled again": 0},
-                {"sneaky snakes": False, "village repairs": False, "ghouled again": False},
+                {"sneaky snakes": 0, "village repairs": 0, "ghouled again": 0},  # quest progress (x/4)
+                {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest status
+                {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest complete
                 {"mage": 100, "fighter": 100, "scout": 100},  # role knowledge ('role', 'amount')
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                 1, 0, 100, 100,  # lvl, exp, health, energy
-                True, 20, {"amuna": 10, "nuldar": 0, "sorae": 0}, "", "", 0, 0)  # alive, rupees, reputation, mount,
+                True, 20, {"amuna": 0, "nuldar": 0, "sorae": 0}, "", "", 0, 0)  # alive, rupees, reputation, mount,
 # zone, defence, offense
 
 # nps: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate --------------------------
@@ -1814,10 +1860,18 @@ npc_amuna_shopkeeper = NPC("amuna shopkeeper", "male", "amuna", "trader", "These
                                     (255, 255, 255), "1280"),
                                Item("energy potion", "potion", 200, 200, resource_urls.energy_pot_url,
                                     (255, 255, 255), "1280"),
-                               Item("bronze sword", "2H", 200, 200, resource_urls.temp_item_url,
+                               Item("basic staff", "mage", 200, 200, resource_urls.basic_staff_url,
                                     (255, 255, 255), "1280"),
-                               Item("bronze armor", "heavy", 200, 200, resource_urls.temp_item_url,
-                                    (255, 255, 255), "1280")
+                               Item("basic sword", "fighter", 200, 200, resource_urls.basic_sword_url,
+                                    (255, 255, 255), "1280"),
+                               Item("basic bow", "scout", 200, 200, resource_urls.basic_bow_url,
+                                    (255, 255, 255), "1280"),
+                               Item("basic robes", "mage", 200, 200, resource_urls.basic_robes_url,
+                                    (255, 255, 255), "1280"),
+                               Item("basic armor", "fighter", 200, 200, resource_urls.basic_armor_url,
+                                    (255, 255, 255), "1280"),
+                               Item("basic tunic", "scout", 200, 200, resource_urls.basic_tunic_url,
+                                    (255, 255, 255), "1280"),
                            ], False, resource_urls.amuna_shopkeeper_url, (255, 255, 255), "1280")
 npc_garan_interaction = UiElement("garan interaction", 700, 250, resource_urls.garan_interaction_url,
                                   (255, 255, 255), False, "1280")
@@ -1925,8 +1979,10 @@ quest_button = UiElement("quest button", 860, 680, resource_urls.quest_button_ur
 accept_button = UiElement("accept button", 340, 670, resource_urls.accept_button_url, (255, 255, 255), False, "1280")
 decline_button = UiElement("decline button", 450, 670, resource_urls.decline_button_url, (255, 255, 255), False, "1280")
 # ----------------------------------------------------------------------------------------------------------------------
-skill_bar = UiElement("skill bar", 855, 627, resource_urls.skill_bar_url, (255, 255, 255), False,
+skill_bar = UiElement("skill bar", 855, 615, resource_urls.skill_bar_url, (255, 255, 255), False,
                       "1280")
+no_role_attack_button = UiElement("no role attack button", 750, 627, resource_urls.no_role_attack_url,
+                               (255, 255, 255), False, "1280")
 mage_attack_button = UiElement("mage attack button", 750, 627, resource_urls.mage_attack_button_url,
                                (255, 255, 255), False, "1280")
 fighter_attack_button = UiElement("fighter attack button", 750, 627, resource_urls.fighter_attack_button_url,
@@ -2120,6 +2176,8 @@ zone_marrow = False
 hard_strike = False
 # condition to check if quest button has been clicked in npc interation
 quest_clicked = False
+# condition to check if garan has given player basic weapons when starting his quest
+garan_gifted = False
 # string to store players current direction on key press for correctly displaying orientation on sprite update
 # when changing gear/role etc.
 current_direction = ""
@@ -2410,6 +2468,7 @@ while game_running:
                                     player.pos = vec((850, 650))
                                 if scaled_1600:
                                     player.pos = vec((850 / .80, 650 / .80))
+
                             # if character button is clicked, call draw function and show elements. second click hides
                             if character_button.rect.collidepoint(pos):
                                 if character_button_clicked:
@@ -2422,6 +2481,7 @@ while game_running:
                                                                                 scaled_1280, scaled_1600,
                                                                                 player, font, True)
                                     character_button_clicked = True
+
                             # if journal button is clicked, call draw function and show elements. second click hides
                             if journal_button.rect.collidepoint(pos):
                                 if journal_button_clicked:
@@ -2433,11 +2493,28 @@ while game_running:
                                                                         player, font, True)
                                     journal_button_clicked = True
 
+                            # when player levels up, this lets them click to dismiss the window pop-up
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280, scaled_1600,
                                                                 player, font, False)
                         elif event.type == QUIT:
                             exit()
+
+                        # ----------------------------------------------------------------------------------------------
+                        quest_item = pygame.sprite.spritecollideany(player, quest_items)
+                        if quest_item:
+
+                            if player.quest_status["village repairs"]:
+                                info_text_1 = f"Press 'F' key to gather the pine logs."
+
+                                if interacted:
+                                    if player.quest_progress["village repairs"] < 4:
+                                        player.quest_progress["village repairs"] += 1
+                                        info_text_1 = f"You gathered 1 pine log."
+
+                                        quest_item.kill()
+                                        interacted = False
+                                        loot_update = True
 
                         # ----------------------------------------------------------------------------------------------
                         # if player collides with enemy sprite, doesn't have combat cooldown,
@@ -3194,7 +3271,7 @@ while game_running:
                                 if player.skills_scout["skill 2"] == "sharp sense":
                                     screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
                             if player.role == "":
-                                screen.blit(scout_attack_button.surf, scout_attack_button.rect)
+                                screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
                             if enemy.name == "snake":
                                 screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
@@ -3230,8 +3307,8 @@ while game_running:
                             for equipment in player_equipment:
                                 screen.blit(equipment.surf, equipment.rect)
                             drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600,
-                                                             screen, player, font, info_text_2, info_text_3,
-                                                         info_text_4)
+                                                             screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4)
                             # get current enemy name and create surf and rectangle to draw to screen
                             text_enemy_name_surf = font.render(str(enemy.name), True, "black", "light yellow")
                             text_enemy_name_rect = text_enemy_name_surf.get_rect()
@@ -3568,6 +3645,78 @@ while game_running:
                                                                      resource_urls.energy_pot_url_1600)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
+                                            if shop_item.name == "basic staff":
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_staff_url_1024)
+                                                if scaled_1280:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_staff_url)
+                                                if scaled_1600:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_staff_url_1600)
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
+                                            if shop_item.name == "basic sword":
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_sword_url_1024)
+                                                if scaled_1280:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_sword_url)
+                                                if scaled_1600:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_sword_url_1600)
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
+                                            if shop_item.name == "basic bow":
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_bow_url_1024)
+                                                if scaled_1280:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_bow_url)
+                                                if scaled_1600:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_bow_url_1600)
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
+                                            if shop_item.name == "basic robes":
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_robes_url_1024)
+                                                if scaled_1280:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_robes_url)
+                                                if scaled_1600:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_robes_url_1600)
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
+                                            if shop_item.name == "basic armor":
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_armor_url_1024)
+                                                if scaled_1280:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_armor_url)
+                                                if scaled_1600:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_armor_url_1600)
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
+                                            if shop_item.name == "basic tunic":
+                                                if scaled_1024:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_tunic_url_1024)
+                                                if scaled_1280:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_tunic_url)
+                                                if scaled_1600:
+                                                    shop_item.update(buy_first_coord, buy_second_coord,
+                                                                     resource_urls.basic_tunic_url_1600)
+                                                shopkeeper_items.append(shop_item)
+                                                buy_inventory_counter += 1
 
                                             buy_first_coord += 60
                                             if scaled_1024:
@@ -3576,7 +3725,7 @@ while game_running:
                                                 buy_first_coord = buy_first_coord + 2
                                             if buy_inventory_counter > 3:
                                                 buy_second_coord += 60
-                                                buy_first_coord = 1063
+                                                buy_first_coord = 810
                                                 buy_inventory_counter = 0
                                                 if scaled_1024:
                                                     buy_first_coord = buy_first_coord * .80
@@ -3661,6 +3810,180 @@ while game_running:
                                         else:
                                             info_text_1 = "Your inventory is full."
                                             info_text_2 = ""
+
+                                    if buy_item.name == "basic staff":
+                                        if len(player.items) < 16:
+                                            if player.rupees > 19:
+                                                info_text_1 = "Bought Basic Staff for 20 rupees."
+                                                info_text_2 = "Basic Staff added to inventory."
+                                                if scaled_1024:
+                                                    player.items.append(
+                                                        Item("basic staff", "mage", 200, 200,
+                                                             resource_urls.basic_staff_url_1024,
+                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(
+                                                        Item("basic staff", "mage", 200, 200,
+                                                             resource_urls.basic_staff_url,
+                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(
+                                                        Item("basic staff", "mage", 200, 200,
+                                                             resource_urls.basic_staff_url_1600,
+                                                             (255, 255, 255), "1600"))
+                                                player.rupees = player.rupees - 20
+                                                item_bought = True
+                                            else:
+                                                info_text_1 = "You do not have enough rupees."
+                                                info_text_2 = "Basic Staff cost 20 rupees."
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
+
+                                    if buy_item.name == "basic sword":
+                                        if len(player.items) < 16:
+                                            if player.rupees > 19:
+                                                info_text_1 = "Bought Basic Sword for 20 rupees."
+                                                info_text_2 = "Basic Sword added to inventory."
+                                                if scaled_1024:
+                                                    player.items.append(
+                                                        Item("basic sword", "fighter", 200, 200,
+                                                             resource_urls.basic_sword_url_1024,
+                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(
+                                                        Item("basic sword", "fighter", 200, 200,
+                                                             resource_urls.basic_sword_url,
+                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(
+                                                        Item("basic sword", "fighter", 200, 200,
+                                                             resource_urls.basic_sword_url_1600,
+                                                             (255, 255, 255), "1600"))
+                                                player.rupees = player.rupees - 20
+                                                item_bought = True
+                                            else:
+                                                info_text_1 = "You do not have enough rupees."
+                                                info_text_2 = "Basic Sword cost 20 rupees."
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
+
+                                    if buy_item.name == "basic bow":
+                                        if len(player.items) < 16:
+                                            if player.rupees > 19:
+                                                info_text_1 = "Bought Basic Bow for 20 rupees."
+                                                info_text_2 = "Basic Bow added to inventory."
+                                                if scaled_1024:
+                                                    player.items.append(
+                                                        Item("basic bow", "scout", 200, 200,
+                                                             resource_urls.basic_bow_url_1024,
+                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(
+                                                        Item("basic bow", "scout", 200, 200,
+                                                             resource_urls.basic_bow_url,
+                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(
+                                                        Item("basic bow", "scout", 200, 200,
+                                                             resource_urls.basic_bow_url_1600,
+                                                             (255, 255, 255), "1600"))
+                                                player.rupees = player.rupees - 20
+                                                item_bought = True
+                                            else:
+                                                info_text_1 = "You do not have enough rupees."
+                                                info_text_2 = "Basic Bow cost 20 rupees."
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
+
+                                    if buy_item.name == "basic robes":
+                                        if len(player.items) < 16:
+                                            if player.rupees > 19:
+                                                info_text_1 = "Bought Basic Robes for 20 rupees."
+                                                info_text_2 = "Basic Robes added to inventory."
+                                                if scaled_1024:
+                                                    player.items.append(
+                                                        Item("basic robes", "mage", 200, 200,
+                                                             resource_urls.basic_robes_url_1024,
+                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(
+                                                        Item("basic robes", "mage", 200, 200,
+                                                             resource_urls.basic_robes_url,
+                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(
+                                                        Item("basic robes", "mage", 200, 200,
+                                                             resource_urls.basic_robes_url_1600,
+                                                             (255, 255, 255), "1600"))
+                                                player.rupees = player.rupees - 20
+                                                item_bought = True
+                                            else:
+                                                info_text_1 = "You do not have enough rupees."
+                                                info_text_2 = "Basic Robes cost 20 rupees."
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
+
+                                    if buy_item.name == "basic armor":
+                                        if len(player.items) < 16:
+                                            if player.rupees > 19:
+                                                info_text_1 = "Bought Basic Armor for 20 rupees."
+                                                info_text_2 = "Basic Armor added to inventory."
+                                                if scaled_1024:
+                                                    player.items.append(
+                                                        Item("basic armor", "fighter", 200, 200,
+                                                             resource_urls.basic_armor_url_1024,
+                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(
+                                                        Item("basic armor", "fighter", 200, 200,
+                                                             resource_urls.basic_armor_url,
+                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(
+                                                        Item("basic armor", "fighter", 200, 200,
+                                                             resource_urls.basic_armor_url_1600,
+                                                             (255, 255, 255), "1600"))
+                                                player.rupees = player.rupees - 20
+                                                item_bought = True
+                                            else:
+                                                info_text_1 = "You do not have enough rupees."
+                                                info_text_2 = "Basic Armor cost 20 rupees."
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
+
+                                    if buy_item.name == "basic tunic":
+                                        if len(player.items) < 16:
+                                            if player.rupees > 19:
+                                                info_text_1 = "Bought Basic Tunic for 20 rupees."
+                                                info_text_2 = "Basic Tunic added to inventory."
+                                                if scaled_1024:
+                                                    player.items.append(
+                                                        Item("basic tunic", "scout", 200, 200,
+                                                             resource_urls.basic_tunic_url_1024,
+                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(
+                                                        Item("basic tunic", "scout", 200, 200,
+                                                             resource_urls.basic_tunic_url,
+                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(
+                                                        Item("basic tunic", "scout", 200, 200,
+                                                             resource_urls.basic_tunic_url_1600,
+                                                             (255, 255, 255), "1600"))
+                                                player.rupees = player.rupees - 20
+                                                item_bought = True
+                                            else:
+                                                info_text_1 = "You do not have enough rupees."
+                                                info_text_2 = "Basic Tunic cost 20 rupees."
+                                        else:
+                                            info_text_1 = "Your inventory is full."
+                                            info_text_2 = ""
                                 except AttributeError:
                                     pass
 
@@ -3697,6 +4020,54 @@ while game_running:
                                     player_items.remove(sell_item)
                                     player.rupees = player.rupees + 10
                                     item_sold = True
+                                if sell_item.name == "basic staff":
+                                    info_text_1 = "Sold Basic Staff for 5 rupees."
+                                    info_text_2 = "Basic Staff removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 5
+                                    item_sold = True
+                                if sell_item.name == "basic sword":
+                                    info_text_1 = "Sold Basic Sword for 5 rupees."
+                                    info_text_2 = "Basic Sword removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 5
+                                    item_sold = True
+                                if sell_item.name == "basic bow":
+                                    info_text_1 = "Sold Basic Bow for 5 rupees."
+                                    info_text_2 = "Basic Bow removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 5
+                                    item_sold = True
+                                if sell_item.name == "basic robes":
+                                    info_text_1 = "Sold Basic Robes for 5 rupees."
+                                    info_text_2 = "Basic Robes removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 5
+                                    item_sold = True
+                                if sell_item.name == "basic armor":
+                                    info_text_1 = "Sold Basic Armor for 5 rupees."
+                                    info_text_2 = "Basic Armor removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 5
+                                    item_sold = True
+                                if sell_item.name == "basic tunic":
+                                    info_text_1 = "Sold Basic Tunic for 5 rupees."
+                                    info_text_2 = "Basic Tunic removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    player.rupees = player.rupees + 5
+                                    item_sold = True
+                                if sell_item.name == "temporary item":
+                                    info_text_1 = "Sold Temporary Item for 0 rupees."
+                                    info_text_2 = "Temporary Item removed from inventory."
+                                    player.items.remove(sell_item)
+                                    player_items.remove(sell_item)
+                                    item_sold = True
                             except AttributeError:
                                 pass
 
@@ -3717,7 +4088,7 @@ while game_running:
                         for equipment in player_equipment:
                             screen.blit(equipment.surf, equipment.rect)
                         drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600,
-                                                         screen, player, font, info_text_2, info_text_3,
+                                                         screen, player, font, info_text_1, info_text_2, info_text_3,
                                                          info_text_4)
 
                         # ----------------------------------------------------------------------------------------------
@@ -3849,7 +4220,7 @@ while game_running:
                         for equipment in player_equipment:
                             screen.blit(equipment.surf, equipment.rect)
                         drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600,
-                                                         screen, player, font, info_text_2, info_text_3,
+                                                         screen, player, font, info_text_1, info_text_2, info_text_3,
                                                          info_text_4)
 
                         # ----------------------------------------------------------------------------------------------
@@ -4045,7 +4416,7 @@ while game_running:
                         for skill_item in skill_learn_items:
                             screen.blit(skill_item.surf, skill_item.rect)
                         drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600,
-                                                         screen, player, font, info_text_2, info_text_3,
+                                                         screen, player, font, info_text_1, info_text_2, info_text_3,
                                                          info_text_4)
                         # text and window related to player knowledge amounts ------------------------------------------
                         if scaled_1024:
@@ -4121,6 +4492,8 @@ while game_running:
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
                                 exit()
+                        if event.type == pygame.MOUSEBUTTONUP:
+                            pos = pygame.mouse.get_pos()
 
                         # click handlers for npc event loop -----------------------------------------------------------
                         inventory_event = inventory_click_handler()
@@ -4144,6 +4517,11 @@ while game_running:
                         elif event.type == QUIT:
                             exit()
 
+                        # when player levels up, this lets them click to dismiss the window pop-up
+                        if level_up_win.rect.collidepoint(pos):
+                            drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280, scaled_1600,
+                                                            player, font, False)
+
                         # ----------------------------------------------------------------------------------------------
                         npc = pygame.sprite.spritecollideany(player, npcs)
                         if npc:
@@ -4158,45 +4536,222 @@ while game_running:
 
                                 npc_button = npc_event_button(event)
                                 if npc_button == "quest":
-                                    if not quest_clicked:
-                                        drawing_functions.quest_box_draw(npc, True, garan_quest_window,
-                                                                         maurelle_quest_window, guard_quest_window,
-                                                                         accept_button, decline_button)
-                                        quest_clicked = True
-                                    else:
-                                        drawing_functions.quest_box_draw(npc, False, garan_quest_window,
-                                                                         maurelle_quest_window, guard_quest_window,
-                                                                         accept_button, decline_button)
-                                        quest_clicked = False
+                                    if npc.name == "garan":
+                                        if player.quest_progress["sneaky snakes"] == 4 and not \
+                                                player.quest_complete["sneaky snakes"]:
+
+                                            if len(player.items) < 16:
+                                                player.quest_complete["sneaky snakes"] = True
+                                                player.current_quests["sneaky snakes"] = "You completed this quest!"
+                                                info_text_1 = "You've completed Garan's quest!"
+                                                info_text_2 = "You've gained: "
+                                                info_text_3 = "2 health and energy potions. "
+                                                info_text_4 = "50 rupees and 10 amuna rep. "
+                                                player.rupees += 50
+                                                player.reputation["amuna"] += 10
+                                                if scaled_1024:
+                                                    player.items.append(Item("health potion", "potion", 200, 200,
+                                                                             resource_urls.health_pot_url_1024,
+                                                                             (255, 255, 255), "1024"))
+                                                    player.items.append(Item("health potion", "potion", 200, 200,
+                                                                             resource_urls.health_pot_url_1024,
+                                                                             (255, 255, 255), "1024"))
+                                                    player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                             resource_urls.energy_pot_url_1024,
+                                                                             (255, 255, 255), "1024"))
+                                                    player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                             resource_urls.energy_pot_url_1024,
+                                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(Item("health potion", "potion", 200, 200,
+                                                                             resource_urls.health_pot_url,
+                                                                             (255, 255, 255), "1280"))
+                                                    player.items.append(Item("health potion", "potion", 200, 200,
+                                                                             resource_urls.health_pot_url,
+                                                                             (255, 255, 255), "1280"))
+                                                    player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                             resource_urls.energy_pot_url,
+                                                                             (255, 255, 255), "1280"))
+                                                    player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                             resource_urls.energy_pot_url,
+                                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(Item("health potion", "potion", 200, 200,
+                                                                             resource_urls.health_pot_url_1600,
+                                                                             (255, 255, 255), "1600"))
+                                                    player.items.append(Item("health potion", "potion", 200, 200,
+                                                                             resource_urls.health_pot_url_1600,
+                                                                             (255, 255, 255), "1600"))
+                                                    player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                             resource_urls.energy_pot_url_1600,
+                                                                             (255, 255, 255), "1600"))
+                                                    player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                             resource_urls.energy_pot_url_1600,
+                                                                             (255, 255, 255), "1600"))
+                                            else:
+                                                info_text_1 = "You completed the quest, but "
+                                                info_text_2 = "Your inventory is full!"
+
+                                        if not quest_clicked:
+                                            if not player.quest_complete["sneaky snakes"]:
+                                                drawing_functions.quest_box_draw(npc, True, garan_quest_window,
+                                                                                 maurelle_quest_window,
+                                                                                 guard_quest_window,
+                                                                                 accept_button, decline_button)
+                                                quest_clicked = True
+                                            else:
+                                                info_text_1 = "You've completed this quest!"
+                                        else:
+                                            drawing_functions.quest_box_draw(npc, False, garan_quest_window,
+                                                                             maurelle_quest_window, guard_quest_window,
+                                                                             accept_button, decline_button)
+                                            quest_clicked = False
+
+                                    if npc.name == "maurelle":
+                                        if player.quest_progress["village repairs"] == 4 and not \
+                                                player.quest_complete["village repairs"]:
+
+                                            if len(player.items) < 16:
+                                                player.quest_complete["village repairs"] = True
+                                                player.current_quests["village repairs"] = "You completed this quest!"
+                                                info_text_1 = "You've completed Maurelle's quest!"
+                                                info_text_2 = "You've gained: "
+                                                info_text_3 = "Nera's blessing (Trinket). "
+                                                info_text_4 = "50 xp and 10 amuna rep. "
+                                                player.experience += 50
+                                                if player.experience >= 100:
+                                                    level_up()
+                                                player.reputation["amuna"] += 10
+                                                if scaled_1024:
+                                                    player.items.append(Item("temporary item", "trinket", 200, 200,
+                                                                             resource_urls.temp_item_url_1024,
+                                                                             (255, 255, 255), "1024"))
+                                                if scaled_1280:
+                                                    player.items.append(Item("temporary item", "trinket", 200, 200,
+                                                                             resource_urls.temp_item_url,
+                                                                             (255, 255, 255), "1280"))
+                                                if scaled_1600:
+                                                    player.items.append(Item("temporary item", "trinket", 200, 200,
+                                                                             resource_urls.temp_item_url_1600,
+                                                                             (255, 255, 255), "1600"))
+                                            else:
+                                                info_text_1 = "You completed the quest, but "
+                                                info_text_2 = "Your inventory is full!"
+
+                                        if not quest_clicked:
+                                            if not player.quest_complete["village repairs"]:
+                                                drawing_functions.quest_box_draw(npc, True, garan_quest_window,
+                                                                                 maurelle_quest_window,
+                                                                                 guard_quest_window,
+                                                                                 accept_button, decline_button)
+                                                quest_clicked = True
+                                            else:
+                                                info_text_1 = "You've completed this quest!"
+                                        else:
+                                            drawing_functions.quest_box_draw(npc, False, garan_quest_window,
+                                                                             maurelle_quest_window, guard_quest_window,
+                                                                             accept_button, decline_button)
+                                            quest_clicked = False
+
+                                    if npc.name == "guard":
+                                        if player.quest_progress["ghouled again"] == 4 and not \
+                                                player.quest_complete["ghouled again"]:
+
+                                            if len(player.items) < 16:
+                                                player.quest_complete["ghouled again"] = True
+                                                player.current_quests["ghouled again"] = "You completed this quest!"
+                                                info_text_1 = "You've completed Guard's quest!"
+                                                info_text_2 = "You've gained: "
+                                                info_text_3 = "Idk yet lol. "
+                                                info_text_4 = "50 xp and 10 amuna rep. "
+                                                player.experience += 50
+                                                if player.experience >= 100:
+                                                    level_up()
+                                                player.reputation["amuna"] += 10
+                                                if scaled_1024:
+                                                    print("idk yet")
+                                                if scaled_1280:
+                                                    print("idk yet")
+                                                if scaled_1600:
+                                                    print("idk yet")
+                                            else:
+                                                info_text_1 = "You completed the quest, but "
+                                                info_text_2 = "Your inventory is full!"
+
+                                        if not quest_clicked:
+                                            if not player.quest_complete["ghouled again"]:
+                                                drawing_functions.quest_box_draw(npc, True, garan_quest_window,
+                                                                                 maurelle_quest_window,
+                                                                                 guard_quest_window,
+                                                                                 accept_button, decline_button)
+                                                quest_clicked = True
+                                            else:
+                                                info_text_1 = "You've completed this quest!"
+                                        else:
+                                            drawing_functions.quest_box_draw(npc, False, garan_quest_window,
+                                                                             maurelle_quest_window, guard_quest_window,
+                                                                             accept_button, decline_button)
+                                            quest_clicked = False
 
                                 quest_buttons = quest_event_button(event)
                                 if quest_buttons == "accept":
                                     info_text_1 = "You've accepted the quest!"
                                     if npc.name == "garan":
+                                        # when players first accept garan's quest he will give them a basic weapon
+                                        if not garan_gifted:
+                                            if scaled_1024:
+                                                player.items.append(Item("basic staff", "mage", 200, 200,
+                                                                         resource_urls.basic_staff_url_1024,
+                                                                         (255, 255, 255), "1024"))
+                                                player.items.append(Item("basic sword", "fighter", 200, 200,
+                                                                         resource_urls.basic_staff_url_1024,
+                                                                         (255, 255, 255), "1024"))
+                                                player.items.append(Item("basic bow", "scout", 200, 200,
+                                                                         resource_urls.basic_bow_url_1024,
+                                                                         (255, 255, 255), "1024"))
+                                            if scaled_1280:
+                                                player.items.append(Item("basic staff", "mage", 200, 200,
+                                                                         resource_urls.basic_staff_url,
+                                                                         (255, 255, 255), "1280"))
+                                                player.items.append(Item("basic sword", "fighter", 200, 200,
+                                                                         resource_urls.basic_staff_url,
+                                                                         (255, 255, 255), "1280"))
+                                                player.items.append(Item("basic bow", "scout", 200, 200,
+                                                                         resource_urls.basic_bow_url,
+                                                                         (255, 255, 255), "1280"))
+                                            if scaled_1600:
+                                                player.items.append(Item("basic staff", "mage", 200, 200,
+                                                                         resource_urls.basic_staff_url_1600,
+                                                                         (255, 255, 255), "1600"))
+                                                player.items.append(Item("basic sword", "fighter", 200, 200,
+                                                                         resource_urls.basic_staff_url_1600,
+                                                                         (255, 255, 255), "1600"))
+                                                player.items.append(Item("basic bow", "scout", 200, 200,
+                                                                         resource_urls.basic_bow_url_1600,
+                                                                         (255, 255, 255), "1600"))
+                                            garan_gifted = True
+
                                         player.quest_status["sneaky snakes"] = True
-                                        player.current_quests["sneaky snakes"] = "Garan has asked you to defeat" \
+                                        player.current_quests["sneaky snakes"] = "Garan asked you to defeat" \
                                                                                  " snakes near the river."
                                     if npc.name == "maurelle":
                                         player.quest_status["village repairs"] = True
-                                        player.current_quests["village repairs"] = "Maurelle has asked you to " \
+                                        player.current_quests["village repairs"] = "Maurelle asked you to " \
                                                                                    "gather lumber from nearby trees."
                                     if npc.name == "guard":
                                         player.quest_status["ghouled again"] = True
-                                        player.current_quests["ghouled again"] = "The Guard has asked you to defeat" \
+                                        player.current_quests["ghouled again"] = "The Guard asked you to defeat" \
                                                                                  " ghouls nearby the Castle wall."
-
                                     quest_clicked = False
                                     drawing_functions.quest_box_draw(npc, False, garan_quest_window,
                                                                      maurelle_quest_window, guard_quest_window,
                                                                      accept_button, decline_button)
-
                                 if quest_buttons == "decline":
                                     info_text_1 = ""
                                     quest_clicked = False
                                     drawing_functions.quest_box_draw(npc, False, garan_quest_window,
                                                                      maurelle_quest_window, guard_quest_window,
                                                                      accept_button, decline_button)
-
                                 if npc_button == "leave":
                                     movement_able = True
                                     interacted = False

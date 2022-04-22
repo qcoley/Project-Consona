@@ -436,6 +436,9 @@ hard_strike_button_url_1600 = resource_path('resources/art/ui_elements/buttons/b
 sharp_sense_button_url_1024 = resource_path('resources/art/ui_elements/buttons/battle/scout/sharp_sense_1024.png')
 sharp_sense_button_url = resource_path('resources/art/ui_elements/buttons/battle/scout/sharp_sense.png')
 sharp_sense_button_url_1600 = resource_path('resources/art/ui_elements/buttons/battle/scout/sharp_sense_1600.png')
+no_role_attack_url_1024 = resource_path('resources/art/ui_elements/buttons/battle/no_role/no_role_attack_1024.png')
+no_role_attack_url = resource_path('resources/art/ui_elements/buttons/battle/no_role/no_role_attack.png')
+no_role_attack_url_1600 = resource_path('resources/art/ui_elements/buttons/battle/no_role/no_role_attack_1600.png')
 
 start_button_url_1024 = resource_path('resources/art/ui_elements/buttons/start_screen/start_button_1024.png')
 start_button_url = resource_path('resources/art/ui_elements/buttons/start_screen/start_button.png')
