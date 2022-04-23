@@ -1873,11 +1873,11 @@ npc_amuna_shopkeeper = NPC("amuna shopkeeper", "male", "amuna", "trader", "These
                                Item("basic tunic", "scout", 200, 200, resource_urls.basic_tunic_url,
                                     (255, 255, 255), "1280"),
                            ], False, resource_urls.amuna_shopkeeper_url, (255, 255, 255), "1280")
-npc_garan_interaction = UiElement("garan interaction", 700, 250, resource_urls.garan_interaction_url,
+npc_garan_interaction = UiElement("garan interaction", 650, 350, resource_urls.garan_interaction_url,
                                   (255, 255, 255), False, "1280")
-npc_maurelle_interaction = UiElement("maurelle interaction", 700, 250, resource_urls.maurelle_interaction_url,
+npc_maurelle_interaction = UiElement("maurelle interaction", 650, 350, resource_urls.maurelle_interaction_url,
                                      (255, 255, 255), False, "1280")
-npc_guard_interaction = UiElement("guard interaction", 700, 250, resource_urls.guard_interaction_url,
+npc_guard_interaction = UiElement("guard interaction", 650, 350, resource_urls.guard_interaction_url,
                                   (255, 255, 255), False, "1280")
 # ----------------------------------------------------------------------------------------------------------------------
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar ------
@@ -2012,7 +2012,7 @@ quest_logs_1 = Item("quest", "quest logs", 60, 540, resource_urls.quest_logs_url
 quest_logs_2 = Item("quest", "quest logs", 315, 560, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 quest_logs_3 = Item("quest", "quest logs", 415, 435, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 quest_logs_4 = Item("quest", "quest logs", 100, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
-npc_name_plate = UiElement("scout book", 700, 75, resource_urls.npc_name_plate_url, (255, 255, 255), False, "1280")
+npc_name_plate = UiElement("npc name plate", 640, 192, resource_urls.npc_name_plate_url, (255, 255, 255), False, "1280")
 # instance windows -----------------------------------------------------------------------------------------------------
 buy_inventory = Inventory("buy inventory", [], 900, 500, resource_urls.buy_inventory_url, (255, 255, 255), False,
                           "1280")
@@ -2088,7 +2088,9 @@ most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items, enemies)
 # adding these sprites to a scaling sprite group which is used to reference sprites that should be scaled
 scaling_sprites.add(most_sprites, user_interface, enemies, battle_elements, conditional_interface, start_screen_sprites,
                     game_over_screen_sprites, greeting, knowledge_window, npc_garan_interaction,
-                    npc_maurelle_interaction, npc_guard_interaction)
+                    npc_maurelle_interaction, npc_guard_interaction, quest_button, npc_name_plate,
+                    no_role_attack_button, garan_quest_window, maurelle_quest_window, guard_quest_window,
+                    accept_button, decline_button, close_button)
 # code related to sound effects that will be used later ----------------------------------------------------------------
 # pygame.mixer.music.load("Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
@@ -3408,7 +3410,7 @@ while game_running:
                                 if barrier_active:
                                     stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                               stan_battle_sprite.y_coordinate,
-                                                              resource_urls.stan_attack_url_mage_barrier_1600)
+                                                              resource_urls.stan_battle_url_mage_barrier_1600)
                                 else:
                                     stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                               stan_battle_sprite.y_coordinate,
@@ -3425,7 +3427,7 @@ while game_running:
                                 else:
                                     stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                               stan_battle_sprite.y_coordinate,
-                                                              resource_urls.stan_battle_url_1024_scout)
+                                                              resource_urls.stan_battle_url_1600_scout)
                             if player.role == "":
                                 stan_battle_sprite.update(stan_battle_sprite.x_coordinate,
                                                           stan_battle_sprite.y_coordinate,
@@ -4800,11 +4802,11 @@ while game_running:
                         text_npc_name_surf = font.render(str(npc.name), True, "black", "light yellow")
                         text_npc_name_rect = text_npc_name_surf.get_rect()
                         if scaled_1024:
-                            text_npc_name_rect.center = (800 * .80, 680 * .80)
+                            text_npc_name_rect.center = (640 * .80, 192 * .80)
                         if scaled_1280:
-                            text_npc_name_rect.center = (700, 75)
+                            text_npc_name_rect.center = (640, 192)
                         if scaled_1600:
-                            text_npc_name_rect.center = (800 / .80, 680 / .80)
+                            text_npc_name_rect.center = (640 / .80, 192 / .80)
                         screen.blit(text_npc_name_surf, text_npc_name_rect)
 
                         drawing_functions.draw_it(screen)

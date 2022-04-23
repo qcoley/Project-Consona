@@ -110,6 +110,30 @@ def screen_scaling(object_to_scale):
             return resource_urls.close_button_url_1024
         if object_to_scale.name == "knowledge window":
             return resource_urls.knowledge_window_url_1024
+        if object_to_scale.name == "garan interaction":
+            return resource_urls.garan_interaction_url_1024
+        if object_to_scale.name == "maurelle interaction":
+            return resource_urls.maurelle_interaction_url_1024
+        if object_to_scale.name == "guard interaction":
+            return resource_urls.guard_interaction_url_1024
+        if object_to_scale.name == "quest button":
+            return resource_urls.quest_button_url_1024
+        if object_to_scale.name == "no role attack button":
+            return resource_urls.no_role_attack_url_1024
+        if object_to_scale.name == "npc name plate":
+            return resource_urls.npc_name_plate_url_1024
+        if object_to_scale.name == "garan quest window":
+            return resource_urls.garan_quest_url_1024
+        if object_to_scale.name == "maurelle quest window":
+            return resource_urls.maurelle_quest_url_1024
+        if object_to_scale.name == "guard quest window":
+            return resource_urls.guard_quest_url_1024
+        if object_to_scale.name == "accept button":
+            return resource_urls.accept_button_url_1024
+        if object_to_scale.name == "decline button":
+            return resource_urls.decline_button_url_1024
+        if object_to_scale.name == "close button":
+            return resource_urls.close_button_url_1024
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1280":
@@ -219,6 +243,30 @@ def screen_scaling(object_to_scale):
             return resource_urls.close_button_url
         if object_to_scale.name == "knowledge window":
             return resource_urls.knowledge_window_url
+        if object_to_scale.name == "garan interaction":
+            return resource_urls.garan_interaction_url
+        if object_to_scale.name == "maurelle interaction":
+            return resource_urls.maurelle_interaction_url
+        if object_to_scale.name == "guard interaction":
+            return resource_urls.guard_interaction_url
+        if object_to_scale.name == "quest button":
+            return resource_urls.quest_button_url
+        if object_to_scale.name == "no role attack button":
+            return resource_urls.no_role_attack_url
+        if object_to_scale.name == "npc name plate":
+            return resource_urls.npc_name_plate_url
+        if object_to_scale.name == "garan quest window":
+            return resource_urls.garan_quest_url
+        if object_to_scale.name == "maurelle quest window":
+            return resource_urls.maurelle_quest_url
+        if object_to_scale.name == "guard quest window":
+            return resource_urls.guard_quest_url
+        if object_to_scale.name == "accept button":
+            return resource_urls.accept_button_url
+        if object_to_scale.name == "decline button":
+            return resource_urls.decline_button_url
+        if object_to_scale.name == "close button":
+            return resource_urls.close_button_url
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1600":
@@ -328,3 +376,27 @@ def screen_scaling(object_to_scale):
             return resource_urls.close_button_url_1600
         if object_to_scale.name == "knowledge window":
             return resource_urls.knowledge_window_url_1600
+        if object_to_scale.name == "garan interaction":
+            return resource_urls.garan_interaction_url_1600
+        if object_to_scale.name == "maurelle interaction":
+            return resource_urls.maurelle_interaction_url_1600
+        if object_to_scale.name == "guard interaction":
+            return resource_urls.guard_interaction_url_1600
+        if object_to_scale.name == "quest button":
+            return resource_urls.quest_button_url_1600
+        if object_to_scale.name == "no role attack button":
+            return resource_urls.no_role_attack_url_1600
+        if object_to_scale.name == "npc name plate":
+            return resource_urls.npc_name_plate_url_1600
+        if object_to_scale.name == "garan quest window":
+            return resource_urls.garan_quest_url_1600
+        if object_to_scale.name == "maurelle quest window":
+            return resource_urls.maurelle_quest_url_1600
+        if object_to_scale.name == "guard quest window":
+            return resource_urls.guard_quest_url_1600
+        if object_to_scale.name == "accept button":
+            return resource_urls.accept_button_url_1600
+        if object_to_scale.name == "decline button":
+            return resource_urls.decline_button_url_1600
+        if object_to_scale.name == "close button":
+            return resource_urls.close_button_url_1600

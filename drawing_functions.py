@@ -63,21 +63,21 @@ def text_info_draw(scaled_1024, scaled_1280, scaled_1600, screen, player, font, 
     text_offense_surf = font.render(str(player.offense), True, "black", "light yellow")
     text_offense_rect = text_offense_surf.get_rect()
     if scaled_1024:
-        text_offense_rect.center = (1135 * .80, 82 * .80)
+        text_offense_rect.center = (1212 * .80, 82 * .80)
     if scaled_1280:
         text_offense_rect.center = (1212, 82)
     if scaled_1600:
-        text_offense_rect.center = (1135 / .80, 82 / .80)
+        text_offense_rect.center = (1212 / .80, 82 / .80)
     screen.blit(text_offense_surf, text_offense_rect)
     # get current player defence and create surf and rectangle to blit to screen----------------------------------------
     text_defence_surf = font.render(str(player.defence), True, "black", "light yellow")
     text_defence_rect = text_defence_surf.get_rect()
     if scaled_1024:
-        text_defence_rect.center = (1135 * .80, 120 * .80)
+        text_defence_rect.center = (1212 * .80, 120 * .80)
     if scaled_1280:
         text_defence_rect.center = (1212, 119)
     if scaled_1600:
-        text_defence_rect.center = (1135 / .80, 120 / .80)
+        text_defence_rect.center = (1212 / .80, 120 / .80)
     screen.blit(text_defence_surf, text_defence_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
@@ -146,11 +146,11 @@ def character_sheet_info_draw(character_sheet, scaled_1024, scaled_1280, scaled_
         text_rolled_surf = font.render(str(player.role), True, "black", "light yellow")
         text_rolled_rect = text_rolled_surf.get_rect()
         if scaled_1024:
-            text_rolled_rect.center = (600 * .80, 229 * .80)
+            text_rolled_rect.center = (604 * .80, 228 * .80)
         if scaled_1280:
             text_rolled_rect.center = (604, 228)
         if scaled_1600:
-            text_rolled_rect.center = (600 / .80, 229 / .80 + 5)
+            text_rolled_rect.center = (604 / .80, 228 / .80 + 5)
         text_health_surf = font.render(str(player.health), True, "black", "light yellow")
         text_health_rect = text_health_surf.get_rect()
         if scaled_1024:
@@ -206,7 +206,7 @@ def character_sheet_info_draw(character_sheet, scaled_1024, scaled_1280, scaled_
         if scaled_1280:
             text_amuna_rect.center = (945, 310)
         if scaled_1600:
-            text_amuna_rect.center = (945 / .80, 310 / .80 - 5)
+            text_amuna_rect.center = (945 / .80, 310 / .80)
         text_nuldar_surf = font.render(str(player.reputation["nuldar"]), True, "black", "light yellow")
         text_nuldar_rect = text_nuldar_surf.get_rect()
         if scaled_1024:
@@ -214,7 +214,7 @@ def character_sheet_info_draw(character_sheet, scaled_1024, scaled_1280, scaled_
         if scaled_1280:
             text_nuldar_rect.center = (940, 348)
         if scaled_1600:
-            text_nuldar_rect.center = (940 / .80, 348 / .80 - 10)
+            text_nuldar_rect.center = (940 / .80, 348 / .80)
         text_sorae_surf = font.render(str(player.reputation["sorae"]), True, "black", "light yellow")
         text_sorae_rect = text_sorae_surf.get_rect()
         if scaled_1024:
@@ -222,34 +222,34 @@ def character_sheet_info_draw(character_sheet, scaled_1024, scaled_1280, scaled_
         if scaled_1280:
             text_sorae_rect.center = (935, 385)
         if scaled_1600:
-            text_sorae_rect.center = (935 / .80, 385 / .80 - 10)
+            text_sorae_rect.center = (935 / .80, 385 / .80)
         text_mage_skills_surf = font.render(str(player.skills_mage["skill 2"]) +
                                                  (player.skills_mage["skill 3"]), True, "black", "light yellow")
         text_mage_skills_rect = text_mage_skills_surf.get_rect()
         if scaled_1024:
-            text_mage_skills_rect.center = (650 * .80, 506 * .80)
+            text_mage_skills_rect.center = (650 * .80 + 10, 506 * .80)
         if scaled_1280:
             text_mage_skills_rect.midleft = (650, 506)
         if scaled_1600:
-            text_mage_skills_rect.center = (650 / .80, 506 / .80 + 10)
+            text_mage_skills_rect.center = (650 / .80 + 10, 506 / .80 - 10)
         text_fighter_skills_surf = font.render(str(player.skills_fighter["skill 2"]) +
                                                  (player.skills_fighter["skill 3"]), True, "black", "light yellow")
         text_fighter_skills_rect = text_fighter_skills_surf.get_rect()
         if scaled_1024:
-            text_fighter_skills_rect.center = (650 * .80, 543 * .80)
+            text_fighter_skills_rect.center = (650 * .80 + 40, 543 * .80)
         if scaled_1280:
             text_fighter_skills_rect.midleft = (650, 543)
         if scaled_1600:
-            text_fighter_skills_rect.center = (650 / .80, 543 / .80 + 10)
+            text_fighter_skills_rect.center = (650 / .80 + 40, 543 / .80 - 10)
         text_scout_skills_surf = font.render(str(player.skills_scout["skill 2"]) +
                                                  (player.skills_scout["skill 3"]), True, "black", "light yellow")
         text_scout_skills_rect = text_scout_skills_surf.get_rect()
         if scaled_1024:
-            text_scout_skills_rect.center = (650 * .80, 582 * .80)
+            text_scout_skills_rect.center = (650 * .80 + 30, 582 * .80)
         if scaled_1280:
             text_scout_skills_rect.midleft = (650, 582)
         if scaled_1600:
-            text_scout_skills_rect.center = (650 / .80, 582 / .80 + 10)
+            text_scout_skills_rect.center = (650 / .80 + 30, 582 / .80 - 10)
 
         character_sheet_text.append((text_name_surf, text_name_rect))
         character_sheet_text.append((text_race_surf, text_race_rect))
