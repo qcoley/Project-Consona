@@ -277,6 +277,10 @@ seldon_academia_screen_url = resource_path('resources/art/environment_art/backgr
 seldon_academia_screen_url_1600 = resource_path('resources/art/environment_art/background_textures/'
                                                 'seldon_academia_1600.png')
 
+korlok_bg_screen_url_1024 = resource_path('resources/art/environment_art/background_textures/korlok_district_1024.png')
+korlok_bg_screen_url = resource_path('resources/art/environment_art/background_textures/korlok_district.png')
+korlok_bg_screen_url_1600 = resource_path('resources/art/environment_art/background_textures/korlok_district_1600.png')
+
 seldon_academia_url_1024 = resource_path('resources/art/environment_art/buildings/amuna_building_academia_1024.png')
 seldon_academia_url = resource_path('resources/art/environment_art/buildings/amuna_building_academia.png')
 seldon_academia_url_1600 = resource_path('resources/art/environment_art/buildings/amuna_building_academia_1600.png')
@@ -296,6 +300,10 @@ seldon_grass_url_1600 = resource_path('resources/art/environment_art/seldon_gras
 seldon_flower_url_1024 = resource_path('resources/art/environment_art/seldon_flower_1024.png')
 seldon_flower_url = resource_path('resources/art/environment_art/seldon_flower.png')
 seldon_flower_url_1600 = resource_path('resources/art/environment_art/seldon_flower_1600.png')
+
+rohir_gate_1024 = resource_path('resources/art/interactables/rohir_gate_1024.png')
+rohir_gate = resource_path('resources/art/interactables/rohir_gate.png')
+rohir_gate_1600 = resource_path('resources/art/interactables/rohir_gate_1600.png')
 
 health_pot_url_1024 = resource_path('resources/art/item_art/health_potion_1024.png')
 health_pot_url = resource_path('resources/art/item_art/health_potion.png')
@@ -474,6 +482,34 @@ maurelle_quest_url_1600 = resource_path('resources/art/ui_elements/quests/maurel
 guard_quest_url_1024 = resource_path('resources/art/ui_elements/quests/guard_quest_1024.png')
 guard_quest_url = resource_path('resources/art/ui_elements/quests/guard_quest.png')
 guard_quest_url_1600 = resource_path('resources/art/ui_elements/quests/guard_quest_1600.png')
+quest_start_star_url_1024 = resource_path('resources/art/quest_items/progress_stars/start_star_1024.png')
+quest_start_star_url = resource_path('resources/art/quest_items/progress_stars/start_star.png')
+quest_start_star_url_1600 = resource_path('resources/art/quest_items/progress_stars/start_star_1600.png')
+quest_progress_star_url_1024 = resource_path('resources/art/quest_items/progress_stars/progress_star_1024.png')
+quest_progress_star_url = resource_path('resources/art/quest_items/progress_stars/progress_star.png')
+quest_progress_star_url_1600 = resource_path('resources/art/quest_items/progress_stars/progress_star_1600.png')
+quest_complete_star_url_1024 = resource_path('resources/art/quest_items/progress_stars/complete_star_1024.png')
+quest_complete_star_url = resource_path('resources/art/quest_items/progress_stars/complete_star.png')
+quest_complete_star_url_1600 = resource_path('resources/art/quest_items/progress_stars/complete_star_1600.png')
+knowledge_academia_notification_1024 = resource_path('resources/art/ui_elements/notifications/'
+                                                     'knowledge_academia_1024.png')
+knowledge_academia_notification = resource_path('resources/art/ui_elements/notifications/'
+                                                'knowledge_academia.png')
+knowledge_academia_notification_1600 = resource_path('resources/art/ui_elements/notifications/'
+                                                     'knowledge_academia_1600.png')
+rest_recover_notification_1024 = resource_path('resources/art/ui_elements/notifications/'
+                                                'rest_recover_1024.png')
+rest_recover_notification = resource_path('resources/art/ui_elements/notifications/'
+                                                'rest_recover.png')
+rest_recover_notification_1600 = resource_path('resources/art/ui_elements/notifications/'
+                                                'rest_recover_1600.png')
+shop_gear_notification_1024 = resource_path('resources/art/ui_elements/notifications/'
+                                                'shop_gear_1024.png')
+shop_gear_notification = resource_path('resources/art/ui_elements/notifications/'
+                                                'shop_gear.png')
+shop_gear_notification_1600 = resource_path('resources/art/ui_elements/notifications/'
+                                                'shop_gear_1600.png')
+
 
 health_100_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_100.png')
 health_99_url = resource_path('resources/art/ui_elements/bars/health/hp_bar_99.png')

@@ -88,7 +88,7 @@ def screen_scaling(object_to_scale):
             return resource_urls.snake_battle_url_1024
         if object_to_scale.name == "ghoul battle":
             return resource_urls.ghoul_battle_url_1024
-        if object_to_scale.name == "quest":
+        if object_to_scale.name == "quest logs":
             return resource_urls.quest_logs_url_1024
         if object_to_scale.name == "buy inventory":
             return resource_urls.buy_inventory_url_1024
@@ -134,6 +134,20 @@ def screen_scaling(object_to_scale):
             return resource_urls.decline_button_url_1024
         if object_to_scale.name == "close button":
             return resource_urls.close_button_url_1024
+        if object_to_scale.name == "quest star garan":
+            return resource_urls.quest_start_star_url_1024
+        if object_to_scale.name == "quest star maurelle":
+            return resource_urls.quest_start_star_url_1024
+        if object_to_scale.name == "quest star guard":
+            return resource_urls.quest_start_star_url_1024
+        if object_to_scale.name == "knowledge academia notification":
+            return resource_urls.knowledge_academia_notification_1024
+        if object_to_scale.name == "rest recover":
+            return resource_urls.rest_recover_notification_1024
+        if object_to_scale.name == "shop gear":
+            return resource_urls.shop_gear_notification_1024
+        if object_to_scale.name == "rohir gate":
+            return resource_urls.rohir_gate_1024
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1280":
@@ -221,7 +235,7 @@ def screen_scaling(object_to_scale):
             return resource_urls.snake_battle_url
         if object_to_scale.name == "ghoul battle":
             return resource_urls.ghoul_battle_url
-        if object_to_scale.name == "quest":
+        if object_to_scale.name == "quest logs":
             return resource_urls.quest_logs_url
         if object_to_scale.name == "buy inventory":
             return resource_urls.buy_inventory_url
@@ -267,6 +281,20 @@ def screen_scaling(object_to_scale):
             return resource_urls.decline_button_url
         if object_to_scale.name == "close button":
             return resource_urls.close_button_url
+        if object_to_scale.name == "quest star garan":
+            return resource_urls.quest_start_star_url
+        if object_to_scale.name == "quest star maurelle":
+            return resource_urls.quest_start_star_url
+        if object_to_scale.name == "quest star guard":
+            return resource_urls.quest_start_star_url
+        if object_to_scale.name == "knowledge academia notification":
+            return resource_urls.knowledge_academia_notification
+        if object_to_scale.name == "rest recover":
+            return resource_urls.rest_recover_notification
+        if object_to_scale.name == "shop gear":
+            return resource_urls.shop_gear_notification
+        if object_to_scale.name == "rohir gate":
+            return resource_urls.rohir_gate
 
     # ------------------------------------------------------------------------------------------------------------------
     if object_to_scale.image_size == "1600":
@@ -354,7 +382,7 @@ def screen_scaling(object_to_scale):
             return resource_urls.snake_battle_url_1600
         if object_to_scale.name == "ghoul battle":
             return resource_urls.ghoul_battle_url_1600
-        if object_to_scale.name == "quest":
+        if object_to_scale.name == "quest logs":
             return resource_urls.quest_logs_url_1600
         if object_to_scale.name == "buy inventory":
             return resource_urls.buy_inventory_url_1600
@@ -400,3 +428,17 @@ def screen_scaling(object_to_scale):
             return resource_urls.decline_button_url_1600
         if object_to_scale.name == "close button":
             return resource_urls.close_button_url_1600
+        if object_to_scale.name == "quest star garan":
+            return resource_urls.quest_start_star_url_1600
+        if object_to_scale.name == "quest star maurelle":
+            return resource_urls.quest_start_star_url_1600
+        if object_to_scale.name == "quest star guard":
+            return resource_urls.quest_start_star_url_1600
+        if object_to_scale.name == "knowledge academia notification":
+            return resource_urls.knowledge_academia_notification_1600
+        if object_to_scale.name == "rest recover":
+            return resource_urls.rest_recover_notification_1600
+        if object_to_scale.name == "shop gear":
+            return resource_urls.shop_gear_notification_1600
+        if object_to_scale.name == "rohir gate":
+            return resource_urls.rohir_gate_1600

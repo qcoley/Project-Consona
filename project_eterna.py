@@ -228,7 +228,7 @@ class Player(pygame.sprite.Sprite):
 
         # --------------------------------------------------------------------------------------------------------------
         # Keep player on the screen, boundaries vary depending on current zone -----------------------------------------
-        if current_zone == "seldon":
+        if current_zone == "seldon" or current_zone == "korlok":
             # set boundaries scaled to current resolution for 1024x576
             if scaled_1024:
                 if self.pos.x < 25 * .80:
@@ -743,7 +743,7 @@ def attack_scenario(enemy_combating, combat_event):
                         # ----------------------------------------------------------------------------------------------
                         # experienced gained by player from defeating enemy --------------------------------------------
                         if player.level <= enemy_combating.level + 1:
-                            experience = int((enemy_combating.level / player.level) * 25)
+                            experience = int((enemy_combating.level / player.level) * 35)
                             player.experience = player.experience + experience
                             enemy_experience = f"{experience} xp "
                             # add to dictionary experience given from defeating enemy ----------------------------------
@@ -806,15 +806,15 @@ def attack_enemy(mob):
 # enemy attacks player, gets damage to player done, subtract players defense level (gear) ------------------------------
 def attack_player(mob):
     difference = mob.level - player.level
-    base_damage = (random.randrange(10, 25))
+    base_damage = (random.randrange(10, 18))
 
     # add additional damage if enemy is a higher level than player. the higher the level difference, the more damage ---
     if difference >= 1:
-        base_damage = base_damage + 5
+        base_damage = base_damage + 3
     if difference >= 2:
-        base_damage = base_damage + 10
+        base_damage = base_damage + 5
     if difference >= 3:
-        base_damage = base_damage + 15
+        base_damage = base_damage + 8
 
     final_damage = base_damage - player.defence
 
@@ -837,12 +837,6 @@ def level_up():
     else:
         level_up_dictionary["new level"] = "You are already max level. "
         return level_up_dictionary
-
-
-def npc_interaction_scenario(npc):
-    print(npc)
-    # npc dialog and quest system will be here
-    return
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -980,6 +974,8 @@ def inventory_event_item(inventory_event_here):
             if clicked_element[0].name == "basic armor":
                 return clicked_element[0]
             if clicked_element[0].name == "basic tunic":
+                return clicked_element[0]
+            if clicked_element[0].name == "temporary item":
                 return clicked_element[0]
         except IndexError:
             pass
@@ -1548,6 +1544,8 @@ def inventory_click_handler():
             return_dict["item message"] = "Oh, shiny. Maybe you can sell it?"
         elif inventory_item.name == "bone dust":
             return_dict["item message"] = "Eh, dusty. Maybe you can sell it?"
+        elif inventory_item.name == "temporary item":
+            return_dict["item message"] = "Tell my designer to finish me!"
 
         # if player clicks an equitable item, equip it and set gear checked to false so main loop will check stats
         elif inventory_item.name == "basic staff":
@@ -1620,7 +1618,6 @@ def inventory_click_handler():
 
 
 def equipment_updates():
-
     player_equipment.clear()
     try:
         if scaled_1024:
@@ -1809,10 +1806,18 @@ seldon_district_academia = pygame.image.load(resource_urls.seldon_academia_scree
 game_over_screen = pygame.image.load(resource_urls.game_over_screen_url)
 start_screen = pygame.image.load(resource_urls.start_screen_url)
 nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url)
+korlok_district_bg = pygame.image.load(resource_urls.korlok_bg_screen_url)
 
 # creating objects from defined classes --------------------------------------------------------------------------------
 # display notifications to user (shown, x_coordinate, y_coordinate, image, color) --------------------------------------
-greeting = Notification("greeting", False, 510, 365, resource_urls.welcome_image_url, (255, 255, 255), "1280")
+greeting = Notification("greeting", False, 510, 365,
+                        resource_urls.welcome_image_url, (255, 255, 255), "1280")
+knowledge_academia = Notification("knowledge academia notification", False, 510, 365,
+                                  resource_urls.knowledge_academia_notification, (255, 255, 255), "1280")
+rest_recover = Notification("rest recover", False, 510, 365,
+                            resource_urls.rest_recover_notification, (255, 255, 255), "1280")
+shop_gear = Notification("shop gear", False, 510, 365,
+                         resource_urls.shop_gear_notification, (255, 255, 255), "1280")
 # inventory items ------------------------------------------------------------------------------------------------------
 health_potion = Item("health potion", "potion", 200, 200, resource_urls.health_pot_url, (255, 255, 255), "1280")
 energy_potion = Item("energy potion", "potion", 200, 200, resource_urls.energy_pot_url, (255, 255, 255), "1280")
@@ -1822,9 +1827,9 @@ bone_dust = Item("bone dust", "dust", 200, 200, resource_urls.bone_dust_url, (25
 basic_staff = Item("basic staff", "mage", 200, 200, resource_urls.basic_staff_url, (255, 255, 255), "1280")
 basic_sword = Item("basic sword", "fighter", 200, 200, resource_urls.basic_sword_url, (255, 255, 255), "1280")
 basic_bow = Item("basic bow", "scout", 200, 200, resource_urls.basic_bow_url, (255, 255, 255), "1280")
-basic_robes = Item("basic robes", "light", 200, 200, resource_urls.basic_robes_url, (255, 255, 255), "1280")
-basic_armor = Item("basic armor", "heavy", 200, 200, resource_urls.basic_armor_url, (255, 255, 255), "1280")
-basic_tunic = Item("basic tunic", "medium", 200, 200, resource_urls.basic_tunic_url, (255, 255, 255), "1280")
+basic_robes = Item("basic robes", "mage", 200, 200, resource_urls.basic_robes_url, (255, 255, 255), "1280")
+basic_armor = Item("basic armor", "fighter", 200, 200, resource_urls.basic_armor_url, (255, 255, 255), "1280")
+basic_tunic = Item("basic tunic", "scout", 200, 200, resource_urls.basic_tunic_url, (255, 255, 255), "1280")
 
 # default player character ---------------------------------------------------------------------------------------------
 player = Player("stan", "male", "amuna", "",  # name, gender, race, role
@@ -1838,7 +1843,7 @@ player = Player("stan", "male", "amuna", "",  # name, gender, race, role
                 {"sneaky snakes": 0, "village repairs": 0, "ghouled again": 0},  # quest progress (x/4)
                 {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest status
                 {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest complete
-                {"mage": 100, "fighter": 100, "scout": 100},  # role knowledge ('role', 'amount')
+                {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
@@ -1939,6 +1944,8 @@ seldon_inn = Building("inn", "seldon inn", 635, 600, resource_urls.seldon_inn_ur
 seldon_shop = Building("shop", "seldon shop", 665, 400, resource_urls.seldon_shop_url, (255, 255, 255), "1280")
 seldon_academia = Building("academia", "seldon academia", 875, 440, resource_urls.seldon_academia_url, (255, 255, 255),
                            "1280")
+rohir_gate = UiElement("rohir gate", 525, 40, resource_urls.rohir_gate, (255, 255, 255), False,
+                       "1280")
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
 character_button = UiElement("character button", 860, 680, resource_urls.character_button_url, (255, 255, 255), False,
                              "1280")
@@ -1982,7 +1989,7 @@ decline_button = UiElement("decline button", 450, 670, resource_urls.decline_but
 skill_bar = UiElement("skill bar", 855, 615, resource_urls.skill_bar_url, (255, 255, 255), False,
                       "1280")
 no_role_attack_button = UiElement("no role attack button", 750, 627, resource_urls.no_role_attack_url,
-                               (255, 255, 255), False, "1280")
+                                  (255, 255, 255), False, "1280")
 mage_attack_button = UiElement("mage attack button", 750, 627, resource_urls.mage_attack_button_url,
                                (255, 255, 255), False, "1280")
 fighter_attack_button = UiElement("fighter attack button", 750, 627, resource_urls.fighter_attack_button_url,
@@ -2008,10 +2015,10 @@ character_sheet = UiElement("character sheet", 770, 380, resource_urls.character
 mage_book = UiElement("mage book", 670, 375, resource_urls.mage_book_url, (255, 255, 255), False, "1280")
 fighter_book = UiElement("fighter book", 670, 375, resource_urls.fighter_book_url, (255, 255, 255), False, "1280")
 scout_book = UiElement("scout book", 670, 375, resource_urls.scout_book_url, (255, 255, 255), False, "1280")
-quest_logs_1 = Item("quest", "quest logs", 60, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
-quest_logs_2 = Item("quest", "quest logs", 315, 560, resource_urls.quest_logs_url, (255, 255, 255), "1280")
-quest_logs_3 = Item("quest", "quest logs", 415, 435, resource_urls.quest_logs_url, (255, 255, 255), "1280")
-quest_logs_4 = Item("quest", "quest logs", 100, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
+quest_logs_1 = Item("quest logs", "quest", 60, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
+quest_logs_2 = Item("quest logs", "quest", 315, 560, resource_urls.quest_logs_url, (255, 255, 255), "1280")
+quest_logs_3 = Item("quest logs", "quest", 415, 435, resource_urls.quest_logs_url, (255, 255, 255), "1280")
+quest_logs_4 = Item("quest logs", "quest", 100, 540, resource_urls.quest_logs_url, (255, 255, 255), "1280")
 npc_name_plate = UiElement("npc name plate", 640, 192, resource_urls.npc_name_plate_url, (255, 255, 255), False, "1280")
 # instance windows -----------------------------------------------------------------------------------------------------
 buy_inventory = Inventory("buy inventory", [], 900, 500, resource_urls.buy_inventory_url, (255, 255, 255), False,
@@ -2025,10 +2032,18 @@ maurelle_quest_window = UiElement("maurelle quest window", 262, 442, resource_ur
 guard_quest_window = UiElement("guard quest window", 262, 442, resource_urls.guard_quest_url,
                                (255, 255, 255), False, "1280")
 # ----------------------------------------------------------------------------------------------------------------------
-message_box = UiElement("message box", 173, 650, resource_urls.message_box_url, (255, 255, 255), False, "1280")
-status_bar_backdrop = UiElement("bar backdrop", 165, 45, resource_urls.bar_backdrop_url, (255, 255, 255), False, "1280")
+message_box = UiElement("message box", 173, 650, resource_urls.message_box_url,
+                        (255, 255, 255), False, "1280")
+status_bar_backdrop = UiElement("bar backdrop", 165, 45, resource_urls.bar_backdrop_url,
+                                (255, 255, 255), False, "1280")
 enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 695, 90, resource_urls.enemy_bar_backdrop_url,
                                       (255, 255, 255), False, "1280")
+quest_star_garan = UiElement("quest star garan", 210, 390, resource_urls.quest_start_star_url,
+                             (255, 255, 255), False, "1280")
+quest_star_maurelle = UiElement("quest star maurelle", 760, 480, resource_urls.quest_start_star_url,
+                                (255, 255, 255), False, "1280")
+quest_star_guard = UiElement("quest star guard", 462, 80, resource_urls.quest_start_star_url,
+                             (255, 255, 255), False, "1280")
 # battle sprites -------------------------------------------------------------------------------------------------------
 stan_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.stan_battle_url,
                                      (255, 255, 255), "1280")
@@ -2078,7 +2093,7 @@ game_over_screen_sprites.add(continue_button)
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
 # quest item sprites for gathering -------------------------------------------------------------------------------------
-quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4)
+quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
 # battle element sprites for combat scenario ---------------------------------------------------------------------------
 battle_elements.add(stan_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, enemy_status, skill_bar,
                     mage_attack_button, scout_attack_button, fighter_attack_button, barrier_button, hard_strike_button,
@@ -2090,7 +2105,8 @@ scaling_sprites.add(most_sprites, user_interface, enemies, battle_elements, cond
                     game_over_screen_sprites, greeting, knowledge_window, npc_garan_interaction,
                     npc_maurelle_interaction, npc_guard_interaction, quest_button, npc_name_plate,
                     no_role_attack_button, garan_quest_window, maurelle_quest_window, guard_quest_window,
-                    accept_button, decline_button, close_button)
+                    accept_button, decline_button, close_button, quest_star_garan, quest_star_maurelle,
+                    quest_star_guard, knowledge_academia, rest_recover, shop_gear, rohir_gate)
 # code related to sound effects that will be used later ----------------------------------------------------------------
 # pygame.mixer.music.load("Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
@@ -2112,6 +2128,7 @@ in_inn = False
 in_academia = False
 in_district_over_world = True
 in_npc_interaction = False
+in_korlok = False
 # condition to check if player has chosen to interact with sprite
 interacted = False
 # condition to allow or block player movement (combat or npc interaction)
@@ -2180,6 +2197,18 @@ hard_strike = False
 quest_clicked = False
 # condition to check if garan has given player basic weapons when starting his quest
 garan_gifted = False
+# condition to check if knowledge notification has been shown to player
+knowledge_academia_show = False
+# condition to check if player has clicked on knowledge notification to hide it
+knowledge_window_clicked = False
+# condition to check if rest notification has been shown to player
+rest_recover_show = False
+# condition to check if player has clicked on rest notification to hide it
+rest_window_clicked = False
+# condition to check if gear notification has been shown to player
+shop_gear_show = False
+# condition to check if player has clicked on gear notification to hide it
+shop_window_clicked = False
 # string to store players current direction on key press for correctly displaying orientation on sprite update
 # when changing gear/role etc.
 current_direction = ""
@@ -2212,6 +2241,12 @@ skill_learn_items = []
 books = []
 # list to contain quest related images and text for drawing in npc interaction
 quest_box = []
+# list to contain knowledge notification when player knowledge is 40
+knowledge_academia_window = []
+# list to contain rest notification when player health is less than 50
+rest_recover_window = []
+# list to contain gear notification when player gets weapon
+shop_gear_window = []
 
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
@@ -2260,6 +2295,7 @@ while game_running:
                         seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url_1024)
                         nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url_1024)
                         game_over_screen = pygame.image.load(resource_urls.game_over_screen_url_1024)
+                        korlok_district_bg = pygame.image.load(resource_urls.korlok_bg_screen_url_1024)
                         for sprite_to_scale in scaling_sprites:
                             sprite_to_scale.image_size = "1024"
                             sprite_to_scale.surf = pygame.image.load(
@@ -2287,6 +2323,7 @@ while game_running:
                         seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url)
                         nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url)
                         game_over_screen = pygame.image.load(resource_urls.game_over_screen_url)
+                        korlok_district_bg = pygame.image.load(resource_urls.korlok_bg_screen_url)
                         for sprite_to_scale in scaling_sprites:
                             sprite_to_scale.image_size = "1280"
                             sprite_to_scale.surf = pygame.image.load(
@@ -2314,6 +2351,7 @@ while game_running:
                         seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen_url_1600)
                         nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen_url_1600)
                         game_over_screen = pygame.image.load(resource_urls.game_over_screen_url_1600)
+                        korlok_district_bg = pygame.image.load(resource_urls.korlok_bg_screen_url_1600)
                         for sprite_to_scale in scaling_sprites:
                             sprite_to_scale.image_size = "1600"
                             sprite_to_scale.surf = pygame.image.load(
@@ -2379,13 +2417,13 @@ while game_running:
                             info_text_3 = ""
                             info_text_4 = ""
                     if zone_seldon:
-                        player.current_zone = "Seldon"
+                        player.current_zone = "seldon"
                     if zone_korlok:
-                        player.current_zone = "Korlok"
+                        player.current_zone = "korlok"
                     if zone_eldream:
-                        player.current_zone = "Eldream"
+                        player.current_zone = "eldream"
                     if zone_marrow:
-                        player.current_zone = "Marrow"
+                        player.current_zone = "marrow"
                     # switches between 1 and 0 to select a left or right direction for enemy sprite to move
                     enemy_switch = 1
                     # gets defeated enemy count and will respawn a new enemy type if count is greater than specified
@@ -2401,15 +2439,112 @@ while game_running:
                     # draw enemies
                     for enemy_sprite in enemies:
                         screen.blit(enemy_sprite.surf, enemy_sprite.rect)
-                    # draw player
-                    screen.blit(player.surf, player.rect)
                     # draw user interface elements
                     for ui_element in user_interface:
                         screen.blit(ui_element.surf, ui_element.rect)
                     # get screen option elements and draw window
                     for window in display_elements:
                         screen.blit(window.surf, window.rect)
+                    for knowledge_window_notification in knowledge_academia_window:
+                        screen.blit(knowledge_window_notification.surf, knowledge_window_notification.rect)
+                    for rest_window in rest_recover_window:
+                        screen.blit(rest_window.surf, rest_window.rect)
+                    for gear_window in shop_gear_window:
+                        screen.blit(gear_window.surf, gear_window.rect)
 
+                    screen.blit(rohir_gate.surf, rohir_gate.rect)
+
+                    # pop up notifications for situation stuff like low health or first weapon acquire -----------------
+                    if not knowledge_academia_show:
+                        if player.knowledge["mage"] == 40 or player.knowledge["fighter"] == 40 or \
+                                player.knowledge["scout"] == 40:
+                            knowledge_academia_window.append(knowledge_academia)
+                            knowledge_academia_show = True
+                    if knowledge_academia_show:
+                        if knowledge_window_clicked:
+                            knowledge_academia_window.clear()
+                    if not rest_recover_show:
+                        if player.health < 50:
+                            rest_recover_window.append(rest_recover)
+                            rest_recover_show = True
+                    if rest_recover_show:
+                        if rest_window_clicked:
+                            rest_recover_window.clear()
+                    if not shop_gear_show:
+                        if player.quest_status["sneaky snakes"]:
+                            shop_gear_window.append(shop_gear)
+                            shop_gear_show = True
+                    if shop_gear_show:
+                        if shop_window_clicked:
+                            shop_gear_window.clear()
+                    # --------------------------------------------------------------------------------------------------
+
+                    # quest star updates for quest progress, orange if not started, silver if started, gold if complete
+                    if scaled_1024:
+                        if not player.quest_complete["sneaky snakes"]:
+                            screen.blit(quest_star_garan.surf, quest_star_garan.rect)
+                        if player.quest_progress["sneaky snakes"] == 4:
+                            quest_star_garan.update(210 * .80, 390 * .80, resource_urls.quest_complete_star_url_1024)
+                        if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
+                            quest_star_garan.update(210 * .80, 390 * .80, resource_urls.quest_progress_star_url_1024)
+                        if not player.quest_complete["village repairs"]:
+                            screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
+                        if player.quest_progress["village repairs"] == 4:
+                            quest_star_maurelle.update(760 * .80, 480 * .80, resource_urls.quest_complete_star_url_1024)
+                        if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
+                            quest_star_maurelle.update(760 * .80, 480 * .80, resource_urls.quest_progress_star_url_1024)
+                        if not player.quest_complete["ghouled again"]:
+                            screen.blit(quest_star_guard.surf, quest_star_guard.rect)
+                        if player.quest_progress["ghouled again"] == 4:
+                            quest_star_guard.update(462 * .80, 80 * .80, resource_urls.quest_complete_star_url_1024)
+                        if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
+                            quest_star_guard.update(462 * .80, 80 * .80, resource_urls.quest_progress_star_url_1024)
+
+                    if scaled_1280:
+                        if not player.quest_complete["sneaky snakes"]:
+                            screen.blit(quest_star_garan.surf, quest_star_garan.rect)
+                        if player.quest_progress["sneaky snakes"] == 4:
+                            quest_star_garan.update(210, 390, resource_urls.quest_complete_star_url)
+                        if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
+                            quest_star_garan.update(210, 390, resource_urls.quest_progress_star_url)
+                        if not player.quest_complete["village repairs"]:
+                            screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
+                        if player.quest_progress["village repairs"] == 4:
+                            quest_star_maurelle.update(760, 480, resource_urls.quest_complete_star_url)
+                        if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
+                            quest_star_maurelle.update(760, 480, resource_urls.quest_progress_star_url)
+                        if not player.quest_complete["ghouled again"]:
+                            screen.blit(quest_star_guard.surf, quest_star_guard.rect)
+                        if player.quest_progress["ghouled again"] == 4:
+                            quest_star_guard.update(462, 80, resource_urls.quest_complete_star_url)
+                        if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
+                            quest_star_guard.update(462, 80, resource_urls.quest_progress_star_url)
+
+                    if scaled_1600:
+                        if not player.quest_complete["sneaky snakes"]:
+                            screen.blit(quest_star_garan.surf, quest_star_garan.rect)
+                        if player.quest_progress["sneaky snakes"] == 4:
+                            quest_star_garan.update(210, 390, resource_urls.quest_complete_star_url_1600)
+                        if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
+                            quest_star_garan.update(210, 390, resource_urls.quest_progress_star_url_1600)
+                        if not player.quest_complete["village repairs"]:
+                            screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
+                        if player.quest_progress["village repairs"] == 4:
+                            quest_star_maurelle.update(760, 480, resource_urls.quest_complete_star_url_1600)
+                        if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
+                            quest_star_maurelle.update(760, 480, resource_urls.quest_progress_star_url_1600)
+                        if not player.quest_complete["ghouled again"]:
+                            screen.blit(quest_star_guard.surf, quest_star_guard.rect)
+                        if player.quest_progress["ghouled again"] == 4:
+                            quest_star_guard.update(462, 80, resource_urls.quest_complete_star_url_1600)
+                        if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
+                            quest_star_guard.update(462, 80, resource_urls.quest_progress_star_url_1600)
+                    # --------------------------------------------------------------------------------------------------
+
+                    # draw player
+                    screen.blit(player.surf, player.rect)
+
+                    # handles drawing most text based elements to the screen, such as level, rupees, etc
                     drawing_functions.draw_it(screen)
 
                     # corrects position of player status bars and backdrop if scaled to 1600x900 resolution
@@ -2499,24 +2634,49 @@ while game_running:
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280, scaled_1600,
                                                                 player, font, False)
+
+                            if knowledge_academia.rect.collidepoint(pos) and knowledge_academia_show:
+                                knowledge_window_clicked = True
+
+                            if rest_recover.rect.collidepoint(pos) and rest_recover_show:
+                                rest_window_clicked = True
+
+                            if shop_gear.rect.collidepoint(pos) and shop_gear_show:
+                                shop_window_clicked = True
+
                         elif event.type == QUIT:
                             exit()
 
                         # ----------------------------------------------------------------------------------------------
                         quest_item = pygame.sprite.spritecollideany(player, quest_items)
-                        if quest_item:
+                        try:
+                            if quest_item.name == "quest logs":
+                                if player.quest_status["village repairs"]:
+                                    info_text_1 = f"Press 'F' key to gather the pine logs."
+                                    if interacted:
+                                        if player.quest_progress["village repairs"] < 4:
+                                            player.quest_progress["village repairs"] += 1
+                                            info_text_1 = f"You gathered 1 pine log."
+                                            quest_item.kill()
+                                            interacted = False
+                                            loot_update = True
 
-                            if player.quest_status["village repairs"]:
-                                info_text_1 = f"Press 'F' key to gather the pine logs."
-
-                                if interacted:
-                                    if player.quest_progress["village repairs"] < 4:
-                                        player.quest_progress["village repairs"] += 1
-                                        info_text_1 = f"You gathered 1 pine log."
-
-                                        quest_item.kill()
+                            if quest_item.name == "rohir gate":
+                                if player.quest_complete["ghouled again"]:
+                                    info_text_1 = f"Press 'F' key to enter Korlok District."
+                                    if interacted:
+                                        player.current_zone = "korlok"
+                                        zone_korlok = True
+                                        zone_seldon = False
+                                        in_district_over_world = False
+                                        in_korlok = True
                                         interacted = False
-                                        loot_update = True
+                                if not player.quest_complete["ghouled again"]:
+                                    info_text_1 = f"The gate seems to be locked shut."
+                                    info_text_2 = f"Perhaps the nearby Guard knows why?"
+
+                        except AttributeError:
+                            pass
 
                         # ----------------------------------------------------------------------------------------------
                         # if player collides with enemy sprite, doesn't have combat cooldown,
@@ -4332,14 +4492,14 @@ while game_running:
                             try:
                                 if book_button.name == "barrier learn button":
                                     if not barrier_learned:
-                                        if player.knowledge["mage"] > 99:
+                                        if player.knowledge["mage"] > 39:
                                             player.skills_mage["skill 2"] = "barrier"
                                             info_text_1 = "'Barrier' skill learned!"
-                                            info_text_2 = "Skill added. 100 knowledge used."
-                                            player.knowledge["mage"] -= 100
+                                            info_text_2 = "Skill added. 40 knowledge used."
+                                            player.knowledge["mage"] -= 40
                                             barrier_learned = True
                                         else:
-                                            info_text_1 = "100 mage knowledge required to learn."
+                                            info_text_1 = "40 mage knowledge required to learn."
                                     else:
                                         info_text_1 = "You've already learned 'Barrier'."
                                         info_text_2 = ""
@@ -4354,14 +4514,14 @@ while game_running:
                             try:
                                 if book_button.name == "hard strike learn button":
                                     if not hard_strike_learned:
-                                        if player.knowledge["fighter"] > 99:
+                                        if player.knowledge["fighter"] > 39:
                                             player.skills_fighter["skill 2"] = "hard strike"
                                             info_text_1 = "'Hard Strike' skill learned!"
-                                            info_text_2 = "Skill added. 100 knowledge used."
-                                            player.knowledge["fighter"] -= 100
+                                            info_text_2 = "Skill added. 40 knowledge used."
+                                            player.knowledge["fighter"] -= 40
                                             hard_strike_learned = True
                                         else:
-                                            info_text_1 = "100 fighter knowledge required to learn."
+                                            info_text_1 = "40 fighter knowledge required to learn."
                                     else:
                                         info_text_1 = "You've already learned 'Hard Strike'."
                                         info_text_2 = ""
@@ -4376,14 +4536,14 @@ while game_running:
                             try:
                                 if book_button.name == "sharp sense learn button":
                                     if not sharp_sense_learned:
-                                        if player.knowledge["scout"] > 99:
+                                        if player.knowledge["scout"] > 39:
                                             player.skills_scout["skill 2"] = "sharp sense"
                                             info_text_1 = "'Sharp Sense' skill learned!"
-                                            info_text_2 = "Skill added. 100 knowledge used."
-                                            player.knowledge["scout"] -= 100
+                                            info_text_2 = "Skill added. 50 knowledge used."
+                                            player.knowledge["scout"] -= 40
                                             sharp_sense_learned = True
                                         else:
-                                            info_text_1 = "100 scout knowledge required to learn."
+                                            info_text_1 = "40 scout knowledge required to learn."
                                     else:
                                         info_text_1 = "You've already learned 'Sharp Sense'."
                                         info_text_2 = ""
@@ -4548,8 +4708,10 @@ while game_running:
                                                 info_text_1 = "You've completed Garan's quest!"
                                                 info_text_2 = "You've gained: "
                                                 info_text_3 = "2 health and energy potions. "
-                                                info_text_4 = "50 rupees and 10 amuna rep. "
-                                                player.rupees += 50
+                                                info_text_4 = "50 xp and 10 amuna rep. "
+                                                player.experience += 50
+                                                if player.experience >= 100:
+                                                    level_up()
                                                 player.reputation["amuna"] += 10
                                                 if scaled_1024:
                                                     player.items.append(Item("health potion", "potion", 200, 200,
@@ -4664,18 +4826,18 @@ while game_running:
                                                 player.current_quests["ghouled again"] = "You completed this quest!"
                                                 info_text_1 = "You've completed Guard's quest!"
                                                 info_text_2 = "You've gained: "
-                                                info_text_3 = "Idk yet lol. "
+                                                info_text_3 = "Rohir bridge gate access. "
                                                 info_text_4 = "50 xp and 10 amuna rep. "
                                                 player.experience += 50
                                                 if player.experience >= 100:
                                                     level_up()
                                                 player.reputation["amuna"] += 10
-                                                if scaled_1024:
+                                                """if scaled_1024:
                                                     print("idk yet")
                                                 if scaled_1280:
                                                     print("idk yet")
                                                 if scaled_1600:
-                                                    print("idk yet")
+                                                    print("idk yet")"""
                                             else:
                                                 info_text_1 = "You completed the quest, but "
                                                 info_text_2 = "Your inventory is full!"
@@ -4731,6 +4893,10 @@ while game_running:
                                                 player.items.append(Item("basic bow", "scout", 200, 200,
                                                                          resource_urls.basic_bow_url_1600,
                                                                          (255, 255, 255), "1600"))
+                                            player.rupees += 20
+                                            info_text_2 = "garan has given you:"
+                                            info_text_3 = "Basic Staff, Basic Sword, Basic Bow"
+                                            info_text_4 = "And 20 rupees!"
                                             garan_gifted = True
 
                                         player.quest_status["sneaky snakes"] = True
@@ -4810,6 +4976,209 @@ while game_running:
                         screen.blit(text_npc_name_surf, text_npc_name_rect)
 
                         drawing_functions.draw_it(screen)
+
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in korlok over world
+                if in_korlok:
+                    # clear info update after some time has passed
+                    if pygame.time.get_ticks() % 287 == 0:
+                        info_update = False
+                    # clear loot update after some time has passed
+                    if pygame.time.get_ticks() % 517 == 0:
+                        loot_update = False
+                    # if player is not currently in range of sprite and there is not an active info update,
+                    # clear message box
+                    sprite = pygame.sprite.spritecollideany(player, most_sprites)
+                    if not sprite:
+                        if not info_update:
+                            info_text_1 = ""
+                            info_text_2 = ""
+                        if not loot_update:
+                            info_text_3 = ""
+                            info_text_4 = ""
+
+                    # create blank background to be drawn on top of for each iteration
+                    screen.fill((255, 255, 255))  # (255, 255, 255) RGB value for WHITE
+                    # draw screen 1 background
+                    screen.blit(korlok_district_bg, (0, 0))
+
+                    # draw user interface elements
+                    for ui_element in user_interface:
+                        screen.blit(ui_element.surf, ui_element.rect)
+                    # get screen option elements and draw window
+                    for window in display_elements:
+                        screen.blit(window.surf, window.rect)
+
+                    rohir_gate.update(525, 600, resource_urls.rohir_gate)
+                    screen.blit(rohir_gate.surf, rohir_gate.rect)
+
+                    # draw player
+                    screen.blit(player.surf, player.rect)
+
+                    # handles drawing most text based elements to the screen, such as level, rupees, etc
+                    drawing_functions.draw_it(screen)
+
+                    # corrects position of player status bars and backdrop if scaled to 1600x900 resolution
+                    if scaled_1600:
+                        status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
+                            center=(
+                                status_bar_backdrop.x_coordinate / .80, status_bar_backdrop.y_coordinate / .80))
+                        hp_bar.rect = hp_bar.surf.get_rect(
+                            center=(hp_bar.x_coordinate / .80 - 1, hp_bar.y_coordinate / .80 + 5))
+                        en_bar.rect = en_bar.surf.get_rect(
+                            center=(en_bar.x_coordinate / .80 - 1, en_bar.y_coordinate / .80))
+                        xp_bar.rect = xp_bar.surf.get_rect(
+                            center=(xp_bar.x_coordinate / .80 - 1, xp_bar.y_coordinate / .80 - 5))
+                    screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                    screen.blit(hp_bar.surf, hp_bar.rect)
+                    screen.blit(en_bar.surf, en_bar.rect)
+                    screen.blit(xp_bar.surf, xp_bar.rect)
+
+                    # draw texts to the screen, like message box, player rupees and level
+                    drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600, screen, player,
+                                                     font,
+                                                     info_text_1, info_text_2, info_text_3, info_text_4)
+                    # update players current inventory and status
+                    status_and_inventory_updates()
+                    # update players current equipment
+                    equipment_updates()
+                    # if players gear hasn't been checked, due to initial iteration or if equipment was updated
+                    # elsewhere, then check their current gear and apply stat bonus based on item equipped
+                    if not gear_checked:
+                        gear_checked = gear_check()
+                    if not weapon_checked:
+                        weapon_checked = weapon_check()
+
+                    # --------------------------------------------------------------------------------------------------
+                    # all in-game events such as key presses or UI interaction
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+                            # escape key was pressed, exit game
+                            if event.key == K_ESCAPE:
+                                exit()
+                            # "F" key for player interaction
+                            if event.key == K_f:
+                                interacted = True
+                        # if the unstuck button was clicked, move the player to bottom right corner of screen
+                        if event.type == pygame.MOUSEBUTTONUP:
+                            pos = pygame.mouse.get_pos()
+                            if unstuck_button.rect.collidepoint(pos):
+                                if scaled_1024:
+                                    player.pos = vec((850 * .80, 650 * .80))
+                                if scaled_1280:
+                                    player.pos = vec((850, 650))
+                                if scaled_1600:
+                                    player.pos = vec((850 / .80, 650 / .80))
+
+                            # if character button is clicked, call draw function and show elements. second click hides
+                            if character_button.rect.collidepoint(pos):
+                                if character_button_clicked:
+                                    drawing_functions.character_sheet_info_draw(character_sheet, scaled_1024,
+                                                                                scaled_1280, scaled_1600,
+                                                                                player, font, False)
+                                    character_button_clicked = False
+                                else:
+                                    drawing_functions.character_sheet_info_draw(character_sheet, scaled_1024,
+                                                                                scaled_1280, scaled_1600,
+                                                                                player, font, True)
+                                    character_button_clicked = True
+
+                            # if journal button is clicked, call draw function and show elements. second click hides
+                            if journal_button.rect.collidepoint(pos):
+                                if journal_button_clicked:
+                                    drawing_functions.journal_info_draw(journal, scaled_1024, scaled_1280,
+                                                                        scaled_1600,
+                                                                        player, font, False)
+                                    journal_button_clicked = False
+                                else:
+                                    drawing_functions.journal_info_draw(journal, scaled_1024, scaled_1280,
+                                                                        scaled_1600,
+                                                                        player, font, True)
+                                    journal_button_clicked = True
+
+                            # when player levels up, this lets them click to dismiss the window pop-up
+                            if level_up_win.rect.collidepoint(pos):
+                                drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280,
+                                                                scaled_1600,
+                                                                player, font, False)
+
+                            if knowledge_academia.rect.collidepoint(pos) and knowledge_academia_show:
+                                knowledge_window_clicked = True
+
+                            if rest_recover.rect.collidepoint(pos) and rest_recover_show:
+                                rest_window_clicked = True
+
+                            if shop_gear.rect.collidepoint(pos) and shop_gear_show:
+                                shop_window_clicked = True
+
+                        elif event.type == QUIT:
+                            exit()
+
+                        # ----------------------------------------------------------------------------------------------
+                        quest_item = pygame.sprite.spritecollideany(player, quest_items)
+                        try:
+                            if quest_item.name == "rohir gate":
+                                if player.quest_complete["ghouled again"]:
+                                    info_text_1 = f"Press 'F' key to enter Seldon District."
+                                    if interacted:
+                                        player.current_zone = "seldon"
+                                        zone_korlok = False
+                                        zone_seldon = True
+                                        in_district_over_world = True
+                                        in_korlok = False
+                                        interacted = False
+                                        rohir_gate.update(525, 40, resource_urls.rohir_gate)
+
+                        except AttributeError:
+                            pass
+
+                        # click handlers for main event loop -----------------------------------------------------------
+                        # ----------------------------------------------------------------------------------------------
+                        # function to handle inventory item clicks. apply item message to message box if not empty str.
+                        inventory_event = inventory_click_handler()
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                            info_update = True
+                        # if click handler returns that an equitable item has been updated, set gear_checked to false
+                        # so that gear check function will run and get players current stats with new item equipped
+                        if not inventory_event["gear checked"]:
+                            gear_checked = False
+                        if not inventory_event["weapon checked"]:
+                            weapon_checked = False
+                        # function to handle equipment item clicks. apply item message to message box if not empty str.
+                        equipment_event = equipment_click_handler()
+                        if equipment_event["equipment message"] != "":
+                            info_text_1 = equipment_event["equipment message"]
+                            info_text_2 = ""
+                            info_update = True
+                        # same as above but for when an equipment item is un-equipped
+                        if not equipment_event["gear checked"]:
+                            gear_checked = False
+                        if not equipment_event["weapon checked"]:
+                            weapon_checked = False
+
+                    # outside of main event loop -----------------------------------------------------------------------
+                    # --------------------------------------------------------------------------------------------------
+                    # get current pressed keys from player and apply zone boundaries depending on current zone
+                    pressed_keys = pygame.key.get_pressed()
+                    # Apply pressed keys update to movement based on zone boundaries, defined in player.update()
+
+                    # apply direction to current_direction based on current input user keys
+                    # this will be applied when player sprite is updated with new gear
+                    if pressed_keys[K_d]:
+                        current_direction = "right"
+                    if pressed_keys[K_a]:
+                        current_direction = "left"
+                    if pressed_keys[K_w]:
+                        current_direction = "up"
+                    if pressed_keys[K_s]:
+                        current_direction = "down"
+
+                    if zone_korlok:
+                        if movement_able:
+                            player.update(pressed_keys, "korlok")
 
                 # end of whole iteration -------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
