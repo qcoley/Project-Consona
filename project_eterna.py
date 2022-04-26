@@ -3289,10 +3289,10 @@ while game_running:
                                                 if barrier_learned:
                                                     if not barrier_active:
                                                         info_text_1 = "Barrier spell is active."
-                                                        info_text_2 = "You have gained 20 defence."
+                                                        info_text_2 = "You have gained 10 defence."
                                                         barrier_active = True
                                                         original_defence = player.defence
-                                                        player.defence += 20
+                                                        player.defence += 10
                                                         player.energy -= 35
 
                                                     else:
@@ -3314,7 +3314,7 @@ while game_running:
                                                     else:
                                                         info_text_1 = "Sharp sense is already active."
 
-                                            # player is a fighter and uses har strike. This uses the standard "attack"
+                                            # player is a fighter and uses hard strike. This uses the standard "attack"
                                             # scenario from above, with the input being changed to the skill instead of
                                             # attack to trigger a different damage value within the attack function
                                             if player.role == "fighter":
@@ -3747,7 +3747,7 @@ while game_running:
                                 item_bought = False
                                 item_sold = False
 
-                            # get which button player pressed during shop scenario (buy or leave)-------------------
+                            # get which button player pressed during shop scenario (buy or leave)-----------------------
                             shop_button = shop_event_button(event)
                             if shop_button == "buy":
                                 # if player hasn't bought an item yet, show message that item can be clicked to buy
@@ -3764,7 +3764,7 @@ while game_running:
                                         buy_shop_elements.pop(0)
                                         shopkeeper_items.clear()
 
-                                # user clicked buy button for the first time. show buy window ----------------------
+                                # user clicked buy button for the first time. show buy window --------------------------
                                 else:
                                     buy_clicked = True
                                     buy_shop_elements.insert(0, buy_inventory)
@@ -3779,7 +3779,7 @@ while game_running:
                                             buy_first_coord = buy_first_coord - 2
                                             buy_second_coord = buy_second_coord - 2
 
-                                        # --------------------------------------------------------------------------
+                                        # ------------------------------------------------------------------------------
                                         buy_inventory_counter = 0
                                         # go through shop items and assign inventory slots (coordinates) to them
                                         for shop_item in npc_amuna_shopkeeper.items:
@@ -4539,7 +4539,7 @@ while game_running:
                                         if player.knowledge["scout"] > 39:
                                             player.skills_scout["skill 2"] = "sharp sense"
                                             info_text_1 = "'Sharp Sense' skill learned!"
-                                            info_text_2 = "Skill added. 50 knowledge used."
+                                            info_text_2 = "Skill added. 40 knowledge used."
                                             player.knowledge["scout"] -= 40
                                             sharp_sense_learned = True
                                         else:
