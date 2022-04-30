@@ -3,11 +3,9 @@ import time
 import pygame
 from pygame.locals import *
 
-import bar_updates
 import resource_urls
 import screen_scaling
 import drawing_functions
-
 
 # global variables -----------------------------------------------------------------------------------------------------
 ACC = 0.20  # acceleration
@@ -20,13 +18,12 @@ vec = pygame.math.Vector2
 # ----------------------------------------------------------------------------------------------------------------------
 # class objects --------------------------------------------------------------------------------------------------------
 class Player(pygame.sprite.Sprite):
-
     def __init__(self, name, gender, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, mount, current_zone, defence, offense):
 
         super(Player, self).__init__()
-        self.surf = resource_urls.player_no_role_down
+        self.surf = player_no_role_down
         self.rect = self.surf.get_rect()
         self.pos = vec((450, 650))
 
@@ -62,56 +59,55 @@ class Player(pygame.sprite.Sprite):
 
     # move the character sprite based on key presses
     def update(self, pressed_keyes, current_zone):
-
         # setting acceleration vector on player update frame
         self.acc = vec(0, 0)
 
         # control acceleration based on user keys pressed from input parameter -----------------------------------------
         if pressed_keyes[K_w]:
             if player.role == "mage":
-                self.surf = resource_urls.player_mage_up
+                self.surf = player_mage_up
             if player.role == "fighter":
-                self.surf = resource_urls.player_fighter_up
+                self.surf = player_fighter_up
             if player.role == "scout":
-                self.surf = resource_urls.player_scout_up
+                self.surf = player_scout_up
             if player.role == "":
-                self.surf = resource_urls.player_no_role_up
+                self.surf = player_no_role_up
 
             self.acc.y = -ACC
 
         if pressed_keyes[K_s]:
             if player.role == "mage":
-                self.surf = resource_urls.player_mage_down
+                self.surf = player_mage_down
             if player.role == "fighter":
-                self.surf = resource_urls.player_fighter_down
+                self.surf = player_fighter_down
             if player.role == "scout":
-                self.surf = resource_urls.player_scout_down
+                self.surf = player_scout_down
             if player.role == "":
-                self.surf = resource_urls.player_no_role_down
+                self.surf = player_no_role_down
 
             self.acc.y = ACC
 
         if pressed_keyes[K_a]:
             if player.role == "mage":
-                self.surf = resource_urls.player_mage_left
+                self.surf = player_mage_left
             if player.role == "fighter":
-                self.surf = resource_urls.player_fighter_left
+                self.surf = player_fighter_left
             if player.role == "scout":
-                self.surf = resource_urls.player_scout_left
+                self.surf = player_scout_left
             if player.role == "":
-                self.surf = resource_urls.player_no_role_left
+                self.surf = player_no_role_left
 
             self.acc.x = -ACC
 
         if pressed_keyes[K_d]:
             if player.role == "mage":
-                self.surf = resource_urls.player_mage_right
+                self.surf = player_mage_right
             if player.role == "fighter":
-                self.surf = resource_urls.player_fighter_right
+                self.surf = player_fighter_right
             if player.role == "scout":
-                self.surf = resource_urls.player_scout_right
+                self.surf = player_scout_right
             if player.role == "":
-                self.surf = resource_urls.player_no_role_right
+                self.surf = player_no_role_right
 
             self.acc.x = ACC
 
@@ -120,12 +116,12 @@ class Player(pygame.sprite.Sprite):
         if current_zone == "seldon" or current_zone == "korlok":
             if self.pos.x < 25:
                 self.pos.x = 25
-            elif self.pos.x > width - 355:
-                self.pos.x = width - 355
+            elif self.pos.x > SCREEN_WIDTH - 355:
+                self.pos.x = SCREEN_WIDTH - 355
             if self.pos.y <= 115:
                 self.pos.y = 115
-            elif self.pos.y >= height - 5:
-                self.pos.y = height - 5
+            elif self.pos.y >= SCREEN_HEIGHT - 5:
+                self.pos.y = SCREEN_HEIGHT - 5
 
         # equations and update player movement based on vectors --------------------------------------------------------
         self.acc.x += self.vel.x * FRIC
@@ -136,7 +132,6 @@ class Player(pygame.sprite.Sprite):
 
         # collision detection with environment objects (trees, buildings, etc) -----------------------------------------
         if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.50)):
-
             # create normal force by applying velocity opposite direction player is trying to move on colliding
             if pressed_keyes[K_w]:
                 player.vel.y = + .46
@@ -149,7 +144,6 @@ class Player(pygame.sprite.Sprite):
 
 
 class NPC(pygame.sprite.Sprite):
-
     def __init__(self, name, gender, race, role, dialog, quest_to_give, quest_description, x_coordinate, y_coordinate,
                  alive_status, quest_complete, items, gift, image):
         super(NPC, self).__init__()
@@ -167,14 +161,15 @@ class NPC(pygame.sprite.Sprite):
         self.items = items
         self.gift = gift
         self.surf = image
-        self.rect = self.surf.get_rect()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, image):
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
 
 class Shopkeeper(pygame.sprite.Sprite):
-
     def __init__(self, name, race, items):
         super(Shopkeeper, self).__init__()
         self.name = name
@@ -183,7 +178,6 @@ class Shopkeeper(pygame.sprite.Sprite):
 
 
 class Enemy(pygame.sprite.Sprite):
-
     def __init__(self, name, kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image,
                  health_bar):
         super(Enemy, self).__init__()
@@ -197,7 +191,8 @@ class Enemy(pygame.sprite.Sprite):
         self.alive_status = alive_status
         self.items = items
         self.surf = image
-        self.rect = self.surf.get_rect()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.speed = 1
         self.health_bar = health_bar
 
@@ -207,6 +202,8 @@ class Enemy(pygame.sprite.Sprite):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
     # update separate into 2 functions to handle image updates and position updates
     # so that they both don't need the same parameters to change one or the other in main interation
@@ -235,7 +232,6 @@ class Enemy(pygame.sprite.Sprite):
 
 
 class Tree(pygame.sprite.Sprite):
-
     def __init__(self, name, model, x_coordinate, y_coordinate, gathered, image):
         super(Tree, self).__init__()
         self.name = name
@@ -244,16 +240,18 @@ class Tree(pygame.sprite.Sprite):
         self.y_coordinate = y_coordinate
         self.gathered = gathered
         self.surf = image
-        self.rect = self.surf.get_rect()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Building(pygame.sprite.Sprite):
-
     def __init__(self, name, model, x_coordinate, y_coordinate, image):
         super(Building, self).__init__()
         self.name = name
@@ -261,34 +259,38 @@ class Building(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.rect = self.surf.get_rect()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 # any UI element like buttons, bars, status etc.
 class UiElement(pygame.sprite.Sprite):
-
     def __init__(self, name, x_coordinate, y_coordinate, image, update_flag):
         super(UiElement, self).__init__()
         self.name = name
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.update_flag = update_flag
-        self.rect = self.surf.get_rect()
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Inventory(pygame.sprite.Sprite):
-
     def __init__(self, name, contains, x_coordinate, y_coordinate, image, update_flag):
         super(Inventory, self).__init__()
         self.name = name
@@ -296,18 +298,20 @@ class Inventory(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.rect = self.surf.get_rect()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.update_flag = update_flag
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 # pop up notifications, like the welcome screen image when game starts
 class Notification(pygame.sprite.Sprite):
-
     def __init__(self, name, shown, x_coordinate, y_coordinate, image):
         super(Notification, self).__init__()
         self.name = name
@@ -315,33 +319,37 @@ class Notification(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.rect = self.surf.get_rect()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 # to create a representation of character for battle screen
 class BattleCharacter(pygame.sprite.Sprite):
-
     def __init__(self, name, x_coordinate, y_coordinate, image):
         super(BattleCharacter, self).__init__()
         self.name = name
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.rect = self.surf.get_rect()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class Item(pygame.sprite.Sprite):
-
     def __init__(self, name, type, x_coordinate, y_coordinate, image):
         super(Item, self).__init__()
         self.name = name
@@ -349,12 +357,25 @@ class Item(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.rect = self.surf.get_rect()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+
+
+class SpriteSheet(object):
+    def __init__(self, file_name):
+        self.sprite_sheet = pygame.image.load(file_name).convert_alpha()
+
+    def get_image(self, x, y, width, height):
+        sprite_image = pygame.Surface([width, height], pygame.SRCALPHA)
+        sprite_image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
+        return sprite_image
 
 
 # gameplay functions ---------------------------------------------------------------------------------------------------
@@ -618,7 +639,7 @@ def level_up():
         player.health = 100
         player.energy = 100
         player.experience = 0
-        drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280, scaled_1600, player,
+        drawing_functions.level_up_draw(level_up_win, False, True, False, player,
                                         level_up_font, True)
     else:
         level_up_dictionary["new level"] = "You are already max level. "
@@ -628,24 +649,623 @@ def level_up():
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # gets current player health and updates hp bar image on screen according to the health value from 0-100
+# ----------------------------------------------------------------------------------------------------------------------
+# gets current player health and updates hp bar image on screen according to the health value from 0-100
 def health_bar_update(character):
-    hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, bar_updates.health_bar_update(character))
+    if character.health == 100:
+        return hp_100
+    if character.health == 99:
+        return hp_99
+    if character.health == 98:
+        return hp_98
+    if character.health == 97:
+        return hp_97
+    if character.health == 96:
+        return hp_96
+    if character.health == 95:
+        return hp_95
+    if character.health == 94:
+        return hp_94
+    if character.health == 93:
+        return hp_93
+    if character.health == 92:
+        return hp_92
+    if character.health == 91:
+        return hp_91
+    if character.health == 90:
+        return hp_90
+    if character.health == 89:
+        return hp_89
+    if character.health == 88:
+        return hp_88
+    if character.health == 87:
+        return hp_87
+    if character.health == 86:
+        return hp_86
+    if character.health == 85:
+        return hp_85
+    if character.health == 84:
+        return hp_84
+    if character.health == 83:
+        return hp_83
+    if character.health == 82:
+        return hp_82
+    if character.health == 81:
+        return hp_81
+    if character.health == 80:
+        return hp_80
+    if character.health == 79:
+        return hp_79
+    if character.health == 78:
+        return hp_78
+    if character.health == 77:
+        return hp_77
+    if character.health == 76:
+        return hp_76
+    if character.health == 75:
+        return hp_75
+    if character.health == 74:
+        return hp_74
+    if character.health == 73:
+        return hp_73
+    if character.health == 72:
+        return hp_72
+    if character.health == 71:
+        return hp_71
+    if character.health == 70:
+        return hp_70
+    if character.health == 69:
+        return hp_69
+    if character.health == 68:
+        return hp_68
+    if character.health == 67:
+        return hp_67
+    if character.health == 66:
+        return hp_66
+    if character.health == 65:
+        return hp_65
+    if character.health == 64:
+        return hp_64
+    if character.health == 63:
+        return hp_63
+    if character.health == 62:
+        return hp_62
+    if character.health == 61:
+        return hp_61
+    if character.health == 60:
+        return hp_60
+    if character.health == 59:
+        return hp_59
+    if character.health == 58:
+        return hp_58
+    if character.health == 57:
+        return hp_57
+    if character.health == 56:
+        return hp_56
+    if character.health == 55:
+        return hp_55
+    if character.health == 54:
+        return hp_54
+    if character.health == 53:
+        return hp_53
+    if character.health == 52:
+        return hp_52
+    if character.health == 51:
+        return hp_51
+    if character.health == 50:
+        return hp_50
+    if character.health == 49:
+        return hp_49
+    if character.health == 48:
+        return hp_48
+    if character.health == 47:
+        return hp_47
+    if character.health == 46:
+        return hp_46
+    if character.health == 45:
+        return hp_45
+    if character.health == 44:
+        return hp_44
+    if character.health == 43:
+        return hp_43
+    if character.health == 42:
+        return hp_42
+    if character.health == 41:
+        return hp_41
+    if character.health == 40:
+        return hp_40
+    if character.health == 39:
+        return hp_39
+    if character.health == 38:
+        return hp_38
+    if character.health == 37:
+        return hp_37
+    if character.health == 36:
+        return hp_36
+    if character.health == 35:
+        return hp_35
+    if character.health == 34:
+        return hp_34
+    if character.health == 33:
+        return hp_33
+    if character.health == 32:
+        return hp_32
+    if character.health == 31:
+        return hp_31
+    if character.health == 30:
+        return hp_30
+    if character.health == 29:
+        return hp_29
+    if character.health == 28:
+        return hp_28
+    if character.health == 27:
+        return hp_27
+    if character.health == 26:
+        return hp_26
+    if character.health == 25:
+        return hp_25
+    if character.health == 24:
+        return hp_24
+    if character.health == 23:
+        return hp_23
+    if character.health == 22:
+        return hp_22
+    if character.health == 21:
+        return hp_21
+    if character.health == 20:
+        return hp_20
+    if character.health == 19:
+        return hp_19
+    if character.health == 18:
+        return hp_18
+    if character.health == 17:
+        return hp_17
+    if character.health == 16:
+        return hp_16
+    if character.health == 15:
+        return hp_15
+    if character.health == 14:
+        return hp_14
+    if character.health == 13:
+        return hp_13
+    if character.health == 12:
+        return hp_12
+    if character.health == 11:
+        return hp_11
+    if character.health == 10:
+        return hp_10
+    if character.health == 9:
+        return hp_9
+    if character.health == 8:
+        return hp_8
+    if character.health == 7:
+        return hp_7
+    if character.health == 6:
+        return hp_6
+    if character.health == 5:
+        return hp_5
+    if character.health == 4:
+        return hp_4
+    if character.health == 3:
+        return hp_3
+    if character.health == 2:
+        return hp_2
+    if character.health == 1:
+        return hp_1
+    if character.health == 0:
+        return hp_0
 
 
 # player energy bar update
 def energy_bar_update(character):
-    en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, bar_updates.energy_bar_update(character))
+    if character.energy == 100:
+        return en_100
+    if character.energy == 99:
+        return en_99
+    if character.energy == 98:
+        return en_98
+    if character.energy == 97:
+        return en_97
+    if character.energy == 96:
+        return en_96
+    if character.energy == 95:
+        return en_95
+    if character.energy == 94:
+        return en_94
+    if character.energy == 93:
+        return en_93
+    if character.energy == 92:
+        return en_92
+    if character.energy == 91:
+        return en_91
+    if character.energy == 90:
+        return en_90
+    if character.energy == 89:
+        return en_89
+    if character.energy == 88:
+        return en_88
+    if character.energy == 87:
+        return en_87
+    if character.energy == 86:
+        return en_86
+    if character.energy == 85:
+        return en_85
+    if character.energy == 84:
+        return en_84
+    if character.energy == 83:
+        return en_83
+    if character.energy == 82:
+        return en_82
+    if character.energy == 81:
+        return en_81
+    if character.energy == 80:
+        return en_80
+    if character.energy == 79:
+        return en_79
+    if character.energy == 78:
+        return en_78
+    if character.energy == 77:
+        return en_77
+    if character.energy == 76:
+        return en_76
+    if character.energy == 75:
+        return en_75
+    if character.energy == 74:
+        return en_74
+    if character.energy == 73:
+        return en_73
+    if character.energy == 72:
+        return en_72
+    if character.energy == 71:
+        return en_71
+    if character.energy == 70:
+        return en_70
+    if character.energy == 69:
+        return en_69
+    if character.energy == 68:
+        return en_68
+    if character.energy == 67:
+        return en_67
+    if character.energy == 66:
+        return en_66
+    if character.energy == 65:
+        return en_65
+    if character.energy == 64:
+        return en_64
+    if character.energy == 63:
+        return en_63
+    if character.energy == 62:
+        return en_62
+    if character.energy == 61:
+        return en_61
+    if character.energy == 60:
+        return en_60
+    if character.energy == 59:
+        return en_59
+    if character.energy == 58:
+        return en_58
+    if character.energy == 57:
+        return en_57
+    if character.energy == 56:
+        return en_56
+    if character.energy == 55:
+        return en_55
+    if character.energy == 54:
+        return en_54
+    if character.energy == 53:
+        return en_53
+    if character.energy == 52:
+        return en_52
+    if character.energy == 51:
+        return en_51
+    if character.energy == 50:
+        return en_50
+    if character.energy == 49:
+        return en_49
+    if character.energy == 48:
+        return en_48
+    if character.energy == 47:
+        return en_47
+    if character.energy == 46:
+        return en_46
+    if character.energy == 45:
+        return en_45
+    if character.energy == 44:
+        return en_44
+    if character.energy == 43:
+        return en_43
+    if character.energy == 42:
+        return en_42
+    if character.energy == 41:
+        return en_41
+    if character.energy == 40:
+        return en_40
+    if character.energy == 39:
+        return en_39
+    if character.energy == 38:
+        return en_38
+    if character.energy == 37:
+        return en_37
+    if character.energy == 36:
+        return en_36
+    if character.energy == 35:
+        return en_35
+    if character.energy == 34:
+        return en_34
+    if character.energy == 33:
+        return en_33
+    if character.energy == 32:
+        return en_32
+    if character.energy == 31:
+        return en_31
+    if character.energy == 30:
+        return en_30
+    if character.energy == 29:
+        return en_29
+    if character.energy == 28:
+        return en_28
+    if character.energy == 27:
+        return en_27
+    if character.energy == 26:
+        return en_26
+    if character.energy == 25:
+        return en_25
+    if character.energy == 24:
+        return en_24
+    if character.energy == 23:
+        return en_23
+    if character.energy == 22:
+        return en_22
+    if character.energy == 21:
+        return en_21
+    if character.energy == 20:
+        return en_20
+    if character.energy == 19:
+        return en_19
+    if character.energy == 18:
+        return en_18
+    if character.energy == 17:
+        return en_17
+    if character.energy == 16:
+        return en_16
+    if character.energy == 15:
+        return en_15
+    if character.energy == 14:
+        return en_14
+    if character.energy == 13:
+        return en_13
+    if character.energy == 12:
+        return en_12
+    if character.energy == 11:
+        return en_11
+    if character.energy == 10:
+        return en_10
+    if character.energy == 9:
+        return en_9
+    if character.energy == 8:
+        return en_8
+    if character.energy == 7:
+        return en_7
+    if character.energy == 6:
+        return en_6
+    if character.energy == 5:
+        return en_5
+    if character.energy == 4:
+        return en_4
+    if character.energy == 3:
+        return en_3
+    if character.energy == 2:
+        return en_2
+    if character.energy == 1:
+        return en_1
+    if character.energy == 0:
+        return en_0
 
 
 # player xp bar update
 def xp_bar_update(character):
-    xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, bar_updates.xp_bar_update(character))
-
-
-# enemy health bar update
-def health_bar_update_enemy(character):
-    character.health_bar.update(character.health_bar.x_coordinate, character.health_bar.y_coordinate,
-                                bar_updates.health_bar_update(character))
+    if character.experience == 100:
+        return xp_100
+    if character.experience == 99:
+        return xp_99
+    if character.experience == 98:
+        return xp_98
+    if character.experience == 97:
+        return xp_97
+    if character.experience == 96:
+        return xp_96
+    if character.experience == 95:
+        return xp_95
+    if character.experience == 94:
+        return xp_94
+    if character.experience == 93:
+        return xp_93
+    if character.experience == 92:
+        return xp_92
+    if character.experience == 91:
+        return xp_91
+    if character.experience == 90:
+        return xp_90
+    if character.experience == 89:
+        return rxp_89
+    if character.experience == 88:
+        return xp_88
+    if character.experience == 87:
+        return xp_87
+    if character.experience == 86:
+        return xp_86
+    if character.experience == 85:
+        return xp_85
+    if character.experience == 84:
+        return xp_84
+    if character.experience == 83:
+        return xp_83
+    if character.experience == 82:
+        return xp_82
+    if character.experience == 81:
+        return xp_81
+    if character.experience == 80:
+        return xp_80
+    if character.experience == 79:
+        return xp_79
+    if character.experience == 78:
+        return xp_78
+    if character.experience == 77:
+        return xp_77
+    if character.experience == 76:
+        return xp_76
+    if character.experience == 75:
+        return xp_75
+    if character.experience == 74:
+        return xp_74
+    if character.experience == 73:
+        return xp_73
+    if character.experience == 72:
+        return xp_72
+    if character.experience == 71:
+        return xp_71
+    if character.experience == 70:
+        return xp_70
+    if character.experience == 69:
+        return xp_69
+    if character.experience == 68:
+        return xp_68
+    if character.experience == 67:
+        return xp_67
+    if character.experience == 66:
+        return xp_66
+    if character.experience == 65:
+        return xp_65
+    if character.experience == 64:
+        return xp_64
+    if character.experience == 63:
+        return xp_63
+    if character.experience == 62:
+        return xp_62
+    if character.experience == 61:
+        return xp_61
+    if character.experience == 60:
+        return xp_60
+    if character.experience == 59:
+        return xp_59
+    if character.experience == 58:
+        return xp_58
+    if character.experience == 57:
+        return xp_57
+    if character.experience == 56:
+        return xp_56
+    if character.experience == 55:
+        return xp_55
+    if character.experience == 54:
+        return xp_54
+    if character.experience == 53:
+        return xp_53
+    if character.experience == 52:
+        return xp_52
+    if character.experience == 51:
+        return xp_51
+    if character.experience == 50:
+        return xp_50
+    if character.experience == 49:
+        return xp_49
+    if character.experience == 48:
+        return xp_48
+    if character.experience == 47:
+        return xp_47
+    if character.experience == 46:
+        return xp_46
+    if character.experience == 45:
+        return xp_45
+    if character.experience == 44:
+        return xp_44
+    if character.experience == 43:
+        return xp_43
+    if character.experience == 42:
+        return xp_42
+    if character.experience == 41:
+        return xp_41
+    if character.experience == 40:
+        return xp_40
+    if character.experience == 39:
+        return xp_39
+    if character.experience == 38:
+        return xp_38
+    if character.experience == 37:
+        return xp_37
+    if character.experience == 36:
+        return xp_36
+    if character.experience == 35:
+        return xp_35
+    if character.experience == 34:
+        return xp_34
+    if character.experience == 33:
+        return xp_33
+    if character.experience == 32:
+        return xp_32
+    if character.experience == 31:
+        return xp_31
+    if character.experience == 30:
+        return xp_30
+    if character.experience == 29:
+        return xp_29
+    if character.experience == 28:
+        return xp_28
+    if character.experience == 27:
+        return xp_27
+    if character.experience == 26:
+        return xp_26
+    if character.experience == 25:
+        return xp_25
+    if character.experience == 24:
+        return xp_24
+    if character.experience == 23:
+        return xp_23
+    if character.experience == 22:
+        return xp_22
+    if character.experience == 21:
+        return xp_21
+    if character.experience == 20:
+        return xp_20
+    if character.experience == 19:
+        return xp_19
+    if character.experience == 18:
+        return xp_18
+    if character.experience == 17:
+        return xp_17
+    if character.experience == 16:
+        return xp_16
+    if character.experience == 15:
+        return xp_15
+    if character.experience == 14:
+        return xp_14
+    if character.experience == 13:
+        return xp_13
+    if character.experience == 12:
+        return xp_12
+    if character.experience == 11:
+        return xp_11
+    if character.experience == 10:
+        return xp_10
+    if character.experience == 9:
+        return xp_9
+    if character.experience == 8:
+        return xp_8
+    if character.experience == 7:
+        return xp_7
+    if character.experience == 6:
+        return xp_6
+    if character.experience == 5:
+        return xp_5
+    if character.experience == 4:
+        return xp_4
+    if character.experience == 3:
+        return xp_3
+    if character.experience == 2:
+        return xp_2
+    if character.experience == 1:
+        return xp_1
+    if character.experience == 0:
+        return xp_0
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -674,7 +1294,6 @@ def combat_event_button(combat_event):
 def npc_event_button(npc_event):
     if npc_event.type == pygame.MOUSEBUTTONUP:
         npc_mouse = pygame.mouse.get_pos()
-
         if quest_button.rect.collidepoint(npc_mouse):
             return "quest"
         if leave_button.rect.collidepoint(npc_mouse):
@@ -685,7 +1304,6 @@ def npc_event_button(npc_event):
 def quest_event_button(quest_event):
     if quest_event.type == pygame.MOUSEBUTTONUP:
         quest_mouse = pygame.mouse.get_pos()
-
         if accept_button.rect.collidepoint(quest_mouse):
             return "accept"
         if decline_button.rect.collidepoint(quest_mouse):
@@ -898,17 +1516,6 @@ def enemy_respawn():
     random_ghoul_x = random.randrange(650, 900)
     random_ghoul_y = random.randrange(150, 300)
     random_ghoul_level = random.randrange(3, 6)
-    # if scaled, apply scaled coordinates for boundaries
-    if scaled_1024:
-        random_snake_x = random.randrange(120, 240)
-        random_snake_y = random.randrange(120, 240)
-        random_ghoul_x = random.randrange(520, 720)
-        random_ghoul_y = random.randrange(120, 240)
-    if scaled_1600:
-        random_snake_x = random.randrange(188, 375)
-        random_snake_y = random.randrange(188, 375)
-        random_ghoul_x = random.randrange(812, 1125)
-        random_ghoul_y = random.randrange(188, 375)
 
     # count current enemies active in game
     for mob in enemies:
@@ -921,8 +1528,8 @@ def enemy_respawn():
     if snake_counter < 3:
         # if not scaled, set images attributed to enemy with default values
         new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                          Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock), resource_urls.snake,
-                          UiElement("snake hp bar", 700, 90, resource_urls.hp_100, False))
+                          Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
+                          UiElement("snake hp bar", 700, 90, hp_100, False))
         snakes.add(new_snake)
         enemies.add(new_snake)
         most_sprites.add(new_snake)
@@ -930,8 +1537,8 @@ def enemy_respawn():
     # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
     if ghoul_counter < 3:
         new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
-                          Item("bone dust", "dust", 200, 200, resource_urls.bone_dust), resource_urls.ghoul,
-                          UiElement("ghoul hp bar", 700, 90, resource_urls.hp_100, False))
+                          Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
+                          UiElement("ghoul hp bar", 700, 90, hp_100, False))
         ghouls.add(new_ghoul)
         enemies.add(new_ghoul)
         most_sprites.add(new_ghoul)
@@ -939,9 +1546,9 @@ def enemy_respawn():
 
 def status_and_inventory_updates():
     # update players status bars ---------------------------------------------------------------------------------------
-    health_bar_update(player)
-    energy_bar_update(player)
-    xp_bar_update(player)
+    hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player))
+    en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_bar_update(player))
+    xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_bar_update(player))
 
     # set player's current role based on the type of weapon they have equipped -----------------------------------------
     if player.equipment["weapon"] != "":
@@ -949,47 +1556,47 @@ def status_and_inventory_updates():
             player.role = "mage"
             # update player sprite based on their current role and facing direction
             if current_direction == "up":
-                player.surf = resource_urls.player_mage_up
+                player.surf = player_mage_up
             if current_direction == "down":
-                player.surf = resource_urls.player_mage_down
+                player.surf = player_mage_down
             if current_direction == "left":
-                player.surf = resource_urls.player_mage_left
+                player.surf = player_mage_left
             if current_direction == "right":
-                player.surf = resource_urls.player_mage_right
+                player.surf = player_mage_right
 
         if player.equipment["weapon"].type == "fighter":
             player.role = "fighter"
             if current_direction == "up":
-                player.surf = resource_urls.player_fighter_up
+                player.surf = player_fighter_up
             if current_direction == "down":
-                player.surf = resource_urls.player_fighter_down
+                player.surf = player_fighter_down
             if current_direction == "left":
-                player.surf = resource_urls.player_fighter_left
+                player.surf = player_fighter_left
             if current_direction == "right":
-                player.surf = resource_urls.player_fighter_right
+                player.surf = player_fighter_right
 
         if player.equipment["weapon"].type == "scout":
             player.role = "scout"
             if current_direction == "up":
-                player.surf = resource_urls.player_scout_up
+                player.surf = player_scout_up
             if current_direction == "down":
-                player.surf = resource_urls.player_scout_down
+                player.surf = player_scout_down
             if current_direction == "left":
-                player.surf = resource_urls.player_scout_left
+                player.surf = player_scout_left
             if current_direction == "right":
-                player.surf = pygame.image.load(resource_urls.player_scout_right).convert()
+                player.surf = player_scout_right
 
     # player doesn't have a role without a weapon equipped
     else:
         player.role = ""
         if current_direction == "up":
-            player.surf = resource_urls.player_no_role_up
+            player.surf = player_no_role_up
         if current_direction == "down":
-            player.surf = resource_urls.player_no_role_down
+            player.surf = player_no_role_down
         if current_direction == "left":
-            player.surf = resource_urls.player_no_role_left
+            player.surf = player_no_role_left
         if current_direction == "right":
-            player.surf = resource_urls.player_no_role_right
+            player.surf = player_no_role_right
 
     # ------------------------------------------------------------------------------------------------------------------
     # clear list used for drawing player items to screen before going through inventory and drawing
@@ -1008,47 +1615,47 @@ def status_and_inventory_updates():
             # go through player items and assign inventory slots (coordinates) to them
             for item_here in player.items:
                 if item_here.name == "health potion":
-                    item_here.update(first_coord, second_coord, resource_urls.health_pot)
+                    item_here.update(first_coord, second_coord, health_pot_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "energy potion":
-                    item_here.update(first_coord, second_coord, resource_urls.energy_pot)
+                    item_here.update(first_coord, second_coord, energy_pot_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "shiny rock":
-                    item_here.update(first_coord, second_coord, resource_urls.shiny_rock)
+                    item_here.update(first_coord, second_coord, shiny_rock_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "bone dust":
-                    item_here.update(first_coord, second_coord, resource_urls.bone_dust)
+                    item_here.update(first_coord, second_coord, bone_dust_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic staff":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_staff)
+                    item_here.update(first_coord, second_coord, basic_staff_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic sword":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_sword)
+                    item_here.update(first_coord, second_coord, basic_sword_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic bow":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_bow)
+                    item_here.update(first_coord, second_coord, basic_bow_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic robes":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_robes)
+                    item_here.update(first_coord, second_coord, basic_robes_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic armor":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_armor)
+                    item_here.update(first_coord, second_coord, basic_armor_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic tunic":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_tunic)
+                    item_here.update(first_coord, second_coord, basic_tunic_img)
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "temporary item":
-                    item_here.update(first_coord, second_coord, resource_urls.temp)
+                    item_here.update(first_coord, second_coord, temp_img)
                     player_items.append(item_here)
                     inventory_counter += 1
 
@@ -1178,22 +1785,22 @@ def equipment_updates():
     player_equipment.clear()
     try:
         if player.equipment["weapon"].name == "basic staff":
-            player.equipment["weapon"].update(1078, 285, resource_urls.basic_staff)
+            player.equipment["weapon"].update(1078, 285, basic_staff_img)
             player_equipment.append(player.equipment["weapon"])
         if player.equipment["weapon"].name == "basic sword":
-            player.equipment["weapon"].update(1078, 285, resource_urls.basic_sword)
+            player.equipment["weapon"].update(1078, 285, basic_sword_img)
             player_equipment.append(player.equipment["weapon"])
         if player.equipment["weapon"].name == "basic bow":
-            player.equipment["weapon"].update(1078, 285, resource_urls.basic_bowl)
+            player.equipment["weapon"].update(1078, 285, basic_bow_img)
             player_equipment.append(player.equipment["weapon"])
         if player.equipment["chest"].name == "basic robes":
-            player.equipment["chest"].update(1153, 195, resource_urls.basic_robes)
+            player.equipment["chest"].update(1153, 195, basic_robes_img)
             player_equipment.append(player.equipment["chest"])
         if player.equipment["chest"].name == "basic armor":
-            player.equipment["chest"].update(1153, 195, resource_urls.basic_armor)
+            player.equipment["chest"].update(1153, 195, basic_armor_img)
             player_equipment.append(player.equipment["chest"])
         if player.equipment["chest"].name == "basic tunic":
-            player.equipment["chest"].update(1153, 195, resource_urls.basic_tunic)
+            player.equipment["chest"].update(1153, 195, basic_tunic_img)
             player_equipment.append(player.equipment["chest"])
     except AttributeError:
         pass
@@ -1325,23 +1932,471 @@ start_screen = pygame.image.load(resource_urls.start_screen)
 nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen)
 korlok_district_bg = pygame.image.load(resource_urls.korlok_bg_screen)
 
+# sprite sheets --------------------------------------------------------------------------------------------------------
+# player no role -------------------------------------------------------------------------------------------------------
+player_no_role_sheet = SpriteSheet(resource_urls.player_no_role_url)
+player_no_role_down = player_no_role_sheet.get_image(0, 0, 50, 75)
+player_no_role_up = player_no_role_sheet.get_image(51, 0, 50, 75)
+player_no_role_left = player_no_role_sheet.get_image(101, 0, 50, 75)
+player_no_role_right = player_no_role_sheet.get_image(151, 0, 50, 75)
+# player mage ----------------------------------------------------------------------------------------------------------
+player_mage_sheet = SpriteSheet(resource_urls.player_mage_url)
+player_mage_down = player_mage_sheet.get_image(0, 0, 50, 75)
+player_mage_up = player_mage_sheet.get_image(51, 0, 50, 75)
+player_mage_left = player_mage_sheet.get_image(101, 0, 50, 75)
+player_mage_right = player_mage_sheet.get_image(151, 0, 50, 75)
+# player fighter -------------------------------------------------------------------------------------------------------
+player_fighter_sheet = SpriteSheet(resource_urls.player_fighter_url)
+player_fighter_down = player_fighter_sheet.get_image(0, 0, 50, 75)
+player_fighter_up = player_fighter_sheet.get_image(51, 0, 50, 75)
+player_fighter_left = player_fighter_sheet.get_image(101, 0, 50, 75)
+player_fighter_right = player_fighter_sheet.get_image(151, 0, 50, 75)
+# player scout ---------------------------------------------------------------------------------------------------------
+player_scout_sheet = SpriteSheet(resource_urls.player_scout_url)
+player_scout_down = player_scout_sheet.get_image(0, 0, 50, 75)
+player_scout_up = player_scout_sheet.get_image(51, 0, 50, 75)
+player_scout_left = player_scout_sheet.get_image(101, 0, 50, 75)
+player_scout_right = player_scout_sheet.get_image(151, 0, 50, 75)
+# player battle --------------------------------------------------------------------------------------------------------
+player_battle_sheet = SpriteSheet(resource_urls.player_battle_url)
+player_no_role_battle = player_battle_sheet.get_image(0, 0, 750, 624)
+player_no_role_attack = player_battle_sheet.get_image(751, 0, 750, 624)
+player_mage_battle = player_battle_sheet.get_image(1501, 0, 750, 624)
+player_mage_attack = player_battle_sheet.get_image(2251, 0, 750, 624)
+player_fighter_battle = player_battle_sheet.get_image(3001, 0, 750, 624)
+player_fighter_attack = player_battle_sheet.get_image(3751, 0, 750, 624)
+player_scout_battle = player_battle_sheet.get_image(4501, 0, 750, 624)
+player_scout_attack = player_battle_sheet.get_image(5251, 0, 750, 624)
+# player skills --------------------------------------------------------------------------------------------------------
+player_skills_sheet = SpriteSheet(resource_urls.player_skills_url)
+player_mage_barrier_battle = player_skills_sheet.get_image(0, 0, 750, 624)
+player_mage_barrier_attack = player_skills_sheet.get_image(751, 0, 750, 624)
+player_scout_sense_battle = player_skills_sheet.get_image(1501, 0, 750, 624)
+player_scout_sense_attack = player_skills_sheet.get_image(2251, 0, 750, 624)
+player_fighter_strike = player_skills_sheet.get_image(3001, 0, 750, 624)
+# garan npc ------------------------------------------------------------------------------------------------------------
+garan_sheet = SpriteSheet(resource_urls.garan_url)
+garan_down = garan_sheet.get_image(0, 0, 40, 62)
+garan_up = garan_sheet.get_image(41, 0, 40, 62)
+garan_left = garan_sheet.get_image(81, 0, 40, 62)
+garan_right = garan_sheet.get_image(121, 0, 40, 62)
+# maurelle npc ---------------------------------------------------------------------------------------------------------
+maurelle_sheet = SpriteSheet(resource_urls.maurelle_url)
+maurelle_down = maurelle_sheet.get_image(0, 0, 40, 62)
+maurelle_up = maurelle_sheet.get_image(41, 0, 40, 62)
+maurelle_left = maurelle_sheet.get_image(81, 0, 40, 62)
+maurelle_right = maurelle_sheet.get_image(121, 0, 40, 62)
+# guard npc ------------------------------------------------------------------------------------------------------------
+guard_sheet = SpriteSheet(resource_urls.guard_url)
+guard_down = guard_sheet.get_image(0, 0, 50, 75)
+guard_up = guard_sheet.get_image(51, 0, 50, 75)
+guard_left = guard_sheet.get_image(101, 0, 50, 75)
+guard_right = guard_sheet.get_image(151, 0, 50, 75)
+# npc interactions -----------------------------------------------------------------------------------------------------
+npc_interactions_sheet = SpriteSheet(resource_urls.npc_interactions_url)
+garan_interaction = npc_interactions_sheet.get_image(0, 0, 200, 260)
+maurelle_interaction = npc_interactions_sheet.get_image(201, 0, 200, 260)
+guard_interaction = npc_interactions_sheet.get_image(401, 0, 200, 260)
+# enemies --------------------------------------------------------------------------------------------------------------
+enemies_sheet = SpriteSheet(resource_urls.enemies_url)
+snake = enemies_sheet.get_image(0, 0, 50, 50)
+ghoul = enemies_sheet.get_image(51, 0, 50, 50)
+# enemies battle -------------------------------------------------------------------------------------------------------
+enemies_battle_sheet = SpriteSheet(resource_urls.enemies_battle_url)
+snake_battle = enemies_battle_sheet.get_image(0, 0, 300, 250)
+snake_attack = enemies_battle_sheet.get_image(301, 0, 300, 250)
+ghoul_battle = enemies_battle_sheet.get_image(601, 0, 300, 250)
+ghoul_attack = enemies_battle_sheet.get_image(901, 0, 300, 250)
+# amuna buildings ------------------------------------------------------------------------------------------------------
+amuna_buildings_sheet = SpriteSheet(resource_urls.amuna_buildings_url)
+amuna_academia_building = amuna_buildings_sheet.get_image(0, 0, 100, 100)
+amuna_inn_building = amuna_buildings_sheet.get_image(101, 0, 100, 100)
+amuna_shop_building = amuna_buildings_sheet.get_image(201, 0, 100, 100)
+# items ----------------------------------------------------------------------------------------------------------------
+items_sheet = SpriteSheet(resource_urls.items_url)
+health_pot_img = items_sheet.get_image(0, 0, 50, 50)
+energy_pot_img = items_sheet.get_image(51, 0, 50, 50)
+basic_robes_img = items_sheet.get_image(101, 0, 50, 50)
+basic_armor_img = items_sheet.get_image(151, 0, 50, 50)
+basic_tunic_img = items_sheet.get_image(201, 0, 50, 50)
+basic_staff_img = items_sheet.get_image(251, 0, 50, 50)
+basic_sword_img = items_sheet.get_image(301, 0, 50, 50)
+basic_bow_img = items_sheet.get_image(351, 0, 50, 50)
+bone_dust_img = items_sheet.get_image(401, 0, 50, 50)
+shiny_rock_img = items_sheet.get_image(451, 0, 50, 50)
+temp_img = items_sheet.get_image(501, 0, 50, 50)
+# player info windows --------------------------------------------------------------------------------------------------
+player_info_sheet = SpriteSheet(resource_urls.player_info_url)
+character_window_img = player_info_sheet.get_image(0, 0, 500, 525)
+journal_window_img = player_info_sheet.get_image(501, 0, 500, 525)
+# books ----------------------------------------------------------------------------------------------------------------
+books_sheet = SpriteSheet(resource_urls.books_url)
+mage_book_img = books_sheet.get_image(0, 0, 700, 525)
+fighter_book_img = books_sheet.get_image(701, 0, 700, 525)
+scout_book_img = books_sheet.get_image(1401, 0, 700, 525)
+# buttons --------------------------------------------------------------------------------------------------------------
+buttons_sheet = SpriteSheet(resource_urls.buttons_url)
+character_button_img = buttons_sheet.get_image(0, 0, 100, 50)
+journal_button_img = buttons_sheet.get_image(101, 0, 100, 50)
+buy_button_img = buttons_sheet.get_image(201, 0, 100, 50)
+rest_button_img = buttons_sheet.get_image(301, 0, 100, 50)
+quest_button_img = buttons_sheet.get_image(401, 0, 100, 50)
+leave_button_img = buttons_sheet.get_image(501, 0, 100, 50)
+accept_button_img = buttons_sheet.get_image(601, 0, 100, 50)
+decline_button_img = buttons_sheet.get_image(701, 0, 100, 50)
+# attack buttons -------------------------------------------------------------------------------------------------------
+attack_buttons_sheet = SpriteSheet(resource_urls.attack_buttons_url)
+mage_attack_button_img = attack_buttons_sheet.get_image(0, 0, 60, 60)
+fighter_attack_button_img = attack_buttons_sheet.get_image(61, 0, 60, 60)
+scout_attack_button_img = attack_buttons_sheet.get_image(121, 0, 60, 60)
+no_role_attack_button_img = attack_buttons_sheet.get_image(181, 0, 60, 60)
+# skill buttons --------------------------------------------------------------------------------------------------------
+skill_buttons_sheet = SpriteSheet(resource_urls.skill_buttons_url)
+barrier_button_img = attack_buttons_sheet.get_image(0, 0, 60, 60)
+strike_button_img = attack_buttons_sheet.get_image(61, 0, 60, 60)
+sense_button_img = attack_buttons_sheet.get_image(121, 0, 60, 60)
+# quest windows --------------------------------------------------------------------------------------------------------
+quest_windows_sheet = SpriteSheet(resource_urls.quest_windows_url)
+garan_quest = quest_windows_sheet.get_image(0, 0, 500, 525)
+maurelle_quest = quest_windows_sheet.get_image(501, 0, 500, 525)
+guard_quest = quest_windows_sheet.get_image(1001, 0, 500, 525)
+# quest stars ----------------------------------------------------------------------------------------------------------
+quest_stars_sheet = SpriteSheet(resource_urls.quest_stars_url)
+quest_start_star = quest_stars_sheet.get_image(0, 0, 50, 50)
+quest_progress_star = quest_stars_sheet.get_image(51, 0, 50, 50)
+quest_complete_star = quest_stars_sheet.get_image(101, 0, 50, 50)
+# pop up notifications -------------------------------------------------------------------------------------------------
+popups_sheet = SpriteSheet(resource_urls.popups_url)
+gear_popup = popups_sheet.get_image(0, 0, 400, 200)
+health_popup = popups_sheet.get_image(401, 0, 400, 200)
+knowledge_popup = popups_sheet.get_image(801, 0, 400, 200)
+# heath bars -----------------------------------------------------------------------------------------------------------
+hp_sheet = SpriteSheet(resource_urls.hp_url)
+hp_0 = hp_sheet.get_image(0, 0, 305, 19)
+hp_1 = hp_sheet.get_image(305, 0, 305, 19)
+hp_2 = hp_sheet.get_image(610, 0, 305, 19)
+hp_3 = hp_sheet.get_image(915, 0, 305, 19)
+hp_4 = hp_sheet.get_image(1220, 0, 305, 19)
+hp_5 = hp_sheet.get_image(1525, 0, 305, 19)
+hp_6 = hp_sheet.get_image(1830, 0, 305, 19)
+hp_7 = hp_sheet.get_image(2135, 0, 305, 19)
+hp_8 = hp_sheet.get_image(2440, 0, 305, 19)
+hp_9 = hp_sheet.get_image(2745, 0, 305, 19)
+hp_10 = hp_sheet.get_image(0, 19, 305, 19)
+hp_11 = hp_sheet.get_image(305, 19, 305, 19)
+hp_12 = hp_sheet.get_image(610, 19, 305, 19)
+hp_13 = hp_sheet.get_image(915, 19, 305, 19)
+hp_14 = hp_sheet.get_image(1220, 19, 305, 19)
+hp_15 = hp_sheet.get_image(1525, 19, 305, 19)
+hp_16 = hp_sheet.get_image(1830, 19, 305, 19)
+hp_17 = hp_sheet.get_image(2135, 19, 305, 19)
+hp_18 = hp_sheet.get_image(2440, 19, 305, 19)
+hp_19 = hp_sheet.get_image(2745, 19, 305, 19)
+hp_20 = hp_sheet.get_image(0, 38, 305, 19)
+hp_21 = hp_sheet.get_image(305, 38, 305, 19)
+hp_22 = hp_sheet.get_image(610, 38, 305, 19)
+hp_23 = hp_sheet.get_image(915, 38, 305, 19)
+hp_24 = hp_sheet.get_image(1220, 38, 305, 19)
+hp_25 = hp_sheet.get_image(1525, 38, 305, 19)
+hp_26 = hp_sheet.get_image(1830, 38, 305, 19)
+hp_27 = hp_sheet.get_image(2135, 38, 305, 19)
+hp_28 = hp_sheet.get_image(2440, 38, 305, 19)
+hp_29 = hp_sheet.get_image(2745, 38, 305, 19)
+hp_30 = hp_sheet.get_image(0, 57, 305, 19)
+hp_31 = hp_sheet.get_image(305, 57, 305, 19)
+hp_32 = hp_sheet.get_image(610, 57, 305, 19)
+hp_33 = hp_sheet.get_image(915, 57, 305, 19)
+hp_34 = hp_sheet.get_image(1220, 57, 305, 19)
+hp_35 = hp_sheet.get_image(1525, 57, 305, 19)
+hp_36 = hp_sheet.get_image(1830, 57, 305, 19)
+hp_37 = hp_sheet.get_image(2135, 57, 305, 19)
+hp_38 = hp_sheet.get_image(2440, 57, 305, 19)
+hp_39 = hp_sheet.get_image(2745, 57, 305, 19)
+hp_40 = hp_sheet.get_image(0, 76, 305, 19)
+hp_41 = hp_sheet.get_image(305, 76, 305, 19)
+hp_42 = hp_sheet.get_image(610, 76, 305, 19)
+hp_43 = hp_sheet.get_image(915, 76, 305, 19)
+hp_44 = hp_sheet.get_image(1220, 76, 305, 19)
+hp_45 = hp_sheet.get_image(1525, 76, 305, 19)
+hp_46 = hp_sheet.get_image(1830, 76, 305, 19)
+hp_47 = hp_sheet.get_image(2135, 76, 305, 19)
+hp_48 = hp_sheet.get_image(2440, 76, 305, 19)
+hp_49 = hp_sheet.get_image(2745, 76, 305, 19)
+hp_50 = hp_sheet.get_image(0, 95, 305, 19)
+hp_51 = hp_sheet.get_image(305, 95, 305, 19)
+hp_52 = hp_sheet.get_image(610, 95, 305, 19)
+hp_53 = hp_sheet.get_image(915, 95, 305, 19)
+hp_54 = hp_sheet.get_image(1220, 95, 305, 19)
+hp_55 = hp_sheet.get_image(1525, 95, 305, 19)
+hp_56 = hp_sheet.get_image(1830, 95, 305, 19)
+hp_57 = hp_sheet.get_image(2135, 95, 305, 19)
+hp_58 = hp_sheet.get_image(2440, 95, 305, 19)
+hp_59 = hp_sheet.get_image(2745, 95, 305, 19)
+hp_60 = hp_sheet.get_image(0, 114, 305, 19)
+hp_61 = hp_sheet.get_image(305, 114, 305, 19)
+hp_62 = hp_sheet.get_image(610, 114, 305, 19)
+hp_63 = hp_sheet.get_image(915, 114, 305, 19)
+hp_64 = hp_sheet.get_image(1220, 114, 305, 19)
+hp_65 = hp_sheet.get_image(1525, 114, 305, 19)
+hp_66 = hp_sheet.get_image(1830, 114, 305, 19)
+hp_67 = hp_sheet.get_image(2135, 114, 305, 19)
+hp_68 = hp_sheet.get_image(2440, 114, 305, 19)
+hp_69 = hp_sheet.get_image(2745, 114, 305, 19)
+hp_70 = hp_sheet.get_image(0, 133, 305, 19)
+hp_71 = hp_sheet.get_image(305, 133, 305, 19)
+hp_72 = hp_sheet.get_image(610, 133, 305, 19)
+hp_73 = hp_sheet.get_image(915, 133, 305, 19)
+hp_74 = hp_sheet.get_image(1220, 133, 305, 19)
+hp_75 = hp_sheet.get_image(1525, 133, 305, 19)
+hp_76 = hp_sheet.get_image(1830, 133, 305, 19)
+hp_77 = hp_sheet.get_image(2135, 133, 305, 19)
+hp_78 = hp_sheet.get_image(2440, 133, 305, 19)
+hp_79 = hp_sheet.get_image(2745, 133, 305, 19)
+hp_80 = hp_sheet.get_image(0, 152, 305, 19)
+hp_81 = hp_sheet.get_image(305, 152, 305, 19)
+hp_82 = hp_sheet.get_image(610, 152, 305, 19)
+hp_83 = hp_sheet.get_image(915, 152, 305, 19)
+hp_84 = hp_sheet.get_image(1220, 152, 305, 19)
+hp_85 = hp_sheet.get_image(1525, 152, 305, 19)
+hp_86 = hp_sheet.get_image(1830, 152, 305, 19)
+hp_87 = hp_sheet.get_image(2135, 152, 305, 19)
+hp_88 = hp_sheet.get_image(2440, 152, 305, 19)
+hp_89 = hp_sheet.get_image(2745, 152, 305, 19)
+hp_90 = hp_sheet.get_image(0, 171, 305, 19)
+hp_91 = hp_sheet.get_image(305, 171, 305, 19)
+hp_92 = hp_sheet.get_image(610, 171, 305, 19)
+hp_93 = hp_sheet.get_image(915, 171, 305, 19)
+hp_94 = hp_sheet.get_image(1220, 171, 305, 19)
+hp_95 = hp_sheet.get_image(1525, 171, 305, 19)
+hp_96 = hp_sheet.get_image(1830, 171, 305, 19)
+hp_97 = hp_sheet.get_image(2135, 171, 305, 19)
+hp_98 = hp_sheet.get_image(2440, 171, 305, 19)
+hp_99 = hp_sheet.get_image(2745, 171, 305, 19)
+hp_100 = hp_sheet.get_image(0, 190, 305, 19)
+# energy bars ----------------------------------------------------------------------------------------------------------
+en_sheet = SpriteSheet(resource_urls.en_url)
+en_0 = en_sheet.get_image(0, 0, 305, 19)
+en_1 = en_sheet.get_image(305, 0, 305, 19)
+en_2 = en_sheet.get_image(610, 0, 305, 19)
+en_3 = en_sheet.get_image(915, 0, 305, 19)
+en_4 = en_sheet.get_image(1220, 0, 305, 19)
+en_5 = en_sheet.get_image(1525, 0, 305, 19)
+en_6 = en_sheet.get_image(1830, 0, 305, 19)
+en_7 = en_sheet.get_image(2135, 0, 305, 19)
+en_8 = en_sheet.get_image(2440, 0, 305, 19)
+en_9 = en_sheet.get_image(2745, 0, 305, 19)
+en_10 = en_sheet.get_image(0, 19, 305, 19)
+en_11 = en_sheet.get_image(305, 19, 305, 19)
+en_12 = en_sheet.get_image(610, 19, 305, 19)
+en_13 = en_sheet.get_image(915, 19, 305, 19)
+en_14 = en_sheet.get_image(1220, 19, 305, 19)
+en_15 = en_sheet.get_image(1525, 19, 305, 19)
+en_16 = en_sheet.get_image(1830, 19, 305, 19)
+en_17 = en_sheet.get_image(2135, 19, 305, 19)
+en_18 = en_sheet.get_image(2440, 19, 305, 19)
+en_19 = en_sheet.get_image(2745, 19, 305, 19)
+en_20 = en_sheet.get_image(0, 38, 305, 19)
+en_21 = en_sheet.get_image(305, 38, 305, 19)
+en_22 = en_sheet.get_image(610, 38, 305, 19)
+en_23 = en_sheet.get_image(915, 38, 305, 19)
+en_24 = en_sheet.get_image(1220, 38, 305, 19)
+en_25 = en_sheet.get_image(1525, 38, 305, 19)
+en_26 = en_sheet.get_image(1830, 38, 305, 19)
+en_27 = en_sheet.get_image(2135, 38, 305, 19)
+en_28 = en_sheet.get_image(2440, 38, 305, 19)
+en_29 = en_sheet.get_image(2745, 38, 305, 19)
+en_30 = en_sheet.get_image(0, 57, 305, 19)
+en_31 = en_sheet.get_image(305, 57, 305, 19)
+en_32 = en_sheet.get_image(610, 57, 305, 19)
+en_33 = en_sheet.get_image(915, 57, 305, 19)
+en_34 = en_sheet.get_image(1220, 57, 305, 19)
+en_35 = en_sheet.get_image(1525, 57, 305, 19)
+en_36 = en_sheet.get_image(1830, 57, 305, 19)
+en_37 = en_sheet.get_image(2135, 57, 305, 19)
+en_38 = en_sheet.get_image(2440, 57, 305, 19)
+en_39 = en_sheet.get_image(2745, 57, 305, 19)
+en_40 = en_sheet.get_image(0, 76, 305, 19)
+en_41 = en_sheet.get_image(305, 76, 305, 19)
+en_42 = en_sheet.get_image(610, 76, 305, 19)
+en_43 = en_sheet.get_image(915, 76, 305, 19)
+en_44 = en_sheet.get_image(1220, 76, 305, 19)
+en_45 = en_sheet.get_image(1525, 76, 305, 19)
+en_46 = en_sheet.get_image(1830, 76, 305, 19)
+en_47 = en_sheet.get_image(2135, 76, 305, 19)
+en_48 = en_sheet.get_image(2440, 76, 305, 19)
+en_49 = en_sheet.get_image(2745, 76, 305, 19)
+en_50 = en_sheet.get_image(0, 95, 305, 19)
+en_51 = en_sheet.get_image(305, 95, 305, 19)
+en_52 = en_sheet.get_image(610, 95, 305, 19)
+en_53 = en_sheet.get_image(915, 95, 305, 19)
+en_54 = en_sheet.get_image(1220, 95, 305, 19)
+en_55 = en_sheet.get_image(1525, 95, 305, 19)
+en_56 = en_sheet.get_image(1830, 95, 305, 19)
+en_57 = en_sheet.get_image(2135, 95, 305, 19)
+en_58 = en_sheet.get_image(2440, 95, 305, 19)
+en_59 = en_sheet.get_image(2745, 95, 305, 19)
+en_60 = en_sheet.get_image(0, 114, 305, 19)
+en_61 = en_sheet.get_image(305, 114, 305, 19)
+en_62 = en_sheet.get_image(610, 114, 305, 19)
+en_63 = en_sheet.get_image(915, 114, 305, 19)
+en_64 = en_sheet.get_image(1220, 114, 305, 19)
+en_65 = en_sheet.get_image(1525, 114, 305, 19)
+en_66 = en_sheet.get_image(1830, 114, 305, 19)
+en_67 = en_sheet.get_image(2135, 114, 305, 19)
+en_68 = en_sheet.get_image(2440, 114, 305, 19)
+en_69 = en_sheet.get_image(2745, 114, 305, 19)
+en_70 = en_sheet.get_image(0, 133, 305, 19)
+en_71 = en_sheet.get_image(305, 133, 305, 19)
+en_72 = en_sheet.get_image(610, 133, 305, 19)
+en_73 = en_sheet.get_image(915, 133, 305, 19)
+en_74 = en_sheet.get_image(1220, 133, 305, 19)
+en_75 = en_sheet.get_image(1525, 133, 305, 19)
+en_76 = en_sheet.get_image(1830, 133, 305, 19)
+en_77 = en_sheet.get_image(2135, 133, 305, 19)
+en_78 = en_sheet.get_image(2440, 133, 305, 19)
+en_79 = en_sheet.get_image(2745, 133, 305, 19)
+en_80 = en_sheet.get_image(0, 152, 305, 19)
+en_81 = en_sheet.get_image(305, 152, 305, 19)
+en_82 = en_sheet.get_image(610, 152, 305, 19)
+en_83 = en_sheet.get_image(915, 152, 305, 19)
+en_84 = en_sheet.get_image(1220, 152, 305, 19)
+en_85 = en_sheet.get_image(1525, 152, 305, 19)
+en_86 = en_sheet.get_image(1830, 152, 305, 19)
+en_87 = en_sheet.get_image(2135, 152, 305, 19)
+en_88 = en_sheet.get_image(2440, 152, 305, 19)
+en_89 = en_sheet.get_image(2745, 152, 305, 19)
+en_90 = en_sheet.get_image(0, 171, 305, 19)
+en_91 = en_sheet.get_image(305, 171, 305, 19)
+en_92 = en_sheet.get_image(610, 171, 305, 19)
+en_93 = en_sheet.get_image(915, 171, 305, 19)
+en_94 = en_sheet.get_image(1220, 171, 305, 19)
+en_95 = en_sheet.get_image(1525, 171, 305, 19)
+en_96 = en_sheet.get_image(1830, 171, 305, 19)
+en_97 = en_sheet.get_image(2135, 171, 305, 19)
+en_98 = en_sheet.get_image(2440, 171, 305, 19)
+en_99 = en_sheet.get_image(2745, 171, 305, 19)
+en_100 = en_sheet.get_image(0, 190, 305, 19)
+# energy bars ----------------------------------------------------------------------------------------------------------
+xp_sheet = SpriteSheet(resource_urls.xp_url)
+xp_0 = xp_sheet.get_image(0, 0, 305, 19)
+xp_1 = xp_sheet.get_image(305, 0, 305, 19)
+xp_2 = xp_sheet.get_image(610, 0, 305, 19)
+xp_3 = xp_sheet.get_image(915, 0, 305, 19)
+xp_4 = xp_sheet.get_image(1220, 0, 305, 19)
+xp_5 = xp_sheet.get_image(1525, 0, 305, 19)
+xp_6 = xp_sheet.get_image(1830, 0, 305, 19)
+xp_7 = xp_sheet.get_image(2135, 0, 305, 19)
+xp_8 = xp_sheet.get_image(2440, 0, 305, 19)
+xp_9 = xp_sheet.get_image(2745, 0, 305, 19)
+xp_10 = xp_sheet.get_image(0, 19, 305, 19)
+xp_11 = xp_sheet.get_image(305, 19, 305, 19)
+xp_12 = xp_sheet.get_image(610, 19, 305, 19)
+xp_13 = xp_sheet.get_image(915, 19, 305, 19)
+xp_14 = xp_sheet.get_image(1220, 19, 305, 19)
+xp_15 = xp_sheet.get_image(1525, 19, 305, 19)
+xp_16 = xp_sheet.get_image(1830, 19, 305, 19)
+xp_17 = xp_sheet.get_image(2135, 19, 305, 19)
+xp_18 = xp_sheet.get_image(2440, 19, 305, 19)
+xp_19 = xp_sheet.get_image(2745, 19, 305, 19)
+xp_20 = xp_sheet.get_image(0, 38, 305, 19)
+xp_21 = xp_sheet.get_image(305, 38, 305, 19)
+xp_22 = xp_sheet.get_image(610, 38, 305, 19)
+xp_23 = xp_sheet.get_image(915, 38, 305, 19)
+xp_24 = xp_sheet.get_image(1220, 38, 305, 19)
+xp_25 = xp_sheet.get_image(1525, 38, 305, 19)
+xp_26 = xp_sheet.get_image(1830, 38, 305, 19)
+xp_27 = xp_sheet.get_image(2135, 38, 305, 19)
+xp_28 = xp_sheet.get_image(2440, 38, 305, 19)
+xp_29 = xp_sheet.get_image(2745, 38, 305, 19)
+xp_30 = xp_sheet.get_image(0, 57, 305, 19)
+xp_31 = xp_sheet.get_image(305, 57, 305, 19)
+xp_32 = xp_sheet.get_image(610, 57, 305, 19)
+xp_33 = xp_sheet.get_image(915, 57, 305, 19)
+xp_34 = xp_sheet.get_image(1220, 57, 305, 19)
+xp_35 = xp_sheet.get_image(1525, 57, 305, 19)
+xp_36 = xp_sheet.get_image(1830, 57, 305, 19)
+xp_37 = xp_sheet.get_image(2135, 57, 305, 19)
+xp_38 = xp_sheet.get_image(2440, 57, 305, 19)
+xp_39 = xp_sheet.get_image(2745, 57, 305, 19)
+xp_40 = xp_sheet.get_image(0, 76, 305, 19)
+xp_41 = xp_sheet.get_image(305, 76, 305, 19)
+xp_42 = xp_sheet.get_image(610, 76, 305, 19)
+xp_43 = xp_sheet.get_image(915, 76, 305, 19)
+xp_44 = xp_sheet.get_image(1220, 76, 305, 19)
+xp_45 = xp_sheet.get_image(1525, 76, 305, 19)
+xp_46 = xp_sheet.get_image(1830, 76, 305, 19)
+xp_47 = xp_sheet.get_image(2135, 76, 305, 19)
+xp_48 = xp_sheet.get_image(2440, 76, 305, 19)
+xp_49 = xp_sheet.get_image(2745, 76, 305, 19)
+xp_50 = xp_sheet.get_image(0, 95, 305, 19)
+xp_51 = xp_sheet.get_image(305, 95, 305, 19)
+xp_52 = xp_sheet.get_image(610, 95, 305, 19)
+xp_53 = xp_sheet.get_image(915, 95, 305, 19)
+xp_54 = xp_sheet.get_image(1220, 95, 305, 19)
+xp_55 = xp_sheet.get_image(1525, 95, 305, 19)
+xp_56 = xp_sheet.get_image(1830, 95, 305, 19)
+xp_57 = xp_sheet.get_image(2135, 95, 305, 19)
+xp_58 = xp_sheet.get_image(2440, 95, 305, 19)
+xp_59 = xp_sheet.get_image(2745, 95, 305, 19)
+xp_60 = xp_sheet.get_image(0, 114, 305, 19)
+xp_61 = xp_sheet.get_image(305, 114, 305, 19)
+xp_62 = xp_sheet.get_image(610, 114, 305, 19)
+xp_63 = xp_sheet.get_image(915, 114, 305, 19)
+xp_64 = xp_sheet.get_image(1220, 114, 305, 19)
+xp_65 = xp_sheet.get_image(1525, 114, 305, 19)
+xp_66 = xp_sheet.get_image(1830, 114, 305, 19)
+xp_67 = xp_sheet.get_image(2135, 114, 305, 19)
+xp_68 = xp_sheet.get_image(2440, 114, 305, 19)
+xp_69 = xp_sheet.get_image(2745, 114, 305, 19)
+xp_70 = xp_sheet.get_image(0, 133, 305, 19)
+xp_71 = xp_sheet.get_image(305, 133, 305, 19)
+xp_72 = xp_sheet.get_image(610, 133, 305, 19)
+xp_73 = xp_sheet.get_image(915, 133, 305, 19)
+xp_74 = xp_sheet.get_image(1220, 133, 305, 19)
+xp_75 = xp_sheet.get_image(1525, 133, 305, 19)
+xp_76 = xp_sheet.get_image(1830, 133, 305, 19)
+xp_77 = xp_sheet.get_image(2135, 133, 305, 19)
+xp_78 = xp_sheet.get_image(2440, 133, 305, 19)
+xp_79 = xp_sheet.get_image(2745, 133, 305, 19)
+xp_80 = xp_sheet.get_image(0, 152, 305, 19)
+xp_81 = xp_sheet.get_image(305, 152, 305, 19)
+xp_82 = xp_sheet.get_image(610, 152, 305, 19)
+xp_83 = xp_sheet.get_image(915, 152, 305, 19)
+xp_84 = xp_sheet.get_image(1220, 152, 305, 19)
+xp_85 = xp_sheet.get_image(1525, 152, 305, 19)
+xp_86 = xp_sheet.get_image(1830, 152, 305, 19)
+xp_87 = xp_sheet.get_image(2135, 152, 305, 19)
+xp_88 = xp_sheet.get_image(2440, 152, 305, 19)
+xp_89 = xp_sheet.get_image(2745, 152, 305, 19)
+xp_90 = xp_sheet.get_image(0, 171, 305, 19)
+xp_91 = xp_sheet.get_image(305, 171, 305, 19)
+xp_92 = xp_sheet.get_image(610, 171, 305, 19)
+xp_93 = xp_sheet.get_image(915, 171, 305, 19)
+xp_94 = xp_sheet.get_image(1220, 171, 305, 19)
+xp_95 = xp_sheet.get_image(1525, 171, 305, 19)
+xp_96 = xp_sheet.get_image(1830, 171, 305, 19)
+xp_97 = xp_sheet.get_image(2135, 171, 305, 19)
+xp_98 = xp_sheet.get_image(2440, 171, 305, 19)
+xp_99 = xp_sheet.get_image(2745, 171, 305, 19)
+xp_100 = xp_sheet.get_image(0, 190, 305, 19)
+
 # creating objects from defined classes --------------------------------------------------------------------------------
 # display notifications to user (shown, x_coordinate, y_coordinate, image, color) --------------------------------------
-knowledge_academia = Notification("knowledge academia notification", False, 510, 365, resource_urls.knowledge_popup)
-rest_recover = Notification("rest recover", False, 510, 365, resource_urls.health_popup)
-shop_gear = Notification("shop gear", False, 510, 365, resource_urls.gear_popup)
+knowledge_academia = Notification("knowledge academia notification", False, 510, 365, knowledge_popup)
+rest_recover = Notification("rest recover", False, 510, 365, health_popup)
+shop_gear = Notification("shop gear", False, 510, 365, gear_popup)
 # inventory items ------------------------------------------------------------------------------------------------------
-health_potion = Item("health potion", "potion", 200, 200, resource_urls.health_pot)
-energy_potion = Item("energy potion", "potion", 200, 200, resource_urls.energy_pot)
-shiny_rock = Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock)
-bone_dust = Item("bone dust", "dust", 200, 200, resource_urls.bone_dust)
+health_potion = Item("health potion", "potion", 200, 200, health_pot_img)
+energy_potion = Item("energy potion", "potion", 200, 200, energy_pot_img)
+shiny_rock = Item("shiny rock", "rock", 200, 200, shiny_rock_img)
+bone_dust = Item("bone dust", "dust", 200, 200, bone_dust_img)
 # starter equipment ----------------------------------------------------------------------------------------------------
-basic_staff = Item("basic staff", "mage", 200, 200, resource_urls.basic_staff)
-basic_sword = Item("basic sword", "fighter", 200, 200, resource_urls.basic_sword)
-basic_bow = Item("basic bow", "scout", 200, 200, resource_urls.basic_bow)
-basic_robes = Item("basic robes", "mage", 200, 200, resource_urls.basic_robes)
-basic_armor = Item("basic armor", "fighter", 200, 200, resource_urls.basic_armor)
-basic_tunic = Item("basic tunic", "scout", 200, 200, resource_urls.basic_tunic)
+basic_staff = Item("basic staff", "mage", 200, 200, basic_staff_img)
+basic_sword = Item("basic sword", "fighter", 200, 200, basic_sword_img)
+basic_bow = Item("basic bow", "scout", 200, 200, basic_bow_img)
+basic_robes = Item("basic robes", "mage", 200, 200, basic_robes_img)
+basic_armor = Item("basic armor", "fighter", 200, 200, basic_armor_img)
+basic_tunic = Item("basic tunic", "scout", 200, 200, basic_tunic_img)
 
 # default player character ---------------------------------------------------------------------------------------------
 player = Player("stan", "male", "amuna", "",  # name, gender, race, role
@@ -1366,51 +2421,51 @@ player = Player("stan", "male", "amuna", "",  # name, gender, race, role
 # nps: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate --------------------------
 #                  alive_status, quest_complete, items, gift, image, color
 npc_garan = NPC("garan", "male", "amuna", "rogue", "It's dangerous to go alone.", "Stupid Snakes", "", 210, 430,
-                True, False, ["Items"], False, resource_urls.garan_down)
+                True, False, ["Items"], False, garan_down)
 npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs", "", 760, 520,
-                   True, False, ["Items"], False, resource_urls.maurelle_down)
+                   True, False, ["Items"], False, maurelle_down)
 npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee", "", 460, 120,
-                True, False, ["Items"], False, resource_urls.guard_down)
+                True, False, ["Items"], False, guard_down)
 
 npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
-                               Item("health potion", "potion", 200, 200, resource_urls.health_pot),
-                               Item("energy potion", "potion", 200, 200, resource_urls.energy_pot),
-                               Item("basic staff", "mage", 200, 200, resource_urls.basic_staff),
-                               Item("basic sword", "fighter", 200, 200, resource_urls.basic_sword),
-                               Item("basic bow", "scout", 200, 200, resource_urls.basic_bow),
-                               Item("basic robes", "mage", 200, 200, resource_urls.basic_robes),
-                               Item("basic armor", "fighter", 200, 200, resource_urls.basic_armor),
-                               Item("basic tunic", "scout", 200, 200, resource_urls.basic_tunic)])
+    Item("health potion", "potion", 200, 200, health_pot_img),
+    Item("energy potion", "potion", 200, 200, energy_pot_img),
+    Item("basic staff", "mage", 200, 200, basic_staff_img),
+    Item("basic sword", "fighter", 200, 200, basic_sword_img),
+    Item("basic bow", "scout", 200, 200, basic_bow_img),
+    Item("basic robes", "mage", 200, 200, basic_robes_img),
+    Item("basic armor", "fighter", 200, 200, basic_armor_img),
+    Item("basic tunic", "scout", 200, 200, basic_tunic_img)])
 
-npc_garan_interaction = UiElement("garan interaction", 650, 350, resource_urls.garan_interaction, False)
-npc_maurelle_interaction = UiElement("maurelle interaction", 650, 350, resource_urls.maurelle_interaction, False)
-npc_guard_interaction = UiElement("guard interaction", 650, 350, resource_urls.guard_interaction, False)
+npc_garan_interaction = UiElement("garan interaction", 650, 350, garan_interaction, False)
+npc_maurelle_interaction = UiElement("maurelle interaction", 650, 350, maurelle_interaction, False)
+npc_guard_interaction = UiElement("guard interaction", 650, 350, guard_interaction, False)
 # ----------------------------------------------------------------------------------------------------------------------
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar ------
 snake_1 = Enemy("snake", "snake", 100, 100, 1, 80, 130, True,
-                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock), resource_urls.snake,
-                UiElement("snake hp bar", 700, 90, resource_urls.hp_100, False))
+                Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
+                UiElement("snake hp bar", 700, 90, hp_100, False))
 snake_2 = Enemy("snake", "snake", 100, 100, 2, 285, 150, True,
-                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock), resource_urls.snake,
-                UiElement("snake hp bar", 700, 90, resource_urls.hp_100, False))
+                Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
+                UiElement("snake hp bar", 700, 90, hp_100, False))
 snake_3 = Enemy("snake", "snake", 100, 100, 1, 80, 230, True,
-                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock), resource_urls.snake,
-                UiElement("snake hp bar", 700, 90, resource_urls.hp_100, False))
+                Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
+                UiElement("snake hp bar", 700, 90, hp_100, False))
 snake_4 = Enemy("snake", "snake", 100, 100, 2, 285, 250, True,
-                Item("shiny rock", "rock", 200, 200, resource_urls.shiny_rock), resource_urls.snake,
-                UiElement("snake hp bar", 700, 90, resource_urls.hp_100, False))
+                Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
+                UiElement("snake hp bar", 700, 90, hp_100, False))
 ghoul_low_1 = Enemy("ghoul", "ghoul", 100, 100, 4, 665, 180, True,
-                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust), resource_urls.ghoul,
-                    UiElement("ghoul hp bar", 700, 90, resource_urls.hp_100, False))
+                    Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
+                    UiElement("ghoul hp bar", 700, 90, hp_100, False))
 ghoul_low_2 = Enemy("ghoul", "ghoul", 100, 100, 5, 800, 130, True,
-                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust), resource_urls.ghoul,
-                    UiElement("ghoul hp bar", 700, 90, resource_urls.hp_100, False))
+                    Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
+                    UiElement("ghoul hp bar", 700, 90, hp_100, False))
 ghoul_low_3 = Enemy("ghoul", "ghoul", 100, 100, 3, 760, 240, True,
-                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust), resource_urls.ghoul,
-                    UiElement("ghoul hp bar", 700, 90, resource_urls.hp_100, False))
+                    Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
+                    UiElement("ghoul hp bar", 700, 90, hp_100, False))
 ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 890, 205, True,
-                    Item("bone dust", "dust", 200, 200, resource_urls.bone_dust), resource_urls.ghoul,
-                    UiElement("ghoul hp bar", 700, 90, resource_urls.hp_100, False))
+                    Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
+                    UiElement("ghoul hp bar", 700, 90, hp_100, False))
 
 # environmental objects: name, model, x_coordinate, y_coordinate, gathered, image, color -------------------------------
 pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, pygame.image.load(resource_urls.pine_tree).convert_alpha())
@@ -1429,23 +2484,20 @@ seldon_flower_2 = Item("flower", "seldon flower", 705, 600,
 seldon_flower_3 = Item("flower", "seldon flower", 800, 440,
                        pygame.image.load(resource_urls.seldon_flower).convert_alpha())
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
-seldon_inn = Building("inn", "seldon inn", 635, 600, resource_urls.amuna_inn_building)
-seldon_shop = Building("shop", "seldon shop", 665, 400, resource_urls.amuna_shop_building)
-seldon_academia = Building("academia", "seldon academia", 875, 440, resource_urls.amuna_academia_building)
+seldon_inn = Building("inn", "seldon inn", 635, 600, amuna_inn_building)
+seldon_shop = Building("shop", "seldon shop", 665, 400, amuna_shop_building)
+seldon_academia = Building("academia", "seldon academia", 875, 440, amuna_academia_building)
 rohir_gate = UiElement("rohir gate", 525, 40, pygame.image.load(resource_urls.rohir_gate).convert_alpha(), False)
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
-character_button = UiElement("character button", 860, 680, resource_urls.character_button, False)
-journal_button = UiElement("journal button", 970, 680, resource_urls.journal_button, False)
+character_button = UiElement("character button", 860, 680, character_button_img, False)
+journal_button = UiElement("journal button", 970, 680, journal_button_img, False)
 # start screen elements: -----------------------------------------------------------------------------------------------
-start_button = UiElement("start button", 450, 210, pygame.image.load(resource_urls.start_button), False)
-s1024_x_576_button = UiElement("s1024x576 button", 640, 402, resource_urls.s1024_button, False)
-s1280_x_720_button = UiElement("s1280x720 button", 640, 472, resource_urls.s1280_button, False)
-s1600_x_900_button = UiElement("s1600x900 button", 640, 542, resource_urls.s1600_button, False)
+start_button = UiElement("start button", 640, 274, pygame.image.load(resource_urls.start_button), False)
 # ----------------------------------------------------------------------------------------------------------------------
 continue_button = UiElement("continue button", 625, 575, pygame.image.load(resource_urls.continue_button), False)
-buy_button = UiElement("buy button", 860, 680, resource_urls.buy_button, False)
-leave_button = UiElement("leave button", 970, 680, resource_urls.leave_button, False)
-rest_button = UiElement("rest button", 860, 680, resource_urls.rest_button, False)
+buy_button = UiElement("buy button", 860, 680, buy_button_img, False)
+leave_button = UiElement("leave button", 970, 680, leave_button_img, False)
+rest_button = UiElement("rest button", 860, 680, rest_button_img, False)
 mage_learn_button = UiElement("mage learn button", 650, 250, pygame.image.load(resource_urls.learn_button), False)
 fighter_learn_button = UiElement("fighter learn button", 420, 330, pygame.image.load(resource_urls.learn_button), False)
 scout_learn_button = UiElement("scout learn button", 560, 410, pygame.image.load(resource_urls.learn_button), False)
@@ -1457,30 +2509,30 @@ sharp_sense_learn_button = UiElement("sharp sense learn button", 505, 300,
                                      pygame.image.load(resource_urls.skill_learn_button), False)
 hearth_button = UiElement("hearth button", 970, 25, pygame.image.load(resource_urls.hearth_button), False)
 close_button = UiElement("close button", 975, 135, pygame.image.load(resource_urls.close_button), False)
-quest_button = UiElement("quest button", 860, 680, resource_urls.quest_button, False)
-accept_button = UiElement("accept button", 340, 670, resource_urls.accept_button, False)
-decline_button = UiElement("decline button", 450, 670, resource_urls.decline_button, False)
+quest_button = UiElement("quest button", 860, 680, quest_button_img, False)
+accept_button = UiElement("accept button", 340, 670, accept_button_img, False)
+decline_button = UiElement("decline button", 450, 670, decline_button_img, False)
 # ----------------------------------------------------------------------------------------------------------------------
 skill_bar = UiElement("skill bar", 855, 615, pygame.image.load(resource_urls.skill_bar), False)
-no_role_attack_button = UiElement("no role attack button", 750, 627, resource_urls.no_role_attack_button, False)
-mage_attack_button = UiElement("mage attack button", 750, 627, resource_urls.mage_attack_button, False)
-fighter_attack_button = UiElement("fighter attack button", 750, 627, resource_urls.fighter_attack_button, False)
-scout_attack_button = UiElement("scout attack button", 750, 627, resource_urls.scout_attack_button, False)
-barrier_button = UiElement("barrier button", 820, 627, resource_urls.barrier_button, False)
-hard_strike_button = UiElement("hard strike button", 820, 627, resource_urls.strike_button, False)
-sharp_sense_button = UiElement("sharp sense button", 820, 627, resource_urls.sense_button, False)
+no_role_attack_button = UiElement("no role attack button", 750, 627, no_role_attack_button_img, False)
+mage_attack_button = UiElement("mage attack button", 750, 627, mage_attack_button_img, False)
+fighter_attack_button = UiElement("fighter attack button", 750, 627, fighter_attack_button_img, False)
+scout_attack_button = UiElement("scout attack button", 750, 627, scout_attack_button_img, False)
+barrier_button = UiElement("barrier button", 820, 627, barrier_button_img, False)
+hard_strike_button = UiElement("hard strike button", 820, 627, strike_button_img, False)
+sharp_sense_button = UiElement("sharp sense button", 820, 627, sense_button_img, False)
 # ----------------------------------------------------------------------------------------------------------------------
 enemy_status = UiElement("enemy status", 855, 680, pygame.image.load(resource_urls.enemy_status), False)
-hp_bar = UiElement("health bar", 170, 25, resource_urls.hp_100, False)
-en_bar = UiElement("energy bar", 170, 45, resource_urls.en_100, False)
-xp_bar = UiElement("xp bar", 170, 65, resource_urls.xp_100, False)
+hp_bar = UiElement("health bar", 170, 25, hp_100, False)
+en_bar = UiElement("energy bar", 170, 45, en_100, False)
+xp_bar = UiElement("xp bar", 170, 65, xp_100, False)
 inventory = Inventory("inventory", [], 890, 515, pygame.image.load(resource_urls.inventory), False)
-journal = UiElement("journal", 770, 380, resource_urls.journal_window, False)
+journal = UiElement("journal", 770, 380, journal_window_img, False)
 level_up_win = UiElement("level up window", 520, 375, pygame.image.load(resource_urls.level_up), False)
-character_sheet = UiElement("character sheet", 770, 380, resource_urls.character_window, False)
-mage_book = UiElement("mage book", 670, 375, resource_urls.mage_book, False)
-fighter_book = UiElement("fighter book", 670, 375, resource_urls.fighter_book, False)
-scout_book = UiElement("scout book", 670, 375, resource_urls.scout_book, False)
+character_sheet = UiElement("character sheet", 770, 380, character_window_img, False)
+mage_book = UiElement("mage book", 670, 375, mage_book_img, False)
+fighter_book = UiElement("fighter book", 670, 375, fighter_book_img, False)
+scout_book = UiElement("scout book", 670, 375, scout_book_img, False)
 quest_logs_1 = Item("quest logs", "quest", 60, 540, pygame.image.load(resource_urls.quest_logs))
 quest_logs_2 = Item("quest logs", "quest", 315, 560, pygame.image.load(resource_urls.quest_logs))
 quest_logs_3 = Item("quest logs", "quest", 415, 435, pygame.image.load(resource_urls.quest_logs))
@@ -1489,21 +2541,21 @@ npc_name_plate = UiElement("npc name plate", 640, 192, pygame.image.load(resourc
 # instance windows -----------------------------------------------------------------------------------------------------
 buy_inventory = Inventory("buy inventory", [], 900, 500, pygame.image.load(resource_urls.buy_inventory), False)
 knowledge_window = UiElement("knowledge window", 635, 680, pygame.image.load(resource_urls.knowledge_window), False)
-garan_quest_window = UiElement("garan quest window", 262, 442, resource_urls.garan_quest, False)
-maurelle_quest_window = UiElement("maurelle quest window", 262, 442, resource_urls.maurelle_quest, False)
-guard_quest_window = UiElement("guard quest window", 262, 442, resource_urls.guard_quest, False)
+garan_quest_window = UiElement("garan quest window", 262, 442, garan_quest, False)
+maurelle_quest_window = UiElement("maurelle quest window", 262, 442, maurelle_quest, False)
+guard_quest_window = UiElement("guard quest window", 262, 442, guard_quest, False)
 # ----------------------------------------------------------------------------------------------------------------------
 message_box = UiElement("message box", 173, 650, pygame.image.load(resource_urls.message_box), False)
 status_bar_backdrop = UiElement("bar backdrop", 165, 45, pygame.image.load(resource_urls.bar_backdrop), False)
 enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 695, 90,
                                       pygame.image.load(resource_urls.enemy_bar_backdrop), False)
-quest_star_garan = UiElement("quest star garan", 210, 390, resource_urls.quest_start_star, False)
-quest_star_maurelle = UiElement("quest star maurelle", 760, 480, resource_urls.quest_start_star, False)
-quest_star_guard = UiElement("quest star guard", 462, 80, resource_urls.quest_start_star, False)
+quest_star_garan = UiElement("quest star garan", 210, 390, quest_start_star, False)
+quest_star_maurelle = UiElement("quest star maurelle", 760, 480, quest_start_star, False)
+quest_star_guard = UiElement("quest star guard", 462, 80, quest_start_star, False)
 # battle sprites -------------------------------------------------------------------------------------------------------
-player_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.player_no_role_battle)
-snake_battle_sprite = BattleCharacter("snake battle", 715, 250, resource_urls.snake_battle)
-ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, resource_urls.ghoul_battle)
+player_battle_sprite = BattleCharacter("stan battle", 320, 460, player_no_role_battle)
+snake_battle_sprite = BattleCharacter("snake battle", 715, 250, snake_battle)
+ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, ghoul_battle)
 
 # setting font and size for text to screen updates ---------------------------------------------------------------------
 font = pygame.font.SysFont('freesansbold.ttf', 16, bold=True, italic=False)
@@ -1541,7 +2593,7 @@ user_interface.add(rest_button, buy_button, leave_button, character_button, jour
 conditional_interface.add(buy_inventory, character_sheet, journal, level_up_win, mage_book, fighter_book, scout_book,
                           mage_learn_button, fighter_learn_button, scout_learn_button, barrier_learn_button,
                           hard_strike_learn_button, sharp_sense_learn_button, close_button)
-start_screen_sprites.add(s1024_x_576_button, s1280_x_720_button, s1600_x_900_button, start_button)
+start_screen_sprites.add(start_button)
 game_over_screen_sprites.add(continue_button)
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
@@ -1553,13 +2605,7 @@ battle_elements.add(player_battle_sprite, snake_battle_sprite, ghoul_battle_spri
                     sharp_sense_button)
 # adding most sprites to this group for drawing and related functions
 most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items, enemies)
-# adding these sprites to a scaling sprite group which is used to reference sprites that should be scaled
-scaling_sprites.add(most_sprites, user_interface, enemies, battle_elements, conditional_interface, start_screen_sprites,
-                    game_over_screen_sprites, knowledge_window, npc_garan_interaction,
-                    npc_maurelle_interaction, npc_guard_interaction, quest_button, npc_name_plate,
-                    no_role_attack_button, garan_quest_window, maurelle_quest_window, guard_quest_window,
-                    accept_button, decline_button, close_button, quest_star_garan, quest_star_maurelle,
-                    quest_star_guard, knowledge_academia, rest_recover, shop_gear, rohir_gate)
+
 # code related to sound effects that will be used later ----------------------------------------------------------------
 # pygame.mixer.music.load("Electric_1.mp3")
 # pygame.mixer.music.play(loops=-1)
@@ -1661,7 +2707,6 @@ shop_window_clicked = False
 # string to store players current direction on key press for correctly displaying orientation on sprite update
 # when changing gear/role etc.
 current_direction = ""
-
 # list to contain current player items for display
 player_items = []
 # list to contain current player equipment for display
@@ -1711,7 +2756,7 @@ battle_info_to_return_to_main_loop = {"experience": 0, "item dropped": "", "leve
 while game_running:
     if not start_chosen:
         screen.blit(start_screen, (0, 0))
-        screen.blit(start_button.surf, (start_button.x_coordinate, start_button.y_coordinate))
+        screen.blit(start_button.surf, start_button.rect)
 
         # ---------------------------------------------------------------------------------------------------------------
         # user input events such as key presses or UI interaction
@@ -1824,68 +2869,26 @@ while game_running:
                     if shop_gear_show:
                         if shop_window_clicked:
                             shop_gear_window.clear()
+
                     # --------------------------------------------------------------------------------------------------
-
-                    # quest star updates for quest progress, orange if not started, silver if started, gold if complete
-                    if scaled_1024:
-                        if not player.quest_complete["sneaky snakes"]:
-                            screen.blit(quest_star_garan.surf, quest_star_garan.rect)
-                        if player.quest_progress["sneaky snakes"] == 4:
-                            quest_star_garan.update(210 * .80, 390 * .80, resource_urls.quest_complete_star_url_1024)
-                        if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
-                            quest_star_garan.update(210 * .80, 390 * .80, resource_urls.quest_progress_star_url_1024)
-                        if not player.quest_complete["village repairs"]:
-                            screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
-                        if player.quest_progress["village repairs"] == 4:
-                            quest_star_maurelle.update(760 * .80, 480 * .80, resource_urls.quest_complete_star_url_1024)
-                        if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
-                            quest_star_maurelle.update(760 * .80, 480 * .80, resource_urls.quest_progress_star_url_1024)
-                        if not player.quest_complete["ghouled again"]:
-                            screen.blit(quest_star_guard.surf, quest_star_guard.rect)
-                        if player.quest_progress["ghouled again"] == 4:
-                            quest_star_guard.update(462 * .80, 80 * .80, resource_urls.quest_complete_star_url_1024)
-                        if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
-                            quest_star_guard.update(462 * .80, 80 * .80, resource_urls.quest_progress_star_url_1024)
-
-                    if scaled_1280:
-                        if not player.quest_complete["sneaky snakes"]:
-                            screen.blit(quest_star_garan.surf, quest_star_garan.rect)
-                        if player.quest_progress["sneaky snakes"] == 4:
-                            quest_star_garan.update(210, 390, resource_urls.quest_complete_star_url)
-                        if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
-                            quest_star_garan.update(210, 390, resource_urls.quest_progress_star_url)
-                        if not player.quest_complete["village repairs"]:
-                            screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
-                        if player.quest_progress["village repairs"] == 4:
-                            quest_star_maurelle.update(760, 480, resource_urls.quest_complete_star_url)
-                        if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
-                            quest_star_maurelle.update(760, 480, resource_urls.quest_progress_star_url)
-                        if not player.quest_complete["ghouled again"]:
-                            screen.blit(quest_star_guard.surf, quest_star_guard.rect)
-                        if player.quest_progress["ghouled again"] == 4:
-                            quest_star_guard.update(462, 80, resource_urls.quest_complete_star_url)
-                        if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
-                            quest_star_guard.update(462, 80, resource_urls.quest_progress_star_url)
-
-                    if scaled_1600:
-                        if not player.quest_complete["sneaky snakes"]:
-                            screen.blit(quest_star_garan.surf, quest_star_garan.rect)
-                        if player.quest_progress["sneaky snakes"] == 4:
-                            quest_star_garan.update(210, 390, resource_urls.quest_complete_star_url_1600)
-                        if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
-                            quest_star_garan.update(210, 390, resource_urls.quest_progress_star_url_1600)
-                        if not player.quest_complete["village repairs"]:
-                            screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
-                        if player.quest_progress["village repairs"] == 4:
-                            quest_star_maurelle.update(760, 480, resource_urls.quest_complete_star_url_1600)
-                        if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
-                            quest_star_maurelle.update(760, 480, resource_urls.quest_progress_star_url_1600)
-                        if not player.quest_complete["ghouled again"]:
-                            screen.blit(quest_star_guard.surf, quest_star_guard.rect)
-                        if player.quest_progress["ghouled again"] == 4:
-                            quest_star_guard.update(462, 80, resource_urls.quest_complete_star_url_1600)
-                        if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
-                            quest_star_guard.update(462, 80, resource_urls.quest_progress_star_url_1600)
+                    if not player.quest_complete["sneaky snakes"]:
+                        screen.blit(quest_star_garan.surf, quest_star_garan.rect)
+                    if player.quest_progress["sneaky snakes"] == 4:
+                        quest_star_garan.update(210, 390, quest_complete_star)
+                    if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
+                        quest_star_garan.update(210, 390, quest_progress_star)
+                    if not player.quest_complete["village repairs"]:
+                        screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
+                    if player.quest_progress["village repairs"] == 4:
+                        quest_star_maurelle.update(760, 480, quest_complete_star)
+                    if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
+                        quest_star_maurelle.update(760, 480, quest_progress_star)
+                    if not player.quest_complete["ghouled again"]:
+                        screen.blit(quest_star_guard.surf, quest_star_guard.rect)
+                    if player.quest_progress["ghouled again"] == 4:
+                        quest_star_guard.update(462, 80, quest_complete_star)
+                    if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
+                        quest_star_guard.update(462, 80, quest_progress_star)
                     # --------------------------------------------------------------------------------------------------
 
                     # draw player
@@ -1894,23 +2897,13 @@ while game_running:
                     # handles drawing most text based elements to the screen, such as level, rupees, etc
                     drawing_functions.draw_it(screen)
 
-                    # corrects position of player status bars and backdrop if scaled to 1600x900 resolution
-                    if scaled_1600:
-                        status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
-                            center=(status_bar_backdrop.x_coordinate / .80, status_bar_backdrop.y_coordinate / .80))
-                        hp_bar.rect = hp_bar.surf.get_rect(
-                            center=(hp_bar.x_coordinate / .80 - 1, hp_bar.y_coordinate / .80 + 5))
-                        en_bar.rect = en_bar.surf.get_rect(
-                            center=(en_bar.x_coordinate / .80 - 1, en_bar.y_coordinate / .80))
-                        xp_bar.rect = xp_bar.surf.get_rect(
-                            center=(xp_bar.x_coordinate / .80 - 1, xp_bar.y_coordinate / .80 - 5))
                     screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                     screen.blit(hp_bar.surf, hp_bar.rect)
                     screen.blit(en_bar.surf, en_bar.rect)
                     screen.blit(xp_bar.surf, xp_bar.rect)
 
                     # draw texts to the screen, like message box, player rupees and level
-                    drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600, screen, player, font,
+                    drawing_functions.text_info_draw(False, True, False, screen, player, font,
                                                      info_text_1, info_text_2, info_text_3, info_text_4)
                     # update players current inventory and status
                     status_and_inventory_updates()
@@ -1946,40 +2939,33 @@ while game_running:
                         if event.type == pygame.MOUSEBUTTONUP:
                             pos = pygame.mouse.get_pos()
                             if hearth_button.rect.collidepoint(pos):
-                                if scaled_1024:
-                                    player.pos = vec((850 * .80, 650 * .80))
-                                if scaled_1280:
-                                    player.pos = vec((850, 650))
-                                if scaled_1600:
-                                    player.pos = vec((850 / .80, 650 / .80))
+                                player.pos = vec((850, 650))
 
                             # if character button is clicked, call draw function and show elements. second click hides
                             if character_button.rect.collidepoint(pos):
                                 if character_button_clicked:
-                                    drawing_functions.character_sheet_info_draw(character_sheet, scaled_1024,
-                                                                                scaled_1280, scaled_1600,
+                                    drawing_functions.character_sheet_info_draw(character_sheet, False, True, False,
                                                                                 player, font, False)
                                     character_button_clicked = False
                                 else:
-                                    drawing_functions.character_sheet_info_draw(character_sheet, scaled_1024,
-                                                                                scaled_1280, scaled_1600,
+                                    drawing_functions.character_sheet_info_draw(character_sheet, False, True, False,
                                                                                 player, font, True)
                                     character_button_clicked = True
 
                             # if journal button is clicked, call draw function and show elements. second click hides
                             if journal_button.rect.collidepoint(pos):
                                 if journal_button_clicked:
-                                    drawing_functions.journal_info_draw(journal, scaled_1024, scaled_1280, scaled_1600,
+                                    drawing_functions.journal_info_draw(journal, False, True, False,
                                                                         player, font, False)
                                     journal_button_clicked = False
                                 else:
-                                    drawing_functions.journal_info_draw(journal, scaled_1024, scaled_1280, scaled_1600,
+                                    drawing_functions.journal_info_draw(journal, False, True, False,
                                                                         player, font, True)
                                     journal_button_clicked = True
 
                             # when player levels up, this lets them click to dismiss the window pop-up
                             if level_up_win.rect.collidepoint(pos):
-                                drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280, scaled_1600,
+                                drawing_functions.level_up_draw(level_up_win, False, True, False,
                                                                 player, font, False)
 
                             if knowledge_academia.rect.collidepoint(pos) and knowledge_academia_show:
@@ -2034,59 +3020,22 @@ while game_running:
                             info_text_1 = f"Press 'F' key to attack {enemy.name}."
                             info_text_2 = f"{enemy.name} level: {enemy.level}"
                             if interacted:
-                                # update battle sprite before battle starts so there's no visual glitch trying to update
-                                # it based on a change role within the first battle loop iteration
-                                if scaled_1024:
-                                    if player.role == "mage":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1024_mage)
-                                    if player.role == "fighter":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1024_fighter)
-                                    if player.role == "scout":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1024_scout)
-                                    if player.role == "":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1024)
-                                if scaled_1280:
-                                    if player.role == "mage":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_mage)
-                                    if player.role == "fighter":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_fighter)
-                                    if player.role == "scout":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_scout)
-                                    if player.role == "":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url)
-                                if scaled_1600:
-                                    if player.role == "mage":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1600_mage)
-                                    if player.role == "fighter":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1600_fighter)
-                                    if player.role == "scout":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1600_scout)
-                                    if player.role == "":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1600)
+                                if player.role == "mage":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                resource_urls.player_mage_battle)
+                                if player.role == "fighter":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                resource_urls.player_fighter_battle)
+                                if player.role == "scout":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                resource_urls.player_scout_battle)
+                                if player.role == "":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                resource_urls.player_no_role_battle)
                                 in_district_over_world = False
                                 in_battle = True
 
@@ -2113,62 +3062,24 @@ while game_running:
                         # and chooses to interact with it then get event from button press and start combat encounter
                         npc = pygame.sprite.spritecollideany(player, npcs)
                         if npc:
-                            # lets player know if they are in range of enemy they can press f to attack it
                             info_text_1 = f"Press 'F' key to talk to {npc.name}."
                             if interacted:
-                                # update battle sprite before battle starts so there's no visual glitch trying to update
-                                # it based on a change role within the first battle loop iteration
-                                if scaled_1024:
-                                    if player.role == "mage":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1024_mage)
-                                    if player.role == "fighter":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1024_fighter)
-                                    if player.role == "scout":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1024_scout)
-                                    if player.role == "":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1024)
-                                if scaled_1280:
-                                    if player.role == "mage":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_mage)
-                                    if player.role == "fighter":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_fighter)
-                                    if player.role == "scout":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_scout)
-                                    if player.role == "":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url)
-                                if scaled_1600:
-                                    if player.role == "mage":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1600_mage)
-                                    if player.role == "fighter":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1600_fighter)
-                                    if player.role == "scout":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1600_scout)
-                                    if player.role == "":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    resource_urls.stan_battle_url_1600)
+                                if player.role == "mage":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_mage_battle)
+                                if player.role == "fighter":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_fighter_battle)
+                                if player.role == "scout":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_scout_battle)
+                                if player.role == "":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_no_role_battle)
                                 in_district_over_world = False
                                 in_npc_interaction = True
 
@@ -2227,24 +3138,6 @@ while game_running:
                         if movement_able:
                             player.update(pressed_keys, "marrow")
 
-                    # if greeting message has not been shown yet, add it to display elements to be drawn
-                    if not greeting.shown:
-                        display_elements.append(greeting)
-                        greeting.shown = True
-                    # get time elapsed since player started game
-                    toc = time.perf_counter()
-
-                    # if greeting has been shown, and time has elapsed, hide greeting window from screen
-                    if greeting.shown:
-                        # if time elapsed has been greater than 5 seconds, hide the greeting window
-                        if toc - tic > 2.5:
-                            for notification in display_elements:
-                                try:
-                                    if notification.name == "greeting":
-                                        display_elements.remove(notification)
-                                except AttributeError:
-                                    pass
-
                     # enemy movement updates ---------------------------------------------------------------------------
                     # choose random directions and random enemy to move that direction ---------------------------------
                     direction_horizontal = random.choice(["left", "right"])
@@ -2254,21 +3147,10 @@ while game_running:
                     # move snakes in random direction within boundaries
                     if movement_able:
                         if pygame.time.get_ticks() % 20 == 0:
-                            if scaled_1024:
-                                move_this_snake.update_position([30 * .80, 400 * .80], [150 * .80, 350 * .80],
-                                                                direction_horizontal, direction_vertical)
-                                move_this_ghoul.update_position([650 * .80, 920 * .80], [150 * .80, 350 * .80],
-                                                                direction_horizontal, direction_vertical)
-                            if scaled_1280:
-                                move_this_snake.update_position([30, 400], [150, 350],
-                                                                direction_horizontal, direction_vertical)
-                                move_this_ghoul.update_position([650, 920], [150, 350],
-                                                                direction_horizontal, direction_vertical)
-                            if scaled_1600:
-                                move_this_snake.update_position([30 / .80, 400 / .80], [150 / .80, 350 / .80],
-                                                                direction_horizontal, direction_vertical)
-                                move_this_ghoul.update_position([650 / .80, 920 / .80], [150 / .80, 350 / .80],
-                                                                direction_horizontal, direction_vertical)
+                            move_this_snake.update_position([30, 400], [150, 350],
+                                                            direction_horizontal, direction_vertical)
+                            move_this_ghoul.update_position([650, 920], [150, 350],
+                                                            direction_horizontal, direction_vertical)
 
                     # npc movement updates -----------------------------------------------------------------------------
                     # choose random facing direction and random npc to move face that direction ------------------------
@@ -2276,93 +3158,33 @@ while game_running:
                     face_this_npc = random.choice(npcs.sprites())
                     if pygame.time.get_ticks() % 180 == 0:
                         if face_direction == "front":
-                            if scaled_1024:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_url_1024)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_url_1024)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_url_1024)
-                            if scaled_1280:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_url)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_url)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_url)
-                            if scaled_1600:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_url_1600)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_url_1600)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_url_1600)
+                            if face_this_npc.name == "garan":
+                                npc_garan.update(garan_down)
+                            if face_this_npc.name == "maurelle":
+                                npc_maurelle.update(maurelle_down)
+                            if face_this_npc.name == "guard":
+                                npc_guard.update(guard_down)
                         if face_direction == "back":
-                            if scaled_1024:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_back_url_1024)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_back_url_1024)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_back_url_1024)
-                            if scaled_1280:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_back_url)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_back_url)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_back_url)
-                            if scaled_1600:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_back_url_1600)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_back_url_1600)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_back_url_1600)
+                            if face_this_npc.name == "garan":
+                                npc_garan.update(garan_up)
+                            if face_this_npc.name == "maurelle":
+                                npc_maurelle.update(maurelle_up)
+                            if face_this_npc.name == "guard":
+                                npc_guard.update(guard_up)
                         if face_direction == "left":
-                            if scaled_1024:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_left_url_1024)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_left_url_1024)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_left_url_1024)
-                            if scaled_1280:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_left_url)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_left_url)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_left_url)
-                            if scaled_1600:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_left_url_1600)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_left_url_1600)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_left_url_1600)
+                            if face_this_npc.name == "garan":
+                                npc_garan.update(garan_left)
+                            if face_this_npc.name == "maurelle":
+                                npc_maurelle.update(maurelle_left)
+                            if face_this_npc.name == "guard":
+                                npc_guard.update(guard_left)
                         if face_direction == "right":
-                            if scaled_1024:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_right_url_1024)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_right_url_1024)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_right_url_1024)
-                            if scaled_1280:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_right_url)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_right_url)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_right_url)
-                            if scaled_1600:
-                                if face_this_npc.name == "garan":
-                                    npc_garan.update(resource_urls.garan_right_url_1600)
-                                if face_this_npc.name == "maurelle":
-                                    npc_maurelle.update(resource_urls.maurelle_right_url_1600)
-                                if face_this_npc.name == "guard":
-                                    npc_guard.update(resource_urls.guard_right_url_1600)
+                            if face_this_npc.name == "garan":
+                                npc_garan.update(garan_right)
+                            if face_this_npc.name == "maurelle":
+                                npc_maurelle.update(maurelle_right)
+                            if face_this_npc.name == "guard":
+                                npc_guard.update(guard_right)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -2439,123 +3261,42 @@ while game_running:
                                     # enter combat scenario and attack enemy. attack_scenario will return all info in
                                     # form of list
                                     if combat_button == "attack":
-                                        if scaled_1024:
-                                            # update player character sprite for combat animation
-                                            if player.role == "mage":
-                                                if barrier_active:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls. \
-                                                                                stan_attack_url_mage_barrier_1024)
-                                                else:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls.stan_attack_url_1024_mage)
-                                            if player.role == "fighter":
+                                        # update player character sprite for combat animation
+                                        if player.role == "mage":
+                                            if barrier_active:
                                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                             player_battle_sprite.y_coordinate,
-                                                                            resource_urls.stan_attack_url_1024_fighter)
-                                            if player.role == "scout":
-                                                if sharp_sense_active:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls. \
-                                                                                stan_attack_url_scout_sharp_sense_1024)
-                                                else:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls.stan_attack_url_1024_scout)
-                                            if player.role == "":
+                                                                            resource_urls.player_mage_barrier_attack)
+                                            else:
                                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                             player_battle_sprite.y_coordinate,
-                                                                            resource_urls.stan_attack_url_1024)
-                                            # update to attacking sprite surface for combat animation
-                                            if enemy.kind == "snake":
-                                                snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                                           snake_battle_sprite.y_coordinate,
-                                                                           resource_urls.snake_attack_url_1024)
-                                            if enemy.kind == "ghoul":
-                                                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                                           ghoul_battle_sprite.y_coordinate,
-                                                                           resource_urls.ghoul_attack_url_1024)
-                                        if scaled_1280:
-                                            # update player character sprite for combat animation
-                                            if player.role == "mage":
-                                                if barrier_active:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls. \
-                                                                                stan_attack_url_mage_barrier)
-                                                else:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls.stan_attack_url_mage)
-                                            if player.role == "fighter":
+                                                                            resource_urls.player_mage_attack)
+                                        if player.role == "fighter":
+                                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                        player_battle_sprite.y_coordinate,
+                                                                        resource_urls.player_fighter_attack)
+                                        if player.role == "scout":
+                                            if sharp_sense_active:
                                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                             player_battle_sprite.y_coordinate,
-                                                                            resource_urls.stan_attack_url_fighter)
-                                            if player.role == "scout":
-                                                if sharp_sense_active:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls. \
-                                                                                stan_attack_url_scout_sharp_sense)
-                                                else:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls.stan_attack_url_scout)
-                                            if player.role == "":
+                                                                            resource_urls.player_scout_sense_attack)
+                                            else:
                                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                             player_battle_sprite.y_coordinate,
-                                                                            resource_urls.stan_attack_url)
-                                            # update to attacking sprite surface for combat animation
-                                            if enemy.kind == "snake":
-                                                snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                                           snake_battle_sprite.y_coordinate,
-                                                                           resource_urls.snake_attack_url)
-                                            if enemy.kind == "ghoul":
-                                                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                                           ghoul_battle_sprite.y_coordinate,
-                                                                           resource_urls.ghoul_attack_url)
-                                        if scaled_1600:
-                                            # update player character sprite for combat animation
-                                            if player.role == "mage":
-                                                if barrier_active:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls. \
-                                                                                stan_attack_url_mage_barrier_1600)
-                                                else:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls.stan_attack_url_1600_mage)
-                                            if player.role == "fighter":
-                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                            player_battle_sprite.y_coordinate,
-                                                                            resource_urls.stan_attack_url_1600_fighter)
-                                            if player.role == "scout":
-                                                if sharp_sense_active:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls. \
-                                                                                stan_attack_url_scout_sharp_sense_1600)
-                                                else:
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                resource_urls.stan_attack_url_1600_scout)
-                                            if player.role == "":
-                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                            player_battle_sprite.y_coordinate,
-                                                                            resource_urls.stan_attack_url_1600)
-                                            # update to attacking sprite surface for combat animation
-                                            if enemy.kind == "snake":
-                                                snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                                           snake_battle_sprite.y_coordinate,
-                                                                           resource_urls.snake_attack_url_1600)
-                                            if enemy.kind == "ghoul":
-                                                ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                                           ghoul_battle_sprite.y_coordinate,
-                                                                           resource_urls.ghoul_attack_url_1600)
+                                                                            resource_urls.player_scout_sense_attack)
+                                        if player.role == "":
+                                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                        player_battle_sprite.y_coordinate,
+                                                                        resource_urls.player_no_role_attack)
+                                        # update to attacking sprite surface for combat animation
+                                        if enemy.kind == "snake":
+                                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                                       snake_battle_sprite.y_coordinate,
+                                                                       resource_urls.snake_attack)
+                                        if enemy.kind == "ghoul":
+                                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                                       ghoul_battle_sprite.y_coordinate,
+                                                                       resource_urls.ghoul_attack)
 
                                         # ------------------------------------------------------------------------------
                                         # ------------------------------------------------------------------------------
@@ -2609,7 +3350,6 @@ while game_running:
                                             if barrier_active:
                                                 barrier_active = False
                                                 player.defence = original_defence
-
                                             # if sharp sense is active on enemy defeat, restore original offense
                                             if sharp_sense_active:
                                                 sharp_sense_active = False
@@ -2626,7 +3366,6 @@ while game_running:
                                     # first skill, or second skill bar slot is clicked
                                     # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
                                     if combat_button == "skill 1":
-
                                         # make sure player has enough energy to use the skill
                                         if player.energy > 34:
                                             # player is a mage and uses the barrier spell. Set barrier active to true
@@ -2641,7 +3380,6 @@ while game_running:
                                                         original_defence = player.defence
                                                         player.defence += 10
                                                         player.energy -= 35
-
                                                     else:
                                                         info_text_1 = "Barrier spell is already active."
 
@@ -2657,7 +3395,6 @@ while game_running:
                                                         original_offense = player.offense
                                                         player.offense += 20
                                                         player.energy -= 35
-
                                                     else:
                                                         info_text_1 = "Sharp sense is already active."
 
@@ -2667,50 +3404,20 @@ while game_running:
                                             if player.role == "fighter":
                                                 if hard_strike_learned:
                                                     hard_strike = True
+
                                                     # update animations for hard strike attack -------------------------
-                                                    if scaled_1024:
-                                                        if player.role == "fighter":
-                                                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                        player_battle_sprite.y_coordinate,
-                                                                                        resource_urls.stan_battle_url_fighter_hard_strike_1024)
-                                                        if enemy.kind == "snake":
-                                                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                                                       snake_battle_sprite.y_coordinate,
-                                                                                       resource_urls. \
-                                                                                       snake_attack_url_1024)
-                                                        if enemy.kind == "ghoul":
-                                                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                                                       ghoul_battle_sprite.y_coordinate,
-                                                                                       resource_urls. \
-                                                                                       ghoul_attack_url_1024)
-                                                    if scaled_1280:
-                                                        if player.role == "fighter":
-                                                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                        player_battle_sprite.y_coordinate,
-                                                                                        resource_urls.stan_battle_url_fighter_hard_strike)
-                                                        if enemy.kind == "snake":
-                                                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                                                       snake_battle_sprite.y_coordinate,
-                                                                                       resource_urls.snake_attack_url)
-                                                        if enemy.kind == "ghoul":
-                                                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                                                       ghoul_battle_sprite.y_coordinate,
-                                                                                       resource_urls.ghoul_attack_url)
-                                                    if scaled_1600:
-                                                        if player.role == "fighter":
-                                                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                        player_battle_sprite.y_coordinate,
-                                                                                        resource_urls.stan_battle_url_fighter_hard_strike_1600)
-                                                        if enemy.kind == "snake":
-                                                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                                                       snake_battle_sprite.y_coordinate,
-                                                                                       resource_urls. \
-                                                                                       snake_attack_url_1600)
-                                                        if enemy.kind == "ghoul":
-                                                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                                                       ghoul_battle_sprite.y_coordinate,
-                                                                                       resource_urls. \
-                                                                                       ghoul_attack_url_1600)
+                                                    if player.role == "fighter":
+                                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                                    player_battle_sprite.y_coordinate,
+                                                                                    resource_urls.player_fighter_strike)
+                                                    if enemy.kind == "snake":
+                                                        snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                                                   snake_battle_sprite.y_coordinate,
+                                                                                   resource_urls.snake_attack)
+                                                    if enemy.kind == "ghoul":
+                                                        ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                                                   ghoul_battle_sprite.y_coordinate,
+                                                                                   resource_urls.ghoul_attack)
                                                     # ------------------------------------------------------------------
 
                                                     combat_events = attack_scenario(enemy, "skill 1")
@@ -2750,7 +3457,6 @@ while game_running:
                                                         encounter_started = False
                                                         in_battle = False
                                                         in_district_over_world = True
-
                                         else:
                                             info_text_1 = "Not enough energy to use this skill."
 
@@ -2767,6 +3473,7 @@ while game_running:
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(skill_bar.surf, skill_bar.rect)
+
                             if player.role == "mage":
                                 screen.blit(mage_attack_button.surf, mage_attack_button.rect)
                                 if player.skills_mage["skill 2"] == "barrier":
@@ -2786,22 +3493,9 @@ while game_running:
                                 screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                             if enemy.name == "ghoul":
                                 screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+
                             # draw player after enemy to show animations on top of enemy and not under
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                            if scaled_1024:
-                                enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
-                                    center=(enemy_status_bar_backdrop.x_coordinate * .80,
-                                            enemy_status_bar_backdrop.y_coordinate * .80))
-                                enemy.health_bar.rect = enemy.health_bar.surf.get_rect(
-                                    center=(enemy.health_bar.x_coordinate * .80,
-                                            enemy.health_bar.y_coordinate * .80))
-                            if scaled_1600:
-                                enemy_status_bar_backdrop.rect = enemy_status_bar_backdrop.surf.get_rect(
-                                    center=(enemy_status_bar_backdrop.x_coordinate / .80,
-                                            enemy_status_bar_backdrop.y_coordinate / .80))
-                                enemy.health_bar.rect = enemy.health_bar.surf.get_rect(
-                                    center=(enemy.health_bar.x_coordinate / .80,
-                                            enemy.health_bar.y_coordinate / .80))
                             screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
                             screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
                             screen.blit(enemy_status.surf, enemy_status.rect)
@@ -2810,33 +3504,25 @@ while game_running:
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
+
                             # updates players inventory items if item is used in combat scenario (ex. health pot.)
                             for item in player_items:
                                 screen.blit(item.surf, item.rect)
                             for equipment in player_equipment:
                                 screen.blit(equipment.surf, equipment.rect)
-                            drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600,
-                                                             screen, player, font, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4)
+
+                            drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                                                             info_text_1, info_text_2, info_text_3, info_text_4)
+
                             # get current enemy name and create surf and rectangle to draw to screen
                             text_enemy_name_surf = font.render(str(enemy.name), True, "black", "light yellow")
                             text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                            if scaled_1024:
-                                text_enemy_name_rect.center = (800 * .80, 680 * .80)
-                            if scaled_1280:
-                                text_enemy_name_rect.center = (800, 680)
-                            if scaled_1600:
-                                text_enemy_name_rect.center = (800 / .80, 680 / .80)
+                            text_enemy_name_rect.center = (800, 680)
                             screen.blit(text_enemy_name_surf, text_enemy_name_rect)
                             # get current enemy level and create surf and rectangle to draw to screen
                             text_enemy_level_surf = font.render(str(enemy.level), True, "black", "light yellow")
                             text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                            if scaled_1024:
-                                text_enemy_level_rect.center = (915 * .80, 680 * .80)
-                            if scaled_1280:
-                                text_enemy_level_rect.center = (915, 680)
-                            if scaled_1600:
-                                text_enemy_level_rect.center = (915 / .80, 680 / .80)
+                            text_enemy_level_rect.center = (915, 680)
                             screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
                     # after enemy is defeated, it may return a none type for collision. in this case, just ignore error
@@ -2846,212 +3532,78 @@ while game_running:
                     # --------------------------------------------------------------------------------------------------
                     # combat didn't happen this iteration, reset sprites to default surface image
                     if not combat_happened:
-                        if scaled_1024:
-                            if player.role == "mage":
-                                if barrier_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_mage_barrier_1024)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_1024_mage)
-                            if player.role == "fighter":
+                        if player.role == "mage":
+                            if barrier_active:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.stan_battle_url_1024_fighter)
-                            if player.role == "scout":
-                                if sharp_sense_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_scout_sharp_sense_1024)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_1024_scout)
-                            if player.role == "":
+                                                            resource_urls.player_mage_barrier_battle)
+                            else:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.stan_battle_url_1024)
-                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                       snake_battle_sprite.y_coordinate,
-                                                       resource_urls.snake_battle_url_1024)
-                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                       ghoul_battle_sprite.y_coordinate,
-                                                       resource_urls.ghoul_battle_url_1024)
-                        if scaled_1280:
-                            if player.role == "mage":
-                                if barrier_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_mage_barrier)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_mage)
-                            if player.role == "fighter":
+                                                            resource_urls.player_mage_battle)
+                        if player.role == "fighter":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        resource_urls.player_fighter_battle)
+                        if player.role == "scout":
+                            if sharp_sense_active:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.stan_battle_url_fighter)
-                            if player.role == "scout":
-                                if sharp_sense_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_scout_sharp_sense)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_scout)
-                            if player.role == "":
+                                                            resource_urls.player_scout_sense_battle)
+                            else:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.stan_battle_url)
-                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                       snake_battle_sprite.y_coordinate,
-                                                       resource_urls.snake_battle_url)
-                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                       ghoul_battle_sprite.y_coordinate,
-                                                       resource_urls.ghoul_battle_url)
-                        if scaled_1600:
-                            if player.role == "mage":
-                                if barrier_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_mage_barrier_1600)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_1600_mage)
-                            if player.role == "fighter":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            resource_urls.stan_battle_url_1600_fighter)
-                            if player.role == "scout":
-                                if sharp_sense_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_scout_sharp_sense_1600)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_battle_url_1600_scout)
-                            if player.role == "":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            resource_urls.stan_battle_url_1600)
-                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                       snake_battle_sprite.y_coordinate,
-                                                       resource_urls.snake_battle_url_1600)
-                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                       ghoul_battle_sprite.y_coordinate,
-                                                       resource_urls.ghoul_battle_url_1600)
+                                                            resource_urls.player_scout_battle)
+                        if player.role == "":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        resource_urls.player_no_role_battle)
+
+                        snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                   snake_battle_sprite.y_coordinate,
+                                                   resource_urls.snake_battle)
+                        ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                   ghoul_battle_sprite.y_coordinate,
+                                                   resource_urls.ghoul_battle)
                         pygame.display.flip()
                         combat_cooldown = False
 
                     # combat happened this turn, update sprites for battle and apply short cooldown to attack again
                     if combat_happened:
-                        if scaled_1024:
-                            if player.role == "mage":
-                                if barrier_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_mage_barrier_1024)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_1024_mage)
-                            if not hard_strike:
-                                if player.role == "fighter":
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_1024_fighter)
-                            if player.role == "scout":
-                                if sharp_sense_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_scout_sharp_sense_1024)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_1024_scout)
-                            if player.role == "":
+                        if player.role == "mage":
+                            if barrier_active:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.stan_attack_url_1024)
-                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                       snake_battle_sprite.y_coordinate,
-                                                       resource_urls.snake_attack_url_1024)
-                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                       ghoul_battle_sprite.y_coordinate,
-                                                       resource_urls.ghoul_attack_url_1024)
-                        if scaled_1280:
-                            if player.role == "mage":
-                                if barrier_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_mage_barrier)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_mage)
-                            if not hard_strike:
-                                if player.role == "fighter":
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_fighter)
-                            if player.role == "scout":
-                                if sharp_sense_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_scout_sharp_sense)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_scout)
-                            if player.role == "":
+                                                            resource_urls.player_mage_barrier_attack)
+                            else:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.stan_attack_url)
-                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                       snake_battle_sprite.y_coordinate,
-                                                       resource_urls.snake_attack_url)
-                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                       ghoul_battle_sprite.y_coordinate,
-                                                       resource_urls.ghoul_attack_url)
-                        if scaled_1600:
-                            if player.role == "mage":
-                                if barrier_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_mage_barrier_1600)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_1600_mage)
-                            if not hard_strike:
-                                if player.role == "fighter":
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_1600_fighter)
-                            if player.role == "scout":
-                                if sharp_sense_active:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_scout_sharp_sense_1600)
-                                else:
-                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                player_battle_sprite.y_coordinate,
-                                                                resource_urls.stan_attack_url_1600_scout)
-                            if player.role == "":
+                                                            resource_urls.player_mage_attack)
+                        if not hard_strike:
+                            if player.role == "fighter":
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.stan_attack_url_1600)
-                            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                                       snake_battle_sprite.y_coordinate,
-                                                       resource_urls.snake_attack_url_1600)
-                            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                                       ghoul_battle_sprite.y_coordinate,
-                                                       resource_urls.ghoul_attack_url_1600)
+                                                            resource_urls.player_fighter_attack)
+                        if player.role == "scout":
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            resource_urls.player_scout_sense_attack)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            resource_urls.player_scout_attack)
+                        if player.role == "":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        resource_urls.player_no_role_attack)
+                        snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
+                                                   snake_battle_sprite.y_coordinate,
+                                                   resource_urls.snake_attack)
+                        ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
+                                                   ghoul_battle_sprite.y_coordinate,
+                                                   resource_urls.ghoul_attack)
+
                         # flip to display ------------------------------------------------------------------------------
                         # needs to flip here to show the new attacking sprites for the 1-second duration
                         pygame.display.flip()
@@ -3119,126 +3671,51 @@ while game_running:
                                     if len(npc_amuna_shopkeeper.items) > 0:
                                         buy_first_coord = 810
                                         buy_second_coord = 435
-                                        if scaled_1024:
-                                            buy_first_coord = buy_first_coord * .80
-                                            buy_second_coord = buy_second_coord * .80
-                                        if scaled_1600:
-                                            buy_first_coord = buy_first_coord - 2
-                                            buy_second_coord = buy_second_coord - 2
 
                                         # ------------------------------------------------------------------------------
                                         buy_inventory_counter = 0
                                         # go through shop items and assign inventory slots (coordinates) to them
                                         for shop_item in npc_amuna_shopkeeper.items:
                                             if shop_item.name == "health potion":
-                                                if scaled_1024:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.health_pot_url_1024)
-                                                if scaled_1280:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.health_pot_url)
-                                                if scaled_1600:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.health_pot_url_1600)
+                                                shop_item.update(buy_first_coord, buy_second_coord, health_pot_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
                                             if shop_item.name == "energy potion":
-                                                if scaled_1024:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.energy_pot_url_1024)
-                                                if scaled_1280:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.energy_pot_url)
-                                                if scaled_1600:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.energy_pot_url_1600)
+                                                shop_item.update(buy_first_coord, buy_second_coord, energy_pot_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
                                             if shop_item.name == "basic staff":
-                                                if scaled_1024:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_staff_url_1024)
-                                                if scaled_1280:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_staff_url)
-                                                if scaled_1600:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_staff_url_1600)
+                                                shop_item.update(buy_first_coord, buy_second_coord, basic_staff_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
                                             if shop_item.name == "basic sword":
-                                                if scaled_1024:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_sword_url_1024)
-                                                if scaled_1280:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_sword_url)
-                                                if scaled_1600:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_sword_url_1600)
+                                                shop_item.update(buy_first_coord, buy_second_coord, basic_sword_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
                                             if shop_item.name == "basic bow":
-                                                if scaled_1024:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_bow_url_1024)
-                                                if scaled_1280:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_bow_url)
-                                                if scaled_1600:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_bow_url_1600)
+                                                shop_item.update(buy_first_coord, buy_second_coord, basic_bow_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
                                             if shop_item.name == "basic robes":
-                                                if scaled_1024:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_robes_url_1024)
-                                                if scaled_1280:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_robes_url)
-                                                if scaled_1600:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_robes_url_1600)
+                                                shop_item.update(buy_first_coord, buy_second_coord, basic_robes_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
+
                                             if shop_item.name == "basic armor":
-                                                if scaled_1024:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_armor_url_1024)
-                                                if scaled_1280:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_armor_url)
-                                                if scaled_1600:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_armor_url_1600)
+                                                shop_item.update(buy_first_coord, buy_second_coord, basic_armor_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
+
                                             if shop_item.name == "basic tunic":
-                                                if scaled_1024:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_tunic_url_1024)
-                                                if scaled_1280:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_tunic_url)
-                                                if scaled_1600:
-                                                    shop_item.update(buy_first_coord, buy_second_coord,
-                                                                     resource_urls.basic_tunic_url_1600)
+                                                shop_item.update(buy_first_coord, buy_second_coord, basic_tunic_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
 
                                             buy_first_coord += 60
-                                            if scaled_1024:
-                                                buy_first_coord = buy_first_coord - 13.2
-                                            if scaled_1600:
-                                                buy_first_coord = buy_first_coord + 2
                                             if buy_inventory_counter > 3:
                                                 buy_second_coord += 60
                                                 buy_first_coord = 810
                                                 buy_inventory_counter = 0
-                                                if scaled_1024:
-                                                    buy_first_coord = buy_first_coord * .80
-                                                    buy_second_coord = buy_second_coord * .80 + 80
 
                             # ------------------------------------------------------------------------------------------
                             # if player chooses to leave shop, set conditions to allow normal gameplay loop
@@ -3267,21 +3744,8 @@ while game_running:
                                             if player.rupees > 9:
                                                 info_text_1 = "You Bought Health Potion for 10 rupees."
                                                 info_text_2 = "Health Potion added to inventory."
-                                                if scaled_1024:
-                                                    player.items.append(
-                                                        Item("health potion", "potion", 200, 200,
-                                                             resource_urls.health_pot_url_1024,
-                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(
-                                                        Item("health potion", "potion", 200, 200,
-                                                             resource_urls.health_pot_url,
-                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(
-                                                        Item("health potion", "potion", 200, 200,
-                                                             resource_urls.health_pot_url_1600,
-                                                             (255, 255, 255), "1600"))
+                                                player.items.append(Item("health potion", "potion", 200, 200,
+                                                                         health_pot_img))
                                                 player.rupees = player.rupees - 10
                                                 item_bought = True
                                             else:
@@ -3296,21 +3760,8 @@ while game_running:
                                             if player.rupees > 9:
                                                 info_text_1 = "Bought Energy Potion for 10 rupees."
                                                 info_text_2 = "Energy Potion added to inventory."
-                                                if scaled_1024:
-                                                    player.items.append(
-                                                        Item("energy potion", "potion", 200, 200,
-                                                             resource_urls.energy_pot_url_1024,
-                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(
-                                                        Item("energy potion", "potion", 200, 200,
-                                                             resource_urls.energy_pot_url,
-                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(
-                                                        Item("energy potion", "potion", 200, 200,
-                                                             resource_urls.energy_pot_url_1600,
-                                                             (255, 255, 255), "1600"))
+                                                player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                         energy_pot_img))
                                                 player.rupees = player.rupees - 10
                                                 item_bought = True
                                             else:
@@ -3325,21 +3776,8 @@ while game_running:
                                             if player.rupees > 19:
                                                 info_text_1 = "Bought Basic Staff for 20 rupees."
                                                 info_text_2 = "Basic Staff added to inventory."
-                                                if scaled_1024:
-                                                    player.items.append(
-                                                        Item("basic staff", "mage", 200, 200,
-                                                             resource_urls.basic_staff_url_1024,
-                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(
-                                                        Item("basic staff", "mage", 200, 200,
-                                                             resource_urls.basic_staff_url,
-                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(
-                                                        Item("basic staff", "mage", 200, 200,
-                                                             resource_urls.basic_staff_url_1600,
-                                                             (255, 255, 255), "1600"))
+                                                player.items.append(Item("basic staff", "mage", 200, 200,
+                                                                         basic_staff_img))
                                                 player.rupees = player.rupees - 20
                                                 item_bought = True
                                             else:
@@ -3354,21 +3792,8 @@ while game_running:
                                             if player.rupees > 19:
                                                 info_text_1 = "Bought Basic Sword for 20 rupees."
                                                 info_text_2 = "Basic Sword added to inventory."
-                                                if scaled_1024:
-                                                    player.items.append(
-                                                        Item("basic sword", "fighter", 200, 200,
-                                                             resource_urls.basic_sword_url_1024,
-                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(
-                                                        Item("basic sword", "fighter", 200, 200,
-                                                             resource_urls.basic_sword_url,
-                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(
-                                                        Item("basic sword", "fighter", 200, 200,
-                                                             resource_urls.basic_sword_url_1600,
-                                                             (255, 255, 255), "1600"))
+                                                player.items.append(Item("basic sword", "fighter", 200, 200,
+                                                                         basic_sword_img))
                                                 player.rupees = player.rupees - 20
                                                 item_bought = True
                                             else:
@@ -3383,21 +3808,8 @@ while game_running:
                                             if player.rupees > 19:
                                                 info_text_1 = "Bought Basic Bow for 20 rupees."
                                                 info_text_2 = "Basic Bow added to inventory."
-                                                if scaled_1024:
-                                                    player.items.append(
-                                                        Item("basic bow", "scout", 200, 200,
-                                                             resource_urls.basic_bow_url_1024,
-                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(
-                                                        Item("basic bow", "scout", 200, 200,
-                                                             resource_urls.basic_bow_url,
-                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(
-                                                        Item("basic bow", "scout", 200, 200,
-                                                             resource_urls.basic_bow_url_1600,
-                                                             (255, 255, 255), "1600"))
+                                                player.items.append(Item("basic bow", "scout", 200, 200,
+                                                                         basic_bow_img))
                                                 player.rupees = player.rupees - 20
                                                 item_bought = True
                                             else:
@@ -3412,21 +3824,8 @@ while game_running:
                                             if player.rupees > 19:
                                                 info_text_1 = "Bought Basic Robes for 20 rupees."
                                                 info_text_2 = "Basic Robes added to inventory."
-                                                if scaled_1024:
-                                                    player.items.append(
-                                                        Item("basic robes", "mage", 200, 200,
-                                                             resource_urls.basic_robes_url_1024,
-                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(
-                                                        Item("basic robes", "mage", 200, 200,
-                                                             resource_urls.basic_robes_url,
-                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(
-                                                        Item("basic robes", "mage", 200, 200,
-                                                             resource_urls.basic_robes_url_1600,
-                                                             (255, 255, 255), "1600"))
+                                                player.items.append(Item("basic robes", "mage", 200, 200,
+                                                                         basic_robes_img))
                                                 player.rupees = player.rupees - 20
                                                 item_bought = True
                                             else:
@@ -3441,21 +3840,8 @@ while game_running:
                                             if player.rupees > 19:
                                                 info_text_1 = "Bought Basic Armor for 20 rupees."
                                                 info_text_2 = "Basic Armor added to inventory."
-                                                if scaled_1024:
-                                                    player.items.append(
-                                                        Item("basic armor", "fighter", 200, 200,
-                                                             resource_urls.basic_armor_url_1024,
-                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(
-                                                        Item("basic armor", "fighter", 200, 200,
-                                                             resource_urls.basic_armor_url,
-                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(
-                                                        Item("basic armor", "fighter", 200, 200,
-                                                             resource_urls.basic_armor_url_1600,
-                                                             (255, 255, 255), "1600"))
+                                                player.items.append(Item("basic armor", "fighter", 200, 200,
+                                                                         basic_armor_img))
                                                 player.rupees = player.rupees - 20
                                                 item_bought = True
                                             else:
@@ -3470,21 +3856,8 @@ while game_running:
                                             if player.rupees > 19:
                                                 info_text_1 = "Bought Basic Tunic for 20 rupees."
                                                 info_text_2 = "Basic Tunic added to inventory."
-                                                if scaled_1024:
-                                                    player.items.append(
-                                                        Item("basic tunic", "scout", 200, 200,
-                                                             resource_urls.basic_tunic_url_1024,
-                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(
-                                                        Item("basic tunic", "scout", 200, 200,
-                                                             resource_urls.basic_tunic_url,
-                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(
-                                                        Item("basic tunic", "scout", 200, 200,
-                                                             resource_urls.basic_tunic_url_1600,
-                                                             (255, 255, 255), "1600"))
+                                                player.items.append(Item("basic tunic", "scout", 200, 200,
+                                                                         basic_tunic_img))
                                                 player.rupees = player.rupees - 20
                                                 item_bought = True
                                             else:
@@ -3596,9 +3969,8 @@ while game_running:
                             screen.blit(item.surf, item.rect)
                         for equipment in player_equipment:
                             screen.blit(equipment.surf, equipment.rect)
-                        drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600,
-                                                         screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4)
+                        drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                                                         info_text_1, info_text_2, info_text_3, info_text_4)
 
                         # ----------------------------------------------------------------------------------------------
                         if buy_clicked:
@@ -3728,9 +4100,8 @@ while game_running:
                             screen.blit(item.surf, item.rect)
                         for equipment in player_equipment:
                             screen.blit(equipment.surf, equipment.rect)
-                        drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600,
-                                                         screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4)
+                        drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                                                         info_text_1, info_text_2, info_text_3, info_text_4)
 
                         # ----------------------------------------------------------------------------------------------
                         if rest_clicked:
@@ -3924,48 +4295,23 @@ while game_running:
                             screen.blit(book.surf, book.rect)
                         for skill_item in skill_learn_items:
                             screen.blit(skill_item.surf, skill_item.rect)
-                        drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600,
-                                                         screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4)
-                        # text and window related to player knowledge amounts ------------------------------------------
-                        if scaled_1024:
-                            knowledge_window.rect = knowledge_window.surf.get_rect(
-                                center=(knowledge_window.x_coordinate * .80,
-                                        knowledge_window.y_coordinate * .80))
-                        if scaled_1600:
-                            knowledge_window.rect = knowledge_window.surf.get_rect(
-                                center=(knowledge_window.x_coordinate / .80,
-                                        knowledge_window.y_coordinate / .80))
+                        drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                                                         info_text_1, info_text_2, info_text_3, info_text_4)
                         screen.blit(knowledge_window.surf, knowledge_window.rect)
                         text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
                                                                "light yellow")
                         text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
-                        if scaled_1024:
-                            text_mage_knowledge_rect.center = (515 * .80, 680 * .80)
-                        if scaled_1280:
-                            text_mage_knowledge_rect.center = (515, 680)
-                        if scaled_1600:
-                            text_mage_knowledge_rect.center = (515 / .80, 680 / .80)
+                        text_mage_knowledge_rect.center = (515, 680)
                         screen.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
                         text_fighter_knowledge_surf = font.render(str(player.knowledge["fighter"]), True, "black",
                                                                   "light yellow")
                         text_fighter_knowledge_rect = text_fighter_knowledge_surf.get_rect()
-                        if scaled_1024:
-                            text_fighter_knowledge_rect.center = (695 * .80, 680 * .80)
-                        if scaled_1280:
-                            text_fighter_knowledge_rect.center = (695, 680)
-                        if scaled_1600:
-                            text_fighter_knowledge_rect.center = (695 / .80, 680 / .80)
+                        text_fighter_knowledge_rect.center = (695, 680)
                         screen.blit(text_fighter_knowledge_surf, text_fighter_knowledge_rect)
                         text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black",
                                                                 "light yellow")
                         text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
-                        if scaled_1024:
-                            text_scout_knowledge_rect.center = (865 * .80, 680 * .80)
-                        if scaled_1280:
-                            text_scout_knowledge_rect.center = (865, 680)
-                        if scaled_1600:
-                            text_scout_knowledge_rect.center = (865 / .80, 680 / .80)
+                        text_scout_knowledge_rect.center = (865, 680)
                         screen.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
 
                         # ----------------------------------------------------------------------------------------------
@@ -4028,8 +4374,7 @@ while game_running:
 
                         # when player levels up, this lets them click to dismiss the window pop-up
                         if level_up_win.rect.collidepoint(pos):
-                            drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280, scaled_1600,
-                                                            player, font, False)
+                            drawing_functions.level_up_draw(level_up_win, False, True, False, player, font, False)
 
                         # ----------------------------------------------------------------------------------------------
                         npc = pygame.sprite.spritecollideany(player, npcs)
@@ -4060,45 +4405,15 @@ while game_running:
                                                 if player.experience >= 100:
                                                     level_up()
                                                 player.reputation["amuna"] += 10
-                                                if scaled_1024:
-                                                    player.items.append(Item("health potion", "potion", 200, 200,
-                                                                             resource_urls.health_pot_url_1024,
-                                                                             (255, 255, 255), "1024"))
-                                                    player.items.append(Item("health potion", "potion", 200, 200,
-                                                                             resource_urls.health_pot_url_1024,
-                                                                             (255, 255, 255), "1024"))
-                                                    player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                             resource_urls.energy_pot_url_1024,
-                                                                             (255, 255, 255), "1024"))
-                                                    player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                             resource_urls.energy_pot_url_1024,
-                                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(Item("health potion", "potion", 200, 200,
-                                                                             resource_urls.health_pot_url,
-                                                                             (255, 255, 255), "1280"))
-                                                    player.items.append(Item("health potion", "potion", 200, 200,
-                                                                             resource_urls.health_pot_url,
-                                                                             (255, 255, 255), "1280"))
-                                                    player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                             resource_urls.energy_pot_url,
-                                                                             (255, 255, 255), "1280"))
-                                                    player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                             resource_urls.energy_pot_url,
-                                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(Item("health potion", "potion", 200, 200,
-                                                                             resource_urls.health_pot_url_1600,
-                                                                             (255, 255, 255), "1600"))
-                                                    player.items.append(Item("health potion", "potion", 200, 200,
-                                                                             resource_urls.health_pot_url_1600,
-                                                                             (255, 255, 255), "1600"))
-                                                    player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                             resource_urls.energy_pot_url_1600,
-                                                                             (255, 255, 255), "1600"))
-                                                    player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                             resource_urls.energy_pot_url_1600,
-                                                                             (255, 255, 255), "1600"))
+
+                                                player.items.append(Item("health potion", "potion", 200, 200,
+                                                                         resource_urls.health_pot))
+                                                player.items.append(Item("health potion", "potion", 200, 200,
+                                                                         resource_urls.health_pot))
+                                                player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                         resource_urls.energy_pot))
+                                                player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                         resource_urls.energy_pot))
                                             else:
                                                 info_text_1 = "You completed the quest, but "
                                                 info_text_2 = "Your inventory is full!"
@@ -4133,18 +4448,8 @@ while game_running:
                                                 if player.experience >= 100:
                                                     level_up()
                                                 player.reputation["amuna"] += 10
-                                                if scaled_1024:
-                                                    player.items.append(Item("temporary item", "trinket", 200, 200,
-                                                                             resource_urls.temp_item_url_1024,
-                                                                             (255, 255, 255), "1024"))
-                                                if scaled_1280:
-                                                    player.items.append(Item("temporary item", "trinket", 200, 200,
-                                                                             resource_urls.temp_item_url,
-                                                                             (255, 255, 255), "1280"))
-                                                if scaled_1600:
-                                                    player.items.append(Item("temporary item", "trinket", 200, 200,
-                                                                             resource_urls.temp_item_url_1600,
-                                                                             (255, 255, 255), "1600"))
+                                                player.items.append(Item("temporary item", "trinket", 200, 200,
+                                                                         temp_img))
                                             else:
                                                 info_text_1 = "You completed the quest, but "
                                                 info_text_2 = "Your inventory is full!"
@@ -4210,36 +4515,12 @@ while game_running:
                                     if npc.name == "garan":
                                         # when players first accept garan's quest he will give them a basic weapon
                                         if not garan_gifted:
-                                            if scaled_1024:
-                                                player.items.append(Item("basic staff", "mage", 200, 200,
-                                                                         resource_urls.basic_staff_url_1024,
-                                                                         (255, 255, 255), "1024"))
-                                                player.items.append(Item("basic sword", "fighter", 200, 200,
-                                                                         resource_urls.basic_staff_url_1024,
-                                                                         (255, 255, 255), "1024"))
-                                                player.items.append(Item("basic bow", "scout", 200, 200,
-                                                                         resource_urls.basic_bow_url_1024,
-                                                                         (255, 255, 255), "1024"))
-                                            if scaled_1280:
-                                                player.items.append(Item("basic staff", "mage", 200, 200,
-                                                                         resource_urls.basic_staff_url,
-                                                                         (255, 255, 255), "1280"))
-                                                player.items.append(Item("basic sword", "fighter", 200, 200,
-                                                                         resource_urls.basic_staff_url,
-                                                                         (255, 255, 255), "1280"))
-                                                player.items.append(Item("basic bow", "scout", 200, 200,
-                                                                         resource_urls.basic_bow_url,
-                                                                         (255, 255, 255), "1280"))
-                                            if scaled_1600:
-                                                player.items.append(Item("basic staff", "mage", 200, 200,
-                                                                         resource_urls.basic_staff_url_1600,
-                                                                         (255, 255, 255), "1600"))
-                                                player.items.append(Item("basic sword", "fighter", 200, 200,
-                                                                         resource_urls.basic_staff_url_1600,
-                                                                         (255, 255, 255), "1600"))
-                                                player.items.append(Item("basic bow", "scout", 200, 200,
-                                                                         resource_urls.basic_bow_url_1600,
-                                                                         (255, 255, 255), "1600"))
+                                            player.items.append(Item("basic staff", "mage", 200, 200,
+                                                                     basic_staff_img))
+                                            player.items.append(Item("basic sword", "fighter", 200, 200,
+                                                                     basic_sword_img))
+                                            player.items.append(Item("basic bow", "scout", 200, 200,
+                                                                     basic_bow_img))
                                             player.rupees += 20
                                             info_text_2 = "garan has given you:"
                                             info_text_3 = "Basic Staff, Basic Sword, Basic Bow"
@@ -4308,18 +4589,12 @@ while game_running:
                             screen.blit(item.surf, item.rect)
                         for equipment in player_equipment:
                             screen.blit(equipment.surf, equipment.rect)
-                        drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600,
-                                                         screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4)
+                        drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                                                         info_text_1, info_text_2, info_text_3, info_text_4)
                         # get current npc name and create surf and rectangle to draw to screen
                         text_npc_name_surf = font.render(str(npc.name), True, "black", "light yellow")
                         text_npc_name_rect = text_npc_name_surf.get_rect()
-                        if scaled_1024:
-                            text_npc_name_rect.center = (640 * .80, 192 * .80)
-                        if scaled_1280:
-                            text_npc_name_rect.center = (640, 192)
-                        if scaled_1600:
-                            text_npc_name_rect.center = (640 / .80, 192 / .80)
+                        text_npc_name_rect.center = (640, 192)
                         screen.blit(text_npc_name_surf, text_npc_name_rect)
 
                         drawing_functions.draw_it(screen)
@@ -4366,25 +4641,13 @@ while game_running:
                     # handles drawing most text based elements to the screen, such as level, rupees, etc
                     drawing_functions.draw_it(screen)
 
-                    # corrects position of player status bars and backdrop if scaled to 1600x900 resolution
-                    if scaled_1600:
-                        status_bar_backdrop.rect = status_bar_backdrop.surf.get_rect(
-                            center=(
-                                status_bar_backdrop.x_coordinate / .80, status_bar_backdrop.y_coordinate / .80))
-                        hp_bar.rect = hp_bar.surf.get_rect(
-                            center=(hp_bar.x_coordinate / .80 - 1, hp_bar.y_coordinate / .80 + 5))
-                        en_bar.rect = en_bar.surf.get_rect(
-                            center=(en_bar.x_coordinate / .80 - 1, en_bar.y_coordinate / .80))
-                        xp_bar.rect = xp_bar.surf.get_rect(
-                            center=(xp_bar.x_coordinate / .80 - 1, xp_bar.y_coordinate / .80 - 5))
                     screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                     screen.blit(hp_bar.surf, hp_bar.rect)
                     screen.blit(en_bar.surf, en_bar.rect)
                     screen.blit(xp_bar.surf, xp_bar.rect)
 
                     # draw texts to the screen, like message box, player rupees and level
-                    drawing_functions.text_info_draw(scaled_1024, scaled_1280, scaled_1600, screen, player,
-                                                     font,
+                    drawing_functions.text_info_draw(False, True, False, screen, player, font,
                                                      info_text_1, info_text_2, info_text_3, info_text_4)
                     # update players current inventory and status
                     status_and_inventory_updates()
@@ -4411,43 +4674,33 @@ while game_running:
                         if event.type == pygame.MOUSEBUTTONUP:
                             pos = pygame.mouse.get_pos()
                             if hearth_button.rect.collidepoint(pos):
-                                if scaled_1024:
-                                    player.pos = vec((850 * .80, 650 * .80))
-                                if scaled_1280:
-                                    player.pos = vec((850, 650))
-                                if scaled_1600:
-                                    player.pos = vec((850 / .80, 650 / .80))
+                                player.pos = vec((850, 650))
 
                             # if character button is clicked, call draw function and show elements. second click hides
                             if character_button.rect.collidepoint(pos):
                                 if character_button_clicked:
-                                    drawing_functions.character_sheet_info_draw(character_sheet, scaled_1024,
-                                                                                scaled_1280, scaled_1600,
+                                    drawing_functions.character_sheet_info_draw(character_sheet, False, True, False,
                                                                                 player, font, False)
                                     character_button_clicked = False
                                 else:
-                                    drawing_functions.character_sheet_info_draw(character_sheet, scaled_1024,
-                                                                                scaled_1280, scaled_1600,
+                                    drawing_functions.character_sheet_info_draw(character_sheet, False, True, False,
                                                                                 player, font, True)
                                     character_button_clicked = True
 
                             # if journal button is clicked, call draw function and show elements. second click hides
                             if journal_button.rect.collidepoint(pos):
                                 if journal_button_clicked:
-                                    drawing_functions.journal_info_draw(journal, scaled_1024, scaled_1280,
-                                                                        scaled_1600,
+                                    drawing_functions.journal_info_draw(journal, False, True, False,
                                                                         player, font, False)
                                     journal_button_clicked = False
                                 else:
-                                    drawing_functions.journal_info_draw(journal, scaled_1024, scaled_1280,
-                                                                        scaled_1600,
+                                    drawing_functions.journal_info_draw(journal, False, True, False,
                                                                         player, font, True)
                                     journal_button_clicked = True
 
                             # when player levels up, this lets them click to dismiss the window pop-up
                             if level_up_win.rect.collidepoint(pos):
-                                drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280,
-                                                                scaled_1600,
+                                drawing_functions.level_up_draw(level_up_win, False, True, False,
                                                                 player, font, False)
 
                             if knowledge_academia.rect.collidepoint(pos) and knowledge_academia_show:
