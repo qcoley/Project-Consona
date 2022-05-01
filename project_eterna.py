@@ -4,7 +4,6 @@ import pygame
 from pygame.locals import *
 
 import resource_urls
-import screen_scaling
 import drawing_functions
 
 # global variables -----------------------------------------------------------------------------------------------------
@@ -21,16 +20,13 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, name, gender, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, mount, current_zone, defence, offense):
-
         super(Player, self).__init__()
         self.surf = player_no_role_down
         self.rect = self.surf.get_rect()
         self.pos = vec((450, 650))
-
         # velocity and acceleration vectors for movement physics
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
-
         self.name = name
         self.gender = gender
         self.race = race
@@ -61,7 +57,6 @@ class Player(pygame.sprite.Sprite):
     def update(self, pressed_keyes, current_zone):
         # setting acceleration vector on player update frame
         self.acc = vec(0, 0)
-
         # control acceleration based on user keys pressed from input parameter -----------------------------------------
         if pressed_keyes[K_w]:
             if player.role == "mage":
@@ -72,7 +67,6 @@ class Player(pygame.sprite.Sprite):
                 self.surf = player_scout_up
             if player.role == "":
                 self.surf = player_no_role_up
-
             self.acc.y = -ACC
 
         if pressed_keyes[K_s]:
@@ -84,7 +78,6 @@ class Player(pygame.sprite.Sprite):
                 self.surf = player_scout_down
             if player.role == "":
                 self.surf = player_no_role_down
-
             self.acc.y = ACC
 
         if pressed_keyes[K_a]:
@@ -96,7 +89,6 @@ class Player(pygame.sprite.Sprite):
                 self.surf = player_scout_left
             if player.role == "":
                 self.surf = player_no_role_left
-
             self.acc.x = -ACC
 
         if pressed_keyes[K_d]:
@@ -108,7 +100,6 @@ class Player(pygame.sprite.Sprite):
                 self.surf = player_scout_right
             if player.role == "":
                 self.surf = player_no_role_right
-
             self.acc.x = ACC
 
         # --------------------------------------------------------------------------------------------------------------
@@ -161,12 +152,10 @@ class NPC(pygame.sprite.Sprite):
         self.items = items
         self.gift = gift
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, image):
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
 
 class Shopkeeper(pygame.sprite.Sprite):
@@ -191,7 +180,6 @@ class Enemy(pygame.sprite.Sprite):
         self.alive_status = alive_status
         self.items = items
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.speed = 1
         self.health_bar = health_bar
@@ -202,7 +190,6 @@ class Enemy(pygame.sprite.Sprite):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
     # update separate into 2 functions to handle image updates and position updates
@@ -240,14 +227,12 @@ class Tree(pygame.sprite.Sprite):
         self.y_coordinate = y_coordinate
         self.gathered = gathered
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
@@ -259,14 +244,12 @@ class Building(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
@@ -278,7 +261,6 @@ class UiElement(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.update_flag = update_flag
 
@@ -286,7 +268,6 @@ class UiElement(pygame.sprite.Sprite):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
@@ -298,7 +279,6 @@ class Inventory(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.update_flag = update_flag
 
@@ -306,7 +286,6 @@ class Inventory(pygame.sprite.Sprite):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
@@ -319,14 +298,12 @@ class Notification(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
@@ -338,14 +315,12 @@ class BattleCharacter(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
@@ -357,20 +332,19 @@ class Item(pygame.sprite.Sprite):
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
 
 
 class SpriteSheet(object):
     def __init__(self, file_name):
-        self.sprite_sheet = pygame.image.load(file_name).convert_alpha()
+        self.sprite_sheet = pygame.image.load(file_name).convert()
+        self.sprite_sheet.set_colorkey((255, 255, 255), RLEACCEL)
 
     def get_image(self, x, y, width, height):
         sprite_image = pygame.Surface([width, height], pygame.SRCALPHA)
@@ -397,7 +371,12 @@ def attack_scenario(enemy_combating, combat_event):
             # returns players damage to the enemy based on level and equipment
             attacked_enemy_health = attack_enemy(enemy_combating)
             enemy_combating.health = enemy_combating.health - attacked_enemy_health
-            health_bar_update_enemy(enemy_combating)
+            try:
+                enemy_combating.health_bar.update(enemy_combating.health_bar.x_coordinate,
+                                                  enemy_combating.health_bar.y_coordinate,
+                                                  health_bar_update(enemy_combating))
+            except AttributeError:
+                pass
 
             # if enemy is not dead yet
             if enemy_combating.health > 0:
@@ -494,7 +473,12 @@ def attack_scenario(enemy_combating, combat_event):
                     # returns players damage to the enemy based on level and equipment
                     striked = random.randrange(20, 40)  # hard strike damage
                     enemy_combating.health = enemy_combating.health - striked
-                    health_bar_update_enemy(enemy_combating)
+                    try:
+                        enemy_combating.health_bar.update(enemy_combating.health_bar.x_coordinate,
+                                                          enemy_combating.health_bar.y_coordinate,
+                                                          health_bar_update(enemy_combating))
+                    except AttributeError:
+                        pass
 
                     # if enemy is not dead yet
                     if enemy_combating.health > 0:
@@ -598,13 +582,13 @@ def attack_enemy(mob):
 
     # scale damage based on player's offense stat and level difference
     if player.role == "mage":
-        damage = (random.randrange(15, player.offense) // difference)
+        damage = (random.randrange(17, player.offense) // difference)
     if player.role == "scout":
-        damage = (random.randrange(10, player.offense) // difference)
+        damage = (random.randrange(12, player.offense) // difference)
     if player.role == "fighter":
-        damage = (random.randrange(5, player.offense) // difference)
+        damage = (random.randrange(7, player.offense) // difference)
     if player.role == "":
-        damage = (random.randrange(1, 5) // difference)
+        damage = (random.randrange(1, 7) // difference)
 
     return damage
 
@@ -639,8 +623,7 @@ def level_up():
         player.health = 100
         player.energy = 100
         player.experience = 0
-        drawing_functions.level_up_draw(level_up_win, False, True, False, player,
-                                        level_up_font, True)
+        drawing_functions.level_up_draw(level_up_win, player, level_up_font, True)
     else:
         level_up_dictionary["new level"] = "You are already max level. "
         return level_up_dictionary
@@ -1794,13 +1777,13 @@ def equipment_updates():
             player.equipment["weapon"].update(1078, 285, basic_bow_img)
             player_equipment.append(player.equipment["weapon"])
         if player.equipment["chest"].name == "basic robes":
-            player.equipment["chest"].update(1153, 195, basic_robes_img)
+            player.equipment["chest"].update(1153, 197, basic_robes_img)
             player_equipment.append(player.equipment["chest"])
         if player.equipment["chest"].name == "basic armor":
-            player.equipment["chest"].update(1153, 195, basic_armor_img)
+            player.equipment["chest"].update(1153, 197, basic_armor_img)
             player_equipment.append(player.equipment["chest"])
         if player.equipment["chest"].name == "basic tunic":
-            player.equipment["chest"].update(1153, 195, basic_tunic_img)
+            player.equipment["chest"].update(1153, 197, basic_tunic_img)
             player_equipment.append(player.equipment["chest"])
     except AttributeError:
         pass
@@ -1927,6 +1910,7 @@ seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen)
 seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen)
 seldon_district_inn = pygame.image.load(resource_urls.seldon_inn_screen)
 seldon_district_academia = pygame.image.load(resource_urls.seldon_academia_screen)
+seldon_hearth_screen = pygame.image.load(resource_urls.seldon_hearth_screen)
 game_over_screen = pygame.image.load(resource_urls.game_over_screen)
 start_screen = pygame.image.load(resource_urls.start_screen)
 nera_sleep_screen = pygame.image.load(resource_urls.nera_sleep_screen)
@@ -1936,140 +1920,140 @@ korlok_district_bg = pygame.image.load(resource_urls.korlok_bg_screen)
 # player no role -------------------------------------------------------------------------------------------------------
 player_no_role_sheet = SpriteSheet(resource_urls.player_no_role_url)
 player_no_role_down = player_no_role_sheet.get_image(0, 0, 50, 75)
-player_no_role_up = player_no_role_sheet.get_image(51, 0, 50, 75)
-player_no_role_left = player_no_role_sheet.get_image(101, 0, 50, 75)
-player_no_role_right = player_no_role_sheet.get_image(151, 0, 50, 75)
+player_no_role_up = player_no_role_sheet.get_image(50, 0, 50, 75)
+player_no_role_left = player_no_role_sheet.get_image(100, 0, 50, 75)
+player_no_role_right = player_no_role_sheet.get_image(150, 0, 50, 75)
 # player mage ----------------------------------------------------------------------------------------------------------
 player_mage_sheet = SpriteSheet(resource_urls.player_mage_url)
 player_mage_down = player_mage_sheet.get_image(0, 0, 50, 75)
-player_mage_up = player_mage_sheet.get_image(51, 0, 50, 75)
-player_mage_left = player_mage_sheet.get_image(101, 0, 50, 75)
-player_mage_right = player_mage_sheet.get_image(151, 0, 50, 75)
+player_mage_up = player_mage_sheet.get_image(50, 0, 50, 75)
+player_mage_left = player_mage_sheet.get_image(100, 0, 50, 75)
+player_mage_right = player_mage_sheet.get_image(150, 0, 50, 75)
 # player fighter -------------------------------------------------------------------------------------------------------
 player_fighter_sheet = SpriteSheet(resource_urls.player_fighter_url)
 player_fighter_down = player_fighter_sheet.get_image(0, 0, 50, 75)
-player_fighter_up = player_fighter_sheet.get_image(51, 0, 50, 75)
-player_fighter_left = player_fighter_sheet.get_image(101, 0, 50, 75)
-player_fighter_right = player_fighter_sheet.get_image(151, 0, 50, 75)
+player_fighter_up = player_fighter_sheet.get_image(50, 0, 50, 75)
+player_fighter_left = player_fighter_sheet.get_image(100, 0, 50, 75)
+player_fighter_right = player_fighter_sheet.get_image(150, 0, 50, 75)
 # player scout ---------------------------------------------------------------------------------------------------------
 player_scout_sheet = SpriteSheet(resource_urls.player_scout_url)
 player_scout_down = player_scout_sheet.get_image(0, 0, 50, 75)
-player_scout_up = player_scout_sheet.get_image(51, 0, 50, 75)
-player_scout_left = player_scout_sheet.get_image(101, 0, 50, 75)
-player_scout_right = player_scout_sheet.get_image(151, 0, 50, 75)
+player_scout_up = player_scout_sheet.get_image(50, 0, 50, 75)
+player_scout_left = player_scout_sheet.get_image(100, 0, 50, 75)
+player_scout_right = player_scout_sheet.get_image(150, 0, 50, 75)
 # player battle --------------------------------------------------------------------------------------------------------
 player_battle_sheet = SpriteSheet(resource_urls.player_battle_url)
 player_no_role_battle = player_battle_sheet.get_image(0, 0, 750, 624)
-player_no_role_attack = player_battle_sheet.get_image(751, 0, 750, 624)
-player_mage_battle = player_battle_sheet.get_image(1501, 0, 750, 624)
-player_mage_attack = player_battle_sheet.get_image(2251, 0, 750, 624)
-player_fighter_battle = player_battle_sheet.get_image(3001, 0, 750, 624)
-player_fighter_attack = player_battle_sheet.get_image(3751, 0, 750, 624)
-player_scout_battle = player_battle_sheet.get_image(4501, 0, 750, 624)
-player_scout_attack = player_battle_sheet.get_image(5251, 0, 750, 624)
+player_no_role_attack = player_battle_sheet.get_image(750, 0, 750, 624)
+player_mage_battle = player_battle_sheet.get_image(1500, 0, 750, 624)
+player_mage_attack = player_battle_sheet.get_image(2250, 0, 750, 624)
+player_fighter_battle = player_battle_sheet.get_image(3000, 0, 750, 624)
+player_fighter_attack = player_battle_sheet.get_image(3750, 0, 750, 624)
+player_scout_battle = player_battle_sheet.get_image(4500, 0, 750, 624)
+player_scout_attack = player_battle_sheet.get_image(5250, 0, 750, 624)
 # player skills --------------------------------------------------------------------------------------------------------
 player_skills_sheet = SpriteSheet(resource_urls.player_skills_url)
 player_mage_barrier_battle = player_skills_sheet.get_image(0, 0, 750, 624)
-player_mage_barrier_attack = player_skills_sheet.get_image(751, 0, 750, 624)
-player_scout_sense_battle = player_skills_sheet.get_image(1501, 0, 750, 624)
-player_scout_sense_attack = player_skills_sheet.get_image(2251, 0, 750, 624)
-player_fighter_strike = player_skills_sheet.get_image(3001, 0, 750, 624)
+player_mage_barrier_attack = player_skills_sheet.get_image(750, 0, 750, 624)
+player_scout_sense_battle = player_skills_sheet.get_image(1500, 0, 750, 624)
+player_scout_sense_attack = player_skills_sheet.get_image(2250, 0, 750, 624)
+player_fighter_strike = player_skills_sheet.get_image(3000, 0, 750, 624)
 # garan npc ------------------------------------------------------------------------------------------------------------
 garan_sheet = SpriteSheet(resource_urls.garan_url)
 garan_down = garan_sheet.get_image(0, 0, 40, 62)
-garan_up = garan_sheet.get_image(41, 0, 40, 62)
-garan_left = garan_sheet.get_image(81, 0, 40, 62)
-garan_right = garan_sheet.get_image(121, 0, 40, 62)
+garan_up = garan_sheet.get_image(40, 0, 40, 62)
+garan_left = garan_sheet.get_image(80, 0, 40, 62)
+garan_right = garan_sheet.get_image(120, 0, 40, 62)
 # maurelle npc ---------------------------------------------------------------------------------------------------------
 maurelle_sheet = SpriteSheet(resource_urls.maurelle_url)
 maurelle_down = maurelle_sheet.get_image(0, 0, 40, 62)
-maurelle_up = maurelle_sheet.get_image(41, 0, 40, 62)
-maurelle_left = maurelle_sheet.get_image(81, 0, 40, 62)
-maurelle_right = maurelle_sheet.get_image(121, 0, 40, 62)
+maurelle_up = maurelle_sheet.get_image(40, 0, 40, 62)
+maurelle_left = maurelle_sheet.get_image(80, 0, 40, 62)
+maurelle_right = maurelle_sheet.get_image(120, 0, 40, 62)
 # guard npc ------------------------------------------------------------------------------------------------------------
 guard_sheet = SpriteSheet(resource_urls.guard_url)
 guard_down = guard_sheet.get_image(0, 0, 50, 75)
-guard_up = guard_sheet.get_image(51, 0, 50, 75)
-guard_left = guard_sheet.get_image(101, 0, 50, 75)
-guard_right = guard_sheet.get_image(151, 0, 50, 75)
+guard_up = guard_sheet.get_image(50, 0, 50, 75)
+guard_left = guard_sheet.get_image(100, 0, 50, 75)
+guard_right = guard_sheet.get_image(150, 0, 50, 75)
 # npc interactions -----------------------------------------------------------------------------------------------------
 npc_interactions_sheet = SpriteSheet(resource_urls.npc_interactions_url)
 garan_interaction = npc_interactions_sheet.get_image(0, 0, 200, 260)
-maurelle_interaction = npc_interactions_sheet.get_image(201, 0, 200, 260)
-guard_interaction = npc_interactions_sheet.get_image(401, 0, 200, 260)
+maurelle_interaction = npc_interactions_sheet.get_image(200, 0, 200, 260)
+guard_interaction = npc_interactions_sheet.get_image(400, 0, 200, 260)
 # enemies --------------------------------------------------------------------------------------------------------------
 enemies_sheet = SpriteSheet(resource_urls.enemies_url)
 snake = enemies_sheet.get_image(0, 0, 50, 50)
-ghoul = enemies_sheet.get_image(51, 0, 50, 50)
+ghoul = enemies_sheet.get_image(50, 0, 50, 50)
 # enemies battle -------------------------------------------------------------------------------------------------------
 enemies_battle_sheet = SpriteSheet(resource_urls.enemies_battle_url)
 snake_battle = enemies_battle_sheet.get_image(0, 0, 300, 250)
-snake_attack = enemies_battle_sheet.get_image(301, 0, 300, 250)
-ghoul_battle = enemies_battle_sheet.get_image(601, 0, 300, 250)
-ghoul_attack = enemies_battle_sheet.get_image(901, 0, 300, 250)
+snake_attack = enemies_battle_sheet.get_image(300, 0, 300, 250)
+ghoul_battle = enemies_battle_sheet.get_image(600, 0, 300, 250)
+ghoul_attack = enemies_battle_sheet.get_image(900, 0, 300, 250)
 # amuna buildings ------------------------------------------------------------------------------------------------------
 amuna_buildings_sheet = SpriteSheet(resource_urls.amuna_buildings_url)
 amuna_academia_building = amuna_buildings_sheet.get_image(0, 0, 100, 100)
-amuna_inn_building = amuna_buildings_sheet.get_image(101, 0, 100, 100)
-amuna_shop_building = amuna_buildings_sheet.get_image(201, 0, 100, 100)
+amuna_inn_building = amuna_buildings_sheet.get_image(100, 0, 100, 100)
+amuna_shop_building = amuna_buildings_sheet.get_image(200, 0, 100, 100)
 # items ----------------------------------------------------------------------------------------------------------------
 items_sheet = SpriteSheet(resource_urls.items_url)
 health_pot_img = items_sheet.get_image(0, 0, 50, 50)
-energy_pot_img = items_sheet.get_image(51, 0, 50, 50)
-basic_robes_img = items_sheet.get_image(101, 0, 50, 50)
-basic_armor_img = items_sheet.get_image(151, 0, 50, 50)
-basic_tunic_img = items_sheet.get_image(201, 0, 50, 50)
-basic_staff_img = items_sheet.get_image(251, 0, 50, 50)
-basic_sword_img = items_sheet.get_image(301, 0, 50, 50)
-basic_bow_img = items_sheet.get_image(351, 0, 50, 50)
-bone_dust_img = items_sheet.get_image(401, 0, 50, 50)
-shiny_rock_img = items_sheet.get_image(451, 0, 50, 50)
-temp_img = items_sheet.get_image(501, 0, 50, 50)
+energy_pot_img = items_sheet.get_image(50, 0, 50, 50)
+basic_robes_img = items_sheet.get_image(100, 0, 50, 50)
+basic_armor_img = items_sheet.get_image(150, 0, 50, 50)
+basic_tunic_img = items_sheet.get_image(200, 0, 50, 50)
+basic_staff_img = items_sheet.get_image(250, 0, 50, 50)
+basic_sword_img = items_sheet.get_image(300, 0, 50, 50)
+basic_bow_img = items_sheet.get_image(350, 0, 50, 50)
+bone_dust_img = items_sheet.get_image(400, 0, 50, 50)
+shiny_rock_img = items_sheet.get_image(450, 0, 50, 50)
+temp_img = items_sheet.get_image(500, 0, 50, 50)
 # player info windows --------------------------------------------------------------------------------------------------
 player_info_sheet = SpriteSheet(resource_urls.player_info_url)
 character_window_img = player_info_sheet.get_image(0, 0, 500, 525)
-journal_window_img = player_info_sheet.get_image(501, 0, 500, 525)
+journal_window_img = player_info_sheet.get_image(500, 0, 500, 525)
 # books ----------------------------------------------------------------------------------------------------------------
 books_sheet = SpriteSheet(resource_urls.books_url)
 mage_book_img = books_sheet.get_image(0, 0, 700, 525)
-fighter_book_img = books_sheet.get_image(701, 0, 700, 525)
-scout_book_img = books_sheet.get_image(1401, 0, 700, 525)
+fighter_book_img = books_sheet.get_image(700, 0, 700, 525)
+scout_book_img = books_sheet.get_image(1400, 0, 700, 525)
 # buttons --------------------------------------------------------------------------------------------------------------
 buttons_sheet = SpriteSheet(resource_urls.buttons_url)
 character_button_img = buttons_sheet.get_image(0, 0, 100, 50)
-journal_button_img = buttons_sheet.get_image(101, 0, 100, 50)
-buy_button_img = buttons_sheet.get_image(201, 0, 100, 50)
-rest_button_img = buttons_sheet.get_image(301, 0, 100, 50)
-quest_button_img = buttons_sheet.get_image(401, 0, 100, 50)
-leave_button_img = buttons_sheet.get_image(501, 0, 100, 50)
-accept_button_img = buttons_sheet.get_image(601, 0, 100, 50)
-decline_button_img = buttons_sheet.get_image(701, 0, 100, 50)
+journal_button_img = buttons_sheet.get_image(100, 0, 100, 50)
+buy_button_img = buttons_sheet.get_image(200, 0, 100, 50)
+rest_button_img = buttons_sheet.get_image(300, 0, 100, 50)
+quest_button_img = buttons_sheet.get_image(400, 0, 100, 50)
+leave_button_img = buttons_sheet.get_image(500, 0, 100, 50)
+accept_button_img = buttons_sheet.get_image(600, 0, 100, 50)
+decline_button_img = buttons_sheet.get_image(700, 0, 100, 50)
 # attack buttons -------------------------------------------------------------------------------------------------------
 attack_buttons_sheet = SpriteSheet(resource_urls.attack_buttons_url)
 mage_attack_button_img = attack_buttons_sheet.get_image(0, 0, 60, 60)
-fighter_attack_button_img = attack_buttons_sheet.get_image(61, 0, 60, 60)
-scout_attack_button_img = attack_buttons_sheet.get_image(121, 0, 60, 60)
-no_role_attack_button_img = attack_buttons_sheet.get_image(181, 0, 60, 60)
+fighter_attack_button_img = attack_buttons_sheet.get_image(60, 0, 60, 60)
+scout_attack_button_img = attack_buttons_sheet.get_image(120, 0, 60, 60)
+no_role_attack_button_img = attack_buttons_sheet.get_image(180, 0, 60, 60)
 # skill buttons --------------------------------------------------------------------------------------------------------
 skill_buttons_sheet = SpriteSheet(resource_urls.skill_buttons_url)
-barrier_button_img = attack_buttons_sheet.get_image(0, 0, 60, 60)
-strike_button_img = attack_buttons_sheet.get_image(61, 0, 60, 60)
-sense_button_img = attack_buttons_sheet.get_image(121, 0, 60, 60)
+barrier_button_img = skill_buttons_sheet.get_image(0, 0, 60, 60)
+strike_button_img = skill_buttons_sheet.get_image(60, 0, 60, 60)
+sense_button_img = skill_buttons_sheet.get_image(120, 0, 60, 60)
 # quest windows --------------------------------------------------------------------------------------------------------
 quest_windows_sheet = SpriteSheet(resource_urls.quest_windows_url)
 garan_quest = quest_windows_sheet.get_image(0, 0, 500, 525)
-maurelle_quest = quest_windows_sheet.get_image(501, 0, 500, 525)
-guard_quest = quest_windows_sheet.get_image(1001, 0, 500, 525)
+maurelle_quest = quest_windows_sheet.get_image(500, 0, 500, 525)
+guard_quest = quest_windows_sheet.get_image(1000, 0, 500, 525)
 # quest stars ----------------------------------------------------------------------------------------------------------
 quest_stars_sheet = SpriteSheet(resource_urls.quest_stars_url)
 quest_start_star = quest_stars_sheet.get_image(0, 0, 50, 50)
-quest_progress_star = quest_stars_sheet.get_image(51, 0, 50, 50)
-quest_complete_star = quest_stars_sheet.get_image(101, 0, 50, 50)
+quest_progress_star = quest_stars_sheet.get_image(50, 0, 50, 50)
+quest_complete_star = quest_stars_sheet.get_image(100, 0, 50, 50)
 # pop up notifications -------------------------------------------------------------------------------------------------
 popups_sheet = SpriteSheet(resource_urls.popups_url)
 gear_popup = popups_sheet.get_image(0, 0, 400, 200)
-health_popup = popups_sheet.get_image(401, 0, 400, 200)
-knowledge_popup = popups_sheet.get_image(801, 0, 400, 200)
+health_popup = popups_sheet.get_image(400, 0, 400, 200)
+knowledge_popup = popups_sheet.get_image(800, 0, 400, 200)
 # heath bars -----------------------------------------------------------------------------------------------------------
 hp_sheet = SpriteSheet(resource_urls.hp_url)
 hp_0 = hp_sheet.get_image(0, 0, 305, 19)
@@ -2410,7 +2394,7 @@ player = Player("stan", "male", "amuna", "",  # name, gender, race, role
                 {"sneaky snakes": 0, "village repairs": 0, "ghouled again": 0},  # quest progress (x/4)
                 {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest status
                 {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest complete
-                {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
+                {"mage": 60, "fighter": 60, "scout": 60},  # role knowledge ('role', 'amount')
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
@@ -2424,9 +2408,8 @@ npc_garan = NPC("garan", "male", "amuna", "rogue", "It's dangerous to go alone."
                 True, False, ["Items"], False, garan_down)
 npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs", "", 760, 520,
                    True, False, ["Items"], False, maurelle_down)
-npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghoulish Glee", "", 460, 120,
+npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghouled Again", "", 430, 120,
                 True, False, ["Items"], False, guard_down)
-
 npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
     Item("health potion", "potion", 200, 200, health_pot_img),
     Item("energy potion", "potion", 200, 200, energy_pot_img),
@@ -2436,7 +2419,6 @@ npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
     Item("basic robes", "mage", 200, 200, basic_robes_img),
     Item("basic armor", "fighter", 200, 200, basic_armor_img),
     Item("basic tunic", "scout", 200, 200, basic_tunic_img)])
-
 npc_garan_interaction = UiElement("garan interaction", 650, 350, garan_interaction, False)
 npc_maurelle_interaction = UiElement("maurelle interaction", 650, 350, maurelle_interaction, False)
 npc_guard_interaction = UiElement("guard interaction", 650, 350, guard_interaction, False)
@@ -2466,54 +2448,58 @@ ghoul_low_3 = Enemy("ghoul", "ghoul", 100, 100, 3, 760, 240, True,
 ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 890, 205, True,
                     Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
                     UiElement("ghoul hp bar", 700, 90, hp_100, False))
-
-# environmental objects: name, model, x_coordinate, y_coordinate, gathered, image, color -------------------------------
-pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, pygame.image.load(resource_urls.pine_tree).convert_alpha())
-pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, pygame.image.load(resource_urls.pine_tree).convert_alpha())
-pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, pygame.image.load(resource_urls.pine_tree).convert_alpha())
-seldon_grass_1 = Item("grass", "seldon grass", 360, 125, pygame.image.load(resource_urls.seldon_grass).convert_alpha())
-seldon_grass_2 = Item("grass", "seldon grass", 270, 195, pygame.image.load(resource_urls.seldon_grass).convert_alpha())
-seldon_grass_3 = Item("grass", "seldon grass", 405, 235, pygame.image.load(resource_urls.seldon_grass).convert_alpha())
-seldon_grass_4 = Item("grass", "seldon grass", 165, 135, pygame.image.load(resource_urls.seldon_grass).convert_alpha())
-seldon_grass_5 = Item("grass", "seldon grass", 150, 255, pygame.image.load(resource_urls.seldon_grass).convert_alpha())
-seldon_grass_6 = Item("grass", "seldon grass", 50, 180, pygame.image.load(resource_urls.seldon_grass).convert_alpha())
+# environmental objects: name, model, x_coordinate, y_coordinate, gathered, image --------------------------------------
+pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, pygame.image.load(resource_urls.pine_tree).convert())
+pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, pygame.image.load(resource_urls.pine_tree).convert())
+pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, pygame.image.load(resource_urls.pine_tree).convert())
+seldon_grass_1 = Item("grass", "seldon grass", 360, 125, pygame.image.load(resource_urls.seldon_grass).convert())
+seldon_grass_2 = Item("grass", "seldon grass", 270, 195, pygame.image.load(resource_urls.seldon_grass).convert())
+seldon_grass_3 = Item("grass", "seldon grass", 405, 235, pygame.image.load(resource_urls.seldon_grass).convert())
+seldon_grass_4 = Item("grass", "seldon grass", 165, 135, pygame.image.load(resource_urls.seldon_grass).convert())
+seldon_grass_5 = Item("grass", "seldon grass", 150, 255, pygame.image.load(resource_urls.seldon_grass).convert())
+seldon_grass_6 = Item("grass", "seldon grass", 50, 180, pygame.image.load(resource_urls.seldon_grass).convert())
 seldon_flower_1 = Item("flower", "seldon flower", 590, 410,
-                       pygame.image.load(resource_urls.seldon_flower).convert_alpha())
+                       pygame.image.load(resource_urls.seldon_flower).convert())
 seldon_flower_2 = Item("flower", "seldon flower", 705, 600,
-                       pygame.image.load(resource_urls.seldon_flower).convert_alpha())
+                       pygame.image.load(resource_urls.seldon_flower).convert())
 seldon_flower_3 = Item("flower", "seldon flower", 800, 440,
-                       pygame.image.load(resource_urls.seldon_flower).convert_alpha())
+                       pygame.image.load(resource_urls.seldon_flower).convert())
 # buildings: name, model, x_coordinate, y_coordinate, image, color -----------------------------------------------------
 seldon_inn = Building("inn", "seldon inn", 635, 600, amuna_inn_building)
 seldon_shop = Building("shop", "seldon shop", 665, 400, amuna_shop_building)
 seldon_academia = Building("academia", "seldon academia", 875, 440, amuna_academia_building)
-rohir_gate = UiElement("rohir gate", 525, 40, pygame.image.load(resource_urls.rohir_gate).convert_alpha(), False)
+seldon_hearth = Building("hearth", "seldon hearth", 860, 595, pygame.image.load(resource_urls.hearth_stone).convert())
+rohir_gate = UiElement("rohir gate", 525, 40, pygame.image.load(resource_urls.rohir_gate).convert(), False)
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag ---------------------------------------------
 character_button = UiElement("character button", 860, 680, character_button_img, False)
 journal_button = UiElement("journal button", 970, 680, journal_button_img, False)
 # start screen elements: -----------------------------------------------------------------------------------------------
-start_button = UiElement("start button", 640, 274, pygame.image.load(resource_urls.start_button), False)
+start_button = UiElement("start button", 640, 404, pygame.image.load(resource_urls.start_button).convert(), False)
 # ----------------------------------------------------------------------------------------------------------------------
-continue_button = UiElement("continue button", 625, 575, pygame.image.load(resource_urls.continue_button), False)
+continue_button = UiElement("continue button", 625, 575,
+                            pygame.image.load(resource_urls.continue_button).convert(), False)
 buy_button = UiElement("buy button", 860, 680, buy_button_img, False)
 leave_button = UiElement("leave button", 970, 680, leave_button_img, False)
 rest_button = UiElement("rest button", 860, 680, rest_button_img, False)
-mage_learn_button = UiElement("mage learn button", 650, 250, pygame.image.load(resource_urls.learn_button), False)
-fighter_learn_button = UiElement("fighter learn button", 420, 330, pygame.image.load(resource_urls.learn_button), False)
-scout_learn_button = UiElement("scout learn button", 560, 410, pygame.image.load(resource_urls.learn_button), False)
+mage_learn_button = UiElement("mage learn button", 650, 250,
+                              pygame.image.load(resource_urls.learn_button).convert(), False)
+fighter_learn_button = UiElement("fighter learn button", 420, 330,
+                                 pygame.image.load(resource_urls.learn_button).convert(), False)
+scout_learn_button = UiElement("scout learn button", 560, 410,
+                               pygame.image.load(resource_urls.learn_button).convert(), False)
 barrier_learn_button = UiElement("barrier learn button", 505, 300,
-                                 pygame.image.load(resource_urls.skill_learn_button), False)
+                                 pygame.image.load(resource_urls.skill_learn_button).convert(), False)
 hard_strike_learn_button = UiElement("hard strike learn button", 505, 300,
-                                     pygame.image.load(resource_urls.skill_learn_button), False)
+                                     pygame.image.load(resource_urls.skill_learn_button).convert(), False)
 sharp_sense_learn_button = UiElement("sharp sense learn button", 505, 300,
-                                     pygame.image.load(resource_urls.skill_learn_button), False)
-hearth_button = UiElement("hearth button", 970, 25, pygame.image.load(resource_urls.hearth_button), False)
-close_button = UiElement("close button", 975, 135, pygame.image.load(resource_urls.close_button), False)
+                                     pygame.image.load(resource_urls.skill_learn_button).convert(), False)
+hearth_button = UiElement("hearth button", 970, 25, pygame.image.load(resource_urls.hearth_button).convert(), False)
+close_button = UiElement("close button", 975, 135, pygame.image.load(resource_urls.close_button).convert(), False)
 quest_button = UiElement("quest button", 860, 680, quest_button_img, False)
 accept_button = UiElement("accept button", 340, 670, accept_button_img, False)
 decline_button = UiElement("decline button", 450, 670, decline_button_img, False)
 # ----------------------------------------------------------------------------------------------------------------------
-skill_bar = UiElement("skill bar", 855, 615, pygame.image.load(resource_urls.skill_bar), False)
+skill_bar = UiElement("skill bar", 855, 615, pygame.image.load(resource_urls.skill_bar).convert(), False)
 no_role_attack_button = UiElement("no role attack button", 750, 627, no_role_attack_button_img, False)
 mage_attack_button = UiElement("mage attack button", 750, 627, mage_attack_button_img, False)
 fighter_attack_button = UiElement("fighter attack button", 750, 627, fighter_attack_button_img, False)
@@ -2522,36 +2508,38 @@ barrier_button = UiElement("barrier button", 820, 627, barrier_button_img, False
 hard_strike_button = UiElement("hard strike button", 820, 627, strike_button_img, False)
 sharp_sense_button = UiElement("sharp sense button", 820, 627, sense_button_img, False)
 # ----------------------------------------------------------------------------------------------------------------------
-enemy_status = UiElement("enemy status", 855, 680, pygame.image.load(resource_urls.enemy_status), False)
-hp_bar = UiElement("health bar", 170, 25, hp_100, False)
-en_bar = UiElement("energy bar", 170, 45, en_100, False)
-xp_bar = UiElement("xp bar", 170, 65, xp_100, False)
-inventory = Inventory("inventory", [], 890, 515, pygame.image.load(resource_urls.inventory), False)
+enemy_status = UiElement("enemy status", 855, 680, pygame.image.load(resource_urls.enemy_status).convert(), False)
+hp_bar = UiElement("health bar", 165, 25, hp_100, False)
+en_bar = UiElement("energy bar", 165, 45, en_100, False)
+xp_bar = UiElement("xp bar", 165, 65, xp_100, False)
+inventory = Inventory("inventory", [], 890, 515, pygame.image.load(resource_urls.inventory).convert(), False)
 journal = UiElement("journal", 770, 380, journal_window_img, False)
-level_up_win = UiElement("level up window", 520, 375, pygame.image.load(resource_urls.level_up), False)
+level_up_win = UiElement("level up window", 520, 375, pygame.image.load(resource_urls.level_up).convert(), False)
 character_sheet = UiElement("character sheet", 770, 380, character_window_img, False)
 mage_book = UiElement("mage book", 670, 375, mage_book_img, False)
 fighter_book = UiElement("fighter book", 670, 375, fighter_book_img, False)
 scout_book = UiElement("scout book", 670, 375, scout_book_img, False)
-quest_logs_1 = Item("quest logs", "quest", 60, 540, pygame.image.load(resource_urls.quest_logs))
-quest_logs_2 = Item("quest logs", "quest", 315, 560, pygame.image.load(resource_urls.quest_logs))
-quest_logs_3 = Item("quest logs", "quest", 415, 435, pygame.image.load(resource_urls.quest_logs))
-quest_logs_4 = Item("quest logs", "quest", 100, 540, pygame.image.load(resource_urls.quest_logs))
-npc_name_plate = UiElement("npc name plate", 640, 192, pygame.image.load(resource_urls.npc_name_plate), False)
+quest_logs_1 = Item("quest logs", "quest", 60, 540, pygame.image.load(resource_urls.quest_logs).convert())
+quest_logs_2 = Item("quest logs", "quest", 315, 560, pygame.image.load(resource_urls.quest_logs).convert())
+quest_logs_3 = Item("quest logs", "quest", 415, 435, pygame.image.load(resource_urls.quest_logs).convert())
+quest_logs_4 = Item("quest logs", "quest", 100, 540, pygame.image.load(resource_urls.quest_logs).convert())
+npc_name_plate = UiElement("npc name plate", 640, 192, pygame.image.load(resource_urls.npc_name_plate).convert(), False)
 # instance windows -----------------------------------------------------------------------------------------------------
-buy_inventory = Inventory("buy inventory", [], 900, 500, pygame.image.load(resource_urls.buy_inventory), False)
-knowledge_window = UiElement("knowledge window", 635, 680, pygame.image.load(resource_urls.knowledge_window), False)
+buy_inventory = Inventory("buy inventory", [], 900, 500, pygame.image.load(resource_urls.buy_inventory).convert(),
+                          False)
+knowledge_window = UiElement("knowledge window", 635, 680, pygame.image.load(resource_urls.knowledge_window).convert(),
+                             False)
 garan_quest_window = UiElement("garan quest window", 262, 442, garan_quest, False)
 maurelle_quest_window = UiElement("maurelle quest window", 262, 442, maurelle_quest, False)
 guard_quest_window = UiElement("guard quest window", 262, 442, guard_quest, False)
 # ----------------------------------------------------------------------------------------------------------------------
 message_box = UiElement("message box", 173, 650, pygame.image.load(resource_urls.message_box), False)
 status_bar_backdrop = UiElement("bar backdrop", 165, 45, pygame.image.load(resource_urls.bar_backdrop), False)
-enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 695, 90,
+enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 700, 90,
                                       pygame.image.load(resource_urls.enemy_bar_backdrop), False)
 quest_star_garan = UiElement("quest star garan", 210, 390, quest_start_star, False)
 quest_star_maurelle = UiElement("quest star maurelle", 760, 480, quest_start_star, False)
-quest_star_guard = UiElement("quest star guard", 462, 80, quest_start_star, False)
+quest_star_guard = UiElement("quest star guard", 430, 75, quest_start_star, False)
 # battle sprites -------------------------------------------------------------------------------------------------------
 player_battle_sprite = BattleCharacter("stan battle", 320, 460, player_no_role_battle)
 snake_battle_sprite = BattleCharacter("snake battle", 715, 250, snake_battle)
@@ -2574,9 +2562,8 @@ conditional_interface = pygame.sprite.Group()
 battle_elements = pygame.sprite.Group()
 enemy_hp_bars = pygame.sprite.Group()
 most_sprites = pygame.sprite.Group()
-scaling_sprites = pygame.sprite.Group()
-start_screen_sprites = pygame.sprite.Group()
 game_over_screen_sprites = pygame.sprite.Group()
+non_sprite_sheets = pygame.sprite.Group()
 # specific enemy groups for movement and respawn -----------------------------------------------------------------------
 snakes = pygame.sprite.Group()
 snakes.add(snake_1, snake_2, snake_3, snake_4)
@@ -2593,7 +2580,6 @@ user_interface.add(rest_button, buy_button, leave_button, character_button, jour
 conditional_interface.add(buy_inventory, character_sheet, journal, level_up_win, mage_book, fighter_book, scout_book,
                           mage_learn_button, fighter_learn_button, scout_learn_button, barrier_learn_button,
                           hard_strike_learn_button, sharp_sense_learn_button, close_button)
-start_screen_sprites.add(start_button)
 game_over_screen_sprites.add(continue_button)
 # all environment sprites for collision detection ----------------------------------------------------------------------
 environment_objects.add(trees, buildings)
@@ -2604,7 +2590,14 @@ battle_elements.add(player_battle_sprite, snake_battle_sprite, ghoul_battle_spri
                     mage_attack_button, scout_attack_button, fighter_attack_button, barrier_button, hard_strike_button,
                     sharp_sense_button)
 # adding most sprites to this group for drawing and related functions
-most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items, enemies)
+most_sprites.add(npcs, trees, buildings, grass, flowers, quest_items, enemies, seldon_hearth)
+# group to set transparency to sprites that don't have it set in the spritesheet class constructor
+non_sprite_sheets.add(trees, grass, flowers, seldon_hearth, quest_items, skill_bar, continue_button,
+                      mage_learn_button, fighter_learn_button, scout_learn_button,
+                      barrier_learn_button, hard_strike_learn_button, sharp_sense_learn_button)
+for non_sprite_sheet_sprite in non_sprite_sheets:
+    non_sprite_sheet_sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
+
 
 # code related to sound effects that will be used later ----------------------------------------------------------------
 # pygame.mixer.music.load("Electric_1.mp3")
@@ -2654,6 +2647,10 @@ character_button_clicked = False
 journal_button_clicked = False
 # condition to check if window close button has been clicked
 close_button_clicked = False
+# condition to check if hearth button has been clicked to move player and set fade animation
+hearth_clicked = False
+# condition to check if player has hearthed
+hearthed = False
 # condition to keep message box text for amount of time, so it's not cleared when player is not in range of sprite
 info_update = False
 # condition to keep loot text for amount of time, so it's not cleared when player is not in range of sprite
@@ -2741,7 +2738,6 @@ knowledge_academia_window = []
 rest_recover_window = []
 # list to contain gear notification when player gets weapon
 shop_gear_window = []
-
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
 info_text_1 = ""
@@ -2750,6 +2746,11 @@ info_text_3 = ""
 info_text_4 = ""
 # text updates from battle instance to apply to main over-world message box
 battle_info_to_return_to_main_loop = {"experience": 0, "item dropped": "", "leveled_up": False, "knowledge": ""}
+
+enemy_tic = time.perf_counter()
+npc_tic = time.perf_counter()
+info_tic = time.perf_counter()
+loot_tic = time.perf_counter()
 
 # ----------------------------------------------------------------------------------------------------------------------
 # main loop ------------------------------------------------------------------------------------------------------------
@@ -2764,38 +2765,65 @@ while game_running:
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
                     exit()
-
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
                 # player chooses to continue, reset character experience and half health and energy on respawn
                 if start_button.rect.collidepoint(pos):
                     start_chosen = True
-
             elif event.type == QUIT:
                 exit()
-
         pygame.display.flip()
 
     # if player has chosen to start game -------------------------------------------------------------------------------
     if start_chosen:
         # start game clock
         clock = pygame.time.Clock()
-
-        font = pygame.font.SysFont('freesansbold.ttf', 20, bold=True, italic=False)
+        font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
         level_up_font = pygame.font.SysFont('freesansbold.ttf', 35, bold=True, italic=False)
 
-        # if player has created character or chosen default
+        # if player has created character or set default
         if player_created:
             # if player is currently alive
             if player.alive_status:
                 # if player is in over world
                 if in_district_over_world:
+                    screen.blit(seldon_district_bg, (0, 0))
+
+                    # --------------------------------------------------------------------------------------------------
+                    if hearth_clicked:
+                        screen.fill((0, 0, 0))
+                        for alpha in range(0, 200):
+                            seldon_hearth_screen.set_alpha(alpha)
+                            screen.blit(seldon_hearth_screen, (0, 0))
+                            # flip sleep screen to display each iteration to show fade ---------------------------------
+                            pygame.display.flip()
+                        hearth_clicked = False
+                        hearthed = True
+                    if hearthed:
+                        for alpha in range(0, 50):
+                            seldon_district_bg.set_alpha(alpha)
+                            screen.blit(seldon_district_bg, (0, 0))
+                            # flip sleep screen to display each iteration to show fade ---------------------------------
+                            pygame.display.flip()
+                        seldon_district_bg.set_alpha(255)
+                        screen.blit(seldon_district_bg, (0, 0))
+                        pygame.display.flip()
+                        hearthed = False
+                        info_text_1 = "You recalled to the hearth stone."
+                        info_update = True
+
+                    # --------------------------------------------------------------------------------------------------
+                    info_toc = time.perf_counter()
                     # clear info update after some time has passed
-                    if pygame.time.get_ticks() % 287 == 0:
+                    if info_toc - info_tic > 2:
+                        info_tic = time.perf_counter()
                         info_update = False
+                    loot_toc = time.perf_counter()
                     # clear loot update after some time has passed
-                    if pygame.time.get_ticks() % 517 == 0:
+                    if loot_toc - loot_tic > 4:
+                        loot_tic = time.perf_counter()
                         loot_update = False
+
                     # if player is not currently in range of sprite and there is not an active info update,
                     # clear message box
                     sprite = pygame.sprite.spritecollideany(player, most_sprites)
@@ -2820,31 +2848,25 @@ while game_running:
                     enemy_switch = 1
                     # gets defeated enemy count and will respawn a new enemy type if count is greater than specified
                     enemy_respawn()
-                    # create blank background to be drawn on top of for each iteration
-                    screen.fill((255, 255, 255))  # (255, 255, 255) RGB value for WHITE
-                    # draw screen 1 background
-                    screen.blit(seldon_district_bg, (0, 0))
 
-                    # draw sprites
-                    for entity in most_sprites:
-                        screen.blit(entity.surf, entity.rect)
-                    # draw enemies
-                    for enemy_sprite in enemies:
-                        screen.blit(enemy_sprite.surf, enemy_sprite.rect)
-                    # draw user interface elements
-                    for ui_element in user_interface:
-                        screen.blit(ui_element.surf, ui_element.rect)
-                    # get screen option elements and draw window
-                    for window in display_elements:
-                        screen.blit(window.surf, window.rect)
-                    for knowledge_window_notification in knowledge_academia_window:
-                        screen.blit(knowledge_window_notification.surf, knowledge_window_notification.rect)
-                    for rest_window in rest_recover_window:
-                        screen.blit(rest_window.surf, rest_window.rect)
-                    for gear_window in shop_gear_window:
-                        screen.blit(gear_window.surf, gear_window.rect)
-
-                    screen.blit(rohir_gate.surf, rohir_gate.rect)
+                    try:
+                        for entity in most_sprites:
+                            screen.blit(entity.surf, entity.rect)
+                        for enemy_sprite in enemies:
+                            screen.blit(enemy_sprite.surf, enemy_sprite.rect)
+                        for ui_element in user_interface:
+                            screen.blit(ui_element.surf, ui_element.rect)
+                        for window in display_elements:
+                            screen.blit(window.surf, window.rect)
+                        for knowledge_window_notification in knowledge_academia_window:
+                            screen.blit(knowledge_window_notification.surf, knowledge_window_notification.rect)
+                        for rest_window in rest_recover_window:
+                            screen.blit(rest_window.surf, rest_window.rect)
+                        for gear_window in shop_gear_window:
+                            screen.blit(gear_window.surf, gear_window.rect)
+                        screen.blit(rohir_gate.surf, rohir_gate.rect)
+                    except TypeError:
+                        pass
 
                     # pop up notifications for situation stuff like low health or first weapon acquire -----------------
                     if not knowledge_academia_show:
@@ -2870,6 +2892,7 @@ while game_running:
                         if shop_window_clicked:
                             shop_gear_window.clear()
 
+                    # quest stars for npcs that update based on player quest progress
                     # --------------------------------------------------------------------------------------------------
                     if not player.quest_complete["sneaky snakes"]:
                         screen.blit(quest_star_garan.surf, quest_star_garan.rect)
@@ -2891,20 +2914,16 @@ while game_running:
                         quest_star_guard.update(462, 80, quest_progress_star)
                     # --------------------------------------------------------------------------------------------------
 
-                    # draw player
+                    # draw player and status bars
                     screen.blit(player.surf, player.rect)
-
-                    # handles drawing most text based elements to the screen, such as level, rupees, etc
-                    drawing_functions.draw_it(screen)
-
                     screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                     screen.blit(hp_bar.surf, hp_bar.rect)
                     screen.blit(en_bar.surf, en_bar.rect)
                     screen.blit(xp_bar.surf, xp_bar.rect)
-
                     # draw texts to the screen, like message box, player rupees and level
-                    drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                    drawing_functions.text_info_draw(screen, player, font,
                                                      info_text_1, info_text_2, info_text_3, info_text_4)
+                    drawing_functions.draw_it(screen)
                     # update players current inventory and status
                     status_and_inventory_updates()
                     # update players current equipment
@@ -2922,8 +2941,7 @@ while game_running:
                             info_text_4 = str(battle_info_to_return_to_main_loop["experience"]) + "and " + \
                                           str(battle_info_to_return_to_main_loop["knowledge"])
                     if battle_info_to_return_to_main_loop["leveled_up"]:
-                        drawing_functions.level_up_draw(level_up_win, scaled_1024, scaled_1280, scaled_1600,
-                                                        player, font, True)
+                        drawing_functions.level_up_draw(level_up_win, player, font, True)
 
                     # --------------------------------------------------------------------------------------------------
                     # all in-game events such as key presses or UI interaction
@@ -2934,49 +2952,39 @@ while game_running:
                                 exit()
                             # "F" key for player interaction
                             if event.key == K_f:
-                                interacted = True
+                                if pygame.sprite.spritecollideany(player, most_sprites):
+                                    interacted = True
                         # if the unstuck button was clicked, move the player to bottom right corner of screen
                         if event.type == pygame.MOUSEBUTTONUP:
                             pos = pygame.mouse.get_pos()
                             if hearth_button.rect.collidepoint(pos):
+                                hearth_clicked = True
                                 player.pos = vec((850, 650))
-
                             # if character button is clicked, call draw function and show elements. second click hides
                             if character_button.rect.collidepoint(pos):
                                 if character_button_clicked:
-                                    drawing_functions.character_sheet_info_draw(character_sheet, False, True, False,
-                                                                                player, font, False)
+                                    drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                     character_button_clicked = False
                                 else:
-                                    drawing_functions.character_sheet_info_draw(character_sheet, False, True, False,
-                                                                                player, font, True)
+                                    drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
                                     character_button_clicked = True
-
                             # if journal button is clicked, call draw function and show elements. second click hides
                             if journal_button.rect.collidepoint(pos):
                                 if journal_button_clicked:
-                                    drawing_functions.journal_info_draw(journal, False, True, False,
-                                                                        player, font, False)
+                                    drawing_functions.journal_info_draw(journal, player, font, False)
                                     journal_button_clicked = False
                                 else:
-                                    drawing_functions.journal_info_draw(journal, False, True, False,
-                                                                        player, font, True)
+                                    drawing_functions.journal_info_draw(journal, player, font, True)
                                     journal_button_clicked = True
-
                             # when player levels up, this lets them click to dismiss the window pop-up
                             if level_up_win.rect.collidepoint(pos):
-                                drawing_functions.level_up_draw(level_up_win, False, True, False,
-                                                                player, font, False)
-
+                                drawing_functions.level_up_draw(level_up_win, player, font, False)
                             if knowledge_academia.rect.collidepoint(pos) and knowledge_academia_show:
                                 knowledge_window_clicked = True
-
                             if rest_recover.rect.collidepoint(pos) and rest_recover_show:
                                 rest_window_clicked = True
-
                             if shop_gear.rect.collidepoint(pos) and shop_gear_show:
                                 shop_window_clicked = True
-
                         elif event.type == QUIT:
                             exit()
 
@@ -2993,7 +3001,6 @@ while game_running:
                                             quest_item.kill()
                                             interacted = False
                                             loot_update = True
-
                             if quest_item.name == "rohir gate":
                                 if player.quest_complete["ghouled again"]:
                                     info_text_1 = f"Press 'F' key to enter Korlok District."
@@ -3007,7 +3014,6 @@ while game_running:
                                 if not player.quest_complete["ghouled again"]:
                                     info_text_1 = f"The gate seems to be locked shut."
                                     info_text_2 = f"Perhaps the nearby Guard knows why?"
-
                         except AttributeError:
                             pass
 
@@ -3023,19 +3029,19 @@ while game_running:
                                 if player.role == "mage":
                                     player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                 player_battle_sprite.y_coordinate,
-                                                                resource_urls.player_mage_battle)
+                                                                player_mage_battle)
                                 if player.role == "fighter":
                                     player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                 player_battle_sprite.y_coordinate,
-                                                                resource_urls.player_fighter_battle)
+                                                                player_fighter_battle)
                                 if player.role == "scout":
                                     player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                 player_battle_sprite.y_coordinate,
-                                                                resource_urls.player_scout_battle)
+                                                                player_scout_battle)
                                 if player.role == "":
                                     player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                 player_battle_sprite.y_coordinate,
-                                                                resource_urls.player_no_role_battle)
+                                                                player_no_role_battle)
                                 in_district_over_world = False
                                 in_battle = True
 
@@ -3092,7 +3098,6 @@ while game_running:
                             info_text_2 = ""
                             info_update = True
                         # if click handler returns that an equitable item has been updated, set gear_checked to false
-                        # so that gear check function will run and get players current stats with new item equipped
                         if not inventory_event["gear checked"]:
                             gear_checked = False
                         if not inventory_event["weapon checked"]:
@@ -3146,45 +3151,50 @@ while game_running:
                     move_this_ghoul = random.choice(ghouls.sprites())
                     # move snakes in random direction within boundaries
                     if movement_able:
-                        if pygame.time.get_ticks() % 20 == 0:
-                            move_this_snake.update_position([30, 400], [150, 350],
+                        enemy_toc = time.perf_counter()
+                        if enemy_toc - enemy_tic > 1:
+                            enemy_tic = time.perf_counter()
+                            move_this_snake.update_position([100, 300], [200, 300],
                                                             direction_horizontal, direction_vertical)
-                            move_this_ghoul.update_position([650, 920], [150, 350],
+                            move_this_ghoul.update_position([700, 900], [200, 300],
                                                             direction_horizontal, direction_vertical)
 
                     # npc movement updates -----------------------------------------------------------------------------
                     # choose random facing direction and random npc to move face that direction ------------------------
                     face_direction = random.choice(["front", "back", "left", "right"])
                     face_this_npc = random.choice(npcs.sprites())
-                    if pygame.time.get_ticks() % 180 == 0:
-                        if face_direction == "front":
-                            if face_this_npc.name == "garan":
-                                npc_garan.update(garan_down)
-                            if face_this_npc.name == "maurelle":
-                                npc_maurelle.update(maurelle_down)
-                            if face_this_npc.name == "guard":
-                                npc_guard.update(guard_down)
-                        if face_direction == "back":
-                            if face_this_npc.name == "garan":
-                                npc_garan.update(garan_up)
-                            if face_this_npc.name == "maurelle":
-                                npc_maurelle.update(maurelle_up)
-                            if face_this_npc.name == "guard":
-                                npc_guard.update(guard_up)
-                        if face_direction == "left":
-                            if face_this_npc.name == "garan":
-                                npc_garan.update(garan_left)
-                            if face_this_npc.name == "maurelle":
-                                npc_maurelle.update(maurelle_left)
-                            if face_this_npc.name == "guard":
-                                npc_guard.update(guard_left)
-                        if face_direction == "right":
-                            if face_this_npc.name == "garan":
-                                npc_garan.update(garan_right)
-                            if face_this_npc.name == "maurelle":
-                                npc_maurelle.update(maurelle_right)
-                            if face_this_npc.name == "guard":
-                                npc_guard.update(guard_right)
+                    if movement_able:
+                        npc_toc = time.perf_counter()
+                        if npc_toc - npc_tic > 2:
+                            npc_tic = time.perf_counter()
+                            if face_direction == "front":
+                                if face_this_npc.name == "garan":
+                                    npc_garan.update(garan_down)
+                                if face_this_npc.name == "maurelle":
+                                    npc_maurelle.update(maurelle_down)
+                                if face_this_npc.name == "guard":
+                                    npc_guard.update(guard_down)
+                            if face_direction == "back":
+                                if face_this_npc.name == "garan":
+                                    npc_garan.update(garan_up)
+                                if face_this_npc.name == "maurelle":
+                                    npc_maurelle.update(maurelle_up)
+                                if face_this_npc.name == "guard":
+                                    npc_guard.update(guard_up)
+                            if face_direction == "left":
+                                if face_this_npc.name == "garan":
+                                    npc_garan.update(garan_left)
+                                if face_this_npc.name == "maurelle":
+                                    npc_maurelle.update(maurelle_left)
+                                if face_this_npc.name == "guard":
+                                    npc_guard.update(guard_left)
+                            if face_direction == "right":
+                                if face_this_npc.name == "garan":
+                                    npc_garan.update(garan_right)
+                                if face_this_npc.name == "maurelle":
+                                    npc_maurelle.update(maurelle_right)
+                                if face_this_npc.name == "guard":
+                                    npc_guard.update(guard_right)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -3231,25 +3241,22 @@ while game_running:
                             gear_checked = False
                         if not equipment_event["weapon checked"]:
                             weapon_checked = False
-
                         elif event.type == QUIT:
                             exit()
 
                         enemy = pygame.sprite.spritecollideany(player, enemies)
                         if enemy:
                             # update enemy health bar on each iteration
-                            health_bar_update_enemy(enemy)
+                            enemy.health_bar.update(enemy.health_bar.x_coordinate,
+                                                    enemy.health_bar.y_coordinate,
+                                                    health_bar_update(enemy))
                             # don't let player attack again immediately by spam clicking button
-                            # the combat cooldown at the end of battle sequence has a time delay which prevents this
-                            # but an additional check is used here so the button click won't register for
-                            # multiple attacks to happen after the delay is over
                             if not combat_cooldown:
                                 # if interact key 'f' has been pressed
                                 if interacted:
                                     # don't allow player to move while in combat
                                     movement_able = False
                                     # if player has just started combat, clear message box, change condition to True
-                                    # so that it doesn't continuously clear box after combat text is added
                                     if not encounter_started:
                                         info_text_1 = ""
                                         info_text_2 = ""
@@ -3258,47 +3265,45 @@ while game_running:
                                         encounter_started = True
                                     # get which button player pressed during combat scenario (attack, skill or run)
                                     combat_button = combat_event_button(event)
-                                    # enter combat scenario and attack enemy. attack_scenario will return all info in
-                                    # form of list
+
                                     if combat_button == "attack":
                                         # update player character sprite for combat animation
                                         if player.role == "mage":
                                             if barrier_active:
                                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                             player_battle_sprite.y_coordinate,
-                                                                            resource_urls.player_mage_barrier_attack)
+                                                                            player_mage_barrier_attack)
                                             else:
                                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                             player_battle_sprite.y_coordinate,
-                                                                            resource_urls.player_mage_attack)
+                                                                            player_mage_attack)
                                         if player.role == "fighter":
                                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                         player_battle_sprite.y_coordinate,
-                                                                        resource_urls.player_fighter_attack)
+                                                                        player_fighter_attack)
                                         if player.role == "scout":
                                             if sharp_sense_active:
                                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                             player_battle_sprite.y_coordinate,
-                                                                            resource_urls.player_scout_sense_attack)
+                                                                            player_scout_sense_attack)
                                             else:
                                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                             player_battle_sprite.y_coordinate,
-                                                                            resource_urls.player_scout_sense_attack)
+                                                                            player_scout_attack)
                                         if player.role == "":
                                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                         player_battle_sprite.y_coordinate,
-                                                                        resource_urls.player_no_role_attack)
+                                                                        player_no_role_attack)
                                         # update to attacking sprite surface for combat animation
                                         if enemy.kind == "snake":
                                             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                        snake_battle_sprite.y_coordinate,
-                                                                       resource_urls.snake_attack)
+                                                                       snake_attack)
                                         if enemy.kind == "ghoul":
                                             ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                                        ghoul_battle_sprite.y_coordinate,
-                                                                       resource_urls.ghoul_attack)
+                                                                       ghoul_attack)
 
-                                        # ------------------------------------------------------------------------------
                                         # ------------------------------------------------------------------------------
                                         # combat event function that handles and returns damage and health
                                         combat_events = attack_scenario(enemy, "attack")
@@ -3345,7 +3350,6 @@ while game_running:
                                                 player.knowledge["scout"] += 10
                                                 battle_info_to_return_to_main_loop["knowledge"] = \
                                                     "10 scout knowledge gained."
-
                                             # if barrier is active on enemy defeat, restore original defence and set off
                                             if barrier_active:
                                                 barrier_active = False
@@ -3354,7 +3358,6 @@ while game_running:
                                             if sharp_sense_active:
                                                 sharp_sense_active = False
                                                 player.offense = original_offense
-
                                             movement_able = True
                                             combat_happened = False
                                             interacted = False
@@ -3409,15 +3412,15 @@ while game_running:
                                                     if player.role == "fighter":
                                                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                                     player_battle_sprite.y_coordinate,
-                                                                                    resource_urls.player_fighter_strike)
+                                                                                    player_fighter_strike)
                                                     if enemy.kind == "snake":
                                                         snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                                    snake_battle_sprite.y_coordinate,
-                                                                                   resource_urls.snake_attack)
+                                                                                   snake_attack)
                                                     if enemy.kind == "ghoul":
                                                         ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                                                    ghoul_battle_sprite.y_coordinate,
-                                                                                   resource_urls.ghoul_attack)
+                                                                                   ghoul_attack)
                                                     # ------------------------------------------------------------------
 
                                                     combat_events = attack_scenario(enemy, "skill 1")
@@ -3431,7 +3434,6 @@ while game_running:
                                                         info_text_2 = ""
                                                     else:
                                                         info_text_2 = str(combat_events["damage taken"])
-
                                                     if combat_events["enemy defeated"]:
                                                         if combat_events["item dropped"] != "No":
                                                             battle_info_to_return_to_main_loop["item dropped"] = \
@@ -3439,17 +3441,14 @@ while game_running:
                                                         if combat_events["experience gained"] != 0:
                                                             battle_info_to_return_to_main_loop["experience"] = \
                                                                 str(combat_events["experience gained"])
-
                                                     if combat_events["enemy defeated"]:
                                                         if combat_events["level up status"] != "":
                                                             battle_info_to_return_to_main_loop["leveled_up"] = True
-
                                                     if combat_events["enemy defeated"]:
                                                         if player.role == "fighter":
                                                             player.knowledge["fighter"] += 10
                                                             battle_info_to_return_to_main_loop["knowledge"] = \
                                                                 "10 fighter knowledge gained."
-
                                                         movement_able = True
                                                         combat_happened = False
                                                         interacted = False
@@ -3497,7 +3496,10 @@ while game_running:
                             # draw player after enemy to show animations on top of enemy and not under
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(enemy_status_bar_backdrop.surf, enemy_status_bar_backdrop.rect)
-                            screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
+                            try:
+                                screen.blit(enemy.health_bar.surf, enemy.health_bar.rect)
+                            except TypeError:
+                                pass
                             screen.blit(enemy_status.surf, enemy_status.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
@@ -3511,7 +3513,7 @@ while game_running:
                             for equipment in player_equipment:
                                 screen.blit(equipment.surf, equipment.rect)
 
-                            drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                            drawing_functions.text_info_draw(screen, player, font,
                                                              info_text_1, info_text_2, info_text_3, info_text_4)
 
                             # get current enemy name and create surf and rectangle to draw to screen
@@ -3536,35 +3538,35 @@ while game_running:
                             if barrier_active:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.player_mage_barrier_battle)
+                                                            player_mage_barrier_battle)
                             else:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.player_mage_battle)
+                                                            player_mage_battle)
                         if player.role == "fighter":
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
-                                                        resource_urls.player_fighter_battle)
+                                                        player_fighter_battle)
                         if player.role == "scout":
                             if sharp_sense_active:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.player_scout_sense_battle)
+                                                            player_scout_sense_battle)
                             else:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.player_scout_battle)
+                                                            player_scout_battle)
                         if player.role == "":
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
-                                                        resource_urls.player_no_role_battle)
+                                                        player_no_role_battle)
 
                         snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                    snake_battle_sprite.y_coordinate,
-                                                   resource_urls.snake_battle)
+                                                   snake_battle)
                         ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                    ghoul_battle_sprite.y_coordinate,
-                                                   resource_urls.ghoul_battle)
+                                                   ghoul_battle)
                         pygame.display.flip()
                         combat_cooldown = False
 
@@ -3574,36 +3576,35 @@ while game_running:
                             if barrier_active:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.player_mage_barrier_attack)
+                                                            player_mage_barrier_attack)
                             else:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.player_mage_attack)
+                                                            player_mage_attack)
                         if not hard_strike:
                             if player.role == "fighter":
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.player_fighter_attack)
+                                                            player_fighter_attack)
                         if player.role == "scout":
                             if sharp_sense_active:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.player_scout_sense_attack)
+                                                            player_scout_sense_attack)
                             else:
                                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                             player_battle_sprite.y_coordinate,
-                                                            resource_urls.player_scout_attack)
+                                                            player_scout_attack)
                         if player.role == "":
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
-                                                        resource_urls.player_no_role_attack)
+                                                        player_no_role_attack)
                         snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                    snake_battle_sprite.y_coordinate,
-                                                   resource_urls.snake_attack)
+                                                   snake_attack)
                         ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                    ghoul_battle_sprite.y_coordinate,
-                                                   resource_urls.ghoul_attack)
-
+                                                   ghoul_attack)
                         # flip to display ------------------------------------------------------------------------------
                         # needs to flip here to show the new attacking sprites for the 1-second duration
                         pygame.display.flip()
@@ -3622,8 +3623,6 @@ while game_running:
                     status_and_inventory_updates()
                     equipment_updates()
 
-                    # shop scenario event loop
-                    # --------------------------------------------------------------------------------------------------
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
@@ -3645,7 +3644,6 @@ while game_running:
                                 # player that they can click to buy or sell items.
                                 item_bought = False
                                 item_sold = False
-
                             # get which button player pressed during shop scenario (buy or leave)-----------------------
                             shop_button = shop_event_button(event)
                             if shop_button == "buy":
@@ -3700,12 +3698,10 @@ while game_running:
                                                 shop_item.update(buy_first_coord, buy_second_coord, basic_robes_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
-
                                             if shop_item.name == "basic armor":
                                                 shop_item.update(buy_first_coord, buy_second_coord, basic_armor_img)
                                                 shopkeeper_items.append(shop_item)
                                                 buy_inventory_counter += 1
-
                                             if shop_item.name == "basic tunic":
                                                 shop_item.update(buy_first_coord, buy_second_coord, basic_tunic_img)
                                                 shopkeeper_items.append(shop_item)
@@ -3716,7 +3712,6 @@ while game_running:
                                                 buy_second_coord += 60
                                                 buy_first_coord = 810
                                                 buy_inventory_counter = 0
-
                             # ------------------------------------------------------------------------------------------
                             # if player chooses to leave shop, set conditions to allow normal gameplay loop
                             if shop_button == "leave":
@@ -3969,9 +3964,8 @@ while game_running:
                             screen.blit(item.surf, item.rect)
                         for equipment in player_equipment:
                             screen.blit(equipment.surf, equipment.rect)
-                        drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                        drawing_functions.text_info_draw(screen, player, font,
                                                          info_text_1, info_text_2, info_text_3, info_text_4)
-
                         # ----------------------------------------------------------------------------------------------
                         if buy_clicked:
                             for window in buy_shop_elements:
@@ -3990,9 +3984,6 @@ while game_running:
                         gear_checked = gear_check()
                     if not weapon_checked:
                         weapon_checked = weapon_check()
-
-                    # inn scenario event loop
-                    # --------------------------------------------------------------------------------------------------
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
@@ -4023,7 +4014,6 @@ while game_running:
                             gear_checked = False
                         if not equipment_event["weapon checked"]:
                             weapon_checked = False
-
                         elif event.type == QUIT:
                             exit()
 
@@ -4053,7 +4043,6 @@ while game_running:
                                     info_text_2 = ""
                                     info_text_3 = ""
                                     info_text_4 = ""
-
                         # ----------------------------------------------------------------------------------------------
                         # if player chooses to leave shop, set conditions to allow normal gameplay loop
                         if inn_button == "leave":
@@ -4088,7 +4077,6 @@ while game_running:
                         if not rested:
                             seldon_district_inn.set_alpha(255)
                             screen.blit(seldon_district_inn, (0, 0))
-
                         screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
@@ -4100,7 +4088,7 @@ while game_running:
                             screen.blit(item.surf, item.rect)
                         for equipment in player_equipment:
                             screen.blit(equipment.surf, equipment.rect)
-                        drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                        drawing_functions.text_info_draw(screen, player, font,
                                                          info_text_1, info_text_2, info_text_3, info_text_4)
 
                         # ----------------------------------------------------------------------------------------------
@@ -4112,11 +4100,6 @@ while game_running:
                                     screen.blit(nera_sleep_screen, (0, 0))
                                     # flip sleep screen to display each iteration to show fade -------------------------
                                     pygame.display.flip()
-
-                                # when rest happens, wait after flipping display to allow rest time
-                                # 1000 milliseconds = 1 second
-                                pygame.time.delay(2500)
-
                                 player.health = 100
                                 player.energy = 100
                                 rested = True
@@ -4131,15 +4114,12 @@ while game_running:
                         gear_checked = gear_check()
                     if not weapon_checked:
                         weapon_checked = weapon_check()
-
-                    # inn scenario event loop
-                    # --------------------------------------------------------------------------------------------------
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
                                 exit()
 
-                        # click handlers for main event loop -----------------------------------------------------------
+                        # click handlers -------------------------------------------------------------------------------
                         # ----------------------------------------------------------------------------------------------
                         # function to handle inventory item clicks. apply item message to message box if not empty str.
                         inventory_event = inventory_click_handler()
@@ -4164,14 +4144,12 @@ while game_running:
                             gear_checked = False
                         if not equipment_event["weapon checked"]:
                             weapon_checked = False
-
                         elif event.type == QUIT:
                             exit()
 
                         # ----------------------------------------------------------------------------------------------
                         academia = pygame.sprite.spritecollideany(player, buildings)
                         if building.name == "academia":
-                            # if player has just started inn scenario, clear message box
                             if not encounter_started:
                                 info_text_1 = "Click a book to view skills."
                                 info_text_2 = "Then, click a skill to learn it."
@@ -4221,7 +4199,6 @@ while game_running:
                                     else:
                                         info_text_1 = "You've already learned 'Barrier'."
                                         info_text_2 = ""
-
                                 if book_button.name == "close button":
                                     mage_learn_clicked = False
                                     books.clear()
@@ -4243,7 +4220,6 @@ while game_running:
                                     else:
                                         info_text_1 = "You've already learned 'Hard Strike'."
                                         info_text_2 = ""
-
                                 if book_button.name == "close button":
                                     fighter_learn_clicked = False
                                     books.clear()
@@ -4265,7 +4241,6 @@ while game_running:
                                     else:
                                         info_text_1 = "You've already learned 'Sharp Sense'."
                                         info_text_2 = ""
-
                                 if book_button.name == "close button":
                                     scout_learn_clicked = False
                                     books.clear()
@@ -4295,7 +4270,7 @@ while game_running:
                             screen.blit(book.surf, book.rect)
                         for skill_item in skill_learn_items:
                             screen.blit(skill_item.surf, skill_item.rect)
-                        drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                        drawing_functions.text_info_draw(screen, player, font,
                                                          info_text_1, info_text_2, info_text_3, info_text_4)
                         screen.blit(knowledge_window.surf, knowledge_window.rect)
                         text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
@@ -4374,7 +4349,7 @@ while game_running:
 
                         # when player levels up, this lets them click to dismiss the window pop-up
                         if level_up_win.rect.collidepoint(pos):
-                            drawing_functions.level_up_draw(level_up_win, False, True, False, player, font, False)
+                            drawing_functions.level_up_draw(level_up_win, player, font, False)
 
                         # ----------------------------------------------------------------------------------------------
                         npc = pygame.sprite.spritecollideany(player, npcs)
@@ -4405,15 +4380,14 @@ while game_running:
                                                 if player.experience >= 100:
                                                     level_up()
                                                 player.reputation["amuna"] += 10
-
                                                 player.items.append(Item("health potion", "potion", 200, 200,
-                                                                         resource_urls.health_pot))
+                                                                         health_pot_img))
                                                 player.items.append(Item("health potion", "potion", 200, 200,
-                                                                         resource_urls.health_pot))
+                                                                         health_pot_img))
                                                 player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                         resource_urls.energy_pot))
+                                                                         energy_pot_img))
                                                 player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                         resource_urls.energy_pot))
+                                                                         energy_pot_img))
                                             else:
                                                 info_text_1 = "You completed the quest, but "
                                                 info_text_2 = "Your inventory is full!"
@@ -4484,12 +4458,6 @@ while game_running:
                                                 if player.experience >= 100:
                                                     level_up()
                                                 player.reputation["amuna"] += 10
-                                                """if scaled_1024:
-                                                    print("idk yet")
-                                                if scaled_1280:
-                                                    print("idk yet")
-                                                if scaled_1600:
-                                                    print("idk yet")"""
                                             else:
                                                 info_text_1 = "You completed the quest, but "
                                                 info_text_2 = "Your inventory is full!"
@@ -4589,7 +4557,7 @@ while game_running:
                             screen.blit(item.surf, item.rect)
                         for equipment in player_equipment:
                             screen.blit(equipment.surf, equipment.rect)
-                        drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                        drawing_functions.text_info_draw(screen, player, font,
                                                          info_text_1, info_text_2, info_text_3, info_text_4)
                         # get current npc name and create surf and rectangle to draw to screen
                         text_npc_name_surf = font.render(str(npc.name), True, "black", "light yellow")
@@ -4632,7 +4600,7 @@ while game_running:
                     for window in display_elements:
                         screen.blit(window.surf, window.rect)
 
-                    rohir_gate.update(525, 600, resource_urls.rohir_gate)
+                    rohir_gate.update(525, 600, pygame.image.load(resource_urls.rohir_gate).convert())
                     screen.blit(rohir_gate.surf, rohir_gate.rect)
 
                     # draw player
@@ -4647,7 +4615,7 @@ while game_running:
                     screen.blit(xp_bar.surf, xp_bar.rect)
 
                     # draw texts to the screen, like message box, player rupees and level
-                    drawing_functions.text_info_draw(False, True, False, screen, player, font,
+                    drawing_functions.text_info_draw(screen, player, font,
                                                      info_text_1, info_text_2, info_text_3, info_text_4)
                     # update players current inventory and status
                     status_and_inventory_updates()
@@ -4679,36 +4647,29 @@ while game_running:
                             # if character button is clicked, call draw function and show elements. second click hides
                             if character_button.rect.collidepoint(pos):
                                 if character_button_clicked:
-                                    drawing_functions.character_sheet_info_draw(character_sheet, False, True, False,
-                                                                                player, font, False)
+                                    drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                     character_button_clicked = False
                                 else:
-                                    drawing_functions.character_sheet_info_draw(character_sheet, False, True, False,
-                                                                                player, font, True)
+                                    drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
                                     character_button_clicked = True
 
                             # if journal button is clicked, call draw function and show elements. second click hides
                             if journal_button.rect.collidepoint(pos):
                                 if journal_button_clicked:
-                                    drawing_functions.journal_info_draw(journal, False, True, False,
-                                                                        player, font, False)
+                                    drawing_functions.journal_info_draw(journal, player, font, False)
                                     journal_button_clicked = False
                                 else:
-                                    drawing_functions.journal_info_draw(journal, False, True, False,
-                                                                        player, font, True)
+                                    drawing_functions.journal_info_draw(journal, player, font, True)
                                     journal_button_clicked = True
 
                             # when player levels up, this lets them click to dismiss the window pop-up
                             if level_up_win.rect.collidepoint(pos):
-                                drawing_functions.level_up_draw(level_up_win, False, True, False,
-                                                                player, font, False)
+                                drawing_functions.level_up_draw(level_up_win, player, font, False)
 
                             if knowledge_academia.rect.collidepoint(pos) and knowledge_academia_show:
                                 knowledge_window_clicked = True
-
                             if rest_recover.rect.collidepoint(pos) and rest_recover_show:
                                 rest_window_clicked = True
-
                             if shop_gear.rect.collidepoint(pos) and shop_gear_show:
                                 shop_window_clicked = True
 
@@ -4728,7 +4689,8 @@ while game_running:
                                         in_district_over_world = True
                                         in_korlok = False
                                         interacted = False
-                                        rohir_gate.update(525, 40, resource_urls.rohir_gate)
+                                        rohir_gate.update(525, 40,
+                                                          pygame.image.load(resource_urls.rohir_gate).convert())
 
                         except AttributeError:
                             pass
