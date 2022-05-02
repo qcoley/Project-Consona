@@ -10,6 +10,9 @@ def resource_path(relative_path):
 
 
 # non sprite sheets ----------------------------------------------------------------------------------------------------
+amuna_character_screen = resource_path('resources/art/amuna_character_select.png')
+nuldar_character_screen = resource_path('resources/art/nuldar_character_select.png')
+sorae_character_screen = resource_path('resources/art/sorae_character_select.png')
 seldon_bg_screen = resource_path('resources/art/seldon_district.png')
 seldon_battle_screen = resource_path('resources/art/seldon_battle_screen.png')
 seldon_shop_screen = resource_path('resources/art/seldon_shop.png')
@@ -33,7 +36,7 @@ seldon_flower = resource_path('resources/art/seldon_flower.png')
 hearth_stone = resource_path('resources/art/hearth_stone.png')
 rohir_gate = resource_path('resources/art/rohir_gate.png')
 quest_logs = resource_path('resources/art/logs.png')
-continue_button = resource_path('resources/art/continue_button.png')
+lets_go_button = resource_path('resources/art/lets_go_button.png')
 learn_button = resource_path('resources/art/learn.png')
 skill_learn_button = resource_path('resources/art/skill_learn.png')
 hearth_button = resource_path('resources/art/hearth.png')
@@ -42,9 +45,18 @@ knowledge_window = resource_path('resources/art/knowledge.png')
 skill_bar = resource_path('resources/art/skill_bar.png')
 start_button = resource_path('resources/art/start_button.png')
 npc_name_plate = resource_path('resources/art/npc_name_plate.png')
+character_select_overlay_url = resource_path('resources/art/character_select_overlay.png')
+amuna_select_overlay_url = resource_path('resources/art/amuna_select_overlay.png')
+nuldar_select_overlay_url = resource_path('resources/art/nuldar_select_overlay.png')
+sorae_select_overlay_url = resource_path('resources/art/sorae_select_overlay.png')
+name_input_url = resource_path('resources/art/name_input.png')
 
-# player no role -------------------------------------------------------------------------------------------------------
-player_no_role_url = resource_path('resources/art/player_no_role.png')
+# create character screen character race selections
+character_selections = resource_path('resources/art/character_selections.png')
+# player no role amuna race --------------------------------------------------------------------------------------------
+player_no_role_amuna_url = resource_path('resources/art/player_no_role_amuna.png')
+# player no role sorae race --------------------------------------------------------------------------------------------
+player_no_role_sorae_url = resource_path('resources/art/player_no_role_sorae.png')
 # player mage ----------------------------------------------------------------------------------------------------------
 player_mage_url = resource_path('resources/art/player_mage.png')
 # player fighter -------------------------------------------------------------------------------------------------------
@@ -76,7 +88,9 @@ player_info_url = resource_path('resources/art/info_sheets.png')
 # books ----------------------------------------------------------------------------------------------------------------
 books_url = resource_path('resources/art/role_books.png')
 # start screen buttons -------------------------------------------------------------------------------------------------
-start_buttons_url = resource_path('resources/art/start_screen_buttons.png')
+start_buttons_url = resource_path('resources/art/start_buttons.png')
+# race select buttons on character screen ------------------------------------------------------------------------------
+race_select_buttons_url = resource_path('resources/art/race_select_buttons.png')
 # buttons --------------------------------------------------------------------------------------------------------------
 buttons_url = resource_path('resources/art/main_buttons.png')
 # attack buttons -------------------------------------------------------------------------------------------------------
