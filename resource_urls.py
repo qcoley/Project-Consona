@@ -57,16 +57,30 @@ character_selections = resource_path('resources/art/character_selections.png')
 player_no_role_amuna_url = resource_path('resources/art/player_no_role_amuna.png')
 # player no role sorae race --------------------------------------------------------------------------------------------
 player_no_role_sorae_url = resource_path('resources/art/player_no_role_sorae.png')
-# player mage ----------------------------------------------------------------------------------------------------------
-player_mage_url = resource_path('resources/art/player_mage.png')
-# player fighter -------------------------------------------------------------------------------------------------------
-player_fighter_url = resource_path('resources/art/player_fighter.png')
-# player scout ---------------------------------------------------------------------------------------------------------
-player_scout_url = resource_path('resources/art/player_scout.png')
+# player no role sorae race --------------------------------------------------------------------------------------------
+player_no_role_nuldar_url = resource_path('resources/art/player_no_role_nuldar.png')
+# player mage amuna race -----------------------------------------------------------------------------------------------
+player_mage_amuna_url = resource_path('resources/art/player_mage_amuna.png')
+# player mage nuldar race ----------------------------------------------------------------------------------------------
+player_mage_nuldar_url = resource_path('resources/art/player_mage_nuldar.png')
+# player mage sorae race -----------------------------------------------------------------------------------------------
+player_mage_sorae_url = resource_path('resources/art/player_mage_sorae.png')
+# player fighter amuna race --------------------------------------------------------------------------------------------
+player_fighter_amuna_url = resource_path('resources/art/player_fighter_amuna.png')
+# player fighter nuldar race -------------------------------------------------------------------------------------------
+player_fighter_nuldar_url = resource_path('resources/art/player_fighter_nuldar.png')
+# player fighter sorae race --------------------------------------------------------------------------------------------
+player_fighter_sorae_url = resource_path('resources/art/player_fighter_sorae.png')
+# player scout amuna race ----------------------------------------------------------------------------------------------
+player_scout_amuna_url = resource_path('resources/art/player_scout_amuna.png')
+# player scout nuldar race ---------------------------------------------------------------------------------------------
+player_scout_nuldar_url = resource_path('resources/art/player_scout_nuldar.png')
+# player scout sorae race ----------------------------------------------------------------------------------------------
+player_scout_sorae_url = resource_path('resources/art/player_scout_sorae.png')
 # player battle --------------------------------------------------------------------------------------------------------
-player_battle_url = resource_path('resources/art/player_battle_sprites.png')
+player_battle_url = resource_path('resources/art/player_battle_sprites_amuna.png')
 # player skills --------------------------------------------------------------------------------------------------------
-player_skills_url = resource_path('resources/art/player_battle_sprites_skills.png')
+player_skills_url = resource_path('resources/art/player_battle_sprites_skills_amuna.png')
 # garan npc ------------------------------------------------------------------------------------------------------------
 garan_url = resource_path('resources/art/garans.png')
 # maurelle npc ---------------------------------------------------------------------------------------------------------
