@@ -2149,23 +2149,40 @@ player_scout_sorae_down = player_scout_sorae_sheet.get_image(0, 0, 50, 75)
 player_scout_sorae_up = player_scout_sorae_sheet.get_image(50, 0, 50, 75)
 player_scout_sorae_left = player_scout_sorae_sheet.get_image(100, 0, 50, 75)
 player_scout_sorae_right = player_scout_sorae_sheet.get_image(150, 0, 50, 75)
-# player battle --------------------------------------------------------------------------------------------------------
-player_battle_sheet = SpriteSheet(resource_urls.player_battle_url)
-player_no_role_battle = player_battle_sheet.get_image(0, 0, 750, 624)
-player_no_role_attack = player_battle_sheet.get_image(750, 0, 750, 624)
-player_mage_battle = player_battle_sheet.get_image(1500, 0, 750, 624)
-player_mage_attack = player_battle_sheet.get_image(2250, 0, 750, 624)
-player_fighter_battle = player_battle_sheet.get_image(3000, 0, 750, 624)
-player_fighter_attack = player_battle_sheet.get_image(3750, 0, 750, 624)
-player_scout_battle = player_battle_sheet.get_image(4500, 0, 750, 624)
-player_scout_attack = player_battle_sheet.get_image(5250, 0, 750, 624)
-# player skills --------------------------------------------------------------------------------------------------------
-player_skills_sheet = SpriteSheet(resource_urls.player_skills_url)
-player_mage_barrier_battle = player_skills_sheet.get_image(0, 0, 750, 624)
-player_mage_barrier_attack = player_skills_sheet.get_image(750, 0, 750, 624)
-player_scout_sense_battle = player_skills_sheet.get_image(1500, 0, 750, 624)
-player_scout_sense_attack = player_skills_sheet.get_image(2250, 0, 750, 624)
-player_fighter_strike = player_skills_sheet.get_image(3000, 0, 750, 624)
+# player battle amuna race ---------------------------------------------------------------------------------------------
+player_battle_amuna_sheet = SpriteSheet(resource_urls.player_battle_amuna_url)
+player_no_role_amuna_battle = player_battle_amuna_sheet.get_image(0, 0, 750, 624)
+player_no_role_amuna_attack = player_battle_amuna_sheet.get_image(750, 0, 750, 624)
+player_mage_amuna_battle = player_battle_amuna_sheet.get_image(1500, 0, 750, 624)
+player_mage_amuna_attack = player_battle_amuna_sheet.get_image(2250, 0, 750, 624)
+player_fighter_amuna_battle = player_battle_amuna_sheet.get_image(3000, 0, 750, 624)
+player_fighter_amuna_attack = player_battle_amuna_sheet.get_image(3750, 0, 750, 624)
+player_scout_amuna_battle = player_battle_amuna_sheet.get_image(4500, 0, 750, 624)
+player_scout_amuna_attack = player_battle_amuna_sheet.get_image(5250, 0, 750, 624)
+# player skills amuna race ---------------------------------------------------------------------------------------------
+player_skills_amuna_sheet = SpriteSheet(resource_urls.player_skills_amuna_url)
+player_mage_barrier_amuna_battle = player_skills_amuna_sheet.get_image(0, 0, 750, 624)
+player_mage_barrier_amuna_attack = player_skills_amuna_sheet.get_image(750, 0, 750, 624)
+player_scout_sense_amuna_battle = player_skills_amuna_sheet.get_image(1500, 0, 750, 624)
+player_scout_sense_amuna_attack = player_skills_amuna_sheet.get_image(2250, 0, 750, 624)
+player_fighter_amuna_strike = player_skills_amuna_sheet.get_image(3000, 0, 750, 624)
+# player battle sorae race ---------------------------------------------------------------------------------------------
+player_battle_sorae_sheet = SpriteSheet(resource_urls.player_battle_sorae_url)
+player_no_role_sorae_battle = player_battle_sorae_sheet.get_image(0, 0, 750, 624)
+player_no_role_sorae_attack = player_battle_sorae_sheet.get_image(750, 0, 750, 624)
+player_mage_sorae_battle = player_battle_sorae_sheet.get_image(1500, 0, 750, 624)
+player_mage_sorae_attack = player_battle_sorae_sheet.get_image(2250, 0, 750, 624)
+player_fighter_sorae_battle = player_battle_sorae_sheet.get_image(3000, 0, 750, 624)
+player_fighter_sorae_attack = player_battle_sorae_sheet.get_image(3750, 0, 750, 624)
+player_scout_sorae_battle = player_battle_sorae_sheet.get_image(4500, 0, 750, 624)
+player_scout_sorae_attack = player_battle_sorae_sheet.get_image(5250, 0, 750, 624)
+# player skills sorae race ---------------------------------------------------------------------------------------------
+player_skills_sorae_sheet = SpriteSheet(resource_urls.player_skills_sorae_url)
+player_mage_barrier_sorae_battle = player_skills_sorae_sheet.get_image(0, 0, 750, 624)
+player_mage_barrier_sorae_attack = player_skills_sorae_sheet.get_image(750, 0, 750, 624)
+player_scout_sense_sorae_battle = player_skills_sorae_sheet.get_image(1500, 0, 750, 624)
+player_scout_sense_sorae_attack = player_skills_sorae_sheet.get_image(2250, 0, 750, 624)
+player_fighter_sorae_strike = player_skills_sorae_sheet.get_image(3000, 0, 750, 624)
 # garan npc ------------------------------------------------------------------------------------------------------------
 garan_sheet = SpriteSheet(resource_urls.garan_url)
 garan_down = garan_sheet.get_image(0, 0, 40, 62)
@@ -2777,7 +2794,7 @@ quest_star_garan = UiElement("quest star garan", 210, 390, quest_start_star, Fal
 quest_star_maurelle = UiElement("quest star maurelle", 760, 480, quest_start_star, False)
 quest_star_guard = UiElement("quest star guard", 430, 75, quest_start_star, False)
 # battle sprites -------------------------------------------------------------------------------------------------------
-player_battle_sprite = BattleCharacter("stan battle", 320, 460, player_no_role_battle)
+player_battle_sprite = BattleCharacter("stan battle", 320, 460, player_no_role_amuna_battle)
 snake_battle_sprite = BattleCharacter("snake battle", 715, 250, snake_battle)
 ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, ghoul_battle)
 
@@ -3365,9 +3382,9 @@ while game_running:
                 if not player.quest_complete["ghouled again"]:
                     screen.blit(quest_star_guard.surf, quest_star_guard.rect)
                 if player.quest_progress["ghouled again"] == 4:
-                    quest_star_guard.update(462, 80, quest_complete_star)
+                    quest_star_guard.update(430, 75, quest_complete_star)
                 if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
-                    quest_star_guard.update(462, 80, quest_progress_star)
+                    quest_star_guard.update(430, 75, quest_progress_star)
                 # ------------------------------------------------------------------------------------------------------
 
                 # draw player and status bars
@@ -3482,22 +3499,40 @@ while game_running:
                         info_text_1 = f"Press 'F' key to attack {enemy.name}."
                         info_text_2 = f"{enemy.name} level: {enemy.level}"
                         if interacted:
-                            if player.role == "mage":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            player_mage_battle)
-                            if player.role == "fighter":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            player_fighter_battle)
-                            if player.role == "scout":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            player_scout_battle)
-                            if player.role == "":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            player_no_role_battle)
+                            if player.race == "amuna":
+                                if player.role == "mage":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_mage_amuna_battle)
+                                if player.role == "fighter":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_fighter_amuna_battle)
+                                if player.role == "scout":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_scout_amuna_battle)
+                                if player.role == "":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_no_role_amuna_battle)
+                            if player.race == "sorae":
+                                if player.role == "mage":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_mage_sorae_battle)
+                                if player.role == "fighter":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_fighter_sorae_battle)
+                                if player.role == "scout":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_scout_sorae_battle)
+                                if player.role == "":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_no_role_sorae_battle)
                             in_district_over_world = False
                             in_battle = True
 
@@ -3526,22 +3561,40 @@ while game_running:
                     if npc:
                         info_text_1 = f"Press 'F' key to talk to {npc.name}."
                         if interacted:
-                            if player.role == "mage":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            player_mage_battle)
-                            if player.role == "fighter":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            player_fighter_battle)
-                            if player.role == "scout":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            player_scout_battle)
-                            if player.role == "":
-                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                            player_battle_sprite.y_coordinate,
-                                                            player_no_role_battle)
+                            if player.race == "amuna":
+                                if player.role == "mage":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_mage_amuna_battle)
+                                if player.role == "fighter":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_fighter_amuna_battle)
+                                if player.role == "scout":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_scout_amuna_battle)
+                                if player.role == "":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_no_role_amuna_battle)
+                            if player.race == "sorae":
+                                if player.role == "mage":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_mage_sorae_battle)
+                                if player.role == "fighter":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_fighter_sorae_battle)
+                                if player.role == "scout":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_scout_sorae_battle)
+                                if player.role == "":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_no_role_sorae_battle)
                             in_district_over_world = False
                             in_npc_interaction = True
 
@@ -3724,33 +3777,62 @@ while game_running:
 
                                 if combat_button == "attack":
                                     # update player character sprite for combat animation
-                                    if player.role == "mage":
-                                        if barrier_active:
+                                    if player.race == "amuna":
+                                        if player.role == "mage":
+                                            if barrier_active:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_mage_barrier_amuna_attack)
+                                            else:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_mage_amuna_attack)
+                                        if player.role == "fighter":
                                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                         player_battle_sprite.y_coordinate,
-                                                                        player_mage_barrier_attack)
-                                        else:
+                                                                        player_fighter_amuna_attack)
+                                        if player.role == "scout":
+                                            if sharp_sense_active:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_scout_sense_amuna_attack)
+                                            else:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_scout_amuna_attack)
+                                        if player.role == "":
                                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                         player_battle_sprite.y_coordinate,
-                                                                        player_mage_attack)
-                                    if player.role == "fighter":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    player_fighter_attack)
-                                    if player.role == "scout":
-                                        if sharp_sense_active:
+                                                                        player_no_role_amuna_attack)
+                                    if player.race == "sorae":
+                                        if player.role == "mage":
+                                            if barrier_active:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_mage_barrier_sorae_attack)
+                                            else:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_mage_sorae_attack)
+                                        if player.role == "fighter":
                                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                         player_battle_sprite.y_coordinate,
-                                                                        player_scout_sense_attack)
-                                        else:
+                                                                        player_fighter_sorae_attack)
+                                        if player.role == "scout":
+                                            if sharp_sense_active:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_scout_sense_sorae_attack)
+                                            else:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_scout_sorae_attack)
+                                        if player.role == "":
                                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                         player_battle_sprite.y_coordinate,
-                                                                        player_scout_attack)
-                                    if player.role == "":
-                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                    player_battle_sprite.y_coordinate,
-                                                                    player_no_role_attack)
-                                    # update to attacking sprite surface for combat animation
+                                                                        player_no_role_sorae_attack)
+
+                                    # update to attacking sprite surface for combat animation --------------------------
                                     if enemy.kind == "snake":
                                         snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                    snake_battle_sprite.y_coordinate,
@@ -3814,6 +3896,7 @@ while game_running:
                                         if sharp_sense_active:
                                             sharp_sense_active = False
                                             player.offense = original_offense
+
                                         movement_able = True
                                         combat_happened = False
                                         interacted = False
@@ -3863,12 +3946,17 @@ while game_running:
                                         if player.role == "fighter":
                                             if hard_strike_learned:
                                                 hard_strike = True
-
                                                 # update animations for hard strike attack -----------------------------
-                                                if player.role == "fighter":
-                                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                                                player_battle_sprite.y_coordinate,
-                                                                                player_fighter_strike)
+                                                if player.race == "amuna":
+                                                    if player.role == "fighter":
+                                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                                    player_battle_sprite.y_coordinate,
+                                                                                    player_fighter_amuna_strike)
+                                                if player.race == "sorae":
+                                                    if player.role == "fighter":
+                                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                                    player_battle_sprite.y_coordinate,
+                                                                                    player_fighter_sorae_strike)
                                                 if enemy.kind == "snake":
                                                     snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                                snake_battle_sprite.y_coordinate,
@@ -3905,6 +3993,7 @@ while game_running:
                                                         player.knowledge["fighter"] += 10
                                                         battle_info_to_return_to_main_loop["knowledge"] = \
                                                             "10 fighter knowledge gained."
+
                                                     movement_able = True
                                                     combat_happened = False
                                                     interacted = False
@@ -3928,7 +4017,6 @@ while game_running:
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
                         screen.blit(skill_bar.surf, skill_bar.rect)
-
                         if player.role == "mage":
                             screen.blit(mage_attack_button.surf, mage_attack_button.rect)
                             if player.skills_mage["skill 2"] == "barrier":
@@ -3943,7 +4031,6 @@ while game_running:
                                 screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
                         if player.role == "":
                             screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
-
                         if enemy.name == "snake":
                             screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                         if enemy.name == "ghoul":
@@ -3990,78 +4077,137 @@ while game_running:
                 # ------------------------------------------------------------------------------------------------------
                 # combat didn't happen this iteration, reset sprites to default surface image
                 if not combat_happened:
-                    if player.role == "mage":
-                        if barrier_active:
+                    if player.race == "amuna":
+                        if player.role == "mage":
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_barrier_amuna_battle)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_amuna_battle)
+                        if player.role == "fighter":
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
-                                                        player_mage_barrier_battle)
-                        else:
+                                                        player_fighter_amuna_battle)
+                        if player.role == "scout":
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_sense_amuna_battle)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_amuna_battle)
+                        if player.role == "":
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
-                                                        player_mage_battle)
-                    if player.role == "fighter":
-                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                    player_battle_sprite.y_coordinate,
-                                                    player_fighter_battle)
-                    if player.role == "scout":
-                        if sharp_sense_active:
+                                                        player_no_role_amuna_battle)
+                    if player.race == "sorae":
+                        if player.role == "mage":
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_barrier_sorae_battle)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_sorae_battle)
+                        if player.role == "fighter":
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
-                                                        player_scout_sense_battle)
-                        else:
+                                                        player_fighter_sorae_battle)
+                        if player.role == "scout":
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_sense_sorae_battle)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_sorae_battle)
+                        if player.role == "":
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
-                                                        player_scout_battle)
-                    if player.role == "":
-                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                    player_battle_sprite.y_coordinate,
-                                                    player_no_role_battle)
-
+                                                        player_no_role_sorae_battle)
+                    # --------------------------------------------------------------------------------------------------
                     snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                snake_battle_sprite.y_coordinate,
                                                snake_battle)
                     ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                ghoul_battle_sprite.y_coordinate,
                                                ghoul_battle)
+
                     pygame.display.flip()
                     combat_cooldown = False
 
                 # combat happened this turn, update sprites for battle and apply short cooldown to attack again
                 if combat_happened:
-                    if player.role == "mage":
-                        if barrier_active:
+                    if player.race == "amuna":
+                        if player.role == "mage":
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_barrier_amuna_attack)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_amuna_attack)
+                        if not hard_strike:
+                            if player.role == "fighter":
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_fighter_amuna_attack)
+                        if player.role == "scout":
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_sense_amuna_attack)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_amuna_attack)
+                        if player.role == "":
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
-                                                        player_mage_barrier_attack)
-                        else:
+                                                        player_no_role_amuna_attack)
+                    if player.race == "sorae":
+                        if player.role == "mage":
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_barrier_sorae_attack)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_sorae_attack)
+                        if not hard_strike:
+                            if player.role == "fighter":
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_fighter_sorae_attack)
+                        if player.role == "scout":
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_sense_sorae_attack)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_sorae_attack)
+                        if player.role == "":
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
-                                                        player_mage_attack)
-                    if not hard_strike:
-                        if player.role == "fighter":
-                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                        player_battle_sprite.y_coordinate,
-                                                        player_fighter_attack)
-                    if player.role == "scout":
-                        if sharp_sense_active:
-                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                        player_battle_sprite.y_coordinate,
-                                                        player_scout_sense_attack)
-                        else:
-                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                        player_battle_sprite.y_coordinate,
-                                                        player_scout_attack)
-                    if player.role == "":
-                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                    player_battle_sprite.y_coordinate,
-                                                    player_no_role_attack)
-
+                                                        player_no_role_sorae_attack)
+                    # --------------------------------------------------------------------------------------------------
                     snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                snake_battle_sprite.y_coordinate,
                                                snake_attack)
                     ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                                ghoul_battle_sprite.y_coordinate,
                                                ghoul_attack)
+
                     # flip to display ----------------------------------------------------------------------------------
                     # needs to flip here to show the new attacking sprites for the 1-second duration
                     pygame.display.flip()
