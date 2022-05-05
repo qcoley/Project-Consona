@@ -85,6 +85,10 @@ player_skills_amuna_url = resource_path('resources/art/player_battle_sprites_ski
 player_battle_sorae_url = resource_path('resources/art/player_battle_sprites_sorae.png')
 # player skills sorae race ---------------------------------------------------------------------------------------------
 player_skills_sorae_url = resource_path('resources/art/player_battle_sprites_skills_sorae.png')
+# player battle nuldar race --------------------------------------------------------------------------------------------
+player_battle_nuldar_url = resource_path('resources/art/player_battle_sprites_nuldar.png')
+# player skills sorae race ---------------------------------------------------------------------------------------------
+player_skills_nuldar_url = resource_path('resources/art/player_battle_sprites_skills_nuldar.png')
 # garan npc ------------------------------------------------------------------------------------------------------------
 garan_url = resource_path('resources/art/garans.png')
 # maurelle npc ---------------------------------------------------------------------------------------------------------

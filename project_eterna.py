@@ -2183,6 +2183,23 @@ player_mage_barrier_sorae_attack = player_skills_sorae_sheet.get_image(750, 0, 7
 player_scout_sense_sorae_battle = player_skills_sorae_sheet.get_image(1500, 0, 750, 624)
 player_scout_sense_sorae_attack = player_skills_sorae_sheet.get_image(2250, 0, 750, 624)
 player_fighter_sorae_strike = player_skills_sorae_sheet.get_image(3000, 0, 750, 624)
+# player battle nuldar race --------------------------------------------------------------------------------------------
+player_battle_nuldar_sheet = SpriteSheet(resource_urls.player_battle_nuldar_url)
+player_no_role_nuldar_battle = player_battle_nuldar_sheet.get_image(0, 0, 750, 624)
+player_no_role_nuldar_attack = player_battle_nuldar_sheet.get_image(750, 0, 750, 624)
+player_mage_nuldar_battle = player_battle_nuldar_sheet.get_image(1500, 0, 750, 624)
+player_mage_nuldar_attack = player_battle_nuldar_sheet.get_image(2250, 0, 750, 624)
+player_fighter_nuldar_battle = player_battle_nuldar_sheet.get_image(3000, 0, 750, 624)
+player_fighter_nuldar_attack = player_battle_nuldar_sheet.get_image(3750, 0, 750, 624)
+player_scout_nuldar_battle = player_battle_nuldar_sheet.get_image(4500, 0, 750, 624)
+player_scout_nuldar_attack = player_battle_nuldar_sheet.get_image(5250, 0, 750, 624)
+# player skills sorae race ---------------------------------------------------------------------------------------------
+player_skills_nuldar_sheet = SpriteSheet(resource_urls.player_skills_nuldar_url)
+player_mage_barrier_nuldar_battle = player_skills_nuldar_sheet.get_image(0, 0, 750, 624)
+player_mage_barrier_nuldar_attack = player_skills_nuldar_sheet.get_image(750, 0, 750, 624)
+player_scout_sense_nuldar_battle = player_skills_nuldar_sheet.get_image(1500, 0, 750, 624)
+player_scout_sense_nuldar_attack = player_skills_nuldar_sheet.get_image(2250, 0, 750, 624)
+player_fighter_nuldar_strike = player_skills_nuldar_sheet.get_image(3000, 0, 750, 624)
 # garan npc ------------------------------------------------------------------------------------------------------------
 garan_sheet = SpriteSheet(resource_urls.garan_url)
 garan_down = garan_sheet.get_image(0, 0, 40, 62)
@@ -3533,6 +3550,23 @@ while game_running:
                                     player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                 player_battle_sprite.y_coordinate,
                                                                 player_no_role_sorae_battle)
+                            if player.race == "nuldar":
+                                if player.role == "mage":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_mage_nuldar_battle)
+                                if player.role == "fighter":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_fighter_nuldar_battle)
+                                if player.role == "scout":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_scout_nuldar_battle)
+                                if player.role == "":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_no_role_nuldar_battle)
                             in_district_over_world = False
                             in_battle = True
 
@@ -3595,6 +3629,23 @@ while game_running:
                                     player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                 player_battle_sprite.y_coordinate,
                                                                 player_no_role_sorae_battle)
+                            if player.race == "nuldar":
+                                if player.role == "mage":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_mage_nuldar_battle)
+                                if player.role == "fighter":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_fighter_nuldar_battle)
+                                if player.role == "scout":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_scout_nuldar_battle)
+                                if player.role == "":
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                player_no_role_nuldar_battle)
                             in_district_over_world = False
                             in_npc_interaction = True
 
@@ -3831,6 +3882,33 @@ while game_running:
                                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                         player_battle_sprite.y_coordinate,
                                                                         player_no_role_sorae_attack)
+                                    if player.race == "nuldar":
+                                        if player.role == "mage":
+                                            if barrier_active:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_mage_barrier_nuldar_attack)
+                                            else:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_mage_nuldar_attack)
+                                        if player.role == "fighter":
+                                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                        player_battle_sprite.y_coordinate,
+                                                                        player_fighter_nuldar_attack)
+                                        if player.role == "scout":
+                                            if sharp_sense_active:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_scout_sense_nuldar_attack)
+                                            else:
+                                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                            player_battle_sprite.y_coordinate,
+                                                                            player_scout_nuldar_attack)
+                                        if player.role == "":
+                                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                        player_battle_sprite.y_coordinate,
+                                                                        player_no_role_nuldar_attack)
 
                                     # update to attacking sprite surface for combat animation --------------------------
                                     if enemy.kind == "snake":
@@ -3957,6 +4035,11 @@ while game_running:
                                                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                                                     player_battle_sprite.y_coordinate,
                                                                                     player_fighter_sorae_strike)
+                                                if player.race == "nuldar":
+                                                    if player.role == "fighter":
+                                                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                                    player_battle_sprite.y_coordinate,
+                                                                                    player_fighter_nuldar_strike)
                                                 if enemy.kind == "snake":
                                                     snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                                                snake_battle_sprite.y_coordinate,
@@ -4131,6 +4214,33 @@ while game_running:
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
                                                         player_no_role_sorae_battle)
+                    if player.race == "nuldar":
+                        if player.role == "mage":
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_barrier_nuldar_battle)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_nuldar_battle)
+                        if player.role == "fighter":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        player_fighter_nuldar_battle)
+                        if player.role == "scout":
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_sense_nuldar_battle)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_nuldar_battle)
+                        if player.role == "":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        player_no_role_nuldar_battle)
                     # --------------------------------------------------------------------------------------------------
                     snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                snake_battle_sprite.y_coordinate,
@@ -4200,6 +4310,34 @@ while game_running:
                             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                         player_battle_sprite.y_coordinate,
                                                         player_no_role_sorae_attack)
+                    if player.race == "nuldar":
+                        if player.role == "mage":
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_barrier_nuldar_attack)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_mage_nuldar_attack)
+                        if not hard_strike:
+                            if player.role == "fighter":
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_fighter_nuldar_attack)
+                        if player.role == "scout":
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_sense_nuldar_attack)
+                            else:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            player_scout_nuldar_attack)
+                        if player.role == "":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        player_no_role_nuldar_attack)
                     # --------------------------------------------------------------------------------------------------
                     snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                                snake_battle_sprite.y_coordinate,
