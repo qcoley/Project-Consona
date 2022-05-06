@@ -1,6 +1,7 @@
 import random
 import time
 import pygame
+import pickle
 from pygame.locals import *
 
 import resource_urls
@@ -2045,6 +2046,41 @@ def weapon_check():
     return True
 
 
+def save_game():
+    inventory_save = []
+    equipment_save = []
+    # a sprite surface object cannot be serialized, so save the string item name instead
+    # pass if there is no item (that would not have a name)
+    try:
+        for item_x in player.items:
+            inventory_save.append(item_x.name)
+        equipment_save.append(player.equipment["weapon"].name)
+        equipment_save.append(player.equipment["chest"].name)
+    except AttributeError:
+        pass
+    # dictionary to hold player information for saving
+    player_save_info = {"name": str(player.name), "race": str(player.race),
+                        "level": int(player.level), "role": str(player.role),
+                        "inventory": inventory_save, "equipment": equipment_save,
+                        "hp": int(player.health), "en": int(player.energy), "xp": int(player.experience),
+                        "quests": dict(player.current_quests),
+                        "quest progress": dict(player.quest_progress),
+                        "quest status": dict(player.quest_status),
+                        "quest complete": dict(player.quest_complete),
+                        "knowledge": dict(player.knowledge),
+                        "mage skills": dict(player.skills_mage),
+                        "fighter skills": dict(player.skills_fighter),
+                        "scout skills": dict(player.skills_scout),
+                        "learned": {"barrier": barrier_learned,
+                                    "strike": hard_strike_learned,
+                                    "sense": sharp_sense_learned},
+                        "rupees": int(player.rupees), "reputation": dict(player.reputation),
+                        "zone": str(player.current_zone), "saved": saved}
+    # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
+    with open("save_game", "wb") as f:
+        pickle.dump(player_save_info, f)
+
+
 # will be used for music later -----------------------------------------------------------------------------------------
 # pygame.mixer.init()
 # initialize game, set clock for framerate, set screen size ------------------------------------------------------------
@@ -2279,6 +2315,8 @@ quest_button_img = buttons_sheet.get_image(400, 0, 100, 50)
 leave_button_img = buttons_sheet.get_image(500, 0, 100, 50)
 accept_button_img = buttons_sheet.get_image(600, 0, 100, 50)
 decline_button_img = buttons_sheet.get_image(700, 0, 100, 50)
+yes_button_img = buttons_sheet.get_image(800, 0, 100, 50)
+no_button_img = buttons_sheet.get_image(900, 0, 100, 50)
 # attack buttons -------------------------------------------------------------------------------------------------------
 attack_buttons_sheet = SpriteSheet(resource_urls.attack_buttons_url)
 mage_attack_button_img = attack_buttons_sheet.get_image(0, 0, 60, 60)
@@ -2290,6 +2328,10 @@ skill_buttons_sheet = SpriteSheet(resource_urls.skill_buttons_url)
 barrier_button_img = skill_buttons_sheet.get_image(0, 0, 60, 60)
 strike_button_img = skill_buttons_sheet.get_image(60, 0, 60, 60)
 sense_button_img = skill_buttons_sheet.get_image(120, 0, 60, 60)
+# game function buttons ------------------------------------------------------------------------------------------------
+game_function_buttons_sheet = SpriteSheet(resource_urls.game_play_function_buttons_url)
+save_button_img = game_function_buttons_sheet.get_image(0, 0, 100, 25)
+hearth_button_img = game_function_buttons_sheet.get_image(100, 0, 100, 25)
 # quest windows --------------------------------------------------------------------------------------------------------
 quest_windows_sheet = SpriteSheet(resource_urls.quest_windows_url)
 garan_quest = quest_windows_sheet.get_image(0, 0, 500, 525)
@@ -2305,6 +2347,8 @@ popups_sheet = SpriteSheet(resource_urls.popups_url)
 gear_popup = popups_sheet.get_image(0, 0, 400, 200)
 health_popup = popups_sheet.get_image(400, 0, 400, 200)
 knowledge_popup = popups_sheet.get_image(800, 0, 400, 200)
+save_popup = popups_sheet.get_image(1200, 0, 400, 200)
+save_not_found = popups_sheet.get_image(1600, 0, 400, 200)
 # heath bars -----------------------------------------------------------------------------------------------------------
 hp_sheet = SpriteSheet(resource_urls.hp_url)
 hp_0 = hp_sheet.get_image(0, 0, 305, 19)
@@ -2620,6 +2664,9 @@ xp_100 = xp_sheet.get_image(0, 190, 305, 19)
 knowledge_academia = Notification("knowledge academia notification", False, 510, 365, knowledge_popup)
 rest_recover = Notification("rest recover", False, 510, 365, health_popup)
 shop_gear = Notification("shop gear", False, 510, 365, gear_popup)
+save_check = Notification("save check", False, 510, 365, save_popup)
+# window that notifies player if a save file isn't found on start screen
+save_absent = Notification("save absent", False, 640, 574, save_not_found)
 # inventory items ------------------------------------------------------------------------------------------------------
 health_potion = Item("health potion", "potion", 200, 200, health_pot_img)
 energy_potion = Item("energy potion", "potion", 200, 200, energy_pot_img)
@@ -2632,7 +2679,6 @@ basic_bow = Item("basic bow", "scout", 200, 200, basic_bow_img)
 basic_robes = Item("basic robes", "mage", 200, 200, basic_robes_img)
 basic_armor = Item("basic armor", "fighter", 200, 200, basic_armor_img)
 basic_tunic = Item("basic tunic", "scout", 200, 200, basic_tunic_img)
-
 # character selection screen display characters ------------------------------------------------------------------------
 amuna_character = UiElement("amuna character", 640, 360, amuna_character_img, False)
 nuldar_character = UiElement("nuldar character", 640, 360, nuldar_character_img, False)
@@ -2763,11 +2809,14 @@ hard_strike_learn_button = UiElement("hard strike learn button", 505, 300,
                                      pygame.image.load(resource_urls.skill_learn_button).convert(), False)
 sharp_sense_learn_button = UiElement("sharp sense learn button", 505, 300,
                                      pygame.image.load(resource_urls.skill_learn_button).convert(), False)
-hearth_button = UiElement("hearth button", 970, 25, pygame.image.load(resource_urls.hearth_button).convert(), False)
 close_button = UiElement("close button", 975, 135, pygame.image.load(resource_urls.close_button).convert(), False)
 quest_button = UiElement("quest button", 860, 680, quest_button_img, False)
 accept_button = UiElement("accept button", 340, 670, accept_button_img, False)
 decline_button = UiElement("decline button", 450, 670, decline_button_img, False)
+hearth_button = UiElement("hearth button", 860, 25, hearth_button_img, False)
+save_button = UiElement("save button", 970, 25, save_button_img, False)
+yes_button = UiElement("yes button", 445, 388, yes_button_img, False)
+no_button = UiElement("no button", 559, 388, no_button_img, False)
 # ----------------------------------------------------------------------------------------------------------------------
 skill_bar = UiElement("skill bar", 855, 615, pygame.image.load(resource_urls.skill_bar).convert(), False)
 no_role_attack_button = UiElement("no role attack button", 750, 627, no_role_attack_button_img, False)
@@ -2847,7 +2896,8 @@ trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 grass.add(seldon_grass_1, seldon_grass_2, seldon_grass_3, seldon_grass_4, seldon_grass_5, seldon_grass_6)
 flowers.add(seldon_flower_1, seldon_flower_2, seldon_flower_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
-user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, hearth_button, message_box)
+user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, save_button, hearth_button,
+                   message_box)
 conditional_interface.add(buy_inventory, character_sheet, journal, level_up_win, mage_book, fighter_book, scout_book,
                           mage_learn_button, fighter_learn_button, scout_learn_button, barrier_learn_button,
                           hard_strike_learn_button, sharp_sense_learn_button, close_button)
@@ -2983,6 +3033,10 @@ rest_window_clicked = False
 shop_gear_show = False
 # condition to check if player has clicked on gear notification to hide it
 shop_window_clicked = False
+# condition to check if player has saved game
+saved = False
+# condition to check if player has pressed enter key during character selection screen
+entered = False
 # string to store players current direction on key press for correctly displaying orientation on sprite update
 # when changing gear/role etc.
 current_direction = ""
@@ -3020,6 +3074,10 @@ knowledge_academia_window = []
 rest_recover_window = []
 # list to contain gear notification when player gets weapon
 shop_gear_window = []
+# list to contain save window elements when player saves game (if overwriting previous)
+save_check_window = []
+# list to contain popup window for no save data found at start
+save_data_window = []
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
 info_text_1 = ""
@@ -3043,7 +3101,8 @@ while game_running:
         screen.blit(start_screen, (0, 0))
         screen.blit(new_game_button.surf, new_game_button.rect)
         screen.blit(continue_button.surf, continue_button.rect)
-
+        for element in save_data_window:
+            screen.blit(element.surf, element.rect)
         # ---------------------------------------------------------------------------------------------------------------
         # user input events such as key presses or UI interaction
         for event in pygame.event.get():
@@ -3057,6 +3116,8 @@ while game_running:
                     new_game_chosen = True
                 if continue_button.rect.collidepoint(pos):
                     continue_game_chosen = True
+                if save_absent.rect.collidepoint(pos):
+                    save_data_window.clear()
             elif event.type == QUIT:
                 exit()
         pygame.display.flip()
@@ -3081,6 +3142,10 @@ while game_running:
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         exit()
+                    # if enter key is pressed, de-select name box and proceed
+                    if event.key == K_RETURN:
+                        name_input_selected = False
+                        entered = True
                     if event.key == K_BACKSPACE:
                         if name_input_selected:
                             character_name_input = character_name_input[:-1]
@@ -3088,24 +3153,8 @@ while game_running:
                         if name_input_selected:
                             if len(character_name_input) < 12:
                                 character_name_input += event.unicode
-
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if amuna_button.rect.collidepoint(pos):
-                        amuna_race_selected = True
-                        nuldar_race_selected = False
-                        sorae_race_selected = False
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if nuldar_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = True
-                        sorae_race_selected = False
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if sorae_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = False
-                        sorae_race_selected = True
                     # player clicks on the box to type name
                     if name_input.rect.collidepoint(pos):
                         if name_input_selected:
@@ -3115,21 +3164,36 @@ while game_running:
                         else:
                             name_input.update(name_input.x_coordinate, name_input.y_coordinate, name_input_empty_img)
                             name_input_selected = True
-                    # get whatever the player typed in name box and chosen race and start game
-                    if start_button.rect.collidepoint(pos):
-                        if len(character_name_input) > 0:
-                            player.name = str(character_name_input)
-                        else:
-                            player.name = "default"
-                        player.race = "amuna"
-                        player.surf = player_no_role_amuna_down
-                        new_game_chosen = False
-                        start_chosen = True
-
+                # player amuna race selection, set conditions to go to amuna select screen
+                if amuna_button.rect.collidepoint(pos):
+                    amuna_race_selected = True
+                    nuldar_race_selected = False
+                    sorae_race_selected = False
+                # player amuna race selection, set conditions to go to amuna select screen
+                if nuldar_button.rect.collidepoint(pos):
+                    amuna_race_selected = False
+                    nuldar_race_selected = True
+                    sorae_race_selected = False
+                # player amuna race selection, set conditions to go to amuna select screen
+                if sorae_button.rect.collidepoint(pos):
+                    amuna_race_selected = False
+                    nuldar_race_selected = False
+                    sorae_race_selected = True
+                # get whatever the player typed in name box and chosen race and start game
+                if start_button.rect.collidepoint(pos) or entered:
+                    if len(character_name_input) > 0:
+                        player.name = str(character_name_input)
+                    else:
+                        player.name = "default"
+                    player.race = "amuna"
+                    player.surf = player_no_role_amuna_down
+                    new_game_chosen = False
+                    start_chosen = True
                 elif event.type == QUIT:
                     exit()
             pygame.display.flip()
 
+        # --------------------------------------------------------------------------------------------------------------
         if sorae_race_selected:
             screen.blit(sorae_character_screen, (0, 0))
             screen.blit(character_select_overlay.surf, character_select_overlay.rect)
@@ -3147,6 +3211,10 @@ while game_running:
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         exit()
+                    # if enter key is pressed, de-select name box and proceed
+                    if event.key == K_RETURN:
+                        name_input_selected = False
+                        entered = True
                     if event.key == K_BACKSPACE:
                         if name_input_selected:
                             character_name_input = character_name_input[:-1]
@@ -3154,24 +3222,8 @@ while game_running:
                         if name_input_selected:
                             if len(character_name_input) < 12:
                                 character_name_input += event.unicode
-
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if amuna_button.rect.collidepoint(pos):
-                        amuna_race_selected = True
-                        nuldar_race_selected = False
-                        sorae_race_selected = False
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if nuldar_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = True
-                        sorae_race_selected = False
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if sorae_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = False
-                        sorae_race_selected = True
                     # player clicks on the box to type name
                     if name_input.rect.collidepoint(pos):
                         if name_input_selected:
@@ -3179,24 +3231,38 @@ while game_running:
                                 name_input.update(name_input.x_coordinate, name_input.y_coordinate, name_input_img)
                             name_input_selected = False
                         else:
-                            name_input.update(name_input.x_coordinate, name_input.y_coordinate,
-                                              name_input_empty_img)
+                            name_input.update(name_input.x_coordinate, name_input.y_coordinate, name_input_empty_img)
                             name_input_selected = True
-                    # get whatever the player typed in name box and chosen race and start game
-                    if start_button.rect.collidepoint(pos):
-                        if len(character_name_input) > 0:
-                            player.name = str(character_name_input)
-                        else:
-                            player.name = "default"
-                        player.race = "sorae"
-                        player.surf = player_no_role_sorae_down
-                        new_game_chosen = False
-                        start_chosen = True
-
+                # player amuna race selection, set conditions to go to amuna select screen
+                if amuna_button.rect.collidepoint(pos):
+                    amuna_race_selected = True
+                    nuldar_race_selected = False
+                    sorae_race_selected = False
+                # player amuna race selection, set conditions to go to amuna select screen
+                if nuldar_button.rect.collidepoint(pos):
+                    amuna_race_selected = False
+                    nuldar_race_selected = True
+                    sorae_race_selected = False
+                # player amuna race selection, set conditions to go to amuna select screen
+                if sorae_button.rect.collidepoint(pos):
+                    amuna_race_selected = False
+                    nuldar_race_selected = False
+                    sorae_race_selected = True
+                # get whatever the player typed in name box and chosen race and start game
+                if start_button.rect.collidepoint(pos) or entered:
+                    if len(character_name_input) > 0:
+                        player.name = str(character_name_input)
+                    else:
+                        player.name = "default"
+                    player.race = "sorae"
+                    player.surf = player_no_role_sorae_down
+                    new_game_chosen = False
+                    start_chosen = True
                 elif event.type == QUIT:
                     exit()
             pygame.display.flip()
 
+        # --------------------------------------------------------------------------------------------------------------
         if nuldar_race_selected:
             screen.blit(nuldar_character_screen, (0, 0))
             screen.blit(character_select_overlay.surf, character_select_overlay.rect)
@@ -3214,6 +3280,10 @@ while game_running:
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         exit()
+                    # if enter key is pressed, de-select name box and proceed
+                    if event.key == K_RETURN:
+                        name_input_selected = False
+                        entered = True
                     if event.key == K_BACKSPACE:
                         if name_input_selected:
                             character_name_input = character_name_input[:-1]
@@ -3221,24 +3291,8 @@ while game_running:
                         if name_input_selected:
                             if len(character_name_input) < 12:
                                 character_name_input += event.unicode
-
                 if event.type == pygame.MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if amuna_button.rect.collidepoint(pos):
-                        amuna_race_selected = True
-                        nuldar_race_selected = False
-                        sorae_race_selected = False
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if nuldar_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = True
-                        sorae_race_selected = False
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if sorae_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = False
-                        sorae_race_selected = True
                     # player clicks on the box to type name
                     if name_input.rect.collidepoint(pos):
                         if name_input_selected:
@@ -3246,23 +3300,136 @@ while game_running:
                                 name_input.update(name_input.x_coordinate, name_input.y_coordinate, name_input_img)
                             name_input_selected = False
                         else:
-                            name_input.update(name_input.x_coordinate, name_input.y_coordinate,
-                                              name_input_empty_img)
+                            name_input.update(name_input.x_coordinate, name_input.y_coordinate, name_input_empty_img)
                             name_input_selected = True
-                    # get whatever the player typed in name box and chosen race and start game
-                    if start_button.rect.collidepoint(pos):
-                        if len(character_name_input) > 0:
-                            player.name = str(character_name_input)
-                        else:
-                            player.name = "default"
-                        player.race = "nuldar"
-                        player.surf = player_no_role_nuldar_down
-                        new_game_chosen = False
-                        start_chosen = True
-
+                # player amuna race selection, set conditions to go to amuna select screen
+                if amuna_button.rect.collidepoint(pos):
+                    amuna_race_selected = True
+                    nuldar_race_selected = False
+                    sorae_race_selected = False
+                # player amuna race selection, set conditions to go to amuna select screen
+                if nuldar_button.rect.collidepoint(pos):
+                    amuna_race_selected = False
+                    nuldar_race_selected = True
+                    sorae_race_selected = False
+                # player amuna race selection, set conditions to go to amuna select screen
+                if sorae_button.rect.collidepoint(pos):
+                    amuna_race_selected = False
+                    nuldar_race_selected = False
+                    sorae_race_selected = True
+                # get whatever the player typed in name box and chosen race and start game
+                if start_button.rect.collidepoint(pos) or entered:
+                    if len(character_name_input) > 0:
+                        player.name = str(character_name_input)
+                    else:
+                        player.name = "default"
+                    player.race = "nuldar"
+                    player.surf = player_no_role_nuldar_down
+                    new_game_chosen = False
+                    start_chosen = True
                 elif event.type == QUIT:
                     exit()
             pygame.display.flip()
+
+    # ------------------------------------------------------------------------------------------------------------------
+    if continue_game_chosen:
+        try:
+            with open("save_game", "rb") as f:
+                player_load_info = pickle.load(f)
+                player.name = player_load_info["name"]
+                player.level = player_load_info["level"]
+                player.health = player_load_info["hp"]
+                player.energy = player_load_info["en"]
+                player.experience = player_load_info["xp"]
+                player.race = player_load_info["race"]
+                player.role = player_load_info["role"]
+                if player.race == "amuna":
+                    if player.role == "mage":
+                        player.surf = player_mage_amuna_down
+                    if player.role == "fighter":
+                        player.surf = player_fighter_amuna_down
+                    if player.role == "scout":
+                        player.surf = player_scout_amuna_down
+                    else:
+                        player.surf = player_no_role_amuna_down
+                if player.race == "nuldar":
+                    if player.role == "mage":
+                        player.surf = player_mage_nuldar_down
+                    if player.role == "fighter":
+                        player.surf = player_fighter_nuldar_down
+                    if player.role == "scout":
+                        player.surf = player_scout_nuldar_down
+                    else:
+                        player.surf = player_no_role_nuldar_down
+                if player.race == "sorae":
+                    if player.role == "mage":
+                        player.surf = player_mage_sorae_down
+                    if player.role == "fighter":
+                        player.surf = player_fighter_sorae_down
+                    if player.role == "scout":
+                        player.surf = player_scout_sorae_down
+                    else:
+                        player.surf = player_no_role_sorae_down
+                # clear default starting items and load personal player items from save file
+                # create new item sprite based on name from file
+                player.items.clear()
+                for item in player_load_info["inventory"]:
+                    if item == "health potion":
+                        player.items.append(Item("health potion", "potion", 200, 200, health_pot_img))
+                    if item == "energy potion":
+                        player.items.append(Item("energy potion", "potion", 200, 200, energy_pot_img))
+                    if item == "basic staff":
+                        player.items.append(Item("basic staff", "mage", 200, 200, basic_staff_img))
+                    if item == "basic sword":
+                        player.items.append(Item("basic sword", "fighter", 200, 200, basic_sword_img))
+                    if item == "basic bow":
+                        player.items.append(Item("basic bow", "scout", 200, 200, basic_bow_img))
+                    if item == "basic robes":
+                        player.items.append(Item("basic robes", "mage", 200, 200, basic_robes_img))
+                    if item == "basic armor":
+                        player.items.append(Item("basic armor", "fighter", 200, 200, basic_armor_img))
+                    if item == "basic tunic":
+                        player.items.append(Item("basic tunic", "scout", 200, 200, basic_tunic_img))
+                    if item == "shiny rock":
+                        player.items.append(Item("shiny rock", "rock", 200, 200, shiny_rock_img))
+                    if item == "bone dust":
+                        player.items.append(Item("bone dust", "dust", 200, 200, bone_dust_img))
+                # load player equipment from save file. create new item sprite based on name from file
+                for equipped_item in player_load_info["equipment"]:
+                    if equipped_item == "basic staff":
+                        player.equipment["weapon"] = Item("basic staff", "mage", 200, 200, basic_staff_img)
+                    if equipped_item == "basic sword":
+                        player.equipment["weapon"] = Item("basic sword", "fighter", 200, 200, basic_sword_img)
+                    if equipped_item == "basic bow":
+                        player.equipment["weapon"] = Item("basic bow", "scout", 200, 200, basic_bow_img)
+                    if equipped_item == "basic robes":
+                        player.equipment["chest"] = Item("basic robes", "mage", 200, 200, basic_robes_img)
+                    if equipped_item == "basic armor":
+                        player.equipment["chest"] = Item("basic armor", "fighter", 200, 200, basic_armor_img)
+                    if equipped_item == "basic tunic":
+                        player.equipment["chest"] = Item("basic tunic", "scout", 200, 200, basic_tunic_img)
+                player.current_quests = player_load_info["quests"]
+                player.quest_progress = player_load_info["quest progress"]
+                player.quest_status = player_load_info["quest status"]
+                player.quest_complete = player_load_info["quest complete"]
+                player.knowledge = player_load_info["knowledge"]
+                player.skills_mage = player_load_info["mage skills"]
+                player.skills_fighter = player_load_info["fighter skills"]
+                player.skills_scout = player_load_info["scout skills"]
+                # verify player has actually learned the skills they've acquired to use in combat
+                barrier_learned = player_load_info["learned"]["barrier"]
+                hard_strike_learned = player_load_info["learned"]["strike"]
+                sharp_sense_learned = player_load_info["learned"]["sense"]
+                player.rupees = player_load_info["rupees"]
+                player.reputation = player_load_info["reputation"]
+                player.current_zone = player_load_info["zone"]
+                saved = player_load_info["saved"]
+                start_chosen = True
+                continue_game_chosen = False
+        except FileNotFoundError:
+            continue_game_chosen = False
+            save_data_window.append(save_absent)
+            pass
 
     # if player has chosen to start game -------------------------------------------------------------------------------
     if start_chosen:
@@ -3324,7 +3491,6 @@ while game_running:
                     if not loot_update:
                         info_text_3 = ""
                         info_text_4 = ""
-
                 if zone_seldon:
                     player.current_zone = "seldon"
                 if zone_korlok:
@@ -3348,12 +3514,6 @@ while game_running:
                         screen.blit(ui_element.surf, ui_element.rect)
                     for window in display_elements:
                         screen.blit(window.surf, window.rect)
-                    for knowledge_window_notification in knowledge_academia_window:
-                        screen.blit(knowledge_window_notification.surf, knowledge_window_notification.rect)
-                    for rest_window in rest_recover_window:
-                        screen.blit(rest_window.surf, rest_window.rect)
-                    for gear_window in shop_gear_window:
-                        screen.blit(gear_window.surf, gear_window.rect)
                     screen.blit(rohir_gate.surf, rohir_gate.rect)
                 except TypeError:
                     pass
@@ -3433,6 +3593,16 @@ while game_running:
                 if battle_info_to_return_to_main_loop["leveled_up"]:
                     drawing_functions.level_up_draw(level_up_win, player, font, True)
 
+                # draw pop up notifications on top of everything else
+                for knowledge_window_notification in knowledge_academia_window:
+                    screen.blit(knowledge_window_notification.surf, knowledge_window_notification.rect)
+                for rest_window in rest_recover_window:
+                    screen.blit(rest_window.surf, rest_window.rect)
+                for gear_window in shop_gear_window:
+                    screen.blit(gear_window.surf, gear_window.rect)
+                for save_window in save_check_window:
+                    screen.blit(save_window.surf, save_window.rect)
+
                 # ------------------------------------------------------------------------------------------------------
                 # all in-game events such as key presses or UI interaction
                 for event in pygame.event.get():
@@ -3444,12 +3614,43 @@ while game_running:
                         if event.key == K_f:
                             if pygame.sprite.spritecollideany(player, most_sprites):
                                 interacted = True
-                    # if the unstuck button was clicked, move the player to bottom right corner of screen
+
                     if event.type == pygame.MOUSEBUTTONUP:
                         pos = pygame.mouse.get_pos()
+                        # hearth button was clicked, set true for animation and move player to stone
                         if hearth_button.rect.collidepoint(pos):
                             hearth_clicked = True
                             player.pos = vec((850, 650))
+                        # save button was clicked. Save player info in dictionary to be loaded later
+                        if save_button.rect.collidepoint(pos):
+                            # see if there already exists a save file by trying to read it
+                            # if it was opened, set saved condition to true for the save check
+                            # if it doesn't find a save file, set saved condition to false for save check --------------
+                            try:
+                                with open("save_game", "rb") as f:
+                                    saved = True
+                            except FileNotFoundError:
+                                saved = False
+                                pass
+                            # ------------------------------------------------------------------------------------------
+                            if saved:
+                                save_check_window.append(save_check)
+                                save_check_window.append(yes_button)
+                                save_check_window.append(no_button)
+                            if not saved:
+                                save_game()
+                                saved = True
+                                info_text_1 = "You saved your game. "
+                                info_update = True
+                        # yes button was clicked to overwrite previous save file
+                        if yes_button.rect.collidepoint(pos):
+                            save_game()
+                            save_check_window.clear()
+                            info_text_1 = "You saved your game. "
+                            info_update = True
+                        if no_button.rect.collidepoint(pos):
+                            save_check_window.clear()
+
                         # if character button is clicked, call draw function and show elements. second click hides
                         if character_button.rect.collidepoint(pos):
                             if character_button_clicked:
@@ -3489,6 +3690,10 @@ while game_running:
                                         player.quest_progress["village repairs"] += 1
                                         info_text_1 = f"You gathered 1 pine log."
                                         quest_item.kill()
+                                        interacted = False
+                                        loot_update = True
+                                    else:
+                                        info_text_1 = f"You've already gathered these.'."
                                         interacted = False
                                         loot_update = True
                         if quest_item.name == "rohir gate":
@@ -3678,8 +3883,6 @@ while game_running:
                 # ------------------------------------------------------------------------------------------------------
                 # get current pressed keys from player and apply zone boundaries depending on current zone
                 pressed_keys = pygame.key.get_pressed()
-                # Apply pressed keys update to movement based on zone boundaries, defined in player.update()
-
                 # apply direction to current_direction based on current input user keys
                 # this will be applied when player sprite is updated with new gear
                 if pressed_keys[K_d]:
