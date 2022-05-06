@@ -30,7 +30,7 @@ The game itself currently requires no installation provided you have Python inst
 You can start the game like running a standard python script with resources folder in the games current directory by typing 
 "python project_eterna.py", or on some OS's you can right click the "project_eterna.py" file and choose to run with python.
 
-There is also an .exe file within the "Dist" folder thats updated periodically as new features are added. 
+There is also an .exe file within the "dist" folder thats updated periodically as new features are added. 
 This is a self-contained executable file that shouldn't need any dependancies to run provided your OS supports it. 
 (If on Windows, you may need to right click -> properties and unblock the .exe file for it to run properly)
 
