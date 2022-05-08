@@ -58,6 +58,10 @@ character_selections = resource_path('resources/art/character_selections.png')
 player_no_role_amuna_url = resource_path('resources/art/player_no_role_amuna.png')
 # player no role sorae race --------------------------------------------------------------------------------------------
 player_no_role_sorae_url = resource_path('resources/art/player_no_role_sorae.png')
+player_no_role_sorae_down_url = resource_path('resources/art/player_no_role_sorae_down.png')
+player_no_role_sorae_up_url = resource_path('resources/art/player_no_role_sorae_up.png')
+player_no_role_sorae_left_url = resource_path('resources/art/player_no_role_sorae_left.png')
+player_no_role_sorae_right_url = resource_path('resources/art/player_no_role_sorae_right.png')
 # player no role sorae race --------------------------------------------------------------------------------------------
 player_no_role_nuldar_url = resource_path('resources/art/player_no_role_nuldar.png')
 # player mage amuna race -----------------------------------------------------------------------------------------------

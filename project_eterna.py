@@ -52,7 +52,7 @@ class Player(pygame.sprite.Sprite):
         self.offense = offense
 
     # move the player sprite based on input keys
-    def update(self, pressed_keyes, current_zone):
+    def update(self, pressed_keyes, current_zone, walk_timed):
         # setting acceleration vector
         self.acc = vec(0, 0)
         # w key is pressed to move player up. assign surface based on race and role. set y value acceleration -
@@ -74,7 +74,14 @@ class Player(pygame.sprite.Sprite):
                 if player.role == "scout":
                     self.surf = player_scout_sorae_up
                 if player.role == "":
-                    self.surf = player_no_role_sorae_up
+                    if walk_timed < 0.3:
+                        self.surf = player_no_role_sorae_up_1
+                    if walk_timed > 0.3:
+                        self.surf = player_no_role_sorae_up_2
+                    if walk_timed > 0.6:
+                        self.surf = player_no_role_sorae_up_3
+                    if walk_timed > 0.9:
+                        self.surf = player_no_role_sorae_up_4
             if player.race == "nuldar":
                 if player.role == "mage":
                     self.surf = player_mage_nuldar_up
@@ -105,7 +112,14 @@ class Player(pygame.sprite.Sprite):
                 if player.role == "scout":
                     self.surf = player_scout_sorae_down
                 if player.role == "":
-                    self.surf = player_no_role_sorae_down
+                    if walk_timed < 0.3:
+                        self.surf = player_no_role_sorae_down_1
+                    if walk_timed > 0.3:
+                        self.surf = player_no_role_sorae_down_2
+                    if walk_timed > 0.6:
+                        self.surf = player_no_role_sorae_down_3
+                    if walk_timed > 0.9:
+                        self.surf = player_no_role_sorae_down_4
             if player.race == "nuldar":
                 if player.role == "mage":
                     self.surf = player_mage_nuldar_down
@@ -136,7 +150,14 @@ class Player(pygame.sprite.Sprite):
                 if player.role == "scout":
                     self.surf = player_scout_sorae_left
                 if player.role == "":
-                    self.surf = player_no_role_sorae_left
+                    if walk_timed < 0.3:
+                        self.surf = player_no_role_sorae_left_1
+                    if walk_timed > 0.3:
+                        self.surf = player_no_role_sorae_left_2
+                    if walk_timed > 0.6:
+                        self.surf = player_no_role_sorae_left_3
+                    if walk_timed > 0.9:
+                        self.surf = player_no_role_sorae_left_4
             if player.race == "nuldar":
                 if player.role == "mage":
                     self.surf = player_mage_nuldar_left
@@ -167,7 +188,14 @@ class Player(pygame.sprite.Sprite):
                 if player.role == "scout":
                     self.surf = player_scout_sorae_right
                 if player.role == "":
-                    self.surf = player_no_role_sorae_right
+                    if walk_timed < 0.3:
+                        self.surf = player_no_role_sorae_right_1
+                    if walk_timed > 0.3:
+                        self.surf = player_no_role_sorae_right_2
+                    if walk_timed > 0.6:
+                        self.surf = player_no_role_sorae_right_3
+                    if walk_timed > 0.9:
+                        self.surf = player_no_role_sorae_right_4
             if player.race == "nuldar":
                 if player.role == "mage":
                     self.surf = player_mage_nuldar_right
@@ -1659,13 +1687,13 @@ def status_and_inventory_updates():
                 player.surf = player_no_role_amuna_right
         if player.race == "sorae":
             if current_direction == "up":
-                player.surf = player_no_role_sorae_up
+                player.surf = player_no_role_sorae_up_1
             if current_direction == "down":
-                player.surf = player_no_role_sorae_down
+                player.surf = player_no_role_sorae_down_1
             if current_direction == "left":
-                player.surf = player_no_role_sorae_left
+                player.surf = player_no_role_sorae_left_1
             if current_direction == "right":
-                player.surf = player_no_role_sorae_right
+                player.surf = player_no_role_sorae_right_1
         if player.race == "nuldar":
             if current_direction == "up":
                 player.surf = player_no_role_nuldar_up
@@ -2065,12 +2093,27 @@ player_no_role_amuna_down = player_no_role_amuna_sheet.get_image(0, 0, 50, 75)
 player_no_role_amuna_up = player_no_role_amuna_sheet.get_image(50, 0, 50, 75)
 player_no_role_amuna_left = player_no_role_amuna_sheet.get_image(100, 0, 50, 75)
 player_no_role_amuna_right = player_no_role_amuna_sheet.get_image(150, 0, 50, 75)
-# player no role amuna race
-player_no_role_sorae_sheet = SpriteSheet(resource_urls.player_no_role_sorae_url)
-player_no_role_sorae_down = player_no_role_sorae_sheet.get_image(0, 0, 50, 75)
-player_no_role_sorae_up = player_no_role_sorae_sheet.get_image(50, 0, 50, 75)
-player_no_role_sorae_left = player_no_role_sorae_sheet.get_image(100, 0, 50, 75)
-player_no_role_sorae_right = player_no_role_sorae_sheet.get_image(150, 0, 50, 75)
+# player no role sorae race
+player_no_role_sorae_sheet_down = SpriteSheet(resource_urls.player_no_role_sorae_down_url)
+player_no_role_sorae_down_1 = player_no_role_sorae_sheet_down.get_image(0, 0, 50, 75)
+player_no_role_sorae_down_2 = player_no_role_sorae_sheet_down.get_image(50, 0, 50, 75)
+player_no_role_sorae_down_3 = player_no_role_sorae_sheet_down.get_image(100, 0, 50, 75)
+player_no_role_sorae_down_4 = player_no_role_sorae_sheet_down.get_image(150, 0, 50, 75)
+player_no_role_sorae_sheet_up = SpriteSheet(resource_urls.player_no_role_sorae_up_url)
+player_no_role_sorae_up_1 = player_no_role_sorae_sheet_up.get_image(0, 0, 50, 75)
+player_no_role_sorae_up_2 = player_no_role_sorae_sheet_up.get_image(50, 0, 50, 75)
+player_no_role_sorae_up_3 = player_no_role_sorae_sheet_up.get_image(100, 0, 50, 75)
+player_no_role_sorae_up_4 = player_no_role_sorae_sheet_up.get_image(150, 0, 50, 75)
+player_no_role_sorae_sheet_left = SpriteSheet(resource_urls.player_no_role_sorae_left_url)
+player_no_role_sorae_left_1 = player_no_role_sorae_sheet_left.get_image(0, 0, 50, 75)
+player_no_role_sorae_left_2 = player_no_role_sorae_sheet_left.get_image(50, 0, 50, 75)
+player_no_role_sorae_left_3 = player_no_role_sorae_sheet_left.get_image(100, 0, 50, 75)
+player_no_role_sorae_left_4 = player_no_role_sorae_sheet_left.get_image(150, 0, 50, 75)
+player_no_role_sorae_sheet_right = SpriteSheet(resource_urls.player_no_role_sorae_right_url)
+player_no_role_sorae_right_1 = player_no_role_sorae_sheet_right.get_image(0, 0, 50, 75)
+player_no_role_sorae_right_2 = player_no_role_sorae_sheet_right.get_image(50, 0, 50, 75)
+player_no_role_sorae_right_3 = player_no_role_sorae_sheet_right.get_image(100, 0, 50, 75)
+player_no_role_sorae_right_4 = player_no_role_sorae_sheet_right.get_image(150, 0, 50, 75)
 # player no role nuldar race
 player_no_role_nuldar_sheet = SpriteSheet(resource_urls.player_no_role_nuldar_url)
 player_no_role_nuldar_down = player_no_role_nuldar_sheet.get_image(0, 0, 50, 75)
@@ -2729,11 +2772,11 @@ sorae_button = UiElement("sorae button", 100, 445, sorae_button_img, False)
 character_select_overlay = UiElement("character select overlay", 640, 365,
                                      pygame.image.load(resource_urls.character_select_overlay_url).convert(), False)
 amuna_select_overlay = UiElement("amuna select overlay", 1140, 305,
-                                     pygame.image.load(resource_urls.amuna_select_overlay_url).convert(), False)
+                                 pygame.image.load(resource_urls.amuna_select_overlay_url).convert(), False)
 nuldar_select_overlay = UiElement("nuldar select overlay", 1140, 305,
-                                     pygame.image.load(resource_urls.nuldar_select_overlay_url).convert(), False)
+                                  pygame.image.load(resource_urls.nuldar_select_overlay_url).convert(), False)
 sorae_select_overlay = UiElement("sorae select overlay", 1140, 305,
-                                     pygame.image.load(resource_urls.sorae_select_overlay_url).convert(), False)
+                                 pygame.image.load(resource_urls.sorae_select_overlay_url).convert(), False)
 start_button = UiElement("start button", 640, 660, pygame.image.load(resource_urls.start_button).convert(), False)
 name_input = UiElement("name input", 640, 585, name_input_img, False)
 lets_go_button = UiElement("lets go button", 625, 575,
@@ -2859,7 +2902,6 @@ non_sprite_sheets.add(trees, grass, flowers, seldon_hearth, quest_items, skill_b
                       start_button)
 for non_sprite_sheet_sprite in non_sprite_sheets:
     non_sprite_sheet_sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
-
 
 # code related to sound effects that will be used later
 # pygame.mixer.music.load("Electric_1.mp3")
@@ -3028,6 +3070,9 @@ enemy_tic = time.perf_counter()
 npc_tic = time.perf_counter()
 info_tic = time.perf_counter()
 loot_tic = time.perf_counter()
+walk_tic = time.perf_counter()
+# default value, updates during walking animation to get time elapsed
+walk_time = 0
 
 # main loop ------------------------------------------------------------------------------------------------------------
 while game_running:
@@ -3181,7 +3226,7 @@ while game_running:
                     else:
                         player.name = "default"
                     player.race = "sorae"
-                    player.surf = player_no_role_sorae_down
+                    player.surf = player_no_role_sorae_down_1
                     new_game_chosen = False
                     start_chosen = True
                 elif event.type == QUIT:
@@ -3536,12 +3581,10 @@ while game_running:
 
                     if event.type == pygame.MOUSEBUTTONUP:
                         pos = pygame.mouse.get_pos()
-
                         # hearth button was clicked, set true for animation and move player to stone
                         if hearth_button.rect.collidepoint(pos):
                             hearth_clicked = True
                             player.pos = vec((850, 650))
-
                         # save button was clicked. Save player info in dictionary to be loaded later -------------------
                         if save_button.rect.collidepoint(pos):
                             # see if there already exists a save file by trying to read it
@@ -3806,24 +3849,48 @@ while game_running:
                 # apply direction to current_direction based on current input user keys
                 if pressed_keys[K_d]:
                     current_direction = "right"
+                    # if d key has been pressed for longer than 1.2 seconds
+                    # reset timer for animation loop to start at beginning
+                    walk_toc = time.perf_counter()
+                    walk_time = walk_toc - walk_tic
+                    if walk_time > 1.2:
+                        walk_tic = time.perf_counter()
                 if pressed_keys[K_a]:
                     current_direction = "left"
+                    # if a key has been pressed for longer than 1.2 seconds
+                    # reset timer for animation loop to start at beginning
+                    walk_toc = time.perf_counter()
+                    walk_time = walk_toc - walk_tic
+                    if walk_time > 1.2:
+                        walk_tic = time.perf_counter()
                 if pressed_keys[K_w]:
                     current_direction = "up"
+                    # if w key has been pressed for longer than 1.2 seconds
+                    # reset timer for animation loop to start at beginning
+                    walk_toc = time.perf_counter()
+                    walk_time = walk_toc - walk_tic
+                    if walk_time > 1.2:
+                        walk_tic = time.perf_counter()
                 if pressed_keys[K_s]:
                     current_direction = "down"
+                    # if s key has been pressed for longer than 1.2 seconds
+                    # reset timer for animation loop to start at beginning
+                    walk_toc = time.perf_counter()
+                    walk_time = walk_toc - walk_tic
+                    if walk_time > 1.2:
+                        walk_tic = time.perf_counter()
                 if zone_seldon:
                     if movement_able:
-                        player.update(pressed_keys, "seldon")
+                        player.update(pressed_keys, "seldon", walk_time)
                 if zone_korlok:
                     if movement_able:
-                        player.update(pressed_keys, "korlok")
+                        player.update(pressed_keys, "korlok", walk_time)
                 if zone_eldream:
                     if movement_able:
-                        player.update(pressed_keys, "eldream")
+                        player.update(pressed_keys, "eldream", walk_time)
                 if zone_marrow:
                     if movement_able:
-                        player.update(pressed_keys, "marrow")
+                        player.update(pressed_keys, "marrow", walk_time)
 
                 # enemy movement updates -------------------------------------------------------------------------------
                 # choose random directions and random enemy to move that direction -------------------------------------
