@@ -68,19 +68,40 @@ class Player(pygame.sprite.Sprite):
                     self.surf = player_no_role_amuna_up
             if player.race == "sorae":
                 if player.role == "mage":
-                    self.surf = player_mage_sorae_up
-                if player.role == "fighter":
-                    self.surf = player_fighter_sorae_up
-                if player.role == "scout":
-                    self.surf = player_scout_sorae_up
-                if player.role == "":
-                    if walk_timed < 0.3:
-                        self.surf = player_no_role_sorae_up_1
-                    if walk_timed > 0.3:
-                        self.surf = player_no_role_sorae_up_2
+                    if walk_timed < 0.2:
+                        self.surf = player_mage_sorae_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_mage_sorae_up_2
+                    if walk_timed > 0.4:
+                        self.surf = player_mage_sorae_up_3
                     if walk_timed > 0.6:
+                        self.surf = player_mage_sorae_up_4
+                if player.role == "fighter":
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_sorae_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_sorae_up_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_sorae_up_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_sorae_up_4
+                if player.role == "scout":
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_sorae_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_sorae_up_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_sorae_up_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_sorae_up_4
+                if player.role == "":
+                    if walk_timed < 0.2:
+                        self.surf = player_no_role_sorae_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_no_role_sorae_up_2
+                    if walk_timed > 0.4:
                         self.surf = player_no_role_sorae_up_3
-                    if walk_timed > 0.9:
+                    if walk_timed > 0.6:
                         self.surf = player_no_role_sorae_up_4
             if player.race == "nuldar":
                 if player.role == "mage":
@@ -106,19 +127,40 @@ class Player(pygame.sprite.Sprite):
                     self.surf = player_no_role_amuna_down
             if player.race == "sorae":
                 if player.role == "mage":
-                    self.surf = player_mage_sorae_down
-                if player.role == "fighter":
-                    self.surf = player_fighter_sorae_down
-                if player.role == "scout":
-                    self.surf = player_scout_sorae_down
-                if player.role == "":
-                    if walk_timed < 0.3:
-                        self.surf = player_no_role_sorae_down_1
-                    if walk_timed > 0.3:
-                        self.surf = player_no_role_sorae_down_2
+                    if walk_timed < 0.2:
+                        self.surf = player_mage_sorae_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_mage_sorae_down_2
+                    if walk_timed > 0.4:
+                        self.surf = player_mage_sorae_down_3
                     if walk_timed > 0.6:
+                        self.surf = player_mage_sorae_down_4
+                if player.role == "fighter":
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_sorae_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_sorae_down_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_sorae_down_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_sorae_down_4
+                if player.role == "scout":
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_sorae_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_sorae_down_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_sorae_down_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_sorae_down_4
+                if player.role == "":
+                    if walk_timed < 0.2:
+                        self.surf = player_no_role_sorae_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_no_role_sorae_down_2
+                    if walk_timed > 0.4:
                         self.surf = player_no_role_sorae_down_3
-                    if walk_timed > 0.9:
+                    if walk_timed > 0.6:
                         self.surf = player_no_role_sorae_down_4
             if player.race == "nuldar":
                 if player.role == "mage":
@@ -144,19 +186,40 @@ class Player(pygame.sprite.Sprite):
                     self.surf = player_no_role_amuna_left
             if player.race == "sorae":
                 if player.role == "mage":
-                    self.surf = player_mage_sorae_left
-                if player.role == "fighter":
-                    self.surf = player_fighter_sorae_left
-                if player.role == "scout":
-                    self.surf = player_scout_sorae_left
-                if player.role == "":
-                    if walk_timed < 0.3:
-                        self.surf = player_no_role_sorae_left_1
-                    if walk_timed > 0.3:
-                        self.surf = player_no_role_sorae_left_2
+                    if walk_timed < 0.2:
+                        self.surf = player_mage_sorae_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_mage_sorae_left_2
+                    if walk_timed > 0.4:
+                        self.surf = player_mage_sorae_left_3
                     if walk_timed > 0.6:
+                        self.surf = player_mage_sorae_left_4
+                if player.role == "fighter":
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_sorae_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_sorae_left_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_sorae_left_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_sorae_left_4
+                if player.role == "scout":
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_sorae_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_sorae_left_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_sorae_left_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_sorae_left_4
+                if player.role == "":
+                    if walk_timed < 0.2:
+                        self.surf = player_no_role_sorae_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_no_role_sorae_left_2
+                    if walk_timed > 0.4:
                         self.surf = player_no_role_sorae_left_3
-                    if walk_timed > 0.9:
+                    if walk_timed > 0.6:
                         self.surf = player_no_role_sorae_left_4
             if player.race == "nuldar":
                 if player.role == "mage":
@@ -182,19 +245,40 @@ class Player(pygame.sprite.Sprite):
                     self.surf = player_no_role_amuna_right
             if player.race == "sorae":
                 if player.role == "mage":
-                    self.surf = player_mage_sorae_right
-                if player.role == "fighter":
-                    self.surf = player_fighter_sorae_right
-                if player.role == "scout":
-                    self.surf = player_scout_sorae_right
-                if player.role == "":
-                    if walk_timed < 0.3:
-                        self.surf = player_no_role_sorae_right_1
-                    if walk_timed > 0.3:
-                        self.surf = player_no_role_sorae_right_2
+                    if walk_timed < 0.2:
+                        self.surf = player_mage_sorae_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_mage_sorae_right_2
+                    if walk_timed > 0.4:
+                        self.surf = player_mage_sorae_right_3
                     if walk_timed > 0.6:
+                        self.surf = player_mage_sorae_right_4
+                if player.role == "fighter":
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_sorae_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_sorae_right_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_sorae_right_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_sorae_right_4
+                if player.role == "scout":
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_sorae_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_sorae_right_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_sorae_right_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_sorae_right_4
+                if player.role == "":
+                    if walk_timed < 0.2:
+                        self.surf = player_no_role_sorae_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_no_role_sorae_right_2
+                    if walk_timed > 0.4:
                         self.surf = player_no_role_sorae_right_3
-                    if walk_timed > 0.9:
+                    if walk_timed > 0.6:
                         self.surf = player_no_role_sorae_right_4
             if player.race == "nuldar":
                 if player.role == "mage":
@@ -1608,13 +1692,13 @@ def status_and_inventory_updates():
                     player.surf = player_mage_nuldar_right
             if player.race == "sorae":
                 if current_direction == "up":
-                    player.surf = player_mage_sorae_up
+                    player.surf = player_mage_sorae_up_1
                 if current_direction == "down":
-                    player.surf = player_mage_sorae_down
+                    player.surf = player_mage_sorae_down_1
                 if current_direction == "left":
-                    player.surf = player_mage_sorae_left
+                    player.surf = player_mage_sorae_left_1
                 if current_direction == "right":
-                    player.surf = player_mage_sorae_right
+                    player.surf = player_mage_sorae_right_1
         if player.equipment["weapon"].type == "fighter":
             player.role = "fighter"
             if player.race == "amuna":
@@ -1637,13 +1721,13 @@ def status_and_inventory_updates():
                     player.surf = player_fighter_nuldar_right
             if player.race == "sorae":
                 if current_direction == "up":
-                    player.surf = player_fighter_sorae_up
+                    player.surf = player_fighter_sorae_up_1
                 if current_direction == "down":
-                    player.surf = player_fighter_sorae_down
+                    player.surf = player_fighter_sorae_down_1
                 if current_direction == "left":
-                    player.surf = player_fighter_sorae_left
+                    player.surf = player_fighter_sorae_left_1
                 if current_direction == "right":
-                    player.surf = player_fighter_sorae_right
+                    player.surf = player_fighter_sorae_right_1
         if player.equipment["weapon"].type == "scout":
             player.role = "scout"
             if player.race == "amuna":
@@ -1666,13 +1750,13 @@ def status_and_inventory_updates():
                     player.surf = player_scout_nuldar_right
             if player.race == "sorae":
                 if current_direction == "up":
-                    player.surf = player_scout_sorae_up
+                    player.surf = player_scout_sorae_up_1
                 if current_direction == "down":
-                    player.surf = player_scout_sorae_down
+                    player.surf = player_scout_sorae_down_1
                 if current_direction == "left":
-                    player.surf = player_scout_sorae_left
+                    player.surf = player_scout_sorae_left_1
                 if current_direction == "right":
-                    player.surf = player_scout_sorae_right
+                    player.surf = player_scout_sorae_right_1
     # player doesn't have a role without a weapon equipped
     else:
         player.role = ""
@@ -2133,11 +2217,26 @@ player_mage_nuldar_up = player_mage_nuldar_sheet.get_image(50, 0, 50, 75)
 player_mage_nuldar_left = player_mage_nuldar_sheet.get_image(100, 0, 50, 75)
 player_mage_nuldar_right = player_mage_nuldar_sheet.get_image(150, 0, 50, 75)
 # player mage sorae race
-player_mage_sorae_sheet = SpriteSheet(resource_urls.player_mage_sorae_url)
-player_mage_sorae_down = player_mage_sorae_sheet.get_image(0, 0, 50, 75)
-player_mage_sorae_up = player_mage_sorae_sheet.get_image(50, 0, 50, 75)
-player_mage_sorae_left = player_mage_sorae_sheet.get_image(100, 0, 50, 75)
-player_mage_sorae_right = player_mage_sorae_sheet.get_image(150, 0, 50, 75)
+player_mage_sorae_sheet_down = SpriteSheet(resource_urls.player_mage_sorae_down_url)
+player_mage_sorae_down_1 = player_mage_sorae_sheet_down.get_image(0, 0, 50, 75)
+player_mage_sorae_down_2 = player_mage_sorae_sheet_down.get_image(50, 0, 50, 75)
+player_mage_sorae_down_3 = player_mage_sorae_sheet_down.get_image(100, 0, 50, 75)
+player_mage_sorae_down_4 = player_mage_sorae_sheet_down.get_image(150, 0, 50, 75)
+player_mage_sorae_sheet_up = SpriteSheet(resource_urls.player_mage_sorae_up_url)
+player_mage_sorae_up_1 = player_mage_sorae_sheet_up.get_image(0, 0, 50, 75)
+player_mage_sorae_up_2 = player_mage_sorae_sheet_up.get_image(50, 0, 50, 75)
+player_mage_sorae_up_3 = player_mage_sorae_sheet_up.get_image(100, 0, 50, 75)
+player_mage_sorae_up_4 = player_mage_sorae_sheet_up.get_image(150, 0, 50, 75)
+player_mage_sorae_sheet_left = SpriteSheet(resource_urls.player_mage_sorae_left_url)
+player_mage_sorae_left_1 = player_mage_sorae_sheet_left.get_image(0, 0, 50, 75)
+player_mage_sorae_left_2 = player_mage_sorae_sheet_left.get_image(50, 0, 50, 75)
+player_mage_sorae_left_3 = player_mage_sorae_sheet_left.get_image(100, 0, 50, 75)
+player_mage_sorae_left_4 = player_mage_sorae_sheet_left.get_image(150, 0, 50, 75)
+player_mage_sorae_sheet_right = SpriteSheet(resource_urls.player_mage_sorae_right_url)
+player_mage_sorae_right_1 = player_mage_sorae_sheet_right.get_image(0, 0, 50, 75)
+player_mage_sorae_right_2 = player_mage_sorae_sheet_right.get_image(50, 0, 50, 75)
+player_mage_sorae_right_3 = player_mage_sorae_sheet_right.get_image(100, 0, 50, 75)
+player_mage_sorae_right_4 = player_mage_sorae_sheet_right.get_image(150, 0, 50, 75)
 # player fighter amuna race
 player_fighter_amuna_sheet = SpriteSheet(resource_urls.player_fighter_amuna_url)
 player_fighter_amuna_down = player_fighter_amuna_sheet.get_image(0, 0, 50, 75)
@@ -2151,11 +2250,26 @@ player_fighter_nuldar_up = player_fighter_nuldar_sheet.get_image(50, 0, 50, 75)
 player_fighter_nuldar_left = player_fighter_nuldar_sheet.get_image(100, 0, 50, 75)
 player_fighter_nuldar_right = player_fighter_nuldar_sheet.get_image(150, 0, 50, 75)
 # player fighter sorae race
-player_fighter_sorae_sheet = SpriteSheet(resource_urls.player_fighter_sorae_url)
-player_fighter_sorae_down = player_fighter_sorae_sheet.get_image(0, 0, 50, 75)
-player_fighter_sorae_up = player_fighter_sorae_sheet.get_image(50, 0, 50, 75)
-player_fighter_sorae_left = player_fighter_sorae_sheet.get_image(100, 0, 50, 75)
-player_fighter_sorae_right = player_fighter_sorae_sheet.get_image(150, 0, 50, 75)
+player_fighter_sorae_sheet_down = SpriteSheet(resource_urls.player_fighter_sorae_down_url)
+player_fighter_sorae_down_1 = player_fighter_sorae_sheet_down.get_image(0, 0, 50, 75)
+player_fighter_sorae_down_2 = player_fighter_sorae_sheet_down.get_image(50, 0, 50, 75)
+player_fighter_sorae_down_3 = player_fighter_sorae_sheet_down.get_image(100, 0, 50, 75)
+player_fighter_sorae_down_4 = player_fighter_sorae_sheet_down.get_image(150, 0, 50, 75)
+player_fighter_sorae_sheet_up = SpriteSheet(resource_urls.player_fighter_sorae_up_url)
+player_fighter_sorae_up_1 = player_fighter_sorae_sheet_up.get_image(0, 0, 50, 75)
+player_fighter_sorae_up_2 = player_fighter_sorae_sheet_up.get_image(50, 0, 50, 75)
+player_fighter_sorae_up_3 = player_fighter_sorae_sheet_up.get_image(100, 0, 50, 75)
+player_fighter_sorae_up_4 = player_fighter_sorae_sheet_up.get_image(150, 0, 50, 75)
+player_fighter_sorae_sheet_left = SpriteSheet(resource_urls.player_fighter_sorae_left_url)
+player_fighter_sorae_left_1 = player_fighter_sorae_sheet_left.get_image(0, 0, 50, 75)
+player_fighter_sorae_left_2 = player_fighter_sorae_sheet_left.get_image(50, 0, 50, 75)
+player_fighter_sorae_left_3 = player_fighter_sorae_sheet_left.get_image(100, 0, 50, 75)
+player_fighter_sorae_left_4 = player_fighter_sorae_sheet_left.get_image(150, 0, 50, 75)
+player_fighter_sorae_sheet_right = SpriteSheet(resource_urls.player_fighter_sorae_right_url)
+player_fighter_sorae_right_1 = player_fighter_sorae_sheet_right.get_image(0, 0, 50, 75)
+player_fighter_sorae_right_2 = player_fighter_sorae_sheet_right.get_image(50, 0, 50, 75)
+player_fighter_sorae_right_3 = player_fighter_sorae_sheet_right.get_image(100, 0, 50, 75)
+player_fighter_sorae_right_4 = player_fighter_sorae_sheet_right.get_image(150, 0, 50, 75)
 # player scout amuna race
 player_scout_amuna_sheet = SpriteSheet(resource_urls.player_scout_amuna_url)
 player_scout_amuna_down = player_scout_amuna_sheet.get_image(0, 0, 50, 75)
@@ -2169,11 +2283,26 @@ player_scout_nuldar_up = player_scout_nuldar_sheet.get_image(50, 0, 50, 75)
 player_scout_nuldar_left = player_scout_nuldar_sheet.get_image(100, 0, 50, 75)
 player_scout_nuldar_right = player_scout_nuldar_sheet.get_image(150, 0, 50, 75)
 # player scout sorae race
-player_scout_sorae_sheet = SpriteSheet(resource_urls.player_scout_sorae_url)
-player_scout_sorae_down = player_scout_sorae_sheet.get_image(0, 0, 50, 75)
-player_scout_sorae_up = player_scout_sorae_sheet.get_image(50, 0, 50, 75)
-player_scout_sorae_left = player_scout_sorae_sheet.get_image(100, 0, 50, 75)
-player_scout_sorae_right = player_scout_sorae_sheet.get_image(150, 0, 50, 75)
+player_scout_sorae_sheet_down = SpriteSheet(resource_urls.player_scout_sorae_down_url)
+player_scout_sorae_down_1 = player_scout_sorae_sheet_down.get_image(0, 0, 50, 75)
+player_scout_sorae_down_2 = player_scout_sorae_sheet_down.get_image(50, 0, 50, 75)
+player_scout_sorae_down_3 = player_scout_sorae_sheet_down.get_image(100, 0, 50, 75)
+player_scout_sorae_down_4 = player_scout_sorae_sheet_down.get_image(150, 0, 50, 75)
+player_scout_sorae_sheet_up = SpriteSheet(resource_urls.player_scout_sorae_up_url)
+player_scout_sorae_up_1 = player_scout_sorae_sheet_up.get_image(0, 0, 50, 75)
+player_scout_sorae_up_2 = player_scout_sorae_sheet_up.get_image(50, 0, 50, 75)
+player_scout_sorae_up_3 = player_scout_sorae_sheet_up.get_image(100, 0, 50, 75)
+player_scout_sorae_up_4 = player_scout_sorae_sheet_up.get_image(150, 0, 50, 75)
+player_scout_sorae_sheet_left = SpriteSheet(resource_urls.player_scout_sorae_left_url)
+player_scout_sorae_left_1 = player_scout_sorae_sheet_left.get_image(0, 0, 50, 75)
+player_scout_sorae_left_2 = player_scout_sorae_sheet_left.get_image(50, 0, 50, 75)
+player_scout_sorae_left_3 = player_scout_sorae_sheet_left.get_image(100, 0, 50, 75)
+player_scout_sorae_left_4 = player_scout_sorae_sheet_left.get_image(150, 0, 50, 75)
+player_scout_sorae_sheet_right = SpriteSheet(resource_urls.player_scout_sorae_right_url)
+player_scout_sorae_right_1 = player_scout_sorae_sheet_right.get_image(0, 0, 50, 75)
+player_scout_sorae_right_2 = player_scout_sorae_sheet_right.get_image(50, 0, 50, 75)
+player_scout_sorae_right_3 = player_scout_sorae_sheet_right.get_image(100, 0, 50, 75)
+player_scout_sorae_right_4 = player_scout_sorae_sheet_right.get_image(150, 0, 50, 75)
 # player battle amuna race
 player_battle_amuna_sheet = SpriteSheet(resource_urls.player_battle_amuna_url)
 player_no_role_amuna_battle = player_battle_amuna_sheet.get_image(0, 0, 750, 624)
@@ -2816,7 +2945,6 @@ enemy_status = UiElement("enemy status", 855, 680, pygame.image.load(resource_ur
 hp_bar = UiElement("health bar", 165, 25, hp_100, False)
 en_bar = UiElement("energy bar", 165, 45, en_100, False)
 xp_bar = UiElement("xp bar", 165, 65, xp_100, False)
-inventory = Inventory("inventory", [], 890, 515, pygame.image.load(resource_urls.inventory).convert(), False)
 journal = UiElement("journal", 770, 380, journal_window_img, False)
 level_up_win = UiElement("level up window", 520, 375, pygame.image.load(resource_urls.level_up).convert(), False)
 character_sheet = UiElement("character sheet", 770, 380, character_window_img, False)
@@ -3853,7 +3981,7 @@ while game_running:
                     # reset timer for animation loop to start at beginning
                     walk_toc = time.perf_counter()
                     walk_time = walk_toc - walk_tic
-                    if walk_time > 1.2:
+                    if walk_time > 0.8:
                         walk_tic = time.perf_counter()
                 if pressed_keys[K_a]:
                     current_direction = "left"
@@ -3861,7 +3989,7 @@ while game_running:
                     # reset timer for animation loop to start at beginning
                     walk_toc = time.perf_counter()
                     walk_time = walk_toc - walk_tic
-                    if walk_time > 1.2:
+                    if walk_time > 0.8:
                         walk_tic = time.perf_counter()
                 if pressed_keys[K_w]:
                     current_direction = "up"
@@ -3869,7 +3997,7 @@ while game_running:
                     # reset timer for animation loop to start at beginning
                     walk_toc = time.perf_counter()
                     walk_time = walk_toc - walk_tic
-                    if walk_time > 1.2:
+                    if walk_time > 0.8:
                         walk_tic = time.perf_counter()
                 if pressed_keys[K_s]:
                     current_direction = "down"
@@ -3877,7 +4005,7 @@ while game_running:
                     # reset timer for animation loop to start at beginning
                     walk_toc = time.perf_counter()
                     walk_time = walk_toc - walk_tic
-                    if walk_time > 1.2:
+                    if walk_time > 0.8:
                         walk_tic = time.perf_counter()
                 if zone_seldon:
                     if movement_able:
@@ -5619,7 +5747,7 @@ while game_running:
 
                 if zone_korlok:
                     if movement_able:
-                        player.update(pressed_keys, "korlok")
+                        player.update(pressed_keys, "korlok", 0)
 
             # end of whole iteration -----------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
