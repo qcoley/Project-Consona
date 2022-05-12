@@ -105,13 +105,41 @@ class Player(pygame.sprite.Sprite):
                         self.surf = player_no_role_sorae_up_4
             if player.race == "nuldar":
                 if player.role == "mage":
-                    self.surf = player_mage_nuldar_up
+                    if walk_timed < 0.2:
+                        self.surf = player_mage_nuldar_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_mage_nuldar_up_2
+                    if walk_timed > 0.4:
+                        self.surf = player_mage_nuldar_up_3
+                    if walk_timed > 0.6:
+                        self.surf = player_mage_nuldar_up_4
                 if player.role == "fighter":
-                    self.surf = player_fighter_nuldar_up
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_nuldar_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_nuldar_up_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_nuldar_up_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_nuldar_up_4
                 if player.role == "scout":
-                    self.surf = player_scout_nuldar_up
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_nuldar_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_nuldar_up_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_nuldar_up_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_nuldar_up_4
                 if player.role == "":
-                    self.surf = player_no_role_nuldar_up
+                    if walk_timed < 0.2:
+                        self.surf = player_no_role_nuldar_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_no_role_nuldar_up_2
+                    if walk_timed > 0.4:
+                        self.surf = player_no_role_nuldar_up_3
+                    if walk_timed > 0.6:
+                        self.surf = player_no_role_nuldar_up_4
             self.acc.y = -ACC
 
         # s key is pressed to move player down. assign surface based on race and role. set y value acceleration +
@@ -164,13 +192,41 @@ class Player(pygame.sprite.Sprite):
                         self.surf = player_no_role_sorae_down_4
             if player.race == "nuldar":
                 if player.role == "mage":
-                    self.surf = player_mage_nuldar_down
+                    if walk_timed < 0.2:
+                        self.surf = player_mage_nuldar_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_mage_nuldar_down_2
+                    if walk_timed > 0.4:
+                        self.surf = player_mage_nuldar_down_3
+                    if walk_timed > 0.6:
+                        self.surf = player_mage_nuldar_down_4
                 if player.role == "fighter":
-                    self.surf = player_fighter_nuldar_down
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_nuldar_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_nuldar_down_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_nuldar_down_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_nuldar_down_4
                 if player.role == "scout":
-                    self.surf = player_scout_nuldar_down
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_nuldar_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_nuldar_down_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_nuldar_down_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_nuldar_down_4
                 if player.role == "":
-                    self.surf = player_no_role_nuldar_down
+                    if walk_timed < 0.2:
+                        self.surf = player_no_role_nuldar_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_no_role_nuldar_down_2
+                    if walk_timed > 0.4:
+                        self.surf = player_no_role_nuldar_down_3
+                    if walk_timed > 0.6:
+                        self.surf = player_no_role_nuldar_down_4
             self.acc.y = ACC
 
         # a key is pressed to move player left. assign surface based on race and role. set x value acceleration -
@@ -223,13 +279,41 @@ class Player(pygame.sprite.Sprite):
                         self.surf = player_no_role_sorae_left_4
             if player.race == "nuldar":
                 if player.role == "mage":
-                    self.surf = player_mage_nuldar_left
+                    if walk_timed < 0.2:
+                        self.surf = player_mage_nuldar_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_mage_nuldar_left_2
+                    if walk_timed > 0.4:
+                        self.surf = player_mage_nuldar_left_3
+                    if walk_timed > 0.6:
+                        self.surf = player_mage_nuldar_left_4
                 if player.role == "fighter":
-                    self.surf = player_fighter_nuldar_left
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_nuldar_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_nuldar_left_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_nuldar_left_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_nuldar_left_4
                 if player.role == "scout":
-                    self.surf = player_scout_nuldar_left
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_nuldar_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_nuldar_left_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_nuldar_left_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_nuldar_left_4
                 if player.role == "":
-                    self.surf = player_no_role_nuldar_left
+                    if walk_timed < 0.2:
+                        self.surf = player_no_role_nuldar_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_no_role_nuldar_left_2
+                    if walk_timed > 0.4:
+                        self.surf = player_no_role_nuldar_left_3
+                    if walk_timed > 0.6:
+                        self.surf = player_no_role_nuldar_left_4
             self.acc.x = -ACC
 
         # d key is pressed to move player right. assign surface based on race and role. set x value acceleration +
@@ -282,13 +366,41 @@ class Player(pygame.sprite.Sprite):
                         self.surf = player_no_role_sorae_right_4
             if player.race == "nuldar":
                 if player.role == "mage":
-                    self.surf = player_mage_nuldar_right
+                    if walk_timed < 0.2:
+                        self.surf = player_mage_nuldar_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_mage_nuldar_right_2
+                    if walk_timed > 0.4:
+                        self.surf = player_mage_nuldar_right_3
+                    if walk_timed > 0.6:
+                        self.surf = player_mage_nuldar_right_4
                 if player.role == "fighter":
-                    self.surf = player_fighter_nuldar_right
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_nuldar_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_nuldar_right_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_nuldar_right_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_nuldar_right_4
                 if player.role == "scout":
-                    self.surf = player_scout_nuldar_right
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_nuldar_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_nuldar_right_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_nuldar_right_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_nuldar_right_4
                 if player.role == "":
-                    self.surf = player_no_role_nuldar_right
+                    if walk_timed < 0.2:
+                        self.surf = player_no_role_nuldar_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_no_role_nuldar_right_2
+                    if walk_timed > 0.4:
+                        self.surf = player_no_role_nuldar_right_3
+                    if walk_timed > 0.6:
+                        self.surf = player_no_role_nuldar_right_4
             self.acc.x = ACC
 
         # keep player on the screen, boundaries vary depending on current zone
@@ -1683,13 +1795,13 @@ def status_and_inventory_updates():
                     player.surf = player_mage_amuna_right
             if player.race == "nuldar":
                 if current_direction == "up":
-                    player.surf = player_mage_nuldar_up
+                    player.surf = player_mage_nuldar_up_1
                 if current_direction == "down":
-                    player.surf = player_mage_nuldar_down
+                    player.surf = player_mage_nuldar_down_1
                 if current_direction == "left":
-                    player.surf = player_mage_nuldar_left
+                    player.surf = player_mage_nuldar_left_1
                 if current_direction == "right":
-                    player.surf = player_mage_nuldar_right
+                    player.surf = player_mage_nuldar_right_1
             if player.race == "sorae":
                 if current_direction == "up":
                     player.surf = player_mage_sorae_up_1
@@ -1712,13 +1824,13 @@ def status_and_inventory_updates():
                     player.surf = player_fighter_amuna_right
             if player.race == "nuldar":
                 if current_direction == "up":
-                    player.surf = player_fighter_nuldar_up
+                    player.surf = player_fighter_nuldar_up_1
                 if current_direction == "down":
-                    player.surf = player_fighter_nuldar_down
+                    player.surf = player_fighter_nuldar_down_1
                 if current_direction == "left":
-                    player.surf = player_fighter_nuldar_left
+                    player.surf = player_fighter_nuldar_left_1
                 if current_direction == "right":
-                    player.surf = player_fighter_nuldar_right
+                    player.surf = player_fighter_nuldar_right_1
             if player.race == "sorae":
                 if current_direction == "up":
                     player.surf = player_fighter_sorae_up_1
@@ -1741,13 +1853,13 @@ def status_and_inventory_updates():
                     player.surf = player_scout_amuna_right
             if player.race == "nuldar":
                 if current_direction == "up":
-                    player.surf = player_scout_nuldar_up
+                    player.surf = player_scout_nuldar_up_1
                 if current_direction == "down":
-                    player.surf = player_scout_nuldar_down
+                    player.surf = player_scout_nuldar_down_1
                 if current_direction == "left":
-                    player.surf = player_scout_nuldar_left
+                    player.surf = player_scout_nuldar_left_1
                 if current_direction == "right":
-                    player.surf = player_scout_nuldar_right
+                    player.surf = player_scout_nuldar_right_1
             if player.race == "sorae":
                 if current_direction == "up":
                     player.surf = player_scout_sorae_up_1
@@ -1780,13 +1892,13 @@ def status_and_inventory_updates():
                 player.surf = player_no_role_sorae_right_1
         if player.race == "nuldar":
             if current_direction == "up":
-                player.surf = player_no_role_nuldar_up
+                player.surf = player_no_role_nuldar_up_1
             if current_direction == "down":
-                player.surf = player_no_role_nuldar_down
+                player.surf = player_no_role_nuldar_down_1
             if current_direction == "left":
-                player.surf = player_no_role_nuldar_left
+                player.surf = player_no_role_nuldar_left_1
             if current_direction == "right":
-                player.surf = player_no_role_nuldar_right
+                player.surf = player_no_role_nuldar_right_1
 
     # ------------------------------------------------------------------------------------------------------------------
     # clear list used for drawing player items to screen before going through inventory and drawing
@@ -2199,11 +2311,26 @@ player_no_role_sorae_right_2 = player_no_role_sorae_sheet_right.get_image(50, 0,
 player_no_role_sorae_right_3 = player_no_role_sorae_sheet_right.get_image(100, 0, 50, 75)
 player_no_role_sorae_right_4 = player_no_role_sorae_sheet_right.get_image(150, 0, 50, 75)
 # player no role nuldar race
-player_no_role_nuldar_sheet = SpriteSheet(resource_urls.player_no_role_nuldar_url)
-player_no_role_nuldar_down = player_no_role_nuldar_sheet.get_image(0, 0, 50, 75)
-player_no_role_nuldar_up = player_no_role_nuldar_sheet.get_image(50, 0, 50, 75)
-player_no_role_nuldar_left = player_no_role_nuldar_sheet.get_image(100, 0, 50, 75)
-player_no_role_nuldar_right = player_no_role_nuldar_sheet.get_image(150, 0, 50, 75)
+player_no_role_nuldar_sheet_down = SpriteSheet(resource_urls.player_no_role_nuldar_down_url)
+player_no_role_nuldar_down_1 = player_no_role_nuldar_sheet_down.get_image(0, 0, 50, 75)
+player_no_role_nuldar_down_2 = player_no_role_nuldar_sheet_down.get_image(50, 0, 50, 75)
+player_no_role_nuldar_down_3 = player_no_role_nuldar_sheet_down.get_image(100, 0, 50, 75)
+player_no_role_nuldar_down_4 = player_no_role_nuldar_sheet_down.get_image(150, 0, 50, 75)
+player_no_role_nuldar_sheet_up = SpriteSheet(resource_urls.player_no_role_nuldar_up_url)
+player_no_role_nuldar_up_1 = player_no_role_nuldar_sheet_up.get_image(0, 0, 50, 75)
+player_no_role_nuldar_up_2 = player_no_role_nuldar_sheet_up.get_image(50, 0, 50, 75)
+player_no_role_nuldar_up_3 = player_no_role_nuldar_sheet_up.get_image(100, 0, 50, 75)
+player_no_role_nuldar_up_4 = player_no_role_nuldar_sheet_up.get_image(150, 0, 50, 75)
+player_no_role_nuldar_sheet_left = SpriteSheet(resource_urls.player_no_role_nuldar_left_url)
+player_no_role_nuldar_left_1 = player_no_role_nuldar_sheet_left.get_image(0, 0, 50, 75)
+player_no_role_nuldar_left_2 = player_no_role_nuldar_sheet_left.get_image(50, 0, 50, 75)
+player_no_role_nuldar_left_3 = player_no_role_nuldar_sheet_left.get_image(100, 0, 50, 75)
+player_no_role_nuldar_left_4 = player_no_role_nuldar_sheet_left.get_image(150, 0, 50, 75)
+player_no_role_nuldar_sheet_right = SpriteSheet(resource_urls.player_no_role_nuldar_right_url)
+player_no_role_nuldar_right_1 = player_no_role_nuldar_sheet_right.get_image(0, 0, 50, 75)
+player_no_role_nuldar_right_2 = player_no_role_nuldar_sheet_right.get_image(50, 0, 50, 75)
+player_no_role_nuldar_right_3 = player_no_role_nuldar_sheet_right.get_image(100, 0, 50, 75)
+player_no_role_nuldar_right_4 = player_no_role_nuldar_sheet_right.get_image(150, 0, 50, 75)
 # player mage amuna race
 player_mage_amuna_sheet = SpriteSheet(resource_urls.player_mage_amuna_url)
 player_mage_amuna_down = player_mage_amuna_sheet.get_image(0, 0, 50, 75)
@@ -2211,11 +2338,26 @@ player_mage_amuna_up = player_mage_amuna_sheet.get_image(50, 0, 50, 75)
 player_mage_amuna_left = player_mage_amuna_sheet.get_image(100, 0, 50, 75)
 player_mage_amuna_right = player_mage_amuna_sheet.get_image(150, 0, 50, 75)
 # player mage nuldar race
-player_mage_nuldar_sheet = SpriteSheet(resource_urls.player_mage_nuldar_url)
-player_mage_nuldar_down = player_mage_nuldar_sheet.get_image(0, 0, 50, 75)
-player_mage_nuldar_up = player_mage_nuldar_sheet.get_image(50, 0, 50, 75)
-player_mage_nuldar_left = player_mage_nuldar_sheet.get_image(100, 0, 50, 75)
-player_mage_nuldar_right = player_mage_nuldar_sheet.get_image(150, 0, 50, 75)
+player_mage_nuldar_sheet_down = SpriteSheet(resource_urls.player_mage_nuldar_down_url)
+player_mage_nuldar_down_1 = player_mage_nuldar_sheet_down.get_image(0, 0, 50, 75)
+player_mage_nuldar_down_2 = player_mage_nuldar_sheet_down.get_image(50, 0, 50, 75)
+player_mage_nuldar_down_3 = player_mage_nuldar_sheet_down.get_image(100, 0, 50, 75)
+player_mage_nuldar_down_4 = player_mage_nuldar_sheet_down.get_image(150, 0, 50, 75)
+player_mage_nuldar_sheet_up = SpriteSheet(resource_urls.player_mage_nuldar_up_url)
+player_mage_nuldar_up_1 = player_mage_nuldar_sheet_up.get_image(0, 0, 50, 75)
+player_mage_nuldar_up_2 = player_mage_nuldar_sheet_up.get_image(50, 0, 50, 75)
+player_mage_nuldar_up_3 = player_mage_nuldar_sheet_up.get_image(100, 0, 50, 75)
+player_mage_nuldar_up_4 = player_mage_nuldar_sheet_up.get_image(150, 0, 50, 75)
+player_mage_nuldar_sheet_left = SpriteSheet(resource_urls.player_mage_nuldar_left_url)
+player_mage_nuldar_left_1 = player_mage_nuldar_sheet_left.get_image(0, 0, 50, 75)
+player_mage_nuldar_left_2 = player_mage_nuldar_sheet_left.get_image(50, 0, 50, 75)
+player_mage_nuldar_left_3 = player_mage_nuldar_sheet_left.get_image(100, 0, 50, 75)
+player_mage_nuldar_left_4 = player_mage_nuldar_sheet_left.get_image(150, 0, 50, 75)
+player_mage_nuldar_sheet_right = SpriteSheet(resource_urls.player_mage_nuldar_right_url)
+player_mage_nuldar_right_1 = player_mage_nuldar_sheet_right.get_image(0, 0, 50, 75)
+player_mage_nuldar_right_2 = player_mage_nuldar_sheet_right.get_image(50, 0, 50, 75)
+player_mage_nuldar_right_3 = player_mage_nuldar_sheet_right.get_image(100, 0, 50, 75)
+player_mage_nuldar_right_4 = player_mage_nuldar_sheet_right.get_image(150, 0, 50, 75)
 # player mage sorae race
 player_mage_sorae_sheet_down = SpriteSheet(resource_urls.player_mage_sorae_down_url)
 player_mage_sorae_down_1 = player_mage_sorae_sheet_down.get_image(0, 0, 50, 75)
@@ -2244,11 +2386,26 @@ player_fighter_amuna_up = player_fighter_amuna_sheet.get_image(50, 0, 50, 75)
 player_fighter_amuna_left = player_fighter_amuna_sheet.get_image(100, 0, 50, 75)
 player_fighter_amuna_right = player_fighter_amuna_sheet.get_image(150, 0, 50, 75)
 # player fighter nuldar race
-player_fighter_nuldar_sheet = SpriteSheet(resource_urls.player_fighter_nuldar_url)
-player_fighter_nuldar_down = player_fighter_nuldar_sheet.get_image(0, 0, 50, 75)
-player_fighter_nuldar_up = player_fighter_nuldar_sheet.get_image(50, 0, 50, 75)
-player_fighter_nuldar_left = player_fighter_nuldar_sheet.get_image(100, 0, 50, 75)
-player_fighter_nuldar_right = player_fighter_nuldar_sheet.get_image(150, 0, 50, 75)
+player_fighter_nuldar_sheet_down = SpriteSheet(resource_urls.player_fighter_nuldar_down_url)
+player_fighter_nuldar_down_1 = player_fighter_nuldar_sheet_down.get_image(0, 0, 50, 75)
+player_fighter_nuldar_down_2 = player_fighter_nuldar_sheet_down.get_image(50, 0, 50, 75)
+player_fighter_nuldar_down_3 = player_fighter_nuldar_sheet_down.get_image(100, 0, 50, 75)
+player_fighter_nuldar_down_4 = player_fighter_nuldar_sheet_down.get_image(150, 0, 50, 75)
+player_fighter_nuldar_sheet_up = SpriteSheet(resource_urls.player_fighter_nuldar_up_url)
+player_fighter_nuldar_up_1 = player_fighter_nuldar_sheet_up.get_image(0, 0, 50, 75)
+player_fighter_nuldar_up_2 = player_fighter_nuldar_sheet_up.get_image(50, 0, 50, 75)
+player_fighter_nuldar_up_3 = player_fighter_nuldar_sheet_up.get_image(100, 0, 50, 75)
+player_fighter_nuldar_up_4 = player_fighter_nuldar_sheet_up.get_image(150, 0, 50, 75)
+player_fighter_nuldar_sheet_left = SpriteSheet(resource_urls.player_fighter_nuldar_left_url)
+player_fighter_nuldar_left_1 = player_fighter_nuldar_sheet_left.get_image(0, 0, 50, 75)
+player_fighter_nuldar_left_2 = player_fighter_nuldar_sheet_left.get_image(50, 0, 50, 75)
+player_fighter_nuldar_left_3 = player_fighter_nuldar_sheet_left.get_image(100, 0, 50, 75)
+player_fighter_nuldar_left_4 = player_fighter_nuldar_sheet_left.get_image(150, 0, 50, 75)
+player_fighter_nuldar_sheet_right = SpriteSheet(resource_urls.player_fighter_nuldar_right_url)
+player_fighter_nuldar_right_1 = player_fighter_nuldar_sheet_right.get_image(0, 0, 50, 75)
+player_fighter_nuldar_right_2 = player_fighter_nuldar_sheet_right.get_image(50, 0, 50, 75)
+player_fighter_nuldar_right_3 = player_fighter_nuldar_sheet_right.get_image(100, 0, 50, 75)
+player_fighter_nuldar_right_4 = player_fighter_nuldar_sheet_right.get_image(150, 0, 50, 75)
 # player fighter sorae race
 player_fighter_sorae_sheet_down = SpriteSheet(resource_urls.player_fighter_sorae_down_url)
 player_fighter_sorae_down_1 = player_fighter_sorae_sheet_down.get_image(0, 0, 50, 75)
@@ -2277,11 +2434,26 @@ player_scout_amuna_up = player_scout_amuna_sheet.get_image(50, 0, 50, 75)
 player_scout_amuna_left = player_scout_amuna_sheet.get_image(100, 0, 50, 75)
 player_scout_amuna_right = player_scout_amuna_sheet.get_image(150, 0, 50, 75)
 # player scout nuldar race
-player_scout_nuldar_sheet = SpriteSheet(resource_urls.player_scout_nuldar_url)
-player_scout_nuldar_down = player_scout_nuldar_sheet.get_image(0, 0, 50, 75)
-player_scout_nuldar_up = player_scout_nuldar_sheet.get_image(50, 0, 50, 75)
-player_scout_nuldar_left = player_scout_nuldar_sheet.get_image(100, 0, 50, 75)
-player_scout_nuldar_right = player_scout_nuldar_sheet.get_image(150, 0, 50, 75)
+player_scout_nuldar_sheet_down = SpriteSheet(resource_urls.player_scout_nuldar_down_url)
+player_scout_nuldar_down_1 = player_scout_nuldar_sheet_down.get_image(0, 0, 50, 75)
+player_scout_nuldar_down_2 = player_scout_nuldar_sheet_down.get_image(50, 0, 50, 75)
+player_scout_nuldar_down_3 = player_scout_nuldar_sheet_down.get_image(100, 0, 50, 75)
+player_scout_nuldar_down_4 = player_scout_nuldar_sheet_down.get_image(150, 0, 50, 75)
+player_scout_nuldar_sheet_up = SpriteSheet(resource_urls.player_scout_nuldar_up_url)
+player_scout_nuldar_up_1 = player_scout_nuldar_sheet_up.get_image(0, 0, 50, 75)
+player_scout_nuldar_up_2 = player_scout_nuldar_sheet_up.get_image(50, 0, 50, 75)
+player_scout_nuldar_up_3 = player_scout_nuldar_sheet_up.get_image(100, 0, 50, 75)
+player_scout_nuldar_up_4 = player_scout_nuldar_sheet_up.get_image(150, 0, 50, 75)
+player_scout_nuldar_sheet_left = SpriteSheet(resource_urls.player_scout_nuldar_left_url)
+player_scout_nuldar_left_1 = player_scout_nuldar_sheet_left.get_image(0, 0, 50, 75)
+player_scout_nuldar_left_2 = player_scout_nuldar_sheet_left.get_image(50, 0, 50, 75)
+player_scout_nuldar_left_3 = player_scout_nuldar_sheet_left.get_image(100, 0, 50, 75)
+player_scout_nuldar_left_4 = player_scout_nuldar_sheet_left.get_image(150, 0, 50, 75)
+player_scout_nuldar_sheet_right = SpriteSheet(resource_urls.player_scout_nuldar_right_url)
+player_scout_nuldar_right_1 = player_scout_nuldar_sheet_right.get_image(0, 0, 50, 75)
+player_scout_nuldar_right_2 = player_scout_nuldar_sheet_right.get_image(50, 0, 50, 75)
+player_scout_nuldar_right_3 = player_scout_nuldar_sheet_right.get_image(100, 0, 50, 75)
+player_scout_nuldar_right_4 = player_scout_nuldar_sheet_right.get_image(150, 0, 50, 75)
 # player scout sorae race
 player_scout_sorae_sheet_down = SpriteSheet(resource_urls.player_scout_sorae_down_url)
 player_scout_sorae_down_1 = player_scout_sorae_sheet_down.get_image(0, 0, 50, 75)
@@ -3292,7 +3464,7 @@ while game_running:
                     else:
                         player.name = "default"
                     player.race = "amuna"
-                    player.surf = player_no_role_amuna_down
+                    player.surf = player_no_role_amuna_down_1
                     new_game_chosen = False
                     start_chosen = True
                 elif event.type == QUIT:
@@ -3416,7 +3588,7 @@ while game_running:
                     else:
                         player.name = "default"
                     player.race = "nuldar"
-                    player.surf = player_no_role_nuldar_down
+                    player.surf = player_no_role_nuldar_down_1
                     new_game_chosen = False
                     start_chosen = True
                 elif event.type == QUIT:
@@ -3437,31 +3609,31 @@ while game_running:
                 player.role = player_load_info["role"]
                 if player.race == "amuna":
                     if player.role == "mage":
-                        player.surf = player_mage_amuna_down
+                        player.surf = player_mage_amuna_down_1
                     if player.role == "fighter":
-                        player.surf = player_fighter_amuna_down
+                        player.surf = player_fighter_amuna_down_1
                     if player.role == "scout":
-                        player.surf = player_scout_amuna_down
+                        player.surf = player_scout_amuna_down_1
                     else:
-                        player.surf = player_no_role_amuna_down
+                        player.surf = player_no_role_amuna_down_1
                 if player.race == "nuldar":
                     if player.role == "mage":
-                        player.surf = player_mage_nuldar_down
+                        player.surf = player_mage_nuldar_down_1
                     if player.role == "fighter":
-                        player.surf = player_fighter_nuldar_down
+                        player.surf = player_fighter_nuldar_down_1
                     if player.role == "scout":
-                        player.surf = player_scout_nuldar_down
+                        player.surf = player_scout_nuldar_down_1
                     else:
-                        player.surf = player_no_role_nuldar_down
+                        player.surf = player_no_role_nuldar_down_1
                 if player.race == "sorae":
                     if player.role == "mage":
-                        player.surf = player_mage_sorae_down
+                        player.surf = player_mage_sorae_down_1
                     if player.role == "fighter":
-                        player.surf = player_fighter_sorae_down
+                        player.surf = player_fighter_sorae_down_1
                     if player.role == "scout":
-                        player.surf = player_scout_sorae_down
+                        player.surf = player_scout_sorae_down_1
                     else:
-                        player.surf = player_no_role_sorae_down
+                        player.surf = player_no_role_sorae_down_1
                 # clear default starting items and load personal player items from save file
                 # create new item sprite based on name from file
                 player.items.clear()

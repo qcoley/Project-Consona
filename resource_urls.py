@@ -61,12 +61,18 @@ player_no_role_sorae_down_url = resource_path('resources/art/player_no_role_sora
 player_no_role_sorae_up_url = resource_path('resources/art/player_no_role_sorae_up.png')
 player_no_role_sorae_left_url = resource_path('resources/art/player_no_role_sorae_left.png')
 player_no_role_sorae_right_url = resource_path('resources/art/player_no_role_sorae_right.png')
-# player no role sorae race --------------------------------------------------------------------------------------------
-player_no_role_nuldar_url = resource_path('resources/art/player_no_role_nuldar.png')
+# player no role nuldar race -------------------------------------------------------------------------------------------
+player_no_role_nuldar_down_url = resource_path('resources/art/player_no_role_nuldar_down.png')
+player_no_role_nuldar_up_url = resource_path('resources/art/player_no_role_nuldar_up.png')
+player_no_role_nuldar_left_url = resource_path('resources/art/player_no_role_nuldar_left.png')
+player_no_role_nuldar_right_url = resource_path('resources/art/player_no_role_nuldar_right.png')
 # player mage amuna race -----------------------------------------------------------------------------------------------
 player_mage_amuna_url = resource_path('resources/art/player_mage_amuna.png')
 # player mage nuldar race ----------------------------------------------------------------------------------------------
-player_mage_nuldar_url = resource_path('resources/art/player_mage_nuldar.png')
+player_mage_nuldar_down_url = resource_path('resources/art/player_mage_nuldar_down.png')
+player_mage_nuldar_up_url = resource_path('resources/art/player_mage_nuldar_up.png')
+player_mage_nuldar_left_url = resource_path('resources/art/player_mage_nuldar_left.png')
+player_mage_nuldar_right_url = resource_path('resources/art/player_mage_nuldar_right.png')
 # player mage sorae race -----------------------------------------------------------------------------------------------
 player_mage_sorae_down_url = resource_path('resources/art/player_mage_sorae_down.png')
 player_mage_sorae_up_url = resource_path('resources/art/player_mage_sorae_up.png')
@@ -75,7 +81,10 @@ player_mage_sorae_right_url = resource_path('resources/art/player_mage_sorae_rig
 # player fighter amuna race --------------------------------------------------------------------------------------------
 player_fighter_amuna_url = resource_path('resources/art/player_fighter_amuna.png')
 # player fighter nuldar race -------------------------------------------------------------------------------------------
-player_fighter_nuldar_url = resource_path('resources/art/player_fighter_nuldar.png')
+player_fighter_nuldar_down_url = resource_path('resources/art/player_fighter_nuldar_down.png')
+player_fighter_nuldar_up_url = resource_path('resources/art/player_fighter_nuldar_up.png')
+player_fighter_nuldar_left_url = resource_path('resources/art/player_fighter_nuldar_left.png')
+player_fighter_nuldar_right_url = resource_path('resources/art/player_fighter_nuldar_right.png')
 # player fighter sorae race --------------------------------------------------------------------------------------------
 player_fighter_sorae_down_url = resource_path('resources/art/player_fighter_sorae_down.png')
 player_fighter_sorae_up_url = resource_path('resources/art/player_fighter_sorae_up.png')
@@ -84,7 +93,10 @@ player_fighter_sorae_right_url = resource_path('resources/art/player_fighter_sor
 # player scout amuna race ----------------------------------------------------------------------------------------------
 player_scout_amuna_url = resource_path('resources/art/player_scout_amuna.png')
 # player scout nuldar race ---------------------------------------------------------------------------------------------
-player_scout_nuldar_url = resource_path('resources/art/player_scout_nuldar.png')
+player_scout_nuldar_down_url = resource_path('resources/art/player_scout_nuldar_down.png')
+player_scout_nuldar_up_url = resource_path('resources/art/player_scout_nuldar_up.png')
+player_scout_nuldar_left_url = resource_path('resources/art/player_scout_nuldar_left.png')
+player_scout_nuldar_right_url = resource_path('resources/art/player_scout_nuldar_right.png')
 # player scout sorae race ----------------------------------------------------------------------------------------------
 player_scout_sorae_down_url = resource_path('resources/art/player_scout_sorae_down.png')
 player_scout_sorae_up_url = resource_path('resources/art/player_scout_sorae_up.png')
