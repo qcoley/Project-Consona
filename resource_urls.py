@@ -55,7 +55,10 @@ name_input_url = resource_path('resources/art/name_input.png')
 # create character screen character race selections
 character_selections = resource_path('resources/art/character_selections.png')
 # player no role amuna race --------------------------------------------------------------------------------------------
-player_no_role_amuna_url = resource_path('resources/art/player_no_role_amuna.png')
+player_no_role_amuna_down_url = resource_path('resources/art/player_no_role_amuna_down.png')
+player_no_role_amuna_up_url = resource_path('resources/art/player_no_role_amuna_up.png')
+player_no_role_amuna_left_url = resource_path('resources/art/player_no_role_amuna_left.png')
+player_no_role_amuna_right_url = resource_path('resources/art/player_no_role_amuna_right.png')
 # player no role sorae race --------------------------------------------------------------------------------------------
 player_no_role_sorae_down_url = resource_path('resources/art/player_no_role_sorae_down.png')
 player_no_role_sorae_up_url = resource_path('resources/art/player_no_role_sorae_up.png')
@@ -67,7 +70,10 @@ player_no_role_nuldar_up_url = resource_path('resources/art/player_no_role_nulda
 player_no_role_nuldar_left_url = resource_path('resources/art/player_no_role_nuldar_left.png')
 player_no_role_nuldar_right_url = resource_path('resources/art/player_no_role_nuldar_right.png')
 # player mage amuna race -----------------------------------------------------------------------------------------------
-player_mage_amuna_url = resource_path('resources/art/player_mage_amuna.png')
+player_mage_amuna_down_url = resource_path('resources/art/player_mage_amuna_down.png')
+player_mage_amuna_up_url = resource_path('resources/art/player_mage_amuna_up.png')
+player_mage_amuna_left_url = resource_path('resources/art/player_mage_amuna_left.png')
+player_mage_amuna_right_url = resource_path('resources/art/player_mage_amuna_right.png')
 # player mage nuldar race ----------------------------------------------------------------------------------------------
 player_mage_nuldar_down_url = resource_path('resources/art/player_mage_nuldar_down.png')
 player_mage_nuldar_up_url = resource_path('resources/art/player_mage_nuldar_up.png')
