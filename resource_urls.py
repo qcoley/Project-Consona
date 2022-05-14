@@ -85,7 +85,10 @@ player_mage_sorae_up_url = resource_path('resources/art/player_mage_sorae_up.png
 player_mage_sorae_left_url = resource_path('resources/art/player_mage_sorae_left.png')
 player_mage_sorae_right_url = resource_path('resources/art/player_mage_sorae_right.png')
 # player fighter amuna race --------------------------------------------------------------------------------------------
-player_fighter_amuna_url = resource_path('resources/art/player_fighter_amuna.png')
+player_fighter_amuna_down_url = resource_path('resources/art/player_fighter_amuna_down.png')
+player_fighter_amuna_up_url = resource_path('resources/art/player_fighter_amuna_up.png')
+player_fighter_amuna_left_url = resource_path('resources/art/player_fighter_amuna_left.png')
+player_fighter_amuna_right_url = resource_path('resources/art/player_fighter_amuna_right.png')
 # player fighter nuldar race -------------------------------------------------------------------------------------------
 player_fighter_nuldar_down_url = resource_path('resources/art/player_fighter_nuldar_down.png')
 player_fighter_nuldar_up_url = resource_path('resources/art/player_fighter_nuldar_up.png')
@@ -97,7 +100,10 @@ player_fighter_sorae_up_url = resource_path('resources/art/player_fighter_sorae_
 player_fighter_sorae_left_url = resource_path('resources/art/player_fighter_sorae_left.png')
 player_fighter_sorae_right_url = resource_path('resources/art/player_fighter_sorae_right.png')
 # player scout amuna race ----------------------------------------------------------------------------------------------
-player_scout_amuna_url = resource_path('resources/art/player_scout_amuna.png')
+player_scout_amuna_down_url = resource_path('resources/art/player_scout_amuna_down.png')
+player_scout_amuna_up_url = resource_path('resources/art/player_scout_amuna_up.png')
+player_scout_amuna_left_url = resource_path('resources/art/player_scout_amuna_left.png')
+player_scout_amuna_right_url = resource_path('resources/art/player_scout_amuna_right.png')
 # player scout nuldar race ---------------------------------------------------------------------------------------------
 player_scout_nuldar_down_url = resource_path('resources/art/player_scout_nuldar_down.png')
 player_scout_nuldar_up_url = resource_path('resources/art/player_scout_nuldar_up.png')

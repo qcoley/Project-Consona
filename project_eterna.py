@@ -68,9 +68,23 @@ class Player(pygame.sprite.Sprite):
                     if walk_timed > 0.6:
                         self.surf = player_mage_amuna_up_4
                 if player.role == "fighter":
-                    self.surf = player_fighter_amuna_up
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_amuna_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_amuna_up_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_amuna_up_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_amuna_up_4
                 if player.role == "scout":
-                    self.surf = player_scout_amuna_up
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_amuna_up_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_amuna_up_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_amuna_up_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_amuna_up_4
                 if player.role == "":
                     if walk_timed < 0.2:
                         self.surf = player_no_role_amuna_up_1
@@ -169,9 +183,23 @@ class Player(pygame.sprite.Sprite):
                     if walk_timed > 0.6:
                         self.surf = player_mage_amuna_down_4
                 if player.role == "fighter":
-                    self.surf = player_fighter_amuna_down
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_amuna_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_amuna_down_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_amuna_down_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_amuna_down_4
                 if player.role == "scout":
-                    self.surf = player_scout_amuna_down
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_amuna_down_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_amuna_down_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_amuna_down_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_amuna_down_4
                 if player.role == "":
                     if walk_timed < 0.2:
                         self.surf = player_no_role_amuna_down_1
@@ -270,9 +298,23 @@ class Player(pygame.sprite.Sprite):
                     if walk_timed > 0.6:
                         self.surf = player_mage_amuna_left_4
                 if player.role == "fighter":
-                    self.surf = player_fighter_amuna_left
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_amuna_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_amuna_left_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_amuna_left_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_amuna_left_4
                 if player.role == "scout":
-                    self.surf = player_scout_amuna_left
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_amuna_left_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_amuna_left_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_amuna_left_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_amuna_left_4
                 if player.role == "":
                     if walk_timed < 0.2:
                         self.surf = player_no_role_amuna_left_1
@@ -371,9 +413,23 @@ class Player(pygame.sprite.Sprite):
                     if walk_timed > 0.6:
                         self.surf = player_mage_amuna_right_4
                 if player.role == "fighter":
-                    self.surf = player_fighter_amuna_right
+                    if walk_timed < 0.2:
+                        self.surf = player_fighter_amuna_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_fighter_amuna_right_2
+                    if walk_timed > 0.4:
+                        self.surf = player_fighter_amuna_right_3
+                    if walk_timed > 0.6:
+                        self.surf = player_fighter_amuna_right_4
                 if player.role == "scout":
-                    self.surf = player_scout_amuna_right
+                    if walk_timed < 0.2:
+                        self.surf = player_scout_amuna_right_1
+                    if walk_timed > 0.2:
+                        self.surf = player_scout_amuna_right_2
+                    if walk_timed > 0.4:
+                        self.surf = player_scout_amuna_right_3
+                    if walk_timed > 0.6:
+                        self.surf = player_scout_amuna_right_4
                 if player.role == "":
                     if walk_timed < 0.2:
                         self.surf = player_no_role_amuna_right_1
@@ -1871,13 +1927,13 @@ def status_and_inventory_updates():
             player.role = "fighter"
             if player.race == "amuna":
                 if current_direction == "up":
-                    player.surf = player_fighter_amuna_up
+                    player.surf = player_fighter_amuna_up_1
                 if current_direction == "down":
-                    player.surf = player_fighter_amuna_down
+                    player.surf = player_fighter_amuna_down_1
                 if current_direction == "left":
-                    player.surf = player_fighter_amuna_left
+                    player.surf = player_fighter_amuna_left_1
                 if current_direction == "right":
-                    player.surf = player_fighter_amuna_right
+                    player.surf = player_fighter_amuna_right_1
             if player.race == "nuldar":
                 if current_direction == "up":
                     player.surf = player_fighter_nuldar_up_1
@@ -1900,13 +1956,13 @@ def status_and_inventory_updates():
             player.role = "scout"
             if player.race == "amuna":
                 if current_direction == "up":
-                    player.surf = player_scout_amuna_up
+                    player.surf = player_scout_amuna_up_1
                 if current_direction == "down":
-                    player.surf = player_scout_amuna_down
+                    player.surf = player_scout_amuna_down_1
                 if current_direction == "left":
-                    player.surf = player_scout_amuna_left
+                    player.surf = player_scout_amuna_left_1
                 if current_direction == "right":
-                    player.surf = player_scout_amuna_right
+                    player.surf = player_scout_amuna_right_1
             if player.race == "nuldar":
                 if current_direction == "up":
                     player.surf = player_scout_nuldar_up_1
@@ -2466,11 +2522,26 @@ player_mage_sorae_right_2 = player_mage_sorae_sheet_right.get_image(50, 0, 50, 7
 player_mage_sorae_right_3 = player_mage_sorae_sheet_right.get_image(100, 0, 50, 75)
 player_mage_sorae_right_4 = player_mage_sorae_sheet_right.get_image(150, 0, 50, 75)
 # player fighter amuna race
-player_fighter_amuna_sheet = SpriteSheet(resource_urls.player_fighter_amuna_url)
-player_fighter_amuna_down = player_fighter_amuna_sheet.get_image(0, 0, 50, 75)
-player_fighter_amuna_up = player_fighter_amuna_sheet.get_image(50, 0, 50, 75)
-player_fighter_amuna_left = player_fighter_amuna_sheet.get_image(100, 0, 50, 75)
-player_fighter_amuna_right = player_fighter_amuna_sheet.get_image(150, 0, 50, 75)
+player_fighter_amuna_sheet_down = SpriteSheet(resource_urls.player_fighter_amuna_down_url)
+player_fighter_amuna_down_1 = player_fighter_amuna_sheet_down.get_image(0, 0, 50, 75)
+player_fighter_amuna_down_2 = player_fighter_amuna_sheet_down.get_image(50, 0, 50, 75)
+player_fighter_amuna_down_3 = player_fighter_amuna_sheet_down.get_image(100, 0, 50, 75)
+player_fighter_amuna_down_4 = player_fighter_amuna_sheet_down.get_image(150, 0, 50, 75)
+player_fighter_amuna_sheet_up = SpriteSheet(resource_urls.player_fighter_amuna_up_url)
+player_fighter_amuna_up_1 = player_fighter_amuna_sheet_up.get_image(0, 0, 50, 75)
+player_fighter_amuna_up_2 = player_fighter_amuna_sheet_up.get_image(50, 0, 50, 75)
+player_fighter_amuna_up_3 = player_fighter_amuna_sheet_up.get_image(100, 0, 50, 75)
+player_fighter_amuna_up_4 = player_fighter_amuna_sheet_up.get_image(150, 0, 50, 75)
+player_fighter_amuna_sheet_left = SpriteSheet(resource_urls.player_fighter_amuna_left_url)
+player_fighter_amuna_left_1 = player_fighter_amuna_sheet_left.get_image(0, 0, 50, 75)
+player_fighter_amuna_left_2 = player_fighter_amuna_sheet_left.get_image(50, 0, 50, 75)
+player_fighter_amuna_left_3 = player_fighter_amuna_sheet_left.get_image(100, 0, 50, 75)
+player_fighter_amuna_left_4 = player_fighter_amuna_sheet_left.get_image(150, 0, 50, 75)
+player_fighter_amuna_sheet_right = SpriteSheet(resource_urls.player_fighter_amuna_right_url)
+player_fighter_amuna_right_1 = player_fighter_amuna_sheet_right.get_image(0, 0, 50, 75)
+player_fighter_amuna_right_2 = player_fighter_amuna_sheet_right.get_image(50, 0, 50, 75)
+player_fighter_amuna_right_3 = player_fighter_amuna_sheet_right.get_image(100, 0, 50, 75)
+player_fighter_amuna_right_4 = player_fighter_amuna_sheet_right.get_image(150, 0, 50, 75)
 # player fighter nuldar race
 player_fighter_nuldar_sheet_down = SpriteSheet(resource_urls.player_fighter_nuldar_down_url)
 player_fighter_nuldar_down_1 = player_fighter_nuldar_sheet_down.get_image(0, 0, 50, 75)
@@ -2514,11 +2585,26 @@ player_fighter_sorae_right_2 = player_fighter_sorae_sheet_right.get_image(50, 0,
 player_fighter_sorae_right_3 = player_fighter_sorae_sheet_right.get_image(100, 0, 50, 75)
 player_fighter_sorae_right_4 = player_fighter_sorae_sheet_right.get_image(150, 0, 50, 75)
 # player scout amuna race
-player_scout_amuna_sheet = SpriteSheet(resource_urls.player_scout_amuna_url)
-player_scout_amuna_down = player_scout_amuna_sheet.get_image(0, 0, 50, 75)
-player_scout_amuna_up = player_scout_amuna_sheet.get_image(50, 0, 50, 75)
-player_scout_amuna_left = player_scout_amuna_sheet.get_image(100, 0, 50, 75)
-player_scout_amuna_right = player_scout_amuna_sheet.get_image(150, 0, 50, 75)
+player_scout_amuna_sheet_down = SpriteSheet(resource_urls.player_scout_amuna_down_url)
+player_scout_amuna_down_1 = player_scout_amuna_sheet_down.get_image(0, 0, 50, 75)
+player_scout_amuna_down_2 = player_scout_amuna_sheet_down.get_image(50, 0, 50, 75)
+player_scout_amuna_down_3 = player_scout_amuna_sheet_down.get_image(100, 0, 50, 75)
+player_scout_amuna_down_4 = player_scout_amuna_sheet_down.get_image(150, 0, 50, 75)
+player_scout_amuna_sheet_up = SpriteSheet(resource_urls.player_scout_amuna_up_url)
+player_scout_amuna_up_1 = player_scout_amuna_sheet_up.get_image(0, 0, 50, 75)
+player_scout_amuna_up_2 = player_scout_amuna_sheet_up.get_image(50, 0, 50, 75)
+player_scout_amuna_up_3 = player_scout_amuna_sheet_up.get_image(100, 0, 50, 75)
+player_scout_amuna_up_4 = player_scout_amuna_sheet_up.get_image(150, 0, 50, 75)
+player_scout_amuna_sheet_left = SpriteSheet(resource_urls.player_scout_amuna_left_url)
+player_scout_amuna_left_1 = player_scout_amuna_sheet_left.get_image(0, 0, 50, 75)
+player_scout_amuna_left_2 = player_scout_amuna_sheet_left.get_image(50, 0, 50, 75)
+player_scout_amuna_left_3 = player_scout_amuna_sheet_left.get_image(100, 0, 50, 75)
+player_scout_amuna_left_4 = player_scout_amuna_sheet_left.get_image(150, 0, 50, 75)
+player_scout_amuna_sheet_right = SpriteSheet(resource_urls.player_scout_amuna_right_url)
+player_scout_amuna_right_1 = player_scout_amuna_sheet_right.get_image(0, 0, 50, 75)
+player_scout_amuna_right_2 = player_scout_amuna_sheet_right.get_image(50, 0, 50, 75)
+player_scout_amuna_right_3 = player_scout_amuna_sheet_right.get_image(100, 0, 50, 75)
+player_scout_amuna_right_4 = player_scout_amuna_sheet_right.get_image(150, 0, 50, 75)
 # player scout nuldar race
 player_scout_nuldar_sheet_down = SpriteSheet(resource_urls.player_scout_nuldar_down_url)
 player_scout_nuldar_down_1 = player_scout_nuldar_sheet_down.get_image(0, 0, 50, 75)
