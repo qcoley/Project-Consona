@@ -7,11 +7,11 @@ import resource_urls
 import drawing_functions
 
 # global variables -----------------------------------------------------------------------------------------------------
-ACC = 0.20  # acceleration
-FRIC = -0.20  # friction
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-vec = pygame.math.Vector2
+vector = pygame.math.Vector2
+acceleration = 0.20
+friction = -0.20
 
 
 # class objects --------------------------------------------------------------------------------------------------------
@@ -22,9 +22,9 @@ class Player(pygame.sprite.Sprite):
         super(Player, self).__init__()
         self.surf = image
         self.rect = self.surf.get_rect()
-        self.pos = vec((450, 650))
-        self.vel = vec(0, 0)
-        self.acc = vec(0, 0)
+        self.pos = vector((760, 510))
+        self.vel = vector(0, 0)
+        self.acc = vector(0, 0)
         self.name = name
         self.gender = gender
         self.race = race
@@ -54,7 +54,7 @@ class Player(pygame.sprite.Sprite):
     # move the player sprite based on input keys
     def update(self, pressed_keyes, current_zone, walk_timed):
         # setting acceleration vector
-        self.acc = vec(0, 0)
+        self.acc = vector(0, 0)
         # w key is pressed to move player up. assign surface based on race and role. set y value acceleration -
         if pressed_keyes[K_w]:
             if player.race == "amuna":
@@ -168,7 +168,7 @@ class Player(pygame.sprite.Sprite):
                         self.surf = player_no_role_nuldar_up_3
                     if walk_timed > 0.6:
                         self.surf = player_no_role_nuldar_up_4
-            self.acc.y = -ACC
+            self.acc.y = -acceleration
 
         # s key is pressed to move player down. assign surface based on race and role. set y value acceleration +
         if pressed_keyes[K_s]:
@@ -283,7 +283,7 @@ class Player(pygame.sprite.Sprite):
                         self.surf = player_no_role_nuldar_down_3
                     if walk_timed > 0.6:
                         self.surf = player_no_role_nuldar_down_4
-            self.acc.y = ACC
+            self.acc.y = acceleration
 
         # a key is pressed to move player left. assign surface based on race and role. set x value acceleration -
         if pressed_keyes[K_a]:
@@ -398,7 +398,7 @@ class Player(pygame.sprite.Sprite):
                         self.surf = player_no_role_nuldar_left_3
                     if walk_timed > 0.6:
                         self.surf = player_no_role_nuldar_left_4
-            self.acc.x = -ACC
+            self.acc.x = -acceleration
 
         # d key is pressed to move player right. assign surface based on race and role. set x value acceleration +
         if pressed_keyes[K_d]:
@@ -513,10 +513,33 @@ class Player(pygame.sprite.Sprite):
                         self.surf = player_no_role_nuldar_right_3
                     if walk_timed > 0.6:
                         self.surf = player_no_role_nuldar_right_4
-            self.acc.x = ACC
+            self.acc.x = acceleration
 
         # keep player on the screen, boundaries vary depending on current zone
-        if current_zone == "seldon" or current_zone == "korlok":
+        if current_zone == "nascent":
+            if self.pos.x < 340:
+                self.pos.x = 340
+            elif self.pos.x > SCREEN_WIDTH - 325:
+                self.pos.x = SCREEN_WIDTH - 325
+            if self.pos.y <= 60:
+                self.pos.y = 60
+            elif self.pos.y >= SCREEN_HEIGHT - 50:
+                self.pos.y = SCREEN_HEIGHT - 50
+            # for wall/gate collision
+            elif 315 >= self.pos.y >= 300:
+                self.pos.y = 315
+            elif 300 >= self.pos.y >= 230:
+                self.pos.y = 230
+        if current_zone == "seldon":
+            if self.pos.x < 25:
+                self.pos.x = 25
+            elif self.pos.x > SCREEN_WIDTH - 355:
+                self.pos.x = SCREEN_WIDTH - 355
+            if self.pos.y <= 115:
+                self.pos.y = 115
+            elif self.pos.y >= SCREEN_HEIGHT - 5:
+                self.pos.y = SCREEN_HEIGHT - 5
+        if current_zone == "korlok":
             if self.pos.x < 25:
                 self.pos.x = 25
             elif self.pos.x > SCREEN_WIDTH - 355:
@@ -526,24 +549,25 @@ class Player(pygame.sprite.Sprite):
             elif self.pos.y >= SCREEN_HEIGHT - 5:
                 self.pos.y = SCREEN_HEIGHT - 5
 
+        # collision detection
+        if current_zone == "seldon":
+            if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.50)):
+                # create normal force by applying velocity opposite direction player is trying to move on colliding
+                if pressed_keyes[K_w]:
+                    player.vel.y = + .46
+                if pressed_keyes[K_s]:
+                    player.vel.y = - .46
+                if pressed_keyes[K_a]:
+                    player.vel.x = + .46
+                if pressed_keyes[K_d]:
+                    player.vel.x = - .46
+
         # update player movement based on velocity from acceleration and friction values
-        self.acc.x += self.vel.x * FRIC
-        self.acc.y += self.vel.y * FRIC
+        self.acc.x += self.vel.x * friction
+        self.acc.y += self.vel.y * friction
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.midbottom = self.pos
-
-        # collision detection with environment objects
-        if pygame.sprite.spritecollide(player, environment_objects, False, pygame.sprite.collide_rect_ratio(0.50)):
-            # create normal force by applying velocity opposite direction player is trying to move on colliding
-            if pressed_keyes[K_w]:
-                player.vel.y = + .46
-            if pressed_keyes[K_s]:
-                player.vel.y = - .46
-            if pressed_keyes[K_a]:
-                player.vel.x = + .46
-            if pressed_keyes[K_d]:
-                player.vel.x = - .46
 
 
 # any in game npc. can have quests and also gifts to player upon initial interaction
@@ -2371,6 +2395,7 @@ pygame.display.set_caption("Project Eterna")
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
 # background textures --------------------------------------------------------------------------------------------------
+nascent_grove_bg = pygame.image.load(resource_urls.nascent_grove_screen)
 seldon_district_bg = pygame.image.load(resource_urls.seldon_bg_screen)
 seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen)
 seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen)
@@ -2386,6 +2411,11 @@ nuldar_character_screen = pygame.image.load(resource_urls.nuldar_character_scree
 sorae_character_screen = pygame.image.load(resource_urls.sorae_character_screen)
 
 # sprite sheets --------------------------------------------------------------------------------------------------------
+# character lore overlays
+race_overlay_sheet = SpriteSheet(resource_urls.race_select_overlays_url)
+amuna_overlay_img = race_overlay_sheet.get_image(0, 0, 278, 372)
+nuldar_overlay_img = race_overlay_sheet.get_image(278, 0, 278, 372)
+sorae_overlay_img = race_overlay_sheet.get_image(556, 0, 278, 372)
 # character selections
 character_select_sheet = SpriteSheet(resource_urls.character_selections)
 amuna_character_img = character_select_sheet.get_image(0, 0, 250, 350)
@@ -3162,7 +3192,7 @@ player = Player("stane", "male", "amuna", "",  # name, gender, race, role
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
-                1, 0, 100, 100,  # lvl, exp, health, energy
+                1, 99, 100, 100,  # lvl, exp, health, energy
                 True, 20, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
                 "", "", 0, 0, player_no_role_amuna_down_1)  # mount, zone, defence, offense, image
 
@@ -3233,6 +3263,7 @@ seldon_shop = Building("shop", "seldon shop", 665, 400, amuna_shop_building)
 seldon_academia = Building("academia", "seldon academia", 875, 440, amuna_academia_building)
 seldon_hearth = Building("hearth", "seldon hearth", 860, 595, pygame.image.load(resource_urls.hearth_stone).convert())
 rohir_gate = UiElement("rohir gate", 525, 40, pygame.image.load(resource_urls.rohir_gate).convert(), False)
+nascent_gate = UiElement("nascent gate", 455, 265, pygame.image.load(resource_urls.nascent_gate_url).convert(), False)
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag
 character_button = UiElement("character button", 860, 680, character_button_img, False)
 journal_button = UiElement("journal button", 970, 680, journal_button_img, False)
@@ -3244,12 +3275,9 @@ nuldar_button = UiElement("nuldar button", 100, 350, nuldar_button_img, False)
 sorae_button = UiElement("sorae button", 100, 445, sorae_button_img, False)
 character_select_overlay = UiElement("character select overlay", 640, 365,
                                      pygame.image.load(resource_urls.character_select_overlay_url).convert(), False)
-amuna_select_overlay = UiElement("amuna select overlay", 1140, 305,
-                                 pygame.image.load(resource_urls.amuna_select_overlay_url).convert(), False)
-nuldar_select_overlay = UiElement("nuldar select overlay", 1140, 305,
-                                  pygame.image.load(resource_urls.nuldar_select_overlay_url).convert(), False)
-sorae_select_overlay = UiElement("sorae select overlay", 1140, 305,
-                                 pygame.image.load(resource_urls.sorae_select_overlay_url).convert(), False)
+amuna_select_overlay = UiElement("amuna select overlay", 1140, 305, amuna_overlay_img, False)
+nuldar_select_overlay = UiElement("nuldar select overlay", 1140, 305, nuldar_overlay_img, False)
+sorae_select_overlay = UiElement("sorae select overlay", 1140, 305, sorae_overlay_img, False)
 start_button = UiElement("start button", 640, 660, pygame.image.load(resource_urls.start_button).convert(), False)
 name_input = UiElement("name input", 640, 585, name_input_img, False)
 lets_go_button = UiElement("lets go button", 625, 575,
@@ -3290,7 +3318,7 @@ hp_bar = UiElement("health bar", 165, 25, hp_100, False)
 en_bar = UiElement("energy bar", 165, 45, en_100, False)
 xp_bar = UiElement("xp bar", 165, 65, xp_100, False)
 journal = UiElement("journal", 770, 380, journal_window_img, False)
-level_up_win = UiElement("level up window", 520, 375, pygame.image.load(resource_urls.level_up).convert(), False)
+level_up_win = UiElement("level up window", 165, 132, pygame.image.load(resource_urls.level_up).convert(), False)
 character_sheet = UiElement("character sheet", 770, 380, character_window_img, False)
 mage_book = UiElement("mage book", 670, 375, mage_book_img, False)
 fighter_book = UiElement("fighter book", 670, 375, fighter_book_img, False)
@@ -3317,6 +3345,8 @@ quest_star_guard = UiElement("quest star guard", 430, 75, quest_start_star, Fals
 player_battle_sprite = BattleCharacter("stan battle", 320, 460, player_no_role_amuna_battle)
 snake_battle_sprite = BattleCharacter("snake battle", 715, 250, snake_battle)
 ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, ghoul_battle)
+nascent_gate_popup = UiElement("nascent gate popup", 455, 200,
+                               pygame.image.load(resource_urls.nascent_gate_popup_url).convert(), False)
 
 # setting font and size for text to screen updates
 font = pygame.font.SysFont('freesansbold.ttf', 16, bold=True, italic=False)
@@ -3371,7 +3401,7 @@ non_sprite_sheets.add(trees, grass, flowers, seldon_hearth, quest_items, skill_b
                       mage_learn_button, fighter_learn_button, scout_learn_button,
                       barrier_learn_button, hard_strike_learn_button, sharp_sense_learn_button,
                       character_select_overlay, amuna_select_overlay, nuldar_select_overlay, sorae_select_overlay,
-                      start_button)
+                      start_button, nascent_gate)
 for non_sprite_sheet_sprite in non_sprite_sheets:
     non_sprite_sheet_sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -3399,13 +3429,14 @@ sorae_race_selected = False
 # condition to check if player has clicked on the name input text box on character creation screen
 name_input_selected = False
 # main iteration condition checks for player location in game
+in_nascent_grove = True
+in_district_over_world = False
+in_korlok = False
 in_battle = False
 in_shop = False
 in_inn = False
 in_academia = False
-in_district_over_world = True
 in_npc_interaction = False
-in_korlok = False
 # condition to check if player has chosen to interact with object
 interacted = False
 # condition to allow or block player movement
@@ -3526,6 +3557,8 @@ shop_gear_window = []
 save_check_window = []
 # list to contain popup window for no save data found at start
 save_data_window = []
+# list to contain nascent grove gate interaction popup
+nascent_gate_popup_container = []
 # combat text strings to be updated on scenario, shown on UI message box
 # initially set to these default strings but will be overwritten
 info_text_1 = ""
@@ -3871,16 +3904,81 @@ while game_running:
         # start game clock and set fonts
         clock = pygame.time.Clock()
         font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
-        level_up_font = pygame.font.SysFont('freesansbold.ttf', 35, bold=True, italic=False)
-
+        level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
         # if player is currently alive
         if player.alive_status:
-            # if player is in seldon district over world
+
+            # if player is in nascent grove (starting area) ------------------------------------------------------------
+            if in_nascent_grove:
+                screen.blit(nascent_grove_bg, (0, 0))
+                screen.blit(nascent_gate.surf, nascent_gate.rect)
+                screen.blit(player.surf, player.rect)
+                for popup in nascent_gate_popup_container:
+                    screen.blit(popup.surf, popup.rect)
+
+                for event in pygame.event.get():
+                    if event.type == KEYDOWN:
+                        if event.key == K_ESCAPE:
+                            exit()
+                        if event.key == K_f:
+                            if pygame.sprite.collide_rect(player, nascent_gate):
+                                interacted = True
+                    elif event.type == QUIT:
+                        exit()
+
+                if pygame.sprite.collide_rect(player, nascent_gate):
+                    nascent_gate_popup_container.append(nascent_gate_popup)
+                    if interacted:
+                        print(player.pos.y)
+                        if player.pos.y > 300:
+                            player.pos = vector((460, 215))
+                        else:
+                            player.pos = vector((460, 375))
+                        interacted = False
+                else:
+                    nascent_gate_popup_container.clear()
+
+                # move player to seldon district when they approach nascent grove exit
+                if player.pos.x > 700 and player.pos.y < 80:
+                    in_nascent_grove = False
+                    in_district_over_world = True
+                    walk_tic = time.perf_counter()
+                    player.pos = vector((460, 850))
+                    player.current_zone = "seldon"
+
+                pressed_keys = pygame.key.get_pressed()
+                if pressed_keys[K_d]:
+                    current_direction = "right"
+                    walk_toc = time.perf_counter()
+                    walk_time = walk_toc - walk_tic
+                    if walk_time > 0.8:
+                        walk_tic = time.perf_counter()
+                if pressed_keys[K_a]:
+                    current_direction = "left"
+                    walk_toc = time.perf_counter()
+                    walk_time = walk_toc - walk_tic
+                    if walk_time > 0.8:
+                        walk_tic = time.perf_counter()
+                if pressed_keys[K_w]:
+                    current_direction = "up"
+                    walk_toc = time.perf_counter()
+                    walk_time = walk_toc - walk_tic
+                    if walk_time > 0.8:
+                        walk_tic = time.perf_counter()
+                if pressed_keys[K_s]:
+                    current_direction = "down"
+                    walk_toc = time.perf_counter()
+                    walk_time = walk_toc - walk_tic
+                    if walk_time > 0.8:
+                        walk_tic = time.perf_counter()
+                if movement_able:
+                    player.update(pressed_keys, "nascent", walk_time)
+
+            # if player is in seldon district over world ---------------------------------------------------------------
             if in_district_over_world:
                 screen.blit(seldon_district_bg, (0, 0))
 
-                # ------------------------------------------------------------------------------------------------------
-                # hearth button is clicked, sets fade transition for hearth screen and then back to district bg
+                # hearth button is clicked, sets fade transition for hearth screen and then back to district bg --------
                 if hearth_clicked:
                     screen.fill((0, 0, 0))
                     for alpha in range(0, 200):
@@ -3999,13 +4097,6 @@ while game_running:
                 if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
                     quest_star_guard.update(430, 75, quest_progress_star)
                 # ------------------------------------------------------------------------------------------------------
-
-                # draw player and status bars
-                screen.blit(player.surf, player.rect)
-                screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-                screen.blit(hp_bar.surf, hp_bar.rect)
-                screen.blit(en_bar.surf, en_bar.rect)
-                screen.blit(xp_bar.surf, xp_bar.rect)
                 # draw texts to the screen, like message box, player rupees and level
                 drawing_functions.text_info_draw(screen, player, font,
                                                  info_text_1, info_text_2, info_text_3, info_text_4)
@@ -4028,6 +4119,13 @@ while game_running:
                                       str(battle_info_to_return_to_main_loop["knowledge"])
                 if battle_info_to_return_to_main_loop["leveled_up"]:
                     drawing_functions.level_up_draw(level_up_win, player, font, True)
+
+                # draw player and status bars
+                screen.blit(player.surf, player.rect)
+                screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+                screen.blit(hp_bar.surf, hp_bar.rect)
+                screen.blit(en_bar.surf, en_bar.rect)
+                screen.blit(xp_bar.surf, xp_bar.rect)
 
                 # draw pop up notifications on top of everything else
                 for knowledge_window_notification in knowledge_academia_window:
@@ -4056,7 +4154,7 @@ while game_running:
                         # hearth button was clicked, set true for animation and move player to stone
                         if hearth_button.rect.collidepoint(pos):
                             hearth_clicked = True
-                            player.pos = vec((850, 650))
+                            player.pos = vector((850, 650))
                         # save button was clicked. Save player info in dictionary to be loaded later -------------------
                         if save_button.rect.collidepoint(pos):
                             # see if there already exists a save file by trying to read it
@@ -4318,7 +4416,7 @@ while game_running:
                 # outside of main event loop ---------------------------------------------------------------------------
                 # get current pressed keys from player and apply zone boundaries depending on current zone
                 pressed_keys = pygame.key.get_pressed()
-                # apply direction to current_direction based on current input user keys
+                # apply direction to current_direction based on current input user keys --------------------------------
                 if pressed_keys[K_d]:
                     current_direction = "right"
                     # if d key has been pressed for longer than 1.2 seconds
@@ -4351,18 +4449,10 @@ while game_running:
                     walk_time = walk_toc - walk_tic
                     if walk_time > 0.8:
                         walk_tic = time.perf_counter()
-                if zone_seldon:
-                    if movement_able:
-                        player.update(pressed_keys, "seldon", walk_time)
-                if zone_korlok:
-                    if movement_able:
-                        player.update(pressed_keys, "korlok", walk_time)
-                if zone_eldream:
-                    if movement_able:
-                        player.update(pressed_keys, "eldream", walk_time)
-                if zone_marrow:
-                    if movement_able:
-                        player.update(pressed_keys, "marrow", walk_time)
+                # ------------------------------------------------------------------------------------------------------
+
+                if movement_able:
+                    player.update(pressed_keys, "seldon", walk_time)
 
                 # enemy movement updates -------------------------------------------------------------------------------
                 # choose random directions and random enemy to move that direction -------------------------------------
@@ -5993,7 +6083,7 @@ while game_running:
                     if event.type == pygame.MOUSEBUTTONUP:
                         pos = pygame.mouse.get_pos()
                         if hearth_button.rect.collidepoint(pos):
-                            player.pos = vec((850, 650))
+                            player.pos = vector((850, 650))
 
                         # if character button is clicked, call draw function and show elements. second click hides
                         if character_button.rect.collidepoint(pos):
@@ -6140,7 +6230,7 @@ while game_running:
                             sharp_sense_active = False
                             player.offense = original_offense
 
-                        player.pos = vec((435, 700))
+                        player.pos = vector((435, 700))
                         player.health = 50
                         player.energy = 50
                         player.experience = 0

@@ -215,7 +215,7 @@ def level_up_draw(level_up_win, player, level_up_font, draw_condition):
     else:
         text_leveled_up_surf = level_up_font.render(str(player.level), True, "black", "light yellow")
         text_leveled_up_rect = text_leveled_up_surf.get_rect()
-        text_leveled_up_rect.center = (660, 398)
+        text_leveled_up_rect.center = (260, 146)
 
         level_up_text.append((text_leveled_up_surf, text_leveled_up_rect))
         level_up_window.append(level_up_win)
