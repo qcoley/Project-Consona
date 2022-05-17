@@ -14,6 +14,7 @@ amuna_character_screen = resource_path('resources/art/amuna_character_select.png
 nuldar_character_screen = resource_path('resources/art/nuldar_character_select.png')
 sorae_character_screen = resource_path('resources/art/sorae_character_select.png')
 nascent_grove_screen = resource_path('resources/art/nascent_grove.png')
+stardust_outpost_screen = resource_path('resources/art/stardust_post.png')
 seldon_bg_screen = resource_path('resources/art/seldon_district.png')
 seldon_battle_screen = resource_path('resources/art/seldon_battle_screen.png')
 seldon_shop_screen = resource_path('resources/art/seldon_shop.png')

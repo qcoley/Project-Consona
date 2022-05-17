@@ -9,7 +9,7 @@ import drawing_functions
 # global variables -----------------------------------------------------------------------------------------------------
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-velocity = 1
+velocity = 2
 
 
 # class objects --------------------------------------------------------------------------------------------------------
@@ -536,14 +536,23 @@ class Player(pygame.sprite.Sprite):
             elif 300 >= self.y_coordinate >= 230:
                 self.y_coordinate = 230
         if current_zone == "seldon":
-            if self.x_coordinate < 25:
-                self.x_coordinate = 25
+            if self.x_coordinate < 15:
+                self.x_coordinate = 15
             elif self.x_coordinate > SCREEN_WIDTH - 355:
                 self.x_coordinate = SCREEN_WIDTH - 355
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
             elif self.y_coordinate >= SCREEN_HEIGHT - 5:
                 self.y_coordinate = SCREEN_HEIGHT - 5
+        if current_zone == "stardust":
+            if self.x_coordinate < 200:
+                self.x_coordinate = 200
+            elif self.x_coordinate > SCREEN_WIDTH - 300:
+                self.x_coordinate = SCREEN_WIDTH - 300
+            if self.y_coordinate <= 60:
+                self.y_coordinate = 60
+            elif self.y_coordinate >= SCREEN_HEIGHT - 50:
+                self.y_coordinate = SCREEN_HEIGHT - 50
         if current_zone == "korlok":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -690,14 +699,13 @@ class Building(pygame.sprite.Sprite):
 
 # any UI element like buttons, bars, player status etc
 class UiElement(pygame.sprite.Sprite):
-    def __init__(self, name, x_coordinate, y_coordinate, image, update_flag):
+    def __init__(self, name, x_coordinate, y_coordinate, image):
         super(UiElement, self).__init__()
         self.name = name
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
         self.surf = image
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
-        self.update_flag = update_flag
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
@@ -708,7 +716,7 @@ class UiElement(pygame.sprite.Sprite):
 
 # inventory class used for shop
 class Inventory(pygame.sprite.Sprite):
-    def __init__(self, name, contains, x_coordinate, y_coordinate, image, update_flag):
+    def __init__(self, name, contains, x_coordinate, y_coordinate, image):
         super(Inventory, self).__init__()
         self.name = name
         self.contains = contains
@@ -716,7 +724,6 @@ class Inventory(pygame.sprite.Sprite):
         self.y_coordinate = y_coordinate
         self.surf = image
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
-        self.update_flag = update_flag
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
@@ -1890,7 +1897,7 @@ def enemy_respawn():
     if snake_counter < 3:
         new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
                           Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
-                          UiElement("snake hp bar", 700, 90, hp_100, False))
+                          UiElement("snake hp bar", 700, 90, hp_100))
         snakes.add(new_snake)
         enemies.add(new_snake)
         most_sprites.add(new_snake)
@@ -1899,7 +1906,7 @@ def enemy_respawn():
     if ghoul_counter < 3:
         new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
                           Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
-                          UiElement("ghoul hp bar", 700, 90, hp_100, False))
+                          UiElement("ghoul hp bar", 700, 90, hp_100))
         ghouls.add(new_ghoul)
         enemies.add(new_ghoul)
         most_sprites.add(new_ghoul)
@@ -2293,6 +2300,7 @@ seldon_district_battle = pygame.image.load(resource_urls.seldon_battle_screen)
 seldon_district_shop = pygame.image.load(resource_urls.seldon_shop_screen)
 seldon_district_inn = pygame.image.load(resource_urls.seldon_inn_screen)
 seldon_district_academia = pygame.image.load(resource_urls.seldon_academia_screen)
+stardust_outpost_bg = pygame.image.load(resource_urls.stardust_outpost_screen)
 seldon_hearth_screen = pygame.image.load(resource_urls.seldon_hearth_screen)
 game_over_screen = pygame.image.load(resource_urls.game_over_screen)
 start_screen = pygame.image.load(resource_urls.start_screen)
@@ -2658,6 +2666,10 @@ amuna_buildings_sheet = SpriteSheet(resource_urls.amuna_buildings_url)
 amuna_academia_building = amuna_buildings_sheet.get_image(0, 0, 100, 100)
 amuna_inn_building = amuna_buildings_sheet.get_image(100, 0, 100, 100)
 amuna_shop_building = amuna_buildings_sheet.get_image(200, 0, 100, 100)
+# nascent gate
+nascent_gate_sheet = SpriteSheet(resource_urls.nascent_gate_url)
+nascent_gate_closed = nascent_gate_sheet.get_image(0, 0, 178, 120)
+nascent_gate_open = nascent_gate_sheet.get_image(178, 0, 178, 120)
 # items
 items_sheet = SpriteSheet(resource_urls.items_url)
 health_pot_img = items_sheet.get_image(0, 0, 50, 50)
@@ -3064,9 +3076,9 @@ basic_robes = Item("basic robes", "mage", 200, 200, basic_robes_img)
 basic_armor = Item("basic armor", "fighter", 200, 200, basic_armor_img)
 basic_tunic = Item("basic tunic", "scout", 200, 200, basic_tunic_img)
 # character selection screen display characters
-amuna_character = UiElement("amuna character", 640, 360, amuna_character_img, False)
-nuldar_character = UiElement("nuldar character", 640, 360, nuldar_character_img, False)
-sorae_character = UiElement("sorae character", 640, 360, sorae_character_img, False)
+amuna_character = UiElement("amuna character", 640, 360, amuna_character_img)
+nuldar_character = UiElement("nuldar character", 640, 360, nuldar_character_img)
+sorae_character = UiElement("sorae character", 640, 360, sorae_character_img)
 
 # default player character
 player = Player("stan", "amuna", "",  # name, race, role
@@ -3104,140 +3116,123 @@ npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
     Item("basic robes", "mage", 200, 200, basic_robes_img),
     Item("basic armor", "fighter", 200, 200, basic_armor_img),
     Item("basic tunic", "scout", 200, 200, basic_tunic_img)])
-npc_garan_interaction = UiElement("garan interaction", 650, 350, garan_interaction, False)
-npc_maurelle_interaction = UiElement("maurelle interaction", 650, 350, maurelle_interaction, False)
-npc_guard_interaction = UiElement("guard interaction", 650, 350, guard_interaction, False)
+npc_garan_interaction = UiElement("garan interaction", 650, 350, garan_interaction)
+npc_maurelle_interaction = UiElement("maurelle interaction", 650, 350, maurelle_interaction)
+npc_guard_interaction = UiElement("guard interaction", 650, 350, guard_interaction)
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
 snake_1 = Enemy("snake", "snake", 100, 100, 1, 80, 130, True,
                 Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
-                UiElement("snake hp bar", 700, 90, hp_100, False))
+                UiElement("snake hp bar", 700, 90, hp_100))
 snake_2 = Enemy("snake", "snake", 100, 100, 2, 285, 150, True,
                 Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
-                UiElement("snake hp bar", 700, 90, hp_100, False))
+                UiElement("snake hp bar", 700, 90, hp_100))
 snake_3 = Enemy("snake", "snake", 100, 100, 1, 80, 230, True,
                 Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
-                UiElement("snake hp bar", 700, 90, hp_100, False))
+                UiElement("snake hp bar", 700, 90, hp_100))
 snake_4 = Enemy("snake", "snake", 100, 100, 2, 285, 250, True,
                 Item("shiny rock", "rock", 200, 200, shiny_rock_img), snake,
-                UiElement("snake hp bar", 700, 90, hp_100, False))
+                UiElement("snake hp bar", 700, 90, hp_100))
 ghoul_low_1 = Enemy("ghoul", "ghoul", 100, 100, 4, 665, 180, True,
                     Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
-                    UiElement("ghoul hp bar", 700, 90, hp_100, False))
+                    UiElement("ghoul hp bar", 700, 90, hp_100))
 ghoul_low_2 = Enemy("ghoul", "ghoul", 100, 100, 5, 800, 130, True,
                     Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
-                    UiElement("ghoul hp bar", 700, 90, hp_100, False))
+                    UiElement("ghoul hp bar", 700, 90, hp_100))
 ghoul_low_3 = Enemy("ghoul", "ghoul", 100, 100, 3, 760, 240, True,
                     Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
-                    UiElement("ghoul hp bar", 700, 90, hp_100, False))
+                    UiElement("ghoul hp bar", 700, 90, hp_100))
 ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 890, 205, True,
                     Item("bone dust", "dust", 200, 200, bone_dust_img), ghoul,
-                    UiElement("ghoul hp bar", 700, 90, hp_100, False))
+                    UiElement("ghoul hp bar", 700, 90, hp_100))
 # environmental objects: name, model, x_coordinate, y_coordinate, gathered, image
 pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, pygame.image.load(resource_urls.pine_tree).convert())
 pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, pygame.image.load(resource_urls.pine_tree).convert())
 pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, pygame.image.load(resource_urls.pine_tree).convert())
-seldon_grass_1 = Item("grass", "seldon grass", 360, 125, pygame.image.load(resource_urls.seldon_grass).convert())
-seldon_grass_2 = Item("grass", "seldon grass", 270, 195, pygame.image.load(resource_urls.seldon_grass).convert())
-seldon_grass_3 = Item("grass", "seldon grass", 405, 235, pygame.image.load(resource_urls.seldon_grass).convert())
-seldon_grass_4 = Item("grass", "seldon grass", 165, 135, pygame.image.load(resource_urls.seldon_grass).convert())
-seldon_grass_5 = Item("grass", "seldon grass", 150, 255, pygame.image.load(resource_urls.seldon_grass).convert())
-seldon_grass_6 = Item("grass", "seldon grass", 50, 180, pygame.image.load(resource_urls.seldon_grass).convert())
-seldon_flower_1 = Item("flower", "seldon flower", 590, 410,
-                       pygame.image.load(resource_urls.seldon_flower).convert())
-seldon_flower_2 = Item("flower", "seldon flower", 705, 600,
-                       pygame.image.load(resource_urls.seldon_flower).convert())
-seldon_flower_3 = Item("flower", "seldon flower", 800, 440,
-                       pygame.image.load(resource_urls.seldon_flower).convert())
 # buildings: name, model, x_coordinate, y_coordinate, image, color
 seldon_inn = Building("inn", "seldon inn", 635, 600, amuna_inn_building)
 seldon_shop = Building("shop", "seldon shop", 665, 400, amuna_shop_building)
 seldon_academia = Building("academia", "seldon academia", 875, 440, amuna_academia_building)
 seldon_hearth = Building("hearth", "seldon hearth", 860, 595, pygame.image.load(resource_urls.hearth_stone).convert())
-rohir_gate = UiElement("rohir gate", 525, 40, pygame.image.load(resource_urls.rohir_gate).convert(), False)
-nascent_gate = UiElement("nascent gate", 455, 265, pygame.image.load(resource_urls.nascent_gate_url).convert(), False)
+rohir_gate = Building("gate", "rohir gate", 525, 40, pygame.image.load(resource_urls.rohir_gate).convert())
+nascent_gate = Building("gate", "nascent gate", 418, 262, nascent_gate_closed)
 # ui elements: name, x_coordinate, y_coordinate, image, color, update flag
-character_button = UiElement("character button", 860, 680, character_button_img, False)
-journal_button = UiElement("journal button", 970, 680, journal_button_img, False)
+character_button = UiElement("character button", 860, 680, character_button_img)
+journal_button = UiElement("journal button", 970, 680, journal_button_img)
 # start screen elements
-new_game_button = UiElement("new game button", 640, 342, new_game_img, False)
-continue_button = UiElement("continue button", 640, 425, continue_img, False)
-amuna_button = UiElement("amuna button", 100, 255, amuna_button_img, False)
-nuldar_button = UiElement("nuldar button", 100, 350, nuldar_button_img, False)
-sorae_button = UiElement("sorae button", 100, 445, sorae_button_img, False)
+new_game_button = UiElement("new game button", 640, 342, new_game_img)
+continue_button = UiElement("continue button", 640, 425, continue_img)
+amuna_button = UiElement("amuna button", 100, 255, amuna_button_img)
+nuldar_button = UiElement("nuldar button", 100, 350, nuldar_button_img)
+sorae_button = UiElement("sorae button", 100, 445, sorae_button_img)
 character_select_overlay = UiElement("character select overlay", 640, 365,
-                                     pygame.image.load(resource_urls.character_select_overlay_url).convert(), False)
-amuna_select_overlay = UiElement("amuna select overlay", 1140, 305, amuna_overlay_img, False)
-nuldar_select_overlay = UiElement("nuldar select overlay", 1140, 305, nuldar_overlay_img, False)
-sorae_select_overlay = UiElement("sorae select overlay", 1140, 305, sorae_overlay_img, False)
-start_button = UiElement("start button", 640, 660, pygame.image.load(resource_urls.start_button).convert(), False)
-name_input = UiElement("name input", 640, 585, name_input_img, False)
-lets_go_button = UiElement("lets go button", 625, 575,
-                           pygame.image.load(resource_urls.lets_go_button).convert(), False)
-buy_button = UiElement("buy button", 860, 680, buy_button_img, False)
-leave_button = UiElement("leave button", 970, 680, leave_button_img, False)
-rest_button = UiElement("rest button", 860, 680, rest_button_img, False)
-mage_learn_button = UiElement("mage learn button", 650, 250,
-                              pygame.image.load(resource_urls.learn_button).convert(), False)
+                                     pygame.image.load(resource_urls.character_select_overlay_url).convert())
+amuna_select_overlay = UiElement("amuna select overlay", 1140, 305, amuna_overlay_img)
+nuldar_select_overlay = UiElement("nuldar select overlay", 1140, 305, nuldar_overlay_img)
+sorae_select_overlay = UiElement("sorae select overlay", 1140, 305, sorae_overlay_img)
+start_button = UiElement("start button", 640, 660, pygame.image.load(resource_urls.start_button).convert())
+name_input = UiElement("name input", 640, 585, name_input_img)
+lets_go_button = UiElement("lets go button", 625, 575, pygame.image.load(resource_urls.lets_go_button).convert())
+buy_button = UiElement("buy button", 860, 680, buy_button_img)
+leave_button = UiElement("leave button", 970, 680, leave_button_img)
+rest_button = UiElement("rest button", 860, 680, rest_button_img)
+mage_learn_button = UiElement("mage learn button", 650, 250, pygame.image.load(resource_urls.learn_button).convert())
 fighter_learn_button = UiElement("fighter learn button", 420, 330,
-                                 pygame.image.load(resource_urls.learn_button).convert(), False)
-scout_learn_button = UiElement("scout learn button", 560, 410,
-                               pygame.image.load(resource_urls.learn_button).convert(), False)
+                                 pygame.image.load(resource_urls.learn_button).convert())
+scout_learn_button = UiElement("scout learn button", 560, 410, pygame.image.load(resource_urls.learn_button).convert())
 barrier_learn_button = UiElement("barrier learn button", 505, 300,
-                                 pygame.image.load(resource_urls.skill_learn_button).convert(), False)
+                                 pygame.image.load(resource_urls.skill_learn_button).convert())
 hard_strike_learn_button = UiElement("hard strike learn button", 505, 300,
-                                     pygame.image.load(resource_urls.skill_learn_button).convert(), False)
+                                     pygame.image.load(resource_urls.skill_learn_button).convert())
 sharp_sense_learn_button = UiElement("sharp sense learn button", 505, 300,
-                                     pygame.image.load(resource_urls.skill_learn_button).convert(), False)
-close_button = UiElement("close button", 975, 135, pygame.image.load(resource_urls.close_button).convert(), False)
-quest_button = UiElement("quest button", 860, 680, quest_button_img, False)
-accept_button = UiElement("accept button", 340, 670, accept_button_img, False)
-decline_button = UiElement("decline button", 450, 670, decline_button_img, False)
-hearth_button = UiElement("hearth button", 860, 25, hearth_button_img, False)
-save_button = UiElement("save button", 970, 25, save_button_img, False)
-yes_button = UiElement("yes button", 445, 388, yes_button_img, False)
-no_button = UiElement("no button", 559, 388, no_button_img, False)
-skill_bar = UiElement("skill bar", 855, 615, pygame.image.load(resource_urls.skill_bar).convert(), False)
-no_role_attack_button = UiElement("no role attack button", 750, 627, no_role_attack_button_img, False)
-mage_attack_button = UiElement("mage attack button", 750, 627, mage_attack_button_img, False)
-fighter_attack_button = UiElement("fighter attack button", 750, 627, fighter_attack_button_img, False)
-scout_attack_button = UiElement("scout attack button", 750, 627, scout_attack_button_img, False)
-barrier_button = UiElement("barrier button", 820, 627, barrier_button_img, False)
-hard_strike_button = UiElement("hard strike button", 820, 627, strike_button_img, False)
-sharp_sense_button = UiElement("sharp sense button", 820, 627, sense_button_img, False)
-enemy_status = UiElement("enemy status", 855, 680, pygame.image.load(resource_urls.enemy_status).convert(), False)
-hp_bar = UiElement("health bar", 165, 25, hp_100, False)
-en_bar = UiElement("energy bar", 165, 45, en_100, False)
-xp_bar = UiElement("xp bar", 165, 65, xp_100, False)
-journal = UiElement("journal", 770, 380, journal_window_img, False)
-level_up_win = UiElement("level up window", 165, 132, pygame.image.load(resource_urls.level_up).convert(), False)
-character_sheet = UiElement("character sheet", 770, 380, character_window_img, False)
-mage_book = UiElement("mage book", 670, 375, mage_book_img, False)
-fighter_book = UiElement("fighter book", 670, 375, fighter_book_img, False)
-scout_book = UiElement("scout book", 670, 375, scout_book_img, False)
+                                     pygame.image.load(resource_urls.skill_learn_button).convert())
+close_button = UiElement("close button", 975, 135, pygame.image.load(resource_urls.close_button).convert())
+quest_button = UiElement("quest button", 860, 680, quest_button_img)
+accept_button = UiElement("accept button", 340, 670, accept_button_img)
+decline_button = UiElement("decline button", 450, 670, decline_button_img)
+hearth_button = UiElement("hearth button", 860, 25, hearth_button_img)
+save_button = UiElement("save button", 970, 25, save_button_img)
+yes_button = UiElement("yes button", 445, 388, yes_button_img)
+no_button = UiElement("no button", 559, 388, no_button_img)
+skill_bar = UiElement("skill bar", 855, 615, pygame.image.load(resource_urls.skill_bar).convert())
+no_role_attack_button = UiElement("no role attack button", 750, 627, no_role_attack_button_img)
+mage_attack_button = UiElement("mage attack button", 750, 627, mage_attack_button_img)
+fighter_attack_button = UiElement("fighter attack button", 750, 627, fighter_attack_button_img)
+scout_attack_button = UiElement("scout attack button", 750, 627, scout_attack_button_img)
+barrier_button = UiElement("barrier button", 820, 627, barrier_button_img)
+hard_strike_button = UiElement("hard strike button", 820, 627, strike_button_img)
+sharp_sense_button = UiElement("sharp sense button", 820, 627, sense_button_img)
+enemy_status = UiElement("enemy status", 855, 680, pygame.image.load(resource_urls.enemy_status).convert())
+hp_bar = UiElement("health bar", 165, 25, hp_100)
+en_bar = UiElement("energy bar", 165, 45, en_100)
+xp_bar = UiElement("xp bar", 165, 65, xp_100)
+journal = UiElement("journal", 770, 380, journal_window_img)
+level_up_win = UiElement("level up window", 165, 132, pygame.image.load(resource_urls.level_up).convert())
+character_sheet = UiElement("character sheet", 770, 380, character_window_img)
+mage_book = UiElement("mage book", 670, 375, mage_book_img)
+fighter_book = UiElement("fighter book", 670, 375, fighter_book_img)
+scout_book = UiElement("scout book", 670, 375, scout_book_img)
 quest_logs_1 = Item("quest logs", "quest", 60, 540, pygame.image.load(resource_urls.quest_logs).convert())
 quest_logs_2 = Item("quest logs", "quest", 315, 560, pygame.image.load(resource_urls.quest_logs).convert())
 quest_logs_3 = Item("quest logs", "quest", 415, 435, pygame.image.load(resource_urls.quest_logs).convert())
 quest_logs_4 = Item("quest logs", "quest", 100, 540, pygame.image.load(resource_urls.quest_logs).convert())
-npc_name_plate = UiElement("npc name plate", 640, 192, pygame.image.load(resource_urls.npc_name_plate).convert(), False)
-buy_inventory = Inventory("buy inventory", [], 900, 500, pygame.image.load(resource_urls.buy_inventory).convert(),
-                          False)
-knowledge_window = UiElement("knowledge window", 635, 680, pygame.image.load(resource_urls.knowledge_window).convert(),
-                             False)
-garan_quest_window = UiElement("garan quest window", 262, 442, garan_quest, False)
-maurelle_quest_window = UiElement("maurelle quest window", 262, 442, maurelle_quest, False)
-guard_quest_window = UiElement("guard quest window", 262, 442, guard_quest, False)
-message_box = UiElement("message box", 173, 650, pygame.image.load(resource_urls.message_box), False)
-status_bar_backdrop = UiElement("bar backdrop", 165, 45, pygame.image.load(resource_urls.bar_backdrop), False)
+npc_name_plate = UiElement("npc name plate", 640, 192, pygame.image.load(resource_urls.npc_name_plate).convert())
+buy_inventory = Inventory("buy inventory", [], 900, 500, pygame.image.load(resource_urls.buy_inventory).convert())
+knowledge_window = UiElement("knowledge window", 635, 680, pygame.image.load(resource_urls.knowledge_window).convert())
+garan_quest_window = UiElement("garan quest window", 262, 442, garan_quest)
+maurelle_quest_window = UiElement("maurelle quest window", 262, 442, maurelle_quest)
+guard_quest_window = UiElement("guard quest window", 262, 442, guard_quest)
+message_box = UiElement("message box", 173, 650, pygame.image.load(resource_urls.message_box))
+status_bar_backdrop = UiElement("bar backdrop", 165, 45, pygame.image.load(resource_urls.bar_backdrop))
 enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 700, 90,
-                                      pygame.image.load(resource_urls.enemy_bar_backdrop), False)
-quest_star_garan = UiElement("quest star garan", 210, 390, quest_start_star, False)
-quest_star_maurelle = UiElement("quest star maurelle", 760, 480, quest_start_star, False)
-quest_star_guard = UiElement("quest star guard", 430, 75, quest_start_star, False)
+                                      pygame.image.load(resource_urls.enemy_bar_backdrop))
+quest_star_garan = UiElement("quest star garan", 210, 390, quest_start_star,)
+quest_star_maurelle = UiElement("quest star maurelle", 760, 480, quest_start_star)
+quest_star_guard = UiElement("quest star guard", 430, 75, quest_start_star)
 player_battle_sprite = BattleCharacter("stan battle", 320, 460, player_no_role_amuna_battle)
 snake_battle_sprite = BattleCharacter("snake battle", 715, 250, snake_battle)
 ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, ghoul_battle)
-nascent_gate_popup = UiElement("nascent gate popup", 455, 200,
-                               pygame.image.load(resource_urls.nascent_gate_popup_url).convert(), False)
+nascent_gate_popup = UiElement("nascent gate popup", 418, 200,
+                               pygame.image.load(resource_urls.nascent_gate_popup_url).convert())
 
 # setting font and size for text to screen updates
 font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
@@ -3805,6 +3800,7 @@ while game_running:
                 if pygame.sprite.collide_rect(player, nascent_gate):
                     nascent_gate_popup_container.append(nascent_gate_popup)
                     if interacted:
+                        nascent_gate.update(nascent_gate.x_coordinate, nascent_gate.y_coordinate, nascent_gate_open)
                         if player.y_coordinate > 300:
                             player.y_coordinate = 215
                         else:
@@ -3812,6 +3808,7 @@ while game_running:
                         interacted = False
                 else:
                     nascent_gate_popup_container.clear()
+                    nascent_gate.update(nascent_gate.x_coordinate, nascent_gate.y_coordinate, nascent_gate_closed)
 
                 # move player to seldon district when they approach nascent grove exit
                 if player.x_coordinate > 700 and player.y_coordinate < 80:
@@ -3819,6 +3816,40 @@ while game_running:
                     in_over_world = True
                     player.x_coordinate = 425
                     player.y_coordinate = 690
+
+            # if player is in nascent grove (starting area) ------------------------------------------------------------
+            if player.current_zone == "stardust" and in_over_world:
+                screen.blit(stardust_outpost_bg, (0, 0))
+                screen.blit(player.surf, player.rect)
+                walking_return_stardust = walk_time(walk_tic)
+                if walking_return_stardust["reset"]:
+                    walk_tic = time.perf_counter()
+                if movement_able:
+                    pressed_keys = pygame.key.get_pressed()
+                    if pressed_keys[K_d]:
+                        player.update("right", "stardust", walking_return_stardust["total time"])
+                    if pressed_keys[K_a]:
+                        player.update("left", "stardust", walking_return_stardust["total time"])
+                    if pressed_keys[K_w]:
+                        player.update("up", "stardust", walking_return_stardust["total time"])
+                    if pressed_keys[K_s]:
+                        player.update("down", "stardust", walking_return_stardust["total time"])
+
+                for event in pygame.event.get():
+                    if event.type == KEYDOWN:
+                        if event.key == K_ESCAPE:
+                            exit()
+                        if event.key == K_f:
+                            interacted = True
+                    elif event.type == QUIT:
+                        exit()
+
+                # move player to seldon district when they approach nascent grove exit
+                if player.x_coordinate > 925 and 175 < player.y_coordinate < 275:
+                    player.current_zone = "seldon"
+                    in_over_world = True
+                    player.x_coordinate = 150
+                    player.y_coordinate = 375
 
             # if player is in seldon district over world ---------------------------------------------------------------
             if player.current_zone == "seldon" and in_over_world:
@@ -4054,6 +4085,20 @@ while game_running:
 
                     elif event.type == QUIT:
                         exit()
+
+                    # move player to nascent grove when they approach
+                    if 375 < player.x_coordinate < 475 and player.y_coordinate > 700:
+                        player.current_zone = "nascent"
+                        in_over_world = True
+                        player.x_coordinate = 750
+                        player.y_coordinate = 125
+
+                    # move player to stardust outpost when they approach
+                    if player.x_coordinate < 25 and 325 < player.y_coordinate < 400:
+                        player.current_zone = "stardust"
+                        in_over_world = True
+                        player.x_coordinate = 925
+                        player.y_coordinate = 275
 
                     # player encounters a quest item. check progress and add to if interacted with
                     quest_item = pygame.sprite.spritecollideany(player, quest_items)
