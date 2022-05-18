@@ -1,5 +1,5 @@
 # functions for drawing certain text and images on screen
-# lists for blitting elements to screen that are contained within lists
+# lists for blitting elements/items to the screen that are contained within lists
 character_sheet_text = []
 character_sheet_window = []
 journal_text = []
@@ -7,6 +7,8 @@ journal_window = []
 level_up_text = []
 level_up_window = []
 quest_box = []
+player_equipment = []
+player_items = []
 
 
 # draws elements on screen that have been appended to list by below functions
@@ -25,6 +27,10 @@ def draw_it(screen):
         screen.blit(level_ups_text[0], level_ups_text[1])
     for quest_element in quest_box:
         screen.blit(quest_element.surf, quest_element.rect)
+    for equipment_here in player_equipment:
+        screen.blit(equipment_here.surf, equipment_here.rect)
+    for item_here in player_items:
+        screen.blit(item_here.surf, item_here.rect)
 
 
 def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4):
@@ -36,22 +42,22 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     # get current player level and create surf and rectangle to blit to screen------------------------------------------
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
     text_level_rect = text_level_surf.get_rect()
-    text_level_rect.center = (1102, 359)
+    text_level_rect.center = (1102, 360)
     screen.blit(text_level_surf, text_level_rect)
     # get current player role and create surf and rectangle to blit to screen-------------------------------------------
     text_role_surf = font.render(str(player.role), True, "black", "light yellow")
     text_role_rect = text_role_surf.get_rect()
-    text_role_rect.center = (1220, 359)
+    text_role_rect.center = (1220, 360)
     screen.blit(text_role_surf, text_role_rect)
     # get current player offense and create surf and rectangle to blit to screen----------------------------------------
-    text_offense_surf = font.render(str(player.offense), True, "black", "light yellow")
+    text_offense_surf = font.render(str(player.offense), True, "black", "light gray")
     text_offense_rect = text_offense_surf.get_rect()
-    text_offense_rect.center = (1212, 82)
+    text_offense_rect.center = (1135, 85)
     screen.blit(text_offense_surf, text_offense_rect)
     # get current player defence and create surf and rectangle to blit to screen----------------------------------------
-    text_defence_surf = font.render(str(player.defence), True, "black", "light yellow")
+    text_defence_surf = font.render(str(player.defence), True, "black", "light gray")
     text_defence_rect = text_defence_surf.get_rect()
-    text_defence_rect.center = (1212, 119)
+    text_defence_rect.center = (1235, 85)
     screen.blit(text_defence_surf, text_defence_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
@@ -226,7 +232,6 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
 
     if not draw_condition:
         quest_box.clear()
-
     else:
         if quest_npc.name == "garan":
             quest_box.append(garan_quest_window)
@@ -237,4 +242,94 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
 
         quest_box.append(accept_button)
         quest_box.append(decline_button)
+
+
+def equipment_updates(player, staff, sword, bow, robes, armor, tunic):
+    player_equipment.clear()
+    try:
+        if player.equipment["weapon"].name == "basic staff":
+            player.equipment["weapon"].update(1078, 285, staff)
+            player_equipment.append(player.equipment["weapon"])
+        if player.equipment["weapon"].name == "basic sword":
+            player.equipment["weapon"].update(1078, 285, sword)
+            player_equipment.append(player.equipment["weapon"])
+        if player.equipment["weapon"].name == "basic bow":
+            player.equipment["weapon"].update(1078, 285, bow)
+            player_equipment.append(player.equipment["weapon"])
+        if player.equipment["chest"].name == "basic robes":
+            player.equipment["chest"].update(1153, 197, robes)
+            player_equipment.append(player.equipment["chest"])
+        if player.equipment["chest"].name == "basic armor":
+            player.equipment["chest"].update(1153, 197, armor)
+            player_equipment.append(player.equipment["chest"])
+        if player.equipment["chest"].name == "basic tunic":
+            player.equipment["chest"].update(1153, 197, tunic)
+            player_equipment.append(player.equipment["chest"])
+    except AttributeError:
+        pass
+
+
+def item_updates(player, health, energy, rock, dust, staff, sword, bow, robes, armor, tunic, temp):
+    player_items.clear()
+
+    if len(player.items) > 0:
+        first_coord = 1063
+        second_coord = 462
+        try:
+            inventory_counter = 0
+
+            for item_here in player.items:
+                if item_here.name == "health potion":
+                    item_here.update(first_coord, second_coord, health)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "energy potion":
+                    item_here.update(first_coord, second_coord, energy)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "shiny rock":
+                    item_here.update(first_coord, second_coord, rock)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "bone dust":
+                    item_here.update(first_coord, second_coord, dust)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "basic staff":
+                    item_here.update(first_coord, second_coord, staff)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "basic sword":
+                    item_here.update(first_coord, second_coord, sword)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "basic bow":
+                    item_here.update(first_coord, second_coord, bow)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "basic robes":
+                    item_here.update(first_coord, second_coord, robes)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "basic armor":
+                    item_here.update(first_coord, second_coord, armor)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "basic tunic":
+                    item_here.update(first_coord, second_coord, tunic)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "temporary item":
+                    item_here.update(first_coord, second_coord, temp)
+                    player_items.append(item_here)
+                    inventory_counter += 1
+
+                first_coord += 60
+
+                if inventory_counter > 3:
+                    second_coord += 60
+                    first_coord = 1063
+                    inventory_counter = 0
+        except AttributeError:
+            pass
 

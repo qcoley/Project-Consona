@@ -3,6 +3,9 @@ import time
 import pygame
 import pickle
 from pygame.locals import *
+
+import click_handlers
+import gameplay_functions
 import resource_urls
 import drawing_functions
 
@@ -16,7 +19,7 @@ velocity = 2
 class Player(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
-                 energy, alive_status, rupees, reputation, current_zone, defence, offense):
+                 energy, alive_status, rupees, reputation, current_zone, defense, offense):
         super(Player, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -43,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         self.rupees = rupees
         self.reputation = reputation
         self.current_zone = current_zone
-        self.defence = defence
+        self.defence = defense
         self.offense = offense
 
     # move the player sprite based on input keys
@@ -545,14 +548,23 @@ class Player(pygame.sprite.Sprite):
             elif self.y_coordinate >= SCREEN_HEIGHT - 5:
                 self.y_coordinate = SCREEN_HEIGHT - 5
         if current_zone == "stardust":
-            if self.x_coordinate < 200:
-                self.x_coordinate = 200
-            elif self.x_coordinate > SCREEN_WIDTH - 300:
-                self.x_coordinate = SCREEN_WIDTH - 300
-            if self.y_coordinate <= 60:
-                self.y_coordinate = 60
-            elif self.y_coordinate >= SCREEN_HEIGHT - 50:
-                self.y_coordinate = SCREEN_HEIGHT - 50
+            if self.x_coordinate < 225:
+                self.x_coordinate = 225
+            elif self.x_coordinate > SCREEN_WIDTH - 325:
+                self.x_coordinate = SCREEN_WIDTH - 325
+            if self.y_coordinate <= 80:
+                self.y_coordinate = 80
+            elif self.y_coordinate >= SCREEN_HEIGHT - 80:
+                self.y_coordinate = SCREEN_HEIGHT - 80
+            # for stardust outpost collision, bigger building
+            elif 360 >= self.y_coordinate >= 300 and 641 >= self.x_coordinate >= 409:
+                self.y_coordinate = 360
+            elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
+                self.y_coordinate = 230
+            elif 645 >= self.x_coordinate >= 500 and 358 >= self.y_coordinate >= 232:
+                self.x_coordinate = 645
+            elif 500 >= self.x_coordinate >= 395 and 358 >= self.y_coordinate >= 232:
+                self.x_coordinate = 395
         if current_zone == "korlok":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -801,15 +813,10 @@ class SpriteSheet(object):
 def attack_scenario(enemy_combating, combat_event):
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
-        "damage done": 0,
-        "damage taken": 0,
-        "item dropped": "",
-        "experience gained": 0,
-        "quest update": "",
-        "enemy defeated": False,
-        "escaped": False,
-        "level up status": "",
-        "level up attributes": ""
+        "damage done": 0, "damage taken": 0,
+        "item dropped": "", "experience gained": 0,
+        "quest update": "", "enemy defeated": False, "escaped": False,
+        "level up status": "", "level up attributes": ""
     }
     if combat_event == "attack":
         if enemy_combating.alive_status:
@@ -893,7 +900,7 @@ def attack_scenario(enemy_combating, combat_event):
 
                 # player will level up if experience greater than or equal to 100
                 if player.experience >= 100:
-                    level_up()
+                    gameplay_functions.level_up(player)
 
                 enemy_combating.alive_status = False
                 enemy_combating.kill()
@@ -967,7 +974,7 @@ def attack_scenario(enemy_combating, combat_event):
                         else:
                             combat_event_dictionary["item dropped"] = "No"
                         if player.experience >= 100:
-                            level_up()
+                            gameplay_functions.level_up(player)
                         enemy_combating.alive_status = False
                         enemy_combating.kill()
                         combat_event_dictionary["enemy defeated"] = True
@@ -984,7 +991,6 @@ def attack_enemy(mob):
     # if player is equal level or higher level than mob, just return full damage value
     else:
         difference = 1
-
     # scale damage based on player's offense stat and level difference
     if player.role == "mage":
         damage = (random.randrange(17, player.offense) // difference)
@@ -1001,7 +1007,6 @@ def attack_enemy(mob):
 # enemy attacks player, gets damage to player done, subtract players defense level
 def attack_player(mob):
     base_damage = (random.randrange(10, 18))
-
     difference = mob.level - player.level
     # add additional damage if enemy is a higher level than player
     if difference >= 1:
@@ -1010,867 +1015,54 @@ def attack_player(mob):
         base_damage = base_damage + 5
     if difference >= 3:
         base_damage = base_damage + 8
-
     final_damage = base_damage - player.defence
 
     return final_damage
 
 
-# level up function. increase player level by 1 if not at cap and return info in dictionary
-def level_up():
-    level_up_dictionary = {"new level": 0, "player stats": []}
-
-    if player.level < 20:
-        player.level = player.level + 1
-        # reset player health, energy and experience points
-        player.health = 100
-        player.energy = 100
-        player.experience = 0
-        drawing_functions.level_up_draw(level_up_win, player, level_up_font, True)
-    else:
-        level_up_dictionary["new level"] = "You are already max level. "
-        return level_up_dictionary
-
-
 # player health bar update function. return image representing amount
 def health_bar_update(character):
-    if character.health == 100:
-        return hp_100
-    if character.health == 99:
-        return hp_99
-    if character.health == 98:
-        return hp_98
-    if character.health == 97:
-        return hp_97
-    if character.health == 96:
-        return hp_96
-    if character.health == 95:
-        return hp_95
-    if character.health == 94:
-        return hp_94
-    if character.health == 93:
-        return hp_93
-    if character.health == 92:
-        return hp_92
-    if character.health == 91:
-        return hp_91
-    if character.health == 90:
-        return hp_90
-    if character.health == 89:
-        return hp_89
-    if character.health == 88:
-        return hp_88
-    if character.health == 87:
-        return hp_87
-    if character.health == 86:
-        return hp_86
-    if character.health == 85:
-        return hp_85
-    if character.health == 84:
-        return hp_84
-    if character.health == 83:
-        return hp_83
-    if character.health == 82:
-        return hp_82
-    if character.health == 81:
-        return hp_81
-    if character.health == 80:
-        return hp_80
-    if character.health == 79:
-        return hp_79
-    if character.health == 78:
-        return hp_78
-    if character.health == 77:
-        return hp_77
-    if character.health == 76:
-        return hp_76
-    if character.health == 75:
-        return hp_75
-    if character.health == 74:
-        return hp_74
-    if character.health == 73:
-        return hp_73
-    if character.health == 72:
-        return hp_72
-    if character.health == 71:
-        return hp_71
-    if character.health == 70:
-        return hp_70
-    if character.health == 69:
-        return hp_69
-    if character.health == 68:
-        return hp_68
-    if character.health == 67:
-        return hp_67
-    if character.health == 66:
-        return hp_66
-    if character.health == 65:
-        return hp_65
-    if character.health == 64:
-        return hp_64
-    if character.health == 63:
-        return hp_63
-    if character.health == 62:
-        return hp_62
-    if character.health == 61:
-        return hp_61
-    if character.health == 60:
-        return hp_60
-    if character.health == 59:
-        return hp_59
-    if character.health == 58:
-        return hp_58
-    if character.health == 57:
-        return hp_57
-    if character.health == 56:
-        return hp_56
-    if character.health == 55:
-        return hp_55
-    if character.health == 54:
-        return hp_54
-    if character.health == 53:
-        return hp_53
-    if character.health == 52:
-        return hp_52
-    if character.health == 51:
-        return hp_51
-    if character.health == 50:
-        return hp_50
-    if character.health == 49:
-        return hp_49
-    if character.health == 48:
-        return hp_48
-    if character.health == 47:
-        return hp_47
-    if character.health == 46:
-        return hp_46
-    if character.health == 45:
-        return hp_45
-    if character.health == 44:
-        return hp_44
-    if character.health == 43:
-        return hp_43
-    if character.health == 42:
-        return hp_42
-    if character.health == 41:
-        return hp_41
-    if character.health == 40:
-        return hp_40
-    if character.health == 39:
-        return hp_39
-    if character.health == 38:
-        return hp_38
-    if character.health == 37:
-        return hp_37
-    if character.health == 36:
-        return hp_36
-    if character.health == 35:
-        return hp_35
-    if character.health == 34:
-        return hp_34
-    if character.health == 33:
-        return hp_33
-    if character.health == 32:
-        return hp_32
-    if character.health == 31:
-        return hp_31
-    if character.health == 30:
-        return hp_30
-    if character.health == 29:
-        return hp_29
-    if character.health == 28:
-        return hp_28
-    if character.health == 27:
-        return hp_27
-    if character.health == 26:
-        return hp_26
-    if character.health == 25:
-        return hp_25
-    if character.health == 24:
-        return hp_24
-    if character.health == 23:
-        return hp_23
-    if character.health == 22:
-        return hp_22
-    if character.health == 21:
-        return hp_21
-    if character.health == 20:
-        return hp_20
-    if character.health == 19:
-        return hp_19
-    if character.health == 18:
-        return hp_18
-    if character.health == 17:
-        return hp_17
-    if character.health == 16:
-        return hp_16
-    if character.health == 15:
-        return hp_15
-    if character.health == 14:
-        return hp_14
-    if character.health == 13:
-        return hp_13
-    if character.health == 12:
-        return hp_12
-    if character.health == 11:
-        return hp_11
-    if character.health == 10:
-        return hp_10
-    if character.health == 9:
-        return hp_9
-    if character.health == 8:
-        return hp_8
-    if character.health == 7:
-        return hp_7
-    if character.health == 6:
-        return hp_6
-    if character.health == 5:
-        return hp_5
-    if character.health == 4:
-        return hp_4
-    if character.health == 3:
-        return hp_3
-    if character.health == 2:
-        return hp_2
-    if character.health == 1:
-        return hp_1
-    if character.health == 0:
-        return hp_0
+    return gameplay_functions.health_bar_update(character,
+                                                hp_100, hp_99, hp_98, hp_97, hp_96, hp_95, hp_94, hp_93, hp_92, hp_91,
+                                                hp_90, hp_89, hp_88, hp_87, hp_86, hp_85, hp_84, hp_83, hp_82, hp_81,
+                                                hp_80, hp_79, hp_78, hp_77, hp_76, hp_75, hp_74, hp_73, hp_72, hp_71,
+                                                hp_70, hp_69, hp_68, hp_67, hp_66, hp_65, hp_64, hp_63, hp_62, hp_61,
+                                                hp_60, hp_59, hp_58, hp_57, hp_56, hp_55, hp_54, hp_53, hp_52, hp_51,
+                                                hp_50, hp_49, hp_48, hp_47, hp_46, hp_45, hp_44, hp_43, hp_42, hp_41,
+                                                hp_40, hp_39, hp_38, hp_37, hp_36, hp_35, hp_34, hp_33, hp_32, hp_31,
+                                                hp_30, hp_29, hp_28, hp_27, hp_26, hp_25, hp_24, hp_23, hp_22, hp_21,
+                                                hp_20, hp_19, hp_18, hp_17, hp_16, hp_15, hp_14, hp_13, hp_12, hp_11,
+                                                hp_10, hp_9, hp_8, hp_7, hp_6, hp_5, hp_4, hp_3, hp_2, hp_1, hp_0)
 
 
 # player energy bar update function. return image representing amount
 def energy_bar_update(character):
-    if character.energy == 100:
-        return en_100
-    if character.energy == 99:
-        return en_99
-    if character.energy == 98:
-        return en_98
-    if character.energy == 97:
-        return en_97
-    if character.energy == 96:
-        return en_96
-    if character.energy == 95:
-        return en_95
-    if character.energy == 94:
-        return en_94
-    if character.energy == 93:
-        return en_93
-    if character.energy == 92:
-        return en_92
-    if character.energy == 91:
-        return en_91
-    if character.energy == 90:
-        return en_90
-    if character.energy == 89:
-        return en_89
-    if character.energy == 88:
-        return en_88
-    if character.energy == 87:
-        return en_87
-    if character.energy == 86:
-        return en_86
-    if character.energy == 85:
-        return en_85
-    if character.energy == 84:
-        return en_84
-    if character.energy == 83:
-        return en_83
-    if character.energy == 82:
-        return en_82
-    if character.energy == 81:
-        return en_81
-    if character.energy == 80:
-        return en_80
-    if character.energy == 79:
-        return en_79
-    if character.energy == 78:
-        return en_78
-    if character.energy == 77:
-        return en_77
-    if character.energy == 76:
-        return en_76
-    if character.energy == 75:
-        return en_75
-    if character.energy == 74:
-        return en_74
-    if character.energy == 73:
-        return en_73
-    if character.energy == 72:
-        return en_72
-    if character.energy == 71:
-        return en_71
-    if character.energy == 70:
-        return en_70
-    if character.energy == 69:
-        return en_69
-    if character.energy == 68:
-        return en_68
-    if character.energy == 67:
-        return en_67
-    if character.energy == 66:
-        return en_66
-    if character.energy == 65:
-        return en_65
-    if character.energy == 64:
-        return en_64
-    if character.energy == 63:
-        return en_63
-    if character.energy == 62:
-        return en_62
-    if character.energy == 61:
-        return en_61
-    if character.energy == 60:
-        return en_60
-    if character.energy == 59:
-        return en_59
-    if character.energy == 58:
-        return en_58
-    if character.energy == 57:
-        return en_57
-    if character.energy == 56:
-        return en_56
-    if character.energy == 55:
-        return en_55
-    if character.energy == 54:
-        return en_54
-    if character.energy == 53:
-        return en_53
-    if character.energy == 52:
-        return en_52
-    if character.energy == 51:
-        return en_51
-    if character.energy == 50:
-        return en_50
-    if character.energy == 49:
-        return en_49
-    if character.energy == 48:
-        return en_48
-    if character.energy == 47:
-        return en_47
-    if character.energy == 46:
-        return en_46
-    if character.energy == 45:
-        return en_45
-    if character.energy == 44:
-        return en_44
-    if character.energy == 43:
-        return en_43
-    if character.energy == 42:
-        return en_42
-    if character.energy == 41:
-        return en_41
-    if character.energy == 40:
-        return en_40
-    if character.energy == 39:
-        return en_39
-    if character.energy == 38:
-        return en_38
-    if character.energy == 37:
-        return en_37
-    if character.energy == 36:
-        return en_36
-    if character.energy == 35:
-        return en_35
-    if character.energy == 34:
-        return en_34
-    if character.energy == 33:
-        return en_33
-    if character.energy == 32:
-        return en_32
-    if character.energy == 31:
-        return en_31
-    if character.energy == 30:
-        return en_30
-    if character.energy == 29:
-        return en_29
-    if character.energy == 28:
-        return en_28
-    if character.energy == 27:
-        return en_27
-    if character.energy == 26:
-        return en_26
-    if character.energy == 25:
-        return en_25
-    if character.energy == 24:
-        return en_24
-    if character.energy == 23:
-        return en_23
-    if character.energy == 22:
-        return en_22
-    if character.energy == 21:
-        return en_21
-    if character.energy == 20:
-        return en_20
-    if character.energy == 19:
-        return en_19
-    if character.energy == 18:
-        return en_18
-    if character.energy == 17:
-        return en_17
-    if character.energy == 16:
-        return en_16
-    if character.energy == 15:
-        return en_15
-    if character.energy == 14:
-        return en_14
-    if character.energy == 13:
-        return en_13
-    if character.energy == 12:
-        return en_12
-    if character.energy == 11:
-        return en_11
-    if character.energy == 10:
-        return en_10
-    if character.energy == 9:
-        return en_9
-    if character.energy == 8:
-        return en_8
-    if character.energy == 7:
-        return en_7
-    if character.energy == 6:
-        return en_6
-    if character.energy == 5:
-        return en_5
-    if character.energy == 4:
-        return en_4
-    if character.energy == 3:
-        return en_3
-    if character.energy == 2:
-        return en_2
-    if character.energy == 1:
-        return en_1
-    if character.energy == 0:
-        return en_0
+    return gameplay_functions.energy_bar_update(character,
+                                                en_100, en_99, en_98, en_97, en_96, en_95, en_94, en_93, en_92, en_91,
+                                                en_90, en_89, en_88, en_87, en_86, en_85, en_84, en_83, en_82, en_81,
+                                                en_80, en_79, en_78, en_77, en_76, en_75, en_74, en_73, en_72, en_71,
+                                                en_70, en_69, en_68, en_67, en_66, en_65, en_64, en_63, en_62, en_61,
+                                                en_60, en_59, en_58, en_57, en_56, en_55, en_54, en_53, en_52, en_51,
+                                                en_50, en_49, en_48, en_47, en_46, en_45, en_44, en_43, en_42, en_41,
+                                                en_40, en_39, en_38, en_37, en_36, en_35, en_34, en_33, en_32, en_31,
+                                                en_30, en_29, en_28, en_27, en_26, en_25, en_24, en_23, en_22, en_21,
+                                                en_20, en_19, en_18, en_17, en_16, en_15, en_14, en_13, en_12, en_11,
+                                                en_10, en_9, en_8, en_7, en_6, en_5, en_4, en_3, en_2, en_1, en_0)
 
 
 # player xp bar update function. return image representing amount
 def xp_bar_update(character):
-    if character.experience == 100:
-        return xp_100
-    if character.experience == 99:
-        return xp_99
-    if character.experience == 98:
-        return xp_98
-    if character.experience == 97:
-        return xp_97
-    if character.experience == 96:
-        return xp_96
-    if character.experience == 95:
-        return xp_95
-    if character.experience == 94:
-        return xp_94
-    if character.experience == 93:
-        return xp_93
-    if character.experience == 92:
-        return xp_92
-    if character.experience == 91:
-        return xp_91
-    if character.experience == 90:
-        return xp_90
-    if character.experience == 89:
-        return rxp_89
-    if character.experience == 88:
-        return xp_88
-    if character.experience == 87:
-        return xp_87
-    if character.experience == 86:
-        return xp_86
-    if character.experience == 85:
-        return xp_85
-    if character.experience == 84:
-        return xp_84
-    if character.experience == 83:
-        return xp_83
-    if character.experience == 82:
-        return xp_82
-    if character.experience == 81:
-        return xp_81
-    if character.experience == 80:
-        return xp_80
-    if character.experience == 79:
-        return xp_79
-    if character.experience == 78:
-        return xp_78
-    if character.experience == 77:
-        return xp_77
-    if character.experience == 76:
-        return xp_76
-    if character.experience == 75:
-        return xp_75
-    if character.experience == 74:
-        return xp_74
-    if character.experience == 73:
-        return xp_73
-    if character.experience == 72:
-        return xp_72
-    if character.experience == 71:
-        return xp_71
-    if character.experience == 70:
-        return xp_70
-    if character.experience == 69:
-        return xp_69
-    if character.experience == 68:
-        return xp_68
-    if character.experience == 67:
-        return xp_67
-    if character.experience == 66:
-        return xp_66
-    if character.experience == 65:
-        return xp_65
-    if character.experience == 64:
-        return xp_64
-    if character.experience == 63:
-        return xp_63
-    if character.experience == 62:
-        return xp_62
-    if character.experience == 61:
-        return xp_61
-    if character.experience == 60:
-        return xp_60
-    if character.experience == 59:
-        return xp_59
-    if character.experience == 58:
-        return xp_58
-    if character.experience == 57:
-        return xp_57
-    if character.experience == 56:
-        return xp_56
-    if character.experience == 55:
-        return xp_55
-    if character.experience == 54:
-        return xp_54
-    if character.experience == 53:
-        return xp_53
-    if character.experience == 52:
-        return xp_52
-    if character.experience == 51:
-        return xp_51
-    if character.experience == 50:
-        return xp_50
-    if character.experience == 49:
-        return xp_49
-    if character.experience == 48:
-        return xp_48
-    if character.experience == 47:
-        return xp_47
-    if character.experience == 46:
-        return xp_46
-    if character.experience == 45:
-        return xp_45
-    if character.experience == 44:
-        return xp_44
-    if character.experience == 43:
-        return xp_43
-    if character.experience == 42:
-        return xp_42
-    if character.experience == 41:
-        return xp_41
-    if character.experience == 40:
-        return xp_40
-    if character.experience == 39:
-        return xp_39
-    if character.experience == 38:
-        return xp_38
-    if character.experience == 37:
-        return xp_37
-    if character.experience == 36:
-        return xp_36
-    if character.experience == 35:
-        return xp_35
-    if character.experience == 34:
-        return xp_34
-    if character.experience == 33:
-        return xp_33
-    if character.experience == 32:
-        return xp_32
-    if character.experience == 31:
-        return xp_31
-    if character.experience == 30:
-        return xp_30
-    if character.experience == 29:
-        return xp_29
-    if character.experience == 28:
-        return xp_28
-    if character.experience == 27:
-        return xp_27
-    if character.experience == 26:
-        return xp_26
-    if character.experience == 25:
-        return xp_25
-    if character.experience == 24:
-        return xp_24
-    if character.experience == 23:
-        return xp_23
-    if character.experience == 22:
-        return xp_22
-    if character.experience == 21:
-        return xp_21
-    if character.experience == 20:
-        return xp_20
-    if character.experience == 19:
-        return xp_19
-    if character.experience == 18:
-        return xp_18
-    if character.experience == 17:
-        return xp_17
-    if character.experience == 16:
-        return xp_16
-    if character.experience == 15:
-        return xp_15
-    if character.experience == 14:
-        return xp_14
-    if character.experience == 13:
-        return xp_13
-    if character.experience == 12:
-        return xp_12
-    if character.experience == 11:
-        return xp_11
-    if character.experience == 10:
-        return xp_10
-    if character.experience == 9:
-        return xp_9
-    if character.experience == 8:
-        return xp_8
-    if character.experience == 7:
-        return xp_7
-    if character.experience == 6:
-        return xp_6
-    if character.experience == 5:
-        return xp_5
-    if character.experience == 4:
-        return xp_4
-    if character.experience == 3:
-        return xp_3
-    if character.experience == 2:
-        return xp_2
-    if character.experience == 1:
-        return xp_1
-    if character.experience == 0:
-        return xp_0
-
-
-# getting event based on user click related to combat scenario
-def combat_event_button(combat_event):
-    if combat_event.type == pygame.MOUSEBUTTONUP:
-        combat_mouse = pygame.mouse.get_pos()
-        if no_role_attack_button.rect.collidepoint(combat_mouse):
-            return "attack"
-        if mage_attack_button.rect.collidepoint(combat_mouse):
-            return "attack"
-        if fighter_attack_button.rect.collidepoint(combat_mouse):
-            return "attack"
-        if scout_attack_button.rect.collidepoint(combat_mouse):
-            return "attack"
-        if barrier_button.rect.collidepoint(combat_mouse):
-            return "skill 1"
-        if hard_strike_button.rect.collidepoint(combat_mouse):
-            return "skill 1"
-        if sharp_sense_button.rect.collidepoint(combat_mouse):
-            return "skill 1"
-
-
-# getting event based on user click related to npc
-def npc_event_button(npc_event):
-    if npc_event.type == pygame.MOUSEBUTTONUP:
-        npc_mouse = pygame.mouse.get_pos()
-        if quest_button.rect.collidepoint(npc_mouse):
-            return "quest"
-        if leave_button.rect.collidepoint(npc_mouse):
-            return "leave"
-
-
-# getting event based on user click related to quest window
-def quest_event_button(quest_event):
-    if quest_event.type == pygame.MOUSEBUTTONUP:
-        quest_mouse = pygame.mouse.get_pos()
-        if accept_button.rect.collidepoint(quest_mouse):
-            return "accept"
-        if decline_button.rect.collidepoint(quest_mouse):
-            return "decline"
-
-
-# getting event based on user click related to shop
-def shop_event_button(shop_event):
-    if shop_event.type == pygame.MOUSEBUTTONUP:
-        shop_mouse = pygame.mouse.get_pos()
-        if buy_button.rect.collidepoint(shop_mouse):
-            return "buy"
-        if leave_button.rect.collidepoint(shop_mouse):
-            return "leave"
-
-
-# getting event based on user click related to inn
-def inn_event_button(inn_event):
-    if inn_event.type == pygame.MOUSEBUTTONUP:
-        inn_mouse = pygame.mouse.get_pos()
-        if rest_button.rect.collidepoint(inn_mouse):
-            return "rest"
-        if leave_button.rect.collidepoint(inn_mouse):
-            return "leave"
-
-
-# getting event based on user click related to academia skill buttons
-def academia_event_button(academia_event):
-    if academia_event.type == pygame.MOUSEBUTTONUP:
-        academia_mouse = pygame.mouse.get_pos()
-
-        if mage_learn_button.rect.collidepoint(academia_mouse):
-            return "mage learn"
-        if fighter_learn_button.rect.collidepoint(academia_mouse):
-            return "fighter learn"
-        if scout_learn_button.rect.collidepoint(academia_mouse):
-            return "scout learn"
-        if leave_button.rect.collidepoint(academia_mouse):
-            return "leave"
-
-
-# getting item player clicked based on it's name and return the corresponding item. for inventory items
-def inventory_event_item(inventory_event_here):
-    if inventory_event_here.type == pygame.MOUSEBUTTONUP:
-        inventory_mouse = pygame.mouse.get_pos()
-        # list of sprites that collided with mouse cursor rect
-        clicked_element = [inventory_element for inventory_element in player_items
-                           if inventory_element.rect.collidepoint(inventory_mouse)]
-        # try to get inventory item player clicked based on it's name and return it
-        try:
-            if clicked_element[0].name == "health potion":
-                return clicked_element[0]
-            if clicked_element[0].name == "energy potion":
-                return clicked_element[0]
-            if clicked_element[0].name == "shiny rock":
-                return clicked_element[0]
-            if clicked_element[0].name == "bone dust":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic staff":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic sword":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic bow":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic robes":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic armor":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic tunic":
-                return clicked_element[0]
-            if clicked_element[0].name == "temporary item":
-                return clicked_element[0]
-        except IndexError:
-            pass
-
-
-# getting item player clicked based on it's name and return the corresponding item. for equipment
-def equipment_event_item(equipment_event_here):
-    if equipment_event_here.type == pygame.MOUSEBUTTONUP:
-        equipment_mouse = pygame.mouse.get_pos()
-        # list of sprites that collided with mouse cursor rect
-        clicked_element = [equipment_element for equipment_element in player_equipment
-                           if equipment_element.rect.collidepoint(equipment_mouse)]
-        # try to get equipment item player clicked based on it's name and return it
-        try:
-            if clicked_element[0].name == "basic staff":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic sword":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic bow":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic robes":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic armor":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic tunic":
-                return clicked_element[0]
-        except IndexError:
-            pass
-
-
-# getting item player clicked based on it's name and return the corresponding item. for buying items
-def buy_event_item(buy_event):
-    if buy_event.type == pygame.MOUSEBUTTONUP:
-        buy_mouse = pygame.mouse.get_pos()
-        # list of sprites that collided with mouse cursor rect
-        clicked_element = [buy_element for buy_element in shopkeeper_items if buy_element.rect.collidepoint(buy_mouse)]
-        # try to get inventory item player clicked based on it's name and return it
-        try:
-            if clicked_element[0].name == "health potion":
-                return clicked_element[0]
-            if clicked_element[0].name == "energy potion":
-                return clicked_element[0]
-            if clicked_element[0].name == "shiny rock":
-                return clicked_element[0]
-            if clicked_element[0].name == "bone dust":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic staff":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic sword":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic bow":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic robes":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic armor":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic tunic":
-                return clicked_element[0]
-        except IndexError:
-            pass
-
-
-# getting item player clicked based on it's name and return the corresponding item. for selling items
-def sell_event_item(sell_event):
-    if sell_event.type == pygame.MOUSEBUTTONUP:
-        sell_mouse = pygame.mouse.get_pos()
-        # list of sprites that collided with mouse cursor rect
-        clicked_element = [sell_element for sell_element in player_items if
-                           sell_element.rect.collidepoint(sell_mouse)]
-        # try to get inventory item player clicked based on it's name and return it
-        try:
-            if clicked_element[0].name == "health potion":
-                return clicked_element[0]
-            if clicked_element[0].name == "energy potion":
-                return clicked_element[0]
-            if clicked_element[0].name == "shiny rock":
-                return clicked_element[0]
-            if clicked_element[0].name == "bone dust":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic staff":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic sword":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic bow":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic robes":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic armor":
-                return clicked_element[0]
-            if clicked_element[0].name == "basic tunic":
-                return clicked_element[0]
-            if clicked_element[0].name == "temporary item":
-                return clicked_element[0]
-        except IndexError:
-            pass
-
-
-# getting item player clicked based on it's name and return the corresponding item
-def skill_learn_event_item(skill_learn_event):
-    if skill_learn_event.type == pygame.MOUSEBUTTONUP:
-        skill_learn_mouse = pygame.mouse.get_pos()
-        # list of sprites that collided with mouse cursor rect
-        skill_learn_element = [skill_learn_element for skill_learn_element in skill_learn_items if
-                               skill_learn_element.rect.collidepoint(skill_learn_mouse)]
-        # try to get skill player clicked based on it's name and return it
-        try:
-            if skill_learn_element[0].name == "barrier learn button":
-                return skill_learn_element[0]
-            if skill_learn_element[0].name == "hard strike learn button":
-                return skill_learn_element[0]
-            if skill_learn_element[0].name == "sharp sense learn button":
-                return skill_learn_element[0]
-            if skill_learn_element[0].name == "close button":
-                return skill_learn_element[0]
-        except IndexError:
-            pass
+    return gameplay_functions.xp_bar_update(character,
+                                            xp_100, xp_99, xp_98, xp_97, xp_96, xp_95, xp_94, xp_93, xp_92, xp_91,
+                                            xp_90, xp_89, xp_88, xp_87, xp_86, xp_85, xp_84, xp_83, xp_82, xp_81,
+                                            xp_80, xp_79, xp_78, xp_77, xp_76, xp_75, xp_74, xp_73, xp_72, xp_71,
+                                            xp_70, xp_69, xp_68, xp_67, xp_66, xp_65, xp_64, xp_63, xp_62, xp_61,
+                                            xp_60, xp_59, xp_58, xp_57, xp_56, xp_55, xp_54, xp_53, xp_52, xp_51,
+                                            xp_50, xp_49, xp_48, xp_47, xp_46, xp_45, xp_44, xp_43, xp_42, xp_41,
+                                            xp_40, xp_39, xp_38, xp_37, xp_36, xp_35, xp_34, xp_33, xp_32, xp_31,
+                                            xp_30, xp_29, xp_28, xp_27, xp_26, xp_25, xp_24, xp_23, xp_22, xp_21,
+                                            xp_20, xp_19, xp_18, xp_17, xp_16, xp_15, xp_14, xp_13, xp_12, xp_11,
+                                            xp_10, xp_9, xp_8, xp_7, xp_6, xp_5, xp_4, xp_3, xp_2, xp_1, xp_0)
 
 
 # function to respawn enemies if they are less than a specified amount active in game. spawns with random coord. and lvl
@@ -1912,336 +1104,6 @@ def enemy_respawn():
         most_sprites.add(new_ghoul)
 
 
-# updates players role based on equipped item, updates hp, en and xp bars, updates inventory item slots
-def status_and_inventory_updates():
-    # update players status bars
-    hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player))
-    en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_bar_update(player))
-    xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_bar_update(player))
-
-    # set player's current role based on the type of weapon they have equipped
-    if player.equipment["weapon"] != "":
-        if player.equipment["weapon"].type == "mage":
-            player.role = "mage"
-        if player.equipment["weapon"].type == "fighter":
-            player.role = "fighter"
-        if player.equipment["weapon"].type == "scout":
-            player.role = "scout"
-    # player doesn't have a role without a weapon equipped
-    else:
-        player.role = ""
-
-    # clear list used for drawing player items to screen before going through inventory and drawing
-    player_items.clear()
-
-    # if player has items in their inventory, assign them to inventory grid with coordinates
-    if len(player.items) > 0:
-        first_coord = 1063
-        second_coord = 462
-        try:
-            inventory_counter = 0
-            # go through player items and assign inventory slots (coordinates) to them
-            for item_here in player.items:
-                if item_here.name == "health potion":
-                    item_here.update(first_coord, second_coord, health_pot_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "energy potion":
-                    item_here.update(first_coord, second_coord, energy_pot_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "shiny rock":
-                    item_here.update(first_coord, second_coord, shiny_rock_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "bone dust":
-                    item_here.update(first_coord, second_coord, bone_dust_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "basic staff":
-                    item_here.update(first_coord, second_coord, basic_staff_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "basic sword":
-                    item_here.update(first_coord, second_coord, basic_sword_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "basic bow":
-                    item_here.update(first_coord, second_coord, basic_bow_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "basic robes":
-                    item_here.update(first_coord, second_coord, basic_robes_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "basic armor":
-                    item_here.update(first_coord, second_coord, basic_armor_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "basic tunic":
-                    item_here.update(first_coord, second_coord, basic_tunic_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-                if item_here.name == "temporary item":
-                    item_here.update(first_coord, second_coord, temp_img)
-                    player_items.append(item_here)
-                    inventory_counter += 1
-
-                # add 60 to the items x-coordinate value so the next item will be added to next slot
-                first_coord += 60
-                # add 60 to items y coordinate value if the first row of (4) slots has been filled
-                # reset first coordinate and counter to start in the leftmost slot again
-                if inventory_counter > 3:
-                    second_coord += 60
-                    first_coord = 1063
-                    inventory_counter = 0
-        except AttributeError:
-            pass
-
-        for item_here in player_items:
-            screen.blit(item_here.surf, item_here.rect)
-
-
-# handles mouse clicks for inventory sub-screen
-def inventory_click_handler():
-    return_dict = {"item message": "", "gear checked": True, "weapon checked": True}
-    inventory_item = inventory_event_item(event)
-
-    try:
-        if inventory_item.name == "health potion":
-            if player.health == 100:
-                return_dict["item message"] = "You're already at full health."
-            else:
-                player.health = player.health + 40
-                # if health potion heals over 100 hp, just set to 100 (max health)
-                if player.health > 100:
-                    player.health = 100
-                player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
-                return_dict["item message"] = "The potion heals you for 40 hp."
-        elif inventory_item.name == "energy potion":
-            if player.energy == 100:
-                return_dict["item message"] = "You're already at full energy."
-            else:
-                player.energy = player.energy + 40
-                # if energy potion energizes over 100 hp, just set to 100 (max energy)
-                if player.energy > 100:
-                    player.energy = 100
-                player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
-                return_dict["item message"] = "The potion energizes you for 40 en."
-        elif inventory_item.name == "shiny rock":
-            return_dict["item message"] = "Oh, shiny. Maybe you can sell it?"
-        elif inventory_item.name == "bone dust":
-            return_dict["item message"] = "Eh, dusty. Maybe you can sell it?"
-        elif inventory_item.name == "temporary item":
-            return_dict["item message"] = "Tell my designer to finish me!"
-
-        # if player clicks an equitable item, equip it and set gear checked to false so main loop will check stats
-        elif inventory_item.name == "basic staff":
-            if player.equipment["weapon"] == "":
-                player.equipment["weapon"] = inventory_item
-                player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
-                return_dict["item message"] = "Basic Staff weapon equipped"
-                return_dict["weapon checked"] = False
-            else:
-                return_dict["item message"] = "Un-equip your current weapon first."
-        elif inventory_item.name == "basic sword":
-            if player.equipment["weapon"] == "":
-                player.equipment["weapon"] = inventory_item
-                player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
-                return_dict["item message"] = "Basic Sword weapon equipped"
-                return_dict["weapon checked"] = False
-            else:
-                return_dict["item message"] = "Un-equip your current weapon first."
-        elif inventory_item.name == "basic bow":
-            if player.equipment["weapon"] == "":
-                player.equipment["weapon"] = inventory_item
-                player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
-                return_dict["item message"] = "Basic Bow weapon equipped"
-                return_dict["weapon checked"] = False
-            else:
-                return_dict["item message"] = "Un-equip your current weapon first."
-        elif inventory_item.name == "basic robes":
-            if player.equipment["chest"] == "":
-                if player.role == "mage":
-                    player.equipment["chest"] = inventory_item
-                    player_items.remove(inventory_item)
-                    player.items.remove(inventory_item)
-                    return_dict["item message"] = "Basic Robes chest equipped"
-                    return_dict["gear checked"] = False
-                else:
-                    return_dict["item message"] = "Only mages wear light armor."
-            else:
-                return_dict["item message"] = "Un-equip your current gear first."
-        elif inventory_item.name == "basic armor":
-            if player.equipment["chest"] == "":
-                if player.role == "fighter":
-                    player.equipment["chest"] = inventory_item
-                    player_items.remove(inventory_item)
-                    player.items.remove(inventory_item)
-                    return_dict["item message"] = "Basic Armor chest equipped"
-                    return_dict["gear checked"] = False
-                else:
-                    return_dict["item message"] = "Only fighters wear heavy armor."
-            else:
-                return_dict["item message"] = "Un-equip your current gear first."
-        elif inventory_item.name == "basic tunic":
-            if player.equipment["chest"] == "":
-                if player.role == "scout":
-                    player.equipment["chest"] = inventory_item
-                    player_items.remove(inventory_item)
-                    player.items.remove(inventory_item)
-                    return_dict["item message"] = "Basic Tunic chest equipped"
-                    return_dict["gear checked"] = False
-                else:
-                    return_dict["item message"] = "Only scouts wear medium armor."
-            else:
-                return_dict["item message"] = "Un-equip your current gear first."
-    except AttributeError:
-        pass
-
-    return return_dict
-
-
-# updates visual representation of players equipment
-def equipment_updates():
-    player_equipment.clear()
-    try:
-        if player.equipment["weapon"].name == "basic staff":
-            player.equipment["weapon"].update(1078, 285, basic_staff_img)
-            player_equipment.append(player.equipment["weapon"])
-        if player.equipment["weapon"].name == "basic sword":
-            player.equipment["weapon"].update(1078, 285, basic_sword_img)
-            player_equipment.append(player.equipment["weapon"])
-        if player.equipment["weapon"].name == "basic bow":
-            player.equipment["weapon"].update(1078, 285, basic_bow_img)
-            player_equipment.append(player.equipment["weapon"])
-        if player.equipment["chest"].name == "basic robes":
-            player.equipment["chest"].update(1153, 197, basic_robes_img)
-            player_equipment.append(player.equipment["chest"])
-        if player.equipment["chest"].name == "basic armor":
-            player.equipment["chest"].update(1153, 197, basic_armor_img)
-            player_equipment.append(player.equipment["chest"])
-        if player.equipment["chest"].name == "basic tunic":
-            player.equipment["chest"].update(1153, 197, basic_tunic_img)
-            player_equipment.append(player.equipment["chest"])
-    except AttributeError:
-        pass
-
-    for equipment_here in player_equipment:
-        screen.blit(equipment_here.surf, equipment_here.rect)
-
-
-# handles mouse clicks for equipment sub-screen
-def equipment_click_handler():
-    return_dict = {"equipment message": "", "gear checked": True, "weapon checked": True}
-    equipment_item = equipment_event_item(event)
-
-    # if player clicks item in equipment sub-screen, un-equip the item and place in inventory, if inventory isn't full
-    try:
-        if equipment_item.name == "basic staff":
-            if len(player.items) < 15:
-                player.items.append(equipment_item)
-                player.equipment["weapon"] = ""
-                # remove gear along with weapon when weapon is clicked. Add both to inventory
-                if player.equipment["chest"] != "":
-                    player.items.append(player.equipment["chest"])
-                    player.equipment["chest"] = ""
-                return_dict["equipment message"] = "Basic Staff weapon un-equipped."
-                return_dict["gear checked"] = False
-                return_dict["weapon checked"] = False
-            else:
-                return_dict["equipment message"] = "Your inventory is full."
-        if equipment_item.name == "basic sword":
-            if len(player.items) < 15:
-                player.items.append(equipment_item)
-                player.equipment["weapon"] = ""
-                if player.equipment["chest"] != "":
-                    player.items.append(player.equipment["chest"])
-                    player.equipment["chest"] = ""
-                return_dict["equipment message"] = "Basic Sword weapon un-equipped."
-                return_dict["gear checked"] = False
-                return_dict["weapon checked"] = False
-            else:
-                return_dict["equipment message"] = "Your inventory is full."
-        if equipment_item.name == "basic bow":
-            if len(player.items) < 15:
-                player.items.append(equipment_item)
-                player.equipment["weapon"] = ""
-                if player.equipment["chest"] != "":
-                    player.items.append(player.equipment["chest"])
-                    player.equipment["chest"] = ""
-                return_dict["equipment message"] = "Basic Bow weapon un-equipped."
-                return_dict["gear checked"] = False
-                return_dict["weapon checked"] = False
-            else:
-                return_dict["equipment message"] = "Your inventory is full."
-        if equipment_item.name == "basic robes":
-            if len(player.items) < 16:
-                player.items.append(equipment_item)
-                player.equipment["chest"] = ""
-                return_dict["equipment message"] = "Basic Robes chest un-equipped."
-                return_dict["gear checked"] = False
-            else:
-                return_dict["equipment message"] = "Your inventory is full."
-        if equipment_item.name == "basic armor":
-            if len(player.items) < 16:
-                player.items.append(equipment_item)
-                player.equipment["chest"] = ""
-                return_dict["equipment message"] = "Basic Armor chest un-equipped."
-                return_dict["gear checked"] = False
-            else:
-                return_dict["equipment message"] = "Your inventory is full."
-        if equipment_item.name == "basic tunic":
-            if len(player.items) < 16:
-                player.items.append(equipment_item)
-                player.equipment["chest"] = ""
-                return_dict["equipment message"] = "Basic Tunic chest un-equipped."
-                return_dict["gear checked"] = False
-            else:
-                return_dict["equipment message"] = "Your inventory is full."
-    except AttributeError:
-        pass
-
-    return return_dict
-
-
-# check players current gear type
-def gear_check():
-    try:
-        if player.equipment["chest"].type == "fighter":
-            player.defence += 12
-        if player.equipment["chest"].type == "scout":
-            player.defence += 8
-        if player.equipment["chest"].type == "mage":
-            player.defence += 4
-    # if exception is raised, player isn't wearing anything because the .type doesn't exist, so set defence to 0
-    except AttributeError:
-        player.defence = 0
-        pass
-    # return true after checked so the defense stat doesn't keep adding every iteration
-    return True
-
-
-# same as above function for equipment just checks weapon and applies to offense instead
-def weapon_check():
-    try:
-        if player.equipment["weapon"].type == "mage":
-            player.offense += 35
-        if player.equipment["weapon"].type == "scout":
-            player.offense += 25
-        if player.equipment["weapon"].type == "fighter":
-            player.offense += 15
-    except AttributeError:
-        player.offense = 0
-        pass
-    return True
-
-
 # save game function. stores player info in a dictionary that's serialized and saved to save_game file
 def save_game():
     inventory_save = []
@@ -2258,6 +1120,7 @@ def save_game():
                         "level": int(player.level), "role": str(player.role),
                         "inventory": inventory_save, "equipment": equipment_save,
                         "hp": int(player.health), "en": int(player.energy), "xp": int(player.experience),
+                        "offense": int(player.offense), "defense": int(player.defence),
                         "quests": dict(player.current_quests),
                         "quest progress": dict(player.quest_progress),
                         "quest status": dict(player.quest_status),
@@ -2285,6 +1148,37 @@ def walk_time(tic):
         walk_dict["reset"] = True
 
     return walk_dict
+
+
+# function that updates players info, status, role, inventory, equipment, etc
+def player_info_and_ui_updates():
+    screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
+    screen.blit(hp_bar.surf, hp_bar.rect)
+    screen.blit(en_bar.surf, en_bar.rect)
+    screen.blit(xp_bar.surf, xp_bar.rect)
+
+    # update players status bars
+    hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player))
+    en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_bar_update(player))
+    xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_bar_update(player))
+
+    if in_over_world:
+        screen.blit(player.surf, player.rect)
+        for ui_elements in user_interface:
+            screen.blit(ui_elements.surf, ui_elements.rect)
+        for save_window in save_check_window:
+            screen.blit(save_window.surf, save_window.rect)
+
+    # draw texts to the screen, like message box, player rupees and level
+    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4)
+    # update players current equipment
+    drawing_functions.equipment_updates(player, basic_staff_img, basic_sword_img, basic_bow_img,
+                                        basic_robes_img, basic_armor_img, basic_tunic_img)
+    # update players current inventory
+    drawing_functions.item_updates(player, health_pot_img, energy_pot_img, shiny_rock_img, bone_dust_img,
+                                   basic_staff_img, basic_sword_img, basic_bow_img,
+                                   basic_robes_img, basic_armor_img, basic_tunic_img, temp_img)
+    drawing_functions.draw_it(screen)
 
 
 # pygame.mixer.init()
@@ -2747,312 +1641,162 @@ save_popup = popups_sheet.get_image(1200, 0, 400, 200)
 save_not_found = popups_sheet.get_image(1600, 0, 400, 200)
 # heath bars
 hp_sheet = SpriteSheet(resource_urls.hp_url)
-hp_0 = hp_sheet.get_image(0, 0, 305, 19)
-hp_1 = hp_sheet.get_image(305, 0, 305, 19)
-hp_2 = hp_sheet.get_image(610, 0, 305, 19)
-hp_3 = hp_sheet.get_image(915, 0, 305, 19)
-hp_4 = hp_sheet.get_image(1220, 0, 305, 19)
-hp_5 = hp_sheet.get_image(1525, 0, 305, 19)
-hp_6 = hp_sheet.get_image(1830, 0, 305, 19)
-hp_7 = hp_sheet.get_image(2135, 0, 305, 19)
-hp_8 = hp_sheet.get_image(2440, 0, 305, 19)
-hp_9 = hp_sheet.get_image(2745, 0, 305, 19)
-hp_10 = hp_sheet.get_image(0, 19, 305, 19)
-hp_11 = hp_sheet.get_image(305, 19, 305, 19)
-hp_12 = hp_sheet.get_image(610, 19, 305, 19)
-hp_13 = hp_sheet.get_image(915, 19, 305, 19)
-hp_14 = hp_sheet.get_image(1220, 19, 305, 19)
-hp_15 = hp_sheet.get_image(1525, 19, 305, 19)
-hp_16 = hp_sheet.get_image(1830, 19, 305, 19)
-hp_17 = hp_sheet.get_image(2135, 19, 305, 19)
-hp_18 = hp_sheet.get_image(2440, 19, 305, 19)
-hp_19 = hp_sheet.get_image(2745, 19, 305, 19)
-hp_20 = hp_sheet.get_image(0, 38, 305, 19)
-hp_21 = hp_sheet.get_image(305, 38, 305, 19)
-hp_22 = hp_sheet.get_image(610, 38, 305, 19)
-hp_23 = hp_sheet.get_image(915, 38, 305, 19)
-hp_24 = hp_sheet.get_image(1220, 38, 305, 19)
-hp_25 = hp_sheet.get_image(1525, 38, 305, 19)
-hp_26 = hp_sheet.get_image(1830, 38, 305, 19)
-hp_27 = hp_sheet.get_image(2135, 38, 305, 19)
-hp_28 = hp_sheet.get_image(2440, 38, 305, 19)
-hp_29 = hp_sheet.get_image(2745, 38, 305, 19)
-hp_30 = hp_sheet.get_image(0, 57, 305, 19)
-hp_31 = hp_sheet.get_image(305, 57, 305, 19)
-hp_32 = hp_sheet.get_image(610, 57, 305, 19)
-hp_33 = hp_sheet.get_image(915, 57, 305, 19)
-hp_34 = hp_sheet.get_image(1220, 57, 305, 19)
-hp_35 = hp_sheet.get_image(1525, 57, 305, 19)
-hp_36 = hp_sheet.get_image(1830, 57, 305, 19)
-hp_37 = hp_sheet.get_image(2135, 57, 305, 19)
-hp_38 = hp_sheet.get_image(2440, 57, 305, 19)
-hp_39 = hp_sheet.get_image(2745, 57, 305, 19)
-hp_40 = hp_sheet.get_image(0, 76, 305, 19)
-hp_41 = hp_sheet.get_image(305, 76, 305, 19)
-hp_42 = hp_sheet.get_image(610, 76, 305, 19)
-hp_43 = hp_sheet.get_image(915, 76, 305, 19)
-hp_44 = hp_sheet.get_image(1220, 76, 305, 19)
-hp_45 = hp_sheet.get_image(1525, 76, 305, 19)
-hp_46 = hp_sheet.get_image(1830, 76, 305, 19)
-hp_47 = hp_sheet.get_image(2135, 76, 305, 19)
-hp_48 = hp_sheet.get_image(2440, 76, 305, 19)
-hp_49 = hp_sheet.get_image(2745, 76, 305, 19)
-hp_50 = hp_sheet.get_image(0, 95, 305, 19)
-hp_51 = hp_sheet.get_image(305, 95, 305, 19)
-hp_52 = hp_sheet.get_image(610, 95, 305, 19)
-hp_53 = hp_sheet.get_image(915, 95, 305, 19)
-hp_54 = hp_sheet.get_image(1220, 95, 305, 19)
-hp_55 = hp_sheet.get_image(1525, 95, 305, 19)
-hp_56 = hp_sheet.get_image(1830, 95, 305, 19)
-hp_57 = hp_sheet.get_image(2135, 95, 305, 19)
-hp_58 = hp_sheet.get_image(2440, 95, 305, 19)
-hp_59 = hp_sheet.get_image(2745, 95, 305, 19)
-hp_60 = hp_sheet.get_image(0, 114, 305, 19)
-hp_61 = hp_sheet.get_image(305, 114, 305, 19)
-hp_62 = hp_sheet.get_image(610, 114, 305, 19)
-hp_63 = hp_sheet.get_image(915, 114, 305, 19)
-hp_64 = hp_sheet.get_image(1220, 114, 305, 19)
-hp_65 = hp_sheet.get_image(1525, 114, 305, 19)
-hp_66 = hp_sheet.get_image(1830, 114, 305, 19)
-hp_67 = hp_sheet.get_image(2135, 114, 305, 19)
-hp_68 = hp_sheet.get_image(2440, 114, 305, 19)
-hp_69 = hp_sheet.get_image(2745, 114, 305, 19)
-hp_70 = hp_sheet.get_image(0, 133, 305, 19)
-hp_71 = hp_sheet.get_image(305, 133, 305, 19)
-hp_72 = hp_sheet.get_image(610, 133, 305, 19)
-hp_73 = hp_sheet.get_image(915, 133, 305, 19)
-hp_74 = hp_sheet.get_image(1220, 133, 305, 19)
-hp_75 = hp_sheet.get_image(1525, 133, 305, 19)
-hp_76 = hp_sheet.get_image(1830, 133, 305, 19)
-hp_77 = hp_sheet.get_image(2135, 133, 305, 19)
-hp_78 = hp_sheet.get_image(2440, 133, 305, 19)
-hp_79 = hp_sheet.get_image(2745, 133, 305, 19)
-hp_80 = hp_sheet.get_image(0, 152, 305, 19)
-hp_81 = hp_sheet.get_image(305, 152, 305, 19)
-hp_82 = hp_sheet.get_image(610, 152, 305, 19)
-hp_83 = hp_sheet.get_image(915, 152, 305, 19)
-hp_84 = hp_sheet.get_image(1220, 152, 305, 19)
-hp_85 = hp_sheet.get_image(1525, 152, 305, 19)
-hp_86 = hp_sheet.get_image(1830, 152, 305, 19)
-hp_87 = hp_sheet.get_image(2135, 152, 305, 19)
-hp_88 = hp_sheet.get_image(2440, 152, 305, 19)
-hp_89 = hp_sheet.get_image(2745, 152, 305, 19)
-hp_90 = hp_sheet.get_image(0, 171, 305, 19)
-hp_91 = hp_sheet.get_image(305, 171, 305, 19)
-hp_92 = hp_sheet.get_image(610, 171, 305, 19)
-hp_93 = hp_sheet.get_image(915, 171, 305, 19)
-hp_94 = hp_sheet.get_image(1220, 171, 305, 19)
-hp_95 = hp_sheet.get_image(1525, 171, 305, 19)
-hp_96 = hp_sheet.get_image(1830, 171, 305, 19)
-hp_97 = hp_sheet.get_image(2135, 171, 305, 19)
-hp_98 = hp_sheet.get_image(2440, 171, 305, 19)
-hp_99 = hp_sheet.get_image(2745, 171, 305, 19)
+hp_0 = hp_sheet.get_image(0, 0, 305, 19); hp_1 = hp_sheet.get_image(305, 0, 305, 19)
+hp_2 = hp_sheet.get_image(610, 0, 305, 19); hp_3 = hp_sheet.get_image(915, 0, 305, 19)
+hp_4 = hp_sheet.get_image(1220, 0, 305, 19); hp_5 = hp_sheet.get_image(1525, 0, 305, 19)
+hp_6 = hp_sheet.get_image(1830, 0, 305, 19); hp_7 = hp_sheet.get_image(2135, 0, 305, 19)
+hp_8 = hp_sheet.get_image(2440, 0, 305, 19); hp_9 = hp_sheet.get_image(2745, 0, 305, 19)
+hp_10 = hp_sheet.get_image(0, 19, 305, 19); hp_11 = hp_sheet.get_image(305, 19, 305, 19)
+hp_12 = hp_sheet.get_image(610, 19, 305, 19); hp_13 = hp_sheet.get_image(915, 19, 305, 19)
+hp_14 = hp_sheet.get_image(1220, 19, 305, 19); hp_15 = hp_sheet.get_image(1525, 19, 305, 19)
+hp_16 = hp_sheet.get_image(1830, 19, 305, 19); hp_17 = hp_sheet.get_image(2135, 19, 305, 19)
+hp_18 = hp_sheet.get_image(2440, 19, 305, 19); hp_19 = hp_sheet.get_image(2745, 19, 305, 19)
+hp_20 = hp_sheet.get_image(0, 38, 305, 19); hp_21 = hp_sheet.get_image(305, 38, 305, 19)
+hp_22 = hp_sheet.get_image(610, 38, 305, 19); hp_23 = hp_sheet.get_image(915, 38, 305, 19)
+hp_24 = hp_sheet.get_image(1220, 38, 305, 19); hp_25 = hp_sheet.get_image(1525, 38, 305, 19)
+hp_26 = hp_sheet.get_image(1830, 38, 305, 19); hp_27 = hp_sheet.get_image(2135, 38, 305, 19)
+hp_28 = hp_sheet.get_image(2440, 38, 305, 19); hp_29 = hp_sheet.get_image(2745, 38, 305, 19)
+hp_30 = hp_sheet.get_image(0, 57, 305, 19); hp_31 = hp_sheet.get_image(305, 57, 305, 19)
+hp_32 = hp_sheet.get_image(610, 57, 305, 19); hp_33 = hp_sheet.get_image(915, 57, 305, 19)
+hp_34 = hp_sheet.get_image(1220, 57, 305, 19); hp_35 = hp_sheet.get_image(1525, 57, 305, 19)
+hp_36 = hp_sheet.get_image(1830, 57, 305, 19); hp_37 = hp_sheet.get_image(2135, 57, 305, 19)
+hp_38 = hp_sheet.get_image(2440, 57, 305, 19); hp_39 = hp_sheet.get_image(2745, 57, 305, 19)
+hp_40 = hp_sheet.get_image(0, 76, 305, 19); hp_41 = hp_sheet.get_image(305, 76, 305, 19)
+hp_42 = hp_sheet.get_image(610, 76, 305, 19); hp_43 = hp_sheet.get_image(915, 76, 305, 19)
+hp_44 = hp_sheet.get_image(1220, 76, 305, 19); hp_45 = hp_sheet.get_image(1525, 76, 305, 19)
+hp_46 = hp_sheet.get_image(1830, 76, 305, 19); hp_47 = hp_sheet.get_image(2135, 76, 305, 19)
+hp_48 = hp_sheet.get_image(2440, 76, 305, 19); hp_49 = hp_sheet.get_image(2745, 76, 305, 19)
+hp_50 = hp_sheet.get_image(0, 95, 305, 19); hp_51 = hp_sheet.get_image(305, 95, 305, 19)
+hp_52 = hp_sheet.get_image(610, 95, 305, 19); hp_53 = hp_sheet.get_image(915, 95, 305, 19)
+hp_54 = hp_sheet.get_image(1220, 95, 305, 19); hp_55 = hp_sheet.get_image(1525, 95, 305, 19)
+hp_56 = hp_sheet.get_image(1830, 95, 305, 19); hp_57 = hp_sheet.get_image(2135, 95, 305, 19)
+hp_58 = hp_sheet.get_image(2440, 95, 305, 19); hp_59 = hp_sheet.get_image(2745, 95, 305, 19)
+hp_60 = hp_sheet.get_image(0, 114, 305, 19); hp_61 = hp_sheet.get_image(305, 114, 305, 19)
+hp_62 = hp_sheet.get_image(610, 114, 305, 19); hp_63 = hp_sheet.get_image(915, 114, 305, 19)
+hp_64 = hp_sheet.get_image(1220, 114, 305, 19); hp_65 = hp_sheet.get_image(1525, 114, 305, 19)
+hp_66 = hp_sheet.get_image(1830, 114, 305, 19); hp_67 = hp_sheet.get_image(2135, 114, 305, 19)
+hp_68 = hp_sheet.get_image(2440, 114, 305, 19); hp_69 = hp_sheet.get_image(2745, 114, 305, 19)
+hp_70 = hp_sheet.get_image(0, 133, 305, 19); hp_71 = hp_sheet.get_image(305, 133, 305, 19)
+hp_72 = hp_sheet.get_image(610, 133, 305, 19); hp_73 = hp_sheet.get_image(915, 133, 305, 19)
+hp_74 = hp_sheet.get_image(1220, 133, 305, 19); hp_75 = hp_sheet.get_image(1525, 133, 305, 19)
+hp_76 = hp_sheet.get_image(1830, 133, 305, 19); hp_77 = hp_sheet.get_image(2135, 133, 305, 19)
+hp_78 = hp_sheet.get_image(2440, 133, 305, 19); hp_79 = hp_sheet.get_image(2745, 133, 305, 19)
+hp_80 = hp_sheet.get_image(0, 152, 305, 19); hp_81 = hp_sheet.get_image(305, 152, 305, 19)
+hp_82 = hp_sheet.get_image(610, 152, 305, 19); hp_83 = hp_sheet.get_image(915, 152, 305, 19)
+hp_84 = hp_sheet.get_image(1220, 152, 305, 19); hp_85 = hp_sheet.get_image(1525, 152, 305, 19)
+hp_86 = hp_sheet.get_image(1830, 152, 305, 19); hp_87 = hp_sheet.get_image(2135, 152, 305, 19)
+hp_88 = hp_sheet.get_image(2440, 152, 305, 19); hp_89 = hp_sheet.get_image(2745, 152, 305, 19)
+hp_90 = hp_sheet.get_image(0, 171, 305, 19); hp_91 = hp_sheet.get_image(305, 171, 305, 19)
+hp_92 = hp_sheet.get_image(610, 171, 305, 19); hp_93 = hp_sheet.get_image(915, 171, 305, 19)
+hp_94 = hp_sheet.get_image(1220, 171, 305, 19); hp_95 = hp_sheet.get_image(1525, 171, 305, 19)
+hp_96 = hp_sheet.get_image(1830, 171, 305, 19); hp_97 = hp_sheet.get_image(2135, 171, 305, 19)
+hp_98 = hp_sheet.get_image(2440, 171, 305, 19); hp_99 = hp_sheet.get_image(2745, 171, 305, 19)
 hp_100 = hp_sheet.get_image(0, 190, 305, 19)
 # energy bars
 en_sheet = SpriteSheet(resource_urls.en_url)
-en_0 = en_sheet.get_image(0, 0, 305, 19)
-en_1 = en_sheet.get_image(305, 0, 305, 19)
-en_2 = en_sheet.get_image(610, 0, 305, 19)
-en_3 = en_sheet.get_image(915, 0, 305, 19)
-en_4 = en_sheet.get_image(1220, 0, 305, 19)
-en_5 = en_sheet.get_image(1525, 0, 305, 19)
-en_6 = en_sheet.get_image(1830, 0, 305, 19)
-en_7 = en_sheet.get_image(2135, 0, 305, 19)
-en_8 = en_sheet.get_image(2440, 0, 305, 19)
-en_9 = en_sheet.get_image(2745, 0, 305, 19)
-en_10 = en_sheet.get_image(0, 19, 305, 19)
-en_11 = en_sheet.get_image(305, 19, 305, 19)
-en_12 = en_sheet.get_image(610, 19, 305, 19)
-en_13 = en_sheet.get_image(915, 19, 305, 19)
-en_14 = en_sheet.get_image(1220, 19, 305, 19)
-en_15 = en_sheet.get_image(1525, 19, 305, 19)
-en_16 = en_sheet.get_image(1830, 19, 305, 19)
-en_17 = en_sheet.get_image(2135, 19, 305, 19)
-en_18 = en_sheet.get_image(2440, 19, 305, 19)
-en_19 = en_sheet.get_image(2745, 19, 305, 19)
-en_20 = en_sheet.get_image(0, 38, 305, 19)
-en_21 = en_sheet.get_image(305, 38, 305, 19)
-en_22 = en_sheet.get_image(610, 38, 305, 19)
-en_23 = en_sheet.get_image(915, 38, 305, 19)
-en_24 = en_sheet.get_image(1220, 38, 305, 19)
-en_25 = en_sheet.get_image(1525, 38, 305, 19)
-en_26 = en_sheet.get_image(1830, 38, 305, 19)
-en_27 = en_sheet.get_image(2135, 38, 305, 19)
-en_28 = en_sheet.get_image(2440, 38, 305, 19)
-en_29 = en_sheet.get_image(2745, 38, 305, 19)
-en_30 = en_sheet.get_image(0, 57, 305, 19)
-en_31 = en_sheet.get_image(305, 57, 305, 19)
-en_32 = en_sheet.get_image(610, 57, 305, 19)
-en_33 = en_sheet.get_image(915, 57, 305, 19)
-en_34 = en_sheet.get_image(1220, 57, 305, 19)
-en_35 = en_sheet.get_image(1525, 57, 305, 19)
-en_36 = en_sheet.get_image(1830, 57, 305, 19)
-en_37 = en_sheet.get_image(2135, 57, 305, 19)
-en_38 = en_sheet.get_image(2440, 57, 305, 19)
-en_39 = en_sheet.get_image(2745, 57, 305, 19)
-en_40 = en_sheet.get_image(0, 76, 305, 19)
-en_41 = en_sheet.get_image(305, 76, 305, 19)
-en_42 = en_sheet.get_image(610, 76, 305, 19)
-en_43 = en_sheet.get_image(915, 76, 305, 19)
-en_44 = en_sheet.get_image(1220, 76, 305, 19)
-en_45 = en_sheet.get_image(1525, 76, 305, 19)
-en_46 = en_sheet.get_image(1830, 76, 305, 19)
-en_47 = en_sheet.get_image(2135, 76, 305, 19)
-en_48 = en_sheet.get_image(2440, 76, 305, 19)
-en_49 = en_sheet.get_image(2745, 76, 305, 19)
-en_50 = en_sheet.get_image(0, 95, 305, 19)
-en_51 = en_sheet.get_image(305, 95, 305, 19)
-en_52 = en_sheet.get_image(610, 95, 305, 19)
-en_53 = en_sheet.get_image(915, 95, 305, 19)
-en_54 = en_sheet.get_image(1220, 95, 305, 19)
-en_55 = en_sheet.get_image(1525, 95, 305, 19)
-en_56 = en_sheet.get_image(1830, 95, 305, 19)
-en_57 = en_sheet.get_image(2135, 95, 305, 19)
-en_58 = en_sheet.get_image(2440, 95, 305, 19)
-en_59 = en_sheet.get_image(2745, 95, 305, 19)
-en_60 = en_sheet.get_image(0, 114, 305, 19)
-en_61 = en_sheet.get_image(305, 114, 305, 19)
-en_62 = en_sheet.get_image(610, 114, 305, 19)
-en_63 = en_sheet.get_image(915, 114, 305, 19)
-en_64 = en_sheet.get_image(1220, 114, 305, 19)
-en_65 = en_sheet.get_image(1525, 114, 305, 19)
-en_66 = en_sheet.get_image(1830, 114, 305, 19)
-en_67 = en_sheet.get_image(2135, 114, 305, 19)
-en_68 = en_sheet.get_image(2440, 114, 305, 19)
-en_69 = en_sheet.get_image(2745, 114, 305, 19)
-en_70 = en_sheet.get_image(0, 133, 305, 19)
-en_71 = en_sheet.get_image(305, 133, 305, 19)
-en_72 = en_sheet.get_image(610, 133, 305, 19)
-en_73 = en_sheet.get_image(915, 133, 305, 19)
-en_74 = en_sheet.get_image(1220, 133, 305, 19)
-en_75 = en_sheet.get_image(1525, 133, 305, 19)
-en_76 = en_sheet.get_image(1830, 133, 305, 19)
-en_77 = en_sheet.get_image(2135, 133, 305, 19)
-en_78 = en_sheet.get_image(2440, 133, 305, 19)
-en_79 = en_sheet.get_image(2745, 133, 305, 19)
-en_80 = en_sheet.get_image(0, 152, 305, 19)
-en_81 = en_sheet.get_image(305, 152, 305, 19)
-en_82 = en_sheet.get_image(610, 152, 305, 19)
-en_83 = en_sheet.get_image(915, 152, 305, 19)
-en_84 = en_sheet.get_image(1220, 152, 305, 19)
-en_85 = en_sheet.get_image(1525, 152, 305, 19)
-en_86 = en_sheet.get_image(1830, 152, 305, 19)
-en_87 = en_sheet.get_image(2135, 152, 305, 19)
-en_88 = en_sheet.get_image(2440, 152, 305, 19)
-en_89 = en_sheet.get_image(2745, 152, 305, 19)
-en_90 = en_sheet.get_image(0, 171, 305, 19)
-en_91 = en_sheet.get_image(305, 171, 305, 19)
-en_92 = en_sheet.get_image(610, 171, 305, 19)
-en_93 = en_sheet.get_image(915, 171, 305, 19)
-en_94 = en_sheet.get_image(1220, 171, 305, 19)
-en_95 = en_sheet.get_image(1525, 171, 305, 19)
-en_96 = en_sheet.get_image(1830, 171, 305, 19)
-en_97 = en_sheet.get_image(2135, 171, 305, 19)
-en_98 = en_sheet.get_image(2440, 171, 305, 19)
-en_99 = en_sheet.get_image(2745, 171, 305, 19)
+en_0 = en_sheet.get_image(0, 0, 305, 19); en_1 = en_sheet.get_image(305, 0, 305, 19)
+en_2 = en_sheet.get_image(610, 0, 305, 19); en_3 = en_sheet.get_image(915, 0, 305, 19)
+en_4 = en_sheet.get_image(1220, 0, 305, 19); en_5 = en_sheet.get_image(1525, 0, 305, 19)
+en_6 = en_sheet.get_image(1830, 0, 305, 19); en_7 = en_sheet.get_image(2135, 0, 305, 19)
+en_8 = en_sheet.get_image(2440, 0, 305, 19); en_9 = en_sheet.get_image(2745, 0, 305, 19)
+en_10 = en_sheet.get_image(0, 19, 305, 19); en_11 = en_sheet.get_image(305, 19, 305, 19)
+en_12 = en_sheet.get_image(610, 19, 305, 19); en_13 = en_sheet.get_image(915, 19, 305, 19)
+en_14 = en_sheet.get_image(1220, 19, 305, 19); en_15 = en_sheet.get_image(1525, 19, 305, 19)
+en_16 = en_sheet.get_image(1830, 19, 305, 19); en_17 = en_sheet.get_image(2135, 19, 305, 19)
+en_18 = en_sheet.get_image(2440, 19, 305, 19); en_19 = en_sheet.get_image(2745, 19, 305, 19)
+en_20 = en_sheet.get_image(0, 38, 305, 19); en_21 = en_sheet.get_image(305, 38, 305, 19)
+en_22 = en_sheet.get_image(610, 38, 305, 19); en_23 = en_sheet.get_image(915, 38, 305, 19)
+en_24 = en_sheet.get_image(1220, 38, 305, 19); en_25 = en_sheet.get_image(1525, 38, 305, 19)
+en_26 = en_sheet.get_image(1830, 38, 305, 19); en_27 = en_sheet.get_image(2135, 38, 305, 19)
+en_28 = en_sheet.get_image(2440, 38, 305, 19); en_29 = en_sheet.get_image(2745, 38, 305, 19)
+en_30 = en_sheet.get_image(0, 57, 305, 19); en_31 = en_sheet.get_image(305, 57, 305, 19)
+en_32 = en_sheet.get_image(610, 57, 305, 19); en_33 = en_sheet.get_image(915, 57, 305, 19)
+en_34 = en_sheet.get_image(1220, 57, 305, 19); en_35 = en_sheet.get_image(1525, 57, 305, 19)
+en_36 = en_sheet.get_image(1830, 57, 305, 19); en_37 = en_sheet.get_image(2135, 57, 305, 19)
+en_38 = en_sheet.get_image(2440, 57, 305, 19); en_39 = en_sheet.get_image(2745, 57, 305, 19)
+en_40 = en_sheet.get_image(0, 76, 305, 19); en_41 = en_sheet.get_image(305, 76, 305, 19)
+en_42 = en_sheet.get_image(610, 76, 305, 19); en_43 = en_sheet.get_image(915, 76, 305, 19)
+en_44 = en_sheet.get_image(1220, 76, 305, 19); en_45 = en_sheet.get_image(1525, 76, 305, 19)
+en_46 = en_sheet.get_image(1830, 76, 305, 19); en_47 = en_sheet.get_image(2135, 76, 305, 19)
+en_48 = en_sheet.get_image(2440, 76, 305, 19); en_49 = en_sheet.get_image(2745, 76, 305, 19)
+en_50 = en_sheet.get_image(0, 95, 305, 19); en_51 = en_sheet.get_image(305, 95, 305, 19)
+en_52 = en_sheet.get_image(610, 95, 305, 19); en_53 = en_sheet.get_image(915, 95, 305, 19)
+en_54 = en_sheet.get_image(1220, 95, 305, 19); en_55 = en_sheet.get_image(1525, 95, 305, 19)
+en_56 = en_sheet.get_image(1830, 95, 305, 19); en_57 = en_sheet.get_image(2135, 95, 305, 19)
+en_58 = en_sheet.get_image(2440, 95, 305, 19); en_59 = en_sheet.get_image(2745, 95, 305, 19)
+en_60 = en_sheet.get_image(0, 114, 305, 19); en_61 = en_sheet.get_image(305, 114, 305, 19)
+en_62 = en_sheet.get_image(610, 114, 305, 19); en_63 = en_sheet.get_image(915, 114, 305, 19)
+en_64 = en_sheet.get_image(1220, 114, 305, 19); en_65 = en_sheet.get_image(1525, 114, 305, 19)
+en_66 = en_sheet.get_image(1830, 114, 305, 19); en_67 = en_sheet.get_image(2135, 114, 305, 19)
+en_68 = en_sheet.get_image(2440, 114, 305, 19); en_69 = en_sheet.get_image(2745, 114, 305, 19)
+en_70 = en_sheet.get_image(0, 133, 305, 19); en_71 = en_sheet.get_image(305, 133, 305, 19)
+en_72 = en_sheet.get_image(610, 133, 305, 19); en_73 = en_sheet.get_image(915, 133, 305, 19)
+en_74 = en_sheet.get_image(1220, 133, 305, 19); en_75 = en_sheet.get_image(1525, 133, 305, 19)
+en_76 = en_sheet.get_image(1830, 133, 305, 19); en_77 = en_sheet.get_image(2135, 133, 305, 19)
+en_78 = en_sheet.get_image(2440, 133, 305, 19); en_79 = en_sheet.get_image(2745, 133, 305, 19)
+en_80 = en_sheet.get_image(0, 152, 305, 19); en_81 = en_sheet.get_image(305, 152, 305, 19)
+en_82 = en_sheet.get_image(610, 152, 305, 19); en_83 = en_sheet.get_image(915, 152, 305, 19)
+en_84 = en_sheet.get_image(1220, 152, 305, 19); en_85 = en_sheet.get_image(1525, 152, 305, 19)
+en_86 = en_sheet.get_image(1830, 152, 305, 19); en_87 = en_sheet.get_image(2135, 152, 305, 19)
+en_88 = en_sheet.get_image(2440, 152, 305, 19); en_89 = en_sheet.get_image(2745, 152, 305, 19)
+en_90 = en_sheet.get_image(0, 171, 305, 19); en_91 = en_sheet.get_image(305, 171, 305, 19)
+en_92 = en_sheet.get_image(610, 171, 305, 19); en_93 = en_sheet.get_image(915, 171, 305, 19)
+en_94 = en_sheet.get_image(1220, 171, 305, 19); en_95 = en_sheet.get_image(1525, 171, 305, 19)
+en_96 = en_sheet.get_image(1830, 171, 305, 19); en_97 = en_sheet.get_image(2135, 171, 305, 19)
+en_98 = en_sheet.get_image(2440, 171, 305, 19); en_99 = en_sheet.get_image(2745, 171, 305, 19)
 en_100 = en_sheet.get_image(0, 190, 305, 19)
 # xp bars
 xp_sheet = SpriteSheet(resource_urls.xp_url)
-xp_0 = xp_sheet.get_image(0, 0, 305, 19)
-xp_1 = xp_sheet.get_image(305, 0, 305, 19)
-xp_2 = xp_sheet.get_image(610, 0, 305, 19)
-xp_3 = xp_sheet.get_image(915, 0, 305, 19)
-xp_4 = xp_sheet.get_image(1220, 0, 305, 19)
-xp_5 = xp_sheet.get_image(1525, 0, 305, 19)
-xp_6 = xp_sheet.get_image(1830, 0, 305, 19)
-xp_7 = xp_sheet.get_image(2135, 0, 305, 19)
-xp_8 = xp_sheet.get_image(2440, 0, 305, 19)
-xp_9 = xp_sheet.get_image(2745, 0, 305, 19)
-xp_10 = xp_sheet.get_image(0, 19, 305, 19)
-xp_11 = xp_sheet.get_image(305, 19, 305, 19)
-xp_12 = xp_sheet.get_image(610, 19, 305, 19)
-xp_13 = xp_sheet.get_image(915, 19, 305, 19)
-xp_14 = xp_sheet.get_image(1220, 19, 305, 19)
-xp_15 = xp_sheet.get_image(1525, 19, 305, 19)
-xp_16 = xp_sheet.get_image(1830, 19, 305, 19)
-xp_17 = xp_sheet.get_image(2135, 19, 305, 19)
-xp_18 = xp_sheet.get_image(2440, 19, 305, 19)
-xp_19 = xp_sheet.get_image(2745, 19, 305, 19)
-xp_20 = xp_sheet.get_image(0, 38, 305, 19)
-xp_21 = xp_sheet.get_image(305, 38, 305, 19)
-xp_22 = xp_sheet.get_image(610, 38, 305, 19)
-xp_23 = xp_sheet.get_image(915, 38, 305, 19)
-xp_24 = xp_sheet.get_image(1220, 38, 305, 19)
-xp_25 = xp_sheet.get_image(1525, 38, 305, 19)
-xp_26 = xp_sheet.get_image(1830, 38, 305, 19)
-xp_27 = xp_sheet.get_image(2135, 38, 305, 19)
-xp_28 = xp_sheet.get_image(2440, 38, 305, 19)
-xp_29 = xp_sheet.get_image(2745, 38, 305, 19)
-xp_30 = xp_sheet.get_image(0, 57, 305, 19)
-xp_31 = xp_sheet.get_image(305, 57, 305, 19)
-xp_32 = xp_sheet.get_image(610, 57, 305, 19)
-xp_33 = xp_sheet.get_image(915, 57, 305, 19)
-xp_34 = xp_sheet.get_image(1220, 57, 305, 19)
-xp_35 = xp_sheet.get_image(1525, 57, 305, 19)
-xp_36 = xp_sheet.get_image(1830, 57, 305, 19)
-xp_37 = xp_sheet.get_image(2135, 57, 305, 19)
-xp_38 = xp_sheet.get_image(2440, 57, 305, 19)
-xp_39 = xp_sheet.get_image(2745, 57, 305, 19)
-xp_40 = xp_sheet.get_image(0, 76, 305, 19)
-xp_41 = xp_sheet.get_image(305, 76, 305, 19)
-xp_42 = xp_sheet.get_image(610, 76, 305, 19)
-xp_43 = xp_sheet.get_image(915, 76, 305, 19)
-xp_44 = xp_sheet.get_image(1220, 76, 305, 19)
-xp_45 = xp_sheet.get_image(1525, 76, 305, 19)
-xp_46 = xp_sheet.get_image(1830, 76, 305, 19)
-xp_47 = xp_sheet.get_image(2135, 76, 305, 19)
-xp_48 = xp_sheet.get_image(2440, 76, 305, 19)
-xp_49 = xp_sheet.get_image(2745, 76, 305, 19)
-xp_50 = xp_sheet.get_image(0, 95, 305, 19)
-xp_51 = xp_sheet.get_image(305, 95, 305, 19)
-xp_52 = xp_sheet.get_image(610, 95, 305, 19)
-xp_53 = xp_sheet.get_image(915, 95, 305, 19)
-xp_54 = xp_sheet.get_image(1220, 95, 305, 19)
-xp_55 = xp_sheet.get_image(1525, 95, 305, 19)
-xp_56 = xp_sheet.get_image(1830, 95, 305, 19)
-xp_57 = xp_sheet.get_image(2135, 95, 305, 19)
-xp_58 = xp_sheet.get_image(2440, 95, 305, 19)
-xp_59 = xp_sheet.get_image(2745, 95, 305, 19)
-xp_60 = xp_sheet.get_image(0, 114, 305, 19)
-xp_61 = xp_sheet.get_image(305, 114, 305, 19)
-xp_62 = xp_sheet.get_image(610, 114, 305, 19)
-xp_63 = xp_sheet.get_image(915, 114, 305, 19)
-xp_64 = xp_sheet.get_image(1220, 114, 305, 19)
-xp_65 = xp_sheet.get_image(1525, 114, 305, 19)
-xp_66 = xp_sheet.get_image(1830, 114, 305, 19)
-xp_67 = xp_sheet.get_image(2135, 114, 305, 19)
-xp_68 = xp_sheet.get_image(2440, 114, 305, 19)
-xp_69 = xp_sheet.get_image(2745, 114, 305, 19)
-xp_70 = xp_sheet.get_image(0, 133, 305, 19)
-xp_71 = xp_sheet.get_image(305, 133, 305, 19)
-xp_72 = xp_sheet.get_image(610, 133, 305, 19)
-xp_73 = xp_sheet.get_image(915, 133, 305, 19)
-xp_74 = xp_sheet.get_image(1220, 133, 305, 19)
-xp_75 = xp_sheet.get_image(1525, 133, 305, 19)
-xp_76 = xp_sheet.get_image(1830, 133, 305, 19)
-xp_77 = xp_sheet.get_image(2135, 133, 305, 19)
-xp_78 = xp_sheet.get_image(2440, 133, 305, 19)
-xp_79 = xp_sheet.get_image(2745, 133, 305, 19)
-xp_80 = xp_sheet.get_image(0, 152, 305, 19)
-xp_81 = xp_sheet.get_image(305, 152, 305, 19)
-xp_82 = xp_sheet.get_image(610, 152, 305, 19)
-xp_83 = xp_sheet.get_image(915, 152, 305, 19)
-xp_84 = xp_sheet.get_image(1220, 152, 305, 19)
-xp_85 = xp_sheet.get_image(1525, 152, 305, 19)
-xp_86 = xp_sheet.get_image(1830, 152, 305, 19)
-xp_87 = xp_sheet.get_image(2135, 152, 305, 19)
-xp_88 = xp_sheet.get_image(2440, 152, 305, 19)
-xp_89 = xp_sheet.get_image(2745, 152, 305, 19)
-xp_90 = xp_sheet.get_image(0, 171, 305, 19)
-xp_91 = xp_sheet.get_image(305, 171, 305, 19)
-xp_92 = xp_sheet.get_image(610, 171, 305, 19)
-xp_93 = xp_sheet.get_image(915, 171, 305, 19)
-xp_94 = xp_sheet.get_image(1220, 171, 305, 19)
-xp_95 = xp_sheet.get_image(1525, 171, 305, 19)
-xp_96 = xp_sheet.get_image(1830, 171, 305, 19)
-xp_97 = xp_sheet.get_image(2135, 171, 305, 19)
-xp_98 = xp_sheet.get_image(2440, 171, 305, 19)
-xp_99 = xp_sheet.get_image(2745, 171, 305, 19)
+xp_0 = xp_sheet.get_image(0, 0, 305, 19); xp_1 = xp_sheet.get_image(305, 0, 305, 19)
+xp_2 = xp_sheet.get_image(610, 0, 305, 19); xp_3 = xp_sheet.get_image(915, 0, 305, 19)
+xp_4 = xp_sheet.get_image(1220, 0, 305, 19); xp_5 = xp_sheet.get_image(1525, 0, 305, 19)
+xp_6 = xp_sheet.get_image(1830, 0, 305, 19); xp_7 = xp_sheet.get_image(2135, 0, 305, 19)
+xp_8 = xp_sheet.get_image(2440, 0, 305, 19); xp_9 = xp_sheet.get_image(2745, 0, 305, 19)
+xp_10 = xp_sheet.get_image(0, 19, 305, 19); xp_11 = xp_sheet.get_image(305, 19, 305, 19)
+xp_12 = xp_sheet.get_image(610, 19, 305, 19); xp_13 = xp_sheet.get_image(915, 19, 305, 19)
+xp_14 = xp_sheet.get_image(1220, 19, 305, 19); xp_15 = xp_sheet.get_image(1525, 19, 305, 19)
+xp_16 = xp_sheet.get_image(1830, 19, 305, 19); xp_17 = xp_sheet.get_image(2135, 19, 305, 19)
+xp_18 = xp_sheet.get_image(2440, 19, 305, 19); xp_19 = xp_sheet.get_image(2745, 19, 305, 19)
+xp_20 = xp_sheet.get_image(0, 38, 305, 19); xp_21 = xp_sheet.get_image(305, 38, 305, 19)
+xp_22 = xp_sheet.get_image(610, 38, 305, 19); xp_23 = xp_sheet.get_image(915, 38, 305, 19)
+xp_24 = xp_sheet.get_image(1220, 38, 305, 19); xp_25 = xp_sheet.get_image(1525, 38, 305, 19)
+xp_26 = xp_sheet.get_image(1830, 38, 305, 19); xp_27 = xp_sheet.get_image(2135, 38, 305, 19)
+xp_28 = xp_sheet.get_image(2440, 38, 305, 19); xp_29 = xp_sheet.get_image(2745, 38, 305, 19)
+xp_30 = xp_sheet.get_image(0, 57, 305, 19); xp_31 = xp_sheet.get_image(305, 57, 305, 19)
+xp_32 = xp_sheet.get_image(610, 57, 305, 19); xp_33 = xp_sheet.get_image(915, 57, 305, 19)
+xp_34 = xp_sheet.get_image(1220, 57, 305, 19); xp_35 = xp_sheet.get_image(1525, 57, 305, 19)
+xp_36 = xp_sheet.get_image(1830, 57, 305, 19); xp_37 = xp_sheet.get_image(2135, 57, 305, 19)
+xp_38 = xp_sheet.get_image(2440, 57, 305, 19); xp_39 = xp_sheet.get_image(2745, 57, 305, 19)
+xp_40 = xp_sheet.get_image(0, 76, 305, 19); xp_41 = xp_sheet.get_image(305, 76, 305, 19)
+xp_42 = xp_sheet.get_image(610, 76, 305, 19); xp_43 = xp_sheet.get_image(915, 76, 305, 19)
+xp_44 = xp_sheet.get_image(1220, 76, 305, 19); xp_45 = xp_sheet.get_image(1525, 76, 305, 19)
+xp_46 = xp_sheet.get_image(1830, 76, 305, 19); xp_47 = xp_sheet.get_image(2135, 76, 305, 19)
+xp_48 = xp_sheet.get_image(2440, 76, 305, 19); xp_49 = xp_sheet.get_image(2745, 76, 305, 19)
+xp_50 = xp_sheet.get_image(0, 95, 305, 19); xp_51 = xp_sheet.get_image(305, 95, 305, 19)
+xp_52 = xp_sheet.get_image(610, 95, 305, 19); xp_53 = xp_sheet.get_image(915, 95, 305, 19)
+xp_54 = xp_sheet.get_image(1220, 95, 305, 19); xp_55 = xp_sheet.get_image(1525, 95, 305, 19)
+xp_56 = xp_sheet.get_image(1830, 95, 305, 19); xp_57 = xp_sheet.get_image(2135, 95, 305, 19)
+xp_58 = xp_sheet.get_image(2440, 95, 305, 19); xp_59 = xp_sheet.get_image(2745, 95, 305, 19)
+xp_60 = xp_sheet.get_image(0, 114, 305, 19); xp_61 = xp_sheet.get_image(305, 114, 305, 19)
+xp_62 = xp_sheet.get_image(610, 114, 305, 19); xp_63 = xp_sheet.get_image(915, 114, 305, 19)
+xp_64 = xp_sheet.get_image(1220, 114, 305, 19); xp_65 = xp_sheet.get_image(1525, 114, 305, 19)
+xp_66 = xp_sheet.get_image(1830, 114, 305, 19); xp_67 = xp_sheet.get_image(2135, 114, 305, 19)
+xp_68 = xp_sheet.get_image(2440, 114, 305, 19); xp_69 = xp_sheet.get_image(2745, 114, 305, 19)
+xp_70 = xp_sheet.get_image(0, 133, 305, 19); xp_71 = xp_sheet.get_image(305, 133, 305, 19)
+xp_72 = xp_sheet.get_image(610, 133, 305, 19); xp_73 = xp_sheet.get_image(915, 133, 305, 19)
+xp_74 = xp_sheet.get_image(1220, 133, 305, 19); xp_75 = xp_sheet.get_image(1525, 133, 305, 19)
+xp_76 = xp_sheet.get_image(1830, 133, 305, 19); xp_77 = xp_sheet.get_image(2135, 133, 305, 19)
+xp_78 = xp_sheet.get_image(2440, 133, 305, 19); xp_79 = xp_sheet.get_image(2745, 133, 305, 19)
+xp_80 = xp_sheet.get_image(0, 152, 305, 19); xp_81 = xp_sheet.get_image(305, 152, 305, 19)
+xp_82 = xp_sheet.get_image(610, 152, 305, 19); xp_83 = xp_sheet.get_image(915, 152, 305, 19)
+xp_84 = xp_sheet.get_image(1220, 152, 305, 19); xp_85 = xp_sheet.get_image(1525, 152, 305, 19)
+xp_86 = xp_sheet.get_image(1830, 152, 305, 19); xp_87 = xp_sheet.get_image(2135, 152, 305, 19)
+xp_88 = xp_sheet.get_image(2440, 152, 305, 19); xp_89 = xp_sheet.get_image(2745, 152, 305, 19)
+xp_90 = xp_sheet.get_image(0, 171, 305, 19); xp_91 = xp_sheet.get_image(305, 171, 305, 19)
+xp_92 = xp_sheet.get_image(610, 171, 305, 19); xp_93 = xp_sheet.get_image(915, 171, 305, 19)
+xp_94 = xp_sheet.get_image(1220, 171, 305, 19); xp_95 = xp_sheet.get_image(1525, 171, 305, 19)
+xp_96 = xp_sheet.get_image(1830, 171, 305, 19); xp_97 = xp_sheet.get_image(2135, 171, 305, 19)
+xp_98 = xp_sheet.get_image(2440, 171, 305, 19); xp_99 = xp_sheet.get_image(2745, 171, 305, 19)
 xp_100 = xp_sheet.get_image(0, 190, 305, 19)
 
 # creating objects from defined classes --------------------------------------------------------------------------------
@@ -3087,7 +1831,7 @@ player = Player("stan", "amuna", "",  # name, race, role
                 # current quests, quest progress (x/4), quest status (quest: done)
                 {"sneaky snakes": "Speak to Garan to start this quest.",
                  "village repairs": "Speak to Maurelle to start this quest.",
-                 "ghouled again": "Speak to the gate Guard to start this quest.",  "": ""},
+                 "ghouled again": "Speak to the gate Guard to start this quest.", "": ""},
                 {"sneaky snakes": 0, "village repairs": 0, "ghouled again": 0},  # quest progress (x/4)
                 {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest status
                 {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest complete
@@ -3191,8 +1935,8 @@ accept_button = UiElement("accept button", 340, 670, accept_button_img)
 decline_button = UiElement("decline button", 450, 670, decline_button_img)
 hearth_button = UiElement("hearth button", 860, 25, hearth_button_img)
 save_button = UiElement("save button", 970, 25, save_button_img)
-yes_button = UiElement("yes button", 445, 388, yes_button_img)
-no_button = UiElement("no button", 559, 388, no_button_img)
+yes_button = UiElement("yes button", 450, 394, yes_button_img)
+no_button = UiElement("no button", 564, 394, no_button_img)
 skill_bar = UiElement("skill bar", 855, 615, pygame.image.load(resource_urls.skill_bar).convert())
 no_role_attack_button = UiElement("no role attack button", 750, 627, no_role_attack_button_img)
 mage_attack_button = UiElement("mage attack button", 750, 627, mage_attack_button_img)
@@ -3225,7 +1969,7 @@ message_box = UiElement("message box", 173, 650, pygame.image.load(resource_urls
 status_bar_backdrop = UiElement("bar backdrop", 165, 45, pygame.image.load(resource_urls.bar_backdrop))
 enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 700, 90,
                                       pygame.image.load(resource_urls.enemy_bar_backdrop))
-quest_star_garan = UiElement("quest star garan", 210, 390, quest_start_star,)
+quest_star_garan = UiElement("quest star garan", 210, 390, quest_start_star, )
 quest_star_maurelle = UiElement("quest star maurelle", 760, 480, quest_start_star)
 quest_star_guard = UiElement("quest star guard", 430, 75, quest_start_star)
 player_battle_sprite = BattleCharacter("stan battle", 320, 460, player_no_role_amuna_battle)
@@ -3267,7 +2011,7 @@ environments.add(trees, buildings)
 # quest item sprites for gathering
 quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
 # adding most sprites to this group for drawing and related functions
-most_sprites.add(npcs, trees, buildings, quest_items, enemies, seldon_hearth)
+most_sprites.add(npcs, trees, buildings, quest_items, enemies, seldon_hearth, rohir_gate)
 # group to set transparency to sprites that don't have it set in the spritesheet class constructor
 non_sprite_sheets.add(trees, seldon_hearth, quest_items, skill_bar, lets_go_button,
                       mage_learn_button, fighter_learn_button, scout_learn_button,
@@ -3330,10 +2074,6 @@ journal_button_clicked = False
 hearth_clicked = False
 # condition to check if player has hearthed
 hearthed = False
-# condition to keep message box text for amount of time, so it's not cleared when player is not in range of sprite
-info_update = False
-# condition to keep loot text for amount of time, so it's not cleared when player is not in range of sprite
-loot_update = False
 # condition to check if player has started combat encounter with enemy to clear message box (before adding combat text)
 encounter_started = False
 # condition to check if player has bought an item from shop
@@ -3657,6 +2397,8 @@ while game_running:
                 player.level = player_load_info["level"]
                 player.health = player_load_info["hp"]
                 player.energy = player_load_info["en"]
+                player.offense = player_load_info["offense"]
+                player.defence = player_load_info["defense"]
                 player.experience = player_load_info["xp"]
                 player.race = player_load_info["race"]
                 player.role = player_load_info["role"]
@@ -3779,13 +2521,13 @@ while game_running:
                     walk_tic = time.perf_counter()
                 if movement_able:
                     pressed_keys = pygame.key.get_pressed()
-                    if pressed_keys[K_d]:
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
                         player.update("right", "nascent", walking_return_nascent["total time"])
-                    if pressed_keys[K_a]:
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
                         player.update("left", "nascent", walking_return_nascent["total time"])
-                    if pressed_keys[K_w]:
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
                         player.update("up", "nascent", walking_return_nascent["total time"])
-                    if pressed_keys[K_s]:
+                    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
                         player.update("down", "nascent", walking_return_nascent["total time"])
 
                 for event in pygame.event.get():
@@ -3797,6 +2539,7 @@ while game_running:
                                 interacted = True
                     elif event.type == QUIT:
                         exit()
+
                 if pygame.sprite.collide_rect(player, nascent_gate):
                     nascent_gate_popup_container.append(nascent_gate_popup)
                     if interacted:
@@ -3817,22 +2560,49 @@ while game_running:
                     player.x_coordinate = 425
                     player.y_coordinate = 690
 
-            # if player is in nascent grove (starting area) ------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            # if player is in stardust outpost -------------------------------------------------------------------------
             if player.current_zone == "stardust" and in_over_world:
                 screen.blit(stardust_outpost_bg, (0, 0))
-                screen.blit(player.surf, player.rect)
+
+                # hearth button is clicked, sets fade transition for hearth screen and then back to district bg --------
+                if hearth_clicked:
+                    screen.fill((0, 0, 0))
+                    for alpha in range(0, 200):
+                        seldon_hearth_screen.set_alpha(alpha)
+                        screen.blit(seldon_hearth_screen, (0, 0))
+                        # flip sleep screen to display each iteration to show fade
+                        pygame.display.flip()
+                    hearth_clicked = False
+                    hearthed = True
+                if hearthed:
+                    screen.fill((0, 0, 0))
+                    for alpha in range(0, 50):
+                        seldon_district_bg.set_alpha(alpha)
+                        screen.blit(seldon_district_bg, (0, 0))
+                        # flip sleep screen to display each iteration to show fade
+                        pygame.display.flip()
+                    seldon_district_bg.set_alpha(255)
+                    screen.blit(seldon_district_bg, (0, 0))
+                    pygame.display.flip()
+                    hearthed = False
+                    info_text_1 = "You recalled to the hearth stone."
+                # ------------------------------------------------------------------------------------------------------
+
+                player_info_and_ui_updates()
+
                 walking_return_stardust = walk_time(walk_tic)
                 if walking_return_stardust["reset"]:
                     walk_tic = time.perf_counter()
                 if movement_able:
                     pressed_keys = pygame.key.get_pressed()
-                    if pressed_keys[K_d]:
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
                         player.update("right", "stardust", walking_return_stardust["total time"])
-                    if pressed_keys[K_a]:
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
                         player.update("left", "stardust", walking_return_stardust["total time"])
-                    if pressed_keys[K_w]:
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
                         player.update("up", "stardust", walking_return_stardust["total time"])
-                    if pressed_keys[K_s]:
+                    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
                         player.update("down", "stardust", walking_return_stardust["total time"])
 
                 for event in pygame.event.get():
@@ -3840,17 +2610,89 @@ while game_running:
                         if event.key == K_ESCAPE:
                             exit()
                         if event.key == K_f:
-                            interacted = True
+                            if pygame.sprite.spritecollideany(player, most_sprites):
+                                interacted = True
                     elif event.type == QUIT:
                         exit()
+
+                    if event.type == pygame.MOUSEBUTTONUP:
+                        pos = pygame.mouse.get_pos()
+                        if hearth_button.rect.collidepoint(pos):
+                            hearth_clicked = True
+                            player.current_zone = "seldon"
+                            player.x_coordinate = 850
+                            player.y_coordinate = 650
+                        if save_button.rect.collidepoint(pos):
+                            try:
+                                with open("save_game", "rb") as f:
+                                    saved = True
+                            except FileNotFoundError:
+                                saved = False
+                                pass
+                            if saved:
+                                save_check_window.append(save_check)
+                                save_check_window.append(yes_button)
+                                save_check_window.append(no_button)
+                            if not saved:
+                                save_game()
+                                saved = True
+                                info_text_1 = "You saved your game. "
+                        if yes_button.rect.collidepoint(pos):
+                            save_game()
+                            save_check_window.clear()
+                            info_text_1 = "You saved your game. "
+                        if no_button.rect.collidepoint(pos):
+                            save_check_window.clear()
+
+                        if character_button.rect.collidepoint(pos):
+                            if character_button_clicked:
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
+                                character_button_clicked = False
+                            else:
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
+                                character_button_clicked = True
+                        if journal_button.rect.collidepoint(pos):
+                            if journal_button_clicked:
+                                drawing_functions.journal_info_draw(journal, player, font, False)
+                                journal_button_clicked = False
+                            else:
+                                drawing_functions.journal_info_draw(journal, player, font, True)
+                                journal_button_clicked = True
+
+                        if level_up_win.rect.collidepoint(pos):
+                            drawing_functions.level_up_draw(level_up_win, player, font, False)
+
+                    # click handlers -----------------------------------------------------------------------------------
+                    inventory_event = click_handlers.inventory_click_handler(player, event,
+                                                                             player_mage_amuna_down_1,
+                                                                             player_mage_nuldar_down_1,
+                                                                             player_mage_sorae_down_1,
+                                                                             player_fighter_amuna_down_1,
+                                                                             player_fighter_nuldar_down_1,
+                                                                             player_fighter_sorae_down_1,
+                                                                             player_scout_amuna_down_1,
+                                                                             player_scout_nuldar_down_1,
+                                                                             player_scout_sorae_down_1)
+                    if inventory_event["item message"] != "":
+                        info_text_1 = inventory_event["item message"]
+                        info_text_2 = ""
+                    # function to handle equipment item clicks. apply item message to message box if not empty str.
+                    equipment_event = click_handlers.equipment_click_handler(player, event,
+                                                                             player_no_role_amuna_down_1,
+                                                                             player_no_role_nuldar_down_1,
+                                                                             player_no_role_sorae_down_1)
+                    if equipment_event["equipment message"] != "":
+                        info_text_1 = equipment_event["equipment message"]
+                        info_text_2 = ""
 
                 # move player to seldon district when they approach nascent grove exit
                 if player.x_coordinate > 925 and 175 < player.y_coordinate < 275:
                     player.current_zone = "seldon"
                     in_over_world = True
-                    player.x_coordinate = 150
+                    player.x_coordinate = 125
                     player.y_coordinate = 375
 
+            # ----------------------------------------------------------------------------------------------------------
             # if player is in seldon district over world ---------------------------------------------------------------
             if player.current_zone == "seldon" and in_over_world:
                 screen.blit(seldon_district_bg, (0, 0))
@@ -3877,31 +2719,7 @@ while game_running:
                     pygame.display.flip()
                     hearthed = False
                     info_text_1 = "You recalled to the hearth stone."
-                    info_update = True
-
                 # ------------------------------------------------------------------------------------------------------
-                info_toc = time.perf_counter()
-                # clear info update after some time has passed
-                if info_toc - info_tic > 2:
-                    info_tic = time.perf_counter()
-                    info_update = False
-                loot_toc = time.perf_counter()
-                # clear loot update after some time has passed
-                if loot_toc - loot_tic > 4:
-                    loot_tic = time.perf_counter()
-                    loot_update = False
-
-                # if player is not currently in range of sprite and there is not an active info update,
-                # clear message box
-                sprite = pygame.sprite.spritecollideany(player, most_sprites)
-                if not sprite:
-                    if not info_update:
-                        info_text_1 = ""
-                        info_text_2 = ""
-                    if not loot_update:
-                        info_text_3 = ""
-                        info_text_4 = ""
-
                 # switches between 1 and 0 to select a left or right direction for enemy sprite to move
                 enemy_switch = 1
                 # gets defeated enemy count and will respawn a new enemy type if count is greater than specified
@@ -3913,35 +2731,8 @@ while game_running:
                         screen.blit(entity.surf, entity.rect)
                     for enemy_sprite in enemies:
                         screen.blit(enemy_sprite.surf, enemy_sprite.rect)
-                    for window in display_elements:
-                        screen.blit(window.surf, window.rect)
-                    screen.blit(rohir_gate.surf, rohir_gate.rect)
                 except TypeError:
                     pass
-
-                # pop up notifications for situations like low health or first weapon acquire
-                if not knowledge_academia_show:
-                    if player.knowledge["mage"] == 40 or player.knowledge["fighter"] == 40 or \
-                            player.knowledge["scout"] == 40:
-                        knowledge_academia_window.append(knowledge_academia)
-                        knowledge_academia_show = True
-                if knowledge_academia_show:
-                    if knowledge_window_clicked:
-                        knowledge_academia_window.clear()
-                if not rest_recover_show:
-                    if player.health < 50:
-                        rest_recover_window.append(rest_recover)
-                        rest_recover_show = True
-                if rest_recover_show:
-                    if rest_window_clicked:
-                        rest_recover_window.clear()
-                if not shop_gear_show:
-                    if player.quest_status["sneaky snakes"]:
-                        shop_gear_window.append(shop_gear)
-                        shop_gear_show = True
-                if shop_gear_show:
-                    if shop_window_clicked:
-                        shop_gear_window.clear()
 
                 # quest stars for npcs that update based on player quest progress
                 # ------------------------------------------------------------------------------------------------------
@@ -3964,48 +2755,39 @@ while game_running:
                 if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
                     quest_star_guard.update(430, 75, quest_progress_star)
                 # ------------------------------------------------------------------------------------------------------
-                # draw player and status bars
-                screen.blit(player.surf, player.rect)
-                screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-                screen.blit(hp_bar.surf, hp_bar.rect)
-                screen.blit(en_bar.surf, en_bar.rect)
-                screen.blit(xp_bar.surf, xp_bar.rect)
 
-                for ui_element in user_interface:
-                    screen.blit(ui_element.surf, ui_element.rect)
+                player_info_and_ui_updates()
 
-                # draw texts to the screen, like message box, player rupees and level
-                drawing_functions.text_info_draw(screen, player, font,
-                                                 info_text_1, info_text_2, info_text_3, info_text_4)
-                drawing_functions.draw_it(screen)
-                # update players current inventory and status
-                status_and_inventory_updates()
-                # update players current equipment
-                equipment_updates()
-                # if players gear hasn't been checked, due to initial iteration or if equipment was updated
-                # elsewhere, then check their current gear and apply stat bonus based on item equipped
-                if not gear_checked:
-                    gear_checked = gear_check()
-                if not weapon_checked:
-                    weapon_checked = weapon_check()
-                # if battle happened, get battle info (item or experience gained) and apply to message box
-                if battle_info_to_return_to_main_loop["item dropped"] != "":
-                    if loot_update:
-                        info_text_3 = str(battle_info_to_return_to_main_loop["item dropped"])
-                        info_text_4 = str(battle_info_to_return_to_main_loop["experience"]) + "and " + \
-                                      str(battle_info_to_return_to_main_loop["knowledge"])
-                if battle_info_to_return_to_main_loop["leveled_up"]:
-                    drawing_functions.level_up_draw(level_up_win, player, font, True)
+                # pop up notifications for situations like low health or first weapon acquire
+                if not knowledge_academia_show:
+                    if player.knowledge["mage"] == 50 or player.knowledge["fighter"] == 50 or \
+                            player.knowledge["scout"] == 50:
+                        knowledge_academia_window.append(knowledge_academia)
+                        knowledge_academia_show = True
+                if knowledge_academia_show:
+                    if knowledge_window_clicked:
+                        knowledge_academia_window.clear()
+                if not rest_recover_show:
+                    if player.health < 50:
+                        rest_recover_window.append(rest_recover)
+                        rest_recover_show = True
+                if rest_recover_show:
+                    if rest_window_clicked:
+                        rest_recover_window.clear()
 
                 # draw pop up notifications on top of everything else
                 for knowledge_window_notification in knowledge_academia_window:
                     screen.blit(knowledge_window_notification.surf, knowledge_window_notification.rect)
                 for rest_window in rest_recover_window:
                     screen.blit(rest_window.surf, rest_window.rect)
-                for gear_window in shop_gear_window:
-                    screen.blit(gear_window.surf, gear_window.rect)
-                for save_window in save_check_window:
-                    screen.blit(save_window.surf, save_window.rect)
+
+                # if battle happened, get battle info (item or experience gained) and apply to message box
+                if battle_info_to_return_to_main_loop["item dropped"] != "":
+                    info_text_3 = str(battle_info_to_return_to_main_loop["item dropped"])
+                    info_text_4 = str(battle_info_to_return_to_main_loop["experience"]) + "and " + \
+                                  str(battle_info_to_return_to_main_loop["knowledge"])
+                if battle_info_to_return_to_main_loop["leveled_up"]:
+                    drawing_functions.level_up_draw(level_up_win, player, font, True)
 
                 # ------------------------------------------------------------------------------------------------------
                 # all in-game events such as key presses or UI interaction
@@ -4018,7 +2800,8 @@ while game_running:
                         if event.key == K_f:
                             if pygame.sprite.spritecollideany(player, most_sprites):
                                 interacted = True
-
+                    elif event.type == QUIT:
+                        exit()
                     if event.type == pygame.MOUSEBUTTONUP:
                         pos = pygame.mouse.get_pos()
                         # hearth button was clicked, set true for animation and move player to stone
@@ -4045,17 +2828,14 @@ while game_running:
                                 save_game()
                                 saved = True
                                 info_text_1 = "You saved your game. "
-                                info_update = True
                         # yes button was clicked to overwrite previous save file
                         if yes_button.rect.collidepoint(pos):
                             save_game()
                             save_check_window.clear()
                             info_text_1 = "You saved your game. "
-                            info_update = True
                         if no_button.rect.collidepoint(pos):
                             save_check_window.clear()
                         # ----------------------------------------------------------------------------------------------
-
                         # if character button is clicked, call draw function and show elements. second click hides
                         if character_button.rect.collidepoint(pos):
                             if character_button_clicked:
@@ -4072,7 +2852,6 @@ while game_running:
                             else:
                                 drawing_functions.journal_info_draw(journal, player, font, True)
                                 journal_button_clicked = True
-
                         # when player levels up, this lets them click to dismiss the window pop-up
                         if level_up_win.rect.collidepoint(pos):
                             drawing_functions.level_up_draw(level_up_win, player, font, False)
@@ -4083,16 +2862,12 @@ while game_running:
                         if shop_gear.rect.collidepoint(pos) and shop_gear_show:
                             shop_window_clicked = True
 
-                    elif event.type == QUIT:
-                        exit()
-
                     # move player to nascent grove when they approach
                     if 375 < player.x_coordinate < 475 and player.y_coordinate > 700:
                         player.current_zone = "nascent"
                         in_over_world = True
                         player.x_coordinate = 750
                         player.y_coordinate = 125
-
                     # move player to stardust outpost when they approach
                     if player.x_coordinate < 25 and 325 < player.y_coordinate < 400:
                         player.current_zone = "stardust"
@@ -4112,11 +2887,9 @@ while game_running:
                                         info_text_1 = f"You gathered 1 pine log."
                                         quest_item.kill()
                                         interacted = False
-                                        loot_update = True
                                     else:
                                         info_text_1 = f"You've already gathered these.'."
                                         interacted = False
-                                        loot_update = True
                         if quest_item.name == "rohir gate":
                             if player.quest_complete["ghouled again"]:
                                 info_text_1 = f"Press 'F' key to enter Korlok District."
@@ -4268,44 +3041,41 @@ while game_running:
                             in_over_world = False
                             in_npc_interaction = True
 
-                    # click handlers for main event loop ---------------------------------------------------------------
-                    # function to handle inventory item clicks. apply item message to message box if not empty str.
-                    inventory_event = inventory_click_handler()
+                    # click handlers -----------------------------------------------------------------------------------
+                    inventory_event = click_handlers.inventory_click_handler(player, event, player_mage_amuna_down_1,
+                                                                             player_mage_nuldar_down_1,
+                                                                             player_mage_sorae_down_1,
+                                                                             player_fighter_amuna_down_1,
+                                                                             player_fighter_nuldar_down_1,
+                                                                             player_fighter_sorae_down_1,
+                                                                             player_scout_amuna_down_1,
+                                                                             player_scout_nuldar_down_1,
+                                                                             player_scout_sorae_down_1)
                     if inventory_event["item message"] != "":
                         info_text_1 = inventory_event["item message"]
                         info_text_2 = ""
-                        info_update = True
-                    # if click handler returns that an equitable item has been updated, set gear_checked to false
-                    if not inventory_event["gear checked"]:
-                        gear_checked = False
-                    if not inventory_event["weapon checked"]:
-                        weapon_checked = False
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = equipment_click_handler()
+                    equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
+                                                                             player_no_role_nuldar_down_1,
+                                                                             player_no_role_sorae_down_1)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
-                        info_update = True
-                    # same as above but for when an equipment item is un-equipped
-                    if not equipment_event["gear checked"]:
-                        gear_checked = False
-                    if not equipment_event["weapon checked"]:
-                        weapon_checked = False
 
                 # outside of main event loop ---------------------------------------------------------------------------
-                walking_return_nascent = walk_time(walk_tic)
-                if walking_return_nascent["reset"]:
+                walking_return_seldon = walk_time(walk_tic)
+                if walking_return_seldon["reset"]:
                     walk_tic = time.perf_counter()
                 if movement_able:
                     pressed_keys = pygame.key.get_pressed()
-                    if pressed_keys[K_d]:
-                        player.update("right", "seldon", walking_return_nascent["total time"])
-                    if pressed_keys[K_a]:
-                        player.update("left", "seldon", walking_return_nascent["total time"])
-                    if pressed_keys[K_w]:
-                        player.update("up", "seldon", walking_return_nascent["total time"])
-                    if pressed_keys[K_s]:
-                        player.update("down", "seldon", walking_return_nascent["total time"])
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.update("right", "seldon", walking_return_seldon["total time"])
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.update("left", "seldon", walking_return_seldon["total time"])
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.update("up", "seldon", walking_return_seldon["total time"])
+                    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
+                        player.update("down", "seldon", walking_return_seldon["total time"])
 
                 # enemy movement updates -------------------------------------------------------------------------------
                 # choose random directions and random enemy to move that direction -------------------------------------
@@ -4362,41 +3132,38 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # if player is in battle -----------------------------------------------------------------------------------
             if in_battle:
-                # update players current inventory and status
-                status_and_inventory_updates()
-                # update players current equipment
-                equipment_updates()
-                if not gear_checked:
-                    gear_checked = gear_check()
-                if not weapon_checked:
-                    weapon_checked = weapon_check()
+                player_info_and_ui_updates()
 
                 # battle scenario event loop
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
                             exit()
-                    # click handlers for battle event loop
-                    inventory_event = inventory_click_handler()
+                    elif event.type == QUIT:
+                        exit()
+
+                    # click handlers -----------------------------------------------------------------------------------
+                    inventory_event = click_handlers.inventory_click_handler(player, event,
+                                                                             player_mage_amuna_down_1,
+                                                                             player_mage_nuldar_down_1,
+                                                                             player_mage_sorae_down_1,
+                                                                             player_fighter_amuna_down_1,
+                                                                             player_fighter_nuldar_down_1,
+                                                                             player_fighter_sorae_down_1,
+                                                                             player_scout_amuna_down_1,
+                                                                             player_scout_nuldar_down_1,
+                                                                             player_scout_sorae_down_1)
                     if inventory_event["item message"] != "":
                         info_text_1 = inventory_event["item message"]
                         info_text_2 = ""
-                        info_update = True
-                    if not inventory_event["gear checked"]:
-                        gear_checked = False
-                    if not inventory_event["weapon checked"]:
-                        weapon_checked = False
-                    equipment_event = equipment_click_handler()
+                    # function to handle equipment item clicks. apply item message to message box if not empty str.
+                    equipment_event = click_handlers.equipment_click_handler(player, event,
+                                                                             player_no_role_amuna_down_1,
+                                                                             player_no_role_nuldar_down_1,
+                                                                             player_no_role_sorae_down_1)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
-                        info_update = True
-                    if not equipment_event["gear checked"]:
-                        gear_checked = False
-                    if not equipment_event["weapon checked"]:
-                        weapon_checked = False
-                    elif event.type == QUIT:
-                        exit()
 
                     enemy = pygame.sprite.spritecollideany(player, enemies)
                     if enemy:
@@ -4417,7 +3184,13 @@ while game_running:
                                     info_text_4 = ""
                                     encounter_started = True
                                 # get which button player pressed during combat scenario (attack, skill or run)
-                                combat_button = combat_event_button(event)
+                                combat_button = click_handlers.combat_event_button(event, no_role_attack_button,
+                                                                                   mage_attack_button,
+                                                                                   fighter_attack_button,
+                                                                                   scout_attack_button,
+                                                                                   barrier_button,
+                                                                                   hard_strike_button,
+                                                                                   sharp_sense_button)
 
                                 if combat_button == "attack":
                                     # update player character sprite for combat animation
@@ -4571,7 +3344,6 @@ while game_running:
                                         movement_able = True
                                         combat_happened = False
                                         interacted = False
-                                        loot_update = True
                                         encounter_started = False
                                         in_battle = False
                                         in_over_world = True
@@ -4672,7 +3444,6 @@ while game_running:
                                                     movement_able = True
                                                     combat_happened = False
                                                     interacted = False
-                                                    loot_update = True
                                                     encounter_started = False
                                                     in_battle = False
                                                     in_over_world = True
@@ -4722,13 +3493,7 @@ while game_running:
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
 
-                        for item in player_items:
-                            screen.blit(item.surf, item.rect)
-                        for equipment in player_equipment:
-                            screen.blit(equipment.surf, equipment.rect)
-
-                        drawing_functions.text_info_draw(screen, player, font,
-                                                         info_text_1, info_text_2, info_text_3, info_text_4)
+                        player_info_and_ui_updates()
 
                         # get current enemy name and create surf and rectangle to draw to screen
                         text_enemy_name_surf = font.render(str(enemy.name), True, "black", "light yellow")
@@ -4948,8 +3713,6 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # if player is in shop -------------------------------------------------------------------------------------
             if in_shop:
-                status_and_inventory_updates()
-                equipment_updates()
 
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
@@ -4971,7 +3734,7 @@ while game_running:
                             item_bought = False
                             item_sold = False
                         # get which button player pressed during shop scenario (buy or leave)---------------------------
-                        shop_button = shop_event_button(event)
+                        shop_button = click_handlers.shop_event_button(event, buy_button, leave_button)
                         if shop_button == "buy":
                             # if player hasn't bought an item yet, show message that item can be clicked to buy
                             if not item_bought:
@@ -5048,7 +3811,6 @@ while game_running:
                             buy_clicked = False
                             movement_able = True
                             interacted = False
-                            info_update = True
                             encounter_started = False
                             in_shop = False
                             in_over_world = True
@@ -5056,7 +3818,7 @@ while game_running:
                         # ----------------------------------------------------------------------------------------------
                         # shop click handlers --------------------------------------------------------------------------
                         if buy_clicked:
-                            buy_item = buy_event_item(event)
+                            buy_item = click_handlers.buy_event_item(event, shopkeeper_items)
                             try:
                                 # player has clicked health potion. If player has enough rupees it will buy item
                                 # and add to their inventory. Also subtracts the price from current rupee count
@@ -5184,7 +3946,7 @@ while game_running:
                                 pass
 
                         # handles selling items when clicked
-                        sell_item = sell_event_item(event)
+                        sell_item = click_handlers.sell_event_item(event)
                         try:
                             # player has clicked health potion. This will sell the item, removing it from
                             # inventory and giving them "x" rupees to add to their current count
@@ -5192,77 +3954,77 @@ while game_running:
                                 info_text_1 = "Sold Health Potion for 5 rupees."
                                 info_text_2 = "Health Potion removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 5
                                 item_sold = True
                             if sell_item.name == "energy potion":
                                 info_text_1 = "Sold Energy Potion for 5 rupees."
                                 info_text_2 = "Energy Potion removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 5
                                 item_sold = True
                             if sell_item.name == "shiny rock":
                                 info_text_1 = "Sold Shiny Rock for 5 rupees."
                                 info_text_2 = "Shiny Rock removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 5
                                 item_sold = True
                             if sell_item.name == "bone dust":
                                 info_text_1 = "Sold Bone Dust for 10 rupees."
                                 info_text_2 = "Bone Dust removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 10
                                 item_sold = True
                             if sell_item.name == "basic staff":
                                 info_text_1 = "Sold Basic Staff for 5 rupees."
                                 info_text_2 = "Basic Staff removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 5
                                 item_sold = True
                             if sell_item.name == "basic sword":
                                 info_text_1 = "Sold Basic Sword for 5 rupees."
                                 info_text_2 = "Basic Sword removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 5
                                 item_sold = True
                             if sell_item.name == "basic bow":
                                 info_text_1 = "Sold Basic Bow for 5 rupees."
                                 info_text_2 = "Basic Bow removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 5
                                 item_sold = True
                             if sell_item.name == "basic robes":
                                 info_text_1 = "Sold Basic Robes for 5 rupees."
                                 info_text_2 = "Basic Robes removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 5
                                 item_sold = True
                             if sell_item.name == "basic armor":
                                 info_text_1 = "Sold Basic Armor for 5 rupees."
                                 info_text_2 = "Basic Armor removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 5
                                 item_sold = True
                             if sell_item.name == "basic tunic":
                                 info_text_1 = "Sold Basic Tunic for 5 rupees."
                                 info_text_2 = "Basic Tunic removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 player.rupees = player.rupees + 5
                                 item_sold = True
                             if sell_item.name == "temporary item":
                                 info_text_1 = "Sold Temporary Item for 0 rupees."
                                 info_text_2 = "Temporary Item removed from inventory."
                                 player.items.remove(sell_item)
-                                player_items.remove(sell_item)
+                                drawing_functions.player_items.remove(sell_item)
                                 item_sold = True
                         except AttributeError:
                             pass
@@ -5279,12 +4041,9 @@ while game_running:
                         screen.blit(buy_button.surf, buy_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
-                        for item in player_items:
-                            screen.blit(item.surf, item.rect)
-                        for equipment in player_equipment:
-                            screen.blit(equipment.surf, equipment.rect)
-                        drawing_functions.text_info_draw(screen, player, font,
-                                                         info_text_1, info_text_2, info_text_3, info_text_4)
+
+                        player_info_and_ui_updates()
+
                         if buy_clicked:
                             for window in buy_shop_elements:
                                 screen.blit(window.surf, window.rect)
@@ -5295,38 +4054,33 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # if player is in inn
             if in_inn:
-                status_and_inventory_updates()
-                equipment_updates()
-                if not gear_checked:
-                    gear_checked = gear_check()
-                if not weapon_checked:
-                    weapon_checked = weapon_check()
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
                             exit()
 
-                    # click handlers for inn event loop ----------------------------------------------------------------
-                    inventory_event = inventory_click_handler()
+                    # click handlers -----------------------------------------------------------------------------------
+                    inventory_event = click_handlers.inventory_click_handler(player, event,
+                                                                             player_mage_amuna_down_1,
+                                                                             player_mage_nuldar_down_1,
+                                                                             player_mage_sorae_down_1,
+                                                                             player_fighter_amuna_down_1,
+                                                                             player_fighter_nuldar_down_1,
+                                                                             player_fighter_sorae_down_1,
+                                                                             player_scout_amuna_down_1,
+                                                                             player_scout_nuldar_down_1,
+                                                                             player_scout_sorae_down_1)
                     if inventory_event["item message"] != "":
                         info_text_1 = inventory_event["item message"]
                         info_text_2 = ""
-                        info_update = True
-                    if not inventory_event["gear checked"]:
-                        gear_checked = False
-                    if not inventory_event["weapon checked"]:
-                        weapon_checked = False
-                    equipment_event = equipment_click_handler()
+                    # function to handle equipment item clicks. apply item message to message box if not empty str.
+                    equipment_event = click_handlers.equipment_click_handler(player, event,
+                                                                             player_no_role_amuna_down_1,
+                                                                             player_no_role_nuldar_down_1,
+                                                                             player_no_role_sorae_down_1)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
-                        info_update = True
-                    if not equipment_event["gear checked"]:
-                        gear_checked = False
-                    if not equipment_event["weapon checked"]:
-                        weapon_checked = False
-                    elif event.type == QUIT:
-                        exit()
 
                     inn = pygame.sprite.spritecollideany(player, buildings)
                     if building.name == "inn":
@@ -5338,7 +4092,7 @@ while game_running:
                             info_text_4 = ""
                             encounter_started = True
                         # get which button player pressed during inn scenario (rest or leave)
-                        inn_button = inn_event_button(event)
+                        inn_button = click_handlers.inn_event_button(event, rest_button, leave_button)
                         if inn_button == "rest":
                             # if player has not yet rested this instance
                             if not rested:
@@ -5359,7 +4113,6 @@ while game_running:
                         rest_clicked = False
                         movement_able = True
                         interacted = False
-                        info_update = True
                         encounter_started = False
                         in_inn = False
                         in_over_world = True
@@ -5393,12 +4146,8 @@ while game_running:
                     screen.blit(rest_button.surf, rest_button.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
                     screen.blit(message_box.surf, message_box.rect)
-                    for item in player_items:
-                        screen.blit(item.surf, item.rect)
-                    for equipment in player_equipment:
-                        screen.blit(equipment.surf, equipment.rect)
-                    drawing_functions.text_info_draw(screen, player, font,
-                                                     info_text_1, info_text_2, info_text_3, info_text_4)
+
+                    player_info_and_ui_updates()
 
                     # --------------------------------------------------------------------------------------------------
                     if rest_clicked:
@@ -5416,38 +4165,33 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # if player is in academia
             if in_academia:
-                status_and_inventory_updates()
-                equipment_updates()
-                if not gear_checked:
-                    gear_checked = gear_check()
-                if not weapon_checked:
-                    weapon_checked = weapon_check()
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
                             exit()
 
                     # click handlers -----------------------------------------------------------------------------------
-                    inventory_event = inventory_click_handler()
+                    inventory_event = click_handlers.inventory_click_handler(player, event,
+                                                                             player_mage_amuna_down_1,
+                                                                             player_mage_nuldar_down_1,
+                                                                             player_mage_sorae_down_1,
+                                                                             player_fighter_amuna_down_1,
+                                                                             player_fighter_nuldar_down_1,
+                                                                             player_fighter_sorae_down_1,
+                                                                             player_scout_amuna_down_1,
+                                                                             player_scout_nuldar_down_1,
+                                                                             player_scout_sorae_down_1)
                     if inventory_event["item message"] != "":
                         info_text_1 = inventory_event["item message"]
                         info_text_2 = ""
-                        info_update = True
-                    if not inventory_event["gear checked"]:
-                        gear_checked = False
-                    if not inventory_event["weapon checked"]:
-                        weapon_checked = False
-                    equipment_event = equipment_click_handler()
+                    # function to handle equipment item clicks. apply item message to message box if not empty str.
+                    equipment_event = click_handlers.equipment_click_handler(player, event,
+                                                                             player_no_role_amuna_down_1,
+                                                                             player_no_role_nuldar_down_1,
+                                                                             player_no_role_sorae_down_1)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
-                        info_update = True
-                    if not equipment_event["gear checked"]:
-                        gear_checked = False
-                    if not equipment_event["weapon checked"]:
-                        weapon_checked = False
-                    elif event.type == QUIT:
-                        exit()
 
                     academia = pygame.sprite.spritecollideany(player, buildings)
                     if building.name == "academia":
@@ -5458,7 +4202,10 @@ while game_running:
                             info_text_4 = ""
                             encounter_started = True
                         # get which button player pressed during academia scenario (learn or leave)
-                        academia_button = academia_event_button(event)
+                        academia_button = click_handlers.academia_event_button(event, mage_learn_button,
+                                                                               fighter_learn_button,
+                                                                               scout_learn_button,
+                                                                               leave_button)
                         if academia_button == "mage learn":
                             mage_learn_clicked = True
                         if academia_button == "fighter learn":
@@ -5471,7 +4218,6 @@ while game_running:
                         learn_clicked = False
                         movement_able = True
                         interacted = False
-                        info_update = True
                         encounter_started = False
                         in_academia = False
                         in_over_world = True
@@ -5483,7 +4229,7 @@ while game_running:
                         skill_learn_items.clear()
 
                     # get which button player pressed during book skill open (skill or close)
-                    book_button = skill_learn_event_item(event)
+                    book_button = click_handlers.skill_learn_event_item(event, skill_learn_items)
                     if mage_learn_clicked:
                         try:
                             if book_button.name == "barrier learn button":
@@ -5562,16 +4308,12 @@ while game_running:
                         screen.blit(scout_learn_button.surf, scout_learn_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
-                    for item in player_items:
-                        screen.blit(item.surf, item.rect)
-                    for equipment in player_equipment:
-                        screen.blit(equipment.surf, equipment.rect)
+                    player_info_and_ui_updates()
                     for book in books:
                         screen.blit(book.surf, book.rect)
                     for skill_item in skill_learn_items:
                         screen.blit(skill_item.surf, skill_item.rect)
-                    drawing_functions.text_info_draw(screen, player, font,
-                                                     info_text_1, info_text_2, info_text_3, info_text_4)
+
                     screen.blit(knowledge_window.surf, knowledge_window.rect)
                     text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
                                                            "light yellow")
@@ -5606,42 +4348,35 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # if player interacting with an npc (quest) ----------------------------------------------------------------
             if in_npc_interaction:
-                # update players current inventory and status
-                status_and_inventory_updates()
-                # update players current equipment
-                equipment_updates()
-                if not gear_checked:
-                    gear_checked = gear_check()
-                if not weapon_checked:
-                    weapon_checked = weapon_check()
-
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
                             exit()
                     if event.type == pygame.MOUSEBUTTONUP:
                         pos = pygame.mouse.get_pos()
-                    # click handlers for npc event loop
-                    inventory_event = inventory_click_handler()
+
+                    # click handlers -----------------------------------------------------------------------------------
+                    inventory_event = click_handlers.inventory_click_handler(player, event,
+                                                                             player_mage_amuna_down_1,
+                                                                             player_mage_nuldar_down_1,
+                                                                             player_mage_sorae_down_1,
+                                                                             player_fighter_amuna_down_1,
+                                                                             player_fighter_nuldar_down_1,
+                                                                             player_fighter_sorae_down_1,
+                                                                             player_scout_amuna_down_1,
+                                                                             player_scout_nuldar_down_1,
+                                                                             player_scout_sorae_down_1)
                     if inventory_event["item message"] != "":
                         info_text_1 = inventory_event["item message"]
                         info_text_2 = ""
-                        info_update = True
-                    if not inventory_event["gear checked"]:
-                        gear_checked = False
-                    if not inventory_event["weapon checked"]:
-                        weapon_checked = False
-                    equipment_event = equipment_click_handler()
+                    # function to handle equipment item clicks. apply item message to message box if not empty str.
+                    equipment_event = click_handlers.equipment_click_handler(player, event,
+                                                                             player_no_role_amuna_down_1,
+                                                                             player_no_role_nuldar_down_1,
+                                                                             player_no_role_sorae_down_1)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
-                        info_update = True
-                    if not equipment_event["gear checked"]:
-                        gear_checked = False
-                    if not equipment_event["weapon checked"]:
-                        weapon_checked = False
-                    elif event.type == QUIT:
-                        exit()
 
                     if level_up_win.rect.collidepoint(pos):
                         drawing_functions.level_up_draw(level_up_win, player, font, False)
@@ -5673,7 +4408,7 @@ while game_running:
                                             info_text_4 = "50 xp and 10 amuna rep. "
                                             player.experience += 50
                                             if player.experience >= 100:
-                                                level_up()
+                                                gameplay_functions.level_up(player)
                                             player.reputation["amuna"] += 10
                                             player.items.append(Item("health potion", "potion", 200, 200,
                                                                      health_pot_img))
@@ -5715,7 +4450,7 @@ while game_running:
                                             info_text_4 = "50 xp and 10 amuna rep. "
                                             player.experience += 50
                                             if player.experience >= 100:
-                                                level_up()
+                                                gameplay_functions.level_up(player)
                                             player.reputation["amuna"] += 10
                                             player.items.append(Item("temporary item", "trinket", 200, 200, temp_img))
                                         else:
@@ -5751,7 +4486,7 @@ while game_running:
                                             info_text_4 = "50 xp and 10 amuna rep. "
                                             player.experience += 50
                                             if player.experience >= 100:
-                                                level_up()
+                                                gameplay_functions.level_up(player)
                                             player.reputation["amuna"] += 10
                                         else:
                                             info_text_1 = "You completed the quest, but "
@@ -5816,7 +4551,6 @@ while game_running:
                             if npc_button == "leave":
                                 movement_able = True
                                 interacted = False
-                                info_update = True
                                 encounter_started = False
                                 in_npc_interaction = False
                                 in_over_world = True
@@ -5847,12 +4581,8 @@ while game_running:
                     if npc.name == "guard":
                         screen.blit(npc_guard_interaction.surf, npc_guard_interaction.rect)
 
-                    for item in player_items:
-                        screen.blit(item.surf, item.rect)
-                    for equipment in player_equipment:
-                        screen.blit(equipment.surf, equipment.rect)
-                    drawing_functions.text_info_draw(screen, player, font,
-                                                     info_text_1, info_text_2, info_text_3, info_text_4)
+                    player_info_and_ui_updates()
+
                     # get current npc name and create surf and rectangle to draw to screen
                     text_npc_name_surf = font.render(str(npc.name), True, "black", "light yellow")
                     text_npc_name_rect = text_npc_name_surf.get_rect()
@@ -5861,82 +4591,79 @@ while game_running:
                     drawing_functions.draw_it(screen)
 
             # ----------------------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
             # if player is in korlok over world
             if player.current_zone == "korlok" and in_over_world:
-                # clear info update after some time has passed
-                if pygame.time.get_ticks() % 287 == 0:
-                    info_update = False
-                # clear loot update after some time has passed
-                if pygame.time.get_ticks() % 517 == 0:
-                    loot_update = False
-                # if player is not currently in range of sprite and there is not an active info update,
-                # clear message box
-                sprite = pygame.sprite.spritecollideany(player, most_sprites)
-                if not sprite:
-                    if not info_update:
-                        info_text_1 = ""
-                        info_text_2 = ""
-                    if not loot_update:
-                        info_text_3 = ""
-                        info_text_4 = ""
-
-                # create blank background to be drawn on top of for each iteration
-                screen.fill((255, 255, 255))  # (255, 255, 255) RGB value for WHITE
-                # draw screen 1 background
                 screen.blit(korlok_district_bg, (0, 0))
-
-                # draw user interface elements
-                for ui_element in user_interface:
-                    screen.blit(ui_element.surf, ui_element.rect)
-                # get screen option elements and draw window
-                for window in display_elements:
-                    screen.blit(window.surf, window.rect)
 
                 rohir_gate.update(525, 600, pygame.image.load(resource_urls.rohir_gate).convert())
                 screen.blit(rohir_gate.surf, rohir_gate.rect)
 
-                # draw player
-                screen.blit(player.surf, player.rect)
-
-                # handles drawing most text based elements to the screen, such as level, rupees, etc
-                drawing_functions.draw_it(screen)
-
-                screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-                screen.blit(hp_bar.surf, hp_bar.rect)
-                screen.blit(en_bar.surf, en_bar.rect)
-                screen.blit(xp_bar.surf, xp_bar.rect)
-
-                # draw texts to the screen, like message box, player rupees and level
-                drawing_functions.text_info_draw(screen, player, font,
-                                                 info_text_1, info_text_2, info_text_3, info_text_4)
-                # update players current inventory and status
-                status_and_inventory_updates()
-                # update players current equipment
-                equipment_updates()
-                # if players gear hasn't been checked, due to initial iteration or if equipment was updated
-                # elsewhere, then check their current gear and apply stat bonus based on item equipped
-                if not gear_checked:
-                    gear_checked = gear_check()
-                if not weapon_checked:
-                    weapon_checked = weapon_check()
-
+                # hearth button is clicked, sets fade transition for hearth screen and then back to district bg --------
+                if hearth_clicked:
+                    screen.fill((0, 0, 0))
+                    for alpha in range(0, 200):
+                        seldon_hearth_screen.set_alpha(alpha)
+                        screen.blit(seldon_hearth_screen, (0, 0))
+                        # flip sleep screen to display each iteration to show fade
+                        pygame.display.flip()
+                    hearth_clicked = False
+                    hearthed = True
+                if hearthed:
+                    screen.fill((0, 0, 0))
+                    for alpha in range(0, 50):
+                        seldon_district_bg.set_alpha(alpha)
+                        screen.blit(seldon_district_bg, (0, 0))
+                        # flip sleep screen to display each iteration to show fade
+                        pygame.display.flip()
+                    seldon_district_bg.set_alpha(255)
+                    screen.blit(seldon_district_bg, (0, 0))
+                    pygame.display.flip()
+                    hearthed = False
+                    info_text_1 = "You recalled to the hearth stone."
                 # ------------------------------------------------------------------------------------------------------
-                # all in-game events such as key presses or UI interaction
+
+                player_info_and_ui_updates()
+
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
-                        # escape key was pressed, exit game
                         if event.key == K_ESCAPE:
                             exit()
-                        # "F" key for player interaction
                         if event.key == K_f:
-                            interacted = True
-                    # if the unstuck button was clicked, move the player to bottom right corner of screen
+                            if pygame.sprite.spritecollideany(player, most_sprites):
+                                interacted = True
+                    elif event.type == QUIT:
+                        exit()
+
                     if event.type == pygame.MOUSEBUTTONUP:
                         pos = pygame.mouse.get_pos()
                         if hearth_button.rect.collidepoint(pos):
-                            player.pos = vector((850, 650))
+                            hearth_clicked = True
+                            player.current_zone = "seldon"
+                            player.x_coordinate = 850
+                            player.y_coordinate = 650
+                        if save_button.rect.collidepoint(pos):
+                            try:
+                                with open("save_game", "rb") as f:
+                                    saved = True
+                            except FileNotFoundError:
+                                saved = False
+                                pass
+                            if saved:
+                                save_check_window.append(save_check)
+                                save_check_window.append(yes_button)
+                                save_check_window.append(no_button)
+                            if not saved:
+                                save_game()
+                                saved = True
+                                info_text_1 = "You saved your game. "
+                        if yes_button.rect.collidepoint(pos):
+                            save_game()
+                            save_check_window.clear()
+                            info_text_1 = "You saved your game. "
+                        if no_button.rect.collidepoint(pos):
+                            save_check_window.clear()
 
-                        # if character button is clicked, call draw function and show elements. second click hides
                         if character_button.rect.collidepoint(pos):
                             if character_button_clicked:
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
@@ -5944,8 +4671,6 @@ while game_running:
                             else:
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
                                 character_button_clicked = True
-
-                        # if journal button is clicked, call draw function and show elements. second click hides
                         if journal_button.rect.collidepoint(pos):
                             if journal_button_clicked:
                                 drawing_functions.journal_info_draw(journal, player, font, False)
@@ -5954,19 +4679,8 @@ while game_running:
                                 drawing_functions.journal_info_draw(journal, player, font, True)
                                 journal_button_clicked = True
 
-                        # when player levels up, this lets them click to dismiss the window pop-up
                         if level_up_win.rect.collidepoint(pos):
                             drawing_functions.level_up_draw(level_up_win, player, font, False)
-
-                        if knowledge_academia.rect.collidepoint(pos) and knowledge_academia_show:
-                            knowledge_window_clicked = True
-                        if rest_recover.rect.collidepoint(pos) and rest_recover_show:
-                            rest_window_clicked = True
-                        if shop_gear.rect.collidepoint(pos) and shop_gear_show:
-                            shop_window_clicked = True
-
-                    elif event.type == QUIT:
-                        exit()
 
                     # --------------------------------------------------------------------------------------------------
                     quest_item = pygame.sprite.spritecollideany(player, quest_items)
@@ -5978,50 +4692,49 @@ while game_running:
                                     player.current_zone = "seldon"
                                     in_over_world = True
                                     interacted = False
-                                    rohir_gate.update(525, 40,
-                                                      pygame.image.load(resource_urls.rohir_gate).convert())
-
+                                    rohir_gate.update(525, 40, pygame.image.load(resource_urls.rohir_gate).convert())
                     except AttributeError:
                         pass
 
-                    # click handlers for main event loop ---------------------------------------------------------------
-                    # --------------------------------------------------------------------------------------------------
-                    # function to handle inventory item clicks. apply item message to message box if not empty str.
-                    inventory_event = inventory_click_handler()
+                    # click handlers -----------------------------------------------------------------------------------
+                    inventory_event = click_handlers.inventory_click_handler(player, event,
+                                                                             player_mage_amuna_down_1,
+                                                                             player_mage_nuldar_down_1,
+                                                                             player_mage_sorae_down_1,
+                                                                             player_fighter_amuna_down_1,
+                                                                             player_fighter_nuldar_down_1,
+                                                                             player_fighter_sorae_down_1,
+                                                                             player_scout_amuna_down_1,
+                                                                             player_scout_nuldar_down_1,
+                                                                             player_scout_sorae_down_1)
                     if inventory_event["item message"] != "":
                         info_text_1 = inventory_event["item message"]
                         info_text_2 = ""
-                        info_update = True
-                    # if click handler returns that an equitable item has been updated, set gear_checked to false
-                    # so that gear check function will run and get players current stats with new item equipped
-                    if not inventory_event["gear checked"]:
-                        gear_checked = False
-                    if not inventory_event["weapon checked"]:
-                        weapon_checked = False
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = equipment_click_handler()
+                    equipment_event = click_handlers.equipment_click_handler(player, event,
+                                                                             player_no_role_amuna_down_1,
+                                                                             player_no_role_nuldar_down_1,
+                                                                             player_no_role_sorae_down_1)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
-                        info_update = True
-                    # same as above but for when an equipment item is un-equipped
-                    if not equipment_event["gear checked"]:
-                        gear_checked = False
-                    if not equipment_event["weapon checked"]:
-                        weapon_checked = False
 
-                # outside of main event loop ---------------------------------------------------------------------------
-                # ------------------------------------------------------------------------------------------------------
-                # get current pressed keys from player and apply zone boundaries depending on current zone
-                pressed_keys = pygame.key.get_pressed()
-                # Apply pressed keys update to movement based on zone boundaries, defined in player.update()
-                if zone_korlok:
-                    if movement_able:
-                        player.update(pressed_keys, "korlok", 0)
+                # outside of event loop --------------------------------------------------------------------------------
+                walking_return_korlok = walk_time(walk_tic)
+                if walking_return_korlok["reset"]:
+                    walk_tic = time.perf_counter()
+                if movement_able:
+                    pressed_keys = pygame.key.get_pressed()
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.update("right", "korlok", walking_return_korlok["total time"])
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.update("left", "korlok", walking_return_korlok["total time"])
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.update("up", "korlok", walking_return_korlok["total time"])
+                    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
+                        player.update("down", "korlok", walking_return_korlok["total time"])
 
             # end of whole iteration -----------------------------------------------------------------------------------
-            # ----------------------------------------------------------------------------------------------------------
-            # flip to display ------------------------------------------------------------------------------------------
             pygame.display.flip()
             # 60 frames per second game rate ---------------------------------------------------------------------------
             clock.tick(60)
@@ -6034,8 +4747,6 @@ while game_running:
             screen.blit(game_over_screen, (0, 0))
             screen.blit(lets_go_button.surf, lets_go_button.rect)
 
-            # ----------------------------------------------------------------------------------------------------------
-            # user input events such as key presses or UI interaction
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
@@ -6076,7 +4787,6 @@ while game_running:
                             player.x_coordinate = 500
                             player.y_coordinate = 500
                             player.rect = player.surf.get_rect(center=(player.x_coordinate, player.y_coordinate))
-
                         player.health = 50
                         player.energy = 50
 
@@ -6085,9 +4795,7 @@ while game_running:
                             enemy.health = 100
                             enemy.health_bar.update(enemy.health_bar.x_coordinate, enemy.health_bar.y_coordinate,
                                                     health_bar_update(enemy))
-
                         player.alive_status = True
-
                 elif event.type == QUIT:
                     exit()
             pygame.display.flip()

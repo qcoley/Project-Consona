@@ -10,52 +10,48 @@ def resource_path(relative_path):
 
 
 # non sprite sheets ----------------------------------------------------------------------------------------------------
-amuna_character_screen = resource_path('resources/art/amuna_character_select.png')
-nuldar_character_screen = resource_path('resources/art/nuldar_character_select.png')
-sorae_character_screen = resource_path('resources/art/sorae_character_select.png')
-nascent_grove_screen = resource_path('resources/art/nascent_grove.png')
-stardust_outpost_screen = resource_path('resources/art/stardust_post.png')
-seldon_bg_screen = resource_path('resources/art/seldon_district.png')
-seldon_battle_screen = resource_path('resources/art/seldon_battle_screen.png')
-seldon_shop_screen = resource_path('resources/art/seldon_shop.png')
-seldon_inn_screen = resource_path('resources/art/seldon_inn.png')
-seldon_academia_screen = resource_path('resources/art/seldon_academia.png')
-seldon_hearth_screen = resource_path('resources/art/seldon_hearth_screen.png')
-korlok_bg_screen = resource_path('resources/art/korlok_district.png')
-game_over_screen = resource_path('resources/art/game_over.png')
-start_screen = resource_path('resources/art/start_screen.png')
-nera_sleep_screen = resource_path('resources/art/nera_sleep_screen.png')
-level_up = resource_path('resources/art/level_up.png')
-bar_backdrop = resource_path('resources/art/status_bar_backdrop.png')
-enemy_bar_backdrop = resource_path('resources/art/enemy_status_bar_backdrop.png')
-enemy_status = resource_path('resources/art/enemy_status_backdrop.png')
-buy_inventory = resource_path('resources/art/buy_inventory.png')
-inventory = resource_path('resources/art/inventory.png')
-message_box = resource_path('resources/art/message_box.png')
-pine_tree = resource_path('resources/art/pine_tree.png')
-seldon_grass = resource_path('resources/art/seldon_grass.png')
-seldon_flower = resource_path('resources/art/seldon_flower.png')
-hearth_stone = resource_path('resources/art/hearth_stone.png')
-rohir_gate = resource_path('resources/art/rohir_gate.png')
-quest_logs = resource_path('resources/art/logs.png')
-lets_go_button = resource_path('resources/art/lets_go_button.png')
-learn_button = resource_path('resources/art/learn.png')
-skill_learn_button = resource_path('resources/art/skill_learn.png')
-game_play_function_buttons_url = resource_path('resources/art/game_play_function_buttons.png')
-nascent_gate_url = resource_path('resources/art/nascent_gate.png')
-nascent_gate_popup_url = resource_path('resources/art/nascent_gate_popup.png')
-
-close_button = resource_path('resources/art/close.png')
-knowledge_window = resource_path('resources/art/knowledge.png')
-skill_bar = resource_path('resources/art/skill_bar.png')
-start_button = resource_path('resources/art/start_button.png')
-npc_name_plate = resource_path('resources/art/npc_name_plate.png')
-character_select_overlay_url = resource_path('resources/art/character_select_overlay.png')
-name_input_url = resource_path('resources/art/name_input.png')
-race_select_overlays_url = resource_path('resources/art/race_select_overlays.png')
+amuna_character_screen = resource_path('resources/art/screen_amuna_character_select.png')
+nuldar_character_screen = resource_path('resources/art/screen_nuldar_character_select.png')
+sorae_character_screen = resource_path('resources/art/screen_sorae_character_select.png')
+nascent_grove_screen = resource_path('resources/art/bg_nascent_grove.png')
+stardust_outpost_screen = resource_path('resources/art/bg_stardust_post.png')
+seldon_bg_screen = resource_path('resources/art/bg_seldon_district.png')
+korlok_bg_screen = resource_path('resources/art/bg_korlok_district.png')
+seldon_battle_screen = resource_path('resources/art/bg_seldon_battle_screen.png')
+seldon_shop_screen = resource_path('resources/art/bg_seldon_shop.png')
+seldon_inn_screen = resource_path('resources/art/bg_seldon_inn.png')
+seldon_academia_screen = resource_path('resources/art/bg_seldon_academia.png')
+seldon_hearth_screen = resource_path('resources/art/screen_seldon_hearth.png')
+game_over_screen = resource_path('resources/art/screen_game_over.png')
+start_screen = resource_path('resources/art/screen_start.png')
+nera_sleep_screen = resource_path('resources/art/screen_nera_sleep.png')
+bar_backdrop = resource_path('resources/art/overlay_status_bar_backdrop.png')
+enemy_status = resource_path('resources/art/overlay_enemy_status_backdrop.png')
+enemy_bar_backdrop = resource_path('resources/art/overlay_enemy_status_bar.png')
+buy_inventory = resource_path('resources/art/overlay_buy_inventory.png')
+message_box = resource_path('resources/art/overlay_message_box.png')
+nascent_gate_url = resource_path('resources/art/sprites_nascent_gate.png')
+pine_tree = resource_path('resources/art/sprite_pine_tree.png')
+hearth_stone = resource_path('resources/art/sprite_hearth_stone.png')
+quest_logs = resource_path('resources/art/sprite_logs.png')
+rohir_gate = resource_path('resources/art/overlay_rohir_gate.png')
+lets_go_button = resource_path('resources/art/button_lets_go.png')
+learn_button = resource_path('resources/art/overlay_learn.png')
+skill_learn_button = resource_path('resources/art/overlay_skill_learn.png')
+game_play_function_buttons_url = resource_path('resources/art/buttons_game_play_function.png')
+nascent_gate_popup_url = resource_path('resources/art/popup_nascent_gate.png')
+level_up = resource_path('resources/art/popup_level_up.png')
+close_button = resource_path('resources/art/button_close.png')
+knowledge_window = resource_path('resources/art/overlay_knowledge.png')
+skill_bar = resource_path('resources/art/overlay_skill_bar.png')
+start_button = resource_path('resources/art/button_start.png')
+npc_name_plate = resource_path('resources/art/overlay_npc_name_plate.png')
+character_select_overlay_url = resource_path('resources/art/overlay_character_select.png')
+name_input_url = resource_path('resources/art/overlay_name_input.png')
+race_select_overlays_url = resource_path('resources/art/overlays_race_select.png')
 
 # create character screen character race selections
-character_selections = resource_path('resources/art/character_selections.png')
+character_selections = resource_path('resources/art/overlay_character_selections.png')
 # player no role amuna race --------------------------------------------------------------------------------------------
 player_no_role_amuna_down_url = resource_path('resources/art/player_no_role_amuna_down.png')
 player_no_role_amuna_up_url = resource_path('resources/art/player_no_role_amuna_up.png')
@@ -129,44 +125,44 @@ player_battle_nuldar_url = resource_path('resources/art/player_battle_sprites_nu
 # player skills sorae race ---------------------------------------------------------------------------------------------
 player_skills_nuldar_url = resource_path('resources/art/player_battle_sprites_skills_nuldar.png')
 # garan npc ------------------------------------------------------------------------------------------------------------
-garan_url = resource_path('resources/art/garans.png')
+garan_url = resource_path('resources/art/sprites_garans.png')
 # maurelle npc ---------------------------------------------------------------------------------------------------------
-maurelle_url = resource_path('resources/art/maurelles.png')
+maurelle_url = resource_path('resources/art/sprites_maurelles.png')
 # guard npc ------------------------------------------------------------------------------------------------------------
-guard_url = resource_path('resources/art/guards.png')
+guard_url = resource_path('resources/art/sprites_guards.png')
 # npc interactions -----------------------------------------------------------------------------------------------------
-npc_interactions_url = resource_path('resources/art/npc_interactions.png')
+npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
 # enemies --------------------------------------------------------------------------------------------------------------
-enemies_url = resource_path('resources/art/enemies.png')
+enemies_url = resource_path('resources/art/sprites_enemies.png')
 # enemies battle -------------------------------------------------------------------------------------------------------
-enemies_battle_url = resource_path('resources/art/enemies_battle.png')
+enemies_battle_url = resource_path('resources/art/sprites_enemies_battle.png')
 # amuna buildings ------------------------------------------------------------------------------------------------------
-amuna_buildings_url = resource_path('resources/art/amuna_buildings.png')
+amuna_buildings_url = resource_path('resources/art/sprites_amuna_buildings.png')
 # items ----------------------------------------------------------------------------------------------------------------
-items_url = resource_path('resources/art/items.png')
+items_url = resource_path('resources/art/overlay_items.png')
 # player info windows --------------------------------------------------------------------------------------------------
-player_info_url = resource_path('resources/art/info_sheets.png')
+player_info_url = resource_path('resources/art/overlay_info_sheets.png')
 # books ----------------------------------------------------------------------------------------------------------------
-books_url = resource_path('resources/art/role_books.png')
+books_url = resource_path('resources/art/overlay_role_books.png')
 # start screen buttons -------------------------------------------------------------------------------------------------
-start_buttons_url = resource_path('resources/art/start_buttons.png')
+start_buttons_url = resource_path('resources/art/buttons_start_screen.png')
 # race select buttons on character screen ------------------------------------------------------------------------------
-race_select_buttons_url = resource_path('resources/art/race_select_buttons.png')
+race_select_buttons_url = resource_path('resources/art/buttons_race_select.png')
 # buttons --------------------------------------------------------------------------------------------------------------
-buttons_url = resource_path('resources/art/main_buttons.png')
+buttons_url = resource_path('resources/art/buttons_main.png')
 # attack buttons -------------------------------------------------------------------------------------------------------
-attack_buttons_url = resource_path('resources/art/attacks.png')
+attack_buttons_url = resource_path('resources/art/overlay_attacks.png')
 # skill buttons --------------------------------------------------------------------------------------------------------
-skill_buttons_url = resource_path('resources/art/skills.png')
+skill_buttons_url = resource_path('resources/art/overlay_skills.png')
 # quest windows --------------------------------------------------------------------------------------------------------
-quest_windows_url = resource_path('resources/art/quest_sheets.png')
+quest_windows_url = resource_path('resources/art/overlay_quest_sheets.png')
 # quest stars ----------------------------------------------------------------------------------------------------------
-quest_stars_url = resource_path('resources/art/quest_stars.png')
+quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
 # pop up notifications -------------------------------------------------------------------------------------------------
-popups_url = resource_path('resources/art/pop_ups.png')
+popups_url = resource_path('resources/art/popups_main.png')
 # heath bars -----------------------------------------------------------------------------------------------------------
-hp_url = resource_path('resources/art/health_bars.png')
+hp_url = resource_path('resources/art/bars_health.png')
 # energy bars ----------------------------------------------------------------------------------------------------------
-en_url = resource_path('resources/art/energy_bars.png')
+en_url = resource_path('resources/art/bars_energy.png')
 # energy bars ----------------------------------------------------------------------------------------------------------
-xp_url = resource_path('resources/art/xp_bars.png')
+xp_url = resource_path('resources/art/bars_xp.png')
