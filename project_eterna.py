@@ -9,6 +9,7 @@ import resource_urls
 import drawing_functions
 import combat_scenario
 import character_creation
+import shop_scenario
 
 # global variables -----------------------------------------------------------------------------------------------------
 SCREEN_WIDTH = 1280
@@ -1333,6 +1334,18 @@ books_sheet = SpriteSheet(resource_urls.books_url)
 mage_book_img = books_sheet.get_image(0, 0, 700, 525)
 fighter_book_img = books_sheet.get_image(700, 0, 700, 525)
 scout_book_img = books_sheet.get_image(1400, 0, 700, 525)
+# sell items
+sell_items_sheet = SpriteSheet(resource_urls.sell_items_url)
+s_health_pot_img = sell_items_sheet .get_image(0, 0, 238, 240)
+s_energy_pot_img = sell_items_sheet .get_image(238, 0, 238, 240)
+s_basic_robes_img = sell_items_sheet.get_image(476, 0, 238, 240)
+s_basic_armor_img = sell_items_sheet.get_image(714, 0, 238, 240)
+s_basic_tunic_img = sell_items_sheet.get_image(953, 0, 238, 240)
+s_basic_staff_img = sell_items_sheet.get_image(1191, 0, 238, 240)
+s_basic_sword_img = sell_items_sheet.get_image(1429, 0, 238, 240)
+s_basic_bow_img = sell_items_sheet.get_image(1667, 0, 238, 240)
+s_bone_dust_img = sell_items_sheet.get_image(1905, 0, 238, 240)
+s_shiny_rock_img = sell_items_sheet.get_image(2144, 0, 238, 240)
 # start screen buttons
 start_button_sheet = SpriteSheet(resource_urls.start_buttons_url)
 new_game_img = start_button_sheet.get_image(0, 0, 384, 75)
@@ -1712,6 +1725,7 @@ snake_battle_sprite = BattleCharacter("snake battle", 715, 250, snake_battle)
 ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, ghoul_battle)
 nascent_gate_popup = UiElement("nascent gate popup", 418, 200,
                                pygame.image.load(resource_urls.nascent_gate_popup_url).convert())
+sell_items = UiElement("sell items", 1155, 267, s_health_pot_img)
 
 font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
 level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
@@ -1806,6 +1820,8 @@ rest_recover_show = False
 rest_window_clicked = False
 saved = False
 entered = False
+yes_sell = False
+no_sell = False
 
 buy_shop_elements = []
 shopkeeper_items = []
@@ -1816,12 +1832,14 @@ rest_recover_window = []
 save_check_window = []
 save_data_window = []
 nascent_gate_popup_container = []
+sell_window = []
 
 info_text_1 = ""
 info_text_2 = ""
 info_text_3 = ""
 info_text_4 = ""
 character_name_input = ''
+current_sell_item = ''
 
 battle_info_to_return_to_main_loop = {"experience": 0, "item dropped": "", "leveled_up": False, "knowledge": ""}
 
@@ -2160,6 +2178,7 @@ while game_running:
                             player.y_coordinate = 650
                             info_text_1 = "You recalled to the hearth stone."
                         if save_button.rect.collidepoint(pos):
+                            yes_button.update(450, 394, yes_button_img)
                             try:
                                 with open("save_game", "rb") as f:
                                     saved = True
@@ -2307,6 +2326,7 @@ while game_running:
                             info_text_1 = "You recalled to the hearth stone."
                         # save button was clicked. Save player info in dictionary to be loaded later -------------------
                         if save_button.rect.collidepoint(pos):
+                            yes_button.update(450, 394, yes_button_img)
                             # see if there already exists a save file by trying to read it
                             try:
                                 with open("save_game", "rb") as f:
@@ -2985,52 +3005,11 @@ while game_running:
                             else:
                                 buy_clicked = True
                                 buy_shop_elements.insert(0, buy_inventory)
-                                # if shopkeeper has items in their inventory
-                                if len(npc_amuna_shopkeeper.items) > 0:
-                                    buy_first_coord = 810
-                                    buy_second_coord = 435
-                                    # ----------------------------------------------------------------------------------
-                                    buy_inventory_counter = 0
-                                    # go through shop items and assign inventory slots (coordinates) to them
-                                    for shop_item in npc_amuna_shopkeeper.items:
-                                        if shop_item.name == "health potion":
-                                            shop_item.update(buy_first_coord, buy_second_coord, health_pot_img)
-                                            shopkeeper_items.append(shop_item)
-                                            buy_inventory_counter += 1
-                                        if shop_item.name == "energy potion":
-                                            shop_item.update(buy_first_coord, buy_second_coord, energy_pot_img)
-                                            shopkeeper_items.append(shop_item)
-                                            buy_inventory_counter += 1
-                                        if shop_item.name == "basic staff":
-                                            shop_item.update(buy_first_coord, buy_second_coord, basic_staff_img)
-                                            shopkeeper_items.append(shop_item)
-                                            buy_inventory_counter += 1
-                                        if shop_item.name == "basic sword":
-                                            shop_item.update(buy_first_coord, buy_second_coord, basic_sword_img)
-                                            shopkeeper_items.append(shop_item)
-                                            buy_inventory_counter += 1
-                                        if shop_item.name == "basic bow":
-                                            shop_item.update(buy_first_coord, buy_second_coord, basic_bow_img)
-                                            shopkeeper_items.append(shop_item)
-                                            buy_inventory_counter += 1
-                                        if shop_item.name == "basic robes":
-                                            shop_item.update(buy_first_coord, buy_second_coord, basic_robes_img)
-                                            shopkeeper_items.append(shop_item)
-                                            buy_inventory_counter += 1
-                                        if shop_item.name == "basic armor":
-                                            shop_item.update(buy_first_coord, buy_second_coord, basic_armor_img)
-                                            shopkeeper_items.append(shop_item)
-                                            buy_inventory_counter += 1
-                                        if shop_item.name == "basic tunic":
-                                            shop_item.update(buy_first_coord, buy_second_coord, basic_tunic_img)
-                                            shopkeeper_items.append(shop_item)
-                                            buy_inventory_counter += 1
-
-                                        buy_first_coord += 60
-                                        if buy_inventory_counter > 3:
-                                            buy_second_coord += 60
-                                            buy_first_coord = 810
-                                            buy_inventory_counter = 0
+                                shop_scenario.shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items,
+                                                                         health_pot_img, energy_pot_img,
+                                                                         basic_staff_img, basic_sword_img,
+                                                                         basic_bow_img, basic_robes_img,
+                                                                         basic_armor_img, basic_tunic_img)
                         # ----------------------------------------------------------------------------------------------
                         # if player chooses to leave shop, set conditions to allow normal gameplay loop
                         if shop_button == "leave":
@@ -3048,207 +3027,166 @@ while game_running:
                         # shop click handlers --------------------------------------------------------------------------
                         if buy_clicked:
                             buy_item = click_handlers.buy_event_item(event, shopkeeper_items)
-                            try:
-                                # player has clicked health potion. If player has enough rupees it will buy item
-                                # and add to their inventory. Also subtracts the price from current rupee count
-                                if buy_item.name == "health potion":
-                                    if len(player.items) < 16:
-                                        if player.rupees > 9:
-                                            info_text_1 = "You Bought Health Potion for 10 rupees."
-                                            info_text_2 = "Health Potion added to inventory."
-                                            player.items.append(Item("health potion", "potion", 200, 200,
-                                                                     health_pot_img))
-                                            player.rupees = player.rupees - 10
-                                            item_bought = True
-                                        else:
-                                            info_text_1 = "You do not have enough rupees."
-                                            info_text_2 = "Health Potion cost 10 rupees."
-                                    else:
-                                        info_text_1 = "Your inventory is full."
-                                        info_text_2 = ""
-                                if buy_item.name == "energy potion":
-                                    if len(player.items) < 16:
-                                        if player.rupees > 9:
-                                            info_text_1 = "Bought Energy Potion for 10 rupees."
-                                            info_text_2 = "Energy Potion added to inventory."
-                                            player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                     energy_pot_img))
-                                            player.rupees = player.rupees - 10
-                                            item_bought = True
-                                        else:
-                                            info_text_1 = "You do not have enough rupees."
-                                            info_text_2 = "Energy Potion cost 10 rupees."
-                                    else:
-                                        info_text_1 = "Your inventory is full."
-                                        info_text_2 = ""
-                                if buy_item.name == "basic staff":
-                                    if len(player.items) < 16:
-                                        if player.rupees > 19:
-                                            info_text_1 = "Bought Basic Staff for 20 rupees."
-                                            info_text_2 = "Basic Staff added to inventory."
-                                            player.items.append(Item("basic staff", "mage", 200, 200,
-                                                                     basic_staff_img))
-                                            player.rupees = player.rupees - 20
-                                            item_bought = True
-                                        else:
-                                            info_text_1 = "You do not have enough rupees."
-                                            info_text_2 = "Basic Staff cost 20 rupees."
-                                    else:
-                                        info_text_1 = "Your inventory is full."
-                                        info_text_2 = ""
-                                if buy_item.name == "basic sword":
-                                    if len(player.items) < 16:
-                                        if player.rupees > 19:
-                                            info_text_1 = "Bought Basic Sword for 20 rupees."
-                                            info_text_2 = "Basic Sword added to inventory."
-                                            player.items.append(Item("basic sword", "fighter", 200, 200,
-                                                                     basic_sword_img))
-                                            player.rupees = player.rupees - 20
-                                            item_bought = True
-                                        else:
-                                            info_text_1 = "You do not have enough rupees."
-                                            info_text_2 = "Basic Sword cost 20 rupees."
-                                    else:
-                                        info_text_1 = "Your inventory is full."
-                                        info_text_2 = ""
-                                if buy_item.name == "basic bow":
-                                    if len(player.items) < 16:
-                                        if player.rupees > 19:
-                                            info_text_1 = "Bought Basic Bow for 20 rupees."
-                                            info_text_2 = "Basic Bow added to inventory."
-                                            player.items.append(Item("basic bow", "scout", 200, 200,
-                                                                     basic_bow_img))
-                                            player.rupees = player.rupees - 20
-                                            item_bought = True
-                                        else:
-                                            info_text_1 = "You do not have enough rupees."
-                                            info_text_2 = "Basic Bow cost 20 rupees."
-                                    else:
-                                        info_text_1 = "Your inventory is full."
-                                        info_text_2 = ""
-                                if buy_item.name == "basic robes":
-                                    if len(player.items) < 16:
-                                        if player.rupees > 19:
-                                            info_text_1 = "Bought Basic Robes for 20 rupees."
-                                            info_text_2 = "Basic Robes added to inventory."
-                                            player.items.append(Item("basic robes", "mage", 200, 200,
-                                                                     basic_robes_img))
-                                            player.rupees = player.rupees - 20
-                                            item_bought = True
-                                        else:
-                                            info_text_1 = "You do not have enough rupees."
-                                            info_text_2 = "Basic Robes cost 20 rupees."
-                                    else:
-                                        info_text_1 = "Your inventory is full."
-                                        info_text_2 = ""
-                                if buy_item.name == "basic armor":
-                                    if len(player.items) < 16:
-                                        if player.rupees > 19:
-                                            info_text_1 = "Bought Basic Armor for 20 rupees."
-                                            info_text_2 = "Basic Armor added to inventory."
-                                            player.items.append(Item("basic armor", "fighter", 200, 200,
-                                                                     basic_armor_img))
-                                            player.rupees = player.rupees - 20
-                                            item_bought = True
-                                        else:
-                                            info_text_1 = "You do not have enough rupees."
-                                            info_text_2 = "Basic Armor cost 20 rupees."
-                                    else:
-                                        info_text_1 = "Your inventory is full."
-                                        info_text_2 = ""
-                                if buy_item.name == "basic tunic":
-                                    if len(player.items) < 16:
-                                        if player.rupees > 19:
-                                            info_text_1 = "Bought Basic Tunic for 20 rupees."
-                                            info_text_2 = "Basic Tunic added to inventory."
-                                            player.items.append(Item("basic tunic", "scout", 200, 200,
-                                                                     basic_tunic_img))
-                                            player.rupees = player.rupees - 20
-                                            item_bought = True
-                                        else:
-                                            info_text_1 = "You do not have enough rupees."
-                                            info_text_2 = "Basic Tunic cost 20 rupees."
-                                    else:
-                                        info_text_1 = "Your inventory is full."
-                                        info_text_2 = ""
-                            except AttributeError:
-                                pass
+                            buy_return = shop_scenario.shop_buy_items(player, buy_item, Item, health_pot_img,
+                                                                      energy_pot_img, basic_staff_img, basic_sword_img,
+                                                                      basic_bow_img, basic_robes_img, basic_armor_img,
+                                                                      basic_tunic_img)
+                            if buy_return["info 1"] != "":
+                                info_text_1 = buy_return["info 1"]
+                                info_text_2 = buy_return["info 2"]
+                            item_bought = buy_return["bought"]
 
-                        # handles selling items when clicked
+                        # if player clicks yes button to sell item, get item that was saved to current and sell
+                        sell_choice = click_handlers.shop_sell_button(event, yes_button)
+                        if sell_choice == "yes":
+                            if current_sell_item.name == "health potion":
+                                info_text_1 = "Sold Health Potion for 5 rupees."
+                                info_text_2 = "Health Potion removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "energy potion":
+                                info_text_1 = "Sold Energy Potion for 5 rupees."
+                                info_text_2 = "Energy Potion removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "shiny rock":
+                                info_text_1 = "Sold Shiny Rock for 5 rupees."
+                                info_text_2 = "Shiny Rock removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "bone dust":
+                                info_text_1 = "Sold Bone Dust for 10 rupees."
+                                info_text_2 = "Bone Dust removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 10
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic staff":
+                                info_text_1 = "Sold Basic Staff for 5 rupees."
+                                info_text_2 = "Basic Staff removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic sword":
+                                info_text_1 = "Sold Basic Sword for 5 rupees."
+                                info_text_2 = "Basic Sword removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic bow":
+                                info_text_1 = "Sold Basic Bow for 5 rupees."
+                                info_text_2 = "Basic Bow removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic robes":
+                                info_text_1 = "Sold Basic Robes for 5 rupees."
+                                info_text_2 = "Basic Robes removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic armor":
+                                info_text_1 = "Sold Basic Armor for 5 rupees."
+                                info_text_2 = "Basic Armor removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic tunic":
+                                info_text_1 = "Sold Basic Tunic for 5 rupees."
+                                info_text_2 = "Basic Tunic removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                        if sell_choice == "no":
+                            sell_window.clear()
+
+                        # gets item player clicked to sell. opens window to confirm and saves item to variable
                         sell_item = click_handlers.sell_event_item(event)
                         try:
                             # player has clicked health potion. This will sell the item, removing it from
                             # inventory and giving them "x" rupees to add to their current count
                             if sell_item.name == "health potion":
-                                info_text_1 = "Sold Health Potion for 5 rupees."
-                                info_text_2 = "Health Potion removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 5
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_health_pot_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "energy potion":
-                                info_text_1 = "Sold Energy Potion for 5 rupees."
-                                info_text_2 = "Energy Potion removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 5
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_energy_pot_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "shiny rock":
-                                info_text_1 = "Sold Shiny Rock for 5 rupees."
-                                info_text_2 = "Shiny Rock removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 5
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_shiny_rock_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "bone dust":
-                                info_text_1 = "Sold Bone Dust for 10 rupees."
-                                info_text_2 = "Bone Dust removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 10
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_bone_dust_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "basic staff":
-                                info_text_1 = "Sold Basic Staff for 5 rupees."
-                                info_text_2 = "Basic Staff removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 5
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_staff_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "basic sword":
-                                info_text_1 = "Sold Basic Sword for 5 rupees."
-                                info_text_2 = "Basic Sword removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 5
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_sword_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "basic bow":
-                                info_text_1 = "Sold Basic Bow for 5 rupees."
-                                info_text_2 = "Basic Bow removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 5
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_bow_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "basic robes":
-                                info_text_1 = "Sold Basic Robes for 5 rupees."
-                                info_text_2 = "Basic Robes removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 5
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_robes_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "basic armor":
-                                info_text_1 = "Sold Basic Armor for 5 rupees."
-                                info_text_2 = "Basic Armor removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 5
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_armor_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "basic tunic":
-                                info_text_1 = "Sold Basic Tunic for 5 rupees."
-                                info_text_2 = "Basic Tunic removed from inventory."
-                                player.items.remove(sell_item)
-                                drawing_functions.player_items.remove(sell_item)
-                                player.rupees = player.rupees + 5
-                                item_sold = True
+                                sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_tunic_img)
+                                yes_button.update(1153, 342, yes_button_img)
+                                current_sell_item = sell_item
+                                sell_window.append(sell_items)
+                                sell_window.append(yes_button)
                             if sell_item.name == "temporary item":
                                 info_text_1 = "Sold Temporary Item for 0 rupees."
                                 info_text_2 = "Temporary Item removed from inventory."
@@ -3273,6 +3211,8 @@ while game_running:
                             # get item from shopkeeper's inventory and draw with buy window
                             for shop_item in shopkeeper_items:
                                 screen.blit(shop_item.surf, shop_item.rect)
+                        for element in sell_window:
+                            screen.blit(element.surf, element.rect)
 
             # ----------------------------------------------------------------------------------------------------------
             # if player is in inn --------------------------------------------------------------------------------------
@@ -3818,6 +3758,7 @@ while game_running:
                             player.y_coordinate = 650
                             info_text_1 = "You recalled to the hearth stone."
                         if save_button.rect.collidepoint(pos):
+                            yes_button.update(450, 394, yes_button_img)
                             try:
                                 with open("save_game", "rb") as f:
                                     saved = True
@@ -3911,8 +3852,8 @@ while game_running:
                         player.update("down", "korlok", walking_return_korlok["total time"])
 
             # end of whole iteration -----------------------------------------------------------------------------------
-            pygame.display.flip()
             clock.tick(60)
+            pygame.display.flip()
 
         # --------------------------------------------------------------------------------------------------------------
         # player has died, show game over and give continue option -----------------------------------------------------
