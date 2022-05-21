@@ -320,7 +320,14 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
 
                 # experienced gained by player from defeating enemy
                 if player.level <= enemy_combating.level + 1:
-                    experience = int((enemy_combating.level / player.level) * 25)
+                    experience = int((enemy_combating.level / player.level) * 35)
+                    player.experience = player.experience + experience
+                    enemy_experience = f"{experience} xp "
+                    # add to dictionary experience given from defeating enemy
+                    combat_event_dictionary["experience gained"] = enemy_experience
+                # player gains less experience if they're 1 level higher or more than enemy
+                if player.level > enemy_combating.level + 1:
+                    experience = int((enemy_combating.level / player.level))
                     player.experience = player.experience + experience
                     enemy_experience = f"{experience} xp "
                     # add to dictionary experience given from defeating enemy
@@ -404,10 +411,19 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                                     combat_event_dictionary["quest update"] = quest_string
                         else:
                             combat_event_dictionary["quest update"] = "No"
+                        # experienced gained by player from defeating enemy
                         if player.level <= enemy_combating.level + 1:
                             experience = int((enemy_combating.level / player.level) * 35)
                             player.experience = player.experience + experience
                             enemy_experience = f"{experience} xp "
+                            # add to dictionary experience given from defeating enemy
+                            combat_event_dictionary["experience gained"] = enemy_experience
+                        # player gains less experience if they're 1 level higher or more than enemy
+                        if player.level > enemy_combating.level + 1:
+                            experience = int((enemy_combating.level / player.level))
+                            player.experience = player.experience + experience
+                            enemy_experience = f"{experience} xp "
+                            # add to dictionary experience given from defeating enemy
                             combat_event_dictionary["experience gained"] = enemy_experience
                         drop_chance = random.randrange(1, 10)
                         if drop_chance > 2:

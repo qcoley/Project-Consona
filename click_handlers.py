@@ -6,6 +6,16 @@ import resource_urls
 import drawing_functions
 
 
+# getting event based on user click related to shop
+def item_info_button(item_info_event, item_button):
+    if item_info_event.type == pygame.MOUSEBUTTONUP:
+        item_info_mouse = pygame.mouse.get_pos()
+        if item_button.rect.collidepoint(item_info_mouse):
+            return "yes"
+        else:
+            return "no"
+
+
 # getting item player clicked based on it's name and return the corresponding item. for equipment
 def equipment_event_item(equipment_event_here):
     if equipment_event_here.type == pygame.MOUSEBUTTONUP:
@@ -129,6 +139,7 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none):
 
 # getting item player clicked based on it's name and return the corresponding item. for inventory items
 def inventory_event_item(inventory_event_here):
+    event_return = {"element": "", "clicked": False}
     if inventory_event_here.type == pygame.MOUSEBUTTONUP:
         inventory_mouse = pygame.mouse.get_pos()
         # list of sprites that collided with mouse cursor rect
@@ -137,71 +148,82 @@ def inventory_event_item(inventory_event_here):
         # try to get inventory item player clicked based on it's name and return it
         try:
             if clicked_element[0].name == "health potion":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "energy potion":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "shiny rock":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "bone dust":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "basic staff":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "basic sword":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "basic bow":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "basic robes":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "basic armor":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "basic tunic":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "temporary item":
-                return clicked_element[0]
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
         except IndexError:
             pass
+    return event_return
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory_click_handler(player, event, amuna_mage, nuldar_mage, sorae_mage,
+def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage,
                             amuna_fighter, nuldar_fighter, sorae_fighter,
                             amuna_scout, nuldar_scout, sorae_scout):
     return_dict = {"item message": ""}
-    inventory_item = inventory_event_item(event)
 
     try:
-        if inventory_item.name == "health potion":
+        if item.name == "health potion":
             if player.health == 100:
                 return_dict["item message"] = "You're already at full health."
             else:
                 player.health = player.health + 40
                 if player.health > 100:
                     player.health = 100
-                drawing_functions.player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
                 return_dict["item message"] = "The potion heals you for 40 hp."
-        elif inventory_item.name == "energy potion":
+        elif item.name == "energy potion":
             if player.energy == 100:
                 return_dict["item message"] = "You're already at full energy."
             else:
                 player.energy = player.energy + 40
                 if player.energy > 100:
                     player.energy = 100
-                drawing_functions.player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
                 return_dict["item message"] = "The potion energizes you for 40 en."
-        elif inventory_item.name == "shiny rock":
+        elif item.name == "shiny rock":
             return_dict["item message"] = "Oh, shiny. Maybe you can sell it?"
-        elif inventory_item.name == "bone dust":
+        elif item.name == "bone dust":
             return_dict["item message"] = "Eh, dusty. Maybe you can sell it?"
-        elif inventory_item.name == "temporary item":
+        elif item.name == "temporary item":
             return_dict["item message"] = "Tell my designer to finish me!"
 
-        elif inventory_item.name == "basic staff":
+        elif item.name == "basic staff":
             if player.equipment["weapon"] == "":
-                player.equipment["weapon"] = inventory_item
-                drawing_functions.player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
+                player.equipment["weapon"] = item
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
                 player.role = "mage"
                 if player.race == "amuna":
                     player.surf = amuna_mage
@@ -213,11 +235,11 @@ def inventory_click_handler(player, event, amuna_mage, nuldar_mage, sorae_mage,
                 return_dict["item message"] = "Basic Staff weapon equipped"
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
-        elif inventory_item.name == "basic sword":
+        elif item.name == "basic sword":
             if player.equipment["weapon"] == "":
-                player.equipment["weapon"] = inventory_item
-                drawing_functions.player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
+                player.equipment["weapon"] = item
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
                 player.role = "fighter"
                 if player.race == "amuna":
                     player.surf = amuna_fighter
@@ -229,11 +251,11 @@ def inventory_click_handler(player, event, amuna_mage, nuldar_mage, sorae_mage,
                 return_dict["item message"] = "Basic Sword weapon equipped"
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
-        elif inventory_item.name == "basic bow":
+        elif item.name == "basic bow":
             if player.equipment["weapon"] == "":
-                player.equipment["weapon"] = inventory_item
-                drawing_functions.player_items.remove(inventory_item)
-                player.items.remove(inventory_item)
+                player.equipment["weapon"] = item
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
                 player.role = "scout"
                 if player.race == "amuna":
                     player.surf = amuna_scout
@@ -245,36 +267,36 @@ def inventory_click_handler(player, event, amuna_mage, nuldar_mage, sorae_mage,
                 return_dict["item message"] = "Basic Bow weapon equipped"
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
-        elif inventory_item.name == "basic robes":
+        elif item.name == "basic robes":
             if player.equipment["chest"] == "":
                 if player.role == "mage":
-                    player.equipment["chest"] = inventory_item
-                    drawing_functions.player_items.remove(inventory_item)
-                    player.items.remove(inventory_item)
+                    player.equipment["chest"] = item
+                    drawing_functions.player_items.remove(item)
+                    player.items.remove(item)
                     player.defence = 4
                     return_dict["item message"] = "Basic Robes chest equipped"
                 else:
                     return_dict["item message"] = "Only mages wear light armor."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
-        elif inventory_item.name == "basic armor":
+        elif item.name == "basic armor":
             if player.equipment["chest"] == "":
                 if player.role == "fighter":
-                    player.equipment["chest"] = inventory_item
-                    drawing_functions.player_items.remove(inventory_item)
-                    player.items.remove(inventory_item)
+                    player.equipment["chest"] = item
+                    drawing_functions.player_items.remove(item)
+                    player.items.remove(item)
                     player.defence = 12
                     return_dict["item message"] = "Basic Armor chest equipped"
                 else:
                     return_dict["item message"] = "Only fighters wear heavy armor."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
-        elif inventory_item.name == "basic tunic":
+        elif item.name == "basic tunic":
             if player.equipment["chest"] == "":
                 if player.role == "scout":
-                    player.equipment["chest"] = inventory_item
-                    drawing_functions.player_items.remove(inventory_item)
-                    player.items.remove(inventory_item)
+                    player.equipment["chest"] = item
+                    drawing_functions.player_items.remove(item)
+                    player.items.remove(item)
                     player.defence = 8
                     return_dict["item message"] = "Basic Tunic chest equipped"
                 else:

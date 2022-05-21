@@ -138,8 +138,16 @@ enemies_url = resource_path('resources/art/sprites_enemies.png')
 enemies_battle_url = resource_path('resources/art/sprites_enemies_battle.png')
 # amuna buildings ------------------------------------------------------------------------------------------------------
 amuna_buildings_url = resource_path('resources/art/sprites_amuna_buildings.png')
+# role select overlay --------------------------------------------------------------------------------------------------
+role_selection_overlay = resource_path('resources/art/overlay_role_select.png')
+# role select buttons --------------------------------------------------------------------------------------------------
+role_selection_buttons = resource_path('resources/art/buttons_select_role.png')
+# star power -----------------------------------------------------------------------------------------------------------
+star_power_url = resource_path('resources/art/overlay_star_power.png')
 # items ----------------------------------------------------------------------------------------------------------------
 items_url = resource_path('resources/art/overlay_items.png')
+# items info -----------------------------------------------------------------------------------------------------------
+items_info_url = resource_path('resources/art/overlay_info_items.png')
 # player info windows --------------------------------------------------------------------------------------------------
 player_info_url = resource_path('resources/art/overlay_info_sheets.png')
 # books ----------------------------------------------------------------------------------------------------------------

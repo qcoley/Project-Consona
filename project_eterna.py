@@ -21,7 +21,7 @@ velocity = 2
 class Player(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
-                 energy, alive_status, rupees, reputation, current_zone, defense, offense):
+                 energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power):
         super(Player, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -50,6 +50,7 @@ class Player(pygame.sprite.Sprite):
         self.current_zone = current_zone
         self.defence = defense
         self.offense = offense
+        self.star_power = star_power
 
     # move the player sprite based on input keys
     def update(self, pressed_key, current_zone, walk_timed):
@@ -870,7 +871,8 @@ def player_updates():
                                                   info_text_3, info_text_4, health_pot_img, energy_pot_img,
                                                   shiny_rock_img, bone_dust_img, basic_staff_img, basic_sword_img,
                                                   basic_bow_img, basic_robes_img, basic_armor_img, basic_tunic_img,
-                                                  temp_img)
+                                                  temp_img,
+                                                  star_power_meter, star_00, star_01, star_02, star_03, star_04)
 
 
 # function to respawn enemies if they are less than a specified amount active in game. spawns with random coord. and lvl
@@ -1336,16 +1338,28 @@ fighter_book_img = books_sheet.get_image(700, 0, 700, 525)
 scout_book_img = books_sheet.get_image(1400, 0, 700, 525)
 # sell items
 sell_items_sheet = SpriteSheet(resource_urls.sell_items_url)
-s_health_pot_img = sell_items_sheet .get_image(0, 0, 238, 240)
-s_energy_pot_img = sell_items_sheet .get_image(238, 0, 238, 240)
-s_basic_robes_img = sell_items_sheet.get_image(476, 0, 238, 240)
-s_basic_armor_img = sell_items_sheet.get_image(714, 0, 238, 240)
-s_basic_tunic_img = sell_items_sheet.get_image(953, 0, 238, 240)
-s_basic_staff_img = sell_items_sheet.get_image(1191, 0, 238, 240)
-s_basic_sword_img = sell_items_sheet.get_image(1429, 0, 238, 240)
-s_basic_bow_img = sell_items_sheet.get_image(1667, 0, 238, 240)
-s_bone_dust_img = sell_items_sheet.get_image(1905, 0, 238, 240)
-s_shiny_rock_img = sell_items_sheet.get_image(2144, 0, 238, 240)
+s_health_pot_img = sell_items_sheet.get_image(0, 0, 244, 240)
+s_energy_pot_img = sell_items_sheet.get_image(246, 0, 244, 240)
+s_basic_robes_img = sell_items_sheet.get_image(492, 0, 244, 240)
+s_basic_armor_img = sell_items_sheet.get_image(738, 0, 244, 240)
+s_basic_tunic_img = sell_items_sheet.get_image(984, 0, 244, 240)
+s_basic_staff_img = sell_items_sheet.get_image(1230, 0, 244, 240)
+s_basic_sword_img = sell_items_sheet.get_image(1476, 0, 244, 240)
+s_basic_bow_img = sell_items_sheet.get_image(1722, 0, 244, 240)
+s_bone_dust_img = sell_items_sheet.get_image(1968, 0, 244, 240)
+s_shiny_rock_img = sell_items_sheet.get_image(2214, 0, 244, 240)
+# items use info
+info_items_sheet = SpriteSheet(resource_urls.items_info_url)
+info_health_pot_img = info_items_sheet.get_image(0, 0, 244, 240)
+info_energy_pot_img = info_items_sheet.get_image(246, 0, 244, 240)
+info_basic_robes_img = info_items_sheet.get_image(492, 0, 244, 240)
+info_basic_armor_img = info_items_sheet.get_image(738, 0, 244, 240)
+info_basic_tunic_img = info_items_sheet.get_image(984, 0, 244, 240)
+info_basic_staff_img = info_items_sheet.get_image(1230, 0, 244, 240)
+info_basic_sword_img = info_items_sheet.get_image(1476, 0, 244, 240)
+info_basic_bow_img = info_items_sheet.get_image(1722, 0, 244, 240)
+info_bone_dust_img = info_items_sheet.get_image(1968, 0, 244, 240)
+info_shiny_rock_img = info_items_sheet.get_image(2214, 0, 244, 240)
 # start screen buttons
 start_button_sheet = SpriteSheet(resource_urls.start_buttons_url)
 new_game_img = start_button_sheet.get_image(0, 0, 384, 75)
@@ -1367,6 +1381,8 @@ accept_button_img = buttons_sheet.get_image(600, 0, 100, 50)
 decline_button_img = buttons_sheet.get_image(700, 0, 100, 50)
 yes_button_img = buttons_sheet.get_image(800, 0, 100, 50)
 no_button_img = buttons_sheet.get_image(900, 0, 100, 50)
+use_button_img = buttons_sheet.get_image(1000, 0, 100, 50)
+equip_button_img = buttons_sheet.get_image(1100, 0, 100, 50)
 # attack buttons
 attack_buttons_sheet = SpriteSheet(resource_urls.attack_buttons_url)
 mage_attack_button_img = attack_buttons_sheet.get_image(0, 0, 60, 60)
@@ -1382,6 +1398,11 @@ sense_button_img = skill_buttons_sheet.get_image(120, 0, 60, 60)
 game_function_buttons_sheet = SpriteSheet(resource_urls.game_play_function_buttons_url)
 save_button_img = game_function_buttons_sheet.get_image(0, 0, 100, 25)
 hearth_button_img = game_function_buttons_sheet.get_image(100, 0, 100, 25)
+# role select buttons
+role_select_buttons_sheet = SpriteSheet(resource_urls.role_selection_buttons)
+mage_select_button_img = role_select_buttons_sheet.get_image(0, 0, 184, 42)
+fighter_select_button_img = role_select_buttons_sheet.get_image(184, 0, 184, 42)
+scout_select_button_img = role_select_buttons_sheet.get_image(368, 0, 184, 42)
 # quest windows
 quest_windows_sheet = SpriteSheet(resource_urls.quest_windows_url)
 garan_quest = quest_windows_sheet.get_image(0, 0, 500, 525)
@@ -1392,6 +1413,13 @@ quest_stars_sheet = SpriteSheet(resource_urls.quest_stars_url)
 quest_start_star = quest_stars_sheet.get_image(0, 0, 50, 50)
 quest_progress_star = quest_stars_sheet.get_image(50, 0, 50, 50)
 quest_complete_star = quest_stars_sheet.get_image(100, 0, 50, 50)
+# star power
+star_power_sheet = SpriteSheet(resource_urls.star_power_url)
+star_00 = star_power_sheet.get_image(0, 0, 150, 50)
+star_01 = star_power_sheet.get_image(150, 0, 150, 50)
+star_02 = star_power_sheet.get_image(300, 0, 150, 50)
+star_03 = star_power_sheet.get_image(450, 0, 150, 50)
+star_04 = star_power_sheet.get_image(600, 0, 150, 50)
 # pop up notifications
 popups_sheet = SpriteSheet(resource_urls.popups_url)
 gear_popup = popups_sheet.get_image(0, 0, 400, 200)
@@ -1601,7 +1629,7 @@ player = Player("stan", "amuna", "",  # name, race, role
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                 1, 0, 100, 100,  # lvl, exp, health, energy
                 True, 20, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
-                "", 0, 0)  # zone, defence, offense, image
+                "", 0, 0, 0)  # zone, defence, offense, image
 
 # npcs: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate
 #                  alive_status, quest_complete, items, gift, image
@@ -1685,6 +1713,7 @@ hearth_button = UiElement("hearth button", 860, 25, hearth_button_img)
 save_button = UiElement("save button", 970, 25, save_button_img)
 yes_button = UiElement("yes button", 450, 394, yes_button_img)
 no_button = UiElement("no button", 564, 394, no_button_img)
+item_info_button = UiElement("item info button", 1153, 345, use_button_img)
 skill_bar = UiElement("skill bar", 855, 615, pygame.image.load(resource_urls.skill_bar).convert())
 no_role_attack_button = UiElement("no role attack button", 750, 627, no_role_attack_button_img)
 mage_attack_button = UiElement("mage attack button", 750, 627, mage_attack_button_img)
@@ -1725,7 +1754,14 @@ snake_battle_sprite = BattleCharacter("snake battle", 715, 250, snake_battle)
 ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, ghoul_battle)
 nascent_gate_popup = UiElement("nascent gate popup", 418, 200,
                                pygame.image.load(resource_urls.nascent_gate_popup_url).convert())
-sell_items = UiElement("sell items", 1155, 267, s_health_pot_img)
+sell_items = UiElement("sell items", 1154, 270, s_health_pot_img)
+info_items = UiElement("info items", 1154, 270, info_health_pot_img)
+star_power_meter = UiElement("star power", 1210, 360, star_00)
+role_select_overlay = UiElement("role select overlay", 545, 335,
+                                pygame.image.load(resource_urls.role_selection_overlay).convert())
+mage_select_button = UiElement("role select overlay", 264, 509, mage_select_button_img)
+fighter_select_button = UiElement("role select overlay", 545, 509, fighter_select_button_img)
+scout_select_button = UiElement("role select overlay", 826, 509, scout_select_button_img)
 
 font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
 level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
@@ -1760,7 +1796,7 @@ non_sprite_sheets.add(trees, seldon_hearth, quest_items, skill_bar, lets_go_butt
                       mage_learn_button, fighter_learn_button, scout_learn_button,
                       barrier_learn_button, hard_strike_learn_button, sharp_sense_learn_button,
                       character_select_overlay, amuna_select_overlay, nuldar_select_overlay, sorae_select_overlay,
-                      start_button, nascent_gate)
+                      start_button, nascent_gate, role_select_overlay)
 for non_sprite_sheet_sprite in non_sprite_sheets:
     non_sprite_sheet_sprite.surf.set_colorkey((255, 255, 255), RLEACCEL)
 
@@ -1820,8 +1856,9 @@ rest_recover_show = False
 rest_window_clicked = False
 saved = False
 entered = False
-yes_sell = False
-no_sell = False
+mage_select = False
+fighter_select = False
+scout_select = False
 
 buy_shop_elements = []
 shopkeeper_items = []
@@ -1840,6 +1877,7 @@ info_text_3 = ""
 info_text_4 = ""
 character_name_input = ''
 current_sell_item = ''
+current_info_item = ''
 
 battle_info_to_return_to_main_loop = {"experience": 0, "item dropped": "", "leveled_up": False, "knowledge": ""}
 
@@ -1932,18 +1970,19 @@ while game_running:
                         amuna_race_selected = False
                         nuldar_race_selected = False
                         sorae_race_selected = True
-                    # get whatever the player typed in name box and chosen race and start game
-                    if start_button.rect.collidepoint(pos) or entered:
-                        if len(character_name_input) > 0:
-                            player.name = str(character_name_input)
-                        else:
-                            player.name = "default"
-                        player.race = "amuna"
-                        player.surf = player_no_role_amuna_down_1
-                        player.current_zone = "nascent"
-                        in_over_world = True
-                        new_game_chosen = False
-                        start_chosen = True
+                # get whatever the player typed in name box and chosen race and start game
+                # noinspection PyUnboundLocalVariable
+                if start_button.rect.collidepoint(pos) or entered:
+                    if len(character_name_input) > 0:
+                        player.name = str(character_name_input)
+                    else:
+                        player.name = "default"
+                    player.race = "amuna"
+                    player.surf = player_no_role_amuna_down_1
+                    player.current_zone = "nascent"
+                    in_over_world = True
+                    new_game_chosen = False
+                    start_chosen = True
             pygame.display.flip()
 
         # sorae race selected on character selection screen ------------------------------------------------------------
@@ -1992,17 +2031,18 @@ while game_running:
                         amuna_race_selected = False
                         nuldar_race_selected = False
                         sorae_race_selected = True
-                    if start_button.rect.collidepoint(pos) or entered:
-                        if len(character_name_input) > 0:
-                            player.name = str(character_name_input)
-                        else:
-                            player.name = "default"
-                        player.race = "sorae"
-                        player.surf = player_no_role_sorae_down_1
-                        player.current_zone = "nascent"
-                        in_over_world = True
-                        new_game_chosen = False
-                        start_chosen = True
+                # noinspection PyUnboundLocalVariable
+                if start_button.rect.collidepoint(pos) or entered:
+                    if len(character_name_input) > 0:
+                        player.name = str(character_name_input)
+                    else:
+                        player.name = "default"
+                    player.race = "sorae"
+                    player.surf = player_no_role_sorae_down_1
+                    player.current_zone = "nascent"
+                    in_over_world = True
+                    new_game_chosen = False
+                    start_chosen = True
             pygame.display.flip()
 
         # nuldar race selected on character selection screen -----------------------------------------------------------
@@ -2049,17 +2089,18 @@ while game_running:
                         amuna_race_selected = False
                         nuldar_race_selected = False
                         sorae_race_selected = True
-                    if start_button.rect.collidepoint(pos) or entered:
-                        if len(character_name_input) > 0:
-                            player.name = str(character_name_input)
-                        else:
-                            player.name = "default"
-                        player.race = "nuldar"
-                        player.surf = player_no_role_nuldar_down_1
-                        player.current_zone = "nascent"
-                        in_over_world = True
-                        new_game_chosen = False
-                        start_chosen = True
+                # noinspection PyUnboundLocalVariable
+                if start_button.rect.collidepoint(pos) or entered:
+                    if len(character_name_input) > 0:
+                        player.name = str(character_name_input)
+                    else:
+                        player.name = "default"
+                    player.race = "nuldar"
+                    player.surf = player_no_role_nuldar_down_1
+                    player.current_zone = "nascent"
+                    in_over_world = True
+                    new_game_chosen = False
+                    start_chosen = True
                 elif event.type == QUIT:
                     exit()
             pygame.display.flip()
@@ -2088,7 +2129,6 @@ while game_running:
     # ------------------------------------------------------------------------------------------------------------------
     # player has chosen to start game -------------------------------------------------------------------------------
     if start_chosen:
-
         if player.alive_status:
             # ----------------------------------------------------------------------------------------------------------
             # if player is in nascent grove (starting area) ------------------------------------------------------------
@@ -2221,19 +2261,36 @@ while game_running:
                             drawing_functions.level_up_draw(level_up_win, player, font, False)
 
                     # click handlers -----------------------------------------------------------------------------------
-                    inventory_event = click_handlers.inventory_click_handler(player, event,
-                                                                             player_mage_amuna_down_1,
-                                                                             player_mage_nuldar_down_1,
-                                                                             player_mage_sorae_down_1,
-                                                                             player_fighter_amuna_down_1,
-                                                                             player_fighter_nuldar_down_1,
-                                                                             player_fighter_sorae_down_1,
-                                                                             player_scout_amuna_down_1,
-                                                                             player_scout_nuldar_down_1,
-                                                                             player_scout_sorae_down_1)
-                    if inventory_event["item message"] != "":
-                        info_text_1 = inventory_event["item message"]
-                        info_text_2 = ""
+                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    if info_choice == "yes":
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 player_mage_amuna_down_1,
+                                                                                 player_mage_nuldar_down_1,
+                                                                                 player_mage_sorae_down_1,
+                                                                                 player_fighter_amuna_down_1,
+                                                                                 player_fighter_nuldar_down_1,
+                                                                                 player_fighter_sorae_down_1,
+                                                                                 player_scout_amuna_down_1,
+                                                                                 player_scout_nuldar_down_1,
+                                                                                 player_scout_sorae_down_1)
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                        drawing_functions.item_info_window.clear()
+                    if info_choice == "no":
+                        drawing_functions.item_info_window.clear()
+
+                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    if inventory_item_clicked["clicked"]:
+                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                             info_items, item_info_button,
+                                                                             use_button_img, equip_button_img,
+                                                                             info_health_pot_img, info_energy_pot_img,
+                                                                             info_basic_robes_img, info_basic_armor_img,
+                                                                             info_basic_tunic_img, info_basic_staff_img,
+                                                                             info_basic_sword_img, info_basic_bow_img,
+                                                                             info_shiny_rock_img, info_bone_dust_img)
+
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event,
                                                                              player_no_role_amuna_down_1,
@@ -2242,6 +2299,7 @@ while game_running:
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
+
                 # move player to seldon district when they approach nascent grove exit
                 if player.x_coordinate > 925 and 175 < player.y_coordinate < 275:
                     player.current_zone = "seldon"
@@ -2254,18 +2312,13 @@ while game_running:
             if player.current_zone == "seldon" and in_over_world:
                 screen.blit(seldon_district_bg, (0, 0))
 
-                # switches between 1 and 0 to select a left or right direction for enemy sprite to move
                 enemy_switch = 1
-                # gets defeated enemy count and will respawn a new enemy type if count is greater than specified
                 enemy_respawn()
-                # try to blit elements if they exist in group or list
-                try:
-                    for entity in most_sprites:
-                        screen.blit(entity.surf, entity.rect)
-                    for enemy_sprite in enemies:
-                        screen.blit(enemy_sprite.surf, enemy_sprite.rect)
-                except TypeError:
-                    pass
+
+                for entity in most_sprites:
+                    screen.blit(entity.surf, entity.rect)
+                for enemy_sprite in enemies:
+                    screen.blit(enemy_sprite.surf, enemy_sprite.rect)
 
                 gameplay_functions.npc_quest_star_updates(player, screen, quest_star_garan, quest_star_maurelle,
                                                           quest_star_guard, quest_progress_star, quest_complete_star)
@@ -2485,20 +2538,44 @@ while game_running:
                             in_npc_interaction = True
 
                     # click handlers -----------------------------------------------------------------------------------
-                    inventory_event = click_handlers.inventory_click_handler(player, event, player_mage_amuna_down_1,
-                                                                             player_mage_nuldar_down_1,
-                                                                             player_mage_sorae_down_1,
-                                                                             player_fighter_amuna_down_1,
-                                                                             player_fighter_nuldar_down_1,
-                                                                             player_fighter_sorae_down_1,
-                                                                             player_scout_amuna_down_1,
-                                                                             player_scout_nuldar_down_1,
-                                                                             player_scout_sorae_down_1)
-                    if inventory_event["item message"] != "":
-                        info_text_1 = inventory_event["item message"]
-                        info_text_2 = ""
+                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    if info_choice == "yes":
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 player_mage_amuna_down_1,
+                                                                                 player_mage_nuldar_down_1,
+                                                                                 player_mage_sorae_down_1,
+                                                                                 player_fighter_amuna_down_1,
+                                                                                 player_fighter_nuldar_down_1,
+                                                                                 player_fighter_sorae_down_1,
+                                                                                 player_scout_amuna_down_1,
+                                                                                 player_scout_nuldar_down_1,
+                                                                                 player_scout_sorae_down_1)
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                        drawing_functions.item_info_window.clear()
+                    if info_choice == "no":
+                        drawing_functions.item_info_window.clear()
+
+                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    if inventory_item_clicked["clicked"]:
+                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                             info_items, item_info_button,
+                                                                             use_button_img, equip_button_img,
+                                                                             info_health_pot_img,
+                                                                             info_energy_pot_img,
+                                                                             info_basic_robes_img,
+                                                                             info_basic_armor_img,
+                                                                             info_basic_tunic_img,
+                                                                             info_basic_staff_img,
+                                                                             info_basic_sword_img,
+                                                                             info_basic_bow_img,
+                                                                             info_shiny_rock_img,
+                                                                             info_bone_dust_img)
+
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
+                    equipment_event = click_handlers.equipment_click_handler(player, event,
+                                                                             player_no_role_amuna_down_1,
                                                                              player_no_role_nuldar_down_1,
                                                                              player_no_role_sorae_down_1)
                     if equipment_event["equipment message"] != "":
@@ -2580,21 +2657,46 @@ while game_running:
                             exit()
                     elif event.type == QUIT:
                         exit()
+
                     # click handlers -----------------------------------------------------------------------------------
-                    inventory_event = click_handlers.inventory_click_handler(player, event, player_mage_amuna_down_1,
-                                                                             player_mage_nuldar_down_1,
-                                                                             player_mage_sorae_down_1,
-                                                                             player_fighter_amuna_down_1,
-                                                                             player_fighter_nuldar_down_1,
-                                                                             player_fighter_sorae_down_1,
-                                                                             player_scout_amuna_down_1,
-                                                                             player_scout_nuldar_down_1,
-                                                                             player_scout_sorae_down_1)
-                    if inventory_event["item message"] != "":
-                        info_text_1 = inventory_event["item message"]
-                        info_text_2 = ""
+                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    if info_choice == "yes":
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 player_mage_amuna_down_1,
+                                                                                 player_mage_nuldar_down_1,
+                                                                                 player_mage_sorae_down_1,
+                                                                                 player_fighter_amuna_down_1,
+                                                                                 player_fighter_nuldar_down_1,
+                                                                                 player_fighter_sorae_down_1,
+                                                                                 player_scout_amuna_down_1,
+                                                                                 player_scout_nuldar_down_1,
+                                                                                 player_scout_sorae_down_1)
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                        drawing_functions.item_info_window.clear()
+                    if info_choice == "no":
+                        drawing_functions.item_info_window.clear()
+
+                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    if inventory_item_clicked["clicked"]:
+                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                             info_items, item_info_button,
+                                                                             use_button_img, equip_button_img,
+                                                                             info_health_pot_img,
+                                                                             info_energy_pot_img,
+                                                                             info_basic_robes_img,
+                                                                             info_basic_armor_img,
+                                                                             info_basic_tunic_img,
+                                                                             info_basic_staff_img,
+                                                                             info_basic_sword_img,
+                                                                             info_basic_bow_img,
+                                                                             info_shiny_rock_img,
+                                                                             info_bone_dust_img)
+
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
+                    equipment_event = click_handlers.equipment_click_handler(player, event,
+                                                                             player_no_role_amuna_down_1,
                                                                              player_no_role_nuldar_down_1,
                                                                              player_no_role_sorae_down_1)
                     if equipment_event["equipment message"] != "":
@@ -2913,7 +3015,7 @@ while game_running:
                         # get current enemy name and create surf and rectangle to draw to screen
                         text_enemy_name_surf = font.render(str(enemy.name), True, "black", "light yellow")
                         text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                        text_enemy_name_rect.center = (800, 680)
+                        text_enemy_name_rect.center = (800, 681)
                         screen.blit(text_enemy_name_surf, text_enemy_name_rect)
                         # get current enemy level and create surf and rectangle to draw to screen
                         text_enemy_level_surf = font.render(str(enemy.level), True, "black", "light yellow")
@@ -3129,61 +3231,61 @@ while game_running:
                             # inventory and giving them "x" rupees to add to their current count
                             if sell_item.name == "health potion":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_health_pot_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
                             if sell_item.name == "energy potion":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_energy_pot_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
                             if sell_item.name == "shiny rock":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_shiny_rock_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
                             if sell_item.name == "bone dust":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_bone_dust_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
                             if sell_item.name == "basic staff":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_staff_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
                             if sell_item.name == "basic sword":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_sword_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
                             if sell_item.name == "basic bow":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_bow_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
                             if sell_item.name == "basic robes":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_robes_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
                             if sell_item.name == "basic armor":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_armor_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
                             if sell_item.name == "basic tunic":
                                 sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, s_basic_tunic_img)
-                                yes_button.update(1153, 342, yes_button_img)
+                                yes_button.update(1153, 345, yes_button_img)
                                 current_sell_item = sell_item
                                 sell_window.append(sell_items)
                                 sell_window.append(yes_button)
@@ -3223,20 +3325,43 @@ while game_running:
                             exit()
                     elif event.type == QUIT:
                         exit()
+
                     # click handlers -----------------------------------------------------------------------------------
-                    inventory_event = click_handlers.inventory_click_handler(player, event,
-                                                                             player_mage_amuna_down_1,
-                                                                             player_mage_nuldar_down_1,
-                                                                             player_mage_sorae_down_1,
-                                                                             player_fighter_amuna_down_1,
-                                                                             player_fighter_nuldar_down_1,
-                                                                             player_fighter_sorae_down_1,
-                                                                             player_scout_amuna_down_1,
-                                                                             player_scout_nuldar_down_1,
-                                                                             player_scout_sorae_down_1)
-                    if inventory_event["item message"] != "":
-                        info_text_1 = inventory_event["item message"]
-                        info_text_2 = ""
+                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    if info_choice == "yes":
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 player_mage_amuna_down_1,
+                                                                                 player_mage_nuldar_down_1,
+                                                                                 player_mage_sorae_down_1,
+                                                                                 player_fighter_amuna_down_1,
+                                                                                 player_fighter_nuldar_down_1,
+                                                                                 player_fighter_sorae_down_1,
+                                                                                 player_scout_amuna_down_1,
+                                                                                 player_scout_nuldar_down_1,
+                                                                                 player_scout_sorae_down_1)
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                        drawing_functions.item_info_window.clear()
+                    if info_choice == "no":
+                        drawing_functions.item_info_window.clear()
+
+                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    if inventory_item_clicked["clicked"]:
+                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                             info_items, item_info_button,
+                                                                             use_button_img, equip_button_img,
+                                                                             info_health_pot_img,
+                                                                             info_energy_pot_img,
+                                                                             info_basic_robes_img,
+                                                                             info_basic_armor_img,
+                                                                             info_basic_tunic_img,
+                                                                             info_basic_staff_img,
+                                                                             info_basic_sword_img,
+                                                                             info_basic_bow_img,
+                                                                             info_shiny_rock_img,
+                                                                             info_bone_dust_img)
+
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event,
                                                                              player_no_role_amuna_down_1,
@@ -3327,20 +3452,43 @@ while game_running:
                             exit()
                     elif event.type == QUIT:
                         exit()
+
                     # click handlers -----------------------------------------------------------------------------------
-                    inventory_event = click_handlers.inventory_click_handler(player, event,
-                                                                             player_mage_amuna_down_1,
-                                                                             player_mage_nuldar_down_1,
-                                                                             player_mage_sorae_down_1,
-                                                                             player_fighter_amuna_down_1,
-                                                                             player_fighter_nuldar_down_1,
-                                                                             player_fighter_sorae_down_1,
-                                                                             player_scout_amuna_down_1,
-                                                                             player_scout_nuldar_down_1,
-                                                                             player_scout_sorae_down_1)
-                    if inventory_event["item message"] != "":
-                        info_text_1 = inventory_event["item message"]
-                        info_text_2 = ""
+                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    if info_choice == "yes":
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 player_mage_amuna_down_1,
+                                                                                 player_mage_nuldar_down_1,
+                                                                                 player_mage_sorae_down_1,
+                                                                                 player_fighter_amuna_down_1,
+                                                                                 player_fighter_nuldar_down_1,
+                                                                                 player_fighter_sorae_down_1,
+                                                                                 player_scout_amuna_down_1,
+                                                                                 player_scout_nuldar_down_1,
+                                                                                 player_scout_sorae_down_1)
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                        drawing_functions.item_info_window.clear()
+                    if info_choice == "no":
+                        drawing_functions.item_info_window.clear()
+
+                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    if inventory_item_clicked["clicked"]:
+                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                             info_items, item_info_button,
+                                                                             use_button_img, equip_button_img,
+                                                                             info_health_pot_img,
+                                                                             info_energy_pot_img,
+                                                                             info_basic_robes_img,
+                                                                             info_basic_armor_img,
+                                                                             info_basic_tunic_img,
+                                                                             info_basic_staff_img,
+                                                                             info_basic_sword_img,
+                                                                             info_basic_bow_img,
+                                                                             info_shiny_rock_img,
+                                                                             info_bone_dust_img)
+
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event,
                                                                              player_no_role_amuna_down_1,
@@ -3508,20 +3656,58 @@ while game_running:
                         pos = pygame.mouse.get_pos()
                         if level_up_win.rect.collidepoint(pos):
                             drawing_functions.level_up_draw(level_up_win, player, font, False)
+                        if mage_select_button.rect.collidepoint(pos):
+                            if not npc_garan.gift:
+                                player.items.append(Item("basic staff", "mage", 0, 0, basic_staff_img))
+                                player.items.append(Item("basic robes", "mage", 0, 0, basic_robes_img))
+                                npc_garan.gift = True
+                        if fighter_select_button.rect.collidepoint(pos):
+                            if not npc_garan.gift:
+                                player.items.append(Item("basic sword", "fighter", 0, 0, basic_sword_img))
+                                player.items.append(Item("basic armor", "fighter", 0, 0, basic_armor_img))
+                                npc_garan.gift = True
+                        if scout_select_button.rect.collidepoint(pos):
+                            if not npc_garan.gift:
+                                player.items.append(Item("basic bow", "scout", 0, 0, basic_bow_img))
+                                player.items.append(Item("basic tunic", "scout", 0, 0, basic_tunic_img))
+                                npc_garan.gift = True
+
                     # click handlers -----------------------------------------------------------------------------------
-                    inventory_event = click_handlers.inventory_click_handler(player, event,
-                                                                             player_mage_amuna_down_1,
-                                                                             player_mage_nuldar_down_1,
-                                                                             player_mage_sorae_down_1,
-                                                                             player_fighter_amuna_down_1,
-                                                                             player_fighter_nuldar_down_1,
-                                                                             player_fighter_sorae_down_1,
-                                                                             player_scout_amuna_down_1,
-                                                                             player_scout_nuldar_down_1,
-                                                                             player_scout_sorae_down_1)
-                    if inventory_event["item message"] != "":
-                        info_text_1 = inventory_event["item message"]
-                        info_text_2 = ""
+                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    if info_choice == "yes":
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 player_mage_amuna_down_1,
+                                                                                 player_mage_nuldar_down_1,
+                                                                                 player_mage_sorae_down_1,
+                                                                                 player_fighter_amuna_down_1,
+                                                                                 player_fighter_nuldar_down_1,
+                                                                                 player_fighter_sorae_down_1,
+                                                                                 player_scout_amuna_down_1,
+                                                                                 player_scout_nuldar_down_1,
+                                                                                 player_scout_sorae_down_1)
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                        drawing_functions.item_info_window.clear()
+                    if info_choice == "no":
+                        drawing_functions.item_info_window.clear()
+
+                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    if inventory_item_clicked["clicked"]:
+                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                             info_items, item_info_button,
+                                                                             use_button_img, equip_button_img,
+                                                                             info_health_pot_img,
+                                                                             info_energy_pot_img,
+                                                                             info_basic_robes_img,
+                                                                             info_basic_armor_img,
+                                                                             info_basic_tunic_img,
+                                                                             info_basic_staff_img,
+                                                                             info_basic_sword_img,
+                                                                             info_basic_bow_img,
+                                                                             info_shiny_rock_img,
+                                                                             info_bone_dust_img)
+
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event,
                                                                              player_no_role_amuna_down_1,
@@ -3553,18 +3739,15 @@ while game_running:
                                             player.current_quests["sneaky snakes"] = "You completed this quest!"
                                             info_text_1 = "You've completed Garan's quest!"
                                             info_text_2 = "You've gained: "
-                                            info_text_3 = "2 health and energy potions. "
-                                            info_text_4 = "50 xp and 10 amuna rep. "
+                                            info_text_3 = "1 health and energy potion. "
+                                            info_text_4 = "1 star, 50 xp and 10 amuna rep. "
+                                            player.star_power += 1
                                             player.experience += 50
                                             if player.experience >= 100:
                                                 gameplay_functions.level_up(player, level_up_win, level_up_font)
                                             player.reputation["amuna"] += 10
                                             player.items.append(Item("health potion", "potion", 200, 200,
                                                                      health_pot_img))
-                                            player.items.append(Item("health potion", "potion", 200, 200,
-                                                                     health_pot_img))
-                                            player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                     energy_pot_img))
                                             player.items.append(Item("energy potion", "potion", 200, 200,
                                                                      energy_pot_img))
                                         else:
@@ -3595,13 +3778,17 @@ while game_running:
                                             player.current_quests["village repairs"] = "You completed this quest!"
                                             info_text_1 = "You've completed Maurelle's quest!"
                                             info_text_2 = "You've gained: "
-                                            info_text_3 = "Nera's blessing (Trinket). "
-                                            info_text_4 = "50 xp and 10 amuna rep. "
+                                            info_text_3 = "1 health and energy potion. "
+                                            info_text_4 = "1 star, 50 xp and 10 amuna rep. "
+                                            player.star_power += 1
                                             player.experience += 50
                                             if player.experience >= 100:
                                                 gameplay_functions.level_up(player, level_up_win, level_up_font)
                                             player.reputation["amuna"] += 10
-                                            player.items.append(Item("temporary item", "trinket", 200, 200, temp_img))
+                                            player.items.append(Item("health potion", "potion", 200, 200,
+                                                                     health_pot_img))
+                                            player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                     energy_pot_img))
                                         else:
                                             info_text_1 = "You completed the quest, but "
                                             info_text_2 = "Your inventory is full!"
@@ -3631,7 +3818,8 @@ while game_running:
                                             info_text_1 = "You've completed Guard's quest!"
                                             info_text_2 = "You've gained: "
                                             info_text_3 = "Rohir bridge gate access. "
-                                            info_text_4 = "50 xp and 10 amuna rep. "
+                                            info_text_4 = "1 star, 50 xp and 10 amuna rep. "
+                                            player.star_power += 1
                                             player.experience += 50
                                             if player.experience >= 100:
                                                 gameplay_functions.level_up(player, level_up_win, level_up_font)
@@ -3660,19 +3848,6 @@ while game_running:
                             if quest_buttons == "accept":
                                 info_text_1 = "You've accepted the quest!"
                                 if npc.name == "garan":
-                                    # when players first accept garan's quest he will give them a basic weapon
-                                    if not npc.gift:
-                                        player.items.append(Item("basic staff", "mage", 200, 200,
-                                                                 basic_staff_img))
-                                        player.items.append(Item("basic sword", "fighter", 200, 200,
-                                                                 basic_sword_img))
-                                        player.items.append(Item("basic bow", "scout", 200, 200,
-                                                                 basic_bow_img))
-                                        player.rupees += 20
-                                        info_text_2 = "garan has given you:"
-                                        info_text_3 = "Basic Staff, Basic Sword, Basic Bow"
-                                        info_text_4 = "And 20 rupees!"
-                                        npc.gift = True
                                     player.quest_status["sneaky snakes"] = True
                                     player.current_quests["sneaky snakes"] = "Garan asked you to defeat" \
                                                                              " snakes near the river."
@@ -3731,6 +3906,13 @@ while game_running:
                     text_npc_name_rect.center = (640, 192)
                     screen.blit(text_npc_name_surf, text_npc_name_rect)
                     drawing_functions.draw_it(screen)
+
+                    if player.quest_status["sneaky snakes"]:
+                        if not npc_garan.gift:
+                            screen.blit(role_select_overlay.surf, role_select_overlay.rect)
+                            screen.blit(mage_select_button.surf, mage_select_button.rect)
+                            screen.blit(fighter_select_button.surf, fighter_select_button.rect)
+                            screen.blit(scout_select_button.surf, scout_select_button.rect)
 
             # ----------------------------------------------------------------------------------------------------------
             # if player is in korlok over world ------------------------------------------------------------------------
@@ -3814,19 +3996,41 @@ while game_running:
                         pass
 
                     # click handlers -----------------------------------------------------------------------------------
-                    inventory_event = click_handlers.inventory_click_handler(player, event,
-                                                                             player_mage_amuna_down_1,
-                                                                             player_mage_nuldar_down_1,
-                                                                             player_mage_sorae_down_1,
-                                                                             player_fighter_amuna_down_1,
-                                                                             player_fighter_nuldar_down_1,
-                                                                             player_fighter_sorae_down_1,
-                                                                             player_scout_amuna_down_1,
-                                                                             player_scout_nuldar_down_1,
-                                                                             player_scout_sorae_down_1)
-                    if inventory_event["item message"] != "":
-                        info_text_1 = inventory_event["item message"]
-                        info_text_2 = ""
+                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    if info_choice == "yes":
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 player_mage_amuna_down_1,
+                                                                                 player_mage_nuldar_down_1,
+                                                                                 player_mage_sorae_down_1,
+                                                                                 player_fighter_amuna_down_1,
+                                                                                 player_fighter_nuldar_down_1,
+                                                                                 player_fighter_sorae_down_1,
+                                                                                 player_scout_amuna_down_1,
+                                                                                 player_scout_nuldar_down_1,
+                                                                                 player_scout_sorae_down_1)
+                        if inventory_event["item message"] != "":
+                            info_text_1 = inventory_event["item message"]
+                            info_text_2 = ""
+                        drawing_functions.item_info_window.clear()
+                    if info_choice == "no":
+                        drawing_functions.item_info_window.clear()
+
+                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    if inventory_item_clicked["clicked"]:
+                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                             info_items, item_info_button,
+                                                                             use_button_img, equip_button_img,
+                                                                             info_health_pot_img,
+                                                                             info_energy_pot_img,
+                                                                             info_basic_robes_img,
+                                                                             info_basic_armor_img,
+                                                                             info_basic_tunic_img,
+                                                                             info_basic_staff_img,
+                                                                             info_basic_sword_img,
+                                                                             info_basic_bow_img,
+                                                                             info_shiny_rock_img,
+                                                                             info_bone_dust_img)
+
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event,
                                                                              player_no_role_amuna_down_1,

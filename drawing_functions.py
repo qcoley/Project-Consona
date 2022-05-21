@@ -9,28 +9,113 @@ level_up_window = []
 quest_box = []
 player_equipment = []
 player_items = []
+item_info_window = []
 
 
 # draws elements on screen that have been appended to list by below functions
 def draw_it(screen):
-    for character_window in character_sheet_window:
-        screen.blit(character_window.surf, character_window.rect)
-    for character_text in character_sheet_text:
-        screen.blit(character_text[0], character_text[1])
-    for journals_window in journal_window:
-        screen.blit(journals_window.surf, journals_window.rect)
-    for journals_text in journal_text:
-        screen.blit(journals_text[0], journals_text[1])
-    for level_ups_window in level_up_window:
-        screen.blit(level_ups_window.surf, level_ups_window.rect)
-    for level_ups_text in level_up_text:
-        screen.blit(level_ups_text[0], level_ups_text[1])
-    for quest_element in quest_box:
-        screen.blit(quest_element.surf, quest_element.rect)
-    for equipment_here in player_equipment:
-        screen.blit(equipment_here.surf, equipment_here.rect)
-    for item_here in player_items:
-        screen.blit(item_here.surf, item_here.rect)
+    if len(character_sheet_window) > 0:
+        for character_window in character_sheet_window:
+            screen.blit(character_window.surf, character_window.rect)
+    if len(character_sheet_text) > 0:
+        for character_text in character_sheet_text:
+            screen.blit(character_text[0], character_text[1])
+    if len(journal_window) > 0:
+        for journals_window in journal_window:
+            screen.blit(journals_window.surf, journals_window.rect)
+    if len(journal_text) > 0:
+        for journals_text in journal_text:
+            screen.blit(journals_text[0], journals_text[1])
+    if len(level_up_window) > 0:
+        for level_ups_window in level_up_window:
+            screen.blit(level_ups_window.surf, level_ups_window.rect)
+    if len(level_up_text) > 0:
+        for level_text in level_up_text:
+            screen.blit(level_text[0], level_text[1])
+    if len(character_sheet_text) > 0:
+        for characters_text in character_sheet_text:
+            screen.blit(characters_text[0], characters_text[1])
+    if len(quest_box) > 0:
+        for quest_element in quest_box:
+            screen.blit(quest_element.surf, quest_element.rect)
+    if len(player_equipment) > 0:
+        for equipment_here in player_equipment:
+            screen.blit(equipment_here.surf, equipment_here.rect)
+    if len(player_items) > 0:
+        for item_here in player_items:
+            screen.blit(item_here.surf, item_here.rect)
+    if len(item_info_window) > 0:
+        for item_info in item_info_window:
+            screen.blit(item_info.surf, item_info.rect)
+
+
+def item_info_draw(inventory_item, info_items, item_info_button, use_button_img, equip_button_img,
+                     info_health_pot_img, info_energy_pot_img, info_basic_robes_img, info_basic_armor_img,
+                     info_basic_tunic_img, info_basic_staff_img, info_basic_sword_img, info_basic_bow_img,
+                     info_shiny_rock_img, info_bone_dust_img):
+    if inventory_item:
+        if inventory_item.name == "health potion":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_health_pot_img)
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    use_button_img)
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "energy potion":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_energy_pot_img)
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    use_button_img)
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "basic robes":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_basic_robes_img)
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    equip_button_img)
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "basic armor":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_basic_armor_img)
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    equip_button_img)
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "basic tunic":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_basic_tunic_img)
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    equip_button_img)
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "basic staff":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_basic_staff_img)
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    equip_button_img)
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "basic sword":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_basic_sword_img)
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    equip_button_img)
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "basic bow":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_basic_bow_img)
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    equip_button_img)
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "shiny rock":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_shiny_rock_img)
+            item_info_window.append(info_items)
+        if inventory_item.name == "bone dust":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, info_bone_dust_img)
+            item_info_window.append(info_items)
 
 
 def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4):
@@ -45,19 +130,19 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_level_rect.center = (1102, 360)
     screen.blit(text_level_surf, text_level_rect)
     # get current player role and create surf and rectangle to blit to screen-------------------------------------------
-    text_role_surf = font.render(str(player.role), True, "black", "light yellow")
+    text_role_surf = font.render(str(player.role), True, "black", "light gray")
     text_role_rect = text_role_surf.get_rect()
-    text_role_rect.center = (1220, 360)
+    text_role_rect.center = (1130, 81)
     screen.blit(text_role_surf, text_role_rect)
     # get current player offense and create surf and rectangle to blit to screen----------------------------------------
     text_offense_surf = font.render(str(player.offense), True, "black", "light gray")
     text_offense_rect = text_offense_surf.get_rect()
-    text_offense_rect.center = (1135, 85)
+    text_offense_rect.center = (1135, 117)
     screen.blit(text_offense_surf, text_offense_rect)
     # get current player defence and create surf and rectangle to blit to screen----------------------------------------
     text_defence_surf = font.render(str(player.defence), True, "black", "light gray")
     text_defence_rect = text_defence_surf.get_rect()
-    text_defence_rect.center = (1235, 85)
+    text_defence_rect.center = (1233, 117)
     screen.blit(text_defence_surf, text_defence_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")

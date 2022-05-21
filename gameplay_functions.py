@@ -237,7 +237,9 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
                                info_text_1, info_text_2, info_text_3, info_text_4,
                                health_pot_img, energy_pot_img, shiny_rock_img, bone_dust_img,
                                basic_staff_img, basic_sword_img, basic_bow_img,
-                               basic_robes_img, basic_armor_img, basic_tunic_img, temp_img):
+                               basic_robes_img, basic_armor_img, basic_tunic_img, temp_img,
+                               star_power_meter, star_00, star_01, star_02, star_03, star_04):
+
     screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
@@ -308,6 +310,19 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
         for ui_elements in user_interface:
             screen.blit(ui_elements.surf, ui_elements.rect)
 
+    if player.star_power == 0:
+        star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, star_00)
+    if player.star_power == 1:
+        star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, star_01)
+    if player.star_power == 2:
+        star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, star_02)
+    if player.star_power == 3:
+        star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, star_03)
+    if player.star_power == 4:
+        star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, star_04)
+
+    screen.blit(star_power_meter.surf, star_power_meter.rect)
+
     # draw texts to the screen, like message box, player rupees and level
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4)
     # update players current equipment
@@ -365,10 +380,9 @@ def level_up(player, level_up_win, level_up_font):
 
     if player.level < 20:
         player.level = player.level + 1
-        # reset player health, energy and experience points
         player.health = 100
         player.energy = 100
-        player.experience = 0
+        player.experience = player.experience - 100
         drawing_functions.level_up_draw(level_up_win, player, level_up_font, True)
     else:
         level_up_dictionary["new level"] = "You are already max level. "
