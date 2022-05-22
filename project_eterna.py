@@ -1757,11 +1757,11 @@ nascent_gate_popup = UiElement("nascent gate popup", 418, 200,
 sell_items = UiElement("sell items", 1154, 270, s_health_pot_img)
 info_items = UiElement("info items", 1154, 270, info_health_pot_img)
 star_power_meter = UiElement("star power", 1210, 360, star_00)
-role_select_overlay = UiElement("role select overlay", 545, 335,
+role_select_overlay = UiElement("role select overlay", 550, 369,
                                 pygame.image.load(resource_urls.role_selection_overlay).convert())
-mage_select_button = UiElement("role select overlay", 264, 509, mage_select_button_img)
-fighter_select_button = UiElement("role select overlay", 545, 509, fighter_select_button_img)
-scout_select_button = UiElement("role select overlay", 826, 509, scout_select_button_img)
+mage_select_button = UiElement("role select overlay", 296, 566, mage_select_button_img)
+fighter_select_button = UiElement("role select overlay", 550, 566, fighter_select_button_img)
+scout_select_button = UiElement("role select overlay", 804, 566, scout_select_button_img)
 
 font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
 level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
