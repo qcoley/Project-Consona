@@ -248,40 +248,47 @@ def journal_info_draw(journal, player, font, draw_condition):
     else:
         text_quest1_surf = font.render(str(list(player.current_quests)[0]), True, "black", "light yellow")
         text_quest1_rect = text_quest1_surf.get_rect()
-        text_quest1_rect.center = (650, 145)
+        text_quest1_rect.midleft = (600, 145)
         text_quest1_info_surf = font.render(str(list(player.current_quests.values())[0]), True, "black", "light yellow")
         text_quest1_info_rect = text_quest1_info_surf.get_rect()
         text_quest1_info_rect.midleft = (540, 190)
         text_quest1_prog_surf = font.render(str(player.quest_progress["sneaky snakes"]) + " /4",
                                             True, "black", "light yellow")
         text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
-        text_quest1_prog_rect.center = (950, 145)
+        text_quest1_prog_rect.midleft = (950, 145)
+
         text_quest2_surf = font.render(str(list(player.current_quests)[1]), True, "black", "light yellow")
         text_quest2_rect = text_quest2_surf.get_rect()
-        text_quest2_rect.center = (650, 272)
+        text_quest2_rect.midleft = (600, 272)
         text_quest2_info_surf = font.render(str(list(player.current_quests.values())[1]), True, "black", "light yellow")
         text_quest2_info_rect = text_quest2_info_surf.get_rect()
         text_quest2_info_rect.midleft = (540, 320)
         text_quest2_prog_surf = font.render(str(player.quest_progress["village repairs"]) + " /4",
                                             True, "black", "light yellow")
         text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
-        text_quest2_prog_rect.center = (950, 272)
+        text_quest2_prog_rect.midleft = (950, 272)
+
         text_quest3_surf = font.render(str(list(player.current_quests)[2]), True, "black", "light yellow")
         text_quest3_rect = text_quest3_surf.get_rect()
-        text_quest3_rect.center = (650, 405)
+        text_quest3_rect.midleft = (600, 405)
         text_quest3_info_surf = font.render(str(list(player.current_quests.values())[2]), True, "black", "light yellow")
         text_quest3_info_rect = text_quest3_info_surf.get_rect()
         text_quest3_info_rect.midleft = (540, 455)
-        text_quest3_prog_surf = font.render(str(player.quest_progress["ghouled again"]) + " /4", True,
+        text_quest3_prog_surf = font.render(str(player.quest_progress["where's nede?"]) + " /1", True,
                                                 "black", "light yellow")
         text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
-        text_quest3_prog_rect.center = (950, 405)
+        text_quest3_prog_rect.midleft = (950, 405)
+
         text_quest4_surf = font.render(str(list(player.current_quests)[3]), True, "black", "light yellow")
         text_quest4_rect = text_quest4_surf.get_rect()
-        text_quest4_rect.center = (660, 538)
+        text_quest4_rect.midleft = (600, 538)
         text_quest4_info_surf = font.render(str(list(player.current_quests.values())[3]), True, "black", "light yellow")
         text_quest4_info_rect = text_quest4_info_surf.get_rect()
         text_quest4_info_rect.midleft = (540, 585)
+        text_quest4_prog_surf = font.render(str(player.quest_progress["ghouled again"]) + " /4", True,
+                                            "black", "light yellow")
+        text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
+        text_quest4_prog_rect.midleft = (950, 538)
 
         journal_text.append((text_quest1_surf, text_quest1_rect))
         journal_text.append((text_quest1_info_surf, text_quest1_info_rect))
@@ -294,6 +301,7 @@ def journal_info_draw(journal, player, font, draw_condition):
         journal_text.append((text_quest3_prog_surf, text_quest3_prog_rect))
         journal_text.append((text_quest4_surf, text_quest4_rect))
         journal_text.append((text_quest4_info_surf, text_quest4_info_rect))
+        journal_text.append((text_quest4_prog_surf, text_quest4_prog_rect))
         journal_window.append(journal)
 
 
@@ -312,8 +320,8 @@ def level_up_draw(level_up_win, player, level_up_font, draw_condition):
         level_up_window.append(level_up_win)
 
 
-def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, guard_quest_window,
-                   accept_button, decline_button):
+def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
+                   torune_quest_window, accept_button, decline_button):
 
     if not draw_condition:
         quest_box.clear()
@@ -322,8 +330,10 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
             quest_box.append(garan_quest_window)
         if quest_npc.name == "maurelle":
             quest_box.append(maurelle_quest_window)
-        if quest_npc.name == "guard":
-            quest_box.append(guard_quest_window)
+        if quest_npc.name == "celeste":
+            quest_box.append(celeste_quest_window)
+        if quest_npc.name == "torune":
+            quest_box.append(torune_quest_window)
 
         quest_box.append(accept_button)
         quest_box.append(decline_button)

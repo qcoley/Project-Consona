@@ -128,8 +128,12 @@ player_skills_nuldar_url = resource_path('resources/art/player_battle_sprites_sk
 garan_url = resource_path('resources/art/sprites_garans.png')
 # maurelle npc ---------------------------------------------------------------------------------------------------------
 maurelle_url = resource_path('resources/art/sprites_maurelles.png')
+# celeste npc ---------------------------------------------------------------------------------------------------------
+celeste_url = resource_path('resources/art/sprites_celestes.png')
 # guard npc ------------------------------------------------------------------------------------------------------------
 guard_url = resource_path('resources/art/sprites_guards.png')
+# torune npc -----------------------------------------------------------------------------------------------------------
+torune_url = resource_path('resources/art/sprites_torune.png')
 # npc interactions -----------------------------------------------------------------------------------------------------
 npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
 # enemies --------------------------------------------------------------------------------------------------------------

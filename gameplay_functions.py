@@ -5,7 +5,7 @@ import time
 
 
 # quest stars for npcs that update based on player quest progress
-def npc_quest_star_updates(player, screen, quest_star_garan, quest_star_maurelle, quest_star_guard,
+def npc_quest_star_updates(player, screen, quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune,
                            quest_progress_star, quest_complete_star):
     if not player.quest_complete["sneaky snakes"]:
         screen.blit(quest_star_garan.surf, quest_star_garan.rect)
@@ -13,18 +13,27 @@ def npc_quest_star_updates(player, screen, quest_star_garan, quest_star_maurelle
         quest_star_garan.update(210, 390, quest_complete_star)
     if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
         quest_star_garan.update(210, 390, quest_progress_star)
+    # ------------------------------------------------------------------------------------------------------------------
+    if not player.quest_complete["where's nede?"]:
+        screen.blit(quest_star_celeste.surf, quest_star_celeste.rect)
+    if player.quest_progress["where's nede?"] == 4:
+        quest_star_celeste.update(760, 373, quest_complete_star)
+    if player.quest_status["where's nede?"] and player.quest_progress["where's nede?"] != 4:
+        quest_star_celeste.update(760, 373, quest_progress_star)
+    # ------------------------------------------------------------------------------------------------------------------
     if not player.quest_complete["village repairs"]:
         screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
     if player.quest_progress["village repairs"] == 4:
-        quest_star_maurelle.update(760, 480, quest_complete_star)
+        quest_star_maurelle.update(744, 575, quest_complete_star)
     if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
-        quest_star_maurelle.update(760, 480, quest_progress_star)
+        quest_star_maurelle.update(744, 575, quest_progress_star)
+    # ------------------------------------------------------------------------------------------------------------------
     if not player.quest_complete["ghouled again"]:
-        screen.blit(quest_star_guard.surf, quest_star_guard.rect)
+        screen.blit(quest_star_torune.surf, quest_star_torune.rect)
     if player.quest_progress["ghouled again"] == 4:
-        quest_star_guard.update(430, 75, quest_complete_star)
+        quest_star_torune.update(430, 75, quest_complete_star)
     if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
-        quest_star_guard.update(430, 75, quest_progress_star)
+        quest_star_torune.update(430, 75, quest_progress_star)
 
 
 def load_game(player, player_no_role_amuna_down_1, player_scout_amuna_down_1, player_fighter_amuna_down_1,
@@ -241,9 +250,12 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
                                star_power_meter, star_00, star_01, star_02, star_03, star_04):
 
     screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-    screen.blit(hp_bar.surf, hp_bar.rect)
-    screen.blit(en_bar.surf, en_bar.rect)
-    screen.blit(xp_bar.surf, xp_bar.rect)
+    try:
+        screen.blit(hp_bar.surf, hp_bar.rect)
+        screen.blit(en_bar.surf, en_bar.rect)
+        screen.blit(xp_bar.surf, xp_bar.rect)
+    except TypeError:
+        pass
 
     # update players status bars
     hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player,

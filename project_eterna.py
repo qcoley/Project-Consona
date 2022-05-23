@@ -593,13 +593,11 @@ class Player(pygame.sprite.Sprite):
 
 # any in game npc. can have quests and also gifts to player upon initial interaction
 class NPC(pygame.sprite.Sprite):
-    def __init__(self, name, gender, race, role, dialog, quest_to_give, quest_description, x_coordinate, y_coordinate,
+    def __init__(self, name, race, dialog, quest_to_give, quest_description, x_coordinate, y_coordinate,
                  alive_status, quest_complete, items, gift, image):
         super(NPC, self).__init__()
         self.name = name
-        self.gender = gender
         self.race = race
-        self.role = role
         self.dialog = dialog
         self.quest_to_give = quest_to_give
         self.quest_description = quest_description
@@ -1284,6 +1282,18 @@ maurelle_down = maurelle_sheet.get_image(0, 0, 40, 62)
 maurelle_up = maurelle_sheet.get_image(40, 0, 40, 62)
 maurelle_left = maurelle_sheet.get_image(80, 0, 40, 62)
 maurelle_right = maurelle_sheet.get_image(120, 0, 40, 62)
+# celeste npc
+celeste_sheet = SpriteSheet(resource_urls.celeste_url)
+celeste_down = celeste_sheet.get_image(0, 0, 45, 62)
+celeste_up = celeste_sheet.get_image(45, 0, 45, 62)
+celeste_left = celeste_sheet.get_image(90, 0, 45, 62)
+celeste_right = celeste_sheet.get_image(135, 0, 45, 62)
+# torune npc
+torune_sheet = SpriteSheet(resource_urls.torune_url)
+torune_down = torune_sheet.get_image(0, 0, 50, 62)
+torune_up = torune_sheet.get_image(50, 0, 50, 62)
+torune_left = torune_sheet.get_image(100, 0, 50, 62)
+torune_right = torune_sheet.get_image(150, 0, 50, 62)
 # guard npc
 guard_sheet = SpriteSheet(resource_urls.guard_url)
 guard_down = guard_sheet.get_image(0, 0, 50, 75)
@@ -1292,19 +1302,20 @@ guard_left = guard_sheet.get_image(100, 0, 50, 75)
 guard_right = guard_sheet.get_image(150, 0, 50, 75)
 # npc interactions
 npc_interactions_sheet = SpriteSheet(resource_urls.npc_interactions_url)
-garan_interaction = npc_interactions_sheet.get_image(0, 0, 200, 260)
-maurelle_interaction = npc_interactions_sheet.get_image(200, 0, 200, 260)
-guard_interaction = npc_interactions_sheet.get_image(400, 0, 200, 260)
+garan_interaction = npc_interactions_sheet.get_image(0, 0, 210, 300)
+maurelle_interaction = npc_interactions_sheet.get_image(210, 0, 210, 300)
+celeste_interaction = npc_interactions_sheet.get_image(420, 0, 210, 300)
+torune_interaction = npc_interactions_sheet.get_image(630, 0, 220, 300)
 # enemies
 enemies_sheet = SpriteSheet(resource_urls.enemies_url)
 snake = enemies_sheet.get_image(0, 0, 50, 50)
 ghoul = enemies_sheet.get_image(50, 0, 50, 50)
 # enemies battle
 enemies_battle_sheet = SpriteSheet(resource_urls.enemies_battle_url)
-snake_battle = enemies_battle_sheet.get_image(0, 0, 300, 250)
-snake_attack = enemies_battle_sheet.get_image(300, 0, 300, 250)
-ghoul_battle = enemies_battle_sheet.get_image(600, 0, 300, 250)
-ghoul_attack = enemies_battle_sheet.get_image(900, 0, 300, 250)
+snake_battle = enemies_battle_sheet.get_image(0, 0, 300, 280)
+snake_attack = enemies_battle_sheet.get_image(300, 0, 300, 280)
+ghoul_battle = enemies_battle_sheet.get_image(600, 0, 300, 280)
+ghoul_attack = enemies_battle_sheet.get_image(900, 0, 300, 280)
 # amuna buildings
 amuna_buildings_sheet = SpriteSheet(resource_urls.amuna_buildings_url)
 amuna_academia_building = amuna_buildings_sheet.get_image(0, 0, 100, 100)
@@ -1407,7 +1418,8 @@ scout_select_button_img = role_select_buttons_sheet.get_image(368, 0, 184, 42)
 quest_windows_sheet = SpriteSheet(resource_urls.quest_windows_url)
 garan_quest = quest_windows_sheet.get_image(0, 0, 500, 525)
 maurelle_quest = quest_windows_sheet.get_image(500, 0, 500, 525)
-guard_quest = quest_windows_sheet.get_image(1000, 0, 500, 525)
+torune_quest = quest_windows_sheet.get_image(1000, 0, 500, 525)
+celeste_quest = quest_windows_sheet.get_image(1500, 0, 500, 525)
 # quest stars
 quest_stars_sheet = SpriteSheet(resource_urls.quest_stars_url)
 quest_start_star = quest_stars_sheet.get_image(0, 0, 50, 50)
@@ -1616,29 +1628,31 @@ sorae_character = UiElement("sorae character", 640, 360, sorae_character_img)
 player = Player("stan", "amuna", "",  # name, race, role
                 [health_potion, energy_potion],  # inventory
                 {"weapon": "", "chest": ""},  # equipment ('type', 'name')
-                # current quests, quest progress (x/4), quest status (quest: done)
                 {"sneaky snakes": "Speak to Garan to start this quest.",
                  "village repairs": "Speak to Maurelle to start this quest.",
+                 "where's nede?": "Speak to Celeste to start this quest",
                  "ghouled again": "Speak to the gate Guard to start this quest.", "": ""},
-                {"sneaky snakes": 0, "village repairs": 0, "ghouled again": 0},  # quest progress (x/4)
-                {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest status
-                {"sneaky snakes": False, "village repairs": False, "ghouled again": False},  # quest complete
-                {"mage": 60, "fighter": 60, "scout": 60},  # role knowledge ('role', 'amount')
+                {"sneaky snakes": 0, "village repairs": 0, "where's nede?": 0, "ghouled again": 0},  # quest progress
+                {"sneaky snakes": False, "village repairs": False, "where's nede?": False, "ghouled again": False},
+                {"sneaky snakes": False, "village repairs": False, "where's nede?": False, "ghouled again": False},
+                {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
                 {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                 1, 0, 100, 100,  # lvl, exp, health, energy
-                True, 20, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
+                True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
                 "", 0, 0, 0)  # zone, defence, offense, image
 
 # npcs: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate
 #                  alive_status, quest_complete, items, gift, image
-npc_garan = NPC("garan", "male", "amuna", "rogue", "It's dangerous to go alone.", "Stupid Snakes", "", 210, 430,
+npc_garan = NPC("garan", "amuna", "It's dangerous to go alone.", "stupid snakes", "", 210, 432,
                 True, False, ["Items"], False, garan_down)
-npc_maurelle = NPC("maurelle", "female", "amuna", "mage", "We need help!", "Village Repairs", "", 760, 520,
+npc_maurelle = NPC("maurelle", "amuna", "We need help!", "village repairs", "", 745, 615,
                    True, False, ["Items"], False, maurelle_down)
-npc_guard = NPC("guard", "male", "amuna", "fighter", "Another day.", "Ghouled Again", "", 430, 120,
-                True, False, ["Items"], False, guard_down)
+npc_celeste = NPC("celeste", "sorae", "My pet!", "where's nede?", "", 760, 415,
+                   True, False, ["Items"], False, celeste_down)
+npc_torune = NPC("torune", "nuldar", "Onur-oh.", "ghouled again", "", 430, 120,
+                 True, False, ["Items"], False, torune_down)
 npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
     Item("health potion", "potion", 200, 200, health_pot_img),
     Item("energy potion", "potion", 200, 200, energy_pot_img),
@@ -1648,15 +1662,17 @@ npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
     Item("basic robes", "mage", 200, 200, basic_robes_img),
     Item("basic armor", "fighter", 200, 200, basic_armor_img),
     Item("basic tunic", "scout", 200, 200, basic_tunic_img)])
-npc_garan_interaction = UiElement("garan interaction", 650, 350, garan_interaction)
-npc_maurelle_interaction = UiElement("maurelle interaction", 650, 350, maurelle_interaction)
-npc_guard_interaction = UiElement("guard interaction", 650, 350, guard_interaction)
+npc_garan_interaction = UiElement("garan interaction", 647, 360, garan_interaction)
+npc_maurelle_interaction = UiElement("maurelle interaction", 641, 360, maurelle_interaction)
+npc_celeste_interaction = UiElement("celeste interaction", 639, 360, celeste_interaction)
+npc_torune_interaction = UiElement("torune interaction", 635, 360, torune_interaction)
+
 # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
-snake_1 = Enemy("snake", "snake", 100, 100, 1, 80, 130, True, Item("shiny rock", "rock", 200, 200, shiny_rock_img),
+snake_1 = Enemy("snake", "snake", 100, 100, 1, 100, 130, True, Item("shiny rock", "rock", 200, 200, shiny_rock_img),
                 snake, UiElement("snake hp bar", 700, 90, hp_100))
 snake_2 = Enemy("snake", "snake", 100, 100, 2, 285, 150, True, Item("shiny rock", "rock", 200, 200, shiny_rock_img),
                 snake, UiElement("snake hp bar", 700, 90, hp_100))
-snake_3 = Enemy("snake", "snake", 100, 100, 1, 80, 230, True, Item("shiny rock", "rock", 200, 200, shiny_rock_img),
+snake_3 = Enemy("snake", "snake", 100, 100, 1, 100, 230, True, Item("shiny rock", "rock", 200, 200, shiny_rock_img),
                 snake, UiElement("snake hp bar", 700, 90, hp_100))
 snake_4 = Enemy("snake", "snake", 100, 100, 2, 285, 250, True, Item("shiny rock", "rock", 200, 200, shiny_rock_img),
                 snake, UiElement("snake hp bar", 700, 90, hp_100))
@@ -1736,22 +1752,24 @@ quest_logs_1 = Item("quest logs", "quest", 60, 540, pygame.image.load(resource_u
 quest_logs_2 = Item("quest logs", "quest", 315, 560, pygame.image.load(resource_urls.quest_logs).convert())
 quest_logs_3 = Item("quest logs", "quest", 415, 435, pygame.image.load(resource_urls.quest_logs).convert())
 quest_logs_4 = Item("quest logs", "quest", 100, 540, pygame.image.load(resource_urls.quest_logs).convert())
-npc_name_plate = UiElement("npc name plate", 640, 192, pygame.image.load(resource_urls.npc_name_plate).convert())
+npc_name_plate = UiElement("npc name plate", 638, 192, pygame.image.load(resource_urls.npc_name_plate).convert())
 buy_inventory = Inventory("buy inventory", [], 900, 500, pygame.image.load(resource_urls.buy_inventory).convert())
 knowledge_window = UiElement("knowledge window", 635, 680, pygame.image.load(resource_urls.knowledge_window).convert())
 garan_quest_window = UiElement("garan quest window", 262, 442, garan_quest)
 maurelle_quest_window = UiElement("maurelle quest window", 262, 442, maurelle_quest)
-guard_quest_window = UiElement("guard quest window", 262, 442, guard_quest)
+celeste_quest_window = UiElement("maurelle quest window", 262, 442, celeste_quest)
+torune_quest_window = UiElement("torune quest window", 262, 442, torune_quest)
 message_box = UiElement("message box", 173, 650, pygame.image.load(resource_urls.message_box))
 bar_backdrop = UiElement("bar backdrop", 165, 45, pygame.image.load(resource_urls.bar_backdrop))
 enemy_status_bar_backdrop = UiElement("enemy bar backdrop", 700, 90,
                                       pygame.image.load(resource_urls.enemy_bar_backdrop))
-quest_star_garan = UiElement("quest star garan", 210, 390, quest_start_star, )
-quest_star_maurelle = UiElement("quest star maurelle", 760, 480, quest_start_star)
-quest_star_guard = UiElement("quest star guard", 430, 75, quest_start_star)
+quest_star_garan = UiElement("quest star garan", 210, 390, quest_start_star)
+quest_star_maurelle = UiElement("quest star maurelle", 744, 575, quest_start_star)
+quest_star_celeste = UiElement("quest star maurelle", 760, 373, quest_start_star)
+quest_star_torune = UiElement("quest star torune", 430, 75, quest_start_star)
 player_battle_sprite = BattleCharacter("stan battle", 320, 460, player_no_role_amuna_battle)
 snake_battle_sprite = BattleCharacter("snake battle", 715, 250, snake_battle)
-ghoul_battle_sprite = BattleCharacter("ghoul battle", 700, 250, ghoul_battle)
+ghoul_battle_sprite = BattleCharacter("ghoul battle", 698, 280, ghoul_battle)
 nascent_gate_popup = UiElement("nascent gate popup", 418, 200,
                                pygame.image.load(resource_urls.nascent_gate_popup_url).convert())
 sell_items = UiElement("sell items", 1154, 270, s_health_pot_img)
@@ -1781,7 +1799,7 @@ snakes = pygame.sprite.Group()
 snakes.add(snake_1, snake_2, snake_3, snake_4)
 ghouls = pygame.sprite.Group()
 ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
-npcs.add(npc_garan, npc_maurelle, npc_guard)
+npcs.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
 enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
@@ -2321,7 +2339,8 @@ while game_running:
                     screen.blit(enemy_sprite.surf, enemy_sprite.rect)
 
                 gameplay_functions.npc_quest_star_updates(player, screen, quest_star_garan, quest_star_maurelle,
-                                                          quest_star_guard, quest_progress_star, quest_complete_star)
+                                                          quest_star_celeste, quest_star_torune, quest_progress_star,
+                                                          quest_complete_star)
                 player_updates()
 
                 # pop up notifications for situations like low health or first weapon acquire
@@ -2605,7 +2624,7 @@ while game_running:
                 move_ghoul = random.choice(ghouls.sprites())
                 if movement_able:
                     enemy_toc = time.perf_counter()
-                    if enemy_toc - enemy_tic > 1:
+                    if enemy_toc - enemy_tic > 2:
                         enemy_tic = time.perf_counter()
                         move_snake.update_position([100, 300], [200, 300], direction_horizontal, direction_vertical)
                         move_ghoul.update_position([700, 900], [200, 300], direction_horizontal, direction_vertical)
@@ -2616,36 +2635,44 @@ while game_running:
                 face_this_npc = random.choice(npcs.sprites())
                 if movement_able:
                     npc_toc = time.perf_counter()
-                    if npc_toc - npc_tic > 2:
+                    if npc_toc - npc_tic > 5:
                         npc_tic = time.perf_counter()
                         if face_direction == "front":
                             if face_this_npc.name == "garan":
                                 npc_garan.update(garan_down)
                             if face_this_npc.name == "maurelle":
                                 npc_maurelle.update(maurelle_down)
-                            if face_this_npc.name == "guard":
-                                npc_guard.update(guard_down)
+                            if face_this_npc.name == "celeste":
+                                npc_celeste.update(celeste_down)
+                            if face_this_npc.name == "torune":
+                                npc_torune.update(torune_down)
                         if face_direction == "back":
                             if face_this_npc.name == "garan":
                                 npc_garan.update(garan_up)
                             if face_this_npc.name == "maurelle":
                                 npc_maurelle.update(maurelle_up)
-                            if face_this_npc.name == "guard":
-                                npc_guard.update(guard_up)
+                            if face_this_npc.name == "celeste":
+                                npc_celeste.update(celeste_up)
+                            if face_this_npc.name == "torune":
+                                npc_torune.update(torune_up)
                         if face_direction == "left":
                             if face_this_npc.name == "garan":
                                 npc_garan.update(garan_left)
                             if face_this_npc.name == "maurelle":
                                 npc_maurelle.update(maurelle_left)
-                            if face_this_npc.name == "guard":
-                                npc_guard.update(guard_left)
+                            if face_this_npc.name == "celeste":
+                                npc_celeste.update(celeste_left)
+                            if face_this_npc.name == "torune":
+                                npc_torune.update(torune_left)
                         if face_direction == "right":
                             if face_this_npc.name == "garan":
                                 npc_garan.update(garan_right)
                             if face_this_npc.name == "maurelle":
                                 npc_maurelle.update(maurelle_right)
-                            if face_this_npc.name == "guard":
-                                npc_guard.update(guard_right)
+                            if face_this_npc.name == "celeste":
+                                npc_celeste.update(celeste_right)
+                            if face_this_npc.name == "torune":
+                                npc_torune.update(torune_right)
 
             # ----------------------------------------------------------------------------------------------------------
             # if player is in battle -----------------------------------------------------------------------------------
@@ -3730,7 +3757,7 @@ while game_running:
                             # npc was interacted with, if quest button clicked get npc name and check quest progress
                             npc_button = click_handlers.npc_event_button(event, quest_button, leave_button)
                             if npc_button == "quest":
-                                # garan npc, check player's quest progress and reward if completed
+                                # garan npc, check player's quest progress and reward if completed ---------------------
                                 if npc.name == "garan":
                                     if player.quest_progress["sneaky snakes"] == 4 and not \
                                             player.quest_complete["sneaky snakes"]:
@@ -3758,18 +3785,54 @@ while game_running:
                                         if not player.quest_complete["sneaky snakes"]:
                                             drawing_functions.quest_box_draw(npc, True, garan_quest_window,
                                                                              maurelle_quest_window,
-                                                                             guard_quest_window,
+                                                                             celeste_quest_window, torune_quest_window,
                                                                              accept_button, decline_button)
                                             quest_clicked = True
                                         else:
                                             info_text_1 = "You've completed this quest!"
                                     else:
                                         drawing_functions.quest_box_draw(npc, False, garan_quest_window,
-                                                                         maurelle_quest_window, guard_quest_window,
+                                                                         maurelle_quest_window,
+                                                                         celeste_quest_window, torune_quest_window,
                                                                          accept_button, decline_button)
                                         quest_clicked = False
 
-                                # maurelle npc, check player's quest progress and reward if completed
+                                # celeste npc, check player's quest progress and reward if completed -------------------
+                                if npc.name == "celeste":
+                                    if player.quest_progress["where's nede?"] == 4 and not \
+                                            player.quest_complete["where's nede?"]:
+                                        if len(player.items) < 16:
+                                            player.quest_complete["where's nede?"] = True
+                                            player.current_quests["where's nede?"] = "You completed this quest!"
+                                            info_text_1 = "You've completed Celeste's quest!"
+                                            info_text_2 = "You've gained: "
+                                            info_text_3 = "1 star, 50 xp and 10 amuna rep. "
+                                            player.star_power += 1
+                                            player.experience += 50
+                                            if player.experience >= 100:
+                                                gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            player.reputation["sorae"] += 10
+                                        else:
+                                            info_text_1 = "You completed the quest, but "
+                                            info_text_2 = "Your inventory is full!"
+
+                                    if not quest_clicked:
+                                        if not player.quest_complete["where's nede?"]:
+                                            drawing_functions.quest_box_draw(npc, True, garan_quest_window,
+                                                                             maurelle_quest_window,
+                                                                             celeste_quest_window, torune_quest_window,
+                                                                             accept_button, decline_button)
+                                            quest_clicked = True
+                                        else:
+                                            info_text_1 = "You've completed this quest!"
+                                    else:
+                                        drawing_functions.quest_box_draw(npc, False, garan_quest_window,
+                                                                         maurelle_quest_window, celeste_quest_window,
+                                                                         torune_quest_window, accept_button,
+                                                                         decline_button)
+                                        quest_clicked = False
+
+                                # maurelle npc, check player's quest progress and reward if completed ------------------
                                 if npc.name == "maurelle":
                                     if player.quest_progress["village repairs"] == 4 and not \
                                             player.quest_complete["village repairs"]:
@@ -3797,19 +3860,20 @@ while game_running:
                                         if not player.quest_complete["village repairs"]:
                                             drawing_functions.quest_box_draw(npc, True, garan_quest_window,
                                                                              maurelle_quest_window,
-                                                                             guard_quest_window,
+                                                                             celeste_quest_window, torune_quest_window,
                                                                              accept_button, decline_button)
                                             quest_clicked = True
                                         else:
                                             info_text_1 = "You've completed this quest!"
                                     else:
                                         drawing_functions.quest_box_draw(npc, False, garan_quest_window,
-                                                                         maurelle_quest_window, guard_quest_window,
-                                                                         accept_button, decline_button)
+                                                                         maurelle_quest_window, celeste_quest_window,
+                                                                         torune_quest_window, accept_button,
+                                                                         decline_button)
                                         quest_clicked = False
 
-                                # guard npc, check player's quest progress and reward if completed
-                                if npc.name == "guard":
+                                # torune npc, check player's quest progress and reward if completed --------------------
+                                if npc.name == "torune":
                                     if player.quest_progress["ghouled again"] == 4 and not \
                                             player.quest_complete["ghouled again"]:
                                         if len(player.items) < 16:
@@ -3832,15 +3896,16 @@ while game_running:
                                         if not player.quest_complete["ghouled again"]:
                                             drawing_functions.quest_box_draw(npc, True, garan_quest_window,
                                                                              maurelle_quest_window,
-                                                                             guard_quest_window,
+                                                                             celeste_quest_window, torune_quest_window,
                                                                              accept_button, decline_button)
                                             quest_clicked = True
                                         else:
                                             info_text_1 = "You've completed this quest!"
                                     else:
                                         drawing_functions.quest_box_draw(npc, False, garan_quest_window,
-                                                                         maurelle_quest_window, guard_quest_window,
-                                                                         accept_button, decline_button)
+                                                                         maurelle_quest_window, celeste_quest_window,
+                                                                         torune_quest_window, accept_button,
+                                                                         decline_button)
                                         quest_clicked = False
 
                             # in quest window pop-up, if accept or decline buttons are clicked
@@ -3855,22 +3920,26 @@ while game_running:
                                     player.quest_status["village repairs"] = True
                                     player.current_quests["village repairs"] = "Maurelle asked you to " \
                                                                                "gather lumber from nearby trees."
-                                if npc.name == "guard":
+                                if npc.name == "celeste":
+                                    player.quest_status["where's nede?"] = True
+                                    player.current_quests["where's nede?"] = "Celeste asked you to find " \
+                                                                             "her pet dog Nede. "
+                                if npc.name == "torune":
                                     player.quest_status["ghouled again"] = True
-                                    player.current_quests["ghouled again"] = "The Guard asked you to defeat" \
+                                    player.current_quests["ghouled again"] = "Torune asked you to defeat" \
                                                                              " ghouls nearby the Castle wall."
                                 quest_clicked = False
                                 drawing_functions.quest_box_draw(npc, False, garan_quest_window,
-                                                                 maurelle_quest_window, guard_quest_window,
-                                                                 accept_button, decline_button)
+                                                                 maurelle_quest_window, celeste_quest_window,
+                                                                 torune_quest_window, accept_button, decline_button)
 
                             # if player chooses to decline, just close the quest window
                             if quest_buttons == "decline":
                                 info_text_1 = ""
                                 quest_clicked = False
                                 drawing_functions.quest_box_draw(npc, False, garan_quest_window,
-                                                                 maurelle_quest_window, guard_quest_window,
-                                                                 accept_button, decline_button)
+                                                                 maurelle_quest_window, celeste_quest_window,
+                                                                 torune_quest_window, accept_button, decline_button)
                             if npc_button == "leave":
                                 movement_able = True
                                 interacted = False
@@ -3879,8 +3948,8 @@ while game_running:
                                 in_over_world = True
                                 quest_clicked = False
                                 drawing_functions.quest_box_draw(npc, False, garan_quest_window,
-                                                                 maurelle_quest_window, guard_quest_window,
-                                                                 accept_button, decline_button)
+                                                                 maurelle_quest_window, celeste_quest_window,
+                                                                 torune_quest_window, accept_button, decline_button)
 
                 # outside npc interaction event loop -------------------------------------------------------------------
                 if player.current_zone == "seldon":
@@ -3896,14 +3965,16 @@ while game_running:
                         screen.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
                     if npc.name == "maurelle":
                         screen.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
-                    if npc.name == "guard":
-                        screen.blit(npc_guard_interaction.surf, npc_guard_interaction.rect)
+                    if npc.name == "celeste":
+                        screen.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
+                    if npc.name == "torune":
+                        screen.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
                     screen.blit(message_box.surf, message_box.rect)
                     player_updates()
                     # get current npc name and create surf and rectangle to draw to screen
                     text_npc_name_surf = font.render(str(npc.name), True, "black", "light yellow")
                     text_npc_name_rect = text_npc_name_surf.get_rect()
-                    text_npc_name_rect.center = (640, 192)
+                    text_npc_name_rect.center = (637, 192)
                     screen.blit(text_npc_name_surf, text_npc_name_rect)
                     drawing_functions.draw_it(screen)
 
