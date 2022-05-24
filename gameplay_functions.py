@@ -16,9 +16,9 @@ def npc_quest_star_updates(player, screen, quest_star_garan, quest_star_maurelle
     # ------------------------------------------------------------------------------------------------------------------
     if not player.quest_complete["where's nede?"]:
         screen.blit(quest_star_celeste.surf, quest_star_celeste.rect)
-    if player.quest_progress["where's nede?"] == 4:
+    if player.quest_progress["where's nede?"] == 1:
         quest_star_celeste.update(760, 373, quest_complete_star)
-    if player.quest_status["where's nede?"] and player.quest_progress["where's nede?"] != 4:
+    if player.quest_status["where's nede?"] and player.quest_progress["where's nede?"] != 1:
         quest_star_celeste.update(760, 373, quest_progress_star)
     # ------------------------------------------------------------------------------------------------------------------
     if not player.quest_complete["village repairs"]:
@@ -43,7 +43,7 @@ def load_game(player, player_no_role_amuna_down_1, player_scout_amuna_down_1, pl
               health_pot_img, energy_pot_img, basic_staff_img, basic_sword_img, basic_bow_img, basic_robes_img,
               basic_armor_img, basic_tunic_img, shiny_rock_img, bone_dust_img):
     load_return = {"barrier learned": False, "strike learned": False, "sensed learned": False,
-                   "saved": False, "start": False, "continue": False, "not found": False}
+                   "saved": False, "start": False, "continue": False, "not found": False, "garan gift": False}
     try:
         with open("save_game", "rb") as f:
             player_load_info = pickle.load(f)
@@ -141,17 +141,18 @@ def load_game(player, player_no_role_amuna_down_1, player_scout_amuna_down_1, pl
             if player.current_zone == "nascent":
                 player.x_coordinate = 760
                 player.y_coordinate = 510
-                player.rect = player.surf.get_rect(center=(player.x_coordinate, player.y_coordinate))
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
             if player.current_zone == "seldon":
                 player.x_coordinate = 425
                 player.y_coordinate = 690
-                player.rect = player.surf.get_rect(center=(player.x_coordinate, player.y_coordinate))
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
             if player.current_zone == "korlok":
                 player.x_coordinate = 500
                 player.y_coordinate = 500
-                player.rect = player.surf.get_rect(center=(player.x_coordinate, player.y_coordinate))
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
             load_return["saved"] = player_load_info["saved"]
+            load_return["garan gift"] = player_load_info["garan gift"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -165,7 +166,7 @@ def load_game(player, player_no_role_amuna_down_1, player_scout_amuna_down_1, pl
 
 
 # save game function. stores player info in a dictionary that's serialized and saved to save_game file
-def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned, saved):
+def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned, saved, garan_gift):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -182,6 +183,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "hp": int(player.health), "en": int(player.energy), "xp": int(player.experience),
                         "offense": int(player.offense), "defense": int(player.defence),
                         "quests": dict(player.current_quests),
+                        "garan gift": garan_gift,
                         "quest progress": dict(player.quest_progress),
                         "quest status": dict(player.quest_status),
                         "quest complete": dict(player.quest_complete),
@@ -357,22 +359,22 @@ def attack_enemy(player, mob):
         difference = 1
     # scale damage based on player's offense stat and level difference
     if player.role == "mage":
-        damage = (random.randrange(17, player.offense) // difference)
+        damage = (random.randrange(16, player.offense) // difference)
         return damage
     if player.role == "scout":
         damage = (random.randrange(12, player.offense) // difference)
         return damage
     if player.role == "fighter":
-        damage = (random.randrange(7, player.offense) // difference)
+        damage = (random.randrange(8, player.offense) // difference)
         return damage
     if player.role == "":
-        damage = (random.randrange(1, 7) // difference)
+        damage = (random.randrange(1, player.offense) // difference)
         return damage
 
 
 # enemy attacks player, gets damage to player done, subtract players defense level
 def attack_player(player, mob):
-    base_damage = (random.randrange(10, 18))
+    base_damage = (random.randrange(12, 20))
     difference = mob.level - player.level
     # add additional damage if enemy is a higher level than player
     if difference >= 1:
