@@ -1835,12 +1835,11 @@ xp_98 = xp_sheet.get_image(2440, 171, 305, 19); xp_99 = xp_sheet.get_image(2745,
 xp_100 = xp_sheet.get_image(0, 190, 305, 19)
 
 # creating objects from defined classes --------------------------------------------------------------------------------
-# display notifications to user
+# display notifications
 knowledge_academia = Notification("knowledge academia notification", False, 510, 365, knowledge_popup)
 rest_recover = Notification("rest recover", False, 510, 365, health_popup)
 shop_gear = Notification("shop gear", False, 510, 365, gear_popup)
 save_check = Notification("save check", False, 510, 365, save_popup)
-# window that notifies player if a save file isn't found on start screen
 save_absent = Notification("save absent", False, 640, 574, save_not_found)
 # inventory items
 health_potion = Item("health potion", "potion", 200, 200, health_pot_img)
@@ -1854,12 +1853,12 @@ basic_bow = Item("basic bow", "scout", 200, 200, basic_bow_img)
 basic_robes = Item("basic robes", "mage", 200, 200, basic_robes_img)
 basic_armor = Item("basic armor", "fighter", 200, 200, basic_armor_img)
 basic_tunic = Item("basic tunic", "scout", 200, 200, basic_tunic_img)
-# character selection screen display characters
+# character selection
 amuna_character = UiElement("amuna character", 640, 360, amuna_character_img)
 nuldar_character = UiElement("nuldar character", 640, 360, nuldar_character_img)
 sorae_character = UiElement("sorae character", 640, 360, sorae_character_img)
 
-# default player character
+# default player
 player = PlayerAmuna("stan", "amuna", "",  # name, race, role
                      [health_potion, energy_potion],  # inventory
                      {"weapon": "", "chest": ""},  # equipment ('type', 'name')
@@ -2031,6 +2030,7 @@ enemy_hp_bars = pygame.sprite.Group()
 most_sprites = pygame.sprite.Group()
 non_sprite_sheets = pygame.sprite.Group()
 snakes = pygame.sprite.Group()
+
 snakes.add(snake_1, snake_2, snake_3, snake_4)
 ghouls = pygame.sprite.Group()
 ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
