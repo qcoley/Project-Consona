@@ -11,18 +11,18 @@ import combat_scenario
 import character_creation
 import shop_scenario
 
-# global variables -----------------------------------------------------------------------------------------------------
+# global variables
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 velocity = 2
 
 
 # class objects --------------------------------------------------------------------------------------------------------
-class Player(pygame.sprite.Sprite):
+class PlayerAmuna(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power):
-        super(Player, self).__init__()
+        super(PlayerAmuna, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
         self.surf = player_no_role_amuna_down_1
@@ -48,484 +48,192 @@ class Player(pygame.sprite.Sprite):
         self.rupees = rupees
         self.reputation = reputation
         self.current_zone = current_zone
-        self.defence = defense
+        self.defense = defense
         self.offense = offense
         self.star_power = star_power
 
     # move the player sprite based on input keys
     def update(self, pressed_key, current_zone, walk_timed):
-        # w key is pressed to move player up. set surface based on race, role and current animation. set y value -
-        if pressed_key == "up":
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "amuna":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_amuna_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_amuna_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_amuna_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_amuna_up_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_amuna_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_amuna_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_amuna_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_amuna_up_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_amuna_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_amuna_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_amuna_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_amuna_up_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_amuna_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_amuna_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_amuna_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_amuna_up_4
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "sorae":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_sorae_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_sorae_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_sorae_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_sorae_up_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_sorae_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_sorae_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_sorae_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_sorae_up_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_sorae_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_sorae_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_sorae_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_sorae_up_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_sorae_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_sorae_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_sorae_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_sorae_up_4
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "nuldar":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_nuldar_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_nuldar_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_nuldar_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_nuldar_up_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_nuldar_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_nuldar_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_nuldar_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_nuldar_up_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_nuldar_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_nuldar_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_nuldar_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_nuldar_up_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_nuldar_up_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_nuldar_up_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_nuldar_up_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_nuldar_up_4
-            self.y_coordinate -= velocity
-
-        # s key is pressed to move player down. set surface based on race, role and current animation. set y value +
-        if pressed_key == "down":
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "amuna":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_amuna_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_amuna_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_amuna_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_amuna_down_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_amuna_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_amuna_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_amuna_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_amuna_down_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_amuna_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_amuna_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_amuna_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_amuna_down_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_amuna_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_amuna_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_amuna_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_amuna_down_4
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "sorae":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_sorae_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_sorae_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_sorae_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_sorae_down_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_sorae_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_sorae_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_sorae_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_sorae_down_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_sorae_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_sorae_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_sorae_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_sorae_down_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_sorae_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_sorae_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_sorae_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_sorae_down_4
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "nuldar":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_nuldar_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_nuldar_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_nuldar_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_nuldar_down_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_nuldar_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_nuldar_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_nuldar_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_nuldar_down_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_nuldar_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_nuldar_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_nuldar_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_nuldar_down_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_nuldar_down_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_nuldar_down_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_nuldar_down_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_nuldar_down_4
-            self.y_coordinate += velocity
-
-        # a key is pressed to move player left. set surface based on race, role and current animation. set x value -
-        if pressed_key == "left":
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "amuna":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_amuna_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_amuna_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_amuna_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_amuna_left_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_amuna_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_amuna_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_amuna_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_amuna_left_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_amuna_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_amuna_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_amuna_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_amuna_left_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_amuna_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_amuna_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_amuna_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_amuna_left_4
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "sorae":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_sorae_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_sorae_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_sorae_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_sorae_left_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_sorae_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_sorae_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_sorae_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_sorae_left_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_sorae_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_sorae_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_sorae_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_sorae_left_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_sorae_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_sorae_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_sorae_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_sorae_left_4
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "nuldar":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_nuldar_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_nuldar_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_nuldar_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_nuldar_left_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_nuldar_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_nuldar_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_nuldar_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_nuldar_left_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_nuldar_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_nuldar_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_nuldar_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_nuldar_left_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_nuldar_left_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_nuldar_left_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_nuldar_left_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_nuldar_left_4
-            self.x_coordinate -= velocity
-
-        # d key is pressed to move player right. set surface based on race, role and current animation. set x value +
-        if pressed_key == "right":
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "amuna":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_amuna_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_amuna_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_amuna_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_amuna_right_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_amuna_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_amuna_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_amuna_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_amuna_right_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_amuna_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_amuna_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_amuna_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_amuna_right_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_amuna_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_amuna_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_amuna_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_amuna_right_4
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "sorae":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_sorae_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_sorae_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_sorae_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_sorae_right_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_sorae_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_sorae_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_sorae_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_sorae_right_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_sorae_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_sorae_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_sorae_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_sorae_right_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_sorae_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_sorae_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_sorae_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_sorae_right_4
-            # ----------------------------------------------------------------------------------------------------------
-            if player.race == "nuldar":
-                if player.role == "mage":
-                    if walk_timed < 0.2:
-                        self.surf = player_mage_nuldar_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_mage_nuldar_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_mage_nuldar_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_mage_nuldar_right_4
-                if player.role == "fighter":
-                    if walk_timed < 0.2:
-                        self.surf = player_fighter_nuldar_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_fighter_nuldar_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_fighter_nuldar_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_fighter_nuldar_right_4
-                if player.role == "scout":
-                    if walk_timed < 0.2:
-                        self.surf = player_scout_nuldar_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_scout_nuldar_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_scout_nuldar_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_scout_nuldar_right_4
-                if player.role == "":
-                    if walk_timed < 0.2:
-                        self.surf = player_no_role_nuldar_right_1
-                    if walk_timed > 0.2:
-                        self.surf = player_no_role_nuldar_right_2
-                    if walk_timed > 0.4:
-                        self.surf = player_no_role_nuldar_right_3
-                    if walk_timed > 0.6:
-                        self.surf = player_no_role_nuldar_right_4
-            self.x_coordinate += velocity
-
+        if player.role == "":  # ---------------------------------------------------------------------------------------
+            # w key is pressed to move player up. set y value -
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_amuna_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_amuna_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_amuna_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_amuna_up_4
+                self.y_coordinate -= velocity
+            # s key is pressed to move player down. set y value +
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_amuna_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_amuna_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_amuna_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_amuna_down_4
+                self.y_coordinate += velocity
+            # a key is pressed to move player left. set x value -
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_amuna_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_amuna_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_amuna_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_amuna_left_4
+                self.x_coordinate -= velocity
+            # d key is pressed to move player right. set x value +
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_amuna_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_amuna_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_amuna_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_amuna_right_4
+                self.x_coordinate += velocity
+        if player.role == "mage":  # -----------------------------------------------------------------------------------
+            # w key is pressed to move player up. set y value -
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_amuna_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_amuna_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_amuna_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_amuna_up_4
+                self.y_coordinate -= velocity
+            # s key is pressed to move player down. set y value +
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_amuna_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_amuna_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_amuna_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_amuna_down_4
+                self.y_coordinate += velocity
+            # a key is pressed to move player left. set x value -
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_amuna_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_amuna_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_amuna_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_amuna_left_4
+                self.x_coordinate -= velocity
+            # d key is pressed to move player right. set x value +
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_amuna_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_amuna_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_amuna_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_amuna_right_4
+                self.x_coordinate += velocity
+        if player.role == "fighter":  # --------------------------------------------------------------------------------
+            # w key is pressed to move player up. set y value -
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_amuna_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_amuna_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_amuna_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_amuna_up_4
+                self.y_coordinate -= velocity
+            # s key is pressed to move player down. set y value +
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_amuna_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_amuna_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_amuna_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_amuna_down_4
+                self.y_coordinate += velocity
+            # a key is pressed to move player left. set x value -
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_amuna_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_amuna_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_amuna_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_amuna_left_4
+                self.x_coordinate -= velocity
+            # d key is pressed to move player right. set x value +
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_amuna_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_amuna_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_amuna_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_amuna_right_4
+                self.x_coordinate += velocity
+        if player.role == "scout":  # ----------------------------------------------------------------------------------
+            # w key is pressed to move player up. set y value -
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_amuna_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_amuna_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_amuna_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_amuna_up_4
+                self.y_coordinate -= velocity
+            # s key is pressed to move player down. set y value +
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_amuna_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_amuna_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_amuna_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_amuna_down_4
+                self.y_coordinate += velocity
+            # a key is pressed to move player left. set x value -
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_amuna_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_amuna_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_amuna_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_amuna_left_4
+                self.x_coordinate -= velocity
+            # d key is pressed to move player right. set x value +
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_amuna_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_amuna_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_amuna_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_amuna_right_4
+                self.x_coordinate += velocity
         # keep player on the screen, boundaries vary depending on current zone
         if current_zone == "nascent":
             if self.x_coordinate < 340:
@@ -577,7 +285,6 @@ class Player(pygame.sprite.Sprite):
                 self.y_coordinate = 115
             elif self.y_coordinate >= SCREEN_HEIGHT - 5:
                 self.y_coordinate = SCREEN_HEIGHT - 5
-
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -589,8 +296,529 @@ class Player(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
-
         # update player position
+        self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
+
+
+class PlayerNuldar(pygame.sprite.Sprite):
+    def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
+                 quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
+                 energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power):
+        super(PlayerNuldar, self).__init__()
+        self.x_coordinate = 760
+        self.y_coordinate = 510
+        self.surf = player_no_role_amuna_down_1
+        self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
+        self.name = name
+        self.race = race
+        self.role = role
+        self.items = items
+        self.equipment = p_equipment
+        self.current_quests = current_quests
+        self.quest_progress = quest_progress
+        self.quest_status = quest_status
+        self.quest_complete = quest_complete
+        self.knowledge = knowledge
+        self.skills_mage = skills_mage
+        self.skills_fighter = skills_fighter
+        self.skills_scout = skills_scout
+        self.level = level
+        self.experience = experience
+        self.health = health
+        self.energy = energy
+        self.alive_status = alive_status
+        self.rupees = rupees
+        self.reputation = reputation
+        self.current_zone = current_zone
+        self.defense = defense
+        self.offense = offense
+        self.star_power = star_power
+
+    def update(self, pressed_key, current_zone, walk_timed):
+        if player.role == "":  # ---------------------------------------------------------------------------------------
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_nuldar_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_nuldar_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_nuldar_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_nuldar_up_4
+                self.y_coordinate -= velocity
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_nuldar_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_nuldar_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_nuldar_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_nuldar_down_4
+                self.y_coordinate += velocity
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_nuldar_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_nuldar_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_nuldar_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_nuldar_left_4
+                self.x_coordinate -= velocity
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_nuldar_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_nuldar_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_nuldar_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_nuldar_right_4
+                self.x_coordinate += velocity
+        if player.role == "mage":  # -----------------------------------------------------------------------------------
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_nuldar_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_nuldar_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_nuldar_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_nuldar_up_4
+                self.y_coordinate -= velocity
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_nuldar_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_nuldar_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_nuldar_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_nuldar_down_4
+                self.y_coordinate += velocity
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_nuldar_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_nuldar_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_nuldar_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_nuldar_left_4
+                self.x_coordinate -= velocity
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_nuldar_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_nuldar_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_nuldar_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_nuldar_right_4
+                self.x_coordinate += velocity
+        if player.role == "fighter":  # --------------------------------------------------------------------------------
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_nuldar_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_nuldar_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_nuldar_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_nuldar_up_4
+                self.y_coordinate -= velocity
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_nuldar_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_nuldar_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_nuldar_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_nuldar_down_4
+                self.y_coordinate += velocity
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_nuldar_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_nuldar_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_nuldar_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_nuldar_left_4
+                self.x_coordinate -= velocity
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_nuldar_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_nuldar_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_nuldar_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_nuldar_right_4
+                self.x_coordinate += velocity
+        if player.role == "scout":  # ----------------------------------------------------------------------------------
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_nuldar_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_nuldar_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_nuldar_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_nuldar_up_4
+                self.y_coordinate -= velocity
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_nuldar_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_nuldar_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_nuldar_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_nuldar_down_4
+                self.y_coordinate += velocity
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_nuldar_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_nuldar_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_nuldar_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_nuldar_left_4
+                self.x_coordinate -= velocity
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_nuldar_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_nuldar_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_nuldar_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_nuldar_right_4
+                self.x_coordinate += velocity
+        if current_zone == "nascent":
+            if self.x_coordinate < 340:
+                self.x_coordinate = 340
+            elif self.x_coordinate > SCREEN_WIDTH - 325:
+                self.x_coordinate = SCREEN_WIDTH - 325
+            if self.y_coordinate <= 60:
+                self.y_coordinate = 60
+            elif self.y_coordinate >= SCREEN_HEIGHT - 50:
+                self.y_coordinate = SCREEN_HEIGHT - 50
+            elif 315 >= self.y_coordinate >= 300:
+                self.y_coordinate = 315
+            elif 300 >= self.y_coordinate >= 230:
+                self.y_coordinate = 230
+        if current_zone == "seldon":
+            if self.x_coordinate < 15:
+                self.x_coordinate = 15
+            elif self.x_coordinate > SCREEN_WIDTH - 355:
+                self.x_coordinate = SCREEN_WIDTH - 355
+            if self.y_coordinate <= 115:
+                self.y_coordinate = 115
+            elif self.y_coordinate >= SCREEN_HEIGHT - 5:
+                self.y_coordinate = SCREEN_HEIGHT - 5
+        if current_zone == "stardust":
+            if self.x_coordinate < 225:
+                self.x_coordinate = 225
+            elif self.x_coordinate > SCREEN_WIDTH - 325:
+                self.x_coordinate = SCREEN_WIDTH - 325
+            if self.y_coordinate <= 80:
+                self.y_coordinate = 80
+            elif self.y_coordinate >= SCREEN_HEIGHT - 80:
+                self.y_coordinate = SCREEN_HEIGHT - 80
+            elif 360 >= self.y_coordinate >= 300 and 641 >= self.x_coordinate >= 409:
+                self.y_coordinate = 360
+            elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
+                self.y_coordinate = 230
+            elif 645 >= self.x_coordinate >= 500 and 358 >= self.y_coordinate >= 232:
+                self.x_coordinate = 645
+            elif 500 >= self.x_coordinate >= 395 and 358 >= self.y_coordinate >= 232:
+                self.x_coordinate = 395
+        if current_zone == "korlok":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            elif self.x_coordinate > SCREEN_WIDTH - 355:
+                self.x_coordinate = SCREEN_WIDTH - 355
+            if self.y_coordinate <= 115:
+                self.y_coordinate = 115
+            elif self.y_coordinate >= SCREEN_HEIGHT - 5:
+                self.y_coordinate = SCREEN_HEIGHT - 5
+        if current_zone == "seldon":
+            collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
+        self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
+
+
+class PlayerSorae(pygame.sprite.Sprite):
+    def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
+                 quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
+                 energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power):
+        super(PlayerSorae, self).__init__()
+        self.x_coordinate = 760
+        self.y_coordinate = 510
+        self.surf = player_no_role_amuna_down_1
+        self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
+        self.name = name
+        self.race = race
+        self.role = role
+        self.items = items
+        self.equipment = p_equipment
+        self.current_quests = current_quests
+        self.quest_progress = quest_progress
+        self.quest_status = quest_status
+        self.quest_complete = quest_complete
+        self.knowledge = knowledge
+        self.skills_mage = skills_mage
+        self.skills_fighter = skills_fighter
+        self.skills_scout = skills_scout
+        self.level = level
+        self.experience = experience
+        self.health = health
+        self.energy = energy
+        self.alive_status = alive_status
+        self.rupees = rupees
+        self.reputation = reputation
+        self.current_zone = current_zone
+        self.defense = defense
+        self.offense = offense
+        self.star_power = star_power
+
+    def update(self, pressed_key, current_zone, walk_timed):
+        if player.role == "":  # ---------------------------------------------------------------------------------------
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_sorae_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_sorae_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_sorae_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_sorae_up_4
+                self.y_coordinate -= velocity
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_sorae_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_sorae_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_sorae_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_sorae_down_4
+                self.y_coordinate += velocity
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_sorae_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_sorae_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_sorae_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_sorae_left_4
+                self.x_coordinate -= velocity
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_no_role_sorae_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_no_role_sorae_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_no_role_sorae_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_no_role_sorae_right_4
+                self.x_coordinate += velocity
+        if player.role == "mage":  # -----------------------------------------------------------------------------------
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_sorae_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_sorae_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_sorae_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_sorae_up_4
+                self.y_coordinate -= velocity
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_sorae_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_sorae_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_sorae_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_sorae_down_4
+                self.y_coordinate += velocity
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_sorae_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_sorae_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_sorae_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_sorae_left_4
+                self.x_coordinate -= velocity
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_mage_sorae_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_mage_sorae_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_mage_sorae_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_mage_sorae_right_4
+                self.x_coordinate += velocity
+        if player.role == "fighter":  # --------------------------------------------------------------------------------
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_sorae_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_sorae_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_sorae_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_sorae_up_4
+                self.y_coordinate -= velocity
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_sorae_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_sorae_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_sorae_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_sorae_down_4
+                self.y_coordinate += velocity
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_sorae_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_sorae_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_sorae_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_sorae_left_4
+                self.x_coordinate -= velocity
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_fighter_sorae_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_fighter_sorae_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_fighter_sorae_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_fighter_sorae_right_4
+                self.x_coordinate += velocity
+        if player.role == "scout":  # ----------------------------------------------------------------------------------
+            if pressed_key == "up":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_sorae_up_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_sorae_up_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_sorae_up_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_sorae_up_4
+                self.y_coordinate -= velocity
+            if pressed_key == "down":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_sorae_down_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_sorae_down_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_sorae_down_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_sorae_down_4
+                self.y_coordinate += velocity
+            if pressed_key == "left":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_sorae_left_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_sorae_left_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_sorae_left_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_sorae_left_4
+                self.x_coordinate -= velocity
+            if pressed_key == "right":
+                if walk_timed < 0.2:
+                    self.surf = player_scout_sorae_right_1
+                if walk_timed > 0.2:
+                    self.surf = player_scout_sorae_right_2
+                if walk_timed > 0.4:
+                    self.surf = player_scout_sorae_right_3
+                if walk_timed > 0.6:
+                    self.surf = player_scout_sorae_right_4
+                self.x_coordinate += velocity
+        if current_zone == "nascent":
+            if self.x_coordinate < 340:
+                self.x_coordinate = 340
+            elif self.x_coordinate > SCREEN_WIDTH - 325:
+                self.x_coordinate = SCREEN_WIDTH - 325
+            if self.y_coordinate <= 60:
+                self.y_coordinate = 60
+            elif self.y_coordinate >= SCREEN_HEIGHT - 50:
+                self.y_coordinate = SCREEN_HEIGHT - 50
+            elif 315 >= self.y_coordinate >= 300:
+                self.y_coordinate = 315
+            elif 300 >= self.y_coordinate >= 230:
+                self.y_coordinate = 230
+        if current_zone == "seldon":
+            if self.x_coordinate < 15:
+                self.x_coordinate = 15
+            elif self.x_coordinate > SCREEN_WIDTH - 355:
+                self.x_coordinate = SCREEN_WIDTH - 355
+            if self.y_coordinate <= 115:
+                self.y_coordinate = 115
+            elif self.y_coordinate >= SCREEN_HEIGHT - 5:
+                self.y_coordinate = SCREEN_HEIGHT - 5
+        if current_zone == "stardust":
+            if self.x_coordinate < 225:
+                self.x_coordinate = 225
+            elif self.x_coordinate > SCREEN_WIDTH - 325:
+                self.x_coordinate = SCREEN_WIDTH - 325
+            if self.y_coordinate <= 80:
+                self.y_coordinate = 80
+            elif self.y_coordinate >= SCREEN_HEIGHT - 80:
+                self.y_coordinate = SCREEN_HEIGHT - 80
+            elif 360 >= self.y_coordinate >= 300 and 641 >= self.x_coordinate >= 409:
+                self.y_coordinate = 360
+            elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
+                self.y_coordinate = 230
+            elif 645 >= self.x_coordinate >= 500 and 358 >= self.y_coordinate >= 232:
+                self.x_coordinate = 645
+            elif 500 >= self.x_coordinate >= 395 and 358 >= self.y_coordinate >= 232:
+                self.x_coordinate = 395
+        if current_zone == "korlok":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            elif self.x_coordinate > SCREEN_WIDTH - 355:
+                self.x_coordinate = SCREEN_WIDTH - 355
+            if self.y_coordinate <= 115:
+                self.y_coordinate = 115
+            elif self.y_coordinate >= SCREEN_HEIGHT - 5:
+                self.y_coordinate = SCREEN_HEIGHT - 5
+        if current_zone == "seldon":
+            collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
 
@@ -1632,23 +1860,23 @@ nuldar_character = UiElement("nuldar character", 640, 360, nuldar_character_img)
 sorae_character = UiElement("sorae character", 640, 360, sorae_character_img)
 
 # default player character
-player = Player("stan", "amuna", "",  # name, race, role
-                [health_potion, energy_potion],  # inventory
-                {"weapon": "", "chest": ""},  # equipment ('type', 'name')
-                {"sneaky snakes": "Speak to Garan to start this quest.",
-                 "village repairs": "Speak to Maurelle to start this quest.",
-                 "where's nede?": "Speak to Celeste to start this quest",
-                 "ghouled again": "Speak to the gate Guard to start this quest.", "": ""},
-                {"sneaky snakes": 0, "village repairs": 0, "where's nede?": 0, "ghouled again": 0},  # quest progress
-                {"sneaky snakes": False, "village repairs": False, "where's nede?": False, "ghouled again": False},
-                {"sneaky snakes": False, "village repairs": False, "where's nede?": False, "ghouled again": False},
-                {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
-                {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
-                {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
-                {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
-                1, 0, 100, 100,  # lvl, exp, health, energy
-                True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
-                "", 0, 0, 0)  # zone, defence, offense, image
+player = PlayerAmuna("stan", "amuna", "",  # name, race, role
+                     [health_potion, energy_potion],  # inventory
+                     {"weapon": "", "chest": ""},  # equipment ('type', 'name')
+                     {"sneaky snakes": "Speak to Garan to start this quest.",
+                      "village repairs": "Speak to Maurelle to start this quest.",
+                      "where's nede?": "Speak to Celeste to start this quest",
+                      "ghouled again": "Speak to the gate Guard to start this quest.", "": ""},
+                     {"sneaky snakes": 0, "village repairs": 0, "where's nede?": 0, "ghouled again": 0},
+                     {"sneaky snakes": False, "village repairs": False, "where's nede?": False, "ghouled again": False},
+                     {"sneaky snakes": False, "village repairs": False, "where's nede?": False, "ghouled again": False},
+                     {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
+                     {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
+                     {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
+                     {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
+                     1, 0, 100, 100,  # lvl, exp, health, energy
+                     True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
+                     "", 0, 0, 0)  # zone, defence, offense, image
 
 # npcs: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate
 #                  alive_status, quest_complete, items, gift, image
@@ -1862,8 +2090,6 @@ fighter_learn_clicked = False
 scout_learn_clicked = False
 character_button_clicked = False
 journal_button_clicked = False
-hearth_clicked = False
-hearthed = False
 encounter_started = False
 item_bought = False
 rested = False
@@ -1913,8 +2139,6 @@ battle_info_to_return_to_main_loop = {"experience": 0, "item dropped": "", "leve
 clock = pygame.time.Clock()
 enemy_tic = time.perf_counter()
 npc_tic = time.perf_counter()
-info_tic = time.perf_counter()
-loot_tic = time.perf_counter()
 walk_tic = time.perf_counter()
 
 # main loop ------------------------------------------------------------------------------------------------------------
@@ -2010,6 +2234,7 @@ while game_running:
                         sorae_race_selected = True
                 # noinspection PyUnboundLocalVariable
                 if start_button.rect.collidepoint(pos) or entered:
+                    player = PlayerAmuna
                     if len(character_name_input) > 0:
                         player.name = str(character_name_input)
                     else:
@@ -2067,6 +2292,13 @@ while game_running:
                         sorae_race_selected = True
                 # noinspection PyUnboundLocalVariable
                 if start_button.rect.collidepoint(pos) or entered:
+                    player = PlayerNuldar(player.name, player.race, player.role, player.items, player.equipment,
+                                          player.current_quests, player.quest_progress, player.quest_status,
+                                          player.quest_complete, player.knowledge, player.skills_mage,
+                                          player.skills_fighter, player.skills_scout, player.level, player.experience,
+                                          player.health, player.energy, player.alive_status, player.rupees,
+                                          player.reputation, player.current_zone, player.defense, player.offense,
+                                          player.star_power)
                     if len(character_name_input) > 0:
                         player.name = str(character_name_input)
                     else:
@@ -2130,6 +2362,13 @@ while game_running:
                         sorae_race_selected = True
                 # noinspection PyUnboundLocalVariable
                 if start_button.rect.collidepoint(pos) or entered:
+                    player = PlayerSorae(player.name, player.race, player.role, player.items, player.equipment,
+                                          player.current_quests, player.quest_progress, player.quest_status,
+                                          player.quest_complete, player.knowledge, player.skills_mage,
+                                          player.skills_fighter, player.skills_scout, player.level, player.experience,
+                                          player.health, player.energy, player.alive_status, player.rupees,
+                                          player.reputation, player.current_zone, player.defense, player.offense,
+                                          player.star_power)
                     if len(character_name_input) > 0:
                         player.name = str(character_name_input)
                     else:
@@ -2295,7 +2534,7 @@ while game_running:
                             drawing_functions.level_up_draw(level_up_win, player, font, False)
 
                     # click handlers -----------------------------------------------------------------------------------
-                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
                         inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
                                                                                  player_mage_amuna_down_1,
@@ -2313,7 +2552,7 @@ while game_running:
                         drawing_functions.item_info_window.clear()
                     if info_choice == "no":
                         drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                     if inventory_item_clicked["clicked"]:
                         current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                              info_items, item_info_button,
@@ -2326,7 +2565,7 @@ while game_running:
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
                                                                              player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1)
+                                                                             player_no_role_sorae_down_1, pygame)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -2504,7 +2743,7 @@ while game_running:
                             rest_window_clicked = True
 
                     # click handlers
-                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
                         inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
                                                                                  player_mage_amuna_down_1,
@@ -2522,7 +2761,7 @@ while game_running:
                         drawing_functions.item_info_window.clear()
                     if info_choice == "no":
                         drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                     if inventory_item_clicked["clicked"]:
                         current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                              info_items, item_info_button,
@@ -2535,7 +2774,7 @@ while game_running:
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
                                                                              player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1)
+                                                                             player_no_role_sorae_down_1, pygame)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -2736,9 +2975,9 @@ while game_running:
                     combat_button = click_handlers.combat_event_button(event, no_role_attack_button,
                                                                        mage_attack_button, fighter_attack_button,
                                                                        scout_attack_button, barrier_button,
-                                                                       hard_strike_button, sharp_sense_button)
+                                                                       hard_strike_button, sharp_sense_button, pygame)
                     # click handlers
-                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
                         inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
                                                                                  player_mage_amuna_down_1,
@@ -2756,7 +2995,7 @@ while game_running:
                         drawing_functions.item_info_window.clear()
                     if info_choice == "no":
                         drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                     if inventory_item_clicked["clicked"]:
                         current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                              info_items, item_info_button,
@@ -2769,7 +3008,7 @@ while game_running:
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
                                                                              player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1)
+                                                                             player_no_role_sorae_down_1, pygame)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -2875,7 +3114,7 @@ while game_running:
                                 if barrier_active:
                                     barrier_active = False
                                     # noinspection PyUnboundLocalVariable
-                                    player.defence = original_defence
+                                    player.defense = original_defence
                                 # if sharp sense is active on enemy defeat, restore original offense
                                 if sharp_sense_active:
                                     sharp_sense_active = False
@@ -2898,11 +3137,11 @@ while game_running:
                                 if player.role == "mage":
                                     if barrier_learned:
                                         if not barrier_active:
-                                            original_defence = player.defence
+                                            original_defence = player.defense
                                             info_text_1 = "Barrier spell is active."
                                             info_text_2 = "You have gained 10 defence."
                                             barrier_active = True
-                                            player.defence += 10
+                                            player.defense += 10
                                             player.energy -= 35
                                         else:
                                             info_text_1 = "Barrier spell is already active."
@@ -3104,10 +3343,10 @@ while game_running:
                     elif event.type == QUIT:
                         exit()
                     # get which button player pressed during shop scenario (buy or leave)
-                    shop_button = click_handlers.shop_event_button(event, buy_button, leave_button)
+                    shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame)
                     # shop click handlers
                     if buy_clicked:
-                        buy_item = click_handlers.buy_event_item(event, shopkeeper_items)
+                        buy_item = click_handlers.buy_event_item(event, shopkeeper_items, pygame)
                         buy_return = shop_scenario.shop_buy_items(player, buy_item, Item, health_pot_img,
                                                                   energy_pot_img, basic_staff_img, basic_sword_img,
                                                                   basic_bow_img, basic_robes_img, basic_armor_img,
@@ -3117,7 +3356,7 @@ while game_running:
                             info_text_2 = buy_return["info 2"]
                         item_bought = buy_return["bought"]
                     # if player clicks yes button to sell item, get item that was saved to current and sell
-                    sell_choice = click_handlers.shop_sell_button(event, yes_button)
+                    sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame)
                     if sell_choice == "yes":
                         if current_sell_item.name == "health potion":
                             info_text_1 = "Sold Health Potion for 5 rupees."
@@ -3203,7 +3442,7 @@ while game_running:
                         sell_window.clear()
 
                     # gets item player clicked to sell. opens window to confirm and saves item to variable
-                    sell_item = click_handlers.sell_event_item(event)
+                    sell_item = click_handlers.sell_event_item(event, pygame)
                     try:
                         # player has clicked health potion. This will sell the item, removing it from
                         # inventory and giving them "x" rupees to add to their current count
@@ -3346,9 +3585,9 @@ while game_running:
                     elif event.type == QUIT:
                         exit()
                     # get which button player pressed during inn scenario (rest or leave)
-                    inn_button = click_handlers.inn_event_button(event, rest_button, leave_button)
+                    inn_button = click_handlers.inn_event_button(event, rest_button, leave_button, pygame)
                     # click handlers
-                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
                         inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
                                                                                  player_mage_amuna_down_1,
@@ -3366,7 +3605,7 @@ while game_running:
                         drawing_functions.item_info_window.clear()
                     if info_choice == "no":
                         drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                     if inventory_item_clicked["clicked"]:
                         current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                              info_items, item_info_button,
@@ -3379,7 +3618,7 @@ while game_running:
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
                                                                              player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1)
+                                                                             player_no_role_sorae_down_1, pygame)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -3461,9 +3700,9 @@ while game_running:
                     # get which button player pressed during academia scenario (learn or leave)
                     academia_button = click_handlers.academia_event_button(event, mage_learn_button,
                                                                            fighter_learn_button, scout_learn_button,
-                                                                           leave_button)
+                                                                           leave_button, pygame)
                     # click handlers
-                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
                         inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
                                                                                  player_mage_amuna_down_1,
@@ -3481,7 +3720,7 @@ while game_running:
                         drawing_functions.item_info_window.clear()
                     if info_choice == "no":
                         drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                     if inventory_item_clicked["clicked"]:
                         current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                              info_items, item_info_button,
@@ -3494,12 +3733,12 @@ while game_running:
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
                                                                              player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1)
+                                                                             player_no_role_sorae_down_1, pygame)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
                     # get which button player pressed during book skill open (skill or close)
-                    book_button = click_handlers.skill_learn_event_item(event, skill_learn_items)
+                    book_button = click_handlers.skill_learn_event_item(event, skill_learn_items, pygame)
                     if mage_learn_clicked:
                         try:
                             if book_button.name == "barrier learn button":
@@ -3661,9 +3900,9 @@ while game_running:
                                 player.items.append(Item("basic tunic", "scout", 0, 0, basic_tunic_img))
                                 npc_garan.gift = True
                     # npc was interacted with, if quest button clicked get npc name and check quest progress
-                    npc_button = click_handlers.npc_event_button(event, quest_button, leave_button)
+                    npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
                     # in quest window pop-up, if accept or decline buttons are clicked
-                    quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button)
+                    quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
                     # options once quest window is open ----------------------------------------------------------------
                     if quest_buttons == "accept":
                         info_text_1 = "You've accepted the quest!"
@@ -3695,7 +3934,7 @@ while game_running:
                     # --------------------------------------------------------------------------------------------------
 
                     # click handlers
-                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
                         inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
                                                                                  player_mage_amuna_down_1,
@@ -3713,7 +3952,7 @@ while game_running:
                         drawing_functions.item_info_window.clear()
                     if info_choice == "no":
                         drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                     if inventory_item_clicked["clicked"]:
                         current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                              info_items, item_info_button,
@@ -3726,7 +3965,7 @@ while game_running:
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
                                                                              player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1)
+                                                                             player_no_role_sorae_down_1, pygame)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -3981,7 +4220,7 @@ while game_running:
                             drawing_functions.level_up_draw(level_up_win, player, font, False)
 
                     # click handlers
-                    info_choice = click_handlers.item_info_button(event, item_info_button)
+                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
                         inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
                                                                                  player_mage_amuna_down_1,
@@ -3999,7 +4238,7 @@ while game_running:
                         drawing_functions.item_info_window.clear()
                     if info_choice == "no":
                         drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event)
+                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                     if inventory_item_clicked["clicked"]:
                         current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                              info_items, item_info_button,
@@ -4012,7 +4251,7 @@ while game_running:
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
                     equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
                                                                              player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1)
+                                                                             player_no_role_sorae_down_1, pygame)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -4080,7 +4319,7 @@ while game_running:
                         if barrier_active:
                             barrier_active = False
                             # noinspection PyUnboundLocalVariable
-                            player.defence = original_defence
+                            player.defense = original_defence
                         # turn off barrier and restore original defence if player mage was killed while active
                         if sharp_sense_active:
                             sharp_sense_active = False

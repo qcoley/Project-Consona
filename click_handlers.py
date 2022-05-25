@@ -1,13 +1,8 @@
-import random
-import time
-import pygame
-from pygame.locals import *
-import resource_urls
 import drawing_functions
 
 
 # getting event based on user click related to shop
-def item_info_button(item_info_event, item_button):
+def item_info_button(item_info_event, item_button, pygame):
     if item_info_event.type == pygame.MOUSEBUTTONUP:
         item_info_mouse = pygame.mouse.get_pos()
         if item_button.rect.collidepoint(item_info_mouse):
@@ -17,7 +12,7 @@ def item_info_button(item_info_event, item_button):
 
 
 # getting item player clicked based on it's name and return the corresponding item. for equipment
-def equipment_event_item(equipment_event_here):
+def equipment_event_item(equipment_event_here, pygame):
     if equipment_event_here.type == pygame.MOUSEBUTTONUP:
         equipment_mouse = pygame.mouse.get_pos()
         # list of sprites that collided with mouse cursor rect
@@ -42,9 +37,9 @@ def equipment_event_item(equipment_event_here):
 
 
 # handles mouse clicks for equipment sub-screen
-def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none):
+def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none, pygame):
     return_dict = {"equipment message": "", "gear checked": True, "weapon checked": True}
-    equipment_item = equipment_event_item(event)
+    equipment_item = equipment_event_item(event, pygame)
 
     # if player clicks item in equipment sub-screen, un-equip the item and place in inventory, if inventory isn't full
     try:
@@ -66,7 +61,7 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none):
                 if player.race == "sorae":
                     player.surf = sorae_none
                 player.offense = 0
-                player.defence = 0
+                player.defense = 0
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic sword":
@@ -85,7 +80,7 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none):
                 if player.race == "sorae":
                     player.surf = sorae_none
                 player.offense = 0
-                player.defence = 0
+                player.defense = 0
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic bow":
@@ -104,7 +99,7 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none):
                 if player.race == "sorae":
                     player.surf = sorae_none
                 player.offense = 0
-                player.defence = 0
+                player.defense = 0
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic robes":
@@ -112,7 +107,7 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none):
                 player.items.append(equipment_item)
                 player.equipment["chest"] = ""
                 return_dict["equipment message"] = "Basic Robes chest un-equipped."
-                player.defence = 0
+                player.defense = 0
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "basic armor":
@@ -120,7 +115,7 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none):
                 player.items.append(equipment_item)
                 player.equipment["chest"] = ""
                 return_dict["equipment message"] = "Basic Armor chest un-equipped."
-                player.defence = 0
+                player.defense = 0
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "basic tunic":
@@ -128,7 +123,7 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none):
                 player.items.append(equipment_item)
                 player.equipment["chest"] = ""
                 return_dict["equipment message"] = "Basic Tunic chest un-equipped."
-                player.defence = 0
+                player.defense = 0
             else:
                 return_dict["equipment message"] = "Your inventory is full."
     except AttributeError:
@@ -138,7 +133,7 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none):
 
 
 # getting item player clicked based on it's name and return the corresponding item. for inventory items
-def inventory_event_item(inventory_event_here):
+def inventory_event_item(inventory_event_here, pygame):
     event_return = {"element": "", "clicked": False}
     if inventory_event_here.type == pygame.MOUSEBUTTONUP:
         inventory_mouse = pygame.mouse.get_pos()
@@ -186,9 +181,8 @@ def inventory_event_item(inventory_event_here):
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage,
-                            amuna_fighter, nuldar_fighter, sorae_fighter,
-                            amuna_scout, nuldar_scout, sorae_scout):
+def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage, amuna_fighter, nuldar_fighter,
+                            sorae_fighter, amuna_scout, nuldar_scout, sorae_scout):
     return_dict = {"item message": ""}
 
     try:
@@ -273,7 +267,7 @@ def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage,
                     player.equipment["chest"] = item
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
-                    player.defence = 4
+                    player.defense = 4
                     return_dict["item message"] = "Basic Robes chest equipped"
                 else:
                     return_dict["item message"] = "Only mages wear light armor."
@@ -285,7 +279,7 @@ def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage,
                     player.equipment["chest"] = item
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
-                    player.defence = 12
+                    player.defense = 12
                     return_dict["item message"] = "Basic Armor chest equipped"
                 else:
                     return_dict["item message"] = "Only fighters wear heavy armor."
@@ -297,7 +291,7 @@ def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage,
                     player.equipment["chest"] = item
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
-                    player.defence = 8
+                    player.defense = 8
                     return_dict["item message"] = "Basic Tunic chest equipped"
                 else:
                     return_dict["item message"] = "Only scouts wear medium armor."
@@ -311,7 +305,7 @@ def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage,
 
 # getting event based on user click related to combat scenario
 def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attack, scout_attack,
-                        barrier_button, strike_button, sense_button):
+                        barrier_button, strike_button, sense_button, pygame):
     if combat_event.type == pygame.MOUSEBUTTONUP:
         combat_mouse = pygame.mouse.get_pos()
         if no_role_attack.rect.collidepoint(combat_mouse):
@@ -331,7 +325,7 @@ def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attac
 
 
 # getting event based on user click related to npc
-def npc_event_button(npc_event, quest_button, leave_button):
+def npc_event_button(npc_event, quest_button, leave_button, pygame):
     if npc_event.type == pygame.MOUSEBUTTONUP:
         npc_mouse = pygame.mouse.get_pos()
         if quest_button.rect.collidepoint(npc_mouse):
@@ -341,7 +335,7 @@ def npc_event_button(npc_event, quest_button, leave_button):
 
 
 # getting event based on user click related to quest window
-def quest_event_button(quest_event, accept_button, decline_button):
+def quest_event_button(quest_event, accept_button, decline_button, pygame):
     if quest_event.type == pygame.MOUSEBUTTONUP:
         quest_mouse = pygame.mouse.get_pos()
         if accept_button.rect.collidepoint(quest_mouse):
@@ -351,7 +345,7 @@ def quest_event_button(quest_event, accept_button, decline_button):
 
 
 # getting event based on user click related to shop
-def shop_event_button(shop_event, buy_button, leave_button):
+def shop_event_button(shop_event, buy_button, leave_button, pygame):
     if shop_event.type == pygame.MOUSEBUTTONUP:
         shop_mouse = pygame.mouse.get_pos()
         if buy_button.rect.collidepoint(shop_mouse):
@@ -361,7 +355,7 @@ def shop_event_button(shop_event, buy_button, leave_button):
 
 
 # getting event based on user click related to shop
-def shop_sell_button(shop_sell_event, yes_button):
+def shop_sell_button(shop_sell_event, yes_button, pygame):
     if shop_sell_event.type == pygame.MOUSEBUTTONUP:
         shop_sell_mouse = pygame.mouse.get_pos()
         if yes_button.rect.collidepoint(shop_sell_mouse):
@@ -371,7 +365,7 @@ def shop_sell_button(shop_sell_event, yes_button):
 
 
 # getting event based on user click related to inn
-def inn_event_button(inn_event, rest_button, leave_button):
+def inn_event_button(inn_event, rest_button, leave_button, pygame):
     if inn_event.type == pygame.MOUSEBUTTONUP:
         inn_mouse = pygame.mouse.get_pos()
         if rest_button.rect.collidepoint(inn_mouse):
@@ -381,7 +375,7 @@ def inn_event_button(inn_event, rest_button, leave_button):
 
 
 # getting event based on user click related to academia skill buttons
-def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn, leave_button):
+def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn, leave_button, pygame):
     if academia_event.type == pygame.MOUSEBUTTONUP:
         academia_mouse = pygame.mouse.get_pos()
         if mage_learn.rect.collidepoint(academia_mouse):
@@ -395,7 +389,7 @@ def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn
 
 
 # getting item player clicked based on it's name and return the corresponding item. for buying items
-def buy_event_item(buy_event, shopkeeper_items):
+def buy_event_item(buy_event, shopkeeper_items, pygame):
     if buy_event.type == pygame.MOUSEBUTTONUP:
         buy_mouse = pygame.mouse.get_pos()
         # list of sprites that collided with mouse cursor rect
@@ -427,7 +421,7 @@ def buy_event_item(buy_event, shopkeeper_items):
 
 
 # getting item player clicked based on it's name and return the corresponding item. for selling items
-def sell_event_item(sell_event):
+def sell_event_item(sell_event, pygame):
     if sell_event.type == pygame.MOUSEBUTTONUP:
         sell_mouse = pygame.mouse.get_pos()
         # list of sprites that collided with mouse cursor rect
@@ -462,7 +456,7 @@ def sell_event_item(sell_event):
 
 
 # getting item player clicked based on it's name and return the corresponding item
-def skill_learn_event_item(skill_learn_event, skill_learn_items):
+def skill_learn_event_item(skill_learn_event, skill_learn_items, pygame):
     if skill_learn_event.type == pygame.MOUSEBUTTONUP:
         skill_learn_mouse = pygame.mouse.get_pos()
         # list of sprites that collided with mouse cursor rect

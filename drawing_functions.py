@@ -140,7 +140,7 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_offense_rect.center = (1135, 117)
     screen.blit(text_offense_surf, text_offense_rect)
     # get current player defence and create surf and rectangle to blit to screen----------------------------------------
-    text_defence_surf = font.render(str(player.defence), True, "black", "light gray")
+    text_defence_surf = font.render(str(player.defense), True, "black", "light gray")
     text_defence_rect = text_defence_surf.get_rect()
     text_defence_rect.center = (1233, 117)
     screen.blit(text_defence_surf, text_defence_rect)

@@ -52,7 +52,7 @@ def load_game(player, player_no_role_amuna_down_1, player_scout_amuna_down_1, pl
             player.health = player_load_info["hp"]
             player.energy = player_load_info["en"]
             player.offense = player_load_info["offense"]
-            player.defence = player_load_info["defense"]
+            player.defense = player_load_info["defense"]
             player.experience = player_load_info["xp"]
             player.race = player_load_info["race"]
             player.role = player_load_info["role"]
@@ -181,7 +181,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "level": int(player.level), "role": str(player.role),
                         "inventory": inventory_save, "equipment": equipment_save,
                         "hp": int(player.health), "en": int(player.energy), "xp": int(player.experience),
-                        "offense": int(player.offense), "defense": int(player.defence),
+                        "offense": int(player.offense), "defense": int(player.defense),
                         "quests": dict(player.current_quests),
                         "garan gift": garan_gift,
                         "quest progress": dict(player.quest_progress),
@@ -368,8 +368,11 @@ def attack_enemy(player, mob):
         damage = (random.randrange(8, player.offense) // difference)
         return damage
     if player.role == "":
-        damage = (random.randrange(1, player.offense) // difference)
-        return damage
+        if player.offense != 0:
+            damage = (random.randrange(1, player.offense) // difference)
+            return damage
+        else:
+            return 1
 
 
 # enemy attacks player, gets damage to player done, subtract players defense level
@@ -383,7 +386,7 @@ def attack_player(player, mob):
         base_damage = base_damage + 5
     if difference >= 3:
         base_damage = base_damage + 8
-    final_damage = base_damage - player.defence
+    final_damage = base_damage - player.defense
 
     return final_damage
 
