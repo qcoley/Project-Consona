@@ -1594,6 +1594,18 @@ s_basic_sword_img = sell_items_sheet.get_image(1476, 0, 244, 240)
 s_basic_bow_img = sell_items_sheet.get_image(1722, 0, 244, 240)
 s_bone_dust_img = sell_items_sheet.get_image(1968, 0, 244, 240)
 s_shiny_rock_img = sell_items_sheet.get_image(2214, 0, 244, 240)
+# buy items
+buy_items_sheet = SpriteSheet(resource_urls.buy_items_url)
+b_health_pot_img = buy_items_sheet.get_image(0, 0, 246, 240)
+b_energy_pot_img = buy_items_sheet.get_image(246, 0, 246, 240)
+b_basic_robes_img = buy_items_sheet.get_image(492, 0, 246, 240)
+b_basic_armor_img = buy_items_sheet.get_image(738, 0, 246, 240)
+b_basic_tunic_img = buy_items_sheet.get_image(984, 0, 246, 240)
+b_basic_staff_img = buy_items_sheet.get_image(1230, 0, 246, 240)
+b_basic_sword_img = buy_items_sheet.get_image(1476, 0, 246, 240)
+b_basic_bow_img = buy_items_sheet.get_image(1722, 0, 246, 240)
+b_bone_dust_img = buy_items_sheet.get_image(1968, 0, 246, 240)
+b_shiny_rock_img = buy_items_sheet.get_image(2214, 0, 246, 240)
 # items use info
 info_items_sheet = SpriteSheet(resource_urls.items_info_url)
 info_health_pot_img = info_items_sheet.get_image(0, 0, 244, 240)
@@ -1644,6 +1656,7 @@ sense_button_img = skill_buttons_sheet.get_image(120, 0, 60, 60)
 game_function_buttons_sheet = SpriteSheet(resource_urls.game_play_function_buttons_url)
 save_button_img = game_function_buttons_sheet.get_image(0, 0, 100, 25)
 hearth_button_img = game_function_buttons_sheet.get_image(100, 0, 100, 25)
+location_display_img = game_function_buttons_sheet.get_image(200, 0, 210, 25)
 # role select buttons
 role_select_buttons_sheet = SpriteSheet(resource_urls.role_selection_buttons)
 mage_select_button_img = role_select_buttons_sheet.get_image(0, 0, 184, 42)
@@ -1934,6 +1947,7 @@ continue_button = UiElement("continue button", 640, 425, continue_img)
 amuna_button = UiElement("amuna button", 100, 255, amuna_button_img)
 nuldar_button = UiElement("nuldar button", 100, 350, nuldar_button_img)
 sorae_button = UiElement("sorae button", 100, 445, sorae_button_img)
+location_overlay = UiElement("location overlay", 915, 28, location_display_img)
 character_select_overlay = UiElement("character select overlay", 640, 365,
                                      pygame.image.load(resource_urls.character_select_overlay_url).convert())
 amuna_select_overlay = UiElement("amuna select overlay", 1140, 305, amuna_overlay_img)
@@ -1959,8 +1973,8 @@ close_button = UiElement("close button", 975, 135, pygame.image.load(resource_ur
 quest_button = UiElement("quest button", 860, 680, quest_button_img)
 accept_button = UiElement("accept button", 340, 670, accept_button_img)
 decline_button = UiElement("decline button", 450, 670, decline_button_img)
-hearth_button = UiElement("hearth button", 860, 25, hearth_button_img)
-save_button = UiElement("save button", 970, 25, save_button_img)
+hearth_button = UiElement("hearth button", 860, 60, hearth_button_img)
+save_button = UiElement("save button", 970, 60, save_button_img)
 yes_button = UiElement("yes button", 450, 394, yes_button_img)
 no_button = UiElement("no button", 564, 394, no_button_img)
 item_info_button = UiElement("item info button", 1153, 345, use_button_img)
@@ -2008,6 +2022,7 @@ nascent_gate_popup = UiElement("nascent gate popup", 418, 200,
                                pygame.image.load(resource_urls.nascent_gate_popup_url).convert())
 sell_items = UiElement("sell items", 1154, 270, s_health_pot_img)
 info_items = UiElement("info items", 1154, 270, info_health_pot_img)
+buy_items = UiElement("buy items", 900, 230, b_health_pot_img)
 star_power_meter = UiElement("star power", 1210, 360, star_00)
 role_select_overlay = UiElement("role select overlay", 550, 369,
                                 pygame.image.load(resource_urls.role_selection_overlay).convert())
@@ -2039,7 +2054,7 @@ enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
 user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, save_button, hearth_button,
-                   message_box)
+                   message_box, location_overlay)
 environments.add(trees, buildings)
 quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
 most_sprites.add(npcs, trees, buildings, quest_items, enemies, seldon_hearth, rohir_gate)
@@ -2121,12 +2136,14 @@ save_check_window = []
 save_data_window = []
 nascent_gate_popup_container = []
 sell_window = []
+buy_window = []
 
 info_text_1 = ''
 info_text_2 = ''
 info_text_3 = ''
 info_text_4 = ''
 character_name_input = ''
+current_buy_item = ''
 current_sell_item = ''
 current_info_item = ''
 # default objects for event loops, updated with button presses. prevents non-defined error
@@ -2411,7 +2428,8 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if player is in nascent grove (starting area) ------------------------------------------------------------
-            if player.current_zone == "nascent" and in_over_world:
+            if player.current_zone == "nascent" and in_over_world and not in_shop and not in_inn and not in_academia \
+                    and not in_battle and not in_npc_interaction:
                 screen.blit(nascent_grove_bg, (0, 0))
                 screen.blit(nascent_gate.surf, nascent_gate.rect)
                 screen.blit(player.surf, player.rect)
@@ -2432,7 +2450,7 @@ while game_running:
                 walking_return_nascent = gameplay_functions.walk_time(walk_tic)
                 if walking_return_nascent["reset"]:
                     walk_tic = time.perf_counter()
-                if movement_able:
+                if movement_able and in_over_world:
                     pressed_keys = pygame.key.get_pressed()
                     if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
                         player.update("right", "nascent", walking_return_nascent["total time"])
@@ -2445,7 +2463,7 @@ while game_running:
 
                 if pygame.sprite.collide_rect(player, nascent_gate):
                     nascent_gate_popup_container.append(nascent_gate_popup)
-                    if interacted:
+                    if interacted and in_over_world:
                         nascent_gate.update(nascent_gate.x_coordinate, nascent_gate.y_coordinate, nascent_gate_open)
                         if player.y_coordinate > 300:
                             player.y_coordinate = 215
@@ -2466,7 +2484,8 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if player is in stardust outpost -------------------------------------------------------------------------
-            if player.current_zone == "stardust" and in_over_world:
+            if player.current_zone == "stardust" and in_over_world and not in_shop and not in_inn and not in_academia \
+                    and not in_battle and not in_npc_interaction:
                 screen.blit(stardust_outpost_bg, (0, 0))
                 if player.quest_progress["where's nede?"] < 1:
                     screen.blit(nede.surf, nede.rect)
@@ -2574,7 +2593,7 @@ while game_running:
                 walking_return_stardust = gameplay_functions.walk_time(walk_tic)
                 if walking_return_stardust["reset"]:
                     walk_tic = time.perf_counter()
-                if movement_able:
+                if movement_able and in_over_world:
                     pressed_keys = pygame.key.get_pressed()
                     if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
                         player.update("right", "stardust", walking_return_stardust["total time"])
@@ -2589,15 +2608,18 @@ while game_running:
                 if pygame.sprite.collide_rect(player, nede):
                     if player.quest_status["where's nede?"]:
                         info_text_1 = f"Press 'F' key to pet Nede."
-                        if interacted:
+                        if interacted and in_over_world:
                             if player.quest_progress["where's nede?"] < 1:
                                 player.quest_progress["where's nede?"] += 1
                                 info_text_2 = "You pet Nede. He seems calm. "
                                 info_text_3 = "Nede heads back towards Seldon. "
+                                nede.update(809, 390, nede_left)
                                 interacted = False
                             else:
                                 info_text_1 = "Nede's already been found."
                                 interacted = False
+                    else:
+                        info_text_1 = "What a nice dog!"
 
                 # move player to seldon district when they approach nascent grove exit
                 if player.x_coordinate > 925 and 175 < player.y_coordinate < 275:
@@ -2609,7 +2631,7 @@ while game_running:
                 # nede movement updates
                 if player.quest_progress["where's nede?"] < 1:
                     face_direction = random.choice(["left", "right"])
-                    if movement_able:
+                    if movement_able and in_over_world:
                         npc_toc = time.perf_counter()
                         if npc_toc - npc_tic > 2:
                             npc_tic = time.perf_counter()
@@ -2620,7 +2642,8 @@ while game_running:
 
             # ----------------------------------------------------------------------------------------------------------
             # if player is in seldon district over world ---------------------------------------------------------------
-            if player.current_zone == "seldon" and in_over_world:
+            if player.current_zone == "seldon" and in_over_world and not in_shop and not in_inn and not in_academia \
+                    and not in_battle and not in_npc_interaction:
                 screen.blit(seldon_district_bg, (0, 0))
 
                 enemy_switch = 1
@@ -2629,6 +2652,9 @@ while game_running:
                     screen.blit(entity.surf, entity.rect)
                 for enemy_sprite in enemies:
                     screen.blit(enemy_sprite.surf, enemy_sprite.rect)
+
+                if player.quest_progress["where's nede?"] == 1:
+                    screen.blit(nede.surf, nede.rect)
 
                 gameplay_functions.npc_quest_star_updates(player, screen, quest_star_garan, quest_star_maurelle,
                                                           quest_star_celeste, quest_star_torune, quest_progress_star,
@@ -2799,7 +2825,7 @@ while game_running:
                     if quest_item.name == "quest logs":
                         if player.quest_status["village repairs"]:
                             info_text_1 = f"Press 'F' key to gather the pine logs."
-                            if interacted:
+                            if interacted and in_over_world:
                                 if player.quest_progress["village repairs"] < 4:
                                     player.quest_progress["village repairs"] += 1
                                     info_text_1 = f"You gathered 1 pine log."
@@ -2808,10 +2834,12 @@ while game_running:
                                 else:
                                     info_text_1 = f"You've already gathered these.'."
                                     interacted = False
+                        else:
+                            info_text_1 = "That's some nice pine."
                     if quest_item.model == "rohir gate":
                         if player.quest_complete["ghouled again"]:
                             info_text_1 = f"Press 'F' key to enter Korlok District."
-                            if interacted:
+                            if interacted and in_over_world:
                                 player.x_coordinate = 525
                                 player.y_coordinate = 650
                                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -2819,7 +2847,7 @@ while game_running:
                                 rohir_gate.surf.set_colorkey((255, 255, 255), RLEACCEL)
                                 player.current_zone = "korlok"
                                 interacted = False
-                        if not player.quest_complete["ghouled again"]:
+                        else:
                             info_text_1 = f"The gate seems to be locked shut."
                             info_text_2 = f"Perhaps the nearby Guard knows why?"
                 except AttributeError:
@@ -2831,7 +2859,8 @@ while game_running:
                     # lets player know if they are in range of enemy they can press f to attack it
                     info_text_1 = f"Press 'F' key to attack {enemy.name}."
                     info_text_2 = f"{enemy.name} level: {enemy.level}"
-                    if interacted:
+                    if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                            and not in_academia and not in_npc_interaction:
                         combat_scenario.resting_animation(player, enemy, player_battle_sprite,
                                                           player_mage_barrier_amuna_battle,
                                                           player_mage_amuna_battle, player_fighter_amuna_battle,
@@ -2852,7 +2881,8 @@ while game_running:
 
                 # player collides with building, enters if chosen to interact and starts related scenario
                 building = pygame.sprite.spritecollideany(player, buildings)
-                if building:
+                if building and in_over_world and not in_battle and not in_shop and not in_inn and not in_academia \
+                            and not in_npc_interaction:
                     # lets player know if they are in range of building they can press f to enter it
                     info_text_1 = f"Press 'F' key to enter {building.name}."
                     info_text_2 = ""
@@ -2871,7 +2901,8 @@ while game_running:
                 npc = pygame.sprite.spritecollideany(player, npcs)
                 if npc:
                     info_text_1 = f"Press 'F' key to talk to {npc.name}."
-                    if interacted:
+                    if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                            and not in_academia and not in_npc_interaction:
                         combat_scenario.resting_animation(player, enemy, player_battle_sprite,
                                                           player_mage_barrier_amuna_battle, player_mage_amuna_battle,
                                                           player_fighter_amuna_battle, player_scout_sense_amuna_battle,
@@ -2894,7 +2925,7 @@ while game_running:
                 walking_return_seldon = gameplay_functions.walk_time(walk_tic)
                 if walking_return_seldon["reset"]:
                     walk_tic = time.perf_counter()
-                if movement_able:
+                if movement_able and in_over_world:
                     pressed_keys = pygame.key.get_pressed()
                     if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
                         player.update("right", "seldon", walking_return_seldon["total time"])
@@ -2910,7 +2941,7 @@ while game_running:
                 direction_vertical = random.choice(["up", "down"])
                 move_snake = random.choice(snakes.sprites())
                 move_ghoul = random.choice(ghouls.sprites())
-                if movement_able:
+                if movement_able and in_over_world:
                     enemy_toc = time.perf_counter()
                     if enemy_toc - enemy_tic > 2:
                         enemy_tic = time.perf_counter()
@@ -2920,7 +2951,7 @@ while game_running:
                 # npc movement updates
                 face_direction = random.choice(["front", "back", "left", "right"])
                 face_this_npc = random.choice(npcs.sprites())
-                if movement_able:
+                if movement_able and in_over_world:
                     npc_toc = time.perf_counter()
                     if npc_toc - npc_tic > 5:
                         npc_tic = time.perf_counter()
@@ -2964,7 +2995,8 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if player is in battle -----------------------------------------------------------------------------------
-            if in_battle:
+            if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
+                    and not in_npc_interaction:
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
@@ -3251,7 +3283,8 @@ while game_running:
 
                 # battle scene and enemy are drawn to screen -----------------------------------------------------------
                 try:
-                    if player.current_zone == "seldon":
+                    if player.current_zone == "seldon" and in_battle and not in_over_world and not in_shop \
+                            and not in_inn and not in_academia and not in_npc_interaction:
                         screen.blit(seldon_district_battle, (0, 0))
                         screen.blit(skill_bar.surf, skill_bar.rect)
                         if player.role == "mage":
@@ -3335,7 +3368,8 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if player is in shop -------------------------------------------------------------------------------------
-            if in_shop:
+            if in_shop and not in_over_world and not in_battle and not in_inn and not in_academia \
+                    and not in_npc_interaction:
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
@@ -3344,102 +3378,265 @@ while game_running:
                         exit()
                     # get which button player pressed during shop scenario (buy or leave)
                     shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame)
-                    # shop click handlers
+
+                    # if player clicks yes button to sell item, get item that was saved to current and sell
+                    buy_choice = click_handlers.shop_buy_button(event, yes_button, pygame)
+                    if buy_choice == "yes":
+                        if current_buy_item.name == "health potion":
+                            if len(player.items) < 16:
+                                if player.rupees > 9:
+                                    info_text_1 = "You Bought Health Potion for 10 rupees."
+                                    info_text_2 = "Health Potion added to inventory."
+                                    player.items.append(Item("health potion", "potion", 200, 200, health_pot_img))
+                                    player.rupees = player.rupees - 10
+                                    item_bought = True
+                                else:
+                                    info_text_1 = "You do not have enough rupees."
+                                    info_text_2 = "Health Potion cost 10 rupees."
+                            else:
+                                info_text_1 = "Your inventory is full."
+                                info_text_2 = ""
+                        if current_buy_item.name == "energy potion":
+                            if len(player.items) < 16:
+                                if player.rupees > 9:
+                                    info_text_1 = "Bought Energy Potion for 10 rupees."
+                                    info_text_2 = "Energy Potion added to inventory."
+                                    player.items.append(Item("energy potion", "potion", 200, 200, energy_pot_img))
+                                    player.rupees = player.rupees - 10
+                                    item_bought = True
+                                else:
+                                    info_text_1 = "You do not have enough rupees."
+                                    info_text_2 = "Energy Potion cost 10 rupees."
+                            else:
+                                info_text_1 = "Your inventory is full."
+                                info_text_2 = ""
+                        if current_buy_item.name == "basic staff":
+                            if len(player.items) < 16:
+                                if player.rupees > 19:
+                                    info_text_1 = "Bought Basic Staff for 20 rupees."
+                                    info_text_2 = "Basic Staff added to inventory."
+                                    player.items.append(Item("basic staff", "mage", 200, 200, basic_staff_img))
+                                    player.rupees = player.rupees - 20
+                                    item_bought = True
+                                else:
+                                    info_text_1 = "You do not have enough rupees."
+                                    info_text_2 = "Basic Staff cost 20 rupees."
+                            else:
+                                info_text_1 = "Your inventory is full."
+                                info_text_2 = ""
+                        if current_buy_item.name == "basic sword":
+                            if len(player.items) < 16:
+                                if player.rupees > 19:
+                                    info_text_1 = "Bought Basic Sword for 20 rupees."
+                                    info_text_2 = "Basic Sword added to inventory."
+                                    player.items.append(Item("basic sword", "fighter", 200, 200, basic_sword_img))
+                                    player.rupees = player.rupees - 20
+                                    item_bought = True
+                                else:
+                                    info_text_1 = "You do not have enough rupees."
+                                    info_text_2 = "Basic Sword cost 20 rupees."
+                            else:
+                                info_text_1 = "Your inventory is full."
+                                info_text_2 = ""
+                        if current_buy_item.name == "basic bow":
+                            if len(player.items) < 16:
+                                if player.rupees > 19:
+                                    info_text_1 = "Bought Basic Bow for 20 rupees."
+                                    info_text_2 = "Basic Bow added to inventory."
+                                    player.items.append(Item("basic bow", "scout", 200, 200, basic_bow_img))
+                                    player.rupees = player.rupees - 20
+                                    item_bought = True
+                                else:
+                                    info_text_1 = "You do not have enough rupees."
+                                    info_text_2 = "Basic Bow cost 20 rupees."
+                            else:
+                                info_text_1 = "Your inventory is full."
+                                info_text_2 = ""
+                        if current_buy_item.name == "basic robes":
+                            if len(player.items) < 16:
+                                if player.rupees > 19:
+                                    info_text_1 = "Bought Basic Robes for 20 rupees."
+                                    info_text_2 = "Basic Robes added to inventory."
+                                    player.items.append(Item("basic robes", "mage", 200, 200, basic_robes_img))
+                                    player.rupees = player.rupees - 20
+                                    item_bought = True
+                                else:
+                                    info_text_1 = "You do not have enough rupees."
+                                    info_text_2 = "Basic Robes cost 20 rupees."
+                            else:
+                                info_text_1 = "Your inventory is full."
+                                info_text_2 = ""
+                        if current_buy_item.name == "basic armor":
+                            if len(player.items) < 16:
+                                if player.rupees > 19:
+                                    info_text_1 = "Bought Basic Armor for 20 rupees."
+                                    info_text_2 = "Basic Armor added to inventory."
+                                    player.items.append(Item("basic armor", "fighter", 200, 200, basic_armor_img))
+                                    player.rupees = player.rupees - 20
+                                    item_bought = True
+                                else:
+                                    info_text_1 = "You do not have enough rupees."
+                                    info_text_2 = "Basic Armor cost 20 rupees."
+                            else:
+                                info_text_1 = "Your inventory is full."
+                                info_text_2 = ""
+                        if current_buy_item.name == "basic tunic":
+                            if len(player.items) < 16:
+                                if player.rupees > 19:
+                                    info_text_1 = "Bought Basic Tunic for 20 rupees."
+                                    info_text_2 = "Basic Tunic added to inventory."
+                                    player.items.append(Item("basic tunic", "scout", 200, 200, basic_tunic_img))
+                                    player.rupees = player.rupees - 20
+                                    item_bought = True
+                                else:
+                                    info_text_1 = "You do not have enough rupees."
+                                    info_text_2 = "Basic Tunic cost 20 rupees."
+                            else:
+                                info_text_1 = "Your inventory is full."
+                                info_text_2 = ""
+                    if buy_choice == "no":
+                        buy_window.clear()
+
+                    if not buy_clicked:
+                        # if player clicks yes button to sell item, get item that was saved to current and sell
+                        sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame)
+                        if sell_choice == "yes":
+                            if current_sell_item.name == "health potion":
+                                info_text_1 = "Sold Health Potion for 5 rupees."
+                                info_text_2 = "Health Potion removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "energy potion":
+                                info_text_1 = "Sold Energy Potion for 5 rupees."
+                                info_text_2 = "Energy Potion removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "shiny rock":
+                                info_text_1 = "Sold Shiny Rock for 5 rupees."
+                                info_text_2 = "Shiny Rock removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "bone dust":
+                                info_text_1 = "Sold Bone Dust for 10 rupees."
+                                info_text_2 = "Bone Dust removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 10
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic staff":
+                                info_text_1 = "Sold Basic Staff for 5 rupees."
+                                info_text_2 = "Basic Staff removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic sword":
+                                info_text_1 = "Sold Basic Sword for 5 rupees."
+                                info_text_2 = "Basic Sword removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic bow":
+                                info_text_1 = "Sold Basic Bow for 5 rupees."
+                                info_text_2 = "Basic Bow removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic robes":
+                                info_text_1 = "Sold Basic Robes for 5 rupees."
+                                info_text_2 = "Basic Robes removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic armor":
+                                info_text_1 = "Sold Basic Armor for 5 rupees."
+                                info_text_2 = "Basic Armor removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                            if current_sell_item.name == "basic tunic":
+                                info_text_1 = "Sold Basic Tunic for 5 rupees."
+                                info_text_2 = "Basic Tunic removed from inventory."
+                                player.items.remove(current_sell_item)
+                                drawing_functions.player_items.remove(current_sell_item)
+                                player.rupees = player.rupees + 5
+                                item_sold = True
+                                sell_window.clear()
+                        if sell_choice == "no":
+                            sell_window.clear()
+
                     if buy_clicked:
                         buy_item = click_handlers.buy_event_item(event, shopkeeper_items, pygame)
-                        buy_return = shop_scenario.shop_buy_items(player, buy_item, Item, health_pot_img,
-                                                                  energy_pot_img, basic_staff_img, basic_sword_img,
-                                                                  basic_bow_img, basic_robes_img, basic_armor_img,
-                                                                  basic_tunic_img)
-                        if buy_return["info 1"] != "":
-                            info_text_1 = buy_return["info 1"]
-                            info_text_2 = buy_return["info 2"]
-                        item_bought = buy_return["bought"]
-                    # if player clicks yes button to sell item, get item that was saved to current and sell
-                    sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame)
-                    if sell_choice == "yes":
-                        if current_sell_item.name == "health potion":
-                            info_text_1 = "Sold Health Potion for 5 rupees."
-                            info_text_2 = "Health Potion removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 5
-                            item_sold = True
-                            sell_window.clear()
-                        if current_sell_item.name == "energy potion":
-                            info_text_1 = "Sold Energy Potion for 5 rupees."
-                            info_text_2 = "Energy Potion removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 5
-                            item_sold = True
-                            sell_window.clear()
-                        if current_sell_item.name == "shiny rock":
-                            info_text_1 = "Sold Shiny Rock for 5 rupees."
-                            info_text_2 = "Shiny Rock removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 5
-                            item_sold = True
-                            sell_window.clear()
-                        if current_sell_item.name == "bone dust":
-                            info_text_1 = "Sold Bone Dust for 10 rupees."
-                            info_text_2 = "Bone Dust removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 10
-                            item_sold = True
-                            sell_window.clear()
-                        if current_sell_item.name == "basic staff":
-                            info_text_1 = "Sold Basic Staff for 5 rupees."
-                            info_text_2 = "Basic Staff removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 5
-                            item_sold = True
-                            sell_window.clear()
-                        if current_sell_item.name == "basic sword":
-                            info_text_1 = "Sold Basic Sword for 5 rupees."
-                            info_text_2 = "Basic Sword removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 5
-                            item_sold = True
-                            sell_window.clear()
-                        if current_sell_item.name == "basic bow":
-                            info_text_1 = "Sold Basic Bow for 5 rupees."
-                            info_text_2 = "Basic Bow removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 5
-                            item_sold = True
-                            sell_window.clear()
-                        if current_sell_item.name == "basic robes":
-                            info_text_1 = "Sold Basic Robes for 5 rupees."
-                            info_text_2 = "Basic Robes removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 5
-                            item_sold = True
-                            sell_window.clear()
-                        if current_sell_item.name == "basic armor":
-                            info_text_1 = "Sold Basic Armor for 5 rupees."
-                            info_text_2 = "Basic Armor removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 5
-                            item_sold = True
-                            sell_window.clear()
-                        if current_sell_item.name == "basic tunic":
-                            info_text_1 = "Sold Basic Tunic for 5 rupees."
-                            info_text_2 = "Basic Tunic removed from inventory."
-                            player.items.remove(current_sell_item)
-                            drawing_functions.player_items.remove(current_sell_item)
-                            player.rupees = player.rupees + 5
-                            item_sold = True
-                            sell_window.clear()
-                    if sell_choice == "no":
-                        sell_window.clear()
+                        try:
+                            if buy_item.name == "health potion":
+                                buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, b_health_pot_img)
+                                yes_button.update(900, 308, yes_button_img)
+                                current_buy_item = buy_item
+                                buy_window.append(buy_items)
+                                buy_window.append(yes_button)
+                            if buy_item.name == "energy potion":
+                                buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, b_energy_pot_img)
+                                yes_button.update(900, 308, yes_button_img)
+                                current_buy_item = buy_item
+                                buy_window.append(buy_items)
+                                buy_window.append(yes_button)
+                            if buy_item.name == "basic staff":
+                                buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, b_basic_staff_img)
+                                yes_button.update(900, 308, yes_button_img)
+                                current_buy_item = buy_item
+                                buy_window.append(buy_items)
+                                buy_window.append(yes_button)
+                            if buy_item.name == "basic sword":
+                                buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, b_basic_sword_img)
+                                yes_button.update(900, 308, yes_button_img)
+                                current_buy_item = buy_item
+                                buy_window.append(buy_items)
+                                buy_window.append(yes_button)
+                            if buy_item.name == "basic bow":
+                                buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, b_basic_bow_img)
+                                yes_button.update(900, 308, yes_button_img)
+                                current_buy_item = buy_item
+                                buy_window.append(buy_items)
+                                buy_window.append(yes_button)
+                            if buy_item.name == "basic robes":
+                                buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, b_basic_robes_img)
+                                yes_button.update(900, 308, yes_button_img)
+                                current_buy_item = buy_item
+                                buy_window.append(buy_items)
+                                buy_window.append(yes_button)
+                            if buy_item.name == "basic armor":
+                                buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, b_basic_armor_img)
+                                yes_button.update(900, 308, yes_button_img)
+                                current_buy_item = buy_item
+                                buy_window.append(buy_items)
+                                buy_window.append(yes_button)
+                            if buy_item.name == "basic tunic":
+                                buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, b_basic_tunic_img)
+                                yes_button.update(900, 308, yes_button_img)
+                                current_buy_item = buy_item
+                                buy_window.append(buy_items)
+                                buy_window.append(yes_button)
+                        except AttributeError:
+                            pass
 
                     # gets item player clicked to sell. opens window to confirm and saves item to variable
                     sell_item = click_handlers.sell_event_item(event, pygame)
@@ -3560,7 +3757,8 @@ while game_running:
                     in_over_world = True
 
                 # draw objects to screen related to shop scenario ------------------------------------------------------
-                if player.current_zone == "seldon":
+                if player.current_zone == "seldon" and in_shop and not in_over_world and not in_battle and not in_inn \
+                        and not in_academia and not in_npc_interaction:
                     screen.blit(seldon_district_shop, (0, 0))
                     screen.blit(buy_button.surf, buy_button.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
@@ -3571,13 +3769,18 @@ while game_running:
                             screen.blit(window.surf, window.rect)
                         for shop_item in shopkeeper_items:
                             screen.blit(shop_item.surf, shop_item.rect)
-                    for element in sell_window:
-                        screen.blit(element.surf, element.rect)
+                        if len(buy_window) > 0:
+                            for element in buy_window:
+                                screen.blit(element.surf, element.rect)
+                    if len(sell_window) > 0:
+                        for element in sell_window:
+                            screen.blit(element.surf, element.rect)
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if player is in inn --------------------------------------------------------------------------------------
-            if in_inn:
+            if in_inn and not in_over_world and not in_shop and not in_battle and not in_academia \
+                    and not in_npc_interaction:
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
@@ -3657,7 +3860,8 @@ while game_running:
                     faded_inn_screen = False
 
                 # draw objects to screen related to inn scenario -------------------------------------------------------
-                if player.current_zone == "seldon":
+                if player.current_zone == "seldon" and in_inn and not in_over_world and not in_shop and not in_battle \
+                        and not in_academia and not in_npc_interaction:
                     # if player has just rested, fade inn screen back in with alpha value loop
                     if rested:
                         if not faded_inn_screen:
@@ -3690,7 +3894,8 @@ while game_running:
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if player is in academia
-            if in_academia:
+            if in_academia and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
+                    and not in_battle:
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
@@ -3832,48 +4037,54 @@ while game_running:
                     skill_learn_items.clear()
 
                 # draw objects to screen related to academia scenario --------------------------------------------------
-                if player.current_zone == "seldon":
-                    screen.blit(seldon_district_academia, (0, 0))
-                screen.blit(mage_learn_button.surf, mage_learn_button.rect)
-                screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
-                screen.blit(scout_learn_button.surf, scout_learn_button.rect)
-                screen.blit(leave_button.surf, leave_button.rect)
-                screen.blit(message_box.surf, message_box.rect)
-                player_updates()
-                for book in books:
-                    screen.blit(book.surf, book.rect)
-                for skill_item in skill_learn_items:
-                    screen.blit(skill_item.surf, skill_item.rect)
-                screen.blit(knowledge_window.surf, knowledge_window.rect)
-                text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black", "light yellow")
-                text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
-                text_mage_knowledge_rect.center = (515, 680)
-                screen.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
-                text_fighter_know_surf = font.render(str(player.knowledge["fighter"]), True, "black", "light yellow")
-                text_fighter_know_rect = text_fighter_know_surf.get_rect()
-                text_fighter_know_rect.center = (695, 680)
-                screen.blit(text_fighter_know_surf, text_fighter_know_rect)
-                text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black", "light yellow")
-                text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
-                text_scout_knowledge_rect.center = (865, 680)
-                screen.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
-                if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
-                    books.append(mage_book)
-                    skill_learn_items.append(barrier_learn_button)
-                    skill_learn_items.append(close_button)
-                if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
-                    books.append(fighter_book)
-                    skill_learn_items.append(hard_strike_learn_button)
-                    skill_learn_items.append(close_button)
-                if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
-                    books.append(scout_book)
-                    skill_learn_items.append(sharp_sense_learn_button)
-                    skill_learn_items.append(close_button)
+                if in_academia and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
+                        and not in_battle:
+                    if player.current_zone == "seldon":
+                        screen.blit(seldon_district_academia, (0, 0))
+                    screen.blit(mage_learn_button.surf, mage_learn_button.rect)
+                    screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
+                    screen.blit(scout_learn_button.surf, scout_learn_button.rect)
+                    screen.blit(leave_button.surf, leave_button.rect)
+                    screen.blit(message_box.surf, message_box.rect)
+                    player_updates()
+                    for book in books:
+                        screen.blit(book.surf, book.rect)
+                    for skill_item in skill_learn_items:
+                        screen.blit(skill_item.surf, skill_item.rect)
+                    screen.blit(knowledge_window.surf, knowledge_window.rect)
+                    text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
+                                                           "light yellow")
+                    text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
+                    text_mage_knowledge_rect.center = (515, 680)
+                    screen.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
+                    text_fighter_know_surf = font.render(str(player.knowledge["fighter"]), True, "black",
+                                                         "light yellow")
+                    text_fighter_know_rect = text_fighter_know_surf.get_rect()
+                    text_fighter_know_rect.center = (695, 680)
+                    screen.blit(text_fighter_know_surf, text_fighter_know_rect)
+                    text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black",
+                                                            "light yellow")
+                    text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
+                    text_scout_knowledge_rect.center = (865, 680)
+                    screen.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
+                    if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
+                        books.append(mage_book)
+                        skill_learn_items.append(barrier_learn_button)
+                        skill_learn_items.append(close_button)
+                    if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
+                        books.append(fighter_book)
+                        skill_learn_items.append(hard_strike_learn_button)
+                        skill_learn_items.append(close_button)
+                    if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
+                        books.append(scout_book)
+                        skill_learn_items.append(sharp_sense_learn_button)
+                        skill_learn_items.append(close_button)
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if player interacting with an npc (quest) ----------------------------------------------------------------
-            if in_npc_interaction:
+            if in_npc_interaction and not in_over_world and not in_shop and not in_inn and not in_academia \
+                    and not in_battle:
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
@@ -4123,7 +4334,8 @@ while game_running:
                                                      torune_quest_window, accept_button, decline_button)
 
                 # draw objects to screen related to npc interaction scenario -------------------------------------------
-                if player.current_zone == "seldon":
+                if player.current_zone == "seldon" and in_npc_interaction and not in_over_world and not in_shop \
+                        and not in_inn and not in_academia and not in_battle:
                     screen.blit(seldon_district_battle, (0, 0))
                     screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
@@ -4154,7 +4366,8 @@ while game_running:
 
             # ----------------------------------------------------------------------------------------------------------
             # if player is in korlok over world ------------------------------------------------------------------------
-            if player.current_zone == "korlok" and in_over_world:
+            if player.current_zone == "korlok" and in_over_world and not in_shop and not in_inn \
+                    and not in_academia and not in_battle and not in_npc_interaction:
                 screen.blit(korlok_district_bg, (0, 0))
                 screen.blit(rohir_gate.surf, rohir_gate.rect)
                 player_updates()

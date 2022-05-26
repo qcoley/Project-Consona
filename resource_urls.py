@@ -160,6 +160,8 @@ player_info_url = resource_path('resources/art/overlay_info_sheets.png')
 books_url = resource_path('resources/art/overlay_role_books.png')
 # sell items -----------------------------------------------------------------------------------------------------------
 sell_items_url = resource_path('resources/art/overlay_sell_items.png')
+# buy items -----------------------------------------------------------------------------------------------------------
+buy_items_url = resource_path('resources/art/overlay_buy_items.png')
 # start screen buttons -------------------------------------------------------------------------------------------------
 start_buttons_url = resource_path('resources/art/buttons_start_screen.png')
 # race select buttons on character screen ------------------------------------------------------------------------------

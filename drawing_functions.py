@@ -118,7 +118,7 @@ def item_info_draw(inventory_item, info_items, item_info_button, use_button_img,
             item_info_window.append(info_items)
 
 
-def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4):
+def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world):
     # get current player rupee count and create surf and rectangle to blit to screen------------------------------------
     text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
     text_rupee_rect = text_rupee_surf.get_rect()
@@ -134,6 +134,12 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_role_rect = text_role_surf.get_rect()
     text_role_rect.center = (1130, 81)
     screen.blit(text_role_surf, text_role_rect)
+    # current player location for UI overlay ---------------------------------------------------------------------------
+    if in_over_world:
+        text_location = font.render(str(player.current_zone), True, "black", "light yellow")
+        text_location_rect = text_location.get_rect()
+        text_location_rect.midleft = (935, 29)
+        screen.blit(text_location, text_location_rect)
     # get current player offense and create surf and rectangle to blit to screen----------------------------------------
     text_offense_surf = font.render(str(player.offense), True, "black", "light gray")
     text_offense_rect = text_offense_surf.get_rect()
@@ -163,7 +169,6 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
     text_info_rect_4 = text_info_surf_4.get_rect()
     text_info_rect_4.midleft = (30, 690)
-    text_info_rect_4.midleft = (30 / .80, 690 / .80)
     screen.blit(text_info_surf_4, text_info_rect_4)
 
 
@@ -427,4 +432,3 @@ def item_updates(player, health, energy, rock, dust, staff, sword, bow, robes, a
                     inventory_counter = 0
         except AttributeError:
             pass
-

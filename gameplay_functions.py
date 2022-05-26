@@ -338,7 +338,8 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
     screen.blit(star_power_meter.surf, star_power_meter.rect)
 
     # draw texts to the screen, like message box, player rupees and level
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4)
+    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                                     in_over_world)
     # update players current equipment
     drawing_functions.equipment_updates(player, basic_staff_img, basic_sword_img, basic_bow_img,
                                         basic_robes_img, basic_armor_img, basic_tunic_img)

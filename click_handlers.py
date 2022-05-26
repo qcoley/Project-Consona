@@ -364,6 +364,16 @@ def shop_sell_button(shop_sell_event, yes_button, pygame):
             return "no"
 
 
+# getting event based on user click related to shop
+def shop_buy_button(shop_buy_event, yes_button, pygame):
+    if shop_buy_event.type == pygame.MOUSEBUTTONUP:
+        shop_buy_mouse = pygame.mouse.get_pos()
+        if yes_button.rect.collidepoint(shop_buy_mouse):
+            return "yes"
+        else:
+            return "no"
+
+
 # getting event based on user click related to inn
 def inn_event_button(inn_event, rest_button, leave_button, pygame):
     if inn_event.type == pygame.MOUSEBUTTONUP:
