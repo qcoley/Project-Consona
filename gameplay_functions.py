@@ -213,7 +213,7 @@ def walk_time(tic):
 
 
 # function that updates players info, status, role, inventory, equipment, etc
-def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_world, status_bar_backdrop,
+def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_world,
                                hp_100, hp_99, hp_98, hp_97, hp_96, hp_95, hp_94, hp_93, hp_92, hp_91,
                                hp_90, hp_89, hp_88, hp_87, hp_86, hp_85, hp_84, hp_83, hp_82, hp_81,
                                hp_80, hp_79, hp_78, hp_77, hp_76, hp_75, hp_74, hp_73, hp_72, hp_71,
@@ -244,21 +244,10 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
                                xp_30, xp_29, xp_28, xp_27, xp_26, xp_25, xp_24, xp_23, xp_22, xp_21,
                                xp_20, xp_19, xp_18, xp_17, xp_16, xp_15, xp_14, xp_13, xp_12, xp_11,
                                xp_10, xp_9, xp_8, xp_7, xp_6, xp_5, xp_4, xp_3, xp_2, xp_1, xp_0,
-                               user_interface, save_check_window, font,
-                               info_text_1, info_text_2, info_text_3, info_text_4,
                                health_pot_img, energy_pot_img, shiny_rock_img, bone_dust_img,
                                basic_staff_img, basic_sword_img, basic_bow_img,
                                basic_robes_img, basic_armor_img, basic_tunic_img, temp_img,
                                star_power_meter, star_00, star_01, star_02, star_03, star_04):
-
-    screen.blit(status_bar_backdrop.surf, status_bar_backdrop.rect)
-    try:
-        screen.blit(hp_bar.surf, hp_bar.rect)
-        screen.blit(en_bar.surf, en_bar.rect)
-        screen.blit(xp_bar.surf, xp_bar.rect)
-    except TypeError:
-        pass
-
     # update players status bars
     hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player,
                                                                               hp_100, hp_99, hp_98, hp_97, hp_96, hp_95,
@@ -278,7 +267,6 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
                                                                               hp_16, hp_15, hp_14, hp_13, hp_12, hp_11,
                                                                               hp_10, hp_9, hp_8, hp_7, hp_6, hp_5, hp_4,
                                                                               hp_3, hp_2, hp_1, hp_0))
-
     en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_bar_update(player,
                                                                               en_100, en_99, en_98, en_97, en_96, en_95,
                                                                               en_94, en_93, en_92, en_91, en_90, en_89,
@@ -297,7 +285,6 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
                                                                               en_16, en_15, en_14, en_13, en_12, en_11,
                                                                               en_10, en_9, en_8, en_7, en_6, en_5, en_4,
                                                                               en_3, en_2, en_1, en_0))
-
     xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_bar_update(player,
                                                                           xp_100, xp_99, xp_98, xp_97, xp_96, xp_95,
                                                                           xp_94, xp_93, xp_92, xp_91, xp_90, xp_89,
@@ -317,13 +304,6 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
                                                                           xp_10, xp_9, xp_8, xp_7, xp_6, xp_5, xp_4,
                                                                           xp_3, xp_2, xp_1, xp_0))
 
-    if in_over_world:
-        screen.blit(player.surf, player.rect)
-        for save_window in save_check_window:
-            screen.blit(save_window.surf, save_window.rect)
-        for ui_elements in user_interface:
-            screen.blit(ui_elements.surf, ui_elements.rect)
-
     if player.star_power == 0:
         star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, star_00)
     if player.star_power == 1:
@@ -335,11 +315,6 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
     if player.star_power == 4:
         star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, star_04)
 
-    screen.blit(star_power_meter.surf, star_power_meter.rect)
-
-    # draw texts to the screen, like message box, player rupees and level
-    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world)
     # update players current equipment
     drawing_functions.equipment_updates(player, basic_staff_img, basic_sword_img, basic_bow_img,
                                         basic_robes_img, basic_armor_img, basic_tunic_img)
@@ -347,7 +322,6 @@ def player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_w
     drawing_functions.item_updates(player, health_pot_img, energy_pot_img, shiny_rock_img, bone_dust_img,
                                    basic_staff_img, basic_sword_img, basic_bow_img,
                                    basic_robes_img, basic_armor_img, basic_tunic_img, temp_img)
-    drawing_functions.draw_it(screen)
 
 
 # player attacks enemy, gets damage to enemy done based on player's role and offense

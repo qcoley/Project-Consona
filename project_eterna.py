@@ -1065,7 +1065,7 @@ def enemy_health_bar(enemys):
 
 
 def player_updates():
-    gameplay_functions.player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_world, bar_backdrop,
+    gameplay_functions.player_info_and_ui_updates(player, screen, hp_bar, en_bar, xp_bar, in_over_world,
                                                   hp_100, hp_99, hp_98, hp_97, hp_96, hp_95, hp_94, hp_93, hp_92, hp_91,
                                                   hp_90, hp_89, hp_88, hp_87, hp_86, hp_85, hp_84, hp_83, hp_82, hp_81,
                                                   hp_80, hp_79, hp_78, hp_77, hp_76, hp_75, hp_74, hp_73, hp_72, hp_71,
@@ -1096,11 +1096,9 @@ def player_updates():
                                                   xp_30, xp_29, xp_28, xp_27, xp_26, xp_25, xp_24, xp_23, xp_22, xp_21,
                                                   xp_20, xp_19, xp_18, xp_17, xp_16, xp_15, xp_14, xp_13, xp_12, xp_11,
                                                   xp_10, xp_9, xp_8, xp_7, xp_6, xp_5, xp_4, xp_3, xp_2, xp_1, xp_0,
-                                                  user_interface, save_check_window, font, info_text_1, info_text_2,
-                                                  info_text_3, info_text_4, health_pot_img, energy_pot_img,
-                                                  shiny_rock_img, bone_dust_img, basic_staff_img, basic_sword_img,
-                                                  basic_bow_img, basic_robes_img, basic_armor_img, basic_tunic_img,
-                                                  temp_img,
+                                                  health_pot_img, energy_pot_img, shiny_rock_img, bone_dust_img,
+                                                  basic_staff_img, basic_sword_img, basic_bow_img, basic_robes_img,
+                                                  basic_armor_img, basic_tunic_img, temp_img,
                                                   star_power_meter, star_00, star_01, star_02, star_03, star_04)
 
 
@@ -2054,7 +2052,7 @@ enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
 user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, save_button, hearth_button,
-                   message_box, location_overlay)
+                   message_box, location_overlay, star_power_meter)
 environments.add(trees, buildings)
 quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
 most_sprites.add(npcs, trees, buildings, quest_items, enemies, seldon_hearth, rohir_gate)
@@ -2425,6 +2423,150 @@ while game_running:
     if start_chosen:
         if player.alive_status:
 
+            # player information updates
+            player_updates()
+
+            if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
+                    and not in_academia:
+
+                # player movement updates
+                walking_return = gameplay_functions.walk_time(walk_tic)
+                if walking_return["reset"]:
+                    walk_tic = time.perf_counter()
+                if movement_able and in_over_world:
+                    pressed_keys = pygame.key.get_pressed()
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.update("right", player.current_zone, walking_return["total time"])
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.update("left", player.current_zone, walking_return["total time"])
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.update("up", player.current_zone, walking_return["total time"])
+                    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
+                        player.update("down", player.current_zone, walking_return["total time"])
+
+                # main event loop
+                for event in pygame.event.get():
+                    if event.type == KEYDOWN:
+                        # escape key was pressed, exit game
+                        if event.key == K_ESCAPE:
+                            exit()
+                        # "F" key for player interaction
+                        if event.key == K_f:
+                            interacted = True
+                    elif event.type == QUIT:
+                        exit()
+
+                    if event.type == pygame.MOUSEBUTTONUP:
+                        pos = pygame.mouse.get_pos()
+                        # click handlers -------------------------------------------------------------------------------
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
+                        if info_choice == "yes":
+                            inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                     player_mage_amuna_down_1,
+                                                                                     player_mage_nuldar_down_1,
+                                                                                     player_mage_sorae_down_1,
+                                                                                     player_fighter_amuna_down_1,
+                                                                                     player_fighter_nuldar_down_1,
+                                                                                     player_fighter_sorae_down_1,
+                                                                                     player_scout_amuna_down_1,
+                                                                                     player_scout_nuldar_down_1,
+                                                                                     player_scout_sorae_down_1)
+                            if inventory_event["item message"] != "":
+                                info_text_1 = inventory_event["item message"]
+                                info_text_2 = ""
+                            drawing_functions.item_info_window.clear()
+
+                        if info_choice == "no":
+                            drawing_functions.item_info_window.clear()
+
+                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
+                        if inventory_item_clicked["clicked"]:
+                            current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                                 info_items, item_info_button,
+                                                                                 use_button_img, equip_button_img,
+                                                                                 info_health_pot_img,
+                                                                                 info_energy_pot_img,
+                                                                                 info_basic_robes_img,
+                                                                                 info_basic_armor_img,
+                                                                                 info_basic_tunic_img,
+                                                                                 info_basic_staff_img,
+                                                                                 info_basic_sword_img,
+                                                                                 info_basic_bow_img,
+                                                                                 info_shiny_rock_img,
+                                                                                 info_bone_dust_img)
+
+                        # function to handle equipment item clicks. apply item message to message box if not empty str.
+                        equipment_event = click_handlers.equipment_click_handler(player, event,
+                                                                                 player_no_role_amuna_down_1,
+                                                                                 player_no_role_nuldar_down_1,
+                                                                                 player_no_role_sorae_down_1, pygame)
+                        if equipment_event["equipment message"] != "":
+                            info_text_1 = equipment_event["equipment message"]
+                            info_text_2 = ""
+
+                        # hearth button was clicked, set animation and move player to stone
+                        if hearth_button.rect.collidepoint(pos):
+                            hearthstone_animation()
+                            player.current_zone = "seldon"
+                            player.x_coordinate = 850
+                            player.y_coordinate = 650
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            info_text_1 = "You recalled to the hearth stone."
+                        # save button was clicked. Save player info in dictionary to be loaded later
+                        if save_button.rect.collidepoint(pos):
+                            yes_button.update(450, 394, yes_button_img)
+                            # see if there already exists a save file by trying to read it
+                            try:
+                                with open("save_game", "rb") as f:
+                                    saved = True
+                            except FileNotFoundError:
+                                saved = False
+                                pass
+                            if saved:
+                                save_check_window.append(save_check)
+                                save_check_window.append(yes_button)
+                                save_check_window.append(no_button)
+                            if not saved:
+                                gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                             sharp_sense_learned, saved, npc_garan.gift)
+                                saved = True
+                                info_text_1 = "You saved your game. "
+
+                        # yes button was clicked to overwrite previous save file
+                        if yes_button.rect.collidepoint(pos):
+                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                         sharp_sense_learned, saved, npc_garan.gift)
+                            save_check_window.clear()
+                            info_text_1 = "You saved your game. "
+                        if no_button.rect.collidepoint(pos):
+                            save_check_window.clear()
+
+                        # character button
+                        if character_button.rect.collidepoint(pos):
+                            if character_button_clicked:
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
+                                character_button_clicked = False
+                            else:
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
+                                character_button_clicked = True
+
+                        # journal button
+                        if journal_button.rect.collidepoint(pos):
+                            if journal_button_clicked:
+                                drawing_functions.journal_info_draw(journal, player, font, False)
+                                journal_button_clicked = False
+                            else:
+                                drawing_functions.journal_info_draw(journal, player, font, True)
+                                journal_button_clicked = True
+
+                        # pop-up notifications, click to hide
+                        if level_up_win.rect.collidepoint(pos):
+                            drawing_functions.level_up_draw(level_up_win, player, font, False)
+                        if knowledge_academia.rect.collidepoint(pos) and knowledge_academia_show:
+                            knowledge_window_clicked = True
+                        if rest_recover.rect.collidepoint(pos) and rest_recover_show:
+                            rest_window_clicked = True
+
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
             # if player is in nascent grove (starting area) ------------------------------------------------------------
@@ -2433,33 +2575,10 @@ while game_running:
                 screen.blit(nascent_grove_bg, (0, 0))
                 screen.blit(nascent_gate.surf, nascent_gate.rect)
                 screen.blit(player.surf, player.rect)
+
                 if len(nascent_gate_popup_container) > 0:
                     for popup in nascent_gate_popup_container:
                         screen.blit(popup.surf, popup.rect)
-                for event in pygame.event.get():
-                    if event.type == KEYDOWN:
-                        if event.key == K_ESCAPE:
-                            exit()
-                        if event.key == K_f:
-                            if pygame.sprite.collide_rect(player, nascent_gate):
-                                interacted = True
-                    elif event.type == QUIT:
-                        exit()
-
-                # outside nascent event loop ---------------------------------------------------------------------------
-                walking_return_nascent = gameplay_functions.walk_time(walk_tic)
-                if walking_return_nascent["reset"]:
-                    walk_tic = time.perf_counter()
-                if movement_able and in_over_world:
-                    pressed_keys = pygame.key.get_pressed()
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.update("right", "nascent", walking_return_nascent["total time"])
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.update("left", "nascent", walking_return_nascent["total time"])
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.update("up", "nascent", walking_return_nascent["total time"])
-                    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
-                        player.update("down", "nascent", walking_return_nascent["total time"])
 
                 if pygame.sprite.collide_rect(player, nascent_gate):
                     nascent_gate_popup_container.append(nascent_gate_popup)
@@ -2486,123 +2605,24 @@ while game_running:
             # if player is in stardust outpost -------------------------------------------------------------------------
             if player.current_zone == "stardust" and in_over_world and not in_shop and not in_inn and not in_academia \
                     and not in_battle and not in_npc_interaction:
+
                 screen.blit(stardust_outpost_bg, (0, 0))
                 if player.quest_progress["where's nede?"] < 1:
                     screen.blit(nede.surf, nede.rect)
-                player_updates()
-                for event in pygame.event.get():
-                    if event.type == KEYDOWN:
-                        if event.key == K_ESCAPE:
-                            exit()
-                        if event.key == K_f:
-                            interacted = True
-                    elif event.type == QUIT:
-                        exit()
-                    if event.type == pygame.MOUSEBUTTONUP:
-                        pos = pygame.mouse.get_pos()
-                        if hearth_button.rect.collidepoint(pos):
-                            hearthstone_animation()
-                            player.current_zone = "seldon"
-                            player.x_coordinate = 850
-                            player.y_coordinate = 650
-                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            info_text_1 = "You recalled to the hearth stone."
-                        if save_button.rect.collidepoint(pos):
-                            yes_button.update(450, 394, yes_button_img)
-                            try:
-                                with open("save_game", "rb") as f:
-                                    saved = True
-                            except FileNotFoundError:
-                                saved = False
-                                pass
-                            if saved:
-                                save_check_window.append(save_check)
-                                save_check_window.append(yes_button)
-                                save_check_window.append(no_button)
-                            if not saved:
-                                gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                             sharp_sense_learned, saved, npc_garan.gift)
-                                saved = True
-                                info_text_1 = "You saved your game. "
-                        # save buttons, if overwriting previous save data, yes or no
-                        if yes_button.rect.collidepoint(pos):
-                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                         sharp_sense_learned, saved, npc_garan.gift)
-                            save_check_window.clear()
-                            info_text_1 = "You saved your game. "
-                        if no_button.rect.collidepoint(pos):
-                            save_check_window.clear()
-                        # character button
-                        if character_button.rect.collidepoint(pos):
-                            if character_button_clicked:
-                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
-                                character_button_clicked = False
-                            else:
-                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
-                                character_button_clicked = True
-                        # journal button
-                        if journal_button.rect.collidepoint(pos):
-                            if journal_button_clicked:
-                                drawing_functions.journal_info_draw(journal, player, font, False)
-                                journal_button_clicked = False
-                            else:
-                                drawing_functions.journal_info_draw(journal, player, font, True)
-                                journal_button_clicked = True
-                        # level up window, click to hide
-                        if level_up_win.rect.collidepoint(pos):
-                            drawing_functions.level_up_draw(level_up_win, player, font, False)
+                screen.blit(player.surf, player.rect)
+                for save_window in save_check_window:
+                    screen.blit(save_window.surf, save_window.rect)
+                for ui_elements in user_interface:
+                    screen.blit(ui_elements.surf, ui_elements.rect)
+                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                screen.blit(hp_bar.surf, hp_bar.rect)
+                screen.blit(en_bar.surf, en_bar.rect)
+                screen.blit(xp_bar.surf, xp_bar.rect)
 
-                    # click handlers -----------------------------------------------------------------------------------
-                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
-                    if info_choice == "yes":
-                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
-                                                                                 player_mage_amuna_down_1,
-                                                                                 player_mage_nuldar_down_1,
-                                                                                 player_mage_sorae_down_1,
-                                                                                 player_fighter_amuna_down_1,
-                                                                                 player_fighter_nuldar_down_1,
-                                                                                 player_fighter_sorae_down_1,
-                                                                                 player_scout_amuna_down_1,
-                                                                                 player_scout_nuldar_down_1,
-                                                                                 player_scout_sorae_down_1)
-                        if inventory_event["item message"] != "":
-                            info_text_1 = inventory_event["item message"]
-                            info_text_2 = ""
-                        drawing_functions.item_info_window.clear()
-                    if info_choice == "no":
-                        drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
-                    if inventory_item_clicked["clicked"]:
-                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
-                                                                             info_items, item_info_button,
-                                                                             use_button_img, equip_button_img,
-                                                                             info_health_pot_img, info_energy_pot_img,
-                                                                             info_basic_robes_img, info_basic_armor_img,
-                                                                             info_basic_tunic_img, info_basic_staff_img,
-                                                                             info_basic_sword_img, info_basic_bow_img,
-                                                                             info_shiny_rock_img, info_bone_dust_img)
-                    # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
-                                                                             player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1, pygame)
-                    if equipment_event["equipment message"] != "":
-                        info_text_1 = equipment_event["equipment message"]
-                        info_text_2 = ""
-
-                # outside of stardust event loop -----------------------------------------------------------------------
-                walking_return_stardust = gameplay_functions.walk_time(walk_tic)
-                if walking_return_stardust["reset"]:
-                    walk_tic = time.perf_counter()
-                if movement_able and in_over_world:
-                    pressed_keys = pygame.key.get_pressed()
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.update("right", "stardust", walking_return_stardust["total time"])
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.update("left", "stardust", walking_return_stardust["total time"])
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.update("up", "stardust", walking_return_stardust["total time"])
-                    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
-                        player.update("down", "stardust", walking_return_stardust["total time"])
+                # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                 info_text_4, in_over_world)
+                drawing_functions.draw_it(screen)
 
                 # player encounters Nede for Celeste's quest
                 if pygame.sprite.collide_rect(player, nede):
@@ -2641,25 +2661,77 @@ while game_running:
                                 nede.update(nede.x_coordinate, nede.y_coordinate, nede_right)
 
             # ----------------------------------------------------------------------------------------------------------
-            # if player is in seldon district over world ---------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            # if player is in korlok district --------------------------------------------------------------------------
+            if player.current_zone == "korlok" and in_over_world and not in_shop and not in_inn \
+                    and not in_academia and not in_battle and not in_npc_interaction:
+                screen.blit(korlok_district_bg, (0, 0))
+                screen.blit(rohir_gate.surf, rohir_gate.rect)
+                screen.blit(player.surf, player.rect)
+                for save_window in save_check_window:
+                    screen.blit(save_window.surf, save_window.rect)
+                for ui_elements in user_interface:
+                    screen.blit(ui_elements.surf, ui_elements.rect)
+                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                screen.blit(hp_bar.surf, hp_bar.rect)
+                screen.blit(en_bar.surf, en_bar.rect)
+                screen.blit(xp_bar.surf, xp_bar.rect)
+                # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                 info_text_4, in_over_world)
+                drawing_functions.draw_it(screen)
+
+                quest_item = pygame.sprite.spritecollideany(player, quest_items)
+                try:
+                    if quest_item.model == "rohir gate":
+                        if player.quest_complete["ghouled again"]:
+                            info_text_1 = f"Press 'F' key to enter Seldon District."
+                            if interacted:
+                                player.current_zone = "seldon"
+                                in_over_world = True
+                                interacted = False
+                                player.x_coordinate = 525
+                                player.y_coordinate = 100
+                                player.rect = player.surf.get_rect(
+                                    midbottom=(player.x_coordinate, player.y_coordinate))
+                                rohir_gate.update(525, 50,
+                                                  pygame.image.load(resource_urls.rohir_gate).convert())
+                                rohir_gate.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                except AttributeError:
+                    pass
+
+            # ----------------------------------------------------------------------------------------------------------
+            # ----------------------------------------------------------------------------------------------------------
+            # if player is in seldon district --------------------------------------------------------------------------
             if player.current_zone == "seldon" and in_over_world and not in_shop and not in_inn and not in_academia \
                     and not in_battle and not in_npc_interaction:
-                screen.blit(seldon_district_bg, (0, 0))
 
-                enemy_switch = 1
+                screen.blit(seldon_district_bg, (0, 0))
                 enemy_respawn()
                 for entity in most_sprites:
                     screen.blit(entity.surf, entity.rect)
                 for enemy_sprite in enemies:
                     screen.blit(enemy_sprite.surf, enemy_sprite.rect)
-
                 if player.quest_progress["where's nede?"] == 1:
                     screen.blit(nede.surf, nede.rect)
 
                 gameplay_functions.npc_quest_star_updates(player, screen, quest_star_garan, quest_star_maurelle,
                                                           quest_star_celeste, quest_star_torune, quest_progress_star,
                                                           quest_complete_star)
-                player_updates()
+                screen.blit(player.surf, player.rect)
+                for save_window in save_check_window:
+                    screen.blit(save_window.surf, save_window.rect)
+                for ui_elements in user_interface:
+                    screen.blit(ui_elements.surf, ui_elements.rect)
+                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                screen.blit(hp_bar.surf, hp_bar.rect)
+                screen.blit(en_bar.surf, en_bar.rect)
+                screen.blit(xp_bar.surf, xp_bar.rect)
+
+                # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                 info_text_4, in_over_world)
+                drawing_functions.draw_it(screen)
 
                 # pop up notifications for situations like low health or first weapon acquire
                 if not knowledge_academia_show:
@@ -2694,118 +2766,6 @@ while game_running:
                 if battle_info_to_return_to_main_loop["leveled_up"]:
                     drawing_functions.level_up_draw(level_up_win, player, font, True)
 
-                # ------------------------------------------------------------------------------------------------------
-                for event in pygame.event.get():
-                    if event.type == KEYDOWN:
-                        # escape key was pressed, exit game
-                        if event.key == K_ESCAPE:
-                            exit()
-                        # "F" key for player interaction
-                        if event.key == K_f:
-                            if pygame.sprite.spritecollideany(player, most_sprites):
-                                interacted = True
-                    elif event.type == QUIT:
-                        exit()
-                    if event.type == pygame.MOUSEBUTTONUP:
-                        pos = pygame.mouse.get_pos()
-                        # hearth button was clicked, set animation and move player to stone
-                        if hearth_button.rect.collidepoint(pos):
-                            hearthstone_animation()
-                            player.current_zone = "seldon"
-                            player.x_coordinate = 850
-                            player.y_coordinate = 650
-                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            info_text_1 = "You recalled to the hearth stone."
-                        # save button was clicked. Save player info in dictionary to be loaded later
-                        if save_button.rect.collidepoint(pos):
-                            yes_button.update(450, 394, yes_button_img)
-                            # see if there already exists a save file by trying to read it
-                            try:
-                                with open("save_game", "rb") as f:
-                                    saved = True
-                            except FileNotFoundError:
-                                saved = False
-                                pass
-                            if saved:
-                                save_check_window.append(save_check)
-                                save_check_window.append(yes_button)
-                                save_check_window.append(no_button)
-                            if not saved:
-                                gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                             sharp_sense_learned, saved, npc_garan.gift)
-                                saved = True
-                                info_text_1 = "You saved your game. "
-                        # yes button was clicked to overwrite previous save file
-                        if yes_button.rect.collidepoint(pos):
-                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                         sharp_sense_learned, saved, npc_garan.gift)
-                            save_check_window.clear()
-                            info_text_1 = "You saved your game. "
-                        if no_button.rect.collidepoint(pos):
-                            save_check_window.clear()
-
-                        # if character button is clicked, call draw function and show elements. second click hides
-                        if character_button.rect.collidepoint(pos):
-                            if character_button_clicked:
-                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
-                                character_button_clicked = False
-                            else:
-                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
-                                character_button_clicked = True
-                        # if journal button is clicked, call draw function and show elements. second click hides
-                        if journal_button.rect.collidepoint(pos):
-                            if journal_button_clicked:
-                                drawing_functions.journal_info_draw(journal, player, font, False)
-                                journal_button_clicked = False
-                            else:
-                                drawing_functions.journal_info_draw(journal, player, font, True)
-                                journal_button_clicked = True
-                        # when player levels up, this lets them click to dismiss the window pop-up
-                        if level_up_win.rect.collidepoint(pos):
-                            drawing_functions.level_up_draw(level_up_win, player, font, False)
-                        if knowledge_academia.rect.collidepoint(pos) and knowledge_academia_show:
-                            knowledge_window_clicked = True
-                        if rest_recover.rect.collidepoint(pos) and rest_recover_show:
-                            rest_window_clicked = True
-
-                    # click handlers
-                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
-                    if info_choice == "yes":
-                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
-                                                                                 player_mage_amuna_down_1,
-                                                                                 player_mage_nuldar_down_1,
-                                                                                 player_mage_sorae_down_1,
-                                                                                 player_fighter_amuna_down_1,
-                                                                                 player_fighter_nuldar_down_1,
-                                                                                 player_fighter_sorae_down_1,
-                                                                                 player_scout_amuna_down_1,
-                                                                                 player_scout_nuldar_down_1,
-                                                                                 player_scout_sorae_down_1)
-                        if inventory_event["item message"] != "":
-                            info_text_1 = inventory_event["item message"]
-                            info_text_2 = ""
-                        drawing_functions.item_info_window.clear()
-                    if info_choice == "no":
-                        drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
-                    if inventory_item_clicked["clicked"]:
-                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
-                                                                             info_items, item_info_button,
-                                                                             use_button_img, equip_button_img,
-                                                                             info_health_pot_img, info_energy_pot_img,
-                                                                             info_basic_robes_img, info_basic_armor_img,
-                                                                             info_basic_tunic_img, info_basic_staff_img,
-                                                                             info_basic_sword_img, info_basic_bow_img,
-                                                                             info_shiny_rock_img, info_bone_dust_img)
-                    # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
-                                                                             player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1, pygame)
-                    if equipment_event["equipment message"] != "":
-                        info_text_1 = equipment_event["equipment message"]
-                        info_text_2 = ""
-
-                # outside of main event loop ---------------------------------------------------------------------------
                 # move player to nascent grove when they approach
                 if 375 < player.x_coordinate < 475 and player.y_coordinate > 700:
                     player.current_zone = "nascent"
@@ -2920,21 +2880,6 @@ while game_running:
                         in_npc_interaction = True
                         movement_able = False
                         current_npc_interacting = npc
-
-                # player movement updates
-                walking_return_seldon = gameplay_functions.walk_time(walk_tic)
-                if walking_return_seldon["reset"]:
-                    walk_tic = time.perf_counter()
-                if movement_able and in_over_world:
-                    pressed_keys = pygame.key.get_pressed()
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.update("right", "seldon", walking_return_seldon["total time"])
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.update("left", "seldon", walking_return_seldon["total time"])
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.update("up", "seldon", walking_return_seldon["total time"])
-                    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
-                        player.update("down", "seldon", walking_return_seldon["total time"])
 
                 # enemy movement updates
                 direction_horizontal = random.choice(["left", "right"])
@@ -3312,8 +3257,16 @@ while game_running:
                             screen.blit(current_enemy_battling.health_bar.surf, current_enemy_battling.health_bar.rect)
                         except TypeError:
                             pass
+                        screen.blit(star_power_meter.surf, star_power_meter.rect)
                         screen.blit(message_box.surf, message_box.rect)
-                        player_updates()
+                        # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                         info_text_4, in_over_world)
+                        drawing_functions.draw_it(screen)
+                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
                         screen.blit(enemy_status.surf, enemy_status.rect)
                         text_enemy_name_surf = font.render(str(current_enemy_battling.name), True, "black",
                                                            "light yellow")
@@ -3763,7 +3716,15 @@ while game_running:
                     screen.blit(buy_button.surf, buy_button.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
                     screen.blit(message_box.surf, message_box.rect)
-                    player_updates()
+                    screen.blit(star_power_meter.surf, star_power_meter.rect)
+                    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                     info_text_4, in_over_world)
+                    drawing_functions.draw_it(screen)
+                    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                    screen.blit(hp_bar.surf, hp_bar.rect)
+                    screen.blit(en_bar.surf, en_bar.rect)
+                    screen.blit(xp_bar.surf, xp_bar.rect)
                     if buy_clicked:
                         for window in buy_shop_elements:
                             screen.blit(window.surf, window.rect)
@@ -3878,8 +3839,16 @@ while game_running:
                         screen.blit(seldon_district_inn, (0, 0))
                 screen.blit(rest_button.surf, rest_button.rect)
                 screen.blit(leave_button.surf, leave_button.rect)
+                screen.blit(star_power_meter.surf, star_power_meter.rect)
                 screen.blit(message_box.surf, message_box.rect)
-                player_updates()
+                # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                 info_text_4, in_over_world)
+                drawing_functions.draw_it(screen)
+                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                screen.blit(hp_bar.surf, hp_bar.rect)
+                screen.blit(en_bar.surf, en_bar.rect)
+                screen.blit(xp_bar.surf, xp_bar.rect)
                 if rest_clicked:
                     if not rested:
                         # set sleep screen to fade in with alpha value loop. flip each iteration to show
@@ -3893,7 +3862,7 @@ while game_running:
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
-            # if player is in academia
+            # if player is in academia ---------------------------------------------------------------------------------
             if in_academia and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
                     and not in_battle:
                 for event in pygame.event.get():
@@ -3948,14 +3917,14 @@ while game_running:
                         try:
                             if book_button.name == "barrier learn button":
                                 if not barrier_learned:
-                                    if player.knowledge["mage"] > 39:
+                                    if player.knowledge["mage"] > 49:
                                         player.skills_mage["skill 2"] = "barrier"
                                         info_text_1 = "'Barrier' skill learned!"
-                                        info_text_2 = "Skill added. 40 knowledge used."
-                                        player.knowledge["mage"] -= 40
+                                        info_text_2 = "Skill added. 50 knowledge used."
+                                        player.knowledge["mage"] -= 50
                                         barrier_learned = True
                                     else:
-                                        info_text_1 = "40 mage knowledge required to learn."
+                                        info_text_1 = "50 mage knowledge required to learn."
                                 else:
                                     info_text_1 = "You've already learned 'Barrier'."
                                     info_text_2 = ""
@@ -3969,14 +3938,14 @@ while game_running:
                         try:
                             if book_button.name == "hard strike learn button":
                                 if not hard_strike_learned:
-                                    if player.knowledge["fighter"] > 39:
+                                    if player.knowledge["fighter"] > 49:
                                         player.skills_fighter["skill 2"] = "hard strike"
                                         info_text_1 = "'Hard Strike' skill learned!"
-                                        info_text_2 = "Skill added. 40 knowledge used."
-                                        player.knowledge["fighter"] -= 40
+                                        info_text_2 = "Skill added. 50 knowledge used."
+                                        player.knowledge["fighter"] -= 50
                                         hard_strike_learned = True
                                     else:
-                                        info_text_1 = "40 fighter knowledge required to learn."
+                                        info_text_1 = "50 fighter knowledge required to learn."
                                 else:
                                     info_text_1 = "You've already learned 'Hard Strike'."
                                     info_text_2 = ""
@@ -3990,14 +3959,14 @@ while game_running:
                         try:
                             if book_button.name == "sharp sense learn button":
                                 if not sharp_sense_learned:
-                                    if player.knowledge["scout"] > 39:
+                                    if player.knowledge["scout"] > 49:
                                         player.skills_scout["skill 2"] = "sharp sense"
                                         info_text_1 = "'Sharp Sense' skill learned!"
-                                        info_text_2 = "Skill added. 40 knowledge used."
-                                        player.knowledge["scout"] -= 40
+                                        info_text_2 = "Skill added. 50 knowledge used."
+                                        player.knowledge["scout"] -= 50
                                         sharp_sense_learned = True
                                     else:
-                                        info_text_1 = "40 scout knowledge required to learn."
+                                        info_text_1 = "50 scout knowledge required to learn."
                                 else:
                                     info_text_1 = "You've already learned 'Sharp Sense'."
                                     info_text_2 = ""
@@ -4046,7 +4015,14 @@ while game_running:
                     screen.blit(scout_learn_button.surf, scout_learn_button.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
                     screen.blit(message_box.surf, message_box.rect)
-                    player_updates()
+                    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                    screen.blit(hp_bar.surf, hp_bar.rect)
+                    screen.blit(en_bar.surf, en_bar.rect)
+                    screen.blit(xp_bar.surf, xp_bar.rect)
+                    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                     info_text_4, in_over_world)
+                    drawing_functions.draw_it(screen)
                     for book in books:
                         screen.blit(book.surf, book.rect)
                     for skill_item in skill_learn_items:
@@ -4143,7 +4119,6 @@ while game_running:
                                                          maurelle_quest_window, celeste_quest_window,
                                                          torune_quest_window, accept_button, decline_button)
                     # --------------------------------------------------------------------------------------------------
-
                     # click handlers
                     info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
@@ -4338,6 +4313,10 @@ while game_running:
                         and not in_inn and not in_academia and not in_battle:
                     screen.blit(seldon_district_battle, (0, 0))
                     screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                    screen.blit(hp_bar.surf, hp_bar.rect)
+                    screen.blit(en_bar.surf, en_bar.rect)
+                    screen.blit(xp_bar.surf, xp_bar.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
                     screen.blit(quest_button.surf, quest_button.rect)
                     screen.blit(npc_name_plate.surf, npc_name_plate.rect)
@@ -4351,7 +4330,11 @@ while game_running:
                     if current_npc_interacting.name == "torune":
                         screen.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
                     screen.blit(message_box.surf, message_box.rect)
-                    player_updates()
+                    screen.blit(star_power_meter.surf, star_power_meter.rect)
+                    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                     info_text_4, in_over_world)
+                    drawing_functions.draw_it(screen)
                     text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black", "light yellow")
                     text_npc_name_rect = text_npc_name_surf.get_rect()
                     text_npc_name_rect.center = (637, 192)
@@ -4365,142 +4348,6 @@ while game_running:
                             screen.blit(scout_select_button.surf, scout_select_button.rect)
 
             # ----------------------------------------------------------------------------------------------------------
-            # if player is in korlok over world ------------------------------------------------------------------------
-            if player.current_zone == "korlok" and in_over_world and not in_shop and not in_inn \
-                    and not in_academia and not in_battle and not in_npc_interaction:
-                screen.blit(korlok_district_bg, (0, 0))
-                screen.blit(rohir_gate.surf, rohir_gate.rect)
-                player_updates()
-                for event in pygame.event.get():
-                    if event.type == KEYDOWN:
-                        if event.key == K_ESCAPE:
-                            exit()
-                        if event.key == K_f:
-                            if pygame.sprite.spritecollideany(player, most_sprites):
-                                interacted = True
-                    elif event.type == QUIT:
-                        exit()
-                    if event.type == pygame.MOUSEBUTTONUP:
-                        pos = pygame.mouse.get_pos()
-                        if hearth_button.rect.collidepoint(pos):
-                            hearthstone_animation()
-                            rohir_gate.update(525, 50, pygame.image.load(resource_urls.rohir_gate).convert())
-                            rohir_gate.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                            player.current_zone = "seldon"
-                            player.x_coordinate = 850
-                            player.y_coordinate = 650
-                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            info_text_1 = "You recalled to the hearth stone."
-                        if save_button.rect.collidepoint(pos):
-                            yes_button.update(450, 394, yes_button_img)
-                            try:
-                                with open("save_game", "rb") as f:
-                                    saved = True
-                            except FileNotFoundError:
-                                saved = False
-                                pass
-                            if saved:
-                                save_check_window.append(save_check)
-                                save_check_window.append(yes_button)
-                                save_check_window.append(no_button)
-                            if not saved:
-                                gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                             sharp_sense_learned, saved, npc_garan.gift)
-                                saved = True
-                                info_text_1 = "You saved your game. "
-                        if yes_button.rect.collidepoint(pos):
-                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                         sharp_sense_learned, saved, npc_garan.gift)
-                            save_check_window.clear()
-                            info_text_1 = "You saved your game. "
-                        if no_button.rect.collidepoint(pos):
-                            save_check_window.clear()
-                        if character_button.rect.collidepoint(pos):
-                            if character_button_clicked:
-                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
-                                character_button_clicked = False
-                            else:
-                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
-                                character_button_clicked = True
-                        if journal_button.rect.collidepoint(pos):
-                            if journal_button_clicked:
-                                drawing_functions.journal_info_draw(journal, player, font, False)
-                                journal_button_clicked = False
-                            else:
-                                drawing_functions.journal_info_draw(journal, player, font, True)
-                                journal_button_clicked = True
-                        if level_up_win.rect.collidepoint(pos):
-                            drawing_functions.level_up_draw(level_up_win, player, font, False)
-
-                    # click handlers
-                    info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
-                    if info_choice == "yes":
-                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
-                                                                                 player_mage_amuna_down_1,
-                                                                                 player_mage_nuldar_down_1,
-                                                                                 player_mage_sorae_down_1,
-                                                                                 player_fighter_amuna_down_1,
-                                                                                 player_fighter_nuldar_down_1,
-                                                                                 player_fighter_sorae_down_1,
-                                                                                 player_scout_amuna_down_1,
-                                                                                 player_scout_nuldar_down_1,
-                                                                                 player_scout_sorae_down_1)
-                        if inventory_event["item message"] != "":
-                            info_text_1 = inventory_event["item message"]
-                            info_text_2 = ""
-                        drawing_functions.item_info_window.clear()
-                    if info_choice == "no":
-                        drawing_functions.item_info_window.clear()
-                    inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
-                    if inventory_item_clicked["clicked"]:
-                        current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
-                                                                             info_items, item_info_button,
-                                                                             use_button_img, equip_button_img,
-                                                                             info_health_pot_img, info_energy_pot_img,
-                                                                             info_basic_robes_img, info_basic_armor_img,
-                                                                             info_basic_tunic_img, info_basic_staff_img,
-                                                                             info_basic_sword_img, info_basic_bow_img,
-                                                                             info_shiny_rock_img, info_bone_dust_img)
-                    # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = click_handlers.equipment_click_handler(player, event, player_no_role_amuna_down_1,
-                                                                             player_no_role_nuldar_down_1,
-                                                                             player_no_role_sorae_down_1, pygame)
-                    if equipment_event["equipment message"] != "":
-                        info_text_1 = equipment_event["equipment message"]
-                        info_text_2 = ""
-
-                # outside of event loop --------------------------------------------------------------------------------
-                # --------------------------------------------------------------------------------------------------
-                quest_item = pygame.sprite.spritecollideany(player, quest_items)
-                try:
-                    if quest_item.model == "rohir gate":
-                        if player.quest_complete["ghouled again"]:
-                            info_text_1 = f"Press 'F' key to enter Seldon District."
-                            if interacted:
-                                player.current_zone = "seldon"
-                                in_over_world = True
-                                interacted = False
-                                player.x_coordinate = 525
-                                player.y_coordinate = 100
-                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                                rohir_gate.update(525, 50, pygame.image.load(resource_urls.rohir_gate).convert())
-                                rohir_gate.surf.set_colorkey((255, 255, 255), RLEACCEL)
-                except AttributeError:
-                    pass
-                walking_return_korlok = gameplay_functions.walk_time(walk_tic)
-                if walking_return_korlok["reset"]:
-                    walk_tic = time.perf_counter()
-                if movement_able:
-                    pressed_keys = pygame.key.get_pressed()
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.update("right", "korlok", walking_return_korlok["total time"])
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.update("left", "korlok", walking_return_korlok["total time"])
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.update("up", "korlok", walking_return_korlok["total time"])
-                    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
-                        player.update("down", "korlok", walking_return_korlok["total time"])
-
             # end of whole iteration -----------------------------------------------------------------------------------
             clock.tick(60)
             pygame.display.flip()
@@ -4550,14 +4397,17 @@ while game_running:
                             player.y_coordinate = 500
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
-                        player.health = 50
-                        player.energy = 50
+                        # player returns in a weakened state
+                        player.health = 25
+                        player.energy = 25
+                        player.alive_status = True
+
                         # bring enemies back to full health
                         for enemy in enemies:
                             enemy.health = 100
                             # noinspection PyTypeChecker
                             enemy_health_bar(enemy)
-                        player.alive_status = True
+
                 elif event.type == QUIT:
                     exit()
 
