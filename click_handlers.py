@@ -1,3 +1,4 @@
+import resource_urls
 import drawing_functions
 
 
@@ -37,7 +38,7 @@ def equipment_event_item(equipment_event_here, pygame):
 
 
 # handles mouse clicks for equipment sub-screen
-def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none, pygame):
+def equipment_click_handler(player, event, pygame):
     return_dict = {"equipment message": "", "gear checked": True, "weapon checked": True}
     equipment_item = equipment_event_item(event, pygame)
 
@@ -55,11 +56,11 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none, 
                 # set players role to none when weapon is unequipped. adjust stats accordingly
                 player.role = ""
                 if player.race == "amuna":
-                    player.surf = amuna_none
+                    player.surf = resource_urls.player_no_role_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = nuldar_none
+                    player.surf = resource_urls.player_no_role_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = sorae_none
+                    player.surf = resource_urls.player_no_role_sorae_down_1
                 player.offense = 0
                 player.defense = 0
             else:
@@ -74,11 +75,11 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none, 
                 return_dict["equipment message"] = "Basic Sword weapon un-equipped."
                 player.role = ""
                 if player.race == "amuna":
-                    player.surf = amuna_none
+                    player.surf = resource_urls.player_no_role_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = nuldar_none
+                    player.surf = resource_urls.player_no_role_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = sorae_none
+                    player.surf = resource_urls.player_no_role_sorae_down_1
                 player.offense = 0
                 player.defense = 0
             else:
@@ -93,11 +94,11 @@ def equipment_click_handler(player, event, amuna_none, nuldar_none, sorae_none, 
                 return_dict["equipment message"] = "Basic Bow weapon un-equipped."
                 player.role = ""
                 if player.race == "amuna":
-                    player.surf = amuna_none
+                    player.surf = resource_urls.player_no_role_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = nuldar_none
+                    player.surf = resource_urls.player_no_role_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = sorae_none
+                    player.surf = resource_urls.player_no_role_sorae_down_1
                 player.offense = 0
                 player.defense = 0
             else:
@@ -181,8 +182,7 @@ def inventory_event_item(inventory_event_here, pygame):
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage, amuna_fighter, nuldar_fighter,
-                            sorae_fighter, amuna_scout, nuldar_scout, sorae_scout):
+def inventory_click_handler(player, item):
     return_dict = {"item message": ""}
 
     try:
@@ -220,11 +220,11 @@ def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage, a
                 player.items.remove(item)
                 player.role = "mage"
                 if player.race == "amuna":
-                    player.surf = amuna_mage
+                    player.surf = resource_urls.player_mage_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = nuldar_mage
+                    player.surf = resource_urls.player_mage_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = sorae_mage
+                    player.surf = resource_urls.player_mage_sorae_down_1
                 player.offense = 35
                 return_dict["item message"] = "Basic Staff weapon equipped"
             else:
@@ -236,11 +236,11 @@ def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage, a
                 player.items.remove(item)
                 player.role = "fighter"
                 if player.race == "amuna":
-                    player.surf = amuna_fighter
+                    player.surf = resource_urls.player_fighter_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = nuldar_fighter
+                    player.surf = resource_urls.player_fighter_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = sorae_fighter
+                    player.surf = resource_urls.player_fighter_sorae_down_1
                 player.offense = 15
                 return_dict["item message"] = "Basic Sword weapon equipped"
             else:
@@ -252,11 +252,11 @@ def inventory_click_handler(player, item, amuna_mage, nuldar_mage, sorae_mage, a
                 player.items.remove(item)
                 player.role = "scout"
                 if player.race == "amuna":
-                    player.surf = amuna_scout
+                    player.surf = resource_urls.player_scout_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = nuldar_scout
+                    player.surf = resource_urls.player_scout_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = sorae_scout
+                    player.surf = resource_urls.player_scout_sorae_down_1
                 player.offense = 25
                 return_dict["item message"] = "Basic Bow weapon equipped"
             else:
