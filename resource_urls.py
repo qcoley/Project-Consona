@@ -220,7 +220,7 @@ player_mage_nuldar_left_1 = player_mage_nuldar_left_sheet[0]
 player_mage_nuldar_left_2 = player_mage_nuldar_left_sheet[1]
 player_mage_nuldar_left_3 = player_mage_nuldar_left_sheet[2]
 player_mage_nuldar_left_4 = player_mage_nuldar_left_sheet[3]
-player_mage_nuldar_right_url = resource_path('resources/art/player_mage_amuna_right.png')
+player_mage_nuldar_right_url = resource_path('resources/art/player_mage_nuldar_right.png')
 player_mage_nuldar_right_sheet = sprite_sheet((50, 75), player_mage_nuldar_right_url)
 player_mage_nuldar_right_1 = player_mage_nuldar_right_sheet[0]
 player_mage_nuldar_right_2 = player_mage_nuldar_right_sheet[1]
@@ -500,7 +500,7 @@ torune_left = torune_sheet[2]
 torune_right = torune_sheet[3]
 # npc interactions -----------------------------------------------------------------------------------------------------
 npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
-npc_interactions_sheet = sprite_sheet((210, 300), npc_interactions_url)
+npc_interactions_sheet = sprite_sheet((220, 300), npc_interactions_url)
 garan_interaction = npc_interactions_sheet[0]
 maurelle_interaction = npc_interactions_sheet[1]
 celeste_interaction = npc_interactions_sheet[2]
@@ -592,7 +592,7 @@ fighter_book_img = books_sheet[1]
 scout_book_img = books_sheet[2]
 # start screen buttons -------------------------------------------------------------------------------------------------
 start_buttons_url = resource_path('resources/art/buttons_start_screen.png')
-start_buttons_sheet = sprite_sheet((384, 75), start_buttons_url)
+start_buttons_sheet = sprite_sheet((385, 75), start_buttons_url)
 new_game_img = start_buttons_sheet[0]
 continue_img = start_buttons_sheet[1]
 # race select buttons on character screen ------------------------------------------------------------------------------

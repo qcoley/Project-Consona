@@ -301,7 +301,7 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
 
                 # experienced gained by player from defeating enemy
                 if player.level <= enemy_combating.level + 1:
-                    experience = int((enemy_combating.level / player.level) * 35)
+                    experience = int((enemy_combating.level / player.level) * 30)
                     player.experience = player.experience + experience
                     enemy_experience = f"{experience} xp "
                     # add to dictionary experience given from defeating enemy
@@ -386,7 +386,7 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                             combat_event_dictionary["quest update"] = "No"
                         # experienced gained by player from defeating enemy
                         if player.level <= enemy_combating.level + 1:
-                            experience = int((enemy_combating.level / player.level) * 35)
+                            experience = int((enemy_combating.level / player.level) * 30)
                             player.experience = player.experience + experience
                             enemy_experience = f"{experience} xp "
                             # add to dictionary experience given from defeating enemy

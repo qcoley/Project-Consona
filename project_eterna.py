@@ -1281,8 +1281,8 @@ player_battle_sprite = BattleCharacter("stan battle", 320, 460, resource_urls.pl
 snake_battle_sprite = BattleCharacter("snake battle", 715, 250, resource_urls.snake_battle)
 ghoul_battle_sprite = BattleCharacter("ghoul battle", 698, 280, resource_urls.ghoul_battle)
 nascent_gate_popup = UiElement("nascent gate popup", 418, 200, resource_urls.nascent_gate_popup)
-sell_items = UiElement("sell items", 1154, 270, resource_urls.s_health_pot_img)
-info_items = UiElement("info items", 1154, 270, resource_urls.info_health_pot_img)
+sell_items = UiElement("sell items", 1155, 270, resource_urls.s_health_pot_img)
+info_items = UiElement("info items", 1155, 270, resource_urls.info_health_pot_img)
 buy_items = UiElement("buy items", 900, 230, resource_urls.b_health_pot_img)
 star_power_meter = UiElement("star power", 1210, 360, resource_urls.star_00)
 role_select_overlay = UiElement("role select overlay", 550, 369, resource_urls.role_selection_overlay)
@@ -1449,128 +1449,72 @@ while game_running:
     # ------------------------------------------------------------------------------------------------------------------
     # character selection for new game ---------------------------------------------------------------------------------
     if new_game_chosen:
-        # amuna race selected on character selection screen ------------------------------------------------------------
-        if amuna_race_selected:
-            character_creation.character_screen_draw("amuna", amuna_character_screen, nuldar_character_screen,
-                                                     sorae_character_screen, character_select_overlay,
-                                                     amuna_select_overlay, amuna_character, nuldar_select_overlay,
-                                                     nuldar_character, sorae_select_overlay, sorae_character,
-                                                     amuna_button, nuldar_button, sorae_button, start_button,
-                                                     name_input, name_input_font, character_name_input)
-            for event in pygame.event.get():
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        exit()
-                    # if enter key is pressed, de-select name box and proceed
-                    if event.key == K_RETURN:
-                        name_input_selected = False
-                        entered = True
-                    if event.key == K_BACKSPACE:
-                        if name_input_selected:
-                            character_name_input = character_name_input[:-1]
-                    else:
-                        if name_input_selected:
-                            if len(character_name_input) < 12:
-                                character_name_input += event.unicode
-                elif event.type == QUIT:
-                    exit()
-                elif event.type == pygame.MOUSEBUTTONUP:
-                    pos = pygame.mouse.get_pos()
-                    # player clicks on the box to type name
-                    if name_input.rect.collidepoint(pos):
-                        if name_input_selected:
-                            if len(character_name_input) < 1:
-                                name_input.update(name_input.x_coordinate, name_input.y_coordinate,
-                                                  resource_urls.name_input_img)
-                            name_input_selected = False
-                        else:
-                            name_input.update(name_input.x_coordinate, name_input.y_coordinate,
-                                              resource_urls.name_input_empty_img)
-                            name_input_selected = True
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if amuna_button.rect.collidepoint(pos):
-                        amuna_race_selected = True
-                        nuldar_race_selected = False
-                        sorae_race_selected = False
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if nuldar_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = True
-                        sorae_race_selected = False
-                    # player amuna race selection, set conditions to go to amuna select screen
-                    if sorae_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = False
-                        sorae_race_selected = True
-                # noinspection PyUnboundLocalVariable
-                if start_button.rect.collidepoint(pos) or entered:
-                    player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
-                                          player.current_quests, player.quest_progress, player.quest_status,
-                                          player.quest_complete, player.knowledge, player.skills_mage,
-                                          player.skills_fighter, player.skills_scout, player.level, player.experience,
-                                          player.health, player.energy, player.alive_status, player.rupees,
-                                          player.reputation, player.current_zone, player.defense, player.offense,
-                                          player.star_power)
 
-                    if len(character_name_input) > 0:
-                        player.name = str(character_name_input)
+        for event in pygame.event.get():
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    exit()
+                # if enter key is pressed, de-select name box and proceed
+                if event.key == K_RETURN:
+                    name_input_selected = False
+                    entered = True
+                if event.key == K_BACKSPACE:
+                    if name_input_selected:
+                        character_name_input = character_name_input[:-1]
+                else:
+                    if name_input_selected:
+                        if len(character_name_input) < 12:
+                            character_name_input += event.unicode
+            elif event.type == QUIT:
+                exit()
+
+            elif event.type == pygame.MOUSEBUTTONUP:
+                pos = pygame.mouse.get_pos()
+                # player clicks on the box to type name
+                if name_input.rect.collidepoint(pos):
+                    if name_input_selected:
+                        if len(character_name_input) < 1:
+                            name_input.update(name_input.x_coordinate, name_input.y_coordinate,
+                                              resource_urls.name_input_img)
+                        name_input_selected = False
                     else:
-                        player.name = "default"
+                        name_input.update(name_input.x_coordinate, name_input.y_coordinate,
+                                          resource_urls.name_input_empty_img)
+                        name_input_selected = True
+
+                # player amuna race selection, set conditions to go to amuna select screen
+                if amuna_button.rect.collidepoint(pos):
+                    amuna_race_selected = True
+                    nuldar_race_selected = False
+                    sorae_race_selected = False
+                # player amuna race selection, set conditions to go to amuna select screen
+                if nuldar_button.rect.collidepoint(pos):
+                    amuna_race_selected = False
+                    nuldar_race_selected = True
+                    sorae_race_selected = False
+                # player amuna race selection, set conditions to go to amuna select screen
+                if sorae_button.rect.collidepoint(pos):
+                    amuna_race_selected = False
+                    nuldar_race_selected = False
+                    sorae_race_selected = True
+
+            # noinspection PyUnboundLocalVariable
+            if start_button.rect.collidepoint(pos) or entered:
+                if amuna_race_selected:
+                    player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
+                                         player.current_quests, player.quest_progress, player.quest_status,
+                                         player.quest_complete, player.knowledge, player.skills_mage,
+                                         player.skills_fighter, player.skills_scout, player.level, player.experience,
+                                         player.health, player.energy, player.alive_status, player.rupees,
+                                         player.reputation, player.current_zone, player.defense, player.offense,
+                                         player.star_power)
                     player.race = "amuna"
                     player.surf = resource_urls.player_no_role_amuna_down_1
                     player.current_zone = "nascent"
                     in_over_world = True
                     new_game_chosen = False
                     start_chosen = True
-            pygame.display.flip()
-        # nuldar race selected on character selection screen -----------------------------------------------------------
-        if nuldar_race_selected:
-            character_creation.character_screen_draw("nuldar", amuna_character_screen, nuldar_character_screen,
-                                                     sorae_character_screen, character_select_overlay,
-                                                     amuna_select_overlay, amuna_character, nuldar_select_overlay,
-                                                     nuldar_character, sorae_select_overlay, sorae_character,
-                                                     amuna_button, nuldar_button, sorae_button, start_button,
-                                                     name_input, name_input_font, character_name_input)
-            for event in pygame.event.get():
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        exit()
-                    if event.key == K_RETURN:
-                        name_input_selected = False
-                        entered = True
-                    if event.key == K_BACKSPACE:
-                        if name_input_selected:
-                            character_name_input = character_name_input[:-1]
-                    else:
-                        if name_input_selected:
-                            if len(character_name_input) < 12:
-                                character_name_input += event.unicode
-                if event.type == pygame.MOUSEBUTTONUP:
-                    pos = pygame.mouse.get_pos()
-                    if name_input.rect.collidepoint(pos):
-                        if name_input_selected:
-                            if len(character_name_input) < 1:
-                                name_input.update(name_input.x_coordinate, name_input.y_coordinate,
-                                                  resource_urls.name_input_img)
-                            name_input_selected = False
-                        else:
-                            name_input.update(name_input.x_coordinate, name_input.y_coordinate,
-                                              resource_urls.name_input_empty_img)
-                            name_input_selected = True
-                    if amuna_button.rect.collidepoint(pos):
-                        amuna_race_selected = True
-                        nuldar_race_selected = False
-                        sorae_race_selected = False
-                    if nuldar_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = True
-                        sorae_race_selected = False
-                    if sorae_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = False
-                        sorae_race_selected = True
-                # noinspection PyUnboundLocalVariable
-                if start_button.rect.collidepoint(pos) or entered:
+                if nuldar_race_selected:
                     player = PlayerNuldar(player.name, player.race, player.role, player.items, player.equipment,
                                           player.current_quests, player.quest_progress, player.quest_status,
                                           player.quest_complete, player.knowledge, player.skills_mage,
@@ -1578,69 +1522,13 @@ while game_running:
                                           player.health, player.energy, player.alive_status, player.rupees,
                                           player.reputation, player.current_zone, player.defense, player.offense,
                                           player.star_power)
-                    if len(character_name_input) > 0:
-                        player.name = str(character_name_input)
-                    else:
-                        player.name = "default"
                     player.race = "nuldar"
                     player.surf = resource_urls.player_no_role_nuldar_down_1
                     player.current_zone = "nascent"
                     in_over_world = True
                     new_game_chosen = False
                     start_chosen = True
-                elif event.type == QUIT:
-                    exit()
-            pygame.display.flip()
-        # sorae race selected on character selection screen ------------------------------------------------------------
-        if sorae_race_selected:
-            character_creation.character_screen_draw("sorae", amuna_character_screen, nuldar_character_screen,
-                                                     sorae_character_screen, character_select_overlay,
-                                                     amuna_select_overlay, amuna_character, nuldar_select_overlay,
-                                                     nuldar_character, sorae_select_overlay, sorae_character,
-                                                     amuna_button, nuldar_button, sorae_button, start_button,
-                                                     name_input, name_input_font, character_name_input)
-            for event in pygame.event.get():
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        exit()
-                    if event.key == K_RETURN:
-                        name_input_selected = False
-                        entered = True
-                    if event.key == K_BACKSPACE:
-                        if name_input_selected:
-                            character_name_input = character_name_input[:-1]
-                    else:
-                        if name_input_selected:
-                            if len(character_name_input) < 12:
-                                character_name_input += event.unicode
-                elif event.type == QUIT:
-                    exit()
-                elif event.type == pygame.MOUSEBUTTONUP:
-                    pos = pygame.mouse.get_pos()
-                    if name_input.rect.collidepoint(pos):
-                        if name_input_selected:
-                            if len(character_name_input) < 1:
-                                name_input.update(name_input.x_coordinate, name_input.y_coordinate,
-                                                  resource_urls.name_input_img)
-                            name_input_selected = False
-                        else:
-                            name_input.update(name_input.x_coordinate, name_input.y_coordinate,
-                                              resource_urls.name_input_empty_img)
-                            name_input_selected = True
-                    if amuna_button.rect.collidepoint(pos):
-                        amuna_race_selected = True
-                        nuldar_race_selected = False
-                        sorae_race_selected = False
-                    if nuldar_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = True
-                        sorae_race_selected = False
-                    if sorae_button.rect.collidepoint(pos):
-                        amuna_race_selected = False
-                        nuldar_race_selected = False
-                        sorae_race_selected = True
-                # noinspection PyUnboundLocalVariable
-                if start_button.rect.collidepoint(pos) or entered:
+                if sorae_race_selected:
                     player = PlayerSorae(player.name, player.race, player.role, player.items, player.equipment,
                                          player.current_quests, player.quest_progress, player.quest_status,
                                          player.quest_complete, player.knowledge, player.skills_mage,
@@ -1648,17 +1536,44 @@ while game_running:
                                          player.health, player.energy, player.alive_status, player.rupees,
                                          player.reputation, player.current_zone, player.defense, player.offense,
                                          player.star_power)
-                    if len(character_name_input) > 0:
-                        player.name = str(character_name_input)
-                    else:
-                        player.name = "default"
                     player.race = "sorae"
                     player.surf = resource_urls.player_no_role_sorae_down_1
                     player.current_zone = "nascent"
                     in_over_world = True
                     new_game_chosen = False
                     start_chosen = True
-            pygame.display.flip()
+
+                if len(character_name_input) > 0:
+                    player.name = str(character_name_input)
+                else:
+                    player.name = "default"
+
+        # amuna race selected on character selection screen ------------------------------------------------------------
+        if amuna_race_selected:
+            character_creation.character_screen_draw("amuna", amuna_character_screen, nuldar_character_screen,
+                                                     sorae_character_screen, character_select_overlay,
+                                                     amuna_select_overlay, amuna_character, nuldar_select_overlay,
+                                                     nuldar_character, sorae_select_overlay, sorae_character,
+                                                     amuna_button, nuldar_button, sorae_button, start_button,
+                                                     name_input, name_input_font, character_name_input, pygame)
+
+        # nuldar race selected on character selection screen -----------------------------------------------------------
+        if nuldar_race_selected:
+            character_creation.character_screen_draw("nuldar", amuna_character_screen, nuldar_character_screen,
+                                                     sorae_character_screen, character_select_overlay,
+                                                     amuna_select_overlay, amuna_character, nuldar_select_overlay,
+                                                     nuldar_character, sorae_select_overlay, sorae_character,
+                                                     amuna_button, nuldar_button, sorae_button, start_button,
+                                                     name_input, name_input_font, character_name_input, pygame)
+
+        # sorae race selected on character selection screen ------------------------------------------------------------
+        if sorae_race_selected:
+            character_creation.character_screen_draw("sorae", amuna_character_screen, nuldar_character_screen,
+                                                     sorae_character_screen, character_select_overlay,
+                                                     amuna_select_overlay, amuna_character, nuldar_select_overlay,
+                                                     nuldar_character, sorae_select_overlay, sorae_character,
+                                                     amuna_button, nuldar_button, sorae_button, start_button,
+                                                     name_input, name_input_font, character_name_input, pygame)
 
     # continue game selected on start screen. try to load player info from save_game file ------------------------------
     if continue_game_chosen:
@@ -1670,6 +1585,59 @@ while game_running:
         start_chosen = load_returned["start"]
         continue_game_chosen = load_returned["continue"]
         npc_garan.gift = load_returned["garan gift"]
+        rest_recover_show = load_returned["rest popup"]
+        knowledge_academia_show = load_returned["knowledge popup"]
+
+        if player.race == "amuna":
+            player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
+                                  player.current_quests, player.quest_progress, player.quest_status,
+                                  player.quest_complete, player.knowledge, player.skills_mage,
+                                  player.skills_fighter, player.skills_scout, player.level, player.experience,
+                                  player.health, player.energy, player.alive_status, player.rupees,
+                                  player.reputation, player.current_zone, player.defense, player.offense,
+                                  player.star_power)
+            if player.role == "":
+                player.surf = resource_urls.player_no_role_amuna_down_1
+            if player.role == "mage":
+                player.surf = resource_urls.player_mage_amuna_down_1
+            if player.role == "fighter":
+                player.surf = resource_urls.player_fighter_amuna_down_1
+            if player.role == "scout":
+                player.surf = resource_urls.player_scout_amuna_down_1
+
+        if player.race == "nuldar":
+            player = PlayerNuldar(player.name, player.race, player.role, player.items, player.equipment,
+                                  player.current_quests, player.quest_progress, player.quest_status,
+                                  player.quest_complete, player.knowledge, player.skills_mage,
+                                  player.skills_fighter, player.skills_scout, player.level, player.experience,
+                                  player.health, player.energy, player.alive_status, player.rupees,
+                                  player.reputation, player.current_zone, player.defense, player.offense,
+                                  player.star_power)
+            if player.role == "":
+                player.surf = resource_urls.player_no_role_nuldar_down_1
+            if player.role == "mage":
+                player.surf = resource_urls.player_mage_nuldar_down_1
+            if player.role == "fighter":
+                player.surf = resource_urls.player_fighter_nuldar_down_1
+            if player.role == "scout":
+                player.surf = resource_urls.player_scout_nuldar_down_1
+
+        if player.race == "sorae":
+            player = PlayerSorae(player.name, player.race, player.role, player.items, player.equipment,
+                                 player.current_quests, player.quest_progress, player.quest_status,
+                                 player.quest_complete, player.knowledge, player.skills_mage,
+                                 player.skills_fighter, player.skills_scout, player.level, player.experience,
+                                 player.health, player.energy, player.alive_status, player.rupees,
+                                 player.reputation, player.current_zone, player.defense, player.offense,
+                                 player.star_power)
+            if player.role == "":
+                player.surf = resource_urls.player_no_role_sorae_down_1
+            if player.role == "mage":
+                player.surf = resource_urls.player_mage_sorae_down_1
+            if player.role == "fighter":
+                player.surf = resource_urls.player_fighter_sorae_down_1
+            if player.role == "scout":
+                player.surf = resource_urls.player_scout_sorae_down_1
 
         if load_returned["not found"]:
             save_data_window.append(save_absent)
@@ -1689,6 +1657,7 @@ while game_running:
                 walking_return = gameplay_functions.walk_time(walk_tic)
                 if walking_return["reset"]:
                     walk_tic = time.perf_counter()
+
                 if movement_able and in_over_world:
                     pressed_keys = pygame.key.get_pressed()
                     if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -1743,6 +1712,7 @@ while game_running:
                             player.y_coordinate = 650
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                             info_text_1 = "You recalled to the hearth stone."
+
                         # save button was clicked. Save player info in dictionary to be loaded later
                         if save_button.rect.collidepoint(pos):
                             yes_button.update(450, 394, resource_urls.yes_button_img)
@@ -1759,13 +1729,14 @@ while game_running:
                                 save_check_window.append(no_button)
                             if not saved:
                                 gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                             sharp_sense_learned, saved, npc_garan.gift)
+                                                             sharp_sense_learned, saved, npc_garan.gift,
+                                                             rest_recover_show, knowledge_academia_show)
                                 saved = True
                                 info_text_1 = "You saved your game. "
-                        # yes button was clicked to overwrite previous save file
                         if yes_button.rect.collidepoint(pos):
                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                         sharp_sense_learned, saved, npc_garan.gift)
+                                                         sharp_sense_learned, saved, npc_garan.gift,
+                                                         rest_recover_show, knowledge_academia_show)
                             save_check_window.clear()
                             info_text_1 = "You saved your game. "
                         if no_button.rect.collidepoint(pos):
@@ -1779,6 +1750,7 @@ while game_running:
                             else:
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
                                 character_button_clicked = True
+
                         # journal button
                         if journal_button.rect.collidepoint(pos):
                             if journal_button_clicked:
@@ -1925,9 +1897,7 @@ while game_running:
                                 player.y_coordinate = 100
                                 player.rect = player.surf.get_rect(
                                     midbottom=(player.x_coordinate, player.y_coordinate))
-                                rohir_gate.update(525, 50,
-                                                  pygame.image.load(resource_urls.rohir_gate).convert())
-                                rohir_gate.surf.set_colorkey((255, 255, 255), RLEACCEL)
+                                rohir_gate.update(525, 50, resource_urls.rohir_gate)
                 except AttributeError:
                     pass
 
@@ -2036,7 +2006,6 @@ while game_running:
                                 player.y_coordinate = 650
                                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                                 rohir_gate.update(525, 600, resource_urls.rohir_gate)
-                                rohir_gate.surf.set_colorkey((255, 255, 255), RLEACCEL)
                                 player.current_zone = "korlok"
                                 interacted = False
                         else:
@@ -2649,6 +2618,7 @@ while game_running:
                 resource_urls.screen.blit(hp_bar.surf, hp_bar.rect)
                 resource_urls.screen.blit(en_bar.surf, en_bar.rect)
                 resource_urls.screen.blit(xp_bar.surf, xp_bar.rect)
+
                 if rest_clicked:
                     if not rested:
                         # set sleep screen to fade in with alpha value loop. flip each iteration to show
@@ -2945,7 +2915,7 @@ while game_running:
                                 player.current_quests["sneaky snakes"] = "You completed this quest!"
                                 info_text_1 = "You've completed Garan's quest!"
                                 info_text_2 = "You've gained: "
-                                info_text_3 = "1 health and energy potion. "
+                                info_text_3 = "1 health potion. "
                                 info_text_4 = "1 star, 50 xp and 10 amuna rep. "
                                 player.star_power += 1
                                 player.experience += 50
@@ -2954,8 +2924,6 @@ while game_running:
                                 player.reputation["amuna"] += 10
                                 player.items.append(Item("health potion", "potion", 200, 200,
                                                          resource_urls.health_pot_img))
-                                player.items.append(Item("energy potion", "potion", 200, 200,
-                                                         resource_urls.energy_pot_img))
                             else:
                                 info_text_1 = "You completed the quest, but "
                                 info_text_2 = "Your inventory is full!"
@@ -3013,15 +2981,13 @@ while game_running:
                                 player.current_quests["village repairs"] = "You completed this quest!"
                                 info_text_1 = "You've completed Maurelle's quest!"
                                 info_text_2 = "You've gained: "
-                                info_text_3 = "1 health and energy potion. "
+                                info_text_3 = "1 energy potion. "
                                 info_text_4 = "1 star, 50 xp and 10 amuna rep. "
                                 player.star_power += 1
                                 player.experience += 50
                                 if player.experience >= 100:
                                     gameplay_functions.level_up(player, level_up_win, level_up_font)
                                 player.reputation["amuna"] += 10
-                                player.items.append(Item("health potion", "potion", 200, 200,
-                                                         resource_urls.health_pot_img))
                                 player.items.append(Item("energy potion", "potion", 200, 200,
                                                          resource_urls.energy_pot_img))
                             else:

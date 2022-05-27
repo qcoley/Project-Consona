@@ -1,11 +1,10 @@
-import pygame
 import resource_urls
 
 
 def character_screen_draw(race, amuna_character_screen, nuldar_character_screen, sorae_character_screen,
                           character_select_overlay, amuna_select_overlay, amuna_character, nuldar_select_overlay,
                           nuldar_character, sorae_select_overlay, sorae_character, amuna_button, nuldar_button,
-                          sorae_button, start_button, name_input, name_input_font, character_name_input):
+                          sorae_button, start_button, name_input, name_input_font, character_name_input, pygame):
 
     if race == "amuna":
         resource_urls.screen.blit(amuna_character_screen, (0, 0))
