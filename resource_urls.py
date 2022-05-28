@@ -74,11 +74,13 @@ npc_name_plate = pygame.image.load(resource_path('resources/art/overlay_npc_name
 char_select_overlay = pygame.image.load(resource_path('resources/art/overlay_character_select.png')).convert_alpha()
 role_selection_overlay = pygame.image.load(resource_path('resources/art/overlay_role_select.png')).convert_alpha()
 location_overlay = pygame.image.load(resource_path('resources/art/overlay_location.png')).convert_alpha()
+popup_interaction = pygame.image.load(resource_path('resources/art/popup_interaction.png')).convert_alpha()
+popup_loot = pygame.image.load(resource_path('resources/art/popup_loot.png')).convert_alpha()
 
 color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree, hearth_stone,
               quest_logs, rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up,
               close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
-              role_selection_overlay, location_overlay]
+              role_selection_overlay, location_overlay, popup_interaction, popup_loot]
 
 for image in color_keys:
     image.set_colorkey((255, 255, 255))

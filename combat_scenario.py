@@ -3,8 +3,8 @@ import resource_urls
 import gameplay_functions
 
 
-def resting_animation(pygame, player, enemy, player_battle_sprite, snake_battle_sprite,
-                      ghoul_battle_sprite, barrier_active, sharp_sense_active):
+def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
+                      ghoul_battle_sprite, barrier_active, sharp_sense_active, in_battle, in_npc_interaction):
     if player.race == "amuna":
         if player.role == "mage":
             if barrier_active:
@@ -87,7 +87,7 @@ def resting_animation(pygame, player, enemy, player_battle_sprite, snake_battle_
                                         player_battle_sprite.y_coordinate,
                                         resource_urls.player_no_role_nuldar_battle)
 
-    try:
+    if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
             snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                        snake_battle_sprite.y_coordinate,
@@ -96,14 +96,10 @@ def resting_animation(pygame, player, enemy, player_battle_sprite, snake_battle_
             ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                        ghoul_battle_sprite.y_coordinate,
                                        resource_urls.ghoul_battle)
-    except AttributeError:
-        pass
-
-    pygame.display.flip()
 
 
 # update player character and enemy sprites for combat animation
-def combat_animation(pygame, player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                      barrier_active, sharp_sense_active, hard_strike):
     # update player character sprite for combat animation
     if player.race == "amuna":
@@ -190,7 +186,6 @@ def combat_animation(pygame, player, enemy, player_battle_sprite, snake_battle_s
             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                         player_battle_sprite.y_coordinate,
                                         resource_urls.player_no_role_nuldar_attack)
-
     if enemy.kind == "snake":
         snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                    snake_battle_sprite.y_coordinate,
@@ -199,7 +194,6 @@ def combat_animation(pygame, player, enemy, player_battle_sprite, snake_battle_s
         ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
                                    ghoul_battle_sprite.y_coordinate,
                                    resource_urls.ghoul_attack)
-    pygame.display.flip()
 
 
 def fighter_hard_strike_animation(player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
@@ -221,6 +215,7 @@ def fighter_hard_strike_animation(player, player_battle_sprite, current_enemy_ba
             player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                         player_battle_sprite.y_coordinate,
                                         resource_urls.player_fighter_nuldar_strike)
+
     if current_enemy_battling.kind == "snake":
         snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
                                    snake_battle_sprite.y_coordinate,
@@ -305,14 +300,14 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                 if player.level <= enemy_combating.level + 1:
                     experience = int((enemy_combating.level / player.level) * 30)
                     player.experience = player.experience + experience
-                    enemy_experience = f"{experience} xp "
+                    enemy_experience = f"{experience}"
                     # add to dictionary experience given from defeating enemy
                     combat_event_dictionary["experience gained"] = enemy_experience
                 # player gains less experience if they're 1 level higher or more than enemy
                 if player.level > enemy_combating.level + 1:
                     experience = int((enemy_combating.level / player.level))
                     player.experience = player.experience + experience
-                    enemy_experience = f"{experience} xp "
+                    enemy_experience = f"{experience}"
                     # add to dictionary experience given from defeating enemy
                     combat_event_dictionary["experience gained"] = enemy_experience
 
@@ -392,14 +387,14 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                         if player.level <= enemy_combating.level + 1:
                             experience = int((enemy_combating.level / player.level) * 30)
                             player.experience = player.experience + experience
-                            enemy_experience = f"{experience} xp "
+                            enemy_experience = f"{experience}"
                             # add to dictionary experience given from defeating enemy
                             combat_event_dictionary["experience gained"] = enemy_experience
                         # player gains less experience if they're 1 level higher or more than enemy
                         if player.level > enemy_combating.level + 1:
                             experience = int((enemy_combating.level / player.level))
                             player.experience = player.experience + experience
-                            enemy_experience = f"{experience} xp "
+                            enemy_experience = f"{experience}"
                             # add to dictionary experience given from defeating enemy
                             combat_event_dictionary["experience gained"] = enemy_experience
                         drop_chance = random.randrange(1, 10)
