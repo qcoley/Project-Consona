@@ -1289,6 +1289,8 @@ role_select_overlay = UiElement("role select overlay", 550, 369, resource_urls.r
 mage_select_button = UiElement("role select overlay", 296, 566, resource_urls.mage_select_button_img)
 fighter_select_button = UiElement("role select overlay", 550, 566, resource_urls.fighter_select_button_img)
 scout_select_button = UiElement("role select overlay", 804, 566, resource_urls.scout_select_button_img)
+dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, resource_urls.dealt_damage_img)
+received_damage_overlay = UiElement("recieved damage overlay", 125, 275, resource_urls.received_damage_img)
 
 font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
 level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
@@ -1305,19 +1307,19 @@ enemy_hp_bars = pygame.sprite.Group()
 most_sprites = pygame.sprite.Group()
 non_sprite_sheets = pygame.sprite.Group()
 snakes = pygame.sprite.Group()
+ghouls = pygame.sprite.Group()
 
 snakes.add(snake_1, snake_2, snake_3, snake_4)
-ghouls = pygame.sprite.Group()
 ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 npcs.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
 enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
 trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
 buildings.add(seldon_inn, seldon_shop, seldon_academia)
-user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, save_button, hearth_button,
-                   message_box, location_overlay, star_power_meter)
 environments.add(trees, buildings)
 quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
 most_sprites.add(npcs, trees, buildings, quest_items, enemies, seldon_hearth, rohir_gate)
+user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, save_button, hearth_button,
+                   message_box, location_overlay, star_power_meter)
 
 # code related to sound effects that will be used later
 # pygame.mixer.music.load("Electric_1.mp3")
@@ -1397,7 +1399,13 @@ character_name_input = ''
 current_buy_item = ''
 current_sell_item = ''
 current_info_item = ''
-# default objects for event loops, updated with button presses. prevents non-defined error
+# default values for buttons updated in event loops
+npc_button = ''
+academia_button = ''
+combat_button = ''
+inn_button = ''
+shop_button = ''
+# default objects for event loops, updated when player interacts with new object
 current_enemy_battling = snake_1
 current_npc_interacting = npc_garan
 current_building_entering = seldon_inn
@@ -1411,13 +1419,6 @@ walk_tic = time.perf_counter()
 
 # main loop ------------------------------------------------------------------------------------------------------------
 while game_running:
-
-    # default values for buttons updated in event loops
-    npc_button = ''
-    academia_button = ''
-    combat_button = ''
-    inn_button = ''
-    shop_button = ''
 
     if not new_game_chosen and not continue_game_chosen and not start_chosen:
         resource_urls.screen.blit(start_screen, (0, 0))
@@ -2177,6 +2178,7 @@ while game_running:
                             info_text_4 = ""
                             encounter_started = True
                         if combat_button == "attack":
+                            combat_button = ''
                             combat_scenario.combat_animation(pygame, player, current_enemy_battling,
                                                              player_battle_sprite, snake_battle_sprite,
                                                              ghoul_battle_sprite, barrier_active, sharp_sense_active,
@@ -2189,14 +2191,14 @@ while game_running:
                             combat_happened = True
 
                             # add all combat scenario happenings from function to message box
-                            if combat_events["damage done"] == 0:
+                            if combat_events["damage done string"] == 0:
                                 info_text_1 = ""
                             else:
-                                info_text_1 = str(combat_events["damage done"])
-                            if combat_events["damage taken"] == 0:
+                                info_text_1 = str(combat_events["damage done string"])
+                            if combat_events["damage taken string"] == 0:
                                 info_text_2 = ""
                             else:
-                                info_text_2 = str(combat_events["damage taken"])
+                                info_text_2 = str(combat_events["damage taken string"])
 
                             # adds item dropped and experienced gained messages to box if enemy was defeated
                             if combat_events["enemy defeated"]:
@@ -2248,6 +2250,7 @@ while game_running:
 
                         # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
                         elif combat_button == "skill 1":
+                            combat_button = ''
                             # make sure player has enough energy to use the skill
                             if player.energy > 34:
                                 # player is a mage and uses the barrier spell. Set barrier active to true
@@ -2290,14 +2293,14 @@ while game_running:
                                                                                         hard_strike_learned)
                                         combat_happened = True
                                         player.energy -= 35
-                                        if combat_events["damage done"] == 0:
+                                        if combat_events["damage done string"] == 0:
                                             info_text_1 = ""
                                         else:
-                                            info_text_1 = str(combat_events["damage done"])
-                                        if combat_events["damage taken"] == 0:
+                                            info_text_1 = str(combat_events["damage done string"])
+                                        if combat_events["damage taken string"] == 0:
                                             info_text_2 = ""
                                         else:
-                                            info_text_2 = str(combat_events["damage taken"])
+                                            info_text_2 = str(combat_events["damage taken string"])
                                         if combat_events["enemy defeated"]:
                                             if combat_events["item dropped"] != "No":
                                                 battle_info_to_return_to_main_loop["item dropped"] = \
@@ -2375,6 +2378,27 @@ while game_running:
                         text_enemy_level_rect = text_enemy_level_surf.get_rect()
                         text_enemy_level_rect.center = (915, 680)
                         resource_urls.screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+
+                        # popup damage overlays ------------------------------------------------------------------------
+                        if combat_happened and combat_events["damage done"] != 0:
+                            resource_urls.screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
+                            damage_done_surf = level_up_font.render(str(combat_events["damage done"]),
+                                                                    True, "black", "white")
+                            damage_done_rect = damage_done_surf.get_rect()
+                            damage_done_rect.center = (850, 225)
+                            resource_urls.screen.blit(damage_done_surf, damage_done_rect)
+                            pygame.display.flip()
+
+                            if combat_events["damage taken"] != 0:
+                                pygame.time.wait(500)
+                                resource_urls.screen.blit(received_damage_overlay.surf, received_damage_overlay.rect)
+                                damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
+                                                                            True, "black", "white")
+                                damage_received_rect = damage_received_surf.get_rect()
+                                damage_received_rect.center = (125, 275)
+                                resource_urls.screen.blit(damage_received_surf, damage_received_rect)
+                                pygame.display.flip()
+
                 except AttributeError:
                     pass
 
@@ -2392,7 +2416,7 @@ while game_running:
                                                      sharp_sense_active, hard_strike)
                     combat_cooldown = True
 
-                    # when combat happens, wait after flipping display to allow animation time to show
+                    # when combat happens, apply a short cooldown so attack button can't be spammed
                     pygame.time.wait(1000)
                     # reset combat animation and ability to click without delay on next iteration
                     combat_happened = False
@@ -2458,6 +2482,7 @@ while game_running:
                     item_sold = False
 
                 if shop_button == "buy":
+                    shop_button = ''
                     # if player hasn't bought an item yet, show message that item can be clicked to buy
                     if not item_bought:
                         info_text_1 = "Click an item to buy."
@@ -2478,6 +2503,7 @@ while game_running:
                         shop_scenario.shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items)
 
                 if shop_button == "leave":
+                    shop_button = ''
                     if len(buy_shop_elements) > 0:
                         buy_shop_elements.pop(0)
                         shopkeeper_items.clear()
@@ -2565,6 +2591,7 @@ while game_running:
                     info_text_4 = ""
                     encounter_started = True
                 if inn_button == "rest":
+                    inn_button = ''
                     # if player has not yet rested this instance
                     if not rested:
                         rest_clicked = True
@@ -2580,6 +2607,7 @@ while game_running:
                         info_text_4 = ""
                 # noinspection PyUnboundLocalVariable
                 if inn_button == "leave":
+                    inn_button = ''
                     rest_clicked = False
                     movement_able = True
                     interacted = False
@@ -2741,13 +2769,17 @@ while game_running:
                     info_text_4 = ""
                     encounter_started = True
                 if academia_button == "mage learn":
+                    academia_button = ''
                     mage_learn_clicked = True
                 if academia_button == "fighter learn":
+                    academia_button = ''
                     fighter_learn_clicked = True
                 if academia_button == "scout learn":
+                    academia_button = ''
                     scout_learn_clicked = True
                 # noinspection PyUnboundLocalVariable
                 if academia_button == "leave":
+                    academia_button = ''
                     learn_clicked = False
                     movement_able = True
                     interacted = False
@@ -2907,6 +2939,7 @@ while game_running:
                     encounter_started = True
 
                 if npc_button == "quest":
+                    npc_button = ''
                     # garan npc, check player's quest progress and reward if completed ---------------------------------
                     if current_npc_interacting.name == "garan":
                         if player.quest_progress["sneaky snakes"] == 4 and not player.quest_complete["sneaky snakes"]:
@@ -3040,6 +3073,7 @@ while game_running:
                             quest_clicked = False
 
                 if npc_button == "leave":
+                    npc_button = ''
                     movement_able = True
                     interacted = False
                     encounter_started = False

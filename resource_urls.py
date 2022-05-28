@@ -420,6 +420,11 @@ player_mage_barrier_amuna_attack = player_skills_amuna_sheet[1]
 player_scout_sense_amuna_battle = player_skills_amuna_sheet[2]
 player_scout_sense_amuna_attack = player_skills_amuna_sheet[3]
 player_fighter_amuna_strike = player_skills_amuna_sheet[4]
+# damage overlays ------------------------------------------------------------------------------------------------------
+damage_overlays_url = resource_path('resources/art/overlays_damage.png')
+damage_overlays_sheet = sprite_sheet((150, 150), damage_overlays_url)
+dealt_damage_img = damage_overlays_sheet[0]
+received_damage_img = damage_overlays_sheet[1]
 # player battle sorae race ---------------------------------------------------------------------------------------------
 player_battle_sorae_url = resource_path('resources/art/player_battle_sprites_sorae.png')
 player_battle_sorae_sheet = sprite_sheet((750, 624), player_battle_sorae_url)

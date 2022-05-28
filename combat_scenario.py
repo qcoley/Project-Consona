@@ -242,7 +242,7 @@ def enemy_health_bar(enemys):
 def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_up_font, hard_strike_learned):
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
-        "damage done": 0, "damage taken": 0,
+        "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
         "item dropped": "", "experience gained": 0,
         "quest update": "", "enemy defeated": False, "escaped": False,
         "level up status": "", "level up attributes": ""
@@ -250,22 +250,24 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
     if combat_event == "attack":
         if enemy_combating.alive_status:
             # returns players damage to the enemy based on level and equipment
-            attacked_enemy_health = gameplay_functions.attack_enemy(player, enemy_combating)
-            enemy_combating.health = enemy_combating.health - attacked_enemy_health
+            damage_to_enemy = gameplay_functions.attack_enemy(player, enemy_combating)
+            enemy_combating.health = enemy_combating.health - damage_to_enemy
             enemy_health_bar(enemy_combating)
 
             # if enemy is not dead yet
             if enemy_combating.health > 0:
-                attacked_enemy_string = f" You did {attacked_enemy_health} damage to {enemy_combating.name}."
+                attacked_enemy_string = f" You did {damage_to_enemy} damage to {enemy_combating.name}."
+                combat_event_dictionary["damage done"] = damage_to_enemy
                 # add damage to enemy to event dictionary to be returned to main loop
-                combat_event_dictionary["damage done"] = attacked_enemy_string
+                combat_event_dictionary["damage done string"] = attacked_enemy_string
                 # returns total damage output from enemy as attacked_player_health value
-                attacked_player_health = gameplay_functions.attack_player(player, enemy_combating)
-                if attacked_player_health > 0:
-                    attacked_player_string = f"You take {attacked_player_health} damage from {enemy_combating.name}."
-                    player.health = player.health - attacked_player_health
+                damage_to_player = gameplay_functions.attack_player(player, enemy_combating)
+                if damage_to_player > 0:
+                    attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.name}."
+                    player.health = player.health - damage_to_player
+                    combat_event_dictionary["damage taken"] = damage_to_player
                     # add damage done to player from enemy to dictionary
-                    combat_event_dictionary["damage taken"] = attacked_player_string
+                    combat_event_dictionary["damage taken string"] = attacked_player_string
 
                     # player health is less than or equal to 0, player is dead
                     if player.health <= 0:
@@ -274,7 +276,7 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                 else:
                     enemy_miss_string = f'{enemy_combating.name} missed.'
                     # add to dictionary that enemy did no damage to player
-                    combat_event_dictionary["damage taken"] = enemy_miss_string
+                    combat_event_dictionary["damage taken string"] = enemy_miss_string
                     return combat_event_dictionary
 
             # enemy has been defeated, will return an amount of xp based on current levels
@@ -353,19 +355,21 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                     enemy_health_bar(enemy_combating)
                     if enemy_combating.health > 0:
                         attacked_enemy_string = f"Hard strike did {striked} damage!"
-                        combat_event_dictionary["damage done"] = attacked_enemy_string
-                        attacked_player_health = gameplay_functions.attack_player(player, enemy_combating)
-                        if attacked_player_health > 0:
-                            attacked_player_string = f"You take {attacked_player_health} damage from " \
+                        combat_event_dictionary["damage done"] = striked
+                        combat_event_dictionary["damage done string"] = attacked_enemy_string
+                        damage_to_player = gameplay_functions.attack_player(player, enemy_combating)
+                        if damage_to_player > 0:
+                            attacked_player_string = f"You take {damage_to_player} damage from " \
                                                      f"{enemy_combating.name}."
-                            player.health = player.health - attacked_player_health
-                            combat_event_dictionary["damage taken"] = attacked_player_string
+                            player.health = player.health - damage_to_player
+                            combat_event_dictionary["damage taken"] = damage_to_player
+                            combat_event_dictionary["damage taken string"] = attacked_player_string
                             if player.health <= 0:
                                 player.alive_status = False
                             return combat_event_dictionary
                         else:
                             enemy_miss_string = f'{enemy_combating.name} missed.'
-                            combat_event_dictionary["damage taken"] = enemy_miss_string
+                            combat_event_dictionary["damage taken string"] = enemy_miss_string
                             return combat_event_dictionary
                     else:
                         if enemy_combating.kind == "snake":
