@@ -38,7 +38,7 @@ def equipment_event_item(equipment_event_here, pygame):
 
 
 # handles mouse clicks for equipment sub-screen
-def equipment_click_handler(player, event, pygame):
+def equipment_click_handler(player, event, pygame, offense_upgraded, defense_upgraded):
     return_dict = {"equipment message": "", "gear checked": True, "weapon checked": True}
     equipment_item = equipment_event_item(event, pygame)
 
@@ -63,6 +63,10 @@ def equipment_click_handler(player, event, pygame):
                     player.surf = resource_urls.player_no_role_sorae_down_1
                 player.offense = 0
                 player.defense = 0
+                if offense_upgraded == 1:
+                    player.offense += 10
+                if defense_upgraded == 1:
+                    player.defense += 4
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic sword":
@@ -82,6 +86,10 @@ def equipment_click_handler(player, event, pygame):
                     player.surf = resource_urls.player_no_role_sorae_down_1
                 player.offense = 0
                 player.defense = 0
+                if offense_upgraded == 1:
+                    player.offense += 10
+                if defense_upgraded == 1:
+                    player.defense += 4
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic bow":
@@ -101,6 +109,10 @@ def equipment_click_handler(player, event, pygame):
                     player.surf = resource_urls.player_no_role_sorae_down_1
                 player.offense = 0
                 player.defense = 0
+                if offense_upgraded == 1:
+                    player.offense += 10
+                if defense_upgraded == 1:
+                    player.defense += 4
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic robes":
@@ -109,6 +121,8 @@ def equipment_click_handler(player, event, pygame):
                 player.equipment["chest"] = ""
                 return_dict["equipment message"] = "Basic Robes chest un-equipped."
                 player.defense = 0
+                if defense_upgraded == 1:
+                    player.defense += 4
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "basic armor":
@@ -117,6 +131,8 @@ def equipment_click_handler(player, event, pygame):
                 player.equipment["chest"] = ""
                 return_dict["equipment message"] = "Basic Armor chest un-equipped."
                 player.defense = 0
+                if defense_upgraded == 1:
+                    player.defense += 4
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "basic tunic":
@@ -125,6 +141,8 @@ def equipment_click_handler(player, event, pygame):
                 player.equipment["chest"] = ""
                 return_dict["equipment message"] = "Basic Tunic chest un-equipped."
                 player.defense = 0
+                if defense_upgraded == 1:
+                    player.defense += 4
             else:
                 return_dict["equipment message"] = "Your inventory is full."
     except AttributeError:
@@ -182,7 +200,7 @@ def inventory_event_item(inventory_event_here, pygame):
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory_click_handler(player, item):
+def inventory_click_handler(player, item, offense_upgraded, defense_upgraded):
     return_dict = {"item message": ""}
 
     try:
@@ -225,7 +243,9 @@ def inventory_click_handler(player, item):
                     player.surf = resource_urls.player_mage_nuldar_down_1
                 if player.race == "sorae":
                     player.surf = resource_urls.player_mage_sorae_down_1
-                player.offense = 35
+                player.offense = 25
+                if offense_upgraded == 1:
+                    player.offense += 10
                 return_dict["item message"] = "Basic Staff weapon equipped"
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
@@ -242,6 +262,8 @@ def inventory_click_handler(player, item):
                 if player.race == "sorae":
                     player.surf = resource_urls.player_fighter_sorae_down_1
                 player.offense = 15
+                if offense_upgraded == 1:
+                    player.offense += 10
                 return_dict["item message"] = "Basic Sword weapon equipped"
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
@@ -257,7 +279,9 @@ def inventory_click_handler(player, item):
                     player.surf = resource_urls.player_scout_nuldar_down_1
                 if player.race == "sorae":
                     player.surf = resource_urls.player_scout_sorae_down_1
-                player.offense = 25
+                player.offense = 20
+                if offense_upgraded == 1:
+                    player.offense += 10
                 return_dict["item message"] = "Basic Bow weapon equipped"
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
@@ -268,6 +292,8 @@ def inventory_click_handler(player, item):
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
                     player.defense = 4
+                    if defense_upgraded == 1:
+                        player.defense += 4
                     return_dict["item message"] = "Basic Robes chest equipped"
                 else:
                     return_dict["item message"] = "Only mages wear light armor."
@@ -280,6 +306,8 @@ def inventory_click_handler(player, item):
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
                     player.defense = 12
+                    if defense_upgraded == 1:
+                        player.defense += 4
                     return_dict["item message"] = "Basic Armor chest equipped"
                 else:
                     return_dict["item message"] = "Only fighters wear heavy armor."
@@ -292,6 +320,8 @@ def inventory_click_handler(player, item):
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
                     player.defense = 8
+                    if defense_upgraded == 1:
+                        player.defense += 4
                     return_dict["item message"] = "Basic Tunic chest equipped"
                 else:
                     return_dict["item message"] = "Only scouts wear medium armor."
@@ -342,6 +372,16 @@ def quest_event_button(quest_event, accept_button, decline_button, pygame):
             return "accept"
         if decline_button.rect.collidepoint(quest_mouse):
             return "decline"
+
+
+# getting event based on user click related to shop
+def stardust_upgrade_event(stardust_event, offense_button, defense_button, pygame):
+    if stardust_event.type == pygame.MOUSEBUTTONUP:
+        stardust_mouse = pygame.mouse.get_pos()
+        if offense_button.rect.collidepoint(stardust_mouse):
+            return "offense"
+        if defense_button.rect.collidepoint(stardust_mouse):
+            return "defense"
 
 
 # getting event based on user click related to shop

@@ -41,7 +41,8 @@ a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_char
 n_char_screen = pygame.image.load(resource_path('resources/art/screen_nuldar_character_select.png')).convert_alpha()
 s_char_screen = pygame.image.load(resource_path('resources/art/screen_sorae_character_select.png')).convert_alpha()
 nascent_grove_screen = pygame.image.load(resource_path('resources/art/bg_nascent_grove.png')).convert_alpha()
-stardust_outpost_screen = pygame.image.load(resource_path('resources/art/bg_stardust_post.png')).convert_alpha()
+stardust_cove_screen = pygame.image.load(resource_path('resources/art/bg_stardust_post.png')).convert_alpha()
+stardust_post_screen = pygame.image.load(resource_path('resources/art/bg_stardust_inn.png')).convert_alpha()
 seldon_bg_screen = pygame.image.load(resource_path('resources/art/bg_seldon_district.png')).convert_alpha()
 korlok_bg_screen = pygame.image.load(resource_path('resources/art/bg_korlok_district.png')).convert_alpha()
 seldon_battle_screen = pygame.image.load(resource_path('resources/art/bg_seldon_battle_screen.png')).convert_alpha()
@@ -59,7 +60,6 @@ buy_inventory = pygame.image.load(resource_path('resources/art/overlay_buy_inven
 message_box = pygame.image.load(resource_path('resources/art/overlay_message_box.png')).convert_alpha()
 pine_tree = pygame.image.load(resource_path('resources/art/sprite_pine_tree.png')).convert_alpha()
 hearth_stone = pygame.image.load(resource_path('resources/art/sprite_hearth_stone.png')).convert_alpha()
-quest_logs = pygame.image.load(resource_path('resources/art/sprite_logs.png')).convert_alpha()
 rohir_gate = pygame.image.load(resource_path('resources/art/overlay_rohir_gate.png')).convert_alpha()
 lets_go_button = pygame.image.load(resource_path('resources/art/button_lets_go.png')).convert_alpha()
 learn_button = pygame.image.load(resource_path('resources/art/overlay_learn.png')).convert_alpha()
@@ -76,11 +76,14 @@ role_selection_overlay = pygame.image.load(resource_path('resources/art/overlay_
 location_overlay = pygame.image.load(resource_path('resources/art/overlay_location.png')).convert_alpha()
 popup_interaction = pygame.image.load(resource_path('resources/art/popup_interaction.png')).convert_alpha()
 popup_loot = pygame.image.load(resource_path('resources/art/popup_loot.png')).convert_alpha()
+stardust_entrance = pygame.image.load(resource_path('resources/art/overlay_stardust_entrance.png')).convert_alpha()
+upgrade_overlay = pygame.image.load(resource_path('resources/art/overlay_upgrade_select.png')).convert_alpha()
 
 color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree, hearth_stone,
-              quest_logs, rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up,
+              rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up,
               close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
-              role_selection_overlay, location_overlay, popup_interaction, popup_loot]
+              role_selection_overlay, location_overlay, popup_interaction, popup_loot, stardust_entrance,
+              upgrade_overlay]
 
 for image in color_keys:
     image.set_colorkey((255, 255, 255))
@@ -491,6 +494,8 @@ nede_url = resource_path('resources/art/sprites_nede.png')
 nede_sheet = sprite_sheet((60, 60), nede_url)
 nede_left = nede_sheet[0]
 nede_right = nede_sheet[1]
+nede_high_left = nede_sheet[2]
+nede_high_right = nede_sheet[3]
 # guard npc ------------------------------------------------------------------------------------------------------------
 guard_url = resource_path('resources/art/sprites_guards.png')
 guard_sheet = sprite_sheet((50, 62), guard_url)
@@ -517,6 +522,11 @@ enemies_url = resource_path('resources/art/sprites_enemies.png')
 enemies_sheet = sprite_sheet((50, 50), enemies_url)
 snake = enemies_sheet[0]
 ghoul = enemies_sheet[1]
+# enemies highlighted --------------------------------------------------------------------------------------------------
+enemies_high_url = resource_path('resources/art/sprites_enemies_highlighted.png')
+enemies_high_sheet = sprite_sheet((50, 50), enemies_high_url)
+snake_high = enemies_high_sheet[0]
+ghoul_high = enemies_high_sheet[1]
 # enemies battle -------------------------------------------------------------------------------------------------------
 enemies_battle_url = resource_path('resources/art/sprites_enemies_battle.png')
 enemies_battle_sheet = sprite_sheet((300, 280), enemies_battle_url)
@@ -623,6 +633,7 @@ yes_button_img = buttons_sheet[8]
 no_button_img = buttons_sheet[9]
 use_button_img = buttons_sheet[10]
 equip_button_img = buttons_sheet[11]
+upgrade_button_img = buttons_sheet[12]
 # attack buttons -------------------------------------------------------------------------------------------------------
 attack_buttons_url = resource_path('resources/art/overlay_attacks.png')
 attack_buttons_sheet = sprite_sheet((60, 60), attack_buttons_url)
@@ -641,12 +652,14 @@ game_play_function_buttons_url = resource_path('resources/art/buttons_game_play_
 game_play_function_buttons_sheet = sprite_sheet((100, 25), game_play_function_buttons_url)
 save_button_img = game_play_function_buttons_sheet[0]
 hearth_button_img = game_play_function_buttons_sheet[1]
-# role select buttons --------------------------------------------------------------------------------------------------
-role_selection_buttons_url = resource_path('resources/art/buttons_select_role.png')
-role_selection_buttons_sheet = sprite_sheet((184, 42), role_selection_buttons_url)
-mage_select_button_img = role_selection_buttons_sheet[0]
-fighter_select_button_img = role_selection_buttons_sheet[1]
-scout_select_button_img = role_selection_buttons_sheet[2]
+# select buttons --------------------------------------------------------------------------------------------------
+selection_buttons_url = resource_path('resources/art/buttons_select_role.png')
+selection_buttons_sheet = sprite_sheet((184, 42), selection_buttons_url)
+mage_select_button_img = selection_buttons_sheet[0]
+fighter_select_button_img = selection_buttons_sheet[1]
+scout_select_button_img = selection_buttons_sheet[2]
+offense_select_button_img = selection_buttons_sheet[3]
+defense_select_button_img = selection_buttons_sheet[4]
 # quest windows --------------------------------------------------------------------------------------------------------
 quest_windows_url = resource_path('resources/art/overlay_quest_sheets.png')
 quest_windows_sheet = sprite_sheet((500, 525), quest_windows_url)
@@ -654,6 +667,13 @@ garan_quest = quest_windows_sheet[0]
 maurelle_quest = quest_windows_sheet[1]
 torune_quest = quest_windows_sheet[2]
 celeste_quest = quest_windows_sheet[3]
+# quest complete popups ------------------------------------------------------------------------------------------------
+quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
+quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)
+garan_complete = quest_popups_sheet[0]
+maurelle_complete = quest_popups_sheet[1]
+celeste_complete = quest_popups_sheet[2]
+torune_complete = quest_popups_sheet[3]
 # quest stars ----------------------------------------------------------------------------------------------------------
 quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
 quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)
@@ -676,6 +696,11 @@ health_popup = popups_sheet[1]
 knowledge_popup = popups_sheet[2]
 save_popup = popups_sheet[3]
 save_not_found = popups_sheet[4]
+# quest pine logs ------------------------------------------------------------------------------------------------------
+quest_logs_url = resource_path('resources/art/sprite_logs.png')
+quest_logs_sheet = sprite_sheet((40, 45), quest_logs_url)
+pine_logs_img = quest_logs_sheet[0]
+pine_logs_high_img = quest_logs_sheet[1]
 # heath bars -----------------------------------------------------------------------------------------------------------
 hp_url = resource_path('resources/art/bars_health.png')
 hp_sheet = sprite_sheet((305, 19), hp_url)

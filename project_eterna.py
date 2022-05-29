@@ -1097,7 +1097,8 @@ seldon_district_battle = resource_urls.seldon_battle_screen
 seldon_district_shop = resource_urls.seldon_shop_screen
 seldon_district_inn = resource_urls.seldon_inn_screen
 seldon_district_academia = resource_urls.seldon_academia_screen
-stardust_outpost_bg = resource_urls.stardust_outpost_screen
+stardust_cove_bg = resource_urls.stardust_cove_screen
+stardust_post_bg = resource_urls.stardust_post_screen
 seldon_hearth_screen = resource_urls.seldon_hearth_screen
 game_over_screen = resource_urls.game_over_screen
 start_screen = resource_urls.start_screen
@@ -1132,7 +1133,7 @@ sorae_character = UiElement("sorae character", 640, 360, resource_urls.sorae_cha
 
 # default player
 player = PlayerAmuna("stan", "amuna", "",  # name, race, role
-                     [health_potion, energy_potion],  # inventory
+                     [],  # inventory
                      {"weapon": "", "chest": ""},  # equipment ('type', 'name')
                      {"sneaky snakes": "Speak to Garan to start this quest.",
                       "village repairs": "Speak to Maurelle to start this quest.",
@@ -1206,6 +1207,7 @@ seldon_inn = Building("inn", "seldon inn", 635, 600, resource_urls.amuna_inn_bui
 seldon_shop = Building("shop", "seldon shop", 665, 400, resource_urls.amuna_shop_building)
 seldon_academia = Building("academia", "seldon academia", 875, 440, resource_urls.amuna_academia_building)
 seldon_hearth = Building("hearth", "seldon hearth", 860, 595, resource_urls.hearth_stone)
+stardust_entrance = Building("shop", "stardust post", 530, 325, resource_urls.stardust_entrance)
 rohir_gate = Building("gate", "rohir gate", 525, 50, resource_urls.rohir_gate)
 nascent_gate = Building("gate", "nascent gate", 418, 262, resource_urls.nascent_gate_closed)
 
@@ -1226,6 +1228,7 @@ sorae_button = UiElement("sorae button", 100, 445, resource_urls.sorae_button_im
 start_button = UiElement("start button", 640, 660, resource_urls.start_button)
 lets_go_button = UiElement("lets go button", 625, 575, resource_urls.lets_go_button)
 buy_button = UiElement("buy button", 860, 680, resource_urls.buy_button_img)
+upgrade_button = UiElement("upgrade button", 860, 680, resource_urls.upgrade_button_img)
 leave_button = UiElement("leave button", 970, 680, resource_urls.leave_button_img)
 rest_button = UiElement("rest button", 860, 680, resource_urls.rest_button_img)
 mage_learn_button = UiElement("mage learn button", 650, 250, resource_urls.learn_button)
@@ -1243,9 +1246,11 @@ save_button = UiElement("save button", 970, 60, resource_urls.save_button_img)
 yes_button = UiElement("yes button", 450, 394, resource_urls.yes_button_img)
 no_button = UiElement("no button", 564, 394, resource_urls.no_button_img)
 item_info_button = UiElement("item info button", 1153, 345, resource_urls.use_button_img)
-mage_select_button = UiElement("role select overlay", 296, 566, resource_urls.mage_select_button_img)
-fighter_select_button = UiElement("role select overlay", 550, 566, resource_urls.fighter_select_button_img)
-scout_select_button = UiElement("role select overlay", 804, 566, resource_urls.scout_select_button_img)
+mage_select_button = UiElement("mage select", 296, 566, resource_urls.mage_select_button_img)
+fighter_select_button = UiElement("fighter select", 550, 566, resource_urls.fighter_select_button_img)
+scout_select_button = UiElement("scout select", 804, 566, resource_urls.scout_select_button_img)
+offense_select_button = UiElement("offense select", 637, 577, resource_urls.offense_select_button_img)
+defense_select_button = UiElement("defense select", 891, 577, resource_urls.defense_select_button_img)
 
 no_role_attack_button = UiElement("no role attack button", 750, 642, resource_urls.no_role_attack_button_img)
 mage_attack_button = UiElement("mage attack button", 750, 642, resource_urls.mage_attack_button_img)
@@ -1266,10 +1271,10 @@ character_sheet = UiElement("character sheet", 770, 380, resource_urls.character
 mage_book = UiElement("mage book", 670, 375, resource_urls.mage_book_img)
 fighter_book = UiElement("fighter book", 670, 375, resource_urls.fighter_book_img)
 scout_book = UiElement("scout book", 670, 375, resource_urls.scout_book_img)
-quest_logs_1 = Item("pine logs", "quest", 60, 540, resource_urls.quest_logs)
-quest_logs_2 = Item("pine logs", "quest", 315, 560, resource_urls.quest_logs)
-quest_logs_3 = Item("pine logs", "quest", 415, 435, resource_urls.quest_logs)
-quest_logs_4 = Item("pine logs", "quest", 100, 540, resource_urls.quest_logs)
+quest_logs_1 = Item("pine logs", "quest", 60, 540, resource_urls.pine_logs_img)
+quest_logs_2 = Item("pine logs", "quest", 315, 560, resource_urls.pine_logs_img)
+quest_logs_3 = Item("pine logs", "quest", 415, 435, resource_urls.pine_logs_img)
+quest_logs_4 = Item("pine logs", "quest", 100, 540, resource_urls.pine_logs_img)
 nede = Item("nede", "quest", 450, 450, resource_urls.nede_left)
 npc_name_plate = UiElement("npc name plate", 638, 192, resource_urls.npc_name_plate)
 buy_inventory = Inventory("buy inventory", [], 900, 500, resource_urls.buy_inventory)
@@ -1294,6 +1299,8 @@ info_items = UiElement("info items", 1155, 270, resource_urls.info_health_pot_im
 buy_items = UiElement("buy items", 900, 230, resource_urls.b_health_pot_img)
 star_power_meter = UiElement("star power", 1210, 360, resource_urls.star_00)
 role_select_overlay = UiElement("role select overlay", 550, 369, resource_urls.role_selection_overlay)
+
+upgrade_overlay = UiElement("upgrade overlay", 764, 380, resource_urls.upgrade_overlay)
 dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, resource_urls.dealt_damage_img)
 received_damage_overlay = UiElement("recieved damage overlay", 125, 275, resource_urls.received_damage_img)
 interaction_popup = UiElement("interaction popup", 125, 275, resource_urls.popup_interaction)
@@ -1386,8 +1393,17 @@ mage_select = False
 fighter_select = False
 scout_select = False
 loot_updated = True
+garan_complete_shown = False
+maurelle_complete_shown = False
+celeste_complete_shown = False
+torune_complete_shown = False
+snake_sprite_reset = False
+ghoul_sprite_reset = False
+log_sprite_reset = False
+nede_sprite_reset = False
 
 buy_shop_elements = []
+stardust_upgrade_elements = []
 shopkeeper_items = []
 skill_learn_items = []
 books = []
@@ -1400,6 +1416,9 @@ sell_window = []
 buy_window = []
 loot_popup_container = []
 loot_text_container = []
+
+offense_upgraded = 0
+defense_upgraded = 0
 
 info_text_1 = ''
 info_text_2 = ''
@@ -1599,6 +1618,8 @@ while game_running:
         npc_garan.gift = load_returned["garan gift"]
         rest_recover_show = load_returned["rest popup"]
         knowledge_academia_show = load_returned["knowledge popup"]
+        offense_upgraded = load_returned["offense upgrade"]
+        defense_upgraded = load_returned["defense upgrade"]
 
         if player.race == "amuna":
             player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
@@ -1712,7 +1733,8 @@ while game_running:
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory_click_handler(player, current_info_item)
+                            inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                     offense_upgraded, defense_upgraded)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -1724,7 +1746,8 @@ while game_running:
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                                  info_items, item_info_button)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
-                        equipment_event = click_handlers.equipment_click_handler(player, event, pygame)
+                        equipment_event = click_handlers.equipment_click_handler(player, event, pygame,
+                                                                                 offense_upgraded, defense_upgraded)
                         if equipment_event["equipment message"] != "":
                             info_text_1 = equipment_event["equipment message"]
                             info_text_2 = ""
@@ -1753,29 +1776,33 @@ while game_running:
                             if not saved:
                                 gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                              sharp_sense_learned, saved, npc_garan.gift,
-                                                             rest_recover_show, knowledge_academia_show)
+                                                             rest_recover_show, knowledge_academia_show,
+                                                             offense_upgraded, defense_upgraded)
                                 saved = True
                                 info_text_1 = "You saved your game. "
                         if yes_button.rect.collidepoint(pos):
                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                          sharp_sense_learned, saved, npc_garan.gift,
-                                                         rest_recover_show, knowledge_academia_show)
+                                                         rest_recover_show, knowledge_academia_show,
+                                                         offense_upgraded, defense_upgraded)
                             save_check_window.clear()
                             info_text_1 = "You saved your game. "
                         if no_button.rect.collidepoint(pos):
                             save_check_window.clear()
 
-                        # character button clicked
                         if character_button.rect.collidepoint(pos):
                             if character_button_clicked:
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 character_button_clicked = False
                             else:
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
                                 character_button_clicked = True
-                        # journal button clicked
                         if journal_button.rect.collidepoint(pos):
                             if journal_button_clicked:
+                                drawing_functions.journal_info_draw(journal, player, font, False)
                                 journal_button_clicked = False
                             else:
+                                drawing_functions.journal_info_draw(journal, player, font, True)
                                 journal_button_clicked = True
 
                         # pop-up notifications, click to hide
@@ -1788,9 +1815,6 @@ while game_running:
                         if loot_popup.rect.collidepoint(pos):
                             loot_popup_container.clear()
                             loot_text_container.clear()
-
-                drawing_functions.character_sheet_info_draw(character_sheet, player, font, character_button_clicked)
-                drawing_functions.journal_info_draw(journal, player, font, journal_button_clicked)
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
@@ -1832,25 +1856,34 @@ while game_running:
             # if player is in stardust outpost -------------------------------------------------------------------------
             if player.current_zone == "stardust" and in_over_world and not in_shop and not in_inn and not in_academia \
                     and not in_battle and not in_npc_interaction:
-                resource_urls.screen.blit(stardust_outpost_bg, (0, 0))
+                resource_urls.screen.blit(stardust_cove_bg, (0, 0))
+
                 if player.quest_progress["where's nede?"] < 1:
-                    resource_urls.screen.blit(nede.surf, nede.rect)
+                    if player.quest_status["where's nede?"]:
+                        if not nede_sprite_reset:
+                            nede.update(nede.x_coordinate, nede.y_coordinate, resource_urls.nede_high_left)
+                            nede_sprite_reset = True
+                        resource_urls.screen.blit(nede.surf, nede.rect)
+                    else:
+                        resource_urls.screen.blit(nede.surf, nede.rect)
                 resource_urls.screen.blit(player.surf, player.rect)
                 for save_window in save_check_window:
                     resource_urls.screen.blit(save_window.surf, save_window.rect)
                 for ui_elements in user_interface:
                     resource_urls.screen.blit(ui_elements.surf, ui_elements.rect)
+                resource_urls.screen.blit(stardust_entrance.surf, stardust_entrance.rect)
                 resource_urls.screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                 resource_urls.screen.blit(hp_bar.surf, hp_bar.rect)
                 resource_urls.screen.blit(en_bar.surf, en_bar.rect)
                 resource_urls.screen.blit(xp_bar.surf, xp_bar.rect)
                 # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                 drawing_functions.text_info_draw(player, font,
-                                                 info_text_1, info_text_2, info_text_3, info_text_4, in_over_world)
+                                                 info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
+                                                 offense_upgraded, defense_upgraded, level_up_font)
                 drawing_functions.draw_it()
 
                 # player encounters Nede for Celeste's quest
-                if pygame.sprite.collide_rect(player, nede):
+                if pygame.sprite.collide_rect(player, nede) and player.quest_progress["where's nede?"] < 1:
                     interaction_popup.update(nede.x_coordinate, nede.y_coordinate - 25,
                                              resource_urls.popup_interaction)
                     resource_urls.screen.blit(interaction_popup.surf, interaction_popup.rect)
@@ -1874,6 +1907,26 @@ while game_running:
                     else:
                         info_text_1 = "What a nice dog!"
 
+                # player collides with stardust inn entrance
+                if pygame.sprite.collide_rect(player, stardust_entrance):
+                    interaction_popup.update(stardust_entrance.x_coordinate, stardust_entrance.y_coordinate - 50,
+                                             resource_urls.popup_interaction)
+                    resource_urls.screen.blit(interaction_popup.surf, interaction_popup.rect)
+                    interaction_info_surf = font.render(str("stardust post"), True, "black", "light yellow")
+                    interaction_info_rect = interaction_info_surf.get_rect()
+                    interaction_info_rect.center = (stardust_entrance.x_coordinate, stardust_entrance.y_coordinate - 50)
+                    resource_urls.screen.blit(interaction_info_surf, interaction_info_rect)
+
+                    # lets player know if they are in range of building they can press f to enter it
+                    info_text_1 = "Press 'F' key to enter building."
+                    info_text_2 = ""
+
+                    if interacted:
+                        current_building_entering = stardust_entrance
+                        movement_able = False
+                        in_over_world = False
+                        in_shop = True
+
                 # move player to seldon district when they approach nascent grove exit
                 if player.x_coordinate > 925 and 175 < player.y_coordinate < 275:
                     player.current_zone = "seldon"
@@ -1882,16 +1935,28 @@ while game_running:
                     player.y_coordinate = 375
 
                 # nede movement updates
-                if player.quest_progress["where's nede?"] < 1:
-                    face_direction = random.choice(["left", "right"])
-                    if movement_able and in_over_world:
-                        npc_toc = time.perf_counter()
-                        if npc_toc - npc_tic > 2:
-                            npc_tic = time.perf_counter()
-                            if face_direction == "left":
-                                nede.update(nede.x_coordinate, nede.y_coordinate, resource_urls.nede_left)
-                            if face_direction == "right":
-                                nede.update(nede.x_coordinate, nede.y_coordinate, resource_urls.nede_right)
+                if player.quest_status["where's nede?"]:
+                    if player.quest_progress["where's nede?"] < 1:
+                        face_direction = random.choice(["left", "right"])
+                        if movement_able and in_over_world:
+                            npc_toc = time.perf_counter()
+                            if npc_toc - npc_tic > 2:
+                                npc_tic = time.perf_counter()
+                                if face_direction == "left":
+                                    nede.update(nede.x_coordinate, nede.y_coordinate, resource_urls.nede_high_left)
+                                if face_direction == "right":
+                                    nede.update(nede.x_coordinate, nede.y_coordinate, resource_urls.nede_high_right)
+                else:
+                    if player.quest_progress["where's nede?"] < 1:
+                        face_direction = random.choice(["left", "right"])
+                        if movement_able and in_over_world:
+                            npc_toc = time.perf_counter()
+                            if npc_toc - npc_tic > 2:
+                                npc_tic = time.perf_counter()
+                                if face_direction == "left":
+                                    nede.update(nede.x_coordinate, nede.y_coordinate, resource_urls.nede_left)
+                                if face_direction == "right":
+                                    nede.update(nede.x_coordinate, nede.y_coordinate, resource_urls.nede_right)
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
@@ -1910,8 +1975,9 @@ while game_running:
                 resource_urls.screen.blit(en_bar.surf, en_bar.rect)
                 resource_urls.screen.blit(xp_bar.surf, xp_bar.rect)
                 # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                drawing_functions.text_info_draw(player, font, info_text_1, info_text_2, info_text_3,
-                                                 info_text_4, in_over_world)
+                drawing_functions.text_info_draw(player, font,
+                                                 info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
+                                                 offense_upgraded, defense_upgraded, level_up_font)
                 drawing_functions.draw_it()
 
                 quest_item = pygame.sprite.spritecollideany(player, quest_items)
@@ -1945,18 +2011,62 @@ while game_running:
             # if player is in seldon district --------------------------------------------------------------------------
             if player.current_zone == "seldon" and in_over_world and not in_shop and not in_inn and not in_academia \
                     and not in_battle and not in_npc_interaction:
-
                 resource_urls.screen.blit(seldon_district_bg, (0, 0))
-
                 enemy_respawn()
                 for entity in most_sprites:
                     resource_urls.screen.blit(entity.surf, entity.rect)
-                for enemy_sprite in enemies:
+
+                for quest_item in quest_items:
+                    if not player.quest_complete["village repairs"]:
+                        if player.quest_status["village repairs"]:
+                            if quest_item.name == "pine logs":
+                                quest_item.update(quest_item.x_coordinate, quest_item.y_coordinate,
+                                                  resource_urls.pine_logs_high_img)
+                    else:
+                        if not log_sprite_reset:
+                            if quest_item.name == "pine logs":
+                                quest_item.update(quest_item.x_coordinate, quest_item.y_coordinate,
+                                                  resource_urls.pine_logs_img)
+
+                # condition to check if sprites have been reverted to original img after quest complete
+                if player.quest_complete["village repairs"]:
+                    log_sprite_reset = True
+
+                for enemy_sprite in enemies:  # update enemy sprite to a highlighted version if player is on quest
+                    if not player.quest_complete["sneaky snakes"]:
+                        if player.quest_status["sneaky snakes"]:
+                            if enemy_sprite.name == "snake":
+                                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                          resource_urls.snake_high)
+                    else:  # revert to original snake sprite
+                        if not snake_sprite_reset:
+                            if enemy_sprite.name == "snake":
+                                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                          resource_urls.snake)
+                    if not player.quest_complete["ghouled again"]:
+                        if player.quest_status["ghouled again"]:
+                            if enemy_sprite.name == "ghoul":
+                                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                          resource_urls.ghoul_high)
+                    else:  # revert to original ghoul sprite
+                        if not ghoul_sprite_reset:
+                            if enemy_sprite.name == "ghoul":
+                                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                                          resource_urls.ghoul)
                     resource_urls.screen.blit(enemy_sprite.surf, enemy_sprite.rect)
+
+                # condition to check if sprites have been reverted to original img after quest complete
+                if player.quest_complete["sneaky snakes"]:
+                    snake_sprite_reset = True
+                if player.quest_complete["ghouled again"]:
+                    ghoul_sprite_reset = True
+
                 if player.quest_progress["where's nede?"] == 1:
                     resource_urls.screen.blit(nede.surf, nede.rect)
+
                 gameplay_functions.npc_quest_star_updates(player, quest_star_garan, quest_star_maurelle,
                                                           quest_star_celeste, quest_star_torune)
+
                 resource_urls.screen.blit(player.surf, player.rect)
 
                 for save_window in save_check_window:
@@ -1977,8 +2087,9 @@ while game_running:
                 resource_urls.screen.blit(xp_bar.surf, xp_bar.rect)
 
                 # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                drawing_functions.text_info_draw(player, font, info_text_1, info_text_2, info_text_3,
-                                                 info_text_4, in_over_world)
+                drawing_functions.text_info_draw(player, font,
+                                                 info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
+                                                 offense_upgraded, defense_upgraded, level_up_font)
                 drawing_functions.draw_it()
 
                 # pop up notifications for situations like low health or first weapon acquire
@@ -2009,19 +2120,23 @@ while game_running:
 
                 # if battle happened, get battle info (item or experience gained) and apply to message box
                 if not loot_updated:
+                    # clear containers first from any previous battle
+                    loot_popup_container.clear()
+                    loot_text_container.clear()
+
                     loot_popup_container.append(loot_popup)
-                    xp_info_surf = font.render(str(battle_info_to_return_to_main_loop["experience"]),
-                                               True, "black", "light yellow")
+                    xp_info_surf = font.render("+" + str(battle_info_to_return_to_main_loop["experience"] + " xp"),
+                                               True, "black", (203, 195, 227))
                     xp_info_rect = xp_info_surf.get_rect()
-                    xp_info_rect.center = (170, 492)
+                    xp_info_rect.center = (182, 492)
                     loot_text_container.append((xp_info_surf, xp_info_rect))
                     know_info_surf = font.render(str(battle_info_to_return_to_main_loop["knowledge"]),
-                                                 True, "black", "light yellow")
+                                                 True, "black", (144, 238, 144))
                     know_info_rect = know_info_surf.get_rect()
                     know_info_rect.center = (205, 510)
                     loot_text_container.append((know_info_surf, know_info_rect))
                     loot_info_surf = font.render(str(battle_info_to_return_to_main_loop["item dropped"]),
-                                                 True, "black", "light yellow")
+                                                 True, "black", "silver")
                     loot_info_rect = loot_info_surf.get_rect()
                     loot_info_rect.center = (170, 565)
                     loot_text_container.append((loot_info_surf, loot_info_rect))
@@ -2101,12 +2216,16 @@ while game_running:
                     # lets player know if they are in range of enemy they can press f to attack it
                     info_text_1 = "Press 'F' key to attack enemy."
                     info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
 
                     if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
                             and not in_academia and not in_npc_interaction:
                         current_enemy_battling = enemy
                         in_over_world = False
                         in_battle = True
+                        loot_popup_container.clear()
+                        loot_text_container.clear()
                         combat_scenario.resting_animation(player, enemy, player_battle_sprite,
                                                           snake_battle_sprite, ghoul_battle_sprite, barrier_active,
                                                           sharp_sense_active, in_battle, in_npc_interaction)
@@ -2127,11 +2246,15 @@ while game_running:
                     # lets player know if they are in range of building they can press f to enter it
                     info_text_1 = "Press 'F' key to enter building."
                     info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
 
                     if interacted:
                         current_building_entering = building
                         movement_able = False
                         in_over_world = False
+                        loot_popup_container.clear()
+                        loot_text_container.clear()
                         if building.name == "shop":
                             in_shop = True
                         if building.name == "inn":
@@ -2152,6 +2275,8 @@ while game_running:
 
                     info_text_1 = "Press 'F' key to talk to NPC."
                     info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
 
                     if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
                             and not in_academia and not in_npc_interaction:
@@ -2159,6 +2284,8 @@ while game_running:
                         in_over_world = False
                         in_npc_interaction = True
                         movement_able = False
+                        loot_popup_container.clear()
+                        loot_text_container.clear()
                         combat_scenario.resting_animation(player, enemy, player_battle_sprite,
                                                           snake_battle_sprite, ghoul_battle_sprite,
                                                           barrier_active, sharp_sense_active, in_battle,
@@ -2239,7 +2366,8 @@ while game_running:
                     # click handlers
                     info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
-                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item)
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 offense_upgraded, defense_upgraded)
                         if inventory_event["item message"] != "":
                             info_text_1 = inventory_event["item message"]
                             info_text_2 = ""
@@ -2253,7 +2381,8 @@ while game_running:
                                                                              info_items, item_info_button)
 
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = click_handlers.equipment_click_handler(player, event, pygame)
+                    equipment_event = click_handlers.equipment_click_handler(player, event, pygame,
+                                                                             offense_upgraded, defense_upgraded)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -2318,15 +2447,15 @@ while game_running:
                                 if player.role == "mage":
                                     player.knowledge["mage"] += 10
                                     battle_info_to_return_to_main_loop["knowledge"] = \
-                                        "10 mage"
+                                        "+10 mage"
                                 if player.role == "fighter":
                                     player.knowledge["fighter"] += 10
                                     battle_info_to_return_to_main_loop["knowledge"] = \
-                                        "10 fighter"
+                                        "+10 fighter"
                                 if player.role == "scout":
                                     player.knowledge["scout"] += 10
                                     battle_info_to_return_to_main_loop["knowledge"] = \
-                                        "10 scout"
+                                        "+10 scout"
 
                                 # if barrier is active on enemy defeat, restore original defence and set off
                                 if barrier_active:
@@ -2359,9 +2488,9 @@ while game_running:
                                         if not barrier_active:
                                             original_defence = player.defense
                                             info_text_1 = "Barrier spell is active."
-                                            info_text_2 = "You have gained 10 defence."
+                                            info_text_2 = "You have gained 8 defence."
                                             barrier_active = True
-                                            player.defense += 10
+                                            player.defense += 8
                                             player.energy -= 35
                                         else:
                                             info_text_1 = "Barrier spell is already active."
@@ -2372,9 +2501,9 @@ while game_running:
                                         if not sharp_sense_active:
                                             original_offense = player.offense
                                             info_text_1 = "Sharp sense is active."
-                                            info_text_2 = "You have gained 20 offense."
+                                            info_text_2 = "You have gained 10 offense."
                                             sharp_sense_active = True
-                                            player.offense += 20
+                                            player.offense += 10
                                             player.energy -= 35
                                         else:
                                             info_text_1 = "Sharp sense is already active."
@@ -2459,9 +2588,12 @@ while game_running:
                         resource_urls.screen.blit(star_power_meter.surf, star_power_meter.rect)
                         resource_urls.screen.blit(message_box.surf, message_box.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world)
+                        drawing_functions.text_info_draw(player, font,
+                                                         info_text_1, info_text_2, info_text_3, info_text_4,
+                                                         in_over_world, offense_upgraded, defense_upgraded,
+                                                         level_up_font)
                         drawing_functions.draw_it()
+
                         resource_urls.screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                         resource_urls.screen.blit(hp_bar.surf, hp_bar.rect)
                         resource_urls.screen.blit(en_bar.surf, en_bar.rect)
@@ -2528,88 +2660,142 @@ while game_running:
                     and not in_npc_interaction:
 
                 for event in pygame.event.get():
+
+                    if buy_clicked:
+                        if player.current_zone == "stardust":
+                            upgrade_event = click_handlers.stardust_upgrade_event(event, offense_select_button,
+                                                                                  defense_select_button, pygame)
+                            # if player is in stardust post and chooses to upgrade +10 offense, consume 4 stars
+                            if upgrade_event == "offense":
+                                if player.star_power >= 4:
+                                    player.offense += 10
+                                    # save upgrade in variable to be applied when switching gear
+                                    offense_upgraded += 1
+                                    player.star_power -= 4
+                                    info_text_1 = "You consumed 4 stars,"
+                                    info_text_2 = "Upgrading your base offense +10."
+                                    stardust_upgrade_elements.clear()
+                                else:
+                                    info_text_1 = "4 stars are required to upgrade."
+                                    info_text_2 = ""
+                            # if player is in stardust post and chooses to upgrade +4 defense, consume 4 stars
+                            if upgrade_event == "defense":
+                                if player.star_power >= 4:
+                                    player.defense += 4
+                                    # save upgrade in variable to be applied when switching gear
+                                    defense_upgraded += 1
+                                    player.star_power -= 4
+                                    info_text_1 = "You consumed 4 stars,"
+                                    info_text_2 = "Upgrading your base defense +4."
+                                    stardust_upgrade_elements.clear()
+                                else:
+                                    info_text_1 = "4 stars are required to upgrade."
+                                    info_text_2 = ""
+
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
                             exit()
                     elif event.type == QUIT:
                         exit()
 
-                    # get which button player pressed during shop scenario (buy or leave)
                     shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame)
-                    if buy_clicked:
-                        # if player clicks yes button to sell item, get current item and buy ---------------------------
-                        buy_choice = click_handlers.shop_buy_button(event, yes_button, pygame)
-                        buy_return = shop_scenario.buy_items(player, buy_choice, current_buy_item, Item)
-                        if buy_return["info 1"] != "":
-                            info_text_1 = buy_return["info 1"]
-                        if buy_return["info 2"] != "":
-                            info_text_1 = buy_return["info 2"]
-                        item_bought = buy_return["bought"]
-                        # draws buy info box for info and confirmation
-                        buy_item = click_handlers.buy_event_item(event, shopkeeper_items, pygame)
-                        if drawing_functions.buy_info_draw(buy_item, buy_items, yes_button) is not None:
-                            current_buy_item = drawing_functions.buy_info_draw(buy_item, buy_items, yes_button)
+                    if player.current_zone == "seldon":
+                        # get which button player pressed during shop scenario (buy or leave)
+                        if buy_clicked:
+                            # if player clicks yes button to sell item, get current item and buy -----------------------
+                            buy_choice = click_handlers.shop_buy_button(event, yes_button, pygame)
+                            buy_return = shop_scenario.buy_items(player, buy_choice, current_buy_item, Item)
+                            if buy_return["info 1"] != "":
+                                info_text_1 = buy_return["info 1"]
+                            if buy_return["info 2"] != "":
+                                info_text_1 = buy_return["info 2"]
+                            item_bought = buy_return["bought"]
+                            # draws buy info box for info and confirmation
+                            buy_item = click_handlers.buy_event_item(event, shopkeeper_items, pygame)
+                            if drawing_functions.buy_info_draw(buy_item, buy_items, yes_button) is not None:
+                                current_buy_item = drawing_functions.buy_info_draw(buy_item, buy_items, yes_button)
+                        if not buy_clicked:
+                            # if player clicks yes button to sell item, get current item and sell ----------------------
+                            sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame)
+                            sell_return = shop_scenario.sell_items(player, sell_choice, current_sell_item)
+                            if sell_return["info 1"] != "":
+                                info_text_1 = sell_return["info 1"]
+                            if sell_return["info 2"] != "":
+                                info_text_1 = sell_return["info 2"]
+                            item_sold = sell_return["sold"]
+                            # draws sell info box for info and confirmation
+                            sell_item = click_handlers.sell_event_item(event, pygame)
+                            if drawing_functions.sell_info_draw(sell_item, sell_items, yes_button) is not None:
+                                current_sell_item = drawing_functions.sell_info_draw(sell_item, sell_items, yes_button)
 
-                    if not buy_clicked:
-                        # if player clicks yes button to sell item, get current item and sell --------------------------
-                        sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame)
-                        sell_return = shop_scenario.sell_items(player, sell_choice, current_sell_item)
-                        if sell_return["info 1"] != "":
-                            info_text_1 = sell_return["info 1"]
-                        if sell_return["info 2"] != "":
-                            info_text_1 = sell_return["info 2"]
-                        item_sold = sell_return["sold"]
-                        # draws sell info box for info and confirmation
-                        sell_item = click_handlers.sell_event_item(event, pygame)
-                        if drawing_functions.sell_info_draw(sell_item, sell_items, yes_button) is not None:
-                            current_sell_item = drawing_functions.sell_info_draw(sell_item, sell_items, yes_button)
+                    if player.current_zone == "stardust":
+                        if shop_button == "buy":
+                            shop_button = ''
+                            # if player hasn't bought an item yet, show message that item can be clicked to buy
+                            if not item_bought:
+                                info_text_1 = "Select an upgrade."
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+                            # if user clicks buy button again, set condition to false which will hide buy window
+                            if buy_clicked:
+                                buy_clicked = False
+                                # remove buy window from display and clear temporary list used to populate it
+                                if len(stardust_upgrade_elements) > 0:
+                                    stardust_upgrade_elements.clear()
+                            # user clicked buy button for the first time. show buy window
+                            else:
+                                buy_clicked = True
+                                stardust_upgrade_elements.append(upgrade_overlay)
+                                stardust_upgrade_elements.append(offense_select_button)
+                                stardust_upgrade_elements.append(defense_select_button)
 
-                # outside of shop event loop ---------------------------------------------------------------------------
-                # if player has just started shop scenario, clear message box
-                if not encounter_started:
-                    info_text_1 = "Click an inventory item to sell it."
-                    info_text_2 = "Or, click buy button to buy an item."
-                    info_text_3 = ""
-                    info_text_4 = ""
-                    encounter_started = True
-                    # reset items bought condition on new shop encounter so that message is shown to player that
-                    item_bought = False
-                    item_sold = False
+                    shop_keys = pygame.key.get_pressed()
+                    # outside of shop event loop -----------------------------------------------------------------------
+                    if player.current_zone != "stardust":
+                        # if player has just started shop scenario, clear message box
+                        if not encounter_started:
+                            info_text_1 = "Click an inventory item to sell it."
+                            info_text_2 = "Or, click buy button to buy an item."
+                            info_text_3 = ""
+                            info_text_4 = ""
+                            encounter_started = True
+                            # reset items bought condition on new shop encounter so that message is shown to player that
+                            item_bought = False
+                            item_sold = False
+                        if shop_button == "buy":
+                            shop_button = ''
+                            # if player hasn't bought an item yet, show message that item can be clicked to buy
+                            if not item_bought:
+                                info_text_1 = "Click an item to buy."
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+                            # if user clicks buy button again, set condition to false which will hide buy window
+                            if buy_clicked:
+                                buy_clicked = False
+                                # remove buy window from display and clear temporary list used to populate it
+                                if len(buy_shop_elements) > 0:
+                                    buy_shop_elements.pop(0)
+                                    shopkeeper_items.clear()
+                            # user clicked buy button for the first time. show buy window
+                            else:
+                                buy_clicked = True
+                                buy_shop_elements.insert(0, buy_inventory)
+                                shop_scenario.shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items)
 
-                shop_keys = pygame.key.get_pressed()
-                if shop_button == "buy":
-                    shop_button = ''
-                    # if player hasn't bought an item yet, show message that item can be clicked to buy
-                    if not item_bought:
-                        info_text_1 = "Click an item to buy."
-                        info_text_2 = ""
-                        info_text_3 = ""
-                        info_text_4 = ""
-                    # if user clicks buy button again, set condition to false which will hide buy window
-                    if buy_clicked:
-                        buy_clicked = False
-                        # remove buy window from display and clear temporary list used to populate it
+                    if shop_button == "leave" or shop_keys[K_l]:
+                        shop_button = ''
                         if len(buy_shop_elements) > 0:
                             buy_shop_elements.pop(0)
                             shopkeeper_items.clear()
-                    # user clicked buy button for the first time. show buy window
-                    else:
-                        buy_clicked = True
-                        buy_shop_elements.insert(0, buy_inventory)
-                        shop_scenario.shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items)
 
-                if shop_button == "leave" or shop_keys[K_l]:
-                    shop_button = ''
-                    if len(buy_shop_elements) > 0:
-                        buy_shop_elements.pop(0)
-                        shopkeeper_items.clear()
-
-                    buy_clicked = False
-                    movement_able = True
-                    interacted = False
-                    encounter_started = False
-                    in_shop = False
-                    in_over_world = True
+                        buy_clicked = False
+                        movement_able = True
+                        interacted = False
+                        encounter_started = False
+                        in_shop = False
+                        in_over_world = True
 
                 # draw objects to screen related to shop scenario ------------------------------------------------------
                 if player.current_zone == "seldon" and in_shop and not in_over_world and not in_battle and not in_inn \
@@ -2620,8 +2806,9 @@ while game_running:
                     resource_urls.screen.blit(message_box.surf, message_box.rect)
                     resource_urls.screen.blit(star_power_meter.surf, star_power_meter.rect)
                     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                    drawing_functions.text_info_draw(player, font, info_text_1, info_text_2, info_text_3,
-                                                     info_text_4, in_over_world)
+                    drawing_functions.text_info_draw(player, font,
+                                                     info_text_1, info_text_2, info_text_3, info_text_4,
+                                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
                     drawing_functions.draw_it()
                     resource_urls.screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                     resource_urls.screen.blit(hp_bar.surf, hp_bar.rect)
@@ -2638,6 +2825,28 @@ while game_running:
                                 resource_urls.screen.blit(element.surf, element.rect)
                     if len(sell_window) > 0:
                         for element in sell_window:
+                            resource_urls.screen.blit(element.surf, element.rect)
+
+                # draw objects to screen related to shop scenario ------------------------------------------------------
+                if player.current_zone == "stardust" and in_shop and not in_over_world and not in_battle \
+                        and not in_inn and not in_academia and not in_npc_interaction:
+                    resource_urls.screen.blit(stardust_post_bg, (0, 0))
+                    resource_urls.screen.blit(upgrade_button.surf, upgrade_button.rect)
+                    resource_urls.screen.blit(leave_button.surf, leave_button.rect)
+                    resource_urls.screen.blit(message_box.surf, message_box.rect)
+                    resource_urls.screen.blit(star_power_meter.surf, star_power_meter.rect)
+                    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                    drawing_functions.text_info_draw(player, font,
+                                                     info_text_1, info_text_2, info_text_3, info_text_4,
+                                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
+                    drawing_functions.draw_it()
+                    resource_urls.screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                    resource_urls.screen.blit(hp_bar.surf, hp_bar.rect)
+                    resource_urls.screen.blit(en_bar.surf, en_bar.rect)
+                    resource_urls.screen.blit(xp_bar.surf, xp_bar.rect)
+
+                    if buy_clicked:
+                        for element in stardust_upgrade_elements:
                             resource_urls.screen.blit(element.surf, element.rect)
 
             # ----------------------------------------------------------------------------------------------------------
@@ -2659,7 +2868,8 @@ while game_running:
                     # click handlers
                     info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
-                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item)
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 offense_upgraded, defense_upgraded)
                         if inventory_event["item message"] != "":
                             info_text_1 = inventory_event["item message"]
                             info_text_2 = ""
@@ -2673,7 +2883,8 @@ while game_running:
                                                                              info_items, item_info_button)
 
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = click_handlers.equipment_click_handler(player, event, pygame)
+                    equipment_event = click_handlers.equipment_click_handler(player, event, pygame,
+                                                                             offense_upgraded, defense_upgraded)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -2736,8 +2947,9 @@ while game_running:
                 resource_urls.screen.blit(star_power_meter.surf, star_power_meter.rect)
                 resource_urls.screen.blit(message_box.surf, message_box.rect)
                 # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                drawing_functions.text_info_draw(player, font, info_text_1, info_text_2, info_text_3,
-                                                 info_text_4, in_over_world)
+                drawing_functions.text_info_draw(player, font,
+                                                 info_text_1, info_text_2, info_text_3, info_text_4,
+                                                 in_over_world, offense_upgraded, defense_upgraded, level_up_font)
                 drawing_functions.draw_it()
                 resource_urls.screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                 resource_urls.screen.blit(hp_bar.surf, hp_bar.rect)
@@ -2773,7 +2985,8 @@ while game_running:
                     # click handlers
                     info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
-                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item)
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 offense_upgraded, defense_upgraded)
                         if inventory_event["item message"] != "":
                             info_text_1 = inventory_event["item message"]
                             info_text_2 = ""
@@ -2787,7 +3000,8 @@ while game_running:
                                                                              info_items, item_info_button)
 
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = click_handlers.equipment_click_handler(player, event, pygame)
+                    equipment_event = click_handlers.equipment_click_handler(player, event, pygame,
+                                                                             offense_upgraded, defense_upgraded)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -2906,8 +3120,9 @@ while game_running:
                     resource_urls.screen.blit(en_bar.surf, en_bar.rect)
                     resource_urls.screen.blit(xp_bar.surf, xp_bar.rect)
                     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                    drawing_functions.text_info_draw(player, font, info_text_1, info_text_2, info_text_3,
-                                                     info_text_4, in_over_world)
+                    drawing_functions.text_info_draw(player, font,
+                                                     info_text_1, info_text_2, info_text_3, info_text_4,
+                                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
                     drawing_functions.draw_it()
                     for book in books:
                         resource_urls.screen.blit(book.surf, book.rect)
@@ -3009,7 +3224,8 @@ while game_running:
                     # click handlers
                     info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                     if info_choice == "yes":
-                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item)
+                        inventory_event = click_handlers.inventory_click_handler(player, current_info_item,
+                                                                                 offense_upgraded, defense_upgraded)
                         if inventory_event["item message"] != "":
                             info_text_1 = inventory_event["item message"]
                             info_text_2 = ""
@@ -3023,7 +3239,8 @@ while game_running:
                                                                              info_items, item_info_button)
 
                     # function to handle equipment item clicks. apply item message to message box if not empty str.
-                    equipment_event = click_handlers.equipment_click_handler(player, event, pygame)
+                    equipment_event = click_handlers.equipment_click_handler(player, event, pygame,
+                                                                             offense_upgraded, defense_upgraded)
                     if equipment_event["equipment message"] != "":
                         info_text_1 = equipment_event["equipment message"]
                         info_text_2 = ""
@@ -3046,9 +3263,9 @@ while game_running:
                                 player.quest_complete["sneaky snakes"] = True
                                 player.current_quests["sneaky snakes"] = "You completed this quest!"
                                 info_text_1 = "You've completed Garan's quest!"
-                                info_text_2 = "You've gained: "
-                                info_text_3 = "1 health potion. "
-                                info_text_4 = "1 star, 50 xp and 10 amuna rep. "
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 player.star_power += 1
                                 player.experience += 50
                                 if player.experience >= 100:
@@ -3065,8 +3282,14 @@ while game_running:
                                                                  maurelle_quest_window, celeste_quest_window,
                                                                  torune_quest_window, accept_button, decline_button)
                                 quest_clicked = True
-                            else:
-                                info_text_1 = "You've completed this quest!"
+                            else:  # quest complete popup
+                                if not garan_complete_shown:
+                                    garan_quest_window.update(550, 350, resource_urls.garan_complete)
+                                    drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                          garan_quest_window, maurelle_quest_window,
+                                                                          celeste_quest_window, torune_quest_window)
+                                    garan_complete_shown = True
+                                    quest_clicked = True
                         else:
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
@@ -3077,11 +3300,13 @@ while game_running:
                     if current_npc_interacting.name == "celeste":
                         if player.quest_progress["where's nede?"] == 1 and not player.quest_complete["where's nede?"]:
                             if len(player.items) < 16:
+                                nede.update(nede.x_coordinate, nede.y_coordinate, resource_urls.nede_left)
                                 player.quest_complete["where's nede?"] = True
                                 player.current_quests["where's nede?"] = "You completed this quest!"
                                 info_text_1 = "You've completed Celeste's quest!"
-                                info_text_2 = "You've gained: "
-                                info_text_3 = "1 star, 50 xp and 10 amuna rep. "
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 player.star_power += 1
                                 player.experience += 50
                                 if player.experience >= 100:
@@ -3096,8 +3321,14 @@ while game_running:
                                                                  maurelle_quest_window, celeste_quest_window,
                                                                  torune_quest_window, accept_button, decline_button)
                                 quest_clicked = True
-                            else:
-                                info_text_1 = "You've completed this quest!"
+                            else:  # quest complete popup
+                                if not celeste_complete_shown:
+                                    celeste_quest_window.update(550, 350, resource_urls.celeste_complete)
+                                    drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                          garan_quest_window, maurelle_quest_window,
+                                                                          celeste_quest_window, torune_quest_window)
+                                    celeste_complete_shown = True
+                                    quest_clicked = True
                         else:
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
@@ -3112,9 +3343,9 @@ while game_running:
                                 player.quest_complete["village repairs"] = True
                                 player.current_quests["village repairs"] = "You completed this quest!"
                                 info_text_1 = "You've completed Maurelle's quest!"
-                                info_text_2 = "You've gained: "
-                                info_text_3 = "1 energy potion. "
-                                info_text_4 = "1 star, 50 xp and 10 amuna rep. "
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 player.star_power += 1
                                 player.experience += 50
                                 if player.experience >= 100:
@@ -3131,8 +3362,14 @@ while game_running:
                                                                  maurelle_quest_window, celeste_quest_window,
                                                                  torune_quest_window, accept_button, decline_button)
                                 quest_clicked = True
-                            else:
-                                info_text_1 = "You've completed this quest!"
+                            else:  # quest complete popup
+                                if not maurelle_complete_shown:
+                                    maurelle_quest_window.update(550, 350, resource_urls.maurelle_complete)
+                                    drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                          garan_quest_window, maurelle_quest_window,
+                                                                          celeste_quest_window, torune_quest_window)
+                                    maurelle_complete_shown = True
+                                    quest_clicked = True
                         else:
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
@@ -3145,10 +3382,10 @@ while game_running:
                             if len(player.items) < 16:
                                 player.quest_complete["ghouled again"] = True
                                 player.current_quests["ghouled again"] = "You completed this quest!"
-                                info_text_1 = "You've completed Guard's quest!"
-                                info_text_2 = "You've gained: "
-                                info_text_3 = "Rohir bridge gate access. "
-                                info_text_4 = "1 star, 50 xp and 10 amuna rep. "
+                                info_text_1 = "You've completed Torune's quest!"
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
                                 player.star_power += 1
                                 player.experience += 50
                                 if player.experience >= 100:
@@ -3163,8 +3400,14 @@ while game_running:
                                                                  maurelle_quest_window, celeste_quest_window,
                                                                  torune_quest_window, accept_button, decline_button)
                                 quest_clicked = True
-                            else:
-                                info_text_1 = "You've completed this quest!"
+                            else:  # quest complete popup
+                                if not torune_complete_shown:
+                                    torune_quest_window.update(550, 350, resource_urls.torune_complete)
+                                    drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                          garan_quest_window, maurelle_quest_window,
+                                                                          celeste_quest_window, torune_quest_window)
+                                    torune_complete_shown = True
+                                    quest_clicked = True
                         else:
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
@@ -3207,8 +3450,9 @@ while game_running:
                     resource_urls.screen.blit(message_box.surf, message_box.rect)
                     resource_urls.screen.blit(star_power_meter.surf, star_power_meter.rect)
                     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                    drawing_functions.text_info_draw(player, font, info_text_1, info_text_2, info_text_3,
-                                                     info_text_4, in_over_world)
+                    drawing_functions.text_info_draw(player, font,
+                                                     info_text_1, info_text_2, info_text_3, info_text_4,
+                                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
                     drawing_functions.draw_it()
                     text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black", "light yellow")
                     text_npc_name_rect = text_npc_name_surf.get_rect()

@@ -40,7 +40,8 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
 
 def load_game(player, Item):
     load_return = {"barrier learned": False, "strike learned": False, "sensed learned": False,
-                   "saved": False, "start": False, "continue": False, "not found": False, "garan gift": False}
+                   "saved": False, "start": False, "continue": False, "not found": False, "garan gift": False,
+                   "offense upgrade": 0, "defense upgrade": 0}
     try:
         with open("save_game", "rb") as f:
             player_load_info = pickle.load(f)
@@ -53,6 +54,7 @@ def load_game(player, Item):
             player.experience = player_load_info["xp"]
             player.race = player_load_info["race"]
             player.role = player_load_info["role"]
+            player.star_power = player_load_info["star power"]
 
             if player.race == "amuna":
                 if player.role == "mage":
@@ -152,6 +154,8 @@ def load_game(player, Item):
             load_return["garan gift"] = player_load_info["garan gift"]
             load_return["rest popup"] = player_load_info["rest popup"]
             load_return["knowledge popup"] = player_load_info["knowledge popup"]
+            load_return["offense upgrade"] = player_load_info["offense upgrade"]
+            load_return["defense upgrade"] = player_load_info["defense upgrade"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -166,7 +170,7 @@ def load_game(player, Item):
 
 # save game function. stores player info in a dictionary that's serialized and saved to save_game file
 def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned, saved, garan_gift,
-              rest_popup, knowledge_popup):
+              rest_popup, knowledge_popup, offense_upgraded, defense_upgraded):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -195,7 +199,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                             {"barrier": barrier_learned, "strike": hard_strike_learned, "sense": sharp_sense_learned},
                         "rupees": int(player.rupees), "reputation": dict(player.reputation),
                         "zone": str(player.current_zone), "saved": saved,
-                        "rest popup": rest_popup, "knowledge popup": knowledge_popup}
+                        "rest popup": rest_popup, "knowledge popup": knowledge_popup,
+                        "star power": int(player.star_power),
+                        "offense upgrade": int(offense_upgraded), "defense upgrade": int(defense_upgraded)}
     # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
     with open("save_game", "wb") as ff:
         pickle.dump(player_save_info, ff)
@@ -264,14 +270,16 @@ def attack_enemy(player, mob):
 
 # enemy attacks player, gets damage to player done, subtract players defense level
 def attack_player(player, mob):
-    base_damage = (random.randrange(12, 20))
+    base_damage = (random.randrange(10, 20))
     difference = mob.level - player.level
     # add additional damage if enemy is a higher level than player
     if difference >= 1:
-        base_damage = base_damage + 3
+        base_damage = base_damage + 2
     if difference >= 2:
-        base_damage = base_damage + 5
+        base_damage = base_damage + 4
     if difference >= 3:
+        base_damage = base_damage + 6
+    if difference >= 4:
         base_damage = base_damage + 8
     final_damage = base_damage - player.defense
 

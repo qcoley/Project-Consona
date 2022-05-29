@@ -241,7 +241,8 @@ def sell_info_draw(sell_item, sell_items, yes_button):
             return sell_item
 
 
-def text_info_draw(player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world):
+def text_info_draw(player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, offense_upgraded,
+                   defense_upgraded, big_font):
     # get current player rupee count and create surf and rectangle to blit to screen------------------------------------
     text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
     text_rupee_rect = text_rupee_surf.get_rect()
@@ -293,6 +294,17 @@ def text_info_draw(player, font, info_text_1, info_text_2, info_text_3, info_tex
     text_info_rect_4 = text_info_surf_4.get_rect()
     text_info_rect_4.midleft = (30, 690)
     resource_urls.screen.blit(text_info_surf_4, text_info_rect_4)
+
+    if offense_upgraded == 1:
+        offense_up_surf = big_font.render(str("+"), True, "red", "light gray")
+        offense_up_rect = offense_up_surf.get_rect()
+        offense_up_rect.center = (1152, 114)
+        resource_urls.screen.blit(offense_up_surf, offense_up_rect)
+    if defense_upgraded == 1:
+        defense_up_surf = big_font.render(str("+"), True, "red", "light gray")
+        defense_up_rect = defense_up_surf.get_rect()
+        defense_up_rect.center = (1248, 114)
+        resource_urls.screen.blit(defense_up_surf, defense_up_rect)
 
 
 def character_sheet_info_draw(character_sheet, player, font, draw_condition):
@@ -465,6 +477,22 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
 
         quest_box.append(accept_button)
         quest_box.append(decline_button)
+
+
+def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
+                        torune_quest_window):
+
+    if not draw_condition:
+        quest_box.clear()
+    else:
+        if quest_npc.name == "garan":
+            quest_box.append(garan_quest_window)
+        if quest_npc.name == "maurelle":
+            quest_box.append(maurelle_quest_window)
+        if quest_npc.name == "celeste":
+            quest_box.append(celeste_quest_window)
+        if quest_npc.name == "torune":
+            quest_box.append(torune_quest_window)
 
 
 def equipment_updates(player):
