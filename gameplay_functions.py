@@ -156,6 +156,10 @@ def load_game(player, Item):
             load_return["knowledge popup"] = player_load_info["knowledge popup"]
             load_return["offense upgrade"] = player_load_info["offense upgrade"]
             load_return["defense upgrade"] = player_load_info["defense upgrade"]
+            load_return["quest guide"] = player_load_info["quest guide"]
+            load_return["battle guide"] = player_load_info["battle guide"]
+            load_return["role guide"] = player_load_info["role guide"]
+            load_return["upgrade guide"] = player_load_info["upgrade guide"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -170,7 +174,8 @@ def load_game(player, Item):
 
 # save game function. stores player info in a dictionary that's serialized and saved to save_game file
 def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned, saved, garan_gift,
-              rest_popup, knowledge_popup, offense_upgraded, defense_upgraded):
+              rest_popup, knowledge_popup, offense_upgraded, defense_upgraded,
+              quest_guide_shown, battle_guide_shown, role_guide_shown, upgrade_guide_shown):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -201,7 +206,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "zone": str(player.current_zone), "saved": saved,
                         "rest popup": rest_popup, "knowledge popup": knowledge_popup,
                         "star power": int(player.star_power),
-                        "offense upgrade": int(offense_upgraded), "defense upgrade": int(defense_upgraded)}
+                        "offense upgrade": int(offense_upgraded), "defense upgrade": int(defense_upgraded),
+                        "quest guide": quest_guide_shown, "battle guide": battle_guide_shown,
+                        "role guide": role_guide_shown, "upgrade guide": upgrade_guide_shown}
     # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
     with open("save_game", "wb") as ff:
         pickle.dump(player_save_info, ff)

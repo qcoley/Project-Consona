@@ -1133,7 +1133,7 @@ sorae_character = UiElement("sorae character", 640, 360, resource_urls.sorae_cha
 
 # default player
 player = PlayerAmuna("stan", "amuna", "",  # name, race, role
-                     [],  # inventory
+                     [health_potion],  # inventory
                      {"weapon": "", "chest": ""},  # equipment ('type', 'name')
                      {"sneaky snakes": "Speak to Garan to start this quest.",
                       "village repairs": "Speak to Maurelle to start this quest.",
@@ -1299,6 +1299,9 @@ info_items = UiElement("info items", 1155, 270, resource_urls.info_health_pot_im
 buy_items = UiElement("buy items", 900, 230, resource_urls.b_health_pot_img)
 star_power_meter = UiElement("star power", 1210, 360, resource_urls.star_00)
 role_select_overlay = UiElement("role select overlay", 550, 369, resource_urls.role_selection_overlay)
+game_guide_overlay = UiElement("game guide overlay", 695, 455, resource_urls.guide_basics_quest_img)
+cat_pet_button_overlay = UiElement("cat pet button", 505, 235, resource_urls.cat_pet_button_overlay)
+cat_pet_animation_overlay = UiElement("cat pet animation", 507, 242, resource_urls.shop_cat_pet_img)
 
 upgrade_overlay = UiElement("upgrade overlay", 764, 380, resource_urls.upgrade_overlay)
 dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, resource_urls.dealt_damage_img)
@@ -1401,6 +1404,12 @@ snake_sprite_reset = False
 ghoul_sprite_reset = False
 log_sprite_reset = False
 nede_sprite_reset = False
+quest_guide_shown = False
+battle_guide_shown = False
+role_guide_shown = False
+upgrade_guide_shown = False
+shop_cat_pet = False
+academia_cat_pet = False
 
 buy_shop_elements = []
 stardust_upgrade_elements = []
@@ -1416,6 +1425,7 @@ sell_window = []
 buy_window = []
 loot_popup_container = []
 loot_text_container = []
+game_guide_container = []
 
 offense_upgraded = 0
 defense_upgraded = 0
@@ -1620,6 +1630,10 @@ while game_running:
         knowledge_academia_show = load_returned["knowledge popup"]
         offense_upgraded = load_returned["offense upgrade"]
         defense_upgraded = load_returned["defense upgrade"]
+        quest_guide_shown = load_returned["quest guide"]
+        battle_guide_shown = load_returned["battle guide"]
+        role_guide_shown = load_returned["role guide"]
+        upgrade_guide_shown = load_returned["upgrade guide"]
 
         if player.race == "amuna":
             player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
@@ -1755,8 +1769,8 @@ while game_running:
                         if hearth_button.rect.collidepoint(pos):
                             hearthstone_animation()
                             player.current_zone = "seldon"
-                            player.x_coordinate = 850
-                            player.y_coordinate = 650
+                            player.x_coordinate = seldon_hearth.x_coordinate
+                            player.y_coordinate = seldon_hearth.y_coordinate + 50
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                             info_text_1 = "You recalled to the hearth stone."
                         # save button was clicked. Save player info in dictionary to be loaded later
@@ -1777,14 +1791,16 @@ while game_running:
                                 gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                              sharp_sense_learned, saved, npc_garan.gift,
                                                              rest_recover_show, knowledge_academia_show,
-                                                             offense_upgraded, defense_upgraded)
+                                                             offense_upgraded, defense_upgraded, quest_guide_shown,
+                                                             battle_guide_shown, role_guide_shown, upgrade_guide_shown)
                                 saved = True
                                 info_text_1 = "You saved your game. "
                         if yes_button.rect.collidepoint(pos):
                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                          rest_recover_show, knowledge_academia_show,
-                                                         offense_upgraded, defense_upgraded)
+                                                         offense_upgraded, defense_upgraded, quest_guide_shown,
+                                                         battle_guide_shown, role_guide_shown, upgrade_guide_shown)
                             save_check_window.clear()
                             info_text_1 = "You saved your game. "
                         if no_button.rect.collidepoint(pos):
@@ -1815,6 +1831,8 @@ while game_running:
                         if loot_popup.rect.collidepoint(pos):
                             loot_popup_container.clear()
                             loot_text_container.clear()
+                        if game_guide_overlay.rect.collidepoint(pos):
+                            game_guide_container.clear()
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
@@ -2012,6 +2030,7 @@ while game_running:
             if player.current_zone == "seldon" and in_over_world and not in_shop and not in_inn and not in_academia \
                     and not in_battle and not in_npc_interaction:
                 resource_urls.screen.blit(seldon_district_bg, (0, 0))
+
                 enemy_respawn()
                 for entity in most_sprites:
                     resource_urls.screen.blit(entity.surf, entity.rect)
@@ -2291,6 +2310,20 @@ while game_running:
                                                           barrier_active, sharp_sense_active, in_battle,
                                                           in_npc_interaction)
 
+                # game guide popups
+                if not quest_guide_shown:
+                    game_guide_container.append(game_guide_overlay)
+                    quest_guide_shown = True
+                if not role_guide_shown:
+                    if player.role == "mage" or player.role == "fighter" or player.role == "scout":
+                        game_guide_overlay.update(game_guide_overlay.x_coordinate, game_guide_overlay.y_coordinate,
+                                                  resource_urls.guide_basics_role_img)
+                        game_guide_container.append(game_guide_overlay)
+                        role_guide_shown = True
+                if len(game_guide_container) > 0:
+                    for guide_overlay in game_guide_container:
+                        resource_urls.screen.blit(guide_overlay.surf, guide_overlay.rect)
+
                 # enemy movement updates
                 direction_horizontal = random.choice(["left", "right"])
                 direction_vertical = random.choice(["up", "down"])
@@ -2358,6 +2391,10 @@ while game_running:
                             exit()
                     elif event.type == QUIT:
                         exit()
+                    elif event.type == pygame.MOUSEBUTTONUP:
+                        pos = pygame.mouse.get_pos()
+                        if game_guide_overlay.rect.collidepoint(pos):
+                            game_guide_container.clear()
                     # get which button player pressed during combat scenario
                     combat_button = click_handlers.combat_event_button(event, no_role_attack_button,
                                                                        mage_attack_button, fighter_attack_button,
@@ -2610,7 +2647,18 @@ while game_running:
                         text_enemy_level_rect.center = (915, 689)
                         resource_urls.screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
-                        # popup damage overlays ------------------------------------------------------------------------
+                        # game guide popups
+                        if not battle_guide_shown:
+                            game_guide_overlay.update(game_guide_overlay.x_coordinate, game_guide_overlay.y_coordinate,
+                                                      resource_urls.guide_basics_battle_img)
+                            game_guide_container.append(game_guide_overlay)
+                            battle_guide_shown = True
+
+                        if len(game_guide_container) > 0:
+                            for guide_overlay in game_guide_container:
+                                resource_urls.screen.blit(guide_overlay.surf, guide_overlay.rect)
+
+                        # damage popups
                         if combat_happened and combat_events["damage done"] != 0:
                             resource_urls.screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
                             damage_done_surf = level_up_font.render(str(combat_events["damage done"]),
@@ -2697,6 +2745,13 @@ while game_running:
                             exit()
                     elif event.type == QUIT:
                         exit()
+
+                    elif event.type == pygame.MOUSEBUTTONUP:
+                        pos = pygame.mouse.get_pos()
+                        if game_guide_overlay.rect.collidepoint(pos):
+                            game_guide_container.clear()
+                        if cat_pet_button_overlay.rect.collidepoint(pos):
+                            shop_cat_pet = True
 
                     shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame)
                     if player.current_zone == "seldon":
@@ -2796,6 +2851,7 @@ while game_running:
                         encounter_started = False
                         in_shop = False
                         in_over_world = True
+                        shop_cat_pet = False
 
                 # draw objects to screen related to shop scenario ------------------------------------------------------
                 if player.current_zone == "seldon" and in_shop and not in_over_world and not in_battle and not in_inn \
@@ -2814,6 +2870,11 @@ while game_running:
                     resource_urls.screen.blit(hp_bar.surf, hp_bar.rect)
                     resource_urls.screen.blit(en_bar.surf, en_bar.rect)
                     resource_urls.screen.blit(xp_bar.surf, xp_bar.rect)
+                    cat_pet_button_overlay.update(505, 235, resource_urls.cat_pet_button_overlay)
+                    resource_urls.screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                    if shop_cat_pet:
+                        cat_pet_animation_overlay.update(507, 242, resource_urls.shop_cat_pet_img)
+                        resource_urls.screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
                     if buy_clicked:
                         for window in buy_shop_elements:
@@ -2848,6 +2909,18 @@ while game_running:
                     if buy_clicked:
                         for element in stardust_upgrade_elements:
                             resource_urls.screen.blit(element.surf, element.rect)
+
+                    # game guide popups
+                    if not upgrade_guide_shown:
+                        game_guide_overlay.update(game_guide_overlay.x_coordinate,
+                                                  game_guide_overlay.y_coordinate,
+                                                  resource_urls.guide_basics_upgrades_img)
+                        game_guide_container.append(game_guide_overlay)
+                        upgrade_guide_shown = True
+
+                    if len(game_guide_container) > 0:
+                        for guide_overlay in game_guide_container:
+                            resource_urls.screen.blit(guide_overlay.surf, guide_overlay.rect)
 
             # ----------------------------------------------------------------------------------------------------------
             # ----------------------------------------------------------------------------------------------------------
@@ -2978,6 +3051,10 @@ while game_running:
                             exit()
                     elif event.type == QUIT:
                         exit()
+                    elif event.type == pygame.MOUSEBUTTONUP:
+                        pos = pygame.mouse.get_pos()
+                        if cat_pet_button_overlay.rect.collidepoint(pos):
+                            academia_cat_pet = True
                     # get which button player pressed during academia scenario (learn or leave)
                     academia_button = click_handlers.academia_event_button(event, mage_learn_button,
                                                                            fighter_learn_button, scout_learn_button,
@@ -3102,6 +3179,7 @@ while game_running:
                     fighter_learn_clicked = False
                     scout_learn_clicked = False
                     learned = False
+                    academia_cat_pet = False
                     books.clear()
                     skill_learn_items.clear()
 
@@ -3119,6 +3197,11 @@ while game_running:
                     resource_urls.screen.blit(hp_bar.surf, hp_bar.rect)
                     resource_urls.screen.blit(en_bar.surf, en_bar.rect)
                     resource_urls.screen.blit(xp_bar.surf, xp_bar.rect)
+                    cat_pet_button_overlay.update(125, 500, resource_urls.cat_pet_button_overlay)
+                    resource_urls.screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                    if academia_cat_pet:
+                        cat_pet_animation_overlay.update(130, 500, resource_urls.academia_cat_pet_img)
+                        resource_urls.screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
                     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                     drawing_functions.text_info_draw(player, font,
                                                      info_text_1, info_text_2, info_text_3, info_text_4,

@@ -78,12 +78,13 @@ popup_interaction = pygame.image.load(resource_path('resources/art/popup_interac
 popup_loot = pygame.image.load(resource_path('resources/art/popup_loot.png')).convert_alpha()
 stardust_entrance = pygame.image.load(resource_path('resources/art/overlay_stardust_entrance.png')).convert_alpha()
 upgrade_overlay = pygame.image.load(resource_path('resources/art/overlay_upgrade_select.png')).convert_alpha()
+cat_pet_button_overlay = pygame.image.load(resource_path('resources/art/overlay_cat_pet.png')).convert_alpha()
 
 color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree, hearth_stone,
               rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up,
               close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
               role_selection_overlay, location_overlay, popup_interaction, popup_loot, stardust_entrance,
-              upgrade_overlay]
+              upgrade_overlay, cat_pet_button_overlay]
 
 for image in color_keys:
     image.set_colorkey((255, 255, 255))
@@ -701,6 +702,18 @@ quest_logs_url = resource_path('resources/art/sprite_logs.png')
 quest_logs_sheet = sprite_sheet((40, 45), quest_logs_url)
 pine_logs_img = quest_logs_sheet[0]
 pine_logs_high_img = quest_logs_sheet[1]
+# game guide overlays --------------------------------------------------------------------------------------------------
+game_guide_url = resource_path('resources/art/overlay_game_guide.png')
+game_guide_sheet = sprite_sheet((650, 500), game_guide_url)
+guide_basics_quest_img = game_guide_sheet[0]
+guide_basics_battle_img = game_guide_sheet[1]
+guide_basics_role_img = game_guide_sheet[2]
+guide_basics_upgrades_img = game_guide_sheet[3]
+# cat petting animation sprites ----------------------------------------------------------------------------------------
+cat_pet_url = resource_path('resources/art/sprites_cat_pet.png')
+cat_pet_sheet = sprite_sheet((90, 100), cat_pet_url)
+shop_cat_pet_img = cat_pet_sheet[0]
+academia_cat_pet_img = cat_pet_sheet[1]
 # heath bars -----------------------------------------------------------------------------------------------------------
 hp_url = resource_path('resources/art/bars_health.png')
 hp_sheet = sprite_sheet((305, 19), hp_url)
