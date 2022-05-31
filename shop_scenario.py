@@ -1,9 +1,9 @@
-import resource_urls
 import drawing_functions
 
 
 # go through shop items and assign inventory slots (coordinates) to them
-def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items):
+def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, health_pot_img, energy_pot_img, basic_staff_img,
+                               basic_sword_img, basic_bow_img, basic_robes_img, basic_armor_img, basic_tunic_img):
 
     # if shopkeeper has items in their inventory
     if len(npc_amuna_shopkeeper.items) > 0:
@@ -13,35 +13,35 @@ def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items):
         buy_inventory_counter = 0
         for shop_item in npc_amuna_shopkeeper.items:
             if shop_item.name == "health potion":
-                shop_item.update(buy_first_coord, buy_second_coord, resource_urls.health_pot_img)
+                shop_item.update(buy_first_coord, buy_second_coord, health_pot_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             if shop_item.name == "energy potion":
-                shop_item.update(buy_first_coord, buy_second_coord, resource_urls.energy_pot_img)
+                shop_item.update(buy_first_coord, buy_second_coord, energy_pot_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             if shop_item.name == "basic staff":
-                shop_item.update(buy_first_coord, buy_second_coord, resource_urls.basic_staff_img)
+                shop_item.update(buy_first_coord, buy_second_coord, basic_staff_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             if shop_item.name == "basic sword":
-                shop_item.update(buy_first_coord, buy_second_coord, resource_urls.basic_sword_img)
+                shop_item.update(buy_first_coord, buy_second_coord, basic_sword_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             if shop_item.name == "basic bow":
-                shop_item.update(buy_first_coord, buy_second_coord, resource_urls.basic_bow_img)
+                shop_item.update(buy_first_coord, buy_second_coord, basic_bow_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             if shop_item.name == "basic robes":
-                shop_item.update(buy_first_coord, buy_second_coord, resource_urls.basic_robes_img)
+                shop_item.update(buy_first_coord, buy_second_coord, basic_robes_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             if shop_item.name == "basic armor":
-                shop_item.update(buy_first_coord, buy_second_coord, resource_urls.basic_armor_img)
+                shop_item.update(buy_first_coord, buy_second_coord, basic_armor_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             if shop_item.name == "basic tunic":
-                shop_item.update(buy_first_coord, buy_second_coord, resource_urls.basic_tunic_img)
+                shop_item.update(buy_first_coord, buy_second_coord, basic_tunic_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
 
@@ -141,7 +141,8 @@ def sell_items(player, sell_choice, current_sell_item):
     return sell_return
 
 
-def buy_items(player, buy_choice, current_buy_item, Item):
+def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy_pot_img, basic_staff_img,
+              basic_sword_img, basic_bow_img, basic_robes_img, basic_armor_img, basic_tunic_img):
     buy_return = {"info 1": "", "info 2": "", "bought": False}
 
     if buy_choice == "yes":
@@ -150,7 +151,7 @@ def buy_items(player, buy_choice, current_buy_item, Item):
                 if player.rupees > 9:
                     buy_return["info 1"] = "You Bought Health Potion for 10 rupees."
                     buy_return["info 2"] = "Health Potion added to inventory."
-                    player.items.append(Item("health potion", "potion", 200, 200, resource_urls.health_pot_img))
+                    player.items.append(Item("health potion", "potion", 200, 200, health_pot_img))
                     player.rupees = player.rupees - 10
                     buy_return["bought"] = True
                 else:
@@ -165,7 +166,7 @@ def buy_items(player, buy_choice, current_buy_item, Item):
                 if player.rupees > 9:
                     buy_return["info 1"] = "Bought Energy Potion for 10 rupees."
                     buy_return["info 2"] = "Energy Potion added to inventory."
-                    player.items.append(Item("energy potion", "potion", 200, 200, resource_urls.energy_pot_img))
+                    player.items.append(Item("energy potion", "potion", 200, 200, energy_pot_img))
                     player.rupees = player.rupees - 10
                     buy_return["bought"] = True
                 else:
@@ -180,7 +181,7 @@ def buy_items(player, buy_choice, current_buy_item, Item):
                 if player.rupees > 19:
                     buy_return["info 1"] = "Bought Basic Staff for 20 rupees."
                     buy_return["info 2"] = "Basic Staff added to inventory."
-                    player.items.append(Item("basic staff", "mage", 200, 200, resource_urls.basic_staff_img))
+                    player.items.append(Item("basic staff", "mage", 200, 200, basic_staff_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
                 else:
@@ -195,7 +196,7 @@ def buy_items(player, buy_choice, current_buy_item, Item):
                 if player.rupees > 19:
                     buy_return["info 1"] = "Bought Basic Sword for 20 rupees."
                     buy_return["info 2"] = "Basic Sword added to inventory."
-                    player.items.append(Item("basic sword", "fighter", 200, 200, resource_urls.basic_sword_img))
+                    player.items.append(Item("basic sword", "fighter", 200, 200, basic_sword_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
                 else:
@@ -210,7 +211,7 @@ def buy_items(player, buy_choice, current_buy_item, Item):
                 if player.rupees > 19:
                     buy_return["info 1"] = "Bought Basic Bow for 20 rupees."
                     buy_return["info 2"] = "Basic Bow added to inventory."
-                    player.items.append(Item("basic bow", "scout", 200, 200, resource_urls.basic_bow_img))
+                    player.items.append(Item("basic bow", "scout", 200, 200, basic_bow_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
                 else:
@@ -225,7 +226,7 @@ def buy_items(player, buy_choice, current_buy_item, Item):
                 if player.rupees > 19:
                     buy_return["info 1"] = "Bought Basic Robes for 20 rupees."
                     buy_return["info 2"] = "Basic Robes added to inventory."
-                    player.items.append(Item("basic robes", "mage", 200, 200, resource_urls.basic_robes_img))
+                    player.items.append(Item("basic robes", "mage", 200, 200, basic_robes_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
                 else:
@@ -240,7 +241,7 @@ def buy_items(player, buy_choice, current_buy_item, Item):
                 if player.rupees > 19:
                     buy_return["info 1"] = "Bought Basic Armor for 20 rupees."
                     buy_return["info 2"] = "Basic Armor added to inventory."
-                    player.items.append(Item("basic armor", "fighter", 200, 200, resource_urls.basic_armor_img))
+                    player.items.append(Item("basic armor", "fighter", 200, 200, basic_armor_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
                 else:
@@ -255,7 +256,7 @@ def buy_items(player, buy_choice, current_buy_item, Item):
                 if player.rupees > 19:
                     buy_return["info 1"] = "Bought Basic Tunic for 20 rupees."
                     buy_return["info 2"] = "Basic Tunic added to inventory."
-                    player.items.append(Item("basic tunic", "scout", 200, 200, resource_urls.basic_tunic_img))
+                    player.items.append(Item("basic tunic", "scout", 200, 200, basic_tunic_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
                 else:
@@ -269,5 +270,3 @@ def buy_items(player, buy_choice, current_buy_item, Item):
         drawing_functions.buy_info_window.clear()
 
     return buy_return
-
-

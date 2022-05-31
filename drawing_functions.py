@@ -1,5 +1,3 @@
-import resource_urls
-
 # functions for drawing certain text and images on screen
 # lists for blitting elements/items to the screen that are contained within lists
 character_sheet_text = []
@@ -17,294 +15,294 @@ sell_info_window = []
 
 
 # draws elements on screen that have been appended to list by below functions
-def draw_it():
+def draw_it(screen):
     if len(character_sheet_window) > 0:
         for character_window in character_sheet_window:
-            resource_urls.screen.blit(character_window.surf, character_window.rect)
+            screen.blit(character_window.surf, character_window.rect)
     if len(character_sheet_text) > 0:
         for character_text in character_sheet_text:
-            resource_urls.screen.blit(character_text[0], character_text[1])
+            screen.blit(character_text[0], character_text[1])
     if len(journal_window) > 0:
         for journals_window in journal_window:
-            resource_urls.screen.blit(journals_window.surf, journals_window.rect)
+            screen.blit(journals_window.surf, journals_window.rect)
     if len(journal_text) > 0:
         for journals_text in journal_text:
-            resource_urls.screen.blit(journals_text[0], journals_text[1])
+            screen.blit(journals_text[0], journals_text[1])
     if len(level_up_window) > 0:
         for level_ups_window in level_up_window:
-            resource_urls.screen.blit(level_ups_window.surf, level_ups_window.rect)
+            screen.blit(level_ups_window.surf, level_ups_window.rect)
     if len(level_up_text) > 0:
         for level_text in level_up_text:
-            resource_urls.screen.blit(level_text[0], level_text[1])
+            screen.blit(level_text[0], level_text[1])
     if len(character_sheet_text) > 0:
         for characters_text in character_sheet_text:
-            resource_urls.screen.blit(characters_text[0], characters_text[1])
+            screen.blit(characters_text[0], characters_text[1])
     if len(quest_box) > 0:
         for quest_element in quest_box:
-            resource_urls.screen.blit(quest_element.surf, quest_element.rect)
+            screen.blit(quest_element.surf, quest_element.rect)
     if len(player_equipment) > 0:
         for equipment_here in player_equipment:
-            resource_urls.screen.blit(equipment_here.surf, equipment_here.rect)
+            screen.blit(equipment_here.surf, equipment_here.rect)
     if len(player_items) > 0:
         for item_here in player_items:
-            resource_urls.screen.blit(item_here.surf, item_here.rect)
+            screen.blit(item_here.surf, item_here.rect)
     if len(item_info_window) > 0:
         for item_info in item_info_window:
-            resource_urls.screen.blit(item_info.surf, item_info.rect)
+            screen.blit(item_info.surf, item_info.rect)
     if len(buy_info_window) > 0:
         for buy_info in buy_info_window:
-            resource_urls.screen.blit(buy_info.surf, buy_info.rect)
+            screen.blit(buy_info.surf, buy_info.rect)
     if len(sell_info_window) > 0:
         for sell_info in sell_info_window:
-            resource_urls.screen.blit(sell_info.surf, sell_info.rect)
+            screen.blit(sell_info.surf, sell_info.rect)
 
 
-def item_info_draw(inventory_item, info_items, item_info_button):
+def item_info_draw(inventory_item, info_items, item_info_button, graphic):
     if inventory_item:
         if inventory_item.name == "health potion":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_health_pot_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_health_pot_img"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
-                                    resource_urls.use_button_img)
+                                    graphic["use_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
         if inventory_item.name == "energy potion":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_energy_pot_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_energy_pot_img"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
-                                    resource_urls.use_button_img)
+                                    graphic["use_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
         if inventory_item.name == "basic robes":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_basic_robes_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_basic_robes_img"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
-                                    resource_urls.equip_button_img)
+                                    graphic["equip_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
         if inventory_item.name == "basic armor":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_basic_armor_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_basic_armor_img"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
-                                    resource_urls.equip_button_img)
+                                    graphic["equip_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
         if inventory_item.name == "basic tunic":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_basic_tunic_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_basic_tunic_img"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
-                                    resource_urls.equip_button_img)
+                                    graphic["equip_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
         if inventory_item.name == "basic staff":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_basic_staff_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_basic_staff_img"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
-                                    resource_urls.equip_button_img)
+                                    graphic["equip_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
         if inventory_item.name == "basic sword":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_basic_sword_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_basic_sword_img"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
-                                    resource_urls.equip_button_img)
+                                    graphic["equip_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
         if inventory_item.name == "basic bow":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_basic_bow_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_basic_bow_img"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
-                                    resource_urls.equip_button_img)
+                                    graphic["equip_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
         if inventory_item.name == "shiny rock":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_shiny_rock_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_shiny_rock_img"])
             item_info_window.append(info_items)
         if inventory_item.name == "bone dust":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, resource_urls.info_bone_dust_img)
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_bone_dust_img"])
             item_info_window.append(info_items)
 
 
-def buy_info_draw(buy_item, buy_items, yes_button):
+def buy_info_draw(buy_item, buy_items, yes_button, graphic):
     if buy_item:
         if buy_item.name == "health potion":
-            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, resource_urls.b_health_pot_img)
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_health_pot_img"])
             buy_info_window.append(buy_items)
-            yes_button.update(900, 308, resource_urls.yes_button_img)
+            yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
             return buy_item
         if buy_item.name == "energy potion":
-            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, resource_urls.b_energy_pot_img)
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_energy_pot_img"])
             buy_info_window.append(buy_items)
-            yes_button.update(900, 308, resource_urls.yes_button_img)
+            yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
             return buy_item
         if buy_item.name == "basic robes":
-            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, resource_urls.b_basic_robes_img)
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_basic_robes_img"])
             buy_info_window.append(buy_items)
-            yes_button.update(900, 308, resource_urls.yes_button_img)
+            yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
             return buy_item
         if buy_item.name == "basic armor":
-            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, resource_urls.b_basic_armor_img)
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_basic_armor_img"])
             buy_info_window.append(buy_items)
-            yes_button.update(900, 308, resource_urls.yes_button_img)
+            yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
             return buy_item
         if buy_item.name == "basic tunic":
-            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, resource_urls.b_basic_tunic_img)
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_basic_tunic_img"])
             buy_info_window.append(buy_items)
-            yes_button.update(900, 308, resource_urls.yes_button_img)
+            yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
             return buy_item
         if buy_item.name == "basic staff":
-            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, resource_urls.b_basic_staff_img)
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_basic_staff_img"])
             buy_info_window.append(buy_items)
-            yes_button.update(900, 308, resource_urls.yes_button_img)
+            yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
             return buy_item
         if buy_item.name == "basic sword":
-            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, resource_urls.b_basic_sword_img)
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_basic_sword_img"])
             buy_info_window.append(buy_items)
-            yes_button.update(900, 308, resource_urls.yes_button_img)
+            yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
             return buy_item
         if buy_item.name == "basic bow":
-            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, resource_urls.b_basic_bow_img)
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_basic_bow_img"])
             buy_info_window.append(buy_items)
-            yes_button.update(900, 308, resource_urls.yes_button_img)
+            yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
             return buy_item
 
 
-def sell_info_draw(sell_item, sell_items, yes_button):
+def sell_info_draw(sell_item, sell_items, yes_button, graphic):
     if sell_item:
         if sell_item.name == "health potion":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_health_pot_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_health_pot_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
         if sell_item.name == "energy potion":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_energy_pot_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_energy_pot_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
         if sell_item.name == "basic robes":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_basic_robes_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_basic_robes_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
         if sell_item.name == "basic armor":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_basic_armor_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_basic_armor_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
         if sell_item.name == "basic tunic":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_basic_tunic_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_basic_tunic_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
         if sell_item.name == "basic staff":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_basic_staff_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_basic_staff_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
         if sell_item.name == "basic sword":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_basic_sword_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_basic_sword_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
         if sell_item.name == "basic bow":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_basic_bow_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_basic_bow_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
         if sell_item.name == "shiny rock":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_shiny_rock_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_shiny_rock_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
         if sell_item.name == "bone dust":
-            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, resource_urls.s_bone_dust_img)
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_bone_dust_img"])
             sell_info_window.append(sell_items)
-            yes_button.update(1153, 345, resource_urls.yes_button_img)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
 
 
-def text_info_draw(player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, offense_upgraded,
-                   defense_upgraded, big_font):
+def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
+                   offense_upgraded, defense_upgraded, big_font):
     # get current player rupee count and create surf and rectangle to blit to screen------------------------------------
     text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
     text_rupee_rect = text_rupee_surf.get_rect()
     text_rupee_rect.center = (1120, 693)
-    resource_urls.screen.blit(text_rupee_surf, text_rupee_rect)
+    screen.blit(text_rupee_surf, text_rupee_rect)
     # get current player level and create surf and rectangle to blit to screen------------------------------------------
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
     text_level_rect = text_level_surf.get_rect()
     text_level_rect.center = (1102, 360)
-    resource_urls.screen.blit(text_level_surf, text_level_rect)
+    screen.blit(text_level_surf, text_level_rect)
     # get current player role and create surf and rectangle to blit to screen-------------------------------------------
     text_role_surf = font.render(str(player.role), True, "black", "light gray")
     text_role_rect = text_role_surf.get_rect()
     text_role_rect.center = (1130, 81)
-    resource_urls.screen.blit(text_role_surf, text_role_rect)
+    screen.blit(text_role_surf, text_role_rect)
     # current player location for UI overlay ---------------------------------------------------------------------------
     if in_over_world:
         text_location = font.render(str(player.current_zone), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
-        resource_urls.screen.blit(text_location, text_location_rect)
+        screen.blit(text_location, text_location_rect)
     # get current player offense and create surf and rectangle to blit to screen----------------------------------------
     text_offense_surf = font.render(str(player.offense), True, "black", "light gray")
     text_offense_rect = text_offense_surf.get_rect()
     text_offense_rect.center = (1135, 117)
-    resource_urls.screen.blit(text_offense_surf, text_offense_rect)
+    screen.blit(text_offense_surf, text_offense_rect)
     # get current player defence and create surf and rectangle to blit to screen----------------------------------------
     text_defence_surf = font.render(str(player.defense), True, "black", "light gray")
     text_defence_rect = text_defence_surf.get_rect()
     text_defence_rect.center = (1233, 117)
-    resource_urls.screen.blit(text_defence_surf, text_defence_rect)
+    screen.blit(text_defence_surf, text_defence_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
     text_info_rect_1 = text_info_surf_1.get_rect()
     text_info_rect_1.midleft = (30, 630)
-    resource_urls.screen.blit(text_info_surf_1, text_info_rect_1)
+    screen.blit(text_info_surf_1, text_info_rect_1)
     # current info text for message box in lower left corner of screen, second line-------------------------------------
     text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
     text_info_rect_2 = text_info_surf_2.get_rect()
     text_info_rect_2.midleft = (30, 650)
-    resource_urls.screen.blit(text_info_surf_2, text_info_rect_2)
+    screen.blit(text_info_surf_2, text_info_rect_2)
     # current info text for message box in lower left corner of screen, third line--------------------------------------
     text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")
     text_info_rect_3 = text_info_surf_3.get_rect()
     text_info_rect_3.midleft = (30, 670)
-    resource_urls.screen.blit(text_info_surf_3, text_info_rect_3)
+    screen.blit(text_info_surf_3, text_info_rect_3)
     # current info text for message box in lower left corner of screen, fourth line-------------------------------------
     text_info_surf_4 = font.render(info_text_4, True, "black", "light yellow")
     text_info_rect_4 = text_info_surf_4.get_rect()
     text_info_rect_4.midleft = (30, 690)
-    resource_urls.screen.blit(text_info_surf_4, text_info_rect_4)
+    screen.blit(text_info_surf_4, text_info_rect_4)
 
     if offense_upgraded == 1:
         offense_up_surf = big_font.render(str("+"), True, "red", "light gray")
         offense_up_rect = offense_up_surf.get_rect()
         offense_up_rect.center = (1152, 114)
-        resource_urls.screen.blit(offense_up_surf, offense_up_rect)
+        screen.blit(offense_up_surf, offense_up_rect)
     if defense_upgraded == 1:
         defense_up_surf = big_font.render(str("+"), True, "red", "light gray")
         defense_up_rect = defense_up_surf.get_rect()
         defense_up_rect.center = (1248, 114)
-        resource_urls.screen.blit(defense_up_surf, defense_up_rect)
+        screen.blit(defense_up_surf, defense_up_rect)
 
 
 def character_sheet_info_draw(character_sheet, player, font, draw_condition):
@@ -495,32 +493,32 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
             quest_box.append(torune_quest_window)
 
 
-def equipment_updates(player):
+def equipment_updates(player, graphic):
     player_equipment.clear()
     try:
         if player.equipment["weapon"].name == "basic staff":
-            player.equipment["weapon"].update(1078, 285, resource_urls.basic_staff_img)
+            player.equipment["weapon"].update(1078, 285, graphic["basic_staff_img"])
             player_equipment.append(player.equipment["weapon"])
         if player.equipment["weapon"].name == "basic sword":
-            player.equipment["weapon"].update(1078, 285, resource_urls.basic_sword_img)
+            player.equipment["weapon"].update(1078, 285, graphic["basic_sword_img"])
             player_equipment.append(player.equipment["weapon"])
         if player.equipment["weapon"].name == "basic bow":
-            player.equipment["weapon"].update(1078, 285, resource_urls.basic_bow_img)
+            player.equipment["weapon"].update(1078, 285, graphic["basic_bow_img"])
             player_equipment.append(player.equipment["weapon"])
         if player.equipment["chest"].name == "basic robes":
-            player.equipment["chest"].update(1153, 197, resource_urls.basic_robes_img)
+            player.equipment["chest"].update(1153, 197, graphic["basic_robes_img"])
             player_equipment.append(player.equipment["chest"])
         if player.equipment["chest"].name == "basic armor":
-            player.equipment["chest"].update(1153, 197, resource_urls.basic_armor_img)
+            player.equipment["chest"].update(1153, 197, graphic["basic_armor_img"])
             player_equipment.append(player.equipment["chest"])
         if player.equipment["chest"].name == "basic tunic":
-            player.equipment["chest"].update(1153, 197, resource_urls.basic_tunic_img)
+            player.equipment["chest"].update(1153, 197, graphic["basic_tunic_img"])
             player_equipment.append(player.equipment["chest"])
     except AttributeError:
         pass
 
 
-def item_updates(player):
+def item_updates(player, graphic):
     player_items.clear()
 
     if len(player.items) > 0:
@@ -531,47 +529,47 @@ def item_updates(player):
 
             for item_here in player.items:
                 if item_here.name == "health potion":
-                    item_here.update(first_coord, second_coord, resource_urls.health_pot_img)
+                    item_here.update(first_coord, second_coord, graphic["health_pot_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "energy potion":
-                    item_here.update(first_coord, second_coord, resource_urls.energy_pot_img)
+                    item_here.update(first_coord, second_coord, graphic["energy_pot_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "shiny rock":
-                    item_here.update(first_coord, second_coord, resource_urls.shiny_rock_img)
+                    item_here.update(first_coord, second_coord, graphic["shiny_rock_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "bone dust":
-                    item_here.update(first_coord, second_coord, resource_urls.bone_dust_img)
+                    item_here.update(first_coord, second_coord, graphic["bone_dust_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic staff":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_staff_img)
+                    item_here.update(first_coord, second_coord, graphic["basic_staff_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic sword":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_sword_img)
+                    item_here.update(first_coord, second_coord, graphic["basic_sword_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic bow":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_bow_img)
+                    item_here.update(first_coord, second_coord, graphic["basic_bow_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic robes":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_robes_img)
+                    item_here.update(first_coord, second_coord, graphic["basic_robes_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic armor":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_armor_img)
+                    item_here.update(first_coord, second_coord, graphic["basic_armor_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "basic tunic":
-                    item_here.update(first_coord, second_coord, resource_urls.basic_tunic_img)
+                    item_here.update(first_coord, second_coord, graphic["basic_tunic_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "temporary item":
-                    item_here.update(first_coord, second_coord, resource_urls.temp_img)
+                    item_here.update(first_coord, second_coord, graphic["temp_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
 

@@ -1,4 +1,3 @@
-import resource_urls
 import drawing_functions
 
 
@@ -38,7 +37,8 @@ def equipment_event_item(equipment_event_here, pygame):
 
 
 # handles mouse clicks for equipment sub-screen
-def equipment_click_handler(player, event, pygame, offense_upgraded, defense_upgraded):
+def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_no_role_amuna_down_1,
+              player_no_role_nuldar_down_1, player_no_role_sorae_down_1):
     return_dict = {"equipment message": "", "gear checked": True, "weapon checked": True}
     equipment_item = equipment_event_item(event, pygame)
 
@@ -56,11 +56,11 @@ def equipment_click_handler(player, event, pygame, offense_upgraded, defense_upg
                 # set players role to none when weapon is unequipped. adjust stats accordingly
                 player.role = ""
                 if player.race == "amuna":
-                    player.surf = resource_urls.player_no_role_amuna_down_1
+                    player.surf = player_no_role_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = resource_urls.player_no_role_nuldar_down_1
+                    player.surf = player_no_role_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = resource_urls.player_no_role_sorae_down_1
+                    player.surf = player_no_role_sorae_down_1
                 player.offense = 0
                 player.defense = 0
                 if offense_upgraded == 1:
@@ -79,11 +79,11 @@ def equipment_click_handler(player, event, pygame, offense_upgraded, defense_upg
                 return_dict["equipment message"] = "Basic Sword weapon un-equipped."
                 player.role = ""
                 if player.race == "amuna":
-                    player.surf = resource_urls.player_no_role_amuna_down_1
+                    player.surf = player_no_role_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = resource_urls.player_no_role_nuldar_down_1
+                    player.surf = player_no_role_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = resource_urls.player_no_role_sorae_down_1
+                    player.surf = player_no_role_sorae_down_1
                 player.offense = 0
                 player.defense = 0
                 if offense_upgraded == 1:
@@ -102,11 +102,11 @@ def equipment_click_handler(player, event, pygame, offense_upgraded, defense_upg
                 return_dict["equipment message"] = "Basic Bow weapon un-equipped."
                 player.role = ""
                 if player.race == "amuna":
-                    player.surf = resource_urls.player_no_role_amuna_down_1
+                    player.surf = player_no_role_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = resource_urls.player_no_role_nuldar_down_1
+                    player.surf = player_no_role_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = resource_urls.player_no_role_sorae_down_1
+                    player.surf = player_no_role_sorae_down_1
                 player.offense = 0
                 player.defense = 0
                 if offense_upgraded == 1:
@@ -200,7 +200,11 @@ def inventory_event_item(inventory_event_here, pygame):
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory_click_handler(player, item, offense_upgraded, defense_upgraded):
+def inventory(player, item, offense_upgraded, defense_upgraded, player_mage_amuna_down_1,
+              player_mage_nuldar_down_1, player_mage_sorae_down_1, player_fighter_amuna_down_1,
+              player_fighter_nuldar_down_1, player_fighter_sorae_down_1, player_scout_amuna_down_1,
+              player_scout_nuldar_down_1, player_scout_sorae_down_1):
+
     return_dict = {"item message": ""}
 
     try:
@@ -238,11 +242,11 @@ def inventory_click_handler(player, item, offense_upgraded, defense_upgraded):
                 player.items.remove(item)
                 player.role = "mage"
                 if player.race == "amuna":
-                    player.surf = resource_urls.player_mage_amuna_down_1
+                    player.surf = player_mage_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = resource_urls.player_mage_nuldar_down_1
+                    player.surf = player_mage_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = resource_urls.player_mage_sorae_down_1
+                    player.surf = player_mage_sorae_down_1
                 player.offense = 25
                 if offense_upgraded == 1:
                     player.offense += 10
@@ -256,11 +260,11 @@ def inventory_click_handler(player, item, offense_upgraded, defense_upgraded):
                 player.items.remove(item)
                 player.role = "fighter"
                 if player.race == "amuna":
-                    player.surf = resource_urls.player_fighter_amuna_down_1
+                    player.surf = player_fighter_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = resource_urls.player_fighter_nuldar_down_1
+                    player.surf = player_fighter_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = resource_urls.player_fighter_sorae_down_1
+                    player.surf = player_fighter_sorae_down_1
                 player.offense = 15
                 if offense_upgraded == 1:
                     player.offense += 10
@@ -274,11 +278,11 @@ def inventory_click_handler(player, item, offense_upgraded, defense_upgraded):
                 player.items.remove(item)
                 player.role = "scout"
                 if player.race == "amuna":
-                    player.surf = resource_urls.player_scout_amuna_down_1
+                    player.surf = player_scout_amuna_down_1
                 if player.race == "nuldar":
-                    player.surf = resource_urls.player_scout_nuldar_down_1
+                    player.surf = player_scout_nuldar_down_1
                 if player.race == "sorae":
-                    player.surf = resource_urls.player_scout_sorae_down_1
+                    player.surf = player_scout_sorae_down_1
                 player.offense = 20
                 if offense_upgraded == 1:
                     player.offense += 10
