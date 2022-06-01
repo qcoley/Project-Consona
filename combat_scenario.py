@@ -240,8 +240,7 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
-        "item dropped": "", "experience gained": 0,
-        "quest update": "", "enemy defeated": False, "escaped": False,
+        "item dropped": "", "experience gained": 0, "quest update": "", "enemy defeated": False,
         "level up status": "", "level up attributes": ""
     }
     if combat_event == "attack":
@@ -338,8 +337,6 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                 # add to dictionary True if enemy has been defeated
                 combat_event_dictionary["enemy defeated"] = True
                 return combat_event_dictionary
-        else:
-            print("\nThis enemy appears to be dead already!")
 
     # active combat skill, if player is fighter and has learned hard strike from the academia
     # same as default attack from above, but attack replaced by hard strike skill
@@ -415,5 +412,3 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                         enemy_combating.kill()
                         combat_event_dictionary["enemy defeated"] = True
                         return combat_event_dictionary
-                else:
-                    print("\nThis enemy appears to be dead already!")

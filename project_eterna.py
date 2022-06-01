@@ -1431,12 +1431,6 @@ if __name__ == '__main__':
     current_sell_item = ''
     current_info_item = ''
 
-    # default values for buttons updated in event loops
-    npc_button = ''
-    academia_button = ''
-    combat_button = ''
-    inn_button = ''
-    shop_button = ''
     # default objects for event loops, updated when player interacts with new object
     current_enemy_battling = snake_1
     current_npc_interacting = npc_garan
@@ -2457,25 +2451,8 @@ if __name__ == '__main__':
                             info_text_1 = equipment_event["equipment message"]
                             info_text_2 = ""
 
-                    # outside of battle event loop ---------------------------------------------------------------------
-                    combat_scenario.enemy_health_bar(current_enemy_battling, graphic_dict)
-                    # don't let player attack again immediately by spam clicking button
-                    if not combat_cooldown:
-                        # if interact key 'f' has been pressed
-                        if interacted:
-                            # don't allow player to move while in combat
-                            movement_able = False
-                            # if player has just started combat, clear message box, change condition to True
-                            if not encounter_started:
-                                info_text_1 = ""
-                                info_text_2 = ""
-                                info_text_3 = ""
-                                info_text_4 = ""
-                                encounter_started = True
-
-                            combat_keys = pygame.key.get_pressed()
-                            if combat_button == "attack" or combat_keys[K_1]:
-                                combat_button = ''
+                        if combat_button == "attack":
+                            if not combat_cooldown:
                                 combat_scenario.combat_animation(player, current_enemy_battling,
                                                                  player_battle_sprite, snake_battle_sprite,
                                                                  ghoul_battle_sprite, barrier_active,
@@ -2546,9 +2523,9 @@ if __name__ == '__main__':
                                     in_over_world = True
                                     loot_updated = False
 
-                            # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
-                            elif combat_button == "skill 1" or combat_keys[K_2]:
-                                combat_button = ''
+                        # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
+                        elif combat_button == "skill 1":
+                            if not combat_cooldown:
                                 # make sure player has enough energy to use the skill
                                 if player.energy > 34:
                                     # player is a mage and uses the barrier spell. Set barrier active to true
@@ -2630,6 +2607,22 @@ if __name__ == '__main__':
                                                 loot_updated = False
                                 else:
                                     info_text_1 = "Not enough energy to use this skill."
+
+                    # outside of battle event loop ---------------------------------------------------------------------
+                    combat_scenario.enemy_health_bar(current_enemy_battling, graphic_dict)
+                    # don't let player attack again immediately by spam clicking button
+                    if not combat_cooldown:
+                        # if interact key 'f' has been pressed
+                        if interacted:
+                            # don't allow player to move while in combat
+                            movement_able = False
+                            # if player has just started combat, clear message box, change condition to True
+                            if not encounter_started:
+                                info_text_1 = ""
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+                                encounter_started = True
 
                     # battle scene and enemy are drawn to screen -------------------------------------------------------
                     try:
@@ -3048,41 +3041,40 @@ if __name__ == '__main__':
                             info_text_1 = equipment_event["equipment message"]
                             info_text_2 = ""
 
+                        if inn_button == "rest":
+                            # if player has not yet rested this instance
+                            if not rested:
+                                rest_clicked = True
+                                info_text_1 = "You feel well rested."
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+                            # if player has already rested this instance
+                            else:
+                                info_text_1 = "You've already rested."
+                                info_text_2 = ""
+                                info_text_3 = ""
+                                info_text_4 = ""
+
+                        if inn_button == "leave":
+                            inn_button = ''
+                            rest_clicked = False
+                            movement_able = True
+                            interacted = False
+                            encounter_started = False
+                            in_inn = False
+                            in_over_world = True
+                            rested = False
+                            faded_inn_screen = False
+
                     # outside of inn event loop ------------------------------------------------------------------------
                     # if player has just started inn scenario, clear message box
-                    inn_keys = pygame.key.get_pressed()
                     if not encounter_started:
                         info_text_1 = "Click rest button to sleep."
                         info_text_2 = "Sleep regains health and energy."
                         info_text_3 = ""
                         info_text_4 = ""
                         encounter_started = True
-                    if inn_button == "rest" or inn_keys[K_r]:
-                        inn_button = ''
-                        # if player has not yet rested this instance
-                        if not rested:
-                            rest_clicked = True
-                            info_text_1 = "You feel well rested."
-                            info_text_2 = ""
-                            info_text_3 = ""
-                            info_text_4 = ""
-                        # if player has already rested this instance
-                        else:
-                            info_text_1 = "You've already rested."
-                            info_text_2 = ""
-                            info_text_3 = ""
-                            info_text_4 = ""
-                    # noinspection PyUnboundLocalVariable
-                    if inn_button == "leave" or inn_keys[K_l]:
-                        inn_button = ''
-                        rest_clicked = False
-                        movement_able = True
-                        interacted = False
-                        encounter_started = False
-                        in_inn = False
-                        in_over_world = True
-                        rested = False
-                        faded_inn_screen = False
 
                     # draw objects to screen related to inn scenario ---------------------------------------------------
                     if player.current_zone == "seldon" and in_inn and not in_over_world and not in_shop and not \
@@ -3246,39 +3238,38 @@ if __name__ == '__main__':
                             except AttributeError:
                                 pass
 
+                        if academia_button == "mage learn":
+                            academia_button = ''
+                            mage_learn_clicked = True
+                        if academia_button == "fighter learn":
+                            academia_button = ''
+                            fighter_learn_clicked = True
+                        if academia_button == "scout learn":
+                            academia_button = ''
+                            scout_learn_clicked = True
+                        if academia_button == "leave":
+                            academia_button = ''
+                            learn_clicked = False
+                            movement_able = True
+                            interacted = False
+                            encounter_started = False
+                            in_academia = False
+                            in_over_world = True
+                            mage_learn_clicked = False
+                            fighter_learn_clicked = False
+                            scout_learn_clicked = False
+                            learned = False
+                            academia_cat_pet = False
+                            books.clear()
+                            skill_learn_items.clear()
+
                     # outside of inn event loop ------------------------------------------------------------------------
-                    academia_keys = pygame.key.get_pressed()
                     if not encounter_started:
                         info_text_1 = "Click a book to view skills."
                         info_text_2 = "Then, click a skill to learn it."
                         info_text_3 = ""
                         info_text_4 = ""
                         encounter_started = True
-                    if academia_button == "mage learn":
-                        academia_button = ''
-                        mage_learn_clicked = True
-                    if academia_button == "fighter learn":
-                        academia_button = ''
-                        fighter_learn_clicked = True
-                    if academia_button == "scout learn":
-                        academia_button = ''
-                        scout_learn_clicked = True
-                    # noinspection PyUnboundLocalVariable
-                    if academia_button == "leave" or academia_keys[K_l]:
-                        academia_button = ''
-                        learn_clicked = False
-                        movement_able = True
-                        interacted = False
-                        encounter_started = False
-                        in_academia = False
-                        in_over_world = True
-                        mage_learn_clicked = False
-                        fighter_learn_clicked = False
-                        scout_learn_clicked = False
-                        learned = False
-                        academia_cat_pet = False
-                        books.clear()
-                        skill_learn_items.clear()
 
                     # draw objects to screen related to academia scenario ----------------------------------------------
                     if in_academia and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
@@ -3443,189 +3434,203 @@ if __name__ == '__main__':
                             info_text_1 = equipment_event["equipment message"]
                             info_text_2 = ""
 
+                        if npc_button == "quest":
+                            # garan npc, check player's quest progress and reward if completed -------------------------
+                            if current_npc_interacting.name == "garan":
+                                if player.quest_progress["sneaky snakes"] == 4 and not \
+                                        player.quest_complete["sneaky snakes"]:
+                                    if len(player.items) < 16:
+                                        player.quest_complete["sneaky snakes"] = True
+                                        player.current_quests["sneaky snakes"] = "You completed this quest!"
+                                        info_text_1 = "You've completed Garan's quest!"
+                                        info_text_2 = ""
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.star_power += 1
+                                        player.experience += 50
+                                        if player.experience >= 100:
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        player.reputation["amuna"] += 10
+                                        player.items.append(Item("health potion", "potion", 200, 200,
+                                                                 graphic_dict["health_pot_img"]))
+                                    else:
+                                        info_text_1 = "You completed the quest, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if not player.quest_complete["sneaky snakes"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window, celeste_quest_window,
+                                                                         torune_quest_window, accept_button,
+                                                                         decline_button)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not garan_complete_shown:
+                                            garan_quest_window.update(550, 350, graphic_dict["garan_complete"])
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_quest_window,
+                                                                                  maurelle_quest_window,
+                                                                                  celeste_quest_window,
+                                                                                  torune_quest_window)
+                                            garan_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
+                                                                     maurelle_quest_window, celeste_quest_window,
+                                                                     torune_quest_window, accept_button, decline_button)
+                                    quest_clicked = False
+
+                            # celeste npc, check player's quest progress and reward if completed -----------------------
+                            if current_npc_interacting.name == "celeste":
+                                if player.quest_progress["where's nede?"] == 1 and not \
+                                        player.quest_complete["where's nede?"]:
+                                    if len(player.items) < 16:
+                                        nede.update(nede.x_coordinate, nede.y_coordinate, graphic_dict["nede_left"])
+                                        player.quest_complete["where's nede?"] = True
+                                        player.current_quests["where's nede?"] = "You completed this quest!"
+                                        info_text_1 = "You've completed Celeste's quest!"
+                                        info_text_2 = ""
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.star_power += 1
+                                        player.experience += 50
+                                        if player.experience >= 100:
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        player.reputation["sorae"] += 10
+                                    else:
+                                        info_text_1 = "You completed the quest, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if not player.quest_complete["where's nede?"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window, celeste_quest_window,
+                                                                         torune_quest_window, accept_button,
+                                                                         decline_button)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not celeste_complete_shown:
+                                            celeste_quest_window.update(550, 350, graphic_dict["celeste_complete"])
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_quest_window,
+                                                                                  maurelle_quest_window,
+                                                                                  celeste_quest_window,
+                                                                                  torune_quest_window)
+                                            celeste_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
+                                                                     maurelle_quest_window, celeste_quest_window,
+                                                                     torune_quest_window, accept_button, decline_button)
+                                    quest_clicked = False
+
+                            # maurelle npc, check player's quest progress and reward if completed ----------------------
+                            if current_npc_interacting.name == "maurelle":
+                                if player.quest_progress["village repairs"] == 4 and not \
+                                        player.quest_complete["village repairs"]:
+                                    if len(player.items) < 16:
+                                        player.quest_complete["village repairs"] = True
+                                        player.current_quests["village repairs"] = "You completed this quest!"
+                                        info_text_1 = "You've completed Maurelle's quest!"
+                                        info_text_2 = ""
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.star_power += 1
+                                        player.experience += 50
+                                        if player.experience >= 100:
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        player.reputation["amuna"] += 10
+                                        player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                 graphic_dict["energy_pot_img"]))
+                                    else:
+                                        info_text_1 = "You completed the quest, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if not player.quest_complete["village repairs"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window, celeste_quest_window,
+                                                                         torune_quest_window, accept_button,
+                                                                         decline_button)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not maurelle_complete_shown:
+                                            maurelle_quest_window.update(550, 350, graphic_dict["maurelle_complete"])
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_quest_window,
+                                                                                  maurelle_quest_window,
+                                                                                  celeste_quest_window,
+                                                                                  torune_quest_window)
+                                            maurelle_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
+                                                                     maurelle_quest_window, celeste_quest_window,
+                                                                     torune_quest_window, accept_button, decline_button)
+                                    quest_clicked = False
+
+                            # torune npc, check player's quest progress and reward if completed ------------------------
+                            if current_npc_interacting.name == "torune":
+                                if player.quest_progress["ghouled again"] == 4 and not \
+                                        player.quest_complete["ghouled again"]:
+                                    if len(player.items) < 16:
+                                        player.quest_complete["ghouled again"] = True
+                                        player.current_quests["ghouled again"] = "You completed this quest!"
+                                        info_text_1 = "You've completed Torune's quest!"
+                                        info_text_2 = ""
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.star_power += 1
+                                        player.experience += 50
+                                        if player.experience >= 100:
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        player.reputation["amuna"] += 10
+                                    else:
+                                        info_text_1 = "You completed the quest, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if not player.quest_complete["ghouled again"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window, celeste_quest_window,
+                                                                         torune_quest_window, accept_button,
+                                                                         decline_button)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not torune_complete_shown:
+                                            torune_quest_window.update(550, 350, graphic_dict["torune_complete"])
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_quest_window,
+                                                                                  maurelle_quest_window,
+                                                                                  celeste_quest_window,
+                                                                                  torune_quest_window)
+                                            torune_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
+                                                                     maurelle_quest_window, celeste_quest_window,
+                                                                     torune_quest_window, accept_button, decline_button)
+                                    quest_clicked = False
+
+                        if npc_button == "leave":
+                            npc_button = ''
+                            movement_able = True
+                            interacted = False
+                            encounter_started = False
+                            in_npc_interaction = False
+                            in_over_world = True
+                            quest_clicked = False
+                            drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
+                                                             maurelle_quest_window, celeste_quest_window,
+                                                             torune_quest_window, accept_button, decline_button)
+
                     # outside event loop -------------------------------------------------------------------------------
-                    npc_keys = pygame.key.get_pressed()
                     if not encounter_started:
                         info_text_1 = ""
                         info_text_2 = ""
                         info_text_3 = ""
                         info_text_4 = ""
                         encounter_started = True
-
-                    if npc_button == "quest":
-                        npc_button = ''
-                        # garan npc, check player's quest progress and reward if completed -----------------------------
-                        if current_npc_interacting.name == "garan":
-                            if player.quest_progress["sneaky snakes"] == 4 and not \
-                                    player.quest_complete["sneaky snakes"]:
-                                if len(player.items) < 16:
-                                    player.quest_complete["sneaky snakes"] = True
-                                    player.current_quests["sneaky snakes"] = "You completed this quest!"
-                                    info_text_1 = "You've completed Garan's quest!"
-                                    info_text_2 = ""
-                                    info_text_3 = ""
-                                    info_text_4 = ""
-                                    player.star_power += 1
-                                    player.experience += 50
-                                    if player.experience >= 100:
-                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                    player.reputation["amuna"] += 10
-                                    player.items.append(Item("health potion", "potion", 200, 200,
-                                                             graphic_dict["health_pot_img"]))
-                                else:
-                                    info_text_1 = "You completed the quest, but "
-                                    info_text_2 = "Your inventory is full!"
-                            if not quest_clicked:
-                                if not player.quest_complete["sneaky snakes"]:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, True, garan_quest_window,
-                                                                     maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, accept_button, decline_button)
-                                    quest_clicked = True
-                                else:  # quest complete popup
-                                    if not garan_complete_shown:
-                                        garan_quest_window.update(550, 350, graphic_dict["garan_complete"])
-                                        drawing_functions.quest_complete_draw(current_npc_interacting, True,
-                                                                              garan_quest_window, maurelle_quest_window,
-                                                                              celeste_quest_window, torune_quest_window)
-                                        garan_complete_shown = True
-                                        quest_clicked = True
-                            else:
-                                drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                 maurelle_quest_window, celeste_quest_window,
-                                                                 torune_quest_window, accept_button, decline_button)
-                                quest_clicked = False
-
-                        # celeste npc, check player's quest progress and reward if completed ---------------------------
-                        if current_npc_interacting.name == "celeste":
-                            if player.quest_progress["where's nede?"] == 1 and not \
-                                    player.quest_complete["where's nede?"]:
-                                if len(player.items) < 16:
-                                    nede.update(nede.x_coordinate, nede.y_coordinate, graphic_dict["nede_left"])
-                                    player.quest_complete["where's nede?"] = True
-                                    player.current_quests["where's nede?"] = "You completed this quest!"
-                                    info_text_1 = "You've completed Celeste's quest!"
-                                    info_text_2 = ""
-                                    info_text_3 = ""
-                                    info_text_4 = ""
-                                    player.star_power += 1
-                                    player.experience += 50
-                                    if player.experience >= 100:
-                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                    player.reputation["sorae"] += 10
-                                else:
-                                    info_text_1 = "You completed the quest, but "
-                                    info_text_2 = "Your inventory is full!"
-                            if not quest_clicked:
-                                if not player.quest_complete["where's nede?"]:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, True, garan_quest_window,
-                                                                     maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, accept_button, decline_button)
-                                    quest_clicked = True
-                                else:  # quest complete popup
-                                    if not celeste_complete_shown:
-                                        celeste_quest_window.update(550, 350, graphic_dict["celeste_complete"])
-                                        drawing_functions.quest_complete_draw(current_npc_interacting, True,
-                                                                              garan_quest_window, maurelle_quest_window,
-                                                                              celeste_quest_window, torune_quest_window)
-                                        celeste_complete_shown = True
-                                        quest_clicked = True
-                            else:
-                                drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                 maurelle_quest_window, celeste_quest_window,
-                                                                 torune_quest_window, accept_button, decline_button)
-                                quest_clicked = False
-
-                        # maurelle npc, check player's quest progress and reward if completed --------------------------
-                        if current_npc_interacting.name == "maurelle":
-                            if player.quest_progress["village repairs"] == 4 and not \
-                                    player.quest_complete["village repairs"]:
-                                if len(player.items) < 16:
-                                    player.quest_complete["village repairs"] = True
-                                    player.current_quests["village repairs"] = "You completed this quest!"
-                                    info_text_1 = "You've completed Maurelle's quest!"
-                                    info_text_2 = ""
-                                    info_text_3 = ""
-                                    info_text_4 = ""
-                                    player.star_power += 1
-                                    player.experience += 50
-                                    if player.experience >= 100:
-                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                    player.reputation["amuna"] += 10
-                                    player.items.append(Item("energy potion", "potion", 200, 200,
-                                                             graphic_dict["energy_pot_img"]))
-                                else:
-                                    info_text_1 = "You completed the quest, but "
-                                    info_text_2 = "Your inventory is full!"
-                            if not quest_clicked:
-                                if not player.quest_complete["village repairs"]:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, True, garan_quest_window,
-                                                                     maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, accept_button, decline_button)
-                                    quest_clicked = True
-                                else:  # quest complete popup
-                                    if not maurelle_complete_shown:
-                                        maurelle_quest_window.update(550, 350, graphic_dict["maurelle_complete"])
-                                        drawing_functions.quest_complete_draw(current_npc_interacting, True,
-                                                                              garan_quest_window, maurelle_quest_window,
-                                                                              celeste_quest_window, torune_quest_window)
-                                        maurelle_complete_shown = True
-                                        quest_clicked = True
-                            else:
-                                drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                 maurelle_quest_window, celeste_quest_window,
-                                                                 torune_quest_window, accept_button, decline_button)
-                                quest_clicked = False
-
-                        # torune npc, check player's quest progress and reward if completed ----------------------------
-                        if current_npc_interacting.name == "torune":
-                            if player.quest_progress["ghouled again"] == 4 and not \
-                                    player.quest_complete["ghouled again"]:
-                                if len(player.items) < 16:
-                                    player.quest_complete["ghouled again"] = True
-                                    player.current_quests["ghouled again"] = "You completed this quest!"
-                                    info_text_1 = "You've completed Torune's quest!"
-                                    info_text_2 = ""
-                                    info_text_3 = ""
-                                    info_text_4 = ""
-                                    player.star_power += 1
-                                    player.experience += 50
-                                    if player.experience >= 100:
-                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
-                                    player.reputation["amuna"] += 10
-                                else:
-                                    info_text_1 = "You completed the quest, but "
-                                    info_text_2 = "Your inventory is full!"
-                            if not quest_clicked:
-                                if not player.quest_complete["ghouled again"]:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, True, garan_quest_window,
-                                                                     maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, accept_button, decline_button)
-                                    quest_clicked = True
-                                else:  # quest complete popup
-                                    if not torune_complete_shown:
-                                        torune_quest_window.update(550, 350, graphic_dict["torune_complete"])
-                                        drawing_functions.quest_complete_draw(current_npc_interacting, True,
-                                                                              garan_quest_window, maurelle_quest_window,
-                                                                              celeste_quest_window, torune_quest_window)
-                                        torune_complete_shown = True
-                                        quest_clicked = True
-                            else:
-                                drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                 maurelle_quest_window, celeste_quest_window,
-                                                                 torune_quest_window, accept_button, decline_button)
-                                quest_clicked = False
-
-                    if npc_button == "leave" or npc_keys[K_l]:
-                        npc_button = ''
-                        movement_able = True
-                        interacted = False
-                        encounter_started = False
-                        in_npc_interaction = False
-                        in_over_world = True
-                        quest_clicked = False
-                        drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                         maurelle_quest_window, celeste_quest_window,
-                                                         torune_quest_window, accept_button, decline_button)
 
                     # draw objects to screen related to npc interaction scenario ---------------------------------------
                     if player.current_zone == "seldon" and in_npc_interaction and not in_over_world and not in_shop \
