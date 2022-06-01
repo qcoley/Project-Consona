@@ -1412,7 +1412,6 @@ if __name__ == '__main__':
     rest_recover_window = []
     save_check_window = []
     save_data_window = []
-    nascent_gate_popup_container = []
     sell_window = []
     buy_window = []
     loot_popup_container = []
@@ -1856,12 +1855,8 @@ if __name__ == '__main__':
                     screen.blit(nascent_gate.surf, nascent_gate.rect)
                     screen.blit(player.surf, player.rect)
 
-                    if len(nascent_gate_popup_container) > 0:
-                        for popup in nascent_gate_popup_container:
-                            screen.blit(popup.surf, popup.rect)
-
                     if pygame.sprite.collide_rect(player, nascent_gate):
-                        nascent_gate_popup_container.append(nascent_gate_popup)
+                        screen.blit(nascent_gate_popup.surf, nascent_gate_popup.rect)
                         if interacted and in_over_world:
                             nascent_gate.update(nascent_gate.x_coordinate, nascent_gate.y_coordinate,
                                                 graphic_dict["nascent_gate_open"])
@@ -1871,7 +1866,6 @@ if __name__ == '__main__':
                                 player.y_coordinate = 375
                             interacted = False
                     else:
-                        nascent_gate_popup_container.clear()
                         nascent_gate.update(nascent_gate.x_coordinate, nascent_gate.y_coordinate,
                                             graphic_dict["nascent_gate_closed"])
 
