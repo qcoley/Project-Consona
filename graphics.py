@@ -634,10 +634,10 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_down_4"] = player_scout_nuldar_down_sheet[3]
     player_scout_nuldar_up_url = resource_path('resources/art/player_scout_nuldar_up.png')
     player_scout_nuldar_up_sheet = sprite_sheet((50, 75), player_scout_nuldar_up_url)
-    loaded_dict["player_scout_nuldar_up_1 "] = player_scout_nuldar_up_sheet[0]
-    loaded_dict["player_scout_nuldar_up_2 "] = player_scout_nuldar_up_sheet[1]
-    loaded_dict["player_scout_nuldar_up_3 "] = player_scout_nuldar_up_sheet[2]
-    loaded_dict["player_scout_nuldar_up_4 "] = player_scout_nuldar_up_sheet[3]
+    loaded_dict["player_scout_nuldar_up_1"] = player_scout_nuldar_up_sheet[0]
+    loaded_dict["player_scout_nuldar_up_2"] = player_scout_nuldar_up_sheet[1]
+    loaded_dict["player_scout_nuldar_up_3"] = player_scout_nuldar_up_sheet[2]
+    loaded_dict["player_scout_nuldar_up_4"] = player_scout_nuldar_up_sheet[3]
     player_scout_nuldar_left_url = resource_path('resources/art/player_scout_nuldar_left.png')
     player_scout_nuldar_left_sheet = sprite_sheet((50, 75), player_scout_nuldar_left_url)
     loaded_dict["player_scout_nuldar_left_1"] = player_scout_nuldar_left_sheet[0]
@@ -646,10 +646,10 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_left_4"] = player_scout_nuldar_left_sheet[3]
     player_scout_nuldar_right_url = resource_path('resources/art/player_scout_nuldar_right.png')
     player_scout_nuldar_right_sheet = sprite_sheet((50, 75), player_scout_nuldar_right_url)
-    loaded_dict["player_scout_nuldar_right_1 "] = player_scout_nuldar_right_sheet[0]
-    loaded_dict["player_scout_nuldar_right_2 "] = player_scout_nuldar_right_sheet[1]
-    loaded_dict["player_scout_nuldar_right_3 "] = player_scout_nuldar_right_sheet[2]
-    loaded_dict["player_scout_nuldar_right_4 "] = player_scout_nuldar_right_sheet[3]
+    loaded_dict["player_scout_nuldar_right_1"] = player_scout_nuldar_right_sheet[0]
+    loaded_dict["player_scout_nuldar_right_2"] = player_scout_nuldar_right_sheet[1]
+    loaded_dict["player_scout_nuldar_right_3"] = player_scout_nuldar_right_sheet[2]
+    loaded_dict["player_scout_nuldar_right_4"] = player_scout_nuldar_right_sheet[3]
     # player scout sorae race ------------------------------------------------------------------------------------------
     player_scout_sorae_down_url = resource_path('resources/art/player_scout_sorae_down.png')
     player_scout_sorae_down_sheet = sprite_sheet((50, 75), player_scout_sorae_down_url)

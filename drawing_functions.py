@@ -7,6 +7,7 @@ journal_window = []
 level_up_text = []
 level_up_window = []
 quest_box = []
+quest_complete_box = []
 player_equipment = []
 player_items = []
 item_info_window = []
@@ -40,6 +41,9 @@ def draw_it(screen):
     if len(quest_box) > 0:
         for quest_element in quest_box:
             screen.blit(quest_element.surf, quest_element.rect)
+    if len(quest_complete_box) > 0:
+        for quest_complete_element in quest_complete_box:
+            screen.blit(quest_complete_element.surf, quest_complete_element.rect)
     if len(player_equipment) > 0:
         for equipment_here in player_equipment:
             screen.blit(equipment_here.surf, equipment_here.rect)
@@ -481,16 +485,16 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
                         torune_quest_window):
 
     if not draw_condition:
-        quest_box.clear()
+        quest_complete_box.clear()
     else:
         if quest_npc.name == "garan":
-            quest_box.append(garan_quest_window)
+            quest_complete_box.append(garan_quest_window)
         if quest_npc.name == "maurelle":
-            quest_box.append(maurelle_quest_window)
+            quest_complete_box.append(maurelle_quest_window)
         if quest_npc.name == "celeste":
-            quest_box.append(celeste_quest_window)
+            quest_complete_box.append(celeste_quest_window)
         if quest_npc.name == "torune":
-            quest_box.append(torune_quest_window)
+            quest_complete_box.append(torune_quest_window)
 
 
 def equipment_updates(player, graphic):

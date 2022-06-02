@@ -1218,8 +1218,8 @@ if __name__ == '__main__':
     new_game_button = UiElement("new game button", 640, 342, graphic_dict["new_game_img"])
     continue_button = UiElement("continue button", 640, 425, graphic_dict["continue_img"])
     amuna_button = UiElement("amuna button", 100, 255, graphic_dict["amuna_button_img"])
-    nuldar_button = UiElement("nuldar button", 100, 350, graphic_dict["nuldar_button_img"])
-    sorae_button = UiElement("sorae button", 100, 445, graphic_dict["sorae_button_img"])
+    nuldar_button = UiElement("nuldar button", 99, 350, graphic_dict["nuldar_button_img"])
+    sorae_button = UiElement("sorae button", 98, 445, graphic_dict["sorae_button_img"])
     start_button = UiElement("start button", 640, 660, graphic_dict["start_button"])
     lets_go_button = UiElement("lets go button", 625, 575, graphic_dict["lets_go_button"])
     buy_button = UiElement("buy button", 860, 680, graphic_dict["buy_button_img"])
@@ -1274,10 +1274,19 @@ if __name__ == '__main__':
     npc_name_plate = UiElement("npc name plate", 638, 192, graphic_dict["npc_name_plate"])
     buy_inventory = Inventory("buy inventory", [], 900, 500, graphic_dict["buy_inventory"])
     knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
+
     garan_quest_window = UiElement("garan quest window", 262, 442, graphic_dict["garan_quest"])
+    garan_complete_quest_window = UiElement("garan quest complete window", 550, 350,
+                                            graphic_dict["garan_complete"])
     maurelle_quest_window = UiElement("maurelle quest window", 262, 442, graphic_dict["maurelle_quest"])
+    maurelle_complete_quest_window = UiElement("maurelle quest complete window", 550, 350,
+                                               graphic_dict["maurelle_complete"])
     celeste_quest_window = UiElement("maurelle quest window", 262, 442, graphic_dict["celeste_quest"])
+    celeste_complete_quest_window = UiElement("celeste quest complete window", 550, 350,
+                                              graphic_dict["celeste_complete"])
     torune_quest_window = UiElement("torune quest window", 262, 442, graphic_dict["torune_quest"])
+    torune_complete_quest_window = UiElement("torune quest complete window", 550, 350,
+                                              graphic_dict["torune_complete"])
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
     enemy_status_bar_back = UiElement("enemy bar backdrop", 700, 90, graphic_dict["enemy_bar_backdrop"])
@@ -1334,9 +1343,10 @@ if __name__ == '__main__':
     user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, save_button,
                        hearth_button, message_box, location_overlay, star_power_meter)
 
-    # code related to sound effects that will be used later
-    # pygame.mixer.music.load("Electric_1.mp3")
-    # pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.set_volume(0.50)
+    pygame.mixer.music.load("resources/music/mp3s/eterna_title.mp3")
+    pygame.mixer.music.play(loops=-1)
+
     # move_up_sound = pygame.mixer.Sound("Rising_putter.ogg")
     # move_up_sound.set_volume(0.5)
 
@@ -1402,6 +1412,11 @@ if __name__ == '__main__':
     shop_cat_pet = False
     academia_cat_pet = False
     rest_shown_before = False
+
+    over_world_song_set = False
+    battle_song_set = False
+    stardust_song_set = False
+    inn_song_set = False
 
     buy_shop_elements = []
     stardust_upgrade_elements = []
@@ -1479,6 +1494,7 @@ if __name__ == '__main__':
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
+                        pygame.mixer.quit()
                         sys.exit()
                     # if enter key is pressed, de-select name box and proceed
                     if event.key == K_RETURN:
@@ -1492,6 +1508,7 @@ if __name__ == '__main__':
                             if len(character_name_input) < 12:
                                 character_name_input += event.unicode
                 elif event.type == QUIT:
+                    pygame.mixer.quit()
                     sys.exit()
 
                 elif event.type == pygame.MOUSEBUTTONUP:
@@ -1719,6 +1736,7 @@ if __name__ == '__main__':
                         if event.type == KEYDOWN:
                             # escape key was pressed, exit game
                             if event.key == K_ESCAPE:
+                                pygame.mixer.quit()
                                 sys.exit()
                             # "F" key for player interaction
                             if event.key == K_f:
@@ -1736,6 +1754,7 @@ if __name__ == '__main__':
                                 else:
                                     journal_button_clicked = True
                         elif event.type == QUIT:
+                            pygame.mixer.quit()
                             sys.exit()
 
                         if event.type == pygame.MOUSEBUTTONUP:
@@ -1851,6 +1870,9 @@ if __name__ == '__main__':
                 # if player is in nascent grove (starting area) --------------------------------------------------------
                 if player.current_zone == "nascent" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
+
+                    pygame.mixer.music.fadeout(3000)
+
                     screen.blit(nascent_grove_bg, (0, 0))
                     screen.blit(nascent_gate.surf, nascent_gate.rect)
                     screen.blit(player.surf, player.rect)
@@ -1881,8 +1903,13 @@ if __name__ == '__main__':
                 # if player is in stardust outpost ---------------------------------------------------------------------
                 if player.current_zone == "stardust" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
-                    screen.blit(stardust_cove_bg, (0, 0))
 
+                    if not stardust_song_set:
+                        pygame.mixer.music.load("resources/music/mp3s/eterna_stardust.mp3")
+                        pygame.mixer.music.play(loops=-1)
+                        stardust_song_set = True
+
+                    screen.blit(stardust_cove_bg, (0, 0))
                     if player.quest_progress["where's nede?"] < 1:
                         if player.quest_status["where's nede?"]:
                             if not nede_sprite_reset:
@@ -1956,6 +1983,7 @@ if __name__ == '__main__':
                     # move player to seldon district when they approach nascent grove exit
                     if player.x_coordinate > 925 and 175 < player.y_coordinate < 275:
                         player.current_zone = "seldon"
+                        stardust_song_set = False
                         in_over_world = True
                         player.x_coordinate = 125
                         player.y_coordinate = 375
@@ -2039,8 +2067,13 @@ if __name__ == '__main__':
                 # if player is in seldon district ----------------------------------------------------------------------
                 if player.current_zone == "seldon" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
-                    screen.blit(seldon_district_bg, (0, 0))
 
+                    if not over_world_song_set:
+                        pygame.mixer.music.load("resources/music/mp3s/eterna_overworld.mp3")
+                        pygame.mixer.music.play(loops=-1)
+                        over_world_song_set = True
+
+                    screen.blit(seldon_district_bg, (0, 0))
                     enemy_respawn()
                     for entity in most_sprites:
                         screen.blit(entity.surf, entity.rect)
@@ -2175,11 +2208,13 @@ if __name__ == '__main__':
                     if 375 < player.x_coordinate < 475 and player.y_coordinate > 700:
                         player.current_zone = "nascent"
                         in_over_world = True
+                        over_world_song_set = False
                         player.x_coordinate = 750
                         player.y_coordinate = 125
                     # move player to stardust outpost when they approach
                     if player.x_coordinate < 25 and 325 < player.y_coordinate < 400:
                         player.current_zone = "stardust"
+                        over_world_song_set = False
                         in_over_world = True
                         player.x_coordinate = 925
                         player.y_coordinate = 275
@@ -2251,6 +2286,7 @@ if __name__ == '__main__':
                             current_enemy_battling = enemy
                             in_over_world = False
                             in_battle = True
+                            over_world_song_set = False
                             loot_popup_container.clear()
                             loot_text_container.clear()
                             combat_scenario.resting_animation(player, enemy, player_battle_sprite,
@@ -2281,6 +2317,7 @@ if __name__ == '__main__':
                             current_building_entering = building
                             movement_able = False
                             in_over_world = False
+                            over_world_song_set = False
                             loot_popup_container.clear()
                             loot_text_container.clear()
                             if building.name == "shop":
@@ -2394,11 +2431,19 @@ if __name__ == '__main__':
                 # if player is in battle -------------------------------------------------------------------------------
                 if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
                         and not in_npc_interaction:
+
+                    if not battle_song_set:
+                        pygame.mixer.music.load("resources/music/mp3s/eterna_battle.mp3")
+                        pygame.mixer.music.play(loops=-1)
+                        battle_song_set = True
+
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
+                                pygame.mixer.quit()
                                 sys.exit()
                         elif event.type == QUIT:
+                            pygame.mixer.quit()
                             sys.exit()
                         elif event.type == pygame.MOUSEBUTTONUP:
                             pos = pygame.mouse.get_pos()
@@ -2516,6 +2561,7 @@ if __name__ == '__main__':
                                     in_battle = False
                                     in_over_world = True
                                     loot_updated = False
+                                    battle_song_set = False
 
                         # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
                         elif combat_button == "skill 1":
@@ -2599,6 +2645,7 @@ if __name__ == '__main__':
                                                 in_battle = False
                                                 in_over_world = True
                                                 loot_updated = False
+                                                battle_song_set = False
                                 else:
                                     info_text_1 = "Not enough energy to use this skill."
 
@@ -2624,6 +2671,11 @@ if __name__ == '__main__':
                                 and not in_inn and not in_academia and not in_npc_interaction:
                             screen.blit(seldon_district_battle, (0, 0))
                             screen.blit(skill_bar.surf, skill_bar.rect)
+                            if current_enemy_battling.name == "snake":
+                                screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                            if current_enemy_battling.name == "ghoul":
+                                screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                            screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                             if player.role == "mage":
                                 screen.blit(mage_attack_button.surf, mage_attack_button.rect)
                                 if player.skills_mage["skill 2"] == "barrier":
@@ -2639,11 +2691,6 @@ if __name__ == '__main__':
                             if player.role == "":
                                 screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                            if current_enemy_battling.name == "snake":
-                                screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                            if current_enemy_battling.name == "ghoul":
-                                screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                            screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                             try:
                                 screen.blit(current_enemy_battling.health_bar.surf,
                                             current_enemy_battling.health_bar.rect)
@@ -2770,8 +2817,10 @@ if __name__ == '__main__':
 
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
+                                pygame.mixer.quit()
                                 sys.exit()
                         elif event.type == QUIT:
+                            pygame.mixer.quit()
                             sys.exit()
 
                         elif event.type == pygame.MOUSEBUTTONUP:
@@ -2993,8 +3042,10 @@ if __name__ == '__main__':
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
+                                pygame.mixer.quit()
                                 sys.exit()
                         elif event.type == QUIT:
+                            pygame.mixer.quit()
                             sys.exit()
 
                         # get which button player pressed during inn scenario (rest or leave)
@@ -3120,8 +3171,10 @@ if __name__ == '__main__':
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
+                                pygame.mixer.quit()
                                 sys.exit()
                         elif event.type == QUIT:
+                            pygame.mixer.quit()
                             sys.exit()
                         elif event.type == pygame.MOUSEBUTTONUP:
                             pos = pygame.mouse.get_pos()
@@ -3330,11 +3383,23 @@ if __name__ == '__main__':
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
+                                pygame.mixer.quit()
                                 sys.exit()
                         elif event.type == QUIT:
+                            pygame.mixer.quit()
                             sys.exit()
                         if event.type == pygame.MOUSEBUTTONUP:
                             pos = pygame.mouse.get_pos()
+
+                            if garan_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
+                            if maurelle_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
+                            if celeste_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
+                            if torune_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
+
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False)
                             if mage_select_button.rect.collidepoint(pos):
@@ -3460,12 +3525,11 @@ if __name__ == '__main__':
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not garan_complete_shown:
-                                            garan_quest_window.update(550, 350, graphic_dict["garan_complete"])
                                             drawing_functions.quest_complete_draw(current_npc_interacting, True,
-                                                                                  garan_quest_window,
-                                                                                  maurelle_quest_window,
-                                                                                  celeste_quest_window,
-                                                                                  torune_quest_window)
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window)
                                             garan_complete_shown = True
                                             quest_clicked = True
                                 else:
@@ -3504,12 +3568,11 @@ if __name__ == '__main__':
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not celeste_complete_shown:
-                                            celeste_quest_window.update(550, 350, graphic_dict["celeste_complete"])
                                             drawing_functions.quest_complete_draw(current_npc_interacting, True,
-                                                                                  garan_quest_window,
-                                                                                  maurelle_quest_window,
-                                                                                  celeste_quest_window,
-                                                                                  torune_quest_window)
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window)
                                             celeste_complete_shown = True
                                             quest_clicked = True
                                 else:
@@ -3549,12 +3612,11 @@ if __name__ == '__main__':
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not maurelle_complete_shown:
-                                            maurelle_quest_window.update(550, 350, graphic_dict["maurelle_complete"])
                                             drawing_functions.quest_complete_draw(current_npc_interacting, True,
-                                                                                  garan_quest_window,
-                                                                                  maurelle_quest_window,
-                                                                                  celeste_quest_window,
-                                                                                  torune_quest_window)
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window)
                                             maurelle_complete_shown = True
                                             quest_clicked = True
                                 else:
@@ -3592,12 +3654,11 @@ if __name__ == '__main__':
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not torune_complete_shown:
-                                            torune_quest_window.update(550, 350, graphic_dict["torune_complete"])
                                             drawing_functions.quest_complete_draw(current_npc_interacting, True,
-                                                                                  garan_quest_window,
-                                                                                  maurelle_quest_window,
-                                                                                  celeste_quest_window,
-                                                                                  torune_quest_window)
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window)
                                             torune_complete_shown = True
                                             quest_clicked = True
                                 else:
@@ -3614,6 +3675,7 @@ if __name__ == '__main__':
                             in_npc_interaction = False
                             in_over_world = True
                             quest_clicked = False
+                            drawing_functions.quest_complete_box.clear()
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
                                                              torune_quest_window, accept_button, decline_button)
@@ -3680,6 +3742,7 @@ if __name__ == '__main__':
                 for event in pygame.event.get():
                     if event.type == KEYDOWN:
                         if event.key == K_ESCAPE:
+                            pygame.mixer.quit()
                             sys.exit()
                     if event.type == pygame.MOUSEBUTTONUP:
                         pos = pygame.mouse.get_pos()
@@ -3730,6 +3793,7 @@ if __name__ == '__main__':
                                 combat_scenario.enemy_health_bar(enemy, graphic_dict)
 
                     elif event.type == QUIT:
+                        pygame.mixer.quit()
                         sys.exit()
 
                 pygame.display.flip()
