@@ -1416,7 +1416,7 @@ if __name__ == '__main__':
     over_world_song_set = False
     battle_song_set = False
     stardust_song_set = False
-    inn_song_set = False
+    building_song_set = False
 
     buy_shop_elements = []
     stardust_upgrade_elements = []
@@ -2069,7 +2069,7 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     if not over_world_song_set:
-                        pygame.mixer.music.load("resources/music/mp3s/eterna_overworld.mp3")
+                        pygame.mixer.music.load("resources/music/mp3s/eterna_seldon.mp3")
                         pygame.mixer.music.play(loops=-1)
                         over_world_song_set = True
 
@@ -2286,7 +2286,6 @@ if __name__ == '__main__':
                             current_enemy_battling = enemy
                             in_over_world = False
                             in_battle = True
-                            over_world_song_set = False
                             loot_popup_container.clear()
                             loot_text_container.clear()
                             combat_scenario.resting_animation(player, enemy, player_battle_sprite,
@@ -2432,11 +2431,6 @@ if __name__ == '__main__':
                 if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
                         and not in_npc_interaction:
 
-                    if not battle_song_set:
-                        pygame.mixer.music.load("resources/music/mp3s/eterna_battle.mp3")
-                        pygame.mixer.music.play(loops=-1)
-                        battle_song_set = True
-
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
@@ -2561,7 +2555,6 @@ if __name__ == '__main__':
                                     in_battle = False
                                     in_over_world = True
                                     loot_updated = False
-                                    battle_song_set = False
 
                         # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
                         elif combat_button == "skill 1":
@@ -2645,7 +2638,6 @@ if __name__ == '__main__':
                                                 in_battle = False
                                                 in_over_world = True
                                                 loot_updated = False
-                                                battle_song_set = False
                                 else:
                                     info_text_1 = "Not enough energy to use this skill."
 
@@ -2832,6 +2824,12 @@ if __name__ == '__main__':
 
                         shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame)
                         if player.current_zone == "seldon":
+
+                            if not building_song_set:
+                                pygame.mixer.music.load("resources/music/mp3s/eterna_building.mp3")
+                                pygame.mixer.music.play(loops=-1)
+                                building_song_set = True
+
                             # get which button player pressed during shop scenario (buy or leave)
                             if buy_clicked:
                                 # if player clicks yes button to sell item, get current item and buy -------------------
@@ -2949,6 +2947,7 @@ if __name__ == '__main__':
                             in_shop = False
                             in_over_world = True
                             shop_cat_pet = False
+                            building_song_set = False
 
                     # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "seldon" and in_shop and not in_over_world and not in_battle \
@@ -3039,6 +3038,11 @@ if __name__ == '__main__':
                 if in_inn and not in_over_world and not in_shop and not in_battle and not in_academia \
                         and not in_npc_interaction:
 
+                    if not building_song_set:
+                        pygame.mixer.music.load("resources/music/mp3s/eterna_building.mp3")
+                        pygame.mixer.music.play(loops=-1)
+                        building_song_set = True
+
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
@@ -3111,6 +3115,7 @@ if __name__ == '__main__':
                             in_over_world = True
                             rested = False
                             faded_inn_screen = False
+                            building_song_set = False
 
                     # outside of inn event loop ------------------------------------------------------------------------
                     # if player has just started inn scenario, clear message box
@@ -3168,6 +3173,12 @@ if __name__ == '__main__':
                 # if player is in academia -----------------------------------------------------------------------------
                 if in_academia and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
                         and not in_battle:
+
+                    if not building_song_set:
+                        pygame.mixer.music.load("resources/music/mp3s/eterna_building.mp3")
+                        pygame.mixer.music.play(loops=-1)
+                        building_song_set = True
+
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
@@ -3307,6 +3318,7 @@ if __name__ == '__main__':
                             scout_learn_clicked = False
                             learned = False
                             academia_cat_pet = False
+                            building_song_set = False
                             books.clear()
                             skill_learn_items.clear()
 
