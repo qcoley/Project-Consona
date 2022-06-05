@@ -89,13 +89,9 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
 
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
-            snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                       snake_battle_sprite.y_coordinate,
-                                       graphics["snake_battle"])
+            snake_battle_sprite.update(715, 250, graphics["snake_battle"])
         if enemy.kind == "ghoul":
-            ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                       ghoul_battle_sprite.y_coordinate,
-                                       graphics["ghoul_battle"])
+            ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
 
 
 # update player character and enemy sprites for combat animation
@@ -187,18 +183,14 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
                                         player_battle_sprite.y_coordinate,
                                         graphics["player_no_role_nuldar_attack"])
     if enemy.kind == "snake":
-        snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                   snake_battle_sprite.y_coordinate,
-                                   graphics["snake_attack"])
+        snake_battle_sprite.update(715, 250, graphics["snake_battle"])
     if enemy.kind == "ghoul":
-        ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                   ghoul_battle_sprite.y_coordinate,
-                                   graphics["ghoul_attack"])
+        ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
 
 
 def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
             ghoul_battle_sprite, player_fighter_amuna_strike, player_fighter_sorae_strike,
-            player_fighter_nuldar_strike, snake_attack, ghoul_attack):
+            player_fighter_nuldar_strike, snake_battle, ghoul_battle):
 
     # update animations for hard strike attack
     if player.race == "amuna":
@@ -218,13 +210,9 @@ def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_s
                                         player_fighter_nuldar_strike)
 
     if current_enemy_battling.kind == "snake":
-        snake_battle_sprite.update(snake_battle_sprite.x_coordinate,
-                                   snake_battle_sprite.y_coordinate,
-                                   snake_attack)
+        snake_battle_sprite.update(715, 250, snake_battle)
     if current_enemy_battling.kind == "ghoul":
-        ghoul_battle_sprite.update(ghoul_battle_sprite.x_coordinate,
-                                   ghoul_battle_sprite.y_coordinate,
-                                   ghoul_attack)
+        ghoul_battle_sprite.update(698, 280, ghoul_battle)
 
 
 def enemy_health_bar(enemys, graphics):
@@ -235,13 +223,11 @@ def enemy_health_bar(enemys, graphics):
         pass
 
 
-def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_up_font, hard_strike_learned,
-                    graphics):
+def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics):
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
-        "item dropped": "", "experience gained": 0, "quest update": "", "enemy defeated": False,
-        "level up status": "", "level up attributes": ""
+        "item dropped": "", "experience gained": 0, "quest update": "", "enemy defeated": False, "leveled": False
     }
     if combat_event == "attack":
         if enemy_combating.alive_status:
@@ -330,6 +316,7 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                 # player will level up if experience greater than or equal to 100
                 if player.experience >= 100:
                     gameplay_functions.level_up(player, level_up_win, level_up_font)
+                    combat_event_dictionary["leveled"] = True
 
                 enemy_combating.alive_status = False
                 enemy_combating.kill()
@@ -408,6 +395,7 @@ def attack_scenario(enemy_combating, combat_event, player, level_up_win, level_u
                             combat_event_dictionary["item dropped"] = "No"
                         if player.experience >= 100:
                             gameplay_functions.level_up(player, level_up_win, level_up_font)
+                            combat_event_dictionary["leveled"] = True
                         enemy_combating.alive_status = False
                         enemy_combating.kill()
                         combat_event_dictionary["enemy defeated"] = True

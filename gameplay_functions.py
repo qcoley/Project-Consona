@@ -239,6 +239,7 @@ def walk_time(tic):
 
 # function that updates players info, status, role, inventory, equipment, etc
 def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter, graphics):
+
     # update players status bars
     hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player, graphics))
     en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_bar_update(player, graphics))
@@ -732,7 +733,7 @@ def energy_bar_update(character, graphics):
 
 
 def xp_bar_update(character, graphics):
-    if character.experience == 100:
+    if character.experience >= 100:
         return graphics["xp_100"]
     if character.experience == 99:
         return graphics["xp_99"]
@@ -932,5 +933,8 @@ def xp_bar_update(character, graphics):
         return graphics["xp_2"]
     if character.experience == 1:
         return graphics["xp_1"]
-    if character.experience == 0:
+    if character.experience <= 0:
+        return graphics["xp_0"]
+
+    else:
         return graphics["xp_0"]

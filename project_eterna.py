@@ -1045,6 +1045,7 @@ def enemy_respawn():
         snakes.add(new_snake)
         enemies.add(new_snake)
         most_sprites.add(new_snake)
+        interactables.add(new_snake)
 
     # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
     if ghoul_counter < 3:
@@ -1054,6 +1055,7 @@ def enemy_respawn():
         ghouls.add(new_ghoul)
         enemies.add(new_ghoul)
         most_sprites.add(new_ghoul)
+        interactables.add(new_ghoul)
 
 
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg
@@ -1313,6 +1315,7 @@ if __name__ == '__main__':
     received_damage_overlay = UiElement("recieved damage overlay", 125, 275, graphic_dict["received_damage_img"])
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
+    button_highlight = UiElement("button_highlight", 200, 200, graphic_dict["main high"])
 
     font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
     level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
@@ -1330,6 +1333,7 @@ if __name__ == '__main__':
     non_sprite_sheets = pygame.sprite.Group()
     snakes = pygame.sprite.Group()
     ghouls = pygame.sprite.Group()
+    interactables = pygame.sprite.Group()
 
     snakes.add(snake_1, snake_2, snake_3, snake_4)
     ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
@@ -1342,9 +1346,10 @@ if __name__ == '__main__':
     most_sprites.add(npcs, trees, buildings, quest_items, enemies, seldon_hearth, rohir_gate)
     user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, save_button,
                        hearth_button, message_box, location_overlay, star_power_meter)
+    interactables.add(npcs, enemies, buildings, nascent_gate, stardust_entrance)
 
     pygame.mixer.music.set_volume(0.50)
-    pygame.mixer.music.load("resources/music/mp3s/eterna_title.mp3")
+    pygame.mixer.music.load("resources/music/mp3s/eterna_start.mp3")
     pygame.mixer.music.play(loops=-1)
 
     # move_up_sound = pygame.mixer.Sound("Rising_putter.ogg")
@@ -1397,6 +1402,7 @@ if __name__ == '__main__':
     fighter_select = False
     scout_select = False
     loot_updated = True
+    loot_info = False
     garan_complete_shown = False
     maurelle_complete_shown = False
     celeste_complete_shown = False
@@ -1412,11 +1418,16 @@ if __name__ == '__main__':
     shop_cat_pet = False
     academia_cat_pet = False
     rest_shown_before = False
+    leveled = False
+    button_highlighted = False
 
     over_world_song_set = False
     battle_song_set = False
     stardust_song_set = False
     building_song_set = False
+
+    attack_hotkey = False
+    skill_1_hotkey = False
 
     buy_shop_elements = []
     stardust_upgrade_elements = []
@@ -1456,6 +1467,7 @@ if __name__ == '__main__':
     enemy_tic = time.perf_counter()
     npc_tic = time.perf_counter()
     walk_tic = time.perf_counter()
+    loot_level_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -1709,6 +1721,18 @@ if __name__ == '__main__':
         if start_chosen:
             if player.alive_status:
 
+                loot_level_toc = time.perf_counter()
+                # after battle, clear loot popup after about 4 seconds
+                if loot_info:
+                    if loot_level_toc - loot_level_tic > 3:
+                        loot_popup_container.clear()
+                        loot_text_container.clear()
+                # if player leveled, after about 3 seconds, clear level up popup
+                if leveled:
+                    if loot_level_toc - loot_level_tic > 3:
+                        drawing_functions.level_up_draw(level_up_win, player, font, False)
+                        leveled = False
+
                 # player information updates
                 gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
                                                               graphic_dict)
@@ -1740,25 +1764,28 @@ if __name__ == '__main__':
                                 sys.exit()
                             # "F" key for player interaction
                             if event.key == K_f:
-                                interacted = True
-                            # "C" hotkey for character sheet
-                            if event.key == K_c:
-                                if character_button_clicked:
-                                    character_button_clicked = False
-                                else:
-                                    character_button_clicked = True
-                            # "J" hotkey for journal sheet
-                            if event.key == K_j:
-                                if journal_button_clicked:
-                                    journal_button_clicked = False
-                                else:
-                                    journal_button_clicked = True
+                                if pygame.sprite.spritecollideany(player, interactables):
+                                    interacted = True
+
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
 
+                        # getting mouse position and highlighting buttons if they collide
+                        pos = pygame.mouse.get_pos()
+                        if character_button.rect.collidepoint(pos):
+                            button_highlight.update(character_button.x_coordinate, character_button.y_coordinate + 7,
+                                                    graphic_dict["main high"])
+                            button_highlighted = True
+                        elif journal_button.rect.collidepoint(pos):
+                            button_highlight.update(journal_button.x_coordinate, journal_button.y_coordinate + 7,
+                                                    graphic_dict["main high"])
+                            button_highlighted = True
+                        else:
+                            button_highlighted = False
+
+                        # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
-                            pos = pygame.mouse.get_pos()
                             # click handlers
                             info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
                             if info_choice == "yes":
@@ -1853,8 +1880,6 @@ if __name__ == '__main__':
                                     journal_button_clicked = True
 
                             # pop-up notifications, click to hide
-                            if level_up_win.rect.collidepoint(pos):
-                                drawing_functions.level_up_draw(level_up_win, player, font, False)
                             if knowledge_academia.rect.collidepoint(pos):
                                 knowledge_academia_window.clear()
                             if rest_recover.rect.collidepoint(pos):
@@ -1864,6 +1889,8 @@ if __name__ == '__main__':
                                 loot_text_container.clear()
                             if game_guide_overlay.rect.collidepoint(pos):
                                 game_guide_container.clear()
+                            if level_up_win.rect.collidepoint(pos):
+                                drawing_functions.level_up_draw(level_up_win, player, font, False)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -1933,6 +1960,9 @@ if __name__ == '__main__':
                                                      info_text_4, in_over_world, offense_upgraded, defense_upgraded,
                                                      level_up_font)
                     drawing_functions.draw_it(screen)
+
+                    if button_highlighted:
+                        screen.blit(button_highlight.surf, button_highlight.rect)
 
                     # player encounters Nede for Celeste's quest
                     if pygame.sprite.collide_rect(player, nede) and player.quest_progress["where's nede?"] < 1:
@@ -2036,6 +2066,9 @@ if __name__ == '__main__':
                                                      level_up_font)
                     drawing_functions.draw_it(screen)
 
+                    if button_highlighted:
+                        screen.blit(button_highlight.surf, button_highlight.rect)
+
                     quest_item = pygame.sprite.spritecollideany(player, quest_items)
                     try:
                         interaction_popup.update(quest_item.x_coordinate, quest_item.y_coordinate - 25,
@@ -2049,6 +2082,7 @@ if __name__ == '__main__':
                         if quest_item.model == "rohir gate":
                             if player.quest_complete["ghouled again"]:
                                 info_text_1 = f"Press 'F' key to enter Seldon District."
+
                                 if interacted:
                                     player.current_zone = "seldon"
                                     in_over_world = True
@@ -2156,6 +2190,9 @@ if __name__ == '__main__':
                                                      level_up_font)
                     drawing_functions.draw_it(screen)
 
+                    if button_highlighted:
+                        screen.blit(button_highlight.surf, button_highlight.rect)
+
                     # pop up notifications for situations like low health or first weapon acquire
                     if not knowledge_academia_show:
                         if player.knowledge["mage"] == 50 or player.knowledge["fighter"] == 50 or \
@@ -2201,8 +2238,11 @@ if __name__ == '__main__':
                         loot_text_container.append((loot_info_surf, loot_info_rect))
                         loot_updated = True
 
-                    if battle_info_to_return_to_main_loop["leveled_up"]:
-                        drawing_functions.level_up_draw(level_up_win, player, font, True)
+                        # keeps track of time from loot and level popups to clear them after some time has passed
+                        loot_level_tic = time.perf_counter()
+                        loot_info = True
+                        if battle_info_to_return_to_main_loop["leveled_up"] and not leveled:
+                            leveled = True
 
                     # move player to nascent grove when they approach
                     if 375 < player.x_coordinate < 475 and player.y_coordinate > 700:
@@ -2234,6 +2274,7 @@ if __name__ == '__main__':
                             if not player.quest_complete["village repairs"]:
                                 if player.quest_status["village repairs"]:
                                     info_text_1 = "Press 'F' key to gather the pine log."
+
                                     if interacted and in_over_world:
                                         if player.quest_progress["village repairs"] < 4:
                                             player.quest_progress["village repairs"] += 1
@@ -2249,6 +2290,7 @@ if __name__ == '__main__':
                         if quest_item.model == "rohir gate":
                             if player.quest_complete["ghouled again"]:
                                 info_text_1 = "Press 'F' key to enter Korlok District."
+
                                 if interacted and in_over_world:
                                     player.x_coordinate = 525
                                     player.y_coordinate = 650
@@ -2286,6 +2328,7 @@ if __name__ == '__main__':
                             current_enemy_battling = enemy
                             in_over_world = False
                             in_battle = True
+
                             loot_popup_container.clear()
                             loot_text_container.clear()
                             combat_scenario.resting_animation(player, enemy, player_battle_sprite,
@@ -2436,13 +2479,38 @@ if __name__ == '__main__':
                             if event.key == K_ESCAPE:
                                 pygame.mixer.quit()
                                 sys.exit()
+                            if event.key == K_1:
+                                attack_hotkey = True
+                            if event.key == K_2:
+                                skill_1_hotkey = True
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
-                        elif event.type == pygame.MOUSEBUTTONUP:
-                            pos = pygame.mouse.get_pos()
+
+                        # getting mouse position and highlighting buttons if they collide
+                        pos = pygame.mouse.get_pos()
+                        if mage_attack_button.rect.collidepoint(pos) \
+                                or fighter_attack_button.rect.collidepoint(pos)\
+                                or scout_attack_button.rect.collidepoint(pos) \
+                                or no_role_attack_button.rect.collidepoint(pos):
+                            button_highlight.update(mage_attack_button.x_coordinate - 2,
+                                                    mage_attack_button.y_coordinate + 1,
+                                                    graphic_dict["skill high"])
+                            button_highlighted = True
+                        elif barrier_button.rect.collidepoint(pos) \
+                                or sharp_sense_button.rect.collidepoint(pos) \
+                                or hard_strike_button.rect.collidepoint(pos):
+                            button_highlight.update(barrier_button.x_coordinate - 2,
+                                                    barrier_button.y_coordinate + 1,
+                                                    graphic_dict["skill high"])
+                            button_highlighted = True
+                        else:
+                            button_highlighted = False
+
+                        if event.type == pygame.MOUSEBUTTONUP:
                             if game_guide_overlay.rect.collidepoint(pos):
                                 game_guide_container.clear()
+
                         # get which button player pressed during combat scenario
                         combat_button = click_handlers.combat_event_button(event, no_role_attack_button,
                                                                            mage_attack_button, fighter_attack_button,
@@ -2484,8 +2552,9 @@ if __name__ == '__main__':
                             info_text_1 = equipment_event["equipment message"]
                             info_text_2 = ""
 
-                        if combat_button == "attack":
+                        if combat_button == "attack" or attack_hotkey:
                             if not combat_cooldown:
+                                attack_hotkey = False
                                 combat_scenario.combat_animation(player, current_enemy_battling,
                                                                  player_battle_sprite, snake_battle_sprite,
                                                                  ghoul_battle_sprite, barrier_active,
@@ -2493,8 +2562,9 @@ if __name__ == '__main__':
 
                                 # combat event function that handles and returns damage and health
                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
-                                                                                player, level_up_win, level_up_font,
-                                                                                hard_strike_learned, graphic_dict)
+                                                                                player, hard_strike_learned,
+                                                                                level_up_win, level_up_font,
+                                                                                graphic_dict)
                                 combat_happened = True
 
                                 # add all combat scenario happenings from function to message box
@@ -2518,7 +2588,7 @@ if __name__ == '__main__':
 
                                 # if enemy was defeated and player leveled up, add messages related to box
                                 if combat_events["enemy defeated"]:
-                                    if combat_events["level up status"] != "":
+                                    if combat_events["leveled"]:
                                         battle_info_to_return_to_main_loop["leveled_up"] = True
 
                                 # if player was successful in defeating enemy, combat ends, movement is allowed
@@ -2557,8 +2627,9 @@ if __name__ == '__main__':
                                     loot_updated = False
 
                         # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
-                        elif combat_button == "skill 1":
+                        elif combat_button == "skill 1" or skill_1_hotkey:
                             if not combat_cooldown:
+                                skill_1_hotkey = False
                                 # make sure player has enough energy to use the skill
                                 if player.energy > 34:
                                     # player is a mage and uses the barrier spell. Set barrier active to true
@@ -2598,13 +2669,13 @@ if __name__ == '__main__':
                                                                     graphic_dict["player_fighter_amuna_strike"],
                                                                     graphic_dict["player_fighter_sorae_strike"],
                                                                     graphic_dict["player_fighter_nuldar_strike"],
-                                                                    graphic_dict["snake_attack"],
-                                                                    graphic_dict["ghoul_attack"])
+                                                                    graphic_dict["snake_battle"],
+                                                                    graphic_dict["ghoul_battle"])
 
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                             "skill 1", player,
-                                                                                            level_up_win, level_up_font,
                                                                                             hard_strike_learned,
+                                                                                            level_up_win, level_up_font,
                                                                                             graphic_dict)
                                             combat_happened = True
                                             player.energy -= 35
@@ -2696,6 +2767,9 @@ if __name__ == '__main__':
                                                              defense_upgraded, level_up_font)
                             drawing_functions.draw_it(screen)
 
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
@@ -2734,8 +2808,14 @@ if __name__ == '__main__':
                                 screen.blit(damage_done_surf, damage_done_rect)
                                 pygame.display.flip()
 
+                                pygame.time.wait(250)
+                                if current_enemy_battling.name == "snake":
+                                    snake_battle_sprite.update(752, 271, graphic_dict["snake attacking"])
+                                    screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                                if current_enemy_battling.name == "ghoul":
+                                    ghoul_battle_sprite.update(742, 283, graphic_dict["ghoul attacking"])
+                                    screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
                                 if combat_events["damage taken"] != 0:
-                                    pygame.time.wait(250)
                                     screen.blit(received_damage_overlay.surf, received_damage_overlay.rect)
                                     damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
                                                                                 True, "black", "white")
@@ -3411,9 +3491,9 @@ if __name__ == '__main__':
                                 drawing_functions.quest_complete_box.clear()
                             if torune_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
-
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False)
+
                             if mage_select_button.rect.collidepoint(pos):
                                 if not npc_garan.gift:
                                     player.items.append(Item("basic staff", "mage", 0, 0,
@@ -3521,6 +3601,8 @@ if __name__ == '__main__':
                                         player.experience += 50
                                         if player.experience >= 100:
                                             gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            leveled = True
+                                            loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
                                         player.items.append(Item("health potion", "potion", 200, 200,
                                                                  graphic_dict["health_pot_img"]))
@@ -3566,6 +3648,8 @@ if __name__ == '__main__':
                                         player.experience += 50
                                         if player.experience >= 100:
                                             gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            leveled = True
+                                            loot_level_tic = time.perf_counter()
                                         player.reputation["sorae"] += 10
                                     else:
                                         info_text_1 = "You completed the quest, but "
@@ -3608,6 +3692,8 @@ if __name__ == '__main__':
                                         player.experience += 50
                                         if player.experience >= 100:
                                             gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            leveled = True
+                                            loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
                                         player.items.append(Item("energy potion", "potion", 200, 200,
                                                                  graphic_dict["energy_pot_img"]))
@@ -3652,6 +3738,8 @@ if __name__ == '__main__':
                                         player.experience += 50
                                         if player.experience >= 100:
                                             gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            leveled = True
+                                            loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
                                     else:
                                         info_text_1 = "You completed the quest, but "

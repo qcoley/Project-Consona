@@ -172,8 +172,8 @@ def load_graphics():
                    "nede_high_left": "", "nede_high_right": "", "guard_down": "", "guard_up": "",
                    "guard_left": "", "guard_right": "", "torune_down": "", "torune_up": "", "torune_left": "",
                    "torune_right": "", "garan_interaction": "", "maurelle_interaction": "",
-                   "celeste_interaction": "", "torune_interaction": "", "snake": "", "ghoul": "",
-                   "snake_high": "", "ghoul_high": "", "snake_battle": "", "snake_attack": "",
+                   "celeste_interaction": "", "torune_interaction": "", "snake": "", "ghoul": "", "ghoul attacking": "",
+                   "snake_high": "", "ghoul_high": "", "snake_battle": "", "snake_attack": "", "snake attacking": "",
                    "ghoul_battle": "", "ghoul_attack": "", "amuna_academia_building": "",
                    "amuna_inn_building": "", "amuna_shop_building": "", "nascent_gate_closed": "",
                    "nascent_gate_open": "", "health_pot_img": "", "energy_pot_img": "", "basic_robes_img": "",
@@ -190,6 +190,7 @@ def load_graphics():
                    "s_basic_sword_img": "", "s_basic_bow_img": "", "s_bone_dust_img": "", "s_shiny_rock_img": "",
                    "character_window_img": "", "journal_window_img": "", "mage_book_img": "",
                    "fighter_book_img": "", "scout_book_img": "", "new_game_img": "", "continue_img": "",
+                   "main high": "", "skill high": "",
                    "amuna_button_img": "", "nuldar_button_img": "", "sorae_button_img": "",
                    "character_button_img": "", "journal_button_img": "", "buy_button_img": "",
                    "rest_button_img": "", "quest_button_img": "", "leave_button_img": "", "accept_button_img": "",
@@ -803,6 +804,11 @@ def load_graphics():
     loaded_dict["snake_attack"] = enemies_battle_sheet[1]
     loaded_dict["ghoul_battle"] = enemies_battle_sheet[2]
     loaded_dict["ghoul_attack"] = enemies_battle_sheet[3]
+    # enemies attacking ------------------------------------------------------------------------------------------------
+    enemies_attack_url = resource_path('resources/art/sprites_enemies_attacking.png')
+    enemies_attack_sheet = sprite_sheet((400, 300), enemies_attack_url)
+    loaded_dict["snake attacking"] = enemies_attack_sheet[0]
+    loaded_dict["ghoul attacking"] = enemies_attack_sheet[1]
     # amuna buildings --------------------------------------------------------------------------------------------------
     amuna_buildings_url = resource_path('resources/art/sprites_amuna_buildings.png')
     amuna_buildings_sheet = sprite_sheet((100, 100), amuna_buildings_url)
@@ -876,6 +882,11 @@ def load_graphics():
     loaded_dict["mage_book_img"] = books_sheet[0]
     loaded_dict["fighter_book_img"] = books_sheet[1]
     loaded_dict["scout_book_img"] = books_sheet[2]
+    # buttons highlight ------------------------------------------------------------------------------------------------
+    buttons_high_url = resource_path('resources/art/buttons_highlight.png')
+    buttons_high_sheet = sprite_sheet((100, 65), buttons_high_url)
+    loaded_dict["main high"] = buttons_high_sheet[0]
+    loaded_dict["skill high"] = buttons_high_sheet[1]
     # start screen buttons ---------------------------------------------------------------------------------------------
     start_buttons_url = resource_path('resources/art/buttons_start_screen.png')
     start_buttons_sheet = sprite_sheet((385, 75), start_buttons_url)
