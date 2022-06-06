@@ -55,11 +55,12 @@ def load_graphics():
                    "seldon_inn_screen": "", "seldon_academia_screen": "", "seldon_hearth_screen": "",
                    "game_over_screen": "", "start_screen": "", "nera_sleep_screen": "", "bar_backdrop": "",
                    "enemy_status": "", "enemy_bar_backdrop": "", "buy_inventory": "", "message_box": "",
-                   "pine_tree": "", "hearth_stone": "", "rohir_gate": "", "lets_go_button": "",
+                   "pine_tree": "", "hearth_stone": "", "hearth_stone_lit": "", "rohir_gate": "", "lets_go_button": "",
                    "learn_button": "", "skill_learn_button": "", "nascent_gate_popup": "", "level_up": "",
                    "close_button": "", "knowledge_window": "", "skill_bar": "", "start_button": "",
                    "npc_name_plate": "", "char_select_overlay": "", "role_selection_overlay": "",
-                   "location_overlay": "", "popup_interaction": "", "popup_loot": "", "stardust_entrance": "",
+                   "location_overlay": "", "popup_interaction": "", "popup_interaction_red": "",
+                   "popup_interaction_purple": "", "popup_loot": "", "stardust_entrance": "",
                    "upgrade_overlay": "", "cat_pet_button_overlay": "", "amuna_character_img": "",
                    "nuldar_character_img": "", "sorae_character_img": "", "amuna_overlay_img": "",
                    "nuldar_overlay_img": "", "sorae_overlay_img": "", "name_input_img": "", "name_input_empty_img": "",
@@ -190,7 +191,8 @@ def load_graphics():
                    "s_basic_sword_img": "", "s_basic_bow_img": "", "s_bone_dust_img": "", "s_shiny_rock_img": "",
                    "character_window_img": "", "journal_window_img": "", "mage_book_img": "",
                    "fighter_book_img": "", "scout_book_img": "", "new_game_img": "", "continue_img": "",
-                   "main high": "", "skill high": "",
+                   "main high": "", "skill high": "", "book high": "", "close high": "", "save hearth high": "",
+                   "item high": "",
                    "amuna_button_img": "", "nuldar_button_img": "", "sorae_button_img": "",
                    "character_button_img": "", "journal_button_img": "", "buy_button_img": "",
                    "rest_button_img": "", "quest_button_img": "", "leave_button_img": "", "accept_button_img": "",
@@ -285,7 +287,6 @@ def load_graphics():
     buy_inventory = pygame.image.load(resource_path('resources/art/overlay_buy_inventory.png')).convert_alpha()
     message_box = pygame.image.load(resource_path('resources/art/overlay_message_box.png')).convert_alpha()
     pine_tree = pygame.image.load(resource_path('resources/art/sprite_pine_tree.png')).convert_alpha()
-    hearth_stone = pygame.image.load(resource_path('resources/art/sprite_hearth_stone.png')).convert_alpha()
     rohir_gate = pygame.image.load(resource_path('resources/art/overlay_rohir_gate.png')).convert_alpha()
     lets_go_button = pygame.image.load(resource_path('resources/art/button_lets_go.png')).convert_alpha()
     learn_button = pygame.image.load(resource_path('resources/art/overlay_learn.png')).convert_alpha()
@@ -300,17 +301,18 @@ def load_graphics():
     char_select_overlay = pygame.image.load(resource_path('resources/art/overlay_character_select.png')).convert_alpha()
     role_selection_overlay = pygame.image.load(resource_path('resources/art/overlay_role_select.png')).convert_alpha()
     location_overlay = pygame.image.load(resource_path('resources/art/overlay_location.png')).convert_alpha()
-    popup_interaction = pygame.image.load(resource_path('resources/art/popup_interaction.png')).convert_alpha()
     popup_loot = pygame.image.load(resource_path('resources/art/popup_loot.png')).convert_alpha()
     stardust_entrance = pygame.image.load(resource_path('resources/art/overlay_stardust_entrance.png')).convert_alpha()
     upgrade_overlay = pygame.image.load(resource_path('resources/art/overlay_upgrade_select.png')).convert_alpha()
     cat_pet_button_overlay = pygame.image.load(resource_path('resources/art/overlay_cat_pet.png')).convert_alpha()
+    book_high = pygame.image.load(resource_path('resources/art/book_button_highlight.png')).convert_alpha()
+    save_hearth_high = pygame.image.load(resource_path('resources/art/buttons_small_high.png')).convert_alpha()
 
-    color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree, hearth_stone,
+    color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree,
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
-                  role_selection_overlay, location_overlay, popup_interaction, popup_loot, stardust_entrance,
-                  upgrade_overlay, cat_pet_button_overlay]
+                  role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
+                  upgrade_overlay, cat_pet_button_overlay, save_hearth_high]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -337,7 +339,6 @@ def load_graphics():
     loaded_dict["buy_inventory"] = buy_inventory
     loaded_dict["message_box"] = message_box
     loaded_dict["pine_tree"] = pine_tree
-    loaded_dict["hearth_stone"] = hearth_stone
     loaded_dict["rohir_gate"] = rohir_gate
     loaded_dict["lets_go_button"] = lets_go_button
     loaded_dict["learn_button"] = learn_button
@@ -352,11 +353,12 @@ def load_graphics():
     loaded_dict["char_select_overlay"] = char_select_overlay
     loaded_dict["role_selection_overlay"] = role_selection_overlay
     loaded_dict["location_overlay"] = location_overlay
-    loaded_dict["popup_interaction"] = popup_interaction
     loaded_dict["popup_loot"] = popup_loot
     loaded_dict["stardust_entrance"] = stardust_entrance
     loaded_dict["upgrade_overlay"] = upgrade_overlay
     loaded_dict["cat_pet_button_overlay"] = cat_pet_button_overlay
+    loaded_dict["book_high"] = book_high
+    loaded_dict["save hearth high"] = save_hearth_high
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -787,6 +789,12 @@ def load_graphics():
     loaded_dict["maurelle_interaction"] = npc_interactions_sheet[1]
     loaded_dict["celeste_interaction"] = npc_interactions_sheet[2]
     loaded_dict["torune_interaction"] = npc_interactions_sheet[3]
+    # interaction popup ------------------------------------------------------------------------------------------------
+    interaction_popup_url = resource_path('resources/art/popup_interaction.png')
+    interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)
+    loaded_dict["popup_interaction"] = interaction_popup_sheet[0]
+    loaded_dict["popup_interaction_red"] = interaction_popup_sheet[1]
+    loaded_dict["popup_interaction_purple"] = interaction_popup_sheet[2]
     # enemies ----------------------------------------------------------------------------------------------------------
     enemies_url = resource_path('resources/art/sprites_enemies.png')
     enemies_sheet = sprite_sheet((50, 50), enemies_url)
@@ -794,7 +802,7 @@ def load_graphics():
     loaded_dict["ghoul"] = enemies_sheet[1]
     # enemies highlighted ----------------------------------------------------------------------------------------------
     enemies_high_url = resource_path('resources/art/sprites_enemies_highlighted.png')
-    enemies_high_sheet = sprite_sheet((50, 50), enemies_high_url)
+    enemies_high_sheet = sprite_sheet((50, 75), enemies_high_url)
     loaded_dict["snake_high"] = enemies_high_sheet[0]
     loaded_dict["ghoul_high"] = enemies_high_sheet[1]
     # enemies battle ---------------------------------------------------------------------------------------------------
@@ -887,6 +895,8 @@ def load_graphics():
     buttons_high_sheet = sprite_sheet((100, 65), buttons_high_url)
     loaded_dict["main high"] = buttons_high_sheet[0]
     loaded_dict["skill high"] = buttons_high_sheet[1]
+    loaded_dict["close high"] = buttons_high_sheet[2]
+    loaded_dict["item high"] = buttons_high_sheet[3]
     # start screen buttons ---------------------------------------------------------------------------------------------
     start_buttons_url = resource_path('resources/art/buttons_start_screen.png')
     start_buttons_sheet = sprite_sheet((385, 75), start_buttons_url)
@@ -978,7 +988,7 @@ def load_graphics():
     loaded_dict["save_not_found"] = popups_sheet[4]
     # quest pine logs --------------------------------------------------------------------------------------------------
     quest_logs_url = resource_path('resources/art/sprite_logs.png')
-    quest_logs_sheet = sprite_sheet((40, 45), quest_logs_url)
+    quest_logs_sheet = sprite_sheet((40, 50), quest_logs_url)
     loaded_dict["pine_logs_img"] = quest_logs_sheet[0]
     loaded_dict["pine_logs_high_img"] = quest_logs_sheet[1]
     # game guide overlays ----------------------------------------------------------------------------------------------
@@ -1000,6 +1010,11 @@ def load_graphics():
     loaded_dict["stardust_star_02"] = stardust_stars_sheet[1]
     loaded_dict["stardust_star_03"] = stardust_stars_sheet[2]
     loaded_dict["stardust_star_04"] = stardust_stars_sheet[3]
+    # hearth stone sprites ---------------------------------------------------------------------------------------------
+    hearth_stones_url = resource_path('resources/art/sprite_hearth_stone.png')
+    hearth_stones_sheet = sprite_sheet((100, 100), hearth_stones_url)
+    loaded_dict["hearth_stone"] = hearth_stones_sheet[0]
+    loaded_dict["hearth_stone_lit"] = hearth_stones_sheet[1]
     # heath bars -------------------------------------------------------------------------------------------------------
     hp_url = resource_path('resources/art/bars_health.png')
     hp_sheet = sprite_sheet((305, 19), hp_url)

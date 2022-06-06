@@ -56,6 +56,7 @@ def load_game(player, Item, graphics):
             player.race = player_load_info["race"]
             player.role = player_load_info["role"]
             player.star_power = player_load_info["star power"]
+            player.hearth = player_load_info["hearth"]
 
             if player.race == "amuna":
                 if player.role == "mage":
@@ -117,11 +118,11 @@ def load_game(player, Item, graphics):
                 if equipped_item == "basic bow":
                     player.equipment["weapon"] = Item("basic bow", "scout", 200, 200, graphics["basic_bow_img"])
                 if equipped_item == "basic robes":
-                    player.equipment["chest"] = Item("basic robes", "mage", 200, 200, graphics["basic_robes_img"])
+                    player.equipment["torso"] = Item("basic robes", "mage", 200, 200, graphics["basic_robes_img"])
                 if equipped_item == "basic armor":
-                    player.equipment["chest"] = Item("basic armor", "fighter", 200, 200, graphics["basic_armor_img"])
+                    player.equipment["torso"] = Item("basic armor", "fighter", 200, 200, graphics["basic_armor_img"])
                 if equipped_item == "basic tunic":
-                    player.equipment["chest"] = Item("basic tunic", "scout", 200, 200, graphics["basic_tunic_img"])
+                    player.equipment["torso"] = Item("basic tunic", "scout", 200, 200, graphics["basic_tunic_img"])
 
             player.current_quests = player_load_info["quests"]
             player.quest_progress = player_load_info["quest progress"]
@@ -184,10 +185,10 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
         for item_x in player.items:
             inventory_save.append(item_x.name)
         equipment_save.append(player.equipment["weapon"].name)
-        equipment_save.append(player.equipment["chest"].name)
+        equipment_save.append(player.equipment["torso"].name)
     except AttributeError:
         pass
-    player_save_info = {"name": str(player.name), "race": str(player.race),
+    player_save_info = {"name": str(player.name), "race": str(player.race), "hearth": str(player.hearth),
                         "level": int(player.level), "role": str(player.role),
                         "inventory": inventory_save, "equipment": equipment_save,
                         "hp": int(player.health), "en": int(player.energy), "xp": int(player.experience),

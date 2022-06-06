@@ -49,9 +49,9 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
                 player.items.append(equipment_item)
                 player.equipment["weapon"] = ""
                 # remove gear along with weapon when weapon is clicked. Add both to inventory
-                if player.equipment["chest"] != "":
-                    player.items.append(player.equipment["chest"])
-                    player.equipment["chest"] = ""
+                if player.equipment["torso"] != "":
+                    player.items.append(player.equipment["torso"])
+                    player.equipment["torso"] = ""
                 return_dict["equipment message"] = "Basic Staff weapon un-equipped."
                 # set players role to none when weapon is unequipped. adjust stats accordingly
                 player.role = ""
@@ -73,9 +73,9 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
             if len(player.items) < 15:
                 player.items.append(equipment_item)
                 player.equipment["weapon"] = ""
-                if player.equipment["chest"] != "":
-                    player.items.append(player.equipment["chest"])
-                    player.equipment["chest"] = ""
+                if player.equipment["torso"] != "":
+                    player.items.append(player.equipment["torso"])
+                    player.equipment["torso"] = ""
                 return_dict["equipment message"] = "Basic Sword weapon un-equipped."
                 player.role = ""
                 if player.race == "amuna":
@@ -96,9 +96,9 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
             if len(player.items) < 15:
                 player.items.append(equipment_item)
                 player.equipment["weapon"] = ""
-                if player.equipment["chest"] != "":
-                    player.items.append(player.equipment["chest"])
-                    player.equipment["chest"] = ""
+                if player.equipment["torso"] != "":
+                    player.items.append(player.equipment["torso"])
+                    player.equipment["torso"] = ""
                 return_dict["equipment message"] = "Basic Bow weapon un-equipped."
                 player.role = ""
                 if player.race == "amuna":
@@ -118,8 +118,8 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
         if equipment_item.name == "basic robes":
             if len(player.items) < 16:
                 player.items.append(equipment_item)
-                player.equipment["chest"] = ""
-                return_dict["equipment message"] = "Basic Robes chest un-equipped."
+                player.equipment["torso"] = ""
+                return_dict["equipment message"] = "Basic Robes torso un-equipped."
                 player.defense = 0
                 if defense_upgraded == 1:
                     player.defense += 4
@@ -128,8 +128,8 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
         if equipment_item.name == "basic armor":
             if len(player.items) < 16:
                 player.items.append(equipment_item)
-                player.equipment["chest"] = ""
-                return_dict["equipment message"] = "Basic Armor chest un-equipped."
+                player.equipment["torso"] = ""
+                return_dict["equipment message"] = "Basic Armor torso un-equipped."
                 player.defense = 0
                 if defense_upgraded == 1:
                     player.defense += 4
@@ -138,8 +138,8 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
         if equipment_item.name == "basic tunic":
             if len(player.items) < 16:
                 player.items.append(equipment_item)
-                player.equipment["chest"] = ""
-                return_dict["equipment message"] = "Basic Tunic chest un-equipped."
+                player.equipment["torso"] = ""
+                return_dict["equipment message"] = "Basic Tunic torso un-equipped."
                 player.defense = 0
                 if defense_upgraded == 1:
                     player.defense += 4
@@ -290,43 +290,43 @@ def inventory(player, item, offense_upgraded, defense_upgraded, player_mage_amun
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
         elif item.name == "basic robes":
-            if player.equipment["chest"] == "":
+            if player.equipment["torso"] == "":
                 if player.role == "mage":
-                    player.equipment["chest"] = item
+                    player.equipment["torso"] = item
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
                     player.defense = 4
                     if defense_upgraded == 1:
                         player.defense += 4
-                    return_dict["item message"] = "Basic Robes chest equipped"
+                    return_dict["item message"] = "Basic Robes torso equipped"
                 else:
                     return_dict["item message"] = "Only mages wear light armor."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
         elif item.name == "basic armor":
-            if player.equipment["chest"] == "":
+            if player.equipment["torso"] == "":
                 if player.role == "fighter":
-                    player.equipment["chest"] = item
+                    player.equipment["torso"] = item
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
                     player.defense = 12
                     if defense_upgraded == 1:
                         player.defense += 4
-                    return_dict["item message"] = "Basic Armor chest equipped"
+                    return_dict["item message"] = "Basic Armor torso equipped"
                 else:
                     return_dict["item message"] = "Only fighters wear heavy armor."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
         elif item.name == "basic tunic":
-            if player.equipment["chest"] == "":
+            if player.equipment["torso"] == "":
                 if player.role == "scout":
-                    player.equipment["chest"] = item
+                    player.equipment["torso"] = item
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
                     player.defense = 8
                     if defense_upgraded == 1:
                         player.defense += 4
-                    return_dict["item message"] = "Basic Tunic chest equipped"
+                    return_dict["item message"] = "Basic Tunic torso equipped"
                 else:
                     return_dict["item message"] = "Only scouts wear medium armor."
             else:

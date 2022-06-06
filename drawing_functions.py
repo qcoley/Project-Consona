@@ -246,7 +246,7 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
 def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                    offense_upgraded, defense_upgraded, big_font):
     # get current player rupee count and create surf and rectangle to blit to screen------------------------------------
-    text_rupee_surf = font.render(str(player.rupees), True, "black", "light yellow")
+    text_rupee_surf = font.render(str(player.rupees), True, "black", "light blue")
     text_rupee_rect = text_rupee_surf.get_rect()
     text_rupee_rect.center = (1120, 693)
     screen.blit(text_rupee_surf, text_rupee_rect)
@@ -509,15 +509,15 @@ def equipment_updates(player, graphic):
         if player.equipment["weapon"].name == "basic bow":
             player.equipment["weapon"].update(1078, 285, graphic["basic_bow_img"])
             player_equipment.append(player.equipment["weapon"])
-        if player.equipment["chest"].name == "basic robes":
-            player.equipment["chest"].update(1153, 197, graphic["basic_robes_img"])
-            player_equipment.append(player.equipment["chest"])
-        if player.equipment["chest"].name == "basic armor":
-            player.equipment["chest"].update(1153, 197, graphic["basic_armor_img"])
-            player_equipment.append(player.equipment["chest"])
-        if player.equipment["chest"].name == "basic tunic":
-            player.equipment["chest"].update(1153, 197, graphic["basic_tunic_img"])
-            player_equipment.append(player.equipment["chest"])
+        if player.equipment["torso"].name == "basic robes":
+            player.equipment["torso"].update(1153, 197, graphic["basic_robes_img"])
+            player_equipment.append(player.equipment["torso"])
+        if player.equipment["torso"].name == "basic armor":
+            player.equipment["torso"].update(1153, 197, graphic["basic_armor_img"])
+            player_equipment.append(player.equipment["torso"])
+        if player.equipment["torso"].name == "basic tunic":
+            player.equipment["torso"].update(1153, 197, graphic["basic_tunic_img"])
+            player_equipment.append(player.equipment["torso"])
     except AttributeError:
         pass
 

@@ -8,7 +8,7 @@ a = Analysis(
     ['project_eterna.py'],
     pathex=[],
     binaries=[],
-    datas=[('resources/art/*.png','resources/art')],
+    datas=[('resources/art/*.png','resources/art'), ('resources/music/*.mp3','resources/music')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
