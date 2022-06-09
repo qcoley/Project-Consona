@@ -55,86 +55,89 @@ def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, health_po
 def sell_items(player, sell_choice, current_sell_item):
     sell_return = {"info 1": "", "info 2": "", "sold": False}
     if sell_choice == "yes":
-        if current_sell_item.name == "health potion":
-            sell_return["info 1"] = "Sold Health Potion for 5 rupees."
-            sell_return["info 2"] = "Health Potion removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 5
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
-        if current_sell_item.name == "energy potion":
-            sell_return["info 1"] = "Sold Energy Potion for 5 rupees."
-            sell_return["info 2"] = "Energy Potion removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 5
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
-        if current_sell_item.name == "shiny rock":
-            sell_return["info 1"] = "Sold Shiny Rock for 5 rupees."
-            sell_return["info 2"] = "Shiny Rock removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 5
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
-        if current_sell_item.name == "bone dust":
-            sell_return["info 1"] = "Sold Bone Dust for 10 rupees."
-            sell_return["info 2"] = "Bone Dust removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 10
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
-        if current_sell_item.name == "basic staff":
-            sell_return["info 1"] = "Sold Basic Staff for 5 rupees."
-            sell_return["info 2"] = "Basic Staff removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 5
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
-        if current_sell_item.name == "basic sword":
-            sell_return["info 1"] = "Sold Basic Sword for 5 rupees."
-            sell_return["info 2"] = "Basic Sword removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 5
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
-        if current_sell_item.name == "basic bow":
-            sell_return["info 1"] = "Sold Basic Bow for 5 rupees."
-            sell_return["info 2"] = "Basic Bow removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 5
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
-        if current_sell_item.name == "basic robes":
-            sell_return["info 1"] = "Sold Basic Robes for 5 rupees."
-            sell_return["info 2"] = "Basic Robes removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 5
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
-        if current_sell_item.name == "basic armor":
-            sell_return["info 1"] = "Sold Basic Armor for 5 rupees."
-            sell_return["info 2"] = "Basic Armor removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 5
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
-        if current_sell_item.name == "basic tunic":
-            sell_return["info 1"] = "Sold Basic Tunic for 5 rupees."
-            sell_return["info 2"] = "Basic Tunic removed from inventory."
-            player.items.remove(current_sell_item)
-            drawing_functions.player_items.remove(current_sell_item)
-            player.rupees = player.rupees + 5
-            sell_return["sold"] = True
-            drawing_functions.sell_info_window.clear()
+        try:
+            if current_sell_item.name == "health potion":
+                sell_return["info 1"] = "Sold Health Potion for 5 rupees."
+                sell_return["info 2"] = "Health Potion removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 5
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+            if current_sell_item.name == "energy potion":
+                sell_return["info 1"] = "Sold Energy Potion for 5 rupees."
+                sell_return["info 2"] = "Energy Potion removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 5
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+            if current_sell_item.name == "shiny rock":
+                sell_return["info 1"] = "Sold Shiny Rock for 5 rupees."
+                sell_return["info 2"] = "Shiny Rock removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 5
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+            if current_sell_item.name == "bone dust":
+                sell_return["info 1"] = "Sold Bone Dust for 10 rupees."
+                sell_return["info 2"] = "Bone Dust removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 10
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+            if current_sell_item.name == "basic staff":
+                sell_return["info 1"] = "Sold Basic Staff for 5 rupees."
+                sell_return["info 2"] = "Basic Staff removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 5
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+            if current_sell_item.name == "basic sword":
+                sell_return["info 1"] = "Sold Basic Sword for 5 rupees."
+                sell_return["info 2"] = "Basic Sword removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 5
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+            if current_sell_item.name == "basic bow":
+                sell_return["info 1"] = "Sold Basic Bow for 5 rupees."
+                sell_return["info 2"] = "Basic Bow removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 5
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+            if current_sell_item.name == "basic robes":
+                sell_return["info 1"] = "Sold Basic Robes for 5 rupees."
+                sell_return["info 2"] = "Basic Robes removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 5
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+            if current_sell_item.name == "basic armor":
+                sell_return["info 1"] = "Sold Basic Armor for 5 rupees."
+                sell_return["info 2"] = "Basic Armor removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 5
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+            if current_sell_item.name == "basic tunic":
+                sell_return["info 1"] = "Sold Basic Tunic for 5 rupees."
+                sell_return["info 2"] = "Basic Tunic removed from inventory."
+                player.items.remove(current_sell_item)
+                drawing_functions.player_items.remove(current_sell_item)
+                player.rupees = player.rupees + 5
+                sell_return["sold"] = True
+                drawing_functions.sell_info_window.clear()
+        except AttributeError:
+            pass
     if sell_choice == "no":
         drawing_functions.sell_info_window.clear()
 
