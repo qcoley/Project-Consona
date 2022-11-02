@@ -1878,7 +1878,7 @@ if __name__ == '__main__':
     interactables.add(npcs, enemies, buildings, nascent_gate, stardust_entrance, seldon_hearth, quest_items, nede)
 
     pygame.mixer.music.set_volume(0.50)
-    pygame.mixer.music.load(resource_path("resources/music/eterna_start.mp3"))
+    pygame.mixer.music.load(resource_path("resources/music/eterna_title.mp3"))
     pygame.mixer.music.play(loops=-1)
 
     # move_up_sound = pygame.mixer.Sound("Rising_putter.ogg")
