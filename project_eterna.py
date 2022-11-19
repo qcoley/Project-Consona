@@ -1054,7 +1054,7 @@ def enemy_respawn():
         snakes.add(new_snake)
         enemies.add(new_snake)
         most_sprites.add(new_snake)
-        interactables.add(new_snake)
+        interactables_nascent.add(new_snake)
 
     # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
     if ghoul_counter < 3:
@@ -1064,7 +1064,7 @@ def enemy_respawn():
         ghouls.add(new_ghoul)
         enemies.add(new_ghoul)
         most_sprites.add(new_ghoul)
-        interactables.add(new_ghoul)
+        interactables_nascent.add(new_ghoul)
 
 
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg
@@ -1862,7 +1862,10 @@ if __name__ == '__main__':
     non_sprite_sheets = pygame.sprite.Group()
     snakes = pygame.sprite.Group()
     ghouls = pygame.sprite.Group()
-    interactables = pygame.sprite.Group()
+    interactables_nascent = pygame.sprite.Group()
+    interactables_seldon = pygame.sprite.Group()
+    interactables_stardust = pygame.sprite.Group()
+    interactables_korlok = pygame.sprite.Group()
 
     snakes.add(snake_1, snake_2, snake_3, snake_4)
     ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
@@ -1875,7 +1878,11 @@ if __name__ == '__main__':
     most_sprites.add(npcs, trees, buildings, quest_items, enemies, seldon_hearth, rohir_gate)
     user_interface.add(rest_button, buy_button, leave_button, character_button, journal_button, save_button,
                        hearth_button, message_box, location_overlay, star_power_meter)
-    interactables.add(npcs, enemies, buildings, nascent_gate, stardust_entrance, seldon_hearth, quest_items, nede)
+    interactables_nascent.add(nascent_gate)
+    interactables_seldon.add(npcs, enemies, buildings, seldon_hearth, quest_items)
+    interactables_stardust.add(stardust_entrance, nede)
+    interactables_korlok.add(npcs, enemies, buildings, seldon_hearth, quest_items)
+
 
     pygame.mixer.music.set_volume(0.50)
     pygame.mixer.music.load(resource_path("resources/music/eterna_title.mp3"))
@@ -2294,8 +2301,18 @@ if __name__ == '__main__':
                                 sys.exit()
                             # "F" key for player interaction
                             if event.key == K_f:
-                                if pygame.sprite.spritecollideany(player, interactables):
-                                    interacted = True
+                                if player.current_zone == "nascent":
+                                    if pygame.sprite.spritecollideany(player, interactables_nascent):
+                                        interacted = True
+                                if player.current_zone == "seldon":
+                                    if pygame.sprite.spritecollideany(player, interactables_seldon):
+                                        interacted = True
+                                if player.current_zone == "stardust":
+                                    if pygame.sprite.spritecollideany(player, interactables_stardust):
+                                        interacted = True
+                                if player.current_zone == "korlok":
+                                    if pygame.sprite.spritecollideany(player, interactables_korlok):
+                                        interacted = True
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -3101,14 +3118,17 @@ if __name__ == '__main__':
                                 combat_happened = True
 
                                 # add all combat scenario happenings from function to message box
-                                if combat_events["damage done string"] == 0:
-                                    info_text_1 = ""
-                                else:
-                                    info_text_1 = str(combat_events["damage done string"])
-                                if combat_events["damage taken string"] == 0:
-                                    info_text_2 = ""
-                                else:
-                                    info_text_2 = str(combat_events["damage taken string"])
+                                try:
+                                    if combat_events["damage done string"] == 0:
+                                        info_text_1 = ""
+                                    else:
+                                        info_text_1 = str(combat_events["damage done string"])
+                                    if combat_events["damage taken string"] == 0:
+                                        info_text_2 = ""
+                                    else:
+                                        info_text_2 = str(combat_events["damage taken string"])
+                                except TypeError:
+                                    pass
 
                                 # adds item dropped and experienced gained messages to box if enemy was defeated
                                 if combat_events["enemy defeated"]:
