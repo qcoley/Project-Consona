@@ -1085,497 +1085,538 @@ def hearthstone_animation():
 
 
 def button_highlights():
-    if in_inn:
-        if rest_button.rect.collidepoint(pos):
-            button_highlight.update(rest_button.x_coordinate,
-                                    rest_button.y_coordinate + 7,
-                                    graphic_dict["main high"])
-            return True
-        elif leave_button.rect.collidepoint(pos):
-            button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
-                                    graphic_dict["main high"])
-            return True
-        elif inv_1.collidepoint(pos):
-            if len(player.items) > 0:
-                button_highlight.update(1062, 461, graphic_dict["item high"])
+    if not start_chosen:
+        if not new_game_chosen:
+            if new_game_button.rect.collidepoint(pos):
+                button_highlight.update(new_game_button.x_coordinate + 10,
+                                        new_game_button.y_coordinate,
+                                        graphic_dict["start high"])
                 return True
-        elif inv_2.collidepoint(pos):
-            if len(player.items) > 1:
-                button_highlight.update(1122, 461, graphic_dict["item high"])
+            if continue_button.rect.collidepoint(pos):
+                button_highlight.update(continue_button.x_coordinate + 10,
+                                        continue_button.y_coordinate,
+                                        graphic_dict["start high"])
                 return True
-        elif inv_3.collidepoint(pos):
-            if len(player.items) > 2:
-                button_highlight.update(1182, 461, graphic_dict["item high"])
-                return True
-        elif inv_4.collidepoint(pos):
-            if len(player.items) > 3:
-                button_highlight.update(1242, 461, graphic_dict["item high"])
-                return True
-        elif inv_5.collidepoint(pos):
-            if len(player.items) > 4:
-                button_highlight.update(1062, 521, graphic_dict["item high"])
-                return True
-        elif inv_6.collidepoint(pos):
-            if len(player.items) > 5:
-                button_highlight.update(1122, 521, graphic_dict["item high"])
-                return True
-        elif inv_7.collidepoint(pos):
-            if len(player.items) > 6:
-                button_highlight.update(1182, 521, graphic_dict["item high"])
-                return True
-        elif inv_8.collidepoint(pos):
-            if len(player.items) > 7:
-                button_highlight.update(1242, 521, graphic_dict["item high"])
-                return True
-        elif inv_9.collidepoint(pos):
-            if len(player.items) > 8:
-                button_highlight.update(1062, 581, graphic_dict["item high"])
-                return True
-        elif inv_10.collidepoint(pos):
-            if len(player.items) > 9:
-                button_highlight.update(1122, 581, graphic_dict["item high"])
-                return True
-        elif inv_11.collidepoint(pos):
-            if len(player.items) > 10:
-                button_highlight.update(1182, 581, graphic_dict["item high"])
-                return True
-        elif inv_12.collidepoint(pos):
-            if len(player.items) > 11:
-                button_highlight.update(1242, 581, graphic_dict["item high"])
-                return True
-        elif inv_13.collidepoint(pos):
-            if len(player.items) > 12:
-                button_highlight.update(1062, 641, graphic_dict["item high"])
-                return True
-        elif inv_14.collidepoint(pos):
-            if len(player.items) > 13:
-                button_highlight.update(1122, 641, graphic_dict["item high"])
-                return True
-        elif inv_15.collidepoint(pos):
-            if len(player.items) > 14:
-                button_highlight.update(1182, 641, graphic_dict["item high"])
-                return True
-        elif inv_16.collidepoint(pos):
-            if len(player.items) > 15:
-                button_highlight.update(1242, 641, graphic_dict["item high"])
-                return True
-        elif gloves.collidepoint(pos):
-            if player.equipment["gloves"] != "":
-                button_highlight.update(1077, 195, graphic_dict["item high"])
-                return True
-        elif torso.collidepoint(pos):
-            if player.equipment["torso"] != "":
-                button_highlight.update(1152, 195, graphic_dict["item high"])
-                return True
-        elif boots.collidepoint(pos):
-            if player.equipment["boots"] != "":
-                button_highlight.update(1227, 195, graphic_dict["item high"])
-                return True
-        elif weapon.collidepoint(pos):
-            if player.equipment["weapon"] != "":
-                button_highlight.update(1077, 283, graphic_dict["item high"])
-                return True
-        elif cloak.collidepoint(pos):
-            if player.equipment["cloak"] != "":
-                button_highlight.update(1152, 283, graphic_dict["item high"])
-                return True
-        elif ring.collidepoint(pos):
-            if player.equipment["ring"] != "":
-                button_highlight.update(1227, 283, graphic_dict["item high"])
-                return True
-        elif len(save_check_window) > 0:
-            if yes_button.rect.collidepoint(pos):
-                button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
-                                        graphic_dict["main high"])
-                return True
-            elif no_button.rect.collidepoint(pos):
-                button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
-                                        graphic_dict["main high"])
-                return True
-            else:
-                return False
-        elif len(drawing_functions.item_info_window) > 0:
-            if item_info_button.rect.collidepoint(pos):
-                button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
-                                        graphic_dict["main high"])
-                return True
-            else:
-                return False
 
-        else:
-            return False
+        if new_game_chosen:
+            if start_button.rect.collidepoint(pos):
+                button_highlight.update(start_button.x_coordinate + 15,
+                                        start_button.y_coordinate,
+                                        graphic_dict["begin high"])
+                return True
+            if back_button.rect.collidepoint(pos):
+                button_highlight.update(back_button.x_coordinate,
+                                        back_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            if amuna_button.rect.collidepoint(pos):
+                button_highlight.update(amuna_button.x_coordinate - 6,
+                                        amuna_button.y_coordinate,
+                                        graphic_dict["race high"])
+                return True
+            if nuldar_button.rect.collidepoint(pos):
+                button_highlight.update(nuldar_button.x_coordinate - 5,
+                                        nuldar_button.y_coordinate,
+                                        graphic_dict["race high"])
+                return True
+            if sorae_button.rect.collidepoint(pos):
+                button_highlight.update(sorae_button.x_coordinate - 4,
+                                        sorae_button.y_coordinate,
+                                        graphic_dict["race high"])
+                return True
 
-    if in_shop:
-        if buy_button.rect.collidepoint(pos):
-            button_highlight.update(buy_button.x_coordinate,
-                                    buy_button.y_coordinate + 7,
-                                    graphic_dict["main high"])
-            return True
-        elif leave_button.rect.collidepoint(pos):
-            button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
-                                    graphic_dict["main high"])
-            return True
-        elif inv_1.collidepoint(pos):
-            if len(player.items) > 0:
-                button_highlight.update(1062, 461, graphic_dict["item high"])
-                return True
-        elif inv_2.collidepoint(pos):
-            if len(player.items) > 1:
-                button_highlight.update(1122, 461, graphic_dict["item high"])
-                return True
-        elif inv_3.collidepoint(pos):
-            if len(player.items) > 2:
-                button_highlight.update(1182, 461, graphic_dict["item high"])
-                return True
-        elif inv_4.collidepoint(pos):
-            if len(player.items) > 3:
-                button_highlight.update(1242, 461, graphic_dict["item high"])
-                return True
-        elif inv_5.collidepoint(pos):
-            if len(player.items) > 4:
-                button_highlight.update(1062, 521, graphic_dict["item high"])
-                return True
-        elif inv_6.collidepoint(pos):
-            if len(player.items) > 5:
-                button_highlight.update(1122, 521, graphic_dict["item high"])
-                return True
-        elif inv_7.collidepoint(pos):
-            if len(player.items) > 6:
-                button_highlight.update(1182, 521, graphic_dict["item high"])
-                return True
-        elif inv_8.collidepoint(pos):
-            if len(player.items) > 7:
-                button_highlight.update(1242, 521, graphic_dict["item high"])
-                return True
-        elif inv_9.collidepoint(pos):
-            if len(player.items) > 8:
-                button_highlight.update(1062, 581, graphic_dict["item high"])
-                return True
-        elif inv_10.collidepoint(pos):
-            if len(player.items) > 9:
-                button_highlight.update(1122, 581, graphic_dict["item high"])
-                return True
-        elif inv_11.collidepoint(pos):
-            if len(player.items) > 10:
-                button_highlight.update(1182, 581, graphic_dict["item high"])
-                return True
-        elif inv_12.collidepoint(pos):
-            if len(player.items) > 11:
-                button_highlight.update(1242, 581, graphic_dict["item high"])
-                return True
-        elif inv_13.collidepoint(pos):
-            if len(player.items) > 12:
-                button_highlight.update(1062, 641, graphic_dict["item high"])
-                return True
-        elif inv_14.collidepoint(pos):
-            if len(player.items) > 13:
-                button_highlight.update(1122, 641, graphic_dict["item high"])
-                return True
-        elif inv_15.collidepoint(pos):
-            if len(player.items) > 14:
-                button_highlight.update(1182, 641, graphic_dict["item high"])
-                return True
-        elif inv_16.collidepoint(pos):
-            if len(player.items) > 15:
-                button_highlight.update(1242, 641, graphic_dict["item high"])
-                return True
-        elif gloves.collidepoint(pos):
-            if player.equipment["gloves"] != "":
-                button_highlight.update(1077, 195, graphic_dict["item high"])
-                return True
-        elif torso.collidepoint(pos):
-            if player.equipment["torso"] != "":
-                button_highlight.update(1152, 195, graphic_dict["item high"])
-                return True
-        elif boots.collidepoint(pos):
-            if player.equipment["boots"] != "":
-                button_highlight.update(1227, 195, graphic_dict["item high"])
-                return True
-        elif weapon.collidepoint(pos):
-            if player.equipment["weapon"] != "":
-                button_highlight.update(1077, 283, graphic_dict["item high"])
-                return True
-        elif cloak.collidepoint(pos):
-            if player.equipment["cloak"] != "":
-                button_highlight.update(1152, 283, graphic_dict["item high"])
-                return True
-        elif ring.collidepoint(pos):
-            if player.equipment["ring"] != "":
-                button_highlight.update(1227, 283, graphic_dict["item high"])
-                return True
-        elif len(save_check_window) > 0:
-            if yes_button.rect.collidepoint(pos):
-                button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
+    if start_chosen:
+        if in_inn:
+            if rest_button.rect.collidepoint(pos):
+                button_highlight.update(rest_button.x_coordinate,
+                                        rest_button.y_coordinate + 7,
                                         graphic_dict["main high"])
                 return True
-            elif no_button.rect.collidepoint(pos):
-                button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
+            elif leave_button.rect.collidepoint(pos):
+                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
                                         graphic_dict["main high"])
                 return True
-            else:
-                return False
-        elif len(drawing_functions.item_info_window) > 0:
-            if item_info_button.rect.collidepoint(pos):
-                button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
-                                        graphic_dict["main high"])
-                return True
+            elif inv_1.collidepoint(pos):
+                if len(player.items) > 0:
+                    button_highlight.update(1062, 461, graphic_dict["item high"])
+                    return True
+            elif inv_2.collidepoint(pos):
+                if len(player.items) > 1:
+                    button_highlight.update(1122, 461, graphic_dict["item high"])
+                    return True
+            elif inv_3.collidepoint(pos):
+                if len(player.items) > 2:
+                    button_highlight.update(1182, 461, graphic_dict["item high"])
+                    return True
+            elif inv_4.collidepoint(pos):
+                if len(player.items) > 3:
+                    button_highlight.update(1242, 461, graphic_dict["item high"])
+                    return True
+            elif inv_5.collidepoint(pos):
+                if len(player.items) > 4:
+                    button_highlight.update(1062, 521, graphic_dict["item high"])
+                    return True
+            elif inv_6.collidepoint(pos):
+                if len(player.items) > 5:
+                    button_highlight.update(1122, 521, graphic_dict["item high"])
+                    return True
+            elif inv_7.collidepoint(pos):
+                if len(player.items) > 6:
+                    button_highlight.update(1182, 521, graphic_dict["item high"])
+                    return True
+            elif inv_8.collidepoint(pos):
+                if len(player.items) > 7:
+                    button_highlight.update(1242, 521, graphic_dict["item high"])
+                    return True
+            elif inv_9.collidepoint(pos):
+                if len(player.items) > 8:
+                    button_highlight.update(1062, 581, graphic_dict["item high"])
+                    return True
+            elif inv_10.collidepoint(pos):
+                if len(player.items) > 9:
+                    button_highlight.update(1122, 581, graphic_dict["item high"])
+                    return True
+            elif inv_11.collidepoint(pos):
+                if len(player.items) > 10:
+                    button_highlight.update(1182, 581, graphic_dict["item high"])
+                    return True
+            elif inv_12.collidepoint(pos):
+                if len(player.items) > 11:
+                    button_highlight.update(1242, 581, graphic_dict["item high"])
+                    return True
+            elif inv_13.collidepoint(pos):
+                if len(player.items) > 12:
+                    button_highlight.update(1062, 641, graphic_dict["item high"])
+                    return True
+            elif inv_14.collidepoint(pos):
+                if len(player.items) > 13:
+                    button_highlight.update(1122, 641, graphic_dict["item high"])
+                    return True
+            elif inv_15.collidepoint(pos):
+                if len(player.items) > 14:
+                    button_highlight.update(1182, 641, graphic_dict["item high"])
+                    return True
+            elif inv_16.collidepoint(pos):
+                if len(player.items) > 15:
+                    button_highlight.update(1242, 641, graphic_dict["item high"])
+                    return True
+            elif gloves.collidepoint(pos):
+                if player.equipment["gloves"] != "":
+                    button_highlight.update(1077, 195, graphic_dict["item high"])
+                    return True
+            elif torso.collidepoint(pos):
+                if player.equipment["torso"] != "":
+                    button_highlight.update(1152, 195, graphic_dict["item high"])
+                    return True
+            elif boots.collidepoint(pos):
+                if player.equipment["boots"] != "":
+                    button_highlight.update(1227, 195, graphic_dict["item high"])
+                    return True
+            elif weapon.collidepoint(pos):
+                if player.equipment["weapon"] != "":
+                    button_highlight.update(1077, 283, graphic_dict["item high"])
+                    return True
+            elif cloak.collidepoint(pos):
+                if player.equipment["cloak"] != "":
+                    button_highlight.update(1152, 283, graphic_dict["item high"])
+                    return True
+            elif ring.collidepoint(pos):
+                if player.equipment["ring"] != "":
+                    button_highlight.update(1227, 283, graphic_dict["item high"])
+                    return True
+            elif len(save_check_window) > 0:
+                if yes_button.rect.collidepoint(pos):
+                    button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif no_button.rect.collidepoint(pos):
+                    button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                else:
+                    return False
+            elif len(drawing_functions.item_info_window) > 0:
+                if item_info_button.rect.collidepoint(pos):
+                    button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                else:
+                    return False
+
             else:
                 return False
 
-        else:
-            return False
+        if in_shop:
+            if buy_button.rect.collidepoint(pos):
+                button_highlight.update(buy_button.x_coordinate,
+                                        buy_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif leave_button.rect.collidepoint(pos):
+                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif inv_1.collidepoint(pos):
+                if len(player.items) > 0:
+                    button_highlight.update(1062, 461, graphic_dict["item high"])
+                    return True
+            elif inv_2.collidepoint(pos):
+                if len(player.items) > 1:
+                    button_highlight.update(1122, 461, graphic_dict["item high"])
+                    return True
+            elif inv_3.collidepoint(pos):
+                if len(player.items) > 2:
+                    button_highlight.update(1182, 461, graphic_dict["item high"])
+                    return True
+            elif inv_4.collidepoint(pos):
+                if len(player.items) > 3:
+                    button_highlight.update(1242, 461, graphic_dict["item high"])
+                    return True
+            elif inv_5.collidepoint(pos):
+                if len(player.items) > 4:
+                    button_highlight.update(1062, 521, graphic_dict["item high"])
+                    return True
+            elif inv_6.collidepoint(pos):
+                if len(player.items) > 5:
+                    button_highlight.update(1122, 521, graphic_dict["item high"])
+                    return True
+            elif inv_7.collidepoint(pos):
+                if len(player.items) > 6:
+                    button_highlight.update(1182, 521, graphic_dict["item high"])
+                    return True
+            elif inv_8.collidepoint(pos):
+                if len(player.items) > 7:
+                    button_highlight.update(1242, 521, graphic_dict["item high"])
+                    return True
+            elif inv_9.collidepoint(pos):
+                if len(player.items) > 8:
+                    button_highlight.update(1062, 581, graphic_dict["item high"])
+                    return True
+            elif inv_10.collidepoint(pos):
+                if len(player.items) > 9:
+                    button_highlight.update(1122, 581, graphic_dict["item high"])
+                    return True
+            elif inv_11.collidepoint(pos):
+                if len(player.items) > 10:
+                    button_highlight.update(1182, 581, graphic_dict["item high"])
+                    return True
+            elif inv_12.collidepoint(pos):
+                if len(player.items) > 11:
+                    button_highlight.update(1242, 581, graphic_dict["item high"])
+                    return True
+            elif inv_13.collidepoint(pos):
+                if len(player.items) > 12:
+                    button_highlight.update(1062, 641, graphic_dict["item high"])
+                    return True
+            elif inv_14.collidepoint(pos):
+                if len(player.items) > 13:
+                    button_highlight.update(1122, 641, graphic_dict["item high"])
+                    return True
+            elif inv_15.collidepoint(pos):
+                if len(player.items) > 14:
+                    button_highlight.update(1182, 641, graphic_dict["item high"])
+                    return True
+            elif inv_16.collidepoint(pos):
+                if len(player.items) > 15:
+                    button_highlight.update(1242, 641, graphic_dict["item high"])
+                    return True
+            elif gloves.collidepoint(pos):
+                if player.equipment["gloves"] != "":
+                    button_highlight.update(1077, 195, graphic_dict["item high"])
+                    return True
+            elif torso.collidepoint(pos):
+                if player.equipment["torso"] != "":
+                    button_highlight.update(1152, 195, graphic_dict["item high"])
+                    return True
+            elif boots.collidepoint(pos):
+                if player.equipment["boots"] != "":
+                    button_highlight.update(1227, 195, graphic_dict["item high"])
+                    return True
+            elif weapon.collidepoint(pos):
+                if player.equipment["weapon"] != "":
+                    button_highlight.update(1077, 283, graphic_dict["item high"])
+                    return True
+            elif cloak.collidepoint(pos):
+                if player.equipment["cloak"] != "":
+                    button_highlight.update(1152, 283, graphic_dict["item high"])
+                    return True
+            elif ring.collidepoint(pos):
+                if player.equipment["ring"] != "":
+                    button_highlight.update(1227, 283, graphic_dict["item high"])
+                    return True
+            elif len(save_check_window) > 0:
+                if yes_button.rect.collidepoint(pos):
+                    button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif no_button.rect.collidepoint(pos):
+                    button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                else:
+                    return False
+            elif len(drawing_functions.item_info_window) > 0:
+                if item_info_button.rect.collidepoint(pos):
+                    button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                else:
+                    return False
 
-    if in_battle:
-        if mage_attack_button.rect.collidepoint(pos) or fighter_attack_button.rect.collidepoint(pos) \
-                or scout_attack_button.rect.collidepoint(pos) or no_role_attack_button.rect.collidepoint(pos):
-            button_highlight.update(mage_attack_button.x_coordinate - 2, mage_attack_button.y_coordinate + 1,
-                                    graphic_dict["skill high"])
-            return True
-        elif barrier_button.rect.collidepoint(pos) or sharp_sense_button.rect.collidepoint(pos) \
-                or hard_strike_button.rect.collidepoint(pos):
-            button_highlight.update(barrier_button.x_coordinate - 2,
-                                    barrier_button.y_coordinate + 1,
-                                    graphic_dict["skill high"])
-            return True
-        elif inv_1.collidepoint(pos):
-            if len(player.items) > 0:
-                button_highlight.update(1062, 461, graphic_dict["item high"])
-                return True
-        elif inv_2.collidepoint(pos):
-            if len(player.items) > 1:
-                button_highlight.update(1122, 461, graphic_dict["item high"])
-                return True
-        elif inv_3.collidepoint(pos):
-            if len(player.items) > 2:
-                button_highlight.update(1182, 461, graphic_dict["item high"])
-                return True
-        elif inv_4.collidepoint(pos):
-            if len(player.items) > 3:
-                button_highlight.update(1242, 461, graphic_dict["item high"])
-                return True
-        elif inv_5.collidepoint(pos):
-            if len(player.items) > 4:
-                button_highlight.update(1062, 521, graphic_dict["item high"])
-                return True
-        elif inv_6.collidepoint(pos):
-            if len(player.items) > 5:
-                button_highlight.update(1122, 521, graphic_dict["item high"])
-                return True
-        elif inv_7.collidepoint(pos):
-            if len(player.items) > 6:
-                button_highlight.update(1182, 521, graphic_dict["item high"])
-                return True
-        elif inv_8.collidepoint(pos):
-            if len(player.items) > 7:
-                button_highlight.update(1242, 521, graphic_dict["item high"])
-                return True
-        elif inv_9.collidepoint(pos):
-            if len(player.items) > 8:
-                button_highlight.update(1062, 581, graphic_dict["item high"])
-                return True
-        elif inv_10.collidepoint(pos):
-            if len(player.items) > 9:
-                button_highlight.update(1122, 581, graphic_dict["item high"])
-                return True
-        elif inv_11.collidepoint(pos):
-            if len(player.items) > 10:
-                button_highlight.update(1182, 581, graphic_dict["item high"])
-                return True
-        elif inv_12.collidepoint(pos):
-            if len(player.items) > 11:
-                button_highlight.update(1242, 581, graphic_dict["item high"])
-                return True
-        elif inv_13.collidepoint(pos):
-            if len(player.items) > 12:
-                button_highlight.update(1062, 641, graphic_dict["item high"])
-                return True
-        elif inv_14.collidepoint(pos):
-            if len(player.items) > 13:
-                button_highlight.update(1122, 641, graphic_dict["item high"])
-                return True
-        elif inv_15.collidepoint(pos):
-            if len(player.items) > 14:
-                button_highlight.update(1182, 641, graphic_dict["item high"])
-                return True
-        elif inv_16.collidepoint(pos):
-            if len(player.items) > 15:
-                button_highlight.update(1242, 641, graphic_dict["item high"])
-                return True
-        elif gloves.collidepoint(pos):
-            if player.equipment["gloves"] != "":
-                button_highlight.update(1077, 195, graphic_dict["item high"])
-                return True
-        elif torso.collidepoint(pos):
-            if player.equipment["torso"] != "":
-                button_highlight.update(1152, 195, graphic_dict["item high"])
-                return True
-        elif boots.collidepoint(pos):
-            if player.equipment["boots"] != "":
-                button_highlight.update(1227, 195, graphic_dict["item high"])
-                return True
-        elif weapon.collidepoint(pos):
-            if player.equipment["weapon"] != "":
-                button_highlight.update(1077, 283, graphic_dict["item high"])
-                return True
-        elif cloak.collidepoint(pos):
-            if player.equipment["cloak"] != "":
-                button_highlight.update(1152, 283, graphic_dict["item high"])
-                return True
-        elif ring.collidepoint(pos):
-            if player.equipment["ring"] != "":
-                button_highlight.update(1227, 283, graphic_dict["item high"])
-                return True
-        elif len(save_check_window) > 0:
-            if yes_button.rect.collidepoint(pos):
-                button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
-                                        graphic_dict["main high"])
-                return True
-            elif no_button.rect.collidepoint(pos):
-                button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
-                                        graphic_dict["main high"])
-                return True
             else:
                 return False
 
-        elif len(drawing_functions.item_info_window) > 0:
-            if item_info_button.rect.collidepoint(pos):
-                button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
-                                        graphic_dict["main high"])
+        if in_battle:
+            if mage_attack_button.rect.collidepoint(pos) or fighter_attack_button.rect.collidepoint(pos) \
+                    or scout_attack_button.rect.collidepoint(pos) or no_role_attack_button.rect.collidepoint(pos):
+                button_highlight.update(mage_attack_button.x_coordinate - 2, mage_attack_button.y_coordinate + 1,
+                                        graphic_dict["skill high"])
                 return True
-            else:
-                return False
-        else:
-            return False
+            elif barrier_button.rect.collidepoint(pos) or sharp_sense_button.rect.collidepoint(pos) \
+                    or hard_strike_button.rect.collidepoint(pos):
+                button_highlight.update(barrier_button.x_coordinate - 2,
+                                        barrier_button.y_coordinate + 1,
+                                        graphic_dict["skill high"])
+                return True
+            elif inv_1.collidepoint(pos):
+                if len(player.items) > 0:
+                    button_highlight.update(1062, 461, graphic_dict["item high"])
+                    return True
+            elif inv_2.collidepoint(pos):
+                if len(player.items) > 1:
+                    button_highlight.update(1122, 461, graphic_dict["item high"])
+                    return True
+            elif inv_3.collidepoint(pos):
+                if len(player.items) > 2:
+                    button_highlight.update(1182, 461, graphic_dict["item high"])
+                    return True
+            elif inv_4.collidepoint(pos):
+                if len(player.items) > 3:
+                    button_highlight.update(1242, 461, graphic_dict["item high"])
+                    return True
+            elif inv_5.collidepoint(pos):
+                if len(player.items) > 4:
+                    button_highlight.update(1062, 521, graphic_dict["item high"])
+                    return True
+            elif inv_6.collidepoint(pos):
+                if len(player.items) > 5:
+                    button_highlight.update(1122, 521, graphic_dict["item high"])
+                    return True
+            elif inv_7.collidepoint(pos):
+                if len(player.items) > 6:
+                    button_highlight.update(1182, 521, graphic_dict["item high"])
+                    return True
+            elif inv_8.collidepoint(pos):
+                if len(player.items) > 7:
+                    button_highlight.update(1242, 521, graphic_dict["item high"])
+                    return True
+            elif inv_9.collidepoint(pos):
+                if len(player.items) > 8:
+                    button_highlight.update(1062, 581, graphic_dict["item high"])
+                    return True
+            elif inv_10.collidepoint(pos):
+                if len(player.items) > 9:
+                    button_highlight.update(1122, 581, graphic_dict["item high"])
+                    return True
+            elif inv_11.collidepoint(pos):
+                if len(player.items) > 10:
+                    button_highlight.update(1182, 581, graphic_dict["item high"])
+                    return True
+            elif inv_12.collidepoint(pos):
+                if len(player.items) > 11:
+                    button_highlight.update(1242, 581, graphic_dict["item high"])
+                    return True
+            elif inv_13.collidepoint(pos):
+                if len(player.items) > 12:
+                    button_highlight.update(1062, 641, graphic_dict["item high"])
+                    return True
+            elif inv_14.collidepoint(pos):
+                if len(player.items) > 13:
+                    button_highlight.update(1122, 641, graphic_dict["item high"])
+                    return True
+            elif inv_15.collidepoint(pos):
+                if len(player.items) > 14:
+                    button_highlight.update(1182, 641, graphic_dict["item high"])
+                    return True
+            elif inv_16.collidepoint(pos):
+                if len(player.items) > 15:
+                    button_highlight.update(1242, 641, graphic_dict["item high"])
+                    return True
+            elif gloves.collidepoint(pos):
+                if player.equipment["gloves"] != "":
+                    button_highlight.update(1077, 195, graphic_dict["item high"])
+                    return True
+            elif torso.collidepoint(pos):
+                if player.equipment["torso"] != "":
+                    button_highlight.update(1152, 195, graphic_dict["item high"])
+                    return True
+            elif boots.collidepoint(pos):
+                if player.equipment["boots"] != "":
+                    button_highlight.update(1227, 195, graphic_dict["item high"])
+                    return True
+            elif weapon.collidepoint(pos):
+                if player.equipment["weapon"] != "":
+                    button_highlight.update(1077, 283, graphic_dict["item high"])
+                    return True
+            elif cloak.collidepoint(pos):
+                if player.equipment["cloak"] != "":
+                    button_highlight.update(1152, 283, graphic_dict["item high"])
+                    return True
+            elif ring.collidepoint(pos):
+                if player.equipment["ring"] != "":
+                    button_highlight.update(1227, 283, graphic_dict["item high"])
+                    return True
+            elif len(save_check_window) > 0:
+                if yes_button.rect.collidepoint(pos):
+                    button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif no_button.rect.collidepoint(pos):
+                    button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                else:
+                    return False
 
-    if in_over_world:
-        if character_button.rect.collidepoint(pos):
-            button_highlight.update(character_button.x_coordinate, character_button.y_coordinate + 7,
-                                    graphic_dict["main high"])
-            return True
-        elif journal_button.rect.collidepoint(pos):
-            button_highlight.update(journal_button.x_coordinate, journal_button.y_coordinate + 7,
-                                    graphic_dict["main high"])
-            return True
-        elif save_button.rect.collidepoint(pos):
-            button_highlight.update(save_button.x_coordinate + 1, save_button.y_coordinate + 2,
-                                    graphic_dict["save hearth high"])
-            return True
-        elif hearth_button.rect.collidepoint(pos):
-            button_highlight.update(hearth_button.x_coordinate + 1, hearth_button.y_coordinate + 2,
-                                    graphic_dict["save hearth high"])
-            return True
-        elif inv_1.collidepoint(pos):
-            if len(player.items) > 0:
-                button_highlight.update(1062, 461, graphic_dict["item high"])
-                return True
-        elif inv_2.collidepoint(pos):
-            if len(player.items) > 1:
-                button_highlight.update(1122, 461, graphic_dict["item high"])
-                return True
-        elif inv_3.collidepoint(pos):
-            if len(player.items) > 2:
-                button_highlight.update(1182, 461, graphic_dict["item high"])
-                return True
-        elif inv_4.collidepoint(pos):
-            if len(player.items) > 3:
-                button_highlight.update(1242, 461, graphic_dict["item high"])
-                return True
-        elif inv_5.collidepoint(pos):
-            if len(player.items) > 4:
-                button_highlight.update(1062, 521, graphic_dict["item high"])
-                return True
-        elif inv_6.collidepoint(pos):
-            if len(player.items) > 5:
-                button_highlight.update(1122, 521, graphic_dict["item high"])
-                return True
-        elif inv_7.collidepoint(pos):
-            if len(player.items) > 6:
-                button_highlight.update(1182, 521, graphic_dict["item high"])
-                return True
-        elif inv_8.collidepoint(pos):
-            if len(player.items) > 7:
-                button_highlight.update(1242, 521, graphic_dict["item high"])
-                return True
-        elif inv_9.collidepoint(pos):
-            if len(player.items) > 8:
-                button_highlight.update(1062, 581, graphic_dict["item high"])
-                return True
-        elif inv_10.collidepoint(pos):
-            if len(player.items) > 9:
-                button_highlight.update(1122, 581, graphic_dict["item high"])
-                return True
-        elif inv_11.collidepoint(pos):
-            if len(player.items) > 10:
-                button_highlight.update(1182, 581, graphic_dict["item high"])
-                return True
-        elif inv_12.collidepoint(pos):
-            if len(player.items) > 11:
-                button_highlight.update(1242, 581, graphic_dict["item high"])
-                return True
-        elif inv_13.collidepoint(pos):
-            if len(player.items) > 12:
-                button_highlight.update(1062, 641, graphic_dict["item high"])
-                return True
-        elif inv_14.collidepoint(pos):
-            if len(player.items) > 13:
-                button_highlight.update(1122, 641, graphic_dict["item high"])
-                return True
-        elif inv_15.collidepoint(pos):
-            if len(player.items) > 14:
-                button_highlight.update(1182, 641, graphic_dict["item high"])
-                return True
-        elif inv_16.collidepoint(pos):
-            if len(player.items) > 15:
-                button_highlight.update(1242, 641, graphic_dict["item high"])
-                return True
-
-        elif gloves.collidepoint(pos):
-            if player.equipment["gloves"] != "":
-                button_highlight.update(1077, 195, graphic_dict["item high"])
-                return True
-        elif torso.collidepoint(pos):
-            if player.equipment["torso"] != "":
-                button_highlight.update(1152, 195, graphic_dict["item high"])
-                return True
-        elif boots.collidepoint(pos):
-            if player.equipment["boots"] != "":
-                button_highlight.update(1227, 195, graphic_dict["item high"])
-                return True
-        elif weapon.collidepoint(pos):
-            if player.equipment["weapon"] != "":
-                button_highlight.update(1077, 283, graphic_dict["item high"])
-                return True
-        elif cloak.collidepoint(pos):
-            if player.equipment["cloak"] != "":
-                button_highlight.update(1152, 283, graphic_dict["item high"])
-                return True
-        elif ring.collidepoint(pos):
-            if player.equipment["ring"] != "":
-                button_highlight.update(1227, 283, graphic_dict["item high"])
-                return True
-
-        elif len(save_check_window) > 0:
-            if yes_button.rect.collidepoint(pos):
-                button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
-                                        graphic_dict["main high"])
-                return True
-            elif no_button.rect.collidepoint(pos):
-                button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
-                                        graphic_dict["main high"])
-                return True
+            elif len(drawing_functions.item_info_window) > 0:
+                if item_info_button.rect.collidepoint(pos):
+                    button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                else:
+                    return False
             else:
                 return False
 
-        elif len(drawing_functions.item_info_window) > 0:
-            if item_info_button.rect.collidepoint(pos):
-                button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
+        if in_over_world:
+            if character_button.rect.collidepoint(pos):
+                button_highlight.update(character_button.x_coordinate, character_button.y_coordinate + 7,
                                         graphic_dict["main high"])
                 return True
+            elif journal_button.rect.collidepoint(pos):
+                button_highlight.update(journal_button.x_coordinate, journal_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif save_button.rect.collidepoint(pos):
+                button_highlight.update(save_button.x_coordinate + 1, save_button.y_coordinate + 2,
+                                        graphic_dict["save hearth high"])
+                return True
+            elif hearth_button.rect.collidepoint(pos):
+                button_highlight.update(hearth_button.x_coordinate + 1, hearth_button.y_coordinate + 2,
+                                        graphic_dict["save hearth high"])
+                return True
+            elif inv_1.collidepoint(pos):
+                if len(player.items) > 0:
+                    button_highlight.update(1062, 461, graphic_dict["item high"])
+                    return True
+            elif inv_2.collidepoint(pos):
+                if len(player.items) > 1:
+                    button_highlight.update(1122, 461, graphic_dict["item high"])
+                    return True
+            elif inv_3.collidepoint(pos):
+                if len(player.items) > 2:
+                    button_highlight.update(1182, 461, graphic_dict["item high"])
+                    return True
+            elif inv_4.collidepoint(pos):
+                if len(player.items) > 3:
+                    button_highlight.update(1242, 461, graphic_dict["item high"])
+                    return True
+            elif inv_5.collidepoint(pos):
+                if len(player.items) > 4:
+                    button_highlight.update(1062, 521, graphic_dict["item high"])
+                    return True
+            elif inv_6.collidepoint(pos):
+                if len(player.items) > 5:
+                    button_highlight.update(1122, 521, graphic_dict["item high"])
+                    return True
+            elif inv_7.collidepoint(pos):
+                if len(player.items) > 6:
+                    button_highlight.update(1182, 521, graphic_dict["item high"])
+                    return True
+            elif inv_8.collidepoint(pos):
+                if len(player.items) > 7:
+                    button_highlight.update(1242, 521, graphic_dict["item high"])
+                    return True
+            elif inv_9.collidepoint(pos):
+                if len(player.items) > 8:
+                    button_highlight.update(1062, 581, graphic_dict["item high"])
+                    return True
+            elif inv_10.collidepoint(pos):
+                if len(player.items) > 9:
+                    button_highlight.update(1122, 581, graphic_dict["item high"])
+                    return True
+            elif inv_11.collidepoint(pos):
+                if len(player.items) > 10:
+                    button_highlight.update(1182, 581, graphic_dict["item high"])
+                    return True
+            elif inv_12.collidepoint(pos):
+                if len(player.items) > 11:
+                    button_highlight.update(1242, 581, graphic_dict["item high"])
+                    return True
+            elif inv_13.collidepoint(pos):
+                if len(player.items) > 12:
+                    button_highlight.update(1062, 641, graphic_dict["item high"])
+                    return True
+            elif inv_14.collidepoint(pos):
+                if len(player.items) > 13:
+                    button_highlight.update(1122, 641, graphic_dict["item high"])
+                    return True
+            elif inv_15.collidepoint(pos):
+                if len(player.items) > 14:
+                    button_highlight.update(1182, 641, graphic_dict["item high"])
+                    return True
+            elif inv_16.collidepoint(pos):
+                if len(player.items) > 15:
+                    button_highlight.update(1242, 641, graphic_dict["item high"])
+                    return True
+
+            elif gloves.collidepoint(pos):
+                if player.equipment["gloves"] != "":
+                    button_highlight.update(1077, 195, graphic_dict["item high"])
+                    return True
+            elif torso.collidepoint(pos):
+                if player.equipment["torso"] != "":
+                    button_highlight.update(1152, 195, graphic_dict["item high"])
+                    return True
+            elif boots.collidepoint(pos):
+                if player.equipment["boots"] != "":
+                    button_highlight.update(1227, 195, graphic_dict["item high"])
+                    return True
+            elif weapon.collidepoint(pos):
+                if player.equipment["weapon"] != "":
+                    button_highlight.update(1077, 283, graphic_dict["item high"])
+                    return True
+            elif cloak.collidepoint(pos):
+                if player.equipment["cloak"] != "":
+                    button_highlight.update(1152, 283, graphic_dict["item high"])
+                    return True
+            elif ring.collidepoint(pos):
+                if player.equipment["ring"] != "":
+                    button_highlight.update(1227, 283, graphic_dict["item high"])
+                    return True
+
+            elif len(save_check_window) > 0:
+                if yes_button.rect.collidepoint(pos):
+                    button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif no_button.rect.collidepoint(pos):
+                    button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                else:
+                    return False
+
+            elif len(drawing_functions.item_info_window) > 0:
+                if item_info_button.rect.collidepoint(pos):
+                    button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                else:
+                    return False
+
             else:
                 return False
-
-        else:
-            return False
 
 
 if __name__ == '__main__':
@@ -1745,6 +1786,7 @@ if __name__ == '__main__':
     save_button = UiElement("save button", 970, 60, graphic_dict["save_button_img"])
     yes_button = UiElement("yes button", 450, 394, graphic_dict["yes_button_img"])
     no_button = UiElement("no button", 564, 394, graphic_dict["no_button_img"])
+    back_button = UiElement("back button", 75, 665, graphic_dict["back_button_img"])
     item_info_button = UiElement("item info button", 1153, 345, graphic_dict["use_button_img"])
     mage_select_button = UiElement("mage select", 296, 566, graphic_dict["mage_select_button_img"])
     fighter_select_button = UiElement("fighter select", 550, 566, graphic_dict["fighter_select_button_img"])
@@ -1883,7 +1925,6 @@ if __name__ == '__main__':
     interactables_stardust.add(stardust_entrance, nede)
     interactables_korlok.add(npcs, enemies, buildings, seldon_hearth, quest_items)
 
-
     pygame.mixer.music.set_volume(0.50)
     pygame.mixer.music.load(resource_path("resources/music/eterna_title.mp3"))
     pygame.mixer.music.play(loops=-1)
@@ -1893,6 +1934,7 @@ if __name__ == '__main__':
 
     # main loop variables ----------------------------------------------------------------------------------------------
     game_running = True
+    saving = False
     new_game_chosen = False
     continue_game_chosen = False
     start_chosen = False
@@ -2021,19 +2063,31 @@ if __name__ == '__main__':
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        sys.exit()
+                        if len(save_data_window) > 0:
+                            for element in save_data_window:
+                                save_data_window.clear()
+
+                pos = pygame.mouse.get_pos()
+                button_highlighted = button_highlights()
+
                 if event.type == pygame.MOUSEBUTTONUP:
-                    pos = pygame.mouse.get_pos()
                     # player chooses to start a new game or continue from previous
                     if new_game_button.rect.collidepoint(pos):
                         new_game_chosen = True
+                        button_highlighted = False
+                        save_data_window.clear()
                     if continue_button.rect.collidepoint(pos):
                         continue_game_chosen = True
+                        button_highlighted = False
                     # click to dismiss save absent popup if player tries to continue with no save file
                     if save_absent.rect.collidepoint(pos):
                         save_data_window.clear()
                 elif event.type == QUIT:
                     sys.exit()
+
+            if button_highlighted:
+                screen.blit(button_highlight.surf, button_highlight.rect)
+
             pygame.display.flip()
 
         # --------------------------------------------------------------------------------------------------------------
@@ -2043,8 +2097,7 @@ if __name__ == '__main__':
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        pygame.mixer.quit()
-                        sys.exit()
+                        new_game_chosen = False
                     # if enter key is pressed, de-select name box and proceed
                     if event.key == K_RETURN:
                         name_input_selected = False
@@ -2060,8 +2113,11 @@ if __name__ == '__main__':
                     pygame.mixer.quit()
                     sys.exit()
 
-                elif event.type == pygame.MOUSEBUTTONUP:
-                    pos = pygame.mouse.get_pos()
+                pos = pygame.mouse.get_pos()
+                button_highlighted = button_highlights()
+
+                if event.type == pygame.MOUSEBUTTONUP:
+
                     # player clicks on the box to type name
                     if name_input.rect.collidepoint(pos):
                         if name_input_selected:
@@ -2090,55 +2146,59 @@ if __name__ == '__main__':
                         nuldar_race_selected = False
                         sorae_race_selected = True
 
-                # noinspection PyUnboundLocalVariable
-                if start_button.rect.collidepoint(pos) or entered:
-                    if amuna_race_selected:
-                        player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
-                                             player.current_quests, player.quest_progress, player.quest_status,
-                                             player.quest_complete, player.knowledge, player.skills_mage,
-                                             player.skills_fighter, player.skills_scout, player.level,
-                                             player.experience, player.health, player.energy, player.alive_status,
-                                             player.rupees, player.reputation, player.current_zone, player.defense,
-                                             player.offense, player.star_power, player.hearth)
-                        player.race = "amuna"
-                        player.surf = graphic_dict["player_no_role_amuna_down_1"]
-                        player.current_zone = "nascent"
-                        in_over_world = True
-                        new_game_chosen = False
-                        start_chosen = True
-                    if nuldar_race_selected:
-                        player = PlayerNuldar(player.name, player.race, player.role, player.items, player.equipment,
-                                              player.current_quests, player.quest_progress, player.quest_status,
-                                              player.quest_complete, player.knowledge, player.skills_mage,
-                                              player.skills_fighter, player.skills_scout, player.level,
-                                              player.experience, player.health, player.energy, player.alive_status,
-                                              player.rupees, player.reputation, player.current_zone, player.defense,
-                                              player.offense, player.star_power, player.hearth)
-                        player.race = "nuldar"
-                        player.surf = graphic_dict["player_no_role_nuldar_down_1"]
-                        player.current_zone = "nascent"
-                        in_over_world = True
-                        new_game_chosen = False
-                        start_chosen = True
-                    if sorae_race_selected:
-                        player = PlayerSorae(player.name, player.race, player.role, player.items, player.equipment,
-                                             player.current_quests, player.quest_progress, player.quest_status,
-                                             player.quest_complete, player.knowledge, player.skills_mage,
-                                             player.skills_fighter, player.skills_scout, player.level,
-                                             player.experience, player.health, player.energy, player.alive_status,
-                                             player.rupees, player.reputation, player.current_zone, player.defense,
-                                             player.offense, player.star_power, player.hearth)
-                        player.race = "sorae"
-                        player.surf = graphic_dict["player_no_role_sorae_down_1"]
-                        player.current_zone = "nascent"
-                        in_over_world = True
-                        new_game_chosen = False
-                        start_chosen = True
+                    # noinspection PyUnboundLocalVariable
+                    if start_button.rect.collidepoint(pos) or entered:
+                        if amuna_race_selected:
+                            player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
+                                                 player.current_quests, player.quest_progress, player.quest_status,
+                                                 player.quest_complete, player.knowledge, player.skills_mage,
+                                                 player.skills_fighter, player.skills_scout, player.level,
+                                                 player.experience, player.health, player.energy, player.alive_status,
+                                                 player.rupees, player.reputation, player.current_zone, player.defense,
+                                                 player.offense, player.star_power, player.hearth)
+                            player.race = "amuna"
+                            player.surf = graphic_dict["player_no_role_amuna_down_1"]
+                            player.current_zone = "nascent"
+                            in_over_world = True
+                            new_game_chosen = False
+                            start_chosen = True
+                        if nuldar_race_selected:
+                            player = PlayerNuldar(player.name, player.race, player.role, player.items, player.equipment,
+                                                  player.current_quests, player.quest_progress, player.quest_status,
+                                                  player.quest_complete, player.knowledge, player.skills_mage,
+                                                  player.skills_fighter, player.skills_scout, player.level,
+                                                  player.experience, player.health, player.energy, player.alive_status,
+                                                  player.rupees, player.reputation, player.current_zone, player.defense,
+                                                  player.offense, player.star_power, player.hearth)
+                            player.race = "nuldar"
+                            player.surf = graphic_dict["player_no_role_nuldar_down_1"]
+                            player.current_zone = "nascent"
+                            in_over_world = True
+                            new_game_chosen = False
+                            start_chosen = True
+                        if sorae_race_selected:
+                            player = PlayerSorae(player.name, player.race, player.role, player.items, player.equipment,
+                                                 player.current_quests, player.quest_progress, player.quest_status,
+                                                 player.quest_complete, player.knowledge, player.skills_mage,
+                                                 player.skills_fighter, player.skills_scout, player.level,
+                                                 player.experience, player.health, player.energy, player.alive_status,
+                                                 player.rupees, player.reputation, player.current_zone, player.defense,
+                                                 player.offense, player.star_power, player.hearth)
+                            player.race = "sorae"
+                            player.surf = graphic_dict["player_no_role_sorae_down_1"]
+                            player.current_zone = "nascent"
+                            in_over_world = True
+                            new_game_chosen = False
+                            start_chosen = True
 
-                    if len(character_name_input) > 0:
-                        player.name = str(character_name_input)
-                    else:
-                        player.name = "default"
+                        if len(character_name_input) > 0:
+                            player.name = str(character_name_input)
+                        else:
+                            player.name = "default"
+
+                    if back_button.rect.collidepoint(pos):
+                        button_highlighted = False
+                        new_game_chosen = False
 
             # amuna race selected on character selection screen --------------------------------------------------------
             if amuna_race_selected:
@@ -2147,8 +2207,11 @@ if __name__ == '__main__':
                                                          character_select_overlay, amuna_select_overlay,
                                                          amuna_character, nuldar_select_overlay, nuldar_character,
                                                          sorae_select_overlay, sorae_character, amuna_button,
-                                                         nuldar_button, sorae_button, start_button, name_input,
-                                                         name_input_font, character_name_input, pygame)
+                                                         nuldar_button, sorae_button, start_button, back_button,
+                                                         name_input, name_input_font, character_name_input, pygame)
+                if button_highlighted:
+                    screen.blit(button_highlight.surf, button_highlight.rect)
+                pygame.display.flip()
 
             # nuldar race selected on character selection screen -------------------------------------------------------
             if nuldar_race_selected:
@@ -2157,8 +2220,11 @@ if __name__ == '__main__':
                                                          character_select_overlay, amuna_select_overlay,
                                                          amuna_character, nuldar_select_overlay, nuldar_character,
                                                          sorae_select_overlay, sorae_character, amuna_button,
-                                                         nuldar_button, sorae_button, start_button, name_input,
-                                                         name_input_font, character_name_input, pygame)
+                                                         nuldar_button, sorae_button, start_button, back_button,
+                                                         name_input, name_input_font, character_name_input, pygame)
+                if button_highlighted:
+                    screen.blit(button_highlight.surf, button_highlight.rect)
+                pygame.display.flip()
 
             # sorae race selected on character selection screen --------------------------------------------------------
             if sorae_race_selected:
@@ -2167,8 +2233,11 @@ if __name__ == '__main__':
                                                          character_select_overlay, amuna_select_overlay,
                                                          amuna_character, nuldar_select_overlay, nuldar_character,
                                                          sorae_select_overlay, sorae_character, amuna_button,
-                                                         nuldar_button, sorae_button, start_button, name_input,
-                                                         name_input_font, character_name_input, pygame)
+                                                         nuldar_button, sorae_button, start_button, back_button,
+                                                         name_input, name_input_font, character_name_input, pygame)
+                if button_highlighted:
+                    screen.blit(button_highlight.surf, button_highlight.rect)
+                pygame.display.flip()
 
         # continue game selected on start screen. try to load player info from save_game file --------------------------
         if continue_game_chosen:
@@ -2259,12 +2328,12 @@ if __name__ == '__main__':
             if player.alive_status:
 
                 loot_level_toc = time.perf_counter()
-                # after battle, clear loot popup after about 4 seconds
+                # after battle, clear loot popup after about 3 seconds
                 if loot_info:
                     if loot_level_toc - loot_level_tic > 3:
                         loot_popup_container.clear()
                         loot_text_container.clear()
-                # if player leveled, after about 3 seconds, clear level up popup
+                # if player leveled, clear level up popup after about 3 seconds
                 if leveled:
                     if loot_level_toc - loot_level_tic > 3:
                         drawing_functions.level_up_draw(level_up_win, player, font, False)
@@ -2295,10 +2364,22 @@ if __name__ == '__main__':
                     # main event loop
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
-                            # escape key was pressed, exit game
+
+                            # escape key was pressed, clear any element on top of screen
                             if event.key == K_ESCAPE:
-                                pygame.mixer.quit()
-                                sys.exit()
+                                # clear popups
+                                if len(knowledge_academia_window) > 0:
+                                    knowledge_academia_window.clear()
+                                if len(rest_recover_window) > 0:
+                                    rest_recover_window.clear()
+                                if len(game_guide_container) > 0:
+                                    game_guide_container.clear()
+                                if len(save_check_window) > 0:
+                                    save_check_window.clear()
+                                # clear character or journal sheet
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
+                                drawing_functions.journal_info_draw(journal, player, font, False)
+
                             # "F" key for player interaction
                             if event.key == K_f:
                                 if player.current_zone == "nascent":
@@ -2342,8 +2423,10 @@ if __name__ == '__main__':
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
                                 drawing_functions.item_info_window.clear()
+                                button_highlighted = False
                             if info_choice == "no":
                                 drawing_functions.item_info_window.clear()
+                                button_highlighted = False
                             inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                             if inventory_item_clicked["clicked"]:
                                 current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -2372,6 +2455,7 @@ if __name__ == '__main__':
                                     info_text_1 = "You have not yet attuned to the stone. "
                             # save button was clicked. Save player info in dictionary to be loaded later
                             if save_button.rect.collidepoint(pos):
+                                saving = True
                                 yes_button.update(450, 394, graphic_dict["yes_button_img"])
                                 # see if there already exists a save file by trying to read it
                                 try:
@@ -2393,8 +2477,9 @@ if __name__ == '__main__':
                                                                  battle_guide_shown, role_guide_shown,
                                                                  upgrade_guide_shown, rest_shown_before)
                                     saved = True
+                                    saving = False
                                     info_text_1 = "You saved your game. "
-                            if yes_button.rect.collidepoint(pos):
+                            if yes_button.rect.collidepoint(pos) and saving:
                                 gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                              sharp_sense_learned, saved, npc_garan.gift,
                                                              rest_recover_show, knowledge_academia_show,
@@ -2402,9 +2487,13 @@ if __name__ == '__main__':
                                                              battle_guide_shown, role_guide_shown, upgrade_guide_shown,
                                                              rest_shown_before)
                                 save_check_window.clear()
+                                button_highlighted = False
+                                saving = False
                                 info_text_1 = "You saved your game. "
-                            if no_button.rect.collidepoint(pos):
+                            if no_button.rect.collidepoint(pos) and saving:
                                 save_check_window.clear()
+                                saving = False
+                                button_highlighted = False
 
                             if character_button.rect.collidepoint(pos):
                                 if character_button_clicked:
@@ -3085,8 +3174,10 @@ if __name__ == '__main__':
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                         if inventory_item_clicked["clicked"]:
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -3939,6 +4030,7 @@ if __name__ == '__main__':
                                             info_text_2 = "Skill added. 50 knowledge used."
                                             player.knowledge["mage"] -= 50
                                             barrier_learned = True
+                                            button_highlighted = False
                                         else:
                                             info_text_1 = "50 mage knowledge required to learn."
                                     else:
@@ -3947,6 +4039,7 @@ if __name__ == '__main__':
                                 if book_button.name == "close button":
                                     mage_learn_clicked = False
                                     book_appended = False
+                                    button_highlighted = False
                                     books.clear()
                                     skill_learn_items.clear()
                             except AttributeError:
@@ -3961,6 +4054,7 @@ if __name__ == '__main__':
                                             info_text_2 = "Skill added. 50 knowledge used."
                                             player.knowledge["fighter"] -= 50
                                             hard_strike_learned = True
+                                            button_highlighted = False
                                         else:
                                             info_text_1 = "50 fighter knowledge required to learn."
                                     else:
@@ -3969,6 +4063,7 @@ if __name__ == '__main__':
                                 if book_button.name == "close button":
                                     fighter_learn_clicked = False
                                     book_appended = False
+                                    button_highlighted = False
                                     books.clear()
                                     skill_learn_items.clear()
                             except AttributeError:
@@ -3983,6 +4078,7 @@ if __name__ == '__main__':
                                             info_text_2 = "Skill added. 50 knowledge used."
                                             player.knowledge["scout"] -= 50
                                             sharp_sense_learned = True
+                                            button_highlighted = False
                                         else:
                                             info_text_1 = "50 scout knowledge required to learn."
                                     else:
@@ -3991,6 +4087,7 @@ if __name__ == '__main__':
                                 if book_button.name == "close button":
                                     scout_learn_clicked = False
                                     book_appended = False
+                                    button_highlighted = False
                                     books.clear()
                                     skill_learn_items.clear()
                             except AttributeError:
@@ -3998,10 +4095,13 @@ if __name__ == '__main__':
 
                         if academia_button == "mage learn":
                             mage_learn_clicked = True
+                            button_highlighted = False
                         if academia_button == "fighter learn":
                             fighter_learn_clicked = True
+                            button_highlighted = False
                         if academia_button == "scout learn":
                             scout_learn_clicked = True
+                            button_highlighted = False
                         if academia_button == "leave":
                             book_appended = False
                             learn_clicked = False
@@ -4176,6 +4276,7 @@ if __name__ == '__main__':
                         # options once quest window is open ------------------------------------------------------------
                         if quest_buttons == "accept":
                             info_text_1 = "You've accepted the quest!"
+                            button_highlighted = False
                             if current_npc_interacting.name == "garan":
                                 player.quest_status["sneaky snakes"] = True
                                 player.current_quests["sneaky snakes"] = \
@@ -4199,6 +4300,7 @@ if __name__ == '__main__':
                         if quest_buttons == "decline":
                             info_text_1 = ""
                             quest_clicked = False
+                            button_highlighted = False
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
                                                              torune_quest_window, accept_button, decline_button)

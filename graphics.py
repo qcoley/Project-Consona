@@ -192,9 +192,9 @@ def load_graphics():
                    "character_window_img": "", "journal_window_img": "", "mage_book_img": "",
                    "fighter_book_img": "", "scout_book_img": "", "new_game_img": "", "continue_img": "",
                    "main high": "", "skill high": "", "book high": "", "close high": "", "save hearth high": "",
-                   "item high": "",
+                   "item high": "", "start high": "", "race high": "", "begin high": "",
                    "amuna_button_img": "", "nuldar_button_img": "", "sorae_button_img": "",
-                   "character_button_img": "", "journal_button_img": "", "buy_button_img": "",
+                   "character_button_img": "", "journal_button_img": "", "buy_button_img": "", "back_button_img": "",
                    "rest_button_img": "", "quest_button_img": "", "leave_button_img": "", "accept_button_img": "",
                    "decline_button_img": "", "yes_button_img": "", "no_button_img": "", "use_button_img": "",
                    "equip_button_img": "", "upgrade_button_img": "", "mage_attack_button_img": "",
@@ -902,6 +902,12 @@ def load_graphics():
     start_buttons_sheet = sprite_sheet((385, 75), start_buttons_url)
     loaded_dict["new_game_img"] = start_buttons_sheet[0]
     loaded_dict["continue_img"] = start_buttons_sheet[1]
+    # start screen and race select buttons highlight -------------------------------------------------------------------
+    start_buttons_high_url = resource_path('resources/art/buttons_start_highlight.png')
+    start_buttons_high_sheet = sprite_sheet((405, 75), start_buttons_high_url)
+    loaded_dict["start high"] = start_buttons_high_sheet[0]
+    loaded_dict["race high"] = start_buttons_high_sheet[1]
+    loaded_dict["begin high"] = start_buttons_high_sheet[2]
     # race select buttons on character screen --------------------------------------------------------------------------
     race_select_buttons_url = resource_path('resources/art/buttons_race_select.png')
     race_select_buttons_sheet = sprite_sheet((384, 75), race_select_buttons_url)
@@ -924,6 +930,7 @@ def load_graphics():
     loaded_dict["use_button_img"] = buttons_sheet[10]
     loaded_dict["equip_button_img"] = buttons_sheet[11]
     loaded_dict["upgrade_button_img"] = buttons_sheet[12]
+    loaded_dict["back_button_img"] = buttons_sheet[13]
     # attack buttons ---------------------------------------------------------------------------------------------------
     attack_buttons_url = resource_path('resources/art/overlay_attacks.png')
     attack_buttons_sheet = sprite_sheet((60, 60), attack_buttons_url)
