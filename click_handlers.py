@@ -2,13 +2,14 @@ import drawing_functions
 
 
 # getting event based on user click related to shop
-def item_info_button(item_info_event, item_button, pygame):
+def item_info_button(item_info_event, item_button, pygame, info_window):
     if item_info_event.type == pygame.MOUSEBUTTONUP:
         item_info_mouse = pygame.mouse.get_pos()
         if item_button.rect.collidepoint(item_info_mouse):
             return "yes"
         else:
-            return "no"
+            if not info_window.rect.collidepoint(item_info_mouse):
+                return "no"
 
 
 # getting item player clicked based on it's name and return the corresponding item. for equipment
@@ -399,13 +400,14 @@ def shop_event_button(shop_event, buy_button, leave_button, pygame):
 
 
 # getting event based on user click related to shop
-def shop_sell_button(shop_sell_event, yes_button, pygame):
+def shop_sell_button(shop_sell_event, yes_button, pygame, info_window):
     if shop_sell_event.type == pygame.MOUSEBUTTONUP:
         shop_sell_mouse = pygame.mouse.get_pos()
         if yes_button.rect.collidepoint(shop_sell_mouse):
             return "yes"
         else:
-            return "no"
+            if not info_window.rect.collidepoint(shop_sell_mouse):
+                return "no"
 
 
 # getting event based on user click related to shop

@@ -192,7 +192,7 @@ def load_graphics():
                    "character_window_img": "", "journal_window_img": "", "mage_book_img": "",
                    "fighter_book_img": "", "scout_book_img": "", "new_game_img": "", "continue_img": "",
                    "main high": "", "skill high": "", "book high": "", "close high": "", "save hearth high": "",
-                   "item high": "", "start high": "", "race high": "", "begin high": "",
+                   "item high": "", "start high": "", "race high": "", "begin high": "", "role high": "",
                    "amuna_button_img": "", "nuldar_button_img": "", "sorae_button_img": "",
                    "character_button_img": "", "journal_button_img": "", "buy_button_img": "", "back_button_img": "",
                    "rest_button_img": "", "quest_button_img": "", "leave_button_img": "", "accept_button_img": "",
@@ -914,6 +914,10 @@ def load_graphics():
     loaded_dict["amuna_button_img"] = race_select_buttons_sheet[0]
     loaded_dict["nuldar_button_img"] = race_select_buttons_sheet[1]
     loaded_dict["sorae_button_img"] = race_select_buttons_sheet[2]
+    # race select buttons on character screen --------------------------------------------------------------------------
+    role_select_buttons_high_url = resource_path('resources/art/buttons_misc_high.png')
+    role_select_buttons_high_sheet = sprite_sheet((200, 42), role_select_buttons_high_url)
+    loaded_dict["role_high"] = role_select_buttons_high_sheet[0]
     # buttons ----------------------------------------------------------------------------------------------------------
     buttons_url = resource_path('resources/art/buttons_main.png')
     buttons_sheet = sprite_sheet((100, 50), buttons_url)

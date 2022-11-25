@@ -1126,6 +1126,122 @@ def button_highlights():
                 return True
 
     if start_chosen:
+        if inv_1.collidepoint(pos):
+            if len(player.items) > 0:
+                button_highlight.update(1062, 461, graphic_dict["item high"])
+                return True
+        elif inv_2.collidepoint(pos):
+            if len(player.items) > 1:
+                button_highlight.update(1122, 461, graphic_dict["item high"])
+                return True
+        elif inv_3.collidepoint(pos):
+            if len(player.items) > 2:
+                button_highlight.update(1182, 461, graphic_dict["item high"])
+                return True
+        elif inv_4.collidepoint(pos):
+            if len(player.items) > 3:
+                button_highlight.update(1242, 461, graphic_dict["item high"])
+                return True
+        elif inv_5.collidepoint(pos):
+            if len(player.items) > 4:
+                button_highlight.update(1062, 521, graphic_dict["item high"])
+                return True
+        elif inv_6.collidepoint(pos):
+            if len(player.items) > 5:
+                button_highlight.update(1122, 521, graphic_dict["item high"])
+                return True
+        elif inv_7.collidepoint(pos):
+            if len(player.items) > 6:
+                button_highlight.update(1182, 521, graphic_dict["item high"])
+                return True
+        elif inv_8.collidepoint(pos):
+            if len(player.items) > 7:
+                button_highlight.update(1242, 521, graphic_dict["item high"])
+                return True
+        elif inv_9.collidepoint(pos):
+            if len(player.items) > 8:
+                button_highlight.update(1062, 581, graphic_dict["item high"])
+                return True
+        elif inv_10.collidepoint(pos):
+            if len(player.items) > 9:
+                button_highlight.update(1122, 581, graphic_dict["item high"])
+                return True
+        elif inv_11.collidepoint(pos):
+            if len(player.items) > 10:
+                button_highlight.update(1182, 581, graphic_dict["item high"])
+                return True
+        elif inv_12.collidepoint(pos):
+            if len(player.items) > 11:
+                button_highlight.update(1242, 581, graphic_dict["item high"])
+                return True
+        elif inv_13.collidepoint(pos):
+            if len(player.items) > 12:
+                button_highlight.update(1062, 641, graphic_dict["item high"])
+                return True
+        elif inv_14.collidepoint(pos):
+            if len(player.items) > 13:
+                button_highlight.update(1122, 641, graphic_dict["item high"])
+                return True
+        elif inv_15.collidepoint(pos):
+            if len(player.items) > 14:
+                button_highlight.update(1182, 641, graphic_dict["item high"])
+                return True
+        elif inv_16.collidepoint(pos):
+            if len(player.items) > 15:
+                button_highlight.update(1242, 641, graphic_dict["item high"])
+                return True
+        elif gloves.collidepoint(pos):
+            if len(drawing_functions.item_info_window) == 0:
+                if len(drawing_functions.sell_info_window) == 0:
+                    if player.equipment["gloves"] != "":
+                        button_highlight.update(1077, 195, graphic_dict["item high"])
+                        return True
+        elif torso.collidepoint(pos):
+            if len(drawing_functions.item_info_window) == 0:
+                if len(drawing_functions.sell_info_window) == 0:
+                    if player.equipment["torso"] != "":
+                        button_highlight.update(1152, 195, graphic_dict["item high"])
+                        return True
+        elif boots.collidepoint(pos):
+            if len(drawing_functions.item_info_window) == 0:
+                if len(drawing_functions.sell_info_window) == 0:
+                    if player.equipment["boots"] != "":
+                        button_highlight.update(1227, 195, graphic_dict["item high"])
+                        return True
+        elif weapon.collidepoint(pos):
+            if len(drawing_functions.item_info_window) == 0:
+                if len(drawing_functions.sell_info_window) == 0:
+                    if player.equipment["weapon"] != "":
+                        button_highlight.update(1077, 283, graphic_dict["item high"])
+                        return True
+        elif cloak.collidepoint(pos):
+            if len(drawing_functions.item_info_window) == 0:
+                if len(drawing_functions.sell_info_window) == 0:
+                    if player.equipment["cloak"] != "":
+                        button_highlight.update(1152, 283, graphic_dict["item high"])
+                        return True
+        elif ring.collidepoint(pos):
+            if len(drawing_functions.item_info_window) == 0:
+                if len(drawing_functions.sell_info_window) == 0:
+                    if player.equipment["ring"] != "":
+                        button_highlight.update(1227, 283, graphic_dict["item high"])
+                        return True
+        elif len(save_check_window) > 0:
+            if yes_button.rect.collidepoint(pos):
+                button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif no_button.rect.collidepoint(pos):
+                button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+
+        elif len(drawing_functions.item_info_window) > 0:
+            if item_info_button.rect.collidepoint(pos):
+                button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+
         if in_inn:
             if rest_button.rect.collidepoint(pos):
                 button_highlight.update(rest_button.x_coordinate,
@@ -1136,115 +1252,6 @@ def button_highlights():
                 button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
                                         graphic_dict["main high"])
                 return True
-            elif inv_1.collidepoint(pos):
-                if len(player.items) > 0:
-                    button_highlight.update(1062, 461, graphic_dict["item high"])
-                    return True
-            elif inv_2.collidepoint(pos):
-                if len(player.items) > 1:
-                    button_highlight.update(1122, 461, graphic_dict["item high"])
-                    return True
-            elif inv_3.collidepoint(pos):
-                if len(player.items) > 2:
-                    button_highlight.update(1182, 461, graphic_dict["item high"])
-                    return True
-            elif inv_4.collidepoint(pos):
-                if len(player.items) > 3:
-                    button_highlight.update(1242, 461, graphic_dict["item high"])
-                    return True
-            elif inv_5.collidepoint(pos):
-                if len(player.items) > 4:
-                    button_highlight.update(1062, 521, graphic_dict["item high"])
-                    return True
-            elif inv_6.collidepoint(pos):
-                if len(player.items) > 5:
-                    button_highlight.update(1122, 521, graphic_dict["item high"])
-                    return True
-            elif inv_7.collidepoint(pos):
-                if len(player.items) > 6:
-                    button_highlight.update(1182, 521, graphic_dict["item high"])
-                    return True
-            elif inv_8.collidepoint(pos):
-                if len(player.items) > 7:
-                    button_highlight.update(1242, 521, graphic_dict["item high"])
-                    return True
-            elif inv_9.collidepoint(pos):
-                if len(player.items) > 8:
-                    button_highlight.update(1062, 581, graphic_dict["item high"])
-                    return True
-            elif inv_10.collidepoint(pos):
-                if len(player.items) > 9:
-                    button_highlight.update(1122, 581, graphic_dict["item high"])
-                    return True
-            elif inv_11.collidepoint(pos):
-                if len(player.items) > 10:
-                    button_highlight.update(1182, 581, graphic_dict["item high"])
-                    return True
-            elif inv_12.collidepoint(pos):
-                if len(player.items) > 11:
-                    button_highlight.update(1242, 581, graphic_dict["item high"])
-                    return True
-            elif inv_13.collidepoint(pos):
-                if len(player.items) > 12:
-                    button_highlight.update(1062, 641, graphic_dict["item high"])
-                    return True
-            elif inv_14.collidepoint(pos):
-                if len(player.items) > 13:
-                    button_highlight.update(1122, 641, graphic_dict["item high"])
-                    return True
-            elif inv_15.collidepoint(pos):
-                if len(player.items) > 14:
-                    button_highlight.update(1182, 641, graphic_dict["item high"])
-                    return True
-            elif inv_16.collidepoint(pos):
-                if len(player.items) > 15:
-                    button_highlight.update(1242, 641, graphic_dict["item high"])
-                    return True
-            elif gloves.collidepoint(pos):
-                if player.equipment["gloves"] != "":
-                    button_highlight.update(1077, 195, graphic_dict["item high"])
-                    return True
-            elif torso.collidepoint(pos):
-                if player.equipment["torso"] != "":
-                    button_highlight.update(1152, 195, graphic_dict["item high"])
-                    return True
-            elif boots.collidepoint(pos):
-                if player.equipment["boots"] != "":
-                    button_highlight.update(1227, 195, graphic_dict["item high"])
-                    return True
-            elif weapon.collidepoint(pos):
-                if player.equipment["weapon"] != "":
-                    button_highlight.update(1077, 283, graphic_dict["item high"])
-                    return True
-            elif cloak.collidepoint(pos):
-                if player.equipment["cloak"] != "":
-                    button_highlight.update(1152, 283, graphic_dict["item high"])
-                    return True
-            elif ring.collidepoint(pos):
-                if player.equipment["ring"] != "":
-                    button_highlight.update(1227, 283, graphic_dict["item high"])
-                    return True
-            elif len(save_check_window) > 0:
-                if yes_button.rect.collidepoint(pos):
-                    button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                elif no_button.rect.collidepoint(pos):
-                    button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                else:
-                    return False
-            elif len(drawing_functions.item_info_window) > 0:
-                if item_info_button.rect.collidepoint(pos):
-                    button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                else:
-                    return False
-
-            else:
-                return False
 
         if in_shop:
             if buy_button.rect.collidepoint(pos):
@@ -1256,115 +1263,6 @@ def button_highlights():
                 button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
                                         graphic_dict["main high"])
                 return True
-            elif inv_1.collidepoint(pos):
-                if len(player.items) > 0:
-                    button_highlight.update(1062, 461, graphic_dict["item high"])
-                    return True
-            elif inv_2.collidepoint(pos):
-                if len(player.items) > 1:
-                    button_highlight.update(1122, 461, graphic_dict["item high"])
-                    return True
-            elif inv_3.collidepoint(pos):
-                if len(player.items) > 2:
-                    button_highlight.update(1182, 461, graphic_dict["item high"])
-                    return True
-            elif inv_4.collidepoint(pos):
-                if len(player.items) > 3:
-                    button_highlight.update(1242, 461, graphic_dict["item high"])
-                    return True
-            elif inv_5.collidepoint(pos):
-                if len(player.items) > 4:
-                    button_highlight.update(1062, 521, graphic_dict["item high"])
-                    return True
-            elif inv_6.collidepoint(pos):
-                if len(player.items) > 5:
-                    button_highlight.update(1122, 521, graphic_dict["item high"])
-                    return True
-            elif inv_7.collidepoint(pos):
-                if len(player.items) > 6:
-                    button_highlight.update(1182, 521, graphic_dict["item high"])
-                    return True
-            elif inv_8.collidepoint(pos):
-                if len(player.items) > 7:
-                    button_highlight.update(1242, 521, graphic_dict["item high"])
-                    return True
-            elif inv_9.collidepoint(pos):
-                if len(player.items) > 8:
-                    button_highlight.update(1062, 581, graphic_dict["item high"])
-                    return True
-            elif inv_10.collidepoint(pos):
-                if len(player.items) > 9:
-                    button_highlight.update(1122, 581, graphic_dict["item high"])
-                    return True
-            elif inv_11.collidepoint(pos):
-                if len(player.items) > 10:
-                    button_highlight.update(1182, 581, graphic_dict["item high"])
-                    return True
-            elif inv_12.collidepoint(pos):
-                if len(player.items) > 11:
-                    button_highlight.update(1242, 581, graphic_dict["item high"])
-                    return True
-            elif inv_13.collidepoint(pos):
-                if len(player.items) > 12:
-                    button_highlight.update(1062, 641, graphic_dict["item high"])
-                    return True
-            elif inv_14.collidepoint(pos):
-                if len(player.items) > 13:
-                    button_highlight.update(1122, 641, graphic_dict["item high"])
-                    return True
-            elif inv_15.collidepoint(pos):
-                if len(player.items) > 14:
-                    button_highlight.update(1182, 641, graphic_dict["item high"])
-                    return True
-            elif inv_16.collidepoint(pos):
-                if len(player.items) > 15:
-                    button_highlight.update(1242, 641, graphic_dict["item high"])
-                    return True
-            elif gloves.collidepoint(pos):
-                if player.equipment["gloves"] != "":
-                    button_highlight.update(1077, 195, graphic_dict["item high"])
-                    return True
-            elif torso.collidepoint(pos):
-                if player.equipment["torso"] != "":
-                    button_highlight.update(1152, 195, graphic_dict["item high"])
-                    return True
-            elif boots.collidepoint(pos):
-                if player.equipment["boots"] != "":
-                    button_highlight.update(1227, 195, graphic_dict["item high"])
-                    return True
-            elif weapon.collidepoint(pos):
-                if player.equipment["weapon"] != "":
-                    button_highlight.update(1077, 283, graphic_dict["item high"])
-                    return True
-            elif cloak.collidepoint(pos):
-                if player.equipment["cloak"] != "":
-                    button_highlight.update(1152, 283, graphic_dict["item high"])
-                    return True
-            elif ring.collidepoint(pos):
-                if player.equipment["ring"] != "":
-                    button_highlight.update(1227, 283, graphic_dict["item high"])
-                    return True
-            elif len(save_check_window) > 0:
-                if yes_button.rect.collidepoint(pos):
-                    button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                elif no_button.rect.collidepoint(pos):
-                    button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                else:
-                    return False
-            elif len(drawing_functions.item_info_window) > 0:
-                if item_info_button.rect.collidepoint(pos):
-                    button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                else:
-                    return False
-
-            else:
-                return False
 
         if in_battle:
             if mage_attack_button.rect.collidepoint(pos) or fighter_attack_button.rect.collidepoint(pos) \
@@ -1378,115 +1276,6 @@ def button_highlights():
                                         barrier_button.y_coordinate + 1,
                                         graphic_dict["skill high"])
                 return True
-            elif inv_1.collidepoint(pos):
-                if len(player.items) > 0:
-                    button_highlight.update(1062, 461, graphic_dict["item high"])
-                    return True
-            elif inv_2.collidepoint(pos):
-                if len(player.items) > 1:
-                    button_highlight.update(1122, 461, graphic_dict["item high"])
-                    return True
-            elif inv_3.collidepoint(pos):
-                if len(player.items) > 2:
-                    button_highlight.update(1182, 461, graphic_dict["item high"])
-                    return True
-            elif inv_4.collidepoint(pos):
-                if len(player.items) > 3:
-                    button_highlight.update(1242, 461, graphic_dict["item high"])
-                    return True
-            elif inv_5.collidepoint(pos):
-                if len(player.items) > 4:
-                    button_highlight.update(1062, 521, graphic_dict["item high"])
-                    return True
-            elif inv_6.collidepoint(pos):
-                if len(player.items) > 5:
-                    button_highlight.update(1122, 521, graphic_dict["item high"])
-                    return True
-            elif inv_7.collidepoint(pos):
-                if len(player.items) > 6:
-                    button_highlight.update(1182, 521, graphic_dict["item high"])
-                    return True
-            elif inv_8.collidepoint(pos):
-                if len(player.items) > 7:
-                    button_highlight.update(1242, 521, graphic_dict["item high"])
-                    return True
-            elif inv_9.collidepoint(pos):
-                if len(player.items) > 8:
-                    button_highlight.update(1062, 581, graphic_dict["item high"])
-                    return True
-            elif inv_10.collidepoint(pos):
-                if len(player.items) > 9:
-                    button_highlight.update(1122, 581, graphic_dict["item high"])
-                    return True
-            elif inv_11.collidepoint(pos):
-                if len(player.items) > 10:
-                    button_highlight.update(1182, 581, graphic_dict["item high"])
-                    return True
-            elif inv_12.collidepoint(pos):
-                if len(player.items) > 11:
-                    button_highlight.update(1242, 581, graphic_dict["item high"])
-                    return True
-            elif inv_13.collidepoint(pos):
-                if len(player.items) > 12:
-                    button_highlight.update(1062, 641, graphic_dict["item high"])
-                    return True
-            elif inv_14.collidepoint(pos):
-                if len(player.items) > 13:
-                    button_highlight.update(1122, 641, graphic_dict["item high"])
-                    return True
-            elif inv_15.collidepoint(pos):
-                if len(player.items) > 14:
-                    button_highlight.update(1182, 641, graphic_dict["item high"])
-                    return True
-            elif inv_16.collidepoint(pos):
-                if len(player.items) > 15:
-                    button_highlight.update(1242, 641, graphic_dict["item high"])
-                    return True
-            elif gloves.collidepoint(pos):
-                if player.equipment["gloves"] != "":
-                    button_highlight.update(1077, 195, graphic_dict["item high"])
-                    return True
-            elif torso.collidepoint(pos):
-                if player.equipment["torso"] != "":
-                    button_highlight.update(1152, 195, graphic_dict["item high"])
-                    return True
-            elif boots.collidepoint(pos):
-                if player.equipment["boots"] != "":
-                    button_highlight.update(1227, 195, graphic_dict["item high"])
-                    return True
-            elif weapon.collidepoint(pos):
-                if player.equipment["weapon"] != "":
-                    button_highlight.update(1077, 283, graphic_dict["item high"])
-                    return True
-            elif cloak.collidepoint(pos):
-                if player.equipment["cloak"] != "":
-                    button_highlight.update(1152, 283, graphic_dict["item high"])
-                    return True
-            elif ring.collidepoint(pos):
-                if player.equipment["ring"] != "":
-                    button_highlight.update(1227, 283, graphic_dict["item high"])
-                    return True
-            elif len(save_check_window) > 0:
-                if yes_button.rect.collidepoint(pos):
-                    button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                elif no_button.rect.collidepoint(pos):
-                    button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                else:
-                    return False
-
-            elif len(drawing_functions.item_info_window) > 0:
-                if item_info_button.rect.collidepoint(pos):
-                    button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                else:
-                    return False
-            else:
-                return False
 
         if in_over_world:
             if character_button.rect.collidepoint(pos):
@@ -1505,118 +1294,60 @@ def button_highlights():
                 button_highlight.update(hearth_button.x_coordinate + 1, hearth_button.y_coordinate + 2,
                                         graphic_dict["save hearth high"])
                 return True
-            elif inv_1.collidepoint(pos):
-                if len(player.items) > 0:
-                    button_highlight.update(1062, 461, graphic_dict["item high"])
-                    return True
-            elif inv_2.collidepoint(pos):
-                if len(player.items) > 1:
-                    button_highlight.update(1122, 461, graphic_dict["item high"])
-                    return True
-            elif inv_3.collidepoint(pos):
-                if len(player.items) > 2:
-                    button_highlight.update(1182, 461, graphic_dict["item high"])
-                    return True
-            elif inv_4.collidepoint(pos):
-                if len(player.items) > 3:
-                    button_highlight.update(1242, 461, graphic_dict["item high"])
-                    return True
-            elif inv_5.collidepoint(pos):
-                if len(player.items) > 4:
-                    button_highlight.update(1062, 521, graphic_dict["item high"])
-                    return True
-            elif inv_6.collidepoint(pos):
-                if len(player.items) > 5:
-                    button_highlight.update(1122, 521, graphic_dict["item high"])
-                    return True
-            elif inv_7.collidepoint(pos):
-                if len(player.items) > 6:
-                    button_highlight.update(1182, 521, graphic_dict["item high"])
-                    return True
-            elif inv_8.collidepoint(pos):
-                if len(player.items) > 7:
-                    button_highlight.update(1242, 521, graphic_dict["item high"])
-                    return True
-            elif inv_9.collidepoint(pos):
-                if len(player.items) > 8:
-                    button_highlight.update(1062, 581, graphic_dict["item high"])
-                    return True
-            elif inv_10.collidepoint(pos):
-                if len(player.items) > 9:
-                    button_highlight.update(1122, 581, graphic_dict["item high"])
-                    return True
-            elif inv_11.collidepoint(pos):
-                if len(player.items) > 10:
-                    button_highlight.update(1182, 581, graphic_dict["item high"])
-                    return True
-            elif inv_12.collidepoint(pos):
-                if len(player.items) > 11:
-                    button_highlight.update(1242, 581, graphic_dict["item high"])
-                    return True
-            elif inv_13.collidepoint(pos):
-                if len(player.items) > 12:
-                    button_highlight.update(1062, 641, graphic_dict["item high"])
-                    return True
-            elif inv_14.collidepoint(pos):
-                if len(player.items) > 13:
-                    button_highlight.update(1122, 641, graphic_dict["item high"])
-                    return True
-            elif inv_15.collidepoint(pos):
-                if len(player.items) > 14:
-                    button_highlight.update(1182, 641, graphic_dict["item high"])
-                    return True
-            elif inv_16.collidepoint(pos):
-                if len(player.items) > 15:
-                    button_highlight.update(1242, 641, graphic_dict["item high"])
-                    return True
 
-            elif gloves.collidepoint(pos):
-                if player.equipment["gloves"] != "":
-                    button_highlight.update(1077, 195, graphic_dict["item high"])
-                    return True
-            elif torso.collidepoint(pos):
-                if player.equipment["torso"] != "":
-                    button_highlight.update(1152, 195, graphic_dict["item high"])
-                    return True
-            elif boots.collidepoint(pos):
-                if player.equipment["boots"] != "":
-                    button_highlight.update(1227, 195, graphic_dict["item high"])
-                    return True
-            elif weapon.collidepoint(pos):
-                if player.equipment["weapon"] != "":
-                    button_highlight.update(1077, 283, graphic_dict["item high"])
-                    return True
-            elif cloak.collidepoint(pos):
-                if player.equipment["cloak"] != "":
-                    button_highlight.update(1152, 283, graphic_dict["item high"])
-                    return True
-            elif ring.collidepoint(pos):
-                if player.equipment["ring"] != "":
-                    button_highlight.update(1227, 283, graphic_dict["item high"])
-                    return True
+        if in_npc_interaction:
+            if quest_button.rect.collidepoint(pos):
+                button_highlight.update(quest_button.x_coordinate, quest_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif leave_button.rect.collidepoint(pos):
+                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
 
-            elif len(save_check_window) > 0:
-                if yes_button.rect.collidepoint(pos):
-                    button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 7,
+                # quest window accept or decline button highlights when moused over
+            if quest_clicked:
+                if accept_button.rect.collidepoint(pos):
+                    button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
                                             graphic_dict["main high"])
                     return True
-                elif no_button.rect.collidepoint(pos):
-                    button_highlight.update(no_button.x_coordinate, no_button.y_coordinate + 7,
+                elif decline_button.rect.collidepoint(pos):
+                    button_highlight.update(decline_button.x_coordinate,
+                                            decline_button.y_coordinate + 7,
                                             graphic_dict["main high"])
                     return True
-                else:
-                    return False
 
-            elif len(drawing_functions.item_info_window) > 0:
-                if item_info_button.rect.collidepoint(pos):
-                    button_highlight.update(item_info_button.x_coordinate, item_info_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                else:
-                    return False
-
-            else:
-                return False
+                # handles button highlights when role selection is given to player
+            elif current_npc_interacting.name == "garan":
+                if player.quest_status["sneaky snakes"]:
+                    if not npc_garan.gift:
+                        if mage_select_button.rect.collidepoint(pos):
+                            button_highlight.update(mage_select_button.x_coordinate,
+                                                    mage_select_button.y_coordinate,
+                                                    graphic_dict["role_high"])
+                            return True
+                        elif fighter_select_button.rect.collidepoint(pos):
+                            button_highlight.update(fighter_select_button.x_coordinate,
+                                                    fighter_select_button.y_coordinate,
+                                                    graphic_dict["role_high"])
+                            return True
+                        elif scout_select_button.rect.collidepoint(pos):
+                            button_highlight.update(scout_select_button.x_coordinate,
+                                                    scout_select_button.y_coordinate,
+                                                    graphic_dict["role_high"])
+                            return True
+                        elif quest_button.rect.collidepoint(pos):
+                            button_highlight.update(quest_button.x_coordinate,
+                                                    quest_button.y_coordinate + 7,
+                                                    graphic_dict["main high"])
+                            return True
+                        elif leave_button.rect.collidepoint(pos):
+                            button_highlight.update(leave_button.x_coordinate,
+                                                    leave_button.y_coordinate + 7,
+                                                    graphic_dict["main high"])
+                            return True
+                        else:
+                            return False
 
 
 if __name__ == '__main__':
@@ -2406,7 +2137,7 @@ if __name__ == '__main__':
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
                             # click handlers
-                            info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
+                            info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                             if info_choice == "yes":
                                 inventory_event = click_handlers.inventory(player, current_info_item,
                                                                            offense_upgraded, defense_upgraded,
@@ -2432,15 +2163,17 @@ if __name__ == '__main__':
                                 current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                                      info_items, item_info_button,
                                                                                      graphic_dict)
-                            # function to handle equipment item clicks. apply item message to message box
-                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                       defense_upgraded,
-                                                                       graphic_dict["player_no_role_amuna_down_1"],
-                                                                       graphic_dict["player_no_role_nuldar_down_1"],
-                                                                       graphic_dict["player_no_role_sorae_down_1"])
-                            if equipment_event["equipment message"] != "":
-                                info_text_1 = equipment_event["equipment message"]
-                                info_text_2 = ""
+
+                            if len(drawing_functions.item_info_window) == 0:
+                                equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
+                                                                           defense_upgraded,
+                                                                           graphic_dict["player_no_role_amuna_down_1"],
+                                                                           graphic_dict["player_no_role_nuldar_down_1"],
+                                                                           graphic_dict["player_no_role_sorae_down_1"])
+                                if equipment_event["equipment message"] != "":
+                                    button_highlighted = False
+                                    info_text_1 = equipment_event["equipment message"]
+                                    info_text_2 = ""
                             # hearth button was clicked, set animation and move player to stone
                             if hearth_button.rect.collidepoint(pos):
                                 if player.hearth == "seldon":
@@ -2795,7 +2528,6 @@ if __name__ == '__main__':
                                                               quest_star_celeste, quest_star_torune,
                                                               graphic_dict["quest_progress_star"],
                                                               graphic_dict["quest_complete_star"])
-
                     screen.blit(player.surf, player.rect)
 
                     for save_window in save_check_window:
@@ -3131,9 +2863,6 @@ if __name__ == '__main__':
 
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
-                            if event.key == K_ESCAPE:
-                                pygame.mixer.quit()
-                                sys.exit()
                             if event.key == K_1:
                                 attack_hotkey = True
                             if event.key == K_2:
@@ -3157,7 +2886,7 @@ if __name__ == '__main__':
                                                                            hard_strike_button, sharp_sense_button,
                                                                            pygame)
                         # click handlers
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(player, current_info_item,
                                                                        offense_upgraded, defense_upgraded,
@@ -3184,14 +2913,15 @@ if __name__ == '__main__':
                                                                                  info_items, item_info_button,
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
-                        equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                   defense_upgraded,
-                                                                   graphic_dict["player_no_role_amuna_down_1"],
-                                                                   graphic_dict["player_no_role_nuldar_down_1"],
-                                                                   graphic_dict["player_no_role_sorae_down_1"])
-                        if equipment_event["equipment message"] != "":
-                            info_text_1 = equipment_event["equipment message"]
-                            info_text_2 = ""
+                        if len(drawing_functions.item_info_window) == 0:
+                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
+                                                                       defense_upgraded,
+                                                                       graphic_dict["player_no_role_amuna_down_1"],
+                                                                       graphic_dict["player_no_role_nuldar_down_1"],
+                                                                       graphic_dict["player_no_role_sorae_down_1"])
+                            if equipment_event["equipment message"] != "":
+                                info_text_1 = equipment_event["equipment message"]
+                                info_text_2 = ""
 
                         if combat_button == "attack" or attack_hotkey:
                             if not combat_cooldown:
@@ -3541,8 +3271,19 @@ if __name__ == '__main__':
 
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
-                                pygame.mixer.quit()
-                                sys.exit()
+                                shop_button = ''
+                                if len(buy_shop_elements) > 0:
+                                    buy_shop_elements.pop(0)
+                                    shopkeeper_items.clear()
+
+                                buy_clicked = False
+                                movement_able = True
+                                interacted = False
+                                encounter_started = False
+                                in_shop = False
+                                in_over_world = True
+                                shop_cat_pet = False
+                                building_song_set = False
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -3591,7 +3332,7 @@ if __name__ == '__main__':
                                                                                        graphic_dict)
                             if not buy_clicked:
                                 # if player clicks yes button to sell item, get current item and sell ------------------
-                                sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame)
+                                sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame, sell_items)
                                 sell_return = shop_scenario.sell_items(player, sell_choice, current_sell_item)
                                 if sell_return["info 1"] != "":
                                     info_text_1 = sell_return["info 1"]
@@ -3669,7 +3410,7 @@ if __name__ == '__main__':
                                                                              graphic_dict["basic_armor_img"],
                                                                              graphic_dict["basic_tunic_img"])
 
-                        if shop_button == "leave" or shop_keys[K_l]:
+                        if shop_button == "leave":
                             shop_button = ''
                             if len(buy_shop_elements) > 0:
                                 buy_shop_elements.pop(0)
@@ -3785,8 +3526,16 @@ if __name__ == '__main__':
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
-                                pygame.mixer.quit()
-                                sys.exit()
+                                inn_button = ''
+                                rest_clicked = False
+                                movement_able = True
+                                interacted = False
+                                encounter_started = False
+                                in_inn = False
+                                in_over_world = True
+                                rested = False
+                                faded_inn_screen = False
+                                building_song_set = False
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -3799,7 +3548,7 @@ if __name__ == '__main__':
                         inn_button = click_handlers.inn_event_button(event, rest_button, leave_button, pygame)
 
                         # click handlers
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(player, current_info_item,
                                                                        offense_upgraded, defense_upgraded,
@@ -3824,14 +3573,15 @@ if __name__ == '__main__':
                                                                                  info_items, item_info_button,
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
-                        equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                   defense_upgraded,
-                                                                   graphic_dict["player_no_role_amuna_down_1"],
-                                                                   graphic_dict["player_no_role_nuldar_down_1"],
-                                                                   graphic_dict["player_no_role_sorae_down_1"])
-                        if equipment_event["equipment message"] != "":
-                            info_text_1 = equipment_event["equipment message"]
-                            info_text_2 = ""
+                        if len(drawing_functions.item_info_window) == 0:
+                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
+                                                                       defense_upgraded,
+                                                                       graphic_dict["player_no_role_amuna_down_1"],
+                                                                       graphic_dict["player_no_role_nuldar_down_1"],
+                                                                       graphic_dict["player_no_role_sorae_down_1"])
+                            if equipment_event["equipment message"] != "":
+                                info_text_1 = equipment_event["equipment message"]
+                                info_text_2 = ""
 
                         if inn_button == "rest":
                             # if player has not yet rested this instance
@@ -3927,8 +3677,21 @@ if __name__ == '__main__':
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
-                                pygame.mixer.quit()
-                                sys.exit()
+                                book_appended = False
+                                learn_clicked = False
+                                movement_able = True
+                                interacted = False
+                                encounter_started = False
+                                in_academia = False
+                                in_over_world = True
+                                mage_learn_clicked = False
+                                fighter_learn_clicked = False
+                                scout_learn_clicked = False
+                                learned = False
+                                academia_cat_pet = False
+                                building_song_set = False
+                                books.clear()
+                                skill_learn_items.clear()
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -3984,7 +3747,7 @@ if __name__ == '__main__':
                                                                                fighter_learn_button, scout_learn_button,
                                                                                leave_button, pygame)
                         # click handlers
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(player, current_info_item,
                                                                        offense_upgraded, defense_upgraded,
@@ -4009,14 +3772,15 @@ if __name__ == '__main__':
                                                                                  info_items, item_info_button,
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
-                        equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                   defense_upgraded,
-                                                                   graphic_dict["player_no_role_amuna_down_1"],
-                                                                   graphic_dict["player_no_role_nuldar_down_1"],
-                                                                   graphic_dict["player_no_role_sorae_down_1"])
-                        if equipment_event["equipment message"] != "":
-                            info_text_1 = equipment_event["equipment message"]
-                            info_text_2 = ""
+                        if len(drawing_functions.item_info_window) == 0:
+                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
+                                                                       defense_upgraded,
+                                                                       graphic_dict["player_no_role_amuna_down_1"],
+                                                                       graphic_dict["player_no_role_nuldar_down_1"],
+                                                                       graphic_dict["player_no_role_sorae_down_1"])
+                            if equipment_event["equipment message"] != "":
+                                info_text_1 = equipment_event["equipment message"]
+                                info_text_2 = ""
 
                         # get which button player pressed during book skill open (skill or close)
                         book_button = click_handlers.skill_learn_event_item(event, skill_learn_items, pygame)
@@ -4203,37 +3967,23 @@ if __name__ == '__main__':
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
-                                pygame.mixer.quit()
-                                sys.exit()
+                                npc_button = ''
+                                movement_able = True
+                                interacted = False
+                                encounter_started = False
+                                in_npc_interaction = False
+                                in_over_world = True
+                                quest_clicked = False
+                                drawing_functions.quest_complete_box.clear()
+                                drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
+                                                                 maurelle_quest_window, celeste_quest_window,
+                                                                 torune_quest_window, accept_button, decline_button)
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
 
                         pos = pygame.mouse.get_pos()
-
-                        if quest_button.rect.collidepoint(pos):
-                            button_highlight.update(quest_button.x_coordinate, quest_button.y_coordinate + 7,
-                                                    graphic_dict["main high"])
-                            button_highlighted = True
-                        elif leave_button.rect.collidepoint(pos):
-                            button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
-                                                    graphic_dict["main high"])
-                            button_highlighted = True
-                        # quest window accept or decline button highlights when moused over
-                        elif quest_clicked:
-                            if accept_button.rect.collidepoint(pos):
-                                button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
-                                                        graphic_dict["main high"])
-                                button_highlighted = True
-                            elif decline_button.rect.collidepoint(pos):
-                                button_highlight.update(decline_button.x_coordinate,
-                                                        decline_button.y_coordinate + 7,
-                                                        graphic_dict["main high"])
-                                button_highlighted = True
-                            else:
-                                button_highlighted = False
-                        else:
-                            button_highlighted = False
+                        button_highlighted = button_highlights()
 
                         if event.type == pygame.MOUSEBUTTONUP:
                             if garan_complete_quest_window.rect.collidepoint(pos):
@@ -4247,6 +3997,7 @@ if __name__ == '__main__':
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False)
 
+                            # button highlights for role selection after accepting garan's quest
                             if mage_select_button.rect.collidepoint(pos):
                                 if not npc_garan.gift:
                                     player.items.append(Item("basic staff", "mage", 0, 0,
@@ -4254,6 +4005,7 @@ if __name__ == '__main__':
                                     player.items.append(Item("basic robes", "mage", 0, 0,
                                                              graphic_dict["basic_robes_img"]))
                                     npc_garan.gift = True
+                                    button_highlighted = False
                             if fighter_select_button.rect.collidepoint(pos):
                                 if not npc_garan.gift:
                                     player.items.append(Item("basic sword", "fighter", 0, 0,
@@ -4261,6 +4013,7 @@ if __name__ == '__main__':
                                     player.items.append(Item("basic armor", "fighter", 0, 0,
                                                              graphic_dict["basic_armor_img"]))
                                     npc_garan.gift = True
+                                    button_highlighted = False
                             if scout_select_button.rect.collidepoint(pos):
                                 if not npc_garan.gift:
                                     player.items.append(Item("basic bow", "scout", 0, 0,
@@ -4268,6 +4021,7 @@ if __name__ == '__main__':
                                     player.items.append(Item("basic tunic", "scout", 0, 0,
                                                              graphic_dict["basic_tunic_img"]))
                                     npc_garan.gift = True
+                                    button_highlighted = False
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
@@ -4306,7 +4060,7 @@ if __name__ == '__main__':
                                                              torune_quest_window, accept_button, decline_button)
 
                         # click handlers
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(player, current_info_item,
                                                                        offense_upgraded, defense_upgraded,
@@ -4323,22 +4077,26 @@ if __name__ == '__main__':
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                         if inventory_item_clicked["clicked"]:
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                                  info_items, item_info_button,
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
-                        equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                   defense_upgraded,
-                                                                   graphic_dict["player_no_role_amuna_down_1"],
-                                                                   graphic_dict["player_no_role_nuldar_down_1"],
-                                                                   graphic_dict["player_no_role_sorae_down_1"])
-                        if equipment_event["equipment message"] != "":
-                            info_text_1 = equipment_event["equipment message"]
-                            info_text_2 = ""
+                        if len(drawing_functions.item_info_window) == 0:
+                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
+                                                                       defense_upgraded,
+                                                                       graphic_dict["player_no_role_amuna_down_1"],
+                                                                       graphic_dict["player_no_role_nuldar_down_1"],
+                                                                       graphic_dict["player_no_role_sorae_down_1"])
+                            if equipment_event["equipment message"] != "":
+                                button_highlighted = False
+                                info_text_1 = equipment_event["equipment message"]
+                                info_text_2 = ""
 
                         if npc_button == "quest":
                             # garan npc, check player's quest progress and reward if completed -------------------------
@@ -4577,15 +4335,15 @@ if __name__ == '__main__':
                         text_npc_name_rect.center = (637, 192)
                         screen.blit(text_npc_name_surf, text_npc_name_rect)
 
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
-
                         if player.quest_status["sneaky snakes"]:
                             if not npc_garan.gift:
                                 screen.blit(role_select_overlay.surf, role_select_overlay.rect)
                                 screen.blit(mage_select_button.surf, mage_select_button.rect)
                                 screen.blit(fighter_select_button.surf, fighter_select_button.rect)
                                 screen.blit(scout_select_button.surf, scout_select_button.rect)
+
+                        if button_highlighted:
+                            screen.blit(button_highlight.surf, button_highlight.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------
@@ -4598,10 +4356,6 @@ if __name__ == '__main__':
                 screen.blit(game_over_screen, (0, 0))
                 screen.blit(lets_go_button.surf, lets_go_button.rect)
                 for event in pygame.event.get():
-                    if event.type == KEYDOWN:
-                        if event.key == K_ESCAPE:
-                            pygame.mixer.quit()
-                            sys.exit()
                     if event.type == pygame.MOUSEBUTTONUP:
                         pos = pygame.mouse.get_pos()
                         # player chooses to continue, reset character experience and half health and energy on respawn
