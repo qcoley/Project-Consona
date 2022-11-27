@@ -122,9 +122,15 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
         if inventory_item.name == "shiny rock":
             info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_shiny_rock_img"])
             item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
         if inventory_item.name == "bone dust":
             info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_bone_dust_img"])
             item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):

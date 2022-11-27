@@ -56,8 +56,8 @@ def load_graphics():
                    "game_over_screen": "", "start_screen": "", "nera_sleep_screen": "", "bar_backdrop": "",
                    "enemy_status": "", "enemy_bar_backdrop": "", "buy_inventory": "", "message_box": "",
                    "pine_tree": "", "hearth_stone": "", "hearth_stone_lit": "", "rohir_gate": "", "lets_go_button": "",
-                   "learn_button": "", "skill_learn_button": "", "nascent_gate_popup": "", "level_up": "",
-                   "close_button": "", "knowledge_window": "", "skill_bar": "", "start_button": "",
+                   "lets_go_button_high": "", "learn_button": "", "skill_learn_button": "", "nascent_gate_popup": "",
+                   "level_up": "", "close_button": "", "knowledge_window": "", "skill_bar": "", "start_button": "",
                    "npc_name_plate": "", "char_select_overlay": "", "role_selection_overlay": "",
                    "location_overlay": "", "popup_interaction": "", "popup_interaction_red": "",
                    "popup_interaction_purple": "", "popup_loot": "", "stardust_entrance": "",
@@ -198,7 +198,7 @@ def load_graphics():
                    "rest_button_img": "", "quest_button_img": "", "leave_button_img": "", "accept_button_img": "",
                    "decline_button_img": "", "yes_button_img": "", "no_button_img": "", "use_button_img": "",
                    "equip_button_img": "", "upgrade_button_img": "", "mage_attack_button_img": "",
-                   "fighter_attack_button_img": "", "scout_attack_button_img": "",
+                   "fighter_attack_button_img": "", "scout_attack_button_img": "", "ok_button_img": "",
                    "no_role_attack_button_img": "", "barrier_button_img": "", "strike_button_img": "",
                    "sense_button_img": "", "save_button_img": "", "hearth_button_img": "",
                    "mage_select_button_img": "", "fighter_select_button_img": "", "scout_select_button_img": "",
@@ -207,11 +207,11 @@ def load_graphics():
                    "maurelle_complete": "", "celeste_complete": "", "torune_complete": "", "quest_start_star": "",
                    "quest_progress_star": "", "quest_complete_star": "", "star_00": "", "star_01": "",
                    "star_02": "", "star_03": "", "star_04": "", "gear_popup": "", "health_popup": "",
-                   "knowledge_popup": "", "save_popup": "", "save_not_found": "", "pine_logs_img": "",
-                   "pine_logs_high_img": "", "guide_basics_quest_img": "", "guide_basics_battle_img": "",
-                   "guide_basics_role_img": "", "guide_basics_upgrades_img": "", "shop_cat_pet_img": "",
-                   "academia_cat_pet_img": "", "stardust_star_01": "", "stardust_star_02": "", "stardust_star_03": "",
-                   "stardust_star_04": "", "hp_0": "", "hp_1": "", "hp_2": "", "hp_3": "",
+                   "knowledge_popup": "", "save_popup": "", "quest_popup": "", "save_not_found": "",
+                   "pine_logs_img": "", "pine_logs_high_img": "", "guide_basics_quest_img": "",
+                   "guide_basics_battle_img": "", "guide_basics_role_img": "", "guide_basics_upgrades_img": "",
+                   "shop_cat_pet_img": "", "academia_cat_pet_img": "", "stardust_star_01": "", "stardust_star_02": "",
+                   "stardust_star_03": "", "stardust_star_04": "", "hp_0": "", "hp_1": "", "hp_2": "", "hp_3": "",
                    "hp_4": "", "hp_5": "", "hp_6": "", "hp_7": "", "hp_8": "", "hp_9": "",
                    "hp_10": "", "hp_11": "", "hp_12": "", "hp_13": "", "hp_14": "", "hp_15": "",
                    "hp_16": "", "hp_17": "", "hp_18": "", "hp_19": "", "hp_20": "", "hp_21": "",
@@ -262,7 +262,7 @@ def load_graphics():
                    "xp_82": "", "xp_83": "", "xp_84": "", "xp_85": "", "xp_86": "", "xp_87": "",
                    "xp_88": "", "xp_89": "", "xp_90": "", "xp_91": "", "xp_92": "", "xp_93": "",
                    "xp_94": "", "xp_95": "", "xp_96": "", "xp_97": "", "xp_98": "", "xp_99": "",
-                   "xp_100": ""}
+                   "xp_100": "", "arrow_up": "", "arrow_down": "", "arrow_right": "", "arrow_left": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -307,12 +307,13 @@ def load_graphics():
     cat_pet_button_overlay = pygame.image.load(resource_path('resources/art/overlay_cat_pet.png')).convert_alpha()
     book_high = pygame.image.load(resource_path('resources/art/book_button_highlight.png')).convert_alpha()
     save_hearth_high = pygame.image.load(resource_path('resources/art/buttons_small_high.png')).convert_alpha()
+    lets_go_high = pygame.image.load(resource_path('resources/art/button_lets_go_highlight.png')).convert_alpha()
 
     color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree,
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
-                  upgrade_overlay, cat_pet_button_overlay, save_hearth_high]
+                  upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -359,6 +360,7 @@ def load_graphics():
     loaded_dict["cat_pet_button_overlay"] = cat_pet_button_overlay
     loaded_dict["book_high"] = book_high
     loaded_dict["save hearth high"] = save_hearth_high
+    loaded_dict["lets_go_button_high"] = lets_go_high
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -935,6 +937,7 @@ def load_graphics():
     loaded_dict["equip_button_img"] = buttons_sheet[11]
     loaded_dict["upgrade_button_img"] = buttons_sheet[12]
     loaded_dict["back_button_img"] = buttons_sheet[13]
+    loaded_dict["ok_button_img"] = buttons_sheet[14]
     # attack buttons ---------------------------------------------------------------------------------------------------
     attack_buttons_url = resource_path('resources/art/overlay_attacks.png')
     attack_buttons_sheet = sprite_sheet((60, 60), attack_buttons_url)
@@ -997,6 +1000,7 @@ def load_graphics():
     loaded_dict["knowledge_popup"] = popups_sheet[2]
     loaded_dict["save_popup"] = popups_sheet[3]
     loaded_dict["save_not_found"] = popups_sheet[4]
+    loaded_dict["quest_popup"] = popups_sheet[5]
     # quest pine logs --------------------------------------------------------------------------------------------------
     quest_logs_url = resource_path('resources/art/sprite_logs.png')
     quest_logs_sheet = sprite_sheet((40, 50), quest_logs_url)
@@ -1004,7 +1008,7 @@ def load_graphics():
     loaded_dict["pine_logs_high_img"] = quest_logs_sheet[1]
     # game guide overlays ----------------------------------------------------------------------------------------------
     game_guide_url = resource_path('resources/art/overlay_game_guide.png')
-    game_guide_sheet = sprite_sheet((488, 440), game_guide_url)
+    game_guide_sheet = sprite_sheet((488, 480), game_guide_url)
     loaded_dict["guide_basics_quest_img"] = game_guide_sheet[0]
     loaded_dict["guide_basics_battle_img"] = game_guide_sheet[1]
     loaded_dict["guide_basics_role_img"] = game_guide_sheet[2]
@@ -1026,6 +1030,13 @@ def load_graphics():
     hearth_stones_sheet = sprite_sheet((100, 100), hearth_stones_url)
     loaded_dict["hearth_stone"] = hearth_stones_sheet[0]
     loaded_dict["hearth_stone_lit"] = hearth_stones_sheet[1]
+    # directional arrow sprites ----------------------------------------------------------------------------------------
+    arrows_url = resource_path('resources/art/overlay_arrows.png')
+    arrows_sheet = sprite_sheet((100, 100), arrows_url)
+    loaded_dict["arrow_up"] = arrows_sheet[0]
+    loaded_dict["arrow_down"] = arrows_sheet[1]
+    loaded_dict["arrow_left"] = arrows_sheet[2]
+    loaded_dict["arrow_right"] = arrows_sheet[3]
     # heath bars -------------------------------------------------------------------------------------------------------
     hp_url = resource_path('resources/art/bars_health.png')
     hp_sheet = sprite_sheet((305, 19), hp_url)

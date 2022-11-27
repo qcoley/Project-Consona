@@ -163,6 +163,7 @@ def load_game(player, Item, graphics):
             load_return["role guide"] = player_load_info["role guide"]
             load_return["upgrade guide"] = player_load_info["upgrade guide"]
             load_return["rest shown before"] = player_load_info["rest shown before"]
+            load_return["quest highlight popup"] = player_load_info["quest highlight popup"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -177,7 +178,8 @@ def load_game(player, Item, graphics):
 # save game function. stores player info in a dictionary that's serialized and saved to save_game file
 def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned, saved, garan_gift,
               rest_popup, knowledge_popup, offense_upgraded, defense_upgraded,
-              quest_guide_shown, battle_guide_shown, role_guide_shown, upgrade_guide_shown, rest_shown_before):
+              quest_guide_shown, battle_guide_shown, role_guide_shown, upgrade_guide_shown, rest_shown_before,
+              quest_highlight_popup):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -211,7 +213,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "offense upgrade": int(offense_upgraded), "defense upgrade": int(defense_upgraded),
                         "quest guide": quest_guide_shown, "battle guide": battle_guide_shown,
                         "role guide": role_guide_shown, "upgrade guide": upgrade_guide_shown,
-                        "rest shown before": rest_shown_before}
+                        "rest shown before": rest_shown_before, "quest highlight popup": quest_highlight_popup}
 
     try:
         # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
@@ -291,7 +293,7 @@ def attack_enemy(player, mob):
 
 # enemy attacks player, gets damage to player done, subtract players defense level
 def attack_player(player, mob):
-    base_damage = (random.randrange(10, 20))
+    base_damage = (random.randrange(12, 20))
     difference = mob.level - player.level
     # add additional damage if enemy is a higher level than player
     if difference >= 1:

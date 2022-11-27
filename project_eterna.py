@@ -1054,7 +1054,7 @@ def enemy_respawn():
         snakes.add(new_snake)
         enemies.add(new_snake)
         most_sprites.add(new_snake)
-        interactables_nascent.add(new_snake)
+        interactables_seldon.add(new_snake)
 
     # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
     if ghoul_counter < 3:
@@ -1064,7 +1064,7 @@ def enemy_respawn():
         ghouls.add(new_ghoul)
         enemies.add(new_ghoul)
         most_sprites.add(new_ghoul)
-        interactables_nascent.add(new_ghoul)
+        interactables_seldon.add(new_ghoul)
 
 
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg
@@ -1384,6 +1384,7 @@ if __name__ == '__main__':
     shop_gear = Notification("shop gear", False, 510, 365, graphic_dict["gear_popup"])
     save_check = Notification("save check", False, 510, 365, graphic_dict["save_popup"])
     save_absent = Notification("save absent", False, 640, 574, graphic_dict["save_not_found"])
+    first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
     # inventory items
     health_potion = Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"])
     energy_potion = Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"])
@@ -1581,10 +1582,11 @@ if __name__ == '__main__':
     buy_items = UiElement("buy items", 900, 230, graphic_dict["b_health_pot_img"])
     star_power_meter = UiElement("star power", 1210, 360, graphic_dict["star_00"])
     role_select_overlay = UiElement("role select overlay", 550, 369, graphic_dict["role_selection_overlay"])
-    game_guide_overlay = UiElement("game guide overlay", 776, 236, graphic_dict["guide_basics_quest_img"])
+    game_guide_overlay = UiElement("game guide overlay", 776, 256, graphic_dict["guide_basics_quest_img"])
     cat_pet_button_overlay = UiElement("cat pet button", 505, 235, graphic_dict["cat_pet_button_overlay"])
     cat_pet_animation_overlay = UiElement("cat pet animation", 507, 242, graphic_dict["shop_cat_pet_img"])
     stardust_star_overlay = UiElement("stardust stars", 236, 185, graphic_dict["stardust_star_01"])
+    directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
 
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
@@ -1724,12 +1726,18 @@ if __name__ == '__main__':
     battle_guide_shown = False
     role_guide_shown = False
     upgrade_guide_shown = False
+    quest_highlight_popup = True
     shop_cat_pet = False
     academia_cat_pet = False
     rest_shown_before = False
     leveled = False
     button_highlighted = False
     book_appended = False
+    first_npc_cond = True
+    first_shop_cond = True
+    first_inn_cond = True
+    first_academy_cond = True
+    first_battle_cond = True
 
     over_world_song_set = False
     battle_song_set = False
@@ -1748,6 +1756,7 @@ if __name__ == '__main__':
     rest_recover_window = []
     save_check_window = []
     save_data_window = []
+    first_quest_window = []
     sell_window = []
     buy_window = []
     loot_popup_container = []
@@ -1994,6 +2003,7 @@ if __name__ == '__main__':
                     role_guide_shown = load_returned["role guide"]
                     upgrade_guide_shown = load_returned["upgrade guide"]
                     rest_shown_before = load_returned["rest shown before"]
+                    quest_highlight_popup = load_returned["quest highlight popup"]
 
                     if player.race == "amuna":
                         player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
@@ -2077,6 +2087,24 @@ if __name__ == '__main__':
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
                         and not in_academia:
 
+                    # checks if player has started any quest to show the quest popup info window for highlights
+                    if player.quest_status["sneaky snakes"]:
+                        if quest_highlight_popup:
+                            first_quest_window.append(first_quest)
+                            quest_highlight_popup = False
+                    elif player.quest_status["village repairs"]:
+                        if quest_highlight_popup:
+                            first_quest_window.append(first_quest)
+                            quest_highlight_popup = False
+                    elif player.quest_status["where's nede?"]:
+                        if quest_highlight_popup:
+                            first_quest_window.append(first_quest)
+                            quest_highlight_popup = False
+                    elif player.quest_status["ghouled again"]:
+                        if quest_highlight_popup:
+                            first_quest_window.append(first_quest)
+                            quest_highlight_popup = False
+
                     pressed_keys = pygame.key.get_pressed()
                     # player movement updates
                     walking_return = gameplay_functions.walk_time(walk_tic)
@@ -2107,6 +2135,8 @@ if __name__ == '__main__':
                                     game_guide_container.clear()
                                 if len(save_check_window) > 0:
                                     save_check_window.clear()
+                                if len(first_quest_window) > 0:
+                                    first_quest_window.clear()
                                 # clear character or journal sheet
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 drawing_functions.journal_info_draw(journal, player, font, False)
@@ -2208,7 +2238,8 @@ if __name__ == '__main__':
                                                                  rest_recover_show, knowledge_academia_show,
                                                                  offense_upgraded, defense_upgraded, quest_guide_shown,
                                                                  battle_guide_shown, role_guide_shown,
-                                                                 upgrade_guide_shown, rest_shown_before)
+                                                                 upgrade_guide_shown, rest_shown_before,
+                                                                 quest_highlight_popup)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -2218,7 +2249,7 @@ if __name__ == '__main__':
                                                              rest_recover_show, knowledge_academia_show,
                                                              offense_upgraded, defense_upgraded, quest_guide_shown,
                                                              battle_guide_shown, role_guide_shown, upgrade_guide_shown,
-                                                             rest_shown_before)
+                                                             rest_shown_before, quest_highlight_popup)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -2251,6 +2282,8 @@ if __name__ == '__main__':
                             if loot_popup.rect.collidepoint(pos):
                                 loot_popup_container.clear()
                                 loot_text_container.clear()
+                            if first_quest.rect.collidepoint(pos):
+                                first_quest_window.clear()
                             if game_guide_overlay.rect.collidepoint(pos):
                                 game_guide_container.clear()
                             if level_up_win.rect.collidepoint(pos):
@@ -2576,6 +2609,9 @@ if __name__ == '__main__':
                     if len(rest_recover_window) > 0:
                         for rest_window in rest_recover_window:
                             screen.blit(rest_window.surf, rest_window.rect)
+                    if len(first_quest_window) > 0:
+                        for quest_window in first_quest_window:
+                            screen.blit(quest_window.surf, quest_window.rect)
 
                     # if battle happened, get battle info (item or experience gained) and apply to message box
                     if not loot_updated:
@@ -2924,6 +2960,8 @@ if __name__ == '__main__':
                                 info_text_2 = ""
 
                         if combat_button == "attack" or attack_hotkey:
+                            first_battle_cond = False
+                            game_guide_container.clear()
                             if not combat_cooldown:
                                 attack_hotkey = False
                                 combat_scenario.combat_animation(player, current_enemy_battling,
@@ -3206,6 +3244,10 @@ if __name__ == '__main__':
                                     screen.blit(damage_received_surf, damage_received_rect)
                                     pygame.display.flip()
 
+                            if first_battle_cond:
+                                directional_arrow.update(745, 565, graphic_dict["arrow_down"])
+                                screen.blit(directional_arrow.surf, directional_arrow.rect)
+
                     except AttributeError:
                         pass
 
@@ -3348,6 +3390,7 @@ if __name__ == '__main__':
 
                         if player.current_zone == "stardust":
                             if shop_button == "buy":
+                                first_shop_cond = False
                                 shop_button = ''
                                 # if player hasn't bought an item yet, show message that item can be clicked to buy
                                 if not item_bought:
@@ -3382,6 +3425,7 @@ if __name__ == '__main__':
                                 item_bought = False
                                 item_sold = False
                             if shop_button == "buy":
+                                first_shop_cond = False
                                 shop_button = ''
                                 # if player hasn't bought an item yet, show message that item can be clicked to buy
                                 if not item_bought:
@@ -3462,6 +3506,10 @@ if __name__ == '__main__':
                             for element in sell_window:
                                 screen.blit(element.surf, element.rect)
 
+                        if first_shop_cond:
+                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+
                     # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "stardust" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
@@ -3511,6 +3559,10 @@ if __name__ == '__main__':
                         if len(game_guide_container) > 0:
                             for guide_overlay in game_guide_container:
                                 screen.blit(guide_overlay.surf, guide_overlay.rect)
+
+                        if first_shop_cond:
+                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                            screen.blit(directional_arrow.surf, directional_arrow.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -3584,6 +3636,7 @@ if __name__ == '__main__':
                                 info_text_2 = ""
 
                         if inn_button == "rest":
+                            first_inn_cond = False
                             # if player has not yet rested this instance
                             if not rested:
                                 rest_clicked = True
@@ -3662,6 +3715,10 @@ if __name__ == '__main__':
                             player.health = 100
                             player.energy = 100
                             rested = True
+
+                    if first_inn_cond:
+                        directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                        screen.blit(directional_arrow.surf, directional_arrow.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -3860,12 +3917,15 @@ if __name__ == '__main__':
                         if academia_button == "mage learn":
                             mage_learn_clicked = True
                             button_highlighted = False
+                            first_academy_cond = False
                         if academia_button == "fighter learn":
                             fighter_learn_clicked = True
                             button_highlighted = False
+                            first_academy_cond = False
                         if academia_button == "scout learn":
                             scout_learn_clicked = True
                             button_highlighted = False
+                            first_academy_cond = False
                         if academia_button == "leave":
                             book_appended = False
                             learn_clicked = False
@@ -3958,6 +4018,18 @@ if __name__ == '__main__':
                                 skill_learn_items.append(sharp_sense_learn_button)
                                 skill_learn_items.append(close_button)
                                 book_appended = True
+
+                        # the first time player enters academy, show an arrow pointing to their book button
+                        if first_academy_cond:
+                            if player.role == "mage":
+                                directional_arrow.update(640, 195, graphic_dict["arrow_down"])
+                                screen.blit(directional_arrow.surf, directional_arrow.rect)
+                            if player.role == "fighter":
+                                directional_arrow.update(415, 280, graphic_dict["arrow_down"])
+                                screen.blit(directional_arrow.surf, directional_arrow.rect)
+                            if player.role == "scout":
+                                directional_arrow.update(555, 360, graphic_dict["arrow_down"])
+                                screen.blit(directional_arrow.surf, directional_arrow.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -4099,6 +4171,8 @@ if __name__ == '__main__':
                                 info_text_2 = ""
 
                         if npc_button == "quest":
+                            if first_npc_cond:
+                                first_npc_cond = False
                             # garan npc, check player's quest progress and reward if completed -------------------------
                             if current_npc_interacting.name == "garan":
                                 if player.quest_progress["sneaky snakes"] == 4 and not \
@@ -4345,6 +4419,10 @@ if __name__ == '__main__':
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)
 
+                        if first_npc_cond:
+                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------
                 clock.tick(60)
@@ -4353,13 +4431,20 @@ if __name__ == '__main__':
             # ----------------------------------------------------------------------------------------------------------
             # player has died, show game over and give continue option -------------------------------------------------
             else:
+                button_highlight.update(lets_go_button.x_coordinate, lets_go_button.y_coordinate,
+                                        graphic_dict["lets_go_button_high"])
                 screen.blit(game_over_screen, (0, 0))
                 screen.blit(lets_go_button.surf, lets_go_button.rect)
                 for event in pygame.event.get():
+                    pos = pygame.mouse.get_pos()
+                    if lets_go_button.rect.collidepoint(pos):
+                        button_highlighted = True
+                    else:
+                        button_highlighted = False
                     if event.type == pygame.MOUSEBUTTONUP:
-                        pos = pygame.mouse.get_pos()
                         # player chooses to continue, reset character experience and half health and energy on respawn
                         if lets_go_button.rect.collidepoint(pos):
+                            button_highlighted = False
                             movement_able = True
                             # reset interaction, so it doesn't immediately interact again on subsequent collisions
                             interacted = False
@@ -4407,5 +4492,8 @@ if __name__ == '__main__':
                     elif event.type == QUIT:
                         pygame.mixer.quit()
                         sys.exit()
+
+                if button_highlighted:
+                    screen.blit(button_highlight.surf, button_highlight.rect)
 
                 pygame.display.flip()
