@@ -208,7 +208,7 @@ def load_graphics():
                    "quest_progress_star": "", "quest_complete_star": "", "star_00": "", "star_01": "",
                    "star_02": "", "star_03": "", "star_04": "", "gear_popup": "", "health_popup": "",
                    "knowledge_popup": "", "save_popup": "", "quest_popup": "", "save_not_found": "",
-                   "pine_logs_img": "", "pine_logs_high_img": "", "guide_basics_quest_img": "",
+                   "drop_popup": "", "pine_logs_img": "", "pine_logs_high_img": "", "guide_basics_quest_img": "",
                    "guide_basics_battle_img": "", "guide_basics_role_img": "", "guide_basics_upgrades_img": "",
                    "shop_cat_pet_img": "", "academia_cat_pet_img": "", "stardust_star_01": "", "stardust_star_02": "",
                    "stardust_star_03": "", "stardust_star_04": "", "hp_0": "", "hp_1": "", "hp_2": "", "hp_3": "",
@@ -1001,6 +1001,7 @@ def load_graphics():
     loaded_dict["save_popup"] = popups_sheet[3]
     loaded_dict["save_not_found"] = popups_sheet[4]
     loaded_dict["quest_popup"] = popups_sheet[5]
+    loaded_dict["drop_popup"] = popups_sheet[6]
     # quest pine logs --------------------------------------------------------------------------------------------------
     quest_logs_url = resource_path('resources/art/sprite_logs.png')
     quest_logs_sheet = sprite_sheet((40, 50), quest_logs_url)

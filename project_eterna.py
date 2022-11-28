@@ -1264,6 +1264,56 @@ def button_highlights():
                                         graphic_dict["main high"])
                 return True
 
+            if player.current_zone == "seldon":
+                if len(drawing_functions.sell_info_window) > 0:
+                    if yes_button.rect.collidepoint(pos):
+                        button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 6,
+                                                graphic_dict["main high"])
+                        return True
+                elif buy_clicked:
+                    if shop_inv_1.collidepoint(pos):
+                        button_highlight.update(808, 431, graphic_dict["item high"])
+                        return True
+                    elif shop_inv_2.collidepoint(pos):
+                        button_highlight.update(868, 431, graphic_dict["item high"])
+                        return True
+                    elif shop_inv_3.collidepoint(pos):
+                        button_highlight.update(928, 431, graphic_dict["item high"])
+                        return True
+                    elif shop_inv_4.collidepoint(pos):
+                        button_highlight.update(988, 431, graphic_dict["item high"])
+                        return True
+                    elif shop_inv_5.collidepoint(pos):
+                        button_highlight.update(808, 491, graphic_dict["item high"])
+                        return True
+                    elif shop_inv_6.collidepoint(pos):
+                        button_highlight.update(868, 491, graphic_dict["item high"])
+                        return True
+                    elif shop_inv_7.collidepoint(pos):
+                        button_highlight.update(928, 491, graphic_dict["item high"])
+                        return True
+                    elif shop_inv_8.collidepoint(pos):
+                        button_highlight.update(988, 491, graphic_dict["item high"])
+                        return True
+                    elif len(drawing_functions.buy_info_window) > 0:
+                        if yes_button.rect.collidepoint(pos):
+                            button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 6,
+                                                    graphic_dict["main high"])
+                            return True
+
+            if player.current_zone == "stardust":
+                if buy_clicked:
+                    if offense_select_button.rect.collidepoint(pos):
+                        button_highlight.update(offense_select_button.x_coordinate,
+                                                offense_select_button.y_coordinate,
+                                                graphic_dict["role_high"])
+                        return True
+                    elif defense_select_button.rect.collidepoint(pos):
+                        button_highlight.update(defense_select_button.x_coordinate,
+                                                defense_select_button.y_coordinate,
+                                                graphic_dict["role_high"])
+                        return True
+
         if in_battle:
             if mage_attack_button.rect.collidepoint(pos) or fighter_attack_button.rect.collidepoint(pos) \
                     or scout_attack_button.rect.collidepoint(pos) or no_role_attack_button.rect.collidepoint(pos):
@@ -1385,6 +1435,7 @@ if __name__ == '__main__':
     save_check = Notification("save check", False, 510, 365, graphic_dict["save_popup"])
     save_absent = Notification("save absent", False, 640, 574, graphic_dict["save_not_found"])
     first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
+    first_item = Notification("first quest", False, 510, 365, graphic_dict["drop_popup"])
     # inventory items
     health_potion = Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"])
     energy_potion = Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"])
@@ -1613,6 +1664,16 @@ if __name__ == '__main__':
     inv_15 = pygame.Rect((1155, 615), (50, 50))
     inv_16 = pygame.Rect((1215, 615), (50, 50))
 
+    # shop inventory rects
+    shop_inv_1 = pygame.Rect((780, 405), (50, 50))
+    shop_inv_2 = pygame.Rect((840, 405), (50, 50))
+    shop_inv_3 = pygame.Rect((900, 405), (50, 50))
+    shop_inv_4 = pygame.Rect((960, 405), (50, 50))
+    shop_inv_5 = pygame.Rect((780, 465), (50, 50))
+    shop_inv_6 = pygame.Rect((840, 465), (50, 50))
+    shop_inv_7 = pygame.Rect((900, 465), (50, 50))
+    shop_inv_8 = pygame.Rect((960, 465), (50, 50))
+
     # equipment rects
     gloves = pygame.Rect((1050, 170), (50, 50))
     torso = pygame.Rect((1125, 170), (50, 50))
@@ -1738,6 +1799,7 @@ if __name__ == '__main__':
     first_inn_cond = True
     first_academy_cond = True
     first_battle_cond = True
+    first_item_cond = True
 
     over_world_song_set = False
     battle_song_set = False
@@ -1757,6 +1819,7 @@ if __name__ == '__main__':
     save_check_window = []
     save_data_window = []
     first_quest_window = []
+    first_item_window = []
     sell_window = []
     buy_window = []
     loot_popup_container = []
@@ -2004,6 +2067,7 @@ if __name__ == '__main__':
                     upgrade_guide_shown = load_returned["upgrade guide"]
                     rest_shown_before = load_returned["rest shown before"]
                     quest_highlight_popup = load_returned["quest highlight popup"]
+                    first_item_cond = load_returned["first drop popup"]
 
                     if player.race == "amuna":
                         player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
@@ -2137,6 +2201,8 @@ if __name__ == '__main__':
                                     save_check_window.clear()
                                 if len(first_quest_window) > 0:
                                     first_quest_window.clear()
+                                if len(first_item_window) > 0:
+                                    first_item_window.clear()
                                 # clear character or journal sheet
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 drawing_functions.journal_info_draw(journal, player, font, False)
@@ -2239,7 +2305,7 @@ if __name__ == '__main__':
                                                                  offense_upgraded, defense_upgraded, quest_guide_shown,
                                                                  battle_guide_shown, role_guide_shown,
                                                                  upgrade_guide_shown, rest_shown_before,
-                                                                 quest_highlight_popup)
+                                                                 quest_highlight_popup, first_item_cond)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -2249,7 +2315,7 @@ if __name__ == '__main__':
                                                              rest_recover_show, knowledge_academia_show,
                                                              offense_upgraded, defense_upgraded, quest_guide_shown,
                                                              battle_guide_shown, role_guide_shown, upgrade_guide_shown,
-                                                             rest_shown_before, quest_highlight_popup)
+                                                             rest_shown_before, quest_highlight_popup, first_item_cond)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -2284,6 +2350,8 @@ if __name__ == '__main__':
                                 loot_text_container.clear()
                             if first_quest.rect.collidepoint(pos):
                                 first_quest_window.clear()
+                            if first_item.rect.collidepoint(pos):
+                                first_item_window.clear()
                             if game_guide_overlay.rect.collidepoint(pos):
                                 game_guide_container.clear()
                             if level_up_win.rect.collidepoint(pos):
@@ -2612,9 +2680,16 @@ if __name__ == '__main__':
                     if len(first_quest_window) > 0:
                         for quest_window in first_quest_window:
                             screen.blit(quest_window.surf, quest_window.rect)
+                    if len(first_item_window) > 0:
+                        for item_window in first_item_window:
+                            screen.blit(item_window.surf, item_window.rect)
 
                     # if battle happened, get battle info (item or experience gained) and apply to message box
                     if not loot_updated:
+                        if first_item_cond:
+                            first_item_window.append(first_item)
+                            first_item_cond = False
+
                         # clear containers first from any previous battle
                         loot_popup_container.clear()
                         loot_text_container.clear()
@@ -3285,31 +3360,36 @@ if __name__ == '__main__':
                                 upgrade_event = click_handlers.stardust_upgrade_event(event, offense_select_button,
                                                                                       defense_select_button, pygame)
                                 # if player is in stardust post and chooses to upgrade +10 offense, consume 4 stars
-                                if upgrade_event == "offense":
-                                    if player.star_power >= 4:
-                                        player.offense += 10
-                                        # save upgrade in variable to be applied when switching gear
-                                        offense_upgraded += 1
-                                        player.star_power -= 4
-                                        info_text_1 = "You consumed 4 stars,"
-                                        info_text_2 = "Upgrading your base offense +10."
-                                        stardust_upgrade_elements.clear()
-                                    else:
-                                        info_text_1 = "4 stars are required to upgrade."
-                                        info_text_2 = ""
-                                # if player is in stardust post and chooses to upgrade +4 defense, consume 4 stars
-                                if upgrade_event == "defense":
-                                    if player.star_power >= 4:
-                                        player.defense += 4
-                                        # save upgrade in variable to be applied when switching gear
-                                        defense_upgraded += 1
-                                        player.star_power -= 4
-                                        info_text_1 = "You consumed 4 stars,"
-                                        info_text_2 = "Upgrading your base defense +4."
-                                        stardust_upgrade_elements.clear()
-                                    else:
-                                        info_text_1 = "4 stars are required to upgrade."
-                                        info_text_2 = ""
+                                if len(stardust_upgrade_elements) > 0:
+                                    if upgrade_event == "offense":
+                                        if player.star_power >= 4:
+                                            buy_clicked = False
+                                            button_highlighted = False
+                                            player.offense += 10
+                                            # save upgrade in variable to be applied when switching gear
+                                            offense_upgraded += 1
+                                            player.star_power -= 4
+                                            info_text_1 = "You consumed 4 stars,"
+                                            info_text_2 = "Upgrading your base offense +10."
+                                            stardust_upgrade_elements.clear()
+                                        else:
+                                            info_text_1 = "4 stars are required to upgrade."
+                                            info_text_2 = ""
+                                    # if player is in stardust post and chooses to upgrade +4 defense, consume 4 stars
+                                    if upgrade_event == "defense":
+                                        if player.star_power >= 4:
+                                            buy_clicked = False
+                                            button_highlighted = False
+                                            player.defense += 4
+                                            # save upgrade in variable to be applied when switching gear
+                                            defense_upgraded += 1
+                                            player.star_power -= 4
+                                            info_text_1 = "You consumed 4 stars,"
+                                            info_text_2 = "Upgrading your base defense +4."
+                                            stardust_upgrade_elements.clear()
+                                        else:
+                                            info_text_1 = "4 stars are required to upgrade."
+                                            info_text_2 = ""
 
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
@@ -3317,6 +3397,10 @@ if __name__ == '__main__':
                                 if len(buy_shop_elements) > 0:
                                     buy_shop_elements.pop(0)
                                     shopkeeper_items.clear()
+                                if len(drawing_functions.buy_info_window) > 0:
+                                    drawing_functions.buy_info_window.clear()
+                                if len(drawing_functions.sell_info_window) > 0:
+                                    drawing_functions.sell_info_window.clear()
 
                                 buy_clicked = False
                                 movement_able = True
@@ -3332,8 +3416,14 @@ if __name__ == '__main__':
 
                         # getting mouse position and highlighting buttons if they collide
                         pos = pygame.mouse.get_pos()
+                        if player.current_zone == "stardust":
+                            if buy_clicked:
+                                if len(stardust_upgrade_elements) > 0:
+                                    if upgrade_event != "offense" or upgrade_event != "defense":
+                                        button_highlighted = button_highlights()
+                            else:
+                                button_highlighted = button_highlights()
                         button_highlighted = button_highlights()
-
                         if event.type == pygame.MOUSEBUTTONUP:
                             if game_guide_overlay.rect.collidepoint(pos):
                                 game_guide_container.clear()
@@ -3362,6 +3452,7 @@ if __name__ == '__main__':
                                                                      graphic_dict["basic_armor_img"],
                                                                      graphic_dict["basic_tunic_img"])
                                 if buy_return["info 1"] != "":
+                                    button_highlighted = False
                                     info_text_1 = buy_return["info 1"]
                                 if buy_return["info 2"] != "":
                                     info_text_1 = buy_return["info 2"]
@@ -3377,6 +3468,7 @@ if __name__ == '__main__':
                                 sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame, sell_items)
                                 sell_return = shop_scenario.sell_items(player, sell_choice, current_sell_item)
                                 if sell_return["info 1"] != "":
+                                    button_highlighted = False
                                     info_text_1 = sell_return["info 1"]
                                 if sell_return["info 2"] != "":
                                     info_text_1 = sell_return["info 2"]
@@ -3459,6 +3551,10 @@ if __name__ == '__main__':
                             if len(buy_shop_elements) > 0:
                                 buy_shop_elements.pop(0)
                                 shopkeeper_items.clear()
+                            if len(drawing_functions.buy_info_window) > 0:
+                                drawing_functions.buy_info_window.clear()
+                            if len(drawing_functions.sell_info_window) > 0:
+                                drawing_functions.sell_info_window.clear()
 
                             buy_clicked = False
                             movement_able = True
@@ -3482,8 +3578,7 @@ if __name__ == '__main__':
                                                          info_text_4, in_over_world, offense_upgraded, defense_upgraded,
                                                          level_up_font)
                         drawing_functions.draw_it(screen)
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
+
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
@@ -3510,6 +3605,9 @@ if __name__ == '__main__':
                             directional_arrow.update(855, 620, graphic_dict["arrow_down"])
                             screen.blit(directional_arrow.surf, directional_arrow.rect)
 
+                        if button_highlighted:
+                            screen.blit(button_highlight.surf, button_highlight.rect)
+
                     # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "stardust" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
@@ -3523,8 +3621,7 @@ if __name__ == '__main__':
                                                          info_text_4, in_over_world, offense_upgraded, defense_upgraded,
                                                          level_up_font)
                         drawing_functions.draw_it(screen)
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
+
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
@@ -3563,6 +3660,9 @@ if __name__ == '__main__':
                         if first_shop_cond:
                             directional_arrow.update(855, 620, graphic_dict["arrow_down"])
                             screen.blit(directional_arrow.surf, directional_arrow.rect)
+
+                        if button_highlighted:
+                            screen.blit(button_highlight.surf, button_highlight.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------

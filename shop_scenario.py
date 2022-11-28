@@ -159,6 +159,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                     player.items.append(Item("health potion", "potion", 200, 200, health_pot_img))
                     player.rupees = player.rupees - 10
                     buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Health Potion cost 10 rupees."
@@ -174,6 +175,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                     player.items.append(Item("energy potion", "potion", 200, 200, energy_pot_img))
                     player.rupees = player.rupees - 10
                     buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Energy Potion cost 10 rupees."
@@ -189,6 +191,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                     player.items.append(Item("basic staff", "mage", 200, 200, basic_staff_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Basic Staff cost 20 rupees."
@@ -204,6 +207,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                     player.items.append(Item("basic sword", "fighter", 200, 200, basic_sword_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Basic Sword cost 20 rupees."
@@ -219,6 +223,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                     player.items.append(Item("basic bow", "scout", 200, 200, basic_bow_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Basic Bow cost 20 rupees."
@@ -234,6 +239,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                     player.items.append(Item("basic robes", "mage", 200, 200, basic_robes_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Basic Robes cost 20 rupees."
@@ -249,6 +255,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                     player.items.append(Item("basic armor", "fighter", 200, 200, basic_armor_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Basic Armor cost 20 rupees."
@@ -264,6 +271,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                     player.items.append(Item("basic tunic", "scout", 200, 200, basic_tunic_img))
                     player.rupees = player.rupees - 20
                     buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Basic Tunic cost 20 rupees."
