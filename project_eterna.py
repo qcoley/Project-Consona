@@ -1555,8 +1555,8 @@ if __name__ == '__main__':
     upgrade_button = UiElement("upgrade button", 860, 680, graphic_dict["upgrade_button_img"])
     leave_button = UiElement("leave button", 970, 680, graphic_dict["leave_button_img"])
     rest_button = UiElement("rest button", 860, 680, graphic_dict["rest_button_img"])
-    mage_learn_button = UiElement("mage learn button", 650, 250, graphic_dict["learn_button"])
-    fighter_learn_button = UiElement("fighter learn button", 420, 330, graphic_dict["learn_button"])
+    mage_learn_button = UiElement("mage learn button", 763, 250, graphic_dict["learn_button"])
+    fighter_learn_button = UiElement("fighter learn button", 303, 330, graphic_dict["learn_button"])
     scout_learn_button = UiElement("scout learn button", 560, 410, graphic_dict["learn_button"])
     barrier_learn_button = UiElement("barrier learn button", 505, 300, graphic_dict["skill_learn_button"])
     hard_strike_learn_button = UiElement("hard strike learn button", 505, 300, graphic_dict["skill_learn_button"])
@@ -3952,6 +3952,10 @@ if __name__ == '__main__':
                                             player.knowledge["mage"] -= 50
                                             barrier_learned = True
                                             button_highlighted = False
+                                            mage_learn_clicked = False
+                                            book_appended = False
+                                            books.clear()
+                                            skill_learn_items.clear()
                                         else:
                                             info_text_1 = "50 mage knowledge required to learn."
                                     else:
@@ -3975,7 +3979,11 @@ if __name__ == '__main__':
                                             info_text_2 = "Skill added. 50 knowledge used."
                                             player.knowledge["fighter"] -= 50
                                             hard_strike_learned = True
+                                            fighter_learn_clicked = False
+                                            book_appended = False
                                             button_highlighted = False
+                                            books.clear()
+                                            skill_learn_items.clear()
                                         else:
                                             info_text_1 = "50 fighter knowledge required to learn."
                                     else:
@@ -4000,6 +4008,10 @@ if __name__ == '__main__':
                                             player.knowledge["scout"] -= 50
                                             sharp_sense_learned = True
                                             button_highlighted = False
+                                            scout_learn_clicked = False
+                                            book_appended = False
+                                            books.clear()
+                                            skill_learn_items.clear()
                                         else:
                                             info_text_1 = "50 scout knowledge required to learn."
                                     else:
@@ -4014,18 +4026,20 @@ if __name__ == '__main__':
                             except AttributeError:
                                 pass
 
-                        if academia_button == "mage learn":
-                            mage_learn_clicked = True
-                            button_highlighted = False
-                            first_academy_cond = False
-                        if academia_button == "fighter learn":
-                            fighter_learn_clicked = True
-                            button_highlighted = False
-                            first_academy_cond = False
-                        if academia_button == "scout learn":
-                            scout_learn_clicked = True
-                            button_highlighted = False
-                            first_academy_cond = False
+                        if len(skill_learn_items) == 0 and len(books) == 0:
+                            if academia_button == "mage learn":
+                                mage_learn_clicked = True
+                                button_highlighted = False
+                                first_academy_cond = False
+                            if academia_button == "fighter learn":
+                                fighter_learn_clicked = True
+                                button_highlighted = False
+                                first_academy_cond = False
+                            if academia_button == "scout learn":
+                                scout_learn_clicked = True
+                                button_highlighted = False
+                                first_academy_cond = False
+
                         if academia_button == "leave":
                             book_appended = False
                             learn_clicked = False
@@ -4122,10 +4136,10 @@ if __name__ == '__main__':
                         # the first time player enters academy, show an arrow pointing to their book button
                         if first_academy_cond:
                             if player.role == "mage":
-                                directional_arrow.update(640, 195, graphic_dict["arrow_down"])
+                                directional_arrow.update(753, 195, graphic_dict["arrow_down"])
                                 screen.blit(directional_arrow.surf, directional_arrow.rect)
                             if player.role == "fighter":
-                                directional_arrow.update(415, 280, graphic_dict["arrow_down"])
+                                directional_arrow.update(298, 280, graphic_dict["arrow_down"])
                                 screen.blit(directional_arrow.surf, directional_arrow.rect)
                             if player.role == "scout":
                                 directional_arrow.update(555, 360, graphic_dict["arrow_down"])
