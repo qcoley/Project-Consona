@@ -12,6 +12,7 @@ import drawing_functions
 import combat_scenario
 import character_creation
 import shop_scenario
+import cutscenes
 
 # global variables
 SCREEN_WIDTH = 1280
@@ -223,6 +224,15 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.surf = graphic_dict["player_scout_amuna_right_4"]
                 self.x_coordinate += velocity
         # keep player on the screen, boundaries vary depending on current zone
+        if current_zone == "rohir":
+            if self.x_coordinate < 50:
+                self.x_coordinate = 50
+            elif self.x_coordinate > SCREEN_WIDTH - 350:
+                self.x_coordinate = SCREEN_WIDTH - 350
+            if self.y_coordinate <= 140:
+                self.y_coordinate = 140
+            elif self.y_coordinate >= SCREEN_HEIGHT - 100:
+                self.y_coordinate = SCREEN_HEIGHT - 100
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
@@ -488,6 +498,16 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if walk_timed > 0.6:
                     self.surf = graphic_dict["player_scout_nuldar_right_4"]
                 self.x_coordinate += velocity
+
+        if current_zone == "rohir":
+            if self.x_coordinate < 50:
+                self.x_coordinate = 50
+            elif self.x_coordinate > SCREEN_WIDTH - 350:
+                self.x_coordinate = SCREEN_WIDTH - 350
+            if self.y_coordinate <= 140:
+                self.y_coordinate = 140
+            elif self.y_coordinate >= SCREEN_HEIGHT - 100:
+                self.y_coordinate = SCREEN_HEIGHT - 100
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
@@ -750,6 +770,15 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if walk_timed > 0.6:
                     self.surf = graphic_dict["player_scout_sorae_right_4"]
                 self.x_coordinate += velocity
+        if current_zone == "rohir":
+            if self.x_coordinate < 50:
+                self.x_coordinate = 50
+            elif self.x_coordinate > SCREEN_WIDTH - 350:
+                self.x_coordinate = SCREEN_WIDTH - 350
+            if self.y_coordinate <= 140:
+                self.y_coordinate = 140
+            elif self.y_coordinate >= SCREEN_HEIGHT - 100:
+                self.y_coordinate = SCREEN_HEIGHT - 100
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
@@ -1411,6 +1440,7 @@ if __name__ == '__main__':
 
     # background textures ----------------------------------------------------------------------------------------------
     nascent_grove_bg = graphic_dict["nascent_grove_screen"]
+    rohir_river_bg = graphic_dict["rohir_river_screen"]
     seldon_district_bg = graphic_dict["seldon_bg_screen"]
     seldon_district_battle = graphic_dict["seldon_battle_screen"]
     seldon_district_shop = graphic_dict["seldon_shop_screen"]
@@ -1426,6 +1456,14 @@ if __name__ == '__main__':
     amuna_character_screen = graphic_dict["a_char_screen"]
     nuldar_character_screen = graphic_dict["n_char_screen"]
     sorae_character_screen = graphic_dict["s_char_screen"]
+
+    # cutscenes --------------------------------------------------------------------------------------------------------
+    apothis_scene_1 = graphic_dict["apothis_1"]
+    apothis_scene_2 = graphic_dict["apothis_2"]
+    apothis_scene_3 = graphic_dict["apothis_3"]
+    apothis_scene_4 = graphic_dict["apothis_4"]
+    apothis_scene_5 = graphic_dict["apothis_5"]
+    apothis_scene_6 = graphic_dict["apothis_6"]
 
     # display notifications --------------------------------------------------------------------------------------------
     knowledge_academia = Notification("knowledge academia notification", False, 510, 365,
@@ -1534,6 +1572,7 @@ if __name__ == '__main__':
     stardust_entrance = Building("shop", "stardust post", 530, 325, graphic_dict["stardust_entrance"])
     rohir_gate = Building("gate", "rohir gate", 525, 50, graphic_dict["rohir_gate"])
     nascent_gate = Building("gate", "nascent gate", 418, 262, graphic_dict["nascent_gate_closed"])
+    dungeon_entrance = Building("entrance", "dungeon_entrance", 50, 400, graphic_dict["new_game_img"])
 
     location_overlay = UiElement("location overlay", 915, 28, graphic_dict["location_overlay"])
     character_select_overlay = UiElement("character select overlay", 640, 365, graphic_dict["char_select_overlay"])
@@ -1638,6 +1677,7 @@ if __name__ == '__main__':
     cat_pet_animation_overlay = UiElement("cat pet animation", 507, 242, graphic_dict["shop_cat_pet_img"])
     stardust_star_overlay = UiElement("stardust stars", 236, 185, graphic_dict["stardust_star_01"])
     directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
+    water = UiElement("water", 855, 620, graphic_dict["water"])
 
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
@@ -1719,8 +1759,15 @@ if __name__ == '__main__':
     interactables_stardust.add(stardust_entrance, nede)
     interactables_korlok.add(npcs, enemies, buildings, seldon_hearth, quest_items)
 
+    # music tracks
+    start_screen_music = resource_path("resources/music/eterna_title.mp3")
+    seldon_overworld_music = resource_path("resources/music/eterna_seldon.mp3")
+    seldon_building_music = resource_path("resources/music/eterna_building.mp3")
+    stardust_outpost_music = resource_path("resources/music/eterna_stardust.mp3")
+    apothis_intro_music = resource_path("resources/music/eterna_apothis.mp3")
+
     pygame.mixer.music.set_volume(0.50)
-    pygame.mixer.music.load(resource_path("resources/music/eterna_title.mp3"))
+    pygame.mixer.music.load(start_screen_music)
     pygame.mixer.music.play(loops=-1)
 
     # move_up_sound = pygame.mixer.Sound("Rising_putter.ogg")
@@ -1800,6 +1847,7 @@ if __name__ == '__main__':
     first_academy_cond = True
     first_battle_cond = True
     first_item_cond = True
+    bridge_not_repaired = True
 
     over_world_song_set = False
     battle_song_set = False
@@ -2397,7 +2445,7 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     if not stardust_song_set:
-                        pygame.mixer.music.load(resource_path("resources/music/eterna_stardust.mp3"))
+                        pygame.mixer.music.load(stardust_outpost_music)
                         pygame.mixer.music.play(loops=-1)
                         stardust_song_set = True
 
@@ -2563,12 +2611,38 @@ if __name__ == '__main__':
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
+                # if player is in rohir river (after apothis cutscene) -------------------------------------------------
+                if player.current_zone == "rohir" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    pygame.mixer.music.fadeout(3000)
+
+                    screen.blit(rohir_river_bg, (0, 0))
+                    screen.blit(dungeon_entrance.surf, dungeon_entrance.rect)
+                    screen.blit(player.surf, player.rect)
+
+                    if 1000 > player.x_coordinate > 270:
+                        player.x_coordinate -= 1
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                        water.update(player.x_coordinate, player.y_coordinate - 5, graphic_dict["water"])
+                        screen.blit(water.surf, water.rect)
+
+                    if pygame.sprite.collide_rect(player, dungeon_entrance):
+                        if interacted and in_over_world:
+                            # player.current_zone = "dungeon_1"
+                            in_over_world = True
+                            player.x_coordinate = 425
+                            player.y_coordinate = 690
+                            interacted = False
+
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
                 # if player is in seldon district ----------------------------------------------------------------------
                 if player.current_zone == "seldon" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     if not over_world_song_set:
-                        pygame.mixer.music.load(resource_path("resources/music/eterna_seldon.mp3"))
+                        pygame.mixer.music.load(seldon_overworld_music)
                         pygame.mixer.music.play(loops=-1)
                         over_world_song_set = True
 
@@ -2766,13 +2840,27 @@ if __name__ == '__main__':
                                 info_text_1 = "Press 'F' key to enter Korlok District."
 
                                 if interacted and in_over_world:
-                                    player.x_coordinate = 525
-                                    player.y_coordinate = 650
-                                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                                  player.y_coordinate))
-                                    rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
-                                    player.current_zone = "korlok"
-                                    interacted = False
+                                    if bridge_not_repaired:
+                                        cutscenes.cutscenes_apothis_bridge(pygame, apothis_intro_music, screen,
+                                                                           apothis_scene_1, apothis_scene_2,
+                                                                           apothis_scene_3, apothis_scene_4,
+                                                                           apothis_scene_5, apothis_scene_6)
+                                        player.x_coordinate = 900
+                                        player.y_coordinate = 400
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                        rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
+                                        player.current_zone = "rohir"
+                                        interacted = False
+
+                                    else:
+                                        player.x_coordinate = 525
+                                        player.y_coordinate = 650
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                        rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
+                                        player.current_zone = "korlok"
+                                        interacted = False
                             else:
                                 info_text_1 = "The gate seems to be locked shut."
                                 info_text_2 = "Perhaps the nearby Guard knows why?"
@@ -3434,7 +3522,7 @@ if __name__ == '__main__':
                         if player.current_zone == "seldon":
 
                             if not building_song_set:
-                                pygame.mixer.music.load(resource_path("resources/music/eterna_building.mp3"))
+                                pygame.mixer.music.load(seldon_building_music)
                                 pygame.mixer.music.play(loops=-1)
                                 building_song_set = True
 
@@ -3671,7 +3759,7 @@ if __name__ == '__main__':
                         and not in_npc_interaction:
 
                     if not building_song_set:
-                        pygame.mixer.music.load(resource_path("resources/music/eterna_building.mp3"))
+                        pygame.mixer.music.load(seldon_building_music)
                         pygame.mixer.music.play(loops=-1)
                         building_song_set = True
 
@@ -3827,7 +3915,7 @@ if __name__ == '__main__':
                         and not in_battle:
 
                     if not building_song_set:
-                        pygame.mixer.music.load(resource_path("resources/music/eterna_building.mp3"))
+                        pygame.mixer.music.load(seldon_building_music)
                         pygame.mixer.music.play(loops=-1)
                         building_song_set = True
 

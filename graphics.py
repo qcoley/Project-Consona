@@ -262,7 +262,9 @@ def load_graphics():
                    "xp_82": "", "xp_83": "", "xp_84": "", "xp_85": "", "xp_86": "", "xp_87": "",
                    "xp_88": "", "xp_89": "", "xp_90": "", "xp_91": "", "xp_92": "", "xp_93": "",
                    "xp_94": "", "xp_95": "", "xp_96": "", "xp_97": "", "xp_98": "", "xp_99": "",
-                   "xp_100": "", "arrow_up": "", "arrow_down": "", "arrow_right": "", "arrow_left": ""}
+                   "xp_100": "", "arrow_up": "", "arrow_down": "", "arrow_right": "", "arrow_left": "",
+                   "apothis_1": "", "apothis_2": "", "apothis_3": "", "apothis_4": "", "apothis_5": "",
+                   "apothis_6": "", "rohir_river_screen": "", "water": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -273,6 +275,7 @@ def load_graphics():
     stardust_post_screen = pygame.image.load(resource_path('resources/art/bg_stardust_inn.png')).convert_alpha()
     seldon_bg_screen = pygame.image.load(resource_path('resources/art/bg_seldon_district.png')).convert_alpha()
     korlok_bg_screen = pygame.image.load(resource_path('resources/art/bg_korlok_district.png')).convert_alpha()
+    rohir_river_screen = pygame.image.load(resource_path('resources/art/bg_rohir_river.png')).convert_alpha()
     seldon_battle_screen = pygame.image.load(resource_path('resources/art/bg_seldon_battle_screen.png')).convert_alpha()
     seldon_shop_screen = pygame.image.load(resource_path('resources/art/bg_seldon_shop.png')).convert_alpha()
     seldon_inn_screen = pygame.image.load(resource_path('resources/art/bg_seldon_inn.png')).convert_alpha()
@@ -308,6 +311,14 @@ def load_graphics():
     book_high = pygame.image.load(resource_path('resources/art/book_button_highlight.png')).convert_alpha()
     save_hearth_high = pygame.image.load(resource_path('resources/art/buttons_small_high.png')).convert_alpha()
     lets_go_high = pygame.image.load(resource_path('resources/art/button_lets_go_highlight.png')).convert_alpha()
+    water = pygame.image.load(resource_path('resources/art/overlay_water.png')).convert_alpha()
+
+    apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
+    apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
+    apothis_scene_3 = pygame.image.load(resource_path('resources/art/cutscene_apothis_3.png')).convert_alpha()
+    apothis_scene_4 = pygame.image.load(resource_path('resources/art/cutscene_apothis_4.png')).convert_alpha()
+    apothis_scene_5 = pygame.image.load(resource_path('resources/art/cutscene_apothis_5.png')).convert_alpha()
+    apothis_scene_6 = pygame.image.load(resource_path('resources/art/cutscene_apothis_6.png')).convert_alpha()
 
     color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree,
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up,
@@ -326,6 +337,7 @@ def load_graphics():
     loaded_dict["stardust_post_screen"] = stardust_post_screen
     loaded_dict["seldon_bg_screen"] = seldon_bg_screen
     loaded_dict["korlok_bg_screen"] = korlok_bg_screen
+    loaded_dict["rohir_river_screen"] = rohir_river_screen
     loaded_dict["seldon_battle_screen"] = seldon_battle_screen
     loaded_dict["seldon_shop_screen"] = seldon_shop_screen
     loaded_dict["seldon_inn_screen"] = seldon_inn_screen
@@ -361,6 +373,13 @@ def load_graphics():
     loaded_dict["book_high"] = book_high
     loaded_dict["save hearth high"] = save_hearth_high
     loaded_dict["lets_go_button_high"] = lets_go_high
+    loaded_dict["apothis_1"] = apothis_scene_1
+    loaded_dict["apothis_2"] = apothis_scene_2
+    loaded_dict["apothis_3"] = apothis_scene_3
+    loaded_dict["apothis_4"] = apothis_scene_4
+    loaded_dict["apothis_5"] = apothis_scene_5
+    loaded_dict["apothis_6"] = apothis_scene_6
+    loaded_dict["water"] = water
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
