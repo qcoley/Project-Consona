@@ -200,7 +200,7 @@ def load_graphics():
                    "equip_button_img": "", "upgrade_button_img": "", "mage_attack_button_img": "",
                    "fighter_attack_button_img": "", "scout_attack_button_img": "", "ok_button_img": "",
                    "no_role_attack_button_img": "", "barrier_button_img": "", "strike_button_img": "",
-                   "sense_button_img": "", "save_button_img": "", "hearth_button_img": "",
+                   "sense_button_img": "", "save_button_img": "", "map_button_img": "",
                    "mage_select_button_img": "", "fighter_select_button_img": "", "scout_select_button_img": "",
                    "offense_select_button_img": "", "defense_select_button_img": "", "garan_quest": "",
                    "maurelle_quest": "", "torune_quest": "", "celeste_quest": "", "garan_complete": "",
@@ -264,7 +264,9 @@ def load_graphics():
                    "xp_94": "", "xp_95": "", "xp_96": "", "xp_97": "", "xp_98": "", "xp_99": "",
                    "xp_100": "", "arrow_up": "", "arrow_down": "", "arrow_right": "", "arrow_left": "",
                    "apothis_1": "", "apothis_2": "", "apothis_3": "", "apothis_4": "", "apothis_5": "",
-                   "apothis_6": "", "rohir_river_screen": "", "water": ""}
+                   "apothis_6": "", "rohir_river_screen": "", "water": "", "dungeon_entrance": "",
+                   "world_map": "", "map_button": "", "map_button_high": "", "amuna_location": "",
+                   "nuldar_location": "", "sorae_location": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -312,6 +314,10 @@ def load_graphics():
     save_hearth_high = pygame.image.load(resource_path('resources/art/buttons_small_high.png')).convert_alpha()
     lets_go_high = pygame.image.load(resource_path('resources/art/button_lets_go_highlight.png')).convert_alpha()
     water = pygame.image.load(resource_path('resources/art/overlay_water.png')).convert_alpha()
+    dungeon_entrance = pygame.image.load(resource_path('resources/art/overlay_dungeon_entrance.png')).convert_alpha()
+    world_map = pygame.image.load(resource_path('resources/art/consona_region_map.png')).convert_alpha()
+    world_map_button = pygame.image.load(resource_path('resources/art/button_map.png')).convert_alpha()
+    world_map_button_high = pygame.image.load(resource_path('resources/art/button_map_highlight.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -324,7 +330,8 @@ def load_graphics():
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
-                  upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high]
+                  upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
+                  world_map_button, world_map_button_high]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -380,7 +387,10 @@ def load_graphics():
     loaded_dict["apothis_5"] = apothis_scene_5
     loaded_dict["apothis_6"] = apothis_scene_6
     loaded_dict["water"] = water
-
+    loaded_dict["dungeon_entrance"] = dungeon_entrance
+    loaded_dict["world_map"] = world_map
+    loaded_dict["map_button"] = world_map_button
+    loaded_dict["map_button_high"] = world_map_button_high
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
     character_selections_url = resource_path('resources/art/overlay_character_selections.png')
@@ -974,7 +984,7 @@ def load_graphics():
     game_play_function_buttons_url = resource_path('resources/art/buttons_game_play_function.png')
     game_play_function_buttons_sheet = sprite_sheet((100, 25), game_play_function_buttons_url)
     loaded_dict["save_button_img"] = game_play_function_buttons_sheet[0]
-    loaded_dict["hearth_button_img"] = game_play_function_buttons_sheet[1]
+    loaded_dict["map_button_img"] = game_play_function_buttons_sheet[1]
     # select buttons --------------------------------------------------------------------------------------------------
     selection_buttons_url = resource_path('resources/art/buttons_select_role.png')
     selection_buttons_sheet = sprite_sheet((184, 42), selection_buttons_url)
@@ -1057,6 +1067,12 @@ def load_graphics():
     loaded_dict["arrow_down"] = arrows_sheet[1]
     loaded_dict["arrow_left"] = arrows_sheet[2]
     loaded_dict["arrow_right"] = arrows_sheet[3]
+    # character current location overlay -------------------------------------------------------------------------------
+    character_selections_url = resource_path('resources/art/overlay_character_location.png')
+    character_selections_sheet = sprite_sheet((60, 75), character_selections_url)
+    loaded_dict["amuna_location"] = character_selections_sheet[0]
+    loaded_dict["nuldar_location"] = character_selections_sheet[1]
+    loaded_dict["sorae_location"] = character_selections_sheet[2]
     # heath bars -------------------------------------------------------------------------------------------------------
     hp_url = resource_path('resources/art/bars_health.png')
     hp_sheet = sprite_sheet((305, 19), hp_url)
