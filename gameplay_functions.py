@@ -165,6 +165,8 @@ def load_game(player, Item, graphics):
             load_return["rest shown before"] = player_load_info["rest shown before"]
             load_return["quest highlight popup"] = player_load_info["quest highlight popup"]
             load_return["first drop popup"] = player_load_info["first drop popup"]
+            load_return["bridge not repaired"] = player_load_info["bridge not repaired"]
+            load_return["nede ghoul defeated"] = player_load_info["nede ghoul defeated"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -180,7 +182,7 @@ def load_game(player, Item, graphics):
 def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned, saved, garan_gift,
               rest_popup, knowledge_popup, offense_upgraded, defense_upgraded,
               quest_guide_shown, battle_guide_shown, role_guide_shown, upgrade_guide_shown, rest_shown_before,
-              quest_highlight_popup, first_drop_popup):
+              quest_highlight_popup, first_drop_popup, bridge_not_repaired, nede_ghoul_defeated):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -215,7 +217,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "quest guide": quest_guide_shown, "battle guide": battle_guide_shown,
                         "role guide": role_guide_shown, "upgrade guide": upgrade_guide_shown,
                         "rest shown before": rest_shown_before, "quest highlight popup": quest_highlight_popup,
-                        "first drop popup": first_drop_popup}
+                        "first drop popup": first_drop_popup, "bridge not repaired": bridge_not_repaired,
+                        "nede ghoul defeated": nede_ghoul_defeated}
 
     try:
         # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
