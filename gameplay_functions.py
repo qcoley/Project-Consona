@@ -167,6 +167,11 @@ def load_game(player, Item, graphics):
             load_return["first drop popup"] = player_load_info["first drop popup"]
             load_return["bridge not repaired"] = player_load_info["bridge not repaired"]
             load_return["nede ghoul defeated"] = player_load_info["nede ghoul defeated"]
+            load_return["bridge_cutscenes_not_viewed"] = player_load_info["bridge_cutscenes_not_viewed"]
+            load_return["crate_1"] = player_load_info["crate_1"]
+            load_return["crate_2"] = player_load_info["crate_2"]
+            load_return["crate_3"] = player_load_info["crate_3"]
+            load_return["crate_4"] = player_load_info["crate_4"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -182,7 +187,8 @@ def load_game(player, Item, graphics):
 def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned, saved, garan_gift,
               rest_popup, knowledge_popup, offense_upgraded, defense_upgraded,
               quest_guide_shown, battle_guide_shown, role_guide_shown, upgrade_guide_shown, rest_shown_before,
-              quest_highlight_popup, first_drop_popup, bridge_not_repaired, nede_ghoul_defeated):
+              quest_highlight_popup, first_drop_popup, bridge_not_repaired, nede_ghoul_defeated,
+              bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3, crate_4):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -218,7 +224,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "role guide": role_guide_shown, "upgrade guide": upgrade_guide_shown,
                         "rest shown before": rest_shown_before, "quest highlight popup": quest_highlight_popup,
                         "first drop popup": first_drop_popup, "bridge not repaired": bridge_not_repaired,
-                        "nede ghoul defeated": nede_ghoul_defeated}
+                        "nede ghoul defeated": nede_ghoul_defeated,
+                        "bridge_cutscenes_not_viewed": bridge_cutscenes_not_viewed,
+                        "crate_1": crate_1, "crate_2": crate_2, "crate_3": crate_3, "crate_4": crate_4}
 
     try:
         # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)

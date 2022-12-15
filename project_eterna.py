@@ -247,6 +247,27 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 315
             elif 300 >= self.y_coordinate >= 230:
                 self.y_coordinate = 230
+        if current_zone == "reservoir a":
+            if self.x_coordinate < 50:
+                self.x_coordinate = 50
+            elif self.x_coordinate > SCREEN_WIDTH - 300:
+                self.x_coordinate = SCREEN_WIDTH - 300
+            elif self.x_coordinate < 365:
+                if self.y_coordinate > 350:
+                    if self.x_coordinate > 360:
+                        self.x_coordinate = 365
+            elif self.x_coordinate > 680:
+                if self.y_coordinate > 350:
+                    if self.x_coordinate < 685:
+                        self.x_coordinate = 680
+            if self.y_coordinate <= 125:
+                self.y_coordinate = 125
+            elif self.x_coordinate < 360 or self.x_coordinate > 725:
+                if self.y_coordinate >= SCREEN_HEIGHT - 200:
+                    self.y_coordinate = SCREEN_HEIGHT - 200
+            elif self.x_coordinate > 300 or self.x_coordinate < 725:
+                if self.y_coordinate >= SCREEN_HEIGHT:
+                    self.y_coordinate = SCREEN_HEIGHT
         if current_zone == "seldon":
             if self.x_coordinate < 15:
                 self.x_coordinate = 15
@@ -285,6 +306,27 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = SCREEN_HEIGHT - 5
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
+        if current_zone == "reservoir a":
+            if mini_boss_1 or mini_boss_2:
+                if pygame.sprite.collide_rect(player, dungeon_drop_wall):
+                    if player.x_coordinate < dungeon_drop_wall.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > dungeon_drop_wall.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < dungeon_drop_wall.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > dungeon_drop_wall.y_coordinate:
+                        self.y_coordinate += velocity
+            collided = pygame.sprite.spritecollideany(player, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if player.x_coordinate < collided.x_coordinate:
                     self.x_coordinate -= velocity
@@ -521,6 +563,27 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 315
             elif 300 >= self.y_coordinate >= 230:
                 self.y_coordinate = 230
+        if current_zone == "reservoir a":
+            if self.x_coordinate < 50:
+                self.x_coordinate = 50
+            elif self.x_coordinate > SCREEN_WIDTH - 300:
+                self.x_coordinate = SCREEN_WIDTH - 300
+            elif self.x_coordinate < 365:
+                if self.y_coordinate > 350:
+                    if self.x_coordinate > 360:
+                        self.x_coordinate = 365
+            elif self.x_coordinate > 680:
+                if self.y_coordinate > 350:
+                    if self.x_coordinate < 685:
+                        self.x_coordinate = 680
+            if self.y_coordinate <= 125:
+                self.y_coordinate = 125
+            elif self.x_coordinate < 360 or self.x_coordinate > 725:
+                if self.y_coordinate >= SCREEN_HEIGHT - 200:
+                    self.y_coordinate = SCREEN_HEIGHT - 200
+            elif self.x_coordinate > 300 or self.x_coordinate < 725:
+                if self.y_coordinate >= SCREEN_HEIGHT:
+                    self.y_coordinate = SCREEN_HEIGHT
         if current_zone == "seldon":
             if self.x_coordinate < 15:
                 self.x_coordinate = 15
@@ -558,6 +621,27 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = SCREEN_HEIGHT - 5
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
+        if current_zone == "reservoir a":
+            if mini_boss_1 or mini_boss_2:
+                if pygame.sprite.collide_rect(player, dungeon_drop_wall):
+                    if player.x_coordinate < dungeon_drop_wall.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > dungeon_drop_wall.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < dungeon_drop_wall.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > dungeon_drop_wall.y_coordinate:
+                        self.y_coordinate += velocity
+            collided = pygame.sprite.spritecollideany(player, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if player.x_coordinate < collided.x_coordinate:
                     self.x_coordinate -= velocity
@@ -792,6 +876,27 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 315
             elif 300 >= self.y_coordinate >= 230:
                 self.y_coordinate = 230
+        if current_zone == "reservoir a":
+            if self.x_coordinate < 50:
+                self.x_coordinate = 50
+            elif self.x_coordinate > SCREEN_WIDTH - 300:
+                self.x_coordinate = SCREEN_WIDTH - 300
+            elif self.x_coordinate < 365:
+                if self.y_coordinate > 350:
+                    if self.x_coordinate > 360:
+                        self.x_coordinate = 365
+            elif self.x_coordinate > 680:
+                if self.y_coordinate > 350:
+                    if self.x_coordinate < 685:
+                        self.x_coordinate = 680
+            if self.y_coordinate <= 125:
+                self.y_coordinate = 125
+            elif self.x_coordinate < 360 or self.x_coordinate > 725:
+                if self.y_coordinate >= SCREEN_HEIGHT - 200:
+                    self.y_coordinate = SCREEN_HEIGHT - 200
+            elif self.x_coordinate > 300 or self.x_coordinate < 725:
+                if self.y_coordinate >= SCREEN_HEIGHT:
+                    self.y_coordinate = SCREEN_HEIGHT
         if current_zone == "seldon":
             if self.x_coordinate < 15:
                 self.x_coordinate = 15
@@ -838,6 +943,29 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+        if current_zone == "reservoir a":
+            if mini_boss_1 or mini_boss_2:
+                if pygame.sprite.collide_rect(player, dungeon_drop_wall):
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
+
+            collided = pygame.sprite.spritecollideany(player, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
+
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
 
@@ -1475,7 +1603,9 @@ if __name__ == '__main__':
     amuna_character_screen = graphic_dict["a_char_screen"]
     nuldar_character_screen = graphic_dict["n_char_screen"]
     sorae_character_screen = graphic_dict["s_char_screen"]
-    dungeon_1_bg = graphic_dict["dungeon_1_screen"]
+    reservoir_a_bg = graphic_dict["reservoir_a_screen"]
+    reservoir_b_bg = graphic_dict["reservoir_b_screen"]
+    reservoir_battle = graphic_dict["reservoir_battle_screen"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -1586,6 +1716,16 @@ if __name__ == '__main__':
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
 
+    chorizano_1 = Enemy("chorizano_1", "chorizano", 100, 100, 7, 150, 230, True,
+                        Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
+                        graphic_dict["chorizano"], UiElement("chorizano hp bar", 700, 90, graphic_dict["hp_100"]))
+    chorizano_2 = Enemy("chorizano_2", "chorizano", 100, 100, 7, 870, 230, True,
+                        Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
+                        graphic_dict["chorizano"], UiElement("chorizano hp bar", 700, 90, graphic_dict["hp_100"]))
+    muchador = Enemy("muchador", "muchador", 100, 100, 8, 500, 0, True,
+                        Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
+                        graphic_dict["muchador"], UiElement("muchador hp bar", 700, 90, graphic_dict["hp_100"]))
+
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
     pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, graphic_dict["pine_tree"])
@@ -1597,6 +1737,10 @@ if __name__ == '__main__':
     rohir_gate = Building("gate", "rohir gate", 525, 50, graphic_dict["rohir_gate"])
     nascent_gate = Building("gate", "nascent gate", 418, 262, graphic_dict["nascent_gate_closed"])
     dungeon_entrance = Building("entrance", "dungeon_entrance", 35, 350, graphic_dict["dungeon_entrance"])
+    dungeon_wall_1 = Building("wall", "dungeon wall 1", 347, 472, graphic_dict["dungeon_wall_1"])
+    dungeon_wall_2 = Building("wall", "dungeon wall 2", 308, 384, graphic_dict["dungeon_wall_2"])
+    dungeon_wall_3 = Building("wall", "dungeon wall 3", 682, 472, graphic_dict["dungeon_wall_1"])
+    dungeon_wall_4 = Building("wall", "dungeon wall 4", 720, 384, graphic_dict["dungeon_wall_2"])
 
     location_overlay = UiElement("location overlay", 915, 28, graphic_dict["location_overlay"])
     character_select_overlay = UiElement("character select overlay", 640, 365, graphic_dict["char_select_overlay"])
@@ -1691,6 +1835,8 @@ if __name__ == '__main__':
     player_battle_sprite = BattleCharacter("stan battle", 320, 460, graphic_dict["player_no_role_amuna_battle"])
     snake_battle_sprite = BattleCharacter("snake battle", 715, 250, graphic_dict["snake_battle"])
     ghoul_battle_sprite = BattleCharacter("ghoul battle", 698, 280, graphic_dict["ghoul_battle"])
+    chorizano_battle_sprite = BattleCharacter("chorizano battle", 720, 325, graphic_dict["chorizano_battle"])
+    muchador_battle_sprite = BattleCharacter("muchador battle", 725, 350, graphic_dict["muchador_battle"])
     nascent_gate_popup = UiElement("nascent gate popup", 418, 200, graphic_dict["nascent_gate_popup"])
     sell_items = UiElement("sell items", 1155, 270, graphic_dict["s_health_pot_img"])
     info_items = UiElement("info items", 1155, 270, graphic_dict["info_health_pot_img"])
@@ -1726,6 +1872,17 @@ if __name__ == '__main__':
     amuna_location = UiElement("amuna character location", 663, 238, graphic_dict["amuna_location"])
     nuldar_location = UiElement("nuldar character location", 663, 238, graphic_dict["nuldar_location"])
     sorae_location = UiElement("sorae character location", 663, 238, graphic_dict["sorae_location"])
+
+    dungeon_teleporter = UiElement("dungeon teleporter", 519, 315, graphic_dict["dungeon_teleporter"])
+    dungeon_drop_wall = UiElement("dungeon drop wall", 310, 224, graphic_dict["dungeon_drop_wall"])
+
+    dungeon_crate_1 = Item("dungeon crate 1", "crate", 75, 150, graphic_dict["dungeon_crate"])
+    dungeon_crate_2 = Item("dungeon crate 2", "crate", 960, 150, graphic_dict["dungeon_crate"])
+    dungeon_crate_3 = Item("dungeon crate 3", "crate", 388, 575, graphic_dict["dungeon_crate"])
+    dungeon_crate_4 = Item("dungeon crate 4", "crate", 650, 575, graphic_dict["dungeon_crate"])
+    dungeon_switch_1 = Item("dungeon switch 1", "switch", 158, 430, graphic_dict["dungeon_switch_inactive"])
+    dungeon_switch_2 = Item("dungeon switch 2", "switch", 874, 430, graphic_dict["dungeon_switch_inactive"])
+    dungeon_switch_3 = Item("dungeon switch 3", "switch", 519, 165, graphic_dict["dungeon_switch_inactive"])
 
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
@@ -1770,8 +1927,11 @@ if __name__ == '__main__':
     quest_items = pygame.sprite.Group()
     npcs = pygame.sprite.Group()
     enemies = pygame.sprite.Group()
+    boss_enemies = pygame.sprite.Group()
     trees = pygame.sprite.Group()
     buildings = pygame.sprite.Group()
+    dungeon_walls = pygame.sprite.Group()
+    dungeon_items = pygame.sprite.Group()
     environments = pygame.sprite.Group()
     user_interface = pygame.sprite.Group()
     enemy_hp_bars = pygame.sprite.Group()
@@ -1788,8 +1948,12 @@ if __name__ == '__main__':
     ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     npcs.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
     enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
+    boss_enemies.add(chorizano_1, chorizano_2, muchador)
     trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
     buildings.add(seldon_inn, seldon_shop, seldon_academia)
+    dungeon_walls.add(dungeon_wall_1, dungeon_wall_2, dungeon_wall_3, dungeon_wall_4)
+    dungeon_items.add(dungeon_crate_1, dungeon_crate_2, dungeon_crate_3, dungeon_crate_4, dungeon_switch_1,
+                      dungeon_switch_2, dungeon_switch_3)
     environments.add(trees, buildings)
     quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
     most_sprites.add(npcs, trees, buildings, quest_items, enemies, seldon_hearth, rohir_gate)
@@ -1807,7 +1971,7 @@ if __name__ == '__main__':
     stardust_outpost_music = resource_path("resources/music/eterna_stardust.mp3")
     apothis_intro_music = resource_path("resources/music/eterna_apothis.mp3")
     rohir_river_music = resource_path("resources/music/eterna_rohir.mp3")
-    dungeon_1_music = resource_path("resources/music/eterna_dungeon.mp3")
+    reservoir_music = resource_path("resources/music/eterna_dungeon.mp3")
 
     pygame.mixer.music.set_volume(0.40)
     pygame.mixer.music.load(start_screen_music)
@@ -1893,6 +2057,7 @@ if __name__ == '__main__':
     first_item_cond = True
     bridge_not_repaired = True
     nede_ghoul_defeated = False
+    bridge_cutscenes_not_viewed = True
 
     over_world_song_set = False
     battle_song_set = False
@@ -1901,6 +2066,18 @@ if __name__ == '__main__':
 
     attack_hotkey = False
     skill_1_hotkey = False
+
+    # reservoir dungeon conditions
+    crate_1 = False
+    crate_2 = False
+    crate_3 = False
+    crate_4 = False
+    switch_1 = False
+    switch_2 = False
+    switch_3 = False
+
+    mini_boss_1 = False
+    mini_boss_2 = False
 
     buy_shop_elements = []
     stardust_upgrade_elements = []
@@ -2164,6 +2341,11 @@ if __name__ == '__main__':
                     first_item_cond = load_returned["first drop popup"]
                     bridge_not_repaired = load_returned["bridge not repaired"]
                     nede_ghoul_defeated = load_returned["nede ghoul defeated"]
+                    bridge_cutscenes_not_viewed = load_returned["bridge_cutscenes_not_viewed"]
+                    crate_1 = load_returned["crate_1"]
+                    crate_2 = load_returned["crate_2"]
+                    crate_3 = load_returned["crate_3"]
+                    crate_4 = load_returned["crate_4"]
 
                     if player.race == "amuna":
                         player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
@@ -2218,6 +2400,12 @@ if __name__ == '__main__':
 
                     if player.quest_progress["where's nede?"] == 1:
                         nede.update(809, 390, graphic_dict["nede_left"])
+
+                    if player.current_zone == "reservoir a":
+                        player.x_coordinate = 525
+                        player.y_coordinate = 650
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                      player.y_coordinate))
                 except TypeError:
                     pass
             except KeyError:
@@ -2319,6 +2507,18 @@ if __name__ == '__main__':
                                 if player.current_zone == "rohir":
                                     if pygame.sprite.collide_rect(player, dungeon_entrance):
                                         interacted = True
+                                if player.current_zone == "reservoir a":
+                                    if pygame.sprite.spritecollideany(player, dungeon_items):
+                                        interacted = True
+                                    if mini_boss_1:
+                                        if pygame.sprite.collide_rect(player, chorizano_1):
+                                            interacted = True
+                                    if mini_boss_2:
+                                        if pygame.sprite.collide_rect(player, chorizano_2):
+                                            interacted = True
+                                    if switch_3:
+                                        if pygame.sprite.collide_rect(player, dungeon_teleporter):
+                                            interacted = True
                                 if player.current_zone == "korlok":
                                     if pygame.sprite.spritecollideany(player, interactables_korlok):
                                         interacted = True
@@ -2508,7 +2708,9 @@ if __name__ == '__main__':
                                                                  battle_guide_shown, role_guide_shown,
                                                                  upgrade_guide_shown, rest_shown_before,
                                                                  quest_highlight_popup, first_item_cond,
-                                                                 bridge_not_repaired, nede_ghoul_defeated)
+                                                                 bridge_not_repaired, nede_ghoul_defeated,
+                                                                 bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3,
+                                                                 crate_4)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -2519,7 +2721,9 @@ if __name__ == '__main__':
                                                              offense_upgraded, defense_upgraded, quest_guide_shown,
                                                              battle_guide_shown, role_guide_shown, upgrade_guide_shown,
                                                              rest_shown_before, quest_highlight_popup, first_item_cond,
-                                                             bridge_not_repaired, nede_ghoul_defeated)
+                                                             bridge_not_repaired, nede_ghoul_defeated,
+                                                             bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3,
+                                                             crate_4)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -2641,7 +2845,7 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     if not stardust_song_set:
-                        pygame.mixer.music.fadeout(100)
+                        pygame.mixer.music.fadeout(50)
                         pygame.mixer.music.load(stardust_outpost_music)
                         pygame.mixer.music.play(loops=-1)
                         stardust_song_set = True
@@ -2963,7 +3167,7 @@ if __name__ == '__main__':
                         info_text_4 = ""
 
                         if interacted and in_over_world:
-                            player.current_zone = "dungeon_1"
+                            player.current_zone = "reservoir a"
                             in_over_world = True
                             over_world_song_set = False
                             player.x_coordinate = 525
@@ -2974,18 +3178,40 @@ if __name__ == '__main__':
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
-                # if player is in first dungeon ------------------------------------------------------------------------
-                if player.current_zone == "dungeon_1" and in_over_world and not in_shop and not in_inn \
+                # if player is in first dungeon, first floor -----------------------------------------------------------
+                if player.current_zone == "reservoir a" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     if not over_world_song_set:
-                        pygame.mixer.music.fadeout(100)
-                        pygame.mixer.music.load(dungeon_1_music)
+                        pygame.mixer.music.fadeout(50)
+                        pygame.mixer.music.load(reservoir_music)
                         pygame.mixer.music.play(loops=-1)
                         over_world_song_set = True
 
-                    screen.blit(dungeon_1_bg, (0, 0))
+                    screen.blit(reservoir_a_bg, (0, 0))
+                    for wall in dungeon_walls:
+                        screen.blit(wall.surf, wall.rect)
+                    for item in dungeon_items:
+                        screen.blit(item.surf, item.rect)
+                    if switch_3:
+                        screen.blit(dungeon_teleporter.surf, dungeon_teleporter.rect)
+                    if mini_boss_1:
+                        dungeon_drop_wall.update(310, 224, graphic_dict["dungeon_drop_wall"])
+                        screen.blit(dungeon_drop_wall.surf, dungeon_drop_wall.rect)
+                        screen.blit(chorizano_1.surf, chorizano_1.rect)
+                    if mini_boss_2:
+                        dungeon_drop_wall.update(722, 224, graphic_dict["dungeon_drop_wall"])
+                        screen.blit(dungeon_drop_wall.surf, dungeon_drop_wall.rect)
+                        screen.blit(chorizano_2.surf, chorizano_2.rect)
                     screen.blit(player.surf, player.rect)
+
+                    # move player back to rohir if they approach dungeon exit
+                    if 680 > player.x_coordinate > 365 and SCREEN_HEIGHT - 25 < player.y_coordinate:
+                        player.current_zone = "rohir"
+                        over_world_song_set = False
+                        in_over_world = True
+                        player.x_coordinate = 100
+                        player.y_coordinate = 375
 
                     # --------------------------------------------------------------------------------------------------
 
@@ -3054,6 +3280,223 @@ if __name__ == '__main__':
                         if battle_info_to_return_to_main_loop["leveled_up"] and not leveled:
                             leveled = True
 
+                    # player collides with building, enters if chosen to interact and starts related scenario
+                    item = pygame.sprite.spritecollideany(player, dungeon_items)
+                    if in_over_world and not in_battle and not in_shop and not in_inn and not in_academia \
+                            and not in_npc_interaction:
+                        if item:
+                            interaction_popup.update(item.x_coordinate, item.y_coordinate - 50,
+                                                     graphic_dict["popup_interaction"])
+                            screen.blit(interaction_popup.surf, interaction_popup.rect)
+                            interaction_info_surf = font.render(str(item.type), True, "black", "light yellow")
+                            interaction_info_rect = interaction_info_surf.get_rect()
+                            interaction_info_rect.center = (item.x_coordinate, item.y_coordinate - 50)
+                            screen.blit(interaction_info_surf, interaction_info_rect)
+
+                            if interacted:
+                                if item.name == "dungeon crate 1":
+                                    if not crate_1:
+                                        info_text_1 = "You found a health potion!"
+                                        player.items.append(Item("health potion", "potion", 200, 200,
+                                                                 graphic_dict["health_pot_img"]))
+                                        crate_1 = True
+                                        item.kill()
+                                if item.name == "dungeon crate 2":
+                                    if not crate_2:
+                                        info_text_1 = "You found an energy potion!"
+                                        player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                 graphic_dict["energy_pot_img"]))
+                                        crate_2 = True
+                                        item.kill()
+                                if item.name == "dungeon crate 3":
+                                    if not crate_3:
+                                        info_text_1 = "You found a health potion!"
+                                        player.items.append(Item("health potion", "potion", 200, 200,
+                                                                 graphic_dict["health_pot_img"]))
+                                        crate_3 = True
+                                        item.kill()
+                                if item.name == "dungeon crate 4":
+                                    if not crate_4:
+                                        info_text_1 = "You found an energy potion!"
+                                        player.items.append(Item("energy potion", "potion", 200, 200,
+                                                                 graphic_dict["energy_pot_img"]))
+                                        crate_4 = True
+                                        item.kill()
+                                if item.name == "dungeon switch 1":
+                                    if not switch_1:
+                                        info_text_1 = "You activated the first switch!"
+                                        info_text_2 = "It seems your path is blocked."
+                                        switch_1 = True
+                                        mini_boss_1 = True
+                                        dungeon_switch_1.update(dungeon_switch_1.x_coordinate,
+                                                                dungeon_switch_1.y_coordinate,
+                                                                graphic_dict["dungeon_switch_active"])
+                                if item.name == "dungeon switch 2":
+                                    if not switch_2:
+                                        info_text_1 = "You activated the second switch!"
+                                        info_text_2 = "It seems your path is blocked."
+                                        switch_2 = True
+                                        mini_boss_2 = True
+                                        dungeon_switch_2.update(dungeon_switch_2.x_coordinate,
+                                                                dungeon_switch_2.y_coordinate,
+                                                                graphic_dict["dungeon_switch_active"])
+                                if item.name == "dungeon switch 3":
+                                    if switch_1 and switch_2:
+                                        info_text_1 = "You activated the final switch!"
+                                        info_text_2 = "Step on the teleporter to proceed."
+                                        switch_3 = True
+                                        dungeon_switch_1.update(dungeon_switch_1.x_coordinate,
+                                                                dungeon_switch_1.y_coordinate,
+                                                                graphic_dict["dungeon_switch_full"])
+                                        dungeon_switch_2.update(dungeon_switch_2.x_coordinate,
+                                                                dungeon_switch_2.y_coordinate,
+                                                                graphic_dict["dungeon_switch_full"])
+                                        dungeon_switch_3.update(dungeon_switch_3.x_coordinate,
+                                                                dungeon_switch_3.y_coordinate,
+                                                                graphic_dict["dungeon_switch_full"])
+                                    else:
+                                        info_text_1 = "Requires activation sequence."
+                                interacted = False
+
+                    if mini_boss_1 or mini_boss_2:
+                        boss_enemy = pygame.sprite.spritecollideany(player, boss_enemies)
+                        if boss_enemy:
+                            interaction_popup.update(boss_enemy.x_coordinate, boss_enemy.y_coordinate - 40,
+                                                     graphic_dict["popup_interaction_red"])
+                            screen.blit(interaction_popup.surf, interaction_popup.rect)
+                            interaction_info_surf = font.render(str(boss_enemy.kind) + " lvl " +
+                                                                str(boss_enemy.level), True, "black", (255, 204, 203))
+                            interaction_info_rect = interaction_info_surf.get_rect()
+                            interaction_info_rect.center = (boss_enemy.x_coordinate, boss_enemy.y_coordinate - 40)
+                            screen.blit(interaction_info_surf, interaction_info_rect)
+
+                            # lets player know if they are in range of enemy they can press f to attack it
+                            info_text_1 = "Press 'F' key to attack enemy."
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
+
+                            if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                                    and not in_academia and not in_npc_interaction:
+                                current_enemy_battling = boss_enemy
+                                in_over_world = False
+                                in_battle = True
+
+                                loot_popup_container.clear()
+                                loot_text_container.clear()
+                                combat_scenario.resting_animation(player, boss_enemy, player_battle_sprite,
+                                                                  snake_battle_sprite, ghoul_battle_sprite,
+                                                                  barrier_active,
+                                                                  sharp_sense_active, in_battle, in_npc_interaction,
+                                                                  graphic_dict)
+
+                    # player defeats mini bosses and activates teleporter
+                    if pygame.sprite.collide_rect(player, dungeon_teleporter):
+                        interaction_popup.update(dungeon_teleporter.x_coordinate,
+                                                 dungeon_teleporter.y_coordinate - 50,
+                                                 graphic_dict["popup_interaction"])
+                        screen.blit(interaction_popup.surf, interaction_popup.rect)
+                        interaction_info_surf = font.render(str("teleporter"),
+                                                            True, "black", "light yellow")
+                        interaction_info_rect = interaction_info_surf.get_rect()
+                        interaction_info_rect.center = (dungeon_teleporter.x_coordinate,
+                                                        dungeon_teleporter.y_coordinate - 50)
+                        screen.blit(interaction_info_surf, interaction_info_rect)
+
+                        if interacted:
+                            if switch_3:
+                                player.current_zone = "reservoir b"
+                                in_over_world = True
+                                player.x_coordinate = 500
+                                player.y_coordinate = 375
+                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                              player.y_coordinate))
+                            if not switch_3:
+                                info_text_1 = "The teleporter appears dormant."
+
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in first dungeon ------------------------------------------------------------------------
+                if player.current_zone == "reservoir b" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if not over_world_song_set:
+                        pygame.mixer.music.fadeout(50)
+                        pygame.mixer.music.load(reservoir_music)
+                        pygame.mixer.music.play(loops=-1)
+                        over_world_song_set = True
+
+                    screen.blit(reservoir_b_bg, (0, 0))
+                    screen.blit(player.surf, player.rect)
+
+                    # --------------------------------------------------------------------------------------------------
+
+                    for save_window in save_check_window:
+                        screen.blit(save_window.surf, save_window.rect)
+                    for ui_elements in user_interface:
+                        screen.blit(ui_elements.surf, ui_elements.rect)
+                    for maps in world_map_container:
+                        screen.blit(maps.surf, maps.rect)
+
+                    if len(loot_popup_container) > 0:
+                        for popup in loot_popup_container:
+                            screen.blit(popup.surf, popup.rect)
+                    if len(loot_text_container) > 0:
+                        for loot_text in loot_text_container:
+                            screen.blit(loot_text[0], loot_text[1])
+
+                    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                    screen.blit(hp_bar.surf, hp_bar.rect)
+                    screen.blit(en_bar.surf, en_bar.rect)
+                    screen.blit(xp_bar.surf, xp_bar.rect)
+
+                    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                     info_text_3,
+                                                     info_text_4, in_over_world, offense_upgraded,
+                                                     defense_upgraded,
+                                                     level_up_font)
+                    drawing_functions.draw_it(screen)
+
+                    if button_highlighted:
+                        screen.blit(button_highlight.surf, button_highlight.rect)
+
+                    # if battle happened, get battle info (item or experience gained) and apply to message box
+                    if not loot_updated:
+                        if first_item_cond:
+                            first_item_window.append(first_item)
+                            first_item_cond = False
+
+                        # clear containers first from any previous battle
+                        loot_popup_container.clear()
+                        loot_text_container.clear()
+
+                        loot_popup_container.append(loot_popup)
+                        xp_info_surf = font.render(
+                            "+" + str(battle_info_to_return_to_main_loop["experience"] + " xp"),
+                            True, "black", (203, 195, 227))
+                        xp_info_rect = xp_info_surf.get_rect()
+                        xp_info_rect.center = (182, 492)
+                        loot_text_container.append((xp_info_surf, xp_info_rect))
+                        know_info_surf = font.render(str(battle_info_to_return_to_main_loop["knowledge"]),
+                                                     True, "black", (144, 238, 144))
+                        know_info_rect = know_info_surf.get_rect()
+                        know_info_rect.center = (205, 510)
+                        loot_text_container.append((know_info_surf, know_info_rect))
+                        loot_info_surf = font.render(
+                            str(battle_info_to_return_to_main_loop["item dropped"]),
+                            True, "black", "silver")
+                        loot_info_rect = loot_info_surf.get_rect()
+                        loot_info_rect.center = (170, 565)
+                        loot_text_container.append((loot_info_surf, loot_info_rect))
+                        loot_updated = True
+
+                        # keeps track of time from loot and level popups to clear them after some time has passed
+                        loot_level_tic = time.perf_counter()
+                        loot_info = True
+                        if battle_info_to_return_to_main_loop["leveled_up"] and not leveled:
+                            leveled = True
+
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in seldon district ----------------------------------------------------------------------
@@ -3061,7 +3504,7 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     if not over_world_song_set:
-                        pygame.mixer.music.fadeout(100)
+                        pygame.mixer.music.fadeout(50)
                         pygame.mixer.music.load(seldon_overworld_music)
                         pygame.mixer.music.play(loops=-1)
                         over_world_song_set = True
@@ -3159,15 +3602,16 @@ if __name__ == '__main__':
 
                                 if interacted and in_over_world:
                                     if bridge_not_repaired:
-                                        cutscenes.cutscenes_apothis_bridge(pygame, apothis_intro_music, screen,
-                                                                           apothis_scene_1, apothis_scene_2,
-                                                                           apothis_scene_3, apothis_scene_4,
-                                                                           apothis_scene_5, apothis_scene_6)
+                                        if bridge_cutscenes_not_viewed:
+                                            cutscenes.cutscenes_apothis_bridge(pygame, apothis_intro_music, screen,
+                                                                               apothis_scene_1, apothis_scene_2,
+                                                                               apothis_scene_3, apothis_scene_4,
+                                                                               apothis_scene_5, apothis_scene_6)
+                                            bridge_cutscenes_not_viewed = False
                                         player.x_coordinate = 900
                                         player.y_coordinate = 400
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                       player.y_coordinate))
-                                        rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
                                         player.current_zone = "rohir"
                                         interacted = False
                                         over_world_song_set = False
@@ -3610,6 +4054,12 @@ if __name__ == '__main__':
                                     if current_enemy_battling.name == "nede ghoul":
                                         nede_ghoul_defeated = True
                                         ghoul_nede.kill()
+                                    if current_enemy_battling.name == "chorizano_1":
+                                        mini_boss_1 = False
+                                        chorizano_1.kill()
+                                    if current_enemy_battling.name == "chorizano_2":
+                                        mini_boss_2 = False
+                                        chorizano_2.kill()
 
                                     # if barrier is active on enemy defeat, restore original defence and set off
                                     if barrier_active:
@@ -3709,6 +4159,12 @@ if __name__ == '__main__':
                                                 if current_enemy_battling.name == "nede ghoul":
                                                     nede_ghoul_defeated = True
                                                     ghoul_nede.kill()
+                                                if current_enemy_battling.name == "chorizano_1":
+                                                    mini_boss_1 = False
+                                                    chorizano_1.kill()
+                                                if current_enemy_battling.name == "chorizano_2":
+                                                    mini_boss_2 = False
+                                                    chorizano_2.kill()
                                                 movement_able = True
                                                 combat_happened = False
                                                 interacted = False
@@ -3743,11 +4199,17 @@ if __name__ == '__main__':
                                 screen.blit(seldon_district_battle, (0, 0))
                             if player.current_zone == "stardust":
                                 screen.blit(stardust_battle, (0, 0))
+                            if player.current_zone == "reservoir a" or player.current_zone == "reservoir b":
+                                screen.blit(reservoir_battle, (0, 0))
                             screen.blit(skill_bar.surf, skill_bar.rect)
                             if current_enemy_battling.name == "snake":
                                 screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                             if current_enemy_battling.kind == "ghoul":
                                 screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                            if current_enemy_battling.kind == "chorizano":
+                                screen.blit(chorizano_battle_sprite.surf, chorizano_battle_sprite.rect)
+                            if current_enemy_battling.kind == "muchador":
+                                screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
                             screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                             if player.role == "mage":
                                 screen.blit(mage_attack_button.surf, mage_attack_button.rect)
@@ -3960,7 +4422,7 @@ if __name__ == '__main__':
                         if player.current_zone == "seldon":
 
                             if not building_song_set:
-                                pygame.mixer.music.fadeout(100)
+                                pygame.mixer.music.fadeout(50)
                                 pygame.mixer.music.load(seldon_building_music)
                                 pygame.mixer.music.play(loops=-1)
                                 building_song_set = True
@@ -4198,7 +4660,7 @@ if __name__ == '__main__':
                         and not in_npc_interaction:
 
                     if not building_song_set:
-                        pygame.mixer.music.fadeout(100)
+                        pygame.mixer.music.fadeout(50)
                         pygame.mixer.music.load(seldon_building_music)
                         pygame.mixer.music.play(loops=-1)
                         building_song_set = True
@@ -4355,7 +4817,7 @@ if __name__ == '__main__':
                         and not in_battle:
 
                     if not building_song_set:
-                        pygame.mixer.music.fadeout(100)
+                        pygame.mixer.music.fadeout(50)
                         pygame.mixer.music.load(seldon_building_music)
                         pygame.mixer.music.play(loops=-1)
                         building_song_set = True
@@ -4824,7 +5286,7 @@ if __name__ == '__main__':
                                         player.quest_complete["sneaky snakes"] = True
                                         player.current_quests["sneaky snakes"] = "You completed this quest!"
                                         info_text_1 = "You've completed Garan's quest!"
-                                        info_text_2 = ""
+                                        info_text_2 = "Your game has been saved. "
                                         info_text_3 = ""
                                         info_text_4 = ""
                                         player.star_power += 1
@@ -4836,6 +5298,19 @@ if __name__ == '__main__':
                                         player.reputation["amuna"] += 10
                                         player.items.append(Item("health potion", "potion", 200, 200,
                                                                  graphic_dict["health_pot_img"]))
+                                        # autosave on quest complete
+                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                     sharp_sense_learned, saved, npc_garan.gift,
+                                                                     rest_recover_show, knowledge_academia_show,
+                                                                     offense_upgraded, defense_upgraded,
+                                                                     quest_guide_shown,
+                                                                     battle_guide_shown, role_guide_shown,
+                                                                     upgrade_guide_shown,
+                                                                     rest_shown_before, quest_highlight_popup,
+                                                                     first_item_cond,
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
+                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                     crate_3, crate_4)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -4871,7 +5346,7 @@ if __name__ == '__main__':
                                         player.quest_complete["where's nede?"] = True
                                         player.current_quests["where's nede?"] = "You completed this quest!"
                                         info_text_1 = "You've completed Celeste's quest!"
-                                        info_text_2 = ""
+                                        info_text_2 = "Your game has been saved. "
                                         info_text_3 = ""
                                         info_text_4 = ""
                                         player.star_power += 1
@@ -4881,6 +5356,19 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["sorae"] += 10
+                                        # autosave on quest complete
+                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                     sharp_sense_learned, saved, npc_garan.gift,
+                                                                     rest_recover_show, knowledge_academia_show,
+                                                                     offense_upgraded, defense_upgraded,
+                                                                     quest_guide_shown,
+                                                                     battle_guide_shown, role_guide_shown,
+                                                                     upgrade_guide_shown,
+                                                                     rest_shown_before, quest_highlight_popup,
+                                                                     first_item_cond,
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
+                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                     crate_3, crate_4)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -4915,7 +5403,7 @@ if __name__ == '__main__':
                                         player.quest_complete["village repairs"] = True
                                         player.current_quests["village repairs"] = "You completed this quest!"
                                         info_text_1 = "You've completed Maurelle's quest!"
-                                        info_text_2 = ""
+                                        info_text_2 = "Your game has been saved. "
                                         info_text_3 = ""
                                         info_text_4 = ""
                                         player.star_power += 1
@@ -4927,6 +5415,19 @@ if __name__ == '__main__':
                                         player.reputation["amuna"] += 10
                                         player.items.append(Item("energy potion", "potion", 200, 200,
                                                                  graphic_dict["energy_pot_img"]))
+                                        # autosave on quest complete
+                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                     sharp_sense_learned, saved, npc_garan.gift,
+                                                                     rest_recover_show, knowledge_academia_show,
+                                                                     offense_upgraded, defense_upgraded,
+                                                                     quest_guide_shown,
+                                                                     battle_guide_shown, role_guide_shown,
+                                                                     upgrade_guide_shown,
+                                                                     rest_shown_before, quest_highlight_popup,
+                                                                     first_item_cond,
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
+                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                     crate_3, crate_4)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -4961,7 +5462,7 @@ if __name__ == '__main__':
                                         player.quest_complete["ghouled again"] = True
                                         player.current_quests["ghouled again"] = "You completed this quest!"
                                         info_text_1 = "You've completed Torune's quest!"
-                                        info_text_2 = ""
+                                        info_text_2 = "Your game has been saved. "
                                         info_text_3 = ""
                                         info_text_4 = ""
                                         player.star_power += 1
@@ -4971,6 +5472,19 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["nuldar"] += 10
+                                        # autosave on quest complete
+                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                     sharp_sense_learned, saved, npc_garan.gift,
+                                                                     rest_recover_show, knowledge_academia_show,
+                                                                     offense_upgraded, defense_upgraded,
+                                                                     quest_guide_shown,
+                                                                     battle_guide_shown, role_guide_shown,
+                                                                     upgrade_guide_shown,
+                                                                     rest_shown_before, quest_highlight_popup,
+                                                                     first_item_cond,
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
+                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                     crate_3, crate_4)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -5100,6 +5614,7 @@ if __name__ == '__main__':
                             encounter_started = False
                             in_battle = False
                             in_over_world = True
+                            over_world_song_set = False
                             # turn off barrier and restore original defence if player mage was killed while active
                             if barrier_active:
                                 barrier_active = False

@@ -267,7 +267,11 @@ def load_graphics():
                    "apothis_6": "", "rohir_river_screen": "", "water": "", "dungeon_entrance": "",
                    "world_map": "", "map_button": "", "map_button_high": "", "amuna_location": "",
                    "nuldar_location": "", "sorae_location": "", "stardust_battle": "", "ghoul attacking star": "",
-                   "nede_big": "", "dungeon_1_screen": ""}
+                   "nede_big": "", "reservoir_a_screen": "", "reservoir_b_screen": "", "dungeon_wall_1": "",
+                   "dungeon_wall_2": "", "dungeon_crate": "", "dungeon_switch_inactive": "",
+                   "dungeon_switch_active": "", "dungeon_switch_full": "", "dungeon_teleporter": "",
+                   "dungeon_drop_wall": "", "chorizano": "", "muchador": "", "reservoir_battle_screen": "",
+                   "chorizano_battle": "", "muchador_battle": "", "chorizano_attack": "", "muchador_attack": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -280,7 +284,9 @@ def load_graphics():
     seldon_bg_screen = pygame.image.load(resource_path('resources/art/bg_seldon_district.png')).convert_alpha()
     korlok_bg_screen = pygame.image.load(resource_path('resources/art/bg_korlok_district.png')).convert_alpha()
     rohir_river_screen = pygame.image.load(resource_path('resources/art/bg_rohir_river.png')).convert_alpha()
-    dungeon_1_screen = pygame.image.load(resource_path('resources/art/bg_dungeon_korlok_1.png')).convert_alpha()
+    reservoir_a_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_a.png')).convert_alpha()
+    reservoir_b_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_b.png')).convert_alpha()
+    reservoir_battle = pygame.image.load(resource_path('resources/art/bg_reservoir_battle_screen.png')).convert_alpha()
     seldon_battle_screen = pygame.image.load(resource_path('resources/art/bg_seldon_battle_screen.png')).convert_alpha()
     seldon_shop_screen = pygame.image.load(resource_path('resources/art/bg_seldon_shop.png')).convert_alpha()
     seldon_inn_screen = pygame.image.load(resource_path('resources/art/bg_seldon_inn.png')).convert_alpha()
@@ -322,6 +328,10 @@ def load_graphics():
     world_map_button = pygame.image.load(resource_path('resources/art/button_map.png')).convert_alpha()
     world_map_button_high = pygame.image.load(resource_path('resources/art/button_map_highlight.png')).convert_alpha()
     nede_big = pygame.image.load(resource_path('resources/art/sprites_nede_big.png')).convert_alpha()
+    dungeon_wall_1 = pygame.image.load(resource_path('resources/art/overlay_dungeon_wall_1.png')).convert_alpha()
+    dungeon_wall_2 = pygame.image.load(resource_path('resources/art/overlay_dungeon_wall_2.png')).convert_alpha()
+    dungeon_teleport = pygame.image.load(resource_path('resources/art/overlay_dungeon_teleporter.png')).convert_alpha()
+    dungeon_drop_wall = pygame.image.load(resource_path('resources/art/overlay_dungeon_drop_wall.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -335,7 +345,7 @@ def load_graphics():
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
-                  world_map_button, world_map_button_high, nede_big]
+                  world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -350,7 +360,9 @@ def load_graphics():
     loaded_dict["seldon_bg_screen"] = seldon_bg_screen
     loaded_dict["korlok_bg_screen"] = korlok_bg_screen
     loaded_dict["rohir_river_screen"] = rohir_river_screen
-    loaded_dict["dungeon_1_screen"] = dungeon_1_screen
+    loaded_dict["reservoir_a_screen"] = reservoir_a_screen
+    loaded_dict["reservoir_b_screen"] = reservoir_b_screen
+    loaded_dict["reservoir_battle_screen"] = reservoir_battle
     loaded_dict["seldon_battle_screen"] = seldon_battle_screen
     loaded_dict["seldon_shop_screen"] = seldon_shop_screen
     loaded_dict["seldon_inn_screen"] = seldon_inn_screen
@@ -398,6 +410,10 @@ def load_graphics():
     loaded_dict["map_button"] = world_map_button
     loaded_dict["map_button_high"] = world_map_button_high
     loaded_dict["nede_big"] = nede_big
+    loaded_dict["dungeon_wall_1"] = dungeon_wall_1
+    loaded_dict["dungeon_wall_2"] = dungeon_wall_2
+    loaded_dict["dungeon_teleporter"] = dungeon_teleport
+    loaded_dict["dungeon_drop_wall"] = dungeon_drop_wall
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -839,6 +855,11 @@ def load_graphics():
     enemies_sheet = sprite_sheet((50, 50), enemies_url)
     loaded_dict["snake"] = enemies_sheet[0]
     loaded_dict["ghoul"] = enemies_sheet[1]
+    # boss enemies -----------------------------------------------------------------------------------------------------
+    boss_enemies_url = resource_path('resources/art/sprites_bosses.png')
+    boss_enemies_sheet = sprite_sheet((125, 125), boss_enemies_url)
+    loaded_dict["chorizano"] = boss_enemies_sheet[0]
+    loaded_dict["muchador"] = boss_enemies_sheet[1]
     # enemies highlighted ----------------------------------------------------------------------------------------------
     enemies_high_url = resource_path('resources/art/sprites_enemies_highlighted.png')
     enemies_high_sheet = sprite_sheet((50, 75), enemies_high_url)
@@ -851,6 +872,11 @@ def load_graphics():
     loaded_dict["snake_attack"] = enemies_battle_sheet[1]
     loaded_dict["ghoul_battle"] = enemies_battle_sheet[2]
     loaded_dict["ghoul_attack"] = enemies_battle_sheet[3]
+    # boss enemies battle ----------------------------------------------------------------------------------------------
+    boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_battle.png')
+    boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)
+    loaded_dict["chorizano_battle"] = boss_enemies_battle_sheet[0]
+    loaded_dict["muchador_battle"] = boss_enemies_battle_sheet[1]
     # enemies attacking ------------------------------------------------------------------------------------------------
     enemies_attack_url = resource_path('resources/art/sprites_enemies_attacking.png')
     enemies_attack_sheet = sprite_sheet((400, 300), enemies_attack_url)
@@ -1082,6 +1108,13 @@ def load_graphics():
     loaded_dict["amuna_location"] = character_selections_sheet[0]
     loaded_dict["nuldar_location"] = character_selections_sheet[1]
     loaded_dict["sorae_location"] = character_selections_sheet[2]
+    # dungeon items ----------------------------------------------------------------------------------------------------
+    dungeon_items_url = resource_path('resources/art/sprites_dungeon_items.png')
+    dungeon_items_sheet = sprite_sheet((75, 100), dungeon_items_url)
+    loaded_dict["dungeon_crate"] = dungeon_items_sheet[0]
+    loaded_dict["dungeon_switch_inactive"] = dungeon_items_sheet[1]
+    loaded_dict["dungeon_switch_active"] = dungeon_items_sheet[2]
+    loaded_dict["dungeon_switch_full"] = dungeon_items_sheet[3]
     # heath bars -------------------------------------------------------------------------------------------------------
     hp_url = resource_path('resources/art/bars_health.png')
     hp_sheet = sprite_sheet((305, 19), hp_url)

@@ -30,7 +30,7 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
     cutscene_toc = time.perf_counter()
     cutscene_duration = cutscene_toc - cutscene_tic
 
-    while cutscene_duration < 10:
+    while cutscene_duration < 8:
         cutscene_toc = time.perf_counter()
         cutscene_duration = cutscene_toc - cutscene_tic
 
@@ -44,7 +44,7 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
     cutscene_toc = time.perf_counter()
     cutscene_duration = cutscene_toc - cutscene_tic
 
-    while cutscene_duration < 10:
+    while cutscene_duration < 8:
         cutscene_toc = time.perf_counter()
         cutscene_duration = cutscene_toc - cutscene_tic
 
@@ -58,7 +58,7 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
     cutscene_toc = time.perf_counter()
     cutscene_duration = cutscene_toc - cutscene_tic
 
-    while cutscene_duration < 10:
+    while cutscene_duration < 8:
         cutscene_toc = time.perf_counter()
         cutscene_duration = cutscene_toc - cutscene_tic
 
@@ -72,7 +72,7 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
     cutscene_toc = time.perf_counter()
     cutscene_duration = cutscene_toc - cutscene_tic
 
-    while cutscene_duration < 7:
+    while cutscene_duration < 5:
         cutscene_toc = time.perf_counter()
         cutscene_duration = cutscene_toc - cutscene_tic
 
@@ -86,6 +86,6 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
     cutscene_toc = time.perf_counter()
     cutscene_duration = cutscene_toc - cutscene_tic
 
-    while cutscene_duration < 10:
+    while cutscene_duration < 8:
         cutscene_toc = time.perf_counter()
         cutscene_duration = cutscene_toc - cutscene_tic
