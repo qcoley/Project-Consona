@@ -268,10 +268,11 @@ def load_graphics():
                    "world_map": "", "map_button": "", "map_button_high": "", "amuna_location": "",
                    "nuldar_location": "", "sorae_location": "", "stardust_battle": "", "ghoul attacking star": "",
                    "nede_big": "", "reservoir_a_screen": "", "reservoir_b_screen": "", "dungeon_wall_1": "",
-                   "dungeon_wall_2": "", "dungeon_crate": "", "dungeon_switch_inactive": "",
+                   "dungeon_wall_2": "", "dungeon_crate": "", "dungeon_switch_inactive": "", "dungeon_gate": "",
                    "dungeon_switch_active": "", "dungeon_switch_full": "", "dungeon_teleporter": "",
-                   "dungeon_drop_wall": "", "chorizano": "", "muchador": "", "reservoir_battle_screen": "",
-                   "chorizano_battle": "", "muchador_battle": "", "chorizano_attack": "", "muchador_attack": ""}
+                   "dungeon_drop_wall": "", "chorizon": "", "muchador": "", "reservoir_battle_screen": "",
+                   "chorizon_battle": "", "muchador_battle": "", "chorizon_attack": "", "muchador_attack": "",
+                   "key image": "", "info_boss_key_img": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -332,6 +333,7 @@ def load_graphics():
     dungeon_wall_2 = pygame.image.load(resource_path('resources/art/overlay_dungeon_wall_2.png')).convert_alpha()
     dungeon_teleport = pygame.image.load(resource_path('resources/art/overlay_dungeon_teleporter.png')).convert_alpha()
     dungeon_drop_wall = pygame.image.load(resource_path('resources/art/overlay_dungeon_drop_wall.png')).convert_alpha()
+    dungeon_gate = pygame.image.load(resource_path('resources/art/overlay_dungeon_gate.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -345,7 +347,7 @@ def load_graphics():
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
-                  world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2]
+                  world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -414,6 +416,7 @@ def load_graphics():
     loaded_dict["dungeon_wall_2"] = dungeon_wall_2
     loaded_dict["dungeon_teleporter"] = dungeon_teleport
     loaded_dict["dungeon_drop_wall"] = dungeon_drop_wall
+    loaded_dict["dungeon_gate"] = dungeon_gate
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -858,7 +861,7 @@ def load_graphics():
     # boss enemies -----------------------------------------------------------------------------------------------------
     boss_enemies_url = resource_path('resources/art/sprites_bosses.png')
     boss_enemies_sheet = sprite_sheet((125, 125), boss_enemies_url)
-    loaded_dict["chorizano"] = boss_enemies_sheet[0]
+    loaded_dict["chorizon"] = boss_enemies_sheet[0]
     loaded_dict["muchador"] = boss_enemies_sheet[1]
     # enemies highlighted ----------------------------------------------------------------------------------------------
     enemies_high_url = resource_path('resources/art/sprites_enemies_highlighted.png')
@@ -875,7 +878,7 @@ def load_graphics():
     # boss enemies battle ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_battle.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)
-    loaded_dict["chorizano_battle"] = boss_enemies_battle_sheet[0]
+    loaded_dict["chorizon_battle"] = boss_enemies_battle_sheet[0]
     loaded_dict["muchador_battle"] = boss_enemies_battle_sheet[1]
     # enemies attacking ------------------------------------------------------------------------------------------------
     enemies_attack_url = resource_path('resources/art/sprites_enemies_attacking.png')
@@ -883,6 +886,11 @@ def load_graphics():
     loaded_dict["snake attacking"] = enemies_attack_sheet[0]
     loaded_dict["ghoul attacking"] = enemies_attack_sheet[1]
     loaded_dict["ghoul attacking star"] = enemies_attack_sheet[2]
+    # boss enemies attack ----------------------------------------------------------------------------------------------
+    boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_attack.png')
+    boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)
+    loaded_dict["chorizon_attack"] = boss_enemies_battle_sheet[0]
+    loaded_dict["muchador_attack"] = boss_enemies_battle_sheet[1]
     # amuna buildings --------------------------------------------------------------------------------------------------
     amuna_buildings_url = resource_path('resources/art/sprites_amuna_buildings.png')
     amuna_buildings_sheet = sprite_sheet((100, 100), amuna_buildings_url)
@@ -907,7 +915,7 @@ def load_graphics():
     loaded_dict["basic_bow_img"] = items_sheet[7]
     loaded_dict["bone_dust_img"] = items_sheet[8]
     loaded_dict["shiny_rock_img"] = items_sheet[9]
-    loaded_dict["temp_img"] = items_sheet[10]
+    loaded_dict["key_img"] = items_sheet[10]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -921,6 +929,7 @@ def load_graphics():
     loaded_dict["info_basic_bow_img"] = items_info_sheet[7]
     loaded_dict["info_bone_dust_img"] = items_info_sheet[8]
     loaded_dict["info_shiny_rock_img"] = items_info_sheet[9]
+    loaded_dict["info_boss_key_img"] = items_info_sheet[10]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)

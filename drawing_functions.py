@@ -131,6 +131,12 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
                                     graphic["ok_button_img"])
             item_info_window.append(item_info_button)
+        if inventory_item.name == "boss key":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_boss_key_img"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -578,8 +584,8 @@ def item_updates(player, graphic):
                     item_here.update(first_coord, second_coord, graphic["basic_tunic_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
-                if item_here.name == "temporary item":
-                    item_here.update(first_coord, second_coord, graphic["temp_img"])
+                if item_here.name == "boss key":
+                    item_here.update(first_coord, second_coord, graphic["key_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
 

@@ -1,7 +1,7 @@
 import drawing_functions
 
 
-# getting event based on user click related to shop
+# getting event based on user click related to item info
 def item_info_button(item_info_event, item_button, pygame, info_window):
     if item_info_event.type == pygame.MOUSEBUTTONUP:
         item_info_mouse = pygame.mouse.get_pos()
@@ -193,6 +193,9 @@ def inventory_event_item(inventory_event_here, pygame):
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
             if clicked_element[0].name == "temporary item":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "boss key":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
         except IndexError:

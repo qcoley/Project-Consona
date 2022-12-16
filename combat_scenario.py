@@ -2,7 +2,8 @@ import random
 import gameplay_functions
 
 
-def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, barrier_active,
+def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+                      chorizon_battle_sprite, muchador_battle_sprite, barrier_active,
                       sharp_sense_active, in_battle, in_npc_interaction, graphics):
 
     if player.race == "amuna":
@@ -92,11 +93,16 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
             snake_battle_sprite.update(715, 250, graphics["snake_battle"])
         if enemy.kind == "ghoul":
             ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
+        if enemy.kind == "chorizon":
+            chorizon_battle_sprite.update(720, 325, graphics["chorizon_battle"])
+        if enemy.kind == "muchador":
+            muchador_battle_sprite.update(725, 350, graphics["muchador_battle"])
 
 
 # update player character and enemy sprites for combat animation
 def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
-                     barrier_active, sharp_sense_active, hard_strike, graphics):
+                     chorizon_battle_sprite, muchador_battle_sprite, barrier_active, sharp_sense_active, hard_strike,
+                     graphics):
     # update player character sprite for combat animation
     if player.race == "amuna":
         if player.role == "mage":
@@ -183,14 +189,19 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
                                         player_battle_sprite.y_coordinate,
                                         graphics["player_no_role_nuldar_attack"])
     if enemy.kind == "snake":
-        snake_battle_sprite.update(715, 250, graphics["snake_battle"])
+        snake_battle_sprite.update(715, 250, graphics["snake_attack"])
     if enemy.kind == "ghoul":
-        ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
+        ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack"])
+    if enemy.kind == "chorizon":
+        chorizon_battle_sprite.update(720, 325, graphics["chorizon_attack"])
+    if enemy.kind == "muchador":
+        muchador_battle_sprite.update(725, 350, graphics["muchador_attack"])
 
 
 def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
-            ghoul_battle_sprite, player_fighter_amuna_strike, player_fighter_sorae_strike,
-            player_fighter_nuldar_strike, snake_battle, ghoul_battle):
+            ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, player_fighter_amuna_strike,
+            player_fighter_sorae_strike, player_fighter_nuldar_strike, snake_battle, ghoul_battle,
+            chorizon_battle, muchador_battle):
 
     # update animations for hard strike attack
     if player.race == "amuna":
@@ -213,6 +224,10 @@ def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_s
         snake_battle_sprite.update(715, 250, snake_battle)
     if current_enemy_battling.kind == "ghoul":
         ghoul_battle_sprite.update(698, 280, ghoul_battle)
+    if current_enemy_battling.kind == "chorizon":
+        chorizon_battle_sprite.update(720, 325, chorizon_battle)
+    if current_enemy_battling.kind == "muchador":
+        muchador_battle_sprite.update(725, 350, muchador_battle)
 
 
 def enemy_health_bar(enemys, graphics):
@@ -301,7 +316,6 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 drop_chance = random.randrange(1, 10)
                 # 80% chance (roughly?) to drop merchant item sellable by player for rupees at shops
                 if drop_chance > 2:
-
                     # doesn't give item to player if their inventory is full
                     if len(player.items) < 16:
                         player.items.append(enemy_combating.items)
