@@ -96,7 +96,7 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
         if enemy.kind == "chorizon":
             chorizon_battle_sprite.update(720, 325, graphics["chorizon_battle"])
         if enemy.kind == "muchador":
-            muchador_battle_sprite.update(725, 350, graphics["muchador_battle"])
+            muchador_battle_sprite.update(705, 290, graphics["muchador_battle"])
 
 
 # update player character and enemy sprites for combat animation
@@ -195,7 +195,7 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
     if enemy.kind == "chorizon":
         chorizon_battle_sprite.update(720, 325, graphics["chorizon_attack"])
     if enemy.kind == "muchador":
-        muchador_battle_sprite.update(725, 350, graphics["muchador_attack"])
+        muchador_battle_sprite.update(705, 290, graphics["muchador_attack"])
 
 
 def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,

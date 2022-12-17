@@ -175,6 +175,10 @@ def load_game(player, Item, graphics):
             load_return["crate_3"] = player_load_info["crate_3"]
             load_return["crate_4"] = player_load_info["crate_4"]
             load_return["crate_5"] = player_load_info["crate_5"]
+            load_return["switch_1"] = player_load_info["switch_1"]
+            load_return["switch_2"] = player_load_info["switch_2"]
+            load_return["switch_3"] = player_load_info["switch_3"]
+            load_return["muchador_defeated"] = player_load_info["muchador_defeated"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -191,7 +195,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               rest_popup, knowledge_popup, offense_upgraded, defense_upgraded,
               quest_guide_shown, battle_guide_shown, role_guide_shown, upgrade_guide_shown, rest_shown_before,
               quest_highlight_popup, first_drop_popup, bridge_not_repaired, nede_ghoul_defeated,
-              bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3, crate_4, crate_5):
+              bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3,
+              muchador_defeated):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -230,7 +235,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "nede ghoul defeated": nede_ghoul_defeated,
                         "bridge_cutscenes_not_viewed": bridge_cutscenes_not_viewed,
                         "crate_1": crate_1, "crate_2": crate_2, "crate_3": crate_3, "crate_4": crate_4,
-                        "crate_5": crate_5}
+                        "crate_5": crate_5, "switch_1": switch_1, "switch_2": switch_2, "switch_3": switch_3,
+                        "muchador_defeated": muchador_defeated}
 
     try:
         # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
