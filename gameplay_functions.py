@@ -111,6 +111,8 @@ def load_game(player, Item, graphics):
                     player.items.append(Item("bone dust", "dust", 200, 200, graphics["bone_dust_img"]))
                 if item == "boss key":
                     player.items.append(Item("boss key", "key", 200, 200, graphics["key_img"]))
+                if item == "power gloves":
+                    player.items.append(Item("power gloves", "gloves", 200, 200, graphics["gloves"]))
 
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "basic staff":
@@ -125,6 +127,8 @@ def load_game(player, Item, graphics):
                     player.equipment["torso"] = Item("basic armor", "fighter", 200, 200, graphics["basic_armor_img"])
                 if equipped_item == "basic tunic":
                     player.equipment["torso"] = Item("basic tunic", "scout", 200, 200, graphics["basic_tunic_img"])
+                if equipped_item == "power gloves":
+                    player.equipment["gloves"] = Item("power gloves", "gloves", 200, 200, graphics["gloves"])
 
             player.current_quests = player_load_info["quests"]
             player.quest_progress = player_load_info["quest progress"]
@@ -179,6 +183,10 @@ def load_game(player, Item, graphics):
             load_return["switch_2"] = player_load_info["switch_2"]
             load_return["switch_3"] = player_load_info["switch_3"]
             load_return["muchador_defeated"] = player_load_info["muchador_defeated"]
+            load_return["mini_boss_1_defeated"] = player_load_info["mini_boss_1_defeated"]
+            load_return["mini_boss_2_defeated"] = player_load_info["mini_boss_2_defeated"]
+            load_return["has_key"] = player_load_info["has_key"]
+            load_return["gloves_obtained"] = player_load_info["gloves_obtained"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -196,7 +204,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               quest_guide_shown, battle_guide_shown, role_guide_shown, upgrade_guide_shown, rest_shown_before,
               quest_highlight_popup, first_drop_popup, bridge_not_repaired, nede_ghoul_defeated,
               bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3,
-              muchador_defeated):
+              muchador_defeated, has_key, mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -205,6 +213,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
             inventory_save.append(item_x.name)
         equipment_save.append(player.equipment["weapon"].name)
         equipment_save.append(player.equipment["torso"].name)
+        equipment_save.append(player.equipment["gloves"].name)
     except AttributeError:
         pass
     player_save_info = {"name": str(player.name), "race": str(player.race), "hearth": str(player.hearth),
@@ -236,12 +245,15 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "bridge_cutscenes_not_viewed": bridge_cutscenes_not_viewed,
                         "crate_1": crate_1, "crate_2": crate_2, "crate_3": crate_3, "crate_4": crate_4,
                         "crate_5": crate_5, "switch_1": switch_1, "switch_2": switch_2, "switch_3": switch_3,
-                        "muchador_defeated": muchador_defeated}
-
+                        "muchador_defeated": muchador_defeated, "has_key": has_key,
+                        "mini_boss_1_defeated": mini_boss_1_defeated, "mini_boss_2_defeated": mini_boss_2_defeated,
+                        "gloves_obtained": gloves_obtained}
     try:
         # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
         directory = os.getcwd()
-        with open(directory + "/saves/save_game", "wb") as ff:
+        save_directory = directory + "/saves/save_game"
+        assert os.path.isfile(save_directory)
+        with open(save_directory, "wb") as ff:
             pickle.dump(player_save_info, ff)
 
     # create the directory with save data if it doesn't exist

@@ -33,6 +33,8 @@ def equipment_event_item(equipment_event_here, pygame):
                 return clicked_element[0]
             if clicked_element[0].name == "basic tunic":
                 return clicked_element[0]
+            if clicked_element[0].name == "power gloves":
+                return clicked_element[0]
         except IndexError:
             pass
 
@@ -146,6 +148,13 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
                     player.defense += 4
             else:
                 return_dict["equipment message"] = "Your inventory is full."
+        if equipment_item.name == "power gloves":
+            if len(player.items) < 16:
+                player.items.append(equipment_item)
+                player.equipment["gloves"] = ""
+                return_dict["equipment message"] = "Power gloves un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
     except AttributeError:
         pass
 
@@ -196,6 +205,9 @@ def inventory_event_item(inventory_event_here, pygame):
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
             if clicked_element[0].name == "boss key":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "power gloves":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
         except IndexError:
@@ -333,6 +345,15 @@ def inventory(player, item, offense_upgraded, defense_upgraded, player_mage_amun
                     return_dict["item message"] = "Basic Tunic torso equipped"
                 else:
                     return_dict["item message"] = "Only scouts wear medium armor."
+            else:
+                return_dict["item message"] = "Un-equip your current gear first."
+        elif item.name == "power gloves":
+            if player.equipment["gloves"] == "":
+                player.equipment["gloves"] = item
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "Power gloves equipped."
+
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
     except AttributeError:

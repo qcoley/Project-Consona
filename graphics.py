@@ -272,7 +272,9 @@ def load_graphics():
                    "dungeon_switch_active": "", "dungeon_switch_full": "", "dungeon_teleporter": "",
                    "dungeon_drop_wall": "", "chorizon": "", "muchador": "", "muchador_dark": "", "muchador_crate": "",
                    "reservoir_battle_screen": "", "chorizon_battle": "", "muchador_battle": "", "muchador_arena": "",
-                   "chorizon_attack": "", "muchador_attack": "", "key image": "", "info_boss_key_img": ""}
+                   "chorizon_attack": "", "muchador_attack": "", "key image": "", "info_boss_key_img": "",
+                   "skip_button_img": "", "reservoir_passage": "", "reservoir_c_screen": "", "dungeon_chest": "",
+                   "dungeon_chest_open": "", "gloves": "", "info_gloves": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -287,6 +289,7 @@ def load_graphics():
     rohir_river_screen = pygame.image.load(resource_path('resources/art/bg_rohir_river.png')).convert_alpha()
     reservoir_a_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_a.png')).convert_alpha()
     reservoir_b_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_b.png')).convert_alpha()
+    reservoir_c_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_c.png')).convert_alpha()
     reservoir_battle = pygame.image.load(resource_path('resources/art/bg_reservoir_battle_screen.png')).convert_alpha()
     seldon_battle_screen = pygame.image.load(resource_path('resources/art/bg_seldon_battle_screen.png')).convert_alpha()
     seldon_shop_screen = pygame.image.load(resource_path('resources/art/bg_seldon_shop.png')).convert_alpha()
@@ -336,6 +339,8 @@ def load_graphics():
     dungeon_gate = pygame.image.load(resource_path('resources/art/overlay_dungeon_gate.png')).convert_alpha()
     muchador_arena = pygame.image.load(resource_path('resources/art/overlay_muchador_arena.png')).convert_alpha()
     muchador_crate = pygame.image.load(resource_path('resources/art/overlay_muchador_crate.png')).convert_alpha()
+    reservoir_passage = pygame.image.load(resource_path('resources/art/overlay_reservoir_passage.png')).convert_alpha()
+    dungeon_chest = pygame.image.load(resource_path('resources/art/sprite_dungeon_chest.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -350,7 +355,7 @@ def load_graphics():
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
-                  muchador_crate]
+                  muchador_crate, reservoir_passage]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -367,6 +372,7 @@ def load_graphics():
     loaded_dict["rohir_river_screen"] = rohir_river_screen
     loaded_dict["reservoir_a_screen"] = reservoir_a_screen
     loaded_dict["reservoir_b_screen"] = reservoir_b_screen
+    loaded_dict["reservoir_c_screen"] = reservoir_c_screen
     loaded_dict["reservoir_battle_screen"] = reservoir_battle
     loaded_dict["seldon_battle_screen"] = seldon_battle_screen
     loaded_dict["seldon_shop_screen"] = seldon_shop_screen
@@ -422,6 +428,7 @@ def load_graphics():
     loaded_dict["dungeon_gate"] = dungeon_gate
     loaded_dict["muchador_arena"] = muchador_arena
     loaded_dict["muchador_crate"] = muchador_crate
+    loaded_dict["reservoir_passage"] = reservoir_passage
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -922,6 +929,7 @@ def load_graphics():
     loaded_dict["bone_dust_img"] = items_sheet[8]
     loaded_dict["shiny_rock_img"] = items_sheet[9]
     loaded_dict["key_img"] = items_sheet[10]
+    loaded_dict["gloves"] = items_sheet[11]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -936,6 +944,7 @@ def load_graphics():
     loaded_dict["info_bone_dust_img"] = items_info_sheet[8]
     loaded_dict["info_shiny_rock_img"] = items_info_sheet[9]
     loaded_dict["info_boss_key_img"] = items_info_sheet[10]
+    loaded_dict["info_gloves"] = items_info_sheet[11]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -1017,6 +1026,7 @@ def load_graphics():
     loaded_dict["upgrade_button_img"] = buttons_sheet[12]
     loaded_dict["back_button_img"] = buttons_sheet[13]
     loaded_dict["ok_button_img"] = buttons_sheet[14]
+    loaded_dict["skip_button_img"] = buttons_sheet[15]
     # attack buttons ---------------------------------------------------------------------------------------------------
     attack_buttons_url = resource_path('resources/art/overlay_attacks.png')
     attack_buttons_sheet = sprite_sheet((60, 60), attack_buttons_url)
@@ -1130,6 +1140,11 @@ def load_graphics():
     loaded_dict["dungeon_switch_inactive"] = dungeon_items_sheet[1]
     loaded_dict["dungeon_switch_active"] = dungeon_items_sheet[2]
     loaded_dict["dungeon_switch_full"] = dungeon_items_sheet[3]
+    # dungeon chest closed and open ------------------------------------------------------------------------------------
+    dungeon_chest_url = resource_path('resources/art/sprite_dungeon_chest.png')
+    dungeon_chest_sheet = sprite_sheet((175, 150), dungeon_chest_url)
+    loaded_dict["dungeon_chest"] = dungeon_chest_sheet[0]
+    loaded_dict["dungeon_chest_open"] = dungeon_chest_sheet[1]
     # heath bars -------------------------------------------------------------------------------------------------------
     hp_url = resource_path('resources/art/bars_health.png')
     hp_sheet = sprite_sheet((305, 19), hp_url)

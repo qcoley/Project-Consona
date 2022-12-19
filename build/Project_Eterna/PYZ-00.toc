@@ -312,6 +312,29 @@
    'C:\\Program '
    'Files\\Python310\\lib\\site-packages\\pkg_resources\\__init__.py',
    'PYMODULE'),
+  ('pkg_resources._vendor.packaging.specifiers',
+   'C:\\Program '
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\specifiers.py',
+   'PYMODULE'),
+  ('__future__',
+   'C:\\Program Files\\Python310\\lib\\__future__.py',
+   'PYMODULE'),
+  ('pkg_resources._vendor.packaging.version',
+   'C:\\Program '
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\version.py',
+   'PYMODULE'),
+  ('pkg_resources._vendor',
+   'C:\\Program '
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\__init__.py',
+   'PYMODULE'),
+  ('pkg_resources._vendor.packaging.requirements',
+   'C:\\Program '
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\requirements.py',
+   'PYMODULE'),
+  ('pkg_resources._vendor.packaging._typing',
+   'C:\\Program '
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_typing.py',
+   'PYMODULE'),
   ('pkg_resources._vendor.pyparsing',
    'C:\\Program '
    'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\pyparsing.py',
@@ -353,38 +376,15 @@
   ('shlex', 'C:\\Program Files\\Python310\\lib\\shlex.py', 'PYMODULE'),
   ('code', 'C:\\Program Files\\Python310\\lib\\code.py', 'PYMODULE'),
   ('codeop', 'C:\\Program Files\\Python310\\lib\\codeop.py', 'PYMODULE'),
-  ('__future__',
-   'C:\\Program Files\\Python310\\lib\\__future__.py',
-   'PYMODULE'),
   ('bdb', 'C:\\Program Files\\Python310\\lib\\bdb.py', 'PYMODULE'),
   ('cmd', 'C:\\Program Files\\Python310\\lib\\cmd.py', 'PYMODULE'),
-  ('pkg_resources._vendor.packaging.utils',
+  ('pkg_resources._vendor.packaging.__about__',
    'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\utils.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor.packaging._compat',
-   'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_compat.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor.packaging.markers',
-   'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\markers.py',
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\__about__.py',
    'PYMODULE'),
   ('pkg_resources._vendor.packaging',
    'C:\\Program '
    'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\__init__.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor.packaging.version',
-   'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\version.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor',
-   'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\__init__.py',
-   'PYMODULE'),
-  ('pkg_resources._vendor.packaging._structures',
-   'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_structures.py',
    'PYMODULE'),
   ('pkg_resources._vendor.appdirs',
    'C:\\Program '
@@ -453,21 +453,21 @@
   ('distutils.fancy_getopt',
    'C:\\Program Files\\Python310\\lib\\distutils\\fancy_getopt.py',
    'PYMODULE'),
-  ('pkg_resources._vendor.packaging.requirements',
+  ('pkg_resources._vendor.packaging.markers',
    'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\requirements.py',
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\markers.py',
    'PYMODULE'),
-  ('pkg_resources._vendor.packaging._typing',
+  ('pkg_resources._vendor.packaging._structures',
    'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_typing.py',
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_structures.py',
    'PYMODULE'),
-  ('pkg_resources._vendor.packaging.specifiers',
+  ('pkg_resources._vendor.packaging.utils',
    'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\specifiers.py',
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\utils.py',
    'PYMODULE'),
-  ('pkg_resources._vendor.packaging.__about__',
+  ('pkg_resources._vendor.packaging._compat',
    'C:\\Program '
-   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\__about__.py',
+   'Files\\Python310\\lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_compat.py',
    'PYMODULE'),
   ('pkg_resources.extern',
    'C:\\Program '
