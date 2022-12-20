@@ -274,7 +274,7 @@ def load_graphics():
                    "reservoir_battle_screen": "", "chorizon_battle": "", "muchador_battle": "", "muchador_arena": "",
                    "chorizon_attack": "", "muchador_attack": "", "key image": "", "info_boss_key_img": "",
                    "skip_button_img": "", "reservoir_passage": "", "reservoir_c_screen": "", "dungeon_chest": "",
-                   "dungeon_chest_open": "", "gloves": "", "info_gloves": ""}
+                   "dungeon_chest_open": "", "gloves": "", "info_gloves": "", "rock_img": "", "reservoir_exit": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -340,7 +340,8 @@ def load_graphics():
     muchador_arena = pygame.image.load(resource_path('resources/art/overlay_muchador_arena.png')).convert_alpha()
     muchador_crate = pygame.image.load(resource_path('resources/art/overlay_muchador_crate.png')).convert_alpha()
     reservoir_passage = pygame.image.load(resource_path('resources/art/overlay_reservoir_passage.png')).convert_alpha()
-    dungeon_chest = pygame.image.load(resource_path('resources/art/sprite_dungeon_chest.png')).convert_alpha()
+    rock_img = pygame.image.load(resource_path('resources/art/sprite_rock.png')).convert_alpha()
+    reservoir_exit = pygame.image.load(resource_path('resources/art/overlay_reservoir_exit.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -355,7 +356,7 @@ def load_graphics():
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
-                  muchador_crate, reservoir_passage]
+                  muchador_crate, reservoir_passage, rock_img, reservoir_exit]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -429,6 +430,8 @@ def load_graphics():
     loaded_dict["muchador_arena"] = muchador_arena
     loaded_dict["muchador_crate"] = muchador_crate
     loaded_dict["reservoir_passage"] = reservoir_passage
+    loaded_dict["rock_img"] = rock_img
+    loaded_dict["reservoir_exit"] = reservoir_exit
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------

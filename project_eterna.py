@@ -755,6 +755,17 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+        if current_zone == "reservoir c":
+            collided = pygame.sprite.spritecollideany(player, rocks, pygame.sprite.collide_rect_ratio(0.90))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
 
@@ -2034,6 +2045,7 @@ if __name__ == '__main__':
     dungeon_drop_wall = UiElement("dungeon drop wall", 310, 224, graphic_dict["dungeon_drop_wall"])
     dungeon_gate = UiElement("dungeon gate", 705, 180, graphic_dict["dungeon_gate"])
     reservoir_passage = UiElement("reservoir passage", 27, 365, graphic_dict["reservoir_passage"])
+    reservoir_exit = UiElement("reservoir exit", 724, 40, graphic_dict["reservoir_exit"])
     muchador_arena = UiElement("muchador arena", 365, 363, graphic_dict["muchador_arena"])
     muchador_crate_1 = UiElement("muchador crate 1", 200, 200, graphic_dict["muchador_crate"])
     muchador_crate_2 = UiElement("muchador crate 2", 500, 200, graphic_dict["muchador_crate"])
@@ -2049,6 +2061,9 @@ if __name__ == '__main__':
     dungeon_switch_2 = Item("dungeon switch 2", "switch", 874, 430, graphic_dict["dungeon_switch_inactive"])
     dungeon_switch_3 = Item("dungeon switch 3", "switch", 519, 165, graphic_dict["dungeon_switch_inactive"])
     dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"])
+
+    rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock_img"])
+    rock_2 = Item("rock 2", "rock", 580, 255, graphic_dict["rock_img"])
 
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
@@ -2090,11 +2105,12 @@ if __name__ == '__main__':
     level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
     name_input_font = pygame.font.SysFont('freesansbold.ttf', 32, bold=True, italic=False)
 
-    quest_items = pygame.sprite.Group()
+    quest_items_seldon = pygame.sprite.Group()
     npcs = pygame.sprite.Group()
     enemies = pygame.sprite.Group()
     boss_enemies = pygame.sprite.Group()
     trees = pygame.sprite.Group()
+    rocks = pygame.sprite.Group()
     buildings = pygame.sprite.Group()
     dungeon_walls = pygame.sprite.Group()
     dungeon_items = pygame.sprite.Group()
@@ -2117,20 +2133,21 @@ if __name__ == '__main__':
     enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     boss_enemies.add(chorizon_1, chorizon_2)
     trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
+    rocks.add(rock_1, rock_2)
     buildings.add(seldon_inn, seldon_shop, seldon_academia)
     dungeon_walls.add(dungeon_wall_1, dungeon_wall_2, dungeon_wall_3, dungeon_wall_4)
     dungeon_items.add(dungeon_crate_1, dungeon_crate_2, dungeon_crate_3, dungeon_crate_4, dungeon_switch_1,
                       dungeon_switch_2, dungeon_switch_3)
     muchador_crates.add(muchador_crate_1, muchador_crate_2, muchador_crate_3, muchador_crate_4)
     environments.add(trees, buildings)
-    quest_items.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
-    most_sprites.add(npcs, trees, buildings, quest_items, enemies, seldon_hearth, rohir_gate)
+    quest_items_seldon.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
+    most_sprites.add(npcs, trees, buildings, quest_items_seldon, enemies, seldon_hearth, rohir_gate)
     user_interface.add(rest_button, buy_button, leave_button, character_button, quests_button, save_button,
                        map_button, message_box, location_overlay, star_power_meter)
     interactables_nascent.add(nascent_gate)
-    interactables_seldon.add(npcs, enemies, buildings, seldon_hearth, quest_items)
+    interactables_seldon.add(npcs, enemies, buildings, seldon_hearth, quest_items_seldon)
     interactables_stardust.add(stardust_entrance, nede, ghoul_nede)
-    interactables_korlok.add(npcs, enemies, buildings, seldon_hearth, quest_items)
+    interactables_korlok.add(npcs, enemies, buildings, seldon_hearth, quest_items_seldon)
 
     # music tracks
     start_screen_music = resource_path("resources/music/eterna_title.mp3")
@@ -2140,6 +2157,7 @@ if __name__ == '__main__':
     apothis_intro_music = resource_path("resources/music/eterna_apothis.mp3")
     rohir_river_music = resource_path("resources/music/eterna_rohir.mp3")
     reservoir_music = resource_path("resources/music/eterna_dungeon.mp3")
+    korlok_overworld_music = resource_path("resources/music/eterna_korlok.mp3")
 
     pygame.mixer.music.set_volume(0.40)
     pygame.mixer.music.load(start_screen_music)
@@ -2233,6 +2251,8 @@ if __name__ == '__main__':
     mini_boss_1_defeated = False
     mini_boss_2_defeated = False
     gloves_obtained = False
+    rock_1_moved = False
+    rock_2_moved = False
 
     over_world_song_set = False
     battle_song_set = False
@@ -2731,6 +2751,12 @@ if __name__ == '__main__':
                                         interacted = True
                                 if player.current_zone == "reservoir c":
                                     if pygame.sprite.collide_rect(player, dungeon_chest):
+                                        interacted = True
+                                    if pygame.sprite.collide_rect(player, rock_1):
+                                        interacted = True
+                                    if pygame.sprite.collide_rect(player, rock_2):
+                                        interacted = True
+                                    if pygame.sprite.collide_rect(player, reservoir_exit):
                                         interacted = True
                                 if player.current_zone == "korlok":
                                     if pygame.sprite.spritecollideany(player, interactables_korlok):
@@ -3282,6 +3308,15 @@ if __name__ == '__main__':
                 # if player is in korlok district ----------------------------------------------------------------------
                 if player.current_zone == "korlok" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
+
+                    rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
+
+                    if not over_world_song_set:
+                        pygame.mixer.music.fadeout(50)
+                        pygame.mixer.music.load(korlok_overworld_music)
+                        pygame.mixer.music.play(loops=-1)
+                        over_world_song_set = True
+
                     screen.blit(korlok_district_bg, (0, 0))
                     screen.blit(rohir_gate.surf, rohir_gate.rect)
                     screen.blit(player.surf, player.rect)
@@ -3302,32 +3337,27 @@ if __name__ == '__main__':
                     if button_highlighted:
                         screen.blit(button_highlight.surf, button_highlight.rect)
 
-                    quest_item = pygame.sprite.spritecollideany(player, quest_items)
-                    try:
-                        interaction_popup.update(quest_item.x_coordinate, quest_item.y_coordinate - 25,
+                    if pygame.sprite.collide_rect(player, rohir_gate):
+                        interaction_popup.update(rohir_gate.x_coordinate, rohir_gate.y_coordinate,
                                                  graphic_dict["popup_interaction"])
                         screen.blit(interaction_popup.surf, interaction_popup.rect)
-                        interaction_info_surf = font.render(str(quest_item.name), True, "black", "light yellow")
+                        interaction_info_surf = font.render(str(rohir_gate.name), True, "black", "light yellow")
                         interaction_info_rect = interaction_info_surf.get_rect()
-                        interaction_info_rect.center = (quest_item.x_coordinate, quest_item.y_coordinate - 25)
+                        interaction_info_rect.center = (rohir_gate.x_coordinate, rohir_gate.y_coordinate)
                         screen.blit(interaction_info_surf, interaction_info_rect)
 
-                        if quest_item.model == "rohir gate":
-                            if player.quest_complete["ghouled again"]:
-                                info_text_1 = f"Press 'F' key to enter Seldon District."
+                        if not bridge_not_repaired:
+                            info_text_1 = f"Press 'F' key to enter Seldon District."
 
-                                if interacted:
-                                    player.current_zone = "seldon"
-                                    in_over_world = True
-                                    interacted = False
-                                    player.x_coordinate = 525
-                                    player.y_coordinate = 100
-                                    player.rect = player.surf.get_rect(
-                                        midbottom=(player.x_coordinate, player.y_coordinate))
-                                    rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
-
-                    except AttributeError:
-                        pass
+                            if interacted:
+                                player.current_zone = "seldon"
+                                in_over_world = True
+                                interacted = False
+                                player.x_coordinate = 525
+                                player.y_coordinate = 100
+                                player.rect = player.surf.get_rect(
+                                    midbottom=(player.x_coordinate, player.y_coordinate))
+                                rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -3740,6 +3770,8 @@ if __name__ == '__main__':
                         pygame.mixer.music.play(loops=-1)
                         over_world_song_set = True
 
+                    dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
+
                     screen.blit(reservoir_b_bg, (0, 0))
                     screen.blit(dungeon_gate.surf, dungeon_gate.rect)
                     if not crate_5:
@@ -3979,6 +4011,9 @@ if __name__ == '__main__':
 
                     screen.blit(reservoir_c_bg, (0, 0))
                     screen.blit(dungeon_chest.surf, dungeon_chest.rect)
+                    screen.blit(reservoir_exit.surf, reservoir_exit.rect)
+                    screen.blit(rock_1.surf, rock_1.rect)
+                    screen.blit(rock_2.surf, rock_2.rect)
                     screen.blit(player.surf, player.rect)
 
                     # move player back to reservoir b if they approach passage
@@ -3986,6 +4021,7 @@ if __name__ == '__main__':
                         player.current_zone = "reservoir b"
                         over_world_song_set = False
                         in_over_world = True
+                        muchador_lights_on = True
                         player.x_coordinate = 100
                         player.y_coordinate = 375
 
@@ -4016,6 +4052,84 @@ if __name__ == '__main__':
                             else:
                                 info_text_1 = "You've already obtained this item."
                                 info_text_2 = ""
+                            interacted = False
+
+                    if pygame.sprite.collide_rect(player, rock_1):
+                        interaction_popup.update(rock_1.x_coordinate,
+                                                 rock_1.y_coordinate - 50,
+                                                 graphic_dict["popup_interaction"])
+                        screen.blit(interaction_popup.surf, interaction_popup.rect)
+                        interaction_info_surf = font.render(str("rock"), True, "black",
+                                                            "light yellow")
+                        interaction_info_rect = interaction_info_surf.get_rect()
+                        interaction_info_rect.center = (rock_1.x_coordinate,
+                                                        rock_1.y_coordinate - 50)
+                        screen.blit(interaction_info_surf, interaction_info_rect)
+
+                        if interacted and in_over_world:
+                            try:
+                                if player.equipment["gloves"].name == "power gloves":
+                                    if not rock_1_moved:
+                                        rock_1.update(rock_1.x_coordinate + 300, rock_1.y_coordinate,
+                                                      graphic_dict["rock_img"])
+                                        rock_1_moved = True
+                                else:
+                                    info_text_1 = "The rock won't budge."
+                                    info_text_2 = ""
+                            except AttributeError:
+                                info_text_1 = "The rock won't budge."
+                                info_text_2 = ""
+                                pass
+                            interacted = False
+
+                    if pygame.sprite.collide_rect(player, rock_2):
+                        interaction_popup.update(rock_2.x_coordinate,
+                                                 rock_2.y_coordinate - 50,
+                                                 graphic_dict["popup_interaction"])
+                        screen.blit(interaction_popup.surf, interaction_popup.rect)
+                        interaction_info_surf = font.render(str("rock"), True, "black",
+                                                            "light yellow")
+                        interaction_info_rect = interaction_info_surf.get_rect()
+                        interaction_info_rect.center = (rock_2.x_coordinate,
+                                                        rock_2.y_coordinate - 50)
+                        screen.blit(interaction_info_surf, interaction_info_rect)
+
+                        if interacted and in_over_world:
+                            try:
+                                if player.equipment["gloves"].name == "power gloves":
+                                    if not rock_2_moved:
+                                        rock_2.update(rock_2.x_coordinate + 300, rock_2.y_coordinate,
+                                                      graphic_dict["rock_img"])
+                                        rock_2_moved = True
+                                else:
+                                    info_text_1 = "The rock won't budge."
+                                    info_text_2 = ""
+                            except AttributeError:
+                                info_text_1 = "The rock won't budge."
+                                info_text_2 = ""
+                                pass
+                            interacted = False
+
+                    if pygame.sprite.collide_rect(player, reservoir_exit):
+                        interaction_popup.update(reservoir_exit.x_coordinate - 15,
+                                                 reservoir_exit.y_coordinate,
+                                                 graphic_dict["popup_interaction"])
+                        screen.blit(interaction_popup.surf, interaction_popup.rect)
+                        interaction_info_surf = font.render(str("exit"), True, "black",
+                                                            "light yellow")
+                        interaction_info_rect = interaction_info_surf.get_rect()
+                        interaction_info_rect.center = (reservoir_exit.x_coordinate - 15,
+                                                        reservoir_exit.y_coordinate)
+                        screen.blit(interaction_info_surf, interaction_info_rect)
+
+                        if interacted and in_over_world:
+                            player.current_zone = "korlok"
+                            over_world_song_set = False
+                            in_over_world = True
+                            player.x_coordinate = 75
+                            player.y_coordinate = 575
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                          player.y_coordinate))
                             interacted = False
 
                     # --------------------------------------------------------------------------------------------------
@@ -4091,6 +4205,8 @@ if __name__ == '__main__':
                 if player.current_zone == "seldon" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
+                    rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
+
                     if not over_world_song_set:
                         pygame.mixer.music.fadeout(50)
                         pygame.mixer.music.load(seldon_overworld_music)
@@ -4102,7 +4218,7 @@ if __name__ == '__main__':
                     for entity in most_sprites:
                         screen.blit(entity.surf, entity.rect)
 
-                    for quest_item in quest_items:
+                    for quest_item in quest_items_seldon:
                         if not player.quest_complete["village repairs"]:
                             if player.quest_status["village repairs"]:
                                 if quest_item.name == "pine logs":
@@ -4157,7 +4273,7 @@ if __name__ == '__main__':
 
                     # player encounters objects and draws popup information box ----------------------------------------
                     # player encounters a quest item. check progress and add to if interacted with
-                    quest_item = pygame.sprite.spritecollideany(player, quest_items)
+                    quest_item = pygame.sprite.spritecollideany(player, quest_items_seldon)
                     try:
                         interaction_popup.update(quest_item.x_coordinate, quest_item.y_coordinate - 25,
                                                  graphic_dict["popup_interaction"])
