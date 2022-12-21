@@ -56,7 +56,6 @@ def load_game(player, Item, graphics):
             player.race = player_load_info["race"]
             player.role = player_load_info["role"]
             player.star_power = player_load_info["star power"]
-            player.hearth = player_load_info["hearth"]
 
             if player.race == "amuna":
                 if player.role == "mage":
@@ -187,6 +186,8 @@ def load_game(player, Item, graphics):
             load_return["mini_boss_2_defeated"] = player_load_info["mini_boss_2_defeated"]
             load_return["has_key"] = player_load_info["has_key"]
             load_return["gloves_obtained"] = player_load_info["gloves_obtained"]
+            load_return["korlok_attuned"] = player_load_info["korlok_attuned"]
+            load_return["eldream_attuned"] = player_load_info["eldream_attuned"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -204,7 +205,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               quest_guide_shown, battle_guide_shown, role_guide_shown, upgrade_guide_shown, rest_shown_before,
               quest_highlight_popup, first_drop_popup, bridge_not_repaired, nede_ghoul_defeated,
               bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3,
-              muchador_defeated, has_key, mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained):
+              muchador_defeated, has_key, mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned,
+              eldream_attuned):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -216,9 +218,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
         equipment_save.append(player.equipment["gloves"].name)
     except AttributeError:
         pass
-    player_save_info = {"name": str(player.name), "race": str(player.race), "hearth": str(player.hearth),
-                        "level": int(player.level), "role": str(player.role),
-                        "inventory": inventory_save, "equipment": equipment_save,
+    player_save_info = {"name": str(player.name), "race": str(player.race), "level": int(player.level),
+                        "role": str(player.role), "inventory": inventory_save, "equipment": equipment_save,
                         "hp": int(player.health), "en": int(player.energy), "xp": int(player.experience),
                         "offense": int(player.offense), "defense": int(player.defense),
                         "quests": dict(player.current_quests),
@@ -247,7 +248,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "crate_5": crate_5, "switch_1": switch_1, "switch_2": switch_2, "switch_3": switch_3,
                         "muchador_defeated": muchador_defeated, "has_key": has_key,
                         "mini_boss_1_defeated": mini_boss_1_defeated, "mini_boss_2_defeated": mini_boss_2_defeated,
-                        "gloves_obtained": gloves_obtained}
+                        "gloves_obtained": gloves_obtained, "korlok_attuned": korlok_attuned,
+                        "eldream_attuned": eldream_attuned}
     try:
         # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
         directory = os.getcwd()

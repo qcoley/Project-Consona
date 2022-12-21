@@ -274,7 +274,9 @@ def load_graphics():
                    "reservoir_battle_screen": "", "chorizon_battle": "", "muchador_battle": "", "muchador_arena": "",
                    "chorizon_attack": "", "muchador_attack": "", "key image": "", "info_boss_key_img": "",
                    "skip_button_img": "", "reservoir_passage": "", "reservoir_c_screen": "", "dungeon_chest": "",
-                   "dungeon_chest_open": "", "gloves": "", "info_gloves": "", "rock_img": "", "reservoir_exit": ""}
+                   "dungeon_chest_open": "", "gloves": "", "info_gloves": "", "rock_img": "", "reservoir_exit": "",
+                   "nuldar_herb_building": "", "nuldar_inn_building": "", "nuldar_shop_building": "",
+                   "reservoir_enter": "", "korlok_hearth_screen": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -296,6 +298,7 @@ def load_graphics():
     seldon_inn_screen = pygame.image.load(resource_path('resources/art/bg_seldon_inn.png')).convert_alpha()
     seldon_academia_screen = pygame.image.load(resource_path('resources/art/bg_seldon_academia.png')).convert_alpha()
     seldon_hearth_screen = pygame.image.load(resource_path('resources/art/screen_seldon_hearth.png')).convert_alpha()
+    korlok_hearth_screen = pygame.image.load(resource_path('resources/art/screen_korlok_hearth.png')).convert_alpha()
     game_over_screen = pygame.image.load(resource_path('resources/art/screen_game_over.png')).convert_alpha()
     start_screen = pygame.image.load(resource_path('resources/art/screen_start.png')).convert_alpha()
     nera_sleep_screen = pygame.image.load(resource_path('resources/art/screen_nera_sleep.png')).convert_alpha()
@@ -342,6 +345,7 @@ def load_graphics():
     reservoir_passage = pygame.image.load(resource_path('resources/art/overlay_reservoir_passage.png')).convert_alpha()
     rock_img = pygame.image.load(resource_path('resources/art/sprite_rock.png')).convert_alpha()
     reservoir_exit = pygame.image.load(resource_path('resources/art/overlay_reservoir_exit.png')).convert_alpha()
+    reservoir_enter = pygame.image.load(resource_path('resources/art/overlay_reservoir_enter.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -356,7 +360,7 @@ def load_graphics():
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
-                  muchador_crate, reservoir_passage, rock_img, reservoir_exit]
+                  muchador_crate, reservoir_passage, rock_img, reservoir_exit, reservoir_enter]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -432,6 +436,8 @@ def load_graphics():
     loaded_dict["reservoir_passage"] = reservoir_passage
     loaded_dict["rock_img"] = rock_img
     loaded_dict["reservoir_exit"] = reservoir_exit
+    loaded_dict["reservoir_enter"] = reservoir_enter
+    loaded_dict["korlok_hearth_screen"] = korlok_hearth_screen
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -913,6 +919,12 @@ def load_graphics():
     loaded_dict["amuna_academia_building"] = amuna_buildings_sheet[0]
     loaded_dict["amuna_inn_building"] = amuna_buildings_sheet[1]
     loaded_dict["amuna_shop_building"] = amuna_buildings_sheet[2]
+    # nuldar buildings -------------------------------------------------------------------------------------------------
+    nuldar_buildings_url = resource_path('resources/art/sprites_nuldar_buildings.png')
+    nuldar_buildings_sheet = sprite_sheet((140, 110), nuldar_buildings_url)
+    loaded_dict["nuldar_herb_building"] = nuldar_buildings_sheet[0]
+    loaded_dict["nuldar_inn_building"] = nuldar_buildings_sheet[1]
+    loaded_dict["nuldar_shop_building"] = nuldar_buildings_sheet[2]
     # nascent gate -----------------------------------------------------------------------------------------------------
     nascent_gate_url = resource_path('resources/art/sprites_nascent_gate.png')
     nascent_gate_sheet = sprite_sheet((178, 120), nascent_gate_url)
