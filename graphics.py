@@ -276,7 +276,7 @@ def load_graphics():
                    "skip_button_img": "", "reservoir_passage": "", "reservoir_c_screen": "", "dungeon_chest": "",
                    "dungeon_chest_open": "", "gloves": "", "info_gloves": "", "rock_img": "", "reservoir_exit": "",
                    "nuldar_herb_building": "", "nuldar_inn_building": "", "nuldar_shop_building": "",
-                   "reservoir_enter": "", "korlok_hearth_screen": ""}
+                   "reservoir_enter": "", "korlok_hearth_screen": "", "magmon": "", "bandile": "", "mines_entrance": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -346,6 +346,7 @@ def load_graphics():
     rock_img = pygame.image.load(resource_path('resources/art/sprite_rock.png')).convert_alpha()
     reservoir_exit = pygame.image.load(resource_path('resources/art/overlay_reservoir_exit.png')).convert_alpha()
     reservoir_enter = pygame.image.load(resource_path('resources/art/overlay_reservoir_enter.png')).convert_alpha()
+    mines_entrance = pygame.image.load(resource_path('resources/art/overlay_mines_entrance.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -360,7 +361,7 @@ def load_graphics():
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
-                  muchador_crate, reservoir_passage, rock_img, reservoir_exit, reservoir_enter]
+                  muchador_crate, reservoir_passage, rock_img, reservoir_exit, reservoir_enter, mines_entrance]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -438,6 +439,7 @@ def load_graphics():
     loaded_dict["reservoir_exit"] = reservoir_exit
     loaded_dict["reservoir_enter"] = reservoir_enter
     loaded_dict["korlok_hearth_screen"] = korlok_hearth_screen
+    loaded_dict["mines_entrance"] = mines_entrance
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -879,6 +881,8 @@ def load_graphics():
     enemies_sheet = sprite_sheet((50, 50), enemies_url)
     loaded_dict["snake"] = enemies_sheet[0]
     loaded_dict["ghoul"] = enemies_sheet[1]
+    loaded_dict["magmon"] = enemies_sheet[2]
+    loaded_dict["bandile"] = enemies_sheet[3]
     # boss enemies -----------------------------------------------------------------------------------------------------
     boss_enemies_url = resource_path('resources/art/sprites_bosses.png')
     boss_enemies_sheet = sprite_sheet((125, 125), boss_enemies_url)

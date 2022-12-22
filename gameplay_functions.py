@@ -361,6 +361,53 @@ def level_up(player, level_up_win, level_up_font):
         return level_up_dictionary
 
 
+# function to respawn enemies if they are less than a specified amount active in game. spawns with random coord. and lvl
+def enemy_respawn(seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
+                  interactables_korlok, Enemy, Item, graphic_dict, UiElement):
+
+    snake_counter = 0
+    ghoul_counter = 0
+    # generate random coordinates and level for new enemy to spawn within boundaries and level range
+    # if not scaled, coordinates set to default boundaries
+    random_snake_x = random.randrange(150, 300)
+    random_snake_y = random.randrange(150, 300)
+    random_snake_level = random.randrange(1, 3)
+    random_ghoul_x = random.randrange(650, 900)
+    random_ghoul_y = random.randrange(150, 300)
+    random_ghoul_level = random.randrange(3, 6)
+
+    # count current enemies active in game
+    for mob in seldon_enemies:
+        if mob.name == "snake":
+            snake_counter += 1
+        if mob.name == "ghoul":
+            ghoul_counter += 1
+
+    # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+    if snake_counter < 3:
+        new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+                          Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]), graphic_dict["snake"],
+                          UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
+        snakes.add(new_snake)
+        seldon_enemies.add(new_snake)
+        interactables_seldon.add(new_snake)
+
+    # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
+    if ghoul_counter < 3:
+        new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
+                          Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]), graphic_dict["ghoul"],
+                          UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
+        ghouls.add(new_ghoul)
+        seldon_enemies.add(new_ghoul)
+        interactables_seldon.add(new_ghoul)
+
+    respawn_dict = {"seldon_enemies": seldon_enemies, "snakes": snakes, "ghouls": ghouls,
+                    "interactables_seldon": interactables_seldon, "interactables_korlok": interactables_korlok,
+                    "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles}
+
+    return respawn_dict
+
+
 # player bar update functions. return image representing amount
 def health_bar_update(character, graphics):
     if character.health == 100:
