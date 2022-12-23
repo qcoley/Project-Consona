@@ -276,7 +276,8 @@ def load_graphics():
                    "skip_button_img": "", "reservoir_passage": "", "reservoir_c_screen": "", "dungeon_chest": "",
                    "dungeon_chest_open": "", "gloves": "", "info_gloves": "", "rock_img": "", "reservoir_exit": "",
                    "nuldar_herb_building": "", "nuldar_inn_building": "", "nuldar_shop_building": "",
-                   "reservoir_enter": "", "korlok_hearth_screen": "", "magmon": "", "bandile": "", "mines_entrance": ""}
+                   "reservoir_enter": "", "korlok_hearth_screen": "", "magmon": "", "bandile": "", "mines_entrance": "",
+                   "korlok_battle_screen": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -288,6 +289,7 @@ def load_graphics():
     star_battle_screen = pygame.image.load(resource_path('resources/art/bg_stardust_battle_screen.png')).convert_alpha()
     seldon_bg_screen = pygame.image.load(resource_path('resources/art/bg_seldon_district.png')).convert_alpha()
     korlok_bg_screen = pygame.image.load(resource_path('resources/art/bg_korlok_district.png')).convert_alpha()
+    korlok_battle_screen = pygame.image.load(resource_path('resources/art/bg_korlok_battle_screen.png')).convert_alpha()
     rohir_river_screen = pygame.image.load(resource_path('resources/art/bg_rohir_river.png')).convert_alpha()
     reservoir_a_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_a.png')).convert_alpha()
     reservoir_b_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_b.png')).convert_alpha()
@@ -381,6 +383,7 @@ def load_graphics():
     loaded_dict["reservoir_c_screen"] = reservoir_c_screen
     loaded_dict["reservoir_battle_screen"] = reservoir_battle
     loaded_dict["seldon_battle_screen"] = seldon_battle_screen
+    loaded_dict["korlok_battle_screen"] = korlok_battle_screen
     loaded_dict["seldon_shop_screen"] = seldon_shop_screen
     loaded_dict["seldon_inn_screen"] = seldon_inn_screen
     loaded_dict["seldon_academia_screen"] = seldon_academia_screen

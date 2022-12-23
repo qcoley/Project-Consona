@@ -3,8 +3,8 @@ import gameplay_functions
 
 
 def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
-                      chorizon_battle_sprite, muchador_battle_sprite, barrier_active,
-                      sharp_sense_active, in_battle, in_npc_interaction, graphics):
+                      chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
+                      barrier_active, sharp_sense_active, in_battle, in_npc_interaction, graphics):
 
     if player.race == "amuna":
         if player.role == "mage":
@@ -101,8 +101,9 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
 
 # update player character and enemy sprites for combat animation
 def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
-                     chorizon_battle_sprite, muchador_battle_sprite, barrier_active, sharp_sense_active, hard_strike,
-                     graphics):
+                     chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
+                     barrier_active, sharp_sense_active, hard_strike, graphics):
+
     # update player character sprite for combat animation
     if player.race == "amuna":
         if player.role == "mage":

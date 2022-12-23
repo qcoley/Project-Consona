@@ -11,7 +11,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 mini_boss_1, dungeon_drop_wall, chorizon_1, mini_boss_2, chorizon_2, crate_1, Item, crate_2, crate_3,
                 crate_4, mini_boss_1_defeated, mini_boss_2_defeated, boss_enemies, player_battle_sprite,
                 snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                barrier_active, sharp_sense_active, in_npc_interaction):
+                barrier_active, sharp_sense_active, in_npc_interaction, magmon_battle_sprite, bandile_battle_sprite):
 
     in_battle = False
 
@@ -204,11 +204,11 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
                 loot_popup_container.clear()
                 loot_text_container.clear()
-                combat_scenario.resting_animation(player, boss_enemy, player_battle_sprite,
-                                                  snake_battle_sprite, ghoul_battle_sprite,
-                                                  chorizon_battle_sprite, muchador_battle_sprite,
-                                                  barrier_active, sharp_sense_active, in_battle,
-                                                  in_npc_interaction, graphic_dict)
+                combat_scenario.resting_animation(player, current_enemy_battling, player_battle_sprite,
+                                                  snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
+                                                  muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
+                                                  barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                                  graphic_dict)
 
     # player defeats mini bosses and activates teleporter
     if pygame.sprite.collide_rect(player, dungeon_teleporter):
@@ -284,7 +284,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 in_npc_interaction, user_interface, world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
                 offense_upgraded, defense_upgraded, level_up_font, button_highlighted, button_highlight,
                 info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, switch_1, switch_2, switch_3,
-                has_key):
+                has_key, magmon_battle_sprite, bandile_battle_sprite):
 
     in_battle = False
 
@@ -447,11 +447,10 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
-                combat_scenario.resting_animation(player, muchador, player_battle_sprite,
-                                                  snake_battle_sprite, ghoul_battle_sprite,
-                                                  chorizon_battle_sprite, muchador_battle_sprite,
-                                                  barrier_active, sharp_sense_active, in_battle,
-                                                  in_npc_interaction, graphic_dict)
+                combat_scenario.resting_animation(player, muchador, player_battle_sprite, snake_battle_sprite,
+                                                  ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                                                  magmon_battle_sprite, bandile_battle_sprite, barrier_active,
+                                                  sharp_sense_active, in_battle, in_npc_interaction, graphic_dict)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

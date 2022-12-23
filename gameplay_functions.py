@@ -259,7 +259,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
             pickle.dump(player_save_info, ff)
 
     # create the directory with save data if it doesn't exist
-    except FileNotFoundError:
+    except FileNotFoundError and AssertionError:
         directory = os.getcwd()
         os.mkdir(directory + "/saves")
         with open(directory + "/saves/save_game", "wb") as ff:

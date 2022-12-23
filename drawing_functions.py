@@ -19,6 +19,8 @@ knowledge_academia_window = []
 first_quest_window = []
 rest_recover_window = []
 first_item_window = []
+game_guide_container = []
+world_map_container = []
 
 
 # draws elements on screen that have been appended to list by below functions
@@ -78,6 +80,12 @@ def draw_it(screen):
     if len(first_item_window) > 0:
         for item_window in first_item_window:
             screen.blit(item_window.surf, item_window.rect)
+    if len(game_guide_container) > 0:
+        for guide_overlay in game_guide_container:
+            screen.blit(guide_overlay.surf, guide_overlay.rect)
+    if len(world_map_container) > 0:
+        for map_element in world_map_container:
+            screen.blit(map_element.surf, map_element.rect)
 
 
 def item_info_draw(inventory_item, info_items, item_info_button, graphic):
@@ -639,10 +647,10 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       leave_button, buy_button, in_inn, in_shop, buy_clicked, offense_select_button,
                       defense_select_button, in_battle, mage_attack_button, fighter_attack_button, scout_attack_button,
                       no_role_attack_button, barrier_button, sharp_sense_button, hard_strike_button, in_over_world,
-                      world_map_container, seldon_map_button, korlok_map_button, eldream_map_button, marrow_map_button,
-                      character_button, quests_button, save_button, map_button, in_npc_interaction, quest_button,
-                      quest_clicked, accept_button, decline_button, current_npc_interacting, npc_garan,
-                      mage_select_button, fighter_select_button, scout_select_button):
+                      seldon_map_button, korlok_map_button, eldream_map_button, marrow_map_button, character_button,
+                      quests_button, save_button, map_button, in_npc_interaction, quest_button, quest_clicked,
+                      accept_button, decline_button, current_npc_interacting, npc_garan, mage_select_button,
+                      fighter_select_button, scout_select_button):
 
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
@@ -1080,3 +1088,93 @@ def loot_popups(time, loot_updated, first_item_cond, first_item, font, loot_popu
                              "loot_level_tic": loot_level_tic, "loot_info": loot_info, "leveled": leveled}
 
         return loot_popup_return
+
+
+def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_button, eldream_map_button,
+             marrow_map_button, amuna_location, nuldar_location, sorae_location):
+
+    world_map_container.append(world_map)
+    world_map_container.append(seldon_map_button)
+    world_map_container.append(korlok_map_button)
+    world_map_container.append(eldream_map_button)
+    world_map_container.append(marrow_map_button)
+
+    # update sprite showing player location representation on map
+    if player.race == "amuna":
+        if player.current_zone == "seldon":
+            amuna_location.update(seldon_map_button.x_coordinate,
+                                  seldon_map_button.y_coordinate,
+                                  graphic_dict["amuna_location"])
+        if player.current_zone == "rohir":
+            amuna_location.update(seldon_map_button.x_coordinate,
+                                  seldon_map_button.y_coordinate - 75,
+                                  graphic_dict["amuna_location"])
+        if player.current_zone == "stardust":
+            amuna_location.update(seldon_map_button.x_coordinate - 75,
+                                  seldon_map_button.y_coordinate - 25,
+                                  graphic_dict["amuna_location"])
+        if player.current_zone == "korlok":
+            amuna_location.update(korlok_map_button.x_coordinate,
+                                  korlok_map_button.y_coordinate,
+                                  graphic_dict["amuna_location"])
+        if player.current_zone == "eldream":
+            amuna_location.update(eldream_map_button.x_coordinate,
+                                  eldream_map_button.y_coordinate,
+                                  graphic_dict["amuna_location"])
+        if player.current_zone == "marrow":
+            amuna_location.update(marrow_map_button.x_coordinate,
+                                  marrow_map_button.y_coordinate,
+                                  graphic_dict["amuna_location"])
+        world_map_container.append(amuna_location)
+    if player.race == "nuldar":
+        if player.current_zone == "seldon":
+            nuldar_location.update(seldon_map_button.x_coordinate,
+                                   seldon_map_button.y_coordinate,
+                                   graphic_dict["nuldar_location"])
+        if player.current_zone == "rohir":
+            nuldar_location.update(seldon_map_button.x_coordinate,
+                                   seldon_map_button.y_coordinate - 75,
+                                   graphic_dict["nuldar_location"])
+        if player.current_zone == "stardust":
+            nuldar_location.update(seldon_map_button.x_coordinate - 75,
+                                   seldon_map_button.y_coordinate - 25,
+                                   graphic_dict["nuldar_location"])
+        if player.current_zone == "korlok":
+            nuldar_location.update(korlok_map_button.x_coordinate,
+                                   korlok_map_button.y_coordinate,
+                                   graphic_dict["nuldar_location"])
+        if player.current_zone == "eldream":
+            nuldar_location.update(eldream_map_button.x_coordinate,
+                                   eldream_map_button.y_coordinate,
+                                   graphic_dict["nuldar_location"])
+        if player.current_zone == "marrow":
+            nuldar_location.update(marrow_map_button.x_coordinate,
+                                   marrow_map_button.y_coordinate,
+                                   graphic_dict["nuldar_location"])
+        world_map_container.append(nuldar_location)
+    if player.race == "sorae":
+        if player.current_zone == "seldon":
+            sorae_location.update(seldon_map_button.x_coordinate,
+                                  seldon_map_button.y_coordinate,
+                                  graphic_dict["sorae_location"])
+        if player.current_zone == "rohir":
+            sorae_location.update(seldon_map_button.x_coordinate,
+                                  seldon_map_button.y_coordinate - 75,
+                                  graphic_dict["sorae_location"])
+        if player.current_zone == "stardust":
+            sorae_location.update(seldon_map_button.x_coordinate - 75,
+                                  seldon_map_button.y_coordinate - 25,
+                                  graphic_dict["sorae_location"])
+        if player.current_zone == "korlok":
+            sorae_location.update(korlok_map_button.x_coordinate,
+                                  korlok_map_button.y_coordinate,
+                                  graphic_dict["sorae_location"])
+        if player.current_zone == "eldream":
+            sorae_location.update(eldream_map_button.x_coordinate,
+                                  eldream_map_button.y_coordinate,
+                                  graphic_dict["sorae_location"])
+        if player.current_zone == "marrow":
+            sorae_location.update(marrow_map_button.x_coordinate,
+                                  marrow_map_button.y_coordinate,
+                                  graphic_dict["sorae_location"])
+        world_map_container.append(sorae_location)
