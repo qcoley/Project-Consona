@@ -17,6 +17,7 @@ import reservoir
 import rohir
 import stardust
 import seldon
+import mines
 
 # global variables
 SCREEN_WIDTH = 1280
@@ -354,6 +355,19 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 50
             elif self.y_coordinate >= SCREEN_HEIGHT - 93:
                 self.y_coordinate = SCREEN_HEIGHT - 93
+        if current_zone == "mines":
+            if self.x_coordinate < 72:
+                self.x_coordinate = 72
+            elif self.x_coordinate > SCREEN_WIDTH - 315:
+                self.x_coordinate = SCREEN_WIDTH - 315
+            if self.y_coordinate <= 115:
+                self.y_coordinate = 115
+            elif self.x_coordinate < 660:
+                if self.y_coordinate >= SCREEN_HEIGHT - 75:
+                    self.y_coordinate = SCREEN_HEIGHT - 75
+            elif self.x_coordinate > 660:
+                if self.y_coordinate >= SCREEN_HEIGHT:
+                    self.y_coordinate = SCREEN_HEIGHT
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -367,6 +381,17 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate += velocity
         if current_zone == "korlok":
             collided = pygame.sprite.spritecollideany(player, nuldar_buildings, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
+        if current_zone == "mines":
+            collided = pygame.sprite.spritecollideany(player, mine_walls)
             if collided:
                 if player.x_coordinate < collided.x_coordinate:
                     self.x_coordinate -= velocity
@@ -399,6 +424,17 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate += velocity
         if current_zone == "reservoir b":
             collided = pygame.sprite.spritecollideany(player, muchador_crates, pygame.sprite.collide_rect_ratio(0.75))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
+        if current_zone == "reservoir c":
+            collided = pygame.sprite.spritecollideany(player, dungeon_rocks, pygame.sprite.collide_rect_ratio(0.90))
             if collided:
                 if player.x_coordinate < collided.x_coordinate:
                     self.x_coordinate -= velocity
@@ -737,6 +773,19 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 50
             elif self.y_coordinate >= SCREEN_HEIGHT - 93:
                 self.y_coordinate = SCREEN_HEIGHT - 93
+        if current_zone == "mines":
+            if self.x_coordinate < 72:
+                self.x_coordinate = 72
+            elif self.x_coordinate > SCREEN_WIDTH - 315:
+                self.x_coordinate = SCREEN_WIDTH - 315
+            if self.y_coordinate <= 115:
+                self.y_coordinate = 115
+            elif self.x_coordinate < 660:
+                if self.y_coordinate >= SCREEN_HEIGHT - 75:
+                    self.y_coordinate = SCREEN_HEIGHT - 75
+            elif self.x_coordinate > 660:
+                if self.y_coordinate >= SCREEN_HEIGHT:
+                    self.y_coordinate = SCREEN_HEIGHT
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -758,6 +807,16 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if player.y_coordinate < collided.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
+        if current_zone == "mines":
+            if pygame.sprite.collide_rect(player, mines_wall):
+                if player.x_coordinate < mines_wall.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > mines_wall.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < mines_wall.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > mines_wall.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "reservoir a":
             if mini_boss_1 or mini_boss_2:
@@ -1129,6 +1188,19 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 50
             elif self.y_coordinate >= SCREEN_HEIGHT - 93:
                 self.y_coordinate = SCREEN_HEIGHT - 93
+        if current_zone == "mines":
+            if self.x_coordinate < 72:
+                self.x_coordinate = 72
+            elif self.x_coordinate > SCREEN_WIDTH - 315:
+                self.x_coordinate = SCREEN_WIDTH - 315
+            if self.y_coordinate <= 115:
+                self.y_coordinate = 115
+            elif self.x_coordinate < 660:
+                if self.y_coordinate >= SCREEN_HEIGHT - 75:
+                    self.y_coordinate = SCREEN_HEIGHT - 75
+            elif self.x_coordinate > 660:
+                if self.y_coordinate >= SCREEN_HEIGHT:
+                    self.y_coordinate = SCREEN_HEIGHT
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -1150,6 +1222,16 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if player.y_coordinate < collided.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
+        if current_zone == "mines":
+            if pygame.sprite.collide_rect(player, mines_wall):
+                if player.x_coordinate < mines_wall.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > mines_wall.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < mines_wall.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > mines_wall.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "reservoir a":
             if mini_boss_1 or mini_boss_2:
@@ -1460,6 +1542,7 @@ if __name__ == '__main__':
     start_screen = graphic_dict["start_screen"]
     nera_sleep_screen = graphic_dict["nera_sleep_screen"]
     korlok_district_bg = graphic_dict["korlok_bg_screen"]
+    korlok_mines_bg = graphic_dict["korlok_mines"]
     amuna_character_screen = graphic_dict["a_char_screen"]
     nuldar_character_screen = graphic_dict["n_char_screen"]
     sorae_character_screen = graphic_dict["s_char_screen"]
@@ -1600,16 +1683,16 @@ if __name__ == '__main__':
     magmon_4 = Enemy("magmon", "magmon", 100, 100, 8, 320, 172, True,
                      Item("cracked gem", "gem", 200, 200, graphic_dict["shiny_rock_img"]),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
-    bandile_1 = Enemy("bandile", "bandile", 100, 100, 9, 665, 180, True,
+    bandile_1 = Enemy("bandile", "bandile", 100, 100, 9, 655, 245, True,
                         Item("broken band", "band", 200, 200, graphic_dict["bone_dust_img"]),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
-    bandile_2 = Enemy("bandile", "bandile", 100, 100, 11, 800, 130, True,
+    bandile_2 = Enemy("bandile", "bandile", 100, 100, 11, 765, 165, True,
                         Item("broken band", "band", 200, 200, graphic_dict["bone_dust_img"]),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
-    bandile_3 = Enemy("bandile", "bandile", 100, 100, 10, 760, 240, True,
+    bandile_3 = Enemy("bandile", "bandile", 100, 100, 10, 765, 335, True,
                         Item("broken band", "band", 200, 200, graphic_dict["bone_dust_img"]),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
-    bandile_4 = Enemy("bandile", "bandile", 100, 100, 11, 890, 205, True,
+    bandile_4 = Enemy("bandile", "bandile", 100, 100, 11, 880, 245, True,
                         Item("broken band", "band", 200, 200, graphic_dict["bone_dust_img"]),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
 
@@ -1710,8 +1793,7 @@ if __name__ == '__main__':
     knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
 
     garan_quest_window = UiElement("garan quest window", 262, 442, graphic_dict["garan_quest"])
-    garan_complete_quest_window = UiElement("garan quest complete window", 550, 350,
-                                            graphic_dict["garan_complete"])
+    garan_complete_quest_window = UiElement("garan quest complete window", 550, 350, graphic_dict["garan_complete"])
     maurelle_quest_window = UiElement("maurelle quest window", 262, 442, graphic_dict["maurelle_quest"])
     maurelle_complete_quest_window = UiElement("maurelle quest complete window", 550, 350,
                                                graphic_dict["maurelle_complete"])
@@ -1719,8 +1801,7 @@ if __name__ == '__main__':
     celeste_complete_quest_window = UiElement("celeste quest complete window", 550, 350,
                                               graphic_dict["celeste_complete"])
     torune_quest_window = UiElement("torune quest window", 262, 442, graphic_dict["torune_quest"])
-    torune_complete_quest_window = UiElement("torune quest complete window", 550, 350,
-                                              graphic_dict["torune_complete"])
+    torune_complete_quest_window = UiElement("torune quest complete window", 550, 350, graphic_dict["torune_complete"])
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
     enemy_status_bar_back = UiElement("enemy bar backdrop", 700, 90, graphic_dict["enemy_bar_backdrop"])
@@ -1733,8 +1814,8 @@ if __name__ == '__main__':
     ghoul_battle_sprite = BattleCharacter("ghoul battle", 698, 280, graphic_dict["ghoul_battle"])
     chorizon_battle_sprite = BattleCharacter("chorizon battle", 720, 325, graphic_dict["chorizon_battle"])
     muchador_battle_sprite = BattleCharacter("muchador battle", 705, 290, graphic_dict["muchador_battle"])
-    magmon_battle_sprite = BattleCharacter("magmon battle", 720, 325, graphic_dict["chorizon_battle"])
-    bandile_battle_sprite = BattleCharacter("bandile battle", 705, 290, graphic_dict["muchador_battle"])
+    magmon_battle_sprite = BattleCharacter("magmon battle", 705, 260, graphic_dict["magmon_battle"])
+    bandile_battle_sprite = BattleCharacter("bandile battle", 715, 250, graphic_dict["bandile_battle"])
     nascent_gate_popup = UiElement("nascent gate popup", 418, 200, graphic_dict["nascent_gate_popup"])
     sell_items = UiElement("sell items", 1155, 270, graphic_dict["s_health_pot_img"])
     info_items = UiElement("info items", 1155, 270, graphic_dict["info_health_pot_img"])
@@ -1793,6 +1874,9 @@ if __name__ == '__main__':
     dungeon_switch_3 = Item("dungeon switch 3", "switch", 519, 165, graphic_dict["dungeon_switch_inactive"])
     dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"])
 
+    mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
+    mines_light = UiElement("mines light", 322, 350, graphic_dict["mines_light"])
+
     rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock_img"])
     rock_2 = Item("rock 2", "rock", 580, 255, graphic_dict["rock_img"])
 
@@ -1804,7 +1888,8 @@ if __name__ == '__main__':
     npcs = pygame.sprite.Group()
     seldon_enemies = pygame.sprite.Group()
     korlok_enemies = pygame.sprite.Group()
-    korlok_mine_enemies = pygame.sprite.Group()
+    mine_enemies = pygame.sprite.Group()
+    mine_walls = pygame.sprite.Group()
     boss_enemies = pygame.sprite.Group()
     trees = pygame.sprite.Group()
     dungeon_rocks = pygame.sprite.Group()
@@ -1837,7 +1922,8 @@ if __name__ == '__main__':
     npcs.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
     seldon_enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     korlok_enemies.add(magmon_1, magmon_2, magmon_3, magmon_4)
-    korlok_mine_enemies.add(bandile_1, bandile_2, bandile_3, bandile_4)
+    mine_enemies.add(bandile_1, bandile_2, bandile_3, bandile_4)
+    mine_walls.add(mines_wall, mines_light)
     boss_enemies.add(chorizon_1, chorizon_2)
     trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
     dungeon_rocks.add(rock_1, rock_2)
@@ -1855,7 +1941,8 @@ if __name__ == '__main__':
     interactables_nascent.add(nascent_gate)
     interactables_seldon.add(npcs, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon)
     interactables_stardust.add(stardust_entrance, nede, ghoul_nede)
-    interactables_korlok.add(nuldar_buildings, reservoir_enter, rohir_gate, hearth_stone, korlok_enemies)
+    interactables_korlok.add(nuldar_buildings, reservoir_enter, rohir_gate, hearth_stone, korlok_enemies,
+                             mines_entrance)
     interactables_reservoir_a.add(dungeon_items, chorizon_1, chorizon_2, dungeon_teleporter)
     interactables_reservoir_b.add(dungeon_gate, dungeon_teleporter, dungeon_crate_5, muchador, reservoir_passage)
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
@@ -2322,34 +2409,32 @@ if __name__ == '__main__':
                     if player.current_zone == "seldon":
                         player.x_coordinate = 860
                         player.y_coordinate = 655
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                      player.y_coordinate))
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                     if player.current_zone == "korlok":
                         player.x_coordinate = 895
                         player.y_coordinate = 325
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                      player.y_coordinate))
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                    if player.current_zone == "mines":
+                        player.x_coordinate = 815
+                        player.y_coordinate = 600
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                     if player.current_zone == "rohir":
                         player.x_coordinate = 900
                         player.y_coordinate = 400
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                      player.y_coordinate))
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                     if player.current_zone == "reservoir a":
                         player.x_coordinate = 525
                         player.y_coordinate = 650
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                      player.y_coordinate))
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                     if player.current_zone == "reservoir b":
                         player.x_coordinate = 880
                         player.y_coordinate = 560
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                      player.y_coordinate))
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
                     if player.current_zone == "reservoir c":
                         player.x_coordinate = 900
                         player.y_coordinate = 545
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                      player.y_coordinate))
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 except TypeError:
                     pass
             except KeyError:
@@ -2897,6 +2982,50 @@ if __name__ == '__main__':
                         pass
 
                 # ------------------------------------------------------------------------------------------------------
+                # if player is in korlok district ----------------------------------------------------------------------
+                if player.current_zone == "mines" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    mines_returned = mines.korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg,
+                                                        korlok_overworld_music, over_world_song_set, bandiles,
+                                                        interaction_popup, font, save_check_window, user_interface,
+                                                        world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                        offense_upgraded, defense_upgraded, level_up_font,
+                                                        button_highlighted, button_highlight, in_over_world,
+                                                        interacted, info_text_1, info_text_2, info_text_3, info_text_4,
+                                                        enemy_tic, npc_tic, in_battle, in_npc_interaction,
+                                                        movement_able, current_enemy_battling, mine_enemies,
+                                                        player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+                                                        chorizon_battle_sprite, muchador_battle_sprite, barrier_active,
+                                                        sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite,
+                                                        mines_wall, mines_light)
+
+                    over_world_song_set = mines_returned["over_world_song_set"]
+                    interacted = mines_returned["interacted"]
+                    in_over_world = mines_returned["in_over_world"]
+                    in_battle = mines_returned["in_battle"]
+                    movement_able = mines_returned["movement_able"]
+                    current_enemy_battling = mines_returned["current_enemy_battling"]
+                    enemy_tic = mines_returned["enemy_tic"]
+                    npc_tic = mines_returned["npc_tic"]
+                    info_text_1 = mines_returned["info_text_1"]
+                    info_text_2 = mines_returned["info_text_2"]
+                    info_text_3 = mines_returned["info_text_3"]
+                    info_text_4 = mines_returned["info_text_4"]
+
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
+                                                                        font, loot_popup,
+                                                                        battle_info_to_return_to_main_loop, leveled)
+                    try:
+                        first_item_cond = loot_popup_returned["first_item_condition"]
+                        loot_updated = loot_popup_returned["loot_updated"]
+                        loot_level_tic = loot_popup_returned["loot_level_tic"]
+                        loot_info = loot_popup_returned["loot_info"]
+                        leveled = loot_popup_returned["leveled"]
+                    except TypeError:
+                        pass
+
+                # ------------------------------------------------------------------------------------------------------
                 # if player is in stardust outpost ---------------------------------------------------------------------
                 if player.current_zone == "stardust" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
@@ -3323,13 +3452,16 @@ if __name__ == '__main__':
                                                                     current_enemy_battling,
                                                                     snake_battle_sprite, ghoul_battle_sprite,
                                                                     chorizon_battle_sprite, muchador_battle_sprite,
+                                                                    magmon_battle_sprite, bandile_battle_sprite,
                                                                     graphic_dict["player_fighter_amuna_strike"],
                                                                     graphic_dict["player_fighter_sorae_strike"],
                                                                     graphic_dict["player_fighter_nuldar_strike"],
                                                                     graphic_dict["snake_battle"],
                                                                     graphic_dict["ghoul_battle"],
                                                                     graphic_dict["chorizon_battle"],
-                                                                    graphic_dict["muchador_battle"])
+                                                                    graphic_dict["muchador_battle"],
+                                                                    graphic_dict["magmon_battle"],
+                                                                    graphic_dict["bandile_battle"])
 
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                             "skill 1", player,
@@ -3484,6 +3616,10 @@ if __name__ == '__main__':
                             screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
                         if current_enemy_battling.kind == "muchador":
                             screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
+                        if current_enemy_battling.kind == "magmon":
+                            screen.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
+                        if current_enemy_battling.kind == "bandile":
+                            screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(message_box.surf, message_box.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
@@ -3533,6 +3669,10 @@ if __name__ == '__main__':
                             screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
                         if current_enemy_battling.kind == "muchador":
                             screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
+                        if current_enemy_battling.kind == "magmon":
+                            screen.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
+                        if current_enemy_battling.kind == "bandile":
+                            screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(message_box.surf, message_box.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates

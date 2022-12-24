@@ -97,6 +97,10 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
             chorizon_battle_sprite.update(720, 325, graphics["chorizon_battle"])
         if enemy.kind == "muchador":
             muchador_battle_sprite.update(705, 290, graphics["muchador_battle"])
+        if enemy.kind == "magmon":
+            magmon_battle_sprite.update(705, 260, graphics["magmon_battle"])
+        if enemy.kind == "bandile":
+            bandile_battle_sprite.update(715, 250, graphics["bandile_battle"])
 
 
 # update player character and enemy sprites for combat animation
@@ -197,12 +201,17 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
         chorizon_battle_sprite.update(720, 325, graphics["chorizon_attack"])
     if enemy.kind == "muchador":
         muchador_battle_sprite.update(705, 290, graphics["muchador_attack"])
+    if enemy.kind == "magmon":
+        magmon_battle_sprite.update(705, 260, graphics["magmon_attack"])
+    if enemy.kind == "bandile":
+        bandile_battle_sprite.update(715, 250, graphics["bandile_attack"])
 
 
 def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
-            ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, player_fighter_amuna_strike,
-            player_fighter_sorae_strike, player_fighter_nuldar_strike, snake_battle, ghoul_battle,
-            chorizon_battle, muchador_battle):
+            ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite,
+            bandile_battle_sprite, player_fighter_amuna_strike, player_fighter_sorae_strike,
+            player_fighter_nuldar_strike, snake_battle, ghoul_battle,
+            chorizon_battle, muchador_battle, magmon_battle, bandile_battle):
 
     # update animations for hard strike attack
     if player.race == "amuna":
@@ -229,6 +238,10 @@ def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_s
         chorizon_battle_sprite.update(720, 325, chorizon_battle)
     if current_enemy_battling.kind == "muchador":
         muchador_battle_sprite.update(725, 350, muchador_battle)
+    if current_enemy_battling.kind == "magmon":
+        magmon_battle_sprite.update(705, 260, magmon_battle)
+    if current_enemy_battling.kind == "bandile":
+        bandile_battle_sprite.update(715, 250, bandile_battle)
 
 
 def enemy_health_bar(enemys, graphics):

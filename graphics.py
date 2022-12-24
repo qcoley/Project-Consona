@@ -277,7 +277,8 @@ def load_graphics():
                    "dungeon_chest_open": "", "gloves": "", "info_gloves": "", "rock_img": "", "reservoir_exit": "",
                    "nuldar_herb_building": "", "nuldar_inn_building": "", "nuldar_shop_building": "",
                    "reservoir_enter": "", "korlok_hearth_screen": "", "magmon": "", "bandile": "", "mines_entrance": "",
-                   "korlok_battle_screen": ""}
+                   "korlok_battle_screen": "", "magmon_battle": "", "magmon_attack": "", "bandile_battle": "",
+                   "bandile_attack": "", "korlok_mines": "", "mines_wall": "", "mines_light": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -289,6 +290,7 @@ def load_graphics():
     star_battle_screen = pygame.image.load(resource_path('resources/art/bg_stardust_battle_screen.png')).convert_alpha()
     seldon_bg_screen = pygame.image.load(resource_path('resources/art/bg_seldon_district.png')).convert_alpha()
     korlok_bg_screen = pygame.image.load(resource_path('resources/art/bg_korlok_district.png')).convert_alpha()
+    korlok_mines_screen = pygame.image.load(resource_path('resources/art/bg_korlok_mines.png')).convert_alpha()
     korlok_battle_screen = pygame.image.load(resource_path('resources/art/bg_korlok_battle_screen.png')).convert_alpha()
     rohir_river_screen = pygame.image.load(resource_path('resources/art/bg_rohir_river.png')).convert_alpha()
     reservoir_a_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_a.png')).convert_alpha()
@@ -349,6 +351,8 @@ def load_graphics():
     reservoir_exit = pygame.image.load(resource_path('resources/art/overlay_reservoir_exit.png')).convert_alpha()
     reservoir_enter = pygame.image.load(resource_path('resources/art/overlay_reservoir_enter.png')).convert_alpha()
     mines_entrance = pygame.image.load(resource_path('resources/art/overlay_mines_entrance.png')).convert_alpha()
+    mines_wall = pygame.image.load(resource_path('resources/art/overlay_mines_wall.png')).convert_alpha()
+    mines_light = pygame.image.load(resource_path('resources/art/overlay_mines_light.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -363,7 +367,8 @@ def load_graphics():
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
-                  muchador_crate, reservoir_passage, rock_img, reservoir_exit, reservoir_enter, mines_entrance]
+                  muchador_crate, reservoir_passage, rock_img, reservoir_exit, reservoir_enter, mines_entrance,
+                  mines_wall, mines_light]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -443,6 +448,9 @@ def load_graphics():
     loaded_dict["reservoir_enter"] = reservoir_enter
     loaded_dict["korlok_hearth_screen"] = korlok_hearth_screen
     loaded_dict["mines_entrance"] = mines_entrance
+    loaded_dict["korlok_mines"] = korlok_mines_screen
+    loaded_dict["mines_wall"] = mines_wall
+    loaded_dict["mines_light"] = mines_light
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -904,6 +912,10 @@ def load_graphics():
     loaded_dict["snake_attack"] = enemies_battle_sheet[1]
     loaded_dict["ghoul_battle"] = enemies_battle_sheet[2]
     loaded_dict["ghoul_attack"] = enemies_battle_sheet[3]
+    loaded_dict["magmon_battle"] = enemies_battle_sheet[4]
+    loaded_dict["magmon_attack"] = enemies_battle_sheet[5]
+    loaded_dict["bandile_battle"] = enemies_battle_sheet[6]
+    loaded_dict["bandile_attack"] = enemies_battle_sheet[7]
     # boss enemies battle ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_battle.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)

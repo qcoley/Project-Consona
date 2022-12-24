@@ -17,7 +17,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
-    hearth_stone.update(895, 255, graphic_dict["hearth_stone"])
+    hearth_stone.update(890, 252, graphic_dict["hearth_stone"])
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -118,9 +118,10 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         info_text_1 = "Press 'F' key to enter the Mines."
 
         if interacted:
+            interacted = False
             player.current_zone = "mines"
             player.x_coordinate = 705
-            player.y_coordinate = 175
+            player.y_coordinate = 600
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if pygame.sprite.collide_rect(player, hearth_stone):
