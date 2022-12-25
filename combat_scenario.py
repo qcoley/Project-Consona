@@ -98,9 +98,9 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
         if enemy.kind == "muchador":
             muchador_battle_sprite.update(705, 290, graphics["muchador_battle"])
         if enemy.kind == "magmon":
-            magmon_battle_sprite.update(705, 260, graphics["magmon_battle"])
+            magmon_battle_sprite.update(705, 286, graphics["magmon_battle"])
         if enemy.kind == "bandile":
-            bandile_battle_sprite.update(715, 250, graphics["bandile_battle"])
+            bandile_battle_sprite.update(695, 300, graphics["bandile_battle"])
 
 
 # update player character and enemy sprites for combat animation
@@ -202,9 +202,9 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
     if enemy.kind == "muchador":
         muchador_battle_sprite.update(705, 290, graphics["muchador_attack"])
     if enemy.kind == "magmon":
-        magmon_battle_sprite.update(705, 260, graphics["magmon_attack"])
+        magmon_battle_sprite.update(705, 286, graphics["magmon_attack"])
     if enemy.kind == "bandile":
-        bandile_battle_sprite.update(715, 250, graphics["bandile_attack"])
+        bandile_battle_sprite.update(695, 300, graphics["bandile_attack"])
 
 
 def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
@@ -239,9 +239,9 @@ def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_s
     if current_enemy_battling.kind == "muchador":
         muchador_battle_sprite.update(725, 350, muchador_battle)
     if current_enemy_battling.kind == "magmon":
-        magmon_battle_sprite.update(705, 260, magmon_battle)
+        magmon_battle_sprite.update(705, 286, magmon_battle)
     if current_enemy_battling.kind == "bandile":
-        bandile_battle_sprite.update(715, 250, bandile_battle)
+        bandile_battle_sprite.update(695, 300, bandile_battle)
 
 
 def enemy_health_bar(enemys, graphics):

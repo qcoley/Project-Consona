@@ -24,7 +24,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     enemy_tic, npc_tic, npc_garan, npc_maurelle, npc_celeste, npc_torune, info_text_1, info_text_2,
                     info_text_3, info_text_4, in_battle, in_shop, in_academia, in_inn, movement_able,
                     current_enemy_battling, current_npc_interacting, current_building_entering,
-                    magmon_battle_sprite, bandile_battle_sprite):
+                    magmon_battle_sprite, bandile_battle_sprite, interactables_mines):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -36,9 +36,9 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         over_world_song_set = True
 
     screen.blit(seldon_district_bg, (0, 0))
-    respawned_dict = gameplay_functions.enemy_respawn(seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles,
-                                                      interactables_seldon, interactables_korlok, Enemy, Item,
-                                                      graphic_dict, UiElement)
+    respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
+                                                      bandiles, interactables_seldon, interactables_korlok,
+                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement)
     seldon_enemies = respawned_dict["seldon_enemies"]
     snakes = respawned_dict["snakes"]
     ghouls = respawned_dict["ghouls"]

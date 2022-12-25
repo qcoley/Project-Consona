@@ -1530,6 +1530,7 @@ if __name__ == '__main__':
     seldon_district_bg = graphic_dict["seldon_bg_screen"]
     seldon_district_battle = graphic_dict["seldon_battle_screen"]
     korlok_district_battle = graphic_dict["korlok_battle_screen"]
+    mines_battle = graphic_dict["mines_battle_screen"]
     seldon_district_shop = graphic_dict["seldon_shop_screen"]
     seldon_district_inn = graphic_dict["seldon_inn_screen"]
     seldon_district_academia = graphic_dict["seldon_academia_screen"]
@@ -1592,12 +1593,15 @@ if __name__ == '__main__':
                          {"sneaky snakes": "Speak to Garan to start this quest.",
                           "village repairs": "Speak to Maurelle to start this quest.",
                           "where's nede?": "Speak to Celeste to start this quest",
-                          "ghouled again": "Speak to the gate Guard to start this quest.", "": ""},
-                         {"sneaky snakes": 0, "village repairs": 0, "where's nede?": 0, "ghouled again": 0},
+                          "ghouled again": "Speak to the gate Guard to start this quest.",
+                          "band hammer": "Speak to the gate Guard to start this quest.",
+                          "elementary elementals": "Speak to the gate Guard to start this quest."},
+                         {"sneaky snakes": 0, "village repairs": 0, "where's nede?": 0, "ghouled again": 0,
+                          "band hammer": 0, "elementary elementals": 0},
                          {"sneaky snakes": False, "village repairs": False, "where's nede?": False,
-                          "ghouled again": False},
+                          "ghouled again": False, "band hammer": False, "elementary elementals": False},
                          {"sneaky snakes": False, "village repairs": False, "where's nede?": False,
-                          "ghouled again": False},
+                          "ghouled again": False, "band hammer": False, "elementary elementals": False},
                          {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
@@ -1616,7 +1620,23 @@ if __name__ == '__main__':
                       True, False, ["Items"], False, graphic_dict["celeste_down"])
     npc_torune = NPC("torune", "nuldar", "Onur-oh.", "ghouled again", "", 430, 120,
                      True, False, ["Items"], False, graphic_dict["torune_down"])
+
+    npc_voruke = NPC("voruke", "nuldar", "Onur-oh.", "band hammer", "", 260, 425,
+                     True, False, ["Items"], False, graphic_dict["voruke_down"])
+    npc_zerah = NPC("zerah", "nuldar", "Onur-oh.", "elementary elementals", "", 650, 90,
+                    True, False, ["Items"], False, graphic_dict["zerah_down"])
+
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
+        Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"]),
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"]),
+        Item("basic staff", "mage", 200, 200, graphic_dict["basic_staff_img"]),
+        Item("basic sword", "fighter", 200, 200, graphic_dict["basic_sword_img"]),
+        Item("basic bow", "scout", 200, 200, graphic_dict["basic_bow_img"]),
+        Item("basic robes", "mage", 200, 200, graphic_dict["basic_robes_img"]),
+        Item("basic armor", "fighter", 200, 200, graphic_dict["basic_armor_img"]),
+        Item("basic tunic", "scout", 200, 200, graphic_dict["basic_tunic_img"])])
+
+    npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "amuna", [
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"]),
         Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"]),
         Item("basic staff", "mage", 200, 200, graphic_dict["basic_staff_img"]),
@@ -1630,6 +1650,9 @@ if __name__ == '__main__':
     npc_maurelle_interaction = UiElement("maurelle interaction", 641, 360, graphic_dict["maurelle_interaction"])
     npc_celeste_interaction = UiElement("celeste interaction", 639, 360, graphic_dict["celeste_interaction"])
     npc_torune_interaction = UiElement("torune interaction", 635, 360, graphic_dict["torune_interaction"])
+
+    npc_voruke_interaction = UiElement("voruke interaction", 640, 360, graphic_dict["voruke_interaction"])
+    npc_zerah_interaction = UiElement("zerah interaction", 640, 360, graphic_dict["zerah_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -1671,29 +1694,29 @@ if __name__ == '__main__':
                         Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
                         graphic_dict["muchador_dark"], UiElement("muchador hp bar", 700, 90, graphic_dict["hp_100"]))
     # korlok enemies ---------------------------------------------------------------------------------------------------
-    magmon_1 = Enemy("magmon", "magmon", 100, 100, 8, 145, 110, True,
-                     Item("cracked gem", "gem", 200, 200, graphic_dict["shiny_rock_img"]),
+    magmon_1 = Enemy("magmon", "magmon", 100, 100, 8, 125, 135, True,
+                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
-    magmon_2 = Enemy("magmon", "magmon", 100, 100, 9, 375, 100, True,
-                     Item("cracked gem", "gem", 200, 200, graphic_dict["shiny_rock_img"]),
+    magmon_2 = Enemy("magmon", "magmon", 100, 100, 9, 375, 125, True,
+                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
-    magmon_3 = Enemy("magmon", "magmon", 100, 100, 7, 200, 172, True,
-                     Item("cracked gem", "gem", 200, 200, graphic_dict["shiny_rock_img"]),
+    magmon_3 = Enemy("magmon", "magmon", 100, 100, 7, 200, 197, True,
+                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
-    magmon_4 = Enemy("magmon", "magmon", 100, 100, 8, 320, 172, True,
-                     Item("cracked gem", "gem", 200, 200, graphic_dict["shiny_rock_img"]),
+    magmon_4 = Enemy("magmon", "magmon", 100, 100, 8, 320, 197, True,
+                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
     bandile_1 = Enemy("bandile", "bandile", 100, 100, 9, 655, 245, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["bone_dust_img"]),
+                        Item("broken band", "band", 200, 200, graphic_dict["band"]),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
     bandile_2 = Enemy("bandile", "bandile", 100, 100, 11, 765, 165, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["bone_dust_img"]),
+                        Item("broken band", "band", 200, 200, graphic_dict["band"]),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
     bandile_3 = Enemy("bandile", "bandile", 100, 100, 10, 765, 335, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["bone_dust_img"]),
+                        Item("broken band", "band", 200, 200, graphic_dict["band"]),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
     bandile_4 = Enemy("bandile", "bandile", 100, 100, 11, 880, 245, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["bone_dust_img"]),
+                        Item("broken band", "band", 200, 200, graphic_dict["band"]),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
@@ -1802,6 +1825,11 @@ if __name__ == '__main__':
                                               graphic_dict["celeste_complete"])
     torune_quest_window = UiElement("torune quest window", 262, 442, graphic_dict["torune_quest"])
     torune_complete_quest_window = UiElement("torune quest complete window", 550, 350, graphic_dict["torune_complete"])
+    voruke_quest_window = UiElement("voruke quest window", 262, 442, graphic_dict["voruke_quest"])
+    voruke_complete_quest_window = UiElement("voruke quest complete window", 550, 350, graphic_dict["voruke_complete"])
+    zerah_quest_window = UiElement("zerah quest window", 262, 442, graphic_dict["zerah_quest"])
+    zerah_complete_quest_window = UiElement("zerah quest complete window", 550, 350, graphic_dict["zerah_complete"])
+
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
     enemy_status_bar_back = UiElement("enemy bar backdrop", 700, 90, graphic_dict["enemy_bar_backdrop"])
@@ -1814,8 +1842,8 @@ if __name__ == '__main__':
     ghoul_battle_sprite = BattleCharacter("ghoul battle", 698, 280, graphic_dict["ghoul_battle"])
     chorizon_battle_sprite = BattleCharacter("chorizon battle", 720, 325, graphic_dict["chorizon_battle"])
     muchador_battle_sprite = BattleCharacter("muchador battle", 705, 290, graphic_dict["muchador_battle"])
-    magmon_battle_sprite = BattleCharacter("magmon battle", 705, 260, graphic_dict["magmon_battle"])
-    bandile_battle_sprite = BattleCharacter("bandile battle", 715, 250, graphic_dict["bandile_battle"])
+    magmon_battle_sprite = BattleCharacter("magmon battle", 705, 286, graphic_dict["magmon_battle"])
+    bandile_battle_sprite = BattleCharacter("bandile battle", 695, 300, graphic_dict["bandile_battle"])
     nascent_gate_popup = UiElement("nascent gate popup", 418, 200, graphic_dict["nascent_gate_popup"])
     sell_items = UiElement("sell items", 1155, 270, graphic_dict["s_health_pot_img"])
     info_items = UiElement("info items", 1155, 270, graphic_dict["info_health_pot_img"])
@@ -1885,7 +1913,8 @@ if __name__ == '__main__':
     name_input_font = pygame.font.SysFont('freesansbold.ttf', 32, bold=True, italic=False)
 
     quest_items_seldon = pygame.sprite.Group()
-    npcs = pygame.sprite.Group()
+    npcs_seldon = pygame.sprite.Group()
+    npcs_korlok = pygame.sprite.Group()
     seldon_enemies = pygame.sprite.Group()
     korlok_enemies = pygame.sprite.Group()
     mine_enemies = pygame.sprite.Group()
@@ -1911,6 +1940,7 @@ if __name__ == '__main__':
     interactables_seldon = pygame.sprite.Group()
     interactables_stardust = pygame.sprite.Group()
     interactables_korlok = pygame.sprite.Group()
+    interactables_mines = pygame.sprite.Group()
     interactables_reservoir_a = pygame.sprite.Group()
     interactables_reservoir_b = pygame.sprite.Group()
     interactables_reservoir_c = pygame.sprite.Group()
@@ -1919,7 +1949,8 @@ if __name__ == '__main__':
     ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     magmons.add(magmon_1, magmon_2, magmon_3, magmon_4)
     bandiles.add(bandile_1, bandile_2, bandile_3, bandile_4)
-    npcs.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
+    npcs_seldon.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
+    npcs_korlok.add(npc_voruke, npc_zerah)
     seldon_enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     korlok_enemies.add(magmon_1, magmon_2, magmon_3, magmon_4)
     mine_enemies.add(bandile_1, bandile_2, bandile_3, bandile_4)
@@ -1935,17 +1966,18 @@ if __name__ == '__main__':
     muchador_crates.add(muchador_crate_1, muchador_crate_2, muchador_crate_3, muchador_crate_4)
     environments.add(trees, amuna_buildings)
     quest_items_seldon.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
-    most_sprites.add(npcs, trees, amuna_buildings, quest_items_seldon, seldon_enemies, hearth_stone, rohir_gate)
+    most_sprites.add(npcs_seldon, trees, amuna_buildings, quest_items_seldon, seldon_enemies, hearth_stone, rohir_gate)
     user_interface.add(rest_button, buy_button, leave_button, character_button, quests_button, save_button,
                        map_button, message_box, location_overlay, star_power_meter)
     interactables_nascent.add(nascent_gate)
-    interactables_seldon.add(npcs, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon)
+    interactables_seldon.add(npcs_seldon, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon)
     interactables_stardust.add(stardust_entrance, nede, ghoul_nede)
     interactables_korlok.add(nuldar_buildings, reservoir_enter, rohir_gate, hearth_stone, korlok_enemies,
-                             mines_entrance)
+                             mines_entrance, npc_voruke, npc_zerah)
     interactables_reservoir_a.add(dungeon_items, chorizon_1, chorizon_2, dungeon_teleporter)
     interactables_reservoir_b.add(dungeon_gate, dungeon_teleporter, dungeon_crate_5, muchador, reservoir_passage)
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
+    interactables_mines.add(bandiles)
 
     # music tracks
     start_screen_music = resource_path("resources/music/eterna_title.mp3")
@@ -2411,8 +2443,8 @@ if __name__ == '__main__':
                         player.y_coordinate = 655
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                     if player.current_zone == "korlok":
-                        player.x_coordinate = 895
-                        player.y_coordinate = 325
+                        player.x_coordinate = 882
+                        player.y_coordinate = 290
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                     if player.current_zone == "mines":
                         player.x_coordinate = 815
@@ -2555,6 +2587,9 @@ if __name__ == '__main__':
                                         interacted = True
                                 if player.current_zone == "korlok":
                                     if pygame.sprite.spritecollideany(player, interactables_korlok):
+                                        interacted = True
+                                if player.current_zone == "mines":
+                                    if pygame.sprite.spritecollideany(player, interactables_mines):
                                         interacted = True
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -2863,10 +2898,10 @@ if __name__ == '__main__':
                                                              snake_battle_sprite, ghoul_battle_sprite,
                                                              chorizon_battle_sprite, muchador_battle_sprite,
                                                              barrier_active, sharp_sense_active, in_npc_interaction,
-                                                             amuna_buildings, npcs, save_check_window, user_interface,
-                                                             world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                             offense_upgraded, defense_upgraded, level_up_font,
-                                                             button_highlighted, button_highlight,
+                                                             amuna_buildings, npcs_seldon, save_check_window,
+                                                             user_interface, world_map_container, bar_backdrop, hp_bar,
+                                                             en_bar, xp_bar, offense_upgraded, defense_upgraded,
+                                                             level_up_font, button_highlighted, button_highlight,
                                                              knowledge_academia_show, knowledge_academia,
                                                              rest_recover_show, rest_shown_before, rest_recover,
                                                              quest_guide_shown, game_guide_overlay, role_guide_shown,
@@ -2875,7 +2910,8 @@ if __name__ == '__main__':
                                                              info_text_4, in_battle, in_shop, in_academia, in_inn,
                                                              movement_able, current_enemy_battling,
                                                              current_npc_interacting, current_building_entering,
-                                                             magmon_battle_sprite, bandile_battle_sprite)
+                                                             magmon_battle_sprite, bandile_battle_sprite,
+                                                             interactables_mines)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -2910,11 +2946,9 @@ if __name__ == '__main__':
                     in_npc_interaction = seldon_returned["in_npc_interaction"]
                     movement_able = seldon_returned["movement_able"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond,
-                                                                        first_item,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
                                                                         font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop,
-                                                                        leveled)
+                                                                        battle_info_to_return_to_main_loop, leveled)
                     try:
                         first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
@@ -2945,7 +2979,10 @@ if __name__ == '__main__':
                                                              korlok_enemies, player_battle_sprite, snake_battle_sprite,
                                                              ghoul_battle_sprite, chorizon_battle_sprite,
                                                              muchador_battle_sprite, barrier_active, sharp_sense_active,
-                                                             magmon_battle_sprite, bandile_battle_sprite)
+                                                             magmon_battle_sprite, bandile_battle_sprite, npc_voruke,
+                                                             npc_zerah, npcs_korlok, seldon_enemies, snakes, ghouls,
+                                                             bandiles, interactables_seldon, interactables_korlok,
+                                                             Enemy, Item, UiElement, interactables_mines)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -2994,11 +3031,13 @@ if __name__ == '__main__':
                                                         button_highlighted, button_highlight, in_over_world,
                                                         interacted, info_text_1, info_text_2, info_text_3, info_text_4,
                                                         enemy_tic, npc_tic, in_battle, in_npc_interaction,
-                                                        movement_able, current_enemy_battling, mine_enemies,
-                                                        player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+                                                        movement_able, current_enemy_battling, player_battle_sprite,
+                                                        snake_battle_sprite, ghoul_battle_sprite,
                                                         chorizon_battle_sprite, muchador_battle_sprite, barrier_active,
                                                         sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite,
-                                                        mines_wall, mines_light)
+                                                        seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
+                                                        interactables_seldon, interactables_korlok, Enemy, Item,
+                                                        UiElement, interactables_mines)
 
                     over_world_song_set = mines_returned["over_world_song_set"]
                     interacted = mines_returned["interacted"]
@@ -3538,6 +3577,8 @@ if __name__ == '__main__':
                                 screen.blit(seldon_district_battle, (0, 0))
                             if player.current_zone == "korlok":
                                 screen.blit(korlok_district_battle, (0, 0))
+                            if player.current_zone == "mines":
+                                screen.blit(mines_battle, (0, 0))
                             if player.current_zone == "stardust":
                                 screen.blit(stardust_battle, (0, 0))
                             if player.current_zone == "reservoir a" or player.current_zone == "reservoir b":
@@ -4522,7 +4563,8 @@ if __name__ == '__main__':
                                 drawing_functions.quest_complete_box.clear()
                                 drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                                  maurelle_quest_window, celeste_quest_window,
-                                                                 torune_quest_window, accept_button, decline_button)
+                                                                 torune_quest_window, voruke_quest_window,
+                                                                 zerah_quest_window, accept_button, decline_button)
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -4538,6 +4580,10 @@ if __name__ == '__main__':
                             if celeste_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
                             if torune_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
+                            if voruke_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
+                            if zerah_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False)
@@ -4591,10 +4637,19 @@ if __name__ == '__main__':
                                 player.quest_status["ghouled again"] = True
                                 player.current_quests["ghouled again"] = "Torune asked you to defeat " \
                                                                          "ghouls nearby the Castle wall."
+                            if current_npc_interacting.name == "voruke":
+                                player.quest_status["band hammer"] = True
+                                player.current_quests["band hammer"] = "Voruke asked you to defeat bandiles in the " \
+                                                                       "mines. "
+                            if current_npc_interacting.name == "zerah":
+                                player.quest_status["elementary elementals"] = True
+                                player.current_quests["elementary elementals"] = "Zerah asked you to defeat magmons" \
+                                                                                 "near the lava pool. "
                             quest_clicked = False
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
-                                                             torune_quest_window, accept_button, decline_button)
+                                                             torune_quest_window, voruke_quest_window,
+                                                             zerah_quest_window, accept_button, decline_button)
                         # if player chooses to decline, just close the quest window
                         if quest_buttons == "decline":
                             info_text_1 = ""
@@ -4602,7 +4657,8 @@ if __name__ == '__main__':
                             button_highlighted = False
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
-                                                             torune_quest_window, accept_button, decline_button)
+                                                             torune_quest_window, voruke_quest_window,
+                                                             zerah_quest_window, accept_button, decline_button)
 
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
@@ -4693,7 +4749,8 @@ if __name__ == '__main__':
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
                                                                          garan_quest_window,
                                                                          maurelle_quest_window, celeste_quest_window,
-                                                                         torune_quest_window, accept_button,
+                                                                         torune_quest_window, voruke_quest_window,
+                                                                         zerah_quest_window, accept_button,
                                                                          decline_button)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -4702,13 +4759,16 @@ if __name__ == '__main__':
                                                                                   garan_complete_quest_window,
                                                                                   maurelle_complete_quest_window,
                                                                                   celeste_complete_quest_window,
-                                                                                  torune_complete_quest_window)
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window)
                                             garan_complete_shown = True
                                             quest_clicked = True
                                 else:
                                     drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                                      maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, accept_button, decline_button)
+                                                                     torune_quest_window, voruke_quest_window,
+                                                                     zerah_quest_window, accept_button, decline_button)
                                     quest_clicked = False
 
                             # celeste npc, check player's quest progress and reward if completed -----------------------
@@ -4757,7 +4817,8 @@ if __name__ == '__main__':
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
                                                                          garan_quest_window,
                                                                          maurelle_quest_window, celeste_quest_window,
-                                                                         torune_quest_window, accept_button,
+                                                                         torune_quest_window, voruke_quest_window,
+                                                                         zerah_quest_window, accept_button,
                                                                          decline_button)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -4766,13 +4827,16 @@ if __name__ == '__main__':
                                                                                   garan_complete_quest_window,
                                                                                   maurelle_complete_quest_window,
                                                                                   celeste_complete_quest_window,
-                                                                                  torune_complete_quest_window)
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window)
                                             celeste_complete_shown = True
                                             quest_clicked = True
                                 else:
                                     drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                                      maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, accept_button, decline_button)
+                                                                     torune_quest_window, voruke_quest_window,
+                                                                     zerah_quest_window, accept_button, decline_button)
                                     quest_clicked = False
 
                             # maurelle npc, check player's quest progress and reward if completed ----------------------
@@ -4822,7 +4886,8 @@ if __name__ == '__main__':
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
                                                                          garan_quest_window,
                                                                          maurelle_quest_window, celeste_quest_window,
-                                                                         torune_quest_window, accept_button,
+                                                                         torune_quest_window, voruke_quest_window,
+                                                                         zerah_quest_window, accept_button,
                                                                          decline_button)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -4831,13 +4896,16 @@ if __name__ == '__main__':
                                                                                   garan_complete_quest_window,
                                                                                   maurelle_complete_quest_window,
                                                                                   celeste_complete_quest_window,
-                                                                                  torune_complete_quest_window)
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window)
                                             maurelle_complete_shown = True
                                             quest_clicked = True
                                 else:
                                     drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                                      maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, accept_button, decline_button)
+                                                                     torune_quest_window, voruke_quest_window,
+                                                                     zerah_quest_window, accept_button, decline_button)
                                     quest_clicked = False
 
                             # torune npc, check player's quest progress and reward if completed ------------------------
@@ -4885,7 +4953,8 @@ if __name__ == '__main__':
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
                                                                          garan_quest_window,
                                                                          maurelle_quest_window, celeste_quest_window,
-                                                                         torune_quest_window, accept_button,
+                                                                         torune_quest_window, voruke_quest_window,
+                                                                         zerah_quest_window, accept_button,
                                                                          decline_button)
                                         quest_clicked = True
                                     else:  # quest complete popup
@@ -4894,13 +4963,152 @@ if __name__ == '__main__':
                                                                                   garan_complete_quest_window,
                                                                                   maurelle_complete_quest_window,
                                                                                   celeste_complete_quest_window,
-                                                                                  torune_complete_quest_window)
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window)
                                             torune_complete_shown = True
                                             quest_clicked = True
                                 else:
                                     drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                                      maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, accept_button, decline_button)
+                                                                     torune_quest_window, voruke_quest_window,
+                                                                     zerah_quest_window, accept_button, decline_button)
+                                    quest_clicked = False
+
+                            # voruke npc, check player's quest progress and reward if completed ------------------------
+                            if current_npc_interacting.name == "voruke":
+                                if player.quest_progress["band hammer"] == 4 and not \
+                                        player.quest_complete["band hammer"]:
+                                    if len(player.items) < 16:
+                                        player.quest_complete["band hammer"] = True
+                                        player.current_quests["band hammer"] = "You completed this quest!"
+                                        info_text_1 = "You've completed Voruke's quest!"
+                                        info_text_2 = "Your game has been saved. "
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.star_power += 1
+                                        player.experience += 50
+                                        if player.experience >= 100:
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            leveled = True
+                                            loot_level_tic = time.perf_counter()
+                                        player.reputation["nuldar"] += 10
+                                        # autosave on quest complete
+                                        try:
+                                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                         sharp_sense_learned, saved, npc_garan.gift,
+                                                                         rest_recover_show, knowledge_academia_show,
+                                                                         offense_upgraded, defense_upgraded,
+                                                                         quest_guide_shown, battle_guide_shown,
+                                                                         role_guide_shown, upgrade_guide_shown,
+                                                                         rest_shown_before, quest_highlight_popup,
+                                                                         first_item_cond, bridge_not_repaired,
+                                                                         nede_ghoul_defeated,
+                                                                         bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                         crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                         switch_3, muchador_defeated, has_key,
+                                                                         mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                         gloves_obtained, korlok_attuned,
+                                                                         eldream_attuned)
+                                        except PermissionError:
+                                            pass
+                                    else:
+                                        info_text_1 = "You completed the quest, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if not player.quest_complete["band hammer"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window,
+                                                                         celeste_quest_window,
+                                                                         torune_quest_window, voruke_quest_window,
+                                                                         zerah_quest_window, accept_button,
+                                                                         decline_button)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not torune_complete_shown:
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window)
+                                            torune_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box_draw(current_npc_interacting, False,
+                                                                     garan_quest_window, maurelle_quest_window,
+                                                                     celeste_quest_window, torune_quest_window,
+                                                                     voruke_quest_window, zerah_quest_window,
+                                                                     accept_button, decline_button)
+                                    quest_clicked = False
+
+                            # voruke npc, check player's quest progress and reward if completed ------------------------
+                            if current_npc_interacting.name == "zerah":
+                                if player.quest_progress["elementary elementals"] == 4 and not \
+                                        player.quest_complete["elementary elementals"]:
+                                    if len(player.items) < 16:
+                                        player.quest_complete["elementary elementals"] = True
+                                        player.current_quests["elementary elementals"] = "You completed this quest!"
+                                        info_text_1 = "You've completed Zerah's quest!"
+                                        info_text_2 = "Your game has been saved. "
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.star_power += 1
+                                        player.experience += 50
+                                        if player.experience >= 100:
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            leveled = True
+                                            loot_level_tic = time.perf_counter()
+                                        player.reputation["nuldar"] += 10
+                                        # autosave on quest complete
+                                        try:
+                                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                         sharp_sense_learned, saved, npc_garan.gift,
+                                                                         rest_recover_show, knowledge_academia_show,
+                                                                         offense_upgraded, defense_upgraded,
+                                                                         quest_guide_shown, battle_guide_shown,
+                                                                         role_guide_shown, upgrade_guide_shown,
+                                                                         rest_shown_before, quest_highlight_popup,
+                                                                         first_item_cond, bridge_not_repaired,
+                                                                         nede_ghoul_defeated,
+                                                                         bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                         crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                         switch_3, muchador_defeated, has_key,
+                                                                         mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                         gloves_obtained, korlok_attuned,
+                                                                         eldream_attuned)
+                                        except PermissionError:
+                                            pass
+                                    else:
+                                        info_text_1 = "You completed the quest, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if not player.quest_complete["elementary elementals"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window, maurelle_quest_window,
+                                                                         celeste_quest_window, torune_quest_window,
+                                                                         voruke_quest_window, zerah_quest_window,
+                                                                         accept_button, decline_button)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not torune_complete_shown:
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window)
+                                            torune_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box_draw(current_npc_interacting, False,
+                                                                     garan_quest_window, maurelle_quest_window,
+                                                                     celeste_quest_window, torune_quest_window,
+                                                                     voruke_quest_window, zerah_quest_window,
+                                                                     accept_button, decline_button)
                                     quest_clicked = False
 
                         if npc_button == "leave":
@@ -4914,7 +5122,8 @@ if __name__ == '__main__':
                             drawing_functions.quest_complete_box.clear()
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
-                                                             torune_quest_window, accept_button, decline_button)
+                                                             torune_quest_window, voruke_quest_window,
+                                                             zerah_quest_window, accept_button, decline_button)
 
                     # outside event loop -------------------------------------------------------------------------------
                     if not encounter_started:
@@ -4925,9 +5134,12 @@ if __name__ == '__main__':
                         encounter_started = True
 
                     # draw objects to screen related to npc interaction scenario ---------------------------------------
-                    if player.current_zone == "seldon" and in_npc_interaction and not in_over_world and not in_shop \
-                            and not in_inn and not in_academia and not in_battle:
-                        screen.blit(seldon_district_battle, (0, 0))
+                    if in_npc_interaction and not in_over_world and not in_shop and not in_inn and not \
+                            in_academia and not in_battle:
+                        if player.current_zone == "seldon":
+                            screen.blit(seldon_district_battle, (0, 0))
+                        if player.current_zone == "korlok":
+                            screen.blit(korlok_district_battle, (0, 0))
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
@@ -4946,6 +5158,10 @@ if __name__ == '__main__':
                             screen.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
                         if current_npc_interacting.name == "torune":
                             screen.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
+                        if current_npc_interacting.name == "voruke":
+                            screen.blit(npc_voruke_interaction.surf, npc_voruke_interaction.rect)
+                        if current_npc_interacting.name == "zerah":
+                            screen.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
                         screen.blit(npc_name_plate.surf, npc_name_plate.rect)
                         screen.blit(message_box.surf, message_box.rect)
                         screen.blit(star_power_meter.surf, star_power_meter.rect)
@@ -5029,11 +5245,16 @@ if __name__ == '__main__':
                                 # noinspection PyUnboundLocalVariable
                                 player.offense = original_offense
 
-                            player.current_zone = "seldon"
-                            player.x_coordinate = 425
-                            player.y_coordinate = 690
-
-                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            if player.current_zone == "korlok" or player.current_zone == "mines":
+                                player.current_zone = "korlok"
+                                player.x_coordinate = 895
+                                player.y_coordinate = 325
+                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            else:
+                                player.current_zone = "seldon"
+                                player.x_coordinate = 860
+                                player.y_coordinate = 655
+                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
                             # player returns in a weakened state
                             player.health = 25

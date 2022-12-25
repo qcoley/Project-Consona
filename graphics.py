@@ -169,7 +169,9 @@ def load_graphics():
                    "player_scout_sense_sorae_attack": "", "player_fighter_sorae_strike": "",
                    "garan_down": "", "garan_up": "", "garan_left": "", "garan_right": "", "maurelle_down": "",
                    "maurelle_up": "", "maurelle_left": "", "maurelle_right": "", "celeste_down": "",
-                   "celeste_up": "", "celeste_left": "", "celeste_right": "", "nede_left": "", "nede_right": "",
+                   "celeste_up": "", "celeste_left": "", "celeste_right": "", "voruke_down": "",
+                   "voruke_up": "", "voruke_left": "", "voruke_right": "", "zerah_down": "",
+                   "zerah_up": "", "zerah_left": "", "zerah_right": "", "nede_left": "", "nede_right": "",
                    "nede_high_left": "", "nede_high_right": "", "guard_down": "", "guard_up": "",
                    "guard_left": "", "guard_right": "", "torune_down": "", "torune_up": "", "torune_left": "",
                    "torune_right": "", "garan_interaction": "", "maurelle_interaction": "",
@@ -278,7 +280,9 @@ def load_graphics():
                    "nuldar_herb_building": "", "nuldar_inn_building": "", "nuldar_shop_building": "",
                    "reservoir_enter": "", "korlok_hearth_screen": "", "magmon": "", "bandile": "", "mines_entrance": "",
                    "korlok_battle_screen": "", "magmon_battle": "", "magmon_attack": "", "bandile_battle": "",
-                   "bandile_attack": "", "korlok_mines": "", "mines_wall": "", "mines_light": ""}
+                   "bandile_attack": "", "korlok_mines": "", "mines_wall": "", "mines_light": "",
+                   "mines_battle_screen": "", "voruke_interaction": "", "zerah_interaction": "", "voruke_quest": "",
+                   "voruke_complete": "", "zerah_quest": "", "zerah_complete": "", "ember": "", "band": "", "flow": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -292,6 +296,7 @@ def load_graphics():
     korlok_bg_screen = pygame.image.load(resource_path('resources/art/bg_korlok_district.png')).convert_alpha()
     korlok_mines_screen = pygame.image.load(resource_path('resources/art/bg_korlok_mines.png')).convert_alpha()
     korlok_battle_screen = pygame.image.load(resource_path('resources/art/bg_korlok_battle_screen.png')).convert_alpha()
+    mines_battle_screen = pygame.image.load(resource_path('resources/art/bg_mines_battle.png')).convert_alpha()
     rohir_river_screen = pygame.image.load(resource_path('resources/art/bg_rohir_river.png')).convert_alpha()
     reservoir_a_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_a.png')).convert_alpha()
     reservoir_b_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_b.png')).convert_alpha()
@@ -389,6 +394,7 @@ def load_graphics():
     loaded_dict["reservoir_battle_screen"] = reservoir_battle
     loaded_dict["seldon_battle_screen"] = seldon_battle_screen
     loaded_dict["korlok_battle_screen"] = korlok_battle_screen
+    loaded_dict["mines_battle_screen"] = mines_battle_screen
     loaded_dict["seldon_shop_screen"] = seldon_shop_screen
     loaded_dict["seldon_inn_screen"] = seldon_inn_screen
     loaded_dict["seldon_academia_screen"] = seldon_academia_screen
@@ -874,6 +880,20 @@ def load_graphics():
     loaded_dict["torune_up"] = torune_sheet[1]
     loaded_dict["torune_left"] = torune_sheet[2]
     loaded_dict["torune_right"] = torune_sheet[3]
+    # voruke npc -------------------------------------------------------------------------------------------------------
+    voruke_url = resource_path('resources/art/sprites_voruke.png')
+    voruke_sheet = sprite_sheet((45, 62), voruke_url)
+    loaded_dict["voruke_down"] = voruke_sheet[0]
+    loaded_dict["voruke_up"] = voruke_sheet[1]
+    loaded_dict["voruke_left"] = voruke_sheet[2]
+    loaded_dict["voruke_right"] = voruke_sheet[3]
+    # zerah npc -------------------------------------------------------------------------------------------------------
+    zerah_url = resource_path('resources/art/sprites_zerah.png')
+    zerah_sheet = sprite_sheet((45, 62), zerah_url)
+    loaded_dict["zerah_down"] = zerah_sheet[0]
+    loaded_dict["zerah_up"] = zerah_sheet[1]
+    loaded_dict["zerah_left"] = zerah_sheet[2]
+    loaded_dict["zerah_right"] = zerah_sheet[3]
     # npc interactions -------------------------------------------------------------------------------------------------
     npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
     npc_interactions_sheet = sprite_sheet((220, 300), npc_interactions_url)
@@ -881,6 +901,8 @@ def load_graphics():
     loaded_dict["maurelle_interaction"] = npc_interactions_sheet[1]
     loaded_dict["celeste_interaction"] = npc_interactions_sheet[2]
     loaded_dict["torune_interaction"] = npc_interactions_sheet[3]
+    loaded_dict["voruke_interaction"] = npc_interactions_sheet[4]
+    loaded_dict["zerah_interaction"] = npc_interactions_sheet[5]
     # interaction popup ------------------------------------------------------------------------------------------------
     interaction_popup_url = resource_path('resources/art/popup_interaction.png')
     interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)
@@ -964,6 +986,9 @@ def load_graphics():
     loaded_dict["shiny_rock_img"] = items_sheet[9]
     loaded_dict["key_img"] = items_sheet[10]
     loaded_dict["gloves"] = items_sheet[11]
+    loaded_dict["ember"] = items_sheet[12]
+    loaded_dict["band"] = items_sheet[13]
+    loaded_dict["flowe"] = items_sheet[14]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -1094,6 +1119,8 @@ def load_graphics():
     loaded_dict["maurelle_quest"] = quest_windows_sheet[1]
     loaded_dict["torune_quest"] = quest_windows_sheet[2]
     loaded_dict["celeste_quest"] = quest_windows_sheet[3]
+    loaded_dict["voruke_quest"] = quest_windows_sheet[4]
+    loaded_dict["zerah_quest"] = quest_windows_sheet[5]
     # quest complete popups --------------------------------------------------------------------------------------------
     quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
     quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)
@@ -1101,6 +1128,8 @@ def load_graphics():
     loaded_dict["maurelle_complete"] = quest_popups_sheet[1]
     loaded_dict["celeste_complete"] = quest_popups_sheet[2]
     loaded_dict["torune_complete"] = quest_popups_sheet[3]
+    loaded_dict["voruke_complete"] = quest_popups_sheet[4]
+    loaded_dict["zerah_complete"] = quest_popups_sheet[5]
     # quest stars ------------------------------------------------------------------------------------------------------
     quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
     quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)

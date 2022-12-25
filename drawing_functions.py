@@ -171,6 +171,18 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["equip_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "cracked ember":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_boss_key_img"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+        if inventory_item.name == "broken band":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_boss_key_img"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -509,7 +521,7 @@ def level_up_draw(level_up_win, player, level_up_font, draw_condition):
 
 
 def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
-                   torune_quest_window, accept_button, decline_button):
+                   torune_quest_window, voruke_quest_window, zerah_quest_window, accept_button, decline_button):
 
     if not draw_condition:
         quest_box.clear()
@@ -522,13 +534,17 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
             quest_box.append(celeste_quest_window)
         if quest_npc.name == "torune":
             quest_box.append(torune_quest_window)
+        if quest_npc.name == "voruke":
+            quest_box.append(voruke_quest_window)
+        if quest_npc.name == "zerah":
+            quest_box.append(zerah_quest_window)
 
         quest_box.append(accept_button)
         quest_box.append(decline_button)
 
 
 def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
-                        torune_quest_window):
+                        torune_quest_window, voruke_quest_window, zerah_quest_window):
 
     if not draw_condition:
         quest_complete_box.clear()
@@ -541,6 +557,10 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
             quest_complete_box.append(celeste_quest_window)
         if quest_npc.name == "torune":
             quest_complete_box.append(torune_quest_window)
+        if quest_npc.name == "voruke":
+            quest_complete_box.append(voruke_quest_window)
+        if quest_npc.name == "zerah":
+            quest_complete_box.append(zerah_quest_window)
 
 
 def equipment_updates(player, graphic):
@@ -627,6 +647,14 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "power gloves":
                     item_here.update(first_coord, second_coord, graphic["gloves"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "cracked ember":
+                    item_here.update(first_coord, second_coord, graphic["ember"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "broken band":
+                    item_here.update(first_coord, second_coord, graphic["band"])
                     player_items.append(item_here)
                     inventory_counter += 1
 

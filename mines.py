@@ -3,6 +3,7 @@ import time
 
 import drawing_functions
 import combat_scenario
+import gameplay_functions
 
 
 def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_overworld_music,
@@ -10,9 +11,16 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, offense_upgraded, defense_upgraded,
                  level_up_font, button_highlighted, button_highlight, in_over_world, interacted, info_text_1,
                  info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic, in_battle, in_npc_interaction,
-                 movement_able, current_enemy_battling, mine_enemies, player_battle_sprite, snake_battle_sprite,
+                 movement_able, current_enemy_battling, player_battle_sprite, snake_battle_sprite,
                  ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, barrier_active,
-                 sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, mines_wall, mines_light):
+                 sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, seldon_enemies, korlok_enemies,
+                 snakes, ghouls, magmons, interactables_seldon, interactables_korlok, Enemy, Item, UiElement,
+                 interactables_mines):
+
+    respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
+                                                      bandiles, interactables_seldon, interactables_korlok,
+                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement)
+    bandiles = respawned_dict["bandiles"]
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -26,7 +34,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     screen.blit(player.surf, player.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
-    enemy = pygame.sprite.spritecollideany(player, mine_enemies)
+    enemy = pygame.sprite.spritecollideany(player, bandiles)
     if enemy:
         interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
@@ -56,7 +64,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
 
     if player.x_coordinate > 660 and 685 < player.y_coordinate:
         player.current_zone = "korlok"
-        over_world_song_set = False
         in_over_world = True
         player.x_coordinate = 430
         player.y_coordinate = 430

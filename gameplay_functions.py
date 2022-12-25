@@ -362,44 +362,87 @@ def level_up(player, level_up_win, level_up_font):
 
 
 # function to respawn enemies if they are less than a specified amount active in game. spawns with random coord. and lvl
-def enemy_respawn(seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
-                  interactables_korlok, Enemy, Item, graphic_dict, UiElement):
+def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
+                  interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement):
 
-    snake_counter = 0
-    ghoul_counter = 0
-    # generate random coordinates and level for new enemy to spawn within boundaries and level range
-    # if not scaled, coordinates set to default boundaries
-    random_snake_x = random.randrange(150, 300)
-    random_snake_y = random.randrange(150, 300)
-    random_snake_level = random.randrange(1, 3)
-    random_ghoul_x = random.randrange(650, 900)
-    random_ghoul_y = random.randrange(150, 300)
-    random_ghoul_level = random.randrange(3, 6)
+    if player.current_zone == "seldon":
+        snake_counter = 0
+        ghoul_counter = 0
+        # generate random coordinates and level for new enemy to spawn within boundaries and level range
+        # if not scaled, coordinates set to default boundaries
+        random_snake_x = random.randrange(150, 300)
+        random_snake_y = random.randrange(150, 300)
+        random_snake_level = random.randrange(1, 4)
+        random_ghoul_x = random.randrange(650, 900)
+        random_ghoul_y = random.randrange(150, 300)
+        random_ghoul_level = random.randrange(4, 7)
 
-    # count current enemies active in game
-    for mob in seldon_enemies:
-        if mob.name == "snake":
-            snake_counter += 1
-        if mob.name == "ghoul":
-            ghoul_counter += 1
+        # count current enemies active in game
+        for mob in seldon_enemies:
+            if mob.name == "snake":
+                snake_counter += 1
+            if mob.name == "ghoul":
+                ghoul_counter += 1
 
-    # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
-    if snake_counter < 3:
-        new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                          Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]), graphic_dict["snake"],
-                          UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
-        snakes.add(new_snake)
-        seldon_enemies.add(new_snake)
-        interactables_seldon.add(new_snake)
+        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        if snake_counter < 3:
+            new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
+                              Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]), graphic_dict["snake"],
+                              UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
+            snakes.add(new_snake)
+            seldon_enemies.add(new_snake)
+            interactables_seldon.add(new_snake)
+        # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
+        if ghoul_counter < 3:
+            new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
+                              Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]), graphic_dict["ghoul"],
+                              UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
+            ghouls.add(new_ghoul)
+            seldon_enemies.add(new_ghoul)
+            interactables_seldon.add(new_ghoul)
 
-    # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
-    if ghoul_counter < 3:
-        new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
-                          Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]), graphic_dict["ghoul"],
-                          UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
-        ghouls.add(new_ghoul)
-        seldon_enemies.add(new_ghoul)
-        interactables_seldon.add(new_ghoul)
+    if player.current_zone == "korlok":
+        magmon_counter = 0
+        # generate random coordinates and level for new enemy to spawn within boundaries and level range
+        # if not scaled, coordinates set to default boundaries
+        random_magmon_x = random.randrange(100, 375)
+        random_magmon_y = random.randrange(125, 225)
+        random_magmon_level = random.randrange(6, 9)
+
+        # count current enemies active in game
+        for mob in magmons:
+            if mob.name == "magmon":
+                magmon_counter += 1
+
+        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        if magmon_counter < 3:
+            new_magmon = Enemy("magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
+                               True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
+                               graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
+            magmons.add(new_magmon)
+            korlok_enemies.add(new_magmon)
+            interactables_korlok.add(new_magmon)
+
+    if player.current_zone == "mines":
+        bandile_counter = 0
+        # generate random coordinates and level for new enemy to spawn within boundaries and level range
+        # if not scaled, coordinates set to default boundaries
+        random_bandile_x = random.randrange(655, 880)
+        random_bandile_y = random.randrange(165, 335)
+        random_bandile_level = random.randrange(8, 12)
+
+        # count current enemies active in game
+        for mob in bandiles:
+            if mob.name == "bandile":
+                bandile_counter += 1
+
+        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        if bandile_counter < 3:
+            new_bandile = Enemy("bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
+                                random_bandile_y, True, Item("broken band", "band", 200, 200, graphic_dict["band"]),
+                                graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
+            bandiles.add(new_bandile)
+            interactables_mines.add(new_bandile)
 
     respawn_dict = {"seldon_enemies": seldon_enemies, "snakes": snakes, "ghouls": ghouls,
                     "interactables_seldon": interactables_seldon, "interactables_korlok": interactables_korlok,

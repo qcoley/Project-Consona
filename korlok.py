@@ -3,6 +3,7 @@ import time
 
 import drawing_functions
 import combat_scenario
+import gameplay_functions
 
 
 def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, korlok_overworld_music,
@@ -14,10 +15,18 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     in_battle, in_shop, in_academia, in_inn, in_npc_interaction, movement_able, current_enemy_battling,
                     current_npc_interacting, current_building_entering, korlok_enemies, player_battle_sprite,
                     snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                    barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite):
+                    barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, voruke, cerah,
+                    npcs, seldon_enemies, snakes, ghouls, bandiles, interactables_seldon, interactables_korlok, Enemy,
+                    Item, UiElement, interactables_mines):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
-    hearth_stone.update(890, 252, graphic_dict["hearth_stone"])
+    hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
+
+    respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
+                                                      bandiles, interactables_seldon, interactables_korlok,
+                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement)
+    korlok_enemies = respawned_dict["korlok_enemies"]
+    magmons = respawned_dict["magmons"]
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -29,6 +38,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     screen.blit(rohir_gate.surf, rohir_gate.rect)
     for building in nuldar_buildings:
         screen.blit(building.surf, building.rect)
+    screen.blit(voruke.surf, voruke.rect)
+    screen.blit(cerah.surf, cerah.rect)
     screen.blit(mines_entrance.surf, mines_entrance.rect)
     screen.blit(hearth_stone.surf, hearth_stone.rect)
     for magmon in magmons:
@@ -57,6 +68,35 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             in_over_world = False
             in_battle = True
 
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
+                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                                              magmon_battle_sprite, bandile_battle_sprite, barrier_active,
+                                              sharp_sense_active, in_battle, in_npc_interaction, graphic_dict)
+
+    # if player collides with npc sprite and chooses to interact with it
+    npc = pygame.sprite.spritecollideany(player, npcs)
+    if npc:
+        interaction_popup.update(npc.x_coordinate, npc.y_coordinate - 50, graphic_dict["popup_interaction_purple"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(npc.name), True, "black", (203, 195, 227))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (npc.x_coordinate, npc.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to talk to NPC."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                and not in_academia and not in_npc_interaction:
+            interacted = False
+            current_npc_interacting = npc
+            in_over_world = False
+            in_npc_interaction = True
+            movement_able = False
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
