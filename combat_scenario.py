@@ -312,6 +312,28 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 else:
                     combat_event_dictionary["quest update"] = "No"
 
+                # if player is on quest to kill magmons
+                if enemy_combating.kind == "magmon":
+                    if player.quest_status["elementary elementals"]:
+                        if player.quest_progress["elementary elementals"] < 4:
+                            player.quest_progress["elementary elementals"] = \
+                                player.quest_progress["elementary elementals"] + 1
+                            quest_string = f"{player.quest_status['elementary elementals']}/4 magmons"
+                            combat_event_dictionary["quest update"] = quest_string
+                else:
+                    combat_event_dictionary["quest update"] = "No"
+
+                # if player is on quest to kill bandiles
+                if enemy_combating.kind == "bandile":
+                    if player.quest_status["band hammer"]:
+                        if player.quest_progress["band hammer"] < 4:
+                            player.quest_progress["band hammer"] = \
+                                player.quest_progress["band hammer"] + 1
+                            quest_string = f"{player.quest_status['band hammer']}/4 bandiles"
+                            combat_event_dictionary["quest update"] = quest_string
+                else:
+                    combat_event_dictionary["quest update"] = "No"
+
                 # experienced gained by player from defeating enemy
                 if player.level <= enemy_combating.level + 1:
                     experience = int((enemy_combating.level / player.level) * 30)

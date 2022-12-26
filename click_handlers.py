@@ -183,6 +183,12 @@ def inventory_event_item(inventory_event_here, pygame):
             if clicked_element[0].name == "bone dust":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "cracked ember":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "broken band":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "basic staff":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
@@ -516,6 +522,10 @@ def sell_event_item(sell_event, pygame):
             if clicked_element[0].name == "shiny rock":
                 return clicked_element[0]
             if clicked_element[0].name == "bone dust":
+                return clicked_element[0]
+            if clicked_element[0].name == "cracked ember":
+                return clicked_element[0]
+            if clicked_element[0].name == "broken band":
                 return clicked_element[0]
             if clicked_element[0].name == "basic staff":
                 return clicked_element[0]

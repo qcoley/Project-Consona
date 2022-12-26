@@ -17,7 +17,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                     barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, voruke, cerah,
                     npcs, seldon_enemies, snakes, ghouls, bandiles, interactables_seldon, interactables_korlok, Enemy,
-                    Item, UiElement, interactables_mines):
+                    Item, UiElement, interactables_mines, quest_star_garan, quest_star_maurelle,
+                    quest_star_celeste, quest_star_torune, star_voruke, star_zerah):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
     hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
@@ -27,6 +28,15 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement)
     korlok_enemies = respawned_dict["korlok_enemies"]
     magmons = respawned_dict["magmons"]
+
+    for enemy_sprite in magmons:  # update enemy sprite to a highlighted version
+        if not player.quest_complete["elementary elementals"]:
+            if player.quest_status["elementary elementals"]:
+                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                          graphic_dict["magmon_high"])
+    for enemy_sprite in magmons:
+        if player.quest_complete["elementary elementals"]:
+            enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate, graphic_dict["magmon"])
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -44,6 +54,11 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     screen.blit(hearth_stone.surf, hearth_stone.rect)
     for magmon in magmons:
         screen.blit(magmon.surf, magmon.rect)
+
+    gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
+                                              quest_star_torune, graphic_dict["quest_progress_star"],
+                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah)
+
     screen.blit(player.surf, player.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it

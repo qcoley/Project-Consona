@@ -22,6 +22,15 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement)
     bandiles = respawned_dict["bandiles"]
 
+    for enemy_sprite in bandiles:  # update enemy sprite to a highlighted version
+        if not player.quest_complete["band hammer"]:
+            if player.quest_status["band hammer"]:
+                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                          graphic_dict["bandile_high"])
+    for enemy_sprite in bandiles:
+        if player.quest_complete["band hammer"]:
+            enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate, graphic_dict["bandile"])
+
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(korlok_overworld_music)

@@ -8,34 +8,50 @@ import drawing_functions
 
 # quest stars for npcs that update based on player quest progress
 def npc_quest_star_updates(screen, player, star_garan, star_maurelle, star_celeste, star_torune,
-                           quest_progress_star, quest_complete_star):
-    if not player.quest_complete["sneaky snakes"]:
-        screen.blit(star_garan.surf, star_garan.rect)
-    if player.quest_progress["sneaky snakes"] == 4:
-        star_garan.update(210, 390, quest_complete_star)
-    if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
-        star_garan.update(210, 390, quest_progress_star)
+                           quest_progress_star, quest_complete_star, star_voruke, star_zerah):
+    if player.current_zone == "seldon":
+        if not player.quest_complete["sneaky snakes"]:
+            screen.blit(star_garan.surf, star_garan.rect)
+        if player.quest_progress["sneaky snakes"] == 4:
+            star_garan.update(210, 390, quest_complete_star)
+        if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
+            star_garan.update(210, 390, quest_progress_star)
 
-    if not player.quest_complete["where's nede?"]:
-        screen.blit(star_celeste.surf, star_celeste.rect)
-    if player.quest_progress["where's nede?"] == 1:
-        star_celeste.update(760, 373, quest_complete_star)
-    if player.quest_status["where's nede?"] and player.quest_progress["where's nede?"] != 1:
-        star_celeste.update(760, 373, quest_progress_star)
+        if not player.quest_complete["where's nede?"]:
+            screen.blit(star_celeste.surf, star_celeste.rect)
+        if player.quest_progress["where's nede?"] == 1:
+            star_celeste.update(760, 373, quest_complete_star)
+        if player.quest_status["where's nede?"] and player.quest_progress["where's nede?"] != 1:
+            star_celeste.update(760, 373, quest_progress_star)
 
-    if not player.quest_complete["village repairs"]:
-        screen.blit(star_maurelle.surf, star_maurelle.rect)
-    if player.quest_progress["village repairs"] == 4:
-        star_maurelle.update(744, 575, quest_complete_star)
-    if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
-        star_maurelle.update(744, 575, quest_progress_star)
+        if not player.quest_complete["village repairs"]:
+            screen.blit(star_maurelle.surf, star_maurelle.rect)
+        if player.quest_progress["village repairs"] == 4:
+            star_maurelle.update(744, 575, quest_complete_star)
+        if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
+            star_maurelle.update(744, 575, quest_progress_star)
 
-    if not player.quest_complete["ghouled again"]:
-        screen.blit(star_torune.surf, star_torune.rect)
-    if player.quest_progress["ghouled again"] == 4:
-        star_torune.update(430, 75, quest_complete_star)
-    if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
-        star_torune.update(430, 75, quest_progress_star)
+        if not player.quest_complete["ghouled again"]:
+            screen.blit(star_torune.surf, star_torune.rect)
+        if player.quest_progress["ghouled again"] == 4:
+            star_torune.update(430, 75, quest_complete_star)
+        if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
+            star_torune.update(430, 75, quest_progress_star)
+
+    if player.current_zone == "korlok":
+        if not player.quest_complete["band hammer"]:
+            screen.blit(star_voruke.surf, star_voruke.rect)
+        if player.quest_progress["band hammer"] == 4:
+            star_voruke.update(262, 385, quest_complete_star)
+        if player.quest_status["band hammer"] and player.quest_progress["band hammer"] != 4:
+            star_voruke.update(262, 385, quest_progress_star)
+
+        if not player.quest_complete["elementary elementals"]:
+            screen.blit(star_zerah.surf, star_zerah.rect)
+        if player.quest_progress["elementary elementals"] == 4:
+            star_zerah.update(651, 50, quest_complete_star)
+        if player.quest_status["elementary elementals"] and player.quest_progress["elementary elementals"] != 4:
+            star_zerah.update(651, 50, quest_progress_star)
 
 
 def load_game(player, Item, graphics):

@@ -282,7 +282,9 @@ def load_graphics():
                    "korlok_battle_screen": "", "magmon_battle": "", "magmon_attack": "", "bandile_battle": "",
                    "bandile_attack": "", "korlok_mines": "", "mines_wall": "", "mines_light": "",
                    "mines_battle_screen": "", "voruke_interaction": "", "zerah_interaction": "", "voruke_quest": "",
-                   "voruke_complete": "", "zerah_quest": "", "zerah_complete": "", "ember": "", "band": "", "flow": ""}
+                   "voruke_complete": "", "zerah_quest": "", "zerah_complete": "", "ember": "", "band": "", "flow": "",
+                   "magmon_high": "", "bandile_high": "", "info_ember": "", "info_band": "", "info_flow": "",
+                   "s_ember_img": "", "s_band_img": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -927,6 +929,8 @@ def load_graphics():
     enemies_high_sheet = sprite_sheet((50, 75), enemies_high_url)
     loaded_dict["snake_high"] = enemies_high_sheet[0]
     loaded_dict["ghoul_high"] = enemies_high_sheet[1]
+    loaded_dict["magmon_high"] = enemies_high_sheet[2]
+    loaded_dict["bandile_high"] = enemies_high_sheet[3]
     # enemies battle ---------------------------------------------------------------------------------------------------
     enemies_battle_url = resource_path('resources/art/sprites_enemies_battle.png')
     enemies_battle_sheet = sprite_sheet((300, 280), enemies_battle_url)
@@ -1004,6 +1008,9 @@ def load_graphics():
     loaded_dict["info_shiny_rock_img"] = items_info_sheet[9]
     loaded_dict["info_boss_key_img"] = items_info_sheet[10]
     loaded_dict["info_gloves"] = items_info_sheet[11]
+    loaded_dict["info_ember"] = items_info_sheet[12]
+    loaded_dict["info_band"] = items_info_sheet[13]
+    loaded_dict["info_flowe"] = items_info_sheet[14]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -1028,6 +1035,8 @@ def load_graphics():
     loaded_dict["s_basic_bow_img"] = sell_items_sheet[7]
     loaded_dict["s_bone_dust_img"] = sell_items_sheet[8]
     loaded_dict["s_shiny_rock_img"] = sell_items_sheet[9]
+    loaded_dict["s_ember_img"] = sell_items_sheet[10]
+    loaded_dict["s_band_img"] = sell_items_sheet[11]
     # player info windows ----------------------------------------------------------------------------------------------
     player_info_url = resource_path('resources/art/overlay_info_sheets.png')
     player_info_sheet = sprite_sheet((500, 525), player_info_url)

@@ -172,13 +172,13 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
             item_info_window.append(item_info_button)
             return inventory_item
         if inventory_item.name == "cracked ember":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_boss_key_img"])
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_ember"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
                                     graphic["ok_button_img"])
             item_info_window.append(item_info_button)
         if inventory_item.name == "broken band":
-            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_boss_key_img"])
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_band"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
                                     graphic["ok_button_img"])
@@ -295,6 +295,18 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "bone dust":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_bone_dust_img"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "cracked ember":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_ember_img"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "broken band":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_band_img"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)

@@ -1833,10 +1833,14 @@ if __name__ == '__main__':
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
     enemy_status_bar_back = UiElement("enemy bar backdrop", 700, 90, graphic_dict["enemy_bar_backdrop"])
+
     quest_star_garan = UiElement("quest star garan", 210, 390, graphic_dict["quest_start_star"])
     quest_star_maurelle = UiElement("quest star maurelle", 744, 575, graphic_dict["quest_start_star"])
     quest_star_celeste = UiElement("quest star maurelle", 760, 373, graphic_dict["quest_start_star"])
     quest_star_torune = UiElement("quest star torune", 430, 75, graphic_dict["quest_start_star"])
+    quest_star_voruke = UiElement("quest star voruke", 262, 385, graphic_dict["quest_start_star"])
+    quest_star_zerah = UiElement("quest star zerah", 651, 50, graphic_dict["quest_start_star"])
+
     player_battle_sprite = BattleCharacter("stan battle", 320, 460, graphic_dict["player_no_role_amuna_battle"])
     snake_battle_sprite = BattleCharacter("snake battle", 715, 250, graphic_dict["snake_battle"])
     ghoul_battle_sprite = BattleCharacter("ghoul battle", 698, 280, graphic_dict["ghoul_battle"])
@@ -2911,7 +2915,7 @@ if __name__ == '__main__':
                                                              movement_able, current_enemy_battling,
                                                              current_npc_interacting, current_building_entering,
                                                              magmon_battle_sprite, bandile_battle_sprite,
-                                                             interactables_mines)
+                                                             interactables_mines, quest_star_voruke, quest_star_zerah)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -2982,7 +2986,9 @@ if __name__ == '__main__':
                                                              magmon_battle_sprite, bandile_battle_sprite, npc_voruke,
                                                              npc_zerah, npcs_korlok, seldon_enemies, snakes, ghouls,
                                                              bandiles, interactables_seldon, interactables_korlok,
-                                                             Enemy, Item, UiElement, interactables_mines)
+                                                             Enemy, Item, UiElement, interactables_mines,
+                                                             quest_star_garan, quest_star_maurelle, quest_star_celeste,
+                                                             quest_star_torune, quest_star_voruke, quest_star_zerah)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -5247,8 +5253,8 @@ if __name__ == '__main__':
 
                             if player.current_zone == "korlok" or player.current_zone == "mines":
                                 player.current_zone = "korlok"
-                                player.x_coordinate = 895
-                                player.y_coordinate = 325
+                                player.x_coordinate = 882
+                                player.y_coordinate = 290
                                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                             else:
                                 player.current_zone = "seldon"
@@ -5267,6 +5273,17 @@ if __name__ == '__main__':
                                 enemy.health = 100
                                 # noinspection PyTypeChecker
                                 combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                            for enemy in korlok_enemies:
+                                enemy.health = 100
+                                # noinspection PyTypeChecker
+                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                            for enemy in bandiles:
+                                enemy.health = 100
+                                # noinspection PyTypeChecker
+                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
+
+                            muchador.health = 100
+                            combat_scenario.enemy_health_bar(muchador, graphic_dict)
 
                     elif event.type == QUIT:
                         pygame.mixer.quit()
