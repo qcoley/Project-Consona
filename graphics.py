@@ -284,7 +284,7 @@ def load_graphics():
                    "mines_battle_screen": "", "voruke_interaction": "", "zerah_interaction": "", "voruke_quest": "",
                    "voruke_complete": "", "zerah_quest": "", "zerah_complete": "", "ember": "", "band": "", "flow": "",
                    "magmon_high": "", "bandile_high": "", "info_ember": "", "info_band": "", "info_flow": "",
-                   "s_ember_img": "", "s_band_img": ""}
+                   "s_ember_img": "", "s_band_img": "", "korlok_shop_screen": "", "korlok_inn_screen": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -298,6 +298,8 @@ def load_graphics():
     korlok_bg_screen = pygame.image.load(resource_path('resources/art/bg_korlok_district.png')).convert_alpha()
     korlok_mines_screen = pygame.image.load(resource_path('resources/art/bg_korlok_mines.png')).convert_alpha()
     korlok_battle_screen = pygame.image.load(resource_path('resources/art/bg_korlok_battle_screen.png')).convert_alpha()
+    korlok_shop_screen = pygame.image.load(resource_path('resources/art/bg_korlok_shop.png')).convert_alpha()
+    korlok_inn_screen = pygame.image.load(resource_path('resources/art/bg_korlok_inn.png')).convert_alpha()
     mines_battle_screen = pygame.image.load(resource_path('resources/art/bg_mines_battle.png')).convert_alpha()
     rohir_river_screen = pygame.image.load(resource_path('resources/art/bg_rohir_river.png')).convert_alpha()
     reservoir_a_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_a.png')).convert_alpha()
@@ -398,7 +400,9 @@ def load_graphics():
     loaded_dict["korlok_battle_screen"] = korlok_battle_screen
     loaded_dict["mines_battle_screen"] = mines_battle_screen
     loaded_dict["seldon_shop_screen"] = seldon_shop_screen
+    loaded_dict["korlok_shop_screen"] = korlok_shop_screen
     loaded_dict["seldon_inn_screen"] = seldon_inn_screen
+    loaded_dict["korlok_inn_screen"] = korlok_inn_screen
     loaded_dict["seldon_academia_screen"] = seldon_academia_screen
     loaded_dict["seldon_hearth_screen"] = seldon_hearth_screen
     loaded_dict["game_over_screen"] = game_over_screen

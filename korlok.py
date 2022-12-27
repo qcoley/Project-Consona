@@ -119,6 +119,39 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               magmon_battle_sprite, bandile_battle_sprite, barrier_active,
                                               sharp_sense_active, in_battle, in_npc_interaction, graphic_dict)
 
+    # player collides with building, enters if chosen to interact and starts related scenario
+    building = pygame.sprite.spritecollideany(player, nuldar_buildings)
+    if building and in_over_world:
+
+        interaction_popup.update(building.x_coordinate, building.y_coordinate - 50,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(building.name), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (building.x_coordinate, building.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        # lets player know if they are in range of building they can press f to enter it
+        info_text_1 = "Press 'F' key to enter building."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted:
+            current_building_entering = building
+            movement_able = False
+            in_over_world = False
+            over_world_song_set = False
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+
+            if building.name == "shop":
+                in_shop = True
+            if building.name == "inn":
+                in_inn = True
+            if building.name == "academia":
+                in_academia = True
+
     if pygame.sprite.collide_rect(player, rohir_gate):
         interaction_popup.update(rohir_gate.x_coordinate, rohir_gate.y_coordinate, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)

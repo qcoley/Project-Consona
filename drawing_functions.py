@@ -905,7 +905,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                         graphic_dict["main high"])
                 return True
 
-            if player.current_zone == "seldon":
+            if player.current_zone == "seldon" or player.current_zone == "korlok":
                 if len(sell_info_window) > 0:
                     if yes_button.rect.collidepoint(pos):
                         button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 6,

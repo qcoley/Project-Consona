@@ -1532,7 +1532,9 @@ if __name__ == '__main__':
     korlok_district_battle = graphic_dict["korlok_battle_screen"]
     mines_battle = graphic_dict["mines_battle_screen"]
     seldon_district_shop = graphic_dict["seldon_shop_screen"]
+    korlok_district_shop = graphic_dict["korlok_shop_screen"]
     seldon_district_inn = graphic_dict["seldon_inn_screen"]
+    korlok_district_inn = graphic_dict["korlok_inn_screen"]
     seldon_district_academia = graphic_dict["seldon_academia_screen"]
     stardust_cove_bg = graphic_dict["stardust_cove_screen"]
     stardust_post_bg = graphic_dict["stardust_post_screen"]
@@ -1992,8 +1994,9 @@ if __name__ == '__main__':
     rohir_river_music = resource_path("resources/music/eterna_rohir.mp3")
     reservoir_music = resource_path("resources/music/eterna_dungeon.mp3")
     korlok_overworld_music = resource_path("resources/music/eterna_korlok.mp3")
+    korlok_building_music = resource_path("resources/music/eterna_building_korlok.mp3")
 
-    pygame.mixer.music.set_volume(0.40)
+    pygame.mixer.music.set_volume(0.75)
     pygame.mixer.music.load(start_screen_music)
     pygame.mixer.music.play(loops=-1)
 
@@ -3769,6 +3772,13 @@ if __name__ == '__main__':
                             pygame.mixer.music.play(loops=-1)
                             building_song_set = True
 
+                    if player.current_zone == "korlok":
+                        if not building_song_set:
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(korlok_building_music)
+                            pygame.mixer.music.play(loops=-1)
+                            building_song_set = True
+
                     for event in pygame.event.get():
                         if buy_clicked:
                             if player.current_zone == "stardust":
@@ -4013,6 +4023,51 @@ if __name__ == '__main__':
                             screen.blit(button_highlight.surf, button_highlight.rect)
 
                     # draw objects to screen related to shop scenario --------------------------------------------------
+                    if player.current_zone == "korlok" and in_shop and not in_over_world and not in_battle \
+                            and not in_inn and not in_academia and not in_npc_interaction:
+                        screen.blit(korlok_district_shop, (0, 0))
+                        screen.blit(buy_button.surf, buy_button.rect)
+                        screen.blit(leave_button.surf, leave_button.rect)
+                        screen.blit(message_box.surf, message_box.rect)
+                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                         info_text_3,
+                                                         info_text_4, in_over_world, offense_upgraded,
+                                                         defense_upgraded,
+                                                         level_up_font)
+                        drawing_functions.draw_it(screen)
+
+                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
+                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                        if shop_cat_pet:
+                            cat_pet_animation_overlay.update(507, 242, graphic_dict["shop_cat_pet_img"])
+                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+
+                        if buy_clicked:
+                            for window in buy_shop_elements:
+                                screen.blit(window.surf, window.rect)
+                            for shop_item in shopkeeper_items:
+                                screen.blit(shop_item.surf, shop_item.rect)
+                            if len(buy_window) > 0:
+                                for element in buy_window:
+                                    screen.blit(element.surf, element.rect)
+                        if len(sell_window) > 0:
+                            for element in sell_window:
+                                screen.blit(element.surf, element.rect)
+
+                        if first_shop_cond:
+                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+
+                        if button_highlighted:
+                            screen.blit(button_highlight.surf, button_highlight.rect)
+
+                    # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "stardust" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
                         screen.blit(stardust_post_bg, (0, 0))
@@ -4074,11 +4129,19 @@ if __name__ == '__main__':
                 if in_inn and not in_over_world and not in_shop and not in_battle and not in_academia \
                         and not in_npc_interaction:
 
-                    if not building_song_set:
-                        pygame.mixer.music.fadeout(50)
-                        pygame.mixer.music.load(seldon_building_music)
-                        pygame.mixer.music.play(loops=-1)
-                        building_song_set = True
+                    if player.current_zone == "seldon":
+                        if not building_song_set:
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(seldon_building_music)
+                            pygame.mixer.music.play(loops=-1)
+                            building_song_set = True
+
+                    if player.current_zone == "korlok":
+                        if not building_song_set:
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(korlok_building_music)
+                            pygame.mixer.music.play(loops=-1)
+                            building_song_set = True
 
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
@@ -4178,22 +4241,41 @@ if __name__ == '__main__':
                         encounter_started = True
 
                     # draw objects to screen related to inn scenario ---------------------------------------------------
-                    if player.current_zone == "seldon" and in_inn and not in_over_world and not in_shop and not \
+                    if in_inn and not in_over_world and not in_shop and not \
                             in_battle and not in_academia and not in_npc_interaction:
-                        # if player has just rested, fade inn screen back in with alpha value loop
-                        if rested:
-                            if not faded_inn_screen:
-                                for alpha in range(0, 50):
-                                    seldon_district_inn.set_alpha(alpha)
+
+                        if player.current_zone == "seldon":
+                            # if player has just rested, fade inn screen back in with alpha value loop
+                            if rested:
+                                if not faded_inn_screen:
+                                    for alpha in range(0, 50):
+                                        seldon_district_inn.set_alpha(alpha)
+                                        screen.blit(seldon_district_inn, (0, 0))
+                                        pygame.display.flip()
+                                    faded_inn_screen = True
+                                else:
+                                    seldon_district_inn.set_alpha(255)
                                     screen.blit(seldon_district_inn, (0, 0))
-                                    pygame.display.flip()
-                                faded_inn_screen = True
-                            else:
+                            if not rested:
                                 seldon_district_inn.set_alpha(255)
                                 screen.blit(seldon_district_inn, (0, 0))
-                        if not rested:
-                            seldon_district_inn.set_alpha(255)
-                            screen.blit(seldon_district_inn, (0, 0))
+
+                        if player.current_zone == "korlok":
+                            # if player has just rested, fade inn screen back in with alpha value loop
+                            if rested:
+                                if not faded_inn_screen:
+                                    for alpha in range(0, 50):
+                                        korlok_district_inn.set_alpha(alpha)
+                                        screen.blit(korlok_district_inn, (0, 0))
+                                        pygame.display.flip()
+                                    faded_inn_screen = True
+                                else:
+                                    korlok_district_inn.set_alpha(255)
+                                    screen.blit(korlok_district_inn, (0, 0))
+                            if not rested:
+                                korlok_district_inn.set_alpha(255)
+                                screen.blit(korlok_district_inn, (0, 0))
+
                     screen.blit(rest_button.surf, rest_button.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
                     screen.blit(star_power_meter.surf, star_power_meter.rect)
