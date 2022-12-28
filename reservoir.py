@@ -23,30 +23,23 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
     # set switches to active graphics, or inactive, depending on their current condition
     if switch_1:
-        dungeon_switch_1.update(dungeon_switch_1.x_coordinate,
-                                dungeon_switch_1.y_coordinate,
+        dungeon_switch_1.update(dungeon_switch_1.x_coordinate, dungeon_switch_1.y_coordinate,
                                 graphic_dict["dungeon_switch_active"])
     if not switch_1:
-        dungeon_switch_1.update(dungeon_switch_1.x_coordinate,
-                                dungeon_switch_1.y_coordinate,
+        dungeon_switch_1.update(dungeon_switch_1.x_coordinate, dungeon_switch_1.y_coordinate,
                                 graphic_dict["dungeon_switch_inactive"])
     if switch_2:
-        dungeon_switch_2.update(dungeon_switch_2.x_coordinate,
-                                dungeon_switch_2.y_coordinate,
+        dungeon_switch_2.update(dungeon_switch_2.x_coordinate, dungeon_switch_2.y_coordinate,
                                 graphic_dict["dungeon_switch_active"])
     if not switch_2:
-        dungeon_switch_2.update(dungeon_switch_2.x_coordinate,
-                                dungeon_switch_2.y_coordinate,
+        dungeon_switch_2.update(dungeon_switch_2.x_coordinate, dungeon_switch_2.y_coordinate,
                                 graphic_dict["dungeon_switch_inactive"])
     if switch_3:
-        dungeon_switch_1.update(dungeon_switch_1.x_coordinate,
-                                dungeon_switch_1.y_coordinate,
+        dungeon_switch_1.update(dungeon_switch_1.x_coordinate, dungeon_switch_1.y_coordinate,
                                 graphic_dict["dungeon_switch_full"])
-        dungeon_switch_2.update(dungeon_switch_2.x_coordinate,
-                                dungeon_switch_2.y_coordinate,
+        dungeon_switch_2.update(dungeon_switch_2.x_coordinate, dungeon_switch_2.y_coordinate,
                                 graphic_dict["dungeon_switch_full"])
-        dungeon_switch_3.update(dungeon_switch_3.x_coordinate,
-                                dungeon_switch_3.y_coordinate,
+        dungeon_switch_3.update(dungeon_switch_3.x_coordinate, dungeon_switch_3.y_coordinate,
                                 graphic_dict["dungeon_switch_full"])
 
     screen.blit(reservoir_a_bg, (0, 0))
@@ -77,8 +70,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
     item = pygame.sprite.spritecollideany(player, dungeon_items)
     if item:
-        interaction_popup.update(item.x_coordinate, item.y_coordinate - 50,
-                                 graphic_dict["popup_interaction"])
+        interaction_popup.update(item.x_coordinate, item.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str(item.type), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
@@ -184,8 +176,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             interaction_popup.update(boss_enemy.x_coordinate, boss_enemy.y_coordinate - 40,
                                      graphic_dict["popup_interaction_red"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str(boss_enemy.kind) + " lvl " +
-                                                str(boss_enemy.level), True, "black",
+            interaction_info_surf = font.render(str(boss_enemy.kind) + " lvl " + str(boss_enemy.level), True, "black",
                                                 (255, 204, 203))
             interaction_info_rect = interaction_info_surf.get_rect()
             interaction_info_rect.center = (boss_enemy.x_coordinate, boss_enemy.y_coordinate - 40)
@@ -212,15 +203,12 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
     # player defeats mini bosses and activates teleporter
     if pygame.sprite.collide_rect(player, dungeon_teleporter):
-        interaction_popup.update(dungeon_teleporter.x_coordinate,
-                                 dungeon_teleporter.y_coordinate - 50,
+        interaction_popup.update(dungeon_teleporter.x_coordinate, dungeon_teleporter.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("teleporter"),
-                                            True, "black", "light yellow")
+        interaction_info_surf = font.render(str("teleporter"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (dungeon_teleporter.x_coordinate,
-                                        dungeon_teleporter.y_coordinate - 50)
+        interaction_info_rect.center = (dungeon_teleporter.x_coordinate, dungeon_teleporter.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted:
@@ -231,8 +219,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 interacted = False
                 player.x_coordinate = 880
                 player.y_coordinate = 560
-                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                              player.y_coordinate))
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -314,15 +301,12 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
     screen.blit(player.surf, player.rect)
 
     if pygame.sprite.collide_rect(player, dungeon_gate):
-        interaction_popup.update(dungeon_gate.x_coordinate,
-                                 dungeon_gate.y_coordinate - 50,
+        interaction_popup.update(dungeon_gate.x_coordinate, dungeon_gate.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("gate"),
-                                            True, "black", "light yellow")
+        interaction_info_surf = font.render(str("gate"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (dungeon_gate.x_coordinate,
-                                        dungeon_gate.y_coordinate - 50)
+        interaction_info_rect.center = (dungeon_gate.x_coordinate, dungeon_gate.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted:
@@ -339,8 +323,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                     info_text_2 = ""
                     player.x_coordinate = 625
                     player.y_coordinate = 200
-                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                                  player.y_coordinate))
+                    player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                     interacted = False
                 else:
                     info_text_1 = "This gate requires a key "
@@ -353,15 +336,12 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 interacted = False
 
     if pygame.sprite.collide_rect(player, dungeon_teleporter):
-        interaction_popup.update(dungeon_teleporter.x_coordinate,
-                                 dungeon_teleporter.y_coordinate - 50,
+        interaction_popup.update(dungeon_teleporter.x_coordinate, dungeon_teleporter.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("teleporter"),
-                                            True, "black", "light yellow")
+        interaction_info_surf = font.render(str("teleporter"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (dungeon_teleporter.x_coordinate,
-                                        dungeon_teleporter.y_coordinate - 50)
+        interaction_info_rect.center = (dungeon_teleporter.x_coordinate, dungeon_teleporter.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted:
@@ -374,20 +354,16 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
             switch_3 = True
             player.x_coordinate = 519
             player.y_coordinate = 315
-            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                          player.y_coordinate))
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if pygame.sprite.collide_rect(player, dungeon_crate_5):
         if not crate_5:
-            interaction_popup.update(dungeon_crate_5.x_coordinate,
-                                     dungeon_crate_5.y_coordinate - 50,
+            interaction_popup.update(dungeon_crate_5.x_coordinate, dungeon_crate_5.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("crate"),
-                                                True, "black", "light yellow")
+            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
-            interaction_info_rect.center = (dungeon_crate_5.x_coordinate,
-                                            dungeon_crate_5.y_coordinate - 50)
+            interaction_info_rect.center = (dungeon_crate_5.x_coordinate, dungeon_crate_5.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
 
             if interacted:
@@ -401,15 +377,12 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
     if pygame.sprite.collide_rect(player, reservoir_passage):
         if muchador_defeated:
-            interaction_popup.update(reservoir_passage.x_coordinate + 45,
-                                     reservoir_passage.y_coordinate - 75,
+            interaction_popup.update(reservoir_passage.x_coordinate + 45, reservoir_passage.y_coordinate - 75,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("passage"),
-                                                True, "black", "light yellow")
+            interaction_info_surf = font.render(str("passage"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
-            interaction_info_rect.center = (reservoir_passage.x_coordinate + 45,
-                                            reservoir_passage.y_coordinate - 75)
+            interaction_info_rect.center = (reservoir_passage.x_coordinate + 45, reservoir_passage.y_coordinate - 75)
             screen.blit(interaction_info_surf, interaction_info_rect)
 
             if interacted:
@@ -418,20 +391,16 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 interacted = False
                 player.x_coordinate = 900
                 player.y_coordinate = 545
-                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                              player.y_coordinate))
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if not muchador_defeated:
         if pygame.sprite.collide_rect(player, muchador):
-            interaction_popup.update(muchador.x_coordinate,
-                                     muchador.y_coordinate - 50,
+            interaction_popup.update(muchador.x_coordinate, muchador.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("muchador"),
-                                                True, "black", "light yellow")
+            interaction_info_surf = font.render(str("muchador"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
-            interaction_info_rect.center = (muchador.x_coordinate,
-                                            muchador.y_coordinate - 50)
+            interaction_info_rect.center = (muchador.x_coordinate, muchador.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
 
             # lets player know if they are in range of enemy they can press f to attack it
@@ -521,15 +490,12 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
         player.y_coordinate = 375
 
     if pygame.sprite.collide_rect(player, dungeon_chest):
-        interaction_popup.update(dungeon_chest.x_coordinate,
-                                 dungeon_chest.y_coordinate - 50,
+        interaction_popup.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("chest"), True, "black",
-                                            "light yellow")
+        interaction_info_surf = font.render(str("chest"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (dungeon_chest.x_coordinate,
-                                        dungeon_chest.y_coordinate - 50)
+        interaction_info_rect.center = (dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted and in_over_world:
@@ -550,24 +516,18 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             interacted = False
 
     if pygame.sprite.collide_rect(player, rock_1):
-        interaction_popup.update(rock_1.x_coordinate,
-                                 rock_1.y_coordinate - 50,
-                                 graphic_dict["popup_interaction"])
+        interaction_popup.update(rock_1.x_coordinate, rock_1.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black",
-                                            "light yellow")
+        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (rock_1.x_coordinate,
-                                        rock_1.y_coordinate - 50)
+        interaction_info_rect.center = (rock_1.x_coordinate, rock_1.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted and in_over_world:
             try:
                 if player.equipment["gloves"].name == "power gloves":
-                    if rock_2.x_coordinate == 580:
-                        rock_1.update(rock_1.x_coordinate + 300, rock_1.y_coordinate,
-                                      graphic_dict["rock_img"])
-
+                    if rock_1.x_coordinate == 580:
+                        rock_1.update(rock_1.x_coordinate + 300, rock_1.y_coordinate, graphic_dict["rock_img"])
                 else:
                     info_text_1 = "The rock won't budge."
                     info_text_2 = ""
@@ -578,24 +538,18 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             interacted = False
 
     if pygame.sprite.collide_rect(player, rock_2):
-        interaction_popup.update(rock_2.x_coordinate,
-                                 rock_2.y_coordinate - 50,
-                                 graphic_dict["popup_interaction"])
+        interaction_popup.update(rock_2.x_coordinate, rock_2.y_coordinate - 50, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("rock"), True, "black",
-                                            "light yellow")
+        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (rock_2.x_coordinate,
-                                        rock_2.y_coordinate - 50)
+        interaction_info_rect.center = (rock_2.x_coordinate, rock_2.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted and in_over_world:
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock_2.x_coordinate == 580:
-                        rock_2.update(rock_2.x_coordinate + 300, rock_2.y_coordinate,
-                                      graphic_dict["rock_img"])
-
+                        rock_2.update(rock_2.x_coordinate + 300, rock_2.y_coordinate, graphic_dict["rock_img"])
                 else:
                     info_text_1 = "The rock won't budge."
                     info_text_2 = ""
@@ -606,15 +560,12 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             interacted = False
 
     if pygame.sprite.collide_rect(player, reservoir_exit):
-        interaction_popup.update(reservoir_exit.x_coordinate - 15,
-                                 reservoir_exit.y_coordinate,
+        interaction_popup.update(reservoir_exit.x_coordinate - 15, reservoir_exit.y_coordinate,
                                  graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("exit"), True, "black",
-                                            "light yellow")
+        interaction_info_surf = font.render(str("exit"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (reservoir_exit.x_coordinate - 15,
-                                        reservoir_exit.y_coordinate)
+        interaction_info_rect.center = (reservoir_exit.x_coordinate - 15, reservoir_exit.y_coordinate)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted and in_over_world:
@@ -623,8 +574,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             in_over_world = True
             player.x_coordinate = 100
             player.y_coordinate = 550
-            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
-                                                          player.y_coordinate))
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
             interacted = False
 
     # --------------------------------------------------------------------------------------------------

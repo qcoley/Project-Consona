@@ -403,16 +403,16 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
         if snake_counter < 3:
             new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                              Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]), graphic_dict["snake"],
-                              UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
+                              Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
+                              graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
             snakes.add(new_snake)
             seldon_enemies.add(new_snake)
             interactables_seldon.add(new_snake)
         # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
         if ghoul_counter < 3:
             new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
-                              Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]), graphic_dict["ghoul"],
-                              UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
+                              Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
+                              graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
             ghouls.add(new_ghoul)
             seldon_enemies.add(new_ghoul)
             interactables_seldon.add(new_ghoul)

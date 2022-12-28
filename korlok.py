@@ -18,7 +18,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, voruke, cerah,
                     npcs, seldon_enemies, snakes, ghouls, bandiles, interactables_seldon, interactables_korlok, Enemy,
                     Item, UiElement, interactables_mines, quest_star_garan, quest_star_maurelle,
-                    quest_star_celeste, quest_star_torune, star_voruke, star_zerah):
+                    quest_star_celeste, quest_star_torune, star_voruke, star_zerah, korlok_mountains, in_apothecary):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
     hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
@@ -60,6 +60,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               graphic_dict["quest_complete_star"], star_voruke, star_zerah)
 
     screen.blit(player.surf, player.rect)
+    screen.blit(korlok_mountains.surf, korlok_mountains.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     enemy = pygame.sprite.spritecollideany(player, korlok_enemies)
@@ -149,8 +150,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 in_shop = True
             if building.name == "inn":
                 in_inn = True
-            if building.name == "academia":
-                in_academia = True
+            if building.name == "apothecary":
+                in_apothecary = True
 
     if pygame.sprite.collide_rect(player, rohir_gate):
         interaction_popup.update(rohir_gate.x_coordinate, rohir_gate.y_coordinate, graphic_dict["popup_interaction"])
@@ -284,6 +285,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                      "in_npc_interaction": in_npc_interaction, "movement_able": movement_able,
                      "current_enemy_battling": current_enemy_battling,
                      "current_building_entering": current_building_entering,
-                     "current_npc_interacting": current_npc_interacting}
+                     "current_npc_interacting": current_npc_interacting,
+                     "in_apothecary": in_apothecary}
 
     return korlok_return

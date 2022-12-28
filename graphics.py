@@ -284,7 +284,8 @@ def load_graphics():
                    "mines_battle_screen": "", "voruke_interaction": "", "zerah_interaction": "", "voruke_quest": "",
                    "voruke_complete": "", "zerah_quest": "", "zerah_complete": "", "ember": "", "band": "", "flow": "",
                    "magmon_high": "", "bandile_high": "", "info_ember": "", "info_band": "", "info_flow": "",
-                   "s_ember_img": "", "s_band_img": "", "korlok_shop_screen": "", "korlok_inn_screen": ""}
+                   "s_ember_img": "", "s_band_img": "", "korlok_shop_screen": "", "korlok_inn_screen": "",
+                   "korlok_mountains": "", "korlok_apothecary": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -300,6 +301,7 @@ def load_graphics():
     korlok_battle_screen = pygame.image.load(resource_path('resources/art/bg_korlok_battle_screen.png')).convert_alpha()
     korlok_shop_screen = pygame.image.load(resource_path('resources/art/bg_korlok_shop.png')).convert_alpha()
     korlok_inn_screen = pygame.image.load(resource_path('resources/art/bg_korlok_inn.png')).convert_alpha()
+    korlok_apothecary = pygame.image.load(resource_path('resources/art/bg_korlok_apothecary.png')).convert_alpha()
     mines_battle_screen = pygame.image.load(resource_path('resources/art/bg_mines_battle.png')).convert_alpha()
     rohir_river_screen = pygame.image.load(resource_path('resources/art/bg_rohir_river.png')).convert_alpha()
     reservoir_a_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_a.png')).convert_alpha()
@@ -362,6 +364,7 @@ def load_graphics():
     mines_entrance = pygame.image.load(resource_path('resources/art/overlay_mines_entrance.png')).convert_alpha()
     mines_wall = pygame.image.load(resource_path('resources/art/overlay_mines_wall.png')).convert_alpha()
     mines_light = pygame.image.load(resource_path('resources/art/overlay_mines_light.png')).convert_alpha()
+    korlok_mountains = pygame.image.load(resource_path('resources/art/overlay_korlok_mountains.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -377,7 +380,7 @@ def load_graphics():
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
                   muchador_crate, reservoir_passage, rock_img, reservoir_exit, reservoir_enter, mines_entrance,
-                  mines_wall, mines_light]
+                  mines_wall, mines_light, korlok_mountains]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -463,6 +466,8 @@ def load_graphics():
     loaded_dict["korlok_mines"] = korlok_mines_screen
     loaded_dict["mines_wall"] = mines_wall
     loaded_dict["mines_light"] = mines_light
+    loaded_dict["korlok_mountains"] = korlok_mountains
+    loaded_dict["korlok_apothecary"] = korlok_apothecary
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
