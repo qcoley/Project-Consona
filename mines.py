@@ -15,7 +15,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, barrier_active,
                  sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, seldon_enemies, korlok_enemies,
                  snakes, ghouls, magmons, interactables_seldon, interactables_korlok, Enemy, Item, UiElement,
-                 interactables_mines):
+                 interactables_mines, ores):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -40,6 +40,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     screen.blit(korlok_mines_bg, (0, 0))
     for bandile in bandiles:
         screen.blit(bandile.surf, bandile.rect)
+    for ore in ores:
+        screen.blit(ore.surf, ore.rect)
     screen.blit(player.surf, player.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it

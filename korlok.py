@@ -18,7 +18,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, voruke, cerah,
                     npcs, seldon_enemies, snakes, ghouls, bandiles, interactables_seldon, interactables_korlok, Enemy,
                     Item, UiElement, interactables_mines, quest_star_garan, quest_star_maurelle,
-                    quest_star_celeste, quest_star_torune, star_voruke, star_zerah, korlok_mountains, in_apothecary):
+                    quest_star_celeste, quest_star_torune, star_voruke, star_zerah, korlok_mountains, in_apothecary,
+                    star_apothecary):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
     hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
@@ -57,7 +58,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
 
     gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
                                               quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah)
+                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
+                                              star_apothecary)
 
     screen.blit(player.surf, player.rect)
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)

@@ -8,7 +8,7 @@ import drawing_functions
 
 # quest stars for npcs that update based on player quest progress
 def npc_quest_star_updates(screen, player, star_garan, star_maurelle, star_celeste, star_torune,
-                           quest_progress_star, quest_complete_star, star_voruke, star_zerah):
+                           quest_progress_star, quest_complete_star, star_voruke, star_zerah, star_apothecary):
     if player.current_zone == "seldon":
         if not player.quest_complete["sneaky snakes"]:
             screen.blit(star_garan.surf, star_garan.rect)
@@ -52,6 +52,13 @@ def npc_quest_star_updates(screen, player, star_garan, star_maurelle, star_celes
             star_zerah.update(651, 50, quest_complete_star)
         if player.quest_status["elementary elementals"] and player.quest_progress["elementary elementals"] != 4:
             star_zerah.update(651, 50, quest_progress_star)
+
+        if not player.quest_complete["can't apothecary it"]:
+            screen.blit(star_apothecary.surf, star_apothecary.rect)
+        if player.quest_progress["can't apothecary it"] == 4:
+            star_apothecary.update(star_apothecary.x_coordinate, star_apothecary.y_coordinate, quest_complete_star)
+        if player.quest_status["can't apothecary it"] and player.quest_progress["can't apothecary it"] != 4:
+            star_apothecary.update(star_apothecary.x_coordinate, star_apothecary.y_coordinate, quest_progress_star)
 
 
 def load_game(player, Item, graphics):
@@ -423,7 +430,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if not scaled, coordinates set to default boundaries
         random_magmon_x = random.randrange(100, 375)
         random_magmon_y = random.randrange(125, 225)
-        random_magmon_level = random.randrange(6, 9)
+        random_magmon_level = random.randrange(8, 12)
 
         # count current enemies active in game
         for mob in magmons:
@@ -445,7 +452,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if not scaled, coordinates set to default boundaries
         random_bandile_x = random.randrange(655, 880)
         random_bandile_y = random.randrange(165, 335)
-        random_bandile_level = random.randrange(8, 12)
+        random_bandile_level = random.randrange(6, 9)
 
         # count current enemies active in game
         for mob in bandiles:

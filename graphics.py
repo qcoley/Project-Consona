@@ -285,7 +285,8 @@ def load_graphics():
                    "voruke_complete": "", "zerah_quest": "", "zerah_complete": "", "ember": "", "band": "", "flow": "",
                    "magmon_high": "", "bandile_high": "", "info_ember": "", "info_band": "", "info_flow": "",
                    "s_ember_img": "", "s_band_img": "", "korlok_shop_screen": "", "korlok_inn_screen": "",
-                   "korlok_mountains": "", "korlok_apothecary": ""}
+                   "korlok_mountains": "", "korlok_apothecary": "", "building_npc_star_available": "",
+                   "building_npc_star_progress": "", "building_npc_star_complete": "", "sprite_ore_img": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -365,6 +366,7 @@ def load_graphics():
     mines_wall = pygame.image.load(resource_path('resources/art/overlay_mines_wall.png')).convert_alpha()
     mines_light = pygame.image.load(resource_path('resources/art/overlay_mines_light.png')).convert_alpha()
     korlok_mountains = pygame.image.load(resource_path('resources/art/overlay_korlok_mountains.png')).convert_alpha()
+    sprite_ore_img = pygame.image.load(resource_path('resources/art/sprite_ore.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -380,11 +382,12 @@ def load_graphics():
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
                   muchador_crate, reservoir_passage, rock_img, reservoir_exit, reservoir_enter, mines_entrance,
-                  mines_wall, mines_light, korlok_mountains]
+                  mines_wall, mines_light, korlok_mountains, sprite_ore_img]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["sprite_ore_img"] = sprite_ore_img
     loaded_dict["a_char_screen"] = a_char_screen
     loaded_dict["n_char_screen"] = n_char_screen
     loaded_dict["s_char_screen"] = s_char_screen
@@ -1139,6 +1142,8 @@ def load_graphics():
     loaded_dict["celeste_quest"] = quest_windows_sheet[3]
     loaded_dict["voruke_quest"] = quest_windows_sheet[4]
     loaded_dict["zerah_quest"] = quest_windows_sheet[5]
+    loaded_dict["kirean_quest"] = quest_windows_sheet[6]
+    loaded_dict["dionte_quest"] = quest_windows_sheet[7]
     # quest complete popups --------------------------------------------------------------------------------------------
     quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
     quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)
@@ -1148,12 +1153,20 @@ def load_graphics():
     loaded_dict["torune_complete"] = quest_popups_sheet[3]
     loaded_dict["voruke_complete"] = quest_popups_sheet[4]
     loaded_dict["zerah_complete"] = quest_popups_sheet[5]
+    loaded_dict["kirean_complete"] = quest_popups_sheet[6]
+    loaded_dict["dionte_complete"] = quest_popups_sheet[7]
     # quest stars ------------------------------------------------------------------------------------------------------
     quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
     quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)
     loaded_dict["quest_start_star"] = quest_stars_sheet[0]
     loaded_dict["quest_progress_star"] = quest_stars_sheet[1]
     loaded_dict["quest_complete_star"] = quest_stars_sheet[2]
+    # quest stars ------------------------------------------------------------------------------------------------------
+    building_quest_stars_url = resource_path('resources/art/overlay_building_npc_stars.png')
+    building_quest_stars_sheet = sprite_sheet((125, 125), building_quest_stars_url)
+    loaded_dict["building_npc_star_available"] = building_quest_stars_sheet[0]
+    loaded_dict["building_npc_star_progress"] = building_quest_stars_sheet[1]
+    loaded_dict["building_npc_star_complete"] = building_quest_stars_sheet[2]
     # star power -------------------------------------------------------------------------------------------------------
     star_power_url = resource_path('resources/art/overlay_star_power.png')
     star_power_sheet = sprite_sheet((150, 50), star_power_url)

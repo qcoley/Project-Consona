@@ -533,30 +533,41 @@ def level_up_draw(level_up_win, player, level_up_font, draw_condition):
 
 
 def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
-                   torune_quest_window, voruke_quest_window, zerah_quest_window, accept_button, decline_button):
+                   torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
+                   dionte_quest_window, accept_button, decline_button):
 
     if not draw_condition:
         quest_box.clear()
     else:
-        if quest_npc.name == "garan":
-            quest_box.append(garan_quest_window)
-        if quest_npc.name == "maurelle":
-            quest_box.append(maurelle_quest_window)
-        if quest_npc.name == "celeste":
-            quest_box.append(celeste_quest_window)
-        if quest_npc.name == "torune":
-            quest_box.append(torune_quest_window)
-        if quest_npc.name == "voruke":
-            quest_box.append(voruke_quest_window)
-        if quest_npc.name == "zerah":
-            quest_box.append(zerah_quest_window)
+        try:
+            if quest_npc.name == "garan":
+                quest_box.append(garan_quest_window)
+            if quest_npc.name == "maurelle":
+                quest_box.append(maurelle_quest_window)
+            if quest_npc.name == "celeste":
+                quest_box.append(celeste_quest_window)
+            if quest_npc.name == "torune":
+                quest_box.append(torune_quest_window)
+            if quest_npc.name == "voruke":
+                quest_box.append(voruke_quest_window)
+            if quest_npc.name == "zerah":
+                quest_box.append(zerah_quest_window)
+            if quest_npc.name == "kirean":
+                quest_box.append(kirean_quest_window)
+            if quest_npc.name == "dionte":
+                quest_box.append(dionte_quest_window)
+
+        except AttributeError:
+            if quest_npc == "kirean":
+                quest_box.append(kirean_quest_window)
 
         quest_box.append(accept_button)
         quest_box.append(decline_button)
 
 
 def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
-                        torune_quest_window, voruke_quest_window, zerah_quest_window):
+                        torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
+                        dionte_quest_window):
 
     if not draw_condition:
         quest_complete_box.clear()
@@ -573,6 +584,10 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
             quest_complete_box.append(voruke_quest_window)
         if quest_npc.name == "zerah":
             quest_complete_box.append(zerah_quest_window)
+        if quest_npc.name == "kirean":
+            quest_box.append(kirean_quest_window)
+        if quest_npc.name == "dionte":
+            quest_box.append(dionte_quest_window)
 
 
 def equipment_updates(player, graphic):
@@ -690,7 +705,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       seldon_map_button, korlok_map_button, eldream_map_button, marrow_map_button, character_button,
                       quests_button, save_button, map_button, in_npc_interaction, quest_button, quest_clicked,
                       accept_button, decline_button, current_npc_interacting, npc_garan, mage_select_button,
-                      fighter_select_button, scout_select_button):
+                      fighter_select_button, scout_select_button, in_apothecary):
 
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
@@ -1057,6 +1072,28 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                             return True
                         else:
                             return False
+
+        if in_apothecary:
+            if quest_button.rect.collidepoint(pos):
+                button_highlight.update(quest_button.x_coordinate, quest_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif leave_button.rect.collidepoint(pos):
+                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+
+            # quest window accept or decline button highlights when moused over
+            if quest_clicked:
+                if accept_button.rect.collidepoint(pos):
+                    button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif decline_button.rect.collidepoint(pos):
+                    button_highlight.update(decline_button.x_coordinate,
+                                            decline_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
 
 
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg

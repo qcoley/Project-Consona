@@ -24,7 +24,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     enemy_tic, npc_tic, npc_garan, npc_maurelle, npc_celeste, npc_torune, info_text_1, info_text_2,
                     info_text_3, info_text_4, in_battle, in_shop, in_academia, in_inn, movement_able,
                     current_enemy_battling, current_npc_interacting, current_building_entering,
-                    magmon_battle_sprite, bandile_battle_sprite, interactables_mines, star_voruke, star_zerah):
+                    magmon_battle_sprite, bandile_battle_sprite, interactables_mines, star_voruke, star_zerah,
+                    star_apothecary):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -96,7 +97,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
 
     gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
                                               quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah)
+                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
+                                              star_apothecary)
     screen.blit(player.surf, player.rect)
 
     # player encounters objects and draws popup information box ----------------------------------------
