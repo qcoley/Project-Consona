@@ -278,6 +278,13 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             enemy_tic = time.perf_counter()
             move_mon.update_position([50, 500], [50, 250], direction_horizontal, direction_vertical)
 
+    if player.x_coordinate > 950 and player.y_coordinate < 225:
+        player.current_zone = "terra trail"
+        in_over_world = True
+        player.x_coordinate = 150
+        player.y_coordinate = 150
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
     # info to return to main loop --------------------------------------------------------------------------------------
     korlok_return = {"over_world_song_set": over_world_song_set, "korlok_attuned": korlok_attuned,
                      "enemy_tic": enemy_tic, "npc_tic": npc_tic, "info_text_1": info_text_1,

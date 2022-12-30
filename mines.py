@@ -31,6 +31,14 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         if player.quest_complete["band hammer"]:
             enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate, graphic_dict["bandile"])
 
+    for ore_sprite in ores:
+        if not player.quest_complete["can't apothecary it"]:
+            if player.quest_status["can't apothecary it"]:
+                ore_sprite.update(ore_sprite.x_coordinate, ore_sprite.y_coordinate, graphic_dict["sprite_ore_high_img"])
+    for ore_sprite in bandiles:
+        if player.quest_complete["can't apothecary it"]:
+            ore_sprite.update(ore_sprite.x_coordinate, ore_sprite.y_coordinate, graphic_dict["sprite_ore_img"])
+
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(korlok_overworld_music)
@@ -78,6 +86,36 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         in_over_world = True
         player.x_coordinate = 430
         player.y_coordinate = 430
+
+    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
+    ore_pick = pygame.sprite.spritecollideany(player, ores)
+    if ore_pick:
+        interaction_popup.update(ore_pick.x_coordinate, ore_pick.y_coordinate - 40,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(ore_pick.name), True, "black", (255, 204, 203))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (ore_pick.x_coordinate, ore_pick.y_coordinate - 40)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if not player.quest_status["can't apothecary it"]:
+            # lets player know if they are in range of enemy they can press f to attack it
+            info_text_1 = "It's some kind of ore."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+        if player.quest_status["can't apothecary it"] and not player.quest_complete["can't apothecary it"]:
+            # lets player know if they are in range of enemy they can press f to attack it
+            info_text_1 = "Press 'F' key to gather the ore."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world:
+                player.quest_progress["can't apothecary it"] += 1
+                ore_pick.kill()
+                interacted = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

@@ -18,6 +18,7 @@ import rohir
 import stardust
 import seldon
 import mines
+import trail
 
 # global variables
 SCREEN_WIDTH = 1280
@@ -1214,6 +1215,17 @@ class PlayerSorae(pygame.sprite.Sprite):
             elif self.x_coordinate > 660:
                 if self.y_coordinate >= SCREEN_HEIGHT:
                     self.y_coordinate = SCREEN_HEIGHT
+        if current_zone == "terra trail":
+            if self.x_coordinate < 50:
+                self.x_coordinate = 50
+            elif self.x_coordinate > SCREEN_WIDTH - 550:
+                self.x_coordinate = SCREEN_WIDTH - 550
+
+            if self.y_coordinate <= 70:
+                self.y_coordinate = 70
+            elif self.y_coordinate >= SCREEN_HEIGHT - 130:
+                self.y_coordinate = SCREEN_HEIGHT - 130
+
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -1245,6 +1257,15 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if player.y_coordinate < mines_wall.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_wall.y_coordinate:
+                    self.y_coordinate += velocity
+            if pygame.sprite.collide_rect(player, mines_light):
+                if player.x_coordinate < mines_light.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > mines_light.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < mines_light.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > mines_light.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "reservoir a":
             if mini_boss_1 or mini_boss_2:
@@ -1297,6 +1318,25 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if player.y_coordinate < dungeon_chest_rect.y:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > dungeon_chest_rect.y:
+                    self.y_coordinate += velocity
+        if current_zone == "terra trail":
+            if pygame.sprite.collide_rect(player, terra_mountains):
+                if player.x_coordinate < terra_mountains.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > terra_mountains.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < terra_mountains.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > terra_mountains.y_coordinate:
+                    self.y_coordinate += velocity
+            if pygame.sprite.collide_rect(player, terra_cave):
+                if player.x_coordinate < terra_cave.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > terra_cave.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < terra_cave.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > terra_cave.y_coordinate:
                     self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
@@ -1576,6 +1616,7 @@ if __name__ == '__main__':
     reservoir_b_bg = graphic_dict["reservoir_b_screen"]
     reservoir_c_bg = graphic_dict["reservoir_c_screen"]
     reservoir_battle = graphic_dict["reservoir_battle_screen"]
+    mountain_trail_bg = graphic_dict["mountain_trail_bg"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -1762,9 +1803,9 @@ if __name__ == '__main__':
     mines_entrance = Building("entrance", "mines entrance", 430, 375, graphic_dict["mines_entrance"])
 
     mines_ore_1 = Item("mines ore", "ore", 125, 230, graphic_dict["sprite_ore_img"])
-    mines_ore_2 = Item("mines ore", "ore", 225, 230, graphic_dict["sprite_ore_img"])
-    mines_ore_3 = Item("mines ore", "ore", 325, 230, graphic_dict["sprite_ore_img"])
-    mines_ore_4 = Item("mines ore", "ore", 325, 150, graphic_dict["sprite_ore_img"])
+    mines_ore_2 = Item("mines ore", "ore", 200, 230, graphic_dict["sprite_ore_img"])
+    mines_ore_3 = Item("mines ore", "ore", 275, 230, graphic_dict["sprite_ore_img"])
+    mines_ore_4 = Item("mines ore", "ore", 275, 150, graphic_dict["sprite_ore_img"])
 
     hearth_stone = Building("hearth", "seldon hearth", 860, 595, graphic_dict["hearth_stone"])
 
@@ -1879,7 +1920,7 @@ if __name__ == '__main__':
     quest_star_torune = UiElement("quest star torune", 430, 75, graphic_dict["quest_start_star"])
     quest_star_voruke = UiElement("quest star voruke", 262, 385, graphic_dict["quest_start_star"])
     quest_star_zerah = UiElement("quest star zerah", 651, 50, graphic_dict["quest_start_star"])
-    quest_star_kirean = UiElement("quest star kirean", 745, 218, graphic_dict["quest_start_star"])
+    quest_star_kirean = UiElement("quest star kirean", 746, 225, graphic_dict["quest_start_star"])
 
     quest_star_apothecary = UiElement("quest star apothecary", 796, 85, graphic_dict["building_npc_star_available"])
 
@@ -1894,7 +1935,7 @@ if __name__ == '__main__':
     sell_items = UiElement("sell items", 1155, 270, graphic_dict["s_health_pot_img"])
     info_items = UiElement("info items", 1155, 270, graphic_dict["info_health_pot_img"])
     buy_items = UiElement("buy items", 900, 230, graphic_dict["b_health_pot_img"])
-    star_power_meter = UiElement("star power", 1210, 360, graphic_dict["star_00"])
+    star_power_meter = UiElement("star power", 1195, 360, graphic_dict["star_00"])
     role_select_overlay = UiElement("role select overlay", 550, 369, graphic_dict["role_selection_overlay"])
     game_guide_overlay = UiElement("game guide overlay", 776, 256, graphic_dict["guide_basics_quest_img"])
     cat_pet_button_overlay = UiElement("cat pet button", 505, 235, graphic_dict["cat_pet_button_overlay"])
@@ -1951,7 +1992,10 @@ if __name__ == '__main__':
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
-    mines_light = UiElement("mines light", 322, 350, graphic_dict["mines_light"])
+    mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
+
+    terra_mountains = UiElement("terra mountains", 250, 270, graphic_dict["terra_mountains"])
+    terra_cave = UiElement("terra cave", 100, 400, graphic_dict["terra_cave"])
 
     rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock_img"])
     rock_2 = Item("rock 2", "rock", 580, 255, graphic_dict["rock_img"])
@@ -2027,7 +2071,7 @@ if __name__ == '__main__':
     interactables_reservoir_a.add(dungeon_items, chorizon_1, chorizon_2, dungeon_teleporter)
     interactables_reservoir_b.add(dungeon_gate, dungeon_teleporter, dungeon_crate_5, muchador, reservoir_passage)
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
-    interactables_mines.add(bandiles)
+    interactables_mines.add(bandiles, mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
 
     # music tracks
     start_screen_music = resource_path("resources/music/eterna_title.mp3")
@@ -2524,6 +2568,10 @@ if __name__ == '__main__':
                         player.x_coordinate = 900
                         player.y_coordinate = 545
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                    if player.current_zone == "terra trail":
+                        player.x_coordinate = 150
+                        player.y_coordinate = 150
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 except TypeError:
                     pass
             except KeyError:
@@ -2548,7 +2596,7 @@ if __name__ == '__main__':
 
                 # player information updates
                 gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
-                                                              graphic_dict)
+                                                              graphic_dict, font)
 
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
                         and not in_academia:
@@ -3116,6 +3164,49 @@ if __name__ == '__main__':
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
                                                                         font, loot_popup,
+                                                                        battle_info_to_return_to_main_loop, leveled)
+                    try:
+                        first_item_cond = loot_popup_returned["first_item_condition"]
+                        loot_updated = loot_popup_returned["loot_updated"]
+                        loot_level_tic = loot_popup_returned["loot_level_tic"]
+                        loot_info = loot_popup_returned["loot_info"]
+                        leveled = loot_popup_returned["leveled"]
+                    except TypeError:
+                        pass
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in korlok district ----------------------------------------------------------------------
+                if player.current_zone == "terra trail" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    trail_returned = trail.terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg,
+                                                          korlok_overworld_music, over_world_song_set,
+                                                          interaction_popup, font, save_check_window, user_interface,
+                                                          world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                          offense_upgraded, defense_upgraded, level_up_font,
+                                                          button_highlighted, button_highlight, in_over_world,
+                                                          interacted, info_text_1, info_text_2, info_text_3,
+                                                          info_text_4, npc_tic, in_npc_interaction, in_battle,
+                                                          movement_able, current_enemy_battling, interactables_seldon,
+                                                          interactables_korlok, Item, UiElement, interactables_mines,
+                                                          quest_star_garan, quest_star_maurelle, quest_star_celeste,
+                                                          quest_star_torune, quest_star_voruke, quest_star_zerah,
+                                                          quest_star_apothecary, terra_mountains, terra_cave)
+
+                    over_world_song_set = trail_returned["over_world_song_set"]
+                    interacted = trail_returned["interacted"]
+                    in_over_world = trail_returned["in_over_world"]
+                    in_battle = trail_returned["in_battle"]
+                    current_enemy_battling = trail_returned["current_enemy_battling"]
+                    movement_able = trail_returned["movement_able"]
+                    npc_tic = trail_returned["npc_tic"]
+                    info_text_1 = trail_returned["info_text_1"]
+                    info_text_2 = trail_returned["info_text_2"]
+                    info_text_3 = trail_returned["info_text_3"]
+                    info_text_4 = trail_returned["info_text_4"]
+
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond,
+                                                                        first_item, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
                         first_item_cond = loot_popup_returned["first_item_condition"]
@@ -4701,21 +4792,30 @@ if __name__ == '__main__':
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
-                                book_appended = False
-                                learn_clicked = False
+                                npc_button = ''
                                 movement_able = True
                                 interacted = False
                                 encounter_started = False
                                 in_apothecary = False
                                 in_over_world = True
                                 building_song_set = False
-
+                                quest_clicked = False
+                                drawing_functions.quest_complete_box.clear()
+                                drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
+                                                                 maurelle_quest_window, celeste_quest_window,
+                                                                 torune_quest_window, voruke_quest_window,
+                                                                 zerah_quest_window, kirean_quest_window,
+                                                                 dionte_quest_window, accept_button, decline_button)
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
 
                         pos = pygame.mouse.get_pos()
                         button_highlighted = button_highlighter(pos)
+
+                        if event.type == pygame.MOUSEBUTTONUP:
+                            if kirean_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
@@ -4805,8 +4905,8 @@ if __name__ == '__main__':
                                                                      dionte_quest_window, accept_button, decline_button)
                                     quest_clicked = True
                                 else:  # quest complete popup
-                                    if not garan_complete_shown:
-                                        drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                    if not kirean_complete_shown:
+                                        drawing_functions.quest_complete_draw("kirean", True,
                                                                               garan_complete_quest_window,
                                                                               maurelle_complete_quest_window,
                                                                               celeste_complete_quest_window,
@@ -4815,7 +4915,7 @@ if __name__ == '__main__':
                                                                               zerah_complete_quest_window,
                                                                               kirean_complete_quest_window,
                                                                               dionte_complete_quest_window)
-                                        garan_complete_shown = True
+                                        kirean_complete_shown = True
                                         quest_clicked = True
                             else:
                                 drawing_functions.quest_box_draw("kirean", False, garan_quest_window,
@@ -4877,18 +4977,19 @@ if __name__ == '__main__':
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
                         screen.blit(quest_button.surf, quest_button.rect)
-                        if not player.quest_status["can't apothecary it"]:
-                            screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                        if player.quest_status["can't apothecary it"]:
-                            quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                         quest_star_apothecary.y_coordinate,
-                                                         graphic_dict["building_npc_star_progress"])
-                            screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                        if player.quest_complete["can't apothecary it"]:
-                            quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                         quest_star_apothecary.y_coordinate,
-                                                         graphic_dict["building_npc_star_complete"])
-                            screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                        if not player.quest_complete["can't apothecary it"]:
+                            if not player.quest_status["can't apothecary it"]:
+                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                            if player.quest_status["can't apothecary it"]:
+                                quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
+                                                             quest_star_apothecary.y_coordinate,
+                                                             graphic_dict["building_npc_star_progress"])
+                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                            if player.quest_progress["can't apothecary it"] == 4:
+                                quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
+                                                             quest_star_apothecary.y_coordinate,
+                                                             graphic_dict["building_npc_star_complete"])
+                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
                                                          info_text_4, in_over_world, offense_upgraded, defense_upgraded,
