@@ -4,7 +4,8 @@ import gameplay_functions
 
 def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                       chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
-                      barrier_active, sharp_sense_active, in_battle, in_npc_interaction, graphics):
+                      chinzilla_battle_sprite, barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                      graphics):
 
     if player.race == "amuna":
         if player.role == "mage":
@@ -101,12 +102,14 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
             magmon_battle_sprite.update(705, 286, graphics["magmon_battle"])
         if enemy.kind == "bandile":
             bandile_battle_sprite.update(695, 300, graphics["bandile_battle"])
+        if enemy.kind == "chinzilla":
+            chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_battle"])
 
 
 # update player character and enemy sprites for combat animation
 def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                      chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
-                     barrier_active, sharp_sense_active, hard_strike, graphics):
+                     chinzilla_battle_sprite, barrier_active, sharp_sense_active, hard_strike, graphics):
 
     # update player character sprite for combat animation
     if player.race == "amuna":
@@ -205,13 +208,15 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
         magmon_battle_sprite.update(705, 286, graphics["magmon_attack"])
     if enemy.kind == "bandile":
         bandile_battle_sprite.update(695, 300, graphics["bandile_attack"])
+    if enemy.kind == "chinzilla":
+        chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_attack"])
 
 
 def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
             ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite,
-            bandile_battle_sprite, player_fighter_amuna_strike, player_fighter_sorae_strike,
+            bandile_battle_sprite, chinzilla_battle_sprite, player_fighter_amuna_strike, player_fighter_sorae_strike,
             player_fighter_nuldar_strike, snake_battle, ghoul_battle,
-            chorizon_battle, muchador_battle, magmon_battle, bandile_battle):
+            chorizon_battle, muchador_battle, magmon_battle, bandile_battle, chinzilla_battle):
 
     # update animations for hard strike attack
     if player.race == "amuna":
@@ -242,6 +247,8 @@ def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_s
         magmon_battle_sprite.update(705, 286, magmon_battle)
     if current_enemy_battling.kind == "bandile":
         bandile_battle_sprite.update(695, 300, bandile_battle)
+    if current_enemy_battling.kind == "chinzilla":
+        chinzilla_battle_sprite.update(700, 300, chinzilla_battle)
 
 
 def enemy_health_bar(enemys, graphics):
@@ -334,6 +341,17 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 else:
                     combat_event_dictionary["quest update"] = "No"
 
+                # if player is on quest to kill bandiles
+                if enemy_combating.kind == "chinzilla":
+                    if player.quest_status["it's dangerous to go alone"]:
+                        if player.quest_progress["it's dangerous to go alone"] < 1:
+                            player.quest_progress["it's dangerous to go alone"] = \
+                                player.quest_progress["it's dangerous to go alone"] + 1
+                            quest_string = str(player.quest_progress["it's dangerous to go alone"]) + "/1 chinzilla"
+                            combat_event_dictionary["quest update"] = quest_string
+                else:
+                    combat_event_dictionary["quest update"] = "No"
+
                 # experienced gained by player from defeating enemy
                 if player.level <= enemy_combating.level + 1:
                     experience = int((enemy_combating.level / player.level) * 30)
@@ -349,18 +367,21 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     # add to dictionary experience given from defeating enemy
                     combat_event_dictionary["experience gained"] = enemy_experience
 
-                drop_chance = random.randrange(1, 10)
-                # 80% chance (roughly?) to drop merchant item sellable by player for rupees at shops
-                if drop_chance > 2:
-                    # doesn't give item to player if their inventory is full
-                    if len(player.items) < 16:
-                        player.items.append(enemy_combating.items)
-                        enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]."
-                        # add to dictionary anything dropped from enemy upon their defeat
-                        combat_event_dictionary["item dropped"] = enemy_dropped_this
+                try:
+                    drop_chance = random.randrange(1, 10)
+                    # 80% chance (roughly?) to drop merchant item sellable by player for rupees at shops
+                    if drop_chance > 2:
+                        # doesn't give item to player if their inventory is full
+                        if len(player.items) < 16:
+                            player.items.append(enemy_combating.items)
+                            enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]."
+                            # add to dictionary anything dropped from enemy upon their defeat
+                            combat_event_dictionary["item dropped"] = enemy_dropped_this
+                        else:
+                            combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
                     else:
-                        combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
-                else:
+                        combat_event_dictionary["item dropped"] = "No"
+                except AttributeError:
                     combat_event_dictionary["item dropped"] = "No"
 
                 # player will level up if experience greater than or equal to 100
@@ -419,6 +440,37 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                     combat_event_dictionary["quest update"] = quest_string
                         else:
                             combat_event_dictionary["quest update"] = "No"
+                        # if player is on quest to kill magmons
+                        if enemy_combating.kind == "magmon":
+                            if player.quest_status["elementary elementals"]:
+                                if player.quest_progress["elementary elementals"] < 4:
+                                    player.quest_progress["elementary elementals"] = \
+                                        player.quest_progress["elementary elementals"] + 1
+                                    quest_string = f"{player.quest_status['elementary elementals']}/4 magmons"
+                                    combat_event_dictionary["quest update"] = quest_string
+                        else:
+                            combat_event_dictionary["quest update"] = "No"
+                        # if player is on quest to kill bandiles
+                        if enemy_combating.kind == "bandile":
+                            if player.quest_status["band hammer"]:
+                                if player.quest_progress["band hammer"] < 4:
+                                    player.quest_progress["band hammer"] = \
+                                        player.quest_progress["band hammer"] + 1
+                                    quest_string = f"{player.quest_status['band hammer']}/4 bandiles"
+                                    combat_event_dictionary["quest update"] = quest_string
+                        else:
+                            combat_event_dictionary["quest update"] = "No"
+                        # if player is on quest to kill bandiles
+                        if enemy_combating.kind == "chinzilla":
+                            if player.quest_status["it's dangerous to go alone"]:
+                                if player.quest_progress["it's dangerous to go alone"] < 1:
+                                    player.quest_progress["it's dangerous to go alone"] = \
+                                        player.quest_progress["it's dangerous to go alone"] + 1
+                                    quest_string = player.quest_status[
+                                                       "it's dangerous to go alone"] + "/1 chinzilla"
+                                    combat_event_dictionary["quest update"] = quest_string
+                        else:
+                            combat_event_dictionary["quest update"] = "No"
                         # experienced gained by player from defeating enemy
                         if player.level <= enemy_combating.level + 1:
                             experience = int((enemy_combating.level / player.level) * 30)
@@ -433,15 +485,19 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                             enemy_experience = f"{experience}"
                             # add to dictionary experience given from defeating enemy
                             combat_event_dictionary["experience gained"] = enemy_experience
-                        drop_chance = random.randrange(1, 10)
-                        if drop_chance > 2:
-                            if len(player.items) < 16:
-                                player.items.append(enemy_combating.items)
-                                enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]."
-                                combat_event_dictionary["item dropped"] = enemy_dropped_this
+                        try:
+                            drop_chance = random.randrange(1, 10)
+                            if drop_chance > 2:
+                                if len(player.items) < 16:
+                                    player.items.append(enemy_combating.items)
+                                    enemy_dropped_this = f"{enemy_combating.name} dropped " \
+                                                         f"[{enemy_combating.items.name}]."
+                                    combat_event_dictionary["item dropped"] = enemy_dropped_this
+                                else:
+                                    combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
                             else:
-                                combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
-                        else:
+                                combat_event_dictionary["item dropped"] = "No"
+                        except AttributeError:
                             combat_event_dictionary["item dropped"] = "No"
                         if player.experience >= 100:
                             gameplay_functions.level_up(player, level_up_win, level_up_font)

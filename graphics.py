@@ -287,7 +287,8 @@ def load_graphics():
                    "s_ember_img": "", "s_band_img": "", "korlok_shop_screen": "", "korlok_inn_screen": "",
                    "korlok_mountains": "", "korlok_apothecary": "", "building_npc_star_available": "",
                    "building_npc_star_progress": "", "building_npc_star_complete": "", "sprite_ore_img": "",
-                   "mountain_trail_bg": "", "terra_mountains": "", "terra_cave": ""}
+                   "mountain_trail_bg": "", "terra_mountains": "", "terra_cave": "", "terra_trail_screen": "",
+                   "chinzilla": "", "caves_battle_screen": ""}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -305,6 +306,8 @@ def load_graphics():
     korlok_inn_screen = pygame.image.load(resource_path('resources/art/bg_korlok_inn.png')).convert_alpha()
     korlok_apothecary = pygame.image.load(resource_path('resources/art/bg_korlok_apothecary.png')).convert_alpha()
     mountain_trail_bg = pygame.image.load(resource_path('resources/art/bg_mountain_trail.png')).convert_alpha()
+    terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
+    caves_battle_screen = pygame.image.load(resource_path('resources/art/bg_cave_battle_screen.png')).convert_alpha()
     mines_battle_screen = pygame.image.load(resource_path('resources/art/bg_mines_battle.png')).convert_alpha()
     rohir_river_screen = pygame.image.load(resource_path('resources/art/bg_rohir_river.png')).convert_alpha()
     reservoir_a_screen = pygame.image.load(resource_path('resources/art/bg_reservoir_a.png')).convert_alpha()
@@ -371,6 +374,7 @@ def load_graphics():
     terra_mountains = pygame.image.load(resource_path('resources/art/'
                                                       'overlay_terra_trail_mountains.png')).convert_alpha()
     terra_cave = pygame.image.load(resource_path('resources/art/overlay_trail_cave.png')).convert_alpha()
+    sprite_chinzilla = pygame.image.load(resource_path('resources/art/sprite_chinzilla.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -390,6 +394,8 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["chinzilla"] = sprite_chinzilla
+    loaded_dict["caves_battle_screen"] = caves_battle_screen
     loaded_dict["a_char_screen"] = a_char_screen
     loaded_dict["n_char_screen"] = n_char_screen
     loaded_dict["s_char_screen"] = s_char_screen
@@ -476,6 +482,7 @@ def load_graphics():
     loaded_dict["korlok_apothecary"] = korlok_apothecary
     loaded_dict["terra_mountains"] = terra_mountains
     loaded_dict["terra_cave"] = terra_cave
+    loaded_dict["terra_trail_screen"] = terra_trail_screen
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -901,18 +908,25 @@ def load_graphics():
     loaded_dict["torune_right"] = torune_sheet[3]
     # voruke npc -------------------------------------------------------------------------------------------------------
     voruke_url = resource_path('resources/art/sprites_voruke.png')
-    voruke_sheet = sprite_sheet((45, 62), voruke_url)
+    voruke_sheet = sprite_sheet((50, 62), voruke_url)
     loaded_dict["voruke_down"] = voruke_sheet[0]
     loaded_dict["voruke_up"] = voruke_sheet[1]
     loaded_dict["voruke_left"] = voruke_sheet[2]
     loaded_dict["voruke_right"] = voruke_sheet[3]
     # zerah npc -------------------------------------------------------------------------------------------------------
     zerah_url = resource_path('resources/art/sprites_zerah.png')
-    zerah_sheet = sprite_sheet((45, 62), zerah_url)
+    zerah_sheet = sprite_sheet((50, 62), zerah_url)
     loaded_dict["zerah_down"] = zerah_sheet[0]
     loaded_dict["zerah_up"] = zerah_sheet[1]
     loaded_dict["zerah_left"] = zerah_sheet[2]
     loaded_dict["zerah_right"] = zerah_sheet[3]
+    # garan npc --------------------------------------------------------------------------------------------------------
+    dionte_url = resource_path('resources/art/sprites_diontes.png')
+    dionte_sheet = sprite_sheet((40, 62), dionte_url)
+    loaded_dict["dionte_down"] = dionte_sheet[0]
+    loaded_dict["dionte_up"] = dionte_sheet[1]
+    loaded_dict["dionte_left"] = dionte_sheet[2]
+    loaded_dict["dionte_right"] = dionte_sheet[3]
     # npc interactions -------------------------------------------------------------------------------------------------
     npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
     npc_interactions_sheet = sprite_sheet((220, 300), npc_interactions_url)
@@ -922,6 +936,7 @@ def load_graphics():
     loaded_dict["torune_interaction"] = npc_interactions_sheet[3]
     loaded_dict["voruke_interaction"] = npc_interactions_sheet[4]
     loaded_dict["zerah_interaction"] = npc_interactions_sheet[5]
+    loaded_dict["dionte_interaction"] = npc_interactions_sheet[6]
     # interaction popup ------------------------------------------------------------------------------------------------
     interaction_popup_url = resource_path('resources/art/popup_interaction.png')
     interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)
@@ -964,6 +979,7 @@ def load_graphics():
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)
     loaded_dict["chorizon_battle"] = boss_enemies_battle_sheet[0]
     loaded_dict["muchador_battle"] = boss_enemies_battle_sheet[1]
+    loaded_dict["chinzilla_battle"] = boss_enemies_battle_sheet[2]
     # enemies attacking ------------------------------------------------------------------------------------------------
     enemies_attack_url = resource_path('resources/art/sprites_enemies_attacking.png')
     enemies_attack_sheet = sprite_sheet((400, 300), enemies_attack_url)
@@ -975,6 +991,7 @@ def load_graphics():
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)
     loaded_dict["chorizon_attack"] = boss_enemies_battle_sheet[0]
     loaded_dict["muchador_attack"] = boss_enemies_battle_sheet[1]
+    loaded_dict["chinzilla_attack"] = boss_enemies_battle_sheet[2]
     # amuna buildings --------------------------------------------------------------------------------------------------
     amuna_buildings_url = resource_path('resources/art/sprites_amuna_buildings.png')
     amuna_buildings_sheet = sprite_sheet((100, 100), amuna_buildings_url)
@@ -1212,13 +1229,20 @@ def load_graphics():
     cat_pet_sheet = sprite_sheet((90, 100), cat_pet_url)
     loaded_dict["shop_cat_pet_img"] = cat_pet_sheet[0]
     loaded_dict["academia_cat_pet_img"] = cat_pet_sheet[1]
-    # cat petting animation sprites ------------------------------------------------------------------------------------
+    # stardust outpost star overlays -----------------------------------------------------------------------------------
     stardust_stars_url = resource_path('resources/art/overlays_stardust_stars.png')
     stardust_stars_sheet = sprite_sheet((271, 105), stardust_stars_url)
     loaded_dict["stardust_star_01"] = stardust_stars_sheet[0]
     loaded_dict["stardust_star_02"] = stardust_stars_sheet[1]
     loaded_dict["stardust_star_03"] = stardust_stars_sheet[2]
     loaded_dict["stardust_star_04"] = stardust_stars_sheet[3]
+    # stardust outpost korlok star overlays ----------------------------------------------------------------------------
+    stardust_stars_korlok_url = resource_path('resources/art/overlays_stardust_stars_korlok.png')
+    stardust_stars_korlok_sheet = sprite_sheet((271, 105), stardust_stars_korlok_url)
+    loaded_dict["stardust_star_01_korlok"] = stardust_stars_korlok_sheet[0]
+    loaded_dict["stardust_star_02_korlok"] = stardust_stars_korlok_sheet[1]
+    loaded_dict["stardust_star_03_korlok"] = stardust_stars_korlok_sheet[2]
+    loaded_dict["stardust_star_04_korlok"] = stardust_stars_korlok_sheet[3]
     # hearth stone sprites ---------------------------------------------------------------------------------------------
     hearth_stones_url = resource_path('resources/art/sprite_hearth_stone.png')
     hearth_stones_sheet = sprite_sheet((100, 100), hearth_stones_url)

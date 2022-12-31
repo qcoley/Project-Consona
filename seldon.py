@@ -24,8 +24,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     enemy_tic, npc_tic, npc_garan, npc_maurelle, npc_celeste, npc_torune, info_text_1, info_text_2,
                     info_text_3, info_text_4, in_battle, in_shop, in_academia, in_inn, movement_able,
                     current_enemy_battling, current_npc_interacting, current_building_entering,
-                    magmon_battle_sprite, bandile_battle_sprite, interactables_mines, star_voruke, star_zerah,
-                    star_apothecary):
+                    magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, interactables_mines,
+                    star_voruke, star_zerah, star_apothecary, star_dionte):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -98,7 +98,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
                                               quest_star_torune, graphic_dict["quest_progress_star"],
                                               graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary)
+                                              star_apothecary, star_dionte)
     screen.blit(player.surf, player.rect)
 
     # player encounters objects and draws popup information box ----------------------------------------
@@ -190,8 +190,9 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             drawing_functions.loot_text_container.clear()
             combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, barrier_active,
-                                              sharp_sense_active, in_battle, in_npc_interaction, graphic_dict)
+                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                              graphic_dict)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, amuna_buildings)
@@ -250,8 +251,9 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             drawing_functions.loot_text_container.clear()
             combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, barrier_active,
-                                              sharp_sense_active, in_battle, in_npc_interaction, graphic_dict)
+                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                              graphic_dict)
 
     if pygame.sprite.collide_rect(player, hearth_stone):
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,

@@ -15,14 +15,13 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     in_battle, in_shop, in_academia, in_inn, in_npc_interaction, movement_able, current_enemy_battling,
                     current_npc_interacting, current_building_entering, korlok_enemies, player_battle_sprite,
                     snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                    barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, voruke, cerah,
-                    npcs, seldon_enemies, snakes, ghouls, bandiles, interactables_seldon, interactables_korlok, Enemy,
-                    Item, UiElement, interactables_mines, quest_star_garan, quest_star_maurelle,
-                    quest_star_celeste, quest_star_torune, star_voruke, star_zerah, korlok_mountains, in_apothecary,
-                    star_apothecary):
+                    barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite,
+                    chinzilla_battle_sprite, voruke, zerah, npcs, seldon_enemies, snakes, ghouls, bandiles,
+                    interactables_seldon, interactables_korlok, Enemy, Item, UiElement, interactables_mines,
+                    quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune, star_voruke,
+                    star_zerah, korlok_mountains, in_apothecary, star_apothecary, star_dionte):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
-    hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -50,7 +49,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     for building in nuldar_buildings:
         screen.blit(building.surf, building.rect)
     screen.blit(voruke.surf, voruke.rect)
-    screen.blit(cerah.surf, cerah.rect)
+    screen.blit(zerah.surf, zerah.rect)
     screen.blit(mines_entrance.surf, mines_entrance.rect)
     screen.blit(hearth_stone.surf, hearth_stone.rect)
     for magmon in magmons:
@@ -59,7 +58,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
                                               quest_star_torune, graphic_dict["quest_progress_star"],
                                               graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary)
+                                              star_apothecary, star_dionte)
 
     screen.blit(player.surf, player.rect)
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)
@@ -90,8 +89,9 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             drawing_functions.loot_text_container.clear()
             combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, barrier_active,
-                                              sharp_sense_active, in_battle, in_npc_interaction, graphic_dict)
+                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                              graphic_dict)
 
     # if player collides with npc sprite and chooses to interact with it
     npc = pygame.sprite.spritecollideany(player, npcs)
@@ -119,8 +119,9 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             drawing_functions.loot_text_container.clear()
             combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, barrier_active,
-                                              sharp_sense_active, in_battle, in_npc_interaction, graphic_dict)
+                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                              graphic_dict)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, nuldar_buildings)
@@ -284,6 +285,34 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         player.x_coordinate = 150
         player.y_coordinate = 150
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    # npc movement updates
+    face_direction = random.choice(["front", "back", "left", "right"])
+    face_this_npc = random.choice(npcs.sprites())
+    if movement_able and in_over_world:
+        npc_toc = time.perf_counter()
+        if npc_toc - npc_tic > 5:
+            npc_tic = time.perf_counter()
+            if face_direction == "front":
+                if face_this_npc.name == "voruke":
+                    voruke.update(graphic_dict["voruke_down"])
+                if face_this_npc.name == "zerah":
+                    zerah.update(graphic_dict["zerah_down"])
+            if face_direction == "back":
+                if face_this_npc.name == "voruke":
+                    voruke.update(graphic_dict["voruke_up"])
+                if face_this_npc.name == "zerah":
+                    zerah.update(graphic_dict["zerah_up"])
+            if face_direction == "left":
+                if face_this_npc.name == "voruke":
+                    voruke.update(graphic_dict["voruke_left"])
+                if face_this_npc.name == "zerah":
+                    zerah.update(graphic_dict["zerah_left"])
+            if face_direction == "right":
+                if face_this_npc.name == "voruke":
+                    voruke.update(graphic_dict["voruke_right"])
+                if face_this_npc.name == "zerah":
+                    zerah.update(graphic_dict["zerah_right"])
 
     # info to return to main loop --------------------------------------------------------------------------------------
     korlok_return = {"over_world_song_set": over_world_song_set, "korlok_attuned": korlok_attuned,

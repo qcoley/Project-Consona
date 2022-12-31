@@ -8,7 +8,8 @@ import drawing_functions
 
 # quest stars for npcs that update based on player quest progress
 def npc_quest_star_updates(screen, player, star_garan, star_maurelle, star_celeste, star_torune,
-                           quest_progress_star, quest_complete_star, star_voruke, star_zerah, star_apothecary):
+                           quest_progress_star, quest_complete_star, star_voruke, star_zerah, star_apothecary,
+                           star_dionte):
     if player.current_zone == "seldon":
         if not player.quest_complete["sneaky snakes"]:
             screen.blit(star_garan.surf, star_garan.rect)
@@ -60,6 +61,14 @@ def npc_quest_star_updates(screen, player, star_garan, star_maurelle, star_celes
         if player.quest_status["can't apothecary it"] and player.quest_progress["can't apothecary it"] != 4:
             star_apothecary.update(star_apothecary.x_coordinate, star_apothecary.y_coordinate, quest_progress_star)
 
+    if player.current_zone == "terra trail":
+        if not player.quest_complete["it's dangerous to go alone"]:
+            screen.blit(star_dionte.surf, star_dionte.rect)
+        if player.quest_progress["it's dangerous to go alone"] == 1:
+            star_dionte.update(625, 65, quest_complete_star)
+        if player.quest_status["it's dangerous to go alone"] and \
+                player.quest_progress["it's dangerous to go alone"] != 1:
+            star_dionte.update(625, 65, quest_progress_star)
 
 def load_game(player, Item, graphics):
     load_return = {"barrier learned": False, "strike learned": False, "sensed learned": False,
