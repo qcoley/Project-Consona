@@ -18,12 +18,11 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                     muchador_battle_sprite, barrier_active, sharp_sense_active, in_npc_interaction,
                     amuna_buildings, npcs, save_check_window, user_interface, world_map_container, bar_backdrop,
-                    hp_bar, en_bar, xp_bar, offense_upgraded, defense_upgraded, level_up_font, button_highlighted,
-                    button_highlight, knowledge_academia_show, knowledge_academia, rest_recover_show,
-                    rest_shown_before, rest_recover, quest_guide_shown, game_guide_overlay, role_guide_shown,
-                    enemy_tic, npc_tic, npc_garan, npc_maurelle, npc_celeste, npc_torune, info_text_1, info_text_2,
-                    info_text_3, info_text_4, in_battle, in_shop, in_academia, in_inn, movement_able,
-                    current_enemy_battling, current_npc_interacting, current_building_entering,
+                    hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, knowledge_academia_show,
+                    knowledge_academia, rest_recover_show, rest_shown_before, rest_recover, quest_guide_shown,
+                    game_guide_overlay, role_guide_shown, enemy_tic, npc_tic, npc_garan, npc_maurelle, npc_celeste,
+                    npc_torune, info_text_1, info_text_2, info_text_3, info_text_4, in_battle, in_shop, in_academia,
+                    in_inn, movement_able, current_enemy_battling, current_npc_interacting, current_building_entering,
                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, interactables_mines,
                     star_voruke, star_zerah, star_apothecary, star_dionte):
 
@@ -286,7 +285,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
+                                     in_over_world)
     drawing_functions.draw_it(screen)
 
     if button_highlighted:

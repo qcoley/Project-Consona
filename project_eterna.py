@@ -1456,7 +1456,7 @@ class Shopkeeper(pygame.sprite.Sprite):
 # enemy class used for any enemy like snakes, ghouls etc
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, name, kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image,
-                 health_bar):
+                 health_bar, type):
         super(Enemy, self).__init__()
         self.name = name
         self.kind = kind
@@ -1471,6 +1471,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
         self.speed = 1
         self.health_bar = health_bar
+        self.type = type
 
     # updates enemy image
     def update_image(self, x_coord, y_coord, image):
@@ -1644,7 +1645,7 @@ def button_highlighter(posit):
                                                               nuldar_button, sorae_button, save_check_window,
                                                               yes_button, no_button, item_info_button, rest_button,
                                                               leave_button, buy_button, in_inn, in_shop, buy_clicked,
-                                                              offense_select_button, defense_select_button, in_battle,
+                                                              offense_select_button, in_battle,
                                                               mage_attack_button, fighter_attack_button,
                                                               scout_attack_button, no_role_attack_button,
                                                               barrier_button, sharp_sense_button, hard_strike_button,
@@ -1652,9 +1653,7 @@ def button_highlighter(posit):
                                                               eldream_map_button, marrow_map_button, character_button,
                                                               quests_button, save_button, map_button,
                                                               in_npc_interaction, quest_button, quest_clicked,
-                                                              accept_button, decline_button, current_npc_interacting,
-                                                              npc_garan, mage_select_button, fighter_select_button,
-                                                              scout_select_button, in_apothecary)
+                                                              accept_button, decline_button, in_apothecary)
     return button_highlighters
 
 
@@ -1815,69 +1814,70 @@ if __name__ == '__main__':
     # seldon enemies ---------------------------------------------------------------------------------------------------
     snake_1 = Enemy("snake", "snake", 100, 100, 1, 100, 130, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
-                    graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
+                    graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     snake_2 = Enemy("snake", "snake", 100, 100, 2, 285, 150, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
-                    graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
+                    graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     snake_3 = Enemy("snake", "snake", 100, 100, 1, 100, 230, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
-                    graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
+                    graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     snake_4 = Enemy("snake", "snake", 100, 100, 2, 285, 250, True,
                     Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
-                    graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
+                    graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     ghoul_low_1 = Enemy("ghoul", "ghoul", 100, 100, 4, 665, 180, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
-                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
+                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_low_2 = Enemy("ghoul", "ghoul", 100, 100, 5, 800, 130, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
-                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
+                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_low_3 = Enemy("ghoul", "ghoul", 100, 100, 3, 760, 240, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
-                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
+                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 890, 205, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
-                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
+                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_nede = Enemy("nede ghoul", "ghoul", 100, 100, 3, 450, 455, True,
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
-                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
+                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # reservoir enemies ------------------------------------------------------------------------------------------------
-    chorizon_1 = Enemy("chorizon_1", "chorizon", 100, 100, 7, 150, 230, True,
-                       Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
-                       graphic_dict["chorizon"], UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]))
-    chorizon_2 = Enemy("chorizon_2", "chorizon", 100, 100, 7, 870, 230, True,
-                       Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
-                       graphic_dict["chorizon"], UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]))
-    muchador = Enemy("muchador", "muchador", 100, 100, 8, 350, 360, True,
-                        Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
-                        graphic_dict["muchador_dark"], UiElement("muchador hp bar", 700, 90, graphic_dict["hp_100"]))
+    chorizon_1 = Enemy("chorizon_1", "chorizon", 100, 100, 7, 150, 230, True, "item", graphic_dict["chorizon"],
+                       UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    chorizon_2 = Enemy("chorizon_2", "chorizon", 100, 100, 7, 870, 230, True, "item", graphic_dict["chorizon"],
+                       UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    muchador = Enemy("muchador", "muchador", 100, 100, 8, 350, 360, True, "item", graphic_dict["muchador_dark"],
+                     UiElement("muchador hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     # korlok enemies ---------------------------------------------------------------------------------------------------
     magmon_1 = Enemy("magmon", "magmon", 100, 100, 9, 125, 135, True,
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
-                     graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
+                     graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     magmon_2 = Enemy("magmon", "magmon", 100, 100, 11, 375, 125, True,
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
-                     graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
+                     graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     magmon_3 = Enemy("magmon", "magmon", 100, 100, 10, 200, 197, True,
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
-                     graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
+                     graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     magmon_4 = Enemy("magmon", "magmon", 100, 100, 9, 320, 197, True,
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
-                     graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
+                     graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     bandile_1 = Enemy("bandile", "bandile", 100, 100, 8, 655, 245, True,
                         Item("broken band", "band", 200, 200, graphic_dict["band"]),
-                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
+                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
+                      "fighter")
     bandile_2 = Enemy("bandile", "bandile", 100, 100, 9, 765, 165, True,
                         Item("broken band", "band", 200, 200, graphic_dict["band"]),
-                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
+                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
+                      "fighter")
     bandile_3 = Enemy("bandile", "bandile", 100, 100, 7, 765, 335, True,
                         Item("broken band", "band", 200, 200, graphic_dict["band"]),
-                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
+                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
+                      "fighter")
     bandile_4 = Enemy("bandile", "bandile", 100, 100, 8, 880, 245, True,
                         Item("broken band", "band", 200, 200, graphic_dict["band"]),
-                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
+                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
+                      "fighter")
     # terra cave enemy -------------------------------------------------------------------------------------------------
     chinzilla = Enemy("chinzilla", "chinzilla", 100, 100, 14, 350, 360, True, ["Item"], graphic_dict["chinzilla"],
-                      UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]))
+                      UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
@@ -1944,11 +1944,7 @@ if __name__ == '__main__':
     no_button = UiElement("no button", 564, 394, graphic_dict["no_button_img"])
     back_button = UiElement("back button", 75, 665, graphic_dict["back_button_img"])
     item_info_button = UiElement("item info button", 1153, 345, graphic_dict["use_button_img"])
-    mage_select_button = UiElement("mage select", 296, 566, graphic_dict["mage_select_button_img"])
-    fighter_select_button = UiElement("fighter select", 550, 566, graphic_dict["fighter_select_button_img"])
-    scout_select_button = UiElement("scout select", 804, 566, graphic_dict["scout_select_button_img"])
     offense_select_button = UiElement("offense select", 637, 577, graphic_dict["offense_select_button_img"])
-    defense_select_button = UiElement("defense select", 891, 577, graphic_dict["defense_select_button_img"])
     skip_button = UiElement("skip button", 1212, 680, graphic_dict["skip_button_img"])
 
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
@@ -1958,6 +1954,8 @@ if __name__ == '__main__':
     barrier_button = UiElement("barrier button", 820, 642, graphic_dict["barrier_button_img"])
     hard_strike_button = UiElement("hard strike button", 820, 642, graphic_dict["strike_button_img"])
     sharp_sense_button = UiElement("sharp sense button", 820, 642, graphic_dict["sense_button_img"])
+
+    type_advantage_overlay = UiElement("type advantage overlay", 580, 48, graphic_dict["mage_type_overlay"])
 
     skill_bar = UiElement("skill bar", 855, 636, graphic_dict["skill_bar"])
     enemy_status = UiElement("enemy status", 855, 687, graphic_dict["enemy_status"])
@@ -2322,9 +2320,6 @@ if __name__ == '__main__':
     game_guide_container = []
     world_map_container = []
 
-    offense_upgraded = 0
-    defense_upgraded = 0
-
     info_text_1 = ''
     info_text_2 = ''
     info_text_3 = ''
@@ -2555,8 +2550,6 @@ if __name__ == '__main__':
                     npc_garan.gift = load_returned["garan gift"]
                     rest_recover_show = load_returned["rest popup"]
                     knowledge_academia_show = load_returned["knowledge popup"]
-                    offense_upgraded = load_returned["offense upgrade"]
-                    defense_upgraded = load_returned["defense upgrade"]
                     quest_guide_shown = load_returned["quest guide"]
                     battle_guide_shown = load_returned["battle guide"]
                     role_guide_shown = load_returned["role guide"]
@@ -2697,7 +2690,7 @@ if __name__ == '__main__':
 
                 # player information updates
                 gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
-                                                              graphic_dict, font)
+                                                              graphic_dict)
 
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
                         and not in_academia:
@@ -2814,7 +2807,6 @@ if __name__ == '__main__':
                             info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                             if info_choice == "yes":
                                 inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                           offense_upgraded, defense_upgraded,
                                                                            graphic_dict["player_mage_amuna_down_1"],
                                                                            graphic_dict["player_mage_nuldar_down_1"],
                                                                            graphic_dict["player_mage_sorae_down_1"],
@@ -2839,8 +2831,7 @@ if __name__ == '__main__':
                                                                                      graphic_dict)
 
                             if len(drawing_functions.item_info_window) == 0:
-                                equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                           defense_upgraded,
+                                equipment_event = click_handlers.equipment(player, event, pygame,
                                                                            graphic_dict["player_no_role_amuna_down_1"],
                                                                            graphic_dict["player_no_role_nuldar_down_1"],
                                                                            graphic_dict["player_no_role_sorae_down_1"])
@@ -2905,7 +2896,6 @@ if __name__ == '__main__':
                                         gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                      sharp_sense_learned, saved, npc_garan.gift,
                                                                      rest_recover_show, knowledge_academia_show,
-                                                                     offense_upgraded, defense_upgraded,
                                                                      quest_guide_shown, battle_guide_shown,
                                                                      role_guide_shown, upgrade_guide_shown,
                                                                      rest_shown_before, quest_highlight_popup,
@@ -2925,7 +2915,7 @@ if __name__ == '__main__':
                                 gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                              sharp_sense_learned, saved, npc_garan.gift,
                                                              rest_recover_show, knowledge_academia_show,
-                                                             offense_upgraded, defense_upgraded, quest_guide_shown,
+                                                             quest_guide_shown,
                                                              battle_guide_shown, role_guide_shown, upgrade_guide_shown,
                                                              rest_shown_before, quest_highlight_popup, first_item_cond,
                                                              bridge_not_repaired, nede_ghoul_defeated,
@@ -3111,8 +3101,7 @@ if __name__ == '__main__':
                                                              barrier_active, sharp_sense_active, in_npc_interaction,
                                                              amuna_buildings, npcs_seldon, save_check_window,
                                                              user_interface, world_map_container, bar_backdrop, hp_bar,
-                                                             en_bar, xp_bar, offense_upgraded, defense_upgraded,
-                                                             level_up_font, button_highlighted, button_highlight,
+                                                             en_bar, xp_bar, button_highlighted, button_highlight,
                                                              knowledge_academia_show, knowledge_academia,
                                                              rest_recover_show, rest_shown_before, rest_recover,
                                                              quest_guide_shown, game_guide_overlay, role_guide_shown,
@@ -3182,8 +3171,7 @@ if __name__ == '__main__':
                                                              magmons, interaction_popup, font, bridge_not_repaired,
                                                              reservoir_enter, rock_1, rock_2, save_check_window,
                                                              user_interface, world_map_container, bar_backdrop, hp_bar,
-                                                             en_bar, xp_bar, offense_upgraded, defense_upgraded,
-                                                             level_up_font, button_highlighted, button_highlight,
+                                                             en_bar, xp_bar, button_highlighted, button_highlight,
                                                              in_over_world, korlok_attuned, interacted, info_text_1,
                                                              info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic,
                                                              in_battle, in_shop, in_academia, in_inn,
@@ -3244,7 +3232,6 @@ if __name__ == '__main__':
                                                         korlok_overworld_music, over_world_song_set, bandiles,
                                                         interaction_popup, font, save_check_window, user_interface,
                                                         world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                        offense_upgraded, defense_upgraded, level_up_font,
                                                         button_highlighted, button_highlight, in_over_world,
                                                         interacted, info_text_1, info_text_2, info_text_3, info_text_4,
                                                         enemy_tic, npc_tic, in_battle, in_npc_interaction,
@@ -3291,21 +3278,19 @@ if __name__ == '__main__':
                                                        korlok_overworld_music, over_world_song_set,
                                                        interaction_popup, font, save_check_window, user_interface,
                                                        world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                       offense_upgraded, defense_upgraded, level_up_font,
-                                                       button_highlighted, button_highlight, in_over_world,
-                                                       interacted, info_text_1, info_text_2, info_text_3,
-                                                       info_text_4, npc_tic, in_npc_interaction, in_battle,
-                                                       movement_able, current_enemy_battling, interactables_seldon,
-                                                       interactables_korlok, Item, UiElement, interactables_mines,
-                                                       quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                                       quest_star_torune, quest_star_voruke, quest_star_zerah,
-                                                       quest_star_apothecary, terra_mountains, terra_cave,
-                                                       npc_dionte, quest_star_dionte, Enemy, player_battle_sprite,
-                                                       snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
-                                                       muchador_battle_sprite, magmon_battle_sprite,
-                                                       bandile_battle_sprite, chinzilla_battle_sprite, barrier_active,
-                                                       sharp_sense_active, current_npc_interacting, chinzilla,
-                                                       quest_star_dionte, hearth_stone)
+                                                       button_highlighted, button_highlight, in_over_world, interacted,
+                                                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic,
+                                                       in_npc_interaction, in_battle, movement_able,
+                                                       current_enemy_battling, quest_star_garan, quest_star_maurelle,
+                                                       quest_star_celeste, quest_star_torune, quest_star_voruke,
+                                                       quest_star_zerah, quest_star_apothecary, terra_mountains,
+                                                       terra_cave, npc_dionte, quest_star_dionte, Enemy,
+                                                       player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+                                                       chorizon_battle_sprite, muchador_battle_sprite,
+                                                       magmon_battle_sprite, bandile_battle_sprite,
+                                                       chinzilla_battle_sprite, barrier_active, sharp_sense_active,
+                                                       current_npc_interacting, chinzilla, quest_star_dionte,
+                                                       hearth_stone)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -3349,8 +3334,7 @@ if __name__ == '__main__':
                                                                   in_npc_interaction, stardust_entrance,
                                                                   save_check_window, user_interface,
                                                                   world_map_container, bar_backdrop, hp_bar, en_bar,
-                                                                  xp_bar, offense_upgraded, defense_upgraded,
-                                                                  level_up_font, button_highlighted, button_highlight,
+                                                                  xp_bar, button_highlighted, button_highlight,
                                                                   npc_tic, info_text_1, info_text_2, info_text_3,
                                                                   info_text_4, current_enemy_battling,
                                                                   current_building_entering, in_battle, movement_able,
@@ -3394,9 +3378,8 @@ if __name__ == '__main__':
                                                        water_player, graphic_dict, save_check_window, user_interface,
                                                        world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, font,
                                                        info_text_1, info_text_2, info_text_3, info_text_4,
-                                                       in_over_world, offense_upgraded, defense_upgraded, level_up_font,
-                                                       button_highlighted, button_highlight, rohir_river_music,
-                                                       interaction_popup, interacted)
+                                                       in_over_world, button_highlighted, button_highlight,
+                                                       rohir_river_music, interaction_popup, interacted)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -3428,20 +3411,20 @@ if __name__ == '__main__':
                                                                  interaction_popup, font, save_check_window,
                                                                  user_interface, world_map_container,
                                                                  loot_popup_container, loot_text_container,
-                                                                 bar_backdrop, hp_bar, en_bar, xp_bar, offense_upgraded,
-                                                                 defense_upgraded, level_up_font, button_highlighted,
-                                                                 button_highlight, in_over_world, interacted,
-                                                                 info_text_1, info_text_2, info_text_3, info_text_4,
-                                                                 switch_1, dungeon_switch_1, switch_2, dungeon_switch_2,
-                                                                 switch_3, dungeon_switch_3, dungeon_walls,
-                                                                 dungeon_items, dungeon_teleporter, mini_boss_1,
-                                                                 dungeon_drop_wall, chorizon_1, mini_boss_2, chorizon_2,
-                                                                 crate_1, Item, crate_2, crate_3, crate_4,
-                                                                 mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                 boss_enemies, player_battle_sprite,
-                                                                 snake_battle_sprite, ghoul_battle_sprite,
-                                                                 chorizon_battle_sprite, muchador_battle_sprite,
-                                                                 barrier_active, sharp_sense_active, in_npc_interaction,
+                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                 button_highlighted, button_highlight, in_over_world,
+                                                                 interacted, info_text_1, info_text_2, info_text_3,
+                                                                 info_text_4, switch_1, dungeon_switch_1, switch_2,
+                                                                 dungeon_switch_2, switch_3, dungeon_switch_3,
+                                                                 dungeon_walls, dungeon_items, dungeon_teleporter,
+                                                                 mini_boss_1, dungeon_drop_wall, chorizon_1,
+                                                                 mini_boss_2, chorizon_2, crate_1, Item, crate_2,
+                                                                 crate_3, crate_4, mini_boss_1_defeated,
+                                                                 mini_boss_2_defeated, boss_enemies,
+                                                                 player_battle_sprite, snake_battle_sprite,
+                                                                 ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                 muchador_battle_sprite, barrier_active,
+                                                                 sharp_sense_active, in_npc_interaction,
                                                                  magmon_battle_sprite, bandile_battle_sprite,
                                                                  chinzilla_battle_sprite)
 
@@ -3492,8 +3475,7 @@ if __name__ == '__main__':
                                                                  muchador_battle_sprite, barrier_active,
                                                                  sharp_sense_active, in_npc_interaction, user_interface,
                                                                  world_map_container, bar_backdrop, hp_bar, en_bar,
-                                                                 xp_bar, offense_upgraded, defense_upgraded,
-                                                                 level_up_font, button_highlighted, button_highlight,
+                                                                 xp_bar, button_highlighted, button_highlight,
                                                                  info_text_1, info_text_2, info_text_3, info_text_4,
                                                                  in_over_world, switch_1, switch_2, switch_3, has_key,
                                                                  magmon_battle_sprite, bandile_battle_sprite,
@@ -3534,8 +3516,7 @@ if __name__ == '__main__':
                                                                  over_world_song_set, reservoir_music,
                                                                  interaction_popup, font, interacted, save_check_window,
                                                                  user_interface, world_map_container, bar_backdrop,
-                                                                 hp_bar, en_bar, xp_bar, offense_upgraded,
-                                                                 defense_upgraded, level_up_font, button_highlighted,
+                                                                 hp_bar, en_bar, xp_bar, button_highlighted,
                                                                  button_highlight, reservoir_c_bg, dungeon_chest,
                                                                  reservoir_exit, rock_1, rock_2, gloves_obtained, Item,
                                                                  info_text_1, info_text_2, info_text_3, info_text_4,
@@ -3597,7 +3578,6 @@ if __name__ == '__main__':
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                       offense_upgraded, defense_upgraded,
                                                                        graphic_dict["player_mage_amuna_down_1"],
                                                                        graphic_dict["player_mage_nuldar_down_1"],
                                                                        graphic_dict["player_mage_sorae_down_1"],
@@ -3622,8 +3602,7 @@ if __name__ == '__main__':
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                       defense_upgraded,
+                            equipment_event = click_handlers.equipment(player, event, pygame,
                                                                        graphic_dict["player_no_role_amuna_down_1"],
                                                                        graphic_dict["player_no_role_nuldar_down_1"],
                                                                        graphic_dict["player_no_role_sorae_down_1"])
@@ -3709,12 +3688,11 @@ if __name__ == '__main__':
                                     if barrier_active:
                                         barrier_active = False
                                         # noinspection PyUnboundLocalVariable
-                                        player.defense = original_defence
+
                                     # if sharp sense is active on enemy defeat, restore original offense
                                     if sharp_sense_active:
                                         sharp_sense_active = False
                                         # noinspection PyUnboundLocalVariable
-                                        player.offense = original_offense
 
                                     movement_able = True
                                     combat_happened = False
@@ -3737,9 +3715,7 @@ if __name__ == '__main__':
                                             if not barrier_active:
                                                 original_defence = player.defense
                                                 info_text_1 = "Barrier spell is active."
-                                                info_text_2 = "You have gained 8 defence."
                                                 barrier_active = True
-                                                player.defense += 4
                                                 player.energy -= 35
                                             else:
                                                 info_text_1 = "Barrier spell is already active."
@@ -3748,11 +3724,8 @@ if __name__ == '__main__':
                                     if player.role == "scout":
                                         if sharp_sense_learned:
                                             if not sharp_sense_active:
-                                                original_offense = player.offense
                                                 info_text_1 = "Sharp sense is active."
-                                                info_text_2 = "You have gained 10 offense."
                                                 sharp_sense_active = True
-                                                player.offense += 10
                                                 player.energy -= 35
                                             else:
                                                 info_text_1 = "Sharp sense is already active."
@@ -3903,6 +3876,14 @@ if __name__ == '__main__':
                             text_enemy_level_rect.center = (915, 689)
                             screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
+                            if current_enemy_battling.type == "mage":
+                                type_advantage_overlay.update(580, 50, graphic_dict["mage_type_overlay"])
+                            if current_enemy_battling.type == "fighter":
+                                type_advantage_overlay.update(580, 50, graphic_dict["fighter_type_overlay"])
+                            if current_enemy_battling.type == "scout":
+                                type_advantage_overlay.update(580, 50, graphic_dict["scout_type_overlay"])
+                            screen.blit(type_advantage_overlay.surf, type_advantage_overlay.rect)
+
                             # game guide popups
                             if not battle_guide_shown:
                                 game_guide_overlay.update(game_guide_overlay.x_coordinate,
@@ -3945,8 +3926,7 @@ if __name__ == '__main__':
                         screen.blit(message_box.surf, message_box.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world, offense_upgraded,
-                                                         defense_upgraded, level_up_font)
+                                                         info_text_3, info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
 
                         if len(game_guide_container) > 0:
@@ -4001,18 +3981,31 @@ if __name__ == '__main__':
                         screen.blit(message_box.surf, message_box.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world, offense_upgraded,
-                                                         defense_upgraded, level_up_font)
+                                                         info_text_3, info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
 
+                        # damage overlays, updated depending on if damage was in effective range
                         if combat_events["damage done"] != 0:
+                            dealt_damage_overlay.update(850, 225, graphic_dict["dealt_damage_img"])
+                            if combat_events["non effective player"]:
+                                dealt_damage_overlay.update(850, 225, graphic_dict["non_effective_dealt_damage_img"])
+                            if combat_events["effective player"]:
+                                dealt_damage_overlay.update(850, 225, graphic_dict["effective_dealt_damage_img"])
+
                             screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
                             damage_done_surf = level_up_font.render(str(combat_events["damage done"]),
                                                                     True, "black", "white")
                             damage_done_rect = damage_done_surf.get_rect()
                             damage_done_rect.center = (850, 225)
                             screen.blit(damage_done_surf, damage_done_rect)
+
                         if combat_events["damage taken"] != 0:
+                            received_damage_overlay.update(125, 275, graphic_dict["received_damage_img"])
+                            if combat_events["non effective enemy"]:
+                                received_damage_overlay.update(125, 275, graphic_dict["non_effective_dealt_damage_img"])
+                            if combat_events["effective enemy"]:
+                                received_damage_overlay.update(125, 275, graphic_dict["effective_received_damage_img"])
+
                             screen.blit(received_damage_overlay.surf, received_damage_overlay.rect)
                             damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
                                                                         True, "black", "white")
@@ -4057,34 +4050,17 @@ if __name__ == '__main__':
                         if buy_clicked:
                             if player.current_zone == "stardust":
                                 upgrade_event = click_handlers.stardust_upgrade_event(event, offense_select_button,
-                                                                                      defense_select_button, pygame)
+                                                                                      pygame)
                                 # if player is in stardust post and chooses to upgrade +10 offense, consume 4 stars
                                 if len(stardust_upgrade_elements) > 0:
                                     if upgrade_event == "offense":
                                         if player.star_power >= 4:
                                             buy_clicked = False
                                             button_highlighted = False
-                                            player.offense += 10
-                                            # save upgrade in variable to be applied when switching gear
-                                            offense_upgraded += 1
+                                            player.offense += 1
                                             player.star_power -= 4
                                             info_text_1 = "You consumed 4 stars,"
-                                            info_text_2 = "Upgrading your base offense +10."
-                                            stardust_upgrade_elements.clear()
-                                        else:
-                                            info_text_1 = "4 stars are required to upgrade."
-                                            info_text_2 = ""
-                                    # if player is in stardust post and chooses to upgrade +4 defense, consume 4 stars
-                                    if upgrade_event == "defense":
-                                        if player.star_power >= 4:
-                                            buy_clicked = False
-                                            button_highlighted = False
-                                            player.defense += 4
-                                            # save upgrade in variable to be applied when switching gear
-                                            defense_upgraded += 1
-                                            player.star_power -= 4
-                                            info_text_1 = "You consumed 4 stars,"
-                                            info_text_2 = "Upgrading your base defense +4."
+                                            info_text_2 = "Upgrading your offense to level 2."
                                             stardust_upgrade_elements.clear()
                                         else:
                                             info_text_1 = "4 stars are required to upgrade."
@@ -4189,7 +4165,6 @@ if __name__ == '__main__':
                                     buy_clicked = True
                                     stardust_upgrade_elements.append(upgrade_overlay)
                                     stardust_upgrade_elements.append(offense_select_button)
-                                    stardust_upgrade_elements.append(defense_select_button)
 
                         shop_keys = pygame.key.get_pressed()
                         # outside of shop event loop -------------------------------------------------------------------
@@ -4263,8 +4238,7 @@ if __name__ == '__main__':
                         screen.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world, offense_upgraded, defense_upgraded,
-                                                         level_up_font)
+                                                         info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
 
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -4306,10 +4280,7 @@ if __name__ == '__main__':
                         screen.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                         info_text_3,
-                                                         info_text_4, in_over_world, offense_upgraded,
-                                                         defense_upgraded,
-                                                         level_up_font)
+                                                         info_text_3, info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
 
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -4351,8 +4322,7 @@ if __name__ == '__main__':
                         screen.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world, offense_upgraded, defense_upgraded,
-                                                         level_up_font)
+                                                         info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
 
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -4458,7 +4428,6 @@ if __name__ == '__main__':
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                       offense_upgraded, defense_upgraded,
                                                                        graphic_dict["player_mage_amuna_down_1"],
                                                                        graphic_dict["player_mage_nuldar_down_1"],
                                                                        graphic_dict["player_mage_sorae_down_1"],
@@ -4481,8 +4450,7 @@ if __name__ == '__main__':
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                       defense_upgraded,
+                            equipment_event = click_handlers.equipment(player, event, pygame,
                                                                        graphic_dict["player_no_role_amuna_down_1"],
                                                                        graphic_dict["player_no_role_nuldar_down_1"],
                                                                        graphic_dict["player_no_role_sorae_down_1"])
@@ -4569,8 +4537,7 @@ if __name__ == '__main__':
                     screen.blit(message_box.surf, message_box.rect)
                     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                     info_text_4, in_over_world, offense_upgraded, defense_upgraded,
-                                                     level_up_font)
+                                                     info_text_4, in_over_world)
                     drawing_functions.draw_it(screen)
                     if button_highlighted:
                         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -4682,7 +4649,6 @@ if __name__ == '__main__':
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                       offense_upgraded, defense_upgraded,
                                                                        graphic_dict["player_mage_amuna_down_1"],
                                                                        graphic_dict["player_mage_nuldar_down_1"],
                                                                        graphic_dict["player_mage_sorae_down_1"],
@@ -4705,8 +4671,7 @@ if __name__ == '__main__':
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                       defense_upgraded,
+                            equipment_event = click_handlers.equipment(player, event, pygame,
                                                                        graphic_dict["player_no_role_amuna_down_1"],
                                                                        graphic_dict["player_no_role_nuldar_down_1"],
                                                                        graphic_dict["player_no_role_sorae_down_1"])
@@ -4861,8 +4826,7 @@ if __name__ == '__main__':
                             screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world, offense_upgraded, defense_upgraded,
-                                                         level_up_font)
+                                                         info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
 
                         if len(books) > 0:
@@ -4968,8 +4932,7 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item, offense_upgraded,
-                                                                       defense_upgraded,
+                            inventory_event = click_handlers.inventory(player, current_info_item,
                                                                        graphic_dict["player_mage_amuna_down_1"],
                                                                        graphic_dict["player_mage_nuldar_down_1"],
                                                                        graphic_dict["player_mage_sorae_down_1"],
@@ -4993,8 +4956,7 @@ if __name__ == '__main__':
                                 graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                       defense_upgraded,
+                            equipment_event = click_handlers.equipment(player, event, pygame,
                                                                        graphic_dict["player_no_role_amuna_down_1"],
                                                                        graphic_dict["player_no_role_nuldar_down_1"],
                                                                        graphic_dict["player_no_role_sorae_down_1"])
@@ -5025,7 +4987,6 @@ if __name__ == '__main__':
                                         gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                      sharp_sense_learned, saved, npc_garan.gift,
                                                                      rest_recover_show, knowledge_academia_show,
-                                                                     offense_upgraded, defense_upgraded,
                                                                      quest_guide_shown, battle_guide_shown,
                                                                      role_guide_shown, upgrade_guide_shown,
                                                                      rest_shown_before, quest_highlight_popup,
@@ -5134,8 +5095,7 @@ if __name__ == '__main__':
                                 screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world, offense_upgraded, defense_upgraded,
-                                                         level_up_font)
+                                                         info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
 
                         if button_highlighted:
@@ -5186,32 +5146,8 @@ if __name__ == '__main__':
                                 drawing_functions.quest_complete_box.clear()
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False)
-
-                            # button highlights for role selection after accepting garan's quest
-                            if mage_select_button.rect.collidepoint(pos):
-                                if not npc_garan.gift:
-                                    player.items.append(Item("basic staff", "mage", 0, 0,
-                                                             graphic_dict["basic_staff_img"]))
-                                    player.items.append(Item("basic robes", "mage", 0, 0,
-                                                             graphic_dict["basic_robes_img"]))
-                                    npc_garan.gift = True
-                                    button_highlighted = False
-                            if fighter_select_button.rect.collidepoint(pos):
-                                if not npc_garan.gift:
-                                    player.items.append(Item("basic sword", "fighter", 0, 0,
-                                                             graphic_dict["basic_sword_img"]))
-                                    player.items.append(Item("basic armor", "fighter", 0, 0,
-                                                             graphic_dict["basic_armor_img"]))
-                                    npc_garan.gift = True
-                                    button_highlighted = False
-                            if scout_select_button.rect.collidepoint(pos):
-                                if not npc_garan.gift:
-                                    player.items.append(Item("basic bow", "scout", 0, 0,
-                                                             graphic_dict["basic_bow_img"]))
-                                    player.items.append(Item("basic tunic", "scout", 0, 0,
-                                                             graphic_dict["basic_tunic_img"]))
-                                    npc_garan.gift = True
-                                    button_highlighted = False
+                            if role_select_overlay.rect.collidepoint(pos):
+                                drawing_functions.type_advantage_window.clear()
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
@@ -5225,6 +5161,15 @@ if __name__ == '__main__':
                                 player.quest_status["sneaky snakes"] = True
                                 player.current_quests["sneaky snakes"] = \
                                     "Garan asked you to defeat snakes near the river."
+                                if not npc_garan.gift:
+                                    player.items.append(Item("basic staff", "mage", 0, 0,
+                                                             graphic_dict["basic_staff_img"]))
+                                    player.items.append(Item("basic sword", "fighter", 0, 0,
+                                                             graphic_dict["basic_sword_img"]))
+                                    player.items.append(Item("basic bow", "scout", 0, 0,
+                                                             graphic_dict["basic_bow_img"]))
+                                    npc_garan.gift = True
+                                    drawing_functions.type_advantage_window.append(role_select_overlay)
                             if current_npc_interacting.name == "maurelle":
                                 player.quest_status["village repairs"] = True
                                 player.current_quests["village repairs"] = "Maurelle asked you to " \
@@ -5243,7 +5188,7 @@ if __name__ == '__main__':
                             if current_npc_interacting.name == "zerah":
                                 player.quest_status["elementary elementals"] = True
                                 player.current_quests["elementary elementals"] = "Zerah asked you to defeat magmons" \
-                                                                                 "near the lava pool. "
+                                                                                 " near the lava pool. "
                             if current_npc_interacting.name == "dionte":
                                 player.quest_status["it's dangerous to go alone"] = True
                                 player.current_quests["it's dangerous to go alone"] = "Dionte asked you to face the" \
@@ -5269,7 +5214,6 @@ if __name__ == '__main__':
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                       offense_upgraded, defense_upgraded,
                                                                        graphic_dict["player_mage_amuna_down_1"],
                                                                        graphic_dict["player_mage_nuldar_down_1"],
                                                                        graphic_dict["player_mage_sorae_down_1"],
@@ -5294,8 +5238,7 @@ if __name__ == '__main__':
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame, offense_upgraded,
-                                                                       defense_upgraded,
+                            equipment_event = click_handlers.equipment(player, event, pygame,
                                                                        graphic_dict["player_no_role_amuna_down_1"],
                                                                        graphic_dict["player_no_role_nuldar_down_1"],
                                                                        graphic_dict["player_no_role_sorae_down_1"])
@@ -5332,7 +5275,6 @@ if __name__ == '__main__':
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
-                                                                         offense_upgraded, defense_upgraded,
                                                                          quest_guide_shown, battle_guide_shown,
                                                                          role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
@@ -5404,7 +5346,6 @@ if __name__ == '__main__':
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
-                                                                         offense_upgraded, defense_upgraded,
                                                                          quest_guide_shown, battle_guide_shown,
                                                                          role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
@@ -5477,7 +5418,6 @@ if __name__ == '__main__':
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
-                                                                         offense_upgraded, defense_upgraded,
                                                                          quest_guide_shown, battle_guide_shown,
                                                                          role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
@@ -5548,7 +5488,6 @@ if __name__ == '__main__':
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
-                                                                         offense_upgraded, defense_upgraded,
                                                                          quest_guide_shown, battle_guide_shown,
                                                                          role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
@@ -5619,7 +5558,6 @@ if __name__ == '__main__':
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
-                                                                         offense_upgraded, defense_upgraded,
                                                                          quest_guide_shown, battle_guide_shown,
                                                                          role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
@@ -5692,7 +5630,6 @@ if __name__ == '__main__':
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
-                                                                         offense_upgraded, defense_upgraded,
                                                                          quest_guide_shown, battle_guide_shown,
                                                                          role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
@@ -5764,7 +5701,6 @@ if __name__ == '__main__':
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
-                                                                         offense_upgraded, defense_upgraded,
                                                                          quest_guide_shown, battle_guide_shown,
                                                                          role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
@@ -5873,21 +5809,13 @@ if __name__ == '__main__':
                         screen.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world, offense_upgraded, defense_upgraded,
-                                                         level_up_font)
+                                                         info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
                                                          (203, 195, 227))
                         text_npc_name_rect = text_npc_name_surf.get_rect()
                         text_npc_name_rect.center = (637, 192)
                         screen.blit(text_npc_name_surf, text_npc_name_rect)
-
-                        if player.quest_status["sneaky snakes"]:
-                            if not npc_garan.gift:
-                                screen.blit(role_select_overlay.surf, role_select_overlay.rect)
-                                screen.blit(mage_select_button.surf, mage_select_button.rect)
-                                screen.blit(fighter_select_button.surf, fighter_select_button.rect)
-                                screen.blit(scout_select_button.surf, scout_select_button.rect)
 
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)
@@ -5943,13 +5871,10 @@ if __name__ == '__main__':
                             # turn off barrier and restore original defence if player mage was killed while active
                             if barrier_active:
                                 barrier_active = False
-                                # noinspection PyUnboundLocalVariable
-                                player.defense = original_defence
+
                             # turn off barrier and restore original defence if player mage was killed while active
                             if sharp_sense_active:
                                 sharp_sense_active = False
-                                # noinspection PyUnboundLocalVariable
-                                player.offense = original_offense
 
                             if player.current_zone == "korlok" or player.current_zone == "mines" or \
                                     player.current_zone == "terra trail":

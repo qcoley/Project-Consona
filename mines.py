@@ -8,14 +8,13 @@ import gameplay_functions
 
 def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_overworld_music,
                  over_world_song_set, bandiles, interaction_popup, font, save_check_window, user_interface,
-                 world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, offense_upgraded, defense_upgraded,
-                 level_up_font, button_highlighted, button_highlight, in_over_world, interacted, info_text_1,
-                 info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic, in_battle, in_npc_interaction,
-                 movement_able, current_enemy_battling, player_battle_sprite, snake_battle_sprite,
-                 ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, chinzilla_battle_sprite,
-                 barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, seldon_enemies,
-                 korlok_enemies, snakes, ghouls, magmons, interactables_seldon, interactables_korlok, Enemy, Item,
-                 UiElement, interactables_mines, ores):
+                 world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight,
+                 in_over_world, interacted, info_text_1, info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic,
+                 in_battle, in_npc_interaction, movement_able, current_enemy_battling, player_battle_sprite,
+                 snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                 chinzilla_battle_sprite, barrier_active, sharp_sense_active, magmon_battle_sprite,
+                 bandile_battle_sprite, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, interactables_seldon,
+                 interactables_korlok, Enemy, Item, UiElement, interactables_mines, ores):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -140,7 +139,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
+                                     in_over_world)
     drawing_functions.draw_it(screen)
 
     if button_highlighted:

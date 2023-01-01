@@ -21,6 +21,7 @@ rest_recover_window = []
 first_item_window = []
 game_guide_container = []
 world_map_container = []
+type_advantage_window = []
 
 
 # draws elements on screen that have been appended to list by below functions
@@ -86,6 +87,9 @@ def draw_it(screen):
     if len(world_map_container) > 0:
         for map_element in world_map_container:
             screen.blit(map_element.surf, map_element.rect)
+    if len(type_advantage_window) > 0:
+        for type_element in type_advantage_window:
+            screen.blit(type_element.surf, type_element.rect)
 
 
 def item_info_draw(inventory_item, info_items, item_info_button, graphic):
@@ -313,8 +317,7 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
 
 
-def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
-                   offense_upgraded, defense_upgraded, big_font):
+def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world):
     # get current player rupee count and create surf and rectangle to blit to screen------------------------------------
     text_rupee_surf = font.render(str(player.rupees), True, "black", "light blue")
     text_rupee_rect = text_rupee_surf.get_rect()
@@ -337,14 +340,14 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
         text_location_rect.midleft = (935, 29)
         screen.blit(text_location, text_location_rect)
     # get current player offense and create surf and rectangle to blit to screen----------------------------------------
-    text_offense_surf = font.render(str(player.offense), True, "black", "light gray")
+    text_offense_surf = font.render(str(player.offense) + "/4", True, "black", "light gray")
     text_offense_rect = text_offense_surf.get_rect()
     text_offense_rect.center = (1135, 117)
     screen.blit(text_offense_surf, text_offense_rect)
     # get current player defence and create surf and rectangle to blit to screen----------------------------------------
-    text_defence_surf = font.render(str(player.defense), True, "black", "light gray")
+    text_defence_surf = font.render(str(player.defense) + "/4", True, "black", "light gray")
     text_defence_rect = text_defence_surf.get_rect()
-    text_defence_rect.center = (1233, 117)
+    text_defence_rect.center = (1235, 117)
     screen.blit(text_defence_surf, text_defence_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
@@ -366,17 +369,6 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_info_rect_4 = text_info_surf_4.get_rect()
     text_info_rect_4.midleft = (30, 690)
     screen.blit(text_info_surf_4, text_info_rect_4)
-
-    if offense_upgraded == 1:
-        offense_up_surf = big_font.render(str("+"), True, "red", "light gray")
-        offense_up_rect = offense_up_surf.get_rect()
-        offense_up_rect.center = (1152, 114)
-        screen.blit(offense_up_surf, offense_up_rect)
-    if defense_upgraded == 1:
-        defense_up_surf = big_font.render(str("+"), True, "red", "light gray")
-        defense_up_rect = defense_up_surf.get_rect()
-        defense_up_rect.center = (1248, 114)
-        screen.blit(defense_up_surf, defense_up_rect)
 
     if player.star_power > 4:
         if player.star_power == 5:
@@ -772,12 +764,11 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       graphic_dict, continue_button, start_button, back_button, amuna_button, nuldar_button,
                       sorae_button, save_check_window, yes_button, no_button, item_info_button, rest_button,
                       leave_button, buy_button, in_inn, in_shop, buy_clicked, offense_select_button,
-                      defense_select_button, in_battle, mage_attack_button, fighter_attack_button, scout_attack_button,
+                      in_battle, mage_attack_button, fighter_attack_button, scout_attack_button,
                       no_role_attack_button, barrier_button, sharp_sense_button, hard_strike_button, in_over_world,
                       seldon_map_button, korlok_map_button, eldream_map_button, marrow_map_button, character_button,
                       quests_button, save_button, map_button, in_npc_interaction, quest_button, quest_clicked,
-                      accept_button, decline_button, current_npc_interacting, npc_garan, mage_select_button,
-                      fighter_select_button, scout_select_button, in_apothecary):
+                      accept_button, decline_button, in_apothecary):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1035,11 +1026,6 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                                 offense_select_button.y_coordinate,
                                                 graphic_dict["role_high"])
                         return True
-                    elif defense_select_button.rect.collidepoint(pos):
-                        button_highlight.update(defense_select_button.x_coordinate,
-                                                defense_select_button.y_coordinate,
-                                                graphic_dict["role_high"])
-                        return True
 
         if in_battle:
             if mage_attack_button.rect.collidepoint(pos) or fighter_attack_button.rect.collidepoint(pos) \
@@ -1111,38 +1097,6 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                             decline_button.y_coordinate + 7,
                                             graphic_dict["main high"])
                     return True
-
-                # handles button highlights when role selection is given to player
-            elif current_npc_interacting.name == "garan":
-                if player.quest_status["sneaky snakes"]:
-                    if not npc_garan.gift:
-                        if mage_select_button.rect.collidepoint(pos):
-                            button_highlight.update(mage_select_button.x_coordinate,
-                                                    mage_select_button.y_coordinate,
-                                                    graphic_dict["role_high"])
-                            return True
-                        elif fighter_select_button.rect.collidepoint(pos):
-                            button_highlight.update(fighter_select_button.x_coordinate,
-                                                    fighter_select_button.y_coordinate,
-                                                    graphic_dict["role_high"])
-                            return True
-                        elif scout_select_button.rect.collidepoint(pos):
-                            button_highlight.update(scout_select_button.x_coordinate,
-                                                    scout_select_button.y_coordinate,
-                                                    graphic_dict["role_high"])
-                            return True
-                        elif quest_button.rect.collidepoint(pos):
-                            button_highlight.update(quest_button.x_coordinate,
-                                                    quest_button.y_coordinate + 7,
-                                                    graphic_dict["main high"])
-                            return True
-                        elif leave_button.rect.collidepoint(pos):
-                            button_highlight.update(leave_button.x_coordinate,
-                                                    leave_button.y_coordinate + 7,
-                                                    graphic_dict["main high"])
-                            return True
-                        else:
-                            return False
 
         if in_apothecary:
             if quest_button.rect.collidepoint(pos):

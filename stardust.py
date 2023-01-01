@@ -10,10 +10,10 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      interacted, in_over_world, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                      chorizon_battle_sprite, muchador_battle_sprite, barrier_active, sharp_sense_active,
                      in_npc_interaction, stardust_entrance, save_check_window, user_interface, world_map_container,
-                     bar_backdrop, hp_bar, en_bar, xp_bar, offense_upgraded, defense_upgraded, level_up_font,
-                     button_highlighted, button_highlight, npc_tic, info_text_1, info_text_2, info_text_3, info_text_4,
-                     current_enemy_battling, current_building_entering, in_battle, movement_able, in_shop,
-                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite):
+                     bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, npc_tic, info_text_1,
+                     info_text_2, info_text_3, info_text_4, current_enemy_battling, current_building_entering,
+                     in_battle, movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite,
+                     chinzilla_battle_sprite):
 
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
@@ -154,8 +154,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     screen.blit(xp_bar.surf, xp_bar.rect)
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                     info_text_3, info_text_4, in_over_world, offense_upgraded,
-                                     defense_upgraded, level_up_font)
+                                     info_text_3, info_text_4, in_over_world)
     drawing_functions.draw_it(screen)
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)

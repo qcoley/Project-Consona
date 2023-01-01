@@ -4,8 +4,8 @@ import drawing_functions
 def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dungeon_entrance, water_1, water_2,
                 water_3, water_4, water_5, water_player, graphic_dict, save_check_window, user_interface,
                 world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2,
-                info_text_3, info_text_4, in_over_world, offense_upgraded, defense_upgraded, level_up_font,
-                button_highlighted, button_highlight, rohir_river_music, interaction_popup, interacted):
+                info_text_3, info_text_4, in_over_world, button_highlighted, button_highlight, rohir_river_music,
+                interaction_popup, interacted):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(100)
@@ -39,8 +39,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                     info_text_4, in_over_world, offense_upgraded, defense_upgraded,
-                                     level_up_font)
+                                     info_text_4, in_over_world)
     drawing_functions.draw_it(screen)
 
     if button_highlighted:

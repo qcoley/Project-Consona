@@ -40,8 +40,8 @@ def equipment_event_item(equipment_event_here, pygame):
 
 
 # handles mouse clicks for equipment sub-screen
-def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_no_role_amuna_down_1,
-              player_no_role_nuldar_down_1, player_no_role_sorae_down_1):
+def equipment(player, event, pygame, player_no_role_amuna_down_1, player_no_role_nuldar_down_1,
+              player_no_role_sorae_down_1):
     return_dict = {"equipment message": "", "gear checked": True, "weapon checked": True}
     equipment_item = equipment_event_item(event, pygame)
 
@@ -64,12 +64,8 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
                     player.surf = player_no_role_nuldar_down_1
                 if player.race == "sorae":
                     player.surf = player_no_role_sorae_down_1
-                player.offense = 0
                 player.defense = 0
-                if offense_upgraded == 1:
-                    player.offense += 10
-                if defense_upgraded == 1:
-                    player.defense += 4
+                player.offense = 0
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic sword":
@@ -87,12 +83,8 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
                     player.surf = player_no_role_nuldar_down_1
                 if player.race == "sorae":
                     player.surf = player_no_role_sorae_down_1
-                player.offense = 0
                 player.defense = 0
-                if offense_upgraded == 1:
-                    player.offense += 10
-                if defense_upgraded == 1:
-                    player.defense += 4
+                player.offense = 0
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic bow":
@@ -110,12 +102,8 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
                     player.surf = player_no_role_nuldar_down_1
                 if player.race == "sorae":
                     player.surf = player_no_role_sorae_down_1
-                player.offense = 0
                 player.defense = 0
-                if offense_upgraded == 1:
-                    player.offense += 10
-                if defense_upgraded == 1:
-                    player.defense += 4
+                player.offense = 0
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic robes":
@@ -124,8 +112,6 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
                 player.equipment["torso"] = ""
                 return_dict["equipment message"] = "Basic Robes torso un-equipped."
                 player.defense = 0
-                if defense_upgraded == 1:
-                    player.defense += 4
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "basic armor":
@@ -134,8 +120,6 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
                 player.equipment["torso"] = ""
                 return_dict["equipment message"] = "Basic Armor torso un-equipped."
                 player.defense = 0
-                if defense_upgraded == 1:
-                    player.defense += 4
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "basic tunic":
@@ -144,8 +128,6 @@ def equipment(player, event, pygame, offense_upgraded, defense_upgraded, player_
                 player.equipment["torso"] = ""
                 return_dict["equipment message"] = "Basic Tunic torso un-equipped."
                 player.defense = 0
-                if defense_upgraded == 1:
-                    player.defense += 4
             else:
                 return_dict["equipment message"] = "Your inventory is full."
         if equipment_item.name == "power gloves":
@@ -222,10 +204,9 @@ def inventory_event_item(inventory_event_here, pygame):
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory(player, item, offense_upgraded, defense_upgraded, player_mage_amuna_down_1,
-              player_mage_nuldar_down_1, player_mage_sorae_down_1, player_fighter_amuna_down_1,
-              player_fighter_nuldar_down_1, player_fighter_sorae_down_1, player_scout_amuna_down_1,
-              player_scout_nuldar_down_1, player_scout_sorae_down_1):
+def inventory(player, item, player_mage_amuna_down_1, player_mage_nuldar_down_1, player_mage_sorae_down_1,
+              player_fighter_amuna_down_1, player_fighter_nuldar_down_1, player_fighter_sorae_down_1,
+              player_scout_amuna_down_1, player_scout_nuldar_down_1, player_scout_sorae_down_1):
 
     return_dict = {"item message": ""}
 
@@ -240,7 +221,7 @@ def inventory(player, item, offense_upgraded, defense_upgraded, player_mage_amun
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "The potion heals you for 40 hp."
-        elif item.name == "energy potion":
+        if item.name == "energy potion":
             if player.energy == 100:
                 return_dict["item message"] = "You're already at full energy."
             else:
@@ -250,14 +231,14 @@ def inventory(player, item, offense_upgraded, defense_upgraded, player_mage_amun
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "The potion energizes you for 40 en."
-        elif item.name == "shiny rock":
+        if item.name == "shiny rock":
             return_dict["item message"] = "Oh, shiny. Maybe you can sell it?"
-        elif item.name == "bone dust":
+        if item.name == "bone dust":
             return_dict["item message"] = "Eh, dusty. Maybe you can sell it?"
-        elif item.name == "temporary item":
+        if item.name == "temporary item":
             return_dict["item message"] = "Tell my designer to finish me!"
 
-        elif item.name == "basic staff":
+        if item.name == "basic staff":
             if player.equipment["weapon"] == "":
                 player.equipment["weapon"] = item
                 drawing_functions.player_items.remove(item)
@@ -269,13 +250,11 @@ def inventory(player, item, offense_upgraded, defense_upgraded, player_mage_amun
                     player.surf = player_mage_nuldar_down_1
                 if player.race == "sorae":
                     player.surf = player_mage_sorae_down_1
-                player.offense = 25
-                if offense_upgraded == 1:
-                    player.offense += 10
                 return_dict["item message"] = "Basic Staff weapon equipped"
+                player.offense = 1
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
-        elif item.name == "basic sword":
+        if item.name == "basic sword":
             if player.equipment["weapon"] == "":
                 player.equipment["weapon"] = item
                 drawing_functions.player_items.remove(item)
@@ -287,13 +266,11 @@ def inventory(player, item, offense_upgraded, defense_upgraded, player_mage_amun
                     player.surf = player_fighter_nuldar_down_1
                 if player.race == "sorae":
                     player.surf = player_fighter_sorae_down_1
-                player.offense = 15
-                if offense_upgraded == 1:
-                    player.offense += 10
                 return_dict["item message"] = "Basic Sword weapon equipped"
+                player.offense = 1
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
-        elif item.name == "basic bow":
+        if item.name == "basic bow":
             if player.equipment["weapon"] == "":
                 player.equipment["weapon"] = item
                 drawing_functions.player_items.remove(item)
@@ -305,55 +282,47 @@ def inventory(player, item, offense_upgraded, defense_upgraded, player_mage_amun
                     player.surf = player_scout_nuldar_down_1
                 if player.race == "sorae":
                     player.surf = player_scout_sorae_down_1
-                player.offense = 20
-                if offense_upgraded == 1:
-                    player.offense += 10
                 return_dict["item message"] = "Basic Bow weapon equipped"
+                player.offense = 1
             else:
                 return_dict["item message"] = "Un-equip your current weapon first."
-        elif item.name == "basic robes":
+        if item.name == "basic robes":
             if player.equipment["torso"] == "":
                 if player.role == "mage":
                     player.equipment["torso"] = item
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
-                    player.defense = 4
-                    if defense_upgraded == 1:
-                        player.defense += 4
                     return_dict["item message"] = "Basic Robes torso equipped"
+                    player.defense = 1
                 else:
                     return_dict["item message"] = "Only mages wear light armor."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
-        elif item.name == "basic armor":
+        if item.name == "basic armor":
             if player.equipment["torso"] == "":
                 if player.role == "fighter":
                     player.equipment["torso"] = item
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
-                    player.defense = 12
-                    if defense_upgraded == 1:
-                        player.defense += 4
                     return_dict["item message"] = "Basic Armor torso equipped"
+                    player.defense = 1
                 else:
                     return_dict["item message"] = "Only fighters wear heavy armor."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
-        elif item.name == "basic tunic":
+        if item.name == "basic tunic":
             if player.equipment["torso"] == "":
                 if player.role == "scout":
                     player.equipment["torso"] = item
                     drawing_functions.player_items.remove(item)
                     player.items.remove(item)
-                    player.defense = 8
-                    if defense_upgraded == 1:
-                        player.defense += 4
                     return_dict["item message"] = "Basic Tunic torso equipped"
+                    player.defense = 1
                 else:
                     return_dict["item message"] = "Only scouts wear medium armor."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
-        elif item.name == "power gloves":
+        if item.name == "power gloves":
             if player.equipment["gloves"] == "":
                 player.equipment["gloves"] = item
                 drawing_functions.player_items.remove(item)
@@ -410,13 +379,11 @@ def quest_event_button(quest_event, accept_button, decline_button, pygame):
 
 
 # getting event based on user click related to shop
-def stardust_upgrade_event(stardust_event, offense_button, defense_button, pygame):
+def stardust_upgrade_event(stardust_event, offense_button, pygame):
     if stardust_event.type == pygame.MOUSEBUTTONUP:
         stardust_mouse = pygame.mouse.get_pos()
         if offense_button.rect.collidepoint(stardust_mouse):
             return "offense"
-        if defense_button.rect.collidepoint(stardust_mouse):
-            return "defense"
 
 
 # getting event based on user click related to shop

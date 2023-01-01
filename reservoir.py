@@ -4,8 +4,8 @@ import combat_scenario
 
 def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a_bg, reservoir_music,
                 over_world_song_set, interaction_popup, font, save_check_window, user_interface, world_map_container,
-                loot_popup_container, loot_text_container, bar_backdrop, hp_bar, en_bar, xp_bar, offense_upgraded,
-                defense_upgraded, level_up_font, button_highlighted, button_highlight, in_over_world, interacted,
+                loot_popup_container, loot_text_container, bar_backdrop, hp_bar, en_bar, xp_bar,
+                button_highlighted, button_highlight, in_over_world, interacted,
                 info_text_1, info_text_2, info_text_3, info_text_4, switch_1, dungeon_switch_1, switch_2,
                 dungeon_switch_2, switch_3, dungeon_switch_3, dungeon_walls, dungeon_items, dungeon_teleporter,
                 mini_boss_1, dungeon_drop_wall, chorizon_1, mini_boss_2, chorizon_2, crate_1, Item, crate_2, crate_3,
@@ -244,7 +244,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
+                                     in_over_world)
     drawing_functions.draw_it(screen)
 
     if button_highlighted:
@@ -270,9 +270,9 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 save_check_window, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                 chorizon_battle_sprite, muchador_battle_sprite, barrier_active, sharp_sense_active,
                 in_npc_interaction, user_interface, world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
-                offense_upgraded, defense_upgraded, level_up_font, button_highlighted, button_highlight,
-                info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, switch_1, switch_2, switch_3,
-                has_key, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite):
+                button_highlighted, button_highlight, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
+                switch_1, switch_2, switch_3, has_key, magmon_battle_sprite, bandile_battle_sprite,
+                chinzilla_battle_sprite):
 
     in_battle = False
 
@@ -445,7 +445,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
+                                     in_over_world)
     drawing_functions.draw_it(screen)
 
     if button_highlighted:
@@ -465,9 +465,9 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
 def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reservoir_music, interaction_popup, font,
                 interacted, save_check_window, user_interface, world_map_container, bar_backdrop, hp_bar, en_bar,
-                xp_bar, offense_upgraded, defense_upgraded, level_up_font, button_highlighted, button_highlight,
-                reservoir_c_bg, dungeon_chest, reservoir_exit, rock_1, rock_2, gloves_obtained, Item, info_text_1,
-                info_text_2, info_text_3, info_text_4, in_over_world, has_key, muchador_lights_on, hearth_stone):
+                xp_bar, button_highlighted, button_highlight, reservoir_c_bg, dungeon_chest, reservoir_exit,
+                rock_1, rock_2, gloves_obtained, Item, info_text_1, info_text_2, info_text_3, info_text_4,
+                in_over_world, has_key, muchador_lights_on, hearth_stone):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -602,7 +602,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
+                                     in_over_world)
     drawing_functions.draw_it(screen)
 
     if button_highlighted:

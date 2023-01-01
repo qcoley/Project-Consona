@@ -861,9 +861,13 @@ def load_graphics():
     loaded_dict["player_fighter_nuldar_strike"] = player_skills_nuldar_sheet[4]
     # damage overlays --------------------------------------------------------------------------------------------------
     damage_overlays_url = resource_path('resources/art/overlays_damage.png')
-    damage_overlays_sheet = sprite_sheet((150, 150), damage_overlays_url)
+    damage_overlays_sheet = sprite_sheet((150, 200), damage_overlays_url)
     loaded_dict["dealt_damage_img"] = damage_overlays_sheet[0]
     loaded_dict["received_damage_img"] = damage_overlays_sheet[1]
+    loaded_dict["effective_dealt_damage_img"] = damage_overlays_sheet[2]
+    loaded_dict["effective_received_damage_img"] = damage_overlays_sheet[3]
+    loaded_dict["non_effective_dealt_damage_img"] = damage_overlays_sheet[4]
+    loaded_dict["non_effective_received_damage_img"] = damage_overlays_sheet[5]
     # garan npc --------------------------------------------------------------------------------------------------------
     garan_url = resource_path('resources/art/sprites_garans.png')
     garan_sheet = sprite_sheet((40, 62), garan_url)
@@ -992,6 +996,12 @@ def load_graphics():
     loaded_dict["chorizon_attack"] = boss_enemies_battle_sheet[0]
     loaded_dict["muchador_attack"] = boss_enemies_battle_sheet[1]
     loaded_dict["chinzilla_attack"] = boss_enemies_battle_sheet[2]
+    # enemies attacking ------------------------------------------------------------------------------------------------
+    type_overlay_url = resource_path('resources/art/overlay_enemy_types.png')
+    type_overlay_sheet = sprite_sheet((75, 75), type_overlay_url)
+    loaded_dict["mage_type_overlay"] = type_overlay_sheet[0]
+    loaded_dict["fighter_type_overlay"] = type_overlay_sheet[1]
+    loaded_dict["scout_type_overlay"] = type_overlay_sheet[2]
     # amuna buildings --------------------------------------------------------------------------------------------------
     amuna_buildings_url = resource_path('resources/art/sprites_amuna_buildings.png')
     amuna_buildings_sheet = sprite_sheet((100, 100), amuna_buildings_url)

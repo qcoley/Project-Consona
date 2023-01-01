@@ -9,17 +9,17 @@ import gameplay_functions
 def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, korlok_overworld_music,
                     over_world_song_set, nuldar_buildings, rohir_gate, hearth_stone, mines_entrance, magmons,
                     interaction_popup, font, bridge_not_repaired, reservoir_enter, rock_1, rock_2, save_check_window,
-                    user_interface, world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, offense_upgraded,
-                    defense_upgraded, level_up_font, button_highlighted, button_highlight, in_over_world,
-                    korlok_attuned, interacted, info_text_1, info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic,
-                    in_battle, in_shop, in_academia, in_inn, in_npc_interaction, movement_able, current_enemy_battling,
-                    current_npc_interacting, current_building_entering, korlok_enemies, player_battle_sprite,
-                    snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                    barrier_active, sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite,
-                    chinzilla_battle_sprite, voruke, zerah, npcs, seldon_enemies, snakes, ghouls, bandiles,
-                    interactables_seldon, interactables_korlok, Enemy, Item, UiElement, interactables_mines,
-                    quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune, star_voruke,
-                    star_zerah, korlok_mountains, in_apothecary, star_apothecary, star_dionte):
+                    user_interface, world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
+                    button_highlight, in_over_world, korlok_attuned, interacted, info_text_1, info_text_2, info_text_3,
+                    info_text_4, enemy_tic, npc_tic, in_battle, in_shop, in_academia, in_inn, in_npc_interaction,
+                    movement_able, current_enemy_battling, current_npc_interacting, current_building_entering,
+                    korlok_enemies, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+                    chorizon_battle_sprite, muchador_battle_sprite, barrier_active, sharp_sense_active,
+                    magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, voruke, zerah, npcs,
+                    seldon_enemies, snakes, ghouls, bandiles, interactables_seldon, interactables_korlok, Enemy, Item,
+                    UiElement, interactables_mines, quest_star_garan, quest_star_maurelle, quest_star_celeste,
+                    quest_star_torune, star_voruke, star_zerah, korlok_mountains, in_apothecary, star_apothecary,
+                    star_dionte):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -263,7 +263,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
-                                     in_over_world, offense_upgraded, defense_upgraded, level_up_font)
+                                     in_over_world)
     drawing_functions.draw_it(screen)
 
     if button_highlighted:

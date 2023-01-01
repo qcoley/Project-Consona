@@ -215,8 +215,8 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
 def fighter(player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
             ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite,
             bandile_battle_sprite, chinzilla_battle_sprite, player_fighter_amuna_strike, player_fighter_sorae_strike,
-            player_fighter_nuldar_strike, snake_battle, ghoul_battle,
-            chorizon_battle, muchador_battle, magmon_battle, bandile_battle, chinzilla_battle):
+            player_fighter_nuldar_strike, snake_battle, ghoul_battle, chorizon_battle, muchador_battle, magmon_battle,
+            bandile_battle, chinzilla_battle):
 
     # update animations for hard strike attack
     if player.race == "amuna":
@@ -263,25 +263,36 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
-        "item dropped": "", "experience gained": 0, "quest update": "", "enemy defeated": False, "leveled": False
-    }
+        "item dropped": "", "experience gained": 0, "quest update": "", "enemy defeated": False, "leveled": False,
+        "effective player": False, "non effective player": False, "effective enemy": False,
+        "non effective enemy": False}
+
     if combat_event == "attack":
         if enemy_combating.alive_status:
             # returns players damage to the enemy based on level and equipment
-            damage_to_enemy = gameplay_functions.attack_enemy(player, enemy_combating)
+            attack_dict = gameplay_functions.attack_enemy(player, enemy_combating)
+            combat_event_dictionary["effective player"] = attack_dict["effective"]
+            combat_event_dictionary["non effective player"] = attack_dict["non effective"]
+            damage_to_enemy = attack_dict["damage"]
+
             enemy_combating.health = enemy_combating.health - damage_to_enemy
             enemy_health_bar(enemy_combating, graphics)
 
             # if enemy is not dead yet
             if enemy_combating.health > 0:
-                attacked_enemy_string = f" You did {damage_to_enemy} damage to {enemy_combating.name}."
+                attacked_enemy_string = f" You did {damage_to_enemy} damage to {enemy_combating.kind}."
                 combat_event_dictionary["damage done"] = damage_to_enemy
                 # add damage to enemy to event dictionary to be returned to main loop
                 combat_event_dictionary["damage done string"] = attacked_enemy_string
+
                 # returns total damage output from enemy as attacked_player_health value
-                damage_to_player = gameplay_functions.attack_player(player, enemy_combating)
+                defend_dict = gameplay_functions.attack_player(player, enemy_combating)
+                combat_event_dictionary["effective enemy"] = defend_dict["effective"]
+                combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
+                damage_to_player = defend_dict["damage"]
+
                 if damage_to_player > 0:
-                    attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.name}."
+                    attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.kind}."
                     player.health = player.health - damage_to_player
                     combat_event_dictionary["damage taken"] = damage_to_player
                     # add damage done to player from enemy to dictionary
@@ -292,7 +303,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         player.alive_status = False
                     return combat_event_dictionary
                 else:
-                    enemy_miss_string = f'{enemy_combating.name} missed.'
+                    enemy_miss_string = f'{enemy_combating.kind} missed.'
                     # add to dictionary that enemy did no damage to player
                     combat_event_dictionary["damage taken string"] = enemy_miss_string
                     return combat_event_dictionary
@@ -371,14 +382,16 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     drop_chance = random.randrange(1, 10)
                     # 80% chance (roughly?) to drop merchant item sellable by player for rupees at shops
                     if drop_chance > 2:
-                        # doesn't give item to player if their inventory is full
-                        if len(player.items) < 16:
-                            player.items.append(enemy_combating.items)
-                            enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]."
-                            # add to dictionary anything dropped from enemy upon their defeat
-                            combat_event_dictionary["item dropped"] = enemy_dropped_this
-                        else:
-                            combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
+                        # if item dropped isn't just a placeholder string
+                        if enemy_combating.items != "item":
+                            # doesn't give item to player if their inventory is full
+                            if len(player.items) < 16:
+                                player.items.append(enemy_combating.items)
+                                enemy_dropped_this = f"{enemy_combating.name} dropped [{enemy_combating.items.name}]."
+                                # add to dictionary anything dropped from enemy upon their defeat
+                                combat_event_dictionary["item dropped"] = enemy_dropped_this
+                            else:
+                                combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
                     else:
                         combat_event_dictionary["item dropped"] = "No"
                 except AttributeError:
@@ -488,13 +501,14 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         try:
                             drop_chance = random.randrange(1, 10)
                             if drop_chance > 2:
-                                if len(player.items) < 16:
-                                    player.items.append(enemy_combating.items)
-                                    enemy_dropped_this = f"{enemy_combating.name} dropped " \
-                                                         f"[{enemy_combating.items.name}]."
-                                    combat_event_dictionary["item dropped"] = enemy_dropped_this
-                                else:
-                                    combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
+                                if enemy_combating.items != "item":
+                                    if len(player.items) < 16:
+                                        player.items.append(enemy_combating.items)
+                                        enemy_dropped_this = f"{enemy_combating.name} dropped " \
+                                                             f"[{enemy_combating.items.name}]."
+                                        combat_event_dictionary["item dropped"] = enemy_dropped_this
+                                    else:
+                                        combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
                             else:
                                 combat_event_dictionary["item dropped"] = "No"
                         except AttributeError:

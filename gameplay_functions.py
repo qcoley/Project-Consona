@@ -70,6 +70,7 @@ def npc_quest_star_updates(screen, player, star_garan, star_maurelle, star_celes
                 player.quest_progress["it's dangerous to go alone"] != 1:
             star_dionte.update(625, 65, quest_progress_star)
 
+
 def load_game(player, Item, graphics):
     load_return = {"barrier learned": False, "strike learned": False, "sensed learned": False,
                    "saved": False, "start": False, "continue": False, "not found": False, "garan gift": False,
@@ -193,8 +194,6 @@ def load_game(player, Item, graphics):
             load_return["garan gift"] = player_load_info["garan gift"]
             load_return["rest popup"] = player_load_info["rest popup"]
             load_return["knowledge popup"] = player_load_info["knowledge popup"]
-            load_return["offense upgrade"] = player_load_info["offense upgrade"]
-            load_return["defense upgrade"] = player_load_info["defense upgrade"]
             load_return["quest guide"] = player_load_info["quest guide"]
             load_return["battle guide"] = player_load_info["battle guide"]
             load_return["role guide"] = player_load_info["role guide"]
@@ -233,12 +232,11 @@ def load_game(player, Item, graphics):
 
 # save game function. stores player info in a dictionary that's serialized and saved to save_game file
 def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned, saved, garan_gift,
-              rest_popup, knowledge_popup, offense_upgraded, defense_upgraded,
-              quest_guide_shown, battle_guide_shown, role_guide_shown, upgrade_guide_shown, rest_shown_before,
-              quest_highlight_popup, first_drop_popup, bridge_not_repaired, nede_ghoul_defeated,
-              bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3,
-              muchador_defeated, has_key, mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned,
-              eldream_attuned):
+              rest_popup, knowledge_popup, quest_guide_shown, battle_guide_shown, role_guide_shown,
+              upgrade_guide_shown, rest_shown_before, quest_highlight_popup, first_drop_popup, bridge_not_repaired,
+              nede_ghoul_defeated, bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3, crate_4, crate_5, switch_1,
+              switch_2, switch_3, muchador_defeated, has_key, mini_boss_1_defeated, mini_boss_2_defeated,
+              gloves_obtained, korlok_attuned, eldream_attuned):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -269,7 +267,6 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "zone": str(player.current_zone), "saved": saved,
                         "rest popup": rest_popup, "knowledge popup": knowledge_popup,
                         "star power": int(player.star_power),
-                        "offense upgrade": int(offense_upgraded), "defense upgrade": int(defense_upgraded),
                         "quest guide": quest_guide_shown, "battle guide": battle_guide_shown,
                         "role guide": role_guide_shown, "upgrade guide": upgrade_guide_shown,
                         "rest shown before": rest_shown_before, "quest highlight popup": quest_highlight_popup,
@@ -310,7 +307,7 @@ def walk_time(tic):
 
 
 # function that updates players info, status, role, inventory, equipment, etc
-def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter, graphics, font):
+def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter, graphics):
 
     # update players status bars
     hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player, graphics))
@@ -336,46 +333,122 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
 
 # player attacks enemy, gets damage to enemy done based on player's role and offense
 def attack_enemy(player, mob):
-    # if player is lower level than mob, scale their damage based on the difference of their levels
-    if player.level < mob.level:
-        difference = mob.level - player.level
-    # if player is equal level or higher level than mob, just return full damage value
-    else:
-        difference = 1
-    # scale damage based on player's offense stat and level difference
+
+    level_difference = mob.level - player.level
+
+    attack_dict = {"damage": 0, "effective": False, "non effective": False}
+
+    # base damage
+    damage = 5
+    # increase or decrease damage based on type advantage/disadvantage
     if player.role == "mage":
-        damage = (random.randrange(16, player.offense) // difference)
-        return damage
+        # super effective
+        if mob.type == "scout":
+            damage = damage * 2
+            attack_dict["effective"] = True
+        # not effective
+        if mob.type == "fighter":
+            damage = damage // 2
+            attack_dict["non effective"] = True
     if player.role == "scout":
-        damage = (random.randrange(12, player.offense) // difference)
-        return damage
+        # super effective
+        if mob.type == "fighter":
+            damage = damage * 2
+            attack_dict["effective"] = True
+        # not effective
+        if mob.type == "mages":
+            damage = damage // 2
+            attack_dict["non effective"] = True
     if player.role == "fighter":
-        damage = (random.randrange(8, player.offense) // difference)
-        return damage
+        # super effective
+        if mob.type == "mage":
+            damage = damage * 2
+            attack_dict["effective"] = True
+        # not effective
+        if mob.type == "scout":
+            damage = damage // 2
+            attack_dict["non effective"] = True
+    # if player doesn't have a role, either do no damage or just 1
     if player.role == "":
-        if player.offense != 0:
-            damage = (random.randrange(1, player.offense) // difference)
-            return damage
-        else:
-            return 1
+        damage = random.randrange(0, 1)
+        attack_dict["non effective"] = True
+
+    # level scaling final damage output
+    if level_difference == 1:
+        damage -= 1
+    if level_difference == 2:
+        damage -= 2
+    if level_difference == 3:
+        damage -= 4
+    if level_difference == 4:
+        damage -= 8
+    if level_difference >= 5:
+        damage -= 16
+
+    if damage >= 0:
+        attack_dict["damage"] = damage
+    else:
+        attack_dict["damage"] = 0
+
+    return attack_dict
 
 
 # enemy attacks player, gets damage to player done, subtract players defense level
 def attack_player(player, mob):
-    base_damage = (random.randrange(12, 20))
-    difference = mob.level - player.level
-    # add additional damage if enemy is a higher level than player
-    if difference >= 1:
-        base_damage = base_damage + 2
-    if difference >= 2:
-        base_damage = base_damage + 4
-    if difference >= 3:
-        base_damage = base_damage + 6
-    if difference >= 4:
-        base_damage = base_damage + 8
-    final_damage = base_damage - player.defense
 
-    return final_damage
+    level_difference = mob.level - player.level
+
+    attack_dict = {"damage": 0, "effective": False, "non effective": False}
+
+    # base damage
+    damage = 5
+    # increase or decrease damage based on type advantage/disadvantage
+    if mob.type == "mage":
+        # super effective
+        if player.role == "scout":
+            damage = damage * 2
+            attack_dict["effective"] = True
+        # not effective
+        if player.role == "fighter":
+            damage = damage // 2
+            attack_dict["non effective"] = True
+    if mob.type == "scout":
+        # super effective
+        if player.role == "fighter":
+            damage = damage * 2
+            attack_dict["effective"] = True
+        # not effective
+        if player.role == "mage":
+            damage = damage // 2
+            attack_dict["non effective"] = True
+    if mob.type == "fighter":
+        # super effective
+        if player.role == "mage":
+            damage = damage * 2
+            attack_dict["effective"] = True
+        # not effective
+        if player.role == "scout":
+            damage = damage // 2
+            attack_dict["non effective"] = True
+
+    # level scaling final damage output
+    if level_difference == 1:
+        damage += 1
+    if level_difference == 2:
+        damage += 2
+    if level_difference == 3:
+        damage += 4
+    if level_difference == 4:
+        damage += 8
+    if level_difference >= 5:
+        damage += 16
+
+    if damage >= 0:
+        attack_dict["damage"] = damage
+    else:
+        attack_dict["damage"] = 0
+
+    return attack_dict
 
 
 # level up function. increase player level by 1 if not at cap and return info in dictionary
@@ -420,7 +493,8 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         if snake_counter < 3:
             new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
                               Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
-                              graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]))
+                              graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]),
+                              "fighter")
             snakes.add(new_snake)
             seldon_enemies.add(new_snake)
             interactables_seldon.add(new_snake)
@@ -428,7 +502,8 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         if ghoul_counter < 3:
             new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
                               Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
-                              graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]))
+                              graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]),
+                              "scout")
             ghouls.add(new_ghoul)
             seldon_enemies.add(new_ghoul)
             interactables_seldon.add(new_ghoul)
@@ -450,7 +525,8 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         if magmon_counter < 3:
             new_magmon = Enemy("magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
                                True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
-                               graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]))
+                               graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]),
+                               "mage")
             magmons.add(new_magmon)
             korlok_enemies.add(new_magmon)
             interactables_korlok.add(new_magmon)
@@ -472,7 +548,8 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         if bandile_counter < 3:
             new_bandile = Enemy("bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
                                 random_bandile_y, True, Item("broken band", "band", 200, 200, graphic_dict["band"]),
-                                graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]))
+                                graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
+                                "fighter")
             bandiles.add(new_bandile)
             interactables_mines.add(new_bandile)
 
