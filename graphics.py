@@ -49,248 +49,10 @@ def draw_loading_screen(screen):
 
 def load_graphics():
 
-    loaded_dict = {"a_char_screen": "", "n_char_screen": "", "s_char_screen": "", "nascent_grove_screen": "",
-                   "stardust_cove_screen": "", "stardust_post_screen": "", "seldon_bg_screen": "",
-                   "korlok_bg_screen": "", "seldon_battle_screen": "", "seldon_shop_screen": "",
-                   "seldon_inn_screen": "", "seldon_academia_screen": "", "seldon_hearth_screen": "",
-                   "game_over_screen": "", "start_screen": "", "nera_sleep_screen": "", "bar_backdrop": "",
-                   "enemy_status": "", "enemy_bar_backdrop": "", "buy_inventory": "", "message_box": "",
-                   "pine_tree": "", "hearth_stone": "", "hearth_stone_lit": "", "rohir_gate": "", "lets_go_button": "",
-                   "lets_go_button_high": "", "learn_button": "", "skill_learn_button": "", "nascent_gate_popup": "",
-                   "level_up": "", "close_button": "", "knowledge_window": "", "skill_bar": "", "start_button": "",
-                   "npc_name_plate": "", "char_select_overlay": "", "role_selection_overlay": "",
-                   "location_overlay": "", "popup_interaction": "", "popup_interaction_red": "",
-                   "popup_interaction_purple": "", "popup_loot": "", "stardust_entrance": "",
-                   "upgrade_overlay": "", "cat_pet_button_overlay": "", "amuna_character_img": "",
-                   "nuldar_character_img": "", "sorae_character_img": "", "amuna_overlay_img": "",
-                   "nuldar_overlay_img": "", "sorae_overlay_img": "", "name_input_img": "", "name_input_empty_img": "",
-                   "player_no_role_amuna_down_1": "", "player_no_role_amuna_down_2": "",
-                   "player_no_role_amuna_down_3": "", "player_no_role_amuna_down_4": "",
-                   "player_no_role_amuna_up_1": "", "player_no_role_amuna_up_2": "",
-                   "player_no_role_amuna_up_3": "", "player_no_role_amuna_up_4": "",
-                   "player_no_role_amuna_left_1": "", "player_no_role_amuna_left_2": "",
-                   "player_no_role_amuna_left_3": "", "player_no_role_amuna_left_4": "",
-                   "player_no_role_amuna_right_1": "", "player_no_role_amuna_right_2": "",
-                   "player_no_role_amuna_right_3": "", "player_no_role_amuna_right_4": "",
-                   "player_no_role_sorae_down_1": "", "player_no_role_sorae_down_2": "",
-                   "player_no_role_sorae_down_3": "", "player_no_role_sorae_down_4": "",
-                   "player_no_role_sorae_up_1": "", "player_no_role_sorae_up_2": "",
-                   "player_no_role_sorae_up_3": "", "player_no_role_sorae_up_4": "",
-                   "player_no_role_sorae_left_1": "", "player_no_role_sorae_left_2": "",
-                   "player_no_role_sorae_left_3": "", "player_no_role_sorae_left_4": "",
-                   "player_no_role_sorae_right_1": "", "player_no_role_sorae_right_2": "",
-                   "player_no_role_sorae_right_3": "", "player_no_role_sorae_right_4": "",
-                   "player_no_role_nuldar_down_1": "", "player_no_role_nuldar_down_2": "",
-                   "player_no_role_nuldar_down_3": "", "player_no_role_nuldar_down_4": "",
-                   "player_no_role_nuldar_up_1": "", "player_no_role_nuldar_up_2": "",
-                   "player_no_role_nuldar_up_3": "", "player_no_role_nuldar_up_4": "",
-                   "player_no_role_nuldar_left_1": "", "player_no_role_nuldar_left_2": "",
-                   "player_no_role_nuldar_left_3": "", "player_no_role_nuldar_left_4": "",
-                   "player_no_role_nuldar_right_1": "", "player_no_role_nuldar_right_2": "",
-                   "player_no_role_nuldar_right_3": "", "player_no_role_nuldar_right_4": "",
-                   "player_mage_amuna_down_1": "", "player_mage_amuna_down_2": "", "player_mage_amuna_down_3": "",
-                   "player_mage_amuna_down_4": "", "player_mage_amuna_up_1": "", "player_mage_amuna_up_2": "",
-                   "player_mage_amuna_up_3": "", "player_mage_amuna_up_4": "", "player_mage_amuna_left_1": "",
-                   "player_mage_amuna_left_2": "", "player_mage_amuna_left_3": "",
-                   "player_mage_amuna_left_4": "", "player_mage_amuna_right_1": "",
-                   "player_mage_amuna_right_2": "", "player_mage_amuna_right_3": "",
-                   "player_mage_amuna_right_4": "", "player_mage_sorae_down_1": "",
-                   "player_mage_sorae_down_2": "", "player_mage_sorae_down_3": "",
-                   "player_mage_sorae_down_4": "", "player_mage_sorae_up_1": "", "player_mage_sorae_up_2": "",
-                   "player_mage_sorae_up_3": "", "player_mage_sorae_up_4": "", "player_mage_sorae_left_1": "",
-                   "player_mage_sorae_left_2": "", "player_mage_sorae_left_3": "", "player_mage_sorae_left_4": "",
-                   "player_mage_sorae_right_1": "", "player_mage_sorae_right_2": "",
-                   "player_mage_sorae_right_3": "", "player_mage_sorae_right_4": "",
-                   "player_mage_nuldar_down_1": "", "player_mage_nuldar_down_2": "",
-                   "player_mage_nuldar_down_3": "", "player_mage_nuldar_down_4": "",
-                   "player_mage_nuldar_up_1": "", "player_mage_nuldar_up_2": "", "player_mage_nuldar_up_3": "",
-                   "player_mage_nuldar_up_4": "", "player_mage_nuldar_left_1": "",
-                   "player_mage_nuldar_left_2": "", "player_mage_nuldar_left_3": "",
-                   "player_mage_nuldar_left_4": "", "player_mage_nuldar_right_1": "",
-                   "player_mage_nuldar_right_2": "", "player_mage_nuldar_right_3": "",
-                   "player_mage_nuldar_right_4": "", "player_fighter_amuna_down_1": "",
-                   "player_fighter_amuna_down_2": "", "player_fighter_amuna_down_3": "",
-                   "player_fighter_amuna_down_4": "", "player_fighter_amuna_up_1": "",
-                   "player_fighter_amuna_up_2": "", "player_fighter_amuna_up_3": "",
-                   "player_fighter_amuna_up_4": "", "player_fighter_amuna_left_1": "",
-                   "player_fighter_amuna_left_2": "", "player_fighter_amuna_left_3": "",
-                   "player_fighter_amuna_left_4": "", "player_fighter_amuna_right_1": "",
-                   "player_fighter_amuna_right_2": "", "player_fighter_amuna_right_3": "",
-                   "player_fighter_amuna_right_4": "", "player_fighter_sorae_down_1": "",
-                   "player_fighter_sorae_down_2": "", "player_fighter_sorae_down_3": "",
-                   "player_fighter_sorae_down_4": "", "player_fighter_sorae_up_1": "",
-                   "player_fighter_sorae_up_2": "", "player_fighter_sorae_up_3": "",
-                   "player_fighter_sorae_up_4": "", "player_fighter_sorae_left_1": "",
-                   "player_fighter_sorae_left_2": "", "player_fighter_sorae_left_3": "",
-                   "player_fighter_sorae_left_4": "", "player_fighter_sorae_right_1": "",
-                   "player_fighter_sorae_right_2": "", "player_fighter_sorae_right_3": "",
-                   "player_fighter_sorae_right_4": "", "player_fighter_nuldar_down_1": "",
-                   "player_fighter_nuldar_down_2": "", "player_fighter_nuldar_down_3": "",
-                   "player_fighter_nuldar_down_4": "", "player_fighter_nuldar_up_1": "",
-                   "player_fighter_nuldar_up_2": "", "player_fighter_nuldar_up_3": "",
-                   "player_fighter_nuldar_up_4": "", "player_fighter_nuldar_left_1": "",
-                   "player_fighter_nuldar_left_2": "", "player_fighter_nuldar_left_3": "",
-                   "player_fighter_nuldar_left_4": "", "player_fighter_nuldar_right_1": "",
-                   "player_fighter_nuldar_right_2": "", "player_fighter_nuldar_right_3": "",
-                   "player_fighter_nuldar_right_4": "", "player_scout_amuna_down_1": "",
-                   "player_scout_amuna_down_2": "", "player_scout_amuna_down_3": "",
-                   "player_scout_amuna_down_4": "", "player_scout_amuna_up_1": "", "player_scout_amuna_up_2": "",
-                   "player_scout_amuna_up_3": "", "player_scout_amuna_up_4": "", "player_scout_amuna_left_1": "",
-                   "player_scout_amuna_left_2": "", "player_scout_amuna_left_3": "",
-                   "player_scout_amuna_left_4": "", "player_scout_amuna_right_1": "",
-                   "player_scout_amuna_right_2": "", "player_scout_amuna_right_3": "",
-                   "player_scout_amuna_right_4": "", "player_scout_sorae_down_1": "",
-                   "player_scout_sorae_down_2": "", "player_scout_sorae_down_3": "",
-                   "player_scout_sorae_down_4": "", "player_scout_sorae_up_1": "", "player_scout_sorae_up_2": "",
-                   "player_scout_sorae_up_3": "", "player_scout_sorae_up_4": "", "player_scout_sorae_left_1": "",
-                   "player_scout_sorae_left_2": "", "player_scout_sorae_left_3": "",
-                   "player_scout_sorae_left_4": "", "player_scout_sorae_right_1": "",
-                   "player_scout_sorae_right_2": "", "player_scout_sorae_right_3": "",
-                   "player_scout_sorae_right_4": "", "player_scout_nuldar_down_1": "",
-                   "player_scout_nuldar_down_2": "", "player_scout_nuldar_down_3": "",
-                   "player_scout_nuldar_down_4": "", "player_scout_nuldar_up_1": "",
-                   "player_scout_nuldar_up_2": "", "player_scout_nuldar_up_3": "", "player_scout_nuldar_up_4": "",
-                   "player_scout_nuldar_left_1": "", "player_scout_nuldar_left_2": "",
-                   "player_scout_nuldar_left_3": "", "player_scout_nuldar_left_4": "",
-                   "player_scout_nuldar_right_1": "", "player_scout_nuldar_right_2": "",
-                   "player_scout_nuldar_right_3": "", "player_scout_nuldar_right_4": "",
-                   "player_no_role_amuna_battle": "", "player_no_role_amuna_attack": "",
-                   "player_mage_amuna_battle": "", "player_mage_amuna_attack": "",
-                   "player_fighter_amuna_battle": "", "player_fighter_amuna_attack": "",
-                   "player_scout_amuna_battle": "", "player_scout_amuna_attack": "",
-                   "player_mage_barrier_amuna_battle": "", "player_mage_barrier_amuna_attack": "",
-                   "player_scout_sense_amuna_battle": "", "player_scout_sense_amuna_attack": "",
-                   "player_fighter_amuna_strike": "", "player_no_role_sorae_battle": "",
-                   "player_no_role_sorae_attack": "", "player_mage_sorae_battle": "",
-                   "player_mage_sorae_attack": "", "player_fighter_sorae_battle": "",
-                   "player_fighter_sorae_attack": "", "player_scout_sorae_battle": "",
-                   "player_scout_sorae_attack": "", "player_mage_barrier_sorae_battle": "",
-                   "player_mage_barrier_sorae_attack": "", "player_scout_sense_sorae_battle": "",
-                   "player_scout_sense_sorae_attack": "", "player_fighter_sorae_strike": "",
-                   "garan_down": "", "garan_up": "", "garan_left": "", "garan_right": "", "maurelle_down": "",
-                   "maurelle_up": "", "maurelle_left": "", "maurelle_right": "", "celeste_down": "",
-                   "celeste_up": "", "celeste_left": "", "celeste_right": "", "voruke_down": "",
-                   "voruke_up": "", "voruke_left": "", "voruke_right": "", "zerah_down": "",
-                   "zerah_up": "", "zerah_left": "", "zerah_right": "", "nede_left": "", "nede_right": "",
-                   "nede_high_left": "", "nede_high_right": "", "guard_down": "", "guard_up": "",
-                   "guard_left": "", "guard_right": "", "torune_down": "", "torune_up": "", "torune_left": "",
-                   "torune_right": "", "garan_interaction": "", "maurelle_interaction": "",
-                   "celeste_interaction": "", "torune_interaction": "", "snake": "", "ghoul": "", "ghoul attacking": "",
-                   "snake_high": "", "ghoul_high": "", "snake_battle": "", "snake_attack": "", "snake attacking": "",
-                   "ghoul_battle": "", "ghoul_attack": "", "amuna_academia_building": "",
-                   "amuna_inn_building": "", "amuna_shop_building": "", "nascent_gate_closed": "",
-                   "nascent_gate_open": "", "health_pot_img": "", "energy_pot_img": "", "basic_robes_img": "",
-                   "basic_armor_img": "", "basic_tunic_img": "", "basic_staff_img": "", "basic_sword_img": "",
-                   "basic_bow_img": "", "bone_dust_img": "", "shiny_rock_img": "", "temp_img": "",
-                   "info_health_pot_img": "", "info_energy_pot_img": "", "info_basic_robes_img": "",
-                   "info_basic_armor_img": "", "info_basic_tunic_img": "", "info_basic_staff_img": "",
-                   "info_basic_sword_img": "", "info_basic_bow_img": "", "info_bone_dust_img": "",
-                   "info_shiny_rock_img": "", "b_health_pot_img": "", "b_energy_pot_img": "",
-                   "b_basic_robes_img": "", "b_basic_armor_img": "", "b_basic_tunic_img": "",
-                   "b_basic_staff_img": "", "b_basic_sword_img": "", "b_basic_bow_img": "",
-                   "s_health_pot_img": "", "s_energy_pot_img": "", "s_basic_robes_img": "",
-                   "s_basic_armor_img": "", "s_basic_tunic_img": "", "s_basic_staff_img": "",
-                   "s_basic_sword_img": "", "s_basic_bow_img": "", "s_bone_dust_img": "", "s_shiny_rock_img": "",
-                   "character_window_img": "", "journal_window_img": "", "mage_book_img": "",
-                   "fighter_book_img": "", "scout_book_img": "", "new_game_img": "", "continue_img": "",
-                   "main high": "", "skill high": "", "book high": "", "close high": "", "save hearth high": "",
-                   "item high": "", "start high": "", "race high": "", "begin high": "", "role high": "",
-                   "amuna_button_img": "", "nuldar_button_img": "", "sorae_button_img": "",
-                   "character_button_img": "", "journal_button_img": "", "buy_button_img": "", "back_button_img": "",
-                   "rest_button_img": "", "quest_button_img": "", "leave_button_img": "", "accept_button_img": "",
-                   "decline_button_img": "", "yes_button_img": "", "no_button_img": "", "use_button_img": "",
-                   "equip_button_img": "", "upgrade_button_img": "", "mage_attack_button_img": "",
-                   "fighter_attack_button_img": "", "scout_attack_button_img": "", "ok_button_img": "",
-                   "no_role_attack_button_img": "", "barrier_button_img": "", "strike_button_img": "",
-                   "sense_button_img": "", "save_button_img": "", "map_button_img": "",
-                   "mage_select_button_img": "", "fighter_select_button_img": "", "scout_select_button_img": "",
-                   "offense_select_button_img": "", "defense_select_button_img": "", "garan_quest": "",
-                   "maurelle_quest": "", "torune_quest": "", "celeste_quest": "", "garan_complete": "",
-                   "maurelle_complete": "", "celeste_complete": "", "torune_complete": "", "quest_start_star": "",
-                   "quest_progress_star": "", "quest_complete_star": "", "star_00": "", "star_01": "",
-                   "star_02": "", "star_03": "", "star_04": "", "gear_popup": "", "health_popup": "",
-                   "knowledge_popup": "", "save_popup": "", "quest_popup": "", "save_not_found": "",
-                   "drop_popup": "", "pine_logs_img": "", "pine_logs_high_img": "", "guide_basics_quest_img": "",
-                   "guide_basics_battle_img": "", "guide_basics_role_img": "", "guide_basics_upgrades_img": "",
-                   "shop_cat_pet_img": "", "academia_cat_pet_img": "", "stardust_star_01": "", "stardust_star_02": "",
-                   "stardust_star_03": "", "stardust_star_04": "", "hp_0": "", "hp_1": "", "hp_2": "", "hp_3": "",
-                   "hp_4": "", "hp_5": "", "hp_6": "", "hp_7": "", "hp_8": "", "hp_9": "",
-                   "hp_10": "", "hp_11": "", "hp_12": "", "hp_13": "", "hp_14": "", "hp_15": "",
-                   "hp_16": "", "hp_17": "", "hp_18": "", "hp_19": "", "hp_20": "", "hp_21": "",
-                   "hp_22": "", "hp_23": "", "hp_24": "", "hp_25": "", "hp_26": "", "hp_27": "",
-                   "hp_28": "", "hp_29": "", "hp_30": "", "hp_31": "", "hp_32": "", "hp_33": "",
-                   "hp_34": "", "hp_35": "", "hp_36": "", "hp_37": "", "hp_38": "", "hp_39": "",
-                   "hp_40": "", "hp_41": "", "hp_42": "", "hp_43": "", "hp_44": "", "hp_45": "",
-                   "hp_46": "", "hp_47": "", "hp_48": "", "hp_49": "", "hp_50": "", "hp_51": "",
-                   "hp_52": "", "hp_53": "", "hp_54": "", "hp_55": "", "hp_56": "", "hp_57": "",
-                   "hp_58": "", "hp_59": "", "hp_60": "", "hp_61": "", "hp_62": "", "hp_63": "",
-                   "hp_64": "", "hp_65": "", "hp_66": "", "hp_67": "", "hp_68": "", "hp_69": "",
-                   "hp_70": "", "hp_71": "", "hp_72": "", "hp_73": "", "hp_74": "", "hp_75": "",
-                   "hp_76": "", "hp_77": "", "hp_78": "", "hp_79": "", "hp_80": "", "hp_81": "",
-                   "hp_82": "", "hp_83": "", "hp_84": "", "hp_85": "", "hp_86": "", "hp_87": "",
-                   "hp_88": "", "hp_89": "", "hp_90": "", "hp_91": "", "hp_92": "", "hp_93": "",
-                   "hp_94": "", "hp_95": "", "hp_96": "", "hp_97": "", "hp_98": "", "hp_99": "",
-                   "hp_100": "", "en_0": "", "en_1": "", "en_2": "", "en_3": "",
-                   "en_4": "", "en_5": "", "en_6": "", "en_7": "", "en_8": "", "en_9": "",
-                   "en_10": "", "en_11": "", "en_12": "", "en_13": "", "en_14": "", "en_15": "",
-                   "en_16": "", "en_17": "", "en_18": "", "en_19": "", "en_20": "", "en_21": "",
-                   "en_22": "", "en_23": "", "en_24": "", "en_25": "", "en_26": "", "en_27": "",
-                   "en_28": "", "en_29": "", "en_30": "", "en_31": "", "en_32": "", "en_33": "",
-                   "en_34": "", "en_35": "", "en_36": "", "en_37": "", "en_38": "", "en_39": "",
-                   "en_40": "", "en_41": "", "en_42": "", "en_43": "", "en_44": "", "en_45": "",
-                   "en_46": "", "en_47": "", "en_48": "", "en_49": "", "en_50": "", "en_51": "",
-                   "en_52": "", "en_53": "", "en_54": "", "en_55": "", "en_56": "", "en_57": "",
-                   "en_58": "", "en_59": "", "en_60": "", "en_61": "", "en_62": "", "en_63": "",
-                   "en_64": "", "en_65": "", "en_66": "", "en_67": "", "en_68": "", "en_69": "",
-                   "en_70": "", "en_71": "", "en_72": "", "en_73": "", "en_74": "", "en_75": "",
-                   "en_76": "", "en_77": "", "en_78": "", "en_79": "", "en_80": "", "en_81": "",
-                   "en_82": "", "en_83": "", "en_84": "", "en_85": "", "en_86": "", "en_87": "",
-                   "en_88": "", "en_89": "", "en_90": "", "en_91": "", "en_92": "", "en_93": "",
-                   "en_94": "", "en_95": "", "en_96": "", "en_97": "", "en_98": "", "en_99": "",
-                   "en_100": "", "xp_0": "", "xp_1": "", "xp_2": "", "xp_3": "",
-                   "xp_4": "", "xp_5": "", "xp_6": "", "xp_7": "", "xp_8": "", "xp_9": "",
-                   "xp_10": "", "xp_11": "", "xp_12": "", "xp_13": "", "xp_14": "", "xp_15": "",
-                   "xp_16": "", "xp_17": "", "xp_18": "", "xp_19": "", "xp_20": "", "xp_21": "",
-                   "xp_22": "", "xp_23": "", "xp_24": "", "xp_25": "", "xp_26": "", "xp_27": "",
-                   "xp_28": "", "xp_29": "", "xp_30": "", "xp_31": "", "xp_32": "", "xp_33": "",
-                   "xp_34": "", "xp_35": "", "xp_36": "", "xp_37": "", "xp_38": "", "xp_39": "",
-                   "xp_40": "", "xp_41": "", "xp_42": "", "xp_43": "", "xp_44": "", "xp_45": "",
-                   "xp_46": "", "xp_47": "", "xp_48": "", "xp_49": "", "xp_50": "", "xp_51": "",
-                   "xp_52": "", "xp_53": "", "xp_54": "", "xp_55": "", "xp_56": "", "xp_57": "",
-                   "xp_58": "", "xp_59": "", "xp_60": "", "xp_61": "", "xp_62": "", "xp_63": "",
-                   "xp_64": "", "xp_65": "", "xp_66": "", "xp_67": "", "xp_68": "", "xp_69": "",
-                   "xp_70": "", "xp_71": "", "xp_72": "", "xp_73": "", "xp_74": "", "xp_75": "",
-                   "xp_76": "", "xp_77": "", "xp_78": "", "xp_79": "", "xp_80": "", "xp_81": "",
-                   "xp_82": "", "xp_83": "", "xp_84": "", "xp_85": "", "xp_86": "", "xp_87": "",
-                   "xp_88": "", "xp_89": "", "xp_90": "", "xp_91": "", "xp_92": "", "xp_93": "",
-                   "xp_94": "", "xp_95": "", "xp_96": "", "xp_97": "", "xp_98": "", "xp_99": "",
-                   "xp_100": "", "arrow_up": "", "arrow_down": "", "arrow_right": "", "arrow_left": "",
-                   "apothis_1": "", "apothis_2": "", "apothis_3": "", "apothis_4": "", "apothis_5": "",
-                   "apothis_6": "", "rohir_river_screen": "", "water": "", "dungeon_entrance": "",
-                   "world_map": "", "map_button": "", "map_button_high": "", "amuna_location": "",
-                   "nuldar_location": "", "sorae_location": "", "stardust_battle": "", "ghoul attacking star": "",
-                   "nede_big": "", "reservoir_a_screen": "", "reservoir_b_screen": "", "dungeon_wall_1": "",
-                   "dungeon_wall_2": "", "dungeon_crate": "", "dungeon_switch_inactive": "", "dungeon_gate": "",
-                   "dungeon_switch_active": "", "dungeon_switch_full": "", "dungeon_teleporter": "",
-                   "dungeon_drop_wall": "", "chorizon": "", "muchador": "", "muchador_dark": "", "muchador_crate": "",
-                   "reservoir_battle_screen": "", "chorizon_battle": "", "muchador_battle": "", "muchador_arena": "",
-                   "chorizon_attack": "", "muchador_attack": "", "key image": "", "info_boss_key_img": "",
-                   "skip_button_img": "", "reservoir_passage": "", "reservoir_c_screen": "", "dungeon_chest": "",
-                   "dungeon_chest_open": "", "gloves": "", "info_gloves": "", "rock_img": "", "reservoir_exit": "",
-                   "nuldar_herb_building": "", "nuldar_inn_building": "", "nuldar_shop_building": "",
-                   "reservoir_enter": "", "korlok_hearth_screen": "", "magmon": "", "bandile": "", "mines_entrance": "",
-                   "korlok_battle_screen": "", "magmon_battle": "", "magmon_attack": "", "bandile_battle": "",
-                   "bandile_attack": "", "korlok_mines": "", "mines_wall": "", "mines_light": "",
-                   "mines_battle_screen": "", "voruke_interaction": "", "zerah_interaction": "", "voruke_quest": "",
-                   "voruke_complete": "", "zerah_quest": "", "zerah_complete": "", "ember": "", "band": "", "flow": "",
-                   "magmon_high": "", "bandile_high": "", "info_ember": "", "info_band": "", "info_flow": "",
-                   "s_ember_img": "", "s_band_img": "", "korlok_shop_screen": "", "korlok_inn_screen": "",
-                   "korlok_mountains": "", "korlok_apothecary": "", "building_npc_star_available": "",
-                   "building_npc_star_progress": "", "building_npc_star_complete": "", "sprite_ore_img": "",
-                   "mountain_trail_bg": "", "terra_mountains": "", "terra_cave": "", "terra_trail_screen": "",
-                   "chinzilla": "", "caves_battle_screen": ""}
+    loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    equipment_screen = pygame.image.load(resource_path('resources/art/overlay_equipment_screen.png')).convert_alpha()
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
     n_char_screen = pygame.image.load(resource_path('resources/art/screen_nuldar_character_select.png')).convert_alpha()
     s_char_screen = pygame.image.load(resource_path('resources/art/screen_sorae_character_select.png')).convert_alpha()
@@ -396,6 +158,7 @@ def load_graphics():
 
     loaded_dict["chinzilla"] = sprite_chinzilla
     loaded_dict["caves_battle_screen"] = caves_battle_screen
+    loaded_dict["equipment_screen"] = equipment_screen
     loaded_dict["a_char_screen"] = a_char_screen
     loaded_dict["n_char_screen"] = n_char_screen
     loaded_dict["s_char_screen"] = s_char_screen
@@ -998,7 +761,7 @@ def load_graphics():
     loaded_dict["chinzilla_attack"] = boss_enemies_battle_sheet[2]
     # enemies attacking ------------------------------------------------------------------------------------------------
     type_overlay_url = resource_path('resources/art/overlay_enemy_types.png')
-    type_overlay_sheet = sprite_sheet((75, 75), type_overlay_url)
+    type_overlay_sheet = sprite_sheet((50, 50), type_overlay_url)
     loaded_dict["mage_type_overlay"] = type_overlay_sheet[0]
     loaded_dict["fighter_type_overlay"] = type_overlay_sheet[1]
     loaded_dict["scout_type_overlay"] = type_overlay_sheet[2]
@@ -1019,68 +782,78 @@ def load_graphics():
     nascent_gate_sheet = sprite_sheet((178, 120), nascent_gate_url)
     loaded_dict["nascent_gate_closed"] = nascent_gate_sheet[0]
     loaded_dict["nascent_gate_open"] = nascent_gate_sheet[1]
+    # weapons ----------------------------------------------------------------------------------------------------------
+    weapons_url = resource_path('resources/art/overlay_weapon_tiers.png')
+    weapons_sheet = sprite_sheet((50, 50), weapons_url)
+    loaded_dict["staff_1"] = weapons_sheet[0]
+    loaded_dict["staff_2"] = weapons_sheet[1]
+    loaded_dict["staff_3"] = weapons_sheet[2]
+    loaded_dict["staff_4"] = weapons_sheet[3]
+    loaded_dict["sword_1"] = weapons_sheet[4]
+    loaded_dict["sword_2"] = weapons_sheet[5]
+    loaded_dict["sword_3"] = weapons_sheet[6]
+    loaded_dict["sword_4"] = weapons_sheet[7]
+    loaded_dict["bow_1"] = weapons_sheet[8]
+    loaded_dict["bow_2"] = weapons_sheet[9]
+    loaded_dict["bow_3"] = weapons_sheet[10]
+    loaded_dict["bow_4"] = weapons_sheet[11]
+    # armor ------------------------------------------------------------------------------------------------------------
+    armor_url = resource_path('resources/art/overlay_armor_tiers.png')
+    armor_sheet = sprite_sheet((50, 50), armor_url)
+    loaded_dict["basic_armor"] = armor_sheet[0]
+    loaded_dict["forged_armor"] = armor_sheet[1]
+    loaded_dict["mythical_armor"] = armor_sheet[2]
+    loaded_dict["legendary_armor"] = armor_sheet[3]
     # items ------------------------------------------------------------------------------------------------------------
     items_url = resource_path('resources/art/overlay_items.png')
     items_sheet = sprite_sheet((50, 50), items_url)
     loaded_dict["health_pot_img"] = items_sheet[0]
     loaded_dict["energy_pot_img"] = items_sheet[1]
-    loaded_dict["basic_robes_img"] = items_sheet[2]
-    loaded_dict["basic_armor_img"] = items_sheet[3]
-    loaded_dict["basic_tunic_img"] = items_sheet[4]
-    loaded_dict["basic_staff_img"] = items_sheet[5]
-    loaded_dict["basic_sword_img"] = items_sheet[6]
-    loaded_dict["basic_bow_img"] = items_sheet[7]
-    loaded_dict["bone_dust_img"] = items_sheet[8]
-    loaded_dict["shiny_rock_img"] = items_sheet[9]
-    loaded_dict["key_img"] = items_sheet[10]
-    loaded_dict["gloves"] = items_sheet[11]
-    loaded_dict["ember"] = items_sheet[12]
-    loaded_dict["band"] = items_sheet[13]
-    loaded_dict["flowe"] = items_sheet[14]
+    loaded_dict["bone_dust_img"] = items_sheet[2]
+    loaded_dict["shiny_rock_img"] = items_sheet[3]
+    loaded_dict["key_img"] = items_sheet[4]
+    loaded_dict["gloves"] = items_sheet[5]
+    loaded_dict["ember"] = items_sheet[6]
+    loaded_dict["band"] = items_sheet[7]
+    loaded_dict["flowe"] = items_sheet[8]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
     loaded_dict["info_health_pot_img"] = items_info_sheet[0]
     loaded_dict["info_energy_pot_img"] = items_info_sheet[1]
-    loaded_dict["info_basic_robes_img"] = items_info_sheet[2]
-    loaded_dict["info_basic_armor_img"] = items_info_sheet[3]
-    loaded_dict["info_basic_tunic_img"] = items_info_sheet[4]
-    loaded_dict["info_basic_staff_img"] = items_info_sheet[5]
-    loaded_dict["info_basic_sword_img"] = items_info_sheet[6]
-    loaded_dict["info_basic_bow_img"] = items_info_sheet[7]
-    loaded_dict["info_bone_dust_img"] = items_info_sheet[8]
-    loaded_dict["info_shiny_rock_img"] = items_info_sheet[9]
-    loaded_dict["info_boss_key_img"] = items_info_sheet[10]
-    loaded_dict["info_gloves"] = items_info_sheet[11]
-    loaded_dict["info_ember"] = items_info_sheet[12]
-    loaded_dict["info_band"] = items_info_sheet[13]
-    loaded_dict["info_flowe"] = items_info_sheet[14]
+    loaded_dict["info_basic_armor"] = items_info_sheet[2]
+    loaded_dict["info_forged_armor"] = items_info_sheet[3]
+    loaded_dict["info_mythical_armor"] = items_info_sheet[4]
+    loaded_dict["info_legendary_armor"] = items_info_sheet[5]
+    loaded_dict["info_bone_dust_img"] = items_info_sheet[6]
+    loaded_dict["info_shiny_rock_img"] = items_info_sheet[7]
+    loaded_dict["info_boss_key_img"] = items_info_sheet[8]
+    loaded_dict["info_gloves"] = items_info_sheet[9]
+    loaded_dict["info_ember"] = items_info_sheet[10]
+    loaded_dict["info_band"] = items_info_sheet[11]
+    loaded_dict["info_flowe"] = items_info_sheet[12]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
     loaded_dict["b_health_pot_img"] = buy_items_sheet[0]
     loaded_dict["b_energy_pot_img"] = buy_items_sheet[1]
-    loaded_dict["b_basic_robes_img"] = buy_items_sheet[2]
-    loaded_dict["b_basic_armor_img"] = buy_items_sheet[3]
-    loaded_dict["b_basic_tunic_img"] = buy_items_sheet[4]
-    loaded_dict["b_basic_staff_img"] = buy_items_sheet[5]
-    loaded_dict["b_basic_sword_img"] = buy_items_sheet[6]
-    loaded_dict["b_basic_bow_img"] = buy_items_sheet[7]
+    loaded_dict["b_basic_armor"] = buy_items_sheet[2]
+    loaded_dict["b_forged_armor"] = buy_items_sheet[3]
+    loaded_dict["b_mythical_armor"] = buy_items_sheet[4]
+    loaded_dict["b_legendary_armor"] = buy_items_sheet[5]
     # sell items -------------------------------------------------------------------------------------------------------
     sell_items_url = resource_path('resources/art/overlay_sell_items.png')
     sell_items_sheet = sprite_sheet((246, 240), sell_items_url)
     loaded_dict["s_health_pot_img"] = sell_items_sheet[0]
     loaded_dict["s_energy_pot_img"] = sell_items_sheet[1]
-    loaded_dict["s_basic_robes_img"] = sell_items_sheet[2]
-    loaded_dict["s_basic_armor_img"] = sell_items_sheet[3]
-    loaded_dict["s_basic_tunic_img"] = sell_items_sheet[4]
-    loaded_dict["s_basic_staff_img"] = sell_items_sheet[5]
-    loaded_dict["s_basic_sword_img"] = sell_items_sheet[6]
-    loaded_dict["s_basic_bow_img"] = sell_items_sheet[7]
-    loaded_dict["s_bone_dust_img"] = sell_items_sheet[8]
-    loaded_dict["s_shiny_rock_img"] = sell_items_sheet[9]
-    loaded_dict["s_ember_img"] = sell_items_sheet[10]
-    loaded_dict["s_band_img"] = sell_items_sheet[11]
+    loaded_dict["s_basic_armor"] = sell_items_sheet[2]
+    loaded_dict["s_forged_armor"] = sell_items_sheet[3]
+    loaded_dict["s_mythical_armor"] = sell_items_sheet[4]
+    loaded_dict["s_legendary_armor"] = sell_items_sheet[5]
+    loaded_dict["s_bone_dust_img"] = sell_items_sheet[6]
+    loaded_dict["s_shiny_rock_img"] = sell_items_sheet[7]
+    loaded_dict["s_ember_img"] = sell_items_sheet[8]
+    loaded_dict["s_band_img"] = sell_items_sheet[9]
     # player info windows ----------------------------------------------------------------------------------------------
     player_info_url = resource_path('resources/art/overlay_info_sheets.png')
     player_info_sheet = sprite_sheet((500, 525), player_info_url)

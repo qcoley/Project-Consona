@@ -1615,7 +1615,7 @@ class BattleCharacter(pygame.sprite.Sprite):
 
 # any item or equipment
 class Item(pygame.sprite.Sprite):
-    def __init__(self, name, types, x_coordinate, y_coordinate, image):
+    def __init__(self, name, types, x_coordinate, y_coordinate, image, level):
         super(Item, self).__init__()
         self.name = name
         self.type = types
@@ -1623,12 +1623,18 @@ class Item(pygame.sprite.Sprite):
         self.y_coordinate = y_coordinate
         self.surf = image
         self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+        self.level = level
 
     def update(self, x_coord, y_coord, image):
         self.x_coordinate = x_coord
         self.y_coordinate = y_coord
         self.surf = image
         self.rect = self.surf.get_rect(center=(x_coord, y_coord))
+
+    def update_level(self, name, level, image):
+        self.name = name
+        self.level = level
+        self.image = image
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1718,17 +1724,28 @@ if __name__ == '__main__':
     first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
     first_item = Notification("first quest", False, 510, 365, graphic_dict["drop_popup"])
     # inventory items
-    health_potion = Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"])
-    energy_potion = Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"])
-    shiny_rock = Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"])
-    bone_dust = Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"])
-    # starter equipment
-    basic_staff = Item("basic staff", "mage", 200, 200, graphic_dict["basic_staff_img"])
-    basic_sword = Item("basic sword", "fighter", 200, 200, graphic_dict["basic_sword_img"])
-    basic_bow = Item("basic bow", "scout", 200, 200, graphic_dict["basic_bow_img"])
-    basic_robes = Item("basic robes", "mage", 200, 200, graphic_dict["basic_robes_img"])
-    basic_armor = Item("basic armor", "fighter", 200, 200, graphic_dict["basic_armor_img"])
-    basic_tunic = Item("basic tunic", "scout", 200, 200, graphic_dict["basic_tunic_img"])
+    health_potion = Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0)
+    energy_potion = Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)
+    shiny_rock = Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0)
+    bone_dust = Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0)
+    # weapons
+    level_1_staff = UiElement("level 1 staff", 1077, 283, graphic_dict["staff_1"])
+    level_2_staff = UiElement("level 2 staff", 1077, 283, graphic_dict["staff_2"])
+    level_3_staff = UiElement("level 3 staff", 1077, 283, graphic_dict["staff_3"])
+    level_4_staff = UiElement("level 4 staff", 1077, 283, graphic_dict["staff_4"])
+    level_1_sword = UiElement("level 1 sword", 1155, 283, graphic_dict["sword_1"])
+    level_2_sword = UiElement("level 2 sword", 1155, 283, graphic_dict["sword_2"])
+    level_3_sword = UiElement("level 3 sword", 1155, 283, graphic_dict["sword_3"])
+    level_4_sword = UiElement("level 4 sword", 1155, 283, graphic_dict["sword_4"])
+    level_1_bow = UiElement("level 1 bow", 1200, 283, graphic_dict["bow_1"])
+    level_2_bow = UiElement("level 2 bow", 1229, 283, graphic_dict["bow_2"])
+    level_3_bow = UiElement("level 3 bow", 1250, 283, graphic_dict["bow_3"])
+    level_4_bow = UiElement("level 4 bow", 1250, 283, graphic_dict["bow_4"])
+    # armor
+    basic_armor = Item("basic armor", "all", 200, 200, graphic_dict["basic_armor"], 1)
+    forged_armor = Item("forged armor", "all", 200, 200, graphic_dict["forged_armor"], 2)
+    mythical_armor = Item("mythical armor", "all", 200, 200, graphic_dict["mythical_armor"], 3)
+    legendary_armor = Item("legendary armor", "all", 200, 200, graphic_dict["legendary_armor"], 4)
     # character selection
     amuna_character = UiElement("amuna character", 640, 360, graphic_dict["amuna_character_img"])
     nuldar_character = UiElement("nuldar character", 640, 360, graphic_dict["nuldar_character_img"])
@@ -1782,24 +1799,14 @@ if __name__ == '__main__':
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
-        Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"]),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"]),
-        Item("basic staff", "mage", 200, 200, graphic_dict["basic_staff_img"]),
-        Item("basic sword", "fighter", 200, 200, graphic_dict["basic_sword_img"]),
-        Item("basic bow", "scout", 200, 200, graphic_dict["basic_bow_img"]),
-        Item("basic robes", "mage", 200, 200, graphic_dict["basic_robes_img"]),
-        Item("basic armor", "fighter", 200, 200, graphic_dict["basic_armor_img"]),
-        Item("basic tunic", "scout", 200, 200, graphic_dict["basic_tunic_img"])])
+        Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
+        Item("basic armor", "all", 200, 200, graphic_dict["basic_armor"], 1)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "amuna", [
-        Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"]),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"]),
-        Item("basic staff", "mage", 200, 200, graphic_dict["basic_staff_img"]),
-        Item("basic sword", "fighter", 200, 200, graphic_dict["basic_sword_img"]),
-        Item("basic bow", "scout", 200, 200, graphic_dict["basic_bow_img"]),
-        Item("basic robes", "mage", 200, 200, graphic_dict["basic_robes_img"]),
-        Item("basic armor", "fighter", 200, 200, graphic_dict["basic_armor_img"]),
-        Item("basic tunic", "scout", 200, 200, graphic_dict["basic_tunic_img"])])
+        Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
+        Item("forged armor", "all", 200, 200, graphic_dict["forged_armor"], 1)])
 
     npc_garan_interaction = UiElement("garan interaction", 647, 360, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 641, 360, graphic_dict["maurelle_interaction"])
@@ -1813,31 +1820,31 @@ if __name__ == '__main__':
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
     snake_1 = Enemy("snake", "snake", 100, 100, 1, 100, 130, True,
-                    Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
+                    Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     snake_2 = Enemy("snake", "snake", 100, 100, 2, 285, 150, True,
-                    Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
+                    Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     snake_3 = Enemy("snake", "snake", 100, 100, 1, 100, 230, True,
-                    Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
+                    Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     snake_4 = Enemy("snake", "snake", 100, 100, 2, 285, 250, True,
-                    Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
+                    Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                     graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     ghoul_low_1 = Enemy("ghoul", "ghoul", 100, 100, 4, 665, 180, True,
-                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
+                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_low_2 = Enemy("ghoul", "ghoul", 100, 100, 5, 800, 130, True,
-                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
+                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_low_3 = Enemy("ghoul", "ghoul", 100, 100, 3, 760, 240, True,
-                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
+                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_low_4 = Enemy("ghoul", "ghoul", 100, 100, 4, 890, 205, True,
-                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
+                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_nede = Enemy("nede ghoul", "ghoul", 100, 100, 3, 450, 455, True,
-                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
+                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # reservoir enemies ------------------------------------------------------------------------------------------------
     chorizon_1 = Enemy("chorizon_1", "chorizon", 100, 100, 7, 150, 230, True, "item", graphic_dict["chorizon"],
@@ -1848,31 +1855,31 @@ if __name__ == '__main__':
                      UiElement("muchador hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     # korlok enemies ---------------------------------------------------------------------------------------------------
     magmon_1 = Enemy("magmon", "magmon", 100, 100, 9, 125, 135, True,
-                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
+                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     magmon_2 = Enemy("magmon", "magmon", 100, 100, 11, 375, 125, True,
-                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
+                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     magmon_3 = Enemy("magmon", "magmon", 100, 100, 10, 200, 197, True,
-                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
+                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     magmon_4 = Enemy("magmon", "magmon", 100, 100, 9, 320, 197, True,
-                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
+                     Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     bandile_1 = Enemy("bandile", "bandile", 100, 100, 8, 655, 245, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["band"]),
+                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     bandile_2 = Enemy("bandile", "bandile", 100, 100, 9, 765, 165, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["band"]),
+                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     bandile_3 = Enemy("bandile", "bandile", 100, 100, 7, 765, 335, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["band"]),
+                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     bandile_4 = Enemy("bandile", "bandile", 100, 100, 8, 880, 245, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["band"]),
+                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     # terra cave enemy -------------------------------------------------------------------------------------------------
@@ -1891,10 +1898,10 @@ if __name__ == '__main__':
     korlok_herb = Building("apothecary", "korlok apothecary", 745, 240, graphic_dict["nuldar_herb_building"])
     mines_entrance = Building("entrance", "mines entrance", 430, 375, graphic_dict["mines_entrance"])
 
-    mines_ore_1 = Item("mines ore", "ore", 125, 230, graphic_dict["sprite_ore_img"])
-    mines_ore_2 = Item("mines ore", "ore", 200, 230, graphic_dict["sprite_ore_img"])
-    mines_ore_3 = Item("mines ore", "ore", 275, 230, graphic_dict["sprite_ore_img"])
-    mines_ore_4 = Item("mines ore", "ore", 275, 150, graphic_dict["sprite_ore_img"])
+    mines_ore_1 = Item("mines ore", "ore", 125, 230, graphic_dict["sprite_ore_img"], 0)
+    mines_ore_2 = Item("mines ore", "ore", 200, 230, graphic_dict["sprite_ore_img"], 0)
+    mines_ore_3 = Item("mines ore", "ore", 275, 230, graphic_dict["sprite_ore_img"], 0)
+    mines_ore_4 = Item("mines ore", "ore", 275, 150, graphic_dict["sprite_ore_img"], 0)
 
     hearth_stone = Building("hearth", "seldon hearth", 860, 595, graphic_dict["hearth_stone"])
 
@@ -1915,6 +1922,7 @@ if __name__ == '__main__':
     sorae_select_overlay = UiElement("sorae select overlay", 1140, 305, graphic_dict["sorae_overlay_img"])
     name_input = UiElement("name input", 640, 585, graphic_dict["name_input_img"])
 
+    equipment_screen = UiElement("equipment screen", 1155, 360, graphic_dict["equipment_screen"])
     character_button = UiElement("character button", 860, 680, graphic_dict["character_button_img"])
     quests_button = UiElement("quests button", 970, 680, graphic_dict["journal_button_img"])
     new_game_button = UiElement("new game button", 640, 342, graphic_dict["new_game_img"])
@@ -1944,7 +1952,7 @@ if __name__ == '__main__':
     no_button = UiElement("no button", 564, 394, graphic_dict["no_button_img"])
     back_button = UiElement("back button", 75, 665, graphic_dict["back_button_img"])
     item_info_button = UiElement("item info button", 1153, 345, graphic_dict["use_button_img"])
-    offense_select_button = UiElement("offense select", 637, 577, graphic_dict["offense_select_button_img"])
+    offense_select_button = UiElement("offense select", 764, 586, graphic_dict["offense_select_button_img"])
     skip_button = UiElement("skip button", 1212, 680, graphic_dict["skip_button_img"])
 
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
@@ -1968,11 +1976,11 @@ if __name__ == '__main__':
     mage_book = UiElement("mage book", 670, 375, graphic_dict["mage_book_img"])
     fighter_book = UiElement("fighter book", 670, 375, graphic_dict["fighter_book_img"])
     scout_book = UiElement("scout book", 670, 375, graphic_dict["scout_book_img"])
-    quest_logs_1 = Item("pine logs", "quest", 60, 540, graphic_dict["pine_logs_img"])
-    quest_logs_2 = Item("pine logs", "quest", 315, 560, graphic_dict["pine_logs_img"])
-    quest_logs_3 = Item("pine logs", "quest", 415, 435, graphic_dict["pine_logs_img"])
-    quest_logs_4 = Item("pine logs", "quest", 100, 540, graphic_dict["pine_logs_img"])
-    nede = Item("nede", "quest", 650, 450, graphic_dict["nede_left"])
+    quest_logs_1 = Item("pine logs", "quest", 60, 540, graphic_dict["pine_logs_img"], 0)
+    quest_logs_2 = Item("pine logs", "quest", 315, 560, graphic_dict["pine_logs_img"], 0)
+    quest_logs_3 = Item("pine logs", "quest", 415, 435, graphic_dict["pine_logs_img"], 0)
+    quest_logs_4 = Item("pine logs", "quest", 100, 540, graphic_dict["pine_logs_img"], 0)
+    nede = Item("nede", "quest", 650, 450, graphic_dict["nede_left"], 0)
     nede_big = UiElement("big nede", 840, 270, graphic_dict["nede_big"])
     npc_name_plate = UiElement("npc name plate", 638, 192, graphic_dict["npc_name_plate"])
     buy_inventory = Inventory("buy inventory", [], 900, 500, graphic_dict["buy_inventory"])
@@ -2072,15 +2080,15 @@ if __name__ == '__main__':
     muchador_crate_3 = UiElement("muchador crate 3", 200, 530, graphic_dict["muchador_crate"])
     muchador_crate_4 = UiElement("muchador crate 4", 500, 530, graphic_dict["muchador_crate"])
 
-    dungeon_crate_1 = Item("dungeon crate 1", "crate", 75, 150, graphic_dict["dungeon_crate"])
-    dungeon_crate_2 = Item("dungeon crate 2", "crate", 960, 150, graphic_dict["dungeon_crate"])
-    dungeon_crate_3 = Item("dungeon crate 3", "crate", 388, 575, graphic_dict["dungeon_crate"])
-    dungeon_crate_4 = Item("dungeon crate 4", "crate", 650, 575, graphic_dict["dungeon_crate"])
-    dungeon_crate_5 = Item("dungeon crate 5", "crate", 970, 150, graphic_dict["dungeon_crate"])
-    dungeon_switch_1 = Item("dungeon switch 1", "switch", 158, 430, graphic_dict["dungeon_switch_inactive"])
-    dungeon_switch_2 = Item("dungeon switch 2", "switch", 874, 430, graphic_dict["dungeon_switch_inactive"])
-    dungeon_switch_3 = Item("dungeon switch 3", "switch", 519, 165, graphic_dict["dungeon_switch_inactive"])
-    dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"])
+    dungeon_crate_1 = Item("dungeon crate 1", "crate", 75, 150, graphic_dict["dungeon_crate"], 0)
+    dungeon_crate_2 = Item("dungeon crate 2", "crate", 960, 150, graphic_dict["dungeon_crate"], 0)
+    dungeon_crate_3 = Item("dungeon crate 3", "crate", 388, 575, graphic_dict["dungeon_crate"], 0)
+    dungeon_crate_4 = Item("dungeon crate 4", "crate", 650, 575, graphic_dict["dungeon_crate"], 0)
+    dungeon_crate_5 = Item("dungeon crate 5", "crate", 970, 150, graphic_dict["dungeon_crate"], 0)
+    dungeon_switch_1 = Item("dungeon switch 1", "switch", 158, 430, graphic_dict["dungeon_switch_inactive"], 0)
+    dungeon_switch_2 = Item("dungeon switch 2", "switch", 874, 430, graphic_dict["dungeon_switch_inactive"], 0)
+    dungeon_switch_3 = Item("dungeon switch 3", "switch", 519, 165, graphic_dict["dungeon_switch_inactive"], 0)
+    dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
@@ -2089,8 +2097,8 @@ if __name__ == '__main__':
     terra_mountains = UiElement("terra mountains", 250, 270, graphic_dict["terra_mountains"])
     terra_cave = UiElement("terra cave", 100, 400, graphic_dict["terra_cave"])
 
-    rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock_img"])
-    rock_2 = Item("rock 2", "rock", 580, 255, graphic_dict["rock_img"])
+    rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock_img"], 0)
+    rock_2 = Item("rock 2", "rock", 580, 255, graphic_dict["rock_img"], 0)
 
     font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
     level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
@@ -3054,6 +3062,7 @@ if __name__ == '__main__':
 
                     pygame.mixer.music.fadeout(3000)
                     screen.blit(nascent_grove_bg, (0, 0))
+                    screen.blit(equipment_screen.surf, equipment_screen.rect)
                     screen.blit(nascent_gate.surf, nascent_gate.rect)
                     screen.blit(player.surf, player.rect)
 
@@ -3113,7 +3122,10 @@ if __name__ == '__main__':
                                                              magmon_battle_sprite, bandile_battle_sprite,
                                                              chinzilla_battle_sprite, interactables_mines,
                                                              quest_star_voruke, quest_star_zerah, quest_star_kirean,
-                                                             quest_star_dionte)
+                                                             quest_star_dionte, equipment_screen, level_1_staff,
+                                                             level_2_staff, level_3_staff, level_4_staff, level_1_sword,
+                                                             level_2_sword, level_3_sword, level_4_sword, level_1_bow,
+                                                             level_2_bow, level_3_bow, level_4_bow)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -3188,7 +3200,7 @@ if __name__ == '__main__':
                                                              quest_star_garan, quest_star_maurelle, quest_star_celeste,
                                                              quest_star_torune, quest_star_voruke, quest_star_zerah,
                                                              korlok_mountains, in_apothecary, quest_star_kirean,
-                                                             quest_star_dionte)
+                                                             quest_star_dionte, equipment_screen)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -3242,7 +3254,7 @@ if __name__ == '__main__':
                                                         sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite,
                                                         seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                         interactables_seldon, interactables_korlok, Enemy, Item,
-                                                        UiElement, interactables_mines, ores)
+                                                        UiElement, interactables_mines, ores, equipment_screen)
 
                     over_world_song_set = mines_returned["over_world_song_set"]
                     interacted = mines_returned["interacted"]
@@ -3290,7 +3302,7 @@ if __name__ == '__main__':
                                                        magmon_battle_sprite, bandile_battle_sprite,
                                                        chinzilla_battle_sprite, barrier_active, sharp_sense_active,
                                                        current_npc_interacting, chinzilla, quest_star_dionte,
-                                                       hearth_stone)
+                                                       hearth_stone, equipment_screen)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -3339,7 +3351,7 @@ if __name__ == '__main__':
                                                                   info_text_4, current_enemy_battling,
                                                                   current_building_entering, in_battle, movement_able,
                                                                   in_shop, magmon_battle_sprite, bandile_battle_sprite,
-                                                                  chinzilla_battle_sprite)
+                                                                  chinzilla_battle_sprite, equipment_screen)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -3379,7 +3391,8 @@ if __name__ == '__main__':
                                                        world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, font,
                                                        info_text_1, info_text_2, info_text_3, info_text_4,
                                                        in_over_world, button_highlighted, button_highlight,
-                                                       rohir_river_music, interaction_popup, interacted)
+                                                       rohir_river_music, interaction_popup, interacted,
+                                                       equipment_screen)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -3426,7 +3439,7 @@ if __name__ == '__main__':
                                                                  muchador_battle_sprite, barrier_active,
                                                                  sharp_sense_active, in_npc_interaction,
                                                                  magmon_battle_sprite, bandile_battle_sprite,
-                                                                 chinzilla_battle_sprite)
+                                                                 chinzilla_battle_sprite, equipment_screen)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -3479,7 +3492,7 @@ if __name__ == '__main__':
                                                                  info_text_1, info_text_2, info_text_3, info_text_4,
                                                                  in_over_world, switch_1, switch_2, switch_3, has_key,
                                                                  magmon_battle_sprite, bandile_battle_sprite,
-                                                                 chinzilla_battle_sprite)
+                                                                 chinzilla_battle_sprite, equipment_screen)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -3521,7 +3534,7 @@ if __name__ == '__main__':
                                                                  reservoir_exit, rock_1, rock_2, gloves_obtained, Item,
                                                                  info_text_1, info_text_2, info_text_3, info_text_4,
                                                                  in_over_world, has_key, muchador_lights_on,
-                                                                 hearth_stone)
+                                                                 hearth_stone, equipment_screen)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -3833,6 +3846,7 @@ if __name__ == '__main__':
                                 screen.blit(reservoir_battle, (0, 0))
                             if player.current_zone == "terra trail":
                                 screen.blit(caves_battle_screen, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
                             screen.blit(skill_bar.surf, skill_bar.rect)
                             screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                             if player.role == "mage":
@@ -3957,6 +3971,7 @@ if __name__ == '__main__':
                                     random_crate = random.choice(muchador_crates_list)
                                     muchador.update_image(random_crate.x_coordinate, random_crate.y_coordinate,
                                                           graphic_dict["muchador"])
+
                         combat_scenario.combat_animation(player, current_enemy_battling, player_battle_sprite,
                                                          snake_battle_sprite, ghoul_battle_sprite,
                                                          chorizon_battle_sprite, muchador_battle_sprite,
@@ -4060,7 +4075,7 @@ if __name__ == '__main__':
                                             player.offense += 1
                                             player.star_power -= 4
                                             info_text_1 = "You consumed 4 stars,"
-                                            info_text_2 = "Upgrading your offense to level 2."
+                                            info_text_2 = "Upgrading your weapon to level 2."
                                             stardust_upgrade_elements.clear()
                                         else:
                                             info_text_1 = "4 stars are required to upgrade."
@@ -4108,12 +4123,9 @@ if __name__ == '__main__':
                             buy_return = shop_scenario.buy_items(player, buy_choice, current_buy_item, Item,
                                                                  graphic_dict["health_pot_img"],
                                                                  graphic_dict["energy_pot_img"],
-                                                                 graphic_dict["basic_staff_img"],
-                                                                 graphic_dict["basic_sword_img"],
-                                                                 graphic_dict["basic_bow_img"],
-                                                                 graphic_dict["basic_robes_img"],
-                                                                 graphic_dict["basic_armor_img"],
-                                                                 graphic_dict["basic_tunic_img"])
+                                                                 graphic_dict["basic_armor"],
+                                                                 graphic_dict["forged_armor"],
+                                                                 graphic_dict["mythical_armor"])
                             if buy_return["info 1"] != "":
                                 button_highlighted = False
                                 info_text_1 = buy_return["info 1"]
@@ -4202,12 +4214,9 @@ if __name__ == '__main__':
                                     shop_scenario.shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items,
                                                                              graphic_dict["health_pot_img"],
                                                                              graphic_dict["energy_pot_img"],
-                                                                             graphic_dict["basic_staff_img"],
-                                                                             graphic_dict["basic_sword_img"],
-                                                                             graphic_dict["basic_bow_img"],
-                                                                             graphic_dict["basic_robes_img"],
-                                                                             graphic_dict["basic_armor_img"],
-                                                                             graphic_dict["basic_tunic_img"])
+                                                                             graphic_dict["basic_armor"],
+                                                                             graphic_dict["forged_armor"],
+                                                                             graphic_dict["mythical_armor"])
 
                         if shop_button == "leave":
                             shop_button = ''
@@ -4232,6 +4241,7 @@ if __name__ == '__main__':
                     if player.current_zone == "seldon" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
                         screen.blit(seldon_district_shop, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(buy_button.surf, buy_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
@@ -4274,6 +4284,7 @@ if __name__ == '__main__':
                     if player.current_zone == "korlok" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
                         screen.blit(korlok_district_shop, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(buy_button.surf, buy_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
@@ -4316,6 +4327,7 @@ if __name__ == '__main__':
                     if player.current_zone == "stardust" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
                         screen.blit(stardust_post_bg, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(upgrade_button.surf, upgrade_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
@@ -4506,14 +4518,17 @@ if __name__ == '__main__':
                                     for alpha in range(0, 50):
                                         seldon_district_inn.set_alpha(alpha)
                                         screen.blit(seldon_district_inn, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
                                         pygame.display.flip()
                                     faded_inn_screen = True
                                 else:
                                     seldon_district_inn.set_alpha(255)
                                     screen.blit(seldon_district_inn, (0, 0))
+                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
                             if not rested:
                                 seldon_district_inn.set_alpha(255)
                                 screen.blit(seldon_district_inn, (0, 0))
+                                screen.blit(equipment_screen.surf, equipment_screen.rect)
 
                         if player.current_zone == "korlok":
                             # if player has just rested, fade inn screen back in with alpha value loop
@@ -4522,14 +4537,17 @@ if __name__ == '__main__':
                                     for alpha in range(0, 50):
                                         korlok_district_inn.set_alpha(alpha)
                                         screen.blit(korlok_district_inn, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
                                         pygame.display.flip()
                                     faded_inn_screen = True
                                 else:
                                     korlok_district_inn.set_alpha(255)
                                     screen.blit(korlok_district_inn, (0, 0))
+                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
                             if not rested:
                                 korlok_district_inn.set_alpha(255)
                                 screen.blit(korlok_district_inn, (0, 0))
+                                screen.blit(equipment_screen.surf, equipment_screen.rect)
 
                     screen.blit(rest_button.surf, rest_button.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
@@ -4808,8 +4826,9 @@ if __name__ == '__main__':
                     # draw objects to screen related to academia scenario ----------------------------------------------
                     if in_academia and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
                             and not in_battle:
-                        if player.current_zone == "seldon":
-                            screen.blit(seldon_district_academia, (0, 0))
+
+                        screen.blit(seldon_district_academia, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(mage_learn_button.surf, mage_learn_button.rect)
                         screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
                         screen.blit(scout_learn_button.surf, scout_learn_button.rect)
@@ -4819,6 +4838,7 @@ if __name__ == '__main__':
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(star_power_meter.surf, star_power_meter.rect)
                         cat_pet_button_overlay.update(125, 500, graphic_dict["cat_pet_button_overlay"])
                         screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                         if academia_cat_pet:
@@ -5073,6 +5093,7 @@ if __name__ == '__main__':
                             and not in_battle:
 
                         screen.blit(korlok_district_apothecary, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -5080,6 +5101,7 @@ if __name__ == '__main__':
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
                         screen.blit(quest_button.surf, quest_button.rect)
+                        screen.blit(star_power_meter.surf, star_power_meter.rect)
                         if not player.quest_complete["can't apothecary it"]:
                             if not player.quest_status["can't apothecary it"]:
                                 screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
@@ -5163,11 +5185,11 @@ if __name__ == '__main__':
                                     "Garan asked you to defeat snakes near the river."
                                 if not npc_garan.gift:
                                     player.items.append(Item("basic staff", "mage", 0, 0,
-                                                             graphic_dict["basic_staff_img"]))
+                                                             graphic_dict["basic_staff_img"], 1))
                                     player.items.append(Item("basic sword", "fighter", 0, 0,
-                                                             graphic_dict["basic_sword_img"]))
+                                                             graphic_dict["basic_sword_img"], 1))
                                     player.items.append(Item("basic bow", "scout", 0, 0,
-                                                             graphic_dict["basic_bow_img"]))
+                                                             graphic_dict["basic_bow_img"], 1))
                                     npc_garan.gift = True
                                     drawing_functions.type_advantage_window.append(role_select_overlay)
                             if current_npc_interacting.name == "maurelle":
@@ -5268,8 +5290,6 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
-                                        player.items.append(Item("health potion", "potion", 200, 200,
-                                                                 graphic_dict["health_pot_img"]))
                                         # autosave on quest complete
                                         try:
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
@@ -5411,8 +5431,6 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
-                                        player.items.append(Item("energy potion", "potion", 200, 200,
-                                                                 graphic_dict["energy_pot_img"]))
                                         # autosave on quest complete
                                         try:
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
@@ -5780,6 +5798,7 @@ if __name__ == '__main__':
                             screen.blit(korlok_district_battle, (0, 0))
                         if player.current_zone == "terra trail":
                             screen.blit(terra_trail_screen, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)

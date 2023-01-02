@@ -19,7 +19,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     seldon_enemies, snakes, ghouls, bandiles, interactables_seldon, interactables_korlok, Enemy, Item,
                     UiElement, interactables_mines, quest_star_garan, quest_star_maurelle, quest_star_celeste,
                     quest_star_torune, star_voruke, star_zerah, korlok_mountains, in_apothecary, star_apothecary,
-                    star_dionte):
+                    star_dionte, equipment_screen):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -45,6 +45,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         over_world_song_set = True
 
     screen.blit(korlok_district_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(rohir_gate.surf, rohir_gate.rect)
     for building in nuldar_buildings:
         screen.blit(building.surf, building.rect)

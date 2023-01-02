@@ -5,12 +5,13 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
                 water_3, water_4, water_5, water_player, graphic_dict, save_check_window, user_interface,
                 world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2,
                 info_text_3, info_text_4, in_over_world, button_highlighted, button_highlight, rohir_river_music,
-                interaction_popup, interacted):
+                interaction_popup, interacted, equipment_screen):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(100)
 
     screen.blit(rohir_river_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(dungeon_entrance.surf, dungeon_entrance.rect)
     screen.blit(water_1.surf, water_1.rect)
     screen.blit(water_2.surf, water_2.rect)

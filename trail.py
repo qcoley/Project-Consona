@@ -14,7 +14,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 star_voruke, star_zerah, star_apothecary, terra_mountains, terra_cave, npc_dionte, quest_star_dionte,
                 enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                 muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone):
+                barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
+                equipment_screen):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -23,6 +24,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         over_world_song_set = True
 
     screen.blit(mountain_trail_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(terra_mountains.surf, terra_mountains.rect)
     screen.blit(terra_cave.surf, terra_cave.rect)
     screen.blit(npc_dionte.surf, npc_dionte.rect)

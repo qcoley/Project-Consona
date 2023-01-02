@@ -122,45 +122,21 @@ def load_game(player, Item, graphics):
             player.items.clear()
             for item in player_load_info["inventory"]:
                 if item == "health potion":
-                    player.items.append(Item("health potion", "potion", 200, 200, graphics["health_pot_img"]))
+                    player.items.append(Item("health potion", "potion", 200, 200, graphics["health_pot_img"], 0))
                 if item == "energy potion":
-                    player.items.append(Item("energy potion", "potion", 200, 200, graphics["energy_pot_img"]))
-                if item == "basic staff":
-                    player.items.append(Item("basic staff", "mage", 200, 200, graphics["basic_staff_img"]))
-                if item == "basic sword":
-                    player.items.append(Item("basic sword", "fighter", 200, 200, graphics["basic_sword_img"]))
-                if item == "basic bow":
-                    player.items.append(Item("basic bow", "scout", 200, 200, graphics["basic_bow_img"]))
-                if item == "basic robes":
-                    player.items.append(Item("basic robes", "mage", 200, 200, graphics["basic_robes_img"]))
-                if item == "basic armor":
-                    player.items.append(Item("basic armor", "fighter", 200, 200, graphics["basic_armor_img"]))
-                if item == "basic tunic":
-                    player.items.append(Item("basic tunic", "scout", 200, 200, graphics["basic_tunic_img"]))
+                    player.items.append(Item("energy potion", "potion", 200, 200, graphics["energy_pot_img"], 0))
                 if item == "shiny rock":
-                    player.items.append(Item("shiny rock", "rock", 200, 200, graphics["shiny_rock_img"]))
+                    player.items.append(Item("shiny rock", "rock", 200, 200, graphics["shiny_rock_img"], 0))
                 if item == "bone dust":
-                    player.items.append(Item("bone dust", "dust", 200, 200, graphics["bone_dust_img"]))
+                    player.items.append(Item("bone dust", "dust", 200, 200, graphics["bone_dust_img"], 0))
                 if item == "boss key":
-                    player.items.append(Item("boss key", "key", 200, 200, graphics["key_img"]))
+                    player.items.append(Item("boss key", "key", 200, 200, graphics["key_img"], 0))
                 if item == "power gloves":
-                    player.items.append(Item("power gloves", "gloves", 200, 200, graphics["gloves"]))
+                    player.items.append(Item("power gloves", "gloves", 200, 200, graphics["gloves"], 0))
 
             for equipped_item in player_load_info["equipment"]:
-                if equipped_item == "basic staff":
-                    player.equipment["weapon"] = Item("basic staff", "mage", 200, 200, graphics["basic_staff_img"])
-                if equipped_item == "basic sword":
-                    player.equipment["weapon"] = Item("basic sword", "fighter", 200, 200, graphics["basic_sword_img"])
-                if equipped_item == "basic bow":
-                    player.equipment["weapon"] = Item("basic bow", "scout", 200, 200, graphics["basic_bow_img"])
-                if equipped_item == "basic robes":
-                    player.equipment["torso"] = Item("basic robes", "mage", 200, 200, graphics["basic_robes_img"])
-                if equipped_item == "basic armor":
-                    player.equipment["torso"] = Item("basic armor", "fighter", 200, 200, graphics["basic_armor_img"])
-                if equipped_item == "basic tunic":
-                    player.equipment["torso"] = Item("basic tunic", "scout", 200, 200, graphics["basic_tunic_img"])
                 if equipped_item == "power gloves":
-                    player.equipment["gloves"] = Item("power gloves", "gloves", 200, 200, graphics["gloves"])
+                    player.equipment["gloves"] = Item("power gloves", "gloves", 200, 200, graphics["gloves"], 0)
 
             player.current_quests = player_load_info["quests"]
             player.quest_progress = player_load_info["quest progress"]
@@ -243,9 +219,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
     try:
         for item_x in player.items:
             inventory_save.append(item_x.name)
-        equipment_save.append(player.equipment["weapon"].name)
-        equipment_save.append(player.equipment["torso"].name)
         equipment_save.append(player.equipment["gloves"].name)
+        equipment_save.append(player.equipment["armor"].name)
+        equipment_save.append(player.equipment["boots"].name)
     except AttributeError:
         pass
     player_save_info = {"name": str(player.name), "race": str(player.race), "level": int(player.level),

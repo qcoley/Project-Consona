@@ -12,7 +12,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 crate_4, mini_boss_1_defeated, mini_boss_2_defeated, boss_enemies, player_battle_sprite,
                 snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                 barrier_active, sharp_sense_active, in_npc_interaction, magmon_battle_sprite, bandile_battle_sprite,
-                chinzilla_battle_sprite):
+                chinzilla_battle_sprite, equipment_screen):
 
     in_battle = False
 
@@ -44,6 +44,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                                 graphic_dict["dungeon_switch_full"])
 
     screen.blit(reservoir_a_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+
     for wall in dungeon_walls:
         screen.blit(wall.surf, wall.rect)
     for item in dungeon_items:
@@ -272,7 +274,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 in_npc_interaction, user_interface, world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
                 button_highlighted, button_highlight, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 switch_1, switch_2, switch_3, has_key, magmon_battle_sprite, bandile_battle_sprite,
-                chinzilla_battle_sprite):
+                chinzilla_battle_sprite, equipment_screen):
 
     in_battle = False
 
@@ -285,6 +287,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
     dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
 
     screen.blit(reservoir_b_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(dungeon_gate.surf, dungeon_gate.rect)
     if not crate_5:
         screen.blit(dungeon_crate_5.surf, dungeon_crate_5.rect)
@@ -467,7 +470,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 interacted, save_check_window, user_interface, world_map_container, bar_backdrop, hp_bar, en_bar,
                 xp_bar, button_highlighted, button_highlight, reservoir_c_bg, dungeon_chest, reservoir_exit,
                 rock_1, rock_2, gloves_obtained, Item, info_text_1, info_text_2, info_text_3, info_text_4,
-                in_over_world, has_key, muchador_lights_on, hearth_stone):
+                in_over_world, has_key, muchador_lights_on, hearth_stone, equipment_screen):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -476,6 +479,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
         over_world_song_set = True
 
     screen.blit(reservoir_c_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(dungeon_chest.surf, dungeon_chest.rect)
     screen.blit(reservoir_exit.surf, reservoir_exit.rect)
     screen.blit(rock_1.surf, rock_1.rect)

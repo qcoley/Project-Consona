@@ -65,7 +65,6 @@ def equipment(player, event, pygame, player_no_role_amuna_down_1, player_no_role
                 if player.race == "sorae":
                     player.surf = player_no_role_sorae_down_1
                 player.defense = 0
-                player.offense = 0
             else:
                 return_dict["equipment message"] = "You need two open inventory slots."
         if equipment_item.name == "basic sword":
