@@ -1659,7 +1659,8 @@ def button_highlighter(posit):
                                                               eldream_map_button, marrow_map_button, character_button,
                                                               quests_button, save_button, map_button,
                                                               in_npc_interaction, quest_button, quest_clicked,
-                                                              accept_button, decline_button, in_apothecary)
+                                                              accept_button, decline_button, in_apothecary, staff,
+                                                              sword, bow)
     return button_highlighters
 
 
@@ -1722,30 +1723,22 @@ if __name__ == '__main__':
     save_check = Notification("save check", False, 510, 365, graphic_dict["save_popup"])
     save_absent = Notification("save absent", False, 640, 574, graphic_dict["save_not_found"])
     first_quest = Notification("first quest", False, 510, 365, graphic_dict["quest_popup"])
-    first_item = Notification("first quest", False, 510, 365, graphic_dict["drop_popup"])
     # inventory items
     health_potion = Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0)
     energy_potion = Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)
     shiny_rock = Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0)
     bone_dust = Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0)
     # weapons
-    level_1_staff = UiElement("level 1 staff", 1077, 283, graphic_dict["staff_1"])
-    level_2_staff = UiElement("level 2 staff", 1077, 283, graphic_dict["staff_2"])
-    level_3_staff = UiElement("level 3 staff", 1077, 283, graphic_dict["staff_3"])
-    level_4_staff = UiElement("level 4 staff", 1077, 283, graphic_dict["staff_4"])
-    level_1_sword = UiElement("level 1 sword", 1155, 283, graphic_dict["sword_1"])
-    level_2_sword = UiElement("level 2 sword", 1155, 283, graphic_dict["sword_2"])
-    level_3_sword = UiElement("level 3 sword", 1155, 283, graphic_dict["sword_3"])
-    level_4_sword = UiElement("level 4 sword", 1155, 283, graphic_dict["sword_4"])
-    level_1_bow = UiElement("level 1 bow", 1200, 283, graphic_dict["bow_1"])
-    level_2_bow = UiElement("level 2 bow", 1229, 283, graphic_dict["bow_2"])
-    level_3_bow = UiElement("level 3 bow", 1250, 283, graphic_dict["bow_3"])
-    level_4_bow = UiElement("level 4 bow", 1250, 283, graphic_dict["bow_4"])
+    staff = UiElement("staff", 1077, 283, graphic_dict["staff_1"])
+    sword = UiElement("sword", 1155, 283, graphic_dict["sword_1"])
+    bow = UiElement("bow", 1230, 283, graphic_dict["bow_1"])
     # armor
-    basic_armor = Item("basic armor", "all", 200, 200, graphic_dict["basic_armor"], 1)
-    forged_armor = Item("forged armor", "all", 200, 200, graphic_dict["forged_armor"], 2)
-    mythical_armor = Item("mythical armor", "all", 200, 200, graphic_dict["mythical_armor"], 3)
-    legendary_armor = Item("legendary armor", "all", 200, 200, graphic_dict["legendary_armor"], 4)
+    basic_armor = Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1)
+    forged_armor = Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2)
+    mythical_armor = Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 3)
+    legendary_armor = Item("legendary armor", "armor", 1078, 197, graphic_dict["legendary_armor"], 4)
+    # equipment items
+    power_gloves = Item("power gloves", "gloves", 1153, 197, graphic_dict["gloves"], 0)
     # character selection
     amuna_character = UiElement("amuna character", 640, 360, graphic_dict["amuna_character_img"])
     nuldar_character = UiElement("nuldar character", 640, 360, graphic_dict["nuldar_character_img"])
@@ -1753,8 +1746,8 @@ if __name__ == '__main__':
 
     # default player
     player = PlayerAmuna("stan", "amuna", "",  # name, race, role
-                         [health_potion],  # inventory
-                         {"weapon": "", "torso": "", "gloves": "", "boots": "", "cloak": "", "ring": ""},
+                         [],  # inventory
+                         {"weapon": "", "armor": "", "gloves": "", "boots": ""},
                          {"sneaky snakes": "Speak to Garan to start this quest.",
                           "village repairs": "Speak to Maurelle to start this quest.",
                           "where's nede?": "Speak to Celeste to start this quest",
@@ -1778,7 +1771,7 @@ if __name__ == '__main__':
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                          1, 0, 100, 100,  # lvl, exp, health, energy
                          True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
-                         "", 0, 0, 0)  # zone, defence, offense, image
+                         "", 0, 1, 0)  # zone, defence, offense, image
 
     # npcs: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate
     #                  alive_status, quest_complete, items, gift, image
@@ -1799,14 +1792,14 @@ if __name__ == '__main__':
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
+        Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
-        Item("basic armor", "all", 200, 200, graphic_dict["basic_armor"], 1)])
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "amuna", [
+        Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
-        Item("forged armor", "all", 200, 200, graphic_dict["forged_armor"], 1)])
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
     npc_garan_interaction = UiElement("garan interaction", 647, 360, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 641, 360, graphic_dict["maurelle_interaction"])
@@ -1883,7 +1876,7 @@ if __name__ == '__main__':
                         graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     # terra cave enemy -------------------------------------------------------------------------------------------------
-    chinzilla = Enemy("chinzilla", "chinzilla", 100, 100, 14, 350, 360, True, ["Item"], graphic_dict["chinzilla"],
+    chinzilla = Enemy("chinzilla", "chinzilla", 100, 100, 14, 350, 360, True, "item", graphic_dict["chinzilla"],
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
@@ -1923,6 +1916,10 @@ if __name__ == '__main__':
     name_input = UiElement("name input", 640, 585, graphic_dict["name_input_img"])
 
     equipment_screen = UiElement("equipment screen", 1155, 360, graphic_dict["equipment_screen"])
+    offense_meter = UiElement("offense meter", 1200, 81, graphic_dict["offense_defense_0"])
+    defense_meter = UiElement("defense meter", 1200, 117, graphic_dict["offense_defense_0"])
+    weapon_select = UiElement("weapon select", 1079, 284, graphic_dict["weapon_select"])
+
     character_button = UiElement("character button", 860, 680, graphic_dict["character_button_img"])
     quests_button = UiElement("quests button", 970, 680, graphic_dict["journal_button_img"])
     new_game_button = UiElement("new game button", 640, 342, graphic_dict["new_game_img"])
@@ -2035,7 +2032,7 @@ if __name__ == '__main__':
     info_items = UiElement("info items", 1155, 270, graphic_dict["info_health_pot_img"])
     buy_items = UiElement("buy items", 900, 230, graphic_dict["b_health_pot_img"])
     star_power_meter = UiElement("star power", 1195, 360, graphic_dict["star_00"])
-    role_select_overlay = UiElement("role select overlay", 550, 369, graphic_dict["role_selection_overlay"])
+    role_select_overlay = UiElement("role select overlay", 710, 263, graphic_dict["role_selection_overlay"])
     game_guide_overlay = UiElement("game guide overlay", 776, 256, graphic_dict["guide_basics_quest_img"])
     cat_pet_button_overlay = UiElement("cat pet button", 505, 235, graphic_dict["cat_pet_button_overlay"])
     cat_pet_animation_overlay = UiElement("cat pet animation", 507, 242, graphic_dict["shop_cat_pet_img"])
@@ -2258,8 +2255,6 @@ if __name__ == '__main__':
     nede_sprite_reset = False
     quest_guide_shown = False
     battle_guide_shown = False
-    role_guide_shown = False
-    upgrade_guide_shown = False
     quest_highlight_popup = True
     shop_cat_pet = False
     academia_cat_pet = False
@@ -2272,7 +2267,6 @@ if __name__ == '__main__':
     first_inn_cond = True
     first_academy_cond = True
     first_battle_cond = True
-    first_item_cond = True
     bridge_not_repaired = True
     nede_ghoul_defeated = False
     bridge_cutscenes_not_viewed = True
@@ -2320,7 +2314,6 @@ if __name__ == '__main__':
     save_check_window = []
     save_data_window = []
     first_quest_window = []
-    first_item_window = []
     sell_window = []
     buy_window = []
     loot_popup_container = []
@@ -2560,11 +2553,8 @@ if __name__ == '__main__':
                     knowledge_academia_show = load_returned["knowledge popup"]
                     quest_guide_shown = load_returned["quest guide"]
                     battle_guide_shown = load_returned["battle guide"]
-                    role_guide_shown = load_returned["role guide"]
-                    upgrade_guide_shown = load_returned["upgrade guide"]
                     rest_shown_before = load_returned["rest shown before"]
                     quest_highlight_popup = load_returned["quest highlight popup"]
-                    first_item_cond = load_returned["first drop popup"]
                     bridge_not_repaired = load_returned["bridge not repaired"]
                     nede_ghoul_defeated = load_returned["nede ghoul defeated"]
                     bridge_cutscenes_not_viewed = load_returned["bridge_cutscenes_not_viewed"]
@@ -2698,7 +2688,9 @@ if __name__ == '__main__':
 
                 # player information updates
                 gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
-                                                              graphic_dict)
+                                                              offense_meter, defense_meter, graphic_dict, basic_armor,
+                                                              forged_armor, mythical_armor, legendary_armor,
+                                                              power_gloves)
 
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
                         and not in_academia:
@@ -2752,8 +2744,6 @@ if __name__ == '__main__':
                                     save_check_window.clear()
                                 if len(drawing_functions.first_quest_window) > 0:
                                     drawing_functions.first_quest_window.clear()
-                                if len(drawing_functions.first_item_window) > 0:
-                                    drawing_functions.first_item_window.clear()
                                 if len(world_map_container) > 0:
                                     world_map_container.clear()
                                 # clear character or journal sheet
@@ -2811,19 +2801,13 @@ if __name__ == '__main__':
 
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
+
+                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+
                             # click handlers
                             info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                             if info_choice == "yes":
-                                inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                           graphic_dict["player_mage_amuna_down_1"],
-                                                                           graphic_dict["player_mage_nuldar_down_1"],
-                                                                           graphic_dict["player_mage_sorae_down_1"],
-                                                                           graphic_dict["player_fighter_amuna_down_1"],
-                                                                           graphic_dict["player_fighter_nuldar_down_1"],
-                                                                           graphic_dict["player_fighter_sorae_down_1"],
-                                                                           graphic_dict["player_scout_amuna_down_1"],
-                                                                           graphic_dict["player_scout_nuldar_down_1"],
-                                                                           graphic_dict["player_scout_sorae_down_1"])
+                                inventory_event = click_handlers.inventory(player, current_info_item)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -2832,6 +2816,7 @@ if __name__ == '__main__':
                             if info_choice == "no":
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
+
                             inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                             if inventory_item_clicked["clicked"]:
                                 current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -2839,10 +2824,9 @@ if __name__ == '__main__':
                                                                                      graphic_dict)
 
                             if len(drawing_functions.item_info_window) == 0:
-                                equipment_event = click_handlers.equipment(player, event, pygame,
-                                                                           graphic_dict["player_no_role_amuna_down_1"],
-                                                                           graphic_dict["player_no_role_nuldar_down_1"],
-                                                                           graphic_dict["player_no_role_sorae_down_1"])
+                                equipment_event = click_handlers.equipment(player, event, pygame, basic_armor,
+                                                                           forged_armor, mythical_armor,
+                                                                           legendary_armor, power_gloves)
                                 if equipment_event["equipment message"] != "":
                                     button_highlighted = False
                                     info_text_1 = equipment_event["equipment message"]
@@ -2905,15 +2889,13 @@ if __name__ == '__main__':
                                                                      sharp_sense_learned, saved, npc_garan.gift,
                                                                      rest_recover_show, knowledge_academia_show,
                                                                      quest_guide_shown, battle_guide_shown,
-                                                                     role_guide_shown, upgrade_guide_shown,
                                                                      rest_shown_before, quest_highlight_popup,
-                                                                     first_item_cond, bridge_not_repaired,
-                                                                     nede_ghoul_defeated, bridge_cutscenes_not_viewed,
-                                                                     crate_1, crate_2, crate_3, crate_4, crate_5,
-                                                                     switch_1, switch_2, switch_3, muchador_defeated,
-                                                                     has_key, mini_boss_1_defeated,
-                                                                     mini_boss_2_defeated, gloves_obtained,
-                                                                     korlok_attuned, eldream_attuned)
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
+                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                     crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                     switch_3, muchador_defeated, has_key,
+                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                     gloves_obtained, korlok_attuned, eldream_attuned)
                                         saved = True
                                         saving = False
                                         info_text_1 = "You saved your game. "
@@ -2923,13 +2905,11 @@ if __name__ == '__main__':
                                 gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                              sharp_sense_learned, saved, npc_garan.gift,
                                                              rest_recover_show, knowledge_academia_show,
-                                                             quest_guide_shown,
-                                                             battle_guide_shown, role_guide_shown, upgrade_guide_shown,
-                                                             rest_shown_before, quest_highlight_popup, first_item_cond,
-                                                             bridge_not_repaired, nede_ghoul_defeated,
-                                                             bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3,
-                                                             crate_4, crate_5, switch_1, switch_2, switch_3,
-                                                             muchador_defeated, has_key, mini_boss_1_defeated,
+                                                             quest_guide_shown, battle_guide_shown, rest_shown_before,
+                                                             quest_highlight_popup, bridge_not_repaired,
+                                                             nede_ghoul_defeated, bridge_cutscenes_not_viewed, crate_1,
+                                                             crate_2, crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                             switch_3, muchador_defeated, has_key, mini_boss_1_defeated,
                                                              mini_boss_2_defeated, gloves_obtained, korlok_attuned,
                                                              eldream_attuned)
                                 save_check_window.clear()
@@ -3047,8 +3027,6 @@ if __name__ == '__main__':
                                 drawing_functions.loot_text_container.clear()
                             if first_quest.rect.collidepoint(pos):
                                 drawing_functions.first_quest_window.clear()
-                            if first_item.rect.collidepoint(pos):
-                                drawing_functions.first_item_window.clear()
                             if game_guide_overlay.rect.collidepoint(pos):
                                 drawing_functions.game_guide_container.clear()
                             if level_up_win.rect.collidepoint(pos):
@@ -3113,8 +3091,8 @@ if __name__ == '__main__':
                                                              en_bar, xp_bar, button_highlighted, button_highlight,
                                                              knowledge_academia_show, knowledge_academia,
                                                              rest_recover_show, rest_shown_before, rest_recover,
-                                                             quest_guide_shown, game_guide_overlay, role_guide_shown,
-                                                             enemy_tic, npc_tic, npc_garan, npc_maurelle, npc_celeste,
+                                                             quest_guide_shown, game_guide_overlay, enemy_tic, npc_tic,
+                                                             npc_garan, npc_maurelle, npc_celeste,
                                                              npc_torune, info_text_1, info_text_2, info_text_3,
                                                              info_text_4, in_battle, in_shop, in_academia, in_inn,
                                                              movement_able, current_enemy_battling,
@@ -3122,10 +3100,8 @@ if __name__ == '__main__':
                                                              magmon_battle_sprite, bandile_battle_sprite,
                                                              chinzilla_battle_sprite, interactables_mines,
                                                              quest_star_voruke, quest_star_zerah, quest_star_kirean,
-                                                             quest_star_dionte, equipment_screen, level_1_staff,
-                                                             level_2_staff, level_3_staff, level_4_staff, level_1_sword,
-                                                             level_2_sword, level_3_sword, level_4_sword, level_1_bow,
-                                                             level_2_bow, level_3_bow, level_4_bow)
+                                                             quest_star_dionte, equipment_screen, staff, sword, bow,
+                                                             offense_meter, defense_meter, weapon_select)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -3144,7 +3120,6 @@ if __name__ == '__main__':
                     rest_recover_show = seldon_returned["rest_recover_show"]
                     rest_shown_before = seldon_returned["rest_shown_before"]
                     quest_guide_shown = seldon_returned["quest_guide_shown"]
-                    role_guide_shown = seldon_returned["role_guide_shown"]
                     enemy_tic = seldon_returned["enemy_tic"]
                     npc_tic = seldon_returned["npc_tic"]
                     info_text_1 = seldon_returned["info_text_1"]
@@ -3160,11 +3135,9 @@ if __name__ == '__main__':
                     in_npc_interaction = seldon_returned["in_npc_interaction"]
                     movement_able = seldon_returned["movement_able"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
-                                                                        font, loot_popup,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
-                        first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
                         loot_info = loot_popup_returned["loot_info"]
@@ -3200,7 +3173,8 @@ if __name__ == '__main__':
                                                              quest_star_garan, quest_star_maurelle, quest_star_celeste,
                                                              quest_star_torune, quest_star_voruke, quest_star_zerah,
                                                              korlok_mountains, in_apothecary, quest_star_kirean,
-                                                             quest_star_dionte, equipment_screen)
+                                                             quest_star_dionte, equipment_screen, staff, sword, bow,
+                                                             npc_garan, offense_meter, defense_meter, weapon_select)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -3223,11 +3197,9 @@ if __name__ == '__main__':
                     info_text_3 = korlok_returned["info_text_3"]
                     info_text_4 = korlok_returned["info_text_4"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond,
-                                                                        first_item, font, loot_popup,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
-                        first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
                         loot_info = loot_popup_returned["loot_info"]
@@ -3254,7 +3226,9 @@ if __name__ == '__main__':
                                                         sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite,
                                                         seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                         interactables_seldon, interactables_korlok, Enemy, Item,
-                                                        UiElement, interactables_mines, ores, equipment_screen)
+                                                        UiElement, interactables_mines, ores, equipment_screen, staff,
+                                                        sword, bow, npc_garan, offense_meter, defense_meter,
+                                                        weapon_select)
 
                     over_world_song_set = mines_returned["over_world_song_set"]
                     interacted = mines_returned["interacted"]
@@ -3269,11 +3243,9 @@ if __name__ == '__main__':
                     info_text_3 = mines_returned["info_text_3"]
                     info_text_4 = mines_returned["info_text_4"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
-                                                                        font, loot_popup,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
-                        first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
                         loot_info = loot_popup_returned["loot_info"]
@@ -3302,7 +3274,8 @@ if __name__ == '__main__':
                                                        magmon_battle_sprite, bandile_battle_sprite,
                                                        chinzilla_battle_sprite, barrier_active, sharp_sense_active,
                                                        current_npc_interacting, chinzilla, quest_star_dionte,
-                                                       hearth_stone, equipment_screen)
+                                                       hearth_stone, equipment_screen, staff, sword, bow, npc_garan,
+                                                       offense_meter, defense_meter, weapon_select)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -3318,11 +3291,9 @@ if __name__ == '__main__':
                     info_text_3 = trail_returned["info_text_3"]
                     info_text_4 = trail_returned["info_text_4"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond,
-                                                                        first_item, font, loot_popup,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
-                        first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
                         loot_info = loot_popup_returned["loot_info"]
@@ -3351,7 +3322,9 @@ if __name__ == '__main__':
                                                                   info_text_4, current_enemy_battling,
                                                                   current_building_entering, in_battle, movement_able,
                                                                   in_shop, magmon_battle_sprite, bandile_battle_sprite,
-                                                                  chinzilla_battle_sprite, equipment_screen)
+                                                                  chinzilla_battle_sprite, equipment_screen, staff,
+                                                                  sword, bow, npc_garan, offense_meter, defense_meter,
+                                                                  weapon_select)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -3368,11 +3341,9 @@ if __name__ == '__main__':
                     interacted = stardust_returned["interacted"]
                     npc_tic = stardust_returned["npc_tic"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
-                                                                        font, loot_popup,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
-                        first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
                         loot_info = loot_popup_returned["loot_info"]
@@ -3392,7 +3363,8 @@ if __name__ == '__main__':
                                                        info_text_1, info_text_2, info_text_3, info_text_4,
                                                        in_over_world, button_highlighted, button_highlight,
                                                        rohir_river_music, interaction_popup, interacted,
-                                                       equipment_screen)
+                                                       equipment_screen, staff, sword, bow, npc_garan, offense_meter,
+                                                       defense_meter, weapon_select)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -3402,11 +3374,9 @@ if __name__ == '__main__':
                     in_over_world = rohir_returned["in_over_world"]
                     interacted = rohir_returned["interacted"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
-                                                                        font, loot_popup,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
-                        first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
                         loot_info = loot_popup_returned["loot_info"]
@@ -3439,7 +3409,9 @@ if __name__ == '__main__':
                                                                  muchador_battle_sprite, barrier_active,
                                                                  sharp_sense_active, in_npc_interaction,
                                                                  magmon_battle_sprite, bandile_battle_sprite,
-                                                                 chinzilla_battle_sprite, equipment_screen)
+                                                                 chinzilla_battle_sprite, equipment_screen, staff,
+                                                                 sword, bow, npc_garan, offense_meter, defense_meter,
+                                                                 weapon_select)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -3458,11 +3430,9 @@ if __name__ == '__main__':
                     in_over_world = reservoir_a_returned["in_over_world"]
                     in_battle = reservoir_a_returned["in_battle"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
-                                                                        font, loot_popup,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
-                        first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
                         loot_info = loot_popup_returned["loot_info"]
@@ -3492,7 +3462,9 @@ if __name__ == '__main__':
                                                                  info_text_1, info_text_2, info_text_3, info_text_4,
                                                                  in_over_world, switch_1, switch_2, switch_3, has_key,
                                                                  magmon_battle_sprite, bandile_battle_sprite,
-                                                                 chinzilla_battle_sprite, equipment_screen)
+                                                                 chinzilla_battle_sprite, equipment_screen, staff,
+                                                                 sword, bow, npc_garan, offense_meter, defense_meter,
+                                                                 weapon_select)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -3508,11 +3480,9 @@ if __name__ == '__main__':
                     in_battle = reservoir_b_returned["in_battle"]
                     has_key = reservoir_b_returned["has_key"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
-                                                                        font, loot_popup,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
-                        first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
                         loot_info = loot_popup_returned["loot_info"]
@@ -3531,10 +3501,12 @@ if __name__ == '__main__':
                                                                  user_interface, world_map_container, bar_backdrop,
                                                                  hp_bar, en_bar, xp_bar, button_highlighted,
                                                                  button_highlight, reservoir_c_bg, dungeon_chest,
-                                                                 reservoir_exit, rock_1, rock_2, gloves_obtained, Item,
-                                                                 info_text_1, info_text_2, info_text_3, info_text_4,
-                                                                 in_over_world, has_key, muchador_lights_on,
-                                                                 hearth_stone, equipment_screen)
+                                                                 reservoir_exit, rock_1, rock_2, gloves_obtained,
+                                                                 power_gloves, info_text_1, info_text_2, info_text_3,
+                                                                 info_text_4, in_over_world, has_key,
+                                                                 muchador_lights_on, hearth_stone, equipment_screen,
+                                                                 staff, sword, bow, npc_garan, offense_meter,
+                                                                 defense_meter, weapon_select)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -3546,11 +3518,9 @@ if __name__ == '__main__':
                     info_text_3 = reservoir_c_returned["info_text_3"]
                     info_text_4 = reservoir_c_returned["info_text_4"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, first_item_cond, first_item,
-                                                                        font, loot_popup,
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
                     try:
-                        first_item_cond = loot_popup_returned["first_item_condition"]
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
                         loot_info = loot_popup_returned["loot_info"]
@@ -3578,6 +3548,9 @@ if __name__ == '__main__':
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
+
+                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+
                             if game_guide_overlay.rect.collidepoint(pos):
                                 game_guide_container.clear()
 
@@ -3588,18 +3561,10 @@ if __name__ == '__main__':
                                                                            hard_strike_button, sharp_sense_button,
                                                                            pygame)
                         # click handlers
+
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                       graphic_dict["player_mage_amuna_down_1"],
-                                                                       graphic_dict["player_mage_nuldar_down_1"],
-                                                                       graphic_dict["player_mage_sorae_down_1"],
-                                                                       graphic_dict["player_fighter_amuna_down_1"],
-                                                                       graphic_dict["player_fighter_nuldar_down_1"],
-                                                                       graphic_dict["player_fighter_sorae_down_1"],
-                                                                       graphic_dict["player_scout_amuna_down_1"],
-                                                                       graphic_dict["player_scout_nuldar_down_1"],
-                                                                       graphic_dict["player_scout_sorae_down_1"])
+                            inventory_event = click_handlers.inventory(player, current_info_item)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -3608,17 +3573,17 @@ if __name__ == '__main__':
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
                             button_highlighted = False
+
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                         if inventory_item_clicked["clicked"]:
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                                  info_items, item_info_button,
                                                                                  graphic_dict)
+
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame,
-                                                                       graphic_dict["player_no_role_amuna_down_1"],
-                                                                       graphic_dict["player_no_role_nuldar_down_1"],
-                                                                       graphic_dict["player_no_role_sorae_down_1"])
+                            equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
+                                                                       mythical_armor, legendary_armor, power_gloves)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -3847,6 +3812,10 @@ if __name__ == '__main__':
                             if player.current_zone == "terra trail":
                                 screen.blit(caves_battle_screen, (0, 0))
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
                             screen.blit(skill_bar.surf, skill_bar.rect)
                             screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                             if player.role == "mage":
@@ -4109,6 +4078,7 @@ if __name__ == '__main__':
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
                             if game_guide_overlay.rect.collidepoint(pos):
                                 game_guide_container.clear()
                             if cat_pet_button_overlay.rect.collidepoint(pos):
@@ -4211,12 +4181,21 @@ if __name__ == '__main__':
                                 else:
                                     buy_clicked = True
                                     buy_shop_elements.insert(0, buy_inventory)
-                                    shop_scenario.shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items,
-                                                                             graphic_dict["health_pot_img"],
-                                                                             graphic_dict["energy_pot_img"],
-                                                                             graphic_dict["basic_armor"],
-                                                                             graphic_dict["forged_armor"],
-                                                                             graphic_dict["mythical_armor"])
+                                    if player.current_zone == "seldon":
+                                        shop_scenario.shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items,
+                                                                                 graphic_dict["health_pot_img"],
+                                                                                 graphic_dict["energy_pot_img"],
+                                                                                 graphic_dict["basic_armor"],
+                                                                                 graphic_dict["forged_armor"],
+                                                                                 graphic_dict["mythical_armor"])
+                                    if player.current_zone == "korlok":
+                                        shop_scenario.shop_keeper_inventory_draw(npc_nuldar_shopkeeper,
+                                                                                 shopkeeper_items,
+                                                                                 graphic_dict["health_pot_img"],
+                                                                                 graphic_dict["energy_pot_img"],
+                                                                                 graphic_dict["basic_armor"],
+                                                                                 graphic_dict["forged_armor"],
+                                                                                 graphic_dict["mythical_armor"])
 
                         if shop_button == "leave":
                             shop_button = ''
@@ -4242,6 +4221,9 @@ if __name__ == '__main__':
                             and not in_inn and not in_academia and not in_npc_interaction:
                         screen.blit(seldon_district_shop, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                         screen.blit(buy_button.surf, buy_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
@@ -4285,6 +4267,9 @@ if __name__ == '__main__':
                             and not in_inn and not in_academia and not in_npc_interaction:
                         screen.blit(korlok_district_shop, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                         screen.blit(buy_button.surf, buy_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
@@ -4328,6 +4313,9 @@ if __name__ == '__main__':
                             and not in_inn and not in_academia and not in_npc_interaction:
                         screen.blit(stardust_post_bg, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                         screen.blit(upgrade_button.surf, upgrade_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
@@ -4372,14 +4360,6 @@ if __name__ == '__main__':
                         if player.quest_complete["it's dangerous to go alone"]:
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-
-                        # game guide popups
-                        if not upgrade_guide_shown:
-                            game_guide_overlay.update(game_guide_overlay.x_coordinate,
-                                                      game_guide_overlay.y_coordinate,
-                                                      graphic_dict["guide_basics_upgrades_img"])
-                            game_guide_container.append(game_guide_overlay)
-                            upgrade_guide_shown = True
 
                         if len(game_guide_container) > 0:
                             for guide_overlay in game_guide_container:
@@ -4433,22 +4413,15 @@ if __name__ == '__main__':
                         pos = pygame.mouse.get_pos()
                         button_highlighted = button_highlighter(pos)
 
+                        gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+
                         # get which button player pressed during inn scenario (rest or leave)
                         inn_button = click_handlers.inn_event_button(event, rest_button, leave_button, pygame)
 
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                       graphic_dict["player_mage_amuna_down_1"],
-                                                                       graphic_dict["player_mage_nuldar_down_1"],
-                                                                       graphic_dict["player_mage_sorae_down_1"],
-                                                                       graphic_dict["player_fighter_amuna_down_1"],
-                                                                       graphic_dict["player_fighter_nuldar_down_1"],
-                                                                       graphic_dict["player_fighter_sorae_down_1"],
-                                                                       graphic_dict["player_scout_amuna_down_1"],
-                                                                       graphic_dict["player_scout_nuldar_down_1"],
-                                                                       graphic_dict["player_scout_sorae_down_1"])
+                            inventory_event = click_handlers.inventory(player, current_info_item)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -4462,10 +4435,8 @@ if __name__ == '__main__':
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame,
-                                                                       graphic_dict["player_no_role_amuna_down_1"],
-                                                                       graphic_dict["player_no_role_nuldar_down_1"],
-                                                                       graphic_dict["player_no_role_sorae_down_1"])
+                            equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
+                                                                       mythical_armor, legendary_armor, power_gloves)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -4657,6 +4628,7 @@ if __name__ == '__main__':
                                 button_highlighted = False
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 academia_cat_pet = True
                         # get which button player pressed during academia scenario (learn or leave)
@@ -4666,16 +4638,7 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                       graphic_dict["player_mage_amuna_down_1"],
-                                                                       graphic_dict["player_mage_nuldar_down_1"],
-                                                                       graphic_dict["player_mage_sorae_down_1"],
-                                                                       graphic_dict["player_fighter_amuna_down_1"],
-                                                                       graphic_dict["player_fighter_nuldar_down_1"],
-                                                                       graphic_dict["player_fighter_sorae_down_1"],
-                                                                       graphic_dict["player_scout_amuna_down_1"],
-                                                                       graphic_dict["player_scout_nuldar_down_1"],
-                                                                       graphic_dict["player_scout_sorae_down_1"])
+                            inventory_event = click_handlers.inventory(player, current_info_item)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -4689,10 +4652,8 @@ if __name__ == '__main__':
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame,
-                                                                       graphic_dict["player_no_role_amuna_down_1"],
-                                                                       graphic_dict["player_no_role_nuldar_down_1"],
-                                                                       graphic_dict["player_no_role_sorae_down_1"])
+                            equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
+                                                                       mythical_armor, legendary_armor, power_gloves)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -4829,6 +4790,9 @@ if __name__ == '__main__':
 
                         screen.blit(seldon_district_academia, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                         screen.blit(mage_learn_button.surf, mage_learn_button.rect)
                         screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
                         screen.blit(scout_learn_button.surf, scout_learn_button.rect)
@@ -4941,6 +4905,7 @@ if __name__ == '__main__':
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
                             if kirean_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
 
@@ -4952,16 +4917,7 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                       graphic_dict["player_mage_amuna_down_1"],
-                                                                       graphic_dict["player_mage_nuldar_down_1"],
-                                                                       graphic_dict["player_mage_sorae_down_1"],
-                                                                       graphic_dict["player_fighter_amuna_down_1"],
-                                                                       graphic_dict["player_fighter_nuldar_down_1"],
-                                                                       graphic_dict["player_fighter_sorae_down_1"],
-                                                                       graphic_dict["player_scout_amuna_down_1"],
-                                                                       graphic_dict["player_scout_nuldar_down_1"],
-                                                                       graphic_dict["player_scout_sorae_down_1"])
+                            inventory_event = click_handlers.inventory(player, current_info_item)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -4976,10 +4932,8 @@ if __name__ == '__main__':
                                 graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame,
-                                                                       graphic_dict["player_no_role_amuna_down_1"],
-                                                                       graphic_dict["player_no_role_nuldar_down_1"],
-                                                                       graphic_dict["player_no_role_sorae_down_1"])
+                            equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
+                                                                       mythical_armor, legendary_armor, power_gloves)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -5008,10 +4962,8 @@ if __name__ == '__main__':
                                                                      sharp_sense_learned, saved, npc_garan.gift,
                                                                      rest_recover_show, knowledge_academia_show,
                                                                      quest_guide_shown, battle_guide_shown,
-                                                                     role_guide_shown, upgrade_guide_shown,
                                                                      rest_shown_before, quest_highlight_popup,
-                                                                     first_item_cond, bridge_not_repaired,
-                                                                     nede_ghoul_defeated,
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
                                                                      bridge_cutscenes_not_viewed, crate_1, crate_2,
                                                                      crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                      switch_3, muchador_defeated, has_key,
@@ -5094,6 +5046,9 @@ if __name__ == '__main__':
 
                         screen.blit(korlok_district_apothecary, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                         screen.blit(leave_button.surf, leave_button.rect)
                         screen.blit(message_box.surf, message_box.rect)
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -5144,6 +5099,7 @@ if __name__ == '__main__':
                                                                  torune_quest_window, voruke_quest_window,
                                                                  zerah_quest_window, kirean_quest_window,
                                                                  dionte_quest_window, accept_button, decline_button)
+                                drawing_functions.type_advantage_window.clear()
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -5152,6 +5108,7 @@ if __name__ == '__main__':
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
+                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
                             if garan_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
                             if maurelle_complete_quest_window.rect.collidepoint(pos):
@@ -5184,12 +5141,6 @@ if __name__ == '__main__':
                                 player.current_quests["sneaky snakes"] = \
                                     "Garan asked you to defeat snakes near the river."
                                 if not npc_garan.gift:
-                                    player.items.append(Item("basic staff", "mage", 0, 0,
-                                                             graphic_dict["basic_staff_img"], 1))
-                                    player.items.append(Item("basic sword", "fighter", 0, 0,
-                                                             graphic_dict["basic_sword_img"], 1))
-                                    player.items.append(Item("basic bow", "scout", 0, 0,
-                                                             graphic_dict["basic_bow_img"], 1))
                                     npc_garan.gift = True
                                     drawing_functions.type_advantage_window.append(role_select_overlay)
                             if current_npc_interacting.name == "maurelle":
@@ -5235,16 +5186,7 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item,
-                                                                       graphic_dict["player_mage_amuna_down_1"],
-                                                                       graphic_dict["player_mage_nuldar_down_1"],
-                                                                       graphic_dict["player_mage_sorae_down_1"],
-                                                                       graphic_dict["player_fighter_amuna_down_1"],
-                                                                       graphic_dict["player_fighter_nuldar_down_1"],
-                                                                       graphic_dict["player_fighter_sorae_down_1"],
-                                                                       graphic_dict["player_scout_amuna_down_1"],
-                                                                       graphic_dict["player_scout_nuldar_down_1"],
-                                                                       graphic_dict["player_scout_sorae_down_1"])
+                            inventory_event = click_handlers.inventory(player, current_info_item)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -5260,10 +5202,8 @@ if __name__ == '__main__':
                                                                                  graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
-                            equipment_event = click_handlers.equipment(player, event, pygame,
-                                                                       graphic_dict["player_no_role_amuna_down_1"],
-                                                                       graphic_dict["player_no_role_nuldar_down_1"],
-                                                                       graphic_dict["player_no_role_sorae_down_1"])
+                            equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
+                                                                       mythical_armor, legendary_armor, power_gloves)
                             if equipment_event["equipment message"] != "":
                                 button_highlighted = False
                                 info_text_1 = equipment_event["equipment message"]
@@ -5296,10 +5236,8 @@ if __name__ == '__main__':
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
                                                                          quest_guide_shown, battle_guide_shown,
-                                                                         role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
-                                                                         first_item_cond, bridge_not_repaired,
-                                                                         nede_ghoul_defeated,
+                                                                         bridge_not_repaired, nede_ghoul_defeated,
                                                                          bridge_cutscenes_not_viewed, crate_1, crate_2,
                                                                          crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                          switch_3, muchador_defeated, has_key,
@@ -5367,10 +5305,8 @@ if __name__ == '__main__':
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
                                                                          quest_guide_shown, battle_guide_shown,
-                                                                         role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
-                                                                         first_item_cond, bridge_not_repaired,
-                                                                         nede_ghoul_defeated,
+                                                                         bridge_not_repaired, nede_ghoul_defeated,
                                                                          bridge_cutscenes_not_viewed, crate_1, crate_2,
                                                                          crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                          switch_3, muchador_defeated, has_key,
@@ -5437,10 +5373,8 @@ if __name__ == '__main__':
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
                                                                          quest_guide_shown, battle_guide_shown,
-                                                                         role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
-                                                                         first_item_cond, bridge_not_repaired,
-                                                                         nede_ghoul_defeated,
+                                                                         bridge_not_repaired, nede_ghoul_defeated,
                                                                          bridge_cutscenes_not_viewed, crate_1, crate_2,
                                                                          crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                          switch_3, muchador_defeated, has_key,
@@ -5507,10 +5441,8 @@ if __name__ == '__main__':
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
                                                                          quest_guide_shown, battle_guide_shown,
-                                                                         role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
-                                                                         first_item_cond, bridge_not_repaired,
-                                                                         nede_ghoul_defeated,
+                                                                         bridge_not_repaired, nede_ghoul_defeated,
                                                                          bridge_cutscenes_not_viewed, crate_1, crate_2,
                                                                          crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                          switch_3, muchador_defeated, has_key,
@@ -5577,10 +5509,8 @@ if __name__ == '__main__':
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
                                                                          quest_guide_shown, battle_guide_shown,
-                                                                         role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
-                                                                         first_item_cond, bridge_not_repaired,
-                                                                         nede_ghoul_defeated,
+                                                                         bridge_not_repaired, nede_ghoul_defeated,
                                                                          bridge_cutscenes_not_viewed, crate_1, crate_2,
                                                                          crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                          switch_3, muchador_defeated, has_key,
@@ -5649,10 +5579,8 @@ if __name__ == '__main__':
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
                                                                          quest_guide_shown, battle_guide_shown,
-                                                                         role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
-                                                                         first_item_cond, bridge_not_repaired,
-                                                                         nede_ghoul_defeated,
+                                                                         bridge_not_repaired, nede_ghoul_defeated,
                                                                          bridge_cutscenes_not_viewed, crate_1, crate_2,
                                                                          crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                          switch_3, muchador_defeated, has_key,
@@ -5720,10 +5648,8 @@ if __name__ == '__main__':
                                                                          sharp_sense_learned, saved, npc_garan.gift,
                                                                          rest_recover_show, knowledge_academia_show,
                                                                          quest_guide_shown, battle_guide_shown,
-                                                                         role_guide_shown, upgrade_guide_shown,
                                                                          rest_shown_before, quest_highlight_popup,
-                                                                         first_item_cond, bridge_not_repaired,
-                                                                         nede_ghoul_defeated,
+                                                                         bridge_not_repaired, nede_ghoul_defeated,
                                                                          bridge_cutscenes_not_viewed, crate_1, crate_2,
                                                                          crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                          switch_3, muchador_defeated, has_key,
@@ -5780,6 +5706,7 @@ if __name__ == '__main__':
                                                              torune_quest_window, voruke_quest_window,
                                                              zerah_quest_window, kirean_quest_window,
                                                              dionte_quest_window, accept_button, decline_button)
+                            drawing_functions.type_advantage_window.clear()
 
                     # outside event loop -------------------------------------------------------------------------------
                     if not encounter_started:
@@ -5799,6 +5726,16 @@ if __name__ == '__main__':
                         if player.current_zone == "terra trail":
                             screen.blit(terra_trail_screen, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+                        combat_scenario.resting_animation(player, current_enemy_battling, player_battle_sprite,
+                                                          snake_battle_sprite, ghoul_battle_sprite,
+                                                          chorizon_battle_sprite, muchador_battle_sprite,
+                                                          magmon_battle_sprite, bandile_battle_sprite,
+                                                          chinzilla_battle_sprite, barrier_active,
+                                                          sharp_sense_active, in_battle, in_npc_interaction,
+                                                          graphic_dict)
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
@@ -5829,12 +5766,12 @@ if __name__ == '__main__':
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
                                                          info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
                                                          (203, 195, 227))
                         text_npc_name_rect = text_npc_name_surf.get_rect()
                         text_npc_name_rect.center = (637, 192)
                         screen.blit(text_npc_name_surf, text_npc_name_rect)
+                        drawing_functions.draw_it(screen)
 
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)

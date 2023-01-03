@@ -2,8 +2,93 @@ import os
 import random
 import pickle
 import time
+from pygame.locals import *
 
 import drawing_functions
+
+
+def role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys):
+
+    if staff.rect.collidepoint(pos):
+        player.role = "mage"
+        if player.race == "amuna":
+            player.surf = graphic_dict["player_mage_amuna_down_1"]
+            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                player.surf = graphic_dict["player_mage_amuna_right_1"]
+            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                player.surf = graphic_dict["player_mage_amuna_left_1"]
+            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                player.surf = graphic_dict["player_mage_amuna_up_1"]
+        if player.race == "nuldar":
+            player.surf = graphic_dict["player_mage_nuldar_down_1"]
+            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                player.surf = graphic_dict["player_mage_nuldar_right_1"]
+            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                player.surf = graphic_dict["player_mage_nuldar_left_1"]
+            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                player.surf = graphic_dict["player_mage_nuldar_up_1"]
+        if player.race == "sorae":
+            player.surf = graphic_dict["player_mage_sorae_down_1"]
+            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                player.surf = graphic_dict["player_mage_sorae_right_1"]
+            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                player.surf = graphic_dict["player_mage_sorae_left_1"]
+            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                player.surf = graphic_dict["player_mage_sorae_up_1"]
+
+    if sword.rect.collidepoint(pos):
+        player.role = "fighter"
+        if player.race == "amuna":
+            player.surf = graphic_dict["player_fighter_amuna_down_1"]
+            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                player.surf = graphic_dict["player_fighter_amuna_right_1"]
+            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                player.surf = graphic_dict["player_fighter_amuna_left_1"]
+            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                player.surf = graphic_dict["player_fighter_amuna_up_1"]
+        if player.race == "nuldar":
+            player.surf = graphic_dict["player_fighter_nuldar_down_1"]
+            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                player.surf = graphic_dict["player_fighter_nuldar_right_1"]
+            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                player.surf = graphic_dict["player_fighter_nuldar_left_1"]
+            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                player.surf = graphic_dict["player_fighter_nuldar_up_1"]
+        if player.race == "sorae":
+            player.surf = graphic_dict["player_fighter_sorae_down_1"]
+            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                player.surf = graphic_dict["player_fighter_sorae_right_1"]
+            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                player.surf = graphic_dict["player_fighter_sorae_left_1"]
+            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                player.surf = graphic_dict["player_fighter_sorae_up_1"]
+
+    if bow.rect.collidepoint(pos):
+        player.role = "scout"
+        if player.race == "amuna":
+            player.surf = graphic_dict["player_scout_amuna_down_1"]
+            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                player.surf = graphic_dict["player_scout_amuna_right_1"]
+            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                player.surf = graphic_dict["player_scout_amuna_left_1"]
+            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                player.surf = graphic_dict["player_scout_amuna_up_1"]
+        if player.race == "nuldar":
+            player.surf = graphic_dict["player_scout_nuldar_down_1"]
+            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                player.surf = graphic_dict["player_scout_nuldar_right_1"]
+            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                player.surf = graphic_dict["player_scout_nuldar_left_1"]
+            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                player.surf = graphic_dict["player_scout_nuldar_up_1"]
+        if player.race == "sorae":
+            player.surf = graphic_dict["player_scout_sorae_down_1"]
+            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                player.surf = graphic_dict["player_scout_sorae_right_1"]
+            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                player.surf = graphic_dict["player_scout_sorae_left_1"]
+            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                player.surf = graphic_dict["player_scout_sorae_up_1"]
 
 
 # quest stars for npcs that update based on player quest progress
@@ -133,10 +218,27 @@ def load_game(player, Item, graphics):
                     player.items.append(Item("boss key", "key", 200, 200, graphics["key_img"], 0))
                 if item == "power gloves":
                     player.items.append(Item("power gloves", "gloves", 200, 200, graphics["gloves"], 0))
+                if item == "basic armor":
+                    player.items.append(Item("basic armor", "armor", 200, 200, graphics["basic_armor"], 1))
+                if item == "forged armor":
+                    player.items.append(Item("forged armor", "armor", 200, 200, graphics["forged_armor"], 2))
+                if item == "mythical armor":
+                    player.items.append(Item("mythical armor", "armor", 200, 200, graphics["mythical_armor"], 3))
+                if item == "legendary armor":
+                    player.items.append(Item("legendary armor", "armor", 200, 200, graphics["legendary_armor"], 4))
 
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "power gloves":
                     player.equipment["gloves"] = Item("power gloves", "gloves", 200, 200, graphics["gloves"], 0)
+                if equipped_item == "basic armor":
+                    player.equipment["armor"] = Item("basic armor", "armor", 200, 200, graphics["basic_armor"], 1)
+                if equipped_item == "forged armor":
+                    player.equipment["armor"] = Item("forged armor", "armor", 200, 200, graphics["forged_armor"], 2)
+                if equipped_item == "mythical armor":
+                    player.equipment["armor"] = Item("mythical armor", "armor", 200, 200, graphics["mythical_armor"], 3)
+                if equipped_item == "legendary armor":
+                    player.equipment["armor"] = Item("legendary armor", "armor", 200, 200, graphics["legendary_armor"],
+                                                     4)
 
             player.current_quests = player_load_info["quests"]
             player.quest_progress = player_load_info["quest progress"]
@@ -172,11 +274,8 @@ def load_game(player, Item, graphics):
             load_return["knowledge popup"] = player_load_info["knowledge popup"]
             load_return["quest guide"] = player_load_info["quest guide"]
             load_return["battle guide"] = player_load_info["battle guide"]
-            load_return["role guide"] = player_load_info["role guide"]
-            load_return["upgrade guide"] = player_load_info["upgrade guide"]
             load_return["rest shown before"] = player_load_info["rest shown before"]
             load_return["quest highlight popup"] = player_load_info["quest highlight popup"]
-            load_return["first drop popup"] = player_load_info["first drop popup"]
             load_return["bridge not repaired"] = player_load_info["bridge not repaired"]
             load_return["nede ghoul defeated"] = player_load_info["nede ghoul defeated"]
             load_return["bridge_cutscenes_not_viewed"] = player_load_info["bridge_cutscenes_not_viewed"]
@@ -208,22 +307,24 @@ def load_game(player, Item, graphics):
 
 # save game function. stores player info in a dictionary that's serialized and saved to save_game file
 def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned, saved, garan_gift,
-              rest_popup, knowledge_popup, quest_guide_shown, battle_guide_shown, role_guide_shown,
-              upgrade_guide_shown, rest_shown_before, quest_highlight_popup, first_drop_popup, bridge_not_repaired,
-              nede_ghoul_defeated, bridge_cutscenes_not_viewed, crate_1, crate_2, crate_3, crate_4, crate_5, switch_1,
-              switch_2, switch_3, muchador_defeated, has_key, mini_boss_1_defeated, mini_boss_2_defeated,
-              gloves_obtained, korlok_attuned, eldream_attuned):
+              rest_popup, knowledge_popup, quest_guide_shown, battle_guide_shown, rest_shown_before,
+              quest_highlight_popup, bridge_not_repaired, nede_ghoul_defeated, bridge_cutscenes_not_viewed,
+              crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3, muchador_defeated, has_key,
+              mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
-    try:
-        for item_x in player.items:
-            inventory_save.append(item_x.name)
-        equipment_save.append(player.equipment["gloves"].name)
+
+    for item_x in player.items:
+        inventory_save.append(item_x.name)
+
+    if player.equipment["armor"] != "":
         equipment_save.append(player.equipment["armor"].name)
+    if player.equipment["gloves"] != "":
+        equipment_save.append(player.equipment["gloves"].name)
+    if player.equipment["boots"] != "":
         equipment_save.append(player.equipment["boots"].name)
-    except AttributeError:
-        pass
+
     player_save_info = {"name": str(player.name), "race": str(player.race), "level": int(player.level),
                         "role": str(player.role), "inventory": inventory_save, "equipment": equipment_save,
                         "hp": int(player.health), "en": int(player.energy), "xp": int(player.experience),
@@ -244,10 +345,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "rest popup": rest_popup, "knowledge popup": knowledge_popup,
                         "star power": int(player.star_power),
                         "quest guide": quest_guide_shown, "battle guide": battle_guide_shown,
-                        "role guide": role_guide_shown, "upgrade guide": upgrade_guide_shown,
                         "rest shown before": rest_shown_before, "quest highlight popup": quest_highlight_popup,
-                        "first drop popup": first_drop_popup, "bridge not repaired": bridge_not_repaired,
-                        "nede ghoul defeated": nede_ghoul_defeated,
+                        "bridge not repaired": bridge_not_repaired, "nede ghoul defeated": nede_ghoul_defeated,
                         "bridge_cutscenes_not_viewed": bridge_cutscenes_not_viewed,
                         "crate_1": crate_1, "crate_2": crate_2, "crate_3": crate_3, "crate_4": crate_4,
                         "crate_5": crate_5, "switch_1": switch_1, "switch_2": switch_2, "switch_3": switch_3,
@@ -256,19 +355,22 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "gloves_obtained": gloves_obtained, "korlok_attuned": korlok_attuned,
                         "eldream_attuned": eldream_attuned}
     try:
-        # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
-        directory = os.getcwd()
-        save_directory = directory + "/saves/save_game"
-        assert os.path.isfile(save_directory)
-        with open(save_directory, "wb") as ff:
-            pickle.dump(player_save_info, ff)
+        try:
+            # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
+            directory = os.getcwd()
+            save_directory = directory + "/saves/save_game"
+            assert os.path.isfile(save_directory)
+            with open(save_directory, "wb") as ff:
+                pickle.dump(player_save_info, ff)
 
-    # create the directory with save data if it doesn't exist
-    except FileNotFoundError and AssertionError:
-        directory = os.getcwd()
-        os.mkdir(directory + "/saves")
-        with open(directory + "/saves/save_game", "wb") as ff:
-            pickle.dump(player_save_info, ff)
+        # create the directory with save data if it doesn't exist
+        except FileNotFoundError and AssertionError:
+            directory = os.getcwd()
+            os.mkdir(directory + "/saves")
+            with open(directory + "/saves/save_game", "wb") as ff:
+                pickle.dump(player_save_info, ff)
+    except PermissionError:
+        pass
 
 
 # function to handle player walking animation with time values
@@ -283,12 +385,32 @@ def walk_time(tic):
 
 
 # function that updates players info, status, role, inventory, equipment, etc
-def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter, graphics):
+def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter, offense_meter, defense_meter,
+                               graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves):
 
     # update players status bars
     hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player, graphics))
     en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_bar_update(player, graphics))
     xp_bar.update(xp_bar.x_coordinate, xp_bar.y_coordinate, xp_bar_update(player, graphics))
+
+    if player.offense == 1:
+        offense_meter.update(offense_meter.x_coordinate, offense_meter.y_coordinate, graphics["offense_defense_1"])
+    if player.offense == 2:
+        offense_meter.update(offense_meter.x_coordinate, offense_meter.y_coordinate, graphics["offense_defense_2"])
+    if player.offense == 3:
+        offense_meter.update(offense_meter.x_coordinate, offense_meter.y_coordinate, graphics["offense_defense_3"])
+    if player.offense == 4:
+        offense_meter.update(offense_meter.x_coordinate, offense_meter.y_coordinate, graphics["offense_defense_4"])
+    if player.defense == 0:
+        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_0"])
+    if player.defense == 1:
+        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_1"])
+    if player.defense == 2:
+        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_2"])
+    if player.defense == 3:
+        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_3"])
+    if player.defense == 4:
+        defense_meter.update(defense_meter.x_coordinate, defense_meter.y_coordinate, graphics["offense_defense_4"])
 
     if player.star_power == 0:
         star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, graphics["star_00"])
@@ -302,7 +424,8 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
         star_power_meter.update(star_power_meter.x_coordinate, star_power_meter.y_coordinate, graphics["star_04"])
 
     # update players current equipment
-    drawing_functions.equipment_updates(player, graphics)
+    drawing_functions.equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor,
+                                        power_gloves)
     # update players current inventory
     drawing_functions.item_updates(player, graphics)
 
@@ -315,7 +438,15 @@ def attack_enemy(player, mob):
     attack_dict = {"damage": 0, "effective": False, "non effective": False}
 
     # base damage
-    damage = 5
+    if player.offense == 1:
+        damage = 5
+    if player.offense == 2:
+        damage = 6
+    if player.offense == 3:
+        damage = 7
+    if player.offense == 4:
+        damage = 8
+
     # increase or decrease damage based on type advantage/disadvantage
     if player.role == "mage":
         # super effective
@@ -332,7 +463,7 @@ def attack_enemy(player, mob):
             damage = damage * 2
             attack_dict["effective"] = True
         # not effective
-        if mob.type == "mages":
+        if mob.type == "mage":
             damage = damage // 2
             attack_dict["non effective"] = True
     if player.role == "fighter":
@@ -377,7 +508,17 @@ def attack_player(player, mob):
     attack_dict = {"damage": 0, "effective": False, "non effective": False}
 
     # base damage
-    damage = 5
+    if player.defense == 0:
+        damage = 7
+    if player.defense == 1:
+        damage = 6
+    if player.defense == 2:
+        damage = 5
+    if player.defense == 3:
+        damage = 4
+    if player.defense == 4:
+        damage = 3
+
     # increase or decrease damage based on type advantage/disadvantage
     if mob.type == "mage":
         # super effective
@@ -468,7 +609,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
         if snake_counter < 3:
             new_snake = Enemy("snake", "snake", 100, 100, random_snake_level, random_snake_x, random_snake_y, True,
-                              Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"]),
+                              Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0),
                               graphic_dict["snake"], UiElement("snake hp bar", 700, 90, graphic_dict["hp_100"]),
                               "fighter")
             snakes.add(new_snake)
@@ -477,7 +618,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if there are less than 3 ghouls in game, create another ghoul with random level and coordinates. add to groups
         if ghoul_counter < 3:
             new_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_ghoul_level, random_ghoul_x, random_ghoul_y, True,
-                              Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"]),
+                              Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                               graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]),
                               "scout")
             ghouls.add(new_ghoul)
@@ -500,7 +641,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
         if magmon_counter < 3:
             new_magmon = Enemy("magmon", "magmon", 100, 100, random_magmon_level, random_magmon_x, random_magmon_y,
-                               True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"]),
+                               True, Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                                graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]),
                                "mage")
             magmons.add(new_magmon)
@@ -523,7 +664,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
         if bandile_counter < 3:
             new_bandile = Enemy("bandile", "bandile", 100, 100, random_bandile_level, random_bandile_x,
-                                random_bandile_y, True, Item("broken band", "band", 200, 200, graphic_dict["band"]),
+                                random_bandile_y, True, Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
                                 graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                                 "fighter")
             bandiles.add(new_bandile)

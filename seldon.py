@@ -20,12 +20,12 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     amuna_buildings, npcs, save_check_window, user_interface, world_map_container, bar_backdrop,
                     hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, knowledge_academia_show,
                     knowledge_academia, rest_recover_show, rest_shown_before, rest_recover, quest_guide_shown,
-                    game_guide_overlay, role_guide_shown, enemy_tic, npc_tic, npc_garan, npc_maurelle, npc_celeste,
+                    game_guide_overlay, enemy_tic, npc_tic, npc_garan, npc_maurelle, npc_celeste,
                     npc_torune, info_text_1, info_text_2, info_text_3, info_text_4, in_battle, in_shop, in_academia,
                     in_inn, movement_able, current_enemy_battling, current_npc_interacting, current_building_entering,
                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, interactables_mines,
-                    star_voruke, star_zerah, star_apothecary, star_dionte, equipment_screen, staff_1, staff_2, staff_3,
-                    staff_4, sword_1, sword_2, sword_3, sword_4, bow_1, bow_2, bow_3, bow_4):
+                    star_voruke, star_zerah, star_apothecary, star_dionte, equipment_screen, staff, sword, bow,
+                    offense_meter, defense_meter, weapon_select):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -38,8 +38,9 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
 
     screen.blit(seldon_district_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
-    drawing_functions.weapon_draw(player, staff_1, staff_2, staff_3, staff_4, sword_1, sword_2, sword_3, sword_4,
-                                  bow_1, bow_2, bow_3, bow_4)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement)
@@ -341,12 +342,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     if not quest_guide_shown:
         drawing_functions.game_guide_container.append(game_guide_overlay)
         quest_guide_shown = True
-    if not role_guide_shown:
-        if player.role == "mage" or player.role == "fighter" or player.role == "scout":
-            game_guide_overlay.update(game_guide_overlay.x_coordinate, game_guide_overlay.y_coordinate,
-                                      graphic_dict["guide_basics_role_img"])
-            drawing_functions.game_guide_container.append(game_guide_overlay)
-            role_guide_shown = True
 
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])
@@ -414,7 +409,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                      "current_npc_interacting": current_npc_interacting,
                      "knowledge_academia_show": knowledge_academia_show, "rest_recover_show": rest_recover_show,
                      "rest_shown_before": rest_shown_before, "quest_guide_shown": quest_guide_shown,
-                     "role_guide_shown": role_guide_shown, "enemy_tic": enemy_tic, "npc_tic": npc_tic,
+                     "enemy_tic": enemy_tic, "npc_tic": npc_tic,
                      "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                      "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                      "in_battle": in_battle, "in_shop": in_shop, "in_academia": in_academia, "in_inn": in_inn,

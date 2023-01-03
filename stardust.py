@@ -13,7 +13,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, npc_tic, info_text_1,
                      info_text_2, info_text_3, info_text_4, current_enemy_battling, current_building_entering,
                      in_battle, movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite,
-                     chinzilla_battle_sprite, equipment_screen):
+                     chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
+                     defense_meter, weapon_select):
 
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
@@ -23,6 +24,9 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
 
     screen.blit(stardust_cove_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     if player.quest_progress["where's nede?"] < 1:
         if player.quest_status["where's nede?"]:

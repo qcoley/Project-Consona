@@ -168,7 +168,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                 if player.rupees > 49:
                     buy_return["info 1"] = "Bought Basic Armor for 50 rupees."
                     buy_return["info 2"] = "Basic Armor added to inventory."
-                    player.items.append(Item("basic armor", "all", 200, 200, basic_armor, 1))
+                    player.items.append(Item("basic armor", "armor", 200, 200, basic_armor, 1))
                     player.rupees = player.rupees - 50
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
@@ -181,11 +181,11 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
 
         if current_buy_item.name == "forged armor":
             if len(player.items) < 16:
-                if player.rupees > 199:
-                    buy_return["info 1"] = "Bought Forged Armor for 200 rupees."
+                if player.rupees > 149:
+                    buy_return["info 1"] = "Bought Forged Armor for 150 rupees."
                     buy_return["info 2"] = "Forged Armor added to inventory."
-                    player.items.append(Item("forged armor", "all", 200, 200, forged_armor, 2))
-                    player.rupees = player.rupees - 20
+                    player.items.append(Item("forged armor", "armor", 200, 200, forged_armor, 2))
+                    player.rupees = player.rupees - 150
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
@@ -200,7 +200,7 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                 if player.rupees > 499:
                     buy_return["info 1"] = "Bought Mythical Armor for 500 rupees."
                     buy_return["info 2"] = "Mythical Armor added to inventory."
-                    player.items.append(Item("mythical armor", "all", 200, 200, mythical_armor, 3))
+                    player.items.append(Item("mythical armor", "armor", 200, 200, mythical_armor, 3))
                     player.rupees = player.rupees - 500
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()

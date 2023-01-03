@@ -52,6 +52,7 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    weapon_select = pygame.image.load(resource_path('resources/art/overlay_weapon_select.png')).convert_alpha()
     equipment_screen = pygame.image.load(resource_path('resources/art/overlay_equipment_screen.png')).convert_alpha()
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
     n_char_screen = pygame.image.load(resource_path('resources/art/screen_nuldar_character_select.png')).convert_alpha()
@@ -152,10 +153,11 @@ def load_graphics():
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
                   muchador_crate, reservoir_passage, rock_img, reservoir_exit, reservoir_enter, mines_entrance,
-                  mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave]
+                  mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["weapon_select"] = weapon_select
     loaded_dict["chinzilla"] = sprite_chinzilla
     loaded_dict["caves_battle_screen"] = caves_battle_screen
     loaded_dict["equipment_screen"] = equipment_screen
@@ -912,6 +914,14 @@ def load_graphics():
     loaded_dict["back_button_img"] = buttons_sheet[13]
     loaded_dict["ok_button_img"] = buttons_sheet[14]
     loaded_dict["skip_button_img"] = buttons_sheet[15]
+    # offense/defense overlay ------------------------------------------------------------------------------------------
+    offense_defense_url = resource_path('resources/art/overlay_offense_defense_level.png')
+    offense_defense_sheet = sprite_sheet((82, 14), offense_defense_url)
+    loaded_dict["offense_defense_0"] = offense_defense_sheet[0]
+    loaded_dict["offense_defense_1"] = offense_defense_sheet[1]
+    loaded_dict["offense_defense_2"] = offense_defense_sheet[2]
+    loaded_dict["offense_defense_3"] = offense_defense_sheet[3]
+    loaded_dict["offense_defense_4"] = offense_defense_sheet[4]
     # attack buttons ---------------------------------------------------------------------------------------------------
     attack_buttons_url = resource_path('resources/art/overlay_attacks.png')
     attack_buttons_sheet = sprite_sheet((60, 60), attack_buttons_url)
@@ -1005,8 +1015,6 @@ def load_graphics():
     game_guide_sheet = sprite_sheet((488, 480), game_guide_url)
     loaded_dict["guide_basics_quest_img"] = game_guide_sheet[0]
     loaded_dict["guide_basics_battle_img"] = game_guide_sheet[1]
-    loaded_dict["guide_basics_role_img"] = game_guide_sheet[2]
-    loaded_dict["guide_basics_upgrades_img"] = game_guide_sheet[3]
     # cat petting animation sprites ------------------------------------------------------------------------------------
     cat_pet_url = resource_path('resources/art/sprites_cat_pet.png')
     cat_pet_sheet = sprite_sheet((90, 100), cat_pet_url)

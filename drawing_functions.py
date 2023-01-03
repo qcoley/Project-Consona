@@ -1,5 +1,6 @@
 # functions for drawing certain text and images on screen
 # lists for blitting elements/items to the screen that are contained within lists
+
 character_sheet_text = []
 character_sheet_window = []
 journal_text = []
@@ -92,37 +93,59 @@ def draw_it(screen):
         for type_element in type_advantage_window:
             screen.blit(type_element.surf, type_element.rect)
     if len(weapon_container) > 0:
-        for weapon in weapon_container:
-            screen.blit(weapon.surf, weapon.rect)
+        if len(item_info_window) == 0 and len(sell_info_window) == 0:
+            for weapon in weapon_container:
+                screen.blit(weapon.surf, weapon.rect)
 
 
-def weapon_draw(player, staff_1, staff_2, staff_3, staff_4, sword_1, sword_2, sword_3, sword_4, bow_1, bow_2, bow_3,
-                bow_4):
+def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
 
-    if player.offense == 1:
-        if len(weapon_container) > 3:
-            weapon_container.clear()
-        weapon_container.append(staff_1)
-        weapon_container.append(sword_1)
-        weapon_container.append(bow_1)
-    if player.offense == 2:
-        if len(weapon_container) > 3:
-            weapon_container.clear()
-        weapon_container.append(staff_2)
-        weapon_container.append(sword_2)
-        weapon_container.append(bow_2)
-    if player.offense == 3:
-        if len(weapon_container) > 3:
-            weapon_container.clear()
-        weapon_container.append(staff_3)
-        weapon_container.append(sword_3)
-        weapon_container.append(bow_3)
-    if player.offense == 4:
-        if len(weapon_container) > 3:
-            weapon_container.clear()
-        weapon_container.append(staff_4)
-        weapon_container.append(sword_4)
-        weapon_container.append(bow_4)
+    if npc_garan.gift:
+        if player.offense == 1:
+            if len(weapon_container) > 3:
+                weapon_container.clear()
+            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_1"])
+            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_1"])
+            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_1"])
+            weapon_container.append(staff)
+            weapon_container.append(sword)
+            weapon_container.append(bow)
+        if player.offense == 2:
+            if len(weapon_container) > 3:
+                weapon_container.clear()
+            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_2"])
+            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_2"])
+            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_2"])
+            weapon_container.append(staff)
+            weapon_container.append(sword)
+            weapon_container.append(bow)
+        if player.offense == 3:
+            if len(weapon_container) > 3:
+                weapon_container.clear()
+            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_3"])
+            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_3"])
+            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_3"])
+            weapon_container.append(staff)
+            weapon_container.append(sword)
+            weapon_container.append(bow)
+        if player.offense == 4:
+            if len(weapon_container) > 3:
+                weapon_container.clear()
+            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_4"])
+            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_4"])
+            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_4"])
+            weapon_container.append(staff)
+            weapon_container.append(sword)
+            weapon_container.append(bow)
+
+        if player.role == "mage":
+            weapon_select.update(1079, 284, graphics["weapon_select"])
+        if player.role == "fighter":
+            weapon_select.update(1154, 284, graphics["weapon_select"])
+        if player.role == "scout":
+            weapon_select.update(1229, 284, graphics["weapon_select"])
+
+        weapon_container.append(weapon_select)
 
 
 def item_info_draw(inventory_item, info_items, item_info_button, graphic):
@@ -299,7 +322,7 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
 
 def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world):
     # get current player rupee count and create surf and rectangle to blit to screen------------------------------------
-    text_rupee_surf = font.render(str(player.rupees), True, "black", "light blue")
+    text_rupee_surf = font.render(str(player.rupees), True, "black", "light green")
     text_rupee_rect = text_rupee_surf.get_rect()
     text_rupee_rect.center = (1120, 693)
     screen.blit(text_rupee_surf, text_rupee_rect)
@@ -308,27 +331,12 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_level_rect = text_level_surf.get_rect()
     text_level_rect.center = (1102, 360)
     screen.blit(text_level_surf, text_level_rect)
-    # get current player role and create surf and rectangle to blit to screen-------------------------------------------
-    text_role_surf = font.render(str(player.role), True, "black", "light gray")
-    text_role_rect = text_role_surf.get_rect()
-    text_role_rect.center = (1130, 81)
-    screen.blit(text_role_surf, text_role_rect)
     # current player location for UI overlay ---------------------------------------------------------------------------
     if in_over_world:
         text_location = font.render(str(player.current_zone), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
         screen.blit(text_location, text_location_rect)
-    # get current player offense and create surf and rectangle to blit to screen----------------------------------------
-    text_offense_surf = font.render(str(player.offense) + "/4", True, "black", "light gray")
-    text_offense_rect = text_offense_surf.get_rect()
-    text_offense_rect.center = (1135, 117)
-    screen.blit(text_offense_surf, text_offense_rect)
-    # get current player defence and create surf and rectangle to blit to screen----------------------------------------
-    text_defence_surf = font.render(str(player.defense) + "/4", True, "black", "light gray")
-    text_defence_rect = text_defence_surf.get_rect()
-    text_defence_rect.center = (1235, 117)
-    screen.blit(text_defence_surf, text_defence_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
     text_info_rect_1 = text_info_surf_1.get_rect()
@@ -634,20 +642,27 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
                 quest_box.append(kirean_quest_window)
 
 
-def equipment_updates(player, graphic):
+def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves):
     player_equipment.clear()
-    try:
-        if player.equipment["torso"].name == "basic armor":
-            player.equipment["torso"].update(1078, 197, graphic["basic_armor"])
-            player_equipment.append(player.equipment["torso"])
-        if player.equipment["torso"].name == "forged armor":
-            player.equipment["torso"].update(1078, 197, graphic["forged_armor"])
-            player_equipment.append(player.equipment["torso"])
+
+    if player.equipment["armor"] != "":
+        if player.equipment["armor"].name == "basic armor":
+            basic_armor.update(1078, 197, graphics["basic_armor"])
+            player_equipment.append(basic_armor)
+        if player.equipment["armor"].name == "forged armor":
+            forged_armor.update(1078, 197, graphics["forged_armor"])
+            player_equipment.append(forged_armor)
+        if player.equipment["armor"].name == "mythical armor":
+            mythical_armor.update(1078, 197, graphics["mythical_armor"])
+            player_equipment.append(mythical_armor)
+        if player.equipment["armor"].name == "legendary armor":
+            legendary_armor.update(1078, 197, graphics["legendary_armor"])
+            player_equipment.append(legendary_armor)
+
+    if player.equipment["gloves"] != "":
         if player.equipment["gloves"].name == "power gloves":
-            player.equipment["gloves"].update(1154, 197, graphic["gloves"])
-            player_equipment.append(player.equipment["gloves"])
-    except AttributeError:
-        pass
+            power_gloves.update(1153, 197, graphics["gloves"])
+            player_equipment.append(power_gloves)
 
 
 def item_updates(player, graphic):
@@ -724,7 +739,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       no_role_attack_button, barrier_button, sharp_sense_button, hard_strike_button, in_over_world,
                       seldon_map_button, korlok_map_button, eldream_map_button, marrow_map_button, character_button,
                       quests_button, save_button, map_button, in_npc_interaction, quest_button, quest_clicked,
-                      accept_button, decline_button, in_apothecary):
+                      accept_button, decline_button, in_apothecary, staff, sword, bow):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -752,12 +767,9 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
     shop_inv_7 = pygame.Rect((900, 465), (50, 50))
     shop_inv_8 = pygame.Rect((960, 465), (50, 50))
     # equipment rects
-    gloves = pygame.Rect((1050, 170), (50, 50))
-    torso = pygame.Rect((1125, 170), (50, 50))
+    armor = pygame.Rect((1050, 170), (50, 50))
+    gloves = pygame.Rect((1125, 170), (50, 50))
     boots = pygame.Rect((1200, 170), (50, 50))
-    weapon = pygame.Rect((1050, 260), (50, 50))
-    cloak = pygame.Rect((1125, 260), (50, 50))
-    ring = pygame.Rect((1200, 260), (50, 50))
 
     if not start_chosen:
         if not new_game_chosen:
@@ -800,6 +812,16 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 return True
 
     if start_chosen:
+        if len(item_info_window) == 0 and len(sell_info_window) == 0:
+            if staff.rect.collidepoint(pos):
+                button_highlight.update(1077, 283, graphic_dict["item high"])
+                return True
+            if sword.rect.collidepoint(pos):
+                button_highlight.update(1152, 283, graphic_dict["item high"])
+                return True
+            if bow.rect.collidepoint(pos):
+                button_highlight.update(1228, 283, graphic_dict["item high"])
+                return True
         if inv_1.collidepoint(pos):
             if len(player.items) > 0:
                 button_highlight.update(1062, 461, graphic_dict["item high"])
@@ -864,16 +886,16 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
             if len(player.items) > 15:
                 button_highlight.update(1242, 641, graphic_dict["item high"])
                 return True
+        elif armor.collidepoint(pos):
+            if len(item_info_window) == 0:
+                if len(sell_info_window) == 0:
+                    if player.equipment["armor"] != "":
+                        button_highlight.update(1077, 195, graphic_dict["item high"])
+                        return True
         elif gloves.collidepoint(pos):
             if len(item_info_window) == 0:
                 if len(sell_info_window) == 0:
                     if player.equipment["gloves"] != "":
-                        button_highlight.update(1077, 195, graphic_dict["item high"])
-                        return True
-        elif torso.collidepoint(pos):
-            if len(item_info_window) == 0:
-                if len(sell_info_window) == 0:
-                    if player.equipment["torso"] != "":
                         button_highlight.update(1152, 195, graphic_dict["item high"])
                         return True
         elif boots.collidepoint(pos):
@@ -881,24 +903,6 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 if len(sell_info_window) == 0:
                     if player.equipment["boots"] != "":
                         button_highlight.update(1227, 195, graphic_dict["item high"])
-                        return True
-        elif weapon.collidepoint(pos):
-            if len(item_info_window) == 0:
-                if len(sell_info_window) == 0:
-                    if player.equipment["weapon"] != "":
-                        button_highlight.update(1077, 283, graphic_dict["item high"])
-                        return True
-        elif cloak.collidepoint(pos):
-            if len(item_info_window) == 0:
-                if len(sell_info_window) == 0:
-                    if player.equipment["cloak"] != "":
-                        button_highlight.update(1152, 283, graphic_dict["item high"])
-                        return True
-        elif ring.collidepoint(pos):
-            if len(item_info_window) == 0:
-                if len(sell_info_window) == 0:
-                    if player.equipment["ring"] != "":
-                        button_highlight.update(1227, 283, graphic_dict["item high"])
                         return True
         elif len(save_check_window) > 0:
             if yes_button.rect.collidepoint(pos):
@@ -1110,12 +1114,8 @@ def hearthstone_animation(pygame, screen, player, seldon_hearth_screen, seldon_d
         pygame.display.flip()
 
 
-def loot_popups(time, loot_updated, first_item_cond, first_item, font, loot_popup,
-                battle_info_to_return_to_main_loop, leveled):
+def loot_popups(time, loot_updated, font, loot_popup, battle_info_to_return_to_main_loop, leveled):
     if not loot_updated:
-        if first_item_cond:
-            first_item_window.append(first_item)
-            first_item_cond = False
         loot_popup_container.clear()
         loot_text_container.clear()
         loot_popup_container.append(loot_popup)
@@ -1140,8 +1140,8 @@ def loot_popups(time, loot_updated, first_item_cond, first_item, font, loot_popu
         if battle_info_to_return_to_main_loop["leveled_up"] and not leveled:
             leveled = True
 
-        loot_popup_return = {"first_item_condition": first_item_cond, "loot_updated": loot_updated,
-                             "loot_level_tic": loot_level_tic, "loot_info": loot_info, "leveled": leveled}
+        loot_popup_return = {"loot_updated": loot_updated, "loot_level_tic": loot_level_tic, "loot_info": loot_info,
+                             "leveled": leveled}
 
         return loot_popup_return
 

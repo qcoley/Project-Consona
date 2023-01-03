@@ -12,7 +12,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 crate_4, mini_boss_1_defeated, mini_boss_2_defeated, boss_enemies, player_battle_sprite,
                 snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                 barrier_active, sharp_sense_active, in_npc_interaction, magmon_battle_sprite, bandile_battle_sprite,
-                chinzilla_battle_sprite, equipment_screen):
+                chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
+                weapon_select):
 
     in_battle = False
 
@@ -45,6 +46,9 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
     screen.blit(reservoir_a_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     for wall in dungeon_walls:
         screen.blit(wall.surf, wall.rect)
@@ -83,16 +87,11 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         if interacted:
             if item.name == "dungeon crate 1":
                 if not crate_1:
-                    if len(player.items) < 16:
-                        info_text_1 = "You found a health potion!"
-                        info_text_2 = ""
-                        player.items.append(Item("health potion", "potion", 200, 200,
-                                                 graphic_dict["health_pot_img"]))
-                        crate_1 = True
-                        item.kill()
-                    else:
-                        info_text_1 = "Your inventory is full."
-                        info_text_2 = ""
+                    info_text_1 = "You found 10 Rupees!"
+                    info_text_2 = ""
+                    player.rupees += 10
+                    crate_1 = True
+                    item.kill()
                 else:
                     info_text_1 = "This crate is empty."
                     info_text_2 = ""
@@ -102,7 +101,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                         info_text_1 = "You found a golden key!"
                         info_text_2 = ""
                         player.items.append(Item("boss key", "key", 200, 200,
-                                                 graphic_dict["key_img"]))
+                                                 graphic_dict["key_img"], 0))
                         crate_2 = True
                         item.kill()
                     else:
@@ -117,7 +116,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                         info_text_1 = "You found a health potion!"
                         info_text_2 = ""
                         player.items.append(Item("health potion", "potion", 200, 200,
-                                                 graphic_dict["health_pot_img"]))
+                                                 graphic_dict["health_pot_img"], 0))
                         crate_3 = True
                         item.kill()
                     else:
@@ -132,7 +131,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                         info_text_1 = "You found an energy potion!"
                         info_text_2 = ""
                         player.items.append(Item("energy potion", "potion", 200, 200,
-                                                 graphic_dict["energy_pot_img"]))
+                                                 graphic_dict["energy_pot_img"], 0))
                         crate_4 = True
                         item.kill()
                     else:
@@ -274,7 +273,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 in_npc_interaction, user_interface, world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
                 button_highlighted, button_highlight, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 switch_1, switch_2, switch_3, has_key, magmon_battle_sprite, bandile_battle_sprite,
-                chinzilla_battle_sprite, equipment_screen):
+                chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
+                weapon_select):
 
     in_battle = False
 
@@ -288,6 +288,10 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
     screen.blit(reservoir_b_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
     screen.blit(dungeon_gate.surf, dungeon_gate.rect)
     if not crate_5:
         screen.blit(dungeon_crate_5.surf, dungeon_crate_5.rect)
@@ -469,8 +473,9 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reservoir_music, interaction_popup, font,
                 interacted, save_check_window, user_interface, world_map_container, bar_backdrop, hp_bar, en_bar,
                 xp_bar, button_highlighted, button_highlight, reservoir_c_bg, dungeon_chest, reservoir_exit,
-                rock_1, rock_2, gloves_obtained, Item, info_text_1, info_text_2, info_text_3, info_text_4,
-                in_over_world, has_key, muchador_lights_on, hearth_stone, equipment_screen):
+                rock_1, rock_2, gloves_obtained, power_gloves, info_text_1, info_text_2, info_text_3, info_text_4,
+                in_over_world, has_key, muchador_lights_on, hearth_stone, equipment_screen, staff, sword, bow,
+                npc_garan, offense_meter, defense_meter, weapon_select):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -480,6 +485,10 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
     screen.blit(reservoir_c_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
     screen.blit(dungeon_chest.surf, dungeon_chest.rect)
     screen.blit(reservoir_exit.surf, reservoir_exit.rect)
     screen.blit(rock_1.surf, rock_1.rect)
@@ -511,7 +520,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                                          graphic_dict["dungeon_chest_open"])
                     info_text_1 = "You've obtained the power gloves!"
                     info_text_2 = ""
-                    player.items.append(Item("power gloves", "gloves", 0, 0, graphic_dict["gloves"]))
+                    player.items.append(power_gloves)
                     gloves_obtained = True
                 else:
                     info_text_1 = "You're inventory is full."

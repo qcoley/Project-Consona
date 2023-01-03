@@ -14,7 +14,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                  chinzilla_battle_sprite, barrier_active, sharp_sense_active, magmon_battle_sprite,
                  bandile_battle_sprite, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, interactables_seldon,
-                 interactables_korlok, Enemy, Item, UiElement, interactables_mines, ores, equipment_screen):
+                 interactables_korlok, Enemy, Item, UiElement, interactables_mines, ores, equipment_screen, staff,
+                 sword, bow, npc_garan, offense_meter, defense_meter, weapon_select):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -46,6 +47,9 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
 
     screen.blit(korlok_mines_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     for bandile in bandiles:
         screen.blit(bandile.surf, bandile.rect)
     for ore in ores:
