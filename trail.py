@@ -7,12 +7,12 @@ import gameplay_functions
 
 
 def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_overworld_music, over_world_song_set,
-                interaction_popup, font, save_check_window, user_interface, world_map_container, bar_backdrop,
-                hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted, info_text_1,
-                info_text_2, info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able,
-                current_enemy_battling, quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune,
-                star_voruke, star_zerah, star_apothecary, terra_mountains, terra_cave, npc_dionte, quest_star_dionte,
-                enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
+                interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
+                button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2, info_text_3,
+                info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able, current_enemy_battling,
+                quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune, star_voruke, star_zerah,
+                star_apothecary, terra_mountains, terra_cave, npc_dionte, quest_star_dionte, enemy,
+                player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                 muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                 barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select):
@@ -100,8 +100,6 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
         screen.blit(ui_elements.surf, ui_elements.rect)
-    for maps in world_map_container:
-        screen.blit(maps.surf, maps.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:

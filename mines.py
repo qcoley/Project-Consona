@@ -8,14 +8,15 @@ import gameplay_functions
 
 def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_overworld_music,
                  over_world_song_set, bandiles, interaction_popup, font, save_check_window, user_interface,
-                 world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight,
-                 in_over_world, interacted, info_text_1, info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic,
-                 in_battle, in_npc_interaction, movement_able, current_enemy_battling, player_battle_sprite,
-                 snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                 chinzilla_battle_sprite, barrier_active, sharp_sense_active, magmon_battle_sprite,
-                 bandile_battle_sprite, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, interactables_seldon,
-                 interactables_korlok, Enemy, Item, UiElement, interactables_mines, ores, equipment_screen, staff,
-                 sword, bow, npc_garan, offense_meter, defense_meter, weapon_select):
+                 bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
+                 info_text_1, info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic, in_battle, in_npc_interaction,
+                 movement_able, current_enemy_battling, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+                 chorizon_battle_sprite, muchador_battle_sprite, chinzilla_battle_sprite, barrier_active,
+                 sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite, seldon_enemies, korlok_enemies,
+                 snakes, ghouls, magmons, interactables_seldon, interactables_korlok, Enemy, Item, UiElement,
+                 interactables_mines, ores, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
+                 defense_meter, weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup, jez_popup, prime_1,
+                 prime_2, jez_1, jez_2):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -54,6 +55,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         screen.blit(bandile.surf, bandile.rect)
     for ore in ores:
         screen.blit(ore.surf, ore.rect)
+    screen.blit(npc_prime.surf, npc_prime.rect)
+    screen.blit(npc_jez.surf, npc_jez.rect)
     screen.blit(player.surf, player.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
@@ -91,6 +94,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         in_over_world = True
         player.x_coordinate = 430
         player.y_coordinate = 430
+        hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     ore_pick = pygame.sprite.spritecollideany(player, ores)
@@ -127,8 +131,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
         screen.blit(ui_elements.surf, ui_elements.rect)
-    for maps in world_map_container:
-        screen.blit(maps.surf, maps.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
@@ -160,11 +162,55 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
             enemy_tic = time.perf_counter()
             move_mon.update_position([50, 500], [50, 250], direction_horizontal, direction_vertical)
 
+    screen.blit(prime_popup.surf, prime_popup.rect)
+    if not prime_1:
+        prime_text_surf = font.render("What?", True, "black", "light yellow")
+    if prime_1:
+        prime_text_surf = font.render("I ate rock.", True, "black", "light yellow")
+    if prime_2:
+        prime_text_surf = font.render("I watch rock.", True, "black", "light yellow")
+    prime_text_rect = prime_text_surf.get_rect()
+    prime_text_rect.center = (prime_popup.x_coordinate, prime_popup.y_coordinate)
+    screen.blit(prime_text_surf, prime_text_rect)
+
+    screen.blit(jez_popup.surf, jez_popup.rect)
+    if not jez_1:
+        jez_text_surf = font.render("You're not.", True, "black", "light yellow")
+    if jez_1:
+        jez_text_surf = font.render("Don't matter.", True, "black", "light yellow")
+    if jez_2:
+        jez_text_surf = font.render("Ok.", True, "black", "light yellow")
+    jez_text_rect = jez_text_surf.get_rect()
+    jez_text_rect.center = (jez_popup.x_coordinate, jez_popup.y_coordinate)
+    screen.blit(jez_text_surf, jez_text_rect)
+
+    face_direction = random.choice(["left_p", "right_p", "left_j", "right_j"])
+    if movement_able and in_over_world:
+        npc_toc = time.perf_counter()
+        if npc_toc - npc_tic > 2:
+            npc_tic = time.perf_counter()
+            if face_direction == "left_p":
+                npc_prime.update(graphic_dict["prime"])
+                if jez_1:
+                    prime_2 = True
+            if face_direction == "right_p":
+                npc_prime.update(graphic_dict["prime_flip"])
+                prime_1 = True
+            if face_direction == "left_j":
+                npc_jez.update(graphic_dict["jez"])
+                if prime_2:
+                    jez_2 = True
+            if face_direction == "right_j":
+                npc_jez.update(graphic_dict["jez_flip"])
+                if prime_1:
+                    jez_1 = True
+
     # info to return to main loop --------------------------------------------------------------------------------------
     mines_return = {"over_world_song_set": over_world_song_set, "enemy_tic": enemy_tic, "npc_tic": npc_tic,
                     "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                     "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                     "in_battle": in_battle, "movement_able": movement_able,
-                    "current_enemy_battling": current_enemy_battling}
+                    "current_enemy_battling": current_enemy_battling, "prime_1": prime_1, "prime_2": prime_2,
+                    "jez_1": jez_1, "jez_2": jez_2}
 
     return mines_return

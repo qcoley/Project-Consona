@@ -1729,9 +1729,9 @@ if __name__ == '__main__':
     shiny_rock = Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0)
     bone_dust = Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0)
     # weapons
-    staff = UiElement("staff", 1077, 283, graphic_dict["staff_1"])
-    sword = UiElement("sword", 1155, 283, graphic_dict["sword_1"])
-    bow = UiElement("bow", 1230, 283, graphic_dict["bow_1"])
+    staff = UiElement("staff", 1077, 283, graphic_dict["staff_0"])
+    sword = UiElement("sword", 1155, 283, graphic_dict["sword_0"])
+    bow = UiElement("bow", 1230, 283, graphic_dict["bow_0"])
     # armor
     basic_armor = Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1)
     forged_armor = Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2)
@@ -1771,7 +1771,7 @@ if __name__ == '__main__':
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                          1, 0, 100, 100,  # lvl, exp, health, energy
                          True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
-                         "", 0, 1, 0)  # zone, defence, offense, image
+                         "", 0, 0, 0)  # zone, defence, offense, image
 
     # npcs: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate
     #                  alive_status, quest_complete, items, gift, image
@@ -1790,6 +1790,9 @@ if __name__ == '__main__':
                     True, False, ["Items"], False, graphic_dict["zerah_down"])
     npc_dionte = NPC("dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 625, 110,
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
+
+    npc_prime = NPC("prime", "nuldar", "", "", "", 125, 525, True, False, ["Items"], False, graphic_dict["prime"])
+    npc_jez = NPC("jez", "nuldar", "", "", "", 265, 525, True, False, ["Items"], False, graphic_dict["jez"])
 
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
         Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
@@ -2018,7 +2021,7 @@ if __name__ == '__main__':
 
     quest_star_apothecary = UiElement("quest star apothecary", 796, 85, graphic_dict["building_npc_star_available"])
 
-    player_battle_sprite = BattleCharacter("stan battle", 320, 460, graphic_dict["player_no_role_amuna_battle"])
+    player_battle_sprite = BattleCharacter("stan battle", 375, 450, graphic_dict["player_no_role_amuna_battle"])
     snake_battle_sprite = BattleCharacter("snake battle", 715, 250, graphic_dict["snake_battle"])
     ghoul_battle_sprite = BattleCharacter("ghoul battle", 698, 280, graphic_dict["ghoul_battle"])
     chorizon_battle_sprite = BattleCharacter("chorizon battle", 720, 325, graphic_dict["chorizon_battle"])
@@ -2054,6 +2057,9 @@ if __name__ == '__main__':
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
     button_highlight = UiElement("button_highlight", 200, 200, graphic_dict["main high"])
+
+    prime_popup = UiElement("prime popup", 125, 475, graphic_dict["popup_interaction"])
+    jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
 
     world_map = UiElement("world map", 769, 332, graphic_dict["world_map"])
     korlok_map_button = UiElement("seldon map button", 663, 238, graphic_dict["map_button"])
@@ -2282,6 +2288,10 @@ if __name__ == '__main__':
     korlok_attuned = False
     eldream_attuned = False
     apothecary_access = False
+    prime_1 = False
+    prime_2 = False
+    jez_1 = False
+    jez_2 = False
 
     over_world_song_set = False
     battle_song_set = False
@@ -2318,8 +2328,6 @@ if __name__ == '__main__':
     buy_window = []
     loot_popup_container = []
     loot_text_container = []
-    game_guide_container = []
-    world_map_container = []
 
     info_text_1 = ''
     info_text_2 = ''
@@ -2744,14 +2752,17 @@ if __name__ == '__main__':
                                     save_check_window.clear()
                                 if len(drawing_functions.first_quest_window) > 0:
                                     drawing_functions.first_quest_window.clear()
-                                if len(world_map_container) > 0:
-                                    world_map_container.clear()
+                                if len(drawing_functions.world_map_container) > 0:
+                                    drawing_functions.world_map_container.clear()
+
                                 # clear character or journal sheet
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 drawing_functions.journal_info_draw(journal, player, font, False)
 
                             # "F" key for player interaction
                             if event.key == K_f:
+                                if len(drawing_functions.game_guide_container) > 0:
+                                    drawing_functions.game_guide_container.clear()
                                 if player.current_zone == "nascent":
                                     if pygame.sprite.spritecollideany(player, interactables_nascent):
                                         interacted = True
@@ -2865,7 +2876,7 @@ if __name__ == '__main__':
                                     character_button_clicked = False
                                     drawing_functions.journal_info_draw(journal, player, font, False)
                                     journal_button_clicked = False
-                                    world_map_container.clear()
+                                    drawing_functions.world_map_container.clear()
                                     map_button_clicked = False
 
                                     saving = True
@@ -2925,7 +2936,7 @@ if __name__ == '__main__':
                                 # clears other open windows first, if they were open
                                 drawing_functions.journal_info_draw(journal, player, font, False)
                                 journal_button_clicked = False
-                                world_map_container.clear()
+                                drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
                                 save_check_window.clear()
                                 saving = False
@@ -2942,7 +2953,7 @@ if __name__ == '__main__':
                                 # clears other windows first, if they were open
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 character_button_clicked = False
-                                world_map_container.clear()
+                                drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
                                 save_check_window.clear()
                                 saving = False
@@ -3087,8 +3098,8 @@ if __name__ == '__main__':
                                                              chorizon_battle_sprite, muchador_battle_sprite,
                                                              barrier_active, sharp_sense_active, in_npc_interaction,
                                                              amuna_buildings, npcs_seldon, save_check_window,
-                                                             user_interface, world_map_container, bar_backdrop, hp_bar,
-                                                             en_bar, xp_bar, button_highlighted, button_highlight,
+                                                             user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                             button_highlighted, button_highlight,
                                                              knowledge_academia_show, knowledge_academia,
                                                              rest_recover_show, rest_shown_before, rest_recover,
                                                              quest_guide_shown, game_guide_overlay, enemy_tic, npc_tic,
@@ -3155,12 +3166,12 @@ if __name__ == '__main__':
                                                              nuldar_buildings, rohir_gate, hearth_stone, mines_entrance,
                                                              magmons, interaction_popup, font, bridge_not_repaired,
                                                              reservoir_enter, rock_1, rock_2, save_check_window,
-                                                             user_interface, world_map_container, bar_backdrop, hp_bar,
-                                                             en_bar, xp_bar, button_highlighted, button_highlight,
-                                                             in_over_world, korlok_attuned, interacted, info_text_1,
-                                                             info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic,
-                                                             in_battle, in_shop, in_academia, in_inn,
-                                                             in_npc_interaction, movement_able, current_enemy_battling,
+                                                             user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                             button_highlighted, button_highlight, in_over_world,
+                                                             korlok_attuned, interacted, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, enemy_tic, npc_tic, in_battle,
+                                                             in_shop, in_academia, in_inn, in_npc_interaction,
+                                                             movement_able, current_enemy_battling,
                                                              current_npc_interacting, current_building_entering,
                                                              korlok_enemies, player_battle_sprite, snake_battle_sprite,
                                                              ghoul_battle_sprite, chorizon_battle_sprite,
@@ -3215,11 +3226,11 @@ if __name__ == '__main__':
                     mines_returned = mines.korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg,
                                                         korlok_overworld_music, over_world_song_set, bandiles,
                                                         interaction_popup, font, save_check_window, user_interface,
-                                                        world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                        button_highlighted, button_highlight, in_over_world,
-                                                        interacted, info_text_1, info_text_2, info_text_3, info_text_4,
-                                                        enemy_tic, npc_tic, in_battle, in_npc_interaction,
-                                                        movement_able, current_enemy_battling, player_battle_sprite,
+                                                        bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
+                                                        button_highlight, in_over_world, interacted, info_text_1,
+                                                        info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic,
+                                                        in_battle, in_npc_interaction, movement_able,
+                                                        current_enemy_battling, player_battle_sprite,
                                                         snake_battle_sprite, ghoul_battle_sprite,
                                                         chorizon_battle_sprite, muchador_battle_sprite,
                                                         chinzilla_battle_sprite, barrier_active,
@@ -3228,7 +3239,8 @@ if __name__ == '__main__':
                                                         interactables_seldon, interactables_korlok, Enemy, Item,
                                                         UiElement, interactables_mines, ores, equipment_screen, staff,
                                                         sword, bow, npc_garan, offense_meter, defense_meter,
-                                                        weapon_select)
+                                                        weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup,
+                                                        jez_popup, prime_1, prime_2, jez_1, jez_2)
 
                     over_world_song_set = mines_returned["over_world_song_set"]
                     interacted = mines_returned["interacted"]
@@ -3242,6 +3254,10 @@ if __name__ == '__main__':
                     info_text_2 = mines_returned["info_text_2"]
                     info_text_3 = mines_returned["info_text_3"]
                     info_text_4 = mines_returned["info_text_4"]
+                    prime_1 = mines_returned["prime_1"]
+                    prime_2 = mines_returned["prime_2"]
+                    jez_1 = mines_returned["jez_1"]
+                    jez_2 = mines_returned["jez_2"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -3261,9 +3277,9 @@ if __name__ == '__main__':
                     trail_returned = trail.terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg,
                                                        korlok_overworld_music, over_world_song_set,
                                                        interaction_popup, font, save_check_window, user_interface,
-                                                       world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                       button_highlighted, button_highlight, in_over_world, interacted,
-                                                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic,
+                                                       bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
+                                                       button_highlight, in_over_world, interacted, info_text_1,
+                                                       info_text_2, info_text_3, info_text_4, npc_tic,
                                                        in_npc_interaction, in_battle, movement_able,
                                                        current_enemy_battling, quest_star_garan, quest_star_maurelle,
                                                        quest_star_celeste, quest_star_torune, quest_star_voruke,
@@ -3315,11 +3331,10 @@ if __name__ == '__main__':
                                                                   chorizon_battle_sprite, muchador_battle_sprite,
                                                                   barrier_active, sharp_sense_active,
                                                                   in_npc_interaction, stardust_entrance,
-                                                                  save_check_window, user_interface,
-                                                                  world_map_container, bar_backdrop, hp_bar, en_bar,
-                                                                  xp_bar, button_highlighted, button_highlight,
-                                                                  npc_tic, info_text_1, info_text_2, info_text_3,
-                                                                  info_text_4, current_enemy_battling,
+                                                                  save_check_window, user_interface, bar_backdrop,
+                                                                  hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                  button_highlight, npc_tic, info_text_1, info_text_2,
+                                                                  info_text_3, info_text_4, current_enemy_battling,
                                                                   current_building_entering, in_battle, movement_able,
                                                                   in_shop, magmon_battle_sprite, bandile_battle_sprite,
                                                                   chinzilla_battle_sprite, equipment_screen, staff,
@@ -3359,12 +3374,11 @@ if __name__ == '__main__':
                     rohir_returned = rohir.rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg,
                                                        dungeon_entrance, water_1, water_2, water_3, water_4, water_5,
                                                        water_player, graphic_dict, save_check_window, user_interface,
-                                                       world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, font,
-                                                       info_text_1, info_text_2, info_text_3, info_text_4,
-                                                       in_over_world, button_highlighted, button_highlight,
-                                                       rohir_river_music, interaction_popup, interacted,
-                                                       equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                                                       defense_meter, weapon_select)
+                                                       bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1,
+                                                       info_text_2, info_text_3, info_text_4, in_over_world,
+                                                       button_highlighted, button_highlight, rohir_river_music,
+                                                       interaction_popup, interacted, equipment_screen, staff, sword,
+                                                       bow, npc_garan, offense_meter, defense_meter, weapon_select)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -3392,13 +3406,12 @@ if __name__ == '__main__':
                     reservoir_a_returned = reservoir.reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player,
                                                                  reservoir_a_bg, reservoir_music, over_world_song_set,
                                                                  interaction_popup, font, save_check_window,
-                                                                 user_interface, world_map_container,
-                                                                 loot_popup_container, loot_text_container,
-                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                 button_highlighted, button_highlight, in_over_world,
-                                                                 interacted, info_text_1, info_text_2, info_text_3,
-                                                                 info_text_4, switch_1, dungeon_switch_1, switch_2,
-                                                                 dungeon_switch_2, switch_3, dungeon_switch_3,
+                                                                 user_interface, loot_popup_container,
+                                                                 loot_text_container, bar_backdrop, hp_bar, en_bar,
+                                                                 xp_bar, button_highlighted, button_highlight,
+                                                                 in_over_world, interacted, info_text_1, info_text_2,
+                                                                 info_text_3, info_text_4, switch_1, dungeon_switch_1,
+                                                                 switch_2, dungeon_switch_2, switch_3, dungeon_switch_3,
                                                                  dungeon_walls, dungeon_items, dungeon_teleporter,
                                                                  mini_boss_1, dungeon_drop_wall, chorizon_1,
                                                                  mini_boss_2, chorizon_2, crate_1, Item, crate_2,
@@ -3457,10 +3470,10 @@ if __name__ == '__main__':
                                                                  ghoul_battle_sprite, chorizon_battle_sprite,
                                                                  muchador_battle_sprite, barrier_active,
                                                                  sharp_sense_active, in_npc_interaction, user_interface,
-                                                                 world_map_container, bar_backdrop, hp_bar, en_bar,
-                                                                 xp_bar, button_highlighted, button_highlight,
-                                                                 info_text_1, info_text_2, info_text_3, info_text_4,
-                                                                 in_over_world, switch_1, switch_2, switch_3, has_key,
+                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                 button_highlighted, button_highlight, info_text_1,
+                                                                 info_text_2, info_text_3, info_text_4, in_over_world,
+                                                                 switch_1, switch_2, switch_3, has_key,
                                                                  magmon_battle_sprite, bandile_battle_sprite,
                                                                  chinzilla_battle_sprite, equipment_screen, staff,
                                                                  sword, bow, npc_garan, offense_meter, defense_meter,
@@ -3498,15 +3511,14 @@ if __name__ == '__main__':
                     reservoir_c_returned = reservoir.reservoir_c(pygame, player, screen, graphic_dict,
                                                                  over_world_song_set, reservoir_music,
                                                                  interaction_popup, font, interacted, save_check_window,
-                                                                 user_interface, world_map_container, bar_backdrop,
-                                                                 hp_bar, en_bar, xp_bar, button_highlighted,
-                                                                 button_highlight, reservoir_c_bg, dungeon_chest,
-                                                                 reservoir_exit, rock_1, rock_2, gloves_obtained,
-                                                                 power_gloves, info_text_1, info_text_2, info_text_3,
-                                                                 info_text_4, in_over_world, has_key,
-                                                                 muchador_lights_on, hearth_stone, equipment_screen,
-                                                                 staff, sword, bow, npc_garan, offense_meter,
-                                                                 defense_meter, weapon_select)
+                                                                 user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                 button_highlighted, button_highlight, reservoir_c_bg,
+                                                                 dungeon_chest, reservoir_exit, rock_1, rock_2,
+                                                                 gloves_obtained, power_gloves, info_text_1,
+                                                                 info_text_2, info_text_3, info_text_4, in_over_world,
+                                                                 has_key, muchador_lights_on, hearth_stone,
+                                                                 equipment_screen, staff, sword, bow, npc_garan,
+                                                                 offense_meter, defense_meter, weapon_select)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -3552,7 +3564,7 @@ if __name__ == '__main__':
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
 
                             if game_guide_overlay.rect.collidepoint(pos):
-                                game_guide_container.clear()
+                                drawing_functions.game_guide_container.clear()
 
                         # get which button player pressed during combat scenario
                         combat_button = click_handlers.combat_event_button(event, no_role_attack_button,
@@ -3590,7 +3602,7 @@ if __name__ == '__main__':
 
                         if combat_button == "attack" or attack_hotkey:
                             first_battle_cond = False
-                            game_guide_container.clear()
+                            drawing_functions.game_guide_container.clear()
                             if not combat_cooldown:
                                 attack_hotkey = False
                                 combat_scenario.combat_animation(player, current_enemy_battling, player_battle_sprite,
@@ -3851,7 +3863,7 @@ if __name__ == '__main__':
                             text_enemy_name_surf = font.render(str(current_enemy_battling.kind), True, "black",
                                                                (255, 204, 203))
                             text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                            text_enemy_name_rect.center = (805, 689)
+                            text_enemy_name_rect.center = (808, 689)
                             screen.blit(text_enemy_name_surf, text_enemy_name_rect)
                             text_enemy_level_surf = font.render(str(current_enemy_battling.level), True, "black",
                                                                 (255, 204, 203))
@@ -3872,7 +3884,7 @@ if __name__ == '__main__':
                                 game_guide_overlay.update(game_guide_overlay.x_coordinate,
                                                           game_guide_overlay.y_coordinate,
                                                           graphic_dict["guide_basics_battle_img"])
-                                game_guide_container.append(game_guide_overlay)
+                                drawing_functions.game_guide_container.append(game_guide_overlay)
                                 battle_guide_shown = True
 
                             if first_battle_cond:
@@ -3911,10 +3923,6 @@ if __name__ == '__main__':
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
-
-                        if len(game_guide_container) > 0:
-                            for guide_overlay in game_guide_container:
-                                screen.blit(guide_overlay.surf, guide_overlay.rect)
 
                         pygame.display.flip()
                         combat_cooldown = False
@@ -3997,10 +4005,6 @@ if __name__ == '__main__':
                             damage_received_rect.center = (125, 275)
                             screen.blit(damage_received_surf, damage_received_rect)
 
-                        if len(game_guide_container) > 0:
-                            for guide_overlay in game_guide_container:
-                                screen.blit(guide_overlay.surf, guide_overlay.rect)
-
                         pygame.display.flip()
                         combat_cooldown = True
                         # when combat happens, apply a short cooldown so attack button can't be spammed
@@ -4079,8 +4083,6 @@ if __name__ == '__main__':
 
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
-                            if game_guide_overlay.rect.collidepoint(pos):
-                                game_guide_container.clear()
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 shop_cat_pet = True
 
@@ -4360,10 +4362,6 @@ if __name__ == '__main__':
                         if player.quest_complete["it's dangerous to go alone"]:
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-
-                        if len(game_guide_container) > 0:
-                            for guide_overlay in game_guide_container:
-                                screen.blit(guide_overlay.surf, guide_overlay.rect)
 
                         if first_shop_cond:
                             directional_arrow.update(855, 620, graphic_dict["arrow_down"])
@@ -4906,8 +4904,8 @@ if __name__ == '__main__':
 
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
-                            if kirean_complete_quest_window.rect.collidepoint(pos):
-                                drawing_functions.quest_complete_box.clear()
+
+                            drawing_functions.quest_complete_box.clear()
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
@@ -5031,6 +5029,7 @@ if __name__ == '__main__':
                             in_apothecary = False
                             in_over_world = True
                             building_song_set = False
+                            drawing_functions.quest_complete_box.clear()
 
                     # outside of inn event loop ------------------------------------------------------------------------
                     if not encounter_started:
@@ -5367,6 +5366,7 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
+                                        player.rupees += 10
                                         # autosave on quest complete
                                         try:
                                             gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
@@ -5736,7 +5736,6 @@ if __name__ == '__main__':
                                                           chinzilla_battle_sprite, barrier_active,
                                                           sharp_sense_active, in_battle, in_npc_interaction,
                                                           graphic_dict)
-                        screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
@@ -5760,6 +5759,7 @@ if __name__ == '__main__':
                             screen.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
                         if current_npc_interacting.name == "dionte":
                             screen.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
+                        screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(npc_name_plate.surf, npc_name_plate.rect)
                         screen.blit(message_box.surf, message_box.rect)
                         screen.blit(star_power_meter.surf, star_power_meter.rect)

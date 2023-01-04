@@ -214,6 +214,10 @@ def load_game(player, Item, graphics):
                     player.items.append(Item("shiny rock", "rock", 200, 200, graphics["shiny_rock_img"], 0))
                 if item == "bone dust":
                     player.items.append(Item("bone dust", "dust", 200, 200, graphics["bone_dust_img"], 0))
+                if item == "cracked ember":
+                    player.items.append(Item("cracked ember", "ember", 200, 200, graphics["ember"], 0))
+                if item == "broken band":
+                    player.items.append(Item("broken band", "band", 200, 200, graphics["band"], 0))
                 if item == "boss key":
                     player.items.append(Item("boss key", "key", 200, 200, graphics["key_img"], 0))
                 if item == "power gloves":
@@ -438,14 +442,16 @@ def attack_enemy(player, mob):
     attack_dict = {"damage": 0, "effective": False, "non effective": False}
 
     # base damage
-    if player.offense == 1:
+    if player.offense == 0:
         damage = 5
-    if player.offense == 2:
+    if player.offense == 1:
         damage = 6
-    if player.offense == 3:
+    if player.offense == 2:
         damage = 7
-    if player.offense == 4:
+    if player.offense == 3:
         damage = 8
+    if player.offense == 4:
+        damage = 9
 
     # increase or decrease damage based on type advantage/disadvantage
     if player.role == "mage":

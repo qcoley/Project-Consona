@@ -101,6 +101,15 @@ def draw_it(screen):
 def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
 
     if npc_garan.gift:
+        if player.offense == 0:
+            if len(weapon_container) > 3:
+                weapon_container.clear()
+            staff.update(staff.x_coordinate, staff.y_coordinate, graphics["staff_0"])
+            sword.update(sword.x_coordinate, sword.y_coordinate, graphics["sword_0"])
+            bow.update(bow.x_coordinate, bow.y_coordinate, graphics["bow_0"])
+            weapon_container.append(staff)
+            weapon_container.append(sword)
+            weapon_container.append(bow)
         if player.offense == 1:
             if len(weapon_container) > 3:
                 weapon_container.clear()

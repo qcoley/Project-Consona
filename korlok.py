@@ -9,8 +9,8 @@ import gameplay_functions
 def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, korlok_overworld_music,
                     over_world_song_set, nuldar_buildings, rohir_gate, hearth_stone, mines_entrance, magmons,
                     interaction_popup, font, bridge_not_repaired, reservoir_enter, rock_1, rock_2, save_check_window,
-                    user_interface, world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
-                    button_highlight, in_over_world, korlok_attuned, interacted, info_text_1, info_text_2, info_text_3,
+                    user_interface, bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight,
+                    in_over_world, korlok_attuned, interacted, info_text_1, info_text_2, info_text_3,
                     info_text_4, enemy_tic, npc_tic, in_battle, in_shop, in_academia, in_inn, in_npc_interaction,
                     movement_able, current_enemy_battling, current_npc_interacting, current_building_entering,
                     korlok_enemies, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
@@ -130,7 +130,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, nuldar_buildings)
-    if building and in_over_world:
+    if building and in_over_world and building != reservoir_enter:
 
         interaction_popup.update(building.x_coordinate, building.y_coordinate - 50,
                                  graphic_dict["popup_interaction"])
@@ -251,8 +251,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
         screen.blit(ui_elements.surf, ui_elements.rect)
-    for maps in world_map_container:
-        screen.blit(maps.surf, maps.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:

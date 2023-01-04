@@ -3,10 +3,9 @@ import drawing_functions
 
 def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dungeon_entrance, water_1, water_2,
                 water_3, water_4, water_5, water_player, graphic_dict, save_check_window, user_interface,
-                world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2,
-                info_text_3, info_text_4, in_over_world, button_highlighted, button_highlight, rohir_river_music,
-                interaction_popup, interacted, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                defense_meter, weapon_select):
+                bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                in_over_world, button_highlighted, button_highlight, rohir_river_music, interaction_popup, interacted,
+                equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(100)
@@ -35,8 +34,6 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
         screen.blit(ui_elements.surf, ui_elements.rect)
-    for maps in world_map_container:
-        screen.blit(maps.surf, maps.rect)
 
     screen.blit(bar_backdrop.surf, bar_backdrop.rect)
     screen.blit(hp_bar.surf, hp_bar.rect)

@@ -689,13 +689,20 @@ def load_graphics():
     loaded_dict["zerah_up"] = zerah_sheet[1]
     loaded_dict["zerah_left"] = zerah_sheet[2]
     loaded_dict["zerah_right"] = zerah_sheet[3]
-    # garan npc --------------------------------------------------------------------------------------------------------
+    # dionte npc -------------------------------------------------------------------------------------------------------
     dionte_url = resource_path('resources/art/sprites_diontes.png')
     dionte_sheet = sprite_sheet((40, 62), dionte_url)
     loaded_dict["dionte_down"] = dionte_sheet[0]
     loaded_dict["dionte_up"] = dionte_sheet[1]
     loaded_dict["dionte_left"] = dionte_sheet[2]
     loaded_dict["dionte_right"] = dionte_sheet[3]
+    # prime and jez npc ------------------------------------------------------------------------------------------------
+    prime_jez_url = resource_path('resources/art/sprites_prime_jez.png')
+    prime_jez_sheet = sprite_sheet((55, 68), prime_jez_url)
+    loaded_dict["prime"] = prime_jez_sheet[0]
+    loaded_dict["jez"] = prime_jez_sheet[1]
+    loaded_dict["prime_flip"] = prime_jez_sheet[2]
+    loaded_dict["jez_flip"] = prime_jez_sheet[3]
     # npc interactions -------------------------------------------------------------------------------------------------
     npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
     npc_interactions_sheet = sprite_sheet((220, 300), npc_interactions_url)
@@ -787,18 +794,21 @@ def load_graphics():
     # weapons ----------------------------------------------------------------------------------------------------------
     weapons_url = resource_path('resources/art/overlay_weapon_tiers.png')
     weapons_sheet = sprite_sheet((50, 50), weapons_url)
-    loaded_dict["staff_1"] = weapons_sheet[0]
-    loaded_dict["staff_2"] = weapons_sheet[1]
-    loaded_dict["staff_3"] = weapons_sheet[2]
-    loaded_dict["staff_4"] = weapons_sheet[3]
-    loaded_dict["sword_1"] = weapons_sheet[4]
-    loaded_dict["sword_2"] = weapons_sheet[5]
-    loaded_dict["sword_3"] = weapons_sheet[6]
-    loaded_dict["sword_4"] = weapons_sheet[7]
-    loaded_dict["bow_1"] = weapons_sheet[8]
-    loaded_dict["bow_2"] = weapons_sheet[9]
-    loaded_dict["bow_3"] = weapons_sheet[10]
-    loaded_dict["bow_4"] = weapons_sheet[11]
+    loaded_dict["staff_0"] = weapons_sheet[0]
+    loaded_dict["staff_1"] = weapons_sheet[1]
+    loaded_dict["staff_2"] = weapons_sheet[2]
+    loaded_dict["staff_3"] = weapons_sheet[3]
+    loaded_dict["staff_4"] = weapons_sheet[4]
+    loaded_dict["sword_0"] = weapons_sheet[5]
+    loaded_dict["sword_1"] = weapons_sheet[6]
+    loaded_dict["sword_2"] = weapons_sheet[7]
+    loaded_dict["sword_3"] = weapons_sheet[8]
+    loaded_dict["sword_4"] = weapons_sheet[9]
+    loaded_dict["bow_0"] = weapons_sheet[10]
+    loaded_dict["bow_1"] = weapons_sheet[11]
+    loaded_dict["bow_2"] = weapons_sheet[12]
+    loaded_dict["bow_3"] = weapons_sheet[13]
+    loaded_dict["bow_4"] = weapons_sheet[14]
     # armor ------------------------------------------------------------------------------------------------------------
     armor_url = resource_path('resources/art/overlay_armor_tiers.png')
     armor_sheet = sprite_sheet((50, 50), armor_url)

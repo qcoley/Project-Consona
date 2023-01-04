@@ -415,27 +415,38 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
         if player.role == "fighter":
             if hard_strike_learned:
                 if enemy_combating.alive_status:
-                    striked = random.randrange(25, 35)  # hard strike damage
+                    striked = random.randrange(15, 20)  # hard strike damage
                     enemy_combating.health = enemy_combating.health - striked
                     enemy_health_bar(enemy_combating, graphics)
                     if enemy_combating.health > 0:
-                        attacked_enemy_string = f"Hard strike did {striked} damage!"
+                        attacked_enemy_string = f" You did {striked} damage to {enemy_combating.kind}."
                         combat_event_dictionary["damage done"] = striked
+                        # add damage to enemy to event dictionary to be returned to main loop
                         combat_event_dictionary["damage done string"] = attacked_enemy_string
-                        damage_to_player = gameplay_functions.attack_player(player, enemy_combating)
+
+                        # returns total damage output from enemy as attacked_player_health value
+                        defend_dict = gameplay_functions.attack_player(player, enemy_combating)
+                        combat_event_dictionary["effective enemy"] = defend_dict["effective"]
+                        combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
+                        damage_to_player = defend_dict["damage"]
+
                         if damage_to_player > 0:
-                            attacked_player_string = f"You take {damage_to_player} damage from " \
-                                                     f"{enemy_combating.name}."
+                            attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.kind}."
                             player.health = player.health - damage_to_player
                             combat_event_dictionary["damage taken"] = damage_to_player
+                            # add damage done to player from enemy to dictionary
                             combat_event_dictionary["damage taken string"] = attacked_player_string
+
+                            # player health is less than or equal to 0, player is dead
                             if player.health <= 0:
                                 player.alive_status = False
                             return combat_event_dictionary
                         else:
-                            enemy_miss_string = f'{enemy_combating.name} missed.'
+                            enemy_miss_string = f'{enemy_combating.kind} missed.'
+                            # add to dictionary that enemy did no damage to player
                             combat_event_dictionary["damage taken string"] = enemy_miss_string
                             return combat_event_dictionary
+
                     else:
                         if enemy_combating.kind == "snake":
                             if player.quest_status["sneaky snakes"]:

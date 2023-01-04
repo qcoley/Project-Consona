@@ -3,17 +3,16 @@ import combat_scenario
 
 
 def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a_bg, reservoir_music,
-                over_world_song_set, interaction_popup, font, save_check_window, user_interface, world_map_container,
-                loot_popup_container, loot_text_container, bar_backdrop, hp_bar, en_bar, xp_bar,
-                button_highlighted, button_highlight, in_over_world, interacted,
-                info_text_1, info_text_2, info_text_3, info_text_4, switch_1, dungeon_switch_1, switch_2,
-                dungeon_switch_2, switch_3, dungeon_switch_3, dungeon_walls, dungeon_items, dungeon_teleporter,
-                mini_boss_1, dungeon_drop_wall, chorizon_1, mini_boss_2, chorizon_2, crate_1, Item, crate_2, crate_3,
-                crate_4, mini_boss_1_defeated, mini_boss_2_defeated, boss_enemies, player_battle_sprite,
-                snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                barrier_active, sharp_sense_active, in_npc_interaction, magmon_battle_sprite, bandile_battle_sprite,
-                chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
-                weapon_select):
+                over_world_song_set, interaction_popup, font, save_check_window, user_interface, loot_popup_container,
+                loot_text_container, bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight,
+                in_over_world, interacted, info_text_1, info_text_2, info_text_3, info_text_4, switch_1,
+                dungeon_switch_1, switch_2, dungeon_switch_2, switch_3, dungeon_switch_3, dungeon_walls, dungeon_items,
+                dungeon_teleporter, mini_boss_1, dungeon_drop_wall, chorizon_1, mini_boss_2, chorizon_2, crate_1, Item,
+                crate_2, crate_3, crate_4, mini_boss_1_defeated, mini_boss_2_defeated, boss_enemies,
+                player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
+                muchador_battle_sprite, barrier_active, sharp_sense_active, in_npc_interaction, magmon_battle_sprite,
+                bandile_battle_sprite, chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan,
+                offense_meter, defense_meter, weapon_select):
 
     in_battle = False
 
@@ -100,8 +99,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                     if len(player.items) < 16:
                         info_text_1 = "You found a golden key!"
                         info_text_2 = ""
-                        player.items.append(Item("boss key", "key", 200, 200,
-                                                 graphic_dict["key_img"], 0))
+                        player.items.append(Item("boss key", "key", 200, 200, graphic_dict["key_img"], 0))
                         crate_2 = True
                         item.kill()
                     else:
@@ -228,8 +226,6 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
         screen.blit(ui_elements.surf, ui_elements.rect)
-    for maps in world_map_container:
-        screen.blit(maps.surf, maps.rect)
 
     if len(loot_popup_container) > 0:
         for popup in loot_popup_container:
@@ -270,8 +266,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 muchador_crate_4, reservoir_passage, interaction_popup, font, interacted, SCREEN_WIDTH,
                 save_check_window, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                 chorizon_battle_sprite, muchador_battle_sprite, barrier_active, sharp_sense_active,
-                in_npc_interaction, user_interface, world_map_container, bar_backdrop, hp_bar, en_bar, xp_bar,
-                button_highlighted, button_highlight, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
+                in_npc_interaction, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
+                button_highlight, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 switch_1, switch_2, switch_3, has_key, magmon_battle_sprite, bandile_battle_sprite,
                 chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
                 weapon_select):
@@ -435,8 +431,6 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
         screen.blit(ui_elements.surf, ui_elements.rect)
-    for maps in world_map_container:
-        screen.blit(maps.surf, maps.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
@@ -471,11 +465,11 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
 
 def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reservoir_music, interaction_popup, font,
-                interacted, save_check_window, user_interface, world_map_container, bar_backdrop, hp_bar, en_bar,
-                xp_bar, button_highlighted, button_highlight, reservoir_c_bg, dungeon_chest, reservoir_exit,
-                rock_1, rock_2, gloves_obtained, power_gloves, info_text_1, info_text_2, info_text_3, info_text_4,
-                in_over_world, has_key, muchador_lights_on, hearth_stone, equipment_screen, staff, sword, bow,
-                npc_garan, offense_meter, defense_meter, weapon_select):
+                interacted, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
+                button_highlight, reservoir_c_bg, dungeon_chest, reservoir_exit, rock_1, rock_2, gloves_obtained,
+                power_gloves, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, has_key,
+                muchador_lights_on, hearth_stone, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
+                defense_meter, weapon_select):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -598,8 +592,6 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
         screen.blit(ui_elements.surf, ui_elements.rect)
-    for maps in world_map_container:
-        screen.blit(maps.surf, maps.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:

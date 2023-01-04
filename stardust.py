@@ -9,12 +9,11 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      nede_sprite_reset, nede, graphic_dict, ghoul_nede, nede_ghoul_defeated, interaction_popup, font,
                      interacted, in_over_world, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                      chorizon_battle_sprite, muchador_battle_sprite, barrier_active, sharp_sense_active,
-                     in_npc_interaction, stardust_entrance, save_check_window, user_interface, world_map_container,
-                     bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, npc_tic, info_text_1,
-                     info_text_2, info_text_3, info_text_4, current_enemy_battling, current_building_entering,
-                     in_battle, movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite,
-                     chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                     defense_meter, weapon_select):
+                     in_npc_interaction, stardust_entrance, save_check_window, user_interface, bar_backdrop, hp_bar,
+                     en_bar, xp_bar, button_highlighted, button_highlight, npc_tic, info_text_1, info_text_2,
+                     info_text_3, info_text_4, current_enemy_battling, current_building_entering, in_battle,
+                     movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite,  chinzilla_battle_sprite,
+                     equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select):
 
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
@@ -146,8 +145,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
         screen.blit(ui_elements.surf, ui_elements.rect)
-    for maps in world_map_container:
-        screen.blit(maps.surf, maps.rect)
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
