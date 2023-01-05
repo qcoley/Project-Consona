@@ -113,6 +113,7 @@ def load_graphics():
     book_high = pygame.image.load(resource_path('resources/art/book_button_highlight.png')).convert_alpha()
     save_hearth_high = pygame.image.load(resource_path('resources/art/buttons_small_high.png')).convert_alpha()
     lets_go_high = pygame.image.load(resource_path('resources/art/button_lets_go_highlight.png')).convert_alpha()
+    water_player = pygame.image.load(resource_path('resources/art/overlay_water_player.png')).convert_alpha()
     water = pygame.image.load(resource_path('resources/art/overlay_water.png')).convert_alpha()
     dungeon_entrance = pygame.image.load(resource_path('resources/art/overlay_dungeon_entrance.png')).convert_alpha()
     world_map = pygame.image.load(resource_path('resources/art/consona_region_map.png')).convert_alpha()
@@ -221,6 +222,7 @@ def load_graphics():
     loaded_dict["apothis_4"] = apothis_scene_4
     loaded_dict["apothis_5"] = apothis_scene_5
     loaded_dict["apothis_6"] = apothis_scene_6
+    loaded_dict["water_player"] = water_player
     loaded_dict["water"] = water
     loaded_dict["dungeon_entrance"] = dungeon_entrance
     loaded_dict["world_map"] = world_map
@@ -256,6 +258,18 @@ def load_graphics():
     loaded_dict["amuna_character_img"] = character_selections_sheet[0]
     loaded_dict["nuldar_character_img"] = character_selections_sheet[1]
     loaded_dict["sorae_character_img"] = character_selections_sheet[2]
+    # player character cutscene overlays -------------------------------------------------------------------------------
+    player_cutscene_url = resource_path('resources/art/overlay_player_cutscene.png')
+    player_cutscene_sheet = sprite_sheet((90, 160), player_cutscene_url)
+    loaded_dict["amuna_cutscene"] = player_cutscene_sheet[0]
+    loaded_dict["nuldar_cutscene"] = player_cutscene_sheet[1]
+    loaded_dict["sorae_cutscene"] = player_cutscene_sheet[2]
+    # player character cutscene overlays 2 -----------------------------------------------------------------------------
+    player_cutscene_2_url = resource_path('resources/art/overlay_player_cutscene_2.png')
+    player_cutscene_2_sheet = sprite_sheet((500, 668), player_cutscene_2_url)
+    loaded_dict["amuna_cutscene_2"] = player_cutscene_2_sheet[0]
+    loaded_dict["nuldar_cutscene_2"] = player_cutscene_2_sheet[1]
+    loaded_dict["sorae_cutscene_2"] = player_cutscene_2_sheet[2]
     # race selection lore overlays -------------------------------------------------------------------------------------
     race_lore_url = resource_path('resources/art/overlays_race_select.png')
     race_lore_sheet = sprite_sheet((278, 372), race_lore_url)

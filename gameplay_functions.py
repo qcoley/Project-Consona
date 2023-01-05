@@ -99,9 +99,9 @@ def npc_quest_star_updates(screen, player, star_garan, star_maurelle, star_celes
         if not player.quest_complete["sneaky snakes"]:
             screen.blit(star_garan.surf, star_garan.rect)
         if player.quest_progress["sneaky snakes"] == 4:
-            star_garan.update(210, 390, quest_complete_star)
+            star_garan.update(209, 390, quest_complete_star)
         if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
-            star_garan.update(210, 390, quest_progress_star)
+            star_garan.update(209, 390, quest_progress_star)
 
         if not player.quest_complete["where's nede?"]:
             screen.blit(star_celeste.surf, star_celeste.rect)

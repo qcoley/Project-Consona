@@ -5,7 +5,7 @@ from pygame import QUIT
 
 
 def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, scene_4, scene_5, scene_6, cutscene_tic,
-                             skip_button):
+                             skip_button, player_overlay, player_overlay_2):
 
     in_cutscene = True
     first_viewed = False
@@ -38,6 +38,7 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             for alpha in range(0, 255):
                 scene_1.set_alpha(alpha)
                 screen.blit(scene_1, (0, 0))
+                screen.blit(player_overlay.surf, player_overlay.rect)
                 screen.blit(skip_button.surf, skip_button.rect)
                 pygame.display.flip()
             first_viewed = True
@@ -78,6 +79,7 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                 for alpha in range(0, 255):
                     scene_5.set_alpha(alpha)
                     screen.blit(scene_5, (0, 0))
+                    screen.blit(player_overlay_2.surf, player_overlay_2.rect)
                     screen.blit(skip_button.surf, skip_button.rect)
                     pygame.display.flip()
                 fifth_viewed = True

@@ -12,13 +12,13 @@ import drawing_functions
 import combat_scenario
 import character_creation
 import shop_scenario
-import korlok
-import reservoir
-import rohir
-import stardust
-import seldon
-import mines
-import trail
+import zone_korlok
+import zone_reservoir
+import zone_rohir
+import zone_stardust
+import zone_seldon
+import zone_mines
+import zone_terra_trail
 
 # global variables
 SCREEN_WIDTH = 1280
@@ -1715,6 +1715,9 @@ if __name__ == '__main__':
     apothis_scene_5 = graphic_dict["apothis_5"]
     apothis_scene_6 = graphic_dict["apothis_6"]
 
+    player_cutscene_overlay = UiElement("player cutscene", 800, 225, graphic_dict["amuna_cutscene"])
+    player_cutscene_overlay_2 = UiElement("player cutscene 2", 300, 400, graphic_dict["amuna_cutscene_2"])
+
     # display notifications --------------------------------------------------------------------------------------------
     knowledge_academia = Notification("knowledge academia notification", False, 510, 365,
                                       graphic_dict["knowledge_popup"])
@@ -1804,14 +1807,14 @@ if __name__ == '__main__':
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
         Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
-    npc_garan_interaction = UiElement("garan interaction", 647, 360, graphic_dict["garan_interaction"])
-    npc_maurelle_interaction = UiElement("maurelle interaction", 641, 360, graphic_dict["maurelle_interaction"])
-    npc_celeste_interaction = UiElement("celeste interaction", 639, 360, graphic_dict["celeste_interaction"])
-    npc_torune_interaction = UiElement("torune interaction", 635, 360, graphic_dict["torune_interaction"])
+    npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
+    npc_maurelle_interaction = UiElement("maurelle interaction", 675, 325, graphic_dict["maurelle_interaction"])
+    npc_celeste_interaction = UiElement("celeste interaction", 675, 325, graphic_dict["celeste_interaction"])
+    npc_torune_interaction = UiElement("torune interaction", 670, 335, graphic_dict["torune_interaction"])
 
-    npc_voruke_interaction = UiElement("voruke interaction", 640, 360, graphic_dict["voruke_interaction"])
-    npc_zerah_interaction = UiElement("zerah interaction", 640, 360, graphic_dict["zerah_interaction"])
-    npc_dionte_interaction = UiElement("dionte interaction", 647, 360, graphic_dict["dionte_interaction"])
+    npc_voruke_interaction = UiElement("voruke interaction", 678, 325, graphic_dict["voruke_interaction"])
+    npc_zerah_interaction = UiElement("zerah interaction", 675, 325, graphic_dict["zerah_interaction"])
+    npc_dionte_interaction = UiElement("dionte interaction", 675, 325, graphic_dict["dionte_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -1840,8 +1843,8 @@ if __name__ == '__main__':
                         Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_nede = Enemy("nede ghoul", "ghoul", 100, 100, 3, 450, 455, True,
-                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
-                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+                       Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
+                       graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # reservoir enemies ------------------------------------------------------------------------------------------------
     chorizon_1 = Enemy("chorizon_1", "chorizon", 100, 100, 7, 150, 230, True, "item", graphic_dict["chorizon"],
                        UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
@@ -1863,20 +1866,20 @@ if __name__ == '__main__':
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
                      graphic_dict["magmon"], UiElement("magmon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     bandile_1 = Enemy("bandile", "bandile", 100, 100, 8, 655, 245, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
-                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
+                      Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                      graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     bandile_2 = Enemy("bandile", "bandile", 100, 100, 9, 765, 165, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
-                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
+                      Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                      graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     bandile_3 = Enemy("bandile", "bandile", 100, 100, 7, 765, 335, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
-                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
+                      Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                      graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     bandile_4 = Enemy("bandile", "bandile", 100, 100, 8, 880, 245, True,
-                        Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
-                        graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
+                      Item("broken band", "band", 200, 200, graphic_dict["band"], 0),
+                      graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     # terra cave enemy -------------------------------------------------------------------------------------------------
     chinzilla = Enemy("chinzilla", "chinzilla", 100, 100, 14, 350, 360, True, "item", graphic_dict["chinzilla"],
@@ -1982,7 +1985,7 @@ if __name__ == '__main__':
     quest_logs_4 = Item("pine logs", "quest", 100, 540, graphic_dict["pine_logs_img"], 0)
     nede = Item("nede", "quest", 650, 450, graphic_dict["nede_left"], 0)
     nede_big = UiElement("big nede", 840, 270, graphic_dict["nede_big"])
-    npc_name_plate = UiElement("npc name plate", 638, 192, graphic_dict["npc_name_plate"])
+    npc_name_plate = UiElement("npc name plate", 675, 165, graphic_dict["npc_name_plate"])
     buy_inventory = Inventory("buy inventory", [], 900, 500, graphic_dict["buy_inventory"])
     knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
 
@@ -2009,7 +2012,7 @@ if __name__ == '__main__':
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
     enemy_status_bar_back = UiElement("enemy bar backdrop", 700, 90, graphic_dict["enemy_bar_backdrop"])
 
-    quest_star_garan = UiElement("quest star garan", 210, 390, graphic_dict["quest_start_star"])
+    quest_star_garan = UiElement("quest star garan", 209, 390, graphic_dict["quest_start_star"])
     quest_star_maurelle = UiElement("quest star maurelle", 744, 575, graphic_dict["quest_start_star"])
     quest_star_celeste = UiElement("quest star maurelle", 760, 373, graphic_dict["quest_start_star"])
     quest_star_torune = UiElement("quest star torune", 430, 75, graphic_dict["quest_start_star"])
@@ -2043,12 +2046,12 @@ if __name__ == '__main__':
     stardust_star_overlay_korlok = UiElement("stardust stars korlok", 236, 295, graphic_dict["stardust_star_01_korlok"])
     directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
 
-    water_player = UiElement("water", 855, 620, graphic_dict["water"])
-    water_1 = UiElement("water", 855, 525, graphic_dict["water"])
+    water_player = UiElement("water", 855, 620, graphic_dict["water_player"])
+    water_1 = UiElement("water", 855, 450, graphic_dict["water"])
     water_2 = UiElement("water", 855, 200, graphic_dict["water"])
-    water_3 = UiElement("water", 500, 500, graphic_dict["water"])
-    water_4 = UiElement("water", 575, 250, graphic_dict["water"])
-    water_5 = UiElement("water", 650, 575, graphic_dict["water"])
+    water_3 = UiElement("water", 500, 425, graphic_dict["water"])
+    water_4 = UiElement("water", 575, 275, graphic_dict["water"])
+    water_5 = UiElement("water", 700, 525, graphic_dict["water"])
     korlok_mountains = UiElement("korlok mountains", 241, 251, graphic_dict["korlok_mountains"])
 
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
@@ -2288,9 +2291,9 @@ if __name__ == '__main__':
     korlok_attuned = False
     eldream_attuned = False
     apothecary_access = False
-    prime_1 = False
+    prime_1 = True
     prime_2 = False
-    jez_1 = False
+    jez_1 = True
     jez_2 = False
 
     over_world_song_set = False
@@ -2300,6 +2303,8 @@ if __name__ == '__main__':
 
     attack_hotkey = False
     skill_1_hotkey = False
+
+    beyond_seldon = False
 
     # reservoir dungeon conditions
     crate_1 = False
@@ -2761,8 +2766,18 @@ if __name__ == '__main__':
 
                             # "F" key for player interaction
                             if event.key == K_f:
+                                if len(drawing_functions.knowledge_academia_window) > 0:
+                                    drawing_functions.knowledge_academia_window.clear()
+                                if len(drawing_functions.rest_recover_window) > 0:
+                                    drawing_functions.rest_recover_window.clear()
                                 if len(drawing_functions.game_guide_container) > 0:
                                     drawing_functions.game_guide_container.clear()
+                                if len(save_check_window) > 0:
+                                    save_check_window.clear()
+                                if len(drawing_functions.first_quest_window) > 0:
+                                    drawing_functions.first_quest_window.clear()
+                                if len(drawing_functions.world_map_container) > 0:
+                                    drawing_functions.world_map_container.clear()
                                 if player.current_zone == "nascent":
                                     if pygame.sprite.spritecollideany(player, interactables_nascent):
                                         interacted = True
@@ -3081,38 +3096,43 @@ if __name__ == '__main__':
                 if player.current_zone == "seldon" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    seldon_returned = seldon.seldon_district(pygame, player, screen, graphic_dict, rohir_gate,
-                                                             hearth_stone, over_world_song_set, seldon_overworld_music,
-                                                             seldon_district_bg, seldon_enemies, korlok_enemies, snakes,
-                                                             ghouls, magmons, bandiles, interactables_seldon,
-                                                             interactables_korlok, Enemy, Item, UiElement, most_sprites,
-                                                             quest_items_seldon, log_sprite_reset, snake_sprite_reset,
-                                                             ghoul_sprite_reset, nede, quest_star_garan,
-                                                             quest_star_maurelle, quest_star_celeste, quest_star_torune,
-                                                             interaction_popup, font, interacted, in_over_world,
-                                                             bridge_not_repaired, bridge_cutscenes_not_viewed,
-                                                             apothis_intro_music, apothis_scene_1, apothis_scene_2,
-                                                             apothis_scene_3, apothis_scene_4, apothis_scene_5,
-                                                             apothis_scene_6, skip_button, player_battle_sprite,
-                                                             snake_battle_sprite, ghoul_battle_sprite,
-                                                             chorizon_battle_sprite, muchador_battle_sprite,
-                                                             barrier_active, sharp_sense_active, in_npc_interaction,
-                                                             amuna_buildings, npcs_seldon, save_check_window,
-                                                             user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                             button_highlighted, button_highlight,
-                                                             knowledge_academia_show, knowledge_academia,
-                                                             rest_recover_show, rest_shown_before, rest_recover,
-                                                             quest_guide_shown, game_guide_overlay, enemy_tic, npc_tic,
-                                                             npc_garan, npc_maurelle, npc_celeste,
-                                                             npc_torune, info_text_1, info_text_2, info_text_3,
-                                                             info_text_4, in_battle, in_shop, in_academia, in_inn,
-                                                             movement_able, current_enemy_battling,
-                                                             current_npc_interacting, current_building_entering,
-                                                             magmon_battle_sprite, bandile_battle_sprite,
-                                                             chinzilla_battle_sprite, interactables_mines,
-                                                             quest_star_voruke, quest_star_zerah, quest_star_kirean,
-                                                             quest_star_dionte, equipment_screen, staff, sword, bow,
-                                                             offense_meter, defense_meter, weapon_select)
+                    seldon_returned = zone_seldon.seldon_district(pygame, player, screen, graphic_dict, rohir_gate,
+                                                                  hearth_stone, over_world_song_set,
+                                                                  seldon_overworld_music, seldon_district_bg,
+                                                                  seldon_enemies, korlok_enemies, snakes,
+                                                                  ghouls, magmons, bandiles, interactables_seldon,
+                                                                  interactables_korlok, Enemy, Item, UiElement,
+                                                                  most_sprites, quest_items_seldon, log_sprite_reset,
+                                                                  snake_sprite_reset, ghoul_sprite_reset, nede,
+                                                                  quest_star_garan, quest_star_maurelle,
+                                                                  quest_star_celeste, quest_star_torune,
+                                                                  interaction_popup, font, interacted, in_over_world,
+                                                                  bridge_not_repaired, bridge_cutscenes_not_viewed,
+                                                                  apothis_intro_music, apothis_scene_1, apothis_scene_2,
+                                                                  apothis_scene_3, apothis_scene_4, apothis_scene_5,
+                                                                  apothis_scene_6, skip_button, player_battle_sprite,
+                                                                  snake_battle_sprite, ghoul_battle_sprite,
+                                                                  chorizon_battle_sprite, muchador_battle_sprite,
+                                                                  barrier_active, sharp_sense_active,
+                                                                  in_npc_interaction, amuna_buildings, npcs_seldon,
+                                                                  save_check_window, user_interface, bar_backdrop,
+                                                                  hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                  button_highlight, knowledge_academia_show,
+                                                                  knowledge_academia, rest_recover_show,
+                                                                  rest_shown_before, rest_recover, quest_guide_shown,
+                                                                  game_guide_overlay, enemy_tic, npc_tic, npc_garan,
+                                                                  npc_maurelle, npc_celeste, npc_torune, info_text_1,
+                                                                  info_text_2, info_text_3, info_text_4, in_battle,
+                                                                  in_shop, in_academia, in_inn, movement_able,
+                                                                  current_enemy_battling, current_npc_interacting,
+                                                                  current_building_entering, magmon_battle_sprite,
+                                                                  bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                  interactables_mines, quest_star_voruke,
+                                                                  quest_star_zerah, quest_star_kirean,
+                                                                  quest_star_dionte, equipment_screen, staff, sword,
+                                                                  bow, offense_meter, defense_meter, weapon_select,
+                                                                  player_cutscene_overlay, player_cutscene_overlay_2,
+                                                                  beyond_seldon)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -3161,31 +3181,35 @@ if __name__ == '__main__':
                 if player.current_zone == "korlok" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    korlok_returned = korlok.korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg,
-                                                             korlok_overworld_music, over_world_song_set,
-                                                             nuldar_buildings, rohir_gate, hearth_stone, mines_entrance,
-                                                             magmons, interaction_popup, font, bridge_not_repaired,
-                                                             reservoir_enter, rock_1, rock_2, save_check_window,
-                                                             user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                             button_highlighted, button_highlight, in_over_world,
-                                                             korlok_attuned, interacted, info_text_1, info_text_2,
-                                                             info_text_3, info_text_4, enemy_tic, npc_tic, in_battle,
-                                                             in_shop, in_academia, in_inn, in_npc_interaction,
-                                                             movement_able, current_enemy_battling,
-                                                             current_npc_interacting, current_building_entering,
-                                                             korlok_enemies, player_battle_sprite, snake_battle_sprite,
-                                                             ghoul_battle_sprite, chorizon_battle_sprite,
-                                                             muchador_battle_sprite, barrier_active, sharp_sense_active,
-                                                             magmon_battle_sprite, bandile_battle_sprite,
-                                                             chinzilla_battle_sprite, npc_voruke,
-                                                             npc_zerah, npcs_korlok, seldon_enemies, snakes, ghouls,
-                                                             bandiles, interactables_seldon, interactables_korlok,
-                                                             Enemy, Item, UiElement, interactables_mines,
-                                                             quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                                             quest_star_torune, quest_star_voruke, quest_star_zerah,
-                                                             korlok_mountains, in_apothecary, quest_star_kirean,
-                                                             quest_star_dionte, equipment_screen, staff, sword, bow,
-                                                             npc_garan, offense_meter, defense_meter, weapon_select)
+                    korlok_returned = zone_korlok.korlok_district(pygame, screen, graphic_dict, player,
+                                                                  korlok_district_bg, korlok_overworld_music,
+                                                                  over_world_song_set, nuldar_buildings, rohir_gate,
+                                                                  hearth_stone, mines_entrance, magmons,
+                                                                  interaction_popup, font, bridge_not_repaired,
+                                                                  reservoir_enter, rock_1, rock_2, save_check_window,
+                                                                  user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                  button_highlighted, button_highlight, in_over_world,
+                                                                  korlok_attuned, interacted, info_text_1, info_text_2,
+                                                                  info_text_3, info_text_4, enemy_tic, npc_tic,
+                                                                  in_battle, in_shop, in_academia, in_inn,
+                                                                  in_npc_interaction, movement_able,
+                                                                  current_enemy_battling, current_npc_interacting,
+                                                                  current_building_entering, korlok_enemies,
+                                                                  player_battle_sprite, snake_battle_sprite,
+                                                                  ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                  muchador_battle_sprite, barrier_active,
+                                                                  sharp_sense_active, magmon_battle_sprite,
+                                                                  bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                  npc_voruke, npc_zerah, npcs_korlok, seldon_enemies,
+                                                                  snakes, ghouls, bandiles, interactables_seldon,
+                                                                  interactables_korlok, Enemy, Item, UiElement,
+                                                                  interactables_mines, quest_star_garan,
+                                                                  quest_star_maurelle, quest_star_celeste,
+                                                                  quest_star_torune, quest_star_voruke,
+                                                                  quest_star_zerah, korlok_mountains, in_apothecary,
+                                                                  quest_star_kirean, quest_star_dionte,
+                                                                  equipment_screen, staff, sword, bow, npc_garan,
+                                                                  offense_meter, defense_meter, weapon_select)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -3223,24 +3247,25 @@ if __name__ == '__main__':
                 if player.current_zone == "mines" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    mines_returned = mines.korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg,
-                                                        korlok_overworld_music, over_world_song_set, bandiles,
-                                                        interaction_popup, font, save_check_window, user_interface,
-                                                        bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
-                                                        button_highlight, in_over_world, interacted, info_text_1,
-                                                        info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic,
-                                                        in_battle, in_npc_interaction, movement_able,
-                                                        current_enemy_battling, player_battle_sprite,
-                                                        snake_battle_sprite, ghoul_battle_sprite,
-                                                        chorizon_battle_sprite, muchador_battle_sprite,
-                                                        chinzilla_battle_sprite, barrier_active,
-                                                        sharp_sense_active, magmon_battle_sprite, bandile_battle_sprite,
-                                                        seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
-                                                        interactables_seldon, interactables_korlok, Enemy, Item,
-                                                        UiElement, interactables_mines, ores, equipment_screen, staff,
-                                                        sword, bow, npc_garan, offense_meter, defense_meter,
-                                                        weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup,
-                                                        jez_popup, prime_1, prime_2, jez_1, jez_2)
+                    mines_returned = zone_mines.korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg,
+                                                             korlok_overworld_music, over_world_song_set, bandiles,
+                                                             interaction_popup, font, save_check_window, user_interface,
+                                                             bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
+                                                             button_highlight, in_over_world, interacted, info_text_1,
+                                                             info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic,
+                                                             in_battle, in_npc_interaction, movement_able,
+                                                             current_enemy_battling, player_battle_sprite,
+                                                             snake_battle_sprite, ghoul_battle_sprite,
+                                                             chorizon_battle_sprite, muchador_battle_sprite,
+                                                             chinzilla_battle_sprite, barrier_active,
+                                                             sharp_sense_active, magmon_battle_sprite,
+                                                             bandile_battle_sprite, seldon_enemies, korlok_enemies,
+                                                             snakes, ghouls, magmons, interactables_seldon,
+                                                             interactables_korlok, Enemy, Item, UiElement,
+                                                             interactables_mines, ores, equipment_screen, staff,
+                                                             sword, bow, npc_garan, offense_meter, defense_meter,
+                                                             weapon_select, hearth_stone, npc_prime, npc_jez,
+                                                             prime_popup, jez_popup, prime_1, prime_2, jez_1, jez_2)
 
                     over_world_song_set = mines_returned["over_world_song_set"]
                     interacted = mines_returned["interacted"]
@@ -3274,24 +3299,28 @@ if __name__ == '__main__':
                 if player.current_zone == "terra trail" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    trail_returned = trail.terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg,
-                                                       korlok_overworld_music, over_world_song_set,
-                                                       interaction_popup, font, save_check_window, user_interface,
-                                                       bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
-                                                       button_highlight, in_over_world, interacted, info_text_1,
-                                                       info_text_2, info_text_3, info_text_4, npc_tic,
-                                                       in_npc_interaction, in_battle, movement_able,
-                                                       current_enemy_battling, quest_star_garan, quest_star_maurelle,
-                                                       quest_star_celeste, quest_star_torune, quest_star_voruke,
-                                                       quest_star_zerah, quest_star_apothecary, terra_mountains,
-                                                       terra_cave, npc_dionte, quest_star_dionte, Enemy,
-                                                       player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
-                                                       chorizon_battle_sprite, muchador_battle_sprite,
-                                                       magmon_battle_sprite, bandile_battle_sprite,
-                                                       chinzilla_battle_sprite, barrier_active, sharp_sense_active,
-                                                       current_npc_interacting, chinzilla, quest_star_dionte,
-                                                       hearth_stone, equipment_screen, staff, sword, bow, npc_garan,
-                                                       offense_meter, defense_meter, weapon_select)
+                    trail_returned = zone_terra_trail.terra_trail(pygame, screen, graphic_dict, player,
+                                                                  mountain_trail_bg, korlok_overworld_music,
+                                                                  over_world_song_set, interaction_popup, font,
+                                                                  save_check_window, user_interface, bar_backdrop,
+                                                                  hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                  button_highlight, in_over_world, interacted,
+                                                                  info_text_1, info_text_2, info_text_3, info_text_4,
+                                                                  npc_tic, in_npc_interaction, in_battle, movement_able,
+                                                                  current_enemy_battling, quest_star_garan,
+                                                                  quest_star_maurelle, quest_star_celeste,
+                                                                  quest_star_torune, quest_star_voruke,
+                                                                  quest_star_zerah, quest_star_apothecary,
+                                                                  terra_mountains, terra_cave, npc_dionte,
+                                                                  quest_star_dionte, Enemy, player_battle_sprite,
+                                                                  snake_battle_sprite, ghoul_battle_sprite,
+                                                                  chorizon_battle_sprite, muchador_battle_sprite,
+                                                                  magmon_battle_sprite, bandile_battle_sprite,
+                                                                  chinzilla_battle_sprite, barrier_active,
+                                                                  sharp_sense_active, current_npc_interacting,
+                                                                  chinzilla, quest_star_dionte, hearth_stone,
+                                                                  equipment_screen, staff, sword, bow, npc_garan,
+                                                                  offense_meter, defense_meter, weapon_select)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -3322,24 +3351,26 @@ if __name__ == '__main__':
                 if player.current_zone == "stardust" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    stardust_returned = stardust.stardust_outpost(pygame, player, screen, stardust_song_set,
-                                                                  stardust_outpost_music, stardust_cove_bg,
-                                                                  nede_sprite_reset, nede, graphic_dict, ghoul_nede,
-                                                                  nede_ghoul_defeated, interaction_popup, font,
-                                                                  interacted, in_over_world, player_battle_sprite,
-                                                                  snake_battle_sprite, ghoul_battle_sprite,
-                                                                  chorizon_battle_sprite, muchador_battle_sprite,
-                                                                  barrier_active, sharp_sense_active,
-                                                                  in_npc_interaction, stardust_entrance,
-                                                                  save_check_window, user_interface, bar_backdrop,
-                                                                  hp_bar, en_bar, xp_bar, button_highlighted,
-                                                                  button_highlight, npc_tic, info_text_1, info_text_2,
-                                                                  info_text_3, info_text_4, current_enemy_battling,
-                                                                  current_building_entering, in_battle, movement_able,
-                                                                  in_shop, magmon_battle_sprite, bandile_battle_sprite,
-                                                                  chinzilla_battle_sprite, equipment_screen, staff,
-                                                                  sword, bow, npc_garan, offense_meter, defense_meter,
-                                                                  weapon_select)
+                    stardust_returned = zone_stardust.stardust_outpost(pygame, player, screen, stardust_song_set,
+                                                                       stardust_outpost_music, stardust_cove_bg,
+                                                                       nede_sprite_reset, nede, graphic_dict,
+                                                                       ghoul_nede, nede_ghoul_defeated,
+                                                                       interaction_popup, font, interacted,
+                                                                       in_over_world, player_battle_sprite,
+                                                                       snake_battle_sprite, ghoul_battle_sprite,
+                                                                       chorizon_battle_sprite, muchador_battle_sprite,
+                                                                       barrier_active, sharp_sense_active,
+                                                                       in_npc_interaction, stardust_entrance,
+                                                                       save_check_window, user_interface, bar_backdrop,
+                                                                       hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                       button_highlight, npc_tic, info_text_1,
+                                                                       info_text_2, info_text_3, info_text_4,
+                                                                       current_enemy_battling,
+                                                                       current_building_entering, in_battle,
+                                                                       movement_able, in_shop, magmon_battle_sprite,
+                                                                       bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                       equipment_screen, staff, sword, bow, npc_garan,
+                                                                       offense_meter, defense_meter, weapon_select)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -3371,14 +3402,15 @@ if __name__ == '__main__':
                 if player.current_zone == "rohir" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    rohir_returned = rohir.rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg,
-                                                       dungeon_entrance, water_1, water_2, water_3, water_4, water_5,
-                                                       water_player, graphic_dict, save_check_window, user_interface,
-                                                       bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1,
-                                                       info_text_2, info_text_3, info_text_4, in_over_world,
-                                                       button_highlighted, button_highlight, rohir_river_music,
-                                                       interaction_popup, interacted, equipment_screen, staff, sword,
-                                                       bow, npc_garan, offense_meter, defense_meter, weapon_select)
+                    rohir_returned = zone_rohir.rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg,
+                                                            dungeon_entrance, water_1, water_2, water_3, water_4,
+                                                            water_5, water_player, graphic_dict, save_check_window,
+                                                            user_interface, bar_backdrop, hp_bar, en_bar, xp_bar, font,
+                                                            info_text_1, info_text_2, info_text_3, info_text_4,
+                                                            in_over_world, button_highlighted, button_highlight,
+                                                            rohir_river_music, interaction_popup, interacted,
+                                                            equipment_screen, staff, sword, bow, npc_garan,
+                                                            offense_meter, defense_meter, weapon_select, beyond_seldon)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -3387,6 +3419,7 @@ if __name__ == '__main__':
                     info_text_4 = rohir_returned["info_text_4"]
                     in_over_world = rohir_returned["in_over_world"]
                     interacted = rohir_returned["interacted"]
+                    beyond_seldon = rohir_returned["beyond seldon"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -3403,28 +3436,30 @@ if __name__ == '__main__':
                 if player.current_zone == "reservoir a" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    reservoir_a_returned = reservoir.reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player,
-                                                                 reservoir_a_bg, reservoir_music, over_world_song_set,
-                                                                 interaction_popup, font, save_check_window,
-                                                                 user_interface, loot_popup_container,
-                                                                 loot_text_container, bar_backdrop, hp_bar, en_bar,
-                                                                 xp_bar, button_highlighted, button_highlight,
-                                                                 in_over_world, interacted, info_text_1, info_text_2,
-                                                                 info_text_3, info_text_4, switch_1, dungeon_switch_1,
-                                                                 switch_2, dungeon_switch_2, switch_3, dungeon_switch_3,
-                                                                 dungeon_walls, dungeon_items, dungeon_teleporter,
-                                                                 mini_boss_1, dungeon_drop_wall, chorizon_1,
-                                                                 mini_boss_2, chorizon_2, crate_1, Item, crate_2,
-                                                                 crate_3, crate_4, mini_boss_1_defeated,
-                                                                 mini_boss_2_defeated, boss_enemies,
-                                                                 player_battle_sprite, snake_battle_sprite,
-                                                                 ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                 muchador_battle_sprite, barrier_active,
-                                                                 sharp_sense_active, in_npc_interaction,
-                                                                 magmon_battle_sprite, bandile_battle_sprite,
-                                                                 chinzilla_battle_sprite, equipment_screen, staff,
-                                                                 sword, bow, npc_garan, offense_meter, defense_meter,
-                                                                 weapon_select)
+                    reservoir_a_returned = zone_reservoir.reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict,
+                                                                      player, reservoir_a_bg, reservoir_music,
+                                                                      over_world_song_set, interaction_popup, font,
+                                                                      save_check_window, user_interface,
+                                                                      loot_popup_container, loot_text_container,
+                                                                      bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                      button_highlighted, button_highlight,
+                                                                      in_over_world, interacted, info_text_1,
+                                                                      info_text_2, info_text_3, info_text_4, switch_1,
+                                                                      dungeon_switch_1, switch_2, dungeon_switch_2,
+                                                                      switch_3, dungeon_switch_3, dungeon_walls,
+                                                                      dungeon_items, dungeon_teleporter, mini_boss_1,
+                                                                      dungeon_drop_wall, chorizon_1, mini_boss_2,
+                                                                      chorizon_2, crate_1, Item, crate_2, crate_3,
+                                                                      crate_4, mini_boss_1_defeated,
+                                                                      mini_boss_2_defeated, boss_enemies,
+                                                                      player_battle_sprite, snake_battle_sprite,
+                                                                      ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                      muchador_battle_sprite, barrier_active,
+                                                                      sharp_sense_active, in_npc_interaction,
+                                                                      magmon_battle_sprite, bandile_battle_sprite,
+                                                                      chinzilla_battle_sprite, equipment_screen, staff,
+                                                                      sword, bow, npc_garan, offense_meter,
+                                                                      defense_meter, weapon_select)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -3458,26 +3493,27 @@ if __name__ == '__main__':
                 if player.current_zone == "reservoir b" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    reservoir_b_returned = reservoir.reservoir_b(pygame, player, screen, graphic_dict,
-                                                                 over_world_song_set, reservoir_music,
-                                                                 dungeon_teleporter, reservoir_b_bg, dungeon_gate,
-                                                                 crate_5, dungeon_crate_5, muchador_lights_on,
-                                                                 muchador_arena, muchador_defeated, muchador,
-                                                                 muchador_crate_1, muchador_crate_2, muchador_crate_3,
-                                                                 muchador_crate_4, reservoir_passage, interaction_popup,
-                                                                 font, interacted, SCREEN_WIDTH, save_check_window,
-                                                                 player_battle_sprite, snake_battle_sprite,
-                                                                 ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                 muchador_battle_sprite, barrier_active,
-                                                                 sharp_sense_active, in_npc_interaction, user_interface,
-                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                 button_highlighted, button_highlight, info_text_1,
-                                                                 info_text_2, info_text_3, info_text_4, in_over_world,
-                                                                 switch_1, switch_2, switch_3, has_key,
-                                                                 magmon_battle_sprite, bandile_battle_sprite,
-                                                                 chinzilla_battle_sprite, equipment_screen, staff,
-                                                                 sword, bow, npc_garan, offense_meter, defense_meter,
-                                                                 weapon_select)
+                    reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, screen, graphic_dict,
+                                                                      over_world_song_set, reservoir_music,
+                                                                      dungeon_teleporter, reservoir_b_bg, dungeon_gate,
+                                                                      crate_5, dungeon_crate_5, muchador_lights_on,
+                                                                      muchador_arena, muchador_defeated, muchador,
+                                                                      muchador_crate_1, muchador_crate_2,
+                                                                      muchador_crate_3, muchador_crate_4,
+                                                                      reservoir_passage, interaction_popup,
+                                                                      font, interacted, SCREEN_WIDTH, save_check_window,
+                                                                      player_battle_sprite, snake_battle_sprite,
+                                                                      ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                      muchador_battle_sprite, barrier_active,
+                                                                      sharp_sense_active, in_npc_interaction,
+                                                                      user_interface, bar_backdrop, hp_bar, en_bar,
+                                                                      xp_bar, button_highlighted, button_highlight,
+                                                                      info_text_1, info_text_2, info_text_3,
+                                                                      info_text_4, in_over_world, switch_1, switch_2,
+                                                                      switch_3, has_key, magmon_battle_sprite,
+                                                                      bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                      equipment_screen, staff, sword, bow, npc_garan,
+                                                                      offense_meter, defense_meter, weapon_select)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -3508,17 +3544,18 @@ if __name__ == '__main__':
                 if player.current_zone == "reservoir c" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    reservoir_c_returned = reservoir.reservoir_c(pygame, player, screen, graphic_dict,
-                                                                 over_world_song_set, reservoir_music,
-                                                                 interaction_popup, font, interacted, save_check_window,
-                                                                 user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                 button_highlighted, button_highlight, reservoir_c_bg,
-                                                                 dungeon_chest, reservoir_exit, rock_1, rock_2,
-                                                                 gloves_obtained, power_gloves, info_text_1,
-                                                                 info_text_2, info_text_3, info_text_4, in_over_world,
-                                                                 has_key, muchador_lights_on, hearth_stone,
-                                                                 equipment_screen, staff, sword, bow, npc_garan,
-                                                                 offense_meter, defense_meter, weapon_select)
+                    reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, screen, graphic_dict,
+                                                                      over_world_song_set, reservoir_music,
+                                                                      interaction_popup, font, interacted,
+                                                                      save_check_window, user_interface, bar_backdrop,
+                                                                      hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                      button_highlight, reservoir_c_bg, dungeon_chest,
+                                                                      reservoir_exit, rock_1, rock_2, gloves_obtained,
+                                                                      power_gloves, info_text_1, info_text_2,
+                                                                      info_text_3, info_text_4, in_over_world, has_key,
+                                                                      muchador_lights_on, hearth_stone,
+                                                                      equipment_screen, staff, sword, bow, npc_garan,
+                                                                      offense_meter, defense_meter, weapon_select)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -4336,30 +4373,47 @@ if __name__ == '__main__':
                             for element in stardust_upgrade_elements:
                                 screen.blit(element.surf, element.rect)
 
-                        # stardust outpost stars on the wall representing player progress in each zone
+                        quests_complete = 0
                         if player.quest_complete["sneaky snakes"]:
+                            quests_complete += 1
+                        if player.quest_complete["village repairs"]:
+                            quests_complete += 1
+                        if player.quest_complete["where's nede?"]:
+                            quests_complete += 1
+                        if player.quest_complete["ghouled again"]:
+                            quests_complete += 1
+                        if player.quest_complete["band hammer"]:
+                            quests_complete += 1
+                        if player.quest_complete["can't apothecary it"]:
+                            quests_complete += 1
+                        if player.quest_complete["elementary elementals"]:
+                            quests_complete += 1
+                        if player.quest_complete["it's dangerous to go alone"]:
+                            quests_complete += 1
+
+                        # stardust outpost stars on the wall representing player progress in each zone
+                        if quests_complete == 1:
                             stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_01"])
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                        if player.quest_complete["village repairs"]:
+                        if quests_complete == 2:
                             stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_02"])
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                        if player.quest_complete["where's nede?"]:
+                        if quests_complete == 3:
                             stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_03"])
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                        if player.quest_complete["ghouled again"]:
+                        if quests_complete == 4:
                             stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-
-                        if player.quest_complete["band hammer"]:
+                        if quests_complete == 5:
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_01_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                        if player.quest_complete["can't apothecary it"]:
+                        if quests_complete == 6:
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_02_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                        if player.quest_complete["elementary elementals"]:
+                        if quests_complete == 7:
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_03_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                        if player.quest_complete["it's dangerous to go alone"]:
+                        if quests_complete == 8:
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
 
@@ -5164,7 +5218,7 @@ if __name__ == '__main__':
                             if current_npc_interacting.name == "dionte":
                                 player.quest_status["it's dangerous to go alone"] = True
                                 player.current_quests["it's dangerous to go alone"] = "Dionte asked you to face the" \
-                                        " monster in the cave."
+                                                                                      " monster in the cave."
                             quest_clicked = False
                             drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
                                                              maurelle_quest_window, celeste_quest_window,
@@ -5630,7 +5684,7 @@ if __name__ == '__main__':
                                     if len(player.items) < 16:
                                         player.quest_complete["it's dangerous to go alone"] = True
                                         player.current_quests["it's dangerous to go alone"] = "You completed this" \
-                                                "quest!"
+                                                                                              "quest!"
                                         info_text_1 = "You've completed Dionte's quest!"
                                         info_text_2 = "Your game has been saved. "
                                         info_text_3 = ""
@@ -5769,7 +5823,7 @@ if __name__ == '__main__':
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
                                                          (203, 195, 227))
                         text_npc_name_rect = text_npc_name_surf.get_rect()
-                        text_npc_name_rect.center = (637, 192)
+                        text_npc_name_rect.center = (675, 165)
                         screen.blit(text_npc_name_surf, text_npc_name_rect)
                         drawing_functions.draw_it(screen)
 
@@ -5838,6 +5892,7 @@ if __name__ == '__main__':
                                 player.x_coordinate = 882
                                 player.y_coordinate = 290
                                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                                hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                             else:
                                 player.current_zone = "seldon"
                                 player.x_coordinate = 860

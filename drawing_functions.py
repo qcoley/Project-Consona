@@ -342,7 +342,21 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     screen.blit(text_level_surf, text_level_rect)
     # current player location for UI overlay ---------------------------------------------------------------------------
     if in_over_world:
-        text_location = font.render(str(player.current_zone), True, "black", "light yellow")
+        if player.current_zone == "seldon":
+            text_location = font.render(str("Seldon"), True, "black", "light yellow")
+        if player.current_zone == "stardust":
+            text_location = font.render(str("Stardust"), True, "black", "light yellow")
+        if player.current_zone == "rohir":
+            text_location = font.render(str("Rohir"), True, "black", "light yellow")
+        if player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or \
+                player.current_zone == "reservoir c":
+            text_location = font.render(str("Reservoir"), True, "black", "light yellow")
+        if player.current_zone == "korlok":
+            text_location = font.render(str("Korlok"), True, "black", "light yellow")
+        if player.current_zone == "mines":
+            text_location = font.render(str("Mines"), True, "black", "light yellow")
+        if player.current_zone == "terra trail":
+            text_location = font.render(str("Terra Trail"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
         screen.blit(text_location, text_location_rect)
