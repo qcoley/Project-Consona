@@ -20,13 +20,14 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     UiElement, interactables_mines, quest_star_garan, quest_star_maurelle, quest_star_celeste,
                     quest_star_torune, star_voruke, star_zerah, korlok_mountains, in_apothecary, star_apothecary,
                     star_dionte, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
-                    weapon_select):
+                    weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
-                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement)
+                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement,
+                                                      seldon_flowers)
     korlok_enemies = respawned_dict["korlok_enemies"]
     magmons = respawned_dict["magmons"]
 
@@ -46,6 +47,9 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         over_world_song_set = True
 
     screen.blit(korlok_district_bg, (0, 0))
+    screen.blit(rock_4.surf, rock_4.rect)
+    screen.blit(rock_5.surf, rock_5.rect)
+    screen.blit(rock_6.surf, rock_6.rect)
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
@@ -246,6 +250,87 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     else:
         hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate, graphic_dict["hearth_stone"])
 
+    if pygame.sprite.collide_rect(player, rock_4):
+        interaction_popup.update(rock_4.x_coordinate, rock_4.y_coordinate - 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (rock_4.x_coordinate, rock_4.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world:
+            try:
+                if player.equipment["gloves"].name == "power gloves":
+                    if rock_4.x_coordinate == 400:
+                        rock_4.update(rock_4.x_coordinate - 90, rock_4.y_coordinate, graphic_dict["rock_small"])
+                        if not rock_4_con:
+                            player.rupees += 10
+                            rock_4_con = True
+                            info_text_1 = "You found 10 Rupees under the rock!"
+                            info_text_2 = ""
+                else:
+                    info_text_1 = "The rock won't budge."
+                    info_text_2 = ""
+            except AttributeError:
+                info_text_1 = "The rock won't budge."
+                info_text_2 = ""
+                pass
+            interacted = False
+
+    if pygame.sprite.collide_rect(player, rock_5):
+        interaction_popup.update(rock_5.x_coordinate, rock_5.y_coordinate - 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (rock_5.x_coordinate, rock_5.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world:
+            try:
+                if player.equipment["gloves"].name == "power gloves":
+                    if rock_5.x_coordinate == 660:
+                        rock_5.update(rock_5.x_coordinate + 90, rock_5.y_coordinate, graphic_dict["rock_small"])
+                        if not rock_5_con:
+                            player.rupees += 15
+                            rock_5_con = True
+                            info_text_1 = "You found 15 Rupees under the rock!"
+                            info_text_2 = ""
+                else:
+                    info_text_1 = "The rock won't budge."
+                    info_text_2 = ""
+            except AttributeError:
+                info_text_1 = "The rock won't budge."
+                info_text_2 = ""
+                pass
+            interacted = False
+
+    if pygame.sprite.collide_rect(player, rock_6):
+        interaction_popup.update(rock_6.x_coordinate, rock_6.y_coordinate - 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (rock_6.x_coordinate, rock_6.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world:
+            try:
+                if player.equipment["gloves"].name == "power gloves":
+                    if rock_6.x_coordinate == 750:
+                        rock_6.update(rock_6.x_coordinate + 110, rock_6.y_coordinate, graphic_dict["rock_small"])
+                        if not rock_6_con:
+                            player.rupees += 10
+                            rock_6_con = True
+                            info_text_1 = "You found 10 Rupees under the rock!"
+                            info_text_2 = ""
+                else:
+                    info_text_1 = "The rock won't budge."
+                    info_text_2 = ""
+            except AttributeError:
+                info_text_1 = "The rock won't budge."
+                info_text_2 = ""
+                pass
+            interacted = False
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -327,6 +412,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                      "current_enemy_battling": current_enemy_battling,
                      "current_building_entering": current_building_entering,
                      "current_npc_interacting": current_npc_interacting,
-                     "in_apothecary": in_apothecary}
+                     "in_apothecary": in_apothecary, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
+                     "rock_6_con": rock_6_con}
 
     return korlok_return

@@ -30,7 +30,8 @@ velocity = 2
 class PlayerAmuna(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
-                 energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power):
+                 energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
+                 flowers_sorae):
         super(PlayerAmuna, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -60,6 +61,8 @@ class PlayerAmuna(pygame.sprite.Sprite):
         self.defense = defense
         self.offense = offense
         self.star_power = star_power
+        self.flowers_amuna = flowers_amuna
+        self.flowers_sorae = flowers_sorae
 
     # move the player sprite based on input keys
     def update(self, pressed_key, current_zone, walk_timed):
@@ -399,6 +402,25 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+            if pygame.Rect.colliderect(player.rect, volcano_rect):
+                if player.x_coordinate < volcano_rect.x:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > volcano_rect.x:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < volcano_rect.y:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > volcano_rect.y:
+                    self.y_coordinate += velocity
+            collided = pygame.sprite.spritecollideany(player, korlok_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
         if current_zone == "mines":
             if pygame.sprite.collide_rect(player, mines_wall):
                 if player.x_coordinate < mines_wall.x_coordinate:
@@ -417,6 +439,15 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if player.y_coordinate < mines_light.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_light.y_coordinate:
+                    self.y_coordinate += velocity
+            if pygame.sprite.collide_rect(player, mines_cart):
+                if player.x_coordinate < mines_cart.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > mines_cart.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < mines_cart.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > mines_cart.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "reservoir a":
             if mini_boss_1 or mini_boss_2:
@@ -489,6 +520,29 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > terra_cave.y_coordinate:
                     self.y_coordinate += velocity
+            collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if collided.name == "rock 7":
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
+        if current_zone == "stardust":
+            collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if collided.name == "rock 3":
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -496,7 +550,8 @@ class PlayerAmuna(pygame.sprite.Sprite):
 class PlayerNuldar(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
-                 energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power):
+                 energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
+                 flowers_sorae):
         super(PlayerNuldar, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -526,6 +581,8 @@ class PlayerNuldar(pygame.sprite.Sprite):
         self.defense = defense
         self.offense = offense
         self.star_power = star_power
+        self.flowers_amuna = flowers_amuna
+        self.flowers_sorae = flowers_sorae
 
     def update(self, pressed_key, current_zone, walk_timed):
         if player.role == "":  # ---------------------------------------------------------------------------------------
@@ -863,6 +920,25 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+            if pygame.Rect.colliderect(player.rect, volcano_rect):
+                if player.x_coordinate < volcano_rect.x:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > volcano_rect.x:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < volcano_rect.y:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > volcano_rect.y:
+                    self.y_coordinate += velocity
+            collided = pygame.sprite.spritecollideany(player, korlok_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
         if current_zone == "mines":
             if pygame.sprite.collide_rect(player, mines_wall):
                 if player.x_coordinate < mines_wall.x_coordinate:
@@ -881,6 +957,15 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if player.y_coordinate < mines_light.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_light.y_coordinate:
+                    self.y_coordinate += velocity
+            if pygame.sprite.collide_rect(player, mines_cart):
+                if player.x_coordinate < mines_cart.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > mines_cart.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < mines_cart.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > mines_cart.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "reservoir a":
             if mini_boss_1 or mini_boss_2:
@@ -953,6 +1038,29 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > terra_cave.y_coordinate:
                     self.y_coordinate += velocity
+            collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if collided.name == "rock 7":
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
+        if current_zone == "stardust":
+            collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if collided.name == "rock 3":
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -960,7 +1068,8 @@ class PlayerNuldar(pygame.sprite.Sprite):
 class PlayerSorae(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
-                 energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power):
+                 energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
+                 flowers_sorae):
         super(PlayerSorae, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -990,6 +1099,8 @@ class PlayerSorae(pygame.sprite.Sprite):
         self.defense = defense
         self.offense = offense
         self.star_power = star_power
+        self.flowers_amuna = flowers_amuna
+        self.flowers_sorae = flowers_sorae
 
     def update(self, pressed_key, current_zone, walk_timed):
         if player.role == "":  # ---------------------------------------------------------------------------------------
@@ -1327,6 +1438,25 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+            if pygame.Rect.colliderect(player.rect, volcano_rect):
+                if player.x_coordinate < volcano_rect.x:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > volcano_rect.x:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < volcano_rect.y:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > volcano_rect.y:
+                    self.y_coordinate += velocity
+            collided = pygame.sprite.spritecollideany(player, korlok_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if player.x_coordinate < collided.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > collided.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
         if current_zone == "mines":
             if pygame.sprite.collide_rect(player, mines_wall):
                 if player.x_coordinate < mines_wall.x_coordinate:
@@ -1345,6 +1475,15 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if player.y_coordinate < mines_light.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_light.y_coordinate:
+                    self.y_coordinate += velocity
+            if pygame.sprite.collide_rect(player, mines_cart):
+                if player.x_coordinate < mines_cart.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > mines_cart.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < mines_cart.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > mines_cart.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "reservoir a":
             if mini_boss_1 or mini_boss_2:
@@ -1417,6 +1556,29 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > terra_cave.y_coordinate:
                     self.y_coordinate += velocity
+            collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if collided.name == "rock 7":
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
+        if current_zone == "stardust":
+            collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if collided.name == "rock 3":
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -1732,7 +1894,7 @@ if __name__ == '__main__':
     shiny_rock = Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0)
     bone_dust = Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0)
     # weapons
-    staff = UiElement("staff", 1077, 283, graphic_dict["staff_0"])
+    staff = UiElement("staff", 1080, 283, graphic_dict["staff_0"])
     sword = UiElement("sword", 1155, 283, graphic_dict["sword_0"])
     bow = UiElement("bow", 1230, 283, graphic_dict["bow_0"])
     # armor
@@ -1774,7 +1936,7 @@ if __name__ == '__main__':
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                          1, 0, 100, 100,  # lvl, exp, health, energy
                          True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
-                         "", 0, 0, 0)  # zone, defence, offense, image
+                         "", 0, 0, 0, 0, 0)  # zone, defence, offense, image
 
     # npcs: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate
     #                  alive_status, quest_complete, items, gift, image
@@ -1794,7 +1956,7 @@ if __name__ == '__main__':
     npc_dionte = NPC("dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 625, 110,
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
-    npc_prime = NPC("prime", "nuldar", "", "", "", 125, 525, True, False, ["Items"], False, graphic_dict["prime"])
+    npc_prime = NPC("prime", "nuldar", "", "", "", 130, 525, True, False, ["Items"], False, graphic_dict["prime"])
     npc_jez = NPC("jez", "nuldar", "", "", "", 265, 525, True, False, ["Items"], False, graphic_dict["jez"])
 
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
@@ -1988,6 +2150,7 @@ if __name__ == '__main__':
     npc_name_plate = UiElement("npc name plate", 675, 165, graphic_dict["npc_name_plate"])
     buy_inventory = Inventory("buy inventory", [], 900, 500, graphic_dict["buy_inventory"])
     knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
+    apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
 
     garan_quest_window = UiElement("garan quest window", 262, 443, graphic_dict["garan_quest"])
     garan_complete_quest_window = UiElement("garan quest complete window", 550, 350, graphic_dict["garan_complete"])
@@ -2060,8 +2223,10 @@ if __name__ == '__main__':
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
     button_highlight = UiElement("button_highlight", 200, 200, graphic_dict["main high"])
+    critical_dealt_overlay = UiElement("critical dealt overlay", 905, 180, graphic_dict["critical_dealt"])
+    critical_received_overlay = UiElement("critical received overlay", 65, 230, graphic_dict["critical_received"])
 
-    prime_popup = UiElement("prime popup", 125, 475, graphic_dict["popup_interaction"])
+    prime_popup = UiElement("prime popup", 130, 475, graphic_dict["popup_interaction"])
     jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
 
     world_map = UiElement("world map", 769, 332, graphic_dict["world_map"])
@@ -2097,14 +2262,38 @@ if __name__ == '__main__':
     dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
 
+    volcano_rect = pygame.Rect((450, 15), (100, 50))
+
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
+    mines_cart = UiElement("mines light", 885, 475, graphic_dict["mines_light"])
 
     terra_mountains = UiElement("terra mountains", 250, 270, graphic_dict["terra_mountains"])
     terra_cave = UiElement("terra cave", 100, 400, graphic_dict["terra_cave"])
 
-    rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock_img"], 0)
-    rock_2 = Item("rock 2", "rock", 580, 255, graphic_dict["rock_img"], 0)
+    # dungeon rocks
+    rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock"], 0)
+    rock_2 = Item("rock 2", "rock", 580, 255, graphic_dict["rock"], 0)
+    # stardust rock
+    rock_3 = Item("rock 3", "rock", 675, 80, graphic_dict["rock_small"], 0)
+    # korlok rocks
+    rock_4 = Item("rock 4", "rock", 400, 570, graphic_dict["rock_small"], 0)
+    rock_5 = Item("rock 5", "rock", 660, 570, graphic_dict["rock_small"], 0)
+    rock_6 = Item("rock 6", "rock", 750, 60, graphic_dict["rock_small"], 0)
+    # terra trail rock
+    rock_7 = Item("rock 7", "rock", 485, 395, graphic_dict["rock_small"], 0)
+
+    # flowers for apothecary
+    flower_seldon_1 = Item("flower seldon 1", "flower", 190, 185, graphic_dict["flower_seldon"], 0)
+    flower_seldon_2 = Item("flower seldon 2", "flower", 390, 185, graphic_dict["flower_seldon"], 0)
+    flower_seldon_3 = Item("flower seldon 3", "flower", 150, 425, graphic_dict["flower_seldon"], 0)
+    flower_seldon_4 = Item("flower seldon 4", "flower", 400, 500, graphic_dict["flower_seldon"], 0)
+    flower_seldon_5 = Item("flower seldon 5", "flower", 590, 380, graphic_dict["flower_seldon"], 0)
+
+    flower_eldream_1 = Item("flower eldream 1", "flower", 400, 570, graphic_dict["flower_eldream"], 0)
+    flower_eldream_2 = Item("flower eldream 2", "flower", 660, 570, graphic_dict["flower_eldream"], 0)
+    flower_eldream_3 = Item("flower eldream 3", "flower", 750, 60, graphic_dict["flower_eldream"], 0)
+    flower_eldream_4 = Item("flower eldream 4", "flower", 750, 60, graphic_dict["flower_eldream"], 0)
 
     font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
     level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
@@ -2121,6 +2310,10 @@ if __name__ == '__main__':
     trees = pygame.sprite.Group()
     ores = pygame.sprite.Group()
     dungeon_rocks = pygame.sprite.Group()
+    korlok_rocks = pygame.sprite.Group()
+    other_rocks = pygame.sprite.Group()
+    seldon_flowers = pygame.sprite.Group()
+    eldream_flowers = pygame.sprite.Group()
     amuna_buildings = pygame.sprite.Group()
     nuldar_buildings = pygame.sprite.Group()
     dungeon_walls = pygame.sprite.Group()
@@ -2159,6 +2352,10 @@ if __name__ == '__main__':
     trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
     ores.add(mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
     dungeon_rocks.add(rock_1, rock_2)
+    korlok_rocks.add(rock_4, rock_5, rock_6)
+    other_rocks.add(rock_3, rock_7)
+    seldon_flowers.add(flower_seldon_1, flower_seldon_2, flower_seldon_3, flower_seldon_4, flower_seldon_5)
+    eldream_flowers.add(flower_eldream_1, flower_eldream_2, flower_eldream_3, flower_eldream_4)
     amuna_buildings.add(seldon_inn, seldon_shop, seldon_academia)
     nuldar_buildings.add(korlok_inn, korlok_shop, korlok_herb, reservoir_enter)
     dungeon_walls.add(dungeon_wall_1, dungeon_wall_2, dungeon_wall_3, dungeon_wall_4)
@@ -2171,15 +2368,16 @@ if __name__ == '__main__':
     user_interface.add(rest_button, buy_button, leave_button, character_button, quests_button, save_button,
                        map_button, message_box, location_overlay, star_power_meter)
     interactables_nascent.add(nascent_gate)
-    interactables_seldon.add(npcs_seldon, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon)
-    interactables_stardust.add(stardust_entrance, nede, ghoul_nede)
+    interactables_seldon.add(npcs_seldon, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon,
+                             seldon_flowers)
+    interactables_stardust.add(stardust_entrance, nede, ghoul_nede, rock_3)
     interactables_korlok.add(nuldar_buildings, reservoir_enter, rohir_gate, hearth_stone, korlok_enemies,
-                             mines_entrance, npc_voruke, npc_zerah)
+                             mines_entrance, npc_voruke, npc_zerah, rock_4, rock_5, rock_6)
     interactables_reservoir_a.add(dungeon_items, chorizon_1, chorizon_2, dungeon_teleporter)
     interactables_reservoir_b.add(dungeon_gate, dungeon_teleporter, dungeon_crate_5, muchador, reservoir_passage)
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
     interactables_mines.add(bandiles, mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
-    interactables_terra_trail.add(npc_dionte, terra_cave)
+    interactables_terra_trail.add(npc_dionte, terra_cave, rock_7)
 
     # music tracks
     start_screen_music = resource_path("resources/music/eterna_title.mp3")
@@ -2285,6 +2483,7 @@ if __name__ == '__main__':
     muchador_defeated = False
     mini_boss_1_defeated = False
     mini_boss_2_defeated = False
+    chinzilla_defeated = False
     gloves_obtained = False
     rock_1_moved = False
     rock_2_moved = False
@@ -2293,8 +2492,15 @@ if __name__ == '__main__':
     apothecary_access = False
     prime_1 = True
     prime_2 = False
+    prime_3 = False
     jez_1 = True
     jez_2 = False
+    jez_3 = False
+
+    rock_4_con = False
+    rock_5_con = False
+    rock_6_con = False
+    rock_7_con = False
 
     over_world_song_set = False
     battle_song_set = False
@@ -2463,7 +2669,8 @@ if __name__ == '__main__':
                                                  player.skills_fighter, player.skills_scout, player.level,
                                                  player.experience, player.health, player.energy, player.alive_status,
                                                  player.rupees, player.reputation, player.current_zone, player.defense,
-                                                 player.offense, player.star_power)
+                                                 player.offense, player.star_power, player.flowers_amuna,
+                                                 player.flowers_sorae)
                             player.race = "amuna"
                             player.surf = graphic_dict["player_no_role_amuna_down_1"]
                             player.current_zone = "nascent"
@@ -2477,7 +2684,8 @@ if __name__ == '__main__':
                                                   player.skills_fighter, player.skills_scout, player.level,
                                                   player.experience, player.health, player.energy, player.alive_status,
                                                   player.rupees, player.reputation, player.current_zone, player.defense,
-                                                  player.offense, player.star_power)
+                                                  player.offense, player.star_power, player.flowers_amuna,
+                                                  player.flowers_sorae)
                             player.race = "nuldar"
                             player.surf = graphic_dict["player_no_role_nuldar_down_1"]
                             player.current_zone = "nascent"
@@ -2491,7 +2699,8 @@ if __name__ == '__main__':
                                                  player.skills_fighter, player.skills_scout, player.level,
                                                  player.experience, player.health, player.energy, player.alive_status,
                                                  player.rupees, player.reputation, player.current_zone, player.defense,
-                                                 player.offense, player.star_power)
+                                                 player.offense, player.star_power, player.flowers_amuna,
+                                                 player.flowers_sorae)
                             player.race = "sorae"
                             player.surf = graphic_dict["player_no_role_sorae_down_1"]
                             player.current_zone = "nascent"
@@ -2579,11 +2788,17 @@ if __name__ == '__main__':
                     switch_1 = load_returned["switch_1"]
                     switch_2 = load_returned["switch_2"]
                     switch_3 = load_returned["switch_3"]
+                    rock_4_con = load_returned["rock_4_con"]
+                    rock_5_con = load_returned["rock_5_con"]
+                    rock_6_con = load_returned["rock_6_con"]
+                    rock_7_con = load_returned["rock_7_con"]
                     muchador_defeated = load_returned["muchador_defeated"]
+                    chinzilla_defeated = load_returned["chinzilla_defeated"]
                     has_key = load_returned["has_key"]
                     gloves_obtained = load_returned["gloves_obtained"]
                     korlok_attuned = load_returned["korlok_attuned"]
                     eldream_attuned = load_returned["eldream_attuned"]
+                    apothecary_access = load_returned["apothecary_access"]
 
                     if player.race == "amuna":
                         player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
@@ -2592,7 +2807,8 @@ if __name__ == '__main__':
                                              player.skills_fighter, player.skills_scout, player.level,
                                              player.experience, player.health, player.energy, player.alive_status,
                                              player.rupees, player.reputation, player.current_zone, player.defense,
-                                             player.offense, player.star_power)
+                                             player.offense, player.star_power, player.flowers_amuna,
+                                             player.flowers_sorae)
                         if player.role == "":
                             player.surf = graphic_dict["player_no_role_amuna_down_1"]
                         if player.role == "mage":
@@ -2609,7 +2825,8 @@ if __name__ == '__main__':
                                               player.skills_fighter, player.skills_scout, player.level,
                                               player.experience, player.health, player.energy, player.alive_status,
                                               player.rupees, player.reputation, player.current_zone, player.defense,
-                                              player.offense, player.star_power)
+                                              player.offense, player.star_power, player.flowers_amuna,
+                                              player.flowers_sorae)
                         if player.role == "":
                             player.surf = graphic_dict["player_no_role_nuldar_down_1"]
                         if player.role == "mage":
@@ -2626,7 +2843,8 @@ if __name__ == '__main__':
                                              player.skills_fighter, player.skills_scout, player.level,
                                              player.experience, player.health, player.energy, player.alive_status,
                                              player.rupees, player.reputation, player.current_zone, player.defense,
-                                             player.offense, player.star_power)
+                                             player.offense, player.star_power, player.flowers_amuna,
+                                             player.flowers_sorae)
                         if player.role == "":
                             player.surf = graphic_dict["player_no_role_sorae_down_1"]
                         if player.role == "mage":
@@ -2921,7 +3139,9 @@ if __name__ == '__main__':
                                                                      crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                      switch_3, muchador_defeated, has_key,
                                                                      mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                     gloves_obtained, korlok_attuned, eldream_attuned)
+                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                     chinzilla_defeated, apothecary_access)
                                         saved = True
                                         saving = False
                                         info_text_1 = "You saved your game. "
@@ -2937,7 +3157,8 @@ if __name__ == '__main__':
                                                              crate_2, crate_3, crate_4, crate_5, switch_1, switch_2,
                                                              switch_3, muchador_defeated, has_key, mini_boss_1_defeated,
                                                              mini_boss_2_defeated, gloves_obtained, korlok_attuned,
-                                                             eldream_attuned)
+                                                             eldream_attuned, rock_4_con, rock_5_con, rock_6_con,
+                                                             rock_7_con, chinzilla_defeated, apothecary_access)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -3132,7 +3353,7 @@ if __name__ == '__main__':
                                                                   quest_star_dionte, equipment_screen, staff, sword,
                                                                   bow, offense_meter, defense_meter, weapon_select,
                                                                   player_cutscene_overlay, player_cutscene_overlay_2,
-                                                                  beyond_seldon)
+                                                                  beyond_seldon, seldon_flowers)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -3209,7 +3430,9 @@ if __name__ == '__main__':
                                                                   quest_star_zerah, korlok_mountains, in_apothecary,
                                                                   quest_star_kirean, quest_star_dionte,
                                                                   equipment_screen, staff, sword, bow, npc_garan,
-                                                                  offense_meter, defense_meter, weapon_select)
+                                                                  offense_meter, defense_meter, weapon_select, rock_4,
+                                                                  rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con,
+                                                                  seldon_flowers)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -3231,6 +3454,9 @@ if __name__ == '__main__':
                     info_text_2 = korlok_returned["info_text_2"]
                     info_text_3 = korlok_returned["info_text_3"]
                     info_text_4 = korlok_returned["info_text_4"]
+                    rock_4_con = korlok_returned["rock_4_con"]
+                    rock_5_con = korlok_returned["rock_5_con"]
+                    rock_6_con = korlok_returned["rock_6_con"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -3265,7 +3491,8 @@ if __name__ == '__main__':
                                                              interactables_mines, ores, equipment_screen, staff,
                                                              sword, bow, npc_garan, offense_meter, defense_meter,
                                                              weapon_select, hearth_stone, npc_prime, npc_jez,
-                                                             prime_popup, jez_popup, prime_1, prime_2, jez_1, jez_2)
+                                                             prime_popup, jez_popup, prime_1, prime_2, prime_3, jez_1,
+                                                             jez_2, jez_3, seldon_flowers)
 
                     over_world_song_set = mines_returned["over_world_song_set"]
                     interacted = mines_returned["interacted"]
@@ -3281,8 +3508,10 @@ if __name__ == '__main__':
                     info_text_4 = mines_returned["info_text_4"]
                     prime_1 = mines_returned["prime_1"]
                     prime_2 = mines_returned["prime_2"]
+                    prime_3 = mines_returned["prime_3"]
                     jez_1 = mines_returned["jez_1"]
                     jez_2 = mines_returned["jez_2"]
+                    jez_3 = mines_returned["jez_3"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -3320,7 +3549,8 @@ if __name__ == '__main__':
                                                                   sharp_sense_active, current_npc_interacting,
                                                                   chinzilla, quest_star_dionte, hearth_stone,
                                                                   equipment_screen, staff, sword, bow, npc_garan,
-                                                                  offense_meter, defense_meter, weapon_select)
+                                                                  offense_meter, defense_meter, weapon_select, rock_7,
+                                                                  rock_7_con, chinzilla_defeated)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -3335,6 +3565,7 @@ if __name__ == '__main__':
                     info_text_2 = trail_returned["info_text_2"]
                     info_text_3 = trail_returned["info_text_3"]
                     info_text_4 = trail_returned["info_text_4"]
+                    rock_7_con = trail_returned["rock_7_con"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -3370,7 +3601,8 @@ if __name__ == '__main__':
                                                                        movement_able, in_shop, magmon_battle_sprite,
                                                                        bandile_battle_sprite, chinzilla_battle_sprite,
                                                                        equipment_screen, staff, sword, bow, npc_garan,
-                                                                       offense_meter, defense_meter, weapon_select)
+                                                                       offense_meter, defense_meter, weapon_select,
+                                                                       rock_3)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -3653,7 +3885,8 @@ if __name__ == '__main__':
                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
                                                                                 player, hard_strike_learned,
                                                                                 level_up_win, level_up_font,
-                                                                                graphic_dict)
+                                                                                graphic_dict, sharp_sense_active,
+                                                                                barrier_active)
                                 combat_happened = True
 
                                 # add all combat scenario happenings from function to message box
@@ -3670,64 +3903,68 @@ if __name__ == '__main__':
                                     pass
 
                                 # adds item dropped and experienced gained messages to box if enemy was defeated
-                                if combat_events["enemy defeated"]:
-                                    if combat_events["item dropped"] != "No":
-                                        battle_info_to_return_to_main_loop["item dropped"] = \
-                                            str(combat_events["item dropped"])
-                                    if combat_events["experience gained"] != 0:
-                                        battle_info_to_return_to_main_loop["experience"] = \
-                                            str(combat_events["experience gained"])
+                                try:
+                                    if combat_events["enemy defeated"]:
+                                        if combat_events["item dropped"] != "No":
+                                            battle_info_to_return_to_main_loop["item dropped"] = \
+                                                str(combat_events["item dropped"])
+                                        if combat_events["experience gained"] != 0:
+                                            battle_info_to_return_to_main_loop["experience"] = \
+                                                str(combat_events["experience gained"])
 
-                                # if enemy was defeated and player leveled up, add messages related to box
-                                if combat_events["enemy defeated"]:
-                                    if combat_events["leveled"]:
-                                        battle_info_to_return_to_main_loop["leveled_up"] = True
+                                    # if enemy was defeated and player leveled up, add messages related to box
+                                    if combat_events["enemy defeated"]:
+                                        if combat_events["leveled"]:
+                                            battle_info_to_return_to_main_loop["leveled_up"] = True
 
-                                # if player was successful in defeating enemy, combat ends, movement is allowed
-                                if combat_events["enemy defeated"]:
-                                    # player will gain knowledge based on their current role
-                                    if player.role == "mage":
-                                        player.knowledge["mage"] += 10
-                                        battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
-                                    if player.role == "fighter":
-                                        player.knowledge["fighter"] += 10
-                                        battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
-                                    if player.role == "scout":
-                                        player.knowledge["scout"] += 10
-                                        battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
+                                    # if player was successful in defeating enemy, combat ends, movement is allowed
+                                    if combat_events["enemy defeated"]:
+                                        # player will gain knowledge based on their current role
+                                        if player.role == "mage":
+                                            player.knowledge["mage"] += 10
+                                            battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
+                                        if player.role == "fighter":
+                                            player.knowledge["fighter"] += 10
+                                            battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
+                                        if player.role == "scout":
+                                            player.knowledge["scout"] += 10
+                                            battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
 
-                                    if current_enemy_battling.name == "nede ghoul":
-                                        nede_ghoul_defeated = True
-                                        ghoul_nede.kill()
-                                    if current_enemy_battling.name == "chorizon_1":
-                                        mini_boss_1_defeated = True
-                                        mini_boss_1 = False
-                                        chorizon_1.kill()
-                                    if current_enemy_battling.name == "chorizon_2":
-                                        mini_boss_2_defeated = True
-                                        mini_boss_2 = False
-                                        chorizon_2.kill()
-                                    if current_enemy_battling.name == "muchador":
-                                        muchador_defeated = True
-                                        muchador.kill()
+                                        if current_enemy_battling.name == "nede ghoul":
+                                            nede_ghoul_defeated = True
+                                            ghoul_nede.kill()
+                                        if current_enemy_battling.name == "chorizon_1":
+                                            mini_boss_1_defeated = True
+                                            mini_boss_1 = False
+                                            chorizon_1.kill()
+                                        if current_enemy_battling.name == "chorizon_2":
+                                            mini_boss_2_defeated = True
+                                            mini_boss_2 = False
+                                            chorizon_2.kill()
+                                        if current_enemy_battling.name == "muchador":
+                                            muchador_defeated = True
+                                            muchador.kill()
 
-                                    # if barrier is active on enemy defeat, restore original defence and set off
-                                    if barrier_active:
-                                        barrier_active = False
-                                        # noinspection PyUnboundLocalVariable
+                                        # if barrier is active on enemy defeat, restore original defence and set off
+                                        if barrier_active:
+                                            barrier_active = False
+                                            # noinspection PyUnboundLocalVariable
 
-                                    # if sharp sense is active on enemy defeat, restore original offense
-                                    if sharp_sense_active:
-                                        sharp_sense_active = False
-                                        # noinspection PyUnboundLocalVariable
+                                        # if sharp sense is active on enemy defeat, restore original offense
+                                        if sharp_sense_active:
+                                            sharp_sense_active = False
+                                            # noinspection PyUnboundLocalVariable
 
-                                    movement_able = True
-                                    combat_happened = False
-                                    interacted = False
-                                    encounter_started = False
-                                    in_battle = False
-                                    in_over_world = True
-                                    loot_updated = False
+                                        movement_able = True
+                                        combat_happened = False
+                                        interacted = False
+                                        encounter_started = False
+                                        in_battle = False
+                                        in_over_world = True
+                                        loot_updated = False
+
+                                except TypeError:
+                                    pass
 
                         # (buffs) mage -> barrier [defence], scout -> sharp sense [offense]
                         elif combat_button == "skill 1" or skill_1_hotkey:
@@ -3781,7 +4018,9 @@ if __name__ == '__main__':
                                                                                             "skill 1", player,
                                                                                             hard_strike_learned,
                                                                                             level_up_win, level_up_font,
-                                                                                            graphic_dict)
+                                                                                            graphic_dict,
+                                                                                            sharp_sense_active,
+                                                                                            barrier_active)
                                             combat_happened = True
                                             player.energy -= 35
                                             if combat_events["damage done string"] == 0:
@@ -3985,6 +4224,8 @@ if __name__ == '__main__':
                                     random_crate = random.choice(muchador_crates_list)
                                     muchador.update_image(random_crate.x_coordinate, random_crate.y_coordinate,
                                                           graphic_dict["muchador"])
+                                    # type change for second phase
+                                    muchador.type = "mage"
 
                         combat_scenario.combat_animation(player, current_enemy_battling, player_battle_sprite,
                                                          snake_battle_sprite, ghoul_battle_sprite,
@@ -4020,13 +4261,15 @@ if __name__ == '__main__':
                                 dealt_damage_overlay.update(850, 225, graphic_dict["non_effective_dealt_damage_img"])
                             if combat_events["effective player"]:
                                 dealt_damage_overlay.update(850, 225, graphic_dict["effective_dealt_damage_img"])
-
                             screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
                             damage_done_surf = level_up_font.render(str(combat_events["damage done"]),
                                                                     True, "black", "white")
                             damage_done_rect = damage_done_surf.get_rect()
                             damage_done_rect.center = (850, 225)
                             screen.blit(damage_done_surf, damage_done_rect)
+
+                            if combat_events["critical dealt"]:
+                                screen.blit(critical_dealt_overlay.surf, critical_dealt_overlay.rect)
 
                         if combat_events["damage taken"] != 0:
                             received_damage_overlay.update(125, 275, graphic_dict["received_damage_img"])
@@ -4041,6 +4284,9 @@ if __name__ == '__main__':
                             damage_received_rect = damage_received_surf.get_rect()
                             damage_received_rect.center = (125, 275)
                             screen.blit(damage_received_surf, damage_received_rect)
+
+                            if combat_events["critical received"]:
+                                screen.blit(critical_received_overlay.surf, critical_received_overlay.rect)
 
                         pygame.display.flip()
                         combat_cooldown = True
@@ -5020,7 +5266,9 @@ if __name__ == '__main__':
                                                                      crate_3, crate_4, crate_5, switch_1, switch_2,
                                                                      switch_3, muchador_defeated, has_key,
                                                                      mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                     gloves_obtained, korlok_attuned, eldream_attuned)
+                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                     chinzilla_defeated, apothecary_access)
                                     except PermissionError:
                                         pass
 
@@ -5123,6 +5371,8 @@ if __name__ == '__main__':
                                                              quest_star_apothecary.y_coordinate,
                                                              graphic_dict["building_npc_star_complete"])
                                 screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                        if apothecary_access:
+                            screen.blit(apothecary_window.surf, apothecary_window.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
                                                          info_text_4, in_over_world)
@@ -5296,7 +5546,9 @@ if __name__ == '__main__':
                                                                          switch_3, muchador_defeated, has_key,
                                                                          mini_boss_1_defeated, mini_boss_2_defeated,
                                                                          gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned)
+                                                                         eldream_attuned, rock_4_con, rock_5_con,
+                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
+                                                                         apothecary_access)
                                         except PermissionError:
                                             pass
                                     else:
@@ -5365,7 +5617,9 @@ if __name__ == '__main__':
                                                                          switch_3, muchador_defeated, has_key,
                                                                          mini_boss_1_defeated, mini_boss_2_defeated,
                                                                          gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned)
+                                                                         eldream_attuned, rock_4_con, rock_5_con,
+                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
+                                                                         apothecary_access)
                                         except PermissionError:
                                             pass
                                     else:
@@ -5434,7 +5688,9 @@ if __name__ == '__main__':
                                                                          switch_3, muchador_defeated, has_key,
                                                                          mini_boss_1_defeated, mini_boss_2_defeated,
                                                                          gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned)
+                                                                         eldream_attuned, rock_4_con, rock_5_con,
+                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
+                                                                         apothecary_access)
                                         except PermissionError:
                                             pass
                                     else:
@@ -5502,7 +5758,9 @@ if __name__ == '__main__':
                                                                          switch_3, muchador_defeated, has_key,
                                                                          mini_boss_1_defeated, mini_boss_2_defeated,
                                                                          gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned)
+                                                                         eldream_attuned, rock_4_con, rock_5_con,
+                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
+                                                                         apothecary_access)
                                         except PermissionError:
                                             pass
                                     else:
@@ -5570,7 +5828,9 @@ if __name__ == '__main__':
                                                                          switch_3, muchador_defeated, has_key,
                                                                          mini_boss_1_defeated, mini_boss_2_defeated,
                                                                          gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned)
+                                                                         eldream_attuned, rock_4_con, rock_5_con,
+                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
+                                                                         apothecary_access)
                                         except PermissionError:
                                             pass
                                     else:
@@ -5640,7 +5900,9 @@ if __name__ == '__main__':
                                                                          switch_3, muchador_defeated, has_key,
                                                                          mini_boss_1_defeated, mini_boss_2_defeated,
                                                                          gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned)
+                                                                         eldream_attuned, rock_4_con, rock_5_con,
+                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
+                                                                         apothecary_access)
                                         except PermissionError:
                                             pass
                                     else:
@@ -5709,7 +5971,9 @@ if __name__ == '__main__':
                                                                          switch_3, muchador_defeated, has_key,
                                                                          mini_boss_1_defeated, mini_boss_2_defeated,
                                                                          gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned)
+                                                                         eldream_attuned, rock_4_con, rock_5_con,
+                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
+                                                                         apothecary_access)
                                         except PermissionError:
                                             pass
                                     else:

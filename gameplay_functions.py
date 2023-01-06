@@ -174,6 +174,8 @@ def load_game(player, Item, graphics):
             player.race = player_load_info["race"]
             player.role = player_load_info["role"]
             player.star_power = player_load_info["star power"]
+            player.flowers_amuna = player_load_info["flowers amuna"]
+            player.flowers_sorae = player_load_info["flowers sorae"]
 
             if player.race == "amuna":
                 if player.role == "mage":
@@ -291,9 +293,15 @@ def load_game(player, Item, graphics):
             load_return["switch_1"] = player_load_info["switch_1"]
             load_return["switch_2"] = player_load_info["switch_2"]
             load_return["switch_3"] = player_load_info["switch_3"]
+            load_return["rock_4_con"] = player_load_info["rock_4_con"]
+            load_return["rock_5_con"] = player_load_info["rock_5_con"]
+            load_return["rock_6_con"] = player_load_info["rock_6_con"]
+            load_return["rock_7_con"] = player_load_info["rock_7_con"]
+            load_return["apothecary_access"] = player_load_info["apothecary_access"]
             load_return["muchador_defeated"] = player_load_info["muchador_defeated"]
             load_return["mini_boss_1_defeated"] = player_load_info["mini_boss_1_defeated"]
             load_return["mini_boss_2_defeated"] = player_load_info["mini_boss_2_defeated"]
+            load_return["chinzilla_defeated"] = player_load_info["chinzilla_defeated"]
             load_return["has_key"] = player_load_info["has_key"]
             load_return["gloves_obtained"] = player_load_info["gloves_obtained"]
             load_return["korlok_attuned"] = player_load_info["korlok_attuned"]
@@ -314,7 +322,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               rest_popup, knowledge_popup, quest_guide_shown, battle_guide_shown, rest_shown_before,
               quest_highlight_popup, bridge_not_repaired, nede_ghoul_defeated, bridge_cutscenes_not_viewed,
               crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3, muchador_defeated, has_key,
-              mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned):
+              mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned,
+              rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -357,7 +366,10 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "muchador_defeated": muchador_defeated, "has_key": has_key,
                         "mini_boss_1_defeated": mini_boss_1_defeated, "mini_boss_2_defeated": mini_boss_2_defeated,
                         "gloves_obtained": gloves_obtained, "korlok_attuned": korlok_attuned,
-                        "eldream_attuned": eldream_attuned}
+                        "eldream_attuned": eldream_attuned, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
+                        "rock_6_con": rock_6_con, "rock_7_con": rock_7_con, "chinzilla_defeated": chinzilla_defeated,
+                        "apothecary_access": apothecary_access, "flowers amuna": int(player.flowers_amuna),
+                        "flowers sorae": int(player.flowers_sorae)}
     try:
         try:
             # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
@@ -435,23 +447,39 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
 
 
 # player attacks enemy, gets damage to enemy done based on player's role and offense
-def attack_enemy(player, mob):
+def attack_enemy(player, mob, sharp_sense_active):
 
     level_difference = mob.level - player.level
 
-    attack_dict = {"damage": 0, "effective": False, "non effective": False}
+    attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False}
 
-    # base damage
-    if player.offense == 0:
-        damage = 5
-    if player.offense == 1:
-        damage = 6
-    if player.offense == 2:
-        damage = 7
-    if player.offense == 3:
-        damage = 8
-    if player.offense == 4:
-        damage = 9
+    critical = random.randrange(1, 10)
+    if critical > 6 or sharp_sense_active:
+        attack_dict["critical"] = True
+        # base critical damage
+        if player.offense == 0:
+            damage = 7
+        if player.offense == 1:
+            damage = 8
+        if player.offense == 2:
+            damage = 9
+        if player.offense == 3:
+            damage = 10
+        if player.offense == 4:
+            damage = 11
+    else:
+        attack_dict["critical"] = False
+        # base damage
+        if player.offense == 0:
+            damage = 5
+        if player.offense == 1:
+            damage = 6
+        if player.offense == 2:
+            damage = 7
+        if player.offense == 3:
+            damage = 8
+        if player.offense == 4:
+            damage = 9
 
     # increase or decrease damage based on type advantage/disadvantage
     if player.role == "mage":
@@ -507,23 +535,39 @@ def attack_enemy(player, mob):
 
 
 # enemy attacks player, gets damage to player done, subtract players defense level
-def attack_player(player, mob):
+def attack_player(player, mob, barrier_active):
 
     level_difference = mob.level - player.level
 
-    attack_dict = {"damage": 0, "effective": False, "non effective": False}
+    attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False}
 
-    # base damage
-    if player.defense == 0:
-        damage = 7
-    if player.defense == 1:
-        damage = 6
-    if player.defense == 2:
-        damage = 5
-    if player.defense == 3:
-        damage = 4
-    if player.defense == 4:
-        damage = 3
+    critical = random.randrange(1, 10)
+    if critical > 6 and not barrier_active:
+        attack_dict["critical"] = True
+        # base critical damage
+        if player.defense == 0:
+            damage = 9
+        if player.defense == 1:
+            damage = 8
+        if player.defense == 2:
+            damage = 7
+        if player.defense == 3:
+            damage = 6
+        if player.defense == 4:
+            damage = 5
+    else:
+        attack_dict["critical"] = False
+        # base damage
+        if player.defense == 0:
+            damage = 7
+        if player.defense == 1:
+            damage = 6
+        if player.defense == 2:
+            damage = 5
+        if player.defense == 3:
+            damage = 4
+        if player.defense == 4:
+            damage = 3
 
     # increase or decrease damage based on type advantage/disadvantage
     if mob.type == "mage":
@@ -591,19 +635,25 @@ def level_up(player, level_up_win, level_up_font):
 
 # function to respawn enemies if they are less than a specified amount active in game. spawns with random coord. and lvl
 def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
-                  interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement):
+                  interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers):
 
     if player.current_zone == "seldon":
         snake_counter = 0
         ghoul_counter = 0
+        flower_counter = 0
+
+        flower_coords_list = [(190, 185), (390, 185), (150, 425), (400, 500), (590, 380)]
+
         # generate random coordinates and level for new enemy to spawn within boundaries and level range
         # if not scaled, coordinates set to default boundaries
-        random_snake_x = random.randrange(150, 300)
+        random_snake_x = random.randrange(100, 300)
         random_snake_y = random.randrange(150, 300)
         random_snake_level = random.randrange(1, 4)
         random_ghoul_x = random.randrange(650, 900)
         random_ghoul_y = random.randrange(150, 300)
         random_ghoul_level = random.randrange(4, 7)
+
+        random_flower_coord = random.choice(flower_coords_list)
 
         # count current enemies active in game
         for mob in seldon_enemies:
@@ -630,6 +680,16 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             ghouls.add(new_ghoul)
             seldon_enemies.add(new_ghoul)
             interactables_seldon.add(new_ghoul)
+
+        for flower in seldon_flowers:
+            if flower:
+                flower_counter += 1
+
+        if flower_counter < 3:
+            new_flower = Item("flower seldon", "flower", random_flower_coord[0], random_flower_coord[1],
+                              graphic_dict["flower_seldon"], 0)
+            seldon_flowers.add(new_flower)
+            interactables_seldon.add(new_flower)
 
     if player.current_zone == "korlok":
         magmon_counter = 0
@@ -678,7 +738,8 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
 
     respawn_dict = {"seldon_enemies": seldon_enemies, "snakes": snakes, "ghouls": ghouls,
                     "interactables_seldon": interactables_seldon, "interactables_korlok": interactables_korlok,
-                    "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles}
+                    "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles, "seldon_flowers":
+                    seldon_flowers}
 
     return respawn_dict
 

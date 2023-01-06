@@ -259,7 +259,8 @@ def enemy_health_bar(enemys, graphics):
         pass
 
 
-def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics):
+def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
+                    sharp_sense_active, barrier_active):
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -270,9 +271,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
     if combat_event == "attack":
         if enemy_combating.alive_status:
             # returns players damage to the enemy based on level and equipment
-            attack_dict = gameplay_functions.attack_enemy(player, enemy_combating)
+            attack_dict = gameplay_functions.attack_enemy(player, enemy_combating, sharp_sense_active)
             combat_event_dictionary["effective player"] = attack_dict["effective"]
             combat_event_dictionary["non effective player"] = attack_dict["non effective"]
+            combat_event_dictionary["critical dealt"] = attack_dict["critical"]
             damage_to_enemy = attack_dict["damage"]
 
             enemy_combating.health = enemy_combating.health - damage_to_enemy
@@ -286,9 +288,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 combat_event_dictionary["damage done string"] = attacked_enemy_string
 
                 # returns total damage output from enemy as attacked_player_health value
-                defend_dict = gameplay_functions.attack_player(player, enemy_combating)
+                defend_dict = gameplay_functions.attack_player(player, enemy_combating, barrier_active)
                 combat_event_dictionary["effective enemy"] = defend_dict["effective"]
                 combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
+                combat_event_dictionary["critical received"] = defend_dict["critical"]
                 damage_to_player = defend_dict["damage"]
 
                 if damage_to_player > 0:

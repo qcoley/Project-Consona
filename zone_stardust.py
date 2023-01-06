@@ -13,7 +13,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      en_bar, xp_bar, button_highlighted, button_highlight, npc_tic, info_text_1, info_text_2,
                      info_text_3, info_text_4, current_enemy_battling, current_building_entering, in_battle,
                      movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite,  chinzilla_battle_sprite,
-                     equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select):
+                     equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
+                     rock):
 
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
@@ -22,6 +23,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         stardust_song_set = True
 
     screen.blit(stardust_cove_bg, (0, 0))
+    screen.blit(rock.surf, rock.rect)
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
@@ -139,6 +141,28 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             movement_able = False
             in_over_world = False
             in_shop = True
+
+    if pygame.sprite.collide_rect(player, rock):
+        interaction_popup.update(rock.x_coordinate, rock.y_coordinate - 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (rock.x_coordinate, rock.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world:
+            try:
+                if player.equipment["gloves"].name == "power gloves":
+                    if rock.x_coordinate == 675:
+                        rock.update(rock.x_coordinate - 110, rock.y_coordinate, graphic_dict["rock_small"])
+                else:
+                    info_text_1 = "The rock won't budge."
+                    info_text_2 = ""
+            except AttributeError:
+                info_text_1 = "The rock won't budge."
+                info_text_2 = ""
+                pass
+            interacted = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

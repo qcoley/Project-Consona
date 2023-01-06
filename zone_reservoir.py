@@ -536,7 +536,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock_1.x_coordinate == 580:
-                        rock_1.update(rock_1.x_coordinate + 300, rock_1.y_coordinate, graphic_dict["rock_img"])
+                        rock_1.update(rock_1.x_coordinate + 300, rock_1.y_coordinate, graphic_dict["rock"])
                 else:
                     info_text_1 = "The rock won't budge."
                     info_text_2 = ""
@@ -558,7 +558,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock_2.x_coordinate == 580:
-                        rock_2.update(rock_2.x_coordinate + 300, rock_2.y_coordinate, graphic_dict["rock_img"])
+                        rock_2.update(rock_2.x_coordinate + 300, rock_2.y_coordinate, graphic_dict["rock"])
                 else:
                     info_text_1 = "The rock won't budge."
                     info_text_2 = ""

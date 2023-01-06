@@ -25,7 +25,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     current_enemy_battling, current_npc_interacting, current_building_entering,
                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, interactables_mines,
                     star_voruke, star_zerah, star_apothecary, star_dionte, equipment_screen, staff, sword, bow,
-                    offense_meter, defense_meter, weapon_select, player_cutscene, player_cutscene_2, beyond_seldon):
+                    offense_meter, defense_meter, weapon_select, player_cutscene, player_cutscene_2, beyond_seldon,
+                    flowers):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -43,14 +44,19 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
-                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement)
+                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement,
+                                                      flowers)
     seldon_enemies = respawned_dict["seldon_enemies"]
     snakes = respawned_dict["snakes"]
     ghouls = respawned_dict["ghouls"]
+    flowers = respawned_dict["seldon_flowers"]
     interactables_seldon = respawned_dict["interactables_seldon"]
 
     for entity in most_sprites:
         screen.blit(entity.surf, entity.rect)
+
+    for flower in flowers:
+        screen.blit(flower.surf, flower.rect)
 
     for quest_item in quest_items_seldon:
         if not player.quest_complete["village repairs"]:
@@ -244,6 +250,23 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                 in_inn = True
             if building.name == "academia":
                 in_academia = True
+
+    # player collides with flower, if collected adds to player flower count
+    flower = pygame.sprite.spritecollideany(player, flowers)
+    if flower and in_over_world:
+        flower.update(flower.x_coordinate, flower.y_coordinate, graphic_dict["flower_seldon_high"])
+        if interacted:
+            player.flowers_amuna += 1
+            flower.kill()
+            info_text_1 = "You collected the Seldon Flower."
+            info_text_2 = ""
+            interacted = False
+
+    # resets flower surface to non-highlighted if not currently interacting
+    for flow in flowers:
+        if flow.surf == graphic_dict["flower_seldon_high"]:
+            if flow != flower:
+                flow.surf = graphic_dict["flower_seldon"]
 
     # if player collides with npc sprite and chooses to interact with it
     npc = pygame.sprite.spritecollideany(player, npcs)

@@ -16,11 +16,12 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  snakes, ghouls, magmons, interactables_seldon, interactables_korlok, Enemy, Item, UiElement,
                  interactables_mines, ores, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                  defense_meter, weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup, jez_popup, prime_1,
-                 prime_2, jez_1, jez_2):
+                 prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
-                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement)
+                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement,
+                                                      seldon_flowers)
     bandiles = respawned_dict["bandiles"]
 
     for enemy_sprite in bandiles:  # update enemy sprite to a highlighted version
@@ -167,6 +168,10 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         npc_toc = time.perf_counter()
         if npc_toc - npc_tic > 7:
             npc_tic = time.perf_counter()
+            if prime_2:
+                prime_3 = True
+            if jez_2:
+                jez_3 = True
             if prime_1:
                 prime_1 = False
                 prime_2 = True
@@ -181,14 +186,17 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                 npc_jez.update(graphic_dict["jez"])
             if face_direction == "right_j":
                 npc_jez.update(graphic_dict["jez_flip"])
-
     if prime_1:
         prime_text_surf = font.render("What?", True, "black", "light yellow")
     if prime_2:
         prime_text_surf = font.render("I ate rock.", True, "black", "light yellow")
+    if prime_3:
+        prime_text_surf = font.render("I watch de-lava.", True, "black", "light yellow")
     if jez_1:
         jez_text_surf = font.render("You're not.", True, "black", "light yellow")
     if jez_2:
+        jez_text_surf = font.render("Only like 3%.", True, "black", "light yellow")
+    if jez_3:
         jez_text_surf = font.render("Don't matter.", True, "black", "light yellow")
 
     screen.blit(prime_popup.surf, prime_popup.rect)
@@ -206,6 +214,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                     "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                     "in_battle": in_battle, "movement_able": movement_able,
                     "current_enemy_battling": current_enemy_battling, "prime_1": prime_1, "prime_2": prime_2,
-                    "jez_1": jez_1, "jez_2": jez_2}
+                    "prime_3": prime_3, "jez_1": jez_1, "jez_2": jez_2, "jez_3": jez_3}
 
     return mines_return

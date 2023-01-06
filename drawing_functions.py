@@ -335,6 +335,16 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_rupee_rect = text_rupee_surf.get_rect()
     text_rupee_rect.center = (1120, 693)
     screen.blit(text_rupee_surf, text_rupee_rect)
+    # seldon flowers ---------------------------------------------------------------------------------------------------
+    flower_seldon_surf = font.render(str(player.flowers_amuna), True, "black", "light yellow")
+    flower_seldon_rect = flower_seldon_surf.get_rect()
+    flower_seldon_rect.center = (1188, 693)
+    screen.blit(flower_seldon_surf, flower_seldon_rect)
+    # eldream flowers --------------------------------------------------------------------------------------------------
+    flower_eldream_surf = font.render(str(player.flowers_sorae), True, "black", "light yellow")
+    flower_eldream_rect = flower_eldream_surf.get_rect()
+    flower_eldream_rect.center = (1248, 693)
+    screen.blit(flower_eldream_surf, flower_eldream_rect)
     # get current player level and create surf and rectangle to blit to screen------------------------------------------
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
     text_level_rect = text_level_surf.get_rect()

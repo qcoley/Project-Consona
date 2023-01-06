@@ -15,7 +15,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                 muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                 barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
-                equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select):
+                equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
+                rock_7_con, chinzilla_defeated):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -24,6 +25,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         over_world_song_set = True
 
     screen.blit(mountain_trail_bg, (0, 0))
+    screen.blit(rock_7.surf, rock_7.rect)
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
@@ -83,17 +85,50 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         info_text_4 = ""
 
         if interacted and in_over_world:
-            current_enemy_battling = chinzilla
-            in_over_world = False
-            in_battle = True
+            if not chinzilla_defeated:
+                current_enemy_battling = chinzilla
+                in_over_world = False
+                in_battle = True
 
-            drawing_functions.loot_popup_container.clear()
-            drawing_functions.loot_text_container.clear()
-            combat_scenario.resting_animation(player, chinzilla, player_battle_sprite, snake_battle_sprite,
-                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict)
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
+                combat_scenario.resting_animation(player, chinzilla, player_battle_sprite, snake_battle_sprite,
+                                                  ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                                                  magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                                  barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                                  graphic_dict)
+            else:
+                info_text_1 = "Monster has been vanquished!"
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+
+    if pygame.sprite.collide_rect(player, rock_7):
+        interaction_popup.update(rock_7.x_coordinate, rock_7.y_coordinate - 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (rock_7.x_coordinate, rock_7.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world:
+            try:
+                if player.equipment["gloves"].name == "power gloves":
+                    if rock_7.x_coordinate == 485:
+                        rock_7.update(rock_7.x_coordinate - 120, rock_7.y_coordinate, graphic_dict["rock_small"])
+                        if not rock_7_con:
+                            player.rupees += 20
+                            rock_7_con = True
+                            info_text_1 = "You found 20 Rupees under the rock!"
+                            info_text_2 = ""
+                else:
+                    info_text_1 = "The rock won't budge."
+                    info_text_2 = ""
+            except AttributeError:
+                info_text_1 = "The rock won't budge."
+                info_text_2 = ""
+                pass
+            interacted = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -149,7 +184,6 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                     "interacted": interacted, "in_over_world": in_over_world, "in_battle": in_battle,
                     "in_npc_interaction": in_npc_interaction, "movement_able": movement_able,
                     "current_enemy_battling": current_enemy_battling,
-                    "current_npc_interacting": current_npc_interacting}
+                    "current_npc_interacting": current_npc_interacting, "rock_7_con": rock_7_con}
 
     return trail_return
-

@@ -52,6 +52,7 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    apothecary_window = pygame.image.load(resource_path('resources/art/overlay_apothercary_window.png')).convert_alpha()
     weapon_select = pygame.image.load(resource_path('resources/art/overlay_weapon_select.png')).convert_alpha()
     equipment_screen = pygame.image.load(resource_path('resources/art/overlay_equipment_screen.png')).convert_alpha()
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -128,7 +129,6 @@ def load_graphics():
     muchador_arena = pygame.image.load(resource_path('resources/art/overlay_muchador_arena.png')).convert_alpha()
     muchador_crate = pygame.image.load(resource_path('resources/art/overlay_muchador_crate.png')).convert_alpha()
     reservoir_passage = pygame.image.load(resource_path('resources/art/overlay_reservoir_passage.png')).convert_alpha()
-    rock_img = pygame.image.load(resource_path('resources/art/sprite_rock.png')).convert_alpha()
     reservoir_exit = pygame.image.load(resource_path('resources/art/overlay_reservoir_exit.png')).convert_alpha()
     reservoir_enter = pygame.image.load(resource_path('resources/art/overlay_reservoir_enter.png')).convert_alpha()
     mines_entrance = pygame.image.load(resource_path('resources/art/overlay_mines_entrance.png')).convert_alpha()
@@ -153,11 +153,12 @@ def load_graphics():
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
-                  muchador_crate, reservoir_passage, rock_img, reservoir_exit, reservoir_enter, mines_entrance,
+                  muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["apothecary_window"] = apothecary_window
     loaded_dict["weapon_select"] = weapon_select
     loaded_dict["chinzilla"] = sprite_chinzilla
     loaded_dict["caves_battle_screen"] = caves_battle_screen
@@ -237,7 +238,6 @@ def load_graphics():
     loaded_dict["muchador_arena"] = muchador_arena
     loaded_dict["muchador_crate"] = muchador_crate
     loaded_dict["reservoir_passage"] = reservoir_passage
-    loaded_dict["rock_img"] = rock_img
     loaded_dict["reservoir_exit"] = reservoir_exit
     loaded_dict["reservoir_enter"] = reservoir_enter
     loaded_dict["korlok_hearth_screen"] = korlok_hearth_screen
@@ -647,6 +647,8 @@ def load_graphics():
     loaded_dict["effective_received_damage_img"] = damage_overlays_sheet[3]
     loaded_dict["non_effective_dealt_damage_img"] = damage_overlays_sheet[4]
     loaded_dict["non_effective_received_damage_img"] = damage_overlays_sheet[5]
+    loaded_dict["critical_dealt"] = damage_overlays_sheet[6]
+    loaded_dict["critical_received"] = damage_overlays_sheet[7]
     # garan npc --------------------------------------------------------------------------------------------------------
     garan_url = resource_path('resources/art/sprites_garans.png')
     garan_sheet = sprite_sheet((40, 62), garan_url)
@@ -1029,6 +1031,18 @@ def load_graphics():
     quest_logs_sheet = sprite_sheet((40, 50), quest_logs_url)
     loaded_dict["pine_logs_img"] = quest_logs_sheet[0]
     loaded_dict["pine_logs_high_img"] = quest_logs_sheet[1]
+    # rocks ------------------------------------------------------------------------------------------------------------
+    rocks_url = resource_path('resources/art/sprite_rock.png')
+    rocks_sheet = sprite_sheet((125, 125), rocks_url)
+    loaded_dict["rock"] = rocks_sheet[0]
+    loaded_dict["rock_small"] = rocks_sheet[1]
+    # flowers ----------------------------------------------------------------------------------------------------------
+    flowers_url = resource_path('resources/art/sprites_flowers.png')
+    flowers_sheet = sprite_sheet((40, 60), flowers_url)
+    loaded_dict["flower_seldon"] = flowers_sheet[0]
+    loaded_dict["flower_seldon_high"] = flowers_sheet[1]
+    loaded_dict["flower_eldream"] = flowers_sheet[0]
+    loaded_dict["flower_eldream_high"] = flowers_sheet[1]
     # quest pine logs --------------------------------------------------------------------------------------------------
     sprite_ore_url = resource_path('resources/art/sprite_ore.png')
     sprite_ore_sheet = sprite_sheet((75, 50), sprite_ore_url)
