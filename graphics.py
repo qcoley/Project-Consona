@@ -70,6 +70,7 @@ def load_graphics():
     korlok_inn_screen = pygame.image.load(resource_path('resources/art/bg_korlok_inn.png')).convert_alpha()
     korlok_apothecary = pygame.image.load(resource_path('resources/art/bg_korlok_apothecary.png')).convert_alpha()
     mountain_trail_bg = pygame.image.load(resource_path('resources/art/bg_mountain_trail.png')).convert_alpha()
+    eldream_bg_screen = pygame.image.load(resource_path('resources/art/bg_eldream_district.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
     caves_battle_screen = pygame.image.load(resource_path('resources/art/bg_cave_battle_screen.png')).convert_alpha()
     mines_battle_screen = pygame.image.load(resource_path('resources/art/bg_mines_battle.png')).convert_alpha()
@@ -172,6 +173,7 @@ def load_graphics():
     loaded_dict["star_battle_screen"] = star_battle_screen
     loaded_dict["seldon_bg_screen"] = seldon_bg_screen
     loaded_dict["korlok_bg_screen"] = korlok_bg_screen
+    loaded_dict["eldream_bg_screen"] = eldream_bg_screen
     loaded_dict["rohir_river_screen"] = rohir_river_screen
     loaded_dict["reservoir_a_screen"] = reservoir_a_screen
     loaded_dict["reservoir_b_screen"] = reservoir_b_screen
@@ -843,7 +845,7 @@ def load_graphics():
     loaded_dict["gloves"] = items_sheet[5]
     loaded_dict["ember"] = items_sheet[6]
     loaded_dict["band"] = items_sheet[7]
-    loaded_dict["flowe"] = items_sheet[8]
+    loaded_dict["super_pot_img"] = items_sheet[8]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -859,7 +861,7 @@ def load_graphics():
     loaded_dict["info_gloves"] = items_info_sheet[9]
     loaded_dict["info_ember"] = items_info_sheet[10]
     loaded_dict["info_band"] = items_info_sheet[11]
-    loaded_dict["info_flowe"] = items_info_sheet[12]
+    loaded_dict["info_super_pot_img"] = items_info_sheet[12]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -882,6 +884,13 @@ def load_graphics():
     loaded_dict["s_shiny_rock_img"] = sell_items_sheet[7]
     loaded_dict["s_ember_img"] = sell_items_sheet[8]
     loaded_dict["s_band_img"] = sell_items_sheet[9]
+    # apothecary potions -----------------------------------------------------------------------------------------------
+    apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
+    apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)
+    loaded_dict["apothecary_empty_potion"] = apothecary_potions_sheet[0]
+    loaded_dict["apothecary_health_potion"] = apothecary_potions_sheet[1]
+    loaded_dict["apothecary_energy_potion"] = apothecary_potions_sheet[2]
+    loaded_dict["apothecary_rejuv_potion"] = apothecary_potions_sheet[3]
     # player info windows ----------------------------------------------------------------------------------------------
     player_info_url = resource_path('resources/art/overlay_info_sheets.png')
     player_info_sheet = sprite_sheet((500, 525), player_info_url)
@@ -940,6 +949,8 @@ def load_graphics():
     loaded_dict["back_button_img"] = buttons_sheet[13]
     loaded_dict["ok_button_img"] = buttons_sheet[14]
     loaded_dict["skip_button_img"] = buttons_sheet[15]
+    loaded_dict["potions_button_img"] = buttons_sheet[16]
+    loaded_dict["create_potion_img"] = buttons_sheet[17]
     # offense/defense overlay ------------------------------------------------------------------------------------------
     offense_defense_url = resource_path('resources/art/overlay_offense_defense_level.png')
     offense_defense_sheet = sprite_sheet((82, 14), offense_defense_url)
@@ -1041,8 +1052,8 @@ def load_graphics():
     flowers_sheet = sprite_sheet((40, 60), flowers_url)
     loaded_dict["flower_seldon"] = flowers_sheet[0]
     loaded_dict["flower_seldon_high"] = flowers_sheet[1]
-    loaded_dict["flower_eldream"] = flowers_sheet[0]
-    loaded_dict["flower_eldream_high"] = flowers_sheet[1]
+    loaded_dict["flower_eldream"] = flowers_sheet[2]
+    loaded_dict["flower_eldream_high"] = flowers_sheet[3]
     # quest pine logs --------------------------------------------------------------------------------------------------
     sprite_ore_url = resource_path('resources/art/sprite_ore.png')
     sprite_ore_sheet = sprite_sheet((75, 50), sprite_ore_url)

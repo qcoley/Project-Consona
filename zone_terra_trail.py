@@ -16,7 +16,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                 barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
-                rock_7_con, chinzilla_defeated):
+                rock_7_con, chinzilla_defeated, eldream_gate_rect):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -33,6 +33,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     screen.blit(terra_mountains.surf, terra_mountains.rect)
     screen.blit(terra_cave.surf, terra_cave.rect)
     screen.blit(npc_dionte.surf, npc_dionte.rect)
+
     if not player.quest_complete["it's dangerous to go alone"]:
         screen.blit(quest_star_dionte.surf, quest_star_dionte.rect)
 
@@ -79,29 +80,37 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         interaction_info_rect.center = (terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to enter cave.."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+        if player.quest_status["it's dangerous to go alone"]:
+            info_text_1 = "Press 'F' key to enter cave.."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+        else:
+            info_text_1 = "You hear howls from within.."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
         if interacted and in_over_world:
-            if not chinzilla_defeated:
-                current_enemy_battling = chinzilla
-                in_over_world = False
-                in_battle = True
+            if player.quest_status["it's dangerous to go alone"]:
+                if not chinzilla_defeated:
+                    current_enemy_battling = chinzilla
+                    in_over_world = False
+                    in_battle = True
 
-                drawing_functions.loot_popup_container.clear()
-                drawing_functions.loot_text_container.clear()
-                combat_scenario.resting_animation(player, chinzilla, player_battle_sprite, snake_battle_sprite,
-                                                  ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                                  magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                                  barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                                  graphic_dict)
-            else:
-                info_text_1 = "Monster has been vanquished!"
-                info_text_2 = ""
-                info_text_3 = ""
-                info_text_4 = ""
+                    drawing_functions.loot_popup_container.clear()
+                    drawing_functions.loot_text_container.clear()
+                    combat_scenario.resting_animation(player, chinzilla, player_battle_sprite, snake_battle_sprite,
+                                                      ghoul_battle_sprite, chorizon_battle_sprite,
+                                                      muchador_battle_sprite, magmon_battle_sprite,
+                                                      bandile_battle_sprite, chinzilla_battle_sprite, barrier_active,
+                                                      sharp_sense_active, in_battle, in_npc_interaction, graphic_dict)
+                else:
+                    info_text_1 = "The monster has been vanquished!"
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
+            interacted = False
 
     if pygame.sprite.collide_rect(player, rock_7):
         interaction_popup.update(rock_7.x_coordinate, rock_7.y_coordinate - 50, graphic_dict["popup_interaction"])
@@ -129,6 +138,30 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 info_text_2 = ""
                 pass
             interacted = False
+
+    if pygame.Rect.colliderect(player.rect, eldream_gate_rect):
+        interaction_popup.update(700, 25, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Eldream"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (700, 25,)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+        if player.quest_complete["it's dangerous to go alone"]:
+            info_text_1 = "Press 'F' key to enter Eldream."
+            info_text_2 = ""
+
+        if interacted:
+            if player.quest_complete["it's dangerous to go alone"]:
+                interacted = False
+                over_world_song_set = False
+                player.current_zone = "eldream"
+                player.x_coordinate = 215
+                player.y_coordinate = 175
+                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+            else:
+                interacted = False
+                info_text_1 = "The gate appears to be shut."
+                info_text_2 = "Perhaps the nearby guard knows why?"
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

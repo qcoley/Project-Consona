@@ -79,11 +79,11 @@ def sell_items(player, sell_choice, current_sell_item):
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
                 if current_sell_item.name == "cracked ember":
-                    sell_return["info 1"] = "Sold Cracked Ember for 15 rupees."
+                    sell_return["info 1"] = "Sold Cracked Ember for 25 rupees."
                     sell_return["info 2"] = "Cracked Ember removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    player.rupees = player.rupees + 15
+                    player.rupees = player.rupees + 25
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
                 if current_sell_item.name == "broken band":

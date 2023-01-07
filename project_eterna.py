@@ -19,6 +19,7 @@ import zone_stardust
 import zone_seldon
 import zone_mines
 import zone_terra_trail
+import zone_eldream
 
 # global variables
 SCREEN_WIDTH = 1280
@@ -1822,7 +1823,7 @@ def button_highlighter(posit):
                                                               quests_button, save_button, map_button,
                                                               in_npc_interaction, quest_button, quest_clicked,
                                                               accept_button, decline_button, in_apothecary, staff,
-                                                              sword, bow)
+                                                              sword, bow, potions_button, create_potion_button)
     return button_highlighters
 
 
@@ -1858,6 +1859,7 @@ if __name__ == '__main__':
     nera_sleep_screen = graphic_dict["nera_sleep_screen"]
     korlok_district_bg = graphic_dict["korlok_bg_screen"]
     korlok_mines_bg = graphic_dict["korlok_mines"]
+    eldream_district_bg = graphic_dict["eldream_bg_screen"]
     amuna_character_screen = graphic_dict["a_char_screen"]
     nuldar_character_screen = graphic_dict["n_char_screen"]
     sorae_character_screen = graphic_dict["s_char_screen"]
@@ -1891,6 +1893,7 @@ if __name__ == '__main__':
     # inventory items
     health_potion = Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0)
     energy_potion = Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)
+    super_potion = Item("super potion", "potion", 200, 200, graphic_dict["super_pot_img"], 0)
     shiny_rock = Item("shiny rock", "rock", 200, 200, graphic_dict["shiny_rock_img"], 0)
     bone_dust = Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0)
     # weapons
@@ -2119,6 +2122,9 @@ if __name__ == '__main__':
     item_info_button = UiElement("item info button", 1153, 345, graphic_dict["use_button_img"])
     offense_select_button = UiElement("offense select", 764, 586, graphic_dict["offense_select_button_img"])
     skip_button = UiElement("skip button", 1212, 680, graphic_dict["skip_button_img"])
+    potions_button = UiElement("potions button", 750, 680, graphic_dict["potions_button_img"])
+    create_potion_button = UiElement("create potion", 435, 475, graphic_dict["create_potion_img"])
+    potion_mix_overlay = UiElement("potion mix overlay", 150, 478, graphic_dict["apothecary_empty_potion"])
 
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
     mage_attack_button = UiElement("mage attack button", 750, 642, graphic_dict["mage_attack_button_img"])
@@ -2151,6 +2157,11 @@ if __name__ == '__main__':
     buy_inventory = Inventory("buy inventory", [], 900, 500, graphic_dict["buy_inventory"])
     knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
+
+    seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
+    seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
+    eldream_flower_more_button = pygame.Rect((420, 225), (50, 50))
+    eldream_flower_less_button = pygame.Rect((420, 290), (50, 50))
 
     garan_quest_window = UiElement("garan quest window", 262, 443, graphic_dict["garan_quest"])
     garan_complete_quest_window = UiElement("garan quest complete window", 550, 350, graphic_dict["garan_complete"])
@@ -2263,6 +2274,7 @@ if __name__ == '__main__':
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
 
     volcano_rect = pygame.Rect((450, 15), (100, 50))
+    eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
@@ -2290,10 +2302,11 @@ if __name__ == '__main__':
     flower_seldon_4 = Item("flower seldon 4", "flower", 400, 500, graphic_dict["flower_seldon"], 0)
     flower_seldon_5 = Item("flower seldon 5", "flower", 590, 380, graphic_dict["flower_seldon"], 0)
 
-    flower_eldream_1 = Item("flower eldream 1", "flower", 400, 570, graphic_dict["flower_eldream"], 0)
-    flower_eldream_2 = Item("flower eldream 2", "flower", 660, 570, graphic_dict["flower_eldream"], 0)
-    flower_eldream_3 = Item("flower eldream 3", "flower", 750, 60, graphic_dict["flower_eldream"], 0)
-    flower_eldream_4 = Item("flower eldream 4", "flower", 750, 60, graphic_dict["flower_eldream"], 0)
+    flower_eldream_1 = Item("flower eldream 1", "flower", 355, 530, graphic_dict["flower_eldream"], 0)
+    flower_eldream_2 = Item("flower eldream 2", "flower", 722, 530, graphic_dict["flower_eldream"], 0)
+    flower_eldream_3 = Item("flower eldream 3", "flower", 215, 210, graphic_dict["flower_eldream"], 0)
+    flower_eldream_4 = Item("flower eldream 4", "flower", 770, 45, graphic_dict["flower_eldream"], 0)
+    flower_eldream_5 = Item("flower eldream 5", "flower", 990, 625, graphic_dict["flower_eldream"], 0)
 
     font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
     level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
@@ -2333,6 +2346,7 @@ if __name__ == '__main__':
     interactables_stardust = pygame.sprite.Group()
     interactables_korlok = pygame.sprite.Group()
     interactables_mines = pygame.sprite.Group()
+    interactables_eldream = pygame.sprite.Group()
     interactables_terra_trail = pygame.sprite.Group()
     interactables_reservoir_a = pygame.sprite.Group()
     interactables_reservoir_b = pygame.sprite.Group()
@@ -2355,7 +2369,7 @@ if __name__ == '__main__':
     korlok_rocks.add(rock_4, rock_5, rock_6)
     other_rocks.add(rock_3, rock_7)
     seldon_flowers.add(flower_seldon_1, flower_seldon_2, flower_seldon_3, flower_seldon_4, flower_seldon_5)
-    eldream_flowers.add(flower_eldream_1, flower_eldream_2, flower_eldream_3, flower_eldream_4)
+    eldream_flowers.add(flower_eldream_1, flower_eldream_2, flower_eldream_3, flower_eldream_4, flower_eldream_5)
     amuna_buildings.add(seldon_inn, seldon_shop, seldon_academia)
     nuldar_buildings.add(korlok_inn, korlok_shop, korlok_herb, reservoir_enter)
     dungeon_walls.add(dungeon_wall_1, dungeon_wall_2, dungeon_wall_3, dungeon_wall_4)
@@ -2378,6 +2392,7 @@ if __name__ == '__main__':
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
     interactables_mines.add(bandiles, mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
     interactables_terra_trail.add(npc_dionte, terra_cave, rock_7)
+    interactables_eldream.add(eldream_flowers)
 
     # music tracks
     start_screen_music = resource_path("resources/music/eterna_title.mp3")
@@ -2389,6 +2404,7 @@ if __name__ == '__main__':
     reservoir_music = resource_path("resources/music/eterna_dungeon.mp3")
     korlok_overworld_music = resource_path("resources/music/eterna_korlok.mp3")
     korlok_building_music = resource_path("resources/music/eterna_building_korlok.mp3")
+    eldream_overworld_music = resource_path("resources/music/eterna_eldream.mp3")
 
     pygame.mixer.music.set_volume(0.75)
     pygame.mixer.music.load(start_screen_music)
@@ -2524,6 +2540,12 @@ if __name__ == '__main__':
 
     mini_boss_1 = False
     mini_boss_2 = False
+
+    apothecary_window_open = False
+
+    # apothecary flower counters
+    seldon_flower_counter = 0
+    eldream_flower_counter = 0
 
     buy_shop_elements = []
     stardust_upgrade_elements = []
@@ -2895,6 +2917,10 @@ if __name__ == '__main__':
                         player.x_coordinate = 150
                         player.y_coordinate = 150
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                    if player.current_zone == "eldream":
+                        player.x_coordinate = 215
+                        player.y_coordinate = 175
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 except TypeError:
                     pass
             except KeyError:
@@ -3034,6 +3060,11 @@ if __name__ == '__main__':
                                         interacted = True
                                 if player.current_zone == "terra trail":
                                     if pygame.sprite.spritecollideany(player, interactables_terra_trail):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, eldream_gate_rect):
+                                        interacted = True
+                                if player.current_zone == "eldream":
+                                    if pygame.sprite.spritecollideany(player, interactables_eldream):
                                         interacted = True
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -3353,7 +3384,8 @@ if __name__ == '__main__':
                                                                   quest_star_dionte, equipment_screen, staff, sword,
                                                                   bow, offense_meter, defense_meter, weapon_select,
                                                                   player_cutscene_overlay, player_cutscene_overlay_2,
-                                                                  beyond_seldon, seldon_flowers)
+                                                                  beyond_seldon, seldon_flowers, eldream_flowers,
+                                                                  interactables_eldream)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -3432,7 +3464,8 @@ if __name__ == '__main__':
                                                                   equipment_screen, staff, sword, bow, npc_garan,
                                                                   offense_meter, defense_meter, weapon_select, rock_4,
                                                                   rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con,
-                                                                  seldon_flowers)
+                                                                  seldon_flowers, eldream_flowers,
+                                                                  interactables_eldream)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -3469,6 +3502,74 @@ if __name__ == '__main__':
                         pass
 
                 # ------------------------------------------------------------------------------------------------------
+                # if player is in eldream district ---------------------------------------------------------------------
+                if player.current_zone == "eldream" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    eldream_returned = zone_eldream.eldream_district(pygame, screen, graphic_dict, player,
+                                                                     eldream_district_bg, eldream_overworld_music,
+                                                                     over_world_song_set, interaction_popup, font,
+                                                                     save_check_window, user_interface, bar_backdrop,
+                                                                     hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                     button_highlight, in_over_world, interacted,
+                                                                     info_text_1, info_text_2, info_text_3, info_text_4,
+                                                                     npc_tic, in_npc_interaction, in_battle,
+                                                                     movement_able, current_enemy_battling,
+                                                                     quest_star_garan, quest_star_maurelle,
+                                                                     quest_star_celeste, quest_star_torune,
+                                                                     quest_star_voruke, quest_star_zerah,
+                                                                     quest_star_apothecary, terra_mountains,
+                                                                     terra_cave, npc_dionte, quest_star_dionte, Enemy,
+                                                                     player_battle_sprite, snake_battle_sprite,
+                                                                     ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                     muchador_battle_sprite, magmon_battle_sprite,
+                                                                     bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                     barrier_active, sharp_sense_active,
+                                                                     current_npc_interacting, chinzilla,
+                                                                     quest_star_dionte, hearth_stone, equipment_screen,
+                                                                     staff, sword, bow, npc_garan, offense_meter,
+                                                                     defense_meter, weapon_select, rock_7, rock_7_con,
+                                                                     chinzilla_defeated, eldream_gate_rect,
+                                                                     eldream_attuned, in_shop, in_inn,
+                                                                     current_building_entering, enemy_tic,
+                                                                     eldream_flowers, seldon_enemies, korlok_enemies,
+                                                                     snakes, ghouls, magmons, bandiles,
+                                                                     interactables_seldon, interactables_korlok,
+                                                                     interactables_mines, Enemy, Item, UiElement,
+                                                                     seldon_flowers, interactables_eldream)
+
+                    over_world_song_set = eldream_returned["over_world_song_set"]
+                    eldream_attuned = eldream_returned["eldream_attuned"]
+                    interacted = eldream_returned["interacted"]
+                    in_over_world = eldream_returned["in_over_world"]
+                    in_battle = eldream_returned["in_battle"]
+                    in_shop = eldream_returned["in_shop"]
+                    in_inn = eldream_returned["in_inn"]
+                    in_npc_interaction = eldream_returned["in_npc_interaction"]
+                    movement_able = eldream_returned["movement_able"]
+                    current_enemy_battling = eldream_returned["current_enemy_battling"]
+                    current_building_entering = eldream_returned["current_building_entering"]
+                    current_npc_interacting = eldream_returned["current_npc_interacting"]
+                    enemy_tic = eldream_returned["enemy_tic"]
+                    npc_tic = eldream_returned["npc_tic"]
+                    info_text_1 = eldream_returned["info_text_1"]
+                    info_text_2 = eldream_returned["info_text_2"]
+                    info_text_3 = eldream_returned["info_text_3"]
+                    info_text_4 = eldream_returned["info_text_4"]
+                    eldream_flowers = eldream_returned["eldream_flowers"]
+                    interactables_eldream = eldream_returned["interactables_eldream"]
+
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
+                                                                        battle_info_to_return_to_main_loop, leveled)
+                    try:
+                        loot_updated = loot_popup_returned["loot_updated"]
+                        loot_level_tic = loot_popup_returned["loot_level_tic"]
+                        loot_info = loot_popup_returned["loot_info"]
+                        leveled = loot_popup_returned["leveled"]
+                    except TypeError:
+                        pass
+
+                # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok district ----------------------------------------------------------------------
                 if player.current_zone == "mines" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
@@ -3492,7 +3593,8 @@ if __name__ == '__main__':
                                                              sword, bow, npc_garan, offense_meter, defense_meter,
                                                              weapon_select, hearth_stone, npc_prime, npc_jez,
                                                              prime_popup, jez_popup, prime_1, prime_2, prime_3, jez_1,
-                                                             jez_2, jez_3, seldon_flowers)
+                                                             jez_2, jez_3, seldon_flowers, eldream_flowers,
+                                                             interactables_eldream)
 
                     over_world_song_set = mines_returned["over_world_song_set"]
                     interacted = mines_returned["interacted"]
@@ -3550,7 +3652,7 @@ if __name__ == '__main__':
                                                                   chinzilla, quest_star_dionte, hearth_stone,
                                                                   equipment_screen, staff, sword, bow, npc_garan,
                                                                   offense_meter, defense_meter, weapon_select, rock_7,
-                                                                  rock_7_con, chinzilla_defeated)
+                                                                  rock_7_con, chinzilla_defeated, eldream_gate_rect)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -3944,6 +4046,9 @@ if __name__ == '__main__':
                                         if current_enemy_battling.name == "muchador":
                                             muchador_defeated = True
                                             muchador.kill()
+                                        if current_enemy_battling.name == "chinzilla":
+                                            chinzilla_defeated = True
+                                            chinzilla.kill()
 
                                         # if barrier is active on enemy defeat, restore original defence and set off
                                         if barrier_active:
@@ -4057,6 +4162,9 @@ if __name__ == '__main__':
                                                 if current_enemy_battling.name == "muchador":
                                                     muchador_defeated = True
                                                     muchador.kill()
+                                                if current_enemy_battling.name == "chinzilla":
+                                                    chinzilla_defeated = True
+                                                    chinzilla.kill()
                                                 movement_able = True
                                                 combat_happened = False
                                                 interacted = False
@@ -5195,6 +5303,8 @@ if __name__ == '__main__':
                                                                  torune_quest_window, voruke_quest_window,
                                                                  zerah_quest_window, kirean_quest_window,
                                                                  dionte_quest_window, accept_button, decline_button)
+                                drawing_functions.potion_window_container.clear()
+                                apothecary_window_open = False
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -5204,8 +5314,68 @@ if __name__ == '__main__':
 
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
-
                             drawing_functions.quest_complete_box.clear()
+
+                            if potions_button.rect.collidepoint(pos):
+                                if apothecary_access:
+                                    if not apothecary_window_open:
+                                        apothecary_window_open = True
+                                        drawing_functions.potion_window_container.append(apothecary_window)
+                                        drawing_functions.potion_window_container.append(create_potion_button)
+
+                                    else:
+                                        drawing_functions.potion_window_container.clear()
+                                        apothecary_window_open = False
+                                else:
+                                    info_text_1 = "You need to complete Kirean's quest."
+                                    info_text_2 = ""
+
+                            if seldon_flower_more_button.collidepoint(pos):
+                                if apothecary_window_open:
+                                    if seldon_flower_counter < 10:
+                                        seldon_flower_counter += 1
+                            if seldon_flower_less_button.collidepoint(pos):
+                                if apothecary_window_open:
+                                    if seldon_flower_counter > 0:
+                                        seldon_flower_counter -= 1
+                            if eldream_flower_more_button.collidepoint(pos):
+                                if apothecary_window_open:
+                                    if eldream_flower_counter < 10:
+                                        eldream_flower_counter += 1
+                            if eldream_flower_less_button.collidepoint(pos):
+                                if apothecary_window_open:
+                                    if eldream_flower_counter > 0:
+                                        eldream_flower_counter -= 1
+
+                            if create_potion_button.rect.collidepoint(pos):
+                                if seldon_flower_counter >= 5 > eldream_flower_counter:
+                                    if player.flowers_amuna >= 5:
+                                        player.flowers_amuna -= 5
+                                        player.items.append(Item("health potion",
+                                                                 "potion", 200, 200, graphic_dict["health_pot_img"], 0))
+                                    else:
+                                        info_text_1 = "You need 5 seldon flowers."
+                                        info_text_2 = ""
+                                elif seldon_flower_counter < 5 <= eldream_flower_counter:
+                                    if player.flowers_sorae >= 5:
+                                        player.flowers_sorae -= 5
+                                        player.items.append(Item("energy potion",
+                                                                 "potion", 200, 200, graphic_dict["energy_pot_img"], 0))
+                                    else:
+                                        info_text_1 = "You need 5 eldream flowers."
+                                        info_text_2 = ""
+                                elif seldon_flower_counter >= 5 <= eldream_flower_counter:
+                                    if player.flowers_amuna >= 5 and player.flowers_sorae >= 5:
+                                        player.flowers_amuna -= 5
+                                        player.flowers_sorae -= 5
+                                        player.items.append(Item("super potion",
+                                                                 "potion", 200, 200, graphic_dict["super_pot_img"], 0))
+                                    else:
+                                        info_text_1 = "You need 5 seldon + eldream flowers."
+                                        info_text_2 = ""
+                                else:
+                                    info_text_1 = "Add some flowers for the potion."
+                                    info_text_2 = ""
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
@@ -5331,6 +5501,8 @@ if __name__ == '__main__':
                             in_apothecary = False
                             in_over_world = True
                             building_song_set = False
+                            apothecary_window_open = False
+                            drawing_functions.potion_window_container.clear()
                             drawing_functions.quest_complete_box.clear()
 
                     # outside of inn event loop ------------------------------------------------------------------------
@@ -5371,12 +5543,38 @@ if __name__ == '__main__':
                                                              quest_star_apothecary.y_coordinate,
                                                              graphic_dict["building_npc_star_complete"])
                                 screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                        if apothecary_access:
-                            screen.blit(apothecary_window.surf, apothecary_window.rect)
+
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
                                                          info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
+
+                        # if player has access to apothecary functions by completing quest and window is open
+                        if apothecary_access:
+                            screen.blit(potions_button.surf, potions_button.rect)
+                            if apothecary_window_open:
+                                seldon_flowers_surf = level_up_font.render(str(seldon_flower_counter),
+                                                                           True, "black", "light yellow")
+                                seldon_flowers_surf_rect = seldon_flowers_surf.get_rect()
+                                seldon_flowers_surf_rect.midleft = (223, 280)
+                                screen.blit(seldon_flowers_surf, seldon_flowers_surf_rect)
+
+                                eldream_flowers_surf = level_up_font.render(str(eldream_flower_counter),
+                                                                            True, "black", "light yellow")
+                                eldream_flowers_surf_rect = eldream_flowers_surf.get_rect()
+                                eldream_flowers_surf_rect.midleft = (440, 280)
+                                screen.blit(eldream_flowers_surf, eldream_flowers_surf_rect)
+
+                                if seldon_flower_counter >= 5 > eldream_flower_counter:
+                                    potion_mix_overlay.update(150, 478, graphic_dict["apothecary_health_potion"])
+                                elif seldon_flower_counter < 5 <= eldream_flower_counter:
+                                    potion_mix_overlay.update(150, 478, graphic_dict["apothecary_energy_potion"])
+                                elif seldon_flower_counter >= 5 <= eldream_flower_counter:
+                                    potion_mix_overlay.update(150, 478, graphic_dict["apothecary_rejuv_potion"])
+                                else:
+                                    potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
+
+                                screen.blit(potion_mix_overlay.surf, potion_mix_overlay.rect)
 
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)

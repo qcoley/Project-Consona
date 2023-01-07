@@ -116,6 +116,9 @@ def inventory_event_item(inventory_event_here, pygame):
             if clicked_element[0].name == "energy potion":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "super potion":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "shiny rock":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
@@ -180,6 +183,19 @@ def inventory(player, item):
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "The potion energizes you for 40 en."
+        if item.name == "super potion":
+            if player.health < 100 or player.energy < 100:
+                player.health = player.health + 50
+                player.energy = player.energy + 50
+                if player.energy > 100:
+                    player.energy = 100
+                if player.health > 100:
+                    player.health = 100
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "The potion heals and energizes you."
+            else:
+                return_dict["item message"] = "You're already full health or energy."
 
         if item.name == "shiny rock":
             return_dict["item message"] = "Oh, shiny. Maybe you can sell it?"

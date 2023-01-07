@@ -26,7 +26,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, interactables_mines,
                     star_voruke, star_zerah, star_apothecary, star_dionte, equipment_screen, staff, sword, bow,
                     offense_meter, defense_meter, weapon_select, player_cutscene, player_cutscene_2, beyond_seldon,
-                    flowers):
+                    flowers, eldream_flowers, interactables_eldream):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -45,7 +45,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
-                                                      flowers)
+                                                      flowers, eldream_flowers, interactables_eldream)
     seldon_enemies = respawned_dict["seldon_enemies"]
     snakes = respawned_dict["snakes"]
     ghouls = respawned_dict["ghouls"]

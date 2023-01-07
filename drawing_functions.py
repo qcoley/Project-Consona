@@ -24,6 +24,7 @@ game_guide_container = []
 world_map_container = []
 type_advantage_window = []
 weapon_container = []
+potion_window_container = []
 
 
 # draws elements on screen that have been appended to list by below functions
@@ -96,6 +97,9 @@ def draw_it(screen):
         if len(item_info_window) == 0 and len(sell_info_window) == 0:
             for weapon in weapon_container:
                 screen.blit(weapon.surf, weapon.rect)
+    if len(potion_window_container) > 0:
+        for potion_element in potion_window_container:
+            screen.blit(potion_element.surf, potion_element.rect)
 
 
 def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
@@ -168,6 +172,13 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
             return inventory_item
         if inventory_item.name == "energy potion":
             info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_energy_pot_img"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "super potion":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_super_pot_img"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
                                     graphic["use_button_img"])
@@ -367,6 +378,8 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
             text_location = font.render(str("Mines"), True, "black", "light yellow")
         if player.current_zone == "terra trail":
             text_location = font.render(str("Terra Trail"), True, "black", "light yellow")
+        if player.current_zone == "eldream":
+            text_location = font.render(str("Eldream"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
         screen.blit(text_location, text_location_rect)
@@ -716,6 +729,10 @@ def item_updates(player, graphic):
                     item_here.update(first_coord, second_coord, graphic["energy_pot_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
+                if item_here.name == "super potion":
+                    item_here.update(first_coord, second_coord, graphic["super_pot_img"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
                 if item_here.name == "shiny rock":
                     item_here.update(first_coord, second_coord, graphic["shiny_rock_img"])
                     player_items.append(item_here)
@@ -772,7 +789,8 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       no_role_attack_button, barrier_button, sharp_sense_button, hard_strike_button, in_over_world,
                       seldon_map_button, korlok_map_button, eldream_map_button, marrow_map_button, character_button,
                       quests_button, save_button, map_button, in_npc_interaction, quest_button, quest_clicked,
-                      accept_button, decline_button, in_apothecary, staff, sword, bow):
+                      accept_button, decline_button, in_apothecary, staff, sword, bow, potion_button,
+                      create_potion_button):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1100,6 +1118,15 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
                                         graphic_dict["main high"])
                 return True
+            elif potion_button.rect.collidepoint(pos):
+                button_highlight.update(potion_button.x_coordinate, potion_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif create_potion_button.rect.collidepoint(pos):
+                if len(potion_window_container) > 0:
+                    button_highlight.update(create_potion_button.x_coordinate, create_potion_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
 
             # quest window accept or decline button highlights when moused over
             if quest_clicked:

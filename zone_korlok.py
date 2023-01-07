@@ -20,14 +20,15 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     UiElement, interactables_mines, quest_star_garan, quest_star_maurelle, quest_star_celeste,
                     quest_star_torune, star_voruke, star_zerah, korlok_mountains, in_apothecary, star_apothecary,
                     star_dionte, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
-                    weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers):
+                    weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
+                    eldream_flowers, interactables_eldream):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
-                                                      seldon_flowers)
+                                                      seldon_flowers, eldream_flowers, interactables_eldream)
     korlok_enemies = respawned_dict["korlok_enemies"]
     magmons = respawned_dict["magmons"]
 

@@ -16,12 +16,12 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  snakes, ghouls, magmons, interactables_seldon, interactables_korlok, Enemy, Item, UiElement,
                  interactables_mines, ores, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                  defense_meter, weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup, jez_popup, prime_1,
-                 prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers):
+                 prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers, eldream_flowers, interactables_eldream):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
-                                                      seldon_flowers)
+                                                      seldon_flowers, eldream_flowers, interactables_eldream)
     bandiles = respawned_dict["bandiles"]
 
     for enemy_sprite in bandiles:  # update enemy sprite to a highlighted version

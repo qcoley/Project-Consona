@@ -212,6 +212,8 @@ def load_game(player, Item, graphics):
                     player.items.append(Item("health potion", "potion", 200, 200, graphics["health_pot_img"], 0))
                 if item == "energy potion":
                     player.items.append(Item("energy potion", "potion", 200, 200, graphics["energy_pot_img"], 0))
+                if item == "super potion":
+                    player.items.append(Item("super potion", "potion", 200, 200, graphics["super_pot_img"], 0))
                 if item == "shiny rock":
                     player.items.append(Item("shiny rock", "rock", 200, 200, graphics["shiny_rock_img"], 0))
                 if item == "bone dust":
@@ -635,7 +637,8 @@ def level_up(player, level_up_win, level_up_font):
 
 # function to respawn enemies if they are less than a specified amount active in game. spawns with random coord. and lvl
 def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
-                  interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers):
+                  interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers,
+                  eldream_flowers, interactables_eldream):
 
     if player.current_zone == "seldon":
         snake_counter = 0
@@ -684,7 +687,6 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         for flower in seldon_flowers:
             if flower:
                 flower_counter += 1
-
         if flower_counter < 3:
             new_flower = Item("flower seldon", "flower", random_flower_coord[0], random_flower_coord[1],
                               graphic_dict["flower_seldon"], 0)
@@ -736,10 +738,25 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             bandiles.add(new_bandile)
             interactables_mines.add(new_bandile)
 
+    if player.current_zone == "eldream":
+        flower_coords_list = [(355, 530), (722, 530), (215, 210), (770, 45), (990, 625)]
+        flower_counter = 0
+        random_flower_coord = random.choice(flower_coords_list)
+
+        for flower in eldream_flowers:
+            if flower:
+                flower_counter += 1
+
+        if flower_counter < 3:
+            new_flower = Item("flower eldream", "flower", random_flower_coord[0], random_flower_coord[1],
+                              graphic_dict["flower_eldream"], 0)
+            eldream_flowers.add(new_flower)
+            interactables_eldream.add(new_flower)
+
     respawn_dict = {"seldon_enemies": seldon_enemies, "snakes": snakes, "ghouls": ghouls,
                     "interactables_seldon": interactables_seldon, "interactables_korlok": interactables_korlok,
                     "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles, "seldon_flowers":
-                    seldon_flowers}
+                    seldon_flowers, "eldream_flowers": eldream_flowers, "interactables_eldream": interactables_eldream}
 
     return respawn_dict
 
