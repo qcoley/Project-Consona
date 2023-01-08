@@ -80,8 +80,14 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         interaction_info_rect.center = (terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        if player.quest_status["it's dangerous to go alone"]:
+        if player.quest_status["it's dangerous to go alone"] and not \
+                player.quest_complete["it's dangerous to go alone"]:
             info_text_1 = "Press 'F' key to enter cave.."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+        elif player.quest_complete["it's dangerous to go alone"]:
+            info_text_1 = "The monster has been vanquished!"
             info_text_2 = ""
             info_text_3 = ""
             info_text_4 = ""
@@ -92,7 +98,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             info_text_4 = ""
 
         if interacted and in_over_world:
-            if player.quest_status["it's dangerous to go alone"]:
+            if player.quest_status["it's dangerous to go alone"] and not \
+                    player.quest_complete["it's dangerous to go alone"]:
                 if not chinzilla_defeated:
                     current_enemy_battling = chinzilla
                     in_over_world = False
@@ -105,11 +112,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                                                       muchador_battle_sprite, magmon_battle_sprite,
                                                       bandile_battle_sprite, chinzilla_battle_sprite, barrier_active,
                                                       sharp_sense_active, in_battle, in_npc_interaction, graphic_dict)
-                else:
-                    info_text_1 = "The monster has been vanquished!"
-                    info_text_2 = ""
-                    info_text_3 = ""
-                    info_text_4 = ""
+
             interacted = False
 
     if pygame.sprite.collide_rect(player, rock_7):
@@ -123,7 +126,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         if interacted and in_over_world:
             try:
                 if player.equipment["gloves"].name == "power gloves":
-                    if rock_7.x_coordinate == 485:
+                    if rock_7.x_coordinate == 515:
                         rock_7.update(rock_7.x_coordinate - 120, rock_7.y_coordinate, graphic_dict["rock_small"])
                         if not rock_7_con:
                             player.rupees += 20
@@ -155,9 +158,10 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 interacted = False
                 over_world_song_set = False
                 player.current_zone = "eldream"
-                player.x_coordinate = 215
+                player.x_coordinate = 255
                 player.y_coordinate = 175
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
             else:
                 interacted = False
                 info_text_1 = "The gate appears to be shut."

@@ -71,6 +71,7 @@ def load_graphics():
     korlok_apothecary = pygame.image.load(resource_path('resources/art/bg_korlok_apothecary.png')).convert_alpha()
     mountain_trail_bg = pygame.image.load(resource_path('resources/art/bg_mountain_trail.png')).convert_alpha()
     eldream_bg_screen = pygame.image.load(resource_path('resources/art/bg_eldream_district.png')).convert_alpha()
+    fishing_hut_screen = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
     caves_battle_screen = pygame.image.load(resource_path('resources/art/bg_cave_battle_screen.png')).convert_alpha()
     mines_battle_screen = pygame.image.load(resource_path('resources/art/bg_mines_battle.png')).convert_alpha()
@@ -85,6 +86,7 @@ def load_graphics():
     seldon_academia_screen = pygame.image.load(resource_path('resources/art/bg_seldon_academia.png')).convert_alpha()
     seldon_hearth_screen = pygame.image.load(resource_path('resources/art/screen_seldon_hearth.png')).convert_alpha()
     korlok_hearth_screen = pygame.image.load(resource_path('resources/art/screen_korlok_hearth.png')).convert_alpha()
+    eldream_hearth_screen = pygame.image.load(resource_path('resources/art/screen_eldream_hearth.png')).convert_alpha()
     game_over_screen = pygame.image.load(resource_path('resources/art/screen_game_over.png')).convert_alpha()
     start_screen = pygame.image.load(resource_path('resources/art/screen_start.png')).convert_alpha()
     nera_sleep_screen = pygame.image.load(resource_path('resources/art/screen_nera_sleep.png')).convert_alpha()
@@ -140,6 +142,7 @@ def load_graphics():
                                                       'overlay_terra_trail_mountains.png')).convert_alpha()
     terra_cave = pygame.image.load(resource_path('resources/art/overlay_trail_cave.png')).convert_alpha()
     sprite_chinzilla = pygame.image.load(resource_path('resources/art/sprite_chinzilla.png')).convert_alpha()
+    overlay_eldream_river = pygame.image.load(resource_path('resources/art/overlay_eldream_river.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -155,10 +158,13 @@ def load_graphics():
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
-                  mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select]
+                  mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
+                  overlay_eldream_river]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["fishing_hut_screen"] = fishing_hut_screen
+    loaded_dict["eldream_river"] = overlay_eldream_river
     loaded_dict["apothecary_window"] = apothecary_window
     loaded_dict["weapon_select"] = weapon_select
     loaded_dict["chinzilla"] = sprite_chinzilla
@@ -189,6 +195,7 @@ def load_graphics():
     loaded_dict["mountain_trail_bg"] = mountain_trail_bg
     loaded_dict["seldon_academia_screen"] = seldon_academia_screen
     loaded_dict["seldon_hearth_screen"] = seldon_hearth_screen
+    loaded_dict["eldream_hearth_screen"] = eldream_hearth_screen
     loaded_dict["game_over_screen"] = game_over_screen
     loaded_dict["start_screen"] = start_screen
     loaded_dict["nera_sleep_screen"] = nera_sleep_screen

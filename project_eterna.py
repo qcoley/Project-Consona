@@ -375,11 +375,35 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.x_coordinate = 50
             elif self.x_coordinate > SCREEN_WIDTH - 550:
                 self.x_coordinate = SCREEN_WIDTH - 550
-
+            elif 470 < self.x_coordinate < 475 and 170 < self.y_coordinate < 400:
+                self.x_coordinate = 475
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
             elif self.y_coordinate >= SCREEN_HEIGHT - 130:
                 self.y_coordinate = SCREEN_HEIGHT - 130
+            elif 180 > self.y_coordinate > 170 and self.x_coordinate < 475:
+                self.y_coordinate = 170
+            elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
+                self.y_coordinate = 405
+        if current_zone == "eldream":
+            if self.x_coordinate < 20:
+                self.x_coordinate = 20
+            elif self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            elif 885 < self.x_coordinate < 890 and 525 > self.y_coordinate > 155:
+                self.x_coordinate = 890
+            elif 960 < self.x_coordinate > 885 and 425 > self.y_coordinate > 155:
+                self.x_coordinate = 960
+            elif 180 > self.x_coordinate < 170 and 300 > self.y_coordinate > 145:
+                self.x_coordinate = 170
+            if self.y_coordinate <= 70:
+                self.y_coordinate = 70
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif 525 < self.y_coordinate < 530 and 220 < self.x_coordinate < 890:
+                self.y_coordinate = 530
+            elif 140 < self.y_coordinate < 155 and self.x_coordinate < 170:
+                self.y_coordinate = 140
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -544,6 +568,13 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if player.y_coordinate > collided.y_coordinate:
                         self.y_coordinate += velocity
+        if current_zone == "eldream":
+            collided = pygame.sprite.spritecollideany(player, eldream_river)
+            if collided:
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -893,11 +924,35 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.x_coordinate = 50
             elif self.x_coordinate > SCREEN_WIDTH - 550:
                 self.x_coordinate = SCREEN_WIDTH - 550
-
+            elif 470 < self.x_coordinate < 475 and 170 < self.y_coordinate < 400:
+                self.x_coordinate = 475
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
             elif self.y_coordinate >= SCREEN_HEIGHT - 130:
                 self.y_coordinate = SCREEN_HEIGHT - 130
+            elif 180 > self.y_coordinate > 170 and self.x_coordinate < 475:
+                self.y_coordinate = 170
+            elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
+                self.y_coordinate = 405
+        if current_zone == "eldream":
+            if self.x_coordinate < 20:
+                self.x_coordinate = 20
+            elif self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            elif 885 < self.x_coordinate < 890 and 525 > self.y_coordinate > 155:
+                self.x_coordinate = 890
+            elif 960 < self.x_coordinate > 885 and 425 > self.y_coordinate > 155:
+                self.x_coordinate = 960
+            elif 180 > self.x_coordinate < 170 and 300 > self.y_coordinate > 145:
+                self.x_coordinate = 170
+            if self.y_coordinate <= 70:
+                self.y_coordinate = 70
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif 525 < self.y_coordinate < 530 and 220 < self.x_coordinate < 890:
+                self.y_coordinate = 530
+            elif 140 < self.y_coordinate < 155 and self.x_coordinate < 170:
+                self.y_coordinate = 140
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -1062,6 +1117,13 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if player.y_coordinate > collided.y_coordinate:
                         self.y_coordinate += velocity
+        if current_zone == "eldream":
+            collided = pygame.sprite.spritecollideany(player, eldream_river)
+            if collided:
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -1411,11 +1473,36 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.x_coordinate = 50
             elif self.x_coordinate > SCREEN_WIDTH - 550:
                 self.x_coordinate = SCREEN_WIDTH - 550
-
+            elif 470 < self.x_coordinate < 475 and 170 < self.y_coordinate < 400:
+                self.x_coordinate = 475
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
             elif self.y_coordinate >= SCREEN_HEIGHT - 130:
                 self.y_coordinate = SCREEN_HEIGHT - 130
+            elif 180 > self.y_coordinate > 170 and self.x_coordinate < 475:
+                self.y_coordinate = 170
+            elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
+                self.y_coordinate = 405
+
+        if current_zone == "eldream":
+            if self.x_coordinate < 20:
+                self.x_coordinate = 20
+            elif self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            elif 885 < self.x_coordinate < 890 and 525 > self.y_coordinate > 155:
+                self.x_coordinate = 890
+            elif 960 < self.x_coordinate > 885 and 425 > self.y_coordinate > 155:
+                self.x_coordinate = 960
+            elif 180 > self.x_coordinate < 170 and 300 > self.y_coordinate > 145:
+                self.x_coordinate = 170
+            if self.y_coordinate <= 70:
+                self.y_coordinate = 70
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif 525 < self.y_coordinate < 530 and 220 < self.x_coordinate < 890:
+                self.y_coordinate = 530
+            elif 140 < self.y_coordinate < 155 and self.x_coordinate < 170:
+                self.y_coordinate = 140
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -1539,15 +1626,6 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if player.y_coordinate > dungeon_chest_rect.y:
                     self.y_coordinate += velocity
         if current_zone == "terra trail":
-            if pygame.sprite.collide_rect(player, terra_mountains):
-                if player.x_coordinate < terra_mountains.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > terra_mountains.x_coordinate:
-                    self.x_coordinate += velocity
-                if player.y_coordinate < terra_mountains.y_coordinate:
-                    self.y_coordinate -= velocity
-                if player.y_coordinate > terra_mountains.y_coordinate:
-                    self.y_coordinate += velocity
             if pygame.sprite.collide_rect(player, terra_cave):
                 if player.x_coordinate < terra_cave.x_coordinate:
                     self.x_coordinate -= velocity
@@ -1580,6 +1658,13 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if player.y_coordinate > collided.y_coordinate:
                         self.y_coordinate += velocity
+        if current_zone == "eldream":
+            collided = pygame.sprite.spritecollideany(player, eldream_river)
+            if collided:
+                if player.y_coordinate < collided.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -1839,6 +1924,7 @@ if __name__ == '__main__':
     # background textures ----------------------------------------------------------------------------------------------
     nascent_grove_bg = graphic_dict["nascent_grove_screen"]
     rohir_river_bg = graphic_dict["rohir_river_screen"]
+    fishing_hut_bg = graphic_dict["fishing_hut_screen"]
     seldon_district_bg = graphic_dict["seldon_bg_screen"]
     seldon_district_battle = graphic_dict["seldon_battle_screen"]
     korlok_district_battle = graphic_dict["korlok_battle_screen"]
@@ -1854,6 +1940,7 @@ if __name__ == '__main__':
     stardust_battle = graphic_dict["star_battle_screen"]
     seldon_hearth_screen = graphic_dict["seldon_hearth_screen"]
     korlok_hearth_screen = graphic_dict["korlok_hearth_screen"]
+    eldream_hearth_screen = graphic_dict["eldream_hearth_screen"]
     game_over_screen = graphic_dict["game_over_screen"]
     start_screen = graphic_dict["start_screen"]
     nera_sleep_screen = graphic_dict["nera_sleep_screen"]
@@ -2273,6 +2360,28 @@ if __name__ == '__main__':
     dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
 
+    eldream_riv_1 = UiElement("eldream river 1", 190, 400, graphic_dict["eldream_river"])
+    eldream_riv_2 = UiElement("eldream river 2", 240, 370, graphic_dict["eldream_river"])
+    eldream_riv_3 = UiElement("eldream river 3", 285, 340, graphic_dict["eldream_river"])
+    eldream_riv_4 = UiElement("eldream river 4", 335, 310, graphic_dict["eldream_river"])
+    eldream_riv_5 = UiElement("eldream river 5", 385, 280, graphic_dict["eldream_river"])
+    eldream_riv_6 = UiElement("eldream river 6", 420, 230, graphic_dict["eldream_river"])
+    eldream_riv_7 = UiElement("eldream river 7", 470, 230, graphic_dict["eldream_river"])
+    eldream_riv_8 = UiElement("eldream river 8", 520, 240, graphic_dict["eldream_river"])
+    eldream_riv_9 = UiElement("eldream river 9", 570, 240, graphic_dict["eldream_river"])
+    eldream_riv_10 = UiElement("eldream river 10", 620, 250, graphic_dict["eldream_river"])
+    eldream_riv_11 = UiElement("eldream river 11", 670, 250, graphic_dict["eldream_river"])
+    eldream_riv_12 = UiElement("eldream river 12", 720, 260, graphic_dict["eldream_river"])
+    eldream_riv_13 = UiElement("eldream river 13", 770, 260, graphic_dict["eldream_river"])
+    eldream_riv_14 = UiElement("eldream river 14", 820, 270, graphic_dict["eldream_river"])
+    eldream_riv_15 = UiElement("eldream river 15", 840, 270, graphic_dict["eldream_river"])
+    eldream_riv_16 = UiElement("eldream river 16", 1020, 250, graphic_dict["eldream_river"])
+    eldream_riv_17 = UiElement("eldream river 17", 1020, 230, graphic_dict["eldream_river"])
+    eldream_riv_18 = UiElement("eldream river 18", 140, 430, graphic_dict["eldream_river"])
+    eldream_riv_19 = UiElement("eldream river 19", 90, 470, graphic_dict["eldream_river"])
+    eldream_riv_20 = UiElement("eldream river 20", 40, 500, graphic_dict["eldream_river"])
+    eldream_riv_21 = UiElement("eldream river 21", 0, 540, graphic_dict["eldream_river"])
+
     volcano_rect = pygame.Rect((450, 15), (100, 50))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
 
@@ -2293,7 +2402,7 @@ if __name__ == '__main__':
     rock_5 = Item("rock 5", "rock", 660, 570, graphic_dict["rock_small"], 0)
     rock_6 = Item("rock 6", "rock", 750, 60, graphic_dict["rock_small"], 0)
     # terra trail rock
-    rock_7 = Item("rock 7", "rock", 485, 395, graphic_dict["rock_small"], 0)
+    rock_7 = Item("rock 7", "rock", 515, 395, graphic_dict["rock_small"], 0)
 
     # flowers for apothecary
     flower_seldon_1 = Item("flower seldon 1", "flower", 190, 185, graphic_dict["flower_seldon"], 0)
@@ -2305,8 +2414,8 @@ if __name__ == '__main__':
     flower_eldream_1 = Item("flower eldream 1", "flower", 355, 530, graphic_dict["flower_eldream"], 0)
     flower_eldream_2 = Item("flower eldream 2", "flower", 722, 530, graphic_dict["flower_eldream"], 0)
     flower_eldream_3 = Item("flower eldream 3", "flower", 215, 210, graphic_dict["flower_eldream"], 0)
-    flower_eldream_4 = Item("flower eldream 4", "flower", 770, 45, graphic_dict["flower_eldream"], 0)
-    flower_eldream_5 = Item("flower eldream 5", "flower", 990, 625, graphic_dict["flower_eldream"], 0)
+    flower_eldream_4 = Item("flower eldream 4", "flower", 365, 670, graphic_dict["flower_eldream"], 0)
+    flower_eldream_5 = Item("flower eldream 5", "flower", 775, 670, graphic_dict["flower_eldream"], 0)
 
     font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
     level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
@@ -2327,6 +2436,7 @@ if __name__ == '__main__':
     other_rocks = pygame.sprite.Group()
     seldon_flowers = pygame.sprite.Group()
     eldream_flowers = pygame.sprite.Group()
+    eldream_river = pygame.sprite.Group()
     amuna_buildings = pygame.sprite.Group()
     nuldar_buildings = pygame.sprite.Group()
     dungeon_walls = pygame.sprite.Group()
@@ -2370,6 +2480,10 @@ if __name__ == '__main__':
     other_rocks.add(rock_3, rock_7)
     seldon_flowers.add(flower_seldon_1, flower_seldon_2, flower_seldon_3, flower_seldon_4, flower_seldon_5)
     eldream_flowers.add(flower_eldream_1, flower_eldream_2, flower_eldream_3, flower_eldream_4, flower_eldream_5)
+    eldream_river.add(eldream_riv_1, eldream_riv_2, eldream_riv_3, eldream_riv_4, eldream_riv_5, eldream_riv_6,
+                      eldream_riv_7, eldream_riv_8, eldream_riv_9, eldream_riv_10, eldream_riv_11, eldream_riv_12,
+                      eldream_riv_13, eldream_riv_14, eldream_riv_15, eldream_riv_16, eldream_riv_17, eldream_riv_18,
+                      eldream_riv_19, eldream_riv_20, eldream_riv_21)
     amuna_buildings.add(seldon_inn, seldon_shop, seldon_academia)
     nuldar_buildings.add(korlok_inn, korlok_shop, korlok_herb, reservoir_enter)
     dungeon_walls.add(dungeon_wall_1, dungeon_wall_2, dungeon_wall_3, dungeon_wall_4)
@@ -2392,7 +2506,7 @@ if __name__ == '__main__':
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
     interactables_mines.add(bandiles, mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
     interactables_terra_trail.add(npc_dionte, terra_cave, rock_7)
-    interactables_eldream.add(eldream_flowers)
+    interactables_eldream.add(eldream_flowers, hearth_stone)
 
     # music tracks
     start_screen_music = resource_path("resources/music/eterna_title.mp3")
@@ -2918,8 +3032,9 @@ if __name__ == '__main__':
                         player.y_coordinate = 150
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                     if player.current_zone == "eldream":
-                        player.x_coordinate = 215
+                        player.x_coordinate = 255
                         player.y_coordinate = 175
+                        hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 except TypeError:
                     pass
@@ -2930,6 +3045,8 @@ if __name__ == '__main__':
         # player has chosen to start game ------------------------------------------------------------------------------
         if start_chosen:
             if player.alive_status:
+
+                # print(player.x_coordinate, player.y_coordinate)
 
                 loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
@@ -3239,7 +3356,8 @@ if __name__ == '__main__':
                                     player.current_zone = "seldon"
                                     drawing_functions.hearthstone_animation(pygame, screen, player,
                                                                             seldon_hearth_screen, seldon_district_bg,
-                                                                            korlok_hearth_screen, korlok_district_bg)
+                                                                            korlok_hearth_screen, korlok_district_bg,
+                                                                            eldream_hearth_screen, eldream_district_bg)
                                     player.x_coordinate = 860
                                     player.y_coordinate = 655
                                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
@@ -3257,7 +3375,9 @@ if __name__ == '__main__':
                                                                                 seldon_hearth_screen,
                                                                                 seldon_district_bg,
                                                                                 korlok_hearth_screen,
-                                                                                korlok_district_bg)
+                                                                                korlok_district_bg,
+                                                                                eldream_hearth_screen,
+                                                                                eldream_district_bg)
                                         player.x_coordinate = 895
                                         player.y_coordinate = 325
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
@@ -3278,11 +3398,14 @@ if __name__ == '__main__':
                                                                                 seldon_hearth_screen,
                                                                                 seldon_district_bg,
                                                                                 korlok_hearth_screen,
-                                                                                korlok_district_bg)
-                                        player.x_coordinate = hearth_stone.x_coordinate
-                                        player.y_coordinate = hearth_stone.y_coordinate + 50
+                                                                                korlok_district_bg,
+                                                                                eldream_hearth_screen,
+                                                                                eldream_district_bg)
+                                        player.x_coordinate = 890
+                                        player.y_coordinate = 635
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                       player.y_coordinate))
+                                        hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                                         info_text_1 = "You recalled to the eldream stone."
                                         over_world_song_set = False
                                         stardust_song_set = False
@@ -3342,6 +3465,25 @@ if __name__ == '__main__':
                         in_over_world = True
                         player.x_coordinate = 425
                         player.y_coordinate = 690
+
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in nascent grove (starting area) --------------------------------------------------------
+                if player.current_zone == "fishing hut" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    pygame.mixer.music.fadeout(3000)
+                    screen.blit(fishing_hut_bg, (0, 0))
+                    screen.blit(equipment_screen.surf, equipment_screen.rect)
+                    screen.blit(player.surf, player.rect)
+
+                    # move player to seldon district when they approach nascent grove exit
+                    if player.x_coordinate < 50 and player.y_coordinate < 375:
+                        player.current_zone = "korlok"
+                        in_over_world = True
+                        overworld_song_set = False
+                        player.x_coordinate = 925
+                        player.y_coordinate = 545
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in seldon district ----------------------------------------------------------------------

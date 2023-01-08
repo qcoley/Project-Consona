@@ -424,13 +424,18 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     if enemy_combating.health > 0:
                         attacked_enemy_string = f" You did {striked} damage to {enemy_combating.kind}."
                         combat_event_dictionary["damage done"] = striked
+                        combat_event_dictionary["effective player"] = False
+                        combat_event_dictionary["non effective player"] = False
+                        combat_event_dictionary["critical dealt"] = False
+
                         # add damage to enemy to event dictionary to be returned to main loop
                         combat_event_dictionary["damage done string"] = attacked_enemy_string
 
                         # returns total damage output from enemy as attacked_player_health value
-                        defend_dict = gameplay_functions.attack_player(player, enemy_combating)
+                        defend_dict = gameplay_functions.attack_player(player, enemy_combating, barrier_active)
                         combat_event_dictionary["effective enemy"] = defend_dict["effective"]
                         combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
+                        combat_event_dictionary["critical received"] = defend_dict["critical"]
                         damage_to_player = defend_dict["damage"]
 
                         if damage_to_player > 0:

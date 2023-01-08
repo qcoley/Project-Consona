@@ -50,6 +50,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     for flower in eldream_flowers:
         screen.blit(flower.surf, flower.rect)
 
+    screen.blit(hearth_stone.surf, hearth_stone.rect)
+
     screen.blit(player.surf, player.rect)
 
     # player collides with flower, if collected adds to player flower count
@@ -68,6 +70,31 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
         if flow.surf == graphic_dict["flower_eldream_high"]:
             if flow != flower:
                 flow.surf = graphic_dict["flower_eldream"]
+
+    if pygame.sprite.collide_rect(player, hearth_stone):
+        interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("hearth stone"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if not eldream_attuned:
+            info_text_1 = "Press 'F' key to attune to stone."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world:
+                hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate,
+                                    graphic_dict["hearth_stone_lit"])
+                eldream_attuned = True
+                info_text_1 = "You have attuned to the stone."
+                info_text_2 = "You may now fast travel here."
+                interacted = False
+    else:
+        hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate, graphic_dict["hearth_stone"])
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

@@ -375,6 +375,14 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         player.y_coordinate = 150
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    if player.x_coordinate > 975 and player.y_coordinate > 475:
+        player.current_zone = "fishing hut"
+        in_over_world = True
+        over_world_song_set = False
+        player.x_coordinate = 100
+        player.y_coordinate = 285
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
     face_this_npc = random.choice(npcs.sprites())
