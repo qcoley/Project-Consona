@@ -2639,6 +2639,7 @@ if __name__ == '__main__':
 
     attack_hotkey = False
     skill_1_hotkey = False
+    turn_taken = False
 
     beyond_seldon = False
 
@@ -4058,6 +4059,9 @@ if __name__ == '__main__':
                 if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
                         and not in_npc_interaction:
 
+                    # reset on each new turn
+                    turn_taken = False
+
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_1:
@@ -4095,6 +4099,91 @@ if __name__ == '__main__':
                                 info_text_2 = ""
                             drawing_functions.item_info_window.clear()
                             button_highlighted = False
+                            try:
+                                # consume a turn when an item is used in combat
+                                if current_info_item.name == "energy potion":
+                                    if inventory_event["item message"] != "You're already at full energy.":
+                                        turn_taken = True
+                                        attack_hotkey = False
+                                        combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                        "attack", player,
+                                                                                        hard_strike_learned,
+                                                                                        level_up_win, level_up_font,
+                                                                                        graphic_dict,
+                                                                                        sharp_sense_active,
+                                                                                        barrier_active, turn_taken)
+                                        combat_happened = True
+                                        # add all combat scenario happenings from function to message box
+                                        try:
+                                            if combat_events["damage taken string"] == 0:
+                                                info_text_2 = ""
+                                            else:
+                                                info_text_2 = str(combat_events["damage taken string"])
+                                        except TypeError:
+                                            pass
+                                        gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar,
+                                                                                      star_power_meter, offense_meter,
+                                                                                      defense_meter, graphic_dict,
+                                                                                      basic_armor, forged_armor,
+                                                                                      mythical_armor, legendary_armor,
+                                                                                      power_gloves)
+                                        pygame.display.flip()
+                                if current_info_item.name == "health potion":
+                                    if inventory_event["item message"] != "You're already at full health.":
+                                        turn_taken = True
+                                        attack_hotkey = False
+                                        combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                        "attack", player,
+                                                                                        hard_strike_learned,
+                                                                                        level_up_win, level_up_font,
+                                                                                        graphic_dict,
+                                                                                        sharp_sense_active,
+                                                                                        barrier_active, turn_taken)
+                                        combat_happened = True
+                                        # add all combat scenario happenings from function to message box
+                                        try:
+                                            if combat_events["damage taken string"] == 0:
+                                                info_text_2 = ""
+                                            else:
+                                                info_text_2 = str(combat_events["damage taken string"])
+                                        except TypeError:
+                                            pass
+                                        gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar,
+                                                                                      star_power_meter, offense_meter,
+                                                                                      defense_meter, graphic_dict,
+                                                                                      basic_armor, forged_armor,
+                                                                                      mythical_armor, legendary_armor,
+                                                                                      power_gloves)
+                                        pygame.display.flip()
+                                if current_info_item.name == "super potion":
+                                    if inventory_event["item message"] != "You're already at full health or energy.":
+                                        turn_taken = True
+                                        attack_hotkey = False
+                                        combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                        "attack", player,
+                                                                                        hard_strike_learned,
+                                                                                        level_up_win, level_up_font,
+                                                                                        graphic_dict,
+                                                                                        sharp_sense_active,
+                                                                                        barrier_active, turn_taken)
+                                        combat_happened = True
+                                        # add all combat scenario happenings from function to message box
+                                        try:
+                                            if combat_events["damage taken string"] == 0:
+                                                info_text_2 = ""
+                                            else:
+                                                info_text_2 = str(combat_events["damage taken string"])
+                                        except TypeError:
+                                            pass
+                                        gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar,
+                                                                                      star_power_meter, offense_meter,
+                                                                                      defense_meter, graphic_dict,
+                                                                                      basic_armor, forged_armor,
+                                                                                      mythical_armor, legendary_armor,
+                                                                                      power_gloves)
+                                        pygame.display.flip()
+                            except AttributeError:
+                                pass
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
                             button_highlighted = False
@@ -4123,14 +4212,15 @@ if __name__ == '__main__':
                                                                  chorizon_battle_sprite, muchador_battle_sprite,
                                                                  magmon_battle_sprite, bandile_battle_sprite,
                                                                  chinzilla_battle_sprite, barrier_active,
-                                                                 sharp_sense_active, hard_strike, graphic_dict)
+                                                                 sharp_sense_active, hard_strike, graphic_dict,
+                                                                 turn_taken)
 
                                 # combat event function that handles and returns damage and health
                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
                                                                                 player, hard_strike_learned,
                                                                                 level_up_win, level_up_font,
                                                                                 graphic_dict, sharp_sense_active,
-                                                                                barrier_active)
+                                                                                barrier_active, turn_taken)
                                 combat_happened = True
 
                                 # add all combat scenario happenings from function to message box
@@ -4155,7 +4245,6 @@ if __name__ == '__main__':
                                         if combat_events["experience gained"] != 0:
                                             battle_info_to_return_to_main_loop["experience"] = \
                                                 str(combat_events["experience gained"])
-
                                     # if enemy was defeated and player leveled up, add messages related to box
                                     if combat_events["enemy defeated"]:
                                         if combat_events["leveled"]:
@@ -4196,7 +4285,6 @@ if __name__ == '__main__':
                                         if barrier_active:
                                             barrier_active = False
                                             # noinspection PyUnboundLocalVariable
-
                                         # if sharp sense is active on enemy defeat, restore original offense
                                         if sharp_sense_active:
                                             sharp_sense_active = False
@@ -4224,12 +4312,55 @@ if __name__ == '__main__':
                                     if player.role == "mage":
                                         if barrier_learned:
                                             if not barrier_active:
-                                                original_defence = player.defense
                                                 info_text_1 = "Barrier spell is active."
                                                 barrier_active = True
                                                 player.energy -= 35
+                                                turn_taken = True
+                                                attack_hotkey = False
+                                                combat_scenario.resting_animation(player, current_enemy_battling,
+                                                                                  player_battle_sprite,
+                                                                                  snake_battle_sprite,
+                                                                                  ghoul_battle_sprite,
+                                                                                  chorizon_battle_sprite,
+                                                                                  muchador_battle_sprite,
+                                                                                  magmon_battle_sprite,
+                                                                                  bandile_battle_sprite,
+                                                                                  chinzilla_battle_sprite,
+                                                                                  barrier_active, sharp_sense_active,
+                                                                                  in_battle, in_npc_interaction,
+                                                                                  graphic_dict)
+                                                # combat event function that handles and returns damage and health
+                                                combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                                "attack", player,
+                                                                                                hard_strike_learned,
+                                                                                                level_up_win,
+                                                                                                level_up_font,
+                                                                                                graphic_dict,
+                                                                                                sharp_sense_active,
+                                                                                                barrier_active,
+                                                                                                turn_taken)
+                                                combat_happened = True
+                                                # add all combat scenario happenings from function to message box
+                                                try:
+                                                    if combat_events["damage taken string"] == 0:
+                                                        info_text_2 = ""
+                                                    else:
+                                                        info_text_2 = str(combat_events["damage taken string"])
+                                                except TypeError:
+                                                    pass
+                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
+                                                                                              xp_bar, star_power_meter,
+                                                                                              offense_meter,
+                                                                                              defense_meter,
+                                                                                              graphic_dict,
+                                                                                              basic_armor, forged_armor,
+                                                                                              mythical_armor,
+                                                                                              legendary_armor,
+                                                                                              power_gloves)
+                                                pygame.display.flip()
                                             else:
                                                 info_text_1 = "Barrier spell is already active."
+
                                     # player is a scout and uses sharp sense. Set sharp sense active to true
                                     # save original offense value to be re applied upon enemy or player defeat
                                     if player.role == "scout":
@@ -4238,36 +4369,69 @@ if __name__ == '__main__':
                                                 info_text_1 = "Sharp sense is active."
                                                 sharp_sense_active = True
                                                 player.energy -= 35
+                                                turn_taken = True
+                                                attack_hotkey = False
+                                                combat_scenario.resting_animation(player, current_enemy_battling,
+                                                                                  player_battle_sprite,
+                                                                                  snake_battle_sprite,
+                                                                                  ghoul_battle_sprite,
+                                                                                  chorizon_battle_sprite,
+                                                                                  muchador_battle_sprite,
+                                                                                  magmon_battle_sprite,
+                                                                                  bandile_battle_sprite,
+                                                                                  chinzilla_battle_sprite,
+                                                                                  barrier_active, sharp_sense_active,
+                                                                                  in_battle, in_npc_interaction,
+                                                                                  graphic_dict)
+                                                # combat event function that handles and returns damage and health
+                                                combat_events = combat_scenario.attack_scenario(current_enemy_battling,
+                                                                                                "attack", player,
+                                                                                                hard_strike_learned,
+                                                                                                level_up_win,
+                                                                                                level_up_font,
+                                                                                                graphic_dict,
+                                                                                                sharp_sense_active,
+                                                                                                barrier_active,
+                                                                                                turn_taken)
+                                                combat_happened = True
+                                                # add all combat scenario happenings from function to message box
+                                                try:
+                                                    if combat_events["damage taken string"] == 0:
+                                                        info_text_2 = ""
+                                                    else:
+                                                        info_text_2 = str(combat_events["damage taken string"])
+                                                except TypeError:
+                                                    pass
+                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar,
+                                                                                              xp_bar, star_power_meter,
+                                                                                              offense_meter,
+                                                                                              defense_meter,
+                                                                                              graphic_dict,
+                                                                                              basic_armor, forged_armor,
+                                                                                              mythical_armor,
+                                                                                              legendary_armor,
+                                                                                              power_gloves)
+                                                pygame.display.flip()
                                             else:
                                                 info_text_1 = "Sharp sense is already active."
+
                                     # player is a fighter and uses hard strike
                                     if player.role == "fighter":
                                         if hard_strike_learned:
                                             hard_strike = True
-                                            combat_scenario.fighter(player, player_battle_sprite,
-                                                                    current_enemy_battling,
-                                                                    snake_battle_sprite, ghoul_battle_sprite,
-                                                                    chorizon_battle_sprite, muchador_battle_sprite,
-                                                                    magmon_battle_sprite, bandile_battle_sprite,
-                                                                    chinzilla_battle_sprite,
-                                                                    graphic_dict["player_fighter_amuna_strike"],
-                                                                    graphic_dict["player_fighter_sorae_strike"],
-                                                                    graphic_dict["player_fighter_nuldar_strike"],
-                                                                    graphic_dict["snake_battle"],
-                                                                    graphic_dict["ghoul_battle"],
-                                                                    graphic_dict["chorizon_battle"],
-                                                                    graphic_dict["muchador_battle"],
-                                                                    graphic_dict["magmon_battle"],
-                                                                    graphic_dict["bandile_battle"],
-                                                                    graphic_dict["chinzilla_battle"])
-
+                                            combat_scenario.fighter(graphics, player, player_battle_sprite,
+                                                                    current_enemy_battling, snake_battle_sprite,
+                                                                    ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                    muchador_battle_sprite, magmon_battle_sprite,
+                                                                    bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                    sharp_sense_active, barrier_active)
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                             "skill 1", player,
                                                                                             hard_strike_learned,
                                                                                             level_up_win, level_up_font,
                                                                                             graphic_dict,
                                                                                             sharp_sense_active,
-                                                                                            barrier_active)
+                                                                                            barrier_active, turn_taken)
                                             combat_happened = True
                                             player.energy -= 35
                                             if combat_events["damage done string"] == 0:
@@ -4314,6 +4478,12 @@ if __name__ == '__main__':
                                                 in_battle = False
                                                 in_over_world = True
                                                 loot_updated = False
+                                                if barrier_active:
+                                                    barrier_active = False
+                                                    # noinspection PyUnboundLocalVariable
+                                                if sharp_sense_active:
+                                                    sharp_sense_active = False
+                                                    # noinspection PyUnboundLocalVariable
                                 else:
                                     info_text_1 = "Not enough energy to use this skill."
 
@@ -4376,11 +4546,9 @@ if __name__ == '__main__':
                             except TypeError:
                                 pass
                             screen.blit(star_power_meter.surf, star_power_meter.rect)
-
                             if not combat_cooldown:
                                 if button_highlighted:
                                     screen.blit(button_highlight.surf, button_highlight.rect)
-
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
@@ -4396,7 +4564,6 @@ if __name__ == '__main__':
                             text_enemy_level_rect = text_enemy_level_surf.get_rect()
                             text_enemy_level_rect.center = (915, 689)
                             screen.blit(text_enemy_level_surf, text_enemy_level_rect)
-
                             if current_enemy_battling.type == "mage":
                                 type_advantage_overlay.update(580, 50, graphic_dict["mage_type_overlay"])
                             if current_enemy_battling.type == "fighter":
@@ -4404,7 +4571,6 @@ if __name__ == '__main__':
                             if current_enemy_battling.type == "scout":
                                 type_advantage_overlay.update(580, 50, graphic_dict["scout_type_overlay"])
                             screen.blit(type_advantage_overlay.surf, type_advantage_overlay.rect)
-
                             # game guide popups
                             if not battle_guide_shown:
                                 game_guide_overlay.update(game_guide_overlay.x_coordinate,
@@ -4482,7 +4648,7 @@ if __name__ == '__main__':
                                                          chorizon_battle_sprite, muchador_battle_sprite,
                                                          magmon_battle_sprite, bandile_battle_sprite,
                                                          chinzilla_battle_sprite, barrier_active,
-                                                         sharp_sense_active, hard_strike, graphic_dict)
+                                                         sharp_sense_active, hard_strike, graphic_dict, turn_taken)
                         if current_enemy_battling.name == "snake":
                             screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                         if current_enemy_battling.kind == "ghoul":
@@ -4517,7 +4683,6 @@ if __name__ == '__main__':
                             damage_done_rect = damage_done_surf.get_rect()
                             damage_done_rect.center = (850, 225)
                             screen.blit(damage_done_surf, damage_done_rect)
-
                             if combat_events["critical dealt"]:
                                 screen.blit(critical_dealt_overlay.surf, critical_dealt_overlay.rect)
 
@@ -4534,7 +4699,6 @@ if __name__ == '__main__':
                             damage_received_rect = damage_received_surf.get_rect()
                             damage_received_rect.center = (125, 275)
                             screen.blit(damage_received_surf, damage_received_rect)
-
                             if combat_events["critical received"]:
                                 screen.blit(critical_received_overlay.surf, critical_received_overlay.rect)
 
