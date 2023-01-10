@@ -202,9 +202,9 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             over_world_song_set = False
             interacted = False
             if rock_1.x_coordinate == 580:
-                rock_1.update(rock_1.x_coordinate + 300, rock_1.y_coordinate, graphic_dict["rock_img"])
+                rock_1.update(rock_1.x_coordinate + 300, rock_1.y_coordinate, graphic_dict["rock"])
             if rock_2.x_coordinate == 580:
-                rock_2.update(rock_2.x_coordinate + 300, rock_2.y_coordinate, graphic_dict["rock_img"])
+                rock_2.update(rock_2.x_coordinate + 300, rock_2.y_coordinate, graphic_dict["rock"])
             player.x_coordinate = 705
             player.y_coordinate = 175
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))

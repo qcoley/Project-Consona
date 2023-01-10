@@ -609,6 +609,27 @@ def load_graphics():
     loaded_dict["player_scout_sense_amuna_battle"] = player_skills_amuna_sheet[2]
     loaded_dict["player_scout_sense_amuna_attack"] = player_skills_amuna_sheet[3]
     loaded_dict["player_fighter_amuna_strike"] = player_skills_amuna_sheet[4]
+    loaded_dict["player_mage_barrier_sense_amuna_battle"] = player_skills_amuna_sheet[5]
+    loaded_dict["player_mage_barrier_sense_amuna_attack"] = player_skills_amuna_sheet[6]
+    loaded_dict["player_mage_sense_amuna_battle"] = player_skills_amuna_sheet[7]
+    loaded_dict["player_mage_sense_amuna_attack"] = player_skills_amuna_sheet[8]
+    loaded_dict["player_scout_barrier_amuna_battle"] = player_skills_amuna_sheet[9]
+    loaded_dict["player_scout_barrier_amuna_attack"] = player_skills_amuna_sheet[10]
+    loaded_dict["player_scout_barrier_sense_amuna_battle"] = player_skills_amuna_sheet[11]
+    loaded_dict["player_scout_barrier_sense_amuna_attack"] = player_skills_amuna_sheet[12]
+    # player skills amuna fighter --------------------------------------------------------------------------------------
+    player_skills_amuna_fighter_url = resource_path('resources/art/'
+                                                    'player_battle_sprites_skills_amuna_fighter_extra.png')
+    player_skills_amuna_fighter_sheet = sprite_sheet((750, 624), player_skills_amuna_fighter_url)
+    loaded_dict["player_fighter_barrier_amuna_battle"] = player_skills_amuna_fighter_sheet[0]
+    loaded_dict["player_fighter_barrier_amuna_attack"] = player_skills_amuna_fighter_sheet[1]
+    loaded_dict["player_fighter_barrier_amuna_strike"] = player_skills_amuna_fighter_sheet[2]
+    loaded_dict["player_fighter_sense_amuna_battle"] = player_skills_amuna_fighter_sheet[3]
+    loaded_dict["player_fighter_sense_amuna_attack"] = player_skills_amuna_fighter_sheet[4]
+    loaded_dict["player_fighter_sense_amuna_strike"] = player_skills_amuna_fighter_sheet[5]
+    loaded_dict["player_fighter_barrier_sense_amuna_battle"] = player_skills_amuna_fighter_sheet[6]
+    loaded_dict["player_fighter_barrier_sense_amuna_attack"] = player_skills_amuna_fighter_sheet[7]
+    loaded_dict["player_fighter_barrier_sense_amuna_strike"] = player_skills_amuna_fighter_sheet[8]
     # player battle sorae race -----------------------------------------------------------------------------------------
     player_battle_sorae_url = resource_path('resources/art/player_battle_sprites_sorae.png')
     player_battle_sorae_sheet = sprite_sheet((750, 624), player_battle_sorae_url)
@@ -637,7 +658,8 @@ def load_graphics():
     loaded_dict["player_scout_barrier_sense_sorae_battle"] = player_skills_sorae_sheet[11]
     loaded_dict["player_scout_barrier_sense_sorae_attack"] = player_skills_sorae_sheet[12]
     # player skills sorae fighter --------------------------------------------------------------------------------------
-    player_skills_sorae_fighter_url = resource_path('resources/art/player_battle_sprites_skills_sorae_fighter_extra.png')
+    player_skills_sorae_fighter_url = resource_path('resources/art/'
+                                                    'player_battle_sprites_skills_sorae_fighter_extra.png')
     player_skills_sorae_fighter_sheet = sprite_sheet((750, 624), player_skills_sorae_fighter_url)
     loaded_dict["player_fighter_barrier_sorae_battle"] = player_skills_sorae_fighter_sheet[0]
     loaded_dict["player_fighter_barrier_sorae_attack"] = player_skills_sorae_fighter_sheet[1]
@@ -667,6 +689,27 @@ def load_graphics():
     loaded_dict["player_scout_sense_nuldar_battle"] = player_skills_nuldar_sheet[2]
     loaded_dict["player_scout_sense_nuldar_attack"] = player_skills_nuldar_sheet[3]
     loaded_dict["player_fighter_nuldar_strike"] = player_skills_nuldar_sheet[4]
+    loaded_dict["player_mage_barrier_sense_nuldar_battle"] = player_skills_nuldar_sheet[5]
+    loaded_dict["player_mage_barrier_sense_nuldar_attack"] = player_skills_nuldar_sheet[6]
+    loaded_dict["player_mage_sense_nuldar_battle"] = player_skills_nuldar_sheet[7]
+    loaded_dict["player_mage_sense_nuldar_attack"] = player_skills_nuldar_sheet[8]
+    loaded_dict["player_scout_barrier_nuldar_battle"] = player_skills_nuldar_sheet[9]
+    loaded_dict["player_scout_barrier_nuldar_attack"] = player_skills_nuldar_sheet[10]
+    loaded_dict["player_scout_barrier_sense_nuldar_battle"] = player_skills_nuldar_sheet[11]
+    loaded_dict["player_scout_barrier_sense_nuldar_attack"] = player_skills_nuldar_sheet[12]
+    # player skills sorae fighter --------------------------------------------------------------------------------------
+    player_skills_nuldar_fighter_url = resource_path('resources/art/'
+                                                     'player_battle_sprites_skills_nuldar_fighter_extra.png')
+    player_skills_nuldar_fighter_sheet = sprite_sheet((750, 624), player_skills_nuldar_fighter_url)
+    loaded_dict["player_fighter_barrier_nuldar_battle"] = player_skills_nuldar_fighter_sheet[0]
+    loaded_dict["player_fighter_barrier_nuldar_attack"] = player_skills_nuldar_fighter_sheet[1]
+    loaded_dict["player_fighter_barrier_nuldar_strike"] = player_skills_nuldar_fighter_sheet[2]
+    loaded_dict["player_fighter_sense_nuldar_battle"] = player_skills_nuldar_fighter_sheet[3]
+    loaded_dict["player_fighter_sense_nuldar_attack"] = player_skills_nuldar_fighter_sheet[4]
+    loaded_dict["player_fighter_sense_nuldar_strike"] = player_skills_nuldar_fighter_sheet[5]
+    loaded_dict["player_fighter_barrier_sense_nuldar_battle"] = player_skills_nuldar_fighter_sheet[6]
+    loaded_dict["player_fighter_barrier_sense_nuldar_attack"] = player_skills_nuldar_fighter_sheet[7]
+    loaded_dict["player_fighter_barrier_sense_nuldar_strike"] = player_skills_nuldar_fighter_sheet[8]
     # damage overlays --------------------------------------------------------------------------------------------------
     damage_overlays_url = resource_path('resources/art/overlays_damage.png')
     damage_overlays_sheet = sprite_sheet((150, 200), damage_overlays_url)

@@ -492,7 +492,6 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
     # move player back to reservoir b if they approach passage
     if 1000 > player.x_coordinate > 950 and 400 < player.y_coordinate:
         player.current_zone = "reservoir b"
-        over_world_song_set = False
         in_over_world = True
         muchador_lights_on = True
         player.x_coordinate = 100

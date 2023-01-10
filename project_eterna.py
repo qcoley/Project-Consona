@@ -267,6 +267,16 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if self.y_coordinate > 350:
                     if self.x_coordinate < 685:
                         self.x_coordinate = 680
+            elif 435 < self.y_coordinate < 550 and player.x_coordinate > 600:
+                player.x_coordinate = 600
+            elif 435 < self.y_coordinate < 550 and player.x_coordinate < 430:
+                player.x_coordinate = 430
+            elif 350 < self.y_coordinate < 425 and player.x_coordinate > 670:
+                player.x_coordinate = 670
+            if 350 < self.y_coordinate < 525 and 750 < player.x_coordinate < 770:
+                player.x_coordinate = 770
+            if 350 < self.y_coordinate < 525 and 260 < player.x_coordinate < 305:
+                player.x_coordinate = 260
             if self.y_coordinate <= 125:
                 self.y_coordinate = 125
             elif self.x_coordinate < 360 or self.x_coordinate > 725:
@@ -362,6 +372,8 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.x_coordinate = 72
             elif self.x_coordinate > SCREEN_WIDTH - 315:
                 self.x_coordinate = SCREEN_WIDTH - 315
+            elif 430 < self.y_coordinate < 500 and self.x_coordinate > 545:
+                self.x_coordinate = 545
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
             elif self.x_coordinate < 660:
@@ -448,23 +460,19 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate += velocity
         if current_zone == "mines":
             if pygame.sprite.collide_rect(player, mines_wall):
-                if player.x_coordinate < mines_wall.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > mines_wall.x_coordinate:
-                    self.x_coordinate += velocity
                 if player.y_coordinate < mines_wall.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_wall.y_coordinate:
                     self.y_coordinate += velocity
             if pygame.sprite.collide_rect(player, mines_light):
-                if player.x_coordinate < mines_light.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > mines_light.x_coordinate:
-                    self.x_coordinate += velocity
                 if player.y_coordinate < mines_light.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_light.y_coordinate:
                     self.y_coordinate += velocity
+                if player.x_coordinate < mines_light.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > mines_light.x_coordinate:
+                    self.x_coordinate += velocity
             if pygame.sprite.collide_rect(player, mines_cart):
                 if player.x_coordinate < mines_cart.x_coordinate:
                     self.x_coordinate -= velocity
@@ -487,10 +495,6 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.y_coordinate += velocity
             collided = pygame.sprite.spritecollideany(player, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
-                if player.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
                 if player.y_coordinate < collided.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
@@ -527,15 +531,6 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if player.y_coordinate > dungeon_chest_rect.y:
                     self.y_coordinate += velocity
         if current_zone == "terra trail":
-            if pygame.sprite.collide_rect(player, terra_mountains):
-                if player.x_coordinate < terra_mountains.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > terra_mountains.x_coordinate:
-                    self.x_coordinate += velocity
-                if player.y_coordinate < terra_mountains.y_coordinate:
-                    self.y_coordinate -= velocity
-                if player.y_coordinate > terra_mountains.y_coordinate:
-                    self.y_coordinate += velocity
             if pygame.sprite.collide_rect(player, terra_cave):
                 if player.x_coordinate < terra_cave.x_coordinate:
                     self.x_coordinate -= velocity
@@ -816,6 +811,16 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.y_coordinate > 350:
                     if self.x_coordinate < 685:
                         self.x_coordinate = 680
+            elif 435 < self.y_coordinate < 550 and player.x_coordinate > 600:
+                player.x_coordinate = 600
+            elif 435 < self.y_coordinate < 550 and player.x_coordinate < 430:
+                player.x_coordinate = 430
+            elif 350 < self.y_coordinate < 425 and player.x_coordinate > 670:
+                player.x_coordinate = 670
+            if 350 < self.y_coordinate < 525 and 750 < player.x_coordinate < 770:
+                player.x_coordinate = 770
+            if 350 < self.y_coordinate < 525 and 260 < player.x_coordinate < 305:
+                player.x_coordinate = 260
             if self.y_coordinate <= 125:
                 self.y_coordinate = 125
             elif self.x_coordinate < 360 or self.x_coordinate > 725:
@@ -911,6 +916,8 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.x_coordinate = 72
             elif self.x_coordinate > SCREEN_WIDTH - 315:
                 self.x_coordinate = SCREEN_WIDTH - 315
+            elif 430 < self.y_coordinate < 500 and self.x_coordinate > 545:
+                self.x_coordinate = 545
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
             elif self.x_coordinate < 660:
@@ -997,23 +1004,19 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.y_coordinate += velocity
         if current_zone == "mines":
             if pygame.sprite.collide_rect(player, mines_wall):
-                if player.x_coordinate < mines_wall.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > mines_wall.x_coordinate:
-                    self.x_coordinate += velocity
                 if player.y_coordinate < mines_wall.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_wall.y_coordinate:
                     self.y_coordinate += velocity
             if pygame.sprite.collide_rect(player, mines_light):
-                if player.x_coordinate < mines_light.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > mines_light.x_coordinate:
-                    self.x_coordinate += velocity
                 if player.y_coordinate < mines_light.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_light.y_coordinate:
                     self.y_coordinate += velocity
+                if player.x_coordinate < mines_light.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > mines_light.x_coordinate:
+                    self.x_coordinate += velocity
             if pygame.sprite.collide_rect(player, mines_cart):
                 if player.x_coordinate < mines_cart.x_coordinate:
                     self.x_coordinate -= velocity
@@ -1036,10 +1039,6 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.y_coordinate += velocity
             collided = pygame.sprite.spritecollideany(player, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
-                if player.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
                 if player.y_coordinate < collided.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
@@ -1076,15 +1075,6 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if player.y_coordinate > dungeon_chest_rect.y:
                     self.y_coordinate += velocity
         if current_zone == "terra trail":
-            if pygame.sprite.collide_rect(player, terra_mountains):
-                if player.x_coordinate < terra_mountains.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > terra_mountains.x_coordinate:
-                    self.x_coordinate += velocity
-                if player.y_coordinate < terra_mountains.y_coordinate:
-                    self.y_coordinate -= velocity
-                if player.y_coordinate > terra_mountains.y_coordinate:
-                    self.y_coordinate += velocity
             if pygame.sprite.collide_rect(player, terra_cave):
                 if player.x_coordinate < terra_cave.x_coordinate:
                     self.x_coordinate -= velocity
@@ -1365,6 +1355,16 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if self.y_coordinate > 350:
                     if self.x_coordinate < 685:
                         self.x_coordinate = 680
+            elif 435 < self.y_coordinate < 550 and player.x_coordinate > 600:
+                player.x_coordinate = 600
+            elif 435 < self.y_coordinate < 550 and player.x_coordinate < 430:
+                player.x_coordinate = 430
+            elif 350 < self.y_coordinate < 425 and player.x_coordinate > 670:
+                player.x_coordinate = 670
+            if 350 < self.y_coordinate < 525 and 750 < player.x_coordinate < 770:
+                player.x_coordinate = 770
+            if 350 < self.y_coordinate < 525 and 260 < player.x_coordinate < 305:
+                player.x_coordinate = 260
             if self.y_coordinate <= 125:
                 self.y_coordinate = 125
             elif self.x_coordinate < 360 or self.x_coordinate > 725:
@@ -1460,6 +1460,8 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.x_coordinate = 72
             elif self.x_coordinate > SCREEN_WIDTH - 315:
                 self.x_coordinate = SCREEN_WIDTH - 315
+            elif 430 < self.y_coordinate < 500 and self.x_coordinate > 545:
+                self.x_coordinate = 545
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
             elif self.x_coordinate < 660:
@@ -1483,7 +1485,6 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 170
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
-
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
@@ -1547,23 +1548,19 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.y_coordinate += velocity
         if current_zone == "mines":
             if pygame.sprite.collide_rect(player, mines_wall):
-                if player.x_coordinate < mines_wall.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > mines_wall.x_coordinate:
-                    self.x_coordinate += velocity
                 if player.y_coordinate < mines_wall.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_wall.y_coordinate:
                     self.y_coordinate += velocity
             if pygame.sprite.collide_rect(player, mines_light):
-                if player.x_coordinate < mines_light.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > mines_light.x_coordinate:
-                    self.x_coordinate += velocity
                 if player.y_coordinate < mines_light.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > mines_light.y_coordinate:
                     self.y_coordinate += velocity
+                if player.x_coordinate < mines_light.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > mines_light.x_coordinate:
+                    self.x_coordinate += velocity
             if pygame.sprite.collide_rect(player, mines_cart):
                 if player.x_coordinate < mines_cart.x_coordinate:
                     self.x_coordinate -= velocity
@@ -1586,10 +1583,6 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.y_coordinate += velocity
             collided = pygame.sprite.spritecollideany(player, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
-                if player.x_coordinate < collided.x_coordinate:
-                    self.x_coordinate -= velocity
-                if player.x_coordinate > collided.x_coordinate:
-                    self.x_coordinate += velocity
                 if player.y_coordinate < collided.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
@@ -2161,10 +2154,10 @@ if __name__ == '__main__':
     nascent_gate = Building("gate", "nascent gate", 418, 262, graphic_dict["nascent_gate_closed"])
 
     dungeon_entrance = Building("entrance", "dungeon entrance", 35, 350, graphic_dict["dungeon_entrance"])
-    dungeon_wall_1 = Building("wall", "dungeon wall 1", 347, 472, graphic_dict["dungeon_wall_1"])
-    dungeon_wall_2 = Building("wall", "dungeon wall 2", 308, 384, graphic_dict["dungeon_wall_2"])
-    dungeon_wall_3 = Building("wall", "dungeon wall 3", 682, 472, graphic_dict["dungeon_wall_1"])
-    dungeon_wall_4 = Building("wall", "dungeon wall 4", 720, 384, graphic_dict["dungeon_wall_2"])
+    dungeon_wall_1 = Building("wall", "dungeon wall 1", 347, 450, graphic_dict["dungeon_wall_1"])
+    dungeon_wall_2 = Building("wall", "dungeon wall 2", 308, 368, graphic_dict["dungeon_wall_2"])
+    dungeon_wall_3 = Building("wall", "dungeon wall 3", 682, 450, graphic_dict["dungeon_wall_1"])
+    dungeon_wall_4 = Building("wall", "dungeon wall 4", 720, 368, graphic_dict["dungeon_wall_2"])
 
     location_overlay = UiElement("location overlay", 915, 28, graphic_dict["location_overlay"])
     character_select_overlay = UiElement("character select overlay", 640, 365, graphic_dict["char_select_overlay"])
@@ -3047,7 +3040,7 @@ if __name__ == '__main__':
         if start_chosen:
             if player.alive_status:
 
-                # print(player.x_coordinate, player.y_coordinate)
+                print(player.x_coordinate, player.y_coordinate)
 
                 loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
@@ -4419,7 +4412,7 @@ if __name__ == '__main__':
                                     if player.role == "fighter":
                                         if hard_strike_learned:
                                             hard_strike = True
-                                            combat_scenario.fighter(graphics, player, player_battle_sprite,
+                                            combat_scenario.fighter(graphic_dict, player, player_battle_sprite,
                                                                     current_enemy_battling, snake_battle_sprite,
                                                                     ghoul_battle_sprite, chorizon_battle_sprite,
                                                                     muchador_battle_sprite, magmon_battle_sprite,
