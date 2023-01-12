@@ -133,13 +133,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     for ui_elements in user_interface:
         screen.blit(ui_elements.surf, ui_elements.rect)
 
-    if len(drawing_functions.loot_popup_container) > 0:
-        for popup in drawing_functions.loot_popup_container:
-            screen.blit(popup.surf, popup.rect)
-    if len(drawing_functions.loot_text_container) > 0:
-        for loot_text in drawing_functions.loot_text_container:
-            screen.blit(loot_text[0], loot_text[1])
-
     screen.blit(bar_backdrop.surf, bar_backdrop.rect)
     screen.blit(hp_bar.surf, hp_bar.rect)
     screen.blit(en_bar.surf, en_bar.rect)
@@ -207,6 +200,13 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     jez_text_rect = jez_text_surf.get_rect()
     jez_text_rect.center = (jez_popup.x_coordinate, jez_popup.y_coordinate)
     screen.blit(jez_text_surf, jez_text_rect)
+
+    if len(drawing_functions.loot_popup_container) > 0:
+        for popup in drawing_functions.loot_popup_container:
+            screen.blit(popup.surf, popup.rect)
+    if len(drawing_functions.loot_text_container) > 0:
+        for loot_text in drawing_functions.loot_text_container:
+            screen.blit(loot_text[0], loot_text[1])
 
     # info to return to main loop --------------------------------------------------------------------------------------
     mines_return = {"over_world_song_set": over_world_song_set, "enemy_tic": enemy_tic, "npc_tic": npc_tic,

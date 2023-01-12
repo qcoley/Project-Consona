@@ -2215,6 +2215,7 @@ if __name__ == '__main__':
     sharp_sense_button = UiElement("sharp sense button", 820, 642, graphic_dict["sense_button_img"])
 
     type_advantage_overlay = UiElement("type advantage overlay", 580, 48, graphic_dict["mage_type_overlay"])
+    type_advantage_mini = UiElement("type advantage mini", 960, 58, graphic_dict["type advantages"])
 
     skill_bar = UiElement("skill bar", 855, 636, graphic_dict["skill_bar"])
     enemy_status = UiElement("enemy status", 855, 687, graphic_dict["enemy_status"])
@@ -2929,6 +2930,7 @@ if __name__ == '__main__':
                     korlok_attuned = load_returned["korlok_attuned"]
                     eldream_attuned = load_returned["eldream_attuned"]
                     apothecary_access = load_returned["apothecary_access"]
+                    beyond_seldon = load_returned["beyond seldon"]
 
                     if player.race == "amuna":
                         player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
@@ -3040,7 +3042,7 @@ if __name__ == '__main__':
         if start_chosen:
             if player.alive_status:
 
-                print(player.x_coordinate, player.y_coordinate)
+                # print(player.x_coordinate, player.y_coordinate)
 
                 loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
@@ -3283,7 +3285,8 @@ if __name__ == '__main__':
                                                                      mini_boss_1_defeated, mini_boss_2_defeated,
                                                                      gloves_obtained, korlok_attuned, eldream_attuned,
                                                                      rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                     chinzilla_defeated, apothecary_access)
+                                                                     chinzilla_defeated, apothecary_access,
+                                                                     beyond_seldon)
                                         saved = True
                                         saving = False
                                         info_text_1 = "You saved your game. "
@@ -3300,7 +3303,8 @@ if __name__ == '__main__':
                                                              switch_3, muchador_defeated, has_key, mini_boss_1_defeated,
                                                              mini_boss_2_defeated, gloves_obtained, korlok_attuned,
                                                              eldream_attuned, rock_4_con, rock_5_con, rock_6_con,
-                                                             rock_7_con, chinzilla_defeated, apothecary_access)
+                                                             rock_7_con, chinzilla_defeated, apothecary_access,
+                                                             beyond_seldon)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -3554,6 +3558,7 @@ if __name__ == '__main__':
                     in_inn = seldon_returned["in_inn"]
                     in_npc_interaction = seldon_returned["in_npc_interaction"]
                     movement_able = seldon_returned["movement_able"]
+                    beyond_seldon = seldon_returned["beyond_seldon"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -4564,6 +4569,9 @@ if __name__ == '__main__':
                             if current_enemy_battling.type == "scout":
                                 type_advantage_overlay.update(580, 50, graphic_dict["scout_type_overlay"])
                             screen.blit(type_advantage_overlay.surf, type_advantage_overlay.rect)
+                            if not beyond_seldon and player.current_zone != "reservoir a" or player.current_zone != \
+                                    "reservoir b" or player.current_zone != "reservoir c":
+                                screen.blit(type_advantage_mini.surf, type_advantage_mini.rect)
                             # game guide popups
                             if not battle_guide_shown:
                                 game_guide_overlay.update(game_guide_overlay.x_coordinate,
@@ -5058,15 +5066,23 @@ if __name__ == '__main__':
                             stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                         if quests_complete == 5:
+                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_01_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
                         if quests_complete == 6:
+                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_02_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
                         if quests_complete == 7:
+                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_03_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
                         if quests_complete == 8:
+                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
 
@@ -5737,7 +5753,8 @@ if __name__ == '__main__':
                                                                      mini_boss_1_defeated, mini_boss_2_defeated,
                                                                      gloves_obtained, korlok_attuned, eldream_attuned,
                                                                      rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                     chinzilla_defeated, apothecary_access)
+                                                                     chinzilla_defeated, apothecary_access,
+                                                                     beyond_seldon)
                                     except PermissionError:
                                         pass
 
@@ -5849,8 +5866,8 @@ if __name__ == '__main__':
                         drawing_functions.draw_it(screen)
 
                         # if player has access to apothecary functions by completing quest and window is open
+                        screen.blit(potions_button.surf, potions_button.rect)
                         if apothecary_access:
-                            screen.blit(potions_button.surf, potions_button.rect)
                             if apothecary_window_open:
                                 seldon_flowers_surf = level_up_font.render(str(seldon_flower_counter),
                                                                            True, "black", "light yellow")
@@ -6045,7 +6062,7 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access)
+                                                                         apothecary_access, beyond_seldon)
                                         except PermissionError:
                                             pass
                                     else:
@@ -6116,7 +6133,7 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access)
+                                                                         apothecary_access, beyond_seldon)
                                         except PermissionError:
                                             pass
                                     else:
@@ -6187,7 +6204,7 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access)
+                                                                         apothecary_access, beyond_seldon)
                                         except PermissionError:
                                             pass
                                     else:
@@ -6257,7 +6274,7 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access)
+                                                                         apothecary_access, beyond_seldon)
                                         except PermissionError:
                                             pass
                                     else:
@@ -6327,7 +6344,7 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access)
+                                                                         apothecary_access, beyond_seldon)
                                         except PermissionError:
                                             pass
                                     else:
@@ -6399,7 +6416,7 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access)
+                                                                         apothecary_access, beyond_seldon)
                                         except PermissionError:
                                             pass
                                     else:
@@ -6470,7 +6487,7 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access)
+                                                                         apothecary_access, beyond_seldon)
                                         except PermissionError:
                                             pass
                                     else:

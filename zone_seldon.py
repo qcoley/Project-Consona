@@ -449,6 +449,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                      "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                      "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                      "in_battle": in_battle, "in_shop": in_shop, "in_academia": in_academia, "in_inn": in_inn,
-                     "in_npc_interaction": in_npc_interaction, "movement_able": movement_able}
+                     "in_npc_interaction": in_npc_interaction, "movement_able": movement_able,
+                     "beyond_seldon": beyond_seldon}
 
     return seldon_return

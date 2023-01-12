@@ -308,6 +308,7 @@ def load_game(player, Item, graphics):
             load_return["gloves_obtained"] = player_load_info["gloves_obtained"]
             load_return["korlok_attuned"] = player_load_info["korlok_attuned"]
             load_return["eldream_attuned"] = player_load_info["eldream_attuned"]
+            load_return["beyond seldon"] = player_load_info["beyond seldon"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -325,7 +326,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               quest_highlight_popup, bridge_not_repaired, nede_ghoul_defeated, bridge_cutscenes_not_viewed,
               crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3, muchador_defeated, has_key,
               mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned,
-              rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access):
+              rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -371,7 +372,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "eldream_attuned": eldream_attuned, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
                         "rock_6_con": rock_6_con, "rock_7_con": rock_7_con, "chinzilla_defeated": chinzilla_defeated,
                         "apothecary_access": apothecary_access, "flowers amuna": int(player.flowers_amuna),
-                        "flowers sorae": int(player.flowers_sorae)}
+                        "flowers sorae": int(player.flowers_sorae), "beyond seldon": beyond_seldon}
     try:
         try:
             # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)

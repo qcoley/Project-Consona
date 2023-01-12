@@ -52,6 +52,7 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    overlay_advantages = pygame.image.load(resource_path('resources/art/overlay_type_advantages.png')).convert_alpha()
     apothecary_window = pygame.image.load(resource_path('resources/art/overlay_apothercary_window.png')).convert_alpha()
     weapon_select = pygame.image.load(resource_path('resources/art/overlay_weapon_select.png')).convert_alpha()
     equipment_screen = pygame.image.load(resource_path('resources/art/overlay_equipment_screen.png')).convert_alpha()
@@ -159,10 +160,11 @@ def load_graphics():
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
-                  overlay_eldream_river]
+                  overlay_eldream_river, overlay_advantages]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["type advantages"] = overlay_advantages
     loaded_dict["fishing_hut_screen"] = fishing_hut_screen
     loaded_dict["eldream_river"] = overlay_eldream_river
     loaded_dict["apothecary_window"] = apothecary_window
