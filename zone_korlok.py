@@ -74,7 +74,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
-    enemy = pygame.sprite.spritecollideany(player, korlok_enemies)
+    enemy = pygame.sprite.spritecollideany(player, korlok_enemies, pygame.sprite.collide_rect_ratio(0.75))
     if enemy:
         interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
@@ -104,7 +104,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               graphic_dict)
 
     # if player collides with npc sprite and chooses to interact with it
-    npc = pygame.sprite.spritecollideany(player, npcs)
+    npc = pygame.sprite.spritecollideany(player, npcs, pygame.sprite.collide_rect_ratio(0.75))
     if npc:
         interaction_popup.update(npc.x_coordinate, npc.y_coordinate - 50, graphic_dict["popup_interaction_purple"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
@@ -134,7 +134,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               graphic_dict)
 
     # player collides with building, enters if chosen to interact and starts related scenario
-    building = pygame.sprite.spritecollideany(player, nuldar_buildings)
+    building = pygame.sprite.spritecollideany(player, nuldar_buildings, pygame.sprite.collide_rect_ratio(0.75))
     if building and in_over_world and building != reservoir_enter:
 
         interaction_popup.update(building.x_coordinate, building.y_coordinate - 50,

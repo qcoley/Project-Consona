@@ -380,6 +380,8 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
             text_location = font.render(str("Terra Trail"), True, "black", "light yellow")
         if player.current_zone == "eldream":
             text_location = font.render(str("Eldream"), True, "black", "light yellow")
+        if player.current_zone == "ectrenos":
+            text_location = font.render(str("Ectrenos"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
         screen.blit(text_location, text_location_rect)
@@ -680,12 +682,12 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
             if quest_npc.name == "zerah":
                 quest_complete_box.append(zerah_quest_window)
             if quest_npc.name == "kirean":
-                quest_box.append(kirean_quest_window)
+                quest_complete_box.append(kirean_quest_window)
             if quest_npc.name == "dionte":
-                quest_box.append(dionte_quest_window)
+                quest_complete_box.append(dionte_quest_window)
         except AttributeError:
             if quest_npc == "kirean":
-                quest_box.append(kirean_quest_window)
+                quest_complete_box.append(kirean_quest_window)
 
 
 def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves):

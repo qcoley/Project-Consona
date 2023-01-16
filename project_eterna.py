@@ -20,6 +20,7 @@ import zone_seldon
 import zone_mines
 import zone_terra_trail
 import zone_eldream
+import zone_ectrenos
 
 # global variables
 SCREEN_WIDTH = 1280
@@ -237,8 +238,8 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.x_coordinate = 50
             elif self.x_coordinate > SCREEN_WIDTH - 350:
                 self.x_coordinate = SCREEN_WIDTH - 350
-            if self.y_coordinate <= 140:
-                self.y_coordinate = 140
+            if self.y_coordinate <= 145:
+                self.y_coordinate = 145
             elif self.y_coordinate >= SCREEN_HEIGHT - 130:
                 self.y_coordinate = SCREEN_HEIGHT - 130
         if current_zone == "nascent":
@@ -781,8 +782,8 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.x_coordinate = 50
             elif self.x_coordinate > SCREEN_WIDTH - 350:
                 self.x_coordinate = SCREEN_WIDTH - 350
-            if self.y_coordinate <= 140:
-                self.y_coordinate = 140
+            if self.y_coordinate <= 145:
+                self.y_coordinate = 145
             elif self.y_coordinate >= SCREEN_HEIGHT - 130:
                 self.y_coordinate = SCREEN_HEIGHT - 130
         if current_zone == "nascent":
@@ -1325,8 +1326,8 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.x_coordinate = 50
             elif self.x_coordinate > SCREEN_WIDTH - 350:
                 self.x_coordinate = SCREEN_WIDTH - 350
-            if self.y_coordinate <= 140:
-                self.y_coordinate = 140
+            if self.y_coordinate <= 145:
+                self.y_coordinate = 145
             elif self.y_coordinate >= SCREEN_HEIGHT - 130:
                 self.y_coordinate = SCREEN_HEIGHT - 130
         if current_zone == "nascent":
@@ -1940,6 +1941,7 @@ if __name__ == '__main__':
     korlok_district_bg = graphic_dict["korlok_bg_screen"]
     korlok_mines_bg = graphic_dict["korlok_mines"]
     eldream_district_bg = graphic_dict["eldream_bg_screen"]
+    ectrenos_bg = graphic_dict["ectrenos_bg"]
     amuna_character_screen = graphic_dict["a_char_screen"]
     nuldar_character_screen = graphic_dict["n_char_screen"]
     sorae_character_screen = graphic_dict["s_char_screen"]
@@ -1947,7 +1949,7 @@ if __name__ == '__main__':
     reservoir_b_bg = graphic_dict["reservoir_b_screen"]
     reservoir_c_bg = graphic_dict["reservoir_c_screen"]
     reservoir_battle = graphic_dict["reservoir_battle_screen"]
-    mountain_trail_bg = graphic_dict["mountain_trail_bg"]
+    terra_trail_bg = graphic_dict["terra_trail_bg"]
     terra_trail_screen = graphic_dict["terra_trail_screen"]
     caves_battle_screen = graphic_dict["caves_battle_screen"]
 
@@ -2296,7 +2298,7 @@ if __name__ == '__main__':
     role_select_overlay = UiElement("role select overlay", 710, 263, graphic_dict["role_selection_overlay"])
     game_guide_overlay = UiElement("game guide overlay", 776, 256, graphic_dict["guide_basics_quest_img"])
     cat_pet_button_overlay = UiElement("cat pet button", 505, 235, graphic_dict["cat_pet_button_overlay"])
-    cat_pet_animation_overlay = UiElement("cat pet animation", 507, 242, graphic_dict["shop_cat_pet_img"])
+    cat_pet_animation_overlay = UiElement("cat pet animation", 507, 242, graphic_dict["seldon_shop_cat_pet_img"])
     stardust_star_overlay = UiElement("stardust stars", 236, 185, graphic_dict["stardust_star_01"])
     stardust_star_overlay_korlok = UiElement("stardust stars korlok", 236, 295, graphic_dict["stardust_star_01_korlok"])
     directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
@@ -2378,6 +2380,7 @@ if __name__ == '__main__':
 
     volcano_rect = pygame.Rect((450, 15), (100, 50))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
+    ectrenos_entrance_rect = pygame.Rect((530, 530), (100, 50))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
@@ -2407,7 +2410,7 @@ if __name__ == '__main__':
 
     flower_eldream_1 = Item("flower eldream 1", "flower", 355, 530, graphic_dict["flower_eldream"], 0)
     flower_eldream_2 = Item("flower eldream 2", "flower", 722, 530, graphic_dict["flower_eldream"], 0)
-    flower_eldream_3 = Item("flower eldream 3", "flower", 215, 210, graphic_dict["flower_eldream"], 0)
+    flower_eldream_3 = Item("flower eldream 3", "flower", 775, 50, graphic_dict["flower_eldream"], 0)
     flower_eldream_4 = Item("flower eldream 4", "flower", 365, 670, graphic_dict["flower_eldream"], 0)
     flower_eldream_5 = Item("flower eldream 5", "flower", 775, 670, graphic_dict["flower_eldream"], 0)
 
@@ -2513,6 +2516,7 @@ if __name__ == '__main__':
     korlok_overworld_music = resource_path("resources/music/eterna_korlok.mp3")
     korlok_building_music = resource_path("resources/music/eterna_building_korlok.mp3")
     eldream_overworld_music = resource_path("resources/music/eterna_eldream.mp3")
+    eldream_building_music = resource_path("resources/music/eterna_building_eldream.mp3")
 
     pygame.mixer.music.set_volume(0.75)
     pygame.mixer.music.load(start_screen_music)
@@ -2589,6 +2593,7 @@ if __name__ == '__main__':
     quest_highlight_popup = True
     shop_cat_pet = False
     academia_cat_pet = False
+    apothecary_cat_pet = False
     rest_shown_before = False
     leveled = False
     button_highlighted = False
@@ -2655,6 +2660,8 @@ if __name__ == '__main__':
     # apothecary flower counters
     seldon_flower_counter = 0
     eldream_flower_counter = 0
+
+    cats_pet = {"seldon_shop": False, "seldon_academia": False, "korlok_shop": False, "korlok_apothecary": False}
 
     buy_shop_elements = []
     stardust_upgrade_elements = []
@@ -3139,7 +3146,8 @@ if __name__ == '__main__':
                                     if pygame.sprite.spritecollideany(player, interactables_nascent):
                                         interacted = True
                                 if player.current_zone == "seldon":
-                                    if pygame.sprite.spritecollideany(player, interactables_seldon):
+                                    if pygame.sprite.spritecollideany(player, interactables_seldon,
+                                                                      pygame.sprite.collide_rect_ratio(0.75)):
                                         interacted = True
                                 if player.current_zone == "stardust":
                                     if pygame.sprite.spritecollideany(player, interactables_stardust):
@@ -3166,10 +3174,12 @@ if __name__ == '__main__':
                                     if pygame.sprite.spritecollideany(player, interactables_reservoir_c):
                                         interacted = True
                                 if player.current_zone == "korlok":
-                                    if pygame.sprite.spritecollideany(player, interactables_korlok):
+                                    if pygame.sprite.spritecollideany(player, interactables_korlok,
+                                                                      pygame.sprite.collide_rect_ratio(0.75)):
                                         interacted = True
                                 if player.current_zone == "mines":
-                                    if pygame.sprite.spritecollideany(player, interactables_mines):
+                                    if pygame.sprite.spritecollideany(player, interactables_mines,
+                                                                      pygame.sprite.collide_rect_ratio(0.75)):
                                         interacted = True
                                 if player.current_zone == "terra trail":
                                     if pygame.sprite.spritecollideany(player, interactables_terra_trail):
@@ -3177,7 +3187,10 @@ if __name__ == '__main__':
                                     if pygame.Rect.colliderect(player.rect, eldream_gate_rect):
                                         interacted = True
                                 if player.current_zone == "eldream":
-                                    if pygame.sprite.spritecollideany(player, interactables_eldream):
+                                    if pygame.sprite.spritecollideany(player, interactables_eldream,
+                                                                      pygame.sprite.collide_rect_ratio(0.75)):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, ectrenos_entrance_rect):
                                         interacted = True
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -3677,7 +3690,8 @@ if __name__ == '__main__':
                                                                      snakes, ghouls, magmons, bandiles,
                                                                      interactables_seldon, interactables_korlok,
                                                                      interactables_mines, Enemy, Item, UiElement,
-                                                                     seldon_flowers, interactables_eldream)
+                                                                     seldon_flowers, interactables_eldream,
+                                                                     ectrenos_entrance_rect)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -3702,6 +3716,75 @@ if __name__ == '__main__':
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
+                    try:
+                        loot_updated = loot_popup_returned["loot_updated"]
+                        loot_level_tic = loot_popup_returned["loot_level_tic"]
+                        loot_info = loot_popup_returned["loot_info"]
+                        leveled = loot_popup_returned["leveled"]
+                    except TypeError:
+                        pass
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in eldream district ---------------------------------------------------------------------
+                if player.current_zone == "ectrenos" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    ectrenos_returned = zone_ectrenos.ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg,
+                                                                    eldream_building_music, over_world_song_set,
+                                                                    interaction_popup, font, save_check_window,
+                                                                    user_interface, bar_backdrop, hp_bar, en_bar,
+                                                                    xp_bar, button_highlighted, button_highlight,
+                                                                    in_over_world, interacted, info_text_1, info_text_2,
+                                                                    info_text_3, info_text_4, npc_tic,
+                                                                    in_npc_interaction, in_battle, movement_able,
+                                                                    current_enemy_battling, quest_star_garan,
+                                                                    quest_star_maurelle, quest_star_celeste,
+                                                                    quest_star_torune, quest_star_voruke,
+                                                                    quest_star_zerah, quest_star_apothecary,
+                                                                    terra_mountains, terra_cave, npc_dionte,
+                                                                    quest_star_dionte, Enemy, player_battle_sprite,
+                                                                    snake_battle_sprite, ghoul_battle_sprite,
+                                                                    chorizon_battle_sprite, muchador_battle_sprite,
+                                                                    magmon_battle_sprite, bandile_battle_sprite,
+                                                                    chinzilla_battle_sprite, barrier_active,
+                                                                    sharp_sense_active, current_npc_interacting,
+                                                                    chinzilla, quest_star_dionte, hearth_stone,
+                                                                    equipment_screen, staff, sword, bow, npc_garan,
+                                                                    offense_meter, defense_meter, weapon_select, rock_7,
+                                                                    rock_7_con, chinzilla_defeated, eldream_gate_rect,
+                                                                    eldream_attuned, in_shop, in_inn,
+                                                                    current_building_entering, enemy_tic,
+                                                                    eldream_flowers, seldon_enemies, korlok_enemies,
+                                                                    snakes, ghouls, magmons, bandiles,
+                                                                    interactables_seldon, interactables_korlok,
+                                                                    interactables_mines, Enemy, Item, UiElement,
+                                                                    seldon_flowers, interactables_eldream,
+                                                                    ectrenos_entrance_rect)
+
+                    over_world_song_set = ectrenos_returned["over_world_song_set"]
+                    eldream_attuned = ectrenos_returned["eldream_attuned"]
+                    interacted = ectrenos_returned["interacted"]
+                    in_over_world = ectrenos_returned["in_over_world"]
+                    in_battle = ectrenos_returned["in_battle"]
+                    in_shop = ectrenos_returned["in_shop"]
+                    in_inn = ectrenos_returned["in_inn"]
+                    in_npc_interaction = ectrenos_returned["in_npc_interaction"]
+                    movement_able = ectrenos_returned["movement_able"]
+                    current_enemy_battling = ectrenos_returned["current_enemy_battling"]
+                    current_building_entering = ectrenos_returned["current_building_entering"]
+                    current_npc_interacting = ectrenos_returned["current_npc_interacting"]
+                    enemy_tic = ectrenos_returned["enemy_tic"]
+                    npc_tic = ectrenos_returned["npc_tic"]
+                    info_text_1 = ectrenos_returned["info_text_1"]
+                    info_text_2 = ectrenos_returned["info_text_2"]
+                    info_text_3 = ectrenos_returned["info_text_3"]
+                    info_text_4 = ectrenos_returned["info_text_4"]
+                    eldream_flowers = ectrenos_returned["eldream_flowers"]
+                    interactables_eldream = ectrenos_returned["interactables_eldream"]
+
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
+                                                                        battle_info_to_return_to_main_loop,
+                                                                        leveled)
                     try:
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
@@ -3772,7 +3855,7 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     trail_returned = zone_terra_trail.terra_trail(pygame, screen, graphic_dict, player,
-                                                                  mountain_trail_bg, korlok_overworld_music,
+                                                                  terra_trail_bg, korlok_overworld_music,
                                                                   over_world_song_set, interaction_popup, font,
                                                                   save_check_window, user_interface, bar_backdrop,
                                                                   hp_bar, en_bar, xp_bar, button_highlighted,
@@ -4781,8 +4864,16 @@ if __name__ == '__main__':
 
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
-                            if cat_pet_button_overlay.rect.collidepoint(pos):
-                                shop_cat_pet = True
+                            if player.current_zone == "seldon":
+                                cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
+                                if cat_pet_button_overlay.rect.collidepoint(pos):
+                                    shop_cat_pet = True
+                                    cats_pet["seldon_shop"] = True
+                            if player.current_zone == "korlok":
+                                cat_pet_button_overlay.update(450, 400, graphic_dict["cat_pet_button_overlay"])
+                                if cat_pet_button_overlay.rect.collidepoint(pos):
+                                    shop_cat_pet = True
+                                    cats_pet["korlok_shop"] = True
 
                         shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame)
 
@@ -4940,7 +5031,7 @@ if __name__ == '__main__':
                         cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
                         screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                         if shop_cat_pet:
-                            cat_pet_animation_overlay.update(507, 242, graphic_dict["shop_cat_pet_img"])
+                            cat_pet_animation_overlay.update(524, 243, graphic_dict["seldon_shop_cat_pet_img"])
                             screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
                         if buy_clicked:
@@ -4986,7 +5077,7 @@ if __name__ == '__main__':
                         cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
                         screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                         if shop_cat_pet:
-                            cat_pet_animation_overlay.update(507, 242, graphic_dict["shop_cat_pet_img"])
+                            cat_pet_animation_overlay.update(465, 407, graphic_dict["korlok_shop_cat_pet_img"])
                             screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
                         if buy_clicked:
@@ -5241,6 +5332,8 @@ if __name__ == '__main__':
                                 screen.blit(korlok_district_inn, (0, 0))
                                 screen.blit(equipment_screen.surf, equipment_screen.rect)
 
+                    screen.blit(offense_meter.surf, offense_meter.rect)
+                    screen.blit(defense_meter.surf, defense_meter.rect)
                     screen.blit(rest_button.surf, rest_button.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
                     screen.blit(star_power_meter.surf, star_power_meter.rect)
@@ -5352,6 +5445,7 @@ if __name__ == '__main__':
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 academia_cat_pet = True
+                                cats_pet["seldon_academia"] = True
                         # get which button player pressed during academia scenario (learn or leave)
                         academia_button = click_handlers.academia_event_button(event, mage_learn_button,
                                                                                fighter_learn_button, scout_learn_button,
@@ -5527,7 +5621,7 @@ if __name__ == '__main__':
                         cat_pet_button_overlay.update(125, 500, graphic_dict["cat_pet_button_overlay"])
                         screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                         if academia_cat_pet:
-                            cat_pet_animation_overlay.update(130, 500, graphic_dict["academia_cat_pet_img"])
+                            cat_pet_animation_overlay.update(153, 501, graphic_dict["academia_cat_pet_img"])
                             screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
@@ -5630,6 +5724,9 @@ if __name__ == '__main__':
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
                             drawing_functions.quest_complete_box.clear()
+                            if cat_pet_button_overlay.rect.collidepoint(pos):
+                                apothecary_cat_pet = True
+                                cats_pet["korlok_apothecary"] = True
 
                             if potions_button.rect.collidepoint(pos):
                                 if apothecary_access:
@@ -5818,6 +5915,7 @@ if __name__ == '__main__':
                             in_over_world = True
                             building_song_set = False
                             apothecary_window_open = False
+                            apothecary_cat_pet = False
                             drawing_functions.potion_window_container.clear()
                             drawing_functions.quest_complete_box.clear()
 
@@ -5846,6 +5944,11 @@ if __name__ == '__main__':
                         screen.blit(xp_bar.surf, xp_bar.rect)
                         screen.blit(quest_button.surf, quest_button.rect)
                         screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        cat_pet_button_overlay.update(630, 65, graphic_dict["cat_pet_button_overlay"])
+                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                        if apothecary_cat_pet:
+                            cat_pet_animation_overlay.update(634, 63, graphic_dict["apothecary_cat_pet_img"])
+                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
                         if not player.quest_complete["can't apothecary it"]:
                             if not player.quest_status["can't apothecary it"]:
                                 screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)

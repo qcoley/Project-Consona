@@ -20,7 +20,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      eldream_gate_rect, eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic,
                      eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles,
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
-                     seldon_flowers, interactables_eldream):
+                     seldon_flowers, interactables_eldream, ectrenos_entrance):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -95,6 +95,27 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                 interacted = False
     else:
         hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate, graphic_dict["hearth_stone"])
+
+    if pygame.Rect.colliderect(player.rect, ectrenos_entrance):
+        interaction_popup.update(540, 450, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Ectrenos"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (540, 450)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to enter Ectrenos."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            over_world_song_set = False
+            player.current_zone = "ectrenos"
+            player.x_coordinate = 500
+            player.y_coordinate = 675
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

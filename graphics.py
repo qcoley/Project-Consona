@@ -53,7 +53,7 @@ def load_graphics():
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
     overlay_advantages = pygame.image.load(resource_path('resources/art/overlay_type_advantages.png')).convert_alpha()
-    apothecary_window = pygame.image.load(resource_path('resources/art/overlay_apothercary_window.png')).convert_alpha()
+    apothecary_window = pygame.image.load(resource_path('resources/art/overlay_apothecary_window.png')).convert_alpha()
     weapon_select = pygame.image.load(resource_path('resources/art/overlay_weapon_select.png')).convert_alpha()
     equipment_screen = pygame.image.load(resource_path('resources/art/overlay_equipment_screen.png')).convert_alpha()
     a_char_screen = pygame.image.load(resource_path('resources/art/screen_amuna_character_select.png')).convert_alpha()
@@ -70,8 +70,9 @@ def load_graphics():
     korlok_shop_screen = pygame.image.load(resource_path('resources/art/bg_korlok_shop.png')).convert_alpha()
     korlok_inn_screen = pygame.image.load(resource_path('resources/art/bg_korlok_inn.png')).convert_alpha()
     korlok_apothecary = pygame.image.load(resource_path('resources/art/bg_korlok_apothecary.png')).convert_alpha()
-    mountain_trail_bg = pygame.image.load(resource_path('resources/art/bg_mountain_trail.png')).convert_alpha()
+    terra_trail_bg = pygame.image.load(resource_path('resources/art/bg_terra_trail.png')).convert_alpha()
     eldream_bg_screen = pygame.image.load(resource_path('resources/art/bg_eldream_district.png')).convert_alpha()
+    ectrenos_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos.png')).convert_alpha()
     fishing_hut_screen = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
     caves_battle_screen = pygame.image.load(resource_path('resources/art/bg_cave_battle_screen.png')).convert_alpha()
@@ -164,6 +165,7 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["ectrenos_bg"] = ectrenos_bg_screen
     loaded_dict["type advantages"] = overlay_advantages
     loaded_dict["fishing_hut_screen"] = fishing_hut_screen
     loaded_dict["eldream_river"] = overlay_eldream_river
@@ -194,7 +196,7 @@ def load_graphics():
     loaded_dict["korlok_shop_screen"] = korlok_shop_screen
     loaded_dict["seldon_inn_screen"] = seldon_inn_screen
     loaded_dict["korlok_inn_screen"] = korlok_inn_screen
-    loaded_dict["mountain_trail_bg"] = mountain_trail_bg
+    loaded_dict["terra_trail_bg"] = terra_trail_bg
     loaded_dict["seldon_academia_screen"] = seldon_academia_screen
     loaded_dict["seldon_hearth_screen"] = seldon_hearth_screen
     loaded_dict["eldream_hearth_screen"] = eldream_hearth_screen
@@ -1138,9 +1140,11 @@ def load_graphics():
     loaded_dict["guide_basics_battle_img"] = game_guide_sheet[1]
     # cat petting animation sprites ------------------------------------------------------------------------------------
     cat_pet_url = resource_path('resources/art/sprites_cat_pet.png')
-    cat_pet_sheet = sprite_sheet((90, 100), cat_pet_url)
-    loaded_dict["shop_cat_pet_img"] = cat_pet_sheet[0]
+    cat_pet_sheet = sprite_sheet((125, 125), cat_pet_url)
+    loaded_dict["seldon_shop_cat_pet_img"] = cat_pet_sheet[0]
     loaded_dict["academia_cat_pet_img"] = cat_pet_sheet[1]
+    loaded_dict["korlok_shop_cat_pet_img"] = cat_pet_sheet[2]
+    loaded_dict["apothecary_cat_pet_img"] = cat_pet_sheet[3]
     # stardust outpost star overlays -----------------------------------------------------------------------------------
     stardust_stars_url = resource_path('resources/art/overlays_stardust_stars.png')
     stardust_stars_sheet = sprite_sheet((271, 105), stardust_stars_url)

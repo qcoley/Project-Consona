@@ -740,7 +740,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             interactables_mines.add(new_bandile)
 
     if player.current_zone == "eldream":
-        flower_coords_list = [(355, 530), (722, 530), (215, 210), (365, 670), (775, 670)]
+        flower_coords_list = [(355, 530), (722, 530), (775, 50), (365, 670), (775, 670)]
         flower_counter = 0
         random_flower_coord = random.choice(flower_coords_list)
 

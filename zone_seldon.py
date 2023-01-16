@@ -113,7 +113,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
 
     # player encounters objects and draws popup information box ----------------------------------------
     # player encounters a quest item. check progress and add to if interacted with
-    quest_item = pygame.sprite.spritecollideany(player, quest_items_seldon)
+    quest_item = pygame.sprite.spritecollideany(player, quest_items_seldon, pygame.sprite.collide_rect_ratio(0.75))
     try:
         interaction_popup.update(quest_item.x_coordinate, quest_item.y_coordinate - 25,
                                  graphic_dict["popup_interaction"])
@@ -190,7 +190,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         pass
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
-    enemy = pygame.sprite.spritecollideany(player, seldon_enemies)
+    enemy = pygame.sprite.spritecollideany(player, seldon_enemies, pygame.sprite.collide_rect_ratio(0.75))
     if enemy:
         interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
@@ -220,7 +220,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                               graphic_dict)
 
     # player collides with building, enters if chosen to interact and starts related scenario
-    building = pygame.sprite.spritecollideany(player, amuna_buildings)
+    building = pygame.sprite.spritecollideany(player, amuna_buildings, pygame.sprite.collide_rect_ratio(0.75))
     if building and in_over_world:
 
         interaction_popup.update(building.x_coordinate, building.y_coordinate - 50, graphic_dict["popup_interaction"])
@@ -252,7 +252,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                 in_academia = True
 
     # player collides with flower, if collected adds to player flower count
-    flower = pygame.sprite.spritecollideany(player, flowers)
+    flower = pygame.sprite.spritecollideany(player, flowers, pygame.sprite.collide_rect_ratio(0.75))
     if flower and in_over_world:
         flower.update(flower.x_coordinate, flower.y_coordinate, graphic_dict["flower_seldon_high"])
         if interacted:
@@ -269,7 +269,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                 flow.surf = graphic_dict["flower_seldon"]
 
     # if player collides with npc sprite and chooses to interact with it
-    npc = pygame.sprite.spritecollideany(player, npcs)
+    npc = pygame.sprite.spritecollideany(player, npcs, pygame.sprite.collide_rect_ratio(0.75))
     if npc:
         interaction_popup.update(npc.x_coordinate, npc.y_coordinate - 50, graphic_dict["popup_interaction_purple"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
