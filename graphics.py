@@ -52,6 +52,7 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    overlay_ectrene = pygame.image.load(resource_path('resources/art/overlay_ectrene.png')).convert_alpha()
     overlay_advantages = pygame.image.load(resource_path('resources/art/overlay_type_advantages.png')).convert_alpha()
     apothecary_window = pygame.image.load(resource_path('resources/art/overlay_apothecary_window.png')).convert_alpha()
     weapon_select = pygame.image.load(resource_path('resources/art/overlay_weapon_select.png')).convert_alpha()
@@ -73,6 +74,8 @@ def load_graphics():
     terra_trail_bg = pygame.image.load(resource_path('resources/art/bg_terra_trail.png')).convert_alpha()
     eldream_bg_screen = pygame.image.load(resource_path('resources/art/bg_eldream_district.png')).convert_alpha()
     ectrenos_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos.png')).convert_alpha()
+    ectrenos_left_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_left.png')).convert_alpha()
+    ectrenos_right_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_right.png')).convert_alpha()
     fishing_hut_screen = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
     caves_battle_screen = pygame.image.load(resource_path('resources/art/bg_cave_battle_screen.png')).convert_alpha()
@@ -161,11 +164,14 @@ def load_graphics():
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
-                  overlay_eldream_river, overlay_advantages]
+                  overlay_eldream_river, overlay_advantages, overlay_ectrene]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["overlay_ectrene"] = overlay_ectrene
     loaded_dict["ectrenos_bg"] = ectrenos_bg_screen
+    loaded_dict["ectrenos_left_bg"] = ectrenos_left_bg_screen
+    loaded_dict["ectrenos_right_bg"] = ectrenos_right_bg_screen
     loaded_dict["type advantages"] = overlay_advantages
     loaded_dict["fishing_hut_screen"] = fishing_hut_screen
     loaded_dict["eldream_river"] = overlay_eldream_river

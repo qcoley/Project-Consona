@@ -51,7 +51,6 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
         screen.blit(flower.surf, flower.rect)
 
     screen.blit(hearth_stone.surf, hearth_stone.rect)
-
     screen.blit(player.surf, player.rect)
 
     # player collides with flower, if collected adds to player flower count

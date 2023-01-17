@@ -417,6 +417,35 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 530
             elif 140 < self.y_coordinate < 155 and self.x_coordinate < 170:
                 self.y_coordinate = 140
+        if current_zone == "ectrenos":
+            if 405 < self.x_coordinate < 625 and 525 > self.y_coordinate > 500:
+                self.y_coordinate = 525
+            if 405 < self.x_coordinate < 625 and 400 > self.y_coordinate > 360:
+                self.y_coordinate = 360
+            if 360 < self.y_coordinate < 525 and 390 < self.x_coordinate < 450:
+                self.x_coordinate = 390
+            if 360 < self.y_coordinate < 525 < self.x_coordinate < 640:
+                self.x_coordinate = 640
+            if 205 > self.x_coordinate > 175 and 170 < self.y_coordinate < 725:
+                self.x_coordinate = 205
+            if 200 < self.x_coordinate < 435 and 170 < self.y_coordinate < 190:
+                self.y_coordinate = 190
+            if 5 < self.x_coordinate < 175 and 465 < self.y_coordinate > 565:
+                self.y_coordinate = 565
+            if 825 < self.x_coordinate < 845 and 170 < self.y_coordinate < 725:
+                self.x_coordinate = 825
+            if 600 < self.x_coordinate < 840 and 170 < self.y_coordinate < 190:
+                self.y_coordinate = 190
+            if 825 < self.x_coordinate < 1010 and 465 < self.y_coordinate > 565:
+                self.y_coordinate = 565
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            elif self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.y_coordinate <= 70:
+                self.y_coordinate = 70
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -961,6 +990,35 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 530
             elif 140 < self.y_coordinate < 155 and self.x_coordinate < 170:
                 self.y_coordinate = 140
+        if current_zone == "ectrenos":
+            if 405 < self.x_coordinate < 625 and 525 > self.y_coordinate > 500:
+                self.y_coordinate = 525
+            if 405 < self.x_coordinate < 625 and 400 > self.y_coordinate > 360:
+                self.y_coordinate = 360
+            if 360 < self.y_coordinate < 525 and 390 < self.x_coordinate < 450:
+                self.x_coordinate = 390
+            if 360 < self.y_coordinate < 525 < self.x_coordinate < 640:
+                self.x_coordinate = 640
+            if 205 > self.x_coordinate > 175 and 170 < self.y_coordinate < 725:
+                self.x_coordinate = 205
+            if 200 < self.x_coordinate < 435 and 170 < self.y_coordinate < 190:
+                self.y_coordinate = 190
+            if 5 < self.x_coordinate < 175 and 465 < self.y_coordinate > 565:
+                self.y_coordinate = 565
+            if 825 < self.x_coordinate < 845 and 170 < self.y_coordinate < 725:
+                self.x_coordinate = 825
+            if 600 < self.x_coordinate < 840 and 170 < self.y_coordinate < 190:
+                self.y_coordinate = 190
+            if 825 < self.x_coordinate < 1010 and 465 < self.y_coordinate > 565:
+                self.y_coordinate = 565
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            elif self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.y_coordinate <= 70:
+                self.y_coordinate = 70
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -1505,6 +1563,35 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 530
             elif 140 < self.y_coordinate < 155 and self.x_coordinate < 170:
                 self.y_coordinate = 140
+        if current_zone == "ectrenos":
+            if 405 < self.x_coordinate < 625 and 525 > self.y_coordinate > 500:
+                self.y_coordinate = 525
+            if 405 < self.x_coordinate < 625 and 400 > self.y_coordinate > 360:
+                self.y_coordinate = 360
+            if 360 < self.y_coordinate < 525 and 390 < self.x_coordinate < 450:
+                self.x_coordinate = 390
+            if 360 < self.y_coordinate < 525 < self.x_coordinate < 640:
+                self.x_coordinate = 640
+            if 205 > self.x_coordinate > 175 and 170 < self.y_coordinate < 725:
+                self.x_coordinate = 205
+            if 200 < self.x_coordinate < 435 and 170 < self.y_coordinate < 190:
+                self.y_coordinate = 190
+            if 5 < self.x_coordinate < 175 and 465 < self.y_coordinate > 565:
+                self.y_coordinate = 565
+            if 825 < self.x_coordinate < 845 and 170 < self.y_coordinate < 725:
+                self.x_coordinate = 825
+            if 600 < self.x_coordinate < 840 and 170 < self.y_coordinate < 190:
+                self.y_coordinate = 190
+            if 825 < self.x_coordinate < 1010 and 465 < self.y_coordinate > 565:
+                self.y_coordinate = 565
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            elif self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.y_coordinate <= 70:
+                self.y_coordinate = 70
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -1942,6 +2029,8 @@ if __name__ == '__main__':
     korlok_mines_bg = graphic_dict["korlok_mines"]
     eldream_district_bg = graphic_dict["eldream_bg_screen"]
     ectrenos_bg = graphic_dict["ectrenos_bg"]
+    ectrenos_left_bg = graphic_dict["ectrenos_left_bg"]
+    ectrenos_right_bg = graphic_dict["ectrenos_right_bg"]
     amuna_character_screen = graphic_dict["a_char_screen"]
     nuldar_character_screen = graphic_dict["n_char_screen"]
     sorae_character_screen = graphic_dict["s_char_screen"]
@@ -2378,9 +2467,12 @@ if __name__ == '__main__':
     eldream_riv_20 = UiElement("eldream river 20", 40, 500, graphic_dict["eldream_river"])
     eldream_riv_21 = UiElement("eldream river 21", 0, 540, graphic_dict["eldream_river"])
 
+    overlay_ectrene = UiElement("ectrene", 525, 325, graphic_dict["overlay_ectrene"])
+
     volcano_rect = pygame.Rect((450, 15), (100, 50))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
     ectrenos_entrance_rect = pygame.Rect((530, 530), (100, 50))
+    ectrenos_ladder_rect = pygame.Rect((500, 520), (100, 50))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
@@ -2458,6 +2550,7 @@ if __name__ == '__main__':
     interactables_reservoir_a = pygame.sprite.Group()
     interactables_reservoir_b = pygame.sprite.Group()
     interactables_reservoir_c = pygame.sprite.Group()
+    interactables_ectrenos = pygame.sprite.Group()
 
     snakes.add(snake_1, snake_2, snake_3, snake_4)
     ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
@@ -3039,6 +3132,19 @@ if __name__ == '__main__':
                         player.y_coordinate = 175
                         hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                    if player.current_zone == "ectrenos":
+                        player.x_coordinate = 500
+                        player.y_coordinate = 675
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                    if player.current_zone == "ectrenos left":
+                        player.x_coordinate = 850
+                        player.y_coordinate = 530
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                    if player.current_zone == "ectrenos right":
+                        player.x_coordinate = 210
+                        player.y_coordinate = 515
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
                 except TypeError:
                     pass
             except KeyError:
@@ -3049,7 +3155,7 @@ if __name__ == '__main__':
         if start_chosen:
             if player.alive_status:
 
-                # print(player.x_coordinate, player.y_coordinate)
+                print(player.x_coordinate, player.y_coordinate)
 
                 loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
@@ -3191,6 +3297,9 @@ if __name__ == '__main__':
                                                                       pygame.sprite.collide_rect_ratio(0.75)):
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, ectrenos_entrance_rect):
+                                        interacted = True
+                                if player.current_zone == "ectrenos":
+                                    if pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect):
                                         interacted = True
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -3729,58 +3838,342 @@ if __name__ == '__main__':
                 if player.current_zone == "ectrenos" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    ectrenos_returned = zone_ectrenos.ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg,
-                                                                    eldream_building_music, over_world_song_set,
-                                                                    interaction_popup, font, save_check_window,
-                                                                    user_interface, bar_backdrop, hp_bar, en_bar,
-                                                                    xp_bar, button_highlighted, button_highlight,
-                                                                    in_over_world, interacted, info_text_1, info_text_2,
-                                                                    info_text_3, info_text_4, npc_tic,
-                                                                    in_npc_interaction, in_battle, movement_able,
-                                                                    current_enemy_battling, quest_star_garan,
-                                                                    quest_star_maurelle, quest_star_celeste,
-                                                                    quest_star_torune, quest_star_voruke,
-                                                                    quest_star_zerah, quest_star_apothecary,
-                                                                    terra_mountains, terra_cave, npc_dionte,
-                                                                    quest_star_dionte, Enemy, player_battle_sprite,
-                                                                    snake_battle_sprite, ghoul_battle_sprite,
-                                                                    chorizon_battle_sprite, muchador_battle_sprite,
-                                                                    magmon_battle_sprite, bandile_battle_sprite,
-                                                                    chinzilla_battle_sprite, barrier_active,
-                                                                    sharp_sense_active, current_npc_interacting,
-                                                                    chinzilla, quest_star_dionte, hearth_stone,
-                                                                    equipment_screen, staff, sword, bow, npc_garan,
-                                                                    offense_meter, defense_meter, weapon_select, rock_7,
-                                                                    rock_7_con, chinzilla_defeated, eldream_gate_rect,
-                                                                    eldream_attuned, in_shop, in_inn,
-                                                                    current_building_entering, enemy_tic,
-                                                                    eldream_flowers, seldon_enemies, korlok_enemies,
-                                                                    snakes, ghouls, magmons, bandiles,
-                                                                    interactables_seldon, interactables_korlok,
-                                                                    interactables_mines, Enemy, Item, UiElement,
-                                                                    seldon_flowers, interactables_eldream,
-                                                                    ectrenos_entrance_rect)
+                    ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, screen, graphic_dict, player,
+                                                                         ectrenos_bg, eldream_building_music,
+                                                                         over_world_song_set, interaction_popup, font,
+                                                                         save_check_window, user_interface,
+                                                                         bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                         button_highlighted, button_highlight,
+                                                                         in_over_world, interacted, info_text_1,
+                                                                         info_text_2, info_text_3, info_text_4, npc_tic,
+                                                                         in_npc_interaction, in_battle, movement_able,
+                                                                         current_enemy_battling, quest_star_garan,
+                                                                         quest_star_maurelle, quest_star_celeste,
+                                                                         quest_star_torune, quest_star_voruke,
+                                                                         quest_star_zerah, quest_star_apothecary,
+                                                                         terra_mountains, terra_cave, npc_dionte,
+                                                                         quest_star_dionte, Enemy, player_battle_sprite,
+                                                                         snake_battle_sprite, ghoul_battle_sprite,
+                                                                         chorizon_battle_sprite, muchador_battle_sprite,
+                                                                         magmon_battle_sprite, bandile_battle_sprite,
+                                                                         chinzilla_battle_sprite, barrier_active,
+                                                                         sharp_sense_active, current_npc_interacting,
+                                                                         chinzilla, quest_star_dionte, hearth_stone,
+                                                                         equipment_screen, staff, sword, bow, npc_garan,
+                                                                         offense_meter, defense_meter, weapon_select,
+                                                                         rock_7, rock_7_con, chinzilla_defeated,
+                                                                         eldream_gate_rect, eldream_attuned, in_shop,
+                                                                         in_inn, current_building_entering, enemy_tic,
+                                                                         eldream_flowers, seldon_enemies,
+                                                                         korlok_enemies, snakes, ghouls, magmons,
+                                                                         bandiles, interactables_seldon,
+                                                                         interactables_korlok, interactables_mines,
+                                                                         Enemy, Item, UiElement, seldon_flowers,
+                                                                         interactables_eldream, ectrenos_entrance_rect,
+                                                                         overlay_ectrene, ectrenos_ladder_rect)
 
-                    over_world_song_set = ectrenos_returned["over_world_song_set"]
-                    eldream_attuned = ectrenos_returned["eldream_attuned"]
-                    interacted = ectrenos_returned["interacted"]
-                    in_over_world = ectrenos_returned["in_over_world"]
-                    in_battle = ectrenos_returned["in_battle"]
-                    in_shop = ectrenos_returned["in_shop"]
-                    in_inn = ectrenos_returned["in_inn"]
-                    in_npc_interaction = ectrenos_returned["in_npc_interaction"]
-                    movement_able = ectrenos_returned["movement_able"]
-                    current_enemy_battling = ectrenos_returned["current_enemy_battling"]
-                    current_building_entering = ectrenos_returned["current_building_entering"]
-                    current_npc_interacting = ectrenos_returned["current_npc_interacting"]
-                    enemy_tic = ectrenos_returned["enemy_tic"]
-                    npc_tic = ectrenos_returned["npc_tic"]
-                    info_text_1 = ectrenos_returned["info_text_1"]
-                    info_text_2 = ectrenos_returned["info_text_2"]
-                    info_text_3 = ectrenos_returned["info_text_3"]
-                    info_text_4 = ectrenos_returned["info_text_4"]
-                    eldream_flowers = ectrenos_returned["eldream_flowers"]
-                    interactables_eldream = ectrenos_returned["interactables_eldream"]
+                    over_world_song_set = ectrenos_main_returned["over_world_song_set"]
+                    eldream_attuned = ectrenos_main_returned["eldream_attuned"]
+                    interacted = ectrenos_main_returned["interacted"]
+                    in_over_world = ectrenos_main_returned["in_over_world"]
+                    in_battle = ectrenos_main_returned["in_battle"]
+                    in_shop = ectrenos_main_returned["in_shop"]
+                    in_inn = ectrenos_main_returned["in_inn"]
+                    in_npc_interaction = ectrenos_main_returned["in_npc_interaction"]
+                    movement_able = ectrenos_main_returned["movement_able"]
+                    current_enemy_battling = ectrenos_main_returned["current_enemy_battling"]
+                    current_building_entering = ectrenos_main_returned["current_building_entering"]
+                    current_npc_interacting = ectrenos_main_returned["current_npc_interacting"]
+                    enemy_tic = ectrenos_main_returned["enemy_tic"]
+                    npc_tic = ectrenos_main_returned["npc_tic"]
+                    info_text_1 = ectrenos_main_returned["info_text_1"]
+                    info_text_2 = ectrenos_main_returned["info_text_2"]
+                    info_text_3 = ectrenos_main_returned["info_text_3"]
+                    info_text_4 = ectrenos_main_returned["info_text_4"]
+                    eldream_flowers = ectrenos_main_returned["eldream_flowers"]
+                    interactables_ectrenos = ectrenos_main_returned["interactables_ectrenos"]
+
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
+                                                                        battle_info_to_return_to_main_loop,
+                                                                        leveled)
+                    try:
+                        loot_updated = loot_popup_returned["loot_updated"]
+                        loot_level_tic = loot_popup_returned["loot_level_tic"]
+                        loot_info = loot_popup_returned["loot_info"]
+                        leveled = loot_popup_returned["leveled"]
+                    except TypeError:
+                        pass
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in eldream district ---------------------------------------------------------------------
+                if player.current_zone == "ectrenos left" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, screen, graphic_dict, player,
+                                                                         ectrenos_left_bg, eldream_overworld_music,
+                                                                         over_world_song_set, interaction_popup,
+                                                                         font,
+                                                                         save_check_window, user_interface,
+                                                                         bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                         button_highlighted, button_highlight,
+                                                                         in_over_world, interacted, info_text_1,
+                                                                         info_text_2, info_text_3, info_text_4,
+                                                                         npc_tic,
+                                                                         in_npc_interaction, in_battle,
+                                                                         movement_able,
+                                                                         current_enemy_battling,
+                                                                         quest_star_garan,
+                                                                         quest_star_maurelle,
+                                                                         quest_star_celeste,
+                                                                         quest_star_torune, quest_star_voruke,
+                                                                         quest_star_zerah,
+                                                                         quest_star_apothecary,
+                                                                         terra_mountains, terra_cave,
+                                                                         npc_dionte,
+                                                                         quest_star_dionte, Enemy,
+                                                                         player_battle_sprite,
+                                                                         snake_battle_sprite,
+                                                                         ghoul_battle_sprite,
+                                                                         chorizon_battle_sprite,
+                                                                         muchador_battle_sprite,
+                                                                         magmon_battle_sprite,
+                                                                         bandile_battle_sprite,
+                                                                         chinzilla_battle_sprite,
+                                                                         barrier_active,
+                                                                         sharp_sense_active,
+                                                                         current_npc_interacting,
+                                                                         chinzilla, quest_star_dionte,
+                                                                         hearth_stone,
+                                                                         equipment_screen, staff, sword, bow,
+                                                                         npc_garan,
+                                                                         offense_meter, defense_meter,
+                                                                         weapon_select,
+                                                                         rock_7, rock_7_con, chinzilla_defeated,
+                                                                         eldream_gate_rect, eldream_attuned,
+                                                                         in_shop,
+                                                                         in_inn, current_building_entering,
+                                                                         enemy_tic,
+                                                                         eldream_flowers, seldon_enemies,
+                                                                         korlok_enemies, snakes, ghouls,
+                                                                         magmons,
+                                                                         bandiles, interactables_seldon,
+                                                                         interactables_korlok,
+                                                                         interactables_mines,
+                                                                         Enemy, Item, UiElement, seldon_flowers,
+                                                                         interactables_ectrenos,
+                                                                         ectrenos_entrance_rect,
+                                                                         overlay_ectrene)
+
+                    over_world_song_set = ectrenos_left_returned["over_world_song_set"]
+                    eldream_attuned = ectrenos_left_returned["eldream_attuned"]
+                    interacted = ectrenos_left_returned["interacted"]
+                    in_over_world = ectrenos_left_returned["in_over_world"]
+                    in_battle = ectrenos_left_returned["in_battle"]
+                    in_shop = ectrenos_left_returned["in_shop"]
+                    in_inn = ectrenos_left_returned["in_inn"]
+                    in_npc_interaction = ectrenos_left_returned["in_npc_interaction"]
+                    movement_able = ectrenos_left_returned["movement_able"]
+                    current_enemy_battling = ectrenos_left_returned["current_enemy_battling"]
+                    current_building_entering = ectrenos_left_returned["current_building_entering"]
+                    current_npc_interacting = ectrenos_left_returned["current_npc_interacting"]
+                    enemy_tic = ectrenos_left_returned["enemy_tic"]
+                    npc_tic = ectrenos_left_returned["npc_tic"]
+                    info_text_1 = ectrenos_left_returned["info_text_1"]
+                    info_text_2 = ectrenos_left_returned["info_text_2"]
+                    info_text_3 = ectrenos_left_returned["info_text_3"]
+                    info_text_4 = ectrenos_left_returned["info_text_4"]
+                    eldream_flowers = ectrenos_left_returned["eldream_flowers"]
+                    interactables_ectrenos = ectrenos_left_returned["interactables_ectrenos"]
+
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
+                                                                        battle_info_to_return_to_main_loop,
+                                                                        leveled)
+                    try:
+                        loot_updated = loot_popup_returned["loot_updated"]
+                        loot_level_tic = loot_popup_returned["loot_level_tic"]
+                        loot_info = loot_popup_returned["loot_info"]
+                        leveled = loot_popup_returned["leveled"]
+                    except TypeError:
+                        pass
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in eldream district ---------------------------------------------------------------------
+                if player.current_zone == "ectrenos right" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, screen, graphic_dict, player,
+                                                                           ectrenos_right_bg, eldream_overworld_music,
+                                                                           over_world_song_set, interaction_popup,
+                                                                           font,
+                                                                           save_check_window, user_interface,
+                                                                           bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                           button_highlighted, button_highlight,
+                                                                           in_over_world, interacted, info_text_1,
+                                                                           info_text_2, info_text_3, info_text_4,
+                                                                           npc_tic,
+                                                                           in_npc_interaction, in_battle,
+                                                                           movement_able,
+                                                                           current_enemy_battling,
+                                                                           quest_star_garan,
+                                                                           quest_star_maurelle,
+                                                                           quest_star_celeste,
+                                                                           quest_star_torune, quest_star_voruke,
+                                                                           quest_star_zerah,
+                                                                           quest_star_apothecary,
+                                                                           terra_mountains, terra_cave,
+                                                                           npc_dionte,
+                                                                           quest_star_dionte, Enemy,
+                                                                           player_battle_sprite,
+                                                                           snake_battle_sprite,
+                                                                           ghoul_battle_sprite,
+                                                                           chorizon_battle_sprite,
+                                                                           muchador_battle_sprite,
+                                                                           magmon_battle_sprite,
+                                                                           bandile_battle_sprite,
+                                                                           chinzilla_battle_sprite,
+                                                                           barrier_active,
+                                                                           sharp_sense_active,
+                                                                           current_npc_interacting,
+                                                                           chinzilla, quest_star_dionte,
+                                                                           hearth_stone,
+                                                                           equipment_screen, staff, sword, bow,
+                                                                           npc_garan,
+                                                                           offense_meter, defense_meter,
+                                                                           weapon_select,
+                                                                           rock_7, rock_7_con, chinzilla_defeated,
+                                                                           eldream_gate_rect, eldream_attuned,
+                                                                           in_shop,
+                                                                           in_inn, current_building_entering,
+                                                                           enemy_tic,
+                                                                           eldream_flowers, seldon_enemies,
+                                                                           korlok_enemies, snakes, ghouls,
+                                                                           magmons,
+                                                                           bandiles, interactables_seldon,
+                                                                           interactables_korlok,
+                                                                           interactables_mines,
+                                                                           Enemy, Item, UiElement, seldon_flowers,
+                                                                           interactables_ectrenos,
+                                                                           ectrenos_entrance_rect,
+                                                                           overlay_ectrene)
+
+                    over_world_song_set = ectrenos_right_returned["over_world_song_set"]
+                    eldream_attuned = ectrenos_right_returned["eldream_attuned"]
+                    interacted = ectrenos_right_returned["interacted"]
+                    in_over_world = ectrenos_right_returned["in_over_world"]
+                    in_battle = ectrenos_right_returned["in_battle"]
+                    in_shop = ectrenos_right_returned["in_shop"]
+                    in_inn = ectrenos_right_returned["in_inn"]
+                    in_npc_interaction = ectrenos_right_returned["in_npc_interaction"]
+                    movement_able = ectrenos_right_returned["movement_able"]
+                    current_enemy_battling = ectrenos_right_returned["current_enemy_battling"]
+                    current_building_entering = ectrenos_right_returned["current_building_entering"]
+                    current_npc_interacting = ectrenos_right_returned["current_npc_interacting"]
+                    enemy_tic = ectrenos_right_returned["enemy_tic"]
+                    npc_tic = ectrenos_right_returned["npc_tic"]
+                    info_text_1 = ectrenos_right_returned["info_text_1"]
+                    info_text_2 = ectrenos_right_returned["info_text_2"]
+                    info_text_3 = ectrenos_right_returned["info_text_3"]
+                    info_text_4 = ectrenos_right_returned["info_text_4"]
+                    eldream_flowers = ectrenos_right_returned["eldream_flowers"]
+                    interactables_ectrenos = ectrenos_right_returned["interactables_ectrenos"]
+
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
+                                                                        battle_info_to_return_to_main_loop,
+                                                                        leveled)
+                    try:
+                        loot_updated = loot_popup_returned["loot_updated"]
+                        loot_level_tic = loot_popup_returned["loot_level_tic"]
+                        loot_info = loot_popup_returned["loot_info"]
+                        leveled = loot_popup_returned["leveled"]
+                    except TypeError:
+                        pass
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in eldream district ---------------------------------------------------------------------
+                if player.current_zone == "ectrenos alcove" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    ectrenos_alcove_returned = zone_ectrenos.ectrenos_right(pygame, screen, graphic_dict, player,
+                                                                            ectrenos_right_bg,
+                                                                            eldream_overworld_music,
+                                                                            over_world_song_set,
+                                                                            interaction_popup,
+                                                                            font,
+                                                                            save_check_window, user_interface,
+                                                                            bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                            button_highlighted, button_highlight,
+                                                                            in_over_world, interacted,
+                                                                            info_text_1,
+                                                                            info_text_2, info_text_3,
+                                                                            info_text_4,
+                                                                            npc_tic,
+                                                                            in_npc_interaction, in_battle,
+                                                                            movement_able,
+                                                                            current_enemy_battling,
+                                                                            quest_star_garan,
+                                                                            quest_star_maurelle,
+                                                                            quest_star_celeste,
+                                                                            quest_star_torune, quest_star_voruke,
+                                                                            quest_star_zerah,
+                                                                            quest_star_apothecary,
+                                                                            terra_mountains, terra_cave,
+                                                                            npc_dionte,
+                                                                            quest_star_dionte, Enemy,
+                                                                            player_battle_sprite,
+                                                                            snake_battle_sprite,
+                                                                            ghoul_battle_sprite,
+                                                                            chorizon_battle_sprite,
+                                                                            muchador_battle_sprite,
+                                                                            magmon_battle_sprite,
+                                                                            bandile_battle_sprite,
+                                                                            chinzilla_battle_sprite,
+                                                                            barrier_active,
+                                                                            sharp_sense_active,
+                                                                            current_npc_interacting,
+                                                                            chinzilla, quest_star_dionte,
+                                                                            hearth_stone,
+                                                                            equipment_screen, staff, sword, bow,
+                                                                            npc_garan,
+                                                                            offense_meter, defense_meter,
+                                                                            weapon_select,
+                                                                            rock_7, rock_7_con,
+                                                                            chinzilla_defeated,
+                                                                            eldream_gate_rect, eldream_attuned,
+                                                                            in_shop,
+                                                                            in_inn, current_building_entering,
+                                                                            enemy_tic,
+                                                                            eldream_flowers, seldon_enemies,
+                                                                            korlok_enemies, snakes, ghouls,
+                                                                            magmons,
+                                                                            bandiles, interactables_seldon,
+                                                                            interactables_korlok,
+                                                                            interactables_mines,
+                                                                            Enemy, Item, UiElement,
+                                                                            seldon_flowers,
+                                                                            interactables_eldream,
+                                                                            ectrenos_entrance_rect,
+                                                                            overlay_ectrene)
+
+                    over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
+                    eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
+                    interacted = ectrenos_alcove_returned["interacted"]
+                    in_over_world = ectrenos_alcove_returned["in_over_world"]
+                    in_battle = ectrenos_alcove_returned["in_battle"]
+                    in_shop = ectrenos_alcove_returned["in_shop"]
+                    in_inn = ectrenos_alcove_returned["in_inn"]
+                    in_npc_interaction = ectrenos_alcove_returned["in_npc_interaction"]
+                    movement_able = ectrenos_alcove_returned["movement_able"]
+                    current_enemy_battling = ectrenos_alcove_returned["current_enemy_battling"]
+                    current_building_entering = ectrenos_alcove_returned["current_building_entering"]
+                    current_npc_interacting = ectrenos_alcove_returned["current_npc_interacting"]
+                    enemy_tic = ectrenos_alcove_returned["enemy_tic"]
+                    npc_tic = ectrenos_alcove_returned["npc_tic"]
+                    info_text_1 = ectrenos_alcove_returned["info_text_1"]
+                    info_text_2 = ectrenos_alcove_returned["info_text_2"]
+                    info_text_3 = ectrenos_alcove_returned["info_text_3"]
+                    info_text_4 = ectrenos_alcove_returned["info_text_4"]
+                    eldream_flowers = ectrenos_alcove_returned["eldream_flowers"]
+                    interactables_ectrenos = ectrenos_alcove_returned["interactables_ectrenos"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop,
