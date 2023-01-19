@@ -76,6 +76,7 @@ def load_graphics():
     ectrenos_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos.png')).convert_alpha()
     ectrenos_left_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_left.png')).convert_alpha()
     ectrenos_right_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_right.png')).convert_alpha()
+    ectrenos_front_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_front.png')).convert_alpha()
     fishing_hut_screen = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
     caves_battle_screen = pygame.image.load(resource_path('resources/art/bg_cave_battle_screen.png')).convert_alpha()
@@ -172,6 +173,7 @@ def load_graphics():
     loaded_dict["ectrenos_bg"] = ectrenos_bg_screen
     loaded_dict["ectrenos_left_bg"] = ectrenos_left_bg_screen
     loaded_dict["ectrenos_right_bg"] = ectrenos_right_bg_screen
+    loaded_dict["ectrenos_front_bg"] = ectrenos_front_bg_screen
     loaded_dict["type advantages"] = overlay_advantages
     loaded_dict["fishing_hut_screen"] = fishing_hut_screen
     loaded_dict["eldream_river"] = overlay_eldream_river

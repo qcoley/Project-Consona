@@ -381,7 +381,8 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
         if player.current_zone == "eldream":
             text_location = font.render(str("Eldream"), True, "black", "light yellow")
         if player.current_zone == "ectrenos" or player.current_zone == "ectrenos left" or \
-                player.current_zone == "ectrenos right" or player.current_zone == "ectrenos alcove":
+                player.current_zone == "ectrenos right" or player.current_zone == "ectrenos alcove" or \
+                player.current_zone == "ectrenos front":
             text_location = font.render(str("Ectrenos"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)

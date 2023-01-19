@@ -446,6 +446,44 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 70
             elif self.y_coordinate >= SCREEN_HEIGHT - 15:
                 self.y_coordinate = SCREEN_HEIGHT - 15
+        if current_zone == "ectrenos left":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            elif self.x_coordinate > SCREEN_WIDTH - 305 and 400 > self.y_coordinate or \
+                    self.x_coordinate > SCREEN_WIDTH - 305 and self.y_coordinate > 620:
+                self.x_coordinate = SCREEN_WIDTH - 305
+            if self.y_coordinate < 395 and 650 > self.x_coordinate > 500 or \
+                    self.y_coordinate > 615 and 650 > self.x_coordinate > 500:
+                self.x_coordinate = 650
+            if self.x_coordinate < 630 and 405 > self.y_coordinate:
+                self.y_coordinate = 405
+            if self.x_coordinate < 630 and 600 < self.y_coordinate:
+                self.y_coordinate = 600
+            elif self.x_coordinate < 330 and 575 < self.y_coordinate:
+                self.y_coordinate = 575
+            if self.y_coordinate <= 300:
+                self.y_coordinate = 300
+            elif self.y_coordinate >= SCREEN_HEIGHT:
+                self.y_coordinate = SCREEN_HEIGHT
+        if current_zone == "ectrenos right":
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate < 50 and 400 > self.y_coordinate or \
+                    self.x_coordinate < 50 and self.y_coordinate > 620:
+                self.x_coordinate = 50
+            if self.y_coordinate < 405 and 650 > self.x_coordinate > 375 or \
+                    self.y_coordinate > 595 and 650 > self.x_coordinate > 375:
+                self.x_coordinate = 375
+            if 750 > self.x_coordinate > 400 and 410 > self.y_coordinate:
+                self.y_coordinate = 410
+            if self.x_coordinate > 400 and 585 < self.y_coordinate:
+                self.y_coordinate = 585
+            elif self.x_coordinate > 750 and self.y_coordinate < 400:
+                self.y_coordinate = 400
+            if self.y_coordinate <= 300:
+                self.y_coordinate = 300
+            elif self.y_coordinate >= SCREEN_HEIGHT:
+                self.y_coordinate = SCREEN_HEIGHT
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -1019,6 +1057,44 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 70
             elif self.y_coordinate >= SCREEN_HEIGHT - 15:
                 self.y_coordinate = SCREEN_HEIGHT - 15
+        if current_zone == "ectrenos left":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            elif self.x_coordinate > SCREEN_WIDTH - 305 and 400 > self.y_coordinate or \
+                    self.x_coordinate > SCREEN_WIDTH - 305 and self.y_coordinate > 620:
+                self.x_coordinate = SCREEN_WIDTH - 305
+            if self.y_coordinate < 395 and 650 > self.x_coordinate > 500 or \
+                    self.y_coordinate > 615 and 650 > self.x_coordinate > 500:
+                self.x_coordinate = 650
+            if self.x_coordinate < 630 and 405 > self.y_coordinate:
+                self.y_coordinate = 405
+            if self.x_coordinate < 630 and 600 < self.y_coordinate:
+                self.y_coordinate = 600
+            elif self.x_coordinate < 330 and 575 < self.y_coordinate:
+                self.y_coordinate = 575
+            if self.y_coordinate <= 300:
+                self.y_coordinate = 300
+            elif self.y_coordinate >= SCREEN_HEIGHT:
+                self.y_coordinate = SCREEN_HEIGHT
+        if current_zone == "ectrenos right":
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate < 50 and 400 > self.y_coordinate or \
+                    self.x_coordinate < 50 and self.y_coordinate > 620:
+                self.x_coordinate = 50
+            if self.y_coordinate < 405 and 650 > self.x_coordinate > 375 or \
+                    self.y_coordinate > 595 and 650 > self.x_coordinate > 375:
+                self.x_coordinate = 375
+            if 750 > self.x_coordinate > 400 and 410 > self.y_coordinate:
+                self.y_coordinate = 410
+            if self.x_coordinate > 400 and 585 < self.y_coordinate:
+                self.y_coordinate = 585
+            elif self.x_coordinate > 750 and self.y_coordinate < 400:
+                self.y_coordinate = 400
+            if self.y_coordinate <= 300:
+                self.y_coordinate = 300
+            elif self.y_coordinate >= SCREEN_HEIGHT:
+                self.y_coordinate = SCREEN_HEIGHT
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -1592,6 +1668,44 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 70
             elif self.y_coordinate >= SCREEN_HEIGHT - 15:
                 self.y_coordinate = SCREEN_HEIGHT - 15
+        if current_zone == "ectrenos left":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            elif self.x_coordinate > SCREEN_WIDTH - 305 and 400 > self.y_coordinate or \
+                    self.x_coordinate > SCREEN_WIDTH - 305 and self.y_coordinate > 620:
+                self.x_coordinate = SCREEN_WIDTH - 305
+            if self.y_coordinate < 395 and 650 > self.x_coordinate > 500 or \
+                    self.y_coordinate > 615 and 650 > self.x_coordinate > 500:
+                self.x_coordinate = 650
+            if self.x_coordinate < 630 and 405 > self.y_coordinate:
+                self.y_coordinate = 405
+            if self.x_coordinate < 630 and 600 < self.y_coordinate:
+                self.y_coordinate = 600
+            elif self.x_coordinate < 330 and 575 < self.y_coordinate:
+                self.y_coordinate = 575
+            if self.y_coordinate <= 300:
+                self.y_coordinate = 300
+            elif self.y_coordinate >= SCREEN_HEIGHT:
+                self.y_coordinate = SCREEN_HEIGHT
+        if current_zone == "ectrenos right":
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate < 50 and 400 > self.y_coordinate or \
+                    self.x_coordinate < 50 and self.y_coordinate > 620:
+                self.x_coordinate = 50
+            if self.y_coordinate < 405 and 650 > self.x_coordinate > 375 or \
+                    self.y_coordinate > 595 and 650 > self.x_coordinate > 375:
+                self.x_coordinate = 375
+            if 750 > self.x_coordinate > 400 and 410 > self.y_coordinate:
+                self.y_coordinate = 410
+            if self.x_coordinate > 400 and 585 < self.y_coordinate:
+                self.y_coordinate = 585
+            elif self.x_coordinate > 750 and self.y_coordinate < 400:
+                self.y_coordinate = 400
+            if self.y_coordinate <= 300:
+                self.y_coordinate = 300
+            elif self.y_coordinate >= SCREEN_HEIGHT:
+                self.y_coordinate = SCREEN_HEIGHT
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -2031,6 +2145,7 @@ if __name__ == '__main__':
     ectrenos_bg = graphic_dict["ectrenos_bg"]
     ectrenos_left_bg = graphic_dict["ectrenos_left_bg"]
     ectrenos_right_bg = graphic_dict["ectrenos_right_bg"]
+    ectrenos_front_bg = graphic_dict["ectrenos_front_bg"]
     amuna_character_screen = graphic_dict["a_char_screen"]
     nuldar_character_screen = graphic_dict["n_char_screen"]
     sorae_character_screen = graphic_dict["s_char_screen"]
@@ -4076,6 +4191,104 @@ if __name__ == '__main__':
                     info_text_4 = ectrenos_right_returned["info_text_4"]
                     eldream_flowers = ectrenos_right_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_right_returned["interactables_ectrenos"]
+
+                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
+                                                                        battle_info_to_return_to_main_loop,
+                                                                        leveled)
+                    try:
+                        loot_updated = loot_popup_returned["loot_updated"]
+                        loot_level_tic = loot_popup_returned["loot_level_tic"]
+                        loot_info = loot_popup_returned["loot_info"]
+                        leveled = loot_popup_returned["leveled"]
+                    except TypeError:
+                        pass
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in eldream district ---------------------------------------------------------------------
+                if player.current_zone == "ectrenos front" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, screen, graphic_dict, player,
+                                                                           ectrenos_front_bg,
+                                                                           eldream_overworld_music,
+                                                                           over_world_song_set,
+                                                                           interaction_popup,
+                                                                           font,
+                                                                           save_check_window, user_interface,
+                                                                           bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                           button_highlighted, button_highlight,
+                                                                           in_over_world, interacted,
+                                                                           info_text_1,
+                                                                           info_text_2, info_text_3,
+                                                                           info_text_4,
+                                                                           npc_tic,
+                                                                           in_npc_interaction, in_battle,
+                                                                           movement_able,
+                                                                           current_enemy_battling,
+                                                                           quest_star_garan,
+                                                                           quest_star_maurelle,
+                                                                           quest_star_celeste,
+                                                                           quest_star_torune, quest_star_voruke,
+                                                                           quest_star_zerah,
+                                                                           quest_star_apothecary,
+                                                                           terra_mountains, terra_cave,
+                                                                           npc_dionte,
+                                                                           quest_star_dionte, Enemy,
+                                                                           player_battle_sprite,
+                                                                           snake_battle_sprite,
+                                                                           ghoul_battle_sprite,
+                                                                           chorizon_battle_sprite,
+                                                                           muchador_battle_sprite,
+                                                                           magmon_battle_sprite,
+                                                                           bandile_battle_sprite,
+                                                                           chinzilla_battle_sprite,
+                                                                           barrier_active,
+                                                                           sharp_sense_active,
+                                                                           current_npc_interacting,
+                                                                           chinzilla, quest_star_dionte,
+                                                                           hearth_stone,
+                                                                           equipment_screen, staff, sword, bow,
+                                                                           npc_garan,
+                                                                           offense_meter, defense_meter,
+                                                                           weapon_select,
+                                                                           rock_7, rock_7_con,
+                                                                           chinzilla_defeated,
+                                                                           eldream_gate_rect, eldream_attuned,
+                                                                           in_shop,
+                                                                           in_inn, current_building_entering,
+                                                                           enemy_tic,
+                                                                           eldream_flowers, seldon_enemies,
+                                                                           korlok_enemies, snakes, ghouls,
+                                                                           magmons,
+                                                                           bandiles, interactables_seldon,
+                                                                           interactables_korlok,
+                                                                           interactables_mines,
+                                                                           Enemy, Item, UiElement,
+                                                                           seldon_flowers,
+                                                                           interactables_ectrenos,
+                                                                           ectrenos_entrance_rect,
+                                                                           overlay_ectrene)
+
+                    over_world_song_set = ectrenos_front_returned["over_world_song_set"]
+                    eldream_attuned = ectrenos_front_returned["eldream_attuned"]
+                    interacted = ectrenos_front_returned["interacted"]
+                    in_over_world = ectrenos_front_returned["in_over_world"]
+                    in_battle = ectrenos_front_returned["in_battle"]
+                    in_shop = ectrenos_front_returned["in_shop"]
+                    in_inn = ectrenos_front_returned["in_inn"]
+                    in_npc_interaction = ectrenos_front_returned["in_npc_interaction"]
+                    movement_able = ectrenos_front_returned["movement_able"]
+                    current_enemy_battling = ectrenos_front_returned["current_enemy_battling"]
+                    current_building_entering = ectrenos_front_returned["current_building_entering"]
+                    current_npc_interacting = ectrenos_front_returned["current_npc_interacting"]
+                    enemy_tic = ectrenos_front_returned["enemy_tic"]
+                    npc_tic = ectrenos_front_returned["npc_tic"]
+                    info_text_1 = ectrenos_front_returned["info_text_1"]
+                    info_text_2 = ectrenos_front_returned["info_text_2"]
+                    info_text_3 = ectrenos_front_returned["info_text_3"]
+                    info_text_4 = ectrenos_front_returned["info_text_4"]
+                    eldream_flowers = ectrenos_front_returned["eldream_flowers"]
+                    interactables_ectrenos = ectrenos_front_returned["interactables_ectrenos"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop,
