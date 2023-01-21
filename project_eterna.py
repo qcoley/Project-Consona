@@ -2103,7 +2103,8 @@ def button_highlighter(posit):
                                                               quests_button, save_button, map_button,
                                                               in_npc_interaction, quest_button, quest_clicked,
                                                               accept_button, decline_button, in_apothecary, staff,
-                                                              sword, bow, potions_button, create_potion_button)
+                                                              sword, bow, potions_button, create_potion_button,
+                                                              in_menagerie)
     return button_highlighters
 
 
@@ -2128,8 +2129,10 @@ if __name__ == '__main__':
     korlok_district_shop = graphic_dict["korlok_shop_screen"]
     seldon_district_inn = graphic_dict["seldon_inn_screen"]
     korlok_district_inn = graphic_dict["korlok_inn_screen"]
+    eldream_district_inn = graphic_dict["eldream_inn_screen"]
     seldon_district_academia = graphic_dict["seldon_academia_screen"]
     korlok_district_apothecary = graphic_dict["korlok_apothecary"]
+    eldream_district_menagerie = graphic_dict["eldream_menagerie"]
     stardust_cove_bg = graphic_dict["stardust_cove_screen"]
     stardust_post_bg = graphic_dict["stardust_post_screen"]
     stardust_battle = graphic_dict["star_battle_screen"]
@@ -2411,6 +2414,7 @@ if __name__ == '__main__':
     potions_button = UiElement("potions button", 750, 680, graphic_dict["potions_button_img"])
     create_potion_button = UiElement("create potion", 435, 475, graphic_dict["create_potion_img"])
     potion_mix_overlay = UiElement("potion mix overlay", 150, 478, graphic_dict["apothecary_empty_potion"])
+    pets_button = UiElement("potions button", 750, 680, graphic_dict["manage_pets_img"])
 
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
     mage_attack_button = UiElement("mage attack button", 750, 642, graphic_dict["mage_attack_button_img"])
@@ -2444,6 +2448,7 @@ if __name__ == '__main__':
     buy_inventory = Inventory("buy inventory", [], 900, 500, graphic_dict["buy_inventory"])
     knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
+    menagerie_window = UiElement("menagerie window", 297, 319, graphic_dict["apothecary_window"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
     seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
@@ -2468,6 +2473,14 @@ if __name__ == '__main__':
     kirean_complete_quest_window = UiElement("kirean quest complete window", 550, 350, graphic_dict["kirean_complete"])
     dionte_quest_window = UiElement("dionte quest window", 262, 443, graphic_dict["dionte_quest"])
     dionte_complete_quest_window = UiElement("dionte quest complete window", 550, 350, graphic_dict["dionte_complete"])
+    omoku_quest_window = UiElement("omoku quest window", 262, 443, graphic_dict["omoku_quest"])
+    omoku_complete_quest_window = UiElement("omoku quest complete window", 550, 350, graphic_dict["omoku_complete"])
+    leyre_quest_window = UiElement("leyre quest window", 262, 443, graphic_dict["leyre_quest"])
+    leyre_complete_quest_window = UiElement("leyre quest complete window", 550, 350, graphic_dict["leyre_complete"])
+    aitor_quest_window = UiElement("aitor quest window", 262, 443, graphic_dict["aitor_quest"])
+    aitor_complete_quest_window = UiElement("aitor quest complete window", 550, 350, graphic_dict["aitor_complete"])
+    everett_quest_window = UiElement("everett quest window", 262, 443, graphic_dict["everett_quest"])
+    everett_complete_quest_window = UiElement("everett complete window", 550, 350, graphic_dict["everett_complete"])
 
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
@@ -2588,6 +2601,9 @@ if __name__ == '__main__':
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
     ectrenos_entrance_rect = pygame.Rect((530, 530), (100, 50))
     ectrenos_ladder_rect = pygame.Rect((500, 520), (100, 50))
+    ectrenos_inn_entrance = pygame.Rect((825, 275), (100, 100))
+    ectrenos_shop_entrance = pygame.Rect((215, 175), (100, 100))
+    ectrenos_pet_entrance = pygame.Rect((775, 175), (100, 100))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
@@ -2749,6 +2765,7 @@ if __name__ == '__main__':
     in_inn = False
     in_academia = False
     in_apothecary = False
+    in_menagerie = False
     in_npc_interaction = False
     interacted = False
     movement_able = True
@@ -2792,6 +2809,7 @@ if __name__ == '__main__':
     zerah_complete_shown = False
     kirean_complete_shown = False
     dionte_complete_shown = False
+    aitor_complete_shown = False
     snake_sprite_reset = False
     ghoul_sprite_reset = False
     log_sprite_reset = False
@@ -2802,6 +2820,7 @@ if __name__ == '__main__':
     shop_cat_pet = False
     academia_cat_pet = False
     apothecary_cat_pet = False
+    menagerie_cat_pet = False
     rest_shown_before = False
     leveled = False
     button_highlighted = False
@@ -2827,6 +2846,7 @@ if __name__ == '__main__':
     korlok_attuned = False
     eldream_attuned = False
     apothecary_access = False
+    menagerie_access = False
     prime_1 = True
     prime_2 = False
     prime_3 = False
@@ -2864,12 +2884,14 @@ if __name__ == '__main__':
     mini_boss_2 = False
 
     apothecary_window_open = False
+    menagerie_window_open = False
 
     # apothecary flower counters
     seldon_flower_counter = 0
     eldream_flower_counter = 0
 
-    cats_pet = {"seldon_shop": False, "seldon_academia": False, "korlok_shop": False, "korlok_apothecary": False}
+    cats_pet = {"seldon_shop": False, "seldon_academia": False, "korlok_shop": False, "korlok_apothecary": False,
+                "eldream_shop": False, "eldream_menagerie": False}
 
     buy_shop_elements = []
     stardust_upgrade_elements = []
@@ -3270,7 +3292,8 @@ if __name__ == '__main__':
         if start_chosen:
             if player.alive_status:
 
-                print(player.x_coordinate, player.y_coordinate)
+                # print(player.x_coordinate, player.y_coordinate)
+                # print(player.current_zone)
 
                 loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
@@ -3415,6 +3438,14 @@ if __name__ == '__main__':
                                         interacted = True
                                 if player.current_zone == "ectrenos":
                                     if pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect):
+                                        interacted = True
+                                if player.current_zone == "ectrenos right":
+                                    if pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance):
+                                        interacted = True
+                                if player.current_zone == "ectrenos left":
+                                    if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
                                         interacted = True
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -4077,7 +4108,8 @@ if __name__ == '__main__':
                                                                          Enemy, Item, UiElement, seldon_flowers,
                                                                          interactables_ectrenos,
                                                                          ectrenos_entrance_rect,
-                                                                         overlay_ectrene)
+                                                                         overlay_ectrene, ectrenos_pet_entrance,
+                                                                         in_menagerie)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -4086,6 +4118,7 @@ if __name__ == '__main__':
                     in_battle = ectrenos_left_returned["in_battle"]
                     in_shop = ectrenos_left_returned["in_shop"]
                     in_inn = ectrenos_left_returned["in_inn"]
+                    in_menagerie = ectrenos_left_returned["in_menagerie"]
                     in_npc_interaction = ectrenos_left_returned["in_npc_interaction"]
                     movement_able = ectrenos_left_returned["movement_able"]
                     current_enemy_battling = ectrenos_left_returned["current_enemy_battling"]
@@ -4169,7 +4202,8 @@ if __name__ == '__main__':
                                                                            Enemy, Item, UiElement, seldon_flowers,
                                                                            interactables_ectrenos,
                                                                            ectrenos_entrance_rect,
-                                                                           overlay_ectrene)
+                                                                           overlay_ectrene, ectrenos_shop_entrance,
+                                                                           ectrenos_inn_entrance)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -4209,65 +4243,42 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, screen, graphic_dict, player,
-                                                                           ectrenos_front_bg,
-                                                                           eldream_overworld_music,
-                                                                           over_world_song_set,
-                                                                           interaction_popup,
-                                                                           font,
-                                                                           save_check_window, user_interface,
+                                                                           ectrenos_front_bg, eldream_overworld_music,
+                                                                           over_world_song_set, interaction_popup,
+                                                                           font, save_check_window, user_interface,
                                                                            bar_backdrop, hp_bar, en_bar, xp_bar,
                                                                            button_highlighted, button_highlight,
-                                                                           in_over_world, interacted,
-                                                                           info_text_1,
-                                                                           info_text_2, info_text_3,
-                                                                           info_text_4,
-                                                                           npc_tic,
-                                                                           in_npc_interaction, in_battle,
-                                                                           movement_able,
-                                                                           current_enemy_battling,
-                                                                           quest_star_garan,
-                                                                           quest_star_maurelle,
-                                                                           quest_star_celeste,
-                                                                           quest_star_torune, quest_star_voruke,
-                                                                           quest_star_zerah,
-                                                                           quest_star_apothecary,
-                                                                           terra_mountains, terra_cave,
-                                                                           npc_dionte,
-                                                                           quest_star_dionte, Enemy,
-                                                                           player_battle_sprite,
-                                                                           snake_battle_sprite,
-                                                                           ghoul_battle_sprite,
+                                                                           in_over_world, interacted, info_text_1,
+                                                                           info_text_2, info_text_3, info_text_4,
+                                                                           npc_tic, in_npc_interaction, in_battle,
+                                                                           movement_able, current_enemy_battling,
+                                                                           quest_star_garan, quest_star_maurelle,
+                                                                           quest_star_celeste, quest_star_torune,
+                                                                           quest_star_voruke, quest_star_zerah,
+                                                                           quest_star_apothecary, terra_mountains,
+                                                                           terra_cave, npc_dionte, quest_star_dionte,
+                                                                           Enemy, player_battle_sprite,
+                                                                           snake_battle_sprite, ghoul_battle_sprite,
                                                                            chorizon_battle_sprite,
-                                                                           muchador_battle_sprite,
-                                                                           magmon_battle_sprite,
+                                                                           muchador_battle_sprite, magmon_battle_sprite,
                                                                            bandile_battle_sprite,
                                                                            chinzilla_battle_sprite,
-                                                                           barrier_active,
-                                                                           sharp_sense_active,
-                                                                           current_npc_interacting,
-                                                                           chinzilla, quest_star_dionte,
-                                                                           hearth_stone,
+                                                                           barrier_active, sharp_sense_active,
+                                                                           current_npc_interacting, chinzilla,
+                                                                           quest_star_dionte, hearth_stone,
                                                                            equipment_screen, staff, sword, bow,
-                                                                           npc_garan,
-                                                                           offense_meter, defense_meter,
-                                                                           weapon_select,
-                                                                           rock_7, rock_7_con,
-                                                                           chinzilla_defeated,
-                                                                           eldream_gate_rect, eldream_attuned,
-                                                                           in_shop,
-                                                                           in_inn, current_building_entering,
-                                                                           enemy_tic,
+                                                                           npc_garan, offense_meter, defense_meter,
+                                                                           weapon_select, rock_7, rock_7_con,
+                                                                           chinzilla_defeated, eldream_gate_rect,
+                                                                           eldream_attuned, in_shop, in_inn,
+                                                                           current_building_entering, enemy_tic,
                                                                            eldream_flowers, seldon_enemies,
-                                                                           korlok_enemies, snakes, ghouls,
-                                                                           magmons,
+                                                                           korlok_enemies, snakes, ghouls, magmons,
                                                                            bandiles, interactables_seldon,
-                                                                           interactables_korlok,
-                                                                           interactables_mines,
-                                                                           Enemy, Item, UiElement,
-                                                                           seldon_flowers,
+                                                                           interactables_korlok, interactables_mines,
+                                                                           Enemy, Item, UiElement, seldon_flowers,
                                                                            interactables_ectrenos,
-                                                                           ectrenos_entrance_rect,
-                                                                           overlay_ectrene)
+                                                                           ectrenos_entrance_rect, overlay_ectrene)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -4306,66 +4317,44 @@ if __name__ == '__main__':
                 if player.current_zone == "ectrenos alcove" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    ectrenos_alcove_returned = zone_ectrenos.ectrenos_right(pygame, screen, graphic_dict, player,
-                                                                            ectrenos_right_bg,
-                                                                            eldream_overworld_music,
-                                                                            over_world_song_set,
-                                                                            interaction_popup,
-                                                                            font,
-                                                                            save_check_window, user_interface,
-                                                                            bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                            button_highlighted, button_highlight,
-                                                                            in_over_world, interacted,
-                                                                            info_text_1,
-                                                                            info_text_2, info_text_3,
-                                                                            info_text_4,
-                                                                            npc_tic,
-                                                                            in_npc_interaction, in_battle,
-                                                                            movement_able,
-                                                                            current_enemy_battling,
-                                                                            quest_star_garan,
-                                                                            quest_star_maurelle,
-                                                                            quest_star_celeste,
-                                                                            quest_star_torune, quest_star_voruke,
-                                                                            quest_star_zerah,
-                                                                            quest_star_apothecary,
-                                                                            terra_mountains, terra_cave,
-                                                                            npc_dionte,
-                                                                            quest_star_dionte, Enemy,
-                                                                            player_battle_sprite,
-                                                                            snake_battle_sprite,
-                                                                            ghoul_battle_sprite,
-                                                                            chorizon_battle_sprite,
-                                                                            muchador_battle_sprite,
-                                                                            magmon_battle_sprite,
-                                                                            bandile_battle_sprite,
-                                                                            chinzilla_battle_sprite,
-                                                                            barrier_active,
-                                                                            sharp_sense_active,
-                                                                            current_npc_interacting,
-                                                                            chinzilla, quest_star_dionte,
-                                                                            hearth_stone,
-                                                                            equipment_screen, staff, sword, bow,
-                                                                            npc_garan,
-                                                                            offense_meter, defense_meter,
-                                                                            weapon_select,
-                                                                            rock_7, rock_7_con,
-                                                                            chinzilla_defeated,
-                                                                            eldream_gate_rect, eldream_attuned,
-                                                                            in_shop,
-                                                                            in_inn, current_building_entering,
-                                                                            enemy_tic,
-                                                                            eldream_flowers, seldon_enemies,
-                                                                            korlok_enemies, snakes, ghouls,
-                                                                            magmons,
-                                                                            bandiles, interactables_seldon,
-                                                                            interactables_korlok,
-                                                                            interactables_mines,
-                                                                            Enemy, Item, UiElement,
-                                                                            seldon_flowers,
-                                                                            interactables_eldream,
-                                                                            ectrenos_entrance_rect,
-                                                                            overlay_ectrene)
+                    ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, screen, graphic_dict, player,
+                                                                             ectrenos_right_bg, eldream_overworld_music,
+                                                                             over_world_song_set, interaction_popup,
+                                                                             font, save_check_window, user_interface,
+                                                                             bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                             button_highlighted, button_highlight,
+                                                                             in_over_world, interacted, info_text_1,
+                                                                             info_text_2, info_text_3, info_text_4,
+                                                                             npc_tic, in_npc_interaction, in_battle,
+                                                                             movement_able, current_enemy_battling,
+                                                                             quest_star_garan, quest_star_maurelle,
+                                                                             quest_star_celeste, quest_star_torune,
+                                                                             quest_star_voruke, quest_star_zerah,
+                                                                             quest_star_apothecary, terra_mountains,
+                                                                             terra_cave, npc_dionte, quest_star_dionte,
+                                                                             Enemy, player_battle_sprite,
+                                                                             snake_battle_sprite, ghoul_battle_sprite,
+                                                                             chorizon_battle_sprite,
+                                                                             muchador_battle_sprite,
+                                                                             magmon_battle_sprite,
+                                                                             bandile_battle_sprite,
+                                                                             chinzilla_battle_sprite, barrier_active,
+                                                                             sharp_sense_active,
+                                                                             current_npc_interacting, chinzilla,
+                                                                             quest_star_dionte, hearth_stone,
+                                                                             equipment_screen, staff, sword, bow,
+                                                                             npc_garan, offense_meter, defense_meter,
+                                                                             weapon_select, rock_7, rock_7_con,
+                                                                             chinzilla_defeated, eldream_gate_rect,
+                                                                             eldream_attuned, in_shop, in_inn,
+                                                                             current_building_entering, enemy_tic,
+                                                                             eldream_flowers, seldon_enemies,
+                                                                             korlok_enemies, snakes, ghouls, magmons,
+                                                                             bandiles, interactables_seldon,
+                                                                             interactables_korlok, interactables_mines,
+                                                                             Enemy, Item, UiElement, seldon_flowers,
+                                                                             interactables_eldream,
+                                                                             ectrenos_entrance_rect, overlay_ectrene)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -5421,6 +5410,13 @@ if __name__ == '__main__':
                             pygame.mixer.music.play(loops=-1)
                             building_song_set = True
 
+                    if player.current_zone == "ectrenos right":
+                        if not building_song_set:
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(eldream_building_music)
+                            pygame.mixer.music.play(loops=-1)
+                            building_song_set = True
+
                     for event in pygame.event.get():
                         if buy_clicked:
                             if player.current_zone == "stardust":
@@ -5706,6 +5702,53 @@ if __name__ == '__main__':
                             screen.blit(button_highlight.surf, button_highlight.rect)
 
                     # draw objects to screen related to shop scenario --------------------------------------------------
+                    if player.current_zone == "ectrenos right" and in_shop and not in_over_world and not in_battle \
+                            and not in_inn and not in_academia and not in_npc_interaction:
+                        screen.blit(korlok_district_shop, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                      weapon_select)
+                        screen.blit(buy_button.surf, buy_button.rect)
+                        screen.blit(leave_button.surf, leave_button.rect)
+                        screen.blit(message_box.surf, message_box.rect)
+                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                         info_text_3, info_text_4, in_over_world)
+                        drawing_functions.draw_it(screen)
+
+                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
+                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                        if shop_cat_pet:
+                            cat_pet_animation_overlay.update(465, 407, graphic_dict["korlok_shop_cat_pet_img"])
+                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+
+                        if buy_clicked:
+                            for window in buy_shop_elements:
+                                screen.blit(window.surf, window.rect)
+                            for shop_item in shopkeeper_items:
+                                screen.blit(shop_item.surf, shop_item.rect)
+                            if len(buy_window) > 0:
+                                for element in buy_window:
+                                    screen.blit(element.surf, element.rect)
+                        if len(sell_window) > 0:
+                            for element in sell_window:
+                                screen.blit(element.surf, element.rect)
+
+                        if first_shop_cond:
+                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+
+                        if button_highlighted:
+                            screen.blit(button_highlight.surf, button_highlight.rect)
+
+                    # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "stardust" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
                         screen.blit(stardust_post_bg, (0, 0))
@@ -5807,6 +5850,13 @@ if __name__ == '__main__':
                         if not building_song_set:
                             pygame.mixer.music.fadeout(50)
                             pygame.mixer.music.load(korlok_building_music)
+                            pygame.mixer.music.play(loops=-1)
+                            building_song_set = True
+
+                    if player.current_zone == "ectrenos right":
+                        if not building_song_set:
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(eldream_building_music)
                             pygame.mixer.music.play(loops=-1)
                             building_song_set = True
 
@@ -5936,6 +5986,25 @@ if __name__ == '__main__':
                             if not rested:
                                 korlok_district_inn.set_alpha(255)
                                 screen.blit(korlok_district_inn, (0, 0))
+                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+
+                        if player.current_zone == "ectrenos right":
+                            # if player has just rested, fade inn screen back in with alpha value loop
+                            if rested:
+                                if not faded_inn_screen:
+                                    for alpha in range(0, 50):
+                                        eldream_district_inn.set_alpha(alpha)
+                                        screen.blit(eldream_district_inn, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        pygame.display.flip()
+                                    faded_inn_screen = True
+                                else:
+                                    eldream_district_inn.set_alpha(255)
+                                    screen.blit(eldream_district_inn, (0, 0))
+                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            if not rested:
+                                eldream_district_inn.set_alpha(255)
+                                screen.blit(eldream_district_inn, (0, 0))
                                 screen.blit(equipment_screen.surf, equipment_screen.rect)
 
                     screen.blit(offense_meter.surf, offense_meter.rect)
@@ -6313,11 +6382,7 @@ if __name__ == '__main__':
                                 building_song_set = False
                                 quest_clicked = False
                                 drawing_functions.quest_complete_box.clear()
-                                drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                 maurelle_quest_window, celeste_quest_window,
-                                                                 torune_quest_window, voruke_quest_window,
-                                                                 zerah_quest_window, kirean_quest_window,
-                                                                 dionte_quest_window, accept_button, decline_button)
+                                drawing_functions.quest_box.clear()
                                 drawing_functions.potion_window_container.clear()
                                 apothecary_window_open = False
                         elif event.type == QUIT:
@@ -6467,7 +6532,9 @@ if __name__ == '__main__':
                                                                      maurelle_quest_window, celeste_quest_window,
                                                                      torune_quest_window, voruke_quest_window,
                                                                      zerah_quest_window, kirean_quest_window,
-                                                                     dionte_quest_window, accept_button, decline_button)
+                                                                     dionte_quest_window, accept_button, decline_button,
+                                                                     omoku_quest_window, leyre_quest_window,
+                                                                     aitor_quest_window, everett_quest_window)
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not kirean_complete_shown:
@@ -6479,15 +6546,15 @@ if __name__ == '__main__':
                                                                               voruke_complete_quest_window,
                                                                               zerah_complete_quest_window,
                                                                               kirean_complete_quest_window,
-                                                                              dionte_complete_quest_window)
+                                                                              dionte_complete_quest_window,
+                                                                              omoku_complete_quest_window,
+                                                                              leyre_complete_quest_window,
+                                                                              aitor_complete_quest_window,
+                                                                              everett_complete_quest_window)
                                         kirean_complete_shown = True
                                         quest_clicked = True
                             else:
-                                drawing_functions.quest_box_draw("kirean", False, garan_quest_window,
-                                                                 maurelle_quest_window, celeste_quest_window,
-                                                                 torune_quest_window, voruke_quest_window,
-                                                                 zerah_quest_window, kirean_quest_window,
-                                                                 dionte_quest_window, accept_button, decline_button)
+                                drawing_functions.quest_box.clear()
                                 quest_clicked = False
 
                         # options once quest window is open ------------------------------------------------------------
@@ -6497,22 +6564,14 @@ if __name__ == '__main__':
                             player.quest_status["can't apothecary it"] = True
                             player.current_quests["can't apothecary it"] = "Kirean asked you to gather ore."
                             quest_clicked = False
-                            drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                             maurelle_quest_window, celeste_quest_window,
-                                                             torune_quest_window, voruke_quest_window,
-                                                             zerah_quest_window, kirean_quest_window,
-                                                             dionte_quest_window, accept_button, decline_button)
+                            drawing_functions.quest_box.clear()
 
                         # if player chooses to decline, just close the quest window
                         if quest_buttons == "decline":
                             info_text_1 = ""
                             quest_clicked = False
                             button_highlighted = False
-                            drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                             maurelle_quest_window, celeste_quest_window,
-                                                             torune_quest_window, voruke_quest_window,
-                                                             zerah_quest_window, kirean_quest_window,
-                                                             dionte_quest_window, accept_button, decline_button)
+                            drawing_functions.quest_box.clear()
                         if npc_button == "leave":
                             movement_able = True
                             interacted = False
@@ -6606,6 +6665,246 @@ if __name__ == '__main__':
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
+                # if player is in menagerie ----------------------------------------------------------------------------
+                if in_menagerie and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
+                        and not in_battle:
+
+                    if not building_song_set:
+                        pygame.mixer.music.fadeout(50)
+                        pygame.mixer.music.load(eldream_building_music)
+                        pygame.mixer.music.play(loops=-1)
+                        building_song_set = True
+
+                    for event in pygame.event.get():
+                        if event.type == KEYDOWN:
+                            if event.key == K_ESCAPE:
+                                npc_button = ''
+                                movement_able = True
+                                interacted = False
+                                encounter_started = False
+                                in_menagerie = False
+                                in_over_world = True
+                                building_song_set = False
+                                quest_clicked = False
+                                drawing_functions.quest_complete_box.clear()
+
+                        elif event.type == QUIT:
+                            pygame.mixer.quit()
+                            sys.exit()
+
+                        pos = pygame.mouse.get_pos()
+                        button_highlighted = button_highlighter(pos)
+
+                        if event.type == pygame.MOUSEBUTTONUP:
+                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+                            drawing_functions.quest_complete_box.clear()
+                            if cat_pet_button_overlay.rect.collidepoint(pos):
+                                menagerie_cat_pet = True
+                                cats_pet["eldream_menagerie"] = True
+
+                            if pets_button.rect.collidepoint(pos):
+                                if menagerie_access:
+                                    if not menagerie_window_open:
+                                        menagerie_window_open = True
+                                        drawing_functions.pets_window_container.append(menagerie_window)
+
+                                    else:
+                                        drawing_functions.pets_window_container.clear()
+                                        menagerie_window_open = False
+                                else:
+                                    info_text_1 = "You need to complete Aitor's quest."
+                                    info_text_2 = ""
+
+                            """if seldon_flower_more_button.collidepoint(pos):
+                                if apothecary_window_open:
+                                    if seldon_flower_counter < 10:
+                                        seldon_flower_counter += 1"""
+
+                        # npc was interacted with, if quest button clicked get npc name and check quest progress
+                        npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
+                        # in quest window pop-up, if accept or decline buttons are clicked
+                        quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
+
+                        # click handlers
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
+                        if info_choice == "yes":
+                            inventory_event = click_handlers.inventory(player, current_info_item)
+                            if inventory_event["item message"] != "":
+                                info_text_1 = inventory_event["item message"]
+                                info_text_2 = ""
+                            drawing_functions.item_info_window.clear()
+                        if info_choice == "no":
+                            drawing_functions.item_info_window.clear()
+                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
+                        if inventory_item_clicked["clicked"]:
+                            current_info_item = drawing_functions.item_info_draw(
+                                inventory_item_clicked["element"],
+                                info_items, item_info_button,
+                                graphic_dict)
+                        # function to handle equipment item clicks. apply item message to message box if not empty str.
+                        if len(drawing_functions.item_info_window) == 0:
+                            equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
+                                                                       mythical_armor, legendary_armor, power_gloves)
+                            if equipment_event["equipment message"] != "":
+                                info_text_1 = equipment_event["equipment message"]
+                                info_text_2 = ""
+
+                        if npc_button == "quest":
+                            if player.quest_progress["hatch 'em all"] == 1 and not \
+                                    player.quest_complete["hatch 'em all"]:
+                                if len(player.items) < 16:
+                                    player.quest_complete["hatch 'em all"] = True
+                                    player.current_quests["hatch 'em all"] = "You completed this quest!"
+                                    info_text_1 = "You've completed Aitor's quest!"
+                                    info_text_2 = "Your game has been saved. "
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.star_power += 1
+                                    player.experience += 50
+                                    menagerie_access = True
+                                    if player.experience >= 100:
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        leveled = True
+                                        loot_level_tic = time.perf_counter()
+                                    player.reputation["sorae"] += 10
+                                    # autosave on quest complete
+                                    try:
+                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                     sharp_sense_learned, saved, npc_garan.gift,
+                                                                     rest_recover_show, knowledge_academia_show,
+                                                                     quest_guide_shown, battle_guide_shown,
+                                                                     rest_shown_before, quest_highlight_popup,
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
+                                                                     bridge_cutscenes_not_viewed, crate_1,
+                                                                     crate_2, crate_3, crate_4, crate_5, switch_1,
+                                                                     switch_2, switch_3, muchador_defeated, has_key,
+                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                     chinzilla_defeated, apothecary_access,
+                                                                     beyond_seldon)
+                                    except PermissionError:
+                                        pass
+
+                            if not quest_clicked:
+                                if not player.quest_complete["hatch 'em all"]:
+                                    drawing_functions.quest_box_draw("aitor", True, garan_quest_window,
+                                                                     maurelle_quest_window, celeste_quest_window,
+                                                                     torune_quest_window, voruke_quest_window,
+                                                                     zerah_quest_window, kirean_quest_window,
+                                                                     dionte_quest_window, accept_button, decline_button,
+                                                                     omoku_quest_window, leyre_quest_window,
+                                                                     aitor_quest_window, everett_quest_window)
+                                    quest_clicked = True
+                                else:  # quest complete popup
+                                    if not aitor_complete_shown:
+                                        drawing_functions.quest_complete_draw("aitor", True,
+                                                                              garan_complete_quest_window,
+                                                                              maurelle_complete_quest_window,
+                                                                              celeste_complete_quest_window,
+                                                                              torune_complete_quest_window,
+                                                                              voruke_complete_quest_window,
+                                                                              zerah_complete_quest_window,
+                                                                              kirean_complete_quest_window,
+                                                                              dionte_complete_quest_window,
+                                                                              omoku_complete_quest_window,
+                                                                              leyre_complete_quest_window,
+                                                                              aitor_complete_quest_window,
+                                                                              everett_complete_quest_window)
+                                        aitor_complete_shown = True
+                                        quest_clicked = True
+                            else:
+                                drawing_functions.quest_box.clear()
+                                quest_clicked = False
+
+                        # options once quest window is open ------------------------------------------------------------
+                        if quest_buttons == "accept":
+                            info_text_1 = "You've accepted the quest!"
+                            button_highlighted = False
+                            player.quest_status["hatch 'em all"] = True
+                            player.current_quests["hatch 'em all"] = "Defeat enemies to hatch your creature."
+                            quest_clicked = False
+                            drawing_functions.quest_box.clear()
+
+                        # if player chooses to decline, just close the quest window
+                        if quest_buttons == "decline":
+                            info_text_1 = ""
+                            quest_clicked = False
+                            button_highlighted = False
+                            drawing_functions.quest_box.clear()
+
+                        if npc_button == "leave":
+                            movement_able = True
+                            interacted = False
+                            encounter_started = False
+                            in_menagerie = False
+                            in_over_world = True
+                            building_song_set = False
+                            menagerie_window_open = False
+                            menagerie_cat_pet = False
+                            drawing_functions.potion_window_container.clear()
+                            drawing_functions.quest_complete_box.clear()
+
+                    # outside of inn event loop ------------------------------------------------------------------------
+                    if not encounter_started:
+                        info_text_1 = ""
+                        info_text_2 = ""
+                        info_text_3 = ""
+                        info_text_4 = ""
+                        encounter_started = True
+
+                    # draw objects to screen related to academia scenario ----------------------------------------------
+                    if in_menagerie and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
+                            and not in_battle:
+
+                        screen.blit(eldream_district_menagerie, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+                        screen.blit(leave_button.surf, leave_button.rect)
+                        screen.blit(message_box.surf, message_box.rect)
+                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        screen.blit(quest_button.surf, quest_button.rect)
+                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        cat_pet_button_overlay.update(630, 65, graphic_dict["cat_pet_button_overlay"])
+                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                        if menagerie_cat_pet:
+                            cat_pet_animation_overlay.update(634, 63, graphic_dict["apothecary_cat_pet_img"])
+                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+                        """if not player.quest_complete["hatch 'em all"]:
+                            if not player.quest_status["hatch 'em all"]:
+                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                            if player.quest_status["hatch 'em all"]:
+                                quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
+                                                             quest_star_apothecary.y_coordinate,
+                                                             graphic_dict["building_npc_star_progress"])
+                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                            if player.quest_progress["hatch 'em all"] == 4:
+                                quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
+                                                             quest_star_apothecary.y_coordinate,
+                                                             graphic_dict["building_npc_star_complete"])
+                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)"""
+
+                        # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                         info_text_4, in_over_world)
+                        drawing_functions.draw_it(screen)
+
+                        # if player has access to apothecary functions by completing quest and window is open
+                        screen.blit(pets_button.surf, pets_button.rect)
+                        if menagerie_access:
+                            if menagerie_window_open:
+                                print("todo")
+
+                        if button_highlighted:
+                            screen.blit(button_highlight.surf, button_highlight.rect)
+
+                # ------------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
                 # if player interacting with an npc (quest) ------------------------------------------------------------
                 if in_npc_interaction and not in_over_world and not in_shop and not in_inn and not in_academia \
                         and not in_battle:
@@ -6620,11 +6919,7 @@ if __name__ == '__main__':
                                 in_over_world = True
                                 quest_clicked = False
                                 drawing_functions.quest_complete_box.clear()
-                                drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                 maurelle_quest_window, celeste_quest_window,
-                                                                 torune_quest_window, voruke_quest_window,
-                                                                 zerah_quest_window, kirean_quest_window,
-                                                                 dionte_quest_window, accept_button, decline_button)
+                                drawing_functions.quest_box.clear()
                                 drawing_functions.type_advantage_window.clear()
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -6693,21 +6988,14 @@ if __name__ == '__main__':
                                 player.current_quests["it's dangerous to go alone"] = "Dionte asked you to face the" \
                                                                                       " monster in the cave."
                             quest_clicked = False
-                            drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                             maurelle_quest_window, celeste_quest_window,
-                                                             torune_quest_window, voruke_quest_window,
-                                                             zerah_quest_window, kirean_quest_window,
-                                                             dionte_quest_window, accept_button, decline_button)
+                            drawing_functions.quest_box.clear()
+
                         # if player chooses to decline, just close the quest window
                         if quest_buttons == "decline":
                             info_text_1 = ""
                             quest_clicked = False
                             button_highlighted = False
-                            drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                             maurelle_quest_window, celeste_quest_window,
-                                                             torune_quest_window, voruke_quest_window,
-                                                             zerah_quest_window, kirean_quest_window,
-                                                             dionte_quest_window, accept_button, decline_button)
+                            drawing_functions.quest_box.clear()
 
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
@@ -6785,7 +7073,9 @@ if __name__ == '__main__':
                                                                          torune_quest_window, voruke_quest_window,
                                                                          zerah_quest_window, kirean_quest_window,
                                                                          dionte_quest_window, accept_button,
-                                                                         decline_button)
+                                                                         decline_button, omoku_quest_window,
+                                                                         leyre_quest_window, aitor_quest_window,
+                                                                         everett_quest_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not garan_complete_shown:
@@ -6797,15 +7087,15 @@ if __name__ == '__main__':
                                                                                   voruke_complete_quest_window,
                                                                                   zerah_complete_quest_window,
                                                                                   kirean_complete_quest_window,
-                                                                                  dionte_complete_quest_window)
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
                                             garan_complete_shown = True
                                             quest_clicked = True
                                 else:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                     maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, voruke_quest_window,
-                                                                     zerah_quest_window, kirean_quest_window,
-                                                                     dionte_quest_window, accept_button, decline_button)
+                                    drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
                             # celeste npc, check player's quest progress and reward if completed -----------------------
@@ -6856,7 +7146,9 @@ if __name__ == '__main__':
                                                                          torune_quest_window, voruke_quest_window,
                                                                          zerah_quest_window, kirean_quest_window,
                                                                          dionte_quest_window, accept_button,
-                                                                         decline_button)
+                                                                         decline_button, omoku_quest_window,
+                                                                         leyre_quest_window, aitor_quest_window,
+                                                                         everett_quest_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not celeste_complete_shown:
@@ -6868,15 +7160,15 @@ if __name__ == '__main__':
                                                                                   voruke_complete_quest_window,
                                                                                   zerah_complete_quest_window,
                                                                                   kirean_complete_quest_window,
-                                                                                  dionte_complete_quest_window)
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
                                             celeste_complete_shown = True
                                             quest_clicked = True
                                 else:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                     maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, voruke_quest_window,
-                                                                     zerah_quest_window, kirean_quest_window,
-                                                                     dionte_quest_window, accept_button, decline_button)
+                                    drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
                             # maurelle npc, check player's quest progress and reward if completed ----------------------
@@ -6927,7 +7219,9 @@ if __name__ == '__main__':
                                                                          torune_quest_window, voruke_quest_window,
                                                                          zerah_quest_window, kirean_quest_window,
                                                                          dionte_quest_window, accept_button,
-                                                                         decline_button)
+                                                                         decline_button, omoku_quest_window,
+                                                                         leyre_quest_window, aitor_quest_window,
+                                                                         everett_quest_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not maurelle_complete_shown:
@@ -6939,15 +7233,15 @@ if __name__ == '__main__':
                                                                                   voruke_complete_quest_window,
                                                                                   zerah_complete_quest_window,
                                                                                   kirean_complete_quest_window,
-                                                                                  dionte_complete_quest_window)
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
                                             maurelle_complete_shown = True
                                             quest_clicked = True
                                 else:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                     maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, voruke_quest_window,
-                                                                     zerah_quest_window, kirean_quest_window,
-                                                                     dionte_quest_window, accept_button, decline_button)
+                                    drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
                             # torune npc, check player's quest progress and reward if completed ------------------------
@@ -6997,7 +7291,9 @@ if __name__ == '__main__':
                                                                          torune_quest_window, voruke_quest_window,
                                                                          zerah_quest_window, kirean_quest_window,
                                                                          dionte_quest_window, accept_button,
-                                                                         decline_button)
+                                                                         decline_button, omoku_quest_window,
+                                                                         leyre_quest_window, aitor_quest_window,
+                                                                         everett_quest_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not torune_complete_shown:
@@ -7009,15 +7305,15 @@ if __name__ == '__main__':
                                                                                   voruke_complete_quest_window,
                                                                                   zerah_complete_quest_window,
                                                                                   kirean_complete_quest_window,
-                                                                                  dionte_complete_quest_window)
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
                                             torune_complete_shown = True
                                             quest_clicked = True
                                 else:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                                     maurelle_quest_window, celeste_quest_window,
-                                                                     torune_quest_window, voruke_quest_window,
-                                                                     zerah_quest_window, kirean_quest_window,
-                                                                     dionte_quest_window, accept_button, decline_button)
+                                    drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
                             # voruke npc, check player's quest progress and reward if completed ------------------------
@@ -7068,7 +7364,9 @@ if __name__ == '__main__':
                                                                          torune_quest_window, voruke_quest_window,
                                                                          zerah_quest_window, kirean_quest_window,
                                                                          dionte_quest_window, accept_button,
-                                                                         decline_button)
+                                                                         decline_button, omoku_quest_window,
+                                                                         leyre_quest_window, aitor_quest_window,
+                                                                         everett_quest_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not voruke_complete_shown:
@@ -7080,16 +7378,15 @@ if __name__ == '__main__':
                                                                                   voruke_complete_quest_window,
                                                                                   zerah_complete_quest_window,
                                                                                   kirean_complete_quest_window,
-                                                                                  dionte_complete_quest_window)
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
                                             voruke_complete_shown = True
                                             quest_clicked = True
                                 else:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, False,
-                                                                     garan_quest_window, maurelle_quest_window,
-                                                                     celeste_quest_window, torune_quest_window,
-                                                                     voruke_quest_window, zerah_quest_window,
-                                                                     kirean_quest_window, dionte_quest_window,
-                                                                     accept_button, decline_button)
+                                    drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
                             # voruke npc, check player's quest progress and reward if completed ------------------------
@@ -7138,7 +7435,9 @@ if __name__ == '__main__':
                                                                          celeste_quest_window, torune_quest_window,
                                                                          voruke_quest_window, zerah_quest_window,
                                                                          kirean_quest_window, dionte_quest_window,
-                                                                         accept_button, decline_button)
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window, everett_quest_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not zerah_complete_shown:
@@ -7150,16 +7449,15 @@ if __name__ == '__main__':
                                                                                   voruke_complete_quest_window,
                                                                                   zerah_complete_quest_window,
                                                                                   kirean_complete_quest_window,
-                                                                                  dionte_complete_quest_window)
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
                                             zerah_complete_shown = True
                                             quest_clicked = True
                                 else:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, False,
-                                                                     garan_quest_window, maurelle_quest_window,
-                                                                     celeste_quest_window, torune_quest_window,
-                                                                     voruke_quest_window, zerah_quest_window,
-                                                                     kirean_quest_window, dionte_quest_window,
-                                                                     accept_button, decline_button)
+                                    drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
                             # dionte npc, check player's quest progress and reward if completed ------------------------
@@ -7209,7 +7507,9 @@ if __name__ == '__main__':
                                                                          celeste_quest_window, torune_quest_window,
                                                                          voruke_quest_window, zerah_quest_window,
                                                                          kirean_quest_window, dionte_quest_window,
-                                                                         accept_button, decline_button)
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window, everett_quest_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not dionte_complete_shown:
@@ -7221,16 +7521,15 @@ if __name__ == '__main__':
                                                                                   voruke_complete_quest_window,
                                                                                   zerah_complete_quest_window,
                                                                                   kirean_complete_quest_window,
-                                                                                  dionte_complete_quest_window)
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
                                             dionte_complete_shown = True
                                             quest_clicked = True
                                 else:
-                                    drawing_functions.quest_box_draw(current_npc_interacting, False,
-                                                                     garan_quest_window, maurelle_quest_window,
-                                                                     celeste_quest_window, torune_quest_window,
-                                                                     voruke_quest_window, zerah_quest_window,
-                                                                     kirean_quest_window, dionte_quest_window,
-                                                                     accept_button, decline_button)
+                                    drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
                         if npc_button == "leave":
@@ -7242,11 +7541,7 @@ if __name__ == '__main__':
                             in_over_world = True
                             quest_clicked = False
                             drawing_functions.quest_complete_box.clear()
-                            drawing_functions.quest_box_draw(current_npc_interacting, False, garan_quest_window,
-                                                             maurelle_quest_window, celeste_quest_window,
-                                                             torune_quest_window, voruke_quest_window,
-                                                             zerah_quest_window, kirean_quest_window,
-                                                             dionte_quest_window, accept_button, decline_button)
+                            drawing_functions.quest_box.clear()
                             drawing_functions.type_advantage_window.clear()
 
                     # outside event loop -------------------------------------------------------------------------------

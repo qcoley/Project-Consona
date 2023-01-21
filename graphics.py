@@ -73,6 +73,8 @@ def load_graphics():
     korlok_apothecary = pygame.image.load(resource_path('resources/art/bg_korlok_apothecary.png')).convert_alpha()
     terra_trail_bg = pygame.image.load(resource_path('resources/art/bg_terra_trail.png')).convert_alpha()
     eldream_bg_screen = pygame.image.load(resource_path('resources/art/bg_eldream_district.png')).convert_alpha()
+    eldream_inn_screen = pygame.image.load(resource_path('resources/art/bg_eldream_inn.png')).convert_alpha()
+    eldream_menagerie = pygame.image.load(resource_path('resources/art/bg_eldream_menagerie.png')).convert_alpha()
     ectrenos_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos.png')).convert_alpha()
     ectrenos_left_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_left.png')).convert_alpha()
     ectrenos_right_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_right.png')).convert_alpha()
@@ -169,6 +171,7 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["eldream_menagerie"] = eldream_menagerie
     loaded_dict["overlay_ectrene"] = overlay_ectrene
     loaded_dict["ectrenos_bg"] = ectrenos_bg_screen
     loaded_dict["ectrenos_left_bg"] = ectrenos_left_bg_screen
@@ -204,6 +207,7 @@ def load_graphics():
     loaded_dict["korlok_shop_screen"] = korlok_shop_screen
     loaded_dict["seldon_inn_screen"] = seldon_inn_screen
     loaded_dict["korlok_inn_screen"] = korlok_inn_screen
+    loaded_dict["eldream_inn_screen"] = eldream_inn_screen
     loaded_dict["terra_trail_bg"] = terra_trail_bg
     loaded_dict["seldon_academia_screen"] = seldon_academia_screen
     loaded_dict["seldon_hearth_screen"] = seldon_hearth_screen
@@ -1033,6 +1037,7 @@ def load_graphics():
     loaded_dict["skip_button_img"] = buttons_sheet[15]
     loaded_dict["potions_button_img"] = buttons_sheet[16]
     loaded_dict["create_potion_img"] = buttons_sheet[17]
+    loaded_dict["manage_pets_img"] = buttons_sheet[18]
     # offense/defense overlay ------------------------------------------------------------------------------------------
     offense_defense_url = resource_path('resources/art/overlay_offense_defense_level.png')
     offense_defense_sheet = sprite_sheet((82, 14), offense_defense_url)
@@ -1078,6 +1083,10 @@ def load_graphics():
     loaded_dict["zerah_quest"] = quest_windows_sheet[5]
     loaded_dict["kirean_quest"] = quest_windows_sheet[6]
     loaded_dict["dionte_quest"] = quest_windows_sheet[7]
+    loaded_dict["omoku_quest"] = quest_windows_sheet[8]
+    loaded_dict["leyre_quest"] = quest_windows_sheet[9]
+    loaded_dict["aitor_quest"] = quest_windows_sheet[10]
+    loaded_dict["everett_quest"] = quest_windows_sheet[11]
     # quest complete popups --------------------------------------------------------------------------------------------
     quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
     quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)
@@ -1089,6 +1098,13 @@ def load_graphics():
     loaded_dict["zerah_complete"] = quest_popups_sheet[5]
     loaded_dict["kirean_complete"] = quest_popups_sheet[6]
     loaded_dict["dionte_complete"] = quest_popups_sheet[7]
+    # quest complete popups 2 ------------------------------------------------------------------------------------------
+    quest_popups_2_url = resource_path('resources/art/overlay_quest_completes_2.png')
+    quest_popups_2_sheet = sprite_sheet((500, 250), quest_popups_2_url)
+    loaded_dict["omoku_complete"] = quest_popups_2_sheet[0]
+    loaded_dict["leyre_complete"] = quest_popups_2_sheet[1]
+    loaded_dict["aitor_complete"] = quest_popups_2_sheet[2]
+    loaded_dict["everett_complete"] = quest_popups_2_sheet[3]
     # quest stars ------------------------------------------------------------------------------------------------------
     quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
     quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)

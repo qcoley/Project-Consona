@@ -25,6 +25,7 @@ world_map_container = []
 type_advantage_window = []
 weapon_container = []
 potion_window_container = []
+pets_window_container = []
 
 
 # draws elements on screen that have been appended to list by below functions
@@ -100,6 +101,9 @@ def draw_it(screen):
     if len(potion_window_container) > 0:
         for potion_element in potion_window_container:
             screen.blit(potion_element.surf, potion_element.rect)
+    if len(pets_window_container) > 0:
+        for pets_element in pets_window_container:
+            screen.blit(pets_element.surf, pets_element.rect)
 
 
 def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
@@ -634,7 +638,8 @@ def level_up_draw(level_up_win, player, level_up_font, draw_condition):
 
 def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
                    torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
-                   dionte_quest_window, accept_button, decline_button):
+                   dionte_quest_window, accept_button, decline_button, omoku_quest_window, leyre_quest_window,
+                   aitor_quest_window, everett_quest_window):
     if not draw_condition:
         quest_box.clear()
     else:
@@ -655,10 +660,20 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
                 quest_box.append(kirean_quest_window)
             if quest_npc.name == "dionte":
                 quest_box.append(dionte_quest_window)
+            if quest_npc.name == "omoku":
+                quest_box.append(omoku_quest_window)
+            if quest_npc.name == "leyre":
+                quest_box.append(leyre_quest_window)
+            if quest_npc.name == "aitor":
+                quest_box.append(aitor_quest_window)
+            if quest_npc.name == "everett":
+                quest_box.append(everett_quest_window)
 
         except AttributeError:
             if quest_npc == "kirean":
                 quest_box.append(kirean_quest_window)
+            if quest_npc.name == "aitor":
+                quest_box.append(aitor_quest_window)
 
         quest_box.append(accept_button)
         quest_box.append(decline_button)
@@ -666,7 +681,8 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
 
 def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
                         torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
-                        dionte_quest_window):
+                        dionte_quest_window, omoku_quest_window, leyre_quest_window, aitor_quest_window,
+                        everett_quest_window):
     if not draw_condition:
         quest_complete_box.clear()
     else:
@@ -687,9 +703,19 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
                 quest_complete_box.append(kirean_quest_window)
             if quest_npc.name == "dionte":
                 quest_complete_box.append(dionte_quest_window)
+            if quest_npc.name == "omoku":
+                quest_complete_box.append(omoku_quest_window)
+            if quest_npc.name == "leyre":
+                quest_complete_box.append(leyre_quest_window)
+            if quest_npc.name == "aitor":
+                quest_complete_box.append(aitor_quest_window)
+            if quest_npc.name == "everett":
+                quest_complete_box.append(everett_quest_window)
         except AttributeError:
             if quest_npc == "kirean":
                 quest_complete_box.append(kirean_quest_window)
+            if quest_npc.name == "aitor":
+                quest_complete_box.append(aitor_quest_window)
 
 
 def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves):
@@ -794,7 +820,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       seldon_map_button, korlok_map_button, eldream_map_button, marrow_map_button, character_button,
                       quests_button, save_button, map_button, in_npc_interaction, quest_button, quest_clicked,
                       accept_button, decline_button, in_apothecary, staff, sword, bow, potion_button,
-                      create_potion_button):
+                      create_potion_button, in_menagerie):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1114,6 +1140,37 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                     return True
 
         if in_apothecary:
+            if quest_button.rect.collidepoint(pos):
+                button_highlight.update(quest_button.x_coordinate, quest_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif leave_button.rect.collidepoint(pos):
+                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif potion_button.rect.collidepoint(pos):
+                button_highlight.update(potion_button.x_coordinate, potion_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif create_potion_button.rect.collidepoint(pos):
+                if len(potion_window_container) > 0:
+                    button_highlight.update(create_potion_button.x_coordinate, create_potion_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+
+            # quest window accept or decline button highlights when moused over
+            if quest_clicked:
+                if accept_button.rect.collidepoint(pos):
+                    button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif decline_button.rect.collidepoint(pos):
+                    button_highlight.update(decline_button.x_coordinate,
+                                            decline_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+
+        if in_menagerie:
             if quest_button.rect.collidepoint(pos):
                 button_highlight.update(quest_button.x_coordinate, quest_button.y_coordinate + 7,
                                         graphic_dict["main high"])
