@@ -156,7 +156,11 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                                               quest_star_torune, graphic_dict["quest_progress_star"],
                                               graphic_dict["quest_complete_star"], star_voruke, star_zerah,
                                               star_apothecary, star_dionte)
-
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
 
     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):

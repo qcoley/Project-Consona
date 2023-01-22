@@ -823,6 +823,19 @@ def load_graphics():
     loaded_dict["popup_interaction"] = interaction_popup_sheet[0]
     loaded_dict["popup_interaction_red"] = interaction_popup_sheet[1]
     loaded_dict["popup_interaction_purple"] = interaction_popup_sheet[2]
+    # pets -------------------------------------------------------------------------------------------------------------
+    pets_url = resource_path('resources/art/sprites_pets.png')
+    pets_sheet = sprite_sheet((70, 70), pets_url)
+    loaded_dict["kasper"] = pets_sheet[0]
+    loaded_dict["torok"] = pets_sheet[1]
+    loaded_dict["iriana"] = pets_sheet[2]
+    # pets hatching ----------------------------------------------------------------------------------------------------
+    pets_hatching_url = resource_path('resources/art/overlay_seed_hatching.png')
+    pets_hatching_sheet = sprite_sheet((400, 400), pets_hatching_url)
+    loaded_dict["seed_hatching"] = pets_hatching_sheet[0]
+    loaded_dict["kasper_hatching"] = pets_hatching_sheet[1]
+    loaded_dict["torok_hatching"] = pets_hatching_sheet[2]
+    loaded_dict["iriana_hatching"] = pets_hatching_sheet[3]
     # enemies ----------------------------------------------------------------------------------------------------------
     enemies_url = resource_path('resources/art/sprites_enemies.png')
     enemies_sheet = sprite_sheet((50, 50), enemies_url)
@@ -932,6 +945,12 @@ def load_graphics():
     loaded_dict["ember"] = items_sheet[6]
     loaded_dict["band"] = items_sheet[7]
     loaded_dict["super_pot_img"] = items_sheet[8]
+    loaded_dict["seed_img"] = items_sheet[9]
+    loaded_dict["seed_ready_img"] = items_sheet[10]
+    loaded_dict["fins_img"] = items_sheet[11]
+    loaded_dict["pluma_img"] = items_sheet[12]
+    loaded_dict["boots_img"] = items_sheet[13]
+    loaded_dict["whistle_img"] = items_sheet[14]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -948,6 +967,12 @@ def load_graphics():
     loaded_dict["info_ember"] = items_info_sheet[10]
     loaded_dict["info_band"] = items_info_sheet[11]
     loaded_dict["info_super_pot_img"] = items_info_sheet[12]
+    loaded_dict["info_creature_seed"] = items_info_sheet[13]
+    loaded_dict["info_creature_seed_ready"] = items_info_sheet[14]
+    loaded_dict["info_dread_fins"] = items_info_sheet[15]
+    loaded_dict["info_oscura_pluma"] = items_info_sheet[16]
+    loaded_dict["info_chroma_boots"] = items_info_sheet[17]
+    loaded_dict["info_whistle"] = items_info_sheet[18]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -970,6 +995,8 @@ def load_graphics():
     loaded_dict["s_shiny_rock_img"] = sell_items_sheet[7]
     loaded_dict["s_ember_img"] = sell_items_sheet[8]
     loaded_dict["s_band_img"] = sell_items_sheet[9]
+    loaded_dict["s_fins_img"] = sell_items_sheet[10]
+    loaded_dict["s_pluma_img"] = sell_items_sheet[11]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)
@@ -1183,6 +1210,13 @@ def load_graphics():
     loaded_dict["stardust_star_02_korlok"] = stardust_stars_korlok_sheet[1]
     loaded_dict["stardust_star_03_korlok"] = stardust_stars_korlok_sheet[2]
     loaded_dict["stardust_star_04_korlok"] = stardust_stars_korlok_sheet[3]
+    # stardust outpost korlok star overlays ----------------------------------------------------------------------------
+    stardust_stars_eldream_url = resource_path('resources/art/overlays_stardust_stars_eldream.png')
+    stardust_stars_eldream_sheet = sprite_sheet((271, 105), stardust_stars_eldream_url)
+    loaded_dict["stardust_star_01_eldream"] = stardust_stars_eldream_sheet[0]
+    loaded_dict["stardust_star_02_eldream"] = stardust_stars_eldream_sheet[1]
+    loaded_dict["stardust_star_03_eldream"] = stardust_stars_eldream_sheet[2]
+    loaded_dict["stardust_star_04_eldream"] = stardust_stars_eldream_sheet[3]
     # hearth stone sprites ---------------------------------------------------------------------------------------------
     hearth_stones_url = resource_path('resources/art/sprite_hearth_stone.png')
     hearth_stones_sheet = sprite_sheet((100, 100), hearth_stones_url)

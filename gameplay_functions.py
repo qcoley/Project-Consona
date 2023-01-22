@@ -156,7 +156,7 @@ def npc_quest_star_updates(screen, player, star_garan, star_maurelle, star_celes
             star_dionte.update(625, 65, quest_progress_star)
 
 
-def load_game(player, Item, graphics):
+def load_game(player, Item, graphics, Pet):
     load_return = {"barrier learned": False, "strike learned": False, "sensed learned": False,
                    "saved": False, "start": False, "continue": False, "not found": False, "garan gift": False,
                    "offense upgrade": 0, "defense upgrade": 0}
@@ -176,6 +176,13 @@ def load_game(player, Item, graphics):
             player.star_power = player_load_info["star power"]
             player.flowers_amuna = player_load_info["flowers amuna"]
             player.flowers_sorae = player_load_info["flowers sorae"]
+
+            if player_load_info["pet"] == "kasper":
+                player.pet = Pet(player_load_info["pet"], "scout", 1, 100, graphics["kasper"], True)
+            if player_load_info["pet"] == "torok":
+                player.pet = Pet(player_load_info["pet"], "fighter", 1, 100, graphics["torok"], True)
+            if player_load_info["pet"] == "iriana":
+                player.pet = Pet(player_load_info["pet"], "mage", 1, 100, graphics["iriana"], True)
 
             if player.race == "amuna":
                 if player.role == "mage":
@@ -222,6 +229,10 @@ def load_game(player, Item, graphics):
                     player.items.append(Item("cracked ember", "ember", 200, 200, graphics["ember"], 0))
                 if item == "broken band":
                     player.items.append(Item("broken band", "band", 200, 200, graphics["band"], 0))
+                if item == "dried fins":
+                    player.items.append(Item("dried fins", "fins", 200, 200, graphics["fins_img"], 0))
+                if item == "oscura pluma":
+                    player.items.append(Item("oscura pluma", "pluma", 200, 200, graphics["pluma_img"], 0))
                 if item == "boss key":
                     player.items.append(Item("boss key", "key", 200, 200, graphics["key_img"], 0))
                 if item == "power gloves":
@@ -234,8 +245,14 @@ def load_game(player, Item, graphics):
                     player.items.append(Item("mythical armor", "armor", 200, 200, graphics["mythical_armor"], 3))
                 if item == "legendary armor":
                     player.items.append(Item("legendary armor", "armor", 200, 200, graphics["legendary_armor"], 4))
+                if item == "pet seed":
+                    player.items.append(Item("pet seed", "seed", 200, 200, graphics["seed_img"], 2))
+                if item == "pet whistle":
+                    player.items.append(Item("pet whistle", "whistle", 200, 200, graphics["whistle_img"], 1))
 
             for equipped_item in player_load_info["equipment"]:
+                if equipped_item == "chroma boots":
+                    player.equipment["boots"] = Item("chroma boots", "boots", 200, 200, graphics["boots_img"], 0)
                 if equipped_item == "power gloves":
                     player.equipment["gloves"] = Item("power gloves", "gloves", 200, 200, graphics["gloves"], 0)
                 if equipped_item == "basic armor":
@@ -309,6 +326,8 @@ def load_game(player, Item, graphics):
             load_return["korlok_attuned"] = player_load_info["korlok_attuned"]
             load_return["eldream_attuned"] = player_load_info["eldream_attuned"]
             load_return["beyond seldon"] = player_load_info["beyond seldon"]
+            load_return["seed given"] = player_load_info["seed given"]
+            load_return["hatch ready"] = player_load_info["hatch ready"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -326,7 +345,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               quest_highlight_popup, bridge_not_repaired, nede_ghoul_defeated, bridge_cutscenes_not_viewed,
               crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3, muchador_defeated, has_key,
               mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned,
-              rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon):
+              rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
+              seed_given, hatch_ready):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -340,6 +360,14 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
         equipment_save.append(player.equipment["gloves"].name)
     if player.equipment["boots"] != "":
         equipment_save.append(player.equipment["boots"].name)
+
+    pet = ""
+    if player.pet.name == "kasper":
+        pet = "kasper"
+    if player.pet.name == "torok":
+        pet = "torok"
+    if player.pet.name == "iriana":
+        pet = "iriana"
 
     player_save_info = {"name": str(player.name), "race": str(player.race), "level": int(player.level),
                         "role": str(player.role), "inventory": inventory_save, "equipment": equipment_save,
@@ -372,7 +400,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "eldream_attuned": eldream_attuned, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
                         "rock_6_con": rock_6_con, "rock_7_con": rock_7_con, "chinzilla_defeated": chinzilla_defeated,
                         "apothecary_access": apothecary_access, "flowers amuna": int(player.flowers_amuna),
-                        "flowers sorae": int(player.flowers_sorae), "beyond seldon": beyond_seldon}
+                        "flowers sorae": int(player.flowers_sorae), "beyond seldon": beyond_seldon,
+                        "seed given": seed_given, "hatch ready": hatch_ready, "pet": pet}
     try:
         try:
             # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
@@ -403,9 +432,35 @@ def walk_time(tic):
     return walk_dict
 
 
+def creature_update(player, seed_scout_count, seed_fighter_count, seed_mage_count, hatch_ready, seed_ready_img):
+    if seed_scout_count == 8:
+        for item in player.items:
+            if item.name == "pet seed":
+                item.update_level(item.name, 2, seed_ready_img)
+                hatch_ready = True
+                if not player.quest_complete["hatch 'em all"]:
+                    player.quest_progress["hatch 'em all"] = 1
+    if seed_fighter_count == 8:
+        for item in player.items:
+            if item.name == "pet seed":
+                item.update_level(item.name, 2, seed_ready_img)
+                hatch_ready = True
+                if not player.quest_complete["hatch 'em all"]:
+                    player.quest_progress["hatch 'em all"] = 1
+    if seed_mage_count == 8:
+        for item in player.items:
+            if item.name == "pet seed":
+                item.update_level(item.name, 2, seed_ready_img)
+                hatch_ready = True
+                if not player.quest_complete["hatch 'em all"]:
+                    player.quest_progress["hatch 'em all"] = 1
+    return hatch_ready
+
+
 # function that updates players info, status, role, inventory, equipment, etc
 def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter, offense_meter, defense_meter,
-                               graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves):
+                               graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
+                               chroma_boots):
 
     # update players status bars
     hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player, graphics))
@@ -444,7 +499,7 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
 
     # update players current equipment
     drawing_functions.equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor,
-                                        power_gloves)
+                                        power_gloves, chroma_boots)
     # update players current inventory
     drawing_functions.item_updates(player, graphics)
 

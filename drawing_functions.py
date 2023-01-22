@@ -248,6 +248,40 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
                                     graphic["ok_button_img"])
             item_info_window.append(item_info_button)
+        if inventory_item.name == "pet seed":
+            if inventory_item.level == 2:
+                info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_creature_seed_ready"])
+            else:
+                info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_creature_seed"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+        if inventory_item.name == "pet whistle":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_whistle"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "dried fins":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_dread_fins"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+        if inventory_item.name == "oscura pluma":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_oscura_pluma"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+        if inventory_item.name == "chroma boots":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_chroma_boots"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -342,6 +376,18 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
+        if sell_item.name == "dried fins":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_fins_img"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "oscura pluma":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_pluma_img"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
 
 
 def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world):
@@ -421,6 +467,15 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
             star_extra_surf = font.render(str("+3"), True, "black", "light yellow")
         if player.star_power == 8:
             star_extra_surf = font.render(str("+4"), True, "black", "light yellow")
+
+        if player.star_power == 9:
+            star_extra_surf = font.render(str("+5"), True, "black", "light yellow")
+        if player.star_power == 10:
+            star_extra_surf = font.render(str("+6"), True, "black", "light yellow")
+        if player.star_power == 11:
+            star_extra_surf = font.render(str("+7"), True, "black", "light yellow")
+        if player.star_power == 12:
+            star_extra_surf = font.render(str("+8"), True, "black", "light yellow")
 
         star_extra_rect = star_extra_surf.get_rect()
         star_extra_rect.midleft = (1240, 360)
@@ -607,6 +662,58 @@ def journal_info_draw(journal, player, font, draw_condition):
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
 
+        if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
+                player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" \
+                or player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
+
+            text_quest1_surf = font.render(str(list(player.current_quests)[8]), True, "black", "light yellow")
+            text_quest1_rect = text_quest1_surf.get_rect()
+            text_quest1_rect.midleft = (600, 145)
+            text_quest1_info_surf = font.render(str(list(player.current_quests.values())[8]), True, "black",
+                                                "light yellow")
+            text_quest1_info_rect = text_quest1_info_surf.get_rect()
+            text_quest1_info_rect.midleft = (540, 190)
+            text_quest1_prog_surf = font.render(str(player.quest_progress["kart troubles"]) + " /4",
+                                                True, "black", "light yellow")
+            text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
+            text_quest1_prog_rect.midleft = (950, 145)
+
+            text_quest2_surf = font.render(str(list(player.current_quests)[9]), True, "black", "light yellow")
+            text_quest2_rect = text_quest2_surf.get_rect()
+            text_quest2_rect.midleft = (600, 272)
+            text_quest2_info_surf = font.render(str(list(player.current_quests.values())[9]), True, "black",
+                                                "light yellow")
+            text_quest2_info_rect = text_quest2_info_surf.get_rect()
+            text_quest2_info_rect.midleft = (540, 320)
+            text_quest2_prog_surf = font.render(str(player.quest_progress["las escondidas"]) + " /4",
+                                                True, "black", "light yellow")
+            text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
+            text_quest2_prog_rect.midleft = (950, 272)
+
+            text_quest3_surf = font.render(str(list(player.current_quests)[10]), True, "black", "light yellow")
+            text_quest3_rect = text_quest3_surf.get_rect()
+            text_quest3_rect.midleft = (600, 405)
+            text_quest3_info_surf = font.render(str(list(player.current_quests.values())[10]), True, "black",
+                                                "light yellow")
+            text_quest3_info_rect = text_quest3_info_surf.get_rect()
+            text_quest3_info_rect.midleft = (540, 455)
+            text_quest3_prog_surf = font.render(str(player.quest_progress["hatch 'em all"]) + " /1", True,
+                                                "black", "light yellow")
+            text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
+            text_quest3_prog_rect.midleft = (950, 405)
+
+            text_quest4_surf = font.render(str(list(player.current_quests)[11]), True, "black", "light yellow")
+            text_quest4_rect = text_quest4_surf.get_rect()
+            text_quest4_rect.midleft = (600, 538)
+            text_quest4_info_surf = font.render(str(list(player.current_quests.values())[11]), True, "black",
+                                                "light yellow")
+            text_quest4_info_rect = text_quest4_info_surf.get_rect()
+            text_quest4_info_rect.midleft = (540, 585)
+            text_quest4_prog_surf = font.render(str(player.quest_progress["shades of fear"]) + " /4", True,
+                                                "black", "light yellow")
+            text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
+            text_quest4_prog_rect.midleft = (950, 538)
+
         journal_text.append((text_quest1_surf, text_quest1_rect))
         journal_text.append((text_quest1_info_surf, text_quest1_info_rect))
         journal_text.append((text_quest1_prog_surf, text_quest1_prog_rect))
@@ -672,7 +779,7 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
         except AttributeError:
             if quest_npc == "kirean":
                 quest_box.append(kirean_quest_window)
-            if quest_npc.name == "aitor":
+            if quest_npc == "aitor":
                 quest_box.append(aitor_quest_window)
 
         quest_box.append(accept_button)
@@ -714,11 +821,12 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
         except AttributeError:
             if quest_npc == "kirean":
                 quest_complete_box.append(kirean_quest_window)
-            if quest_npc.name == "aitor":
+            if quest_npc == "aitor":
                 quest_complete_box.append(aitor_quest_window)
 
 
-def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves):
+def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
+                      chroma_boots):
     player_equipment.clear()
 
     if player.equipment["armor"] != "":
@@ -739,6 +847,11 @@ def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armo
         if player.equipment["gloves"].name == "power gloves":
             power_gloves.update(1153, 197, graphics["gloves"])
             player_equipment.append(power_gloves)
+
+    if player.equipment["boots"] != "":
+        if player.equipment["boots"].name == "chroma boots":
+            power_gloves.update(1153, 197, graphics["boots_img"])
+            player_equipment.append(chroma_boots)
 
 
 def item_updates(player, graphic):
@@ -799,6 +912,29 @@ def item_updates(player, graphic):
                     item_here.update(first_coord, second_coord, graphic["band"])
                     player_items.append(item_here)
                     inventory_counter += 1
+                if item_here.name == "pet seed":
+                    if item_here.level == 2:
+                        item_here.update(first_coord, second_coord, graphic["seed_ready_img"])
+                    else:
+                        item_here.update(first_coord, second_coord, graphic["seed_img"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "pet whistle":
+                    item_here.update(first_coord, second_coord, graphic["whistle_img"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "dried fins":
+                    item_here.update(first_coord, second_coord, graphic["fins_img"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "oscura pluma":
+                    item_here.update(first_coord, second_coord, graphic["pluma_img"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "chroma boots":
+                    item_here.update(first_coord, second_coord, graphic["boots_img"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
 
                 first_coord += 60
 
@@ -820,7 +956,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       seldon_map_button, korlok_map_button, eldream_map_button, marrow_map_button, character_button,
                       quests_button, save_button, map_button, in_npc_interaction, quest_button, quest_clicked,
                       accept_button, decline_button, in_apothecary, staff, sword, bow, potion_button,
-                      create_potion_button, in_menagerie):
+                      create_potion_button, in_menagerie, ok_button, hatch_ready):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1183,12 +1319,11 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 button_highlight.update(potion_button.x_coordinate, potion_button.y_coordinate + 7,
                                         graphic_dict["main high"])
                 return True
-            elif create_potion_button.rect.collidepoint(pos):
-                if len(potion_window_container) > 0:
-                    button_highlight.update(create_potion_button.x_coordinate, create_potion_button.y_coordinate + 7,
+            if hatch_ready:
+                if ok_button.rect.collidepoint(pos):
+                    button_highlight.update(ok_button.x_coordinate, ok_button.y_coordinate + 7,
                                             graphic_dict["main high"])
                     return True
-
             # quest window accept or decline button highlights when moused over
             if quest_clicked:
                 if accept_button.rect.collidepoint(pos):

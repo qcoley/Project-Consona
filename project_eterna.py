@@ -29,11 +29,30 @@ velocity = 2
 
 
 # class objects --------------------------------------------------------------------------------------------------------
+class Pet(pygame.sprite.Sprite):
+    def __init__(self, name, type, stage, energy, image, active):
+        super(Pet, self).__init__()
+        self.x_coordinate = player.x_coordinate + 5
+        self.y_coordinate = player.y_coordinate + 5
+        self.surf = image
+        self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
+        self.name = name
+        self.type = type
+        self.stage = stage
+        self.energy = energy
+        self.active = active
+
+    def update(self, x_coordinate, y_coordinate):
+        self.x_coordinate = x_coordinate
+        self.y_coordinate = y_coordinate
+        self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
+
+
 class PlayerAmuna(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae):
+                 flowers_sorae, pet):
         super(PlayerAmuna, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -65,6 +84,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
         self.star_power = star_power
         self.flowers_amuna = flowers_amuna
         self.flowers_sorae = flowers_sorae
+        self.pet = pet
 
     # move the player sprite based on input keys
     def update(self, pressed_key, current_zone, walk_timed):
@@ -646,7 +666,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae):
+                 flowers_sorae, pet):
         super(PlayerNuldar, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -678,6 +698,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
         self.star_power = star_power
         self.flowers_amuna = flowers_amuna
         self.flowers_sorae = flowers_sorae
+        self.pet = pet
 
     def update(self, pressed_key, current_zone, walk_timed):
         if player.role == "":  # ---------------------------------------------------------------------------------------
@@ -1257,7 +1278,7 @@ class PlayerSorae(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae):
+                 flowers_sorae, pet):
         super(PlayerSorae, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -1289,6 +1310,7 @@ class PlayerSorae(pygame.sprite.Sprite):
         self.star_power = star_power
         self.flowers_amuna = flowers_amuna
         self.flowers_sorae = flowers_sorae
+        self.pet = pet
 
     def update(self, pressed_key, current_zone, walk_timed):
         if player.role == "":  # ---------------------------------------------------------------------------------------
@@ -2104,7 +2126,7 @@ def button_highlighter(posit):
                                                               in_npc_interaction, quest_button, quest_clicked,
                                                               accept_button, decline_button, in_apothecary, staff,
                                                               sword, bow, potions_button, create_potion_button,
-                                                              in_menagerie)
+                                                              in_menagerie, ok_button, hatch_ready)
     return button_highlighters
 
 
@@ -2196,6 +2218,7 @@ if __name__ == '__main__':
     legendary_armor = Item("legendary armor", "armor", 1078, 197, graphic_dict["legendary_armor"], 4)
     # equipment items
     power_gloves = Item("power gloves", "gloves", 1153, 197, graphic_dict["gloves"], 0)
+    chroma_boots = Item("chroma boots", "boots", 1200, 197, graphic_dict["gloves"], 0)
     # character selection
     amuna_character = UiElement("amuna character", 640, 360, graphic_dict["amuna_character_img"])
     nuldar_character = UiElement("nuldar character", 640, 360, graphic_dict["nuldar_character_img"])
@@ -2212,23 +2235,42 @@ if __name__ == '__main__':
                           "band hammer": "Speak to Voruke to start this quest.",
                           "elementary elementals": "Speak to Zerah to start this quest.",
                           "can't apothecary it": "Speak to the apothecary owner to start this quest.",
-                          "it's dangerous to go alone": "Speak to Dionte to start this quest"},
+                          "it's dangerous to go alone": "Speak to Dionte to start this quest",
+                          "kart troubles": "Speak to Omoku to start this quest",
+                          "las escondidas": "Speak to Leyre to start this quest",
+                          "hatch 'em all": "Speak to the menagerie owner to start this quest",
+                          "shades of fear": "Speak to Everett to start this quest"},
                          {"sneaky snakes": 0, "village repairs": 0, "where's nede?": 0, "ghouled again": 0,
                           "band hammer": 0, "elementary elementals": 0, "can't apothecary it": 0,
-                          "it's dangerous to go alone": 0},
+                          "it's dangerous to go alone": 0, "kart troubles": 0, "las escondidas": 0, "hatch 'em all": 0,
+                          "shades of fear": 0},
                          {"sneaky snakes": False, "village repairs": False, "where's nede?": False,
                           "ghouled again": False, "band hammer": False, "elementary elementals": False,
-                          "can't apothecary it": False, "it's dangerous to go alone": False},
+                          "can't apothecary it": False, "it's dangerous to go alone": False, "kart troubles": False,
+                          "las escondidas": False, "hatch 'em all": False, "shades of fear": False},
                          {"sneaky snakes": False, "village repairs": False, "where's nede?": False,
                           "ghouled again": False, "band hammer": False, "elementary elementals": False,
-                          "can't apothecary it": False, "it's dangerous to go alone": False},
+                          "can't apothecary it": False, "it's dangerous to go alone": False, "kart troubles": False,
+                          "las escondidas": False, "hatch 'em all": False, "shades of fear": False},
                          {"mage": 0, "fighter": 0, "scout": 0},  # role knowledge ('role', 'amount')
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # mage skills
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # fighter skills
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                          1, 0, 100, 100,  # lvl, exp, health, energy
                          True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
-                         "", 0, 0, 0, 0, 0)  # zone, defence, offense, image
+                         "", 0, 0, 0, 0, 0, "")  # zone, defence, offense, image
+
+    # pets: name, type, stage, energy
+    pet_kasper = Pet("kasper", "scout", 1, 100, graphic_dict["kasper"], False)
+    pet_torok = Pet("torok", "fighter", 1, 100, graphic_dict["torok"], False)
+    pet_iriana = Pet("iriana", "mage", 1, 100, graphic_dict["iriana"], False)
+    # pet seed
+    pet_seed = Item("pet seed", "seed", 1078, 197, graphic_dict["seed_img"], 1)
+    pet_whistle = Item("pet whistle", "whistle", 1078, 197, graphic_dict["whistle_img"], 1)
+
+    seed_scout_count = 0
+    seed_fighter_count = 0
+    seed_mage_count = 0
 
     # npcs: name, gender, race, role, dialog, quest, quest_description, x_coordinate, y_coordinate
     #                  alive_status, quest_complete, items, gift, image
@@ -2248,6 +2290,13 @@ if __name__ == '__main__':
     npc_dionte = NPC("dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 625, 110,
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
+    npc_omoku = NPC("omoku", "nuldar", "Onur-oh.", "kart troubles", "", 900, 200,
+                     True, False, ["Items"], False, graphic_dict["voruke_down"])
+    npc_leyre = NPC("leyre", "sorae", "Hola.", "las escondidas", "", 800, 400,
+                    True, False, ["Items"], False, graphic_dict["zerah_down"])
+    npc_everett = NPC("everett", "amuna", "shades of fear", "ayudame", "", 500, 500,
+                      True, False, ["Items"], False, graphic_dict["dionte_down"])
+
     npc_prime = NPC("prime", "nuldar", "", "", "", 130, 525, True, False, ["Items"], False, graphic_dict["prime"])
     npc_jez = NPC("jez", "nuldar", "", "", "", 265, 525, True, False, ["Items"], False, graphic_dict["jez"])
 
@@ -2256,8 +2305,13 @@ if __name__ == '__main__':
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
         Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
-    npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "amuna", [
+    npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
+        Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+
+    npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
+        Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
         Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
@@ -2269,6 +2323,10 @@ if __name__ == '__main__':
     npc_voruke_interaction = UiElement("voruke interaction", 678, 325, graphic_dict["voruke_interaction"])
     npc_zerah_interaction = UiElement("zerah interaction", 675, 325, graphic_dict["zerah_interaction"])
     npc_dionte_interaction = UiElement("dionte interaction", 675, 325, graphic_dict["dionte_interaction"])
+
+    npc_omoku_interaction = UiElement("omoku interaction", 678, 325, graphic_dict["voruke_interaction"])
+    npc_leyre_interaction = UiElement("leyre interaction", 675, 325, graphic_dict["zerah_interaction"])
+    npc_everett_interaction = UiElement("everett interaction", 675, 325, graphic_dict["dionte_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -2339,6 +2397,32 @@ if __name__ == '__main__':
     chinzilla = Enemy("chinzilla", "chinzilla", 100, 100, 14, 350, 360, True, "item", graphic_dict["chinzilla"],
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
+    # eldream enemies --------------------------------------------------------------------------------------------------
+    osodark_1 = Enemy("osodark", "osodark", 100, 100, 1, 100, 130, True,
+                      Item("dried fins", "fins", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                      graphic_dict["snake"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    osodark_2 = Enemy("osodark", "osodark", 100, 100, 2, 285, 150, True,
+                      Item("dried fins", "fins", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                      graphic_dict["snake"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    osodark_3 = Enemy("osodark", "osodark", 100, 100, 1, 100, 230, True,
+                      Item("dried fins", "fins", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                      graphic_dict["snake"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    osodark_4 = Enemy("osodark", "osodark", 100, 100, 2, 285, 250, True,
+                      Item("dried fins", "fins", 200, 200, graphic_dict["shiny_rock_img"], 0),
+                      graphic_dict["snake"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    necrola_1 = Enemy("necrola", "necrola", 100, 100, 4, 665, 180, True,
+                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["bone_dust_img"], 0),
+                        graphic_dict["ghoul"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    necrola_2 = Enemy("necrola", "necrola", 100, 100, 5, 800, 130, True,
+                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["bone_dust_img"], 0),
+                        graphic_dict["ghoul"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    necrola_3 = Enemy("necrola", "necrola", 100, 100, 3, 760, 240, True,
+                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["bone_dust_img"], 0),
+                        graphic_dict["ghoul"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    necrola_4 = Enemy("necrola", "necrola", 100, 100, 4, 890, 205, True,
+                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["bone_dust_img"], 0),
+                        graphic_dict["ghoul"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
     pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, graphic_dict["pine_tree"])
@@ -2406,6 +2490,7 @@ if __name__ == '__main__':
     map_button = UiElement("map button", 860, 60, graphic_dict["map_button_img"])
     save_button = UiElement("save button", 970, 60, graphic_dict["save_button_img"])
     yes_button = UiElement("yes button", 450, 394, graphic_dict["yes_button_img"])
+    ok_button = UiElement("ok button", 960, 605, graphic_dict["ok_button_img"])
     no_button = UiElement("no button", 564, 394, graphic_dict["no_button_img"])
     back_button = UiElement("back button", 75, 665, graphic_dict["back_button_img"])
     item_info_button = UiElement("item info button", 1153, 345, graphic_dict["use_button_img"])
@@ -2449,6 +2534,7 @@ if __name__ == '__main__':
     knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
     menagerie_window = UiElement("menagerie window", 297, 319, graphic_dict["apothecary_window"])
+    pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
     seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
@@ -2518,6 +2604,8 @@ if __name__ == '__main__':
     cat_pet_animation_overlay = UiElement("cat pet animation", 507, 242, graphic_dict["seldon_shop_cat_pet_img"])
     stardust_star_overlay = UiElement("stardust stars", 236, 185, graphic_dict["stardust_star_01"])
     stardust_star_overlay_korlok = UiElement("stardust stars korlok", 236, 295, graphic_dict["stardust_star_01_korlok"])
+    stardust_star_overlay_eldream = UiElement("stardust stars eldream", 500, 185,
+                                              graphic_dict["stardust_star_01_eldream"])
     directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
 
     water_player = UiElement("water", 855, 620, graphic_dict["water_player"])
@@ -2854,6 +2942,11 @@ if __name__ == '__main__':
     jez_2 = False
     jez_3 = False
 
+    seed_given = False
+    hatch_ready = False
+    hatched = False
+    hatch_show = True
+
     rock_4_con = False
     rock_5_con = False
     rock_6_con = False
@@ -3038,7 +3131,7 @@ if __name__ == '__main__':
                                                  player.experience, player.health, player.energy, player.alive_status,
                                                  player.rupees, player.reputation, player.current_zone, player.defense,
                                                  player.offense, player.star_power, player.flowers_amuna,
-                                                 player.flowers_sorae)
+                                                 player.flowers_sorae, player.pet)
                             player.race = "amuna"
                             player.surf = graphic_dict["player_no_role_amuna_down_1"]
                             player.current_zone = "nascent"
@@ -3053,7 +3146,7 @@ if __name__ == '__main__':
                                                   player.experience, player.health, player.energy, player.alive_status,
                                                   player.rupees, player.reputation, player.current_zone, player.defense,
                                                   player.offense, player.star_power, player.flowers_amuna,
-                                                  player.flowers_sorae)
+                                                  player.flowers_sorae, player.pet)
                             player.race = "nuldar"
                             player.surf = graphic_dict["player_no_role_nuldar_down_1"]
                             player.current_zone = "nascent"
@@ -3068,7 +3161,7 @@ if __name__ == '__main__':
                                                  player.experience, player.health, player.energy, player.alive_status,
                                                  player.rupees, player.reputation, player.current_zone, player.defense,
                                                  player.offense, player.star_power, player.flowers_amuna,
-                                                 player.flowers_sorae)
+                                                 player.flowers_sorae, player.pet)
                             player.race = "sorae"
                             player.surf = graphic_dict["player_no_role_sorae_down_1"]
                             player.current_zone = "nascent"
@@ -3080,6 +3173,74 @@ if __name__ == '__main__':
                             player.name = str(character_name_input)
                         else:
                             player.name = "default"
+
+                        if player.name == "dev":
+                            player = PlayerAmuna("stan", "amuna", "",  # name, race, role
+                                                 [],  # inventory
+                                                 {"weapon": "", "armor": mythical_armor, "gloves": power_gloves,
+                                                  "boots": ""},
+                                                 {"sneaky snakes": "Speak to Garan to start this quest.",
+                                                  "village repairs": "Speak to Maurelle to start this quest.",
+                                                  "where's nede?": "Speak to Celeste to start this quest",
+                                                  "ghouled again": "Speak to the gate Guard to start this quest.",
+                                                  "band hammer": "Speak to Voruke to start this quest.",
+                                                  "elementary elementals": "Speak to Zerah to start this quest.",
+                                                  "can't apothecary it":
+                                                      "Speak to the apothecary owner to start this quest.",
+                                                  "it's dangerous to go alone": "Speak to Dionte to start this quest",
+                                                  "kart troubles": "Speak to Omoku to start this quest",
+                                                  "las escondidas": "Speak to Leyre to start this quest",
+                                                  "hatch 'em all": "Speak to the menagerie owner to start this quest",
+                                                  "shades of fear": "Speak to Everett to start this quest"},
+                                                 {"sneaky snakes": 4, "village repairs": 4, "where's nede?": 1,
+                                                  "ghouled again": 4,
+                                                  "band hammer": 4, "elementary elementals": 4,
+                                                  "can't apothecary it": 4,
+                                                  "it's dangerous to go alone": 0, "kart troubles": 0,
+                                                  "las escondidas": 0, "hatch 'em all": 0,
+                                                  "shades of fear": 0},
+                                                 {"sneaky snakes": False, "village repairs": False,
+                                                  "where's nede?": False,
+                                                  "ghouled again": False, "band hammer": False,
+                                                  "elementary elementals": False,
+                                                  "can't apothecary it": False, "it's dangerous to go alone": False,
+                                                  "kart troubles": False,
+                                                  "las escondidas": False, "hatch 'em all": False,
+                                                  "shades of fear": False},
+                                                 {"sneaky snakes": True, "village repairs": True,
+                                                  "where's nede?": True,
+                                                  "ghouled again": True, "band hammer": True,
+                                                  "elementary elementals": True,
+                                                  "can't apothecary it": True, "it's dangerous to go alone": True,
+                                                  "kart troubles": False,
+                                                  "las escondidas": False, "hatch 'em all": False,
+                                                  "shades of fear": False},
+                                                 {"mage": 100, "fighter": 100, "scout": 100},
+                                                 # role knowledge ('role', 'amount')
+                                                 {"skill 2": "barrier", "skill 3": "", "skill 4": ""},
+                                                 {"skill 2": "sharp sense", "skill 3": "", "skill 4": ""},
+                                                 {"skill 2": "hard strike", "skill 3": "", "skill 4": ""},
+                                                 14, 0, 100, 100,  # lvl, exp, health, energy
+                                                 True, 500, {"amuna": 200, "nuldar": 200, "sorae": 200},
+                                                 # alive, rupees, reputation
+                                                 "eldream", 0, 0, 0, 0, 0, pet_kasper)  # zone, defence, offense, image
+                            player.x_coordinate = 255
+                            player.y_coordinate = 175
+                            hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            player.role = "mage"
+                            player.offense = 3
+                            player.defense = 3
+                            apothecary_access = True
+                            barrier_learned = True
+                            hard_strike_learned = True
+                            sharp_sense_learned = True
+                            korlok_attuned = True
+                            eldream_attuned = True
+                            npc_garan.gift = True
+                            hatch_ready = True
+                            seed_given = True
+                            seed_scout_count = 8
 
                     if back_button.rect.collidepoint(pos):
                         button_highlighted = False
@@ -3128,7 +3289,7 @@ if __name__ == '__main__':
         if continue_game_chosen:
             directory = os.getcwd()
             try:
-                load_returned = gameplay_functions.load_game(player, Item, graphic_dict)
+                load_returned = gameplay_functions.load_game(player, Item, graphic_dict, Pet)
                 try:
                     if load_returned["not found"]:
                         save_data_window.append(save_absent)
@@ -3168,6 +3329,8 @@ if __name__ == '__main__':
                     eldream_attuned = load_returned["eldream_attuned"]
                     apothecary_access = load_returned["apothecary_access"]
                     beyond_seldon = load_returned["beyond seldon"]
+                    seed_given = load_returned["seed given"]
+                    hatch_ready = load_returned["hatch ready"]
 
                     if player.race == "amuna":
                         player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
@@ -3177,7 +3340,7 @@ if __name__ == '__main__':
                                              player.experience, player.health, player.energy, player.alive_status,
                                              player.rupees, player.reputation, player.current_zone, player.defense,
                                              player.offense, player.star_power, player.flowers_amuna,
-                                             player.flowers_sorae)
+                                             player.flowers_sorae, player.pet)
                         if player.role == "":
                             player.surf = graphic_dict["player_no_role_amuna_down_1"]
                         if player.role == "mage":
@@ -3195,7 +3358,7 @@ if __name__ == '__main__':
                                               player.experience, player.health, player.energy, player.alive_status,
                                               player.rupees, player.reputation, player.current_zone, player.defense,
                                               player.offense, player.star_power, player.flowers_amuna,
-                                              player.flowers_sorae)
+                                              player.flowers_sorae, player.pet)
                         if player.role == "":
                             player.surf = graphic_dict["player_no_role_nuldar_down_1"]
                         if player.role == "mage":
@@ -3213,7 +3376,7 @@ if __name__ == '__main__':
                                              player.experience, player.health, player.energy, player.alive_status,
                                              player.rupees, player.reputation, player.current_zone, player.defense,
                                              player.offense, player.star_power, player.flowers_amuna,
-                                             player.flowers_sorae)
+                                             player.flowers_sorae, player.pet)
                         if player.role == "":
                             player.surf = graphic_dict["player_no_role_sorae_down_1"]
                         if player.role == "mage":
@@ -3295,6 +3458,14 @@ if __name__ == '__main__':
                 # print(player.x_coordinate, player.y_coordinate)
                 # print(player.current_zone)
 
+                # check each iteration if creature seed is ready to hatch from counters
+                hatch_ready = gameplay_functions.creature_update(player, seed_scout_count, seed_fighter_count,
+                                                                 seed_mage_count, hatch_ready,
+                                                                 graphic_dict["seed_ready_img"])
+                # keep player pet with player as they move
+                if player.pet.active:
+                    player.pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+
                 loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
                 if loot_info:
@@ -3311,7 +3482,7 @@ if __name__ == '__main__':
                 gameplay_functions.player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
                                                               offense_meter, defense_meter, graphic_dict, basic_armor,
                                                               forged_armor, mythical_armor, legendary_armor,
-                                                              power_gloves)
+                                                              power_gloves, chroma_boots)
 
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
                         and not in_academia:
@@ -3482,7 +3653,7 @@ if __name__ == '__main__':
                             if len(drawing_functions.item_info_window) == 0:
                                 equipment_event = click_handlers.equipment(player, event, pygame, basic_armor,
                                                                            forged_armor, mythical_armor,
-                                                                           legendary_armor, power_gloves)
+                                                                           legendary_armor, power_gloves, chroma_boots)
                                 if equipment_event["equipment message"] != "":
                                     button_highlighted = False
                                     info_text_1 = equipment_event["equipment message"]
@@ -3554,7 +3725,7 @@ if __name__ == '__main__':
                                                                      gloves_obtained, korlok_attuned, eldream_attuned,
                                                                      rock_4_con, rock_5_con, rock_6_con, rock_7_con,
                                                                      chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon)
+                                                                     beyond_seldon, seed_given, hatch_ready)
                                         saved = True
                                         saving = False
                                         info_text_1 = "You saved your game. "
@@ -3572,7 +3743,7 @@ if __name__ == '__main__':
                                                              mini_boss_2_defeated, gloves_obtained, korlok_attuned,
                                                              eldream_attuned, rock_4_con, rock_5_con, rock_6_con,
                                                              rock_7_con, chinzilla_defeated, apothecary_access,
-                                                             beyond_seldon)
+                                                             beyond_seldon, seed_given, hatch_ready)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -4802,7 +4973,7 @@ if __name__ == '__main__':
                                                                                       defense_meter, graphic_dict,
                                                                                       basic_armor, forged_armor,
                                                                                       mythical_armor, legendary_armor,
-                                                                                      power_gloves)
+                                                                                      power_gloves, chroma_boots)
                                         pygame.display.flip()
                                 if current_info_item.name == "health potion":
                                     if inventory_event["item message"] != "You're already at full health.":
@@ -4829,7 +5000,7 @@ if __name__ == '__main__':
                                                                                       defense_meter, graphic_dict,
                                                                                       basic_armor, forged_armor,
                                                                                       mythical_armor, legendary_armor,
-                                                                                      power_gloves)
+                                                                                      power_gloves, chroma_boots)
                                         pygame.display.flip()
                                 if current_info_item.name == "super potion":
                                     if inventory_event["item message"] != "You're already at full health or energy.":
@@ -4856,7 +5027,7 @@ if __name__ == '__main__':
                                                                                       defense_meter, graphic_dict,
                                                                                       basic_armor, forged_armor,
                                                                                       mythical_armor, legendary_armor,
-                                                                                      power_gloves)
+                                                                                      power_gloves, chroma_boots)
                                         pygame.display.flip()
                             except AttributeError:
                                 pass
@@ -4873,7 +5044,8 @@ if __name__ == '__main__':
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
-                                                                       mythical_armor, legendary_armor, power_gloves)
+                                                                       mythical_armor, legendary_armor, power_gloves,
+                                                                       chroma_boots)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -4932,12 +5104,27 @@ if __name__ == '__main__':
                                         if player.role == "mage":
                                             player.knowledge["mage"] += 10
                                             battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
+                                            if seed_given:
+                                                if seed_mage_count < 8 and seed_fighter_count < 8 and \
+                                                        seed_scout_count < 8:
+                                                    seed_mage_count += 1
+                                                    print(seed_mage_count)
                                         if player.role == "fighter":
                                             player.knowledge["fighter"] += 10
                                             battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
+                                            if seed_given:
+                                                if seed_mage_count < 8 and seed_fighter_count < 8 and \
+                                                        seed_scout_count < 8:
+                                                    seed_fighter_count += 1
+                                                    print(seed_fighter_count)
                                         if player.role == "scout":
                                             player.knowledge["scout"] += 10
                                             battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
+                                            if seed_given:
+                                                if seed_mage_count < 8 and seed_fighter_count < 8 and \
+                                                        seed_scout_count < 8:
+                                                    seed_scout_count += 1
+                                                    print(seed_scout_count)
 
                                         if current_enemy_battling.name == "nede ghoul":
                                             nede_ghoul_defeated = True
@@ -5032,7 +5219,8 @@ if __name__ == '__main__':
                                                                                               basic_armor, forged_armor,
                                                                                               mythical_armor,
                                                                                               legendary_armor,
-                                                                                              power_gloves)
+                                                                                              power_gloves,
+                                                                                              chroma_boots)
                                                 pygame.display.flip()
                                             else:
                                                 info_text_1 = "Barrier spell is already active."
@@ -5086,7 +5274,8 @@ if __name__ == '__main__':
                                                                                               basic_armor, forged_armor,
                                                                                               mythical_armor,
                                                                                               legendary_armor,
-                                                                                              power_gloves)
+                                                                                              power_gloves,
+                                                                                              chroma_boots)
                                                 pygame.display.flip()
                                             else:
                                                 info_text_1 = "Sharp sense is already active."
@@ -5791,6 +5980,14 @@ if __name__ == '__main__':
                             quests_complete += 1
                         if player.quest_complete["it's dangerous to go alone"]:
                             quests_complete += 1
+                        if player.quest_complete["kart troubles"]:
+                            quests_complete += 1
+                        if player.quest_complete["las escondidas"]:
+                            quests_complete += 1
+                        if player.quest_complete["hatch 'em all"]:
+                            quests_complete += 1
+                        if player.quest_complete["shades of fear"]:
+                            quests_complete += 1
 
                         # stardust outpost stars on the wall representing player progress in each zone
                         if quests_complete == 1:
@@ -5825,6 +6022,34 @@ if __name__ == '__main__':
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                        if quests_complete == 9:
+                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            stardust_star_overlay_eldream.update(500, 185, graphic_dict["stardust_star_01_eldream"])
+                            screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                        if quests_complete == 10:
+                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            stardust_star_overlay_eldream.update(500, 185, graphic_dict["stardust_star_02_eldream"])
+                            screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                        if quests_complete == 11:
+                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            stardust_star_overlay_eldream.update(500, 185, graphic_dict["stardust_star_03_eldream"])
+                            screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                        if quests_complete == 12:
+                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            stardust_star_overlay_eldream.update(500, 185, graphic_dict["stardust_star_04_eldream"])
+                            screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
 
                         if first_shop_cond:
                             directional_arrow.update(855, 620, graphic_dict["arrow_down"])
@@ -5904,7 +6129,8 @@ if __name__ == '__main__':
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
-                                                                       mythical_armor, legendary_armor, power_gloves)
+                                                                       mythical_armor, legendary_armor, power_gloves,
+                                                                       chroma_boots)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -6143,7 +6369,8 @@ if __name__ == '__main__':
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
-                                                                       mythical_armor, legendary_armor, power_gloves)
+                                                                       mythical_armor, legendary_armor, power_gloves,
+                                                                       chroma_boots)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -6484,7 +6711,8 @@ if __name__ == '__main__':
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
-                                                                       mythical_armor, legendary_armor, power_gloves)
+                                                                       mythical_armor, legendary_armor, power_gloves,
+                                                                       chroma_boots)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -6522,7 +6750,7 @@ if __name__ == '__main__':
                                                                      gloves_obtained, korlok_attuned, eldream_attuned,
                                                                      rock_4_con, rock_5_con, rock_6_con, rock_7_con,
                                                                      chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon)
+                                                                     beyond_seldon, seed_given, hatch_ready)
                                     except PermissionError:
                                         pass
 
@@ -6715,10 +6943,46 @@ if __name__ == '__main__':
                                     info_text_1 = "You need to complete Aitor's quest."
                                     info_text_2 = ""
 
-                            """if seldon_flower_more_button.collidepoint(pos):
-                                if apothecary_window_open:
-                                    if seldon_flower_counter < 10:
-                                        seldon_flower_counter += 1"""
+                            if hatch_ready:
+                                if ok_button.rect.collidepoint(pos):
+                                    if not hatched:
+                                        if seed_scout_count >= 8:
+                                            pet_hatch_window.update(pet_hatch_window.x_coordinate,
+                                                                    pet_hatch_window.y_coordinate,
+                                                                    graphic_dict["kasper_hatching"])
+                                            hatched = True
+                                            player.items.append(pet_whistle)
+                                            player.pet = pet_kasper
+                                            try:
+                                                player.items.remove(pet_seed)
+                                            except ValueError:
+                                                pass
+                                        if seed_fighter_count >= 8:
+                                            pet_hatch_window.update(pet_hatch_window.x_coordinate,
+                                                                    pet_hatch_window.y_coordinate,
+                                                                    graphic_dict["torok_hatching"])
+                                            hatched = True
+                                            player.items.append(pet_whistle)
+                                            player.pet = pet_torok
+                                            try:
+                                                player.items.remove(pet_seed)
+                                            except ValueError:
+                                                pass
+                                        if seed_mage_count >= 8:
+                                            pet_hatch_window.update(pet_hatch_window.x_coordinate,
+                                                                    pet_hatch_window.y_coordinate,
+                                                                    graphic_dict["iriana_hatching"])
+                                            hatched = True
+                                            player.items.append(pet_whistle)
+                                            player.pet = pet_iriana
+                                            try:
+                                                player.items.remove(pet_seed)
+                                            except ValueError:
+                                                pass
+                                    else:
+                                        hatch_show = False
+                                        hatch_ready = False
+                                        button_highlighted = False
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
@@ -6744,7 +7008,8 @@ if __name__ == '__main__':
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
-                                                                       mythical_armor, legendary_armor, power_gloves)
+                                                                       mythical_armor, legendary_armor, power_gloves,
+                                                                       chroma_boots)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -6782,7 +7047,7 @@ if __name__ == '__main__':
                                                                      gloves_obtained, korlok_attuned, eldream_attuned,
                                                                      rock_4_con, rock_5_con, rock_6_con, rock_7_con,
                                                                      chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon)
+                                                                     beyond_seldon, seed_given, hatch_ready)
                                     except PermissionError:
                                         pass
 
@@ -6823,6 +7088,9 @@ if __name__ == '__main__':
                             button_highlighted = False
                             player.quest_status["hatch 'em all"] = True
                             player.current_quests["hatch 'em all"] = "Defeat enemies to hatch your creature."
+                            if not seed_given:
+                                player.items.append(pet_seed)
+                                seed_given = True
                             quest_clicked = False
                             drawing_functions.quest_box.clear()
 
@@ -6899,6 +7167,11 @@ if __name__ == '__main__':
                         if menagerie_access:
                             if menagerie_window_open:
                                 print("todo")
+
+                        if hatch_ready:
+                            if hatch_show:
+                                screen.blit(pet_hatch_window.surf, pet_hatch_window.rect)
+                                screen.blit(ok_button.surf, ok_button.rect)
 
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)
@@ -7017,7 +7290,8 @@ if __name__ == '__main__':
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
-                                                                       mythical_armor, legendary_armor, power_gloves)
+                                                                       mythical_armor, legendary_armor, power_gloves,
+                                                                       chroma_boots)
                             if equipment_event["equipment message"] != "":
                                 button_highlighted = False
                                 info_text_1 = equipment_event["equipment message"]
@@ -7059,7 +7333,8 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon)
+                                                                         apothecary_access, beyond_seldon, seed_given,
+                                                                         hatch_ready)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7132,7 +7407,8 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon)
+                                                                         apothecary_access, beyond_seldon, seed_given,
+                                                                         hatch_ready)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7205,7 +7481,8 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon)
+                                                                         apothecary_access, beyond_seldon, seed_given,
+                                                                         hatch_ready)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7277,7 +7554,8 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon)
+                                                                         apothecary_access, beyond_seldon, seed_given,
+                                                                         hatch_ready)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7349,7 +7627,8 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon)
+                                                                         apothecary_access, beyond_seldon, seed_given,
+                                                                         hatch_ready)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7422,7 +7701,8 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon)
+                                                                         apothecary_access, beyond_seldon, seed_given,
+                                                                         hatch_ready)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7494,7 +7774,8 @@ if __name__ == '__main__':
                                                                          gloves_obtained, korlok_attuned,
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon)
+                                                                         apothecary_access, beyond_seldon, seed_given,
+                                                                         hatch_ready)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7595,6 +7876,13 @@ if __name__ == '__main__':
                             screen.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
                         if current_npc_interacting.name == "dionte":
                             screen.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
+                        if current_npc_interacting.name == "omoku":
+                            screen.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
+                        if current_npc_interacting.name == "leyre":
+                            screen.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
+                        if current_npc_interacting.name == "everett":
+                            screen.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
+
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(npc_name_plate.surf, npc_name_plate.rect)
                         screen.blit(message_box.surf, message_box.rect)

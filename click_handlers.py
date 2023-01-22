@@ -14,7 +14,7 @@ def item_info_button(item_info_event, item_button, pygame, info_window):
 
 # getting item player clicked based on it's name and return the corresponding item. for equipment
 def equipment_event_item(player, equipment_event_here, pygame, basic_armor, forged_armor, mythical_armor,
-                         legendary_armor, power_gloves):
+                         legendary_armor, power_gloves, chroma_boots):
 
     armor = pygame.Rect((1050, 170), (50, 50))
     gloves = pygame.Rect((1125, 170), (50, 50))
@@ -43,16 +43,17 @@ def equipment_event_item(player, equipment_event_here, pygame, basic_armor, forg
                     return power_gloves
 
         if player.equipment["boots"] != "":
-            if player.equipment["boots"].name == "hoover boots":
+            if player.equipment["boots"].name == "chroma boots":
                 if boots.collidepoint(equipment_mouse):
-                    return
+                    return chroma_boots
 
 
 # handles mouse clicks for equipment sub-screen
-def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves):
+def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
+              chroma_boots):
     return_dict = {"equipment message": "", "gear checked": True}
     equipment_item = equipment_event_item(player, event, pygame, basic_armor, forged_armor, mythical_armor,
-                                          legendary_armor, power_gloves)
+                                          legendary_armor, power_gloves, chroma_boots)
 
     # if player clicks item in equipment sub-screen, un-equip the item and place in inventory, if inventory isn't full
     if equipment_item is not None:
@@ -97,6 +98,14 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             else:
                 return_dict["equipment message"] = "Your inventory is full."
 
+        if equipment_item.name == "chroma boots":
+            if len(player.items) < 16:
+                player.items.append(equipment_item)
+                player.equipment["boots"] = ""
+                return_dict["equipment message"] = "Chroma boots un-equipped."
+            else:
+                return_dict["equipment message"] = "Your inventory is full."
+
     return return_dict
 
 
@@ -131,6 +140,12 @@ def inventory_event_item(inventory_event_here, pygame):
             if clicked_element[0].name == "broken band":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "dried fins":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "oscura pluma":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
             if clicked_element[0].name == "basic armor":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
@@ -152,6 +167,15 @@ def inventory_event_item(inventory_event_here, pygame):
             if clicked_element[0].name == "power gloves":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "chroma boots":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "pet seed":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "pet whistle":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
         except IndexError:
             pass
     return event_return
@@ -163,6 +187,14 @@ def inventory(player, item):
     return_dict = {"item message": ""}
 
     try:
+        if item.name == "pet whistle":
+            match player.pet.active:
+                case True:
+                    player.pet.active = False
+                case False:
+                    player.pet.active = True
+                    player.pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+
         if item.name == "health potion":
             if player.health == 100:
                 return_dict["item message"] = "You're already at full health."
@@ -197,13 +229,6 @@ def inventory(player, item):
             else:
                 return_dict["item message"] = "You're already full health or energy."
 
-        if item.name == "shiny rock":
-            return_dict["item message"] = "Oh, shiny. Maybe you can sell it?"
-        if item.name == "bone dust":
-            return_dict["item message"] = "Eh, dusty. Maybe you can sell it?"
-        if item.name == "temporary item":
-            return_dict["item message"] = "Tell my designer to finish me!"
-
         if item.type == "armor":
             if player.equipment["armor"] == "":
                 player.equipment["armor"] = item
@@ -219,6 +244,14 @@ def inventory(player, item):
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "Power gloves equipped."
+            else:
+                return_dict["item message"] = "Un-equip your current gear first."
+        if item.name == "chroma boots":
+            if player.equipment["boots"] == "":
+                player.equipment["boots"] = item
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "Chroma boots equipped."
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
 
@@ -379,6 +412,10 @@ def sell_event_item(sell_event, pygame):
             if clicked_element[0].name == "cracked ember":
                 return clicked_element[0]
             if clicked_element[0].name == "broken band":
+                return clicked_element[0]
+            if clicked_element[0].name == "dried fins":
+                return clicked_element[0]
+            if clicked_element[0].name == "oscura pluma":
                 return clicked_element[0]
             if clicked_element[0].name == "basic armor":
                 return clicked_element[0]
