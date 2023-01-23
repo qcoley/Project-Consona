@@ -92,68 +92,67 @@ def role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys):
 
 
 # quest stars for npcs that update based on player quest progress
-def npc_quest_star_updates(screen, player, star_garan, star_maurelle, star_celeste, star_torune,
+def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star_torune,
                            quest_progress_star, quest_complete_star, star_voruke, star_zerah, star_apothecary,
-                           star_dionte):
+                           star_dionte, star_omoku, star_leyre, star_aitor, star_everett):
     if player.current_zone == "seldon":
-        if not player.quest_complete["sneaky snakes"]:
-            screen.blit(star_garan.surf, star_garan.rect)
         if player.quest_progress["sneaky snakes"] == 4:
             star_garan.update(209, 390, quest_complete_star)
         if player.quest_status["sneaky snakes"] and player.quest_progress["sneaky snakes"] != 4:
             star_garan.update(209, 390, quest_progress_star)
-
-        if not player.quest_complete["where's nede?"]:
-            screen.blit(star_celeste.surf, star_celeste.rect)
         if player.quest_progress["where's nede?"] == 1:
             star_celeste.update(760, 373, quest_complete_star)
         if player.quest_status["where's nede?"] and player.quest_progress["where's nede?"] != 1:
             star_celeste.update(760, 373, quest_progress_star)
-
-        if not player.quest_complete["village repairs"]:
-            screen.blit(star_maurelle.surf, star_maurelle.rect)
         if player.quest_progress["village repairs"] == 4:
             star_maurelle.update(744, 575, quest_complete_star)
         if player.quest_status["village repairs"] and player.quest_progress["village repairs"] != 4:
             star_maurelle.update(744, 575, quest_progress_star)
-
-        if not player.quest_complete["ghouled again"]:
-            screen.blit(star_torune.surf, star_torune.rect)
         if player.quest_progress["ghouled again"] == 4:
             star_torune.update(430, 75, quest_complete_star)
         if player.quest_status["ghouled again"] and player.quest_progress["ghouled again"] != 4:
             star_torune.update(430, 75, quest_progress_star)
 
     if player.current_zone == "korlok":
-        if not player.quest_complete["band hammer"]:
-            screen.blit(star_voruke.surf, star_voruke.rect)
         if player.quest_progress["band hammer"] == 4:
             star_voruke.update(262, 385, quest_complete_star)
         if player.quest_status["band hammer"] and player.quest_progress["band hammer"] != 4:
             star_voruke.update(262, 385, quest_progress_star)
-
-        if not player.quest_complete["elementary elementals"]:
-            screen.blit(star_zerah.surf, star_zerah.rect)
         if player.quest_progress["elementary elementals"] == 4:
             star_zerah.update(651, 50, quest_complete_star)
         if player.quest_status["elementary elementals"] and player.quest_progress["elementary elementals"] != 4:
             star_zerah.update(651, 50, quest_progress_star)
-
-        if not player.quest_complete["can't apothecary it"]:
-            screen.blit(star_apothecary.surf, star_apothecary.rect)
         if player.quest_progress["can't apothecary it"] == 4:
             star_apothecary.update(star_apothecary.x_coordinate, star_apothecary.y_coordinate, quest_complete_star)
         if player.quest_status["can't apothecary it"] and player.quest_progress["can't apothecary it"] != 4:
             star_apothecary.update(star_apothecary.x_coordinate, star_apothecary.y_coordinate, quest_progress_star)
-
     if player.current_zone == "terra trail":
-        if not player.quest_complete["it's dangerous to go alone"]:
-            screen.blit(star_dionte.surf, star_dionte.rect)
         if player.quest_progress["it's dangerous to go alone"] == 1:
             star_dionte.update(625, 65, quest_complete_star)
         if player.quest_status["it's dangerous to go alone"] and \
                 player.quest_progress["it's dangerous to go alone"] != 1:
             star_dionte.update(625, 65, quest_progress_star)
+
+    if player.current_zone == "eldream":
+        if player.quest_progress["kart troubles"] == 4:
+            star_omoku.update(800, 600, quest_complete_star)
+        if player.quest_status["kart troubles"] and player.quest_progress["kart troubles"] != 4:
+            star_omoku.update(800, 600, quest_progress_star)
+    if player.current_zone == "ectrenos":
+        if player.quest_progress["las escondidas"] == 4:
+            star_leyre.update(250, 200, quest_complete_star)
+        if player.quest_status["las escondidas"] and player.quest_progress["las escondidas"] != 4:
+            star_leyre.update(250, 200, quest_progress_star)
+    if player.current_zone == "ectrenos left":
+        if player.quest_progress["hatch 'em all"] == 1:
+            star_aitor.update(818, 200, quest_complete_star)
+        if player.quest_status["hatch 'em all"] and player.quest_progress["hatch 'em all"] != 1:
+            star_aitor.update(818, 200, quest_progress_star)
+    if player.current_zone == "ectrenos front":
+        if player.quest_progress["shades of fear"] == 4:
+            star_everett.update(800, 280, quest_complete_star)
+        if player.quest_status["shades of fear"] and player.quest_progress["shades of fear"] != 4:
+            star_everett.update(800, 280, quest_progress_star)
 
 
 def load_game(player, Item, graphics, Pet):
@@ -177,12 +176,13 @@ def load_game(player, Item, graphics, Pet):
             player.flowers_amuna = player_load_info["flowers amuna"]
             player.flowers_sorae = player_load_info["flowers sorae"]
 
-            if player_load_info["pet"] == "kasper":
-                player.pet = Pet(player_load_info["pet"], "scout", 1, 100, graphics["kasper"], True)
-            if player_load_info["pet"] == "torok":
-                player.pet = Pet(player_load_info["pet"], "fighter", 1, 100, graphics["torok"], True)
-            if player_load_info["pet"] == "iriana":
-                player.pet = Pet(player_load_info["pet"], "mage", 1, 100, graphics["iriana"], True)
+            for pet in player_load_info["pets"]:
+                if pet == "kasper":
+                    player.pet.append(Pet("kasper", "scout", 1, 100, graphics["kasper"], True))
+                if pet == "torok":
+                    player.pet.append(Pet("torok", "fighter", 1, 100, graphics["torok"], True))
+                if pet == "iriana":
+                    player.pet.append(Pet("iriana", "mage", 1, 100, graphics["iriana"], True))
 
             if player.race == "amuna":
                 if player.role == "mage":
@@ -246,7 +246,7 @@ def load_game(player, Item, graphics, Pet):
                 if item == "legendary armor":
                     player.items.append(Item("legendary armor", "armor", 200, 200, graphics["legendary_armor"], 4))
                 if item == "pet seed":
-                    player.items.append(Item("pet seed", "seed", 200, 200, graphics["seed_img"], 2))
+                    player.items.append(Item("pet seed", "seed", 200, 200, graphics["seed_img"], 1))
                 if item == "pet whistle":
                     player.items.append(Item("pet whistle", "whistle", 200, 200, graphics["whistle_img"], 1))
 
@@ -328,6 +328,10 @@ def load_game(player, Item, graphics, Pet):
             load_return["beyond seldon"] = player_load_info["beyond seldon"]
             load_return["seed given"] = player_load_info["seed given"]
             load_return["hatch ready"] = player_load_info["hatch ready"]
+            load_return["menagerie access"] = player_load_info["menagerie access"]
+            load_return["kasper unlocked"] = player_load_info["kasper unlocked"]
+            load_return["torok unlocked"] = player_load_info["torok unlocked"]
+            load_return["iriana unlocked"] = player_load_info["iriana unlocked"]
             load_return["start"] = True
             load_return["continue"] = False
 
@@ -346,7 +350,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3, muchador_defeated, has_key,
               mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned,
               rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
-              seed_given, hatch_ready):
+              seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -361,13 +365,17 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
     if player.equipment["boots"] != "":
         equipment_save.append(player.equipment["boots"].name)
 
-    pet = ""
-    if player.pet.name == "kasper":
-        pet = "kasper"
-    if player.pet.name == "torok":
-        pet = "torok"
-    if player.pet.name == "iriana":
-        pet = "iriana"
+    pets = []
+    try:
+        for pet in player.pet:
+            if pet.name == "kasper":
+                pets.append("kasper")
+            if pet.name == "torok":
+                pets.append("torok")
+            if pet.name == "iriana":
+                pets.append("iriana")
+    except AttributeError:
+        pass
 
     player_save_info = {"name": str(player.name), "race": str(player.race), "level": int(player.level),
                         "role": str(player.role), "inventory": inventory_save, "equipment": equipment_save,
@@ -401,7 +409,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "rock_6_con": rock_6_con, "rock_7_con": rock_7_con, "chinzilla_defeated": chinzilla_defeated,
                         "apothecary_access": apothecary_access, "flowers amuna": int(player.flowers_amuna),
                         "flowers sorae": int(player.flowers_sorae), "beyond seldon": beyond_seldon,
-                        "seed given": seed_given, "hatch ready": hatch_ready, "pet": pet}
+                        "seed given": seed_given, "hatch ready": hatch_ready, "pets": pets,
+                        "menagerie access": menagerie_access, "kasper unlocked": kasper_unlocked,
+                        "torok unlocked": torok_unlocked, "iriana unlocked": iriana_unlocked}
     try:
         try:
             # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
@@ -795,7 +805,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             interactables_mines.add(new_bandile)
 
     if player.current_zone == "eldream":
-        flower_coords_list = [(355, 530), (722, 530), (775, 50), (365, 670), (775, 670)]
+        flower_coords_list = [(355, 530), (722, 530), (775, 50), (985, 450), (775, 670)]
         flower_counter = 0
         random_flower_coord = random.choice(flower_coords_list)
 

@@ -20,7 +20,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      eldream_gate_rect, eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic,
                      eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles,
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
-                     seldon_flowers, interactables_eldream, ectrenos_entrance):
+                     seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -34,10 +34,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                              quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary, star_dionte)
+    if not player.quest_complete["kart troubles"]:
+        screen.blit(quest_star_omoku.surf, quest_star_omoku.rect)
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -51,6 +49,11 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
         screen.blit(flower.surf, flower.rect)
 
     screen.blit(hearth_stone.surf, hearth_stone.rect)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
 
     # player collides with flower, if collected adds to player flower count

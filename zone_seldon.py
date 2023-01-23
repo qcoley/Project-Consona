@@ -24,7 +24,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     info_text_3, info_text_4, in_battle, in_shop, in_academia, in_inn, movement_able,
                     current_enemy_battling, current_npc_interacting, current_building_entering,
                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, interactables_mines,
-                    star_voruke, star_zerah, star_apothecary, star_dionte, equipment_screen, staff, sword, bow,
+                    equipment_screen, staff, sword, bow,
                     offense_meter, defense_meter, weapon_select, player_cutscene, player_cutscene_2, beyond_seldon,
                     flowers, eldream_flowers, interactables_eldream):
 
@@ -105,10 +105,19 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     if player.quest_progress["where's nede?"] == 1:
         screen.blit(nede.surf, nede.rect)
 
-    gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                              quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary, star_dionte)
+    if not player.quest_complete["sneaky snakes"]:
+        screen.blit(quest_star_garan.surf, quest_star_garan.rect)
+    if not player.quest_complete["where's nede?"]:
+        screen.blit(quest_star_celeste.surf, quest_star_celeste.rect)
+    if not player.quest_complete["village repairs"]:
+        screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
+    if not player.quest_complete["ghouled again"]:
+        screen.blit(quest_star_torune.surf, quest_star_torune.rect)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
 
     # player encounters objects and draws popup information box ----------------------------------------

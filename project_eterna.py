@@ -504,6 +504,15 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 300
             elif self.y_coordinate >= SCREEN_HEIGHT:
                 self.y_coordinate = SCREEN_HEIGHT
+        if current_zone == "ectrenos front":
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate < 15:
+                self.x_coordinate = 15
+            if self.y_coordinate <= 330:
+                self.y_coordinate = 330
+            elif self.y_coordinate >= 545:
+                self.y_coordinate = 545
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -1116,6 +1125,15 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 300
             elif self.y_coordinate >= SCREEN_HEIGHT:
                 self.y_coordinate = SCREEN_HEIGHT
+        if current_zone == "ectrenos front":
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate < 15:
+                self.x_coordinate = 15
+            if self.y_coordinate <= 330:
+                self.y_coordinate = 330
+            elif self.y_coordinate >= 545:
+                self.y_coordinate = 545
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -1728,6 +1746,15 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 300
             elif self.y_coordinate >= SCREEN_HEIGHT:
                 self.y_coordinate = SCREEN_HEIGHT
+        if current_zone == "ectrenos front":
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate < 15:
+                self.x_coordinate = 15
+            if self.y_coordinate <= 330:
+                self.y_coordinate = 330
+            elif self.y_coordinate >= 545:
+                self.y_coordinate = 545
 
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
@@ -2258,7 +2285,7 @@ if __name__ == '__main__':
                          {"skill 2": "", "skill 3": "", "skill 4": ""},  # scout skills
                          1, 0, 100, 100,  # lvl, exp, health, energy
                          True, 0, {"amuna": 0, "nuldar": 0, "sorae": 0},  # alive, rupees, reputation
-                         "", 0, 0, 0, 0, 0, "")  # zone, defence, offense, image
+                         "", 0, 0, 0, 0, 0, [])  # zone, defence, offense, image
 
     # pets: name, type, stage, energy
     pet_kasper = Pet("kasper", "scout", 1, 100, graphic_dict["kasper"], False)
@@ -2500,6 +2527,9 @@ if __name__ == '__main__':
     create_potion_button = UiElement("create potion", 435, 475, graphic_dict["create_potion_img"])
     potion_mix_overlay = UiElement("potion mix overlay", 150, 478, graphic_dict["apothecary_empty_potion"])
     pets_button = UiElement("potions button", 750, 680, graphic_dict["manage_pets_img"])
+    kasper_manage_button = UiElement("kasper manage", 145, 460, graphic_dict["activate_button"])
+    torok_manage_button = UiElement("torok manage", 415, 460, graphic_dict["activate_button"])
+    iriana_manage_button = UiElement("iriana manage", 685, 460, graphic_dict["activate_button"])
 
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
     mage_attack_button = UiElement("mage attack button", 750, 642, graphic_dict["mage_attack_button_img"])
@@ -2533,7 +2563,7 @@ if __name__ == '__main__':
     buy_inventory = Inventory("buy inventory", [], 900, 500, graphic_dict["buy_inventory"])
     knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
-    menagerie_window = UiElement("menagerie window", 297, 319, graphic_dict["apothecary_window"])
+    menagerie_window = UiElement("menagerie window", 500, 319, graphic_dict["kasper_manage"])
     pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
@@ -2582,7 +2612,13 @@ if __name__ == '__main__':
     quest_star_kirean = UiElement("quest star kirean", 746, 225, graphic_dict["quest_start_star"])
     quest_star_dionte = UiElement("quest star dionte", 625, 65, graphic_dict["quest_start_star"])
 
+    quest_star_omoku = UiElement("quest star omoku", 415, 615, graphic_dict["quest_start_star"])
+    quest_star_leyre = UiElement("quest star leyre", 680, 495, graphic_dict["quest_start_star"])
+    quest_star_aitor = UiElement("quest star aitor", 818, 200, graphic_dict["quest_start_star"])
+    quest_star_everett = UiElement("quest star everett", 800, 280, graphic_dict["quest_start_star"])
+
     quest_star_apothecary = UiElement("quest star apothecary", 796, 85, graphic_dict["building_npc_star_available"])
+    quest_star_menagerie = UiElement("quest star menagerie", 790, 150, graphic_dict["building_npc_star_available"])
 
     player_battle_sprite = BattleCharacter("stan battle", 375, 450, graphic_dict["player_no_role_amuna_battle"])
     snake_battle_sprite = BattleCharacter("snake battle", 715, 250, graphic_dict["snake_battle"])
@@ -2722,7 +2758,7 @@ if __name__ == '__main__':
     flower_eldream_1 = Item("flower eldream 1", "flower", 355, 530, graphic_dict["flower_eldream"], 0)
     flower_eldream_2 = Item("flower eldream 2", "flower", 722, 530, graphic_dict["flower_eldream"], 0)
     flower_eldream_3 = Item("flower eldream 3", "flower", 775, 50, graphic_dict["flower_eldream"], 0)
-    flower_eldream_4 = Item("flower eldream 4", "flower", 365, 670, graphic_dict["flower_eldream"], 0)
+    flower_eldream_4 = Item("flower eldream 4", "flower", 985, 450, graphic_dict["flower_eldream"], 0)
     flower_eldream_5 = Item("flower eldream 5", "flower", 775, 670, graphic_dict["flower_eldream"], 0)
 
     font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
@@ -2946,6 +2982,10 @@ if __name__ == '__main__':
     hatch_ready = False
     hatched = False
     hatch_show = True
+
+    kasper_unlocked = False
+    torok_unlocked = False
+    iriana_unlocked = False
 
     rock_4_con = False
     rock_5_con = False
@@ -3218,12 +3258,12 @@ if __name__ == '__main__':
                                                  {"mage": 100, "fighter": 100, "scout": 100},
                                                  # role knowledge ('role', 'amount')
                                                  {"skill 2": "barrier", "skill 3": "", "skill 4": ""},
-                                                 {"skill 2": "sharp sense", "skill 3": "", "skill 4": ""},
                                                  {"skill 2": "hard strike", "skill 3": "", "skill 4": ""},
+                                                 {"skill 2": "sharp sense", "skill 3": "", "skill 4": ""},
                                                  14, 0, 100, 100,  # lvl, exp, health, energy
                                                  True, 500, {"amuna": 200, "nuldar": 200, "sorae": 200},
                                                  # alive, rupees, reputation
-                                                 "eldream", 0, 0, 0, 0, 0, pet_kasper)  # zone, defence, offense, image
+                                                 "eldream", 0, 0, 0, 50, 50, [])
                             player.x_coordinate = 255
                             player.y_coordinate = 175
                             hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
@@ -3238,9 +3278,8 @@ if __name__ == '__main__':
                             korlok_attuned = True
                             eldream_attuned = True
                             npc_garan.gift = True
-                            hatch_ready = True
-                            seed_given = True
-                            seed_scout_count = 8
+                            gloves_obtained = True
+                            beyond_seldon = True
 
                     if back_button.rect.collidepoint(pos):
                         button_highlighted = False
@@ -3331,6 +3370,10 @@ if __name__ == '__main__':
                     beyond_seldon = load_returned["beyond seldon"]
                     seed_given = load_returned["seed given"]
                     hatch_ready = load_returned["hatch ready"]
+                    menagerie_access = load_returned["menagerie access"]
+                    kasper_unlocked = load_returned["kasper unlocked"]
+                    torok_unlocked = load_returned["torok unlocked"]
+                    iriana_unlocked = load_returned["iriana unlocked"]
 
                     if player.race == "amuna":
                         player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
@@ -3462,9 +3505,22 @@ if __name__ == '__main__':
                 hatch_ready = gameplay_functions.creature_update(player, seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, hatch_ready,
                                                                  graphic_dict["seed_ready_img"])
+
                 # keep player pet with player as they move
-                if player.pet.active:
-                    player.pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                try:
+                    for pet in player.pet:
+                        if pet.active:
+                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                except AttributeError:
+                    pass
+
+                gameplay_functions.npc_quest_star_updates(player, quest_star_garan, quest_star_maurelle,
+                                                          quest_star_celeste, quest_star_torune,
+                                                          graphic_dict["quest_progress_star"],
+                                                          graphic_dict["quest_complete_star"],
+                                                          quest_star_voruke, quest_star_zerah, quest_star_apothecary,
+                                                          quest_star_dionte, quest_star_omoku, quest_star_leyre,
+                                                          quest_star_aitor, quest_star_everett)
 
                 loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
@@ -3725,7 +3781,9 @@ if __name__ == '__main__':
                                                                      gloves_obtained, korlok_attuned, eldream_attuned,
                                                                      rock_4_con, rock_5_con, rock_6_con, rock_7_con,
                                                                      chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon, seed_given, hatch_ready)
+                                                                     beyond_seldon, seed_given, hatch_ready,
+                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                     iriana_unlocked)
                                         saved = True
                                         saving = False
                                         info_text_1 = "You saved your game. "
@@ -3743,7 +3801,8 @@ if __name__ == '__main__':
                                                              mini_boss_2_defeated, gloves_obtained, korlok_attuned,
                                                              eldream_attuned, rock_4_con, rock_5_con, rock_6_con,
                                                              rock_7_con, chinzilla_defeated, apothecary_access,
-                                                             beyond_seldon, seed_given, hatch_ready)
+                                                             beyond_seldon, seed_given, hatch_ready, menagerie_access,
+                                                             kasper_unlocked, torok_unlocked, iriana_unlocked)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -3958,9 +4017,7 @@ if __name__ == '__main__':
                                                                   current_enemy_battling, current_npc_interacting,
                                                                   current_building_entering, magmon_battle_sprite,
                                                                   bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                  interactables_mines, quest_star_voruke,
-                                                                  quest_star_zerah, quest_star_kirean,
-                                                                  quest_star_dionte, equipment_screen, staff, sword,
+                                                                  interactables_mines, equipment_screen, staff, sword,
                                                                   bow, offense_meter, defense_meter, weapon_select,
                                                                   player_cutscene_overlay, player_cutscene_overlay_2,
                                                                   beyond_seldon, seldon_flowers, eldream_flowers,
@@ -4036,16 +4093,13 @@ if __name__ == '__main__':
                                                                   npc_voruke, npc_zerah, npcs_korlok, seldon_enemies,
                                                                   snakes, ghouls, bandiles, interactables_seldon,
                                                                   interactables_korlok, Enemy, Item, UiElement,
-                                                                  interactables_mines, quest_star_garan,
-                                                                  quest_star_maurelle, quest_star_celeste,
-                                                                  quest_star_torune, quest_star_voruke,
+                                                                  interactables_mines, quest_star_voruke,
                                                                   quest_star_zerah, korlok_mountains, in_apothecary,
-                                                                  quest_star_kirean, quest_star_dionte,
-                                                                  equipment_screen, staff, sword, bow, npc_garan,
-                                                                  offense_meter, defense_meter, weapon_select, rock_4,
-                                                                  rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con,
-                                                                  seldon_flowers, eldream_flowers,
-                                                                  interactables_eldream)
+                                                                  quest_star_kirean, equipment_screen, staff, sword,
+                                                                  bow, npc_garan, offense_meter, defense_meter,
+                                                                  weapon_select, rock_4, rock_5, rock_6, rock_4_con,
+                                                                  rock_5_con, rock_6_con, seldon_flowers,
+                                                                  eldream_flowers, interactables_eldream)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -4117,7 +4171,7 @@ if __name__ == '__main__':
                                                                      interactables_seldon, interactables_korlok,
                                                                      interactables_mines, Enemy, Item, UiElement,
                                                                      seldon_flowers, interactables_eldream,
-                                                                     ectrenos_entrance_rect)
+                                                                     ectrenos_entrance_rect, quest_star_omoku)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -4187,7 +4241,8 @@ if __name__ == '__main__':
                                                                          interactables_korlok, interactables_mines,
                                                                          Enemy, Item, UiElement, seldon_flowers,
                                                                          interactables_eldream, ectrenos_entrance_rect,
-                                                                         overlay_ectrene, ectrenos_ladder_rect)
+                                                                         overlay_ectrene, ectrenos_ladder_rect,
+                                                                         quest_star_leyre)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -4280,7 +4335,7 @@ if __name__ == '__main__':
                                                                          interactables_ectrenos,
                                                                          ectrenos_entrance_rect,
                                                                          overlay_ectrene, ectrenos_pet_entrance,
-                                                                         in_menagerie)
+                                                                         in_menagerie, quest_star_aitor)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -4449,7 +4504,8 @@ if __name__ == '__main__':
                                                                            interactables_korlok, interactables_mines,
                                                                            Enemy, Item, UiElement, seldon_flowers,
                                                                            interactables_ectrenos,
-                                                                           ectrenos_entrance_rect, overlay_ectrene)
+                                                                           ectrenos_entrance_rect, overlay_ectrene,
+                                                                           quest_star_everett)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -4628,10 +4684,7 @@ if __name__ == '__main__':
                                                                   button_highlight, in_over_world, interacted,
                                                                   info_text_1, info_text_2, info_text_3, info_text_4,
                                                                   npc_tic, in_npc_interaction, in_battle, movement_able,
-                                                                  current_enemy_battling, quest_star_garan,
-                                                                  quest_star_maurelle, quest_star_celeste,
-                                                                  quest_star_torune, quest_star_voruke,
-                                                                  quest_star_zerah, quest_star_apothecary,
+                                                                  current_enemy_battling,
                                                                   terra_mountains, terra_cave, npc_dionte,
                                                                   quest_star_dionte, Enemy, player_battle_sprite,
                                                                   snake_battle_sprite, ghoul_battle_sprite,
@@ -4639,7 +4692,7 @@ if __name__ == '__main__':
                                                                   magmon_battle_sprite, bandile_battle_sprite,
                                                                   chinzilla_battle_sprite, barrier_active,
                                                                   sharp_sense_active, current_npc_interacting,
-                                                                  chinzilla, quest_star_dionte, hearth_stone,
+                                                                  chinzilla, hearth_stone,
                                                                   equipment_screen, staff, sword, bow, npc_garan,
                                                                   offense_meter, defense_meter, weapon_select, rock_7,
                                                                   rock_7_con, chinzilla_defeated, eldream_gate_rect)
@@ -6750,7 +6803,9 @@ if __name__ == '__main__':
                                                                      gloves_obtained, korlok_attuned, eldream_attuned,
                                                                      rock_4_con, rock_5_con, rock_6_con, rock_7_con,
                                                                      chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon, seed_given, hatch_ready)
+                                                                     beyond_seldon, seed_given, hatch_ready,
+                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                     iriana_unlocked)
                                     except PermissionError:
                                         pass
 
@@ -6915,6 +6970,7 @@ if __name__ == '__main__':
                                 building_song_set = False
                                 quest_clicked = False
                                 drawing_functions.quest_complete_box.clear()
+                                drawing_functions.pets_window_container.clear()
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -6934,7 +6990,45 @@ if __name__ == '__main__':
                                 if menagerie_access:
                                     if not menagerie_window_open:
                                         menagerie_window_open = True
+                                        if kasper_unlocked:
+                                            menagerie_window.update(413, 296, graphic_dict["kasper_manage"])
+                                            kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
+                                            torok_manage_button.update(415, 460, graphic_dict["start_seed_button"])
+                                            iriana_manage_button.update(685, 460, graphic_dict["start_seed_button"])
+                                        if torok_unlocked:
+                                            menagerie_window.update(413, 296, graphic_dict["torok_manage"])
+                                            kasper_manage_button.update(145, 460, graphic_dict["start_seed_button"])
+                                            torok_manage_button.update(415, 460, graphic_dict["activate_button"])
+                                            iriana_manage_button.update(685, 460, graphic_dict["start_seed_button"])
+                                        if iriana_unlocked:
+                                            menagerie_window.update(413, 296, graphic_dict["iriana_manage"])
+                                            kasper_manage_button.update(145, 460, graphic_dict["start_seed_button"])
+                                            torok_manage_button.update(415, 460, graphic_dict["start_seed_button"])
+                                            iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
+                                        if kasper_unlocked and torok_unlocked:
+                                            menagerie_window.update(413, 296, graphic_dict["kasper_torok_manage"])
+                                            kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
+                                            torok_manage_button.update(415, 460, graphic_dict["activate_button"])
+                                            iriana_manage_button.update(685, 460, graphic_dict["start_seed_button"])
+                                        if torok_unlocked and iriana_unlocked:
+                                            menagerie_window.update(413, 296, graphic_dict["torok_iriana_manage"])
+                                            kasper_manage_button.update(145, 460, graphic_dict["start_seed_button"])
+                                            torok_manage_button.update(415, 460, graphic_dict["activate_button"])
+                                            iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
+                                        if kasper_unlocked and iriana_unlocked:
+                                            menagerie_window.update(413, 296, graphic_dict["kasper_iriana_manage"])
+                                            kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
+                                            torok_manage_button.update(415, 460, graphic_dict["start_seed_button"])
+                                            iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
+                                        if kasper_unlocked and torok_unlocked and iriana_unlocked:
+                                            menagerie_window.update(413, 296, graphic_dict["all_manage"])
+                                            kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
+                                            torok_manage_button.update(415, 460, graphic_dict["activate_button"])
+                                            iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
                                         drawing_functions.pets_window_container.append(menagerie_window)
+                                        drawing_functions.pets_window_container.append(kasper_manage_button)
+                                        drawing_functions.pets_window_container.append(torok_manage_button)
+                                        drawing_functions.pets_window_container.append(iriana_manage_button)
 
                                     else:
                                         drawing_functions.pets_window_container.clear()
@@ -6943,6 +7037,15 @@ if __name__ == '__main__':
                                     info_text_1 = "You need to complete Aitor's quest."
                                     info_text_2 = ""
 
+                            if menagerie_window_open:
+                                if kasper_manage_button.rect.collidepoint(pos):
+                                    if kasper_unlocked:
+                                        for pet in player.pet:
+                                            if pet.name == "kasper":
+                                                if not pet.active:
+                                                    pet.active = True
+
+                            # if seed is ready to hatch, give player whistle and unlock that pet. reset counts.
                             if hatch_ready:
                                 if ok_button.rect.collidepoint(pos):
                                     if not hatched:
@@ -6951,34 +7054,49 @@ if __name__ == '__main__':
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["kasper_hatching"])
                                             hatched = True
+                                            kasper_unlocked = True
+                                            seed_given = False
+                                            hatch_ready = False
                                             player.items.append(pet_whistle)
-                                            player.pet = pet_kasper
-                                            try:
-                                                player.items.remove(pet_seed)
-                                            except ValueError:
-                                                pass
+                                            player.pet.append(pet_kasper)
+                                            for item in player.items:
+                                                if item.name == "pet seed":
+                                                    player.items.remove(item)
+                                            seed_scout_count = 0
+                                            seed_fighter_count = 0
+                                            seed_mage_count = 0
                                         if seed_fighter_count >= 8:
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["torok_hatching"])
                                             hatched = True
+                                            torok_unlocked = True
+                                            seed_given = False
+                                            hatch_ready = False
                                             player.items.append(pet_whistle)
-                                            player.pet = pet_torok
-                                            try:
-                                                player.items.remove(pet_seed)
-                                            except ValueError:
-                                                pass
+                                            player.pet.append(pet_torok)
+                                            for item in player.items:
+                                                if item.name == "pet seed":
+                                                    player.items.remove(item)
+                                            seed_scout_count = 0
+                                            seed_fighter_count = 0
+                                            seed_mage_count = 0
                                         if seed_mage_count >= 8:
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["iriana_hatching"])
                                             hatched = True
+                                            iriana_unlocked = True
+                                            seed_given = False
+                                            hatch_ready = False
                                             player.items.append(pet_whistle)
-                                            player.pet = pet_iriana
-                                            try:
-                                                player.items.remove(pet_seed)
-                                            except ValueError:
-                                                pass
+                                            player.pet.append(pet_iriana)
+                                            for item in player.items:
+                                                if item.name == "pet seed":
+                                                    player.items.remove(item)
+                                            seed_scout_count = 0
+                                            seed_fighter_count = 0
+                                            seed_mage_count = 0
                                     else:
                                         hatch_show = False
                                         hatch_ready = False
@@ -7047,7 +7165,9 @@ if __name__ == '__main__':
                                                                      gloves_obtained, korlok_attuned, eldream_attuned,
                                                                      rock_4_con, rock_5_con, rock_6_con, rock_7_con,
                                                                      chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon, seed_given, hatch_ready)
+                                                                     beyond_seldon, seed_given, hatch_ready,
+                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                     iriana_unlocked)
                                     except PermissionError:
                                         pass
 
@@ -7110,8 +7230,8 @@ if __name__ == '__main__':
                             building_song_set = False
                             menagerie_window_open = False
                             menagerie_cat_pet = False
-                            drawing_functions.potion_window_container.clear()
                             drawing_functions.quest_complete_box.clear()
+                            drawing_functions.pets_window_container.clear()
 
                     # outside of inn event loop ------------------------------------------------------------------------
                     if not encounter_started:
@@ -7143,19 +7263,20 @@ if __name__ == '__main__':
                         if menagerie_cat_pet:
                             cat_pet_animation_overlay.update(634, 63, graphic_dict["apothecary_cat_pet_img"])
                             screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
-                        """if not player.quest_complete["hatch 'em all"]:
+
+                        if not player.quest_complete["hatch 'em all"]:
                             if not player.quest_status["hatch 'em all"]:
-                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                                screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
                             if player.quest_status["hatch 'em all"]:
-                                quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                             quest_star_apothecary.y_coordinate,
+                                quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
+                                                             quest_star_menagerie.y_coordinate,
                                                              graphic_dict["building_npc_star_progress"])
-                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                            if player.quest_progress["hatch 'em all"] == 4:
-                                quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                             quest_star_apothecary.y_coordinate,
+                                screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
+                            if player.quest_progress["hatch 'em all"] == 1:
+                                quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
+                                                             quest_star_menagerie.y_coordinate,
                                                              graphic_dict["building_npc_star_complete"])
-                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)"""
+                                screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
 
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
@@ -7164,9 +7285,6 @@ if __name__ == '__main__':
 
                         # if player has access to apothecary functions by completing quest and window is open
                         screen.blit(pets_button.surf, pets_button.rect)
-                        if menagerie_access:
-                            if menagerie_window_open:
-                                print("todo")
 
                         if hatch_ready:
                             if hatch_show:
@@ -7334,7 +7452,8 @@ if __name__ == '__main__':
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready)
+                                                                         hatch_ready, menagerie_access, kasper_unlocked,
+                                                                         torok_unlocked, iriana_unlocked)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7408,7 +7527,8 @@ if __name__ == '__main__':
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready)
+                                                                         hatch_ready, menagerie_access, kasper_unlocked,
+                                                                         torok_unlocked, iriana_unlocked)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7482,7 +7602,8 @@ if __name__ == '__main__':
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready)
+                                                                         hatch_ready, menagerie_access, kasper_unlocked,
+                                                                         torok_unlocked, iriana_unlocked)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7555,7 +7676,8 @@ if __name__ == '__main__':
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready)
+                                                                         hatch_ready, menagerie_access, kasper_unlocked,
+                                                                         torok_unlocked, iriana_unlocked)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7628,7 +7750,8 @@ if __name__ == '__main__':
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready)
+                                                                         hatch_ready, menagerie_access, kasper_unlocked,
+                                                                         torok_unlocked, iriana_unlocked)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7702,7 +7825,8 @@ if __name__ == '__main__':
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready)
+                                                                         hatch_ready, menagerie_access, kasper_unlocked,
+                                                                         torok_unlocked, iriana_unlocked)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7775,7 +7899,8 @@ if __name__ == '__main__':
                                                                          eldream_attuned, rock_4_con, rock_5_con,
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready)
+                                                                         hatch_ready, menagerie_access, kasper_unlocked,
+                                                                         torok_unlocked, iriana_unlocked)
                                         except PermissionError:
                                             pass
                                     else:

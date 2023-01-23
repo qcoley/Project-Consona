@@ -19,7 +19,9 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   rock_7_con, chinzilla_defeated, eldream_gate_rect, eldream_attuned, in_shop, in_inn,
                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
                   magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
-                  UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ladder):
+                  UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ladder,
+                  quest_star_leyre):
+
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(eldream_building_music)
@@ -32,11 +34,14 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                              quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary, star_dionte)
+    if not player.quest_complete["hatch 'em all"]:
+        screen.blit(quest_star_leyre.surf, quest_star_leyre.rect)
 
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
     screen.blit(ectrene.surf, ectrene.rect)
 
@@ -139,7 +144,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
                   magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                   UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ectrenos_pet_entrance,
-                  in_menagerie):
+                  in_menagerie, quest_star_aitor):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(eldream_overworld_music)
@@ -152,15 +157,16 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                              quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary, star_dionte)
+    if not player.quest_complete["hatch 'em all"]:
+        screen.blit(quest_star_aitor.surf, quest_star_aitor.rect)
+
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
+
     screen.blit(player.surf, player.rect)
 
     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
@@ -265,6 +271,12 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
 
     screen.blit(player.surf, player.rect)
 
@@ -376,7 +388,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    rock_7_con, chinzilla_defeated, eldream_gate_rect, eldream_attuned, in_shop, in_inn,
                    current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes,
                    ghouls, magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy,
-                   Item, UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene):
+                   Item, UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
+                   quest_star_everett):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -390,10 +403,14 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                              quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary, star_dionte)
+    if not player.quest_complete["hatch 'em all"]:
+        screen.blit(quest_star_everett.surf, quest_star_everett.rect)
+
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
 
     screen.blit(player.surf, player.rect)
 
@@ -481,10 +498,11 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldr
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                              quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary, star_dionte)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
 
     screen.blit(player.surf, player.rect)
 

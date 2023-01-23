@@ -58,6 +58,11 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         screen.blit(ore.surf, ore.rect)
     screen.blit(npc_prime.surf, npc_prime.rect)
     screen.blit(npc_jez.surf, npc_jez.rect)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it

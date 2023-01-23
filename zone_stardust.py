@@ -44,6 +44,11 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             screen.blit(nede.surf, nede.rect)
             if not nede_ghoul_defeated:
                 screen.blit(ghoul_nede.surf, ghoul_nede.rect)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
 
     # player encounters Nede for Celeste's quest

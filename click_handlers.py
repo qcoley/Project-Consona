@@ -188,12 +188,13 @@ def inventory(player, item):
 
     try:
         if item.name == "pet whistle":
-            match player.pet.active:
-                case True:
-                    player.pet.active = False
-                case False:
-                    player.pet.active = True
-                    player.pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+            for pet in player.pet:
+                match pet.active:
+                    case True:
+                        pet.active = False
+                    case False:
+                        pet.active = True
+                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
 
         if item.name == "health potion":
             if player.health == 100:

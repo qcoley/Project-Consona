@@ -3,18 +3,16 @@ import time
 
 import drawing_functions
 import combat_scenario
-import gameplay_functions
 
 
 def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_overworld_music, over_world_song_set,
                 interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                 button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2, info_text_3,
                 info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able, current_enemy_battling,
-                quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune, star_voruke, star_zerah,
-                star_apothecary, terra_mountains, terra_cave, npc_dionte, quest_star_dionte, enemy,
+                terra_mountains, terra_cave, npc_dionte, quest_star_dionte, enemy,
                 player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                 muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
+                barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, hearth_stone,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
                 rock_7_con, chinzilla_defeated, eldream_gate_rect):
 
@@ -36,11 +34,11 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
 
     if not player.quest_complete["it's dangerous to go alone"]:
         screen.blit(quest_star_dionte.surf, quest_star_dionte.rect)
-
-    gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                              quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary, star_dionte)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
 
     if pygame.sprite.collide_rect(player, npc_dionte):

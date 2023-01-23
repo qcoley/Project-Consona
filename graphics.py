@@ -836,6 +836,16 @@ def load_graphics():
     loaded_dict["kasper_hatching"] = pets_hatching_sheet[1]
     loaded_dict["torok_hatching"] = pets_hatching_sheet[2]
     loaded_dict["iriana_hatching"] = pets_hatching_sheet[3]
+    # pets manage window -----------------------------------------------------------------------------------------------
+    pets_manage_url = resource_path('resources/art/overlay_pet_windows.png')
+    pets_manage_sheet = sprite_sheet((800, 420), pets_manage_url)
+    loaded_dict["kasper_manage"] = pets_manage_sheet[0]
+    loaded_dict["torok_manage"] = pets_manage_sheet[1]
+    loaded_dict["iriana_manage"] = pets_manage_sheet[2]
+    loaded_dict["kasper_torok_manage"] = pets_manage_sheet[3]
+    loaded_dict["kasper_iriana_manage"] = pets_manage_sheet[4]
+    loaded_dict["torok_iriana_manage"] = pets_manage_sheet[5]
+    loaded_dict["all_manage"] = pets_manage_sheet[6]
     # enemies ----------------------------------------------------------------------------------------------------------
     enemies_url = resource_path('resources/art/sprites_enemies.png')
     enemies_sheet = sprite_sheet((50, 50), enemies_url)
@@ -1092,13 +1102,11 @@ def load_graphics():
     loaded_dict["save_button_img"] = game_play_function_buttons_sheet[0]
     loaded_dict["map_button_img"] = game_play_function_buttons_sheet[1]
     # select buttons --------------------------------------------------------------------------------------------------
-    selection_buttons_url = resource_path('resources/art/buttons_select_role.png')
+    selection_buttons_url = resource_path('resources/art/buttons_selects.png')
     selection_buttons_sheet = sprite_sheet((184, 42), selection_buttons_url)
-    loaded_dict["mage_select_button_img"] = selection_buttons_sheet[0]
-    loaded_dict["fighter_select_button_img"] = selection_buttons_sheet[1]
-    loaded_dict["scout_select_button_img"] = selection_buttons_sheet[2]
-    loaded_dict["offense_select_button_img"] = selection_buttons_sheet[3]
-    loaded_dict["defense_select_button_img"] = selection_buttons_sheet[4]
+    loaded_dict["activate_button"] = selection_buttons_sheet[0]
+    loaded_dict["start_seed_button"] = selection_buttons_sheet[1]
+    loaded_dict["offense_select_button_img"] = selection_buttons_sheet[2]
     # quest windows ----------------------------------------------------------------------------------------------------
     quest_windows_url = resource_path('resources/art/overlay_quest_sheets.png')
     quest_windows_sheet = sprite_sheet((500, 525), quest_windows_url)

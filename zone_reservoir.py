@@ -64,6 +64,11 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         dungeon_drop_wall.update(722, 224, graphic_dict["dungeon_drop_wall"])
         screen.blit(dungeon_drop_wall.surf, dungeon_drop_wall.rect)
         screen.blit(chorizon_2.surf, chorizon_2.rect)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
 
     # move player back to rohir if they approach dungeon exit
@@ -302,6 +307,11 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         screen.blit(muchador_crate_4.surf, muchador_crate_4.rect)
     if muchador_defeated:
         screen.blit(reservoir_passage.surf, reservoir_passage.rect)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
 
     if pygame.sprite.collide_rect(player, dungeon_gate):
@@ -487,6 +497,11 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
     screen.blit(reservoir_exit.surf, reservoir_exit.rect)
     screen.blit(rock_1.surf, rock_1.rect)
     screen.blit(rock_2.surf, rock_2.rect)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
 
     # move player back to reservoir b if they approach passage

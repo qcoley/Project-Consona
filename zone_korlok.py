@@ -17,9 +17,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     chorizon_battle_sprite, muchador_battle_sprite, barrier_active, sharp_sense_active,
                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, voruke, zerah, npcs,
                     seldon_enemies, snakes, ghouls, bandiles, interactables_seldon, interactables_korlok, Enemy, Item,
-                    UiElement, interactables_mines, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                    quest_star_torune, star_voruke, star_zerah, korlok_mountains, in_apothecary, star_apothecary,
-                    star_dionte, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
+                    UiElement, interactables_mines, star_voruke, star_zerah, korlok_mountains, in_apothecary,
+                    star_apothecary, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
                     weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
                     eldream_flowers, interactables_eldream):
 
@@ -65,11 +64,17 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     for magmon in magmons:
         screen.blit(magmon.surf, magmon.rect)
 
-    gameplay_functions.npc_quest_star_updates(screen, player, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                                              quest_star_torune, graphic_dict["quest_progress_star"],
-                                              graphic_dict["quest_complete_star"], star_voruke, star_zerah,
-                                              star_apothecary, star_dionte)
-
+    if not player.quest_complete["band hammer"]:
+        screen.blit(star_voruke.surf, star_voruke.rect)
+    if not player.quest_complete["elementary elementals"]:
+        screen.blit(star_zerah.surf, star_zerah.rect)
+    if not player.quest_complete["can't apothecary it"]:
+        screen.blit(star_apothecary.surf, star_apothecary.rect)
+    try:
+        if player.pet.active:
+            screen.blit(player.pet.surf, player.pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)
 
