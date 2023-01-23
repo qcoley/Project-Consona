@@ -26,7 +26,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, interactables_mines,
                     equipment_screen, staff, sword, bow,
                     offense_meter, defense_meter, weapon_select, player_cutscene, player_cutscene_2, beyond_seldon,
-                    flowers, eldream_flowers, interactables_eldream):
+                    flowers, eldream_flowers, interactables_eldream, pet_energy_window):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -113,12 +113,24 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
     if not player.quest_complete["ghouled again"]:
         screen.blit(quest_star_torune.surf, quest_star_torune.rect)
+
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # player encounters objects and draws popup information box ----------------------------------------
     # player encounters a quest item. check progress and add to if interacted with

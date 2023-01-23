@@ -52,6 +52,7 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    pet_energy_overlay = pygame.image.load(resource_path('resources/art/overlay_pet_energy.png')).convert_alpha()
     overlay_ectrene = pygame.image.load(resource_path('resources/art/overlay_ectrene.png')).convert_alpha()
     overlay_advantages = pygame.image.load(resource_path('resources/art/overlay_type_advantages.png')).convert_alpha()
     apothecary_window = pygame.image.load(resource_path('resources/art/overlay_apothecary_window.png')).convert_alpha()
@@ -167,10 +168,11 @@ def load_graphics():
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
-                  overlay_eldream_river, overlay_advantages, overlay_ectrene]
+                  overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["pet_energy"] = pet_energy_overlay
     loaded_dict["eldream_menagerie"] = eldream_menagerie
     loaded_dict["overlay_ectrene"] = overlay_ectrene
     loaded_dict["ectrenos_bg"] = ectrenos_bg_screen
@@ -960,7 +962,12 @@ def load_graphics():
     loaded_dict["fins_img"] = items_sheet[11]
     loaded_dict["pluma_img"] = items_sheet[12]
     loaded_dict["boots_img"] = items_sheet[13]
-    loaded_dict["whistle_img"] = items_sheet[14]
+    loaded_dict["whistle_kasper_img"] = items_sheet[14]
+    loaded_dict["whistle_torok_img"] = items_sheet[15]
+    loaded_dict["whistle_iriana_img"] = items_sheet[16]
+    loaded_dict["pet_cookie_img"] = items_sheet[17]
+    loaded_dict["pet_candy_img"] = items_sheet[18]
+    loaded_dict["pet_tart_img"] = items_sheet[19]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -983,6 +990,9 @@ def load_graphics():
     loaded_dict["info_oscura_pluma"] = items_info_sheet[16]
     loaded_dict["info_chroma_boots"] = items_info_sheet[17]
     loaded_dict["info_whistle"] = items_info_sheet[18]
+    loaded_dict["info_cookie_img"] = items_info_sheet[19]
+    loaded_dict["info_candy_img"] = items_info_sheet[20]
+    loaded_dict["info_tart_img"] = items_info_sheet[21]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -992,6 +1002,9 @@ def load_graphics():
     loaded_dict["b_forged_armor"] = buy_items_sheet[3]
     loaded_dict["b_mythical_armor"] = buy_items_sheet[4]
     loaded_dict["b_legendary_armor"] = buy_items_sheet[5]
+    loaded_dict["b_cookie_img"] = buy_items_sheet[6]
+    loaded_dict["b_candy_img"] = buy_items_sheet[7]
+    loaded_dict["b_tart_img"] = buy_items_sheet[8]
     # sell items -------------------------------------------------------------------------------------------------------
     sell_items_url = resource_path('resources/art/overlay_sell_items.png')
     sell_items_sheet = sprite_sheet((246, 240), sell_items_url)
@@ -1007,6 +1020,9 @@ def load_graphics():
     loaded_dict["s_band_img"] = sell_items_sheet[9]
     loaded_dict["s_fins_img"] = sell_items_sheet[10]
     loaded_dict["s_pluma_img"] = sell_items_sheet[11]
+    loaded_dict["s_cookie_img"] = sell_items_sheet[12]
+    loaded_dict["s_candy_img"] = sell_items_sheet[13]
+    loaded_dict["s_tart_img"] = sell_items_sheet[14]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)

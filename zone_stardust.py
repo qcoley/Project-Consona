@@ -12,9 +12,9 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      in_npc_interaction, stardust_entrance, save_check_window, user_interface, bar_backdrop, hp_bar,
                      en_bar, xp_bar, button_highlighted, button_highlight, npc_tic, info_text_1, info_text_2,
                      info_text_3, info_text_4, current_enemy_battling, current_building_entering, in_battle,
-                     movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite,  chinzilla_battle_sprite,
+                     movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                      equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
-                     rock):
+                     rock, pet_energy_window):
 
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
@@ -45,11 +45,22 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             if not nede_ghoul_defeated:
                 screen.blit(ghoul_nede.surf, ghoul_nede.rect)
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # player encounters Nede for Celeste's quest
     if pygame.sprite.collide_rect(player, nede) and player.quest_progress["where's nede?"] < 1:

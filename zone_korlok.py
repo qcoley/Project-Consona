@@ -20,7 +20,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     UiElement, interactables_mines, star_voruke, star_zerah, korlok_mountains, in_apothecary,
                     star_apothecary, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
                     weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
-                    eldream_flowers, interactables_eldream):
+                    eldream_flowers, interactables_eldream, pet_energy_window):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -71,11 +71,22 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     if not player.quest_complete["can't apothecary it"]:
         screen.blit(star_apothecary.surf, star_apothecary.rect)
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it

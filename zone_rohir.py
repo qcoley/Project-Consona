@@ -6,7 +6,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
                 bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4,
                 in_over_world, button_highlighted, button_highlight, rohir_river_music, interaction_popup, interacted,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
-                beyond_seldon):
+                beyond_seldon, pet_energy_window):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(100)
@@ -23,7 +23,23 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     screen.blit(water_3.surf, water_3.rect)
     screen.blit(water_4.surf, water_4.rect)
     screen.blit(water_5.surf, water_5.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     if 1000 > player.x_coordinate > 270:
         player.x_coordinate -= 0.5

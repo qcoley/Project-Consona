@@ -12,7 +12,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                 muchador_battle_sprite, barrier_active, sharp_sense_active, in_npc_interaction, magmon_battle_sprite,
                 bandile_battle_sprite, chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan,
-                offense_meter, defense_meter, weapon_select):
+                offense_meter, defense_meter, weapon_select, pet_energy_window):
 
     in_battle = False
 
@@ -65,11 +65,22 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         screen.blit(dungeon_drop_wall.surf, dungeon_drop_wall.rect)
         screen.blit(chorizon_2.surf, chorizon_2.rect)
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # move player back to rohir if they approach dungeon exit
     if 680 > player.x_coordinate > 365 and SCREEN_HEIGHT - 25 < player.y_coordinate:
@@ -275,7 +286,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 button_highlight, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 switch_1, switch_2, switch_3, has_key, magmon_battle_sprite, bandile_battle_sprite,
                 chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
-                weapon_select):
+                weapon_select, pet_energy_window):
 
     in_battle = False
 
@@ -308,11 +319,22 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
     if muchador_defeated:
         screen.blit(reservoir_passage.surf, reservoir_passage.rect)
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     if pygame.sprite.collide_rect(player, dungeon_gate):
         interaction_popup.update(dungeon_gate.x_coordinate, dungeon_gate.y_coordinate - 50,
@@ -479,7 +501,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 button_highlight, reservoir_c_bg, dungeon_chest, reservoir_exit, rock_1, rock_2, gloves_obtained,
                 power_gloves, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, has_key,
                 muchador_lights_on, hearth_stone, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                defense_meter, weapon_select):
+                defense_meter, weapon_select, pet_energy_window):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -498,11 +520,22 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
     screen.blit(rock_1.surf, rock_1.rect)
     screen.blit(rock_2.surf, rock_2.rect)
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # move player back to reservoir b if they approach passage
     if 1000 > player.x_coordinate > 950 and 400 < player.y_coordinate:

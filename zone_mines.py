@@ -16,7 +16,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  snakes, ghouls, magmons, interactables_seldon, interactables_korlok, Enemy, Item, UiElement,
                  interactables_mines, ores, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                  defense_meter, weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup, jez_popup, prime_1,
-                 prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers, eldream_flowers, interactables_eldream):
+                 prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers, eldream_flowers, interactables_eldream,
+                 pet_energy_window):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -59,11 +60,22 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     screen.blit(npc_prime.surf, npc_prime.rect)
     screen.blit(npc_jez.surf, npc_jez.rect)
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     enemy = pygame.sprite.spritecollideany(player, bandiles)

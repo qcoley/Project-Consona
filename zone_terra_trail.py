@@ -14,7 +14,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                 barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, hearth_stone,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
-                rock_7_con, chinzilla_defeated, eldream_gate_rect):
+                rock_7_con, chinzilla_defeated, eldream_gate_rect, pet_energy_window):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -35,11 +35,22 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     if not player.quest_complete["it's dangerous to go alone"]:
         screen.blit(quest_star_dionte.surf, quest_star_dionte.rect)
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     if pygame.sprite.collide_rect(player, npc_dionte):
         interaction_popup.update(npc_dionte.x_coordinate, npc_dionte.y_coordinate - 50,

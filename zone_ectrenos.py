@@ -20,7 +20,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
                   magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                   UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ladder,
-                  quest_star_leyre):
+                  quest_star_leyre, pet_energy_window):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -38,11 +38,22 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         screen.blit(quest_star_leyre.surf, quest_star_leyre.rect)
 
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
     screen.blit(ectrene.surf, ectrene.rect)
 
     if pygame.Rect.colliderect(player.rect, ladder):
@@ -144,7 +155,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
                   magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                   UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ectrenos_pet_entrance,
-                  in_menagerie, quest_star_aitor):
+                  in_menagerie, quest_star_aitor, pet_energy_window):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(eldream_overworld_music)
@@ -164,6 +175,17 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         for pet in player.pet:
             if pet.active:
                 screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
+    screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
 
@@ -259,7 +281,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    ghouls,
                    magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                    UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
-                   ectrenos_shop_entrance, ectrenos_inn_entrance):
+                   ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(eldream_overworld_music)
@@ -273,8 +295,20 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
+    screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
 
@@ -389,7 +423,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes,
                    ghouls, magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy,
                    Item, UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
-                   quest_star_everett):
+                   quest_star_everett, pet_energy_window):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -407,12 +441,22 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
         screen.blit(quest_star_everett.surf, quest_star_everett.rect)
 
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
-
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -484,7 +528,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldr
                     current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes,
                     ghouls,
                     magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
-                    UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene):
+                    UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
+                    pet_energy_window):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -499,12 +544,22 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldr
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
-
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

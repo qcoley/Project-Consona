@@ -20,7 +20,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      eldream_gate_rect, eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic,
                      eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles,
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
-                     seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku):
+                     seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -50,11 +50,22 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
 
     screen.blit(hearth_stone.surf, hearth_stone.rect)
     try:
-        if player.pet.active:
-            screen.blit(player.pet.surf, player.pet.rect)
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 53)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
 
     # player collides with flower, if collected adds to player flower count
     flower = pygame.sprite.spritecollideany(player, eldream_flowers)

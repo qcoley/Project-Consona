@@ -173,7 +173,16 @@ def inventory_event_item(inventory_event_here, pygame):
             if clicked_element[0].name == "pet seed":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
-            if clicked_element[0].name == "pet whistle":
+            if clicked_element[0].type == "whistle":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "pet cookie":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "pet candy":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "pet tart":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
         except IndexError:
@@ -187,14 +196,61 @@ def inventory(player, item):
     return_dict = {"item message": ""}
 
     try:
-        if item.name == "pet whistle":
+        if item.name == "pet cookie":
             for pet in player.pet:
-                match pet.active:
-                    case True:
-                        pet.active = False
-                    case False:
-                        pet.active = True
-                        pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                if pet.name == "kasper":
+                    pet.energy += 25
+
+        if item.name == "pet candy":
+            for pet in player.pet:
+                if pet.name == "torok":
+                    pet.energy += 25
+
+        if item.name == "pet tart":
+            for pet in player.pet:
+                if pet.name == "iriana":
+                    pet.energy += 25
+
+        if item.name == "pet whistle kasper":
+            for pet in player.pet:
+                if pet.name == "kasper":
+                    match pet.active:
+                        case True:
+                            pet.active = False
+                        case False:
+                            pet.active = True
+                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                # set other pets to de-active, so they don't overlap
+                else:
+                    match pet.active:
+                        case True:
+                            pet.active = False
+        if item.name == "pet whistle torok":
+            for pet in player.pet:
+                if pet.name == "torok":
+                    match pet.active:
+                        case True:
+                            pet.active = False
+                        case False:
+                            pet.active = True
+                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                else:
+                    match pet.active:
+                        case True:
+                            pet.active = False
+        if item.name == "pet whistle iriana":
+            for pet in player.pet:
+                if pet.name == "iriana":
+                    match pet.active:
+                        case True:
+                            pet.active = False
+                        case False:
+                            pet.active = True
+                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                else:
+                    match pet.active:
+                        case True:
+                            pet.active = False
 
         if item.name == "health potion":
             if player.health == 100:
@@ -388,6 +444,12 @@ def buy_event_item(buy_event, shopkeeper_items, pygame):
                 return clicked_element[0]
             if clicked_element[0].name == "mythical armor":
                 return clicked_element[0]
+            if clicked_element[0].name == "pet cookie":
+                return clicked_element[0]
+            if clicked_element[0].name == "pet candy":
+                return clicked_element[0]
+            if clicked_element[0].name == "pet tart":
+                return clicked_element[0]
 
         except IndexError:
             pass
@@ -423,6 +485,12 @@ def sell_event_item(sell_event, pygame):
             if clicked_element[0].name == "forged armor":
                 return clicked_element[0]
             if clicked_element[0].name == "mythical armor":
+                return clicked_element[0]
+            if clicked_element[0].name == "pet cookie":
+                return clicked_element[0]
+            if clicked_element[0].name == "pet candy":
+                return clicked_element[0]
+            if clicked_element[0].name == "pet tart":
                 return clicked_element[0]
 
         except IndexError:

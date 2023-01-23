@@ -3,7 +3,7 @@ import drawing_functions
 
 # go through shop items and assign inventory slots (coordinates) to them
 def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, health_pot_img, energy_pot_img, basic_armor,
-                               forged_armor, mythical_armor):
+                               forged_armor, mythical_armor, cookie, candy, tart):
 
     # if shopkeeper has items in their inventory
     if len(npc_amuna_shopkeeper.items) > 0:
@@ -30,6 +30,18 @@ def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, health_po
                 buy_inventory_counter += 1
             if shop_item.name == "mythical armor":
                 shop_item.update(buy_first_coord, buy_second_coord, mythical_armor)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "pet cookie":
+                shop_item.update(buy_first_coord, buy_second_coord, cookie)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "pet candy":
+                shop_item.update(buy_first_coord, buy_second_coord, candy)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "pet tart":
+                shop_item.update(buy_first_coord, buy_second_coord, tart)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
 
@@ -94,6 +106,22 @@ def sell_items(player, sell_choice, current_sell_item):
                     player.rupees = player.rupees + 20
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "dried fins":
+                    sell_return["info 1"] = "Sold Dried Fins for 40 rupees."
+                    sell_return["info 2"] = "Dried Fins removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    player.rupees = player.rupees + 40
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "oscura pluma":
+                    sell_return["info 1"] = "Sold Oscura Pluma for 45 rupees."
+                    sell_return["info 2"] = "Oscura Pluma removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    player.rupees = player.rupees + 45
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
                 if current_sell_item.name == "basic armor":
                     sell_return["info 1"] = "Sold Basic Armor for 25 rupees."
                     sell_return["info 2"] = "Basic Armor removed from inventory."
@@ -118,6 +146,30 @@ def sell_items(player, sell_choice, current_sell_item):
                     player.rupees = player.rupees + 250
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "pet cookie":
+                    sell_return["info 1"] = "Sold Blueberry Cookie for 10 rupees."
+                    sell_return["info 2"] = "Blueberry Cookie removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    player.rupees = player.rupees + 10
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "pet candy":
+                    sell_return["info 1"] = "Sold Rock Candy for 10 rupees."
+                    sell_return["info 2"] = "Rock Candy removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    player.rupees = player.rupees + 10
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "pet tart":
+                    sell_return["info 1"] = "Sold Peach Tart for 10 rupees."
+                    sell_return["info 2"] = "Peach Tart removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    player.rupees = player.rupees + 10
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
             except AttributeError:
                 pass
     if sell_choice == "no":
@@ -127,7 +179,7 @@ def sell_items(player, sell_choice, current_sell_item):
 
 
 def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy_pot_img, basic_armor, forged_armor,
-              mythical_armor):
+              mythical_armor, cookie, candy, tart):
     buy_return = {"info 1": "", "info 2": "", "bought": False}
 
     if buy_choice == "yes":
@@ -207,6 +259,54 @@ def buy_items(player, buy_choice, current_buy_item, Item, health_pot_img, energy
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Mythical Armor cost 500 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+
+        if current_buy_item.name == "pet cookie":
+            if len(player.items) < 16:
+                if player.rupees > 19:
+                    buy_return["info 1"] = "Bought Blueberry Cookie for 20 rupees."
+                    buy_return["info 2"] = "Blueberry Cookie added to inventory."
+                    player.items.append(Item("pet cookie", "cookie", 1078, 197, cookie, 1))
+                    player.rupees = player.rupees - 20
+                    buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Blueberry Cookie cost 20 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+
+        if current_buy_item.name == "pet candy":
+            if len(player.items) < 16:
+                if player.rupees > 19:
+                    buy_return["info 1"] = "Bought Rock Candy for 20 rupees."
+                    buy_return["info 2"] = "Rock Candy added to inventory."
+                    player.items.append(Item("pet candy", "candy", 1078, 197, candy, 1))
+                    player.rupees = player.rupees - 20
+                    buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Rock Candy cost 20 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+
+        if current_buy_item.name == "pet tart":
+            if len(player.items) < 16:
+                if player.rupees > 19:
+                    buy_return["info 1"] = "Bought Peach Tart for 20 rupees."
+                    buy_return["info 2"] = "Peach Tart added to inventory."
+                    player.items.append(Item("pet tart", "tart", 1078, 197, tart, 1))
+                    player.rupees = player.rupees - 20
+                    buy_return["bought"] = True
+                    drawing_functions.buy_info_window.clear()
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Peach Tart cost 20 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""

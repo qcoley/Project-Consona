@@ -52,7 +52,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae, pet):
+                 flowers_sorae, pets):
         super(PlayerAmuna, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -84,7 +84,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
         self.star_power = star_power
         self.flowers_amuna = flowers_amuna
         self.flowers_sorae = flowers_sorae
-        self.pet = pet
+        self.pet = pets
 
     # move the player sprite based on input keys
     def update(self, pressed_key, current_zone, walk_timed):
@@ -675,7 +675,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae, pet):
+                 flowers_sorae, pets):
         super(PlayerNuldar, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -707,7 +707,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
         self.star_power = star_power
         self.flowers_amuna = flowers_amuna
         self.flowers_sorae = flowers_sorae
-        self.pet = pet
+        self.pet = pets
 
     def update(self, pressed_key, current_zone, walk_timed):
         if player.role == "":  # ---------------------------------------------------------------------------------------
@@ -1296,7 +1296,7 @@ class PlayerSorae(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
-                 flowers_sorae, pet):
+                 flowers_sorae, pets):
         super(PlayerSorae, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
@@ -1328,7 +1328,7 @@ class PlayerSorae(pygame.sprite.Sprite):
         self.star_power = star_power
         self.flowers_amuna = flowers_amuna
         self.flowers_sorae = flowers_sorae
-        self.pet = pet
+        self.pet = pets
 
     def update(self, pressed_key, current_zone, walk_timed):
         if player.role == "":  # ---------------------------------------------------------------------------------------
@@ -2153,7 +2153,9 @@ def button_highlighter(posit):
                                                               in_npc_interaction, quest_button, quest_clicked,
                                                               accept_button, decline_button, in_apothecary, staff,
                                                               sword, bow, potions_button, create_potion_button,
-                                                              in_menagerie, ok_button, hatch_ready)
+                                                              in_menagerie, ok_button, hatch_ready,
+                                                              menagerie_window_open, kasper_manage_button,
+                                                              torok_manage_button, iriana_manage_button)
     return button_highlighters
 
 
@@ -2165,6 +2167,11 @@ if __name__ == '__main__':
     # dictionary contains all graphical resources
     graphic_dict = graphics.load_graphics()
     # pygame.mixer.init()
+
+    # fonts
+    font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
+    level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
+    name_input_font = pygame.font.SysFont('freesansbold.ttf', 32, bold=True, italic=False)
 
     # background textures ----------------------------------------------------------------------------------------------
     nascent_grove_bg = graphic_dict["nascent_grove_screen"]
@@ -2293,7 +2300,13 @@ if __name__ == '__main__':
     pet_iriana = Pet("iriana", "mage", 1, 100, graphic_dict["iriana"], False)
     # pet seed
     pet_seed = Item("pet seed", "seed", 1078, 197, graphic_dict["seed_img"], 1)
-    pet_whistle = Item("pet whistle", "whistle", 1078, 197, graphic_dict["whistle_img"], 1)
+    pet_whistle_kasper = Item("pet whistle kasper", "whistle", 1078, 197, graphic_dict["whistle_kasper_img"], 1)
+    pet_whistle_torok = Item("pet whistle torok", "whistle", 1078, 197, graphic_dict["whistle_torok_img"], 1)
+    pet_whistle_iriana = Item("pet whistle iriana", "whistle", 1078, 197, graphic_dict["whistle_iriana_img"], 1)
+    # pet food
+    pet_cookie = Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1)
+    pet_candy = Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1)
+    pet_tart = Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1)
 
     seed_scout_count = 0
     seed_fighter_count = 0
@@ -2330,17 +2343,20 @@ if __name__ == '__main__':
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
         Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
+        Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
+        Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1)])
 
     npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
         Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
+        Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 675, 325, graphic_dict["maurelle_interaction"])
@@ -2565,6 +2581,7 @@ if __name__ == '__main__':
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
     menagerie_window = UiElement("menagerie window", 500, 319, graphic_dict["kasper_manage"])
     pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
+    pet_energy_window = UiElement("pet energy", 375, 41, graphic_dict["pet_energy"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
     seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
@@ -2760,10 +2777,6 @@ if __name__ == '__main__':
     flower_eldream_3 = Item("flower eldream 3", "flower", 775, 50, graphic_dict["flower_eldream"], 0)
     flower_eldream_4 = Item("flower eldream 4", "flower", 985, 450, graphic_dict["flower_eldream"], 0)
     flower_eldream_5 = Item("flower eldream 5", "flower", 775, 670, graphic_dict["flower_eldream"], 0)
-
-    font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
-    level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
-    name_input_font = pygame.font.SysFont('freesansbold.ttf', 32, bold=True, italic=False)
 
     quest_items_seldon = pygame.sprite.Group()
     npcs_seldon = pygame.sprite.Group()
@@ -4021,7 +4034,7 @@ if __name__ == '__main__':
                                                                   bow, offense_meter, defense_meter, weapon_select,
                                                                   player_cutscene_overlay, player_cutscene_overlay_2,
                                                                   beyond_seldon, seldon_flowers, eldream_flowers,
-                                                                  interactables_eldream)
+                                                                  interactables_eldream, pet_energy_window)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -4099,7 +4112,8 @@ if __name__ == '__main__':
                                                                   bow, npc_garan, offense_meter, defense_meter,
                                                                   weapon_select, rock_4, rock_5, rock_6, rock_4_con,
                                                                   rock_5_con, rock_6_con, seldon_flowers,
-                                                                  eldream_flowers, interactables_eldream)
+                                                                  eldream_flowers, interactables_eldream,
+                                                                  pet_energy_window)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -4171,7 +4185,8 @@ if __name__ == '__main__':
                                                                      interactables_seldon, interactables_korlok,
                                                                      interactables_mines, Enemy, Item, UiElement,
                                                                      seldon_flowers, interactables_eldream,
-                                                                     ectrenos_entrance_rect, quest_star_omoku)
+                                                                     ectrenos_entrance_rect, quest_star_omoku,
+                                                                     pet_energy_window)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -4242,7 +4257,7 @@ if __name__ == '__main__':
                                                                          Enemy, Item, UiElement, seldon_flowers,
                                                                          interactables_eldream, ectrenos_entrance_rect,
                                                                          overlay_ectrene, ectrenos_ladder_rect,
-                                                                         quest_star_leyre)
+                                                                         quest_star_leyre, pet_energy_window)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -4335,7 +4350,8 @@ if __name__ == '__main__':
                                                                          interactables_ectrenos,
                                                                          ectrenos_entrance_rect,
                                                                          overlay_ectrene, ectrenos_pet_entrance,
-                                                                         in_menagerie, quest_star_aitor)
+                                                                         in_menagerie, quest_star_aitor,
+                                                                         pet_energy_window)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -4429,7 +4445,8 @@ if __name__ == '__main__':
                                                                            interactables_ectrenos,
                                                                            ectrenos_entrance_rect,
                                                                            overlay_ectrene, ectrenos_shop_entrance,
-                                                                           ectrenos_inn_entrance)
+                                                                           ectrenos_inn_entrance,
+                                                                           pet_energy_window)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -4505,7 +4522,7 @@ if __name__ == '__main__':
                                                                            Enemy, Item, UiElement, seldon_flowers,
                                                                            interactables_ectrenos,
                                                                            ectrenos_entrance_rect, overlay_ectrene,
-                                                                           quest_star_everett)
+                                                                           quest_star_everett, pet_energy_window)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -4581,7 +4598,8 @@ if __name__ == '__main__':
                                                                              interactables_korlok, interactables_mines,
                                                                              Enemy, Item, UiElement, seldon_flowers,
                                                                              interactables_eldream,
-                                                                             ectrenos_entrance_rect, overlay_ectrene)
+                                                                             ectrenos_entrance_rect, overlay_ectrene,
+                                                                             pet_energy_window)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -4640,7 +4658,7 @@ if __name__ == '__main__':
                                                              weapon_select, hearth_stone, npc_prime, npc_jez,
                                                              prime_popup, jez_popup, prime_1, prime_2, prime_3, jez_1,
                                                              jez_2, jez_3, seldon_flowers, eldream_flowers,
-                                                             interactables_eldream)
+                                                             interactables_eldream, pet_energy_window)
 
                     over_world_song_set = mines_returned["over_world_song_set"]
                     interacted = mines_returned["interacted"]
@@ -4695,7 +4713,8 @@ if __name__ == '__main__':
                                                                   chinzilla, hearth_stone,
                                                                   equipment_screen, staff, sword, bow, npc_garan,
                                                                   offense_meter, defense_meter, weapon_select, rock_7,
-                                                                  rock_7_con, chinzilla_defeated, eldream_gate_rect)
+                                                                  rock_7_con, chinzilla_defeated, eldream_gate_rect,
+                                                                  pet_energy_window)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -4747,7 +4766,7 @@ if __name__ == '__main__':
                                                                        bandile_battle_sprite, chinzilla_battle_sprite,
                                                                        equipment_screen, staff, sword, bow, npc_garan,
                                                                        offense_meter, defense_meter, weapon_select,
-                                                                       rock_3)
+                                                                       rock_3, pet_energy_window)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -4787,7 +4806,8 @@ if __name__ == '__main__':
                                                             in_over_world, button_highlighted, button_highlight,
                                                             rohir_river_music, interaction_popup, interacted,
                                                             equipment_screen, staff, sword, bow, npc_garan,
-                                                            offense_meter, defense_meter, weapon_select, beyond_seldon)
+                                                            offense_meter, defense_meter, weapon_select, beyond_seldon,
+                                                            pet_energy_window)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -4836,7 +4856,7 @@ if __name__ == '__main__':
                                                                       magmon_battle_sprite, bandile_battle_sprite,
                                                                       chinzilla_battle_sprite, equipment_screen, staff,
                                                                       sword, bow, npc_garan, offense_meter,
-                                                                      defense_meter, weapon_select)
+                                                                      defense_meter, weapon_select, pet_energy_window)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -4890,7 +4910,8 @@ if __name__ == '__main__':
                                                                       switch_3, has_key, magmon_battle_sprite,
                                                                       bandile_battle_sprite, chinzilla_battle_sprite,
                                                                       equipment_screen, staff, sword, bow, npc_garan,
-                                                                      offense_meter, defense_meter, weapon_select)
+                                                                      offense_meter, defense_meter, weapon_select,
+                                                                      pet_energy_window)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -4932,7 +4953,8 @@ if __name__ == '__main__':
                                                                       info_text_3, info_text_4, in_over_world, has_key,
                                                                       muchador_lights_on, hearth_stone,
                                                                       equipment_screen, staff, sword, bow, npc_garan,
-                                                                      offense_meter, defense_meter, weapon_select)
+                                                                      offense_meter, defense_meter, weapon_select,
+                                                                      pet_energy_window)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -5157,27 +5179,29 @@ if __name__ == '__main__':
                                         if player.role == "mage":
                                             player.knowledge["mage"] += 10
                                             battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
+                                            # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
                                                 if seed_mage_count < 8 and seed_fighter_count < 8 and \
                                                         seed_scout_count < 8:
                                                     seed_mage_count += 1
-                                                    print(seed_mage_count)
+
                                         if player.role == "fighter":
                                             player.knowledge["fighter"] += 10
                                             battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
+                                            # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
                                                 if seed_mage_count < 8 and seed_fighter_count < 8 and \
                                                         seed_scout_count < 8:
                                                     seed_fighter_count += 1
-                                                    print(seed_fighter_count)
+
                                         if player.role == "scout":
                                             player.knowledge["scout"] += 10
                                             battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
+                                            # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
                                                 if seed_mage_count < 8 and seed_fighter_count < 8 and \
                                                         seed_scout_count < 8:
                                                     seed_scout_count += 1
-                                                    print(seed_scout_count)
 
                                         if current_enemy_battling.name == "nede ghoul":
                                             nede_ghoul_defeated = True
@@ -5730,7 +5754,10 @@ if __name__ == '__main__':
                                                                  graphic_dict["energy_pot_img"],
                                                                  graphic_dict["basic_armor"],
                                                                  graphic_dict["forged_armor"],
-                                                                 graphic_dict["mythical_armor"])
+                                                                 graphic_dict["mythical_armor"],
+                                                                 graphic_dict["pet_cookie_img"],
+                                                                 graphic_dict["pet_candy_img"],
+                                                                 graphic_dict["pet_tart_img"])
                             if buy_return["info 1"] != "":
                                 button_highlighted = False
                                 info_text_1 = buy_return["info 1"]
@@ -5822,7 +5849,10 @@ if __name__ == '__main__':
                                                                                  graphic_dict["energy_pot_img"],
                                                                                  graphic_dict["basic_armor"],
                                                                                  graphic_dict["forged_armor"],
-                                                                                 graphic_dict["mythical_armor"])
+                                                                                 graphic_dict["mythical_armor"],
+                                                                                 graphic_dict["pet_cookie_img"],
+                                                                                 graphic_dict["pet_candy_img"],
+                                                                                 graphic_dict["pet_tart_img"])
                                     if player.current_zone == "korlok":
                                         shop_scenario.shop_keeper_inventory_draw(npc_nuldar_shopkeeper,
                                                                                  shopkeeper_items,
@@ -5830,7 +5860,21 @@ if __name__ == '__main__':
                                                                                  graphic_dict["energy_pot_img"],
                                                                                  graphic_dict["basic_armor"],
                                                                                  graphic_dict["forged_armor"],
-                                                                                 graphic_dict["mythical_armor"])
+                                                                                 graphic_dict["mythical_armor"],
+                                                                                 graphic_dict["pet_cookie_img"],
+                                                                                 graphic_dict["pet_candy_img"],
+                                                                                 graphic_dict["pet_tart_img"])
+                                    if player.current_zone == "ectrenos right":
+                                        shop_scenario.shop_keeper_inventory_draw(npc_sorae_shopkeeper,
+                                                                                 shopkeeper_items,
+                                                                                 graphic_dict["health_pot_img"],
+                                                                                 graphic_dict["energy_pot_img"],
+                                                                                 graphic_dict["basic_armor"],
+                                                                                 graphic_dict["forged_armor"],
+                                                                                 graphic_dict["mythical_armor"],
+                                                                                 graphic_dict["pet_cookie_img"],
+                                                                                 graphic_dict["pet_candy_img"],
+                                                                                 graphic_dict["pet_tart_img"])
 
                         if shop_button == "leave":
                             shop_button = ''
@@ -7037,13 +7081,38 @@ if __name__ == '__main__':
                                     info_text_1 = "You need to complete Aitor's quest."
                                     info_text_2 = ""
 
+                            # buttons for pet management window. If pet is unlocked, can evolve. if not, give seed.
                             if menagerie_window_open:
                                 if kasper_manage_button.rect.collidepoint(pos):
                                     if kasper_unlocked:
                                         for pet in player.pet:
+                                            # when pet can evolve
                                             if pet.name == "kasper":
-                                                if not pet.active:
-                                                    pet.active = True
+                                                pass
+                                    else:
+                                        if not seed_given:
+                                            player.items.append(pet_seed)
+                                            seed_given = True
+                                if torok_manage_button.rect.collidepoint(pos):
+                                    if torok_unlocked:
+                                        for pet in player.pet:
+                                            # when pet can evolve
+                                            if pet.name == "torok":
+                                                pass
+                                    else:
+                                        if not seed_given:
+                                            player.items.append(pet_seed)
+                                            seed_given = True
+                                if iriana_manage_button.rect.collidepoint(pos):
+                                    if iriana_unlocked:
+                                        for pet in player.pet:
+                                            # when pet can evolve
+                                            if pet.name == "iriana":
+                                                pass
+                                    else:
+                                        if not seed_given:
+                                            player.items.append(pet_seed)
+                                            seed_given = True
 
                             # if seed is ready to hatch, give player whistle and unlock that pet. reset counts.
                             if hatch_ready:
@@ -7054,11 +7123,11 @@ if __name__ == '__main__':
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["kasper_hatching"])
                                             hatched = True
-                                            kasper_unlocked = True
+                                            if not kasper_unlocked:
+                                                kasper_unlocked = True
+                                                player.pet.append(pet_kasper)
+                                                player.items.append(pet_whistle_kasper)
                                             seed_given = False
-                                            hatch_ready = False
-                                            player.items.append(pet_whistle)
-                                            player.pet.append(pet_kasper)
                                             for item in player.items:
                                                 if item.name == "pet seed":
                                                     player.items.remove(item)
@@ -7070,11 +7139,11 @@ if __name__ == '__main__':
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["torok_hatching"])
                                             hatched = True
-                                            torok_unlocked = True
+                                            if not torok_unlocked:
+                                                torok_unlocked = True
+                                                player.pet.append(pet_torok)
+                                                player.items.append(pet_whistle_torok)
                                             seed_given = False
-                                            hatch_ready = False
-                                            player.items.append(pet_whistle)
-                                            player.pet.append(pet_torok)
                                             for item in player.items:
                                                 if item.name == "pet seed":
                                                     player.items.remove(item)
@@ -7086,11 +7155,11 @@ if __name__ == '__main__':
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["iriana_hatching"])
                                             hatched = True
-                                            iriana_unlocked = True
+                                            if not iriana_unlocked:
+                                                iriana_unlocked = True
+                                                player.pet.append(pet_iriana)
+                                                player.items.append(pet_whistle_iriana)
                                             seed_given = False
-                                            hatch_ready = False
-                                            player.items.append(pet_whistle)
-                                            player.pet.append(pet_iriana)
                                             for item in player.items:
                                                 if item.name == "pet seed":
                                                     player.items.remove(item)

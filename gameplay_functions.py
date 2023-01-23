@@ -247,8 +247,15 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("legendary armor", "armor", 200, 200, graphics["legendary_armor"], 4))
                 if item == "pet seed":
                     player.items.append(Item("pet seed", "seed", 200, 200, graphics["seed_img"], 1))
-                if item == "pet whistle":
-                    player.items.append(Item("pet whistle", "whistle", 200, 200, graphics["whistle_img"], 1))
+                if item == "pet whistle kasper":
+                    player.items.append(Item("pet whistle kasper", "whistle", 200, 200,
+                                             graphics["whistle_kasper_img"], 1))
+                if item == "pet whistle torok":
+                    player.items.append(Item("pet whistle torok", "whistle", 200, 200,
+                                             graphics["whistle_torok_img"], 1))
+                if item == "pet whistle iriana":
+                    player.items.append(Item("pet whistle iriana", "whistle", 200, 200,
+                                             graphics["whistle_iriana_img"], 1))
 
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
