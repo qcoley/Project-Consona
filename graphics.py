@@ -608,6 +608,15 @@ def load_graphics():
     loaded_dict["player_scout_sorae_right_2"] = player_scout_sorae_right_sheet[1]
     loaded_dict["player_scout_sorae_right_3"] = player_scout_sorae_right_sheet[2]
     loaded_dict["player_scout_sorae_right_4"] = player_scout_sorae_right_sheet[3]
+    # player battle pets -----------------------------------------------------------------------------------------------
+    player_battle_pets_url = resource_path('resources/art/pet_battle_sprites.png')
+    player_battle_pets_sheet = sprite_sheet((500, 400), player_battle_pets_url)
+    loaded_dict["kasper_battle"] = player_battle_pets_sheet[0]
+    loaded_dict["kasper_attack"] = player_battle_pets_sheet[1]
+    loaded_dict["torok_battle"] = player_battle_pets_sheet[2]
+    loaded_dict["torok_attack"] = player_battle_pets_sheet[3]
+    loaded_dict["iriana_battle"] = player_battle_pets_sheet[4]
+    loaded_dict["iriana_attack"] = player_battle_pets_sheet[5]
     # player battle amuna race -----------------------------------------------------------------------------------------
     player_battle_amuna_url = resource_path('resources/art/player_battle_sprites_amuna.png')
     player_battle_amuna_sheet = sprite_sheet((750, 624), player_battle_amuna_url)

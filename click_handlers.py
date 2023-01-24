@@ -6,7 +6,8 @@ def item_info_button(item_info_event, item_button, pygame, info_window):
     if item_info_event.type == pygame.MOUSEBUTTONUP:
         item_info_mouse = pygame.mouse.get_pos()
         if item_button.rect.collidepoint(item_info_mouse):
-            return "yes"
+            if len(drawing_functions.item_info_window) > 0:
+                return "yes"
         else:
             if not info_window.rect.collidepoint(item_info_mouse):
                 return "no"

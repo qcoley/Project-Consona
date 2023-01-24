@@ -2646,6 +2646,10 @@ if __name__ == '__main__':
     bandile_battle_sprite = BattleCharacter("bandile battle", 695, 300, graphic_dict["bandile_battle"])
     chinzilla_battle_sprite = BattleCharacter("chinzilla battle", 715, 300, graphic_dict["chinzilla_battle"])
 
+    kasper_battle_sprite = BattleCharacter("kasper battle", 825, 520, graphic_dict["kasper_battle"])
+    torok_battle_sprite = BattleCharacter("torok battle", 825, 520, graphic_dict["torok_battle"])
+    iriana_battle_sprite = BattleCharacter("iriana battle", 825, 520, graphic_dict["iriana_battle"])
+
     nascent_gate_popup = UiElement("nascent gate popup", 418, 200, graphic_dict["nascent_gate_popup"])
     sell_items = UiElement("sell items", 1155, 270, graphic_dict["s_health_pot_img"])
     info_items = UiElement("info items", 1155, 270, graphic_dict["info_health_pot_img"])
@@ -5461,6 +5465,14 @@ if __name__ == '__main__':
                                 screen.blit(reservoir_battle, (0, 0))
                             if player.current_zone == "terra trail":
                                 screen.blit(caves_battle_screen, (0, 0))
+                            for pet in player.pet:
+                                if pet.active:
+                                    if pet.name == "kasper":
+                                        screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
+                                    if pet.name == "torok":
+                                        screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
+                                    if pet.name == "iriana":
+                                        screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
@@ -5554,6 +5566,7 @@ if __name__ == '__main__':
                             screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
                         if current_enemy_battling.kind == "chinzilla":
                             screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(message_box.surf, message_box.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
@@ -5608,6 +5621,7 @@ if __name__ == '__main__':
                             screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
                         if current_enemy_battling.kind == "chinzilla":
                             screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(message_box.surf, message_box.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
