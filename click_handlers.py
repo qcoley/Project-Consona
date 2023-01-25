@@ -200,17 +200,35 @@ def inventory(player, item):
         if item.name == "pet cookie":
             for pet in player.pet:
                 if pet.name == "kasper":
-                    pet.energy += 25
+                    if pet.energy < 100:
+                        drawing_functions.player_items.remove(item)
+                        player.items.remove(item)
+                        pet.energy += 25
+                    if pet.energy >= 100:
+                        pet.energy = 100
+                        return_dict["item message"] = "Your kasper is full of energy."
 
         if item.name == "pet candy":
             for pet in player.pet:
                 if pet.name == "torok":
-                    pet.energy += 25
+                    if pet.energy < 100:
+                        drawing_functions.player_items.remove(item)
+                        player.items.remove(item)
+                        pet.energy += 25
+                    if pet.energy >= 100:
+                        pet.energy = 100
+                        return_dict["item message"] = "Your torok is full of energy."
 
         if item.name == "pet tart":
             for pet in player.pet:
                 if pet.name == "iriana":
-                    pet.energy += 25
+                    if pet.energy < 100:
+                        drawing_functions.player_items.remove(item)
+                        player.items.remove(item)
+                        pet.energy += 25
+                    if pet.energy >= 100:
+                        pet.energy = 100
+                        return_dict["item message"] = "Your iriana is full of energy."
 
         if item.name == "pet whistle kasper":
             for pet in player.pet:

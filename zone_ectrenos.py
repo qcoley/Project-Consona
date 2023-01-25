@@ -49,7 +49,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
                 pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 53)
+                pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
@@ -183,7 +183,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
                 pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 53)
+                pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
@@ -306,7 +306,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
                 pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 53)
+                pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
@@ -452,7 +452,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
                 pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 53)
+                pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
@@ -555,7 +555,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldr
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
                 pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 53)
+                pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:

@@ -126,7 +126,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
                 pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 53)
+                pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:

@@ -178,11 +178,11 @@ def load_game(player, Item, graphics, Pet):
 
             for pet in player_load_info["pets"]:
                 if pet == "kasper":
-                    player.pet.append(Pet("kasper", "scout", 1, 100, graphics["kasper"], True))
+                    player.pet.append(Pet("kasper", "scout", 1, 100, graphics["kasper"], False))
                 if pet == "torok":
-                    player.pet.append(Pet("torok", "fighter", 1, 100, graphics["torok"], True))
+                    player.pet.append(Pet("torok", "fighter", 1, 100, graphics["torok"], False))
                 if pet == "iriana":
-                    player.pet.append(Pet("iriana", "mage", 1, 100, graphics["iriana"], True))
+                    player.pet.append(Pet("iriana", "mage", 1, 100, graphics["iriana"], False))
 
             if player.race == "amuna":
                 if player.role == "mage":
@@ -221,6 +221,12 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("energy potion", "potion", 200, 200, graphics["energy_pot_img"], 0))
                 if item == "super potion":
                     player.items.append(Item("super potion", "potion", 200, 200, graphics["super_pot_img"], 0))
+                if item == "pet cookie":
+                    player.items.append(Item("pet cookie", "cookie", 1078, 197, graphics["pet_cookie_img"], 1))
+                if item == "pet candy":
+                    player.items.append(Item("pet candy", "candy", 1078, 197, graphics["pet_candy_img"], 1))
+                if item == "pet tart":
+                    player.items.append(Item("pet tart", "tart", 1078, 197, graphics["pet_tart_img"], 1))
                 if item == "shiny rock":
                     player.items.append(Item("shiny rock", "rock", 200, 200, graphics["shiny_rock_img"], 0))
                 if item == "bone dust":
@@ -526,7 +532,8 @@ def attack_enemy(player, mob, sharp_sense_active):
 
     level_difference = mob.level - player.level
 
-    attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False}
+    attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False,
+                   "pet damage": 0, "pet effective": False, "pet non effective": False}
 
     critical = random.randrange(1, 10)
     if critical > 6 or sharp_sense_active:
@@ -605,6 +612,46 @@ def attack_enemy(player, mob, sharp_sense_active):
         attack_dict["damage"] = damage
     else:
         attack_dict["damage"] = 0
+
+    # calculate pet damage based on its type and enemies
+    for pet in player.pet:
+        if pet.active:
+            if pet.energy > 0:
+                # pet uses energy to do damage
+                pet.energy -= 5
+
+                if pet.name == "iriana":
+                    attack_dict["pet damage"] = 2
+                    # super effective
+                    if mob.type == "scout":
+                        attack_dict["pet damage"] = 4
+                        attack_dict["pet effective"] = True
+                    # not effective
+                    if mob.type == "fighter":
+                        attack_dict["pet damage"] = 1
+                        attack_dict["pet non effective"] = True
+
+                if pet.name == "kasper":
+                    attack_dict["pet damage"] = 2
+                    # super effective
+                    if mob.type == "fighter":
+                        attack_dict["pet damage"] = 4
+                        attack_dict["pet effective"] = True
+                    # not effective
+                    if mob.type == "mage":
+                        attack_dict["pet damage"] = 1
+                        attack_dict["pet non effective"] = True
+
+                if pet.name == "torok":
+                    attack_dict["pet damage"] = 2
+                    # super effective
+                    if mob.type == "mage":
+                        attack_dict["pet damage"] = 4
+                        attack_dict["pet effective"] = True
+                    # not effective
+                    if mob.type == "scout":
+                        attack_dict["pet damage"] = 1
+                        attack_dict["pet non effective"] = True
 
     return attack_dict
 

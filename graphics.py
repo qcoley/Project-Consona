@@ -748,6 +748,9 @@ def load_graphics():
     loaded_dict["non_effective_received_damage_img"] = damage_overlays_sheet[5]
     loaded_dict["critical_dealt"] = damage_overlays_sheet[6]
     loaded_dict["critical_received"] = damage_overlays_sheet[7]
+    loaded_dict["pet_damage_img"] = damage_overlays_sheet[8]
+    loaded_dict["effective_pet_damage_img"] = damage_overlays_sheet[9]
+    loaded_dict["non_effective_pet_damage_img"] = damage_overlays_sheet[10]
     # garan npc --------------------------------------------------------------------------------------------------------
     garan_url = resource_path('resources/art/sprites_garans.png')
     garan_sheet = sprite_sheet((40, 62), garan_url)

@@ -1238,7 +1238,8 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                         graphic_dict["main high"])
                 return True
 
-            if player.current_zone == "seldon" or player.current_zone == "korlok":
+            if player.current_zone == "seldon" or player.current_zone == "korlok" or \
+                    player.current_zone == "ectrenos right":
                 if len(sell_info_window) > 0:
                     if yes_button.rect.collidepoint(pos):
                         button_highlight.update(yes_button.x_coordinate, yes_button.y_coordinate + 6,
@@ -1405,16 +1406,16 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                     return True
             if menagerie_window_open:
                 if kasper_manage_button.rect.collidepoint(pos):
-                    button_highlight.update(kasper_manage_button.x_coordinate, kasper_manage_button.y_coordinate + 7,
-                                            graphic_dict["role high"])
+                    button_highlight.update(kasper_manage_button.x_coordinate, kasper_manage_button.y_coordinate,
+                                            graphic_dict["role_high"])
                     return True
                 if torok_manage_button.rect.collidepoint(pos):
-                    button_highlight.update(torok_manage_button.x_coordinate, torok_manage_button.y_coordinate + 7,
-                                            graphic_dict["role high"])
+                    button_highlight.update(torok_manage_button.x_coordinate, torok_manage_button.y_coordinate,
+                                            graphic_dict["role_high"])
                     return True
                 if iriana_manage_button.rect.collidepoint(pos):
-                    button_highlight.update(iriana_manage_button.x_coordinate, iriana_manage_button.y_coordinate + 7,
-                                            graphic_dict["role high"])
+                    button_highlight.update(iriana_manage_button.x_coordinate, iriana_manage_button.y_coordinate,
+                                            graphic_dict["role_high"])
                     return True
             # quest window accept or decline button highlights when moused over
             if quest_clicked:

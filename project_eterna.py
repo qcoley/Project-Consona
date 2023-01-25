@@ -2581,7 +2581,7 @@ if __name__ == '__main__':
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
     menagerie_window = UiElement("menagerie window", 500, 319, graphic_dict["kasper_manage"])
     pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
-    pet_energy_window = UiElement("pet energy", 375, 41, graphic_dict["pet_energy"])
+    pet_energy_window = UiElement("pet energy", 375, 45, graphic_dict["pet_energy"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
     seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
@@ -2675,6 +2675,7 @@ if __name__ == '__main__':
 
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
+    pet_damage_overlay = UiElement("pet damage overlay", 750, 250, graphic_dict["pet_damage_img"])
     received_damage_overlay = UiElement("recieved damage overlay", 125, 275, graphic_dict["received_damage_img"])
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
@@ -2744,7 +2745,7 @@ if __name__ == '__main__':
 
     volcano_rect = pygame.Rect((450, 15), (100, 50))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
-    ectrenos_entrance_rect = pygame.Rect((530, 530), (100, 50))
+    ectrenos_entrance_rect = pygame.Rect((520, 520), (100, 50))
     ectrenos_ladder_rect = pygame.Rect((500, 520), (100, 50))
     ectrenos_inn_entrance = pygame.Rect((825, 275), (100, 100))
     ectrenos_shop_entrance = pygame.Rect((215, 175), (100, 100))
@@ -5508,6 +5509,17 @@ if __name__ == '__main__':
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(enemy_status.surf, enemy_status.rect)
+                            try:
+                                for pet in player.pet:
+                                    if pet.active:
+                                        pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green",
+                                                                      "light yellow")
+                                        pet_energy_rect = pet_energy_surf.get_rect()
+                                        pet_energy_rect.midleft = (345, 57)
+                                        screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                                        screen.blit(pet_energy_surf, pet_energy_rect)
+                            except AttributeError:
+                                pass
                             text_enemy_name_surf = font.render(str(current_enemy_battling.kind), True, "black",
                                                                (255, 204, 203))
                             text_enemy_name_rect = text_enemy_name_surf.get_rect()
@@ -5632,16 +5644,27 @@ if __name__ == '__main__':
                         # damage overlays, updated depending on if damage was in effective range
                         if combat_events["damage done"] != 0:
                             dealt_damage_overlay.update(850, 225, graphic_dict["dealt_damage_img"])
+                            pet_damage_overlay.update(950, 275, graphic_dict["pet_damage_img"])
                             if combat_events["non effective player"]:
                                 dealt_damage_overlay.update(850, 225, graphic_dict["non_effective_dealt_damage_img"])
                             if combat_events["effective player"]:
                                 dealt_damage_overlay.update(850, 225, graphic_dict["effective_dealt_damage_img"])
+                            if combat_events["non effective pet"]:
+                                pet_damage_overlay.update(950, 275, graphic_dict["non_effective_pet_damage_img"])
+                            if combat_events["effective pet"]:
+                                pet_damage_overlay.update(950, 275, graphic_dict["effective_pet_damage_img"])
                             screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
+                            screen.blit(pet_damage_overlay.surf, pet_damage_overlay.rect)
                             damage_done_surf = level_up_font.render(str(combat_events["damage done"]),
                                                                     True, "black", "white")
                             damage_done_rect = damage_done_surf.get_rect()
                             damage_done_rect.center = (850, 225)
                             screen.blit(damage_done_surf, damage_done_rect)
+                            damage_pet_surf = level_up_font.render(str(combat_events["pet damage"]),
+                                                                    True, "black", "white")
+                            damage_pet_rect = damage_pet_surf.get_rect()
+                            damage_pet_rect.center = (950, 275)
+                            screen.blit(damage_pet_surf, damage_pet_rect)
                             if combat_events["critical dealt"]:
                                 screen.blit(critical_dealt_overlay.surf, critical_dealt_overlay.rect)
 

@@ -76,7 +76,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
                 pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 53)
+                pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
@@ -330,7 +330,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
                 pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 53)
+                pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
@@ -531,7 +531,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             if pet.active:
                 pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
                 pet_energy_rect = pet_energy_surf.get_rect()
-                pet_energy_rect.midleft = (345, 53)
+                pet_energy_rect.midleft = (345, 57)
                 screen.blit(pet_energy_window.surf, pet_energy_window.rect)
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
