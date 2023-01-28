@@ -2740,7 +2740,6 @@ if __name__ == '__main__':
     eldream_riv_19 = UiElement("eldream river 19", 90, 470, graphic_dict["eldream_river"])
     eldream_riv_20 = UiElement("eldream river 20", 40, 500, graphic_dict["eldream_river"])
     eldream_riv_21 = UiElement("eldream river 21", 0, 540, graphic_dict["eldream_river"])
-
     overlay_ectrene = UiElement("ectrene", 525, 325, graphic_dict["overlay_ectrene"])
 
     volcano_rect = pygame.Rect((450, 15), (100, 50))
@@ -2754,7 +2753,6 @@ if __name__ == '__main__':
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
     mines_cart = UiElement("mines light", 885, 475, graphic_dict["mines_light"])
-
     terra_mountains = UiElement("terra mountains", 250, 270, graphic_dict["terra_mountains"])
     terra_cave = UiElement("terra cave", 100, 400, graphic_dict["terra_cave"])
 
@@ -2776,7 +2774,6 @@ if __name__ == '__main__':
     flower_seldon_3 = Item("flower seldon 3", "flower", 150, 425, graphic_dict["flower_seldon"], 0)
     flower_seldon_4 = Item("flower seldon 4", "flower", 400, 500, graphic_dict["flower_seldon"], 0)
     flower_seldon_5 = Item("flower seldon 5", "flower", 590, 380, graphic_dict["flower_seldon"], 0)
-
     flower_eldream_1 = Item("flower eldream 1", "flower", 355, 530, graphic_dict["flower_eldream"], 0)
     flower_eldream_2 = Item("flower eldream 2", "flower", 722, 530, graphic_dict["flower_eldream"], 0)
     flower_eldream_3 = Item("flower eldream 3", "flower", 775, 50, graphic_dict["flower_eldream"], 0)
@@ -5466,49 +5463,17 @@ if __name__ == '__main__':
                                 screen.blit(reservoir_battle, (0, 0))
                             if player.current_zone == "terra trail":
                                 screen.blit(caves_battle_screen, (0, 0))
-                            for pet in player.pet:
-                                if pet.active:
-                                    if pet.name == "kasper":
-                                        screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
-                                    if pet.name == "torok":
-                                        screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
-                                    if pet.name == "iriana":
-                                        screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
-                            screen.blit(equipment_screen.surf, equipment_screen.rect)
-                            screen.blit(offense_meter.surf, offense_meter.rect)
-                            screen.blit(defense_meter.surf, defense_meter.rect)
-                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                          weapon_select)
-                            screen.blit(skill_bar.surf, skill_bar.rect)
+
                             screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
-                            if player.role == "mage":
-                                screen.blit(mage_attack_button.surf, mage_attack_button.rect)
-                                if player.skills_mage["skill 2"] == "barrier":
-                                    screen.blit(barrier_button.surf, barrier_button.rect)
-                            if player.role == "fighter":
-                                screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
-                                if player.skills_fighter["skill 2"] == "hard strike":
-                                    screen.blit(hard_strike_button.surf, hard_strike_button.rect)
-                            if player.role == "scout":
-                                screen.blit(scout_attack_button.surf, scout_attack_button.rect)
-                                if player.skills_scout["skill 2"] == "sharp sense":
-                                    screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
-                            if player.role == "":
-                                screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
                             try:
                                 screen.blit(current_enemy_battling.health_bar.surf,
                                             current_enemy_battling.health_bar.rect)
                             except TypeError:
                                 pass
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
-                            if not combat_cooldown:
-                                if button_highlighted:
-                                    screen.blit(button_highlight.surf, button_highlight.rect)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
-                            screen.blit(enemy_status.surf, enemy_status.rect)
                             try:
                                 for pet in player.pet:
                                     if pet.active:
@@ -5564,6 +5529,10 @@ if __name__ == '__main__':
                                                           chinzilla_battle_sprite, barrier_active,
                                                           sharp_sense_active, in_battle, in_npc_interaction,
                                                           graphic_dict)
+                        kasper_battle_sprite.update(825, 520, graphic_dict["kasper_battle"])
+                        torok_battle_sprite.update(825, 520, graphic_dict["torok_battle"])
+                        iriana_battle_sprite.update(825, 520, graphic_dict["iriana_battle"])
+
                         if current_enemy_battling.name == "snake":
                             screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                         if current_enemy_battling.kind == "ghoul":
@@ -5579,8 +5548,45 @@ if __name__ == '__main__':
                         if current_enemy_battling.kind == "chinzilla":
                             screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
 
+                        for pet in player.pet:
+                            if pet.active:
+                                if pet.name == "kasper":
+                                    screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
+                                if pet.name == "torok":
+                                    screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
+                                if pet.name == "iriana":
+                                    screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
+
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(message_box.surf, message_box.rect)
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                      weapon_select)
+                        screen.blit(skill_bar.surf, skill_bar.rect)
+                        screen.blit(enemy_status.surf, enemy_status.rect)
+
+                        if player.role == "mage":
+                            screen.blit(mage_attack_button.surf, mage_attack_button.rect)
+                            if player.skills_mage["skill 2"] == "barrier":
+                                screen.blit(barrier_button.surf, barrier_button.rect)
+                        if player.role == "fighter":
+                            screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
+                            if player.skills_fighter["skill 2"] == "hard strike":
+                                screen.blit(hard_strike_button.surf, hard_strike_button.rect)
+                        if player.role == "scout":
+                            screen.blit(scout_attack_button.surf, scout_attack_button.rect)
+                            if player.skills_scout["skill 2"] == "sharp sense":
+                                screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                        if player.role == "":
+                            screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
+
+                        if not combat_cooldown:
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world)
@@ -5619,6 +5625,10 @@ if __name__ == '__main__':
                                                          magmon_battle_sprite, bandile_battle_sprite,
                                                          chinzilla_battle_sprite, barrier_active,
                                                          sharp_sense_active, hard_strike, graphic_dict, turn_taken)
+                        kasper_battle_sprite.update(560, 350, graphic_dict["kasper_attack"])
+                        torok_battle_sprite.update(535, 385, graphic_dict["torok_attack"])
+                        iriana_battle_sprite.update(825, 520, graphic_dict["iriana_attack"])
+
                         if current_enemy_battling.name == "snake":
                             screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
                         if current_enemy_battling.kind == "ghoul":
@@ -5634,8 +5644,45 @@ if __name__ == '__main__':
                         if current_enemy_battling.kind == "chinzilla":
                             screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
 
+                        for pet in player.pet:
+                            if pet.active:
+                                if pet.name == "kasper":
+                                    screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
+                                if pet.name == "torok":
+                                    screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
+                                if pet.name == "iriana":
+                                    screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
+
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(message_box.surf, message_box.rect)
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                      weapon_select)
+                        screen.blit(skill_bar.surf, skill_bar.rect)
+                        screen.blit(enemy_status.surf, enemy_status.rect)
+
+                        if player.role == "mage":
+                            screen.blit(mage_attack_button.surf, mage_attack_button.rect)
+                            if player.skills_mage["skill 2"] == "barrier":
+                                screen.blit(barrier_button.surf, barrier_button.rect)
+                        if player.role == "fighter":
+                            screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
+                            if player.skills_fighter["skill 2"] == "hard strike":
+                                screen.blit(hard_strike_button.surf, hard_strike_button.rect)
+                        if player.role == "scout":
+                            screen.blit(scout_attack_button.surf, scout_attack_button.rect)
+                            if player.skills_scout["skill 2"] == "sharp sense":
+                                screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                        if player.role == "":
+                            screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
+
+                        if not combat_cooldown:
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world)
