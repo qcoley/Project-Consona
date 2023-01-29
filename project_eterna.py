@@ -47,6 +47,9 @@ class Pet(pygame.sprite.Sprite):
         self.y_coordinate = y_coordinate
         self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
 
+    def update_image(self, image):
+        self.surf = image
+
 
 class PlayerAmuna(pygame.sprite.Sprite):
     def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
@@ -3525,7 +3528,7 @@ if __name__ == '__main__':
                 try:
                     for pet in player.pet:
                         if pet.active:
-                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                            pet.update(player.x_coordinate + 35, player.y_coordinate - 25)
                 except AttributeError:
                     pass
 
@@ -3588,8 +3591,22 @@ if __name__ == '__main__':
                             player.update("left", player.current_zone, walking_return["total time"])
                         if pressed_keys[K_w] or pressed_keys[K_UP]:
                             player.update("up", player.current_zone, walking_return["total time"])
+                            for pet in player.pet:
+                                if pet.name == "kasper":
+                                    pet.update_image(graphic_dict["kasper_back"])
+                                if pet.name == "torok":
+                                    pet.update_image(graphic_dict["torok_back"])
+                                if pet.name == "iriana":
+                                    pet.update_image(graphic_dict["iriana_back"])
                         if pressed_keys[K_s] or pressed_keys[K_DOWN]:
                             player.update("down", player.current_zone, walking_return["total time"])
+                            for pet in player.pet:
+                                if pet.name == "kasper":
+                                    pet.update_image(graphic_dict["kasper"])
+                                if pet.name == "torok":
+                                    pet.update_image(graphic_dict["torok"])
+                                if pet.name == "iriana":
+                                    pet.update_image(graphic_dict["iriana"])
 
                     # main event loop
                     for event in pygame.event.get():
@@ -5626,8 +5643,8 @@ if __name__ == '__main__':
                                                          chinzilla_battle_sprite, barrier_active,
                                                          sharp_sense_active, hard_strike, graphic_dict, turn_taken)
                         kasper_battle_sprite.update(560, 350, graphic_dict["kasper_attack"])
-                        torok_battle_sprite.update(535, 385, graphic_dict["torok_attack"])
-                        iriana_battle_sprite.update(825, 520, graphic_dict["iriana_attack"])
+                        torok_battle_sprite.update(600, 425, graphic_dict["torok_attack"])
+                        iriana_battle_sprite.update(550, 350, graphic_dict["iriana_attack"])
 
                         if current_enemy_battling.name == "snake":
                             screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)

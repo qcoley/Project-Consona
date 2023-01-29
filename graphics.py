@@ -843,6 +843,9 @@ def load_graphics():
     loaded_dict["kasper"] = pets_sheet[0]
     loaded_dict["torok"] = pets_sheet[1]
     loaded_dict["iriana"] = pets_sheet[2]
+    loaded_dict["kasper_back"] = pets_sheet[3]
+    loaded_dict["torok_back"] = pets_sheet[4]
+    loaded_dict["iriana_back"] = pets_sheet[5]
     # pets hatching ----------------------------------------------------------------------------------------------------
     pets_hatching_url = resource_path('resources/art/overlay_seed_hatching.png')
     pets_hatching_sheet = sprite_sheet((400, 400), pets_hatching_url)
