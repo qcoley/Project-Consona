@@ -470,6 +470,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 combat_event_dictionary["non effective pet"] = attack_dict["pet non effective"]
                 combat_event_dictionary["critical dealt"] = attack_dict["critical"]
                 combat_event_dictionary["pet damage"] = attack_dict["pet damage"]
+                combat_event_dictionary["player damage"] = attack_dict["damage"]
                 damage_to_enemy = attack_dict["damage"] + attack_dict["pet damage"]
 
                 enemy_combating.health = enemy_combating.health - damage_to_enemy

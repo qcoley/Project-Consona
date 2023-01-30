@@ -152,6 +152,7 @@ def load_graphics():
     terra_cave = pygame.image.load(resource_path('resources/art/overlay_trail_cave.png')).convert_alpha()
     sprite_chinzilla = pygame.image.load(resource_path('resources/art/sprite_chinzilla.png')).convert_alpha()
     overlay_eldream_river = pygame.image.load(resource_path('resources/art/overlay_eldream_river.png')).convert_alpha()
+    overlay_chroma_bridge = pygame.image.load(resource_path('resources/art/overlay_chroma_bridge.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -168,10 +169,11 @@ def load_graphics():
                   world_map_button, world_map_button_high, nede_big, dungeon_wall_1, dungeon_wall_2, dungeon_gate,
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
-                  overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay]
+                  overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["chroma_bridge"] = overlay_chroma_bridge
     loaded_dict["pet_energy"] = pet_energy_overlay
     loaded_dict["eldream_menagerie"] = eldream_menagerie
     loaded_dict["overlay_ectrene"] = overlay_ectrene
@@ -839,13 +841,19 @@ def load_graphics():
     loaded_dict["popup_interaction_purple"] = interaction_popup_sheet[2]
     # pets -------------------------------------------------------------------------------------------------------------
     pets_url = resource_path('resources/art/sprites_pets.png')
-    pets_sheet = sprite_sheet((70, 70), pets_url)
+    pets_sheet = sprite_sheet((100, 80), pets_url)
     loaded_dict["kasper"] = pets_sheet[0]
     loaded_dict["torok"] = pets_sheet[1]
     loaded_dict["iriana"] = pets_sheet[2]
     loaded_dict["kasper_back"] = pets_sheet[3]
     loaded_dict["torok_back"] = pets_sheet[4]
     loaded_dict["iriana_back"] = pets_sheet[5]
+    loaded_dict["kasper_right"] = pets_sheet[6]
+    loaded_dict["torok_right"] = pets_sheet[7]
+    loaded_dict["iriana_right"] = pets_sheet[8]
+    loaded_dict["kasper_left"] = pets_sheet[9]
+    loaded_dict["torok_left"] = pets_sheet[10]
+    loaded_dict["iriana_left"] = pets_sheet[11]
     # pets hatching ----------------------------------------------------------------------------------------------------
     pets_hatching_url = resource_path('resources/art/overlay_seed_hatching.png')
     pets_hatching_sheet = sprite_sheet((400, 400), pets_hatching_url)

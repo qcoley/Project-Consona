@@ -93,7 +93,7 @@ def role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys):
 
 # quest stars for npcs that update based on player quest progress
 def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star_torune,
-                           quest_progress_star, quest_complete_star, star_voruke, star_zerah, star_apothecary,
+                           quest_progress_star, quest_complete_star, star_voruke, star_zerah, star_kirean,
                            star_dionte, star_omoku, star_leyre, star_aitor, star_everett):
     if player.current_zone == "seldon":
         if player.quest_progress["sneaky snakes"] == 4:
@@ -123,9 +123,9 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
         if player.quest_status["elementary elementals"] and player.quest_progress["elementary elementals"] != 4:
             star_zerah.update(651, 50, quest_progress_star)
         if player.quest_progress["can't apothecary it"] == 4:
-            star_apothecary.update(star_apothecary.x_coordinate, star_apothecary.y_coordinate, quest_complete_star)
+            star_kirean.update(star_kirean.x_coordinate, star_kirean.y_coordinate, quest_complete_star)
         if player.quest_status["can't apothecary it"] and player.quest_progress["can't apothecary it"] != 4:
-            star_apothecary.update(star_apothecary.x_coordinate, star_apothecary.y_coordinate, quest_progress_star)
+            star_kirean.update(star_kirean.x_coordinate, star_kirean.y_coordinate, quest_progress_star)
     if player.current_zone == "terra trail":
         if player.quest_progress["it's dangerous to go alone"] == 1:
             star_dionte.update(625, 65, quest_complete_star)
@@ -176,13 +176,15 @@ def load_game(player, Item, graphics, Pet):
             player.flowers_amuna = player_load_info["flowers amuna"]
             player.flowers_sorae = player_load_info["flowers sorae"]
 
-            for pet in player_load_info["pets"]:
-                if pet == "kasper":
-                    player.pet.append(Pet("kasper", "scout", 1, 100, graphics["kasper"], False))
-                if pet == "torok":
-                    player.pet.append(Pet("torok", "fighter", 1, 100, graphics["torok"], False))
-                if pet == "iriana":
-                    player.pet.append(Pet("iriana", "mage", 1, 100, graphics["iriana"], False))
+            if player_load_info["pets"]["kasper_got"]:
+                player.pet.append(Pet("kasper", "scout", 1, player_load_info["pets"]["kasper_energy"],
+                                      graphics["kasper"], False))
+            if player_load_info["pets"]["torok_got"]:
+                player.pet.append(Pet("torok", "fighter", 1, player_load_info["pets"]["torok_energy"],
+                                      graphics["torok"], False))
+            if player_load_info["pets"]["iriana_got"]:
+                player.pet.append(Pet("iriana", "mage", 1, player_load_info["pets"]["iriana_energy"],
+                                      graphics["iriana"], False))
 
             if player.race == "amuna":
                 if player.role == "mage":
@@ -378,15 +380,19 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
     if player.equipment["boots"] != "":
         equipment_save.append(player.equipment["boots"].name)
 
-    pets = []
+    pets = {"kasper_got": False, "torok_got": False, "iriana_got": False, "kasper_energy": 0, "torok_energy": 0,
+            "iriana_energy": 0}
     try:
         for pet in player.pet:
             if pet.name == "kasper":
-                pets.append("kasper")
+                pets["kasper_got"] = True
+                pets["kasper_energy"] = pet.energy
             if pet.name == "torok":
-                pets.append("torok")
+                pets["torok_got"] = True
+                pets["torok_energy"] = pet.energy
             if pet.name == "iriana":
-                pets.append("iriana")
+                pets["iriana_got"] = True
+                pets["iriana_energy"] = pet.energy
     except AttributeError:
         pass
 
@@ -618,7 +624,9 @@ def attack_enemy(player, mob, sharp_sense_active):
         if pet.active:
             if pet.energy > 0:
                 # pet uses energy to do damage
-                pet.energy -= 5
+                pet.energy -= 2
+                if pet.energy < 0:
+                    pet.energy = 0
 
                 if pet.name == "iriana":
                     attack_dict["pet damage"] = 2

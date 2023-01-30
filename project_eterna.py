@@ -25,7 +25,7 @@ import zone_ectrenos
 # global variables
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
-velocity = 2
+velocity = 3
 
 
 # class objects --------------------------------------------------------------------------------------------------------
@@ -263,8 +263,8 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.x_coordinate = SCREEN_WIDTH - 350
             if self.y_coordinate <= 145:
                 self.y_coordinate = 145
-            elif self.y_coordinate >= SCREEN_HEIGHT - 130:
-                self.y_coordinate = SCREEN_HEIGHT - 130
+            elif self.y_coordinate >= SCREEN_HEIGHT - 145:
+                self.y_coordinate = SCREEN_HEIGHT - 145
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
@@ -670,6 +670,13 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+        if current_zone == "ectrenos left":
+            if player.equipment["boots"] != "chroma boots":
+                if pygame.sprite.collide_rect(player, chroma_bridge):
+                    if player.x_coordinate < chroma_bridge.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > chroma_bridge.x_coordinate:
+                        self.x_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -884,8 +891,8 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.x_coordinate = SCREEN_WIDTH - 350
             if self.y_coordinate <= 145:
                 self.y_coordinate = 145
-            elif self.y_coordinate >= SCREEN_HEIGHT - 130:
-                self.y_coordinate = SCREEN_HEIGHT - 130
+            elif self.y_coordinate >= SCREEN_HEIGHT - 145:
+                self.y_coordinate = SCREEN_HEIGHT - 145
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
@@ -1291,6 +1298,13 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+        if current_zone == "ectrenos left":
+            if player.equipment["boots"] != "chroma boots":
+                if pygame.sprite.collide_rect(player, chroma_bridge):
+                    if player.x_coordinate < chroma_bridge.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > chroma_bridge.x_coordinate:
+                        self.x_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -1505,8 +1519,8 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.x_coordinate = SCREEN_WIDTH - 350
             if self.y_coordinate <= 145:
                 self.y_coordinate = 145
-            elif self.y_coordinate >= SCREEN_HEIGHT - 130:
-                self.y_coordinate = SCREEN_HEIGHT - 130
+            elif self.y_coordinate >= SCREEN_HEIGHT - 145:
+                self.y_coordinate = SCREEN_HEIGHT - 145
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
@@ -1912,6 +1926,13 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+        if current_zone == "ectrenos left":
+            if player.equipment["boots"] != "chroma boots":
+                if pygame.sprite.collide_rect(player, chroma_bridge):
+                    if player.x_coordinate < chroma_bridge.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > chroma_bridge.x_coordinate:
+                        self.x_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -2745,6 +2766,8 @@ if __name__ == '__main__':
     eldream_riv_21 = UiElement("eldream river 21", 0, 540, graphic_dict["eldream_river"])
     overlay_ectrene = UiElement("ectrene", 525, 325, graphic_dict["overlay_ectrene"])
 
+    chroma_bridge = UiElement("chroma bridge", 477, 493, graphic_dict["chroma_bridge"])
+
     volcano_rect = pygame.Rect((450, 15), (100, 50))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
     ectrenos_entrance_rect = pygame.Rect((520, 520), (100, 50))
@@ -3536,7 +3559,7 @@ if __name__ == '__main__':
                                                           quest_star_celeste, quest_star_torune,
                                                           graphic_dict["quest_progress_star"],
                                                           graphic_dict["quest_complete_star"],
-                                                          quest_star_voruke, quest_star_zerah, quest_star_apothecary,
+                                                          quest_star_voruke, quest_star_zerah, quest_star_kirean,
                                                           quest_star_dionte, quest_star_omoku, quest_star_leyre,
                                                           quest_star_aitor, quest_star_everett)
 
@@ -3587,8 +3610,22 @@ if __name__ == '__main__':
                     if movement_able and in_over_world:
                         if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
                             player.update("right", player.current_zone, walking_return["total time"])
+                            for pet in player.pet:
+                                if pet.name == "kasper":
+                                    pet.update_image(graphic_dict["kasper_right"])
+                                if pet.name == "torok":
+                                    pet.update_image(graphic_dict["torok_right"])
+                                if pet.name == "iriana":
+                                    pet.update_image(graphic_dict["iriana_right"])
                         if pressed_keys[K_a] or pressed_keys[K_LEFT]:
                             player.update("left", player.current_zone, walking_return["total time"])
+                            for pet in player.pet:
+                                if pet.name == "kasper":
+                                    pet.update_image(graphic_dict["kasper_left"])
+                                if pet.name == "torok":
+                                    pet.update_image(graphic_dict["torok_left"])
+                                if pet.name == "iriana":
+                                    pet.update_image(graphic_dict["iriana_left"])
                         if pressed_keys[K_w] or pressed_keys[K_UP]:
                             player.update("up", player.current_zone, walking_return["total time"])
                             for pet in player.pet:
@@ -3890,6 +3927,14 @@ if __name__ == '__main__':
                                     player.y_coordinate = 655
                                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                   player.y_coordinate))
+                                    # keep player pet with player as they move
+                                    try:
+                                        for pet in player.pet:
+                                            if pet.active:
+                                                pet.update(player.x_coordinate + 35, player.y_coordinate - 25)
+                                    except AttributeError:
+                                        pass
+
                                     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
                                     info_text_1 = "You recalled to the seldon stone."
                                     over_world_song_set = False
@@ -3910,6 +3955,13 @@ if __name__ == '__main__':
                                         player.y_coordinate = 325
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                       player.y_coordinate))
+                                        # keep player pet with player as they move
+                                        try:
+                                            for pet in player.pet:
+                                                if pet.active:
+                                                    pet.update(player.x_coordinate + 35, player.y_coordinate - 25)
+                                        except AttributeError:
+                                            pass
                                         hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                                         info_text_1 = "You recalled to the korlok stone."
                                         over_world_song_set = False
@@ -3933,6 +3985,13 @@ if __name__ == '__main__':
                                         player.y_coordinate = 635
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
                                                                                       player.y_coordinate))
+                                        # keep player pet with player as they move
+                                        try:
+                                            for pet in player.pet:
+                                                if pet.active:
+                                                    pet.update(player.x_coordinate + 35, player.y_coordinate - 25)
+                                        except AttributeError:
+                                            pass
                                         hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                                         info_text_1 = "You recalled to the eldream stone."
                                         over_world_song_set = False
@@ -5505,13 +5564,12 @@ if __name__ == '__main__':
                             text_enemy_name_surf = font.render(str(current_enemy_battling.kind), True, "black",
                                                                (255, 204, 203))
                             text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                            text_enemy_name_rect.center = (808, 689)
-                            screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                            text_enemy_name_rect.center = (812, 689)
                             text_enemy_level_surf = font.render(str(current_enemy_battling.level), True, "black",
                                                                 (255, 204, 203))
                             text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                            text_enemy_level_rect.center = (915, 689)
-                            screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+                            text_enemy_level_rect.center = (918, 689)
+
                             if current_enemy_battling.type == "mage":
                                 type_advantage_overlay.update(580, 50, graphic_dict["mage_type_overlay"])
                             if current_enemy_battling.type == "fighter":
@@ -5584,6 +5642,8 @@ if __name__ == '__main__':
                                                       weapon_select)
                         screen.blit(skill_bar.surf, skill_bar.rect)
                         screen.blit(enemy_status.surf, enemy_status.rect)
+                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
                         if player.role == "mage":
                             screen.blit(mage_attack_button.surf, mage_attack_button.rect)
@@ -5642,9 +5702,16 @@ if __name__ == '__main__':
                                                          magmon_battle_sprite, bandile_battle_sprite,
                                                          chinzilla_battle_sprite, barrier_active,
                                                          sharp_sense_active, hard_strike, graphic_dict, turn_taken)
-                        kasper_battle_sprite.update(560, 350, graphic_dict["kasper_attack"])
-                        torok_battle_sprite.update(600, 425, graphic_dict["torok_attack"])
-                        iriana_battle_sprite.update(550, 350, graphic_dict["iriana_attack"])
+                        if not turn_taken:
+                            if kasper_unlocked or torok_unlocked or iriana_unlocked:
+                                for pet in player.pet:
+                                    if pet.energy > 0:
+                                        if pet.name == "kasper":
+                                            kasper_battle_sprite.update(560, 350, graphic_dict["kasper_attack"])
+                                        if pet.name == "torok":
+                                            torok_battle_sprite.update(590, 400, graphic_dict["torok_attack"])
+                                        if pet.name == "iriana":
+                                            iriana_battle_sprite.update(500, 350, graphic_dict["iriana_attack"])
 
                         if current_enemy_battling.name == "snake":
                             screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
@@ -5680,6 +5747,8 @@ if __name__ == '__main__':
                                                       weapon_select)
                         screen.blit(skill_bar.surf, skill_bar.rect)
                         screen.blit(enemy_status.surf, enemy_status.rect)
+                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
                         if player.role == "mage":
                             screen.blit(mage_attack_button.surf, mage_attack_button.rect)
@@ -5718,8 +5787,12 @@ if __name__ == '__main__':
                             if combat_events["effective pet"]:
                                 pet_damage_overlay.update(950, 275, graphic_dict["effective_pet_damage_img"])
                             screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
-                            screen.blit(pet_damage_overlay.surf, pet_damage_overlay.rect)
-                            damage_done_surf = level_up_font.render(str(combat_events["damage done"]),
+                            if kasper_unlocked or torok_unlocked or iriana_unlocked:
+                                for pet in player.pet:
+                                    if pet.active:
+                                        if pet.energy > 0:
+                                            screen.blit(pet_damage_overlay.surf, pet_damage_overlay.rect)
+                            damage_done_surf = level_up_font.render(str(combat_events["player damage"]),
                                                                     True, "black", "white")
                             damage_done_rect = damage_done_surf.get_rect()
                             damage_done_rect.center = (850, 225)
@@ -5728,7 +5801,11 @@ if __name__ == '__main__':
                                                                     True, "black", "white")
                             damage_pet_rect = damage_pet_surf.get_rect()
                             damage_pet_rect.center = (950, 275)
-                            screen.blit(damage_pet_surf, damage_pet_rect)
+                            if kasper_unlocked or torok_unlocked or iriana_unlocked:
+                                for pet in player.pet:
+                                    if pet.active:
+                                        if pet.energy > 0:
+                                            screen.blit(damage_pet_surf, damage_pet_rect)
                             if combat_events["critical dealt"]:
                                 screen.blit(critical_dealt_overlay.surf, critical_dealt_overlay.rect)
 
@@ -6157,10 +6234,6 @@ if __name__ == '__main__':
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
 
-                        if buy_clicked:
-                            for element in stardust_upgrade_elements:
-                                screen.blit(element.surf, element.rect)
-
                         quests_complete = 0
                         if player.quest_complete["sneaky snakes"]:
                             quests_complete += 1
@@ -6225,29 +6298,33 @@ if __name__ == '__main__':
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            stardust_star_overlay_eldream.update(500, 185, graphic_dict["stardust_star_01_eldream"])
+                            stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_01_eldream"])
                             screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
                         if quests_complete == 10:
                             stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            stardust_star_overlay_eldream.update(500, 185, graphic_dict["stardust_star_02_eldream"])
+                            stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_02_eldream"])
                             screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
                         if quests_complete == 11:
                             stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            stardust_star_overlay_eldream.update(500, 185, graphic_dict["stardust_star_03_eldream"])
+                            stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_03_eldream"])
                             screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
                         if quests_complete == 12:
                             stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
                             screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
                             stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
                             screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            stardust_star_overlay_eldream.update(500, 185, graphic_dict["stardust_star_04_eldream"])
+                            stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
                             screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+
+                        if buy_clicked:
+                            for element in stardust_upgrade_elements:
+                                screen.blit(element.surf, element.rect)
 
                         if first_shop_cond:
                             directional_arrow.update(855, 620, graphic_dict["arrow_down"])
@@ -7192,8 +7269,16 @@ if __name__ == '__main__':
                                                 pass
                                     else:
                                         if not seed_given:
+                                            hatch_ready = False
+                                            pet_hatch_window.update(pet_hatch_window.x_coordinate,
+                                                                    pet_hatch_window.y_coordinate,
+                                                                    graphic_dict["seed_hatching"])
+                                            pet_seed.update(pet_seed.x_coordinate, pet_seed.y_coordinate,
+                                                            graphic_dict["seed_img"])
                                             player.items.append(pet_seed)
                                             seed_given = True
+                                            hatched = False
+                                            hatch_show = True
                                 if torok_manage_button.rect.collidepoint(pos):
                                     if torok_unlocked:
                                         for pet in player.pet:
@@ -7202,8 +7287,16 @@ if __name__ == '__main__':
                                                 pass
                                     else:
                                         if not seed_given:
+                                            hatch_ready = False
+                                            pet_hatch_window.update(pet_hatch_window.x_coordinate,
+                                                                    pet_hatch_window.y_coordinate,
+                                                                    graphic_dict["seed_hatching"])
+                                            pet_seed.update(pet_seed.x_coordinate, pet_seed.y_coordinate,
+                                                            graphic_dict["seed_img"])
                                             player.items.append(pet_seed)
                                             seed_given = True
+                                            hatched = False
+                                            hatch_show = True
                                 if iriana_manage_button.rect.collidepoint(pos):
                                     if iriana_unlocked:
                                         for pet in player.pet:
@@ -7212,8 +7305,16 @@ if __name__ == '__main__':
                                                 pass
                                     else:
                                         if not seed_given:
+                                            hatch_ready = False
+                                            pet_hatch_window.update(pet_hatch_window.x_coordinate,
+                                                                    pet_hatch_window.y_coordinate,
+                                                                    graphic_dict["seed_hatching"])
+                                            pet_seed.update(pet_seed.x_coordinate, pet_seed.y_coordinate,
+                                                            graphic_dict["seed_img"])
                                             player.items.append(pet_seed)
                                             seed_given = True
+                                            hatched = False
+                                            hatch_show = True
 
                             # if seed is ready to hatch, give player whistle and unlock that pet. reset counts.
                             if hatch_ready:
@@ -7228,6 +7329,11 @@ if __name__ == '__main__':
                                                 kasper_unlocked = True
                                                 player.pet.append(pet_kasper)
                                                 player.items.append(pet_whistle_kasper)
+                                            else:
+                                                info_text_1 = "You've already hatched a Kasper!"
+                                                info_text_2 = "You got a Blueberry Cookie. "
+                                                player.items.append(Item("pet cookie", "cookie", 1078, 197,
+                                                                         graphic_dict["pet_cookie_img"], 1))
                                             seed_given = False
                                             for item in player.items:
                                                 if item.name == "pet seed":
@@ -7244,6 +7350,11 @@ if __name__ == '__main__':
                                                 torok_unlocked = True
                                                 player.pet.append(pet_torok)
                                                 player.items.append(pet_whistle_torok)
+                                            else:
+                                                info_text_1 = "You've already hatched a Torok!"
+                                                info_text_2 = "You got a Rock Candy. "
+                                                player.items.append(Item("pet candy", "candy", 1078, 197,
+                                                                         graphic_dict["pet_candy_img"], 1))
                                             seed_given = False
                                             for item in player.items:
                                                 if item.name == "pet seed":
@@ -7260,6 +7371,11 @@ if __name__ == '__main__':
                                                 iriana_unlocked = True
                                                 player.pet.append(pet_iriana)
                                                 player.items.append(pet_whistle_iriana)
+                                            else:
+                                                info_text_1 = "You've already hatched an Iriana!"
+                                                info_text_2 = "You got a Peach Tart. "
+                                                player.items.append(Item("pet tart", "tart", 1078, 197,
+                                                                         graphic_dict["pet_tart_img"], 1))
                                             seed_given = False
                                             for item in player.items:
                                                 if item.name == "pet seed":
@@ -7681,26 +7797,6 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["sorae"] += 10
-                                        # autosave on quest complete
-                                        try:
-                                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                         sharp_sense_learned, saved, npc_garan.gift,
-                                                                         rest_recover_show, knowledge_academia_show,
-                                                                         quest_guide_shown, battle_guide_shown,
-                                                                         rest_shown_before, quest_highlight_popup,
-                                                                         bridge_not_repaired, nede_ghoul_defeated,
-                                                                         bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                         crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                         switch_3, muchador_defeated, has_key,
-                                                                         mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                         gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned, rock_4_con, rock_5_con,
-                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked)
-                                        except PermissionError:
-                                            pass
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -7756,26 +7852,6 @@ if __name__ == '__main__':
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
                                         player.rupees += 10
-                                        # autosave on quest complete
-                                        try:
-                                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                         sharp_sense_learned, saved, npc_garan.gift,
-                                                                         rest_recover_show, knowledge_academia_show,
-                                                                         quest_guide_shown, battle_guide_shown,
-                                                                         rest_shown_before, quest_highlight_popup,
-                                                                         bridge_not_repaired, nede_ghoul_defeated,
-                                                                         bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                         crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                         switch_3, muchador_defeated, has_key,
-                                                                         mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                         gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned, rock_4_con, rock_5_con,
-                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked)
-                                        except PermissionError:
-                                            pass
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -7904,26 +7980,7 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["nuldar"] += 10
-                                        # autosave on quest complete
-                                        try:
-                                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                         sharp_sense_learned, saved, npc_garan.gift,
-                                                                         rest_recover_show, knowledge_academia_show,
-                                                                         quest_guide_shown, battle_guide_shown,
-                                                                         rest_shown_before, quest_highlight_popup,
-                                                                         bridge_not_repaired, nede_ghoul_defeated,
-                                                                         bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                         crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                         switch_3, muchador_defeated, has_key,
-                                                                         mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                         gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned, rock_4_con, rock_5_con,
-                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked)
-                                        except PermissionError:
-                                            pass
+
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -7979,26 +8036,6 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["nuldar"] += 10
-                                        # autosave on quest complete
-                                        try:
-                                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                         sharp_sense_learned, saved, npc_garan.gift,
-                                                                         rest_recover_show, knowledge_academia_show,
-                                                                         quest_guide_shown, battle_guide_shown,
-                                                                         rest_shown_before, quest_highlight_popup,
-                                                                         bridge_not_repaired, nede_ghoul_defeated,
-                                                                         bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                         crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                         switch_3, muchador_defeated, has_key,
-                                                                         mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                         gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned, rock_4_con, rock_5_con,
-                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked)
-                                        except PermissionError:
-                                            pass
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"

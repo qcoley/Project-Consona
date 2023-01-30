@@ -1531,11 +1531,15 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             amuna_location.update(seldon_map_button.x_coordinate - 75,
                                   seldon_map_button.y_coordinate - 25,
                                   graphic_dict["amuna_location"])
-        if player.current_zone == "korlok":
+        if player.current_zone == "korlok" or player.current_zone == "mines" or player.current_zone == "terra trail" \
+                or player.current_zone == "fishing hut" or player.current_zone == "reservoir a" or \
+                player.current_zone == "reservoir b" or player.current_zone == "reservoir c":
             amuna_location.update(korlok_map_button.x_coordinate,
                                   korlok_map_button.y_coordinate,
                                   graphic_dict["amuna_location"])
-        if player.current_zone == "eldream":
+        if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
+                player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
+                player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
             amuna_location.update(eldream_map_button.x_coordinate,
                                   eldream_map_button.y_coordinate,
                                   graphic_dict["amuna_location"])
@@ -1557,11 +1561,15 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             nuldar_location.update(seldon_map_button.x_coordinate - 75,
                                    seldon_map_button.y_coordinate - 25,
                                    graphic_dict["nuldar_location"])
-        if player.current_zone == "korlok":
+        if player.current_zone == "korlok" or player.current_zone == "mines" or player.current_zone == "terra trail"\
+                or player.current_zone == "fishing hut" or player.current_zone == "reservoir a" or \
+                player.current_zone == "reservoir b" or player.current_zone == "reservoir c":
             nuldar_location.update(korlok_map_button.x_coordinate,
                                    korlok_map_button.y_coordinate,
                                    graphic_dict["nuldar_location"])
-        if player.current_zone == "eldream":
+        if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
+                player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
+                player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
             nuldar_location.update(eldream_map_button.x_coordinate,
                                    eldream_map_button.y_coordinate,
                                    graphic_dict["nuldar_location"])
@@ -1583,11 +1591,15 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             sorae_location.update(seldon_map_button.x_coordinate - 75,
                                   seldon_map_button.y_coordinate - 25,
                                   graphic_dict["sorae_location"])
-        if player.current_zone == "korlok":
+        if player.current_zone == "korlok" or player.current_zone == "mines" or player.current_zone == "terra trail" \
+                or player.current_zone == "fishing hut" or player.current_zone == "reservoir a" or \
+                player.current_zone == "reservoir b" or player.current_zone == "reservoir c":
             sorae_location.update(korlok_map_button.x_coordinate,
                                   korlok_map_button.y_coordinate,
                                   graphic_dict["sorae_location"])
-        if player.current_zone == "eldream":
+        if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
+                player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
+                player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
             sorae_location.update(eldream_map_button.x_coordinate,
                                   eldream_map_button.y_coordinate,
                                   graphic_dict["sorae_location"])
