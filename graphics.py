@@ -75,6 +75,7 @@ def load_graphics():
     terra_trail_bg = pygame.image.load(resource_path('resources/art/bg_terra_trail.png')).convert_alpha()
     eldream_bg_screen = pygame.image.load(resource_path('resources/art/bg_eldream_district.png')).convert_alpha()
     eldream_inn_screen = pygame.image.load(resource_path('resources/art/bg_eldream_inn.png')).convert_alpha()
+    eldream_shop_screen = pygame.image.load(resource_path('resources/art/bg_eldream_shop.png')).convert_alpha()
     eldream_menagerie = pygame.image.load(resource_path('resources/art/bg_eldream_menagerie.png')).convert_alpha()
     ectrenos_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos.png')).convert_alpha()
     ectrenos_left_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_left.png')).convert_alpha()
@@ -209,6 +210,7 @@ def load_graphics():
     loaded_dict["mines_battle_screen"] = mines_battle_screen
     loaded_dict["seldon_shop_screen"] = seldon_shop_screen
     loaded_dict["korlok_shop_screen"] = korlok_shop_screen
+    loaded_dict["eldream_shop_screen"] = eldream_shop_screen
     loaded_dict["seldon_inn_screen"] = seldon_inn_screen
     loaded_dict["korlok_inn_screen"] = korlok_inn_screen
     loaded_dict["eldream_inn_screen"] = eldream_inn_screen
@@ -1243,6 +1245,9 @@ def load_graphics():
     loaded_dict["academia_cat_pet_img"] = cat_pet_sheet[1]
     loaded_dict["korlok_shop_cat_pet_img"] = cat_pet_sheet[2]
     loaded_dict["apothecary_cat_pet_img"] = cat_pet_sheet[3]
+    loaded_dict["eldream_shop_cat_pet_img"] = cat_pet_sheet[4]
+    loaded_dict["menagerie_cat_pet_img"] = cat_pet_sheet[5]
+    loaded_dict["marrow_cat_pet_img"] = cat_pet_sheet[6]
     # stardust outpost star overlays -----------------------------------------------------------------------------------
     stardust_stars_url = resource_path('resources/art/overlays_stardust_stars.png')
     stardust_stars_sheet = sprite_sheet((271, 105), stardust_stars_url)

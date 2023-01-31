@@ -589,10 +589,6 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.x_coordinate -= velocity
                     if player.x_coordinate > dungeon_drop_wall.x_coordinate:
                         self.x_coordinate += velocity
-                    if player.y_coordinate < dungeon_drop_wall.y_coordinate:
-                        self.y_coordinate -= velocity
-                    if player.y_coordinate > dungeon_drop_wall.y_coordinate:
-                        self.y_coordinate += velocity
             collided = pygame.sprite.spritecollideany(player, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if player.y_coordinate < collided.y_coordinate:
@@ -636,10 +632,6 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.x_coordinate -= velocity
                 if player.x_coordinate > terra_cave.x_coordinate:
                     self.x_coordinate += velocity
-                if player.y_coordinate < terra_cave.y_coordinate:
-                    self.y_coordinate -= velocity
-                if player.y_coordinate > terra_cave.y_coordinate:
-                    self.y_coordinate += velocity
             collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 7":
@@ -1217,10 +1209,6 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.x_coordinate -= velocity
                     if player.x_coordinate > dungeon_drop_wall.x_coordinate:
                         self.x_coordinate += velocity
-                    if player.y_coordinate < dungeon_drop_wall.y_coordinate:
-                        self.y_coordinate -= velocity
-                    if player.y_coordinate > dungeon_drop_wall.y_coordinate:
-                        self.y_coordinate += velocity
             collided = pygame.sprite.spritecollideany(player, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if player.y_coordinate < collided.y_coordinate:
@@ -1264,10 +1252,6 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.x_coordinate -= velocity
                 if player.x_coordinate > terra_cave.x_coordinate:
                     self.x_coordinate += velocity
-                if player.y_coordinate < terra_cave.y_coordinate:
-                    self.y_coordinate -= velocity
-                if player.y_coordinate > terra_cave.y_coordinate:
-                    self.y_coordinate += velocity
             collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 7":
@@ -1845,10 +1829,6 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.x_coordinate -= velocity
                     if player.x_coordinate > dungeon_drop_wall.x_coordinate:
                         self.x_coordinate += velocity
-                    if player.y_coordinate < dungeon_drop_wall.y_coordinate:
-                        self.y_coordinate -= velocity
-                    if player.y_coordinate > dungeon_drop_wall.y_coordinate:
-                        self.y_coordinate += velocity
             collided = pygame.sprite.spritecollideany(player, dungeon_walls, pygame.sprite.collide_rect_ratio(0.75))
             if collided:
                 if player.y_coordinate < collided.y_coordinate:
@@ -1892,10 +1872,6 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.x_coordinate -= velocity
                 if player.x_coordinate > terra_cave.x_coordinate:
                     self.x_coordinate += velocity
-                if player.y_coordinate < terra_cave.y_coordinate:
-                    self.y_coordinate -= velocity
-                if player.y_coordinate > terra_cave.y_coordinate:
-                    self.y_coordinate += velocity
             collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
                 if collided.name == "rock 7":
@@ -2207,6 +2183,7 @@ if __name__ == '__main__':
     mines_battle = graphic_dict["mines_battle_screen"]
     seldon_district_shop = graphic_dict["seldon_shop_screen"]
     korlok_district_shop = graphic_dict["korlok_shop_screen"]
+    eldream_district_shop = graphic_dict["eldream_shop_screen"]
     seldon_district_inn = graphic_dict["seldon_inn_screen"]
     korlok_district_inn = graphic_dict["korlok_inn_screen"]
     eldream_district_inn = graphic_dict["eldream_inn_screen"]
@@ -3541,11 +3518,6 @@ if __name__ == '__main__':
 
                 # print(player.x_coordinate, player.y_coordinate)
                 # print(player.current_zone)
-
-                # check each iteration if creature seed is ready to hatch from counters
-                hatch_ready = gameplay_functions.creature_update(player, seed_scout_count, seed_fighter_count,
-                                                                 seed_mage_count, hatch_ready,
-                                                                 graphic_dict["seed_ready_img"])
 
                 # keep player pet with player as they move
                 try:
@@ -5660,14 +5632,14 @@ if __name__ == '__main__':
                         if player.role == "":
                             screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
-                        if not combat_cooldown:
-                            if button_highlighted:
-                                screen.blit(button_highlight.surf, button_highlight.rect)
-
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
+
+                        if not combat_cooldown:
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
 
                         pygame.display.flip()
                         combat_cooldown = False
@@ -5765,14 +5737,14 @@ if __name__ == '__main__':
                         if player.role == "":
                             screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
-                        if not combat_cooldown:
-                            if button_highlighted:
-                                screen.blit(button_highlight.surf, button_highlight.rect)
-
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world)
                         drawing_functions.draw_it(screen)
+
+                        if not combat_cooldown:
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
 
                         # damage overlays, updated depending on if damage was in effective range
                         if combat_events["damage done"] != 0:
@@ -5920,6 +5892,11 @@ if __name__ == '__main__':
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
                                     shop_cat_pet = True
                                     cats_pet["korlok_shop"] = True
+                            if player.current_zone == "ectrenos right":
+                                cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
+                                if cat_pet_button_overlay.rect.collidepoint(pos):
+                                    shop_cat_pet = True
+                                    cats_pet["eldream_shop"] = True
 
                         shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame)
 
@@ -6168,7 +6145,7 @@ if __name__ == '__main__':
                     # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "ectrenos right" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
-                        screen.blit(korlok_district_shop, (0, 0))
+                        screen.blit(eldream_district_shop, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(offense_meter.surf, offense_meter.rect)
                         screen.blit(defense_meter.surf, defense_meter.rect)
@@ -6187,10 +6164,10 @@ if __name__ == '__main__':
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
-                        cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
+                        cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
                         screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                         if shop_cat_pet:
-                            cat_pet_animation_overlay.update(465, 407, graphic_dict["korlok_shop_cat_pet_img"])
+                            cat_pet_animation_overlay.update(445, 369, graphic_dict["eldream_shop_cat_pet_img"])
                             screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
                         if buy_clicked:
@@ -7273,9 +7250,8 @@ if __name__ == '__main__':
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["seed_hatching"])
-                                            pet_seed.update(pet_seed.x_coordinate, pet_seed.y_coordinate,
-                                                            graphic_dict["seed_img"])
-                                            player.items.append(pet_seed)
+                                            player.items.append(Item("pet seed", "seed", 1078, 197,
+                                                                     graphic_dict["seed_img"], 1))
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
@@ -7291,9 +7267,8 @@ if __name__ == '__main__':
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["seed_hatching"])
-                                            pet_seed.update(pet_seed.x_coordinate, pet_seed.y_coordinate,
-                                                            graphic_dict["seed_img"])
-                                            player.items.append(pet_seed)
+                                            player.items.append(Item("pet seed", "seed", 1078, 197,
+                                                                     graphic_dict["seed_img"], 1))
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
@@ -7309,9 +7284,8 @@ if __name__ == '__main__':
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["seed_hatching"])
-                                            pet_seed.update(pet_seed.x_coordinate, pet_seed.y_coordinate,
-                                                            graphic_dict["seed_img"])
-                                            player.items.append(pet_seed)
+                                            player.items.append(Item("pet seed", "seed", 1078, 197,
+                                                                     graphic_dict["seed_img"], 1))
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
@@ -7544,10 +7518,10 @@ if __name__ == '__main__':
                         screen.blit(xp_bar.surf, xp_bar.rect)
                         screen.blit(quest_button.surf, quest_button.rect)
                         screen.blit(star_power_meter.surf, star_power_meter.rect)
-                        cat_pet_button_overlay.update(630, 65, graphic_dict["cat_pet_button_overlay"])
+                        cat_pet_button_overlay.update(950, 130, graphic_dict["cat_pet_button_overlay"])
                         screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                         if menagerie_cat_pet:
-                            cat_pet_animation_overlay.update(634, 63, graphic_dict["apothecary_cat_pet_img"])
+                            cat_pet_animation_overlay.update(953, 131, graphic_dict["menagerie_cat_pet_img"])
                             screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
                         if not player.quest_complete["hatch 'em all"]:
@@ -8238,6 +8212,11 @@ if __name__ == '__main__':
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------
+                # check each iteration if creature seed is ready to hatch from counters
+                hatch_ready = gameplay_functions.creature_update(player, seed_scout_count,
+                                                                 seed_fighter_count,
+                                                                 seed_mage_count, hatch_ready,
+                                                                 graphic_dict["seed_ready_img"])
                 clock.tick(60)
                 pygame.display.flip()
 
