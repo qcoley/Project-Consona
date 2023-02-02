@@ -14,7 +14,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      info_text_3, info_text_4, current_enemy_battling, current_building_entering, in_battle,
                      movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                      equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
-                     rock, pet_energy_window):
+                     rock, pet_energy_window, stardust_top):
 
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
@@ -51,6 +51,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    screen.blit(stardust_top.surf, stardust_top.rect)
     try:
         for pet in player.pet:
             if pet.active:

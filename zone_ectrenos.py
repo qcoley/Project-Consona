@@ -511,7 +511,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     return ectrenos_front_return
 
 
-def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldream_overworld_music,
+def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, eldream_overworld_music,
                     over_world_song_set,
                     interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                     button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
@@ -537,7 +537,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldr
         pygame.mixer.music.play(loops=-1)
         over_world_song_set = True
 
-    screen.blit(ectrenos_left_bg, (0, 0))
+    screen.blit(ectrenos_alcove_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)

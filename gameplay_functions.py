@@ -331,6 +331,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["rock_5_con"] = player_load_info["rock_5_con"]
             load_return["rock_6_con"] = player_load_info["rock_6_con"]
             load_return["rock_7_con"] = player_load_info["rock_7_con"]
+            load_return["rock_8_con"] = player_load_info["rock_8_con"]
             load_return["apothecary_access"] = player_load_info["apothecary_access"]
             load_return["muchador_defeated"] = player_load_info["muchador_defeated"]
             load_return["mini_boss_1_defeated"] = player_load_info["mini_boss_1_defeated"]
@@ -365,7 +366,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               crate_1, crate_2, crate_3, crate_4, crate_5, switch_1, switch_2, switch_3, muchador_defeated, has_key,
               mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned,
               rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
-              seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked):
+              seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
+              rock_8_con):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -425,11 +427,11 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "mini_boss_1_defeated": mini_boss_1_defeated, "mini_boss_2_defeated": mini_boss_2_defeated,
                         "gloves_obtained": gloves_obtained, "korlok_attuned": korlok_attuned,
                         "eldream_attuned": eldream_attuned, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
-                        "rock_6_con": rock_6_con, "rock_7_con": rock_7_con, "chinzilla_defeated": chinzilla_defeated,
-                        "apothecary_access": apothecary_access, "flowers amuna": int(player.flowers_amuna),
-                        "flowers sorae": int(player.flowers_sorae), "beyond seldon": beyond_seldon,
-                        "seed given": seed_given, "hatch ready": hatch_ready, "pets": pets,
-                        "menagerie access": menagerie_access, "kasper unlocked": kasper_unlocked,
+                        "rock_6_con": rock_6_con, "rock_7_con": rock_7_con, "rock_8_con": rock_8_con,
+                        "chinzilla_defeated": chinzilla_defeated, "apothecary_access": apothecary_access,
+                        "flowers amuna": int(player.flowers_amuna), "flowers sorae": int(player.flowers_sorae),
+                        "beyond seldon": beyond_seldon, "seed given": seed_given, "hatch ready": hatch_ready,
+                        "pets": pets, "menagerie access": menagerie_access, "kasper unlocked": kasper_unlocked,
                         "torok unlocked": torok_unlocked, "iriana unlocked": iriana_unlocked}
     try:
         try:

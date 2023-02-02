@@ -372,10 +372,29 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 360
             elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
                 self.y_coordinate = 230
-            elif 645 >= self.x_coordinate >= 500 and 358 >= self.y_coordinate >= 232:
-                self.x_coordinate = 645
+            elif 660 >= self.x_coordinate >= 500 and 358 >= self.y_coordinate >= 232:
+                self.x_coordinate = 660
             elif 500 >= self.x_coordinate >= 395 and 358 >= self.y_coordinate >= 232:
                 self.x_coordinate = 395
+            if self.y_coordinate < 235 and self.x_coordinate > 470:
+                if self.x_coordinate < 542:
+                    self.x_coordinate = 542
+            if self.y_coordinate < 235 and self.x_coordinate < 470:
+                if self.x_coordinate > 440:
+                    self.x_coordinate = 440
+            if self.x_coordinate < 445 and 250 < self.y_coordinate < 330:
+                if self.x_coordinate < 265:
+                    self.x_coordinate = 265
+                if self.x_coordinate > 345:
+                    self.x_coordinate = 345
+            if self.x_coordinate < 250 and 300 < self.y_coordinate < 335:
+                self.y_coordinate = 335
+            if 400 > self.x_coordinate > 360 and 300 < self.y_coordinate < 335:
+                self.y_coordinate = 335
+            if self.x_coordinate < 250 and 300 > self.y_coordinate > 240:
+                self.y_coordinate = 240
+            if 360 < self.x_coordinate < 440 and 300 > self.y_coordinate > 240:
+                self.y_coordinate = 240
         if current_zone == "korlok":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -517,6 +536,18 @@ class PlayerAmuna(pygame.sprite.Sprite):
             elif self.y_coordinate >= 545:
                 self.y_coordinate = 545
 
+        if current_zone == "nascent":
+            collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if collided.name == "rock 8":
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -654,6 +685,12 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     if player.y_coordinate < collided.y_coordinate:
                         self.y_coordinate -= velocity
                     if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
+            if player.equipment["boots"] != "chroma boots":
+                if pygame.sprite.collide_rect(player, chroma_bridge_small):
+                    if player.y_coordinate < chroma_bridge_small.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate < 335:
                         self.y_coordinate += velocity
         if current_zone == "eldream":
             collided = pygame.sprite.spritecollideany(player, eldream_river)
@@ -992,10 +1029,30 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 360
             elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
                 self.y_coordinate = 230
-            elif 645 >= self.x_coordinate >= 500 and 358 >= self.y_coordinate >= 232:
-                self.x_coordinate = 645
+            elif 660 >= self.x_coordinate >= 500 and 358 >= self.y_coordinate >= 232:
+                self.x_coordinate = 660
             elif 500 >= self.x_coordinate >= 395 and 358 >= self.y_coordinate >= 232:
                 self.x_coordinate = 395
+            if self.y_coordinate < 235 and self.x_coordinate > 470:
+                if self.x_coordinate < 542:
+                    self.x_coordinate = 542
+            if self.y_coordinate < 235 and self.x_coordinate < 470:
+                if self.x_coordinate > 440:
+                    self.x_coordinate = 440
+            if self.x_coordinate < 445 and 250 < self.y_coordinate < 330:
+                if self.x_coordinate < 265:
+                    self.x_coordinate = 265
+                if self.x_coordinate > 345:
+                    self.x_coordinate = 345
+            if self.x_coordinate < 250 and 300 < self.y_coordinate < 335:
+                self.y_coordinate = 335
+            if 400 > self.x_coordinate > 360 and 300 < self.y_coordinate < 335:
+                self.y_coordinate = 335
+            if self.x_coordinate < 250 and 300 > self.y_coordinate > 240:
+                self.y_coordinate = 240
+            if 360 < self.x_coordinate < 440 and 300 > self.y_coordinate > 240:
+                self.y_coordinate = 240
+
         if current_zone == "korlok":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -1137,6 +1194,18 @@ class PlayerNuldar(pygame.sprite.Sprite):
             elif self.y_coordinate >= 545:
                 self.y_coordinate = 545
 
+        if current_zone == "nascent":
+            collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if collided.name == "rock 8":
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -1274,6 +1343,12 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     if player.y_coordinate < collided.y_coordinate:
                         self.y_coordinate -= velocity
                     if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
+            if player.equipment["boots"] != "chroma boots":
+                if pygame.sprite.collide_rect(player, chroma_bridge_small):
+                    if player.y_coordinate < chroma_bridge_small.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate < 335:
                         self.y_coordinate += velocity
         if current_zone == "eldream":
             collided = pygame.sprite.spritecollideany(player, eldream_river)
@@ -1612,10 +1687,29 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 360
             elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
                 self.y_coordinate = 230
-            elif 645 >= self.x_coordinate >= 500 and 358 >= self.y_coordinate >= 232:
-                self.x_coordinate = 645
+            elif 660 >= self.x_coordinate >= 500 and 358 >= self.y_coordinate >= 232:
+                self.x_coordinate = 660
             elif 500 >= self.x_coordinate >= 395 and 358 >= self.y_coordinate >= 232:
                 self.x_coordinate = 395
+            if self.y_coordinate < 235 and self.x_coordinate > 470:
+                if self.x_coordinate < 542:
+                    self.x_coordinate = 542
+            if self.y_coordinate < 235 and self.x_coordinate < 470:
+                if self.x_coordinate > 440:
+                    self.x_coordinate = 440
+            if self.x_coordinate < 445 and 250 < self.y_coordinate < 330:
+                if self.x_coordinate < 265:
+                    self.x_coordinate = 265
+                if self.x_coordinate > 345:
+                    self.x_coordinate = 345
+            if self.x_coordinate < 250 and 300 < self.y_coordinate < 335:
+                self.y_coordinate = 335
+            if 400 > self.x_coordinate > 360 and 300 < self.y_coordinate < 335:
+                self.y_coordinate = 335
+            if self.x_coordinate < 250 and 300 > self.y_coordinate > 240:
+                self.y_coordinate = 240
+            if 360 < self.x_coordinate < 440 and 300 > self.y_coordinate > 240:
+                self.y_coordinate = 240
         if current_zone == "korlok":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -1757,6 +1851,18 @@ class PlayerSorae(pygame.sprite.Sprite):
             elif self.y_coordinate >= 545:
                 self.y_coordinate = 545
 
+        if current_zone == "nascent":
+            collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
+            if collided:
+                if collided.name == "rock 8":
+                    if player.x_coordinate < collided.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > collided.x_coordinate:
+                        self.x_coordinate += velocity
+                    if player.y_coordinate < collided.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
         if current_zone == "seldon":
             collided = pygame.sprite.spritecollideany(player, environments, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -1894,6 +2000,12 @@ class PlayerSorae(pygame.sprite.Sprite):
                     if player.y_coordinate < collided.y_coordinate:
                         self.y_coordinate -= velocity
                     if player.y_coordinate > collided.y_coordinate:
+                        self.y_coordinate += velocity
+            if player.equipment["boots"] != "chroma boots":
+                if pygame.sprite.collide_rect(player, chroma_bridge_small):
+                    if player.y_coordinate < chroma_bridge_small.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate < 335:
                         self.y_coordinate += velocity
         if current_zone == "eldream":
             collided = pygame.sprite.spritecollideany(player, eldream_river)
@@ -2206,6 +2318,7 @@ if __name__ == '__main__':
     ectrenos_left_bg = graphic_dict["ectrenos_left_bg"]
     ectrenos_right_bg = graphic_dict["ectrenos_right_bg"]
     ectrenos_front_bg = graphic_dict["ectrenos_front_bg"]
+    ectrenos_alcove_bg = graphic_dict["ectrenos_alcove_bg"]
     amuna_character_screen = graphic_dict["a_char_screen"]
     nuldar_character_screen = graphic_dict["n_char_screen"]
     sorae_character_screen = graphic_dict["s_char_screen"]
@@ -2744,6 +2857,7 @@ if __name__ == '__main__':
     overlay_ectrene = UiElement("ectrene", 525, 325, graphic_dict["overlay_ectrene"])
 
     chroma_bridge = UiElement("chroma bridge", 477, 493, graphic_dict["chroma_bridge"])
+    chroma_bridge_small = UiElement("chroma bridge small", 308, 281, graphic_dict["chroma_bridge_small"])
 
     volcano_rect = pygame.Rect((450, 15), (100, 50))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
@@ -2759,6 +2873,8 @@ if __name__ == '__main__':
     terra_mountains = UiElement("terra mountains", 250, 270, graphic_dict["terra_mountains"])
     terra_cave = UiElement("terra cave", 100, 400, graphic_dict["terra_cave"])
 
+    stardust_top = UiElement("stardust top", 531, 205, graphic_dict["stardust_top"])
+
     # dungeon rocks
     rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock"], 0)
     rock_2 = Item("rock 2", "rock", 580, 255, graphic_dict["rock"], 0)
@@ -2770,6 +2886,8 @@ if __name__ == '__main__':
     rock_6 = Item("rock 6", "rock", 750, 60, graphic_dict["rock_small"], 0)
     # terra trail rock
     rock_7 = Item("rock 7", "rock", 515, 395, graphic_dict["rock_small"], 0)
+    # nascent grove rock
+    rock_8 = Item("rock 8", "rock", 405, 500, graphic_dict["rock_small"], 0)
 
     # flowers for apothecary
     flower_seldon_1 = Item("flower seldon 1", "flower", 190, 185, graphic_dict["flower_seldon"], 0)
@@ -2840,7 +2958,7 @@ if __name__ == '__main__':
     ores.add(mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
     dungeon_rocks.add(rock_1, rock_2)
     korlok_rocks.add(rock_4, rock_5, rock_6)
-    other_rocks.add(rock_3, rock_7)
+    other_rocks.add(rock_3, rock_7, rock_8)
     seldon_flowers.add(flower_seldon_1, flower_seldon_2, flower_seldon_3, flower_seldon_4, flower_seldon_5)
     eldream_flowers.add(flower_eldream_1, flower_eldream_2, flower_eldream_3, flower_eldream_4, flower_eldream_5)
     eldream_river.add(eldream_riv_1, eldream_riv_2, eldream_riv_3, eldream_riv_4, eldream_riv_5, eldream_riv_6,
@@ -2858,7 +2976,7 @@ if __name__ == '__main__':
     most_sprites.add(npcs_seldon, trees, amuna_buildings, quest_items_seldon, seldon_enemies, hearth_stone, rohir_gate)
     user_interface.add(rest_button, buy_button, leave_button, character_button, quests_button, save_button,
                        map_button, message_box, location_overlay, star_power_meter)
-    interactables_nascent.add(nascent_gate)
+    interactables_nascent.add(nascent_gate, rock_8)
     interactables_seldon.add(npcs_seldon, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon,
                              seldon_flowers)
     interactables_stardust.add(stardust_entrance, nede, ghoul_nede, rock_3)
@@ -3009,6 +3127,7 @@ if __name__ == '__main__':
     rock_5_con = False
     rock_6_con = False
     rock_7_con = False
+    rock_8_con = False
 
     over_world_song_set = False
     battle_song_set = False
@@ -3378,6 +3497,7 @@ if __name__ == '__main__':
                     rock_5_con = load_returned["rock_5_con"]
                     rock_6_con = load_returned["rock_6_con"]
                     rock_7_con = load_returned["rock_7_con"]
+                    rock_8_con = load_returned["rock_8_con"]
                     muchador_defeated = load_returned["muchador_defeated"]
                     chinzilla_defeated = load_returned["chinzilla_defeated"]
                     has_key = load_returned["has_key"]
@@ -3824,7 +3944,7 @@ if __name__ == '__main__':
                                                                      chinzilla_defeated, apothecary_access,
                                                                      beyond_seldon, seed_given, hatch_ready,
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked)
+                                                                     iriana_unlocked, rock_8_con)
                                         saved = True
                                         saving = False
                                         info_text_1 = "You saved your game. "
@@ -3843,7 +3963,8 @@ if __name__ == '__main__':
                                                              eldream_attuned, rock_4_con, rock_5_con, rock_6_con,
                                                              rock_7_con, chinzilla_defeated, apothecary_access,
                                                              beyond_seldon, seed_given, hatch_ready, menagerie_access,
-                                                             kasper_unlocked, torok_unlocked, iriana_unlocked)
+                                                             kasper_unlocked, torok_unlocked, iriana_unlocked,
+                                                             rock_8_con)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -4002,6 +4123,31 @@ if __name__ == '__main__':
                     screen.blit(nascent_grove_bg, (0, 0))
                     screen.blit(equipment_screen.surf, equipment_screen.rect)
                     screen.blit(nascent_gate.surf, nascent_gate.rect)
+                    screen.blit(rock_8.surf, rock_8.rect)
+                    try:
+                        for pet in player.pet:
+                            if pet.active:
+                                screen.blit(pet.surf, pet.rect)
+                    except AttributeError:
+                        pass
+                    screen.blit(player.surf, player.rect)
+                    try:
+                        for pet in player.pet:
+                            if pet.active:
+                                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green",
+                                                              "light yellow")
+                                pet_energy_rect = pet_energy_surf.get_rect()
+                                pet_energy_rect.midleft = (345, 57)
+                                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                                screen.blit(pet_energy_surf, pet_energy_rect)
+                    except AttributeError:
+                        pass
+
+                    text_rupee_surf = font.render(str(player.rupees), True, "black", "light green")
+                    text_rupee_rect = text_rupee_surf.get_rect()
+                    text_rupee_rect.center = (1120, 693)
+                    screen.blit(text_rupee_surf, text_rupee_rect)
+
                     screen.blit(player.surf, player.rect)
 
                     if pygame.sprite.collide_rect(player, nascent_gate):
@@ -4017,6 +4163,32 @@ if __name__ == '__main__':
                     else:
                         nascent_gate.update(nascent_gate.x_coordinate, nascent_gate.y_coordinate,
                                             graphic_dict["nascent_gate_closed"])
+
+                    if pygame.sprite.collide_rect(player, rock_8):
+                        interaction_popup.update(rock_8.x_coordinate, rock_8.y_coordinate - 50,
+                                                 graphic_dict["popup_interaction"])
+                        screen.blit(interaction_popup.surf, interaction_popup.rect)
+                        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
+                        interaction_info_rect = interaction_info_surf.get_rect()
+                        interaction_info_rect.center = (rock_8.x_coordinate, rock_8.y_coordinate - 50)
+                        screen.blit(interaction_info_surf, interaction_info_rect)
+
+                        if interacted and in_over_world:
+                            try:
+                                if player.equipment["gloves"].name == "power gloves":
+                                    if rock_8.x_coordinate == 405:
+                                        rock_8.update(rock_8.x_coordinate + 120, rock_8.y_coordinate,
+                                                      graphic_dict["rock_small"])
+                                        if not rock_8_con:
+                                            player.rupees += 50
+                                            rock_8_con = True
+                                            info_text_1 = "You found 50 Rupees under the rock!"
+                                            info_text_2 = ""
+                                else:
+                                    pass
+                            except AttributeError:
+                                pass
+                            interacted = False
 
                     # move player to seldon district when they approach nascent grove exit
                     if player.x_coordinate > 700 and player.y_coordinate < 80:
@@ -4612,7 +4784,8 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, screen, graphic_dict, player,
-                                                                             ectrenos_right_bg, eldream_overworld_music,
+                                                                             ectrenos_alcove_bg,
+                                                                             eldream_overworld_music,
                                                                              over_world_song_set, interaction_popup,
                                                                              font, save_check_window, user_interface,
                                                                              bar_backdrop, hp_bar, en_bar, xp_bar,
@@ -4816,7 +4989,7 @@ if __name__ == '__main__':
                                                                        bandile_battle_sprite, chinzilla_battle_sprite,
                                                                        equipment_screen, staff, sword, bow, npc_garan,
                                                                        offense_meter, defense_meter, weapon_select,
-                                                                       rock_3, pet_energy_window)
+                                                                       rock_3, pet_energy_window, stardust_top)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -7004,7 +7177,7 @@ if __name__ == '__main__':
                                                                      chinzilla_defeated, apothecary_access,
                                                                      beyond_seldon, seed_given, hatch_ready,
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked)
+                                                                     iriana_unlocked, rock_8_con)
                                     except PermissionError:
                                         pass
 
@@ -7427,7 +7600,7 @@ if __name__ == '__main__':
                                                                      chinzilla_defeated, apothecary_access,
                                                                      beyond_seldon, seed_given, hatch_ready,
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked)
+                                                                     iriana_unlocked, rock_8_con)
                                     except PermissionError:
                                         pass
 
@@ -7713,7 +7886,7 @@ if __name__ == '__main__':
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
                                                                          hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked)
+                                                                         torok_unlocked, iriana_unlocked, rock_8_con)
                                         except PermissionError:
                                             pass
                                     else:
@@ -7897,7 +8070,7 @@ if __name__ == '__main__':
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
                                                                          hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked)
+                                                                         torok_unlocked, iriana_unlocked, rock_8_con)
                                         except PermissionError:
                                             pass
                                     else:
@@ -8081,7 +8254,7 @@ if __name__ == '__main__':
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
                                                                          hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked)
+                                                                         torok_unlocked, iriana_unlocked, rock_8_con)
                                         except PermissionError:
                                             pass
                                     else:
