@@ -535,6 +535,38 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 330
             elif self.y_coordinate >= 545:
                 self.y_coordinate = 545
+        if current_zone == "ectrenos alcove":
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate < 40:
+                self.x_coordinate = 40
+            if self.y_coordinate <= 110:
+                self.y_coordinate = 110
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
+            if self.y_coordinate > 525 and self.x_coordinate < 620 or \
+                    self.y_coordinate > 525 and self.x_coordinate > 920:
+                if self.y_coordinate < 615:
+                    self.y_coordinate = 615
+                if self.x_coordinate < 350:
+                    self.x_coordinate = 350
+            if 385 < self.y_coordinate < 615:
+                if self.x_coordinate < 640:
+                    self.x_coordinate = 640
+                if self.x_coordinate > 900:
+                    self.x_coordinate = 900
+            if self.y_coordinate < 525 and self.x_coordinate < 620 or \
+                    self.y_coordinate < 525 and self.x_coordinate > 920:
+                if self.y_coordinate > 380:
+                    self.y_coordinate = 380
+            if self.x_coordinate > 490 and self.y_coordinate < 160:
+                self.y_coordinate = 160
+            if self.x_coordinate > 790 and self.y_coordinate < 205:
+                self.y_coordinate = 205
+            if self.x_coordinate < 280 and self.y_coordinate < 160:
+                self.y_coordinate = 160
+            if self.x_coordinate < 280 and self.y_coordinate > 290:
+                self.y_coordinate = 290
 
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
@@ -699,13 +731,13 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
-        if current_zone == "ectrenos left":
+        if current_zone == "ectrenos alcove":
             if player.equipment["boots"] != "chroma boots":
                 if pygame.sprite.collide_rect(player, chroma_bridge):
-                    if player.x_coordinate < chroma_bridge.x_coordinate:
-                        self.x_coordinate -= velocity
-                    if player.x_coordinate > chroma_bridge.x_coordinate:
-                        self.x_coordinate += velocity
+                    if player.y_coordinate < chroma_bridge.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate < 616:
+                        self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -1193,6 +1225,38 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 330
             elif self.y_coordinate >= 545:
                 self.y_coordinate = 545
+        if current_zone == "ectrenos alcove":
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate < 40:
+                self.x_coordinate = 40
+            if self.y_coordinate <= 110:
+                self.y_coordinate = 110
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
+            if self.y_coordinate > 525 and self.x_coordinate < 620 or \
+                    self.y_coordinate > 525 and self.x_coordinate > 920:
+                if self.y_coordinate < 615:
+                    self.y_coordinate = 615
+                if self.x_coordinate < 350:
+                    self.x_coordinate = 350
+            if 385 < self.y_coordinate < 615:
+                if self.x_coordinate < 640:
+                    self.x_coordinate = 640
+                if self.x_coordinate > 900:
+                    self.x_coordinate = 900
+            if self.y_coordinate < 525 and self.x_coordinate < 620 or \
+                    self.y_coordinate < 525 and self.x_coordinate > 920:
+                if self.y_coordinate > 380:
+                    self.y_coordinate = 380
+            if self.x_coordinate > 490 and self.y_coordinate < 160:
+                self.y_coordinate = 160
+            if self.x_coordinate > 790 and self.y_coordinate < 205:
+                self.y_coordinate = 205
+            if self.x_coordinate < 280 and self.y_coordinate < 160:
+                self.y_coordinate = 160
+            if self.x_coordinate < 280 and self.y_coordinate > 290:
+                self.y_coordinate = 290
 
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
@@ -1364,6 +1428,13 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.x_coordinate -= velocity
                     if player.x_coordinate > chroma_bridge.x_coordinate:
                         self.x_coordinate += velocity
+        if current_zone == "ectrenos alcove":
+            if player.equipment["boots"] != "chroma boots":
+                if pygame.sprite.collide_rect(player, chroma_bridge):
+                    if player.y_coordinate < chroma_bridge.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate < 616:
+                        self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -1850,6 +1921,38 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 330
             elif self.y_coordinate >= 545:
                 self.y_coordinate = 545
+        if current_zone == "ectrenos alcove":
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate < 40:
+                self.x_coordinate = 40
+            if self.y_coordinate <= 110:
+                self.y_coordinate = 110
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
+            if self.y_coordinate > 525 and self.x_coordinate < 620 or \
+                    self.y_coordinate > 525 and self.x_coordinate > 920:
+                if self.y_coordinate < 615:
+                    self.y_coordinate = 615
+                if self.x_coordinate < 350:
+                    self.x_coordinate = 350
+            if 385 < self.y_coordinate < 615:
+                if self.x_coordinate < 640:
+                    self.x_coordinate = 640
+                if self.x_coordinate > 900:
+                    self.x_coordinate = 900
+            if self.y_coordinate < 525 and self.x_coordinate < 620 or \
+                    self.y_coordinate < 525 and self.x_coordinate > 920:
+                if self.y_coordinate > 380:
+                    self.y_coordinate = 380
+            if self.x_coordinate > 490 and self.y_coordinate < 160:
+                self.y_coordinate = 160
+            if self.x_coordinate > 790 and self.y_coordinate < 205:
+                self.y_coordinate = 205
+            if self.x_coordinate < 280 and self.y_coordinate < 160:
+                self.y_coordinate = 160
+            if self.x_coordinate < 280 and self.y_coordinate > 290:
+                self.y_coordinate = 290
 
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(player, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
@@ -2021,6 +2124,13 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.x_coordinate -= velocity
                     if player.x_coordinate > chroma_bridge.x_coordinate:
                         self.x_coordinate += velocity
+        if current_zone == "ectrenos alcove":
+            if player.equipment["boots"] != "chroma boots":
+                if pygame.sprite.collide_rect(player, chroma_bridge):
+                    if player.y_coordinate < chroma_bridge.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if player.y_coordinate < 616:
+                        self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -2863,6 +2973,7 @@ if __name__ == '__main__':
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
     ectrenos_entrance_rect = pygame.Rect((520, 520), (100, 50))
     ectrenos_ladder_rect = pygame.Rect((500, 520), (100, 50))
+    alcove_ladder_rect = pygame.Rect((400, 550), (100, 50))
     ectrenos_inn_entrance = pygame.Rect((825, 275), (100, 100))
     ectrenos_shop_entrance = pygame.Rect((215, 175), (100, 100))
     ectrenos_pet_entrance = pygame.Rect((775, 175), (100, 100))
@@ -2942,6 +3053,7 @@ if __name__ == '__main__':
     interactables_reservoir_b = pygame.sprite.Group()
     interactables_reservoir_c = pygame.sprite.Group()
     interactables_ectrenos = pygame.sprite.Group()
+    interactables_ectrenos_alcove = pygame.sprite.Group()
 
     snakes.add(snake_1, snake_2, snake_3, snake_4)
     ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
@@ -3625,6 +3737,11 @@ if __name__ == '__main__':
                         player.x_coordinate = 210
                         player.y_coordinate = 515
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                    if player.current_zone == "ectrenos alcove":
+                        player.x_coordinate = 425
+                        player.y_coordinate = 675
+                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        chroma_bridge.update(764, 487, graphic_dict["chroma_bridge"])
 
                 except TypeError:
                     pass
@@ -3636,7 +3753,7 @@ if __name__ == '__main__':
         if start_chosen:
             if player.alive_status:
 
-                # print(player.x_coordinate, player.y_coordinate)
+                print(player.x_coordinate, player.y_coordinate)
                 # print(player.current_zone)
 
                 # keep player pet with player as they move
@@ -3834,6 +3951,9 @@ if __name__ == '__main__':
                                         interacted = True
                                 if player.current_zone == "ectrenos left":
                                     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
+                                        interacted = True
+                                if player.current_zone == "ectrenos alcove":
+                                    if pygame.Rect.colliderect(player.rect, alcove_ladder_rect):
                                         interacted = True
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -4479,7 +4599,8 @@ if __name__ == '__main__':
                                                                          Enemy, Item, UiElement, seldon_flowers,
                                                                          interactables_eldream, ectrenos_entrance_rect,
                                                                          overlay_ectrene, ectrenos_ladder_rect,
-                                                                         quest_star_leyre, pet_energy_window)
+                                                                         quest_star_leyre, pet_energy_window,
+                                                                         chroma_bridge)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -4785,7 +4906,7 @@ if __name__ == '__main__':
 
                     ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, screen, graphic_dict, player,
                                                                              ectrenos_alcove_bg,
-                                                                             eldream_overworld_music,
+                                                                             eldream_building_music,
                                                                              over_world_song_set, interaction_popup,
                                                                              font, save_check_window, user_interface,
                                                                              bar_backdrop, hp_bar, en_bar, xp_bar,
@@ -4822,7 +4943,8 @@ if __name__ == '__main__':
                                                                              Enemy, Item, UiElement, seldon_flowers,
                                                                              interactables_eldream,
                                                                              ectrenos_entrance_rect, overlay_ectrene,
-                                                                             pet_energy_window)
+                                                                             pet_energy_window, alcove_ladder_rect,
+                                                                             chroma_bridge)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]

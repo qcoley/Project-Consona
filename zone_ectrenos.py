@@ -20,7 +20,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
                   magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                   UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ladder,
-                  quest_star_leyre, pet_energy_window):
+                  quest_star_leyre, pet_energy_window, chroma_bridge):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -71,9 +71,9 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
 
         if interacted and in_over_world:
             interacted = False
-            over_world_song_set = False
+            chroma_bridge.update(764, 487, graphic_dict["chroma_bridge"])
             player.current_zone = "ectrenos alcove"
-            player.x_coordinate = 500
+            player.x_coordinate = 425
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
@@ -511,7 +511,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     return ectrenos_front_return
 
 
-def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, eldream_overworld_music,
+def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, eldream_building_music,
                     over_world_song_set,
                     interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                     button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
@@ -529,11 +529,11 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     ghouls,
                     magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                     UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
-                    pet_energy_window):
+                    pet_energy_window, ladder, chroma_bridge):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(eldream_overworld_music)
+        pygame.mixer.music.load(eldream_building_music)
         pygame.mixer.music.play(loops=-1)
         over_world_song_set = True
 
@@ -560,6 +560,27 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if pygame.Rect.colliderect(player.rect, ladder):
+        interaction_popup.update(420, 525, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Ectrenos"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (420, 525)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to climb up ladder."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            chroma_bridge.update(477, 493, graphic_dict["chroma_bridge"])
+            player.current_zone = "ectrenos"
+            player.x_coordinate = 525
+            player.y_coordinate = 648
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
