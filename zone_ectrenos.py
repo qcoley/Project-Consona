@@ -20,7 +20,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
                   magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                   UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ladder,
-                  quest_star_leyre, pet_energy_window, chroma_bridge):
+                  quest_star_leyre, pet_energy_window, chroma_bridge, npc_leyre):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -34,8 +34,10 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    if not player.quest_complete["hatch 'em all"]:
+    if not player.quest_complete["las escondidas"]:
         screen.blit(quest_star_leyre.surf, quest_star_leyre.rect)
+
+    screen.blit(npc_leyre.surf, npc_leyre.rect)
 
     try:
         for pet in player.pet:
@@ -76,6 +78,35 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
             player.x_coordinate = 425
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    # if player collides with npc sprite and chooses to interact with it
+    if pygame.sprite.collide_rect(player, npc_leyre):
+        interaction_popup.update(npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50,
+                                 graphic_dict["popup_interaction_purple"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(npc_leyre.name), True, "black", (203, 195, 227))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to talk to NPC."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                and not in_npc_interaction:
+            current_npc_interacting = npc_leyre
+            in_over_world = False
+            in_npc_interaction = True
+            movement_able = False
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
+                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                              graphic_dict)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -126,6 +157,21 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         player.x_coordinate = 210
         player.y_coordinate = 515
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    # npc movement updates
+    face_direction = random.choice(["front", "back", "left", "right"])
+    if movement_able and in_over_world:
+        npc_toc = time.perf_counter()
+        if npc_toc - npc_tic > 5:
+            npc_tic = time.perf_counter()
+            if face_direction == "front":
+                npc_leyre.update(graphic_dict["leyre_down"])
+            if face_direction == "back":
+                npc_leyre.update(graphic_dict["leyre_up"])
+            if face_direction == "left":
+                npc_leyre.update(graphic_dict["leyre_left"])
+            if face_direction == "right":
+                npc_leyre.update(graphic_dict["leyre_right"])
 
     ectrenos_main_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "info_text_1": info_text_1,
                             "info_text_2": info_text_2, "info_text_3": info_text_3, "info_text_4": info_text_4,
@@ -423,7 +469,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes,
                    ghouls, magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy,
                    Item, UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
-                   quest_star_everett, pet_energy_window):
+                   quest_star_everett, pet_energy_window, npc_everett):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -437,8 +483,9 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    if not player.quest_complete["hatch 'em all"]:
+    if not player.quest_complete["shades of fear"]:
         screen.blit(quest_star_everett.surf, quest_star_everett.rect)
+    screen.blit(npc_everett.surf, npc_everett.rect)
 
     try:
         for pet in player.pet:
@@ -457,6 +504,35 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    # if player collides with npc sprite and chooses to interact with it
+    if pygame.sprite.collide_rect(player, npc_everett):
+        interaction_popup.update(npc_everett.x_coordinate, npc_everett.y_coordinate - 50,
+                                 graphic_dict["popup_interaction_purple"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(npc_everett.name), True, "black", (203, 195, 227))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (npc_everett.x_coordinate, npc_everett.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to talk to NPC."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                and not in_npc_interaction:
+            current_npc_interacting = npc_everett
+            in_over_world = False
+            in_npc_interaction = True
+            movement_able = False
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
+                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                              graphic_dict)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -496,6 +572,21 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
         player.x_coordinate = 210
         player.y_coordinate = 515
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    # npc movement updates
+    face_direction = random.choice(["front", "back", "left", "right"])
+    if movement_able and in_over_world:
+        npc_toc = time.perf_counter()
+        if npc_toc - npc_tic > 5:
+            npc_tic = time.perf_counter()
+            if face_direction == "front":
+                npc_everett.update(graphic_dict["everett_down"])
+            if face_direction == "back":
+                npc_everett.update(graphic_dict["everett_up"])
+            if face_direction == "left":
+                npc_everett.update(graphic_dict["everett_left"])
+            if face_direction == "right":
+                npc_everett.update(graphic_dict["everett_right"])
 
     ectrenos_front_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "info_text_1": info_text_1,
                              "info_text_2": info_text_2, "info_text_3": info_text_3, "info_text_4": info_text_4,

@@ -77,11 +77,14 @@ def load_graphics():
     eldream_inn_screen = pygame.image.load(resource_path('resources/art/bg_eldream_inn.png')).convert_alpha()
     eldream_shop_screen = pygame.image.load(resource_path('resources/art/bg_eldream_shop.png')).convert_alpha()
     eldream_menagerie = pygame.image.load(resource_path('resources/art/bg_eldream_menagerie.png')).convert_alpha()
+    eldream_interaction = pygame.image.load(resource_path('resources/art/bg_eldream_interaction.png')).convert_alpha()
     ectrenos_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos.png')).convert_alpha()
     ectrenos_left_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_left.png')).convert_alpha()
     ectrenos_right_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_right.png')).convert_alpha()
     ectrenos_front_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_front.png')).convert_alpha()
     ectrenos_alcove_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_alcove.png')).convert_alpha()
+    ectrenos_interaction = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction.png')).convert_alpha()
+    e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
     fishing_hut_screen = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
     caves_battle_screen = pygame.image.load(resource_path('resources/art/bg_cave_battle_screen.png')).convert_alpha()
@@ -178,6 +181,9 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["ectrenos_front_interaction"] = e_f_interact
+    loaded_dict["ectrenos_interaction"] = ectrenos_interaction
+    loaded_dict["eldream_interaction"] = eldream_interaction
     loaded_dict["stardust_top"] = stardust_top
     loaded_dict["chroma_bridge_small"] = chroma_small
     loaded_dict["chroma_bridge"] = overlay_chroma_bridge
@@ -832,6 +838,27 @@ def load_graphics():
     loaded_dict["jez"] = prime_jez_sheet[1]
     loaded_dict["prime_flip"] = prime_jez_sheet[2]
     loaded_dict["jez_flip"] = prime_jez_sheet[3]
+    # omoku npc --------------------------------------------------------------------------------------------------------
+    omoku_url = resource_path('resources/art/sprites_omoku.png')
+    omoku_sheet = sprite_sheet((50, 62), omoku_url)
+    loaded_dict["omoku_down"] = omoku_sheet[0]
+    loaded_dict["omoku_up"] = omoku_sheet[1]
+    loaded_dict["omoku_left"] = omoku_sheet[2]
+    loaded_dict["omoku_right"] = omoku_sheet[3]
+    # leyre npc --------------------------------------------------------------------------------------------------------
+    leyre_url = resource_path('resources/art/sprites_leyre.png')
+    leyre_sheet = sprite_sheet((45, 62), leyre_url)
+    loaded_dict["leyre_down"] = leyre_sheet[0]
+    loaded_dict["leyre_up"] = leyre_sheet[1]
+    loaded_dict["leyre_left"] = leyre_sheet[2]
+    loaded_dict["leyre_right"] = leyre_sheet[3]
+    # everett npc ------------------------------------------------------------------------------------------------------
+    everett_url = resource_path('resources/art/sprites_everett.png')
+    everett_sheet = sprite_sheet((40, 62), everett_url)
+    loaded_dict["everett_down"] = everett_sheet[0]
+    loaded_dict["everett_up"] = everett_sheet[1]
+    loaded_dict["everett_left"] = everett_sheet[2]
+    loaded_dict["everett_right"] = everett_sheet[3]
     # npc interactions -------------------------------------------------------------------------------------------------
     npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
     npc_interactions_sheet = sprite_sheet((220, 300), npc_interactions_url)
@@ -842,6 +869,9 @@ def load_graphics():
     loaded_dict["voruke_interaction"] = npc_interactions_sheet[4]
     loaded_dict["zerah_interaction"] = npc_interactions_sheet[5]
     loaded_dict["dionte_interaction"] = npc_interactions_sheet[6]
+    loaded_dict["omoku_interaction"] = npc_interactions_sheet[7]
+    loaded_dict["leyre_interaction"] = npc_interactions_sheet[8]
+    loaded_dict["everett_interaction"] = npc_interactions_sheet[9]
     # interaction popup ------------------------------------------------------------------------------------------------
     interaction_popup_url = resource_path('resources/art/popup_interaction.png')
     interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)
@@ -1223,6 +1253,11 @@ def load_graphics():
     quest_logs_sheet = sprite_sheet((40, 50), quest_logs_url)
     loaded_dict["pine_logs_img"] = quest_logs_sheet[0]
     loaded_dict["pine_logs_high_img"] = quest_logs_sheet[1]
+    # quest supplies --------------------------------------------------------------------------------------------------
+    quest_supplies_url = resource_path('resources/art/sprites_supplies.png')
+    quest_supplies_sheet = sprite_sheet((50, 50), quest_supplies_url)
+    loaded_dict["quest_supplies"] = quest_supplies_sheet[0]
+    loaded_dict["quest_supplies_high"] = quest_supplies_sheet[1]
     # rocks ------------------------------------------------------------------------------------------------------------
     rocks_url = resource_path('resources/art/sprite_rock.png')
     rocks_sheet = sprite_sheet((125, 125), rocks_url)

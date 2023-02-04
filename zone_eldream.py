@@ -20,7 +20,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      eldream_gate_rect, eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic,
                      eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles,
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
-                     seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window):
+                     seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
+                     omoku, quest_supplies):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -48,7 +49,11 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     for flower in eldream_flowers:
         screen.blit(flower.surf, flower.rect)
 
+    for supplies in quest_supplies:
+        screen.blit(supplies.surf, supplies.rect)
+
     screen.blit(hearth_stone.surf, hearth_stone.rect)
+    screen.blit(omoku.surf, omoku.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -130,6 +135,66 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    # player encounters a quest item. check progress and add to if interacted with
+    quest_item = pygame.sprite.spritecollideany(player, quest_supplies, pygame.sprite.collide_rect_ratio(0.75))
+    try:
+        interaction_popup.update(quest_item.x_coordinate, quest_item.y_coordinate - 35,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Supplies"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (quest_item.x_coordinate, quest_item.y_coordinate - 35)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if quest_item.name == "quest supplies":
+            if not player.quest_complete["kart troubles"]:
+                if player.quest_status["kart troubles"]:
+                    info_text_1 = "Press 'F' key to pick up the supplies."
+                    if interacted and in_over_world:
+                        if player.quest_progress["kart troubles"] < 4:
+                            player.quest_progress["kart troubles"] += 1
+                            info_text_1 = "You picked up 1 supplies."
+                            quest_item.kill()
+                            interacted = False
+                        else:
+                            info_text_1 = "You've already gathered these."
+                            interacted = False
+            if not player.quest_status["kart troubles"]:
+                info_text_1 = "It's someone's supplies."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+    except AttributeError:
+        pass
+
+    # if player collides with npc sprite and chooses to interact with it
+    if pygame.sprite.collide_rect(player, omoku):
+        interaction_popup.update(omoku.x_coordinate, omoku.y_coordinate - 50, graphic_dict["popup_interaction_purple"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(omoku.name), True, "black", (203, 195, 227))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (omoku.x_coordinate, omoku.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to talk to NPC."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                and not in_npc_interaction:
+            current_npc_interacting = omoku
+            in_over_world = False
+            in_npc_interaction = True
+            movement_able = False
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
+                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                              graphic_dict)
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -163,6 +228,21 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
         player.x_coordinate = 555
         player.y_coordinate = 145
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    # npc movement updates
+    face_direction = random.choice(["front", "back", "left", "right"])
+    if movement_able and in_over_world:
+        npc_toc = time.perf_counter()
+        if npc_toc - npc_tic > 5:
+            npc_tic = time.perf_counter()
+            if face_direction == "front":
+                omoku.update(graphic_dict["omoku_down"])
+            if face_direction == "back":
+                omoku.update(graphic_dict["omoku_up"])
+            if face_direction == "left":
+                omoku.update(graphic_dict["omoku_left"])
+            if face_direction == "right":
+                omoku.update(graphic_dict["omoku_right"])
 
     eldream_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "info_text_1": info_text_1,
                       "info_text_2": info_text_2, "info_text_3": info_text_3, "info_text_4": info_text_4,

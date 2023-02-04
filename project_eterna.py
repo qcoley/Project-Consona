@@ -731,6 +731,15 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+            if pygame.sprite.collide_rect(player, eldream_cart):
+                if player.x_coordinate < eldream_cart.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > eldream_cart.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < eldream_cart.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > eldream_cart.y_coordinate:
+                    self.y_coordinate += velocity
         if current_zone == "ectrenos alcove":
             if player.equipment["boots"] != "chroma boots":
                 if pygame.sprite.collide_rect(player, chroma_bridge):
@@ -1420,6 +1429,15 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if player.y_coordinate < collided.y_coordinate:
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
+                    self.y_coordinate += velocity
+            if pygame.sprite.collide_rect(player, eldream_cart):
+                if player.x_coordinate < eldream_cart.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > eldream_cart.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < eldream_cart.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > eldream_cart.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "ectrenos left":
             if player.equipment["boots"] != "chroma boots":
@@ -2117,6 +2135,15 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > collided.y_coordinate:
                     self.y_coordinate += velocity
+            if pygame.sprite.collide_rect(player, eldream_cart):
+                if player.x_coordinate < eldream_cart.x_coordinate:
+                    self.x_coordinate -= velocity
+                if player.x_coordinate > eldream_cart.x_coordinate:
+                    self.x_coordinate += velocity
+                if player.y_coordinate < eldream_cart.y_coordinate:
+                    self.y_coordinate -= velocity
+                if player.y_coordinate > eldream_cart.y_coordinate:
+                    self.y_coordinate += velocity
         if current_zone == "ectrenos left":
             if player.equipment["boots"] != "chroma boots":
                 if pygame.sprite.collide_rect(player, chroma_bridge):
@@ -2424,11 +2451,14 @@ if __name__ == '__main__':
     korlok_district_bg = graphic_dict["korlok_bg_screen"]
     korlok_mines_bg = graphic_dict["korlok_mines"]
     eldream_district_bg = graphic_dict["eldream_bg_screen"]
+    eldream_interaction_bg = graphic_dict["eldream_interaction"]
     ectrenos_bg = graphic_dict["ectrenos_bg"]
     ectrenos_left_bg = graphic_dict["ectrenos_left_bg"]
     ectrenos_right_bg = graphic_dict["ectrenos_right_bg"]
     ectrenos_front_bg = graphic_dict["ectrenos_front_bg"]
     ectrenos_alcove_bg = graphic_dict["ectrenos_alcove_bg"]
+    ectrenos_interaction_bg = graphic_dict["ectrenos_interaction"]
+    ectrenos_front_interaction_bg = graphic_dict["ectrenos_front_interaction"]
     amuna_character_screen = graphic_dict["a_char_screen"]
     nuldar_character_screen = graphic_dict["n_char_screen"]
     sorae_character_screen = graphic_dict["s_char_screen"]
@@ -2554,12 +2584,12 @@ if __name__ == '__main__':
     npc_dionte = NPC("dionte", "amuna", "It's dangerous to go alone.", "It's dangerous to go alone", "", 625, 110,
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
-    npc_omoku = NPC("omoku", "nuldar", "Onur-oh.", "kart troubles", "", 900, 200,
-                     True, False, ["Items"], False, graphic_dict["voruke_down"])
-    npc_leyre = NPC("leyre", "sorae", "Hola.", "las escondidas", "", 800, 400,
-                    True, False, ["Items"], False, graphic_dict["zerah_down"])
-    npc_everett = NPC("everett", "amuna", "shades of fear", "ayudame", "", 500, 500,
-                      True, False, ["Items"], False, graphic_dict["dionte_down"])
+    npc_omoku = NPC("omoku", "nuldar", "Onur-oh.", "kart troubles", "", 460, 655,
+                     True, False, ["Items"], False, graphic_dict["omoku_down"])
+    npc_leyre = NPC("leyre", "sorae", "Hola.", "las escondidas", "", 682, 420,
+                    True, False, ["Items"], False, graphic_dict["leyre_down"])
+    npc_everett = NPC("everett", "amuna", "shades of fear", "ayudame", "", 750, 320,
+                      True, False, ["Items"], False, graphic_dict["everett_down"])
 
     npc_prime = NPC("prime", "nuldar", "", "", "", 130, 525, True, False, ["Items"], False, graphic_dict["prime"])
     npc_jez = NPC("jez", "nuldar", "", "", "", 265, 525, True, False, ["Items"], False, graphic_dict["jez"])
@@ -2591,9 +2621,9 @@ if __name__ == '__main__':
     npc_zerah_interaction = UiElement("zerah interaction", 675, 325, graphic_dict["zerah_interaction"])
     npc_dionte_interaction = UiElement("dionte interaction", 675, 325, graphic_dict["dionte_interaction"])
 
-    npc_omoku_interaction = UiElement("omoku interaction", 678, 325, graphic_dict["voruke_interaction"])
-    npc_leyre_interaction = UiElement("leyre interaction", 675, 325, graphic_dict["zerah_interaction"])
-    npc_everett_interaction = UiElement("everett interaction", 675, 325, graphic_dict["dionte_interaction"])
+    npc_omoku_interaction = UiElement("omoku interaction", 615, 320, graphic_dict["omoku_interaction"])
+    npc_leyre_interaction = UiElement("leyre interaction", 675, 325, graphic_dict["leyre_interaction"])
+    npc_everett_interaction = UiElement("everett interaction", 675, 325, graphic_dict["everett_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -2797,6 +2827,10 @@ if __name__ == '__main__':
     quest_logs_2 = Item("pine logs", "quest", 315, 560, graphic_dict["pine_logs_img"], 0)
     quest_logs_3 = Item("pine logs", "quest", 415, 435, graphic_dict["pine_logs_img"], 0)
     quest_logs_4 = Item("pine logs", "quest", 100, 540, graphic_dict["pine_logs_img"], 0)
+    quest_supplies_1 = Item("quest supplies", "quest", 355, 48, graphic_dict["quest_supplies"], 0)
+    quest_supplies_2 = Item("quest supplies", "quest", 715, 48, graphic_dict["quest_supplies"], 0)
+    quest_supplies_3 = Item("quest supplies", "quest", 188, 232, graphic_dict["quest_supplies"], 0)
+    quest_supplies_4 = Item("quest supplies", "quest", 855, 618, graphic_dict["quest_supplies"], 0)
     nede = Item("nede", "quest", 650, 450, graphic_dict["nede_left"], 0)
     nede_big = UiElement("big nede", 840, 270, graphic_dict["nede_big"])
     npc_name_plate = UiElement("npc name plate", 675, 165, graphic_dict["npc_name_plate"])
@@ -2853,10 +2887,10 @@ if __name__ == '__main__':
     quest_star_kirean = UiElement("quest star kirean", 746, 225, graphic_dict["quest_start_star"])
     quest_star_dionte = UiElement("quest star dionte", 625, 65, graphic_dict["quest_start_star"])
 
-    quest_star_omoku = UiElement("quest star omoku", 415, 615, graphic_dict["quest_start_star"])
-    quest_star_leyre = UiElement("quest star leyre", 680, 495, graphic_dict["quest_start_star"])
+    quest_star_omoku = UiElement("quest star omoku", 460, 610, graphic_dict["quest_start_star"])
+    quest_star_leyre = UiElement("quest star leyre", 682, 375, graphic_dict["quest_start_star"])
     quest_star_aitor = UiElement("quest star aitor", 818, 200, graphic_dict["quest_start_star"])
-    quest_star_everett = UiElement("quest star everett", 800, 280, graphic_dict["quest_start_star"])
+    quest_star_everett = UiElement("quest star everett", 749, 278, graphic_dict["quest_start_star"])
 
     quest_star_apothecary = UiElement("quest star apothecary", 796, 85, graphic_dict["building_npc_star_available"])
     quest_star_menagerie = UiElement("quest star menagerie", 790, 150, graphic_dict["building_npc_star_available"])
@@ -2980,9 +3014,10 @@ if __name__ == '__main__':
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
-    mines_cart = UiElement("mines light", 885, 475, graphic_dict["mines_light"])
+    mines_cart = UiElement("mines cart", 885, 475, graphic_dict["mines_light"])
     terra_mountains = UiElement("terra mountains", 250, 270, graphic_dict["terra_mountains"])
     terra_cave = UiElement("terra cave", 100, 400, graphic_dict["terra_cave"])
+    eldream_cart = UiElement("eldream cart", 380, 640, graphic_dict["mines_light"])
 
     stardust_top = UiElement("stardust top", 531, 205, graphic_dict["stardust_top"])
 
@@ -3013,6 +3048,7 @@ if __name__ == '__main__':
     flower_eldream_5 = Item("flower eldream 5", "flower", 775, 670, graphic_dict["flower_eldream"], 0)
 
     quest_items_seldon = pygame.sprite.Group()
+    quest_items_eldream = pygame.sprite.Group()
     npcs_seldon = pygame.sprite.Group()
     npcs_korlok = pygame.sprite.Group()
     seldon_enemies = pygame.sprite.Group()
@@ -3085,6 +3121,7 @@ if __name__ == '__main__':
     muchador_crates.add(muchador_crate_1, muchador_crate_2, muchador_crate_3, muchador_crate_4)
     environments.add(trees, amuna_buildings)
     quest_items_seldon.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
+    quest_items_eldream.add(quest_supplies_1, quest_supplies_2, quest_supplies_3, quest_supplies_4)
     most_sprites.add(npcs_seldon, trees, amuna_buildings, quest_items_seldon, seldon_enemies, hearth_stone, rohir_gate)
     user_interface.add(rest_button, buy_button, leave_button, character_button, quests_button, save_button,
                        map_button, message_box, location_overlay, star_power_meter)
@@ -3099,7 +3136,7 @@ if __name__ == '__main__':
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
     interactables_mines.add(bandiles, mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
     interactables_terra_trail.add(npc_dionte, terra_cave, rock_7)
-    interactables_eldream.add(eldream_flowers, hearth_stone)
+    interactables_eldream.add(eldream_flowers, hearth_stone, quest_items_eldream, npc_omoku)
 
     # music tracks
     start_screen_music = resource_path("resources/music/eterna_title.mp3")
@@ -3944,6 +3981,8 @@ if __name__ == '__main__':
                                 if player.current_zone == "ectrenos":
                                     if pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect):
                                         interacted = True
+                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                                        interacted = True
                                 if player.current_zone == "ectrenos right":
                                     if pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance):
                                         interacted = True
@@ -3951,6 +3990,9 @@ if __name__ == '__main__':
                                         interacted = True
                                 if player.current_zone == "ectrenos left":
                                     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
+                                        interacted = True
+                                if player.current_zone == "ectrenos front":
+                                    if pygame.Rect.colliderect(player.rect, npc_everett.rect):
                                         interacted = True
                                 if player.current_zone == "ectrenos alcove":
                                     if pygame.Rect.colliderect(player.rect, alcove_ladder_rect):
@@ -4528,7 +4570,7 @@ if __name__ == '__main__':
                                                                      interactables_mines, Enemy, Item, UiElement,
                                                                      seldon_flowers, interactables_eldream,
                                                                      ectrenos_entrance_rect, quest_star_omoku,
-                                                                     pet_energy_window)
+                                                                     pet_energy_window, npc_omoku, quest_items_eldream)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -4600,7 +4642,7 @@ if __name__ == '__main__':
                                                                          interactables_eldream, ectrenos_entrance_rect,
                                                                          overlay_ectrene, ectrenos_ladder_rect,
                                                                          quest_star_leyre, pet_energy_window,
-                                                                         chroma_bridge)
+                                                                         chroma_bridge, npc_leyre)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -4865,7 +4907,8 @@ if __name__ == '__main__':
                                                                            Enemy, Item, UiElement, seldon_flowers,
                                                                            interactables_ectrenos,
                                                                            ectrenos_entrance_rect, overlay_ectrene,
-                                                                           quest_star_everett, pet_energy_window)
+                                                                           quest_star_everett, pet_energy_window,
+                                                                           npc_everett)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -8443,6 +8486,12 @@ if __name__ == '__main__':
                             screen.blit(korlok_district_battle, (0, 0))
                         if player.current_zone == "terra trail":
                             screen.blit(terra_trail_screen, (0, 0))
+                        if player.current_zone == "eldream":
+                            screen.blit(eldream_interaction_bg, (0, 0))
+                        if player.current_zone == "ectrenos":
+                            screen.blit(ectrenos_interaction_bg, (0, 0))
+                        if player.current_zone == "ectrenos front":
+                            screen.blit(ectrenos_front_interaction_bg, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(offense_meter.surf, offense_meter.rect)
                         screen.blit(defense_meter.surf, defense_meter.rect)
@@ -8463,26 +8512,36 @@ if __name__ == '__main__':
                         # noinspection PyUnboundLocalVariable
                         if current_npc_interacting.name == "garan":
                             screen.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
+                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "maurelle":
                             screen.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
+                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "celeste":
                             if player.quest_progress["where's nede?"] == 1:
                                 screen.blit(nede_big.surf, nede_big.rect)
                             screen.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
+                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "torune":
                             screen.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
+                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "voruke":
                             screen.blit(npc_voruke_interaction.surf, npc_voruke_interaction.rect)
+                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "zerah":
                             screen.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
+                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "dionte":
                             screen.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
+                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "omoku":
                             screen.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
+                            npc_name_plate.update(615, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "leyre":
                             screen.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
+                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "everett":
                             screen.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
+                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
 
                         screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                         screen.blit(npc_name_plate.surf, npc_name_plate.rect)
@@ -8494,7 +8553,10 @@ if __name__ == '__main__':
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
                                                          (203, 195, 227))
                         text_npc_name_rect = text_npc_name_surf.get_rect()
-                        text_npc_name_rect.center = (675, 165)
+                        if current_npc_interacting.name == "omoku":
+                            text_npc_name_rect.center = (615, 165)
+                        if current_npc_interacting.name != "omoku":
+                            text_npc_name_rect.center = (675, 165)
                         screen.blit(text_npc_name_surf, text_npc_name_rect)
                         drawing_functions.draw_it(screen)
 

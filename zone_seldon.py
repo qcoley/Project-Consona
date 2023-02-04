@@ -159,7 +159,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                             info_text_1 = "You've already gathered these."
                             interacted = False
             else:
-                info_text_1 = "That's a nice pine log."
+                info_text_1 = "That's some nice pine."
 
         if quest_item.model == "rohir gate":
             if player.quest_complete["ghouled again"]:

@@ -124,21 +124,16 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (ore_pick.x_coordinate, ore_pick.y_coordinate - 40)
         screen.blit(interaction_info_surf, interaction_info_rect)
-
         if not player.quest_status["can't apothecary it"]:
-            # lets player know if they are in range of enemy they can press f to attack it
             info_text_1 = "It's some kind of ore."
             info_text_2 = ""
             info_text_3 = ""
             info_text_4 = ""
-
         if player.quest_status["can't apothecary it"] and not player.quest_complete["can't apothecary it"]:
-            # lets player know if they are in range of enemy they can press f to attack it
             info_text_1 = "Press 'F' key to gather the ore."
             info_text_2 = ""
             info_text_3 = ""
             info_text_4 = ""
-
             if interacted and in_over_world:
                 player.quest_progress["can't apothecary it"] += 1
                 ore_pick.kill()
