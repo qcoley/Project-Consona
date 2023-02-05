@@ -20,7 +20,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
                   magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                   UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ladder,
-                  quest_star_leyre, pet_energy_window, chroma_bridge, npc_leyre):
+                  quest_star_leyre, pet_energy_window, chroma_bridge, npc_leyre, necrola_battle_sprite,
+                  osodark_battle_sprite):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -34,10 +35,12 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    if not player.quest_complete["las escondidas"]:
-        screen.blit(quest_star_leyre.surf, quest_star_leyre.rect)
-
-    screen.blit(npc_leyre.surf, npc_leyre.rect)
+    if not player.quest_status["las escondidas"] or player.quest_progress["las escondidas"] == 4:
+        if not player.quest_complete["las escondidas"]:
+            screen.blit(quest_star_leyre.surf, quest_star_leyre.rect)
+    if not player.quest_status["las escondidas"] or player.quest_progress["las escondidas"] == 4:
+        npc_leyre.update_position(682, 420)
+        screen.blit(npc_leyre.surf, npc_leyre.rect)
 
     try:
         for pet in player.pet:
@@ -80,33 +83,34 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # if player collides with npc sprite and chooses to interact with it
-    if pygame.sprite.collide_rect(player, npc_leyre):
-        interaction_popup.update(npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50,
-                                 graphic_dict["popup_interaction_purple"])
-        screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str(npc_leyre.name), True, "black", (203, 195, 227))
-        interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50)
-        screen.blit(interaction_info_surf, interaction_info_rect)
+    if not player.quest_status["las escondidas"] or player.quest_progress["las escondidas"] == 4:
+        if pygame.sprite.collide_rect(player, npc_leyre):
+            interaction_popup.update(npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_purple"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str(npc_leyre.name), True, "black", (203, 195, 227))
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to talk to NPC."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
+            info_text_1 = "Press 'F' key to talk to NPC."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
 
-        if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
-                and not in_npc_interaction:
-            current_npc_interacting = npc_leyre
-            in_over_world = False
-            in_npc_interaction = True
-            movement_able = False
-            drawing_functions.loot_popup_container.clear()
-            drawing_functions.loot_text_container.clear()
-            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
-                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict)
+            if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                    and not in_npc_interaction:
+                current_npc_interacting = npc_leyre
+                in_over_world = False
+                in_npc_interaction = True
+                movement_able = False
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
+                combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
+                                                  ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                                                  magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                                  barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                                  graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -141,6 +145,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         player.x_coordinate = 540
         player.y_coordinate = 565
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+        hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
 
     if player.x_coordinate < 35 and 565 > player.y_coordinate > 470:
         player.current_zone = "ectrenos left"
@@ -201,7 +206,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
                   magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                   UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ectrenos_pet_entrance,
-                  in_menagerie, quest_star_aitor, pet_energy_window):
+                  in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(eldream_overworld_music)
@@ -216,6 +221,10 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
 
     if not player.quest_complete["hatch 'em all"]:
         screen.blit(quest_star_aitor.surf, quest_star_aitor.rect)
+
+    if player.quest_progress["las escondidas"] == 0 and player.quest_status["las escondidas"]:
+        npc_leyre.update_position(626, 355)
+        screen.blit(npc_leyre.surf, npc_leyre.rect)
 
     try:
         for pet in player.pet:
@@ -257,6 +266,32 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
             over_world_song_set = False
             in_menagerie = True
 
+    # if player collides with npc sprite and chooses to interact with it
+    if player.quest_progress["las escondidas"] == 0 and player.quest_status["las escondidas"]:
+        if pygame.sprite.collide_rect(player, npc_leyre):
+            interaction_popup.update(npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_purple"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str(npc_leyre.name), True, "black", (203, 195, 227))
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            info_text_1 = "Press 'F' key to talk to NPC."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                    and not in_npc_interaction:
+                interacted = False
+                player.quest_progress["las escondidas"] += 1
+
+                info_text_1 = "You've found Leyre!"
+                info_text_2 = "Looks like she went to hide again. "
+                info_text_3 = ""
+                info_text_4 = ""
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -297,6 +332,22 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         player.y_coordinate = 445
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    # npc movement updates
+    if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
+        face_direction = random.choice(["front", "back", "left", "right"])
+        if movement_able and in_over_world:
+            npc_toc = time.perf_counter()
+            if npc_toc - npc_tic > 5:
+                npc_tic = time.perf_counter()
+                if face_direction == "front":
+                    npc_leyre.update(graphic_dict["leyre_down"])
+                if face_direction == "back":
+                    npc_leyre.update(graphic_dict["leyre_up"])
+                if face_direction == "left":
+                    npc_leyre.update(graphic_dict["leyre_left"])
+                if face_direction == "right":
+                    npc_leyre.update(graphic_dict["leyre_right"])
+
     ectrenos_left_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "info_text_1": info_text_1,
                             "info_text_2": info_text_2, "info_text_3": info_text_3, "info_text_4": info_text_4,
                             "interacted": interacted, "in_over_world": in_over_world, "in_battle": in_battle,
@@ -327,7 +378,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    ghouls,
                    magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                    UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
-                   ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window):
+                   ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(eldream_overworld_music)
@@ -339,6 +390,10 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if player.quest_progress["las escondidas"] == 1 and player.quest_status["las escondidas"]:
+        npc_leyre.update_position(722, 350)
+        screen.blit(npc_leyre.surf, npc_leyre.rect)
 
     try:
         for pet in player.pet:
@@ -400,6 +455,32 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
             over_world_song_set = False
             in_inn = True
 
+    # if player collides with npc sprite and chooses to interact with it
+    if player.quest_progress["las escondidas"] == 1 and player.quest_status["las escondidas"]:
+        if pygame.sprite.collide_rect(player, npc_leyre):
+            interaction_popup.update(npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_purple"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str(npc_leyre.name), True, "black", (203, 195, 227))
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            info_text_1 = "Press 'F' key to talk to NPC."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                    and not in_npc_interaction:
+                interacted = False
+                player.quest_progress["las escondidas"] += 1
+
+                info_text_1 = "You've found Leyre!"
+                info_text_2 = "Looks like she went to hide again. "
+                info_text_3 = ""
+                info_text_4 = ""
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -441,6 +522,22 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
         player.y_coordinate = 445
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    # npc movement updates
+    if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
+        face_direction = random.choice(["front", "back", "left", "right"])
+        if movement_able and in_over_world:
+            npc_toc = time.perf_counter()
+            if npc_toc - npc_tic > 5:
+                npc_tic = time.perf_counter()
+                if face_direction == "front":
+                    npc_leyre.update(graphic_dict["leyre_down"])
+                if face_direction == "back":
+                    npc_leyre.update(graphic_dict["leyre_up"])
+                if face_direction == "left":
+                    npc_leyre.update(graphic_dict["leyre_left"])
+                if face_direction == "right":
+                    npc_leyre.update(graphic_dict["leyre_right"])
+
     ectrenos_right_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "info_text_1": info_text_1,
                              "info_text_2": info_text_2, "info_text_3": info_text_3, "info_text_4": info_text_4,
                              "interacted": interacted, "in_over_world": in_over_world, "in_battle": in_battle,
@@ -469,7 +566,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes,
                    ghouls, magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy,
                    Item, UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
-                   quest_star_everett, pet_energy_window, npc_everett):
+                   quest_star_everett, pet_energy_window, npc_everett, npc_leyre, ectrenos_front_enemies,
+                   interactables_eldream, necrola_battle_sprite, osodark_battle_sprite):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -483,9 +581,32 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
+    respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
+                                                      bandiles, interactables_seldon, interactables_korlok,
+                                                      interactables_mines, Enemy, Item, graphic_dict, UiElement,
+                                                      seldon_flowers, eldream_flowers, interactables_eldream,
+                                                      ectrenos_front_enemies)
+    ectrenos_front_enemies = respawned_dict["ectrenos_front_enemies"]
+
+    for enemy_sprite in ectrenos_front_enemies:  # update enemy sprite to a highlighted version
+        if not player.quest_complete["shades of fear"]:
+            if player.quest_status["shades of fear"]:
+                enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate,
+                                          graphic_dict["necrola_high"])
+    for enemy_sprite in ectrenos_front_enemies:
+        if player.quest_complete["shades of fear"]:
+            enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate, graphic_dict["necrola"])
+
+    for enemy in ectrenos_front_enemies:
+        screen.blit(enemy.surf, enemy.rect)
+
     if not player.quest_complete["shades of fear"]:
         screen.blit(quest_star_everett.surf, quest_star_everett.rect)
     screen.blit(npc_everett.surf, npc_everett.rect)
+
+    if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
+        npc_leyre.update_position(901, 532)
+        screen.blit(npc_leyre.surf, npc_leyre.rect)
 
     try:
         for pet in player.pet:
@@ -532,7 +653,63 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+
+    # if player collides with npc sprite and chooses to interact with it
+    if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
+        if pygame.sprite.collide_rect(player, npc_leyre):
+            interaction_popup.update(npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_purple"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str(npc_leyre.name), True, "black", (203, 195, 227))
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            info_text_1 = "Press 'F' key to talk to NPC."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                    and not in_npc_interaction:
+                interacted = False
+                player.quest_progress["las escondidas"] += 1
+
+                info_text_1 = "You've found Leyre!"
+                info_text_2 = "Looks like she went to hide again. "
+                info_text_3 = ""
+                info_text_4 = ""
+
+    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
+    enemy = pygame.sprite.spritecollideany(player, ectrenos_front_enemies)
+    if enemy:
+        interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(enemy.name) + " lvl " + str(enemy.level), True, "black",
+                                            (255, 204, 203))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (enemy.x_coordinate, enemy.y_coordinate - 40)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        # lets player know if they are in range of enemy they can press f to attack it
+        info_text_1 = "Press 'F' key to attack enemy."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            current_enemy_battling = enemy
+            in_over_world = False
+            in_battle = True
+
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
+                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -588,6 +765,32 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
             if face_direction == "right":
                 npc_everett.update(graphic_dict["everett_right"])
 
+    # npc movement updates
+    if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
+        face_direction = random.choice(["front", "back", "left", "right"])
+        if movement_able and in_over_world:
+            npc_toc = time.perf_counter()
+            if npc_toc - npc_tic > 5:
+                npc_tic = time.perf_counter()
+                if face_direction == "front":
+                    npc_leyre.update(graphic_dict["leyre_down"])
+                if face_direction == "back":
+                    npc_leyre.update(graphic_dict["leyre_up"])
+                if face_direction == "left":
+                    npc_leyre.update(graphic_dict["leyre_left"])
+                if face_direction == "right":
+                    npc_leyre.update(graphic_dict["leyre_right"])
+
+    # enemy movement updates
+    direction_horizontal = random.choice(["left", "right"])
+    direction_vertical = random.choice(["up", "down"])
+    move_mon = random.choice(ectrenos_front_enemies.sprites())
+    if movement_able and in_over_world:
+        enemy_toc = time.perf_counter()
+        if enemy_toc - enemy_tic > 2:
+            enemy_tic = time.perf_counter()
+            move_mon.update_position([200, 600], [300, 500], direction_horizontal, direction_vertical)
+
     ectrenos_front_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "info_text_1": info_text_1,
                              "info_text_2": info_text_2, "info_text_3": info_text_3, "info_text_4": info_text_4,
                              "interacted": interacted, "in_over_world": in_over_world, "in_battle": in_battle,
@@ -620,7 +823,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     ghouls,
                     magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
                     UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
-                    pet_energy_window, ladder, chroma_bridge):
+                    pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -633,6 +836,13 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:
+        npc_leyre.update_position(967, 530)
+        screen.blit(npc_leyre.surf, npc_leyre.rect)
+
+    for enemy in enemies:
+        screen.blit(enemy.surf, enemy.rect)
 
     try:
         for pet in player.pet:
@@ -651,6 +861,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    screen.blit(alcove_star.surf, alcove_star.rect)
 
     if pygame.Rect.colliderect(player.rect, ladder):
         interaction_popup.update(420, 525, graphic_dict["popup_interaction"])
@@ -672,6 +884,32 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
             player.x_coordinate = 525
             player.y_coordinate = 648
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    # if player collides with npc sprite and chooses to interact with it
+    if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:
+        if pygame.sprite.collide_rect(player, npc_leyre):
+            interaction_popup.update(npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_purple"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str(npc_leyre.name), True, "black", (203, 195, 227))
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (npc_leyre.x_coordinate, npc_leyre.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            info_text_1 = "Press 'F' key to talk to NPC."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world and not in_battle and not in_shop and not in_inn \
+                    and not in_npc_interaction:
+                interacted = False
+                player.quest_progress["las escondidas"] += 1
+
+                info_text_1 = "You've found Leyre!"
+                info_text_2 = "You've finished hide and seek. "
+                info_text_3 = ""
+                info_text_4 = ""
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -698,6 +936,32 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
+
+    # npc movement updates
+    if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
+        face_direction = random.choice(["front", "back", "left", "right"])
+        if movement_able and in_over_world:
+            npc_toc = time.perf_counter()
+            if npc_toc - npc_tic > 5:
+                npc_tic = time.perf_counter()
+                if face_direction == "front":
+                    npc_leyre.update(graphic_dict["leyre_down"])
+                if face_direction == "back":
+                    npc_leyre.update(graphic_dict["leyre_up"])
+                if face_direction == "left":
+                    npc_leyre.update(graphic_dict["leyre_left"])
+                if face_direction == "right":
+                    npc_leyre.update(graphic_dict["leyre_right"])
+
+    # enemy movement updates
+    direction_horizontal = random.choice(["left", "right"])
+    direction_vertical = random.choice(["up", "down"])
+    move_mon = random.choice(enemies.sprites())
+    if movement_able and in_over_world:
+        enemy_toc = time.perf_counter()
+        if enemy_toc - enemy_tic > 2:
+            enemy_tic = time.perf_counter()
+            move_mon.update_position([200, 700], [100, 300], direction_horizontal, direction_vertical)
 
     ectrenos_alcove_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                               "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,

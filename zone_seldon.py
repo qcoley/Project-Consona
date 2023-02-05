@@ -26,7 +26,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, interactables_mines,
                     equipment_screen, staff, sword, bow,
                     offense_meter, defense_meter, weapon_select, player_cutscene, player_cutscene_2, beyond_seldon,
-                    flowers, eldream_flowers, interactables_eldream, pet_energy_window):
+                    flowers, eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
+                    necrola_battle_sprite, osodark_battle_sprite):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -45,7 +46,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
-                                                      flowers, eldream_flowers, interactables_eldream)
+                                                      flowers, eldream_flowers, interactables_eldream,
+                                                      ectrenos_front_enemies)
     seldon_enemies = respawned_dict["seldon_enemies"]
     snakes = respawned_dict["snakes"]
     ghouls = respawned_dict["ghouls"]
@@ -238,7 +240,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, amuna_buildings, pygame.sprite.collide_rect_ratio(0.75))
@@ -316,7 +318,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
 
     if pygame.sprite.collide_rect(player, hearth_stone):
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,

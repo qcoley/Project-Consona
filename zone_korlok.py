@@ -20,14 +20,16 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     UiElement, interactables_mines, star_voruke, star_zerah, korlok_mountains, in_apothecary,
                     star_apothecary, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
                     weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
-                    eldream_flowers, interactables_eldream, pet_energy_window):
+                    eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
+                    necrola_battle_sprite, osodark_battle_sprite):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
-                                                      seldon_flowers, eldream_flowers, interactables_eldream)
+                                                      seldon_flowers, eldream_flowers, interactables_eldream,
+                                                      ectrenos_front_enemies)
     korlok_enemies = respawned_dict["korlok_enemies"]
     magmons = respawned_dict["magmons"]
 
@@ -117,7 +119,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
 
     # if player collides with npc sprite and chooses to interact with it
     npc = pygame.sprite.spritecollideany(player, npcs, pygame.sprite.collide_rect_ratio(0.75))
@@ -147,7 +149,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, nuldar_buildings, pygame.sprite.collide_rect_ratio(0.75))

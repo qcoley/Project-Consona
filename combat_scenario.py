@@ -5,7 +5,7 @@ import gameplay_functions
 def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                       chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
                       chinzilla_battle_sprite, barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                      graphics):
+                      graphics, necrola_battle_sprite, osodark_battle_sprite):
 
     if player.race == "amuna":
         if player.role == "mage":
@@ -182,12 +182,17 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
             bandile_battle_sprite.update(695, 300, graphics["bandile_battle"])
         if enemy.kind == "chinzilla":
             chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_battle"])
+        if enemy.kind == "necrola":
+            necrola_battle_sprite.update(705, 300, graphics["necrola_battle"])
+        if enemy.kind == "osodark":
+            osodark_battle_sprite.update(695, 300, graphics["osodark_battle"])
 
 
 # update player character and enemy sprites for combat animation
 def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                      chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
-                     chinzilla_battle_sprite, barrier_active, sharp_sense_active, hard_strike, graphics, turn_taken):
+                     chinzilla_battle_sprite, barrier_active, sharp_sense_active, hard_strike, graphics, turn_taken,
+                     necrola_battle_sprite, osodark_battle_sprite):
 
     # update player character sprite for combat animation
     if not turn_taken:
@@ -367,6 +372,10 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
         bandile_battle_sprite.update(695, 300, graphics["bandile_attack"])
     if enemy.kind == "chinzilla":
         chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_attack"])
+    if enemy.kind == "necrola":
+        necrola_battle_sprite.update(705, 300, graphics["necrola_attack"])
+    if enemy.kind == "osodark":
+        osodark_battle_sprite.update(695, 300, graphics["osodark_attack"])
 
 
 def fighter(graphics, player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
@@ -563,6 +572,17 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 else:
                     combat_event_dictionary["quest update"] = "No"
 
+                # if player is on quest to kill necrolas
+                if enemy_combating.kind == "necrola":
+                    if player.quest_status["shades of fear"]:
+                        if player.quest_progress["shades of fear"] < 4:
+                            player.quest_progress["shades of fear"] = \
+                                player.quest_progress["shades of fear"] + 1
+                            quest_string = f"{player.quest_status['shades of fear']}/4 necrolas"
+                            combat_event_dictionary["quest update"] = quest_string
+                else:
+                    combat_event_dictionary["quest update"] = "No"
+
                 # experienced gained by player from defeating enemy
                 if player.level <= enemy_combating.level + 1:
                     experience = int((enemy_combating.level / player.level) * 30)
@@ -697,6 +717,16 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                         player.quest_progress["it's dangerous to go alone"] + 1
                                     quest_string = player.quest_status[
                                                        "it's dangerous to go alone"] + "/1 chinzilla"
+                                    combat_event_dictionary["quest update"] = quest_string
+                        else:
+                            combat_event_dictionary["quest update"] = "No"
+                        # if player is on quest to kill necrolas
+                        if enemy_combating.kind == "necrola":
+                            if player.quest_status["shades of fear"]:
+                                if player.quest_progress["shades of fear"] < 4:
+                                    player.quest_progress["shades of fear"] = \
+                                        player.quest_progress["shades of fear"] + 1
+                                    quest_string = f"{player.quest_status['shades of fear']}/4 necrolas"
                                     combat_event_dictionary["quest update"] = quest_string
                         else:
                             combat_event_dictionary["quest update"] = "No"

@@ -160,6 +160,7 @@ def load_graphics():
     overlay_chroma_bridge = pygame.image.load(resource_path('resources/art/overlay_chroma_bridge.png')).convert_alpha()
     chroma_small = pygame.image.load(resource_path('resources/art/overlay_chroma_bridge_small.png')).convert_alpha()
     stardust_top = pygame.image.load(resource_path('resources/art/overlay_stardust_top.png')).convert_alpha()
+    alcove_star = pygame.image.load(resource_path('resources/art/overlay_alcove_star.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -177,10 +178,11 @@ def load_graphics():
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
-                  chroma_small, stardust_top]
+                  chroma_small, stardust_top, alcove_star]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["alcove_star"] = alcove_star
     loaded_dict["ectrenos_front_interaction"] = e_f_interact
     loaded_dict["ectrenos_interaction"] = ectrenos_interaction
     loaded_dict["eldream_interaction"] = eldream_interaction
@@ -917,6 +919,8 @@ def load_graphics():
     loaded_dict["ghoul"] = enemies_sheet[1]
     loaded_dict["magmon"] = enemies_sheet[2]
     loaded_dict["bandile"] = enemies_sheet[3]
+    loaded_dict["necrola"] = enemies_sheet[4]
+    loaded_dict["osodark"] = enemies_sheet[5]
     # boss enemies -----------------------------------------------------------------------------------------------------
     boss_enemies_url = resource_path('resources/art/sprites_bosses.png')
     boss_enemies_sheet = sprite_sheet((125, 125), boss_enemies_url)
@@ -930,6 +934,8 @@ def load_graphics():
     loaded_dict["ghoul_high"] = enemies_high_sheet[1]
     loaded_dict["magmon_high"] = enemies_high_sheet[2]
     loaded_dict["bandile_high"] = enemies_high_sheet[3]
+    loaded_dict["necrola_high"] = enemies_high_sheet[4]
+    loaded_dict["osodark_high"] = enemies_high_sheet[5]
     # enemies battle ---------------------------------------------------------------------------------------------------
     enemies_battle_url = resource_path('resources/art/sprites_enemies_battle.png')
     enemies_battle_sheet = sprite_sheet((300, 280), enemies_battle_url)
@@ -941,18 +947,16 @@ def load_graphics():
     loaded_dict["magmon_attack"] = enemies_battle_sheet[5]
     loaded_dict["bandile_battle"] = enemies_battle_sheet[6]
     loaded_dict["bandile_attack"] = enemies_battle_sheet[7]
+    loaded_dict["necrola_battle"] = enemies_battle_sheet[8]
+    loaded_dict["necrola_attack"] = enemies_battle_sheet[9]
+    loaded_dict["osodark_battle"] = enemies_battle_sheet[10]
+    loaded_dict["osodark_attack"] = enemies_battle_sheet[11]
     # boss enemies battle ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_battle.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)
     loaded_dict["chorizon_battle"] = boss_enemies_battle_sheet[0]
     loaded_dict["muchador_battle"] = boss_enemies_battle_sheet[1]
     loaded_dict["chinzilla_battle"] = boss_enemies_battle_sheet[2]
-    # enemies attacking ------------------------------------------------------------------------------------------------
-    enemies_attack_url = resource_path('resources/art/sprites_enemies_attacking.png')
-    enemies_attack_sheet = sprite_sheet((400, 300), enemies_attack_url)
-    loaded_dict["snake attacking"] = enemies_attack_sheet[0]
-    loaded_dict["ghoul attacking"] = enemies_attack_sheet[1]
-    loaded_dict["ghoul attacking star"] = enemies_attack_sheet[2]
     # boss enemies attack ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_attack.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)

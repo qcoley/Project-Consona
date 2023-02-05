@@ -17,12 +17,13 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  interactables_mines, ores, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                  defense_meter, weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup, jez_popup, prime_1,
                  prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers, eldream_flowers, interactables_eldream,
-                 pet_energy_window):
+                 pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite):
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
-                                                      seldon_flowers, eldream_flowers, interactables_eldream)
+                                                      seldon_flowers, eldream_flowers, interactables_eldream,
+                                                      ectrenos_front_enemies)
     bandiles = respawned_dict["bandiles"]
 
     for enemy_sprite in bandiles:  # update enemy sprite to a highlighted version
@@ -38,7 +39,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
         if not player.quest_complete["can't apothecary it"]:
             if player.quest_status["can't apothecary it"]:
                 ore_sprite.update(ore_sprite.x_coordinate, ore_sprite.y_coordinate, graphic_dict["sprite_ore_high_img"])
-    for ore_sprite in bandiles:
+    for ore_sprite in ores:
         if player.quest_complete["can't apothecary it"]:
             ore_sprite.update(ore_sprite.x_coordinate, ore_sprite.y_coordinate, graphic_dict["sprite_ore_img"])
 
@@ -105,7 +106,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
 
     if player.x_coordinate > 660 and 685 < player.y_coordinate:
         player.current_zone = "korlok"

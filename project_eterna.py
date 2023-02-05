@@ -2184,6 +2184,11 @@ class NPC(pygame.sprite.Sprite):
     def update(self, image):
         self.surf = image
 
+    def update_position(self, x_coordinate, y_coordinate):
+        self.x_coordinate = x_coordinate
+        self.y_coordinate = y_coordinate
+        self.rect = self.surf.get_rect(center=(x_coordinate, y_coordinate))
+
 
 # shopkeeper class for assigning attributed items in shop
 class Shopkeeper(pygame.sprite.Sprite):
@@ -2621,9 +2626,9 @@ if __name__ == '__main__':
     npc_zerah_interaction = UiElement("zerah interaction", 675, 325, graphic_dict["zerah_interaction"])
     npc_dionte_interaction = UiElement("dionte interaction", 675, 325, graphic_dict["dionte_interaction"])
 
-    npc_omoku_interaction = UiElement("omoku interaction", 615, 320, graphic_dict["omoku_interaction"])
-    npc_leyre_interaction = UiElement("leyre interaction", 675, 325, graphic_dict["leyre_interaction"])
-    npc_everett_interaction = UiElement("everett interaction", 675, 325, graphic_dict["everett_interaction"])
+    npc_omoku_interaction = UiElement("omoku interaction", 610, 352, graphic_dict["omoku_interaction"])
+    npc_leyre_interaction = UiElement("leyre interaction", 680, 330, graphic_dict["leyre_interaction"])
+    npc_everett_interaction = UiElement("everett interaction", 678, 325, graphic_dict["everett_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -2695,30 +2700,30 @@ if __name__ == '__main__':
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     # eldream enemies --------------------------------------------------------------------------------------------------
-    osodark_1 = Enemy("osodark", "osodark", 100, 100, 1, 100, 130, True,
-                      Item("dried fins", "fins", 200, 200, graphic_dict["shiny_rock_img"], 0),
-                      graphic_dict["snake"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_2 = Enemy("osodark", "osodark", 100, 100, 2, 285, 150, True,
-                      Item("dried fins", "fins", 200, 200, graphic_dict["shiny_rock_img"], 0),
-                      graphic_dict["snake"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_3 = Enemy("osodark", "osodark", 100, 100, 1, 100, 230, True,
-                      Item("dried fins", "fins", 200, 200, graphic_dict["shiny_rock_img"], 0),
-                      graphic_dict["snake"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_4 = Enemy("osodark", "osodark", 100, 100, 2, 285, 250, True,
-                      Item("dried fins", "fins", 200, 200, graphic_dict["shiny_rock_img"], 0),
-                      graphic_dict["snake"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    necrola_1 = Enemy("necrola", "necrola", 100, 100, 4, 665, 180, True,
-                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["bone_dust_img"], 0),
-                        graphic_dict["ghoul"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_2 = Enemy("necrola", "necrola", 100, 100, 5, 800, 130, True,
-                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["bone_dust_img"], 0),
-                        graphic_dict["ghoul"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_3 = Enemy("necrola", "necrola", 100, 100, 3, 760, 240, True,
-                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["bone_dust_img"], 0),
-                        graphic_dict["ghoul"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_4 = Enemy("necrola", "necrola", 100, 100, 4, 890, 205, True,
-                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["bone_dust_img"], 0),
-                        graphic_dict["ghoul"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    osodark_1 = Enemy("osodark", "osodark", 100, 100, 18, 700, 225, True,
+                      Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
+                      graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    osodark_2 = Enemy("osodark", "osodark", 100, 100, 19, 590, 200, True,
+                      Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
+                      graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    osodark_3 = Enemy("osodark", "osodark", 100, 100, 18, 250, 250, True,
+                      Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
+                      graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    osodark_4 = Enemy("osodark", "osodark", 100, 100, 20, 375, 280, True,
+                      Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
+                      graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+    necrola_1 = Enemy("necrola", "necrola", 100, 100, 12, 200, 425, True,
+                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                        graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    necrola_2 = Enemy("necrola", "necrola", 100, 100, 13, 355, 490, True,
+                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                        graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    necrola_3 = Enemy("necrola", "necrola", 100, 100, 12, 430, 365, True,
+                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                        graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    necrola_4 = Enemy("necrola", "necrola", 100, 100, 14, 588, 425, True,
+                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                        graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
@@ -2903,6 +2908,8 @@ if __name__ == '__main__':
     magmon_battle_sprite = BattleCharacter("magmon battle", 705, 286, graphic_dict["magmon_battle"])
     bandile_battle_sprite = BattleCharacter("bandile battle", 695, 300, graphic_dict["bandile_battle"])
     chinzilla_battle_sprite = BattleCharacter("chinzilla battle", 715, 300, graphic_dict["chinzilla_battle"])
+    necrola_battle_sprite = BattleCharacter("necrola battle", 705, 300, graphic_dict["necrola_battle"])
+    osodark_battle_sprite = BattleCharacter("osodark battle", 695, 300, graphic_dict["osodark_battle"])
 
     kasper_battle_sprite = BattleCharacter("kasper battle", 825, 520, graphic_dict["kasper_battle"])
     torok_battle_sprite = BattleCharacter("torok battle", 825, 520, graphic_dict["torok_battle"])
@@ -3020,6 +3027,7 @@ if __name__ == '__main__':
     eldream_cart = UiElement("eldream cart", 380, 640, graphic_dict["mines_light"])
 
     stardust_top = UiElement("stardust top", 531, 205, graphic_dict["stardust_top"])
+    alcove_star = UiElement("alcove star", 979, 674, graphic_dict["alcove_star"])
 
     # dungeon rocks
     rock_1 = Item("rock 1", "rock", 580, 145, graphic_dict["rock"], 0)
@@ -3053,6 +3061,8 @@ if __name__ == '__main__':
     npcs_korlok = pygame.sprite.Group()
     seldon_enemies = pygame.sprite.Group()
     korlok_enemies = pygame.sprite.Group()
+    ectrenos_front_enemies = pygame.sprite.Group()
+    ectrenos_alcove_enemies = pygame.sprite.Group()
     mine_enemies = pygame.sprite.Group()
     mine_walls = pygame.sprite.Group()
     boss_enemies = pygame.sprite.Group()
@@ -3100,6 +3110,8 @@ if __name__ == '__main__':
     seldon_enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     korlok_enemies.add(magmon_1, magmon_2, magmon_3, magmon_4)
     mine_enemies.add(bandile_1, bandile_2, bandile_3, bandile_4)
+    ectrenos_front_enemies.add(necrola_1, necrola_2, necrola_3, necrola_4)
+    ectrenos_alcove_enemies.add(osodark_1, osodark_2, osodark_3, osodark_4)
     mine_walls.add(mines_wall, mines_light)
     boss_enemies.add(chorizon_1, chorizon_2)
     trees.add(pine_tree_1, pine_tree_2, pine_tree_3)
@@ -3219,6 +3231,9 @@ if __name__ == '__main__':
     kirean_complete_shown = False
     dionte_complete_shown = False
     aitor_complete_shown = False
+    omoku_complete_shown = False
+    leyre_complete_shown = False
+    everett_complete_shown = False
     snake_sprite_reset = False
     ghoul_sprite_reset = False
     log_sprite_reset = False
@@ -3988,14 +4003,25 @@ if __name__ == '__main__':
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance):
                                         interacted = True
+                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                                        interacted = True
                                 if player.current_zone == "ectrenos left":
                                     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
                                         interacted = True
                                 if player.current_zone == "ectrenos front":
                                     if pygame.Rect.colliderect(player.rect, npc_everett.rect):
                                         interacted = True
+                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                                        interacted = True
+                                    if pygame.sprite.spritecollideany(player, ectrenos_front_enemies,
+                                                                      pygame.sprite.collide_rect_ratio(0.75)):
+                                        interacted = True
                                 if player.current_zone == "ectrenos alcove":
                                     if pygame.Rect.colliderect(player.rect, alcove_ladder_rect):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
                                         interacted = True
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -4418,7 +4444,9 @@ if __name__ == '__main__':
                                                                   bow, offense_meter, defense_meter, weapon_select,
                                                                   player_cutscene_overlay, player_cutscene_overlay_2,
                                                                   beyond_seldon, seldon_flowers, eldream_flowers,
-                                                                  interactables_eldream, pet_energy_window)
+                                                                  interactables_eldream, pet_energy_window,
+                                                                  ectrenos_front_enemies, necrola_battle_sprite,
+                                                                  osodark_battle_sprite)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -4497,7 +4525,8 @@ if __name__ == '__main__':
                                                                   weapon_select, rock_4, rock_5, rock_6, rock_4_con,
                                                                   rock_5_con, rock_6_con, seldon_flowers,
                                                                   eldream_flowers, interactables_eldream,
-                                                                  pet_energy_window)
+                                                                  pet_energy_window, ectrenos_front_enemies,
+                                                                  necrola_battle_sprite, osodark_battle_sprite)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -4570,7 +4599,8 @@ if __name__ == '__main__':
                                                                      interactables_mines, Enemy, Item, UiElement,
                                                                      seldon_flowers, interactables_eldream,
                                                                      ectrenos_entrance_rect, quest_star_omoku,
-                                                                     pet_energy_window, npc_omoku, quest_items_eldream)
+                                                                     pet_energy_window, npc_omoku, quest_items_eldream,
+                                                                     ectrenos_front_enemies)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -4642,7 +4672,8 @@ if __name__ == '__main__':
                                                                          interactables_eldream, ectrenos_entrance_rect,
                                                                          overlay_ectrene, ectrenos_ladder_rect,
                                                                          quest_star_leyre, pet_energy_window,
-                                                                         chroma_bridge, npc_leyre)
+                                                                         chroma_bridge, npc_leyre,
+                                                                         necrola_battle_sprite, osodark_battle_sprite)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -4736,7 +4767,7 @@ if __name__ == '__main__':
                                                                          ectrenos_entrance_rect,
                                                                          overlay_ectrene, ectrenos_pet_entrance,
                                                                          in_menagerie, quest_star_aitor,
-                                                                         pet_energy_window)
+                                                                         pet_energy_window, npc_leyre)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -4831,7 +4862,7 @@ if __name__ == '__main__':
                                                                            ectrenos_entrance_rect,
                                                                            overlay_ectrene, ectrenos_shop_entrance,
                                                                            ectrenos_inn_entrance,
-                                                                           pet_energy_window)
+                                                                           pet_energy_window, npc_leyre)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -4908,7 +4939,10 @@ if __name__ == '__main__':
                                                                            interactables_ectrenos,
                                                                            ectrenos_entrance_rect, overlay_ectrene,
                                                                            quest_star_everett, pet_energy_window,
-                                                                           npc_everett)
+                                                                           npc_everett, npc_leyre,
+                                                                           ectrenos_front_enemies,
+                                                                           interactables_eldream, necrola_battle_sprite,
+                                                                           osodark_battle_sprite)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -4987,7 +5021,8 @@ if __name__ == '__main__':
                                                                              interactables_eldream,
                                                                              ectrenos_entrance_rect, overlay_ectrene,
                                                                              pet_energy_window, alcove_ladder_rect,
-                                                                             chroma_bridge)
+                                                                             chroma_bridge, alcove_star, npc_leyre,
+                                                                             ectrenos_alcove_enemies)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -5046,7 +5081,9 @@ if __name__ == '__main__':
                                                              weapon_select, hearth_stone, npc_prime, npc_jez,
                                                              prime_popup, jez_popup, prime_1, prime_2, prime_3, jez_1,
                                                              jez_2, jez_3, seldon_flowers, eldream_flowers,
-                                                             interactables_eldream, pet_energy_window)
+                                                             interactables_eldream, pet_energy_window,
+                                                             ectrenos_front_enemies, necrola_battle_sprite,
+                                                             osodark_battle_sprite)
 
                     over_world_song_set = mines_returned["over_world_song_set"]
                     interacted = mines_returned["interacted"]
@@ -5524,7 +5561,8 @@ if __name__ == '__main__':
                                                                  magmon_battle_sprite, bandile_battle_sprite,
                                                                  chinzilla_battle_sprite, barrier_active,
                                                                  sharp_sense_active, hard_strike, graphic_dict,
-                                                                 turn_taken)
+                                                                 turn_taken, necrola_battle_sprite,
+                                                                 osodark_battle_sprite)
 
                                 # combat event function that handles and returns damage and health
                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
@@ -5656,7 +5694,8 @@ if __name__ == '__main__':
                                                                                   chinzilla_battle_sprite,
                                                                                   barrier_active, sharp_sense_active,
                                                                                   in_battle, in_npc_interaction,
-                                                                                  graphic_dict)
+                                                                                  graphic_dict, necrola_battle_sprite,
+                                                                                  osodark_battle_sprite)
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                                 "attack", player,
@@ -5711,7 +5750,8 @@ if __name__ == '__main__':
                                                                                   chinzilla_battle_sprite,
                                                                                   barrier_active, sharp_sense_active,
                                                                                   in_battle, in_npc_interaction,
-                                                                                  graphic_dict)
+                                                                                  graphic_dict, necrola_battle_sprite,
+                                                                                  osodark_battle_sprite)
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                                 "attack", player,
@@ -5849,6 +5889,8 @@ if __name__ == '__main__':
                                 screen.blit(reservoir_battle, (0, 0))
                             if player.current_zone == "terra trail":
                                 screen.blit(caves_battle_screen, (0, 0))
+                            if player.current_zone == "ectrenos front":
+                                screen.blit(ectrenos_front_interaction_bg, (0, 0))
 
                             screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                             try:
@@ -5913,7 +5955,7 @@ if __name__ == '__main__':
                                                           magmon_battle_sprite, bandile_battle_sprite,
                                                           chinzilla_battle_sprite, barrier_active,
                                                           sharp_sense_active, in_battle, in_npc_interaction,
-                                                          graphic_dict)
+                                                          graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
                         kasper_battle_sprite.update(825, 520, graphic_dict["kasper_battle"])
                         torok_battle_sprite.update(825, 520, graphic_dict["torok_battle"])
                         iriana_battle_sprite.update(825, 520, graphic_dict["iriana_battle"])
@@ -5932,6 +5974,10 @@ if __name__ == '__main__':
                             screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
                         if current_enemy_battling.kind == "chinzilla":
                             screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+                        if current_enemy_battling.kind == "necrola":
+                            screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
+                        if current_enemy_battling.kind == "osodark":
+                            screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
 
                         for pet in player.pet:
                             if pet.active:
@@ -6011,7 +6057,8 @@ if __name__ == '__main__':
                                                          chorizon_battle_sprite, muchador_battle_sprite,
                                                          magmon_battle_sprite, bandile_battle_sprite,
                                                          chinzilla_battle_sprite, barrier_active,
-                                                         sharp_sense_active, hard_strike, graphic_dict, turn_taken)
+                                                         sharp_sense_active, hard_strike, graphic_dict, turn_taken,
+                                                         necrola_battle_sprite, osodark_battle_sprite)
                         if not turn_taken:
                             if kasper_unlocked or torok_unlocked or iriana_unlocked:
                                 for pet in player.pet:
@@ -6037,6 +6084,10 @@ if __name__ == '__main__':
                             screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
                         if current_enemy_battling.kind == "chinzilla":
                             screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+                        if current_enemy_battling.kind == "necrola":
+                            screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
+                        if current_enemy_battling.kind == "osodark":
+                            screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
 
                         for pet in player.pet:
                             if pet.active:
@@ -7933,6 +7984,12 @@ if __name__ == '__main__':
                                 drawing_functions.quest_complete_box.clear()
                             if dionte_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
+                            if omoku_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
+                            if leyre_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
+                            if everett_complete_quest_window.rect.collidepoint(pos):
+                                drawing_functions.quest_complete_box.clear()
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False)
                             if role_select_overlay.rect.collidepoint(pos):
@@ -7976,6 +8033,18 @@ if __name__ == '__main__':
                                 player.quest_status["it's dangerous to go alone"] = True
                                 player.current_quests["it's dangerous to go alone"] = "Dionte asked you to face the" \
                                                                                       " monster in the cave."
+                            if current_npc_interacting.name == "omoku":
+                                player.quest_status["kart troubles"] = True
+                                player.current_quests["kart troubles"] = "Omoku asked if you could pick up his stray " \
+                                                                         "supplies."
+                            if current_npc_interacting.name == "leyre":
+                                player.quest_status["las escondidas"] = True
+                                player.current_quests["las escondidas"] = "Leyre is playing hide and seek with you! " \
+                                                                          "Try to find her."
+                            if current_npc_interacting.name == "everett":
+                                player.quest_status["shades of fear"] = True
+                                player.current_quests["shades of fear"] = "Everett hopes you'll defeat some of the" \
+                                                                          " Necrolas around. "
                             quest_clicked = False
                             drawing_functions.quest_box.clear()
 
@@ -8457,6 +8526,165 @@ if __name__ == '__main__':
                                     drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
+                            # omoku npc, check player's quest progress and reward if completed -------------------------
+                            if current_npc_interacting.name == "omoku":
+                                if player.quest_progress["kart troubles"] == 4 and not \
+                                        player.quest_complete["kart troubles"]:
+                                    if len(player.items) < 16:
+                                        player.quest_complete["kart troubles"] = True
+                                        player.current_quests["kart troubles"] = "You completed this quest!"
+                                        info_text_1 = "You've completed Omoku's quest!"
+                                        info_text_2 = ""
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.star_power += 1
+                                        player.experience += 50
+                                        if player.experience >= 100:
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            leveled = True
+                                            loot_level_tic = time.perf_counter()
+                                        player.reputation["nuldar"] += 10
+                                    else:
+                                        info_text_1 = "You completed the quest, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if not player.quest_complete["kart troubles"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window, maurelle_quest_window,
+                                                                         celeste_quest_window, torune_quest_window,
+                                                                         voruke_quest_window, zerah_quest_window,
+                                                                         kirean_quest_window, dionte_quest_window,
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window, everett_quest_window)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not omoku_complete_shown:
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window,
+                                                                                  kirean_complete_quest_window,
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
+                                            omoku_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box.clear()
+                                    quest_clicked = False
+
+                            # leyre npc, check player's quest progress and reward if completed -------------------------
+                            if current_npc_interacting.name == "leyre":
+                                if player.quest_progress["las escondidas"] == 4 and not \
+                                        player.quest_complete["las escondidas"]:
+                                    if len(player.items) < 16:
+                                        player.quest_complete["las escondidas"] = True
+                                        player.current_quests["las escondidas"] = "You completed this quest!"
+                                        info_text_1 = "You've completed Leyre's quest!"
+                                        info_text_2 = ""
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.star_power += 1
+                                        player.experience += 50
+                                        if player.experience >= 100:
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            leveled = True
+                                            loot_level_tic = time.perf_counter()
+                                        player.reputation["sorae"] += 10
+                                    else:
+                                        info_text_1 = "You completed the quest, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if not player.quest_complete["las escondidas"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window, maurelle_quest_window,
+                                                                         celeste_quest_window, torune_quest_window,
+                                                                         voruke_quest_window, zerah_quest_window,
+                                                                         kirean_quest_window, dionte_quest_window,
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window, everett_quest_window)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not leyre_complete_shown:
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window,
+                                                                                  kirean_complete_quest_window,
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
+                                            leyre_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box.clear()
+                                    quest_clicked = False
+
+                            # leyre npc, check player's quest progress and reward if completed -------------------------
+                            if current_npc_interacting.name == "everett":
+                                if player.quest_progress["shades of fear"] == 4 and not \
+                                        player.quest_complete["shades of fear"]:
+                                    if len(player.items) < 16:
+                                        player.quest_complete["shades of fear"] = True
+                                        player.current_quests["shades of fear"] = "You completed this quest!"
+                                        info_text_1 = "You've completed Leyre's quest!"
+                                        info_text_2 = ""
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.star_power += 1
+                                        player.experience += 50
+                                        if player.experience >= 100:
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            leveled = True
+                                            loot_level_tic = time.perf_counter()
+                                        player.reputation["amuna"] += 10
+                                    else:
+                                        info_text_1 = "You completed the quest, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if not player.quest_complete["shades of fear"]:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window, maurelle_quest_window,
+                                                                         celeste_quest_window, torune_quest_window,
+                                                                         voruke_quest_window, zerah_quest_window,
+                                                                         kirean_quest_window, dionte_quest_window,
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window, everett_quest_window)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not everett_complete_shown:
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window,
+                                                                                  kirean_complete_quest_window,
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window)
+                                            everett_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box.clear()
+                                    quest_clicked = False
+
                         if npc_button == "leave":
                             npc_button = ''
                             movement_able = True
@@ -8502,7 +8730,7 @@ if __name__ == '__main__':
                                                           magmon_battle_sprite, bandile_battle_sprite,
                                                           chinzilla_battle_sprite, barrier_active,
                                                           sharp_sense_active, in_battle, in_npc_interaction,
-                                                          graphic_dict)
+                                                          graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
                         screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
@@ -8535,7 +8763,7 @@ if __name__ == '__main__':
                             npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "omoku":
                             screen.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
-                            npc_name_plate.update(615, 165, graphic_dict["npc_name_plate"])
+                            npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
                         if current_npc_interacting.name == "leyre":
                             screen.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
                             npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
@@ -8554,7 +8782,7 @@ if __name__ == '__main__':
                                                          (203, 195, 227))
                         text_npc_name_rect = text_npc_name_surf.get_rect()
                         if current_npc_interacting.name == "omoku":
-                            text_npc_name_rect.center = (615, 165)
+                            text_npc_name_rect.center = (605, 193)
                         if current_npc_interacting.name != "omoku":
                             text_npc_name_rect.center = (675, 165)
                         screen.blit(text_npc_name_surf, text_npc_name_rect)

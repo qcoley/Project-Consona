@@ -21,7 +21,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles,
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
                      seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
-                     omoku, quest_supplies):
+                     omoku, quest_supplies, ectrenos_front_enemies):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -41,7 +41,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
-                                                      seldon_flowers, eldream_flowers, interactables_eldream)
+                                                      seldon_flowers, eldream_flowers, interactables_eldream,
+                                                      ectrenos_front_enemies)
 
     eldream_flowers = respawned_dict["eldream_flowers"]
     interactables_eldream = respawned_dict["interactables_eldream"]
@@ -243,6 +244,14 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                 omoku.update(graphic_dict["omoku_left"])
             if face_direction == "right":
                 omoku.update(graphic_dict["omoku_right"])
+
+    for supply in quest_supplies:
+        if not player.quest_complete["kart troubles"]:
+            if player.quest_status["kart troubles"]:
+                supply.update(supply.x_coordinate, supply.y_coordinate, graphic_dict["quest_supplies_high"])
+    for supply in quest_supplies:
+        if player.quest_complete["kart troubles"]:
+            supply.update(supply.x_coordinate, supply.y_coordinate, graphic_dict["quest_supplies"])
 
     eldream_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic, "info_text_1": info_text_1,
                       "info_text_2": info_text_2, "info_text_3": info_text_3, "info_text_4": info_text_4,

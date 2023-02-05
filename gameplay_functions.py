@@ -135,14 +135,14 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
 
     if player.current_zone == "eldream":
         if player.quest_progress["kart troubles"] == 4:
-            star_omoku.update(800, 600, quest_complete_star)
+            star_omoku.update(460, 610, quest_complete_star)
         if player.quest_status["kart troubles"] and player.quest_progress["kart troubles"] != 4:
-            star_omoku.update(800, 600, quest_progress_star)
+            star_omoku.update(460, 610, quest_progress_star)
     if player.current_zone == "ectrenos":
         if player.quest_progress["las escondidas"] == 4:
-            star_leyre.update(250, 200, quest_complete_star)
+            star_leyre.update(682, 375, quest_complete_star)
         if player.quest_status["las escondidas"] and player.quest_progress["las escondidas"] != 4:
-            star_leyre.update(250, 200, quest_progress_star)
+            star_leyre.update(682, 375, quest_progress_star)
     if player.current_zone == "ectrenos left":
         if player.quest_progress["hatch 'em all"] == 1:
             star_aitor.update(818, 200, quest_complete_star)
@@ -150,9 +150,9 @@ def npc_quest_star_updates(player, star_garan, star_maurelle, star_celeste, star
             star_aitor.update(818, 200, quest_progress_star)
     if player.current_zone == "ectrenos front":
         if player.quest_progress["shades of fear"] == 4:
-            star_everett.update(800, 280, quest_complete_star)
+            star_everett.update(749, 278, quest_complete_star)
         if player.quest_status["shades of fear"] and player.quest_progress["shades of fear"] != 4:
-            star_everett.update(800, 280, quest_progress_star)
+            star_everett.update(749, 278, quest_progress_star)
 
 
 def load_game(player, Item, graphics, Pet):
@@ -768,7 +768,7 @@ def level_up(player, level_up_win, level_up_font):
 # function to respawn enemies if they are less than a specified amount active in game. spawns with random coord. and lvl
 def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
                   interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers,
-                  eldream_flowers, interactables_eldream):
+                  eldream_flowers, interactables_eldream, ectrenos_front_enemies):
 
     if player.current_zone == "seldon":
         snake_counter = 0
@@ -883,10 +883,33 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
             eldream_flowers.add(new_flower)
             interactables_eldream.add(new_flower)
 
+    if player.current_zone == "ectrenos front":
+        necrola_counter = 0
+        # generate random coordinates and level for new enemy to spawn within boundaries and level range
+        # if not scaled, coordinates set to default boundaries
+        random_necrola_x = random.randrange(200, 600)
+        random_necrola_y = random.randrange(350, 500)
+        random_necrola_level = random.randrange(11, 15)
+
+        # count current enemies active in game
+        for mob in ectrenos_front_enemies:
+            if mob.name == "necrola":
+                necrola_counter += 1
+
+        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        if necrola_counter < 3:
+            new_necrola = Enemy("necrola", "necrola", 100, 100, random_necrola_level, random_necrola_x,
+                                random_necrola_y, True, Item("oscura pluma", "pluma", 200, 200,
+                                                             graphic_dict["pluma_img"], 0),
+                                graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
+                                "scout")
+            ectrenos_front_enemies.add(new_necrola)
+
     respawn_dict = {"seldon_enemies": seldon_enemies, "snakes": snakes, "ghouls": ghouls,
                     "interactables_seldon": interactables_seldon, "interactables_korlok": interactables_korlok,
                     "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles, "seldon_flowers":
-                    seldon_flowers, "eldream_flowers": eldream_flowers, "interactables_eldream": interactables_eldream}
+                    seldon_flowers, "eldream_flowers": eldream_flowers, "interactables_eldream": interactables_eldream,
+                    "ectrenos_front_enemies": ectrenos_front_enemies}
 
     return respawn_dict
 
