@@ -441,13 +441,19 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
             assert os.path.isfile(save_directory)
             with open(save_directory, "wb") as ff:
                 pickle.dump(player_save_info, ff)
-
         # create the directory with save data if it doesn't exist
         except FileNotFoundError and AssertionError:
-            directory = os.getcwd()
-            os.mkdir(directory + "/saves")
-            with open(directory + "/saves/save_game", "wb") as ff:
-                pickle.dump(player_save_info, ff)
+            try:
+                directory = os.getcwd()
+                os.mkdir(directory + "/saves")
+                with open(directory + "/saves/save_game", "wb") as ff:
+                    pickle.dump(player_save_info, ff)
+            except FileExistsError:
+                directory = os.getcwd()
+                os.removedirs(directory + "/saves")
+                os.mkdir(directory + "/saves")
+                with open(directory + "/saves/save_game", "wb") as ff:
+                    pickle.dump(player_save_info, ff)
     except PermissionError:
         pass
 
@@ -601,16 +607,17 @@ def attack_enemy(player, mob, sharp_sense_active):
             attack_dict["non effective"] = True
     # if player doesn't have a role, either do no damage or just 1
     if player.role == "":
-        damage = random.randrange(0, 1)
+        damage = 1
         attack_dict["non effective"] = True
+        attack_dict["critical"] = False
 
     # level scaling final damage output
     if level_difference == 1:
-        damage -= 1
-    if level_difference == 2:
         damage -= 2
-    if level_difference == 3:
+    if level_difference == 2:
         damage -= 4
+    if level_difference == 3:
+        damage -= 6
     if level_difference == 4:
         damage -= 8
     if level_difference >= 5:
@@ -732,15 +739,15 @@ def attack_player(player, mob, barrier_active):
 
     # level scaling final damage output
     if level_difference == 1:
-        damage += 1
-    if level_difference == 2:
         damage += 2
-    if level_difference == 3:
+    if level_difference == 2:
         damage += 4
+    if level_difference == 3:
+        damage += 6
     if level_difference == 4:
         damage += 8
     if level_difference >= 5:
-        damage += 16
+        damage += 10
 
     if damage >= 0:
         attack_dict["damage"] = damage

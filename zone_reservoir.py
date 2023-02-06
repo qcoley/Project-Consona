@@ -12,7 +12,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                 muchador_battle_sprite, barrier_active, sharp_sense_active, in_npc_interaction, magmon_battle_sprite,
                 bandile_battle_sprite, chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan,
-                offense_meter, defense_meter, weapon_select, pet_energy_window):
+                offense_meter, defense_meter, weapon_select, pet_energy_window, necrola_battle_sprite,
+                osodark_battle_sprite):
 
     in_battle = False
 
@@ -215,7 +216,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                                                   snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                                                   muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
                                                   chinzilla_battle_sprite, barrier_active, sharp_sense_active,
-                                                  in_battle, in_npc_interaction, graphic_dict)
+                                                  in_battle, in_npc_interaction, graphic_dict,
+                                                  necrola_battle_sprite, osodark_battle_sprite)
 
     # player defeats mini bosses and activates teleporter
     if pygame.sprite.collide_rect(player, dungeon_teleporter):
@@ -286,7 +288,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 button_highlight, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 switch_1, switch_2, switch_3, has_key, magmon_battle_sprite, bandile_battle_sprite,
                 chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
-                weapon_select, pet_energy_window):
+                weapon_select, pet_energy_window, necrola_battle_sprite, osodark_battle_sprite):
 
     in_battle = False
 
@@ -456,7 +458,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                                                   ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                                   magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                                   barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                                  graphic_dict)
+                                                  graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

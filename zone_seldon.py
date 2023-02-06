@@ -27,7 +27,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     equipment_screen, staff, sword, bow,
                     offense_meter, defense_meter, weapon_select, player_cutscene, player_cutscene_2, beyond_seldon,
                     flowers, eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
-                    necrola_battle_sprite, osodark_battle_sprite):
+                    necrola_battle_sprite, osodark_battle_sprite, tree_top_1, tree_top_2, tree_top_3, building_top_1,
+                    building_top_2, building_top_3):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -133,6 +134,13 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    screen.blit(tree_top_1.surf, tree_top_1.rect)
+    screen.blit(tree_top_2.surf, tree_top_2.rect)
+    screen.blit(tree_top_3.surf, tree_top_3.rect)
+    screen.blit(building_top_1.surf, building_top_1.rect)
+    screen.blit(building_top_2.surf, building_top_2.rect)
+    screen.blit(building_top_3.surf, building_top_3.rect)
 
     # player encounters objects and draws popup information box ----------------------------------------
     # player encounters a quest item. check progress and add to if interacted with
@@ -390,7 +398,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         player.x_coordinate = 750
         player.y_coordinate = 125
     # move player to stardust outpost when they approach
-    if player.x_coordinate < 25 and 325 < player.y_coordinate < 400:
+    if player.x_coordinate < 30 and 325 < player.y_coordinate < 400:
         player.current_zone = "stardust"
         over_world_song_set = False
         in_over_world = True

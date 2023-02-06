@@ -351,14 +351,14 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     if self.x_coordinate > 505:
                         self.x_coordinate = 505
         if current_zone == "seldon":
-            if self.x_coordinate < 15:
-                self.x_coordinate = 15
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
             elif self.x_coordinate > SCREEN_WIDTH - 355:
                 self.x_coordinate = SCREEN_WIDTH - 355
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
-            elif self.y_coordinate >= SCREEN_HEIGHT - 5:
-                self.y_coordinate = SCREEN_HEIGHT - 5
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
         if current_zone == "stardust":
             if self.x_coordinate < 225:
                 self.x_coordinate = 225
@@ -440,6 +440,15 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 170
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
+        if current_zone == "fishing hut":
+            if self.y_coordinate < 100:
+                self.y_coordinate = 100
+            if self.y_coordinate > 365:
+                self.y_coordinate = 365
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
@@ -527,14 +536,23 @@ class PlayerAmuna(pygame.sprite.Sprite):
             elif self.y_coordinate >= SCREEN_HEIGHT:
                 self.y_coordinate = SCREEN_HEIGHT
         if current_zone == "ectrenos front":
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
-            if self.x_coordinate < 15:
-                self.x_coordinate = 15
+            if player.y_coordinate > 400:
+                if self.x_coordinate > SCREEN_WIDTH - 325:
+                    self.x_coordinate = SCREEN_WIDTH - 325
+                if self.x_coordinate < 75:
+                    self.x_coordinate = 75
+            else:
+                if self.x_coordinate > SCREEN_WIDTH - 275:
+                    self.x_coordinate = SCREEN_WIDTH - 275
+                if self.x_coordinate < 15:
+                    self.x_coordinate = 15
             if self.y_coordinate <= 330:
                 self.y_coordinate = 330
             elif self.y_coordinate >= 545:
                 self.y_coordinate = 545
+            if self.x_coordinate < 60 or self.x_coordinate > 960:
+                if self.y_coordinate > 390:
+                    self.y_coordinate = 390
         if current_zone == "ectrenos alcove":
             if self.x_coordinate > SCREEN_WIDTH - 275:
                 self.x_coordinate = SCREEN_WIDTH - 275
@@ -740,6 +758,13 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate -= velocity
                 if player.y_coordinate > eldream_cart.y_coordinate:
                     self.y_coordinate += velocity
+        if current_zone == "ectrenos left":
+            if player.equipment["boots"] != "chroma boots":
+                if pygame.sprite.collide_rect(player, chroma_bridge):
+                    if player.x_coordinate < chroma_bridge.x_coordinate:
+                        self.x_coordinate -= velocity
+                    if player.x_coordinate > chroma_bridge.x_coordinate:
+                        self.x_coordinate += velocity
         if current_zone == "ectrenos alcove":
             if player.equipment["boots"] != "chroma boots":
                 if pygame.sprite.collide_rect(player, chroma_bridge):
@@ -1049,14 +1074,14 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     if self.x_coordinate > 505:
                         self.x_coordinate = 505
         if current_zone == "seldon":
-            if self.x_coordinate < 15:
-                self.x_coordinate = 15
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
             elif self.x_coordinate > SCREEN_WIDTH - 355:
                 self.x_coordinate = SCREEN_WIDTH - 355
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
-            elif self.y_coordinate >= SCREEN_HEIGHT - 5:
-                self.y_coordinate = SCREEN_HEIGHT - 5
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
         if current_zone == "stardust":
             if self.x_coordinate < 225:
                 self.x_coordinate = 225
@@ -1139,6 +1164,15 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 170
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
+        if current_zone == "fishing hut":
+            if self.y_coordinate < 100:
+                self.y_coordinate = 100
+            if self.y_coordinate > 365:
+                self.y_coordinate = 365
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
@@ -1226,14 +1260,23 @@ class PlayerNuldar(pygame.sprite.Sprite):
             elif self.y_coordinate >= SCREEN_HEIGHT:
                 self.y_coordinate = SCREEN_HEIGHT
         if current_zone == "ectrenos front":
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
-            if self.x_coordinate < 15:
-                self.x_coordinate = 15
+            if player.y_coordinate > 400:
+                if self.x_coordinate > SCREEN_WIDTH - 325:
+                    self.x_coordinate = SCREEN_WIDTH - 325
+                if self.x_coordinate < 75:
+                    self.x_coordinate = 75
+            else:
+                if self.x_coordinate > SCREEN_WIDTH - 275:
+                    self.x_coordinate = SCREEN_WIDTH - 275
+                if self.x_coordinate < 15:
+                    self.x_coordinate = 15
             if self.y_coordinate <= 330:
                 self.y_coordinate = 330
             elif self.y_coordinate >= 545:
                 self.y_coordinate = 545
+            if self.x_coordinate < 60 or self.x_coordinate > 960:
+                if self.y_coordinate > 390:
+                    self.y_coordinate = 390
         if current_zone == "ectrenos alcove":
             if self.x_coordinate > SCREEN_WIDTH - 275:
                 self.x_coordinate = SCREEN_WIDTH - 275
@@ -1755,14 +1798,14 @@ class PlayerSorae(pygame.sprite.Sprite):
                     if self.x_coordinate > 505:
                         self.x_coordinate = 505
         if current_zone == "seldon":
-            if self.x_coordinate < 15:
-                self.x_coordinate = 15
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
             elif self.x_coordinate > SCREEN_WIDTH - 355:
                 self.x_coordinate = SCREEN_WIDTH - 355
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
-            elif self.y_coordinate >= SCREEN_HEIGHT - 5:
-                self.y_coordinate = SCREEN_HEIGHT - 5
+            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
+                self.y_coordinate = SCREEN_HEIGHT - 15
         if current_zone == "stardust":
             if self.x_coordinate < 225:
                 self.x_coordinate = 225
@@ -1844,6 +1887,15 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 170
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
+        if current_zone == "fishing hut":
+            if self.y_coordinate < 100:
+                self.y_coordinate = 100
+            if self.y_coordinate > 365:
+                self.y_coordinate = 365
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            if self.x_coordinate > SCREEN_WIDTH - 275:
+                self.x_coordinate = SCREEN_WIDTH - 275
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
@@ -1931,14 +1983,23 @@ class PlayerSorae(pygame.sprite.Sprite):
             elif self.y_coordinate >= SCREEN_HEIGHT:
                 self.y_coordinate = SCREEN_HEIGHT
         if current_zone == "ectrenos front":
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
-            if self.x_coordinate < 15:
-                self.x_coordinate = 15
+            if player.y_coordinate > 400:
+                if self.x_coordinate > SCREEN_WIDTH - 325:
+                    self.x_coordinate = SCREEN_WIDTH - 325
+                if self.x_coordinate < 75:
+                    self.x_coordinate = 75
+            else:
+                if self.x_coordinate > SCREEN_WIDTH - 275:
+                    self.x_coordinate = SCREEN_WIDTH - 275
+                if self.x_coordinate < 15:
+                    self.x_coordinate = 15
             if self.y_coordinate <= 330:
                 self.y_coordinate = 330
             elif self.y_coordinate >= 545:
                 self.y_coordinate = 545
+            if self.x_coordinate < 60 or self.x_coordinate > 960:
+                if self.y_coordinate > 390:
+                    self.y_coordinate = 390
         if current_zone == "ectrenos alcove":
             if self.x_coordinate > SCREEN_WIDTH - 275:
                 self.x_coordinate = SCREEN_WIDTH - 275
@@ -2712,25 +2773,26 @@ if __name__ == '__main__':
     osodark_4 = Enemy("osodark", "osodark", 100, 100, 20, 375, 280, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    necrola_1 = Enemy("necrola", "necrola", 100, 100, 12, 200, 425, True,
+    necrola_1 = Enemy("necrola", "necrola", 100, 100, 12, 230, 425, True,
                         Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                         graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_2 = Enemy("necrola", "necrola", 100, 100, 13, 355, 490, True,
+    necrola_2 = Enemy("necrola", "necrola", 100, 100, 13, 385, 490, True,
                         Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                         graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_3 = Enemy("necrola", "necrola", 100, 100, 12, 430, 365, True,
+    necrola_3 = Enemy("necrola", "necrola", 100, 100, 12, 460, 365, True,
                         Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                         graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_4 = Enemy("necrola", "necrola", 100, 100, 14, 588, 425, True,
+    necrola_4 = Enemy("necrola", "necrola", 100, 100, 14, 618, 425, True,
                         Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                         graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
-    pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
-    pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
-    pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, graphic_dict["pine_tree"])
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
     seldon_academia = Building("academia", "seldon academia", 875, 440, graphic_dict["amuna_academia_building"])
+
+    amuna_building_top_1 = UiElement("building top", 635, 572, graphic_dict["amuna_building_top"])
+    amuna_building_top_2 = UiElement("building top", 665, 372, graphic_dict["amuna_building_top"])
+    amuna_building_top_3 = UiElement("building top", 875, 412, graphic_dict["amuna_building_top"])
 
     korlok_inn = Building("inn", "korlok inn", 895, 365, graphic_dict["nuldar_inn_building"])
     korlok_shop = Building("shop", "korlok shop", 675, 390, graphic_dict["nuldar_shop_building"])
@@ -2930,14 +2992,6 @@ if __name__ == '__main__':
                                               graphic_dict["stardust_star_01_eldream"])
     directional_arrow = UiElement("directional arrow", 855, 620, graphic_dict["arrow_down"])
 
-    water_player = UiElement("water", 855, 620, graphic_dict["water_player"])
-    water_1 = UiElement("water", 855, 450, graphic_dict["water"])
-    water_2 = UiElement("water", 855, 200, graphic_dict["water"])
-    water_3 = UiElement("water", 500, 425, graphic_dict["water"])
-    water_4 = UiElement("water", 575, 275, graphic_dict["water"])
-    water_5 = UiElement("water", 700, 525, graphic_dict["water"])
-    korlok_mountains = UiElement("korlok mountains", 241, 251, graphic_dict["korlok_mountains"])
-
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
     pet_damage_overlay = UiElement("pet damage overlay", 750, 250, graphic_dict["pet_damage_img"])
@@ -2945,8 +2999,8 @@ if __name__ == '__main__':
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
     button_highlight = UiElement("button_highlight", 200, 200, graphic_dict["main high"])
-    critical_dealt_overlay = UiElement("critical dealt overlay", 905, 180, graphic_dict["critical_dealt"])
-    critical_received_overlay = UiElement("critical received overlay", 65, 230, graphic_dict["critical_received"])
+    critical_dealt_overlay = UiElement("critical dealt overlay", 905, 185, graphic_dict["critical_dealt"])
+    critical_received_overlay = UiElement("critical received overlay", 65, 235, graphic_dict["critical_received"])
 
     prime_popup = UiElement("prime popup", 130, 475, graphic_dict["popup_interaction"])
     jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
@@ -2983,6 +3037,21 @@ if __name__ == '__main__':
     dungeon_switch_3 = Item("dungeon switch 3", "switch", 519, 165, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
+
+    pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
+    pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
+    pine_tree_3 = Tree("tree", "pine tree", 340, 400, False, graphic_dict["pine_tree"])
+    pine_tree_1_top = Tree("tree", "pine tree", 80, 410, False, graphic_dict["tree_top"])
+    pine_tree_2_top = Tree("tree", "pine tree", 260, 555, False, graphic_dict["tree_top"])
+    pine_tree_3_top = Tree("tree", "pine tree", 340, 365, False, graphic_dict["tree_top"])
+
+    water_player = UiElement("water", 855, 620, graphic_dict["water_player"])
+    water_1 = UiElement("water", 855, 450, graphic_dict["water"])
+    water_2 = UiElement("water", 855, 200, graphic_dict["water"])
+    water_3 = UiElement("water", 500, 425, graphic_dict["water"])
+    water_4 = UiElement("water", 575, 275, graphic_dict["water"])
+    water_5 = UiElement("water", 700, 525, graphic_dict["water"])
+    korlok_mountains = UiElement("korlok mountains", 241, 251, graphic_dict["korlok_mountains"])
 
     eldream_riv_1 = UiElement("eldream river 1", 190, 400, graphic_dict["eldream_river"])
     eldream_riv_2 = UiElement("eldream river 2", 240, 370, graphic_dict["eldream_river"])
@@ -4117,6 +4186,10 @@ if __name__ == '__main__':
                                         save_check_window.append(yes_button)
                                         save_check_window.append(no_button)
                                     if not saved:
+                                        # reset to prevent skipping
+                                        if not switch_3:
+                                            switch_1 = False
+                                            switch_2 = False
                                         gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                                      sharp_sense_learned, saved, npc_garan.gift,
                                                                      rest_recover_show, knowledge_academia_show,
@@ -4139,6 +4212,10 @@ if __name__ == '__main__':
                                 except PermissionError:
                                     pass
                             if yes_button.rect.collidepoint(pos) and saving:
+                                # reset to prevent skipping
+                                if not switch_3:
+                                    switch_1 = False
+                                    switch_2 = False
                                 gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
                                                              sharp_sense_learned, saved, npc_garan.gift,
                                                              rest_recover_show, knowledge_academia_show,
@@ -4446,7 +4523,10 @@ if __name__ == '__main__':
                                                                   beyond_seldon, seldon_flowers, eldream_flowers,
                                                                   interactables_eldream, pet_energy_window,
                                                                   ectrenos_front_enemies, necrola_battle_sprite,
-                                                                  osodark_battle_sprite)
+                                                                  osodark_battle_sprite, pine_tree_1_top,
+                                                                  pine_tree_2_top, pine_tree_3_top,
+                                                                  amuna_building_top_1, amuna_building_top_2,
+                                                                  amuna_building_top_3)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -4600,7 +4680,8 @@ if __name__ == '__main__':
                                                                      seldon_flowers, interactables_eldream,
                                                                      ectrenos_entrance_rect, quest_star_omoku,
                                                                      pet_energy_window, npc_omoku, quest_items_eldream,
-                                                                     ectrenos_front_enemies)
+                                                                     ectrenos_front_enemies,
+                                                                     necrola_battle_sprite, osodark_battle_sprite)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -4647,29 +4728,18 @@ if __name__ == '__main__':
                                                                          in_over_world, interacted, info_text_1,
                                                                          info_text_2, info_text_3, info_text_4, npc_tic,
                                                                          in_npc_interaction, in_battle, movement_able,
-                                                                         current_enemy_battling, quest_star_garan,
-                                                                         quest_star_maurelle, quest_star_celeste,
-                                                                         quest_star_torune, quest_star_voruke,
-                                                                         quest_star_zerah, quest_star_apothecary,
-                                                                         terra_mountains, terra_cave, npc_dionte,
-                                                                         quest_star_dionte, Enemy, player_battle_sprite,
-                                                                         snake_battle_sprite, ghoul_battle_sprite,
-                                                                         chorizon_battle_sprite, muchador_battle_sprite,
-                                                                         magmon_battle_sprite, bandile_battle_sprite,
-                                                                         chinzilla_battle_sprite, barrier_active,
-                                                                         sharp_sense_active, current_npc_interacting,
-                                                                         chinzilla, quest_star_dionte, hearth_stone,
+                                                                         current_enemy_battling, enemy,
+                                                                         player_battle_sprite, snake_battle_sprite,
+                                                                         ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                         muchador_battle_sprite, magmon_battle_sprite,
+                                                                         bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                         barrier_active, sharp_sense_active,
+                                                                         current_npc_interacting, hearth_stone,
                                                                          equipment_screen, staff, sword, bow, npc_garan,
                                                                          offense_meter, defense_meter, weapon_select,
-                                                                         rock_7, rock_7_con, chinzilla_defeated,
-                                                                         eldream_gate_rect, eldream_attuned, in_shop,
-                                                                         in_inn, current_building_entering, enemy_tic,
-                                                                         eldream_flowers, seldon_enemies,
-                                                                         korlok_enemies, snakes, ghouls, magmons,
-                                                                         bandiles, interactables_seldon,
-                                                                         interactables_korlok, interactables_mines,
-                                                                         Enemy, Item, UiElement, seldon_flowers,
-                                                                         interactables_eldream, ectrenos_entrance_rect,
+                                                                         eldream_attuned, in_shop, in_inn,
+                                                                         current_building_entering, enemy_tic,
+                                                                         eldream_flowers, interactables_ectrenos,
                                                                          overlay_ectrene, ectrenos_ladder_rect,
                                                                          quest_star_leyre, pet_energy_window,
                                                                          chroma_bridge, npc_leyre,
@@ -4714,58 +4784,20 @@ if __name__ == '__main__':
 
                     ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, screen, graphic_dict, player,
                                                                          ectrenos_left_bg, eldream_overworld_music,
-                                                                         over_world_song_set, interaction_popup,
-                                                                         font,
+                                                                         over_world_song_set, interaction_popup, font,
                                                                          save_check_window, user_interface,
                                                                          bar_backdrop, hp_bar, en_bar, xp_bar,
                                                                          button_highlighted, button_highlight,
                                                                          in_over_world, interacted, info_text_1,
-                                                                         info_text_2, info_text_3, info_text_4,
-                                                                         npc_tic,
-                                                                         in_npc_interaction, in_battle,
-                                                                         movement_able,
+                                                                         info_text_2, info_text_3, info_text_4, npc_tic,
+                                                                         in_npc_interaction, in_battle, movement_able,
                                                                          current_enemy_battling,
-                                                                         quest_star_garan,
-                                                                         quest_star_maurelle,
-                                                                         quest_star_celeste,
-                                                                         quest_star_torune, quest_star_voruke,
-                                                                         quest_star_zerah,
-                                                                         quest_star_apothecary,
-                                                                         terra_mountains, terra_cave,
-                                                                         npc_dionte,
-                                                                         quest_star_dionte, Enemy,
-                                                                         player_battle_sprite,
-                                                                         snake_battle_sprite,
-                                                                         ghoul_battle_sprite,
-                                                                         chorizon_battle_sprite,
-                                                                         muchador_battle_sprite,
-                                                                         magmon_battle_sprite,
-                                                                         bandile_battle_sprite,
-                                                                         chinzilla_battle_sprite,
-                                                                         barrier_active,
-                                                                         sharp_sense_active,
-                                                                         current_npc_interacting,
-                                                                         chinzilla, quest_star_dionte,
-                                                                         hearth_stone,
-                                                                         equipment_screen, staff, sword, bow,
-                                                                         npc_garan,
-                                                                         offense_meter, defense_meter,
-                                                                         weapon_select,
-                                                                         rock_7, rock_7_con, chinzilla_defeated,
-                                                                         eldream_gate_rect, eldream_attuned,
-                                                                         in_shop,
-                                                                         in_inn, current_building_entering,
-                                                                         enemy_tic,
-                                                                         eldream_flowers, seldon_enemies,
-                                                                         korlok_enemies, snakes, ghouls,
-                                                                         magmons,
-                                                                         bandiles, interactables_seldon,
-                                                                         interactables_korlok,
-                                                                         interactables_mines,
-                                                                         Enemy, Item, UiElement, seldon_flowers,
-                                                                         interactables_ectrenos,
-                                                                         ectrenos_entrance_rect,
-                                                                         overlay_ectrene, ectrenos_pet_entrance,
+                                                                         current_npc_interacting, equipment_screen,
+                                                                         staff, sword, bow, npc_garan, offense_meter,
+                                                                         defense_meter, weapon_select, eldream_attuned,
+                                                                         in_shop, in_inn, current_building_entering,
+                                                                         enemy_tic, eldream_flowers,
+                                                                         interactables_ectrenos, ectrenos_pet_entrance,
                                                                          in_menagerie, quest_star_aitor,
                                                                          pet_energy_window, npc_leyre)
 
@@ -4809,60 +4841,23 @@ if __name__ == '__main__':
 
                     ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, screen, graphic_dict, player,
                                                                            ectrenos_right_bg, eldream_overworld_music,
-                                                                           over_world_song_set, interaction_popup,
-                                                                           font,
+                                                                           over_world_song_set, interaction_popup, font,
                                                                            save_check_window, user_interface,
                                                                            bar_backdrop, hp_bar, en_bar, xp_bar,
                                                                            button_highlighted, button_highlight,
                                                                            in_over_world, interacted, info_text_1,
                                                                            info_text_2, info_text_3, info_text_4,
-                                                                           npc_tic,
-                                                                           in_npc_interaction, in_battle,
-                                                                           movement_able,
-                                                                           current_enemy_battling,
-                                                                           quest_star_garan,
-                                                                           quest_star_maurelle,
-                                                                           quest_star_celeste,
-                                                                           quest_star_torune, quest_star_voruke,
-                                                                           quest_star_zerah,
-                                                                           quest_star_apothecary,
-                                                                           terra_mountains, terra_cave,
-                                                                           npc_dionte,
-                                                                           quest_star_dionte, Enemy,
-                                                                           player_battle_sprite,
-                                                                           snake_battle_sprite,
-                                                                           ghoul_battle_sprite,
-                                                                           chorizon_battle_sprite,
-                                                                           muchador_battle_sprite,
-                                                                           magmon_battle_sprite,
-                                                                           bandile_battle_sprite,
-                                                                           chinzilla_battle_sprite,
-                                                                           barrier_active,
-                                                                           sharp_sense_active,
-                                                                           current_npc_interacting,
-                                                                           chinzilla, quest_star_dionte,
-                                                                           hearth_stone,
-                                                                           equipment_screen, staff, sword, bow,
-                                                                           npc_garan,
-                                                                           offense_meter, defense_meter,
-                                                                           weapon_select,
-                                                                           rock_7, rock_7_con, chinzilla_defeated,
-                                                                           eldream_gate_rect, eldream_attuned,
-                                                                           in_shop,
-                                                                           in_inn, current_building_entering,
-                                                                           enemy_tic,
-                                                                           eldream_flowers, seldon_enemies,
-                                                                           korlok_enemies, snakes, ghouls,
-                                                                           magmons,
-                                                                           bandiles, interactables_seldon,
-                                                                           interactables_korlok,
-                                                                           interactables_mines,
-                                                                           Enemy, Item, UiElement, seldon_flowers,
-                                                                           interactables_ectrenos,
-                                                                           ectrenos_entrance_rect,
-                                                                           overlay_ectrene, ectrenos_shop_entrance,
-                                                                           ectrenos_inn_entrance,
-                                                                           pet_energy_window, npc_leyre)
+                                                                           npc_tic, in_npc_interaction, in_battle,
+                                                                           movement_able, current_enemy_battling,
+                                                                           current_npc_interacting, equipment_screen,
+                                                                           staff, sword, bow, npc_garan, offense_meter,
+                                                                           defense_meter, weapon_select,
+                                                                           eldream_attuned, in_shop, in_inn,
+                                                                           current_building_entering, enemy_tic,
+                                                                           eldream_flowers, interactables_ectrenos,
+                                                                           ectrenos_shop_entrance,
+                                                                           ectrenos_inn_entrance, pet_energy_window,
+                                                                           npc_leyre)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -4903,43 +4898,31 @@ if __name__ == '__main__':
 
                     ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, screen, graphic_dict, player,
                                                                            ectrenos_front_bg, eldream_overworld_music,
-                                                                           over_world_song_set, interaction_popup,
-                                                                           font, save_check_window, user_interface,
+                                                                           over_world_song_set, interaction_popup, font,
+                                                                           save_check_window, user_interface,
                                                                            bar_backdrop, hp_bar, en_bar, xp_bar,
                                                                            button_highlighted, button_highlight,
                                                                            in_over_world, interacted, info_text_1,
                                                                            info_text_2, info_text_3, info_text_4,
                                                                            npc_tic, in_npc_interaction, in_battle,
                                                                            movement_able, current_enemy_battling,
-                                                                           quest_star_garan, quest_star_maurelle,
-                                                                           quest_star_celeste, quest_star_torune,
-                                                                           quest_star_voruke, quest_star_zerah,
-                                                                           quest_star_apothecary, terra_mountains,
-                                                                           terra_cave, npc_dionte, quest_star_dionte,
-                                                                           Enemy, player_battle_sprite,
-                                                                           snake_battle_sprite, ghoul_battle_sprite,
-                                                                           chorizon_battle_sprite,
+                                                                           player_battle_sprite, snake_battle_sprite,
+                                                                           ghoul_battle_sprite, chorizon_battle_sprite,
                                                                            muchador_battle_sprite, magmon_battle_sprite,
                                                                            bandile_battle_sprite,
-                                                                           chinzilla_battle_sprite,
-                                                                           barrier_active, sharp_sense_active,
-                                                                           current_npc_interacting, chinzilla,
-                                                                           quest_star_dionte, hearth_stone,
+                                                                           chinzilla_battle_sprite, barrier_active,
+                                                                           sharp_sense_active, current_npc_interacting,
                                                                            equipment_screen, staff, sword, bow,
                                                                            npc_garan, offense_meter, defense_meter,
-                                                                           weapon_select, rock_7, rock_7_con,
-                                                                           chinzilla_defeated, eldream_gate_rect,
-                                                                           eldream_attuned, in_shop, in_inn,
-                                                                           current_building_entering, enemy_tic,
+                                                                           weapon_select, eldream_attuned, in_shop,
+                                                                           in_inn, current_building_entering, enemy_tic,
                                                                            eldream_flowers, seldon_enemies,
                                                                            korlok_enemies, snakes, ghouls, magmons,
                                                                            bandiles, interactables_seldon,
                                                                            interactables_korlok, interactables_mines,
                                                                            Enemy, Item, UiElement, seldon_flowers,
-                                                                           interactables_ectrenos,
-                                                                           ectrenos_entrance_rect, overlay_ectrene,
-                                                                           quest_star_everett, pet_energy_window,
-                                                                           npc_everett, npc_leyre,
+                                                                           interactables_ectrenos, quest_star_everett,
+                                                                           pet_energy_window, npc_everett, npc_leyre,
                                                                            ectrenos_front_enemies,
                                                                            interactables_eldream, necrola_battle_sprite,
                                                                            osodark_battle_sprite)
@@ -4982,8 +4965,7 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, screen, graphic_dict, player,
-                                                                             ectrenos_alcove_bg,
-                                                                             eldream_building_music,
+                                                                             ectrenos_alcove_bg, eldream_building_music,
                                                                              over_world_song_set, interaction_popup,
                                                                              font, save_check_window, user_interface,
                                                                              bar_backdrop, hp_bar, en_bar, xp_bar,
@@ -4992,36 +4974,15 @@ if __name__ == '__main__':
                                                                              info_text_2, info_text_3, info_text_4,
                                                                              npc_tic, in_npc_interaction, in_battle,
                                                                              movement_able, current_enemy_battling,
-                                                                             quest_star_garan, quest_star_maurelle,
-                                                                             quest_star_celeste, quest_star_torune,
-                                                                             quest_star_voruke, quest_star_zerah,
-                                                                             quest_star_apothecary, terra_mountains,
-                                                                             terra_cave, npc_dionte, quest_star_dionte,
-                                                                             Enemy, player_battle_sprite,
-                                                                             snake_battle_sprite, ghoul_battle_sprite,
-                                                                             chorizon_battle_sprite,
-                                                                             muchador_battle_sprite,
-                                                                             magmon_battle_sprite,
-                                                                             bandile_battle_sprite,
-                                                                             chinzilla_battle_sprite, barrier_active,
-                                                                             sharp_sense_active,
-                                                                             current_npc_interacting, chinzilla,
-                                                                             quest_star_dionte, hearth_stone,
-                                                                             equipment_screen, staff, sword, bow,
-                                                                             npc_garan, offense_meter, defense_meter,
-                                                                             weapon_select, rock_7, rock_7_con,
-                                                                             chinzilla_defeated, eldream_gate_rect,
-                                                                             eldream_attuned, in_shop, in_inn,
-                                                                             current_building_entering, enemy_tic,
-                                                                             eldream_flowers, seldon_enemies,
-                                                                             korlok_enemies, snakes, ghouls, magmons,
-                                                                             bandiles, interactables_seldon,
-                                                                             interactables_korlok, interactables_mines,
-                                                                             Enemy, Item, UiElement, seldon_flowers,
-                                                                             interactables_eldream,
-                                                                             ectrenos_entrance_rect, overlay_ectrene,
-                                                                             pet_energy_window, alcove_ladder_rect,
-                                                                             chroma_bridge, alcove_star, npc_leyre,
+                                                                             current_npc_interacting, equipment_screen,
+                                                                             staff, sword, bow, npc_garan,
+                                                                             offense_meter, defense_meter,
+                                                                             weapon_select, eldream_attuned, in_shop,
+                                                                             in_inn, current_building_entering,
+                                                                             enemy_tic, eldream_flowers,
+                                                                             interactables_ectrenos, pet_energy_window,
+                                                                             alcove_ladder_rect, chroma_bridge,
+                                                                             alcove_star, npc_leyre,
                                                                              ectrenos_alcove_enemies)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
@@ -5139,7 +5100,8 @@ if __name__ == '__main__':
                                                                   equipment_screen, staff, sword, bow, npc_garan,
                                                                   offense_meter, defense_meter, weapon_select, rock_7,
                                                                   rock_7_con, chinzilla_defeated, eldream_gate_rect,
-                                                                  pet_energy_window)
+                                                                  pet_energy_window, necrola_battle_sprite,
+                                                                  osodark_battle_sprite)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -5191,7 +5153,8 @@ if __name__ == '__main__':
                                                                        bandile_battle_sprite, chinzilla_battle_sprite,
                                                                        equipment_screen, staff, sword, bow, npc_garan,
                                                                        offense_meter, defense_meter, weapon_select,
-                                                                       rock_3, pet_energy_window, stardust_top)
+                                                                       rock_3, pet_energy_window, stardust_top,
+                                                                       necrola_battle_sprite, osodark_battle_sprite)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -5281,7 +5244,8 @@ if __name__ == '__main__':
                                                                       magmon_battle_sprite, bandile_battle_sprite,
                                                                       chinzilla_battle_sprite, equipment_screen, staff,
                                                                       sword, bow, npc_garan, offense_meter,
-                                                                      defense_meter, weapon_select, pet_energy_window)
+                                                                      defense_meter, weapon_select, pet_energy_window,
+                                                                      necrola_battle_sprite, osodark_battle_sprite)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -5336,7 +5300,8 @@ if __name__ == '__main__':
                                                                       bandile_battle_sprite, chinzilla_battle_sprite,
                                                                       equipment_screen, staff, sword, bow, npc_garan,
                                                                       offense_meter, defense_meter, weapon_select,
-                                                                      pet_energy_window)
+                                                                      pet_energy_window, necrola_battle_sprite,
+                                                                      osodark_battle_sprite)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -8847,7 +8812,6 @@ if __name__ == '__main__':
                             # turn off barrier and restore original defence if player mage was killed while active
                             if barrier_active:
                                 barrier_active = False
-
                             # turn off barrier and restore original defence if player mage was killed while active
                             if sharp_sense_active:
                                 sharp_sense_active = False
@@ -8859,6 +8823,12 @@ if __name__ == '__main__':
                                 player.y_coordinate = 290
                                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                                 hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
+                            elif player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
+                                player.current_zone = "eldream"
+                                player.x_coordinate = 890
+                                player.y_coordinate = 635
+                                hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
+                                player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                             else:
                                 player.current_zone = "seldon"
                                 player.x_coordinate = 860
@@ -8884,10 +8854,23 @@ if __name__ == '__main__':
                                 enemy.health = 100
                                 # noinspection PyTypeChecker
                                 combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                            for enemy in ectrenos_front_enemies:
+                                enemy.health = 100
+                                # noinspection PyTypeChecker
+                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                            for enemy in ectrenos_alcove_enemies:
+                                enemy.health = 100
+                                # noinspection PyTypeChecker
+                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
 
+                            chorizon_1.health = 100
+                            combat_scenario.enemy_health_bar(chorizon_1, graphic_dict)
+                            chorizon_2.health = 100
+                            combat_scenario.enemy_health_bar(chorizon_2, graphic_dict)
                             muchador.health = 100
-                            chinzilla.health = 100
                             combat_scenario.enemy_health_bar(muchador, graphic_dict)
+                            chinzilla.health = 100
+                            combat_scenario.enemy_health_bar(chinzilla, graphic_dict)
 
                     elif event.type == QUIT:
                         pygame.mixer.quit()

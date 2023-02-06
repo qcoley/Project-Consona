@@ -161,6 +161,8 @@ def load_graphics():
     chroma_small = pygame.image.load(resource_path('resources/art/overlay_chroma_bridge_small.png')).convert_alpha()
     stardust_top = pygame.image.load(resource_path('resources/art/overlay_stardust_top.png')).convert_alpha()
     alcove_star = pygame.image.load(resource_path('resources/art/overlay_alcove_star.png')).convert_alpha()
+    tree_tops = pygame.image.load(resource_path('resources/art/overlay_tree_tops.png')).convert_alpha()
+    a_building_tops = pygame.image.load(resource_path('resources/art/overlay_amuna_building_tops.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -178,10 +180,12 @@ def load_graphics():
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
-                  chroma_small, stardust_top, alcove_star]
+                  chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["amuna_building_top"] = a_building_tops
+    loaded_dict["tree_top"] = tree_tops
     loaded_dict["alcove_star"] = alcove_star
     loaded_dict["ectrenos_front_interaction"] = e_f_interact
     loaded_dict["ectrenos_interaction"] = ectrenos_interaction

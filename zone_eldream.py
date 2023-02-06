@@ -21,7 +21,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles,
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
                      seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
-                     omoku, quest_supplies, ectrenos_front_enemies):
+                     omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -194,7 +194,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

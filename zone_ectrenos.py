@@ -10,18 +10,13 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                   button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
                   info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able,
-                  current_enemy_battling, quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune,
-                  star_voruke, star_zerah, star_apothecary, terra_mountains, terra_cave, npc_dionte, quest_star_dionte,
-                  enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
-                  muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                  barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
-                  equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
-                  rock_7_con, chinzilla_defeated, eldream_gate_rect, eldream_attuned, in_shop, in_inn,
-                  current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
-                  magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
-                  UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ladder,
-                  quest_star_leyre, pet_energy_window, chroma_bridge, npc_leyre, necrola_battle_sprite,
-                  osodark_battle_sprite):
+                  current_enemy_battling, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+                  chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
+                  chinzilla_battle_sprite, barrier_active, sharp_sense_active, current_npc_interacting, hearth_stone,
+                  equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
+                  eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic, eldream_flowers,
+                  interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
+                  npc_leyre, necrola_battle_sprite, osodark_battle_sprite):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -196,17 +191,11 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                   button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
                   info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able,
-                  current_enemy_battling, quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune,
-                  star_voruke, star_zerah, star_apothecary, terra_mountains, terra_cave, npc_dionte, quest_star_dionte,
-                  enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
-                  muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                  barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
-                  equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
-                  rock_7_con, chinzilla_defeated, eldream_gate_rect, eldream_attuned, in_shop, in_inn,
-                  current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls,
-                  magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
-                  UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene, ectrenos_pet_entrance,
+                  current_enemy_battling, current_npc_interacting, equipment_screen, staff, sword, bow, npc_garan,
+                  offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
+                  current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos, ectrenos_pet_entrance,
                   in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre):
+
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(eldream_overworld_music)
@@ -288,7 +277,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                 player.quest_progress["las escondidas"] += 1
 
                 info_text_1 = "You've found Leyre!"
-                info_text_2 = "Looks like she went to hide again. "
+                info_text_2 = "Looks like they went to hide again. "
                 info_text_3 = ""
                 info_text_4 = ""
 
@@ -363,22 +352,14 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
 
 
 def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldream_overworld_music,
-                   over_world_song_set,
-                   interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
-                   button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
-                   info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able,
-                   current_enemy_battling, quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune,
-                   star_voruke, star_zerah, star_apothecary, terra_mountains, terra_cave, npc_dionte, quest_star_dionte,
-                   enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
-                   muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                   barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
-                   equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
-                   rock_7_con, chinzilla_defeated, eldream_gate_rect, eldream_attuned, in_shop, in_inn,
-                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes,
-                   ghouls,
-                   magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
-                   UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
+                   over_world_song_set, interaction_popup, font, save_check_window, user_interface, bar_backdrop,
+                   hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted, info_text_1,
+                   info_text_2, info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able,
+                   current_enemy_battling, current_npc_interacting, equipment_screen, staff, sword, bow, npc_garan,
+                   offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
+                   current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
                    ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre):
+
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(eldream_overworld_music)
@@ -477,7 +458,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                 player.quest_progress["las escondidas"] += 1
 
                 info_text_1 = "You've found Leyre!"
-                info_text_2 = "Looks like she went to hide again. "
+                info_text_2 = "Looks like they went to hide again. "
                 info_text_3 = ""
                 info_text_4 = ""
 
@@ -556,18 +537,15 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    over_world_song_set, interaction_popup, font, save_check_window, user_interface, bar_backdrop,
                    hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted, info_text_1,
                    info_text_2, info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able,
-                   current_enemy_battling, quest_star_garan, quest_star_maurelle, quest_star_celeste, quest_star_torune,
-                   star_voruke, star_zerah, star_apothecary, terra_mountains, terra_cave, npc_dionte, quest_star_dionte,
-                   enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
-                   muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                   barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
-                   equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
-                   rock_7_con, chinzilla_defeated, eldream_gate_rect, eldream_attuned, in_shop, in_inn,
-                   current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes,
-                   ghouls, magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy,
-                   Item, UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
-                   quest_star_everett, pet_energy_window, npc_everett, npc_leyre, ectrenos_front_enemies,
-                   interactables_eldream, necrola_battle_sprite, osodark_battle_sprite):
+                   current_enemy_battling, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+                   chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
+                   chinzilla_battle_sprite, barrier_active, sharp_sense_active, current_npc_interacting,
+                   equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
+                   eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic, eldream_flowers,
+                   seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
+                   interactables_korlok, interactables_mines, Enemy, Item, UiElement, seldon_flowers,
+                   interactables_ectrenos, quest_star_everett, pet_energy_window, npc_everett, npc_leyre,
+                   ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -677,7 +655,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                 player.quest_progress["las escondidas"] += 1
 
                 info_text_1 = "You've found Leyre!"
-                info_text_2 = "Looks like she went to hide again. "
+                info_text_2 = "Looks like they went to hide again. "
                 info_text_3 = ""
                 info_text_4 = ""
 
@@ -737,13 +715,13 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
 
-    if 85 > player.x_coordinate and player.y_coordinate < 335:
+    if 85 > player.x_coordinate and player.y_coordinate < 375:
         player.current_zone = "ectrenos left"
         in_over_world = True
         player.x_coordinate = 850
         player.y_coordinate = 530
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-    if 920 < player.x_coordinate and player.y_coordinate < 335:
+    if 920 < player.x_coordinate and player.y_coordinate < 375:
         player.current_zone = "ectrenos right"
         in_over_world = True
         player.x_coordinate = 210
@@ -806,23 +784,12 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
 
 
 def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, eldream_building_music,
-                    over_world_song_set,
-                    interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
-                    button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
-                    info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able,
-                    current_enemy_battling, quest_star_garan, quest_star_maurelle, quest_star_celeste,
-                    quest_star_torune,
-                    star_voruke, star_zerah, star_apothecary, terra_mountains, terra_cave, npc_dionte,
-                    quest_star_dionte,
-                    enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
-                    muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                    barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, star_dionte, hearth_stone,
-                    equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
-                    rock_7_con, chinzilla_defeated, eldream_gate_rect, eldream_attuned, in_shop, in_inn,
-                    current_building_entering, enemy_tic, eldream_flowers, seldon_enemies, korlok_enemies, snakes,
-                    ghouls,
-                    magmons, bandiles, interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item,
-                    UiElement, seldon_flowers, interactables_ectrenos, ectrenos_entrance, ectrene,
+                    over_world_song_set, interaction_popup, font, save_check_window, user_interface, bar_backdrop,
+                    hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
+                    info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle,
+                    movement_able, current_enemy_battling, current_npc_interacting, equipment_screen, staff, sword, bow,
+                    npc_garan, offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
+                    current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
                     pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies):
 
     if not over_world_song_set:
