@@ -470,21 +470,21 @@ def walk_time(tic):
 
 
 def creature_update(player, seed_scout_count, seed_fighter_count, seed_mage_count, hatch_ready, seed_ready_img):
-    if seed_scout_count == 8:
+    if seed_scout_count == 4:
         for item in player.items:
             if item.name == "pet seed":
                 item.update_level(item.name, 2, seed_ready_img)
                 hatch_ready = True
                 if not player.quest_complete["hatch 'em all"]:
                     player.quest_progress["hatch 'em all"] = 1
-    if seed_fighter_count == 8:
+    if seed_fighter_count == 4:
         for item in player.items:
             if item.name == "pet seed":
                 item.update_level(item.name, 2, seed_ready_img)
                 hatch_ready = True
                 if not player.quest_complete["hatch 'em all"]:
                     player.quest_progress["hatch 'em all"] = 1
-    if seed_mage_count == 8:
+    if seed_mage_count == 4:
         for item in player.items:
             if item.name == "pet seed":
                 item.update_level(item.name, 2, seed_ready_img)

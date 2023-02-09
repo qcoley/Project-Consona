@@ -2885,7 +2885,7 @@ if __name__ == '__main__':
     en_bar = UiElement("energy bar", 165, 45, graphic_dict["en_100"])
     xp_bar = UiElement("xp bar", 165, 65, graphic_dict["xp_100"])
     journal = UiElement("journal", 770, 380, graphic_dict["journal_window_img"])
-    level_up_win = UiElement("level up window", 165, 132, graphic_dict["level_up"])
+    level_up_win = UiElement("level up window", 165, 132, graphic_dict["level_up_win"])
     character_sheet = UiElement("character sheet", 770, 380, graphic_dict["character_window_img"])
     mage_book = UiElement("mage book", 670, 375, graphic_dict["mage_book_img"])
     fighter_book = UiElement("fighter book", 670, 375, graphic_dict["fighter_book_img"])
@@ -2894,7 +2894,7 @@ if __name__ == '__main__':
     quest_logs_2 = Item("pine logs", "quest", 315, 560, graphic_dict["pine_logs_img"], 0)
     quest_logs_3 = Item("pine logs", "quest", 415, 435, graphic_dict["pine_logs_img"], 0)
     quest_logs_4 = Item("pine logs", "quest", 100, 540, graphic_dict["pine_logs_img"], 0)
-    quest_supplies_1 = Item("quest supplies", "quest", 355, 48, graphic_dict["quest_supplies"], 0)
+    quest_supplies_1 = Item("quest supplies", "quest", 625, 48, graphic_dict["quest_supplies"], 0)
     quest_supplies_2 = Item("quest supplies", "quest", 715, 48, graphic_dict["quest_supplies"], 0)
     quest_supplies_3 = Item("quest supplies", "quest", 188, 232, graphic_dict["quest_supplies"], 0)
     quest_supplies_4 = Item("quest supplies", "quest", 855, 618, graphic_dict["quest_supplies"], 0)
@@ -2943,6 +2943,8 @@ if __name__ == '__main__':
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
     enemy_status_bar_back = UiElement("enemy bar backdrop", 700, 90, graphic_dict["enemy_bar_backdrop"])
+
+    quest_accepted = UiElement("quest accept overlay", 550, 325, graphic_dict["quest_accepted"])
 
     quest_star_garan = UiElement("quest star garan", 209, 390, graphic_dict["quest_start_star"])
     quest_star_maurelle = UiElement("quest star maurelle", 744, 575, graphic_dict["quest_start_star"])
@@ -3001,6 +3003,7 @@ if __name__ == '__main__':
     button_highlight = UiElement("button_highlight", 200, 200, graphic_dict["main high"])
     critical_dealt_overlay = UiElement("critical dealt overlay", 905, 185, graphic_dict["critical_dealt"])
     critical_received_overlay = UiElement("critical received overlay", 65, 235, graphic_dict["critical_received"])
+    level_up_visual = UiElement("level up overlay", 65, 235, graphic_dict["level_up_vis"])
 
     prime_popup = UiElement("prime popup", 130, 475, graphic_dict["popup_interaction"])
     jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
@@ -3232,12 +3235,28 @@ if __name__ == '__main__':
     eldream_overworld_music = resource_path("resources/music/eterna_eldream.mp3")
     eldream_building_music = resource_path("resources/music/eterna_building_eldream.mp3")
 
-    pygame.mixer.music.set_volume(0.75)
+    pygame.mixer.music.set_volume(0.70)
     pygame.mixer.music.load(start_screen_music)
     pygame.mixer.music.play(loops=-1)
 
-    # move_up_sound = pygame.mixer.Sound("Rising_putter.ogg")
-    # move_up_sound.set_volume(0.5)
+    sfx_no_weapon_attack = pygame.mixer.Sound("resources/sfx/no_weapon_attack.mp3")
+    sfx_no_weapon_attack.set_volume(0.15)
+    sfx_mage_attack = pygame.mixer.Sound("resources/sfx/mage_attack.mp3")
+    sfx_mage_attack.set_volume(0.15)
+    sfx_fighter_attack = pygame.mixer.Sound("resources/sfx/fighter_attack.mp3")
+    sfx_fighter_attack.set_volume(0.30)
+    sfx_scout_attack = pygame.mixer.Sound("resources/sfx/scout_attack.mp3")
+    sfx_scout_attack.set_volume(0.12)
+
+    sfx_quest_complete = pygame.mixer.Sound("resources/sfx/quest_complete.mp3")
+    sfx_quest_complete.set_volume(0.30)
+    sfx_quest_start = pygame.mixer.Sound("resources/sfx/quest_start.mp3")
+    sfx_quest_start.set_volume(0.15)
+    sfx_level_up = pygame.mixer.Sound("resources/sfx/level_up.mp3")
+    sfx_level_up.set_volume(0.25)
+
+    sfx_sheet_paper = pygame.mixer.Sound("resources/sfx/sheet_paper.mp3")
+    sfx_sheet_paper.set_volume(0.50)
 
     # main loop variables ----------------------------------------------------------------------------------------------
     game_running = True
@@ -3874,7 +3893,7 @@ if __name__ == '__main__':
         if start_chosen:
             if player.alive_status:
 
-                print(player.x_coordinate, player.y_coordinate)
+                # print(player.x_coordinate, player.y_coordinate)
                 # print(player.current_zone)
 
                 # keep player pet with player as they move
@@ -4148,6 +4167,7 @@ if __name__ == '__main__':
                                     drawing_functions.world_map_container.clear()
                                     map_button_clicked = False
                                 else:
+                                    pygame.mixer.Sound.play(sfx_sheet_paper)
                                     map_button_clicked = True
                                     info_text_1 = "Click an area to travel there. "
                                     info_text_2 = ""
@@ -4161,6 +4181,7 @@ if __name__ == '__main__':
                             # save button was clicked. Save player info in dictionary to be loaded later
                             if save_button.rect.collidepoint(pos):
                                 try:
+                                    pygame.mixer.Sound.play(sfx_sheet_paper)
                                     # clears other windows first, if they were open
                                     drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                     character_button_clicked = False
@@ -4253,6 +4274,7 @@ if __name__ == '__main__':
                                     drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                     character_button_clicked = False
                                 else:
+                                    pygame.mixer.Sound.play(sfx_sheet_paper)
                                     drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
                                     character_button_clicked = True
 
@@ -4270,6 +4292,7 @@ if __name__ == '__main__':
                                     drawing_functions.journal_info_draw(journal, player, font, False)
                                     journal_button_clicked = False
                                 else:
+                                    pygame.mixer.Sound.play(sfx_sheet_paper)
                                     drawing_functions.journal_info_draw(journal, player, font, True)
                                     journal_button_clicked = True
 
@@ -4396,17 +4419,6 @@ if __name__ == '__main__':
                     except AttributeError:
                         pass
                     screen.blit(player.surf, player.rect)
-                    try:
-                        for pet in player.pet:
-                            if pet.active:
-                                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green",
-                                                              "light yellow")
-                                pet_energy_rect = pet_energy_surf.get_rect()
-                                pet_energy_rect.midleft = (345, 57)
-                                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                                screen.blit(pet_energy_surf, pet_energy_rect)
-                    except AttributeError:
-                        pass
 
                     text_rupee_surf = font.render(str(player.rupees), True, "black", "light green")
                     text_rupee_rect = text_rupee_surf.get_rect()
@@ -4728,17 +4740,16 @@ if __name__ == '__main__':
                                                                          in_over_world, interacted, info_text_1,
                                                                          info_text_2, info_text_3, info_text_4, npc_tic,
                                                                          in_npc_interaction, in_battle, movement_able,
-                                                                         current_enemy_battling, enemy,
-                                                                         player_battle_sprite, snake_battle_sprite,
-                                                                         ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                         muchador_battle_sprite, magmon_battle_sprite,
-                                                                         bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                         barrier_active, sharp_sense_active,
-                                                                         current_npc_interacting, hearth_stone,
-                                                                         equipment_screen, staff, sword, bow, npc_garan,
-                                                                         offense_meter, defense_meter, weapon_select,
-                                                                         eldream_attuned, in_shop, in_inn,
-                                                                         current_building_entering, enemy_tic,
+                                                                         current_enemy_battling, player_battle_sprite,
+                                                                         snake_battle_sprite, ghoul_battle_sprite,
+                                                                         chorizon_battle_sprite, muchador_battle_sprite,
+                                                                         magmon_battle_sprite, bandile_battle_sprite,
+                                                                         chinzilla_battle_sprite, barrier_active,
+                                                                         sharp_sense_active, current_npc_interacting,
+                                                                         hearth_stone, equipment_screen, staff, sword,
+                                                                         bow, npc_garan, offense_meter, defense_meter,
+                                                                         weapon_select, eldream_attuned, in_shop,
+                                                                         in_inn, current_building_entering, enemy_tic,
                                                                          eldream_flowers, interactables_ectrenos,
                                                                          overlay_ectrene, ectrenos_ladder_rect,
                                                                          quest_star_leyre, pet_energy_window,
@@ -5366,10 +5377,20 @@ if __name__ == '__main__':
                     except TypeError:
                         pass
 
+                # keep level up overlay with players position so when leveled shows accurately
+                level_up_visual.update(player.x_coordinate + 3, player.y_coordinate - 35, graphic_dict["level_up_vis"])
+                if leveled:
+                    screen.blit(level_up_visual.surf, level_up_visual.rect)
+
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
                 if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
                         and not in_npc_interaction:
+
+                    pygame.mixer.Sound.stop(sfx_no_weapon_attack)
+                    pygame.mixer.Sound.stop(sfx_mage_attack)
+                    pygame.mixer.Sound.stop(sfx_fighter_attack)
+                    pygame.mixer.Sound.stop(sfx_scout_attack)
 
                     # reset on each new turn
                     turn_taken = False
@@ -5516,6 +5537,15 @@ if __name__ == '__main__':
                                 info_text_2 = ""
 
                         if combat_button == "attack" or attack_hotkey:
+                            if player.role == "":
+                                pygame.mixer.Sound.play(sfx_no_weapon_attack)
+                            if player.role == "mage":
+                                pygame.mixer.Sound.play(sfx_mage_attack)
+                            if player.role == "fighter":
+                                pygame.mixer.Sound.play(sfx_fighter_attack)
+                            if player.role == "scout":
+                                pygame.mixer.Sound.play(sfx_scout_attack)
+
                             first_battle_cond = False
                             drawing_functions.game_guide_container.clear()
                             if not combat_cooldown:
@@ -5562,6 +5592,7 @@ if __name__ == '__main__':
                                     # if enemy was defeated and player leveled up, add messages related to box
                                     if combat_events["enemy defeated"]:
                                         if combat_events["leveled"]:
+                                            pygame.mixer.Sound.play(sfx_level_up)
                                             battle_info_to_return_to_main_loop["leveled_up"] = True
 
                                     # if player was successful in defeating enemy, combat ends, movement is allowed
@@ -5572,8 +5603,8 @@ if __name__ == '__main__':
                                             battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
                                             # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
-                                                if seed_mage_count < 8 and seed_fighter_count < 8 and \
-                                                        seed_scout_count < 8:
+                                                if seed_mage_count < 4 and seed_fighter_count < 4 and \
+                                                        seed_scout_count < 4:
                                                     seed_mage_count += 1
 
                                         if player.role == "fighter":
@@ -5581,8 +5612,8 @@ if __name__ == '__main__':
                                             battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
                                             # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
-                                                if seed_mage_count < 8 and seed_fighter_count < 8 and \
-                                                        seed_scout_count < 8:
+                                                if seed_mage_count < 4 and seed_fighter_count < 4 and \
+                                                        seed_scout_count < 4:
                                                     seed_fighter_count += 1
 
                                         if player.role == "scout":
@@ -5590,8 +5621,8 @@ if __name__ == '__main__':
                                             battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
                                             # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
-                                                if seed_mage_count < 8 and seed_fighter_count < 8 and \
-                                                        seed_scout_count < 8:
+                                                if seed_mage_count < 4 and seed_fighter_count < 4 and \
+                                                        seed_scout_count < 4:
                                                     seed_scout_count += 1
 
                                         if current_enemy_battling.name == "nede ghoul":
@@ -6101,55 +6132,61 @@ if __name__ == '__main__':
                                 screen.blit(button_highlight.surf, button_highlight.rect)
 
                         # damage overlays, updated depending on if damage was in effective range
-                        if combat_events["damage done"] != 0:
-                            dealt_damage_overlay.update(850, 225, graphic_dict["dealt_damage_img"])
-                            pet_damage_overlay.update(950, 275, graphic_dict["pet_damage_img"])
-                            if combat_events["non effective player"]:
-                                dealt_damage_overlay.update(850, 225, graphic_dict["non_effective_dealt_damage_img"])
-                            if combat_events["effective player"]:
-                                dealt_damage_overlay.update(850, 225, graphic_dict["effective_dealt_damage_img"])
-                            if combat_events["non effective pet"]:
-                                pet_damage_overlay.update(950, 275, graphic_dict["non_effective_pet_damage_img"])
-                            if combat_events["effective pet"]:
-                                pet_damage_overlay.update(950, 275, graphic_dict["effective_pet_damage_img"])
-                            screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
-                            if kasper_unlocked or torok_unlocked or iriana_unlocked:
-                                for pet in player.pet:
-                                    if pet.active:
-                                        if pet.energy > 0:
-                                            screen.blit(pet_damage_overlay.surf, pet_damage_overlay.rect)
-                            damage_done_surf = level_up_font.render(str(combat_events["player damage"]),
-                                                                    True, "black", "white")
-                            damage_done_rect = damage_done_surf.get_rect()
-                            damage_done_rect.center = (850, 225)
-                            screen.blit(damage_done_surf, damage_done_rect)
-                            damage_pet_surf = level_up_font.render(str(combat_events["pet damage"]),
-                                                                    True, "black", "white")
-                            damage_pet_rect = damage_pet_surf.get_rect()
-                            damage_pet_rect.center = (950, 275)
-                            if kasper_unlocked or torok_unlocked or iriana_unlocked:
-                                for pet in player.pet:
-                                    if pet.active:
-                                        if pet.energy > 0:
-                                            screen.blit(damage_pet_surf, damage_pet_rect)
-                            if combat_events["critical dealt"]:
-                                screen.blit(critical_dealt_overlay.surf, critical_dealt_overlay.rect)
-
-                        if combat_events["damage taken"] != 0:
-                            received_damage_overlay.update(125, 275, graphic_dict["received_damage_img"])
-                            if combat_events["non effective enemy"]:
-                                received_damage_overlay.update(125, 275, graphic_dict["non_effective_dealt_damage_img"])
-                            if combat_events["effective enemy"]:
-                                received_damage_overlay.update(125, 275, graphic_dict["effective_received_damage_img"])
-
-                            screen.blit(received_damage_overlay.surf, received_damage_overlay.rect)
-                            damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
+                        try:
+                            if combat_events["damage done"] != 0:
+                                dealt_damage_overlay.update(850, 225, graphic_dict["dealt_damage_img"])
+                                pet_damage_overlay.update(950, 275, graphic_dict["pet_damage_img"])
+                                if combat_events["non effective player"]:
+                                    dealt_damage_overlay.update(850, 225,
+                                                                graphic_dict["non_effective_dealt_damage_img"])
+                                if combat_events["effective player"]:
+                                    dealt_damage_overlay.update(850, 225, graphic_dict["effective_dealt_damage_img"])
+                                if combat_events["non effective pet"]:
+                                    pet_damage_overlay.update(950, 275, graphic_dict["non_effective_pet_damage_img"])
+                                if combat_events["effective pet"]:
+                                    pet_damage_overlay.update(950, 275, graphic_dict["effective_pet_damage_img"])
+                                screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
+                                if kasper_unlocked or torok_unlocked or iriana_unlocked:
+                                    for pet in player.pet:
+                                        if pet.active:
+                                            if pet.energy > 0:
+                                                screen.blit(pet_damage_overlay.surf, pet_damage_overlay.rect)
+                                damage_done_surf = level_up_font.render(str(combat_events["player damage"]),
                                                                         True, "black", "white")
-                            damage_received_rect = damage_received_surf.get_rect()
-                            damage_received_rect.center = (125, 275)
-                            screen.blit(damage_received_surf, damage_received_rect)
-                            if combat_events["critical received"]:
-                                screen.blit(critical_received_overlay.surf, critical_received_overlay.rect)
+                                damage_done_rect = damage_done_surf.get_rect()
+                                damage_done_rect.center = (850, 225)
+                                screen.blit(damage_done_surf, damage_done_rect)
+                                damage_pet_surf = level_up_font.render(str(combat_events["pet damage"]),
+                                                                        True, "black", "white")
+                                damage_pet_rect = damage_pet_surf.get_rect()
+                                damage_pet_rect.center = (950, 275)
+                                if kasper_unlocked or torok_unlocked or iriana_unlocked:
+                                    for pet in player.pet:
+                                        if pet.active:
+                                            if pet.energy > 0:
+                                                screen.blit(damage_pet_surf, damage_pet_rect)
+                                if combat_events["critical dealt"]:
+                                    screen.blit(critical_dealt_overlay.surf, critical_dealt_overlay.rect)
+
+                            if combat_events["damage taken"] != 0:
+                                received_damage_overlay.update(125, 275, graphic_dict["received_damage_img"])
+                                if combat_events["non effective enemy"]:
+                                    received_damage_overlay.update(125, 275,
+                                                                   graphic_dict["non_effective_dealt_damage_img"])
+                                if combat_events["effective enemy"]:
+                                    received_damage_overlay.update(125, 275,
+                                                                   graphic_dict["effective_received_damage_img"])
+
+                                screen.blit(received_damage_overlay.surf, received_damage_overlay.rect)
+                                damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
+                                                                            True, "black", "white")
+                                damage_received_rect = damage_received_surf.get_rect()
+                                damage_received_rect.center = (125, 275)
+                                screen.blit(damage_received_surf, damage_received_rect)
+                                if combat_events["critical received"]:
+                                    screen.blit(critical_received_overlay.surf, critical_received_overlay.rect)
+                        except TypeError:
+                            pass
 
                         pygame.display.flip()
                         combat_cooldown = True
@@ -7217,6 +7254,7 @@ if __name__ == '__main__':
                                 drawing_functions.quest_complete_box.clear()
                                 drawing_functions.quest_box.clear()
                                 drawing_functions.potion_window_container.clear()
+                                drawing_functions.quest_accept_box.clear()
                                 apothecary_window_open = False
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -7231,7 +7269,8 @@ if __name__ == '__main__':
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 apothecary_cat_pet = True
                                 cats_pet["korlok_apothecary"] = True
-
+                            if quest_accepted.rect.collidepoint(pos):
+                                drawing_functions.quest_accept_box.clear()
                             if potions_button.rect.collidepoint(pos):
                                 if apothecary_access:
                                     if not apothecary_window_open:
@@ -7327,6 +7366,7 @@ if __name__ == '__main__':
                             if player.quest_progress["can't apothecary it"] == 4 and not \
                                     player.quest_complete["can't apothecary it"]:
                                 if len(player.items) < 16:
+                                    pygame.mixer.Sound.play(sfx_quest_complete)
                                     player.quest_complete["can't apothecary it"] = True
                                     player.current_quests["can't apothecary it"] = "You completed this quest!"
                                     info_text_1 = "You've completed Kirean's quest!"
@@ -7395,6 +7435,8 @@ if __name__ == '__main__':
 
                         # options once quest window is open ------------------------------------------------------------
                         if quest_buttons == "accept":
+                            drawing_functions.quest_accept_box.append(quest_accepted)
+                            pygame.mixer.Sound.play(sfx_quest_start)
                             info_text_1 = "You've accepted the quest!"
                             button_highlighted = False
                             player.quest_status["can't apothecary it"] = True
@@ -7419,6 +7461,7 @@ if __name__ == '__main__':
                             apothecary_cat_pet = False
                             drawing_functions.potion_window_container.clear()
                             drawing_functions.quest_complete_box.clear()
+                            drawing_functions.quest_accept_box.clear()
 
                     # outside of inn event loop ------------------------------------------------------------------------
                     if not encounter_started:
@@ -7524,6 +7567,7 @@ if __name__ == '__main__':
                                 quest_clicked = False
                                 drawing_functions.quest_complete_box.clear()
                                 drawing_functions.pets_window_container.clear()
+                                drawing_functions.quest_accept_box.clear()
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -7538,7 +7582,8 @@ if __name__ == '__main__':
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 menagerie_cat_pet = True
                                 cats_pet["eldream_menagerie"] = True
-
+                            if quest_accepted.rect.collidepoint(pos):
+                                drawing_functions.quest_accept_box.clear()
                             if pets_button.rect.collidepoint(pos):
                                 if menagerie_access:
                                     if not menagerie_window_open:
@@ -7609,6 +7654,8 @@ if __name__ == '__main__':
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
+                                    button_highlighted = False
+                                    drawing_functions.pets_window_container.clear()
                                 if torok_manage_button.rect.collidepoint(pos):
                                     if torok_unlocked:
                                         for pet in player.pet:
@@ -7626,6 +7673,8 @@ if __name__ == '__main__':
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
+                                    button_highlighted = False
+                                    drawing_functions.pets_window_container.clear()
                                 if iriana_manage_button.rect.collidepoint(pos):
                                     if iriana_unlocked:
                                         for pet in player.pet:
@@ -7643,25 +7692,35 @@ if __name__ == '__main__':
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
+                                    button_highlighted = False
+                                    drawing_functions.pets_window_container.clear()
 
                             # if seed is ready to hatch, give player whistle and unlock that pet. reset counts.
                             if hatch_ready:
                                 if ok_button.rect.collidepoint(pos):
                                     if not hatched:
-                                        if seed_scout_count >= 8:
+                                        if seed_scout_count >= 4:
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["kasper_hatching"])
                                             hatched = True
                                             if not kasper_unlocked:
-                                                kasper_unlocked = True
-                                                player.pet.append(pet_kasper)
-                                                player.items.append(pet_whistle_kasper)
+                                                if len(player.items) < 16:
+                                                    kasper_unlocked = True
+                                                    player.pet.append(pet_kasper)
+                                                    player.items.append(pet_whistle_kasper)
+                                                else:
+                                                    info_text_1 = "Your inventory is full. "
+                                                    info_text_2 = ""
                                             else:
-                                                info_text_1 = "You've already hatched a Kasper!"
-                                                info_text_2 = "You got a Blueberry Cookie. "
-                                                player.items.append(Item("pet cookie", "cookie", 1078, 197,
-                                                                         graphic_dict["pet_cookie_img"], 1))
+                                                if len(player.items) < 16:
+                                                    info_text_1 = "You've already hatched a Kasper!"
+                                                    info_text_2 = "You got a Blueberry Cookie. "
+                                                    player.items.append(Item("pet cookie", "cookie", 1078, 197,
+                                                                             graphic_dict["pet_cookie_img"], 1))
+                                                else:
+                                                    info_text_1 = "You've already hatched a Kasper!"
+                                                    info_text_2 = "And your inventory is full. "
                                             seed_given = False
                                             for item in player.items:
                                                 if item.name == "pet seed":
@@ -7669,20 +7728,29 @@ if __name__ == '__main__':
                                             seed_scout_count = 0
                                             seed_fighter_count = 0
                                             seed_mage_count = 0
-                                        if seed_fighter_count >= 8:
+
+                                        if seed_fighter_count >= 4:
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["torok_hatching"])
                                             hatched = True
                                             if not torok_unlocked:
-                                                torok_unlocked = True
-                                                player.pet.append(pet_torok)
-                                                player.items.append(pet_whistle_torok)
+                                                if len(player.items) < 16:
+                                                    torok_unlocked = True
+                                                    player.pet.append(pet_torok)
+                                                    player.items.append(pet_whistle_torok)
+                                                else:
+                                                    info_text_1 = "Your inventory is full. "
+                                                    info_text_2 = ""
                                             else:
-                                                info_text_1 = "You've already hatched a Torok!"
-                                                info_text_2 = "You got a Rock Candy. "
-                                                player.items.append(Item("pet candy", "candy", 1078, 197,
-                                                                         graphic_dict["pet_candy_img"], 1))
+                                                if len(player.items) < 16:
+                                                    info_text_1 = "You've already hatched a Torok!"
+                                                    info_text_2 = "You got a Rock Candy. "
+                                                    player.items.append(Item("pet candy", "candy", 1078, 197,
+                                                                             graphic_dict["pet_candy_img"], 1))
+                                                else:
+                                                    info_text_1 = "You've already hatched a Torok!"
+                                                    info_text_2 = "And your inventory is full. "
                                             seed_given = False
                                             for item in player.items:
                                                 if item.name == "pet seed":
@@ -7690,20 +7758,29 @@ if __name__ == '__main__':
                                             seed_scout_count = 0
                                             seed_fighter_count = 0
                                             seed_mage_count = 0
-                                        if seed_mage_count >= 8:
+
+                                        if seed_mage_count >= 4:
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
                                                                     pet_hatch_window.y_coordinate,
                                                                     graphic_dict["iriana_hatching"])
                                             hatched = True
                                             if not iriana_unlocked:
-                                                iriana_unlocked = True
-                                                player.pet.append(pet_iriana)
-                                                player.items.append(pet_whistle_iriana)
+                                                if len(player.items) < 16:
+                                                    iriana_unlocked = True
+                                                    player.pet.append(pet_iriana)
+                                                    player.items.append(pet_whistle_iriana)
+                                                else:
+                                                    info_text_1 = "Your inventory is full. "
+                                                    info_text_2 = ""
                                             else:
-                                                info_text_1 = "You've already hatched an Iriana!"
-                                                info_text_2 = "You got a Peach Tart. "
-                                                player.items.append(Item("pet tart", "tart", 1078, 197,
-                                                                         graphic_dict["pet_tart_img"], 1))
+                                                if len(player.items) < 16:
+                                                    info_text_1 = "You've already hatched an Iriana!"
+                                                    info_text_2 = "You got a Peach Tart. "
+                                                    player.items.append(Item("pet tart", "tart", 1078, 197,
+                                                                             graphic_dict["pet_tart_img"], 1))
+                                                else:
+                                                    info_text_1 = "You've already hatched an Iriana!"
+                                                    info_text_2 = "And your inventory is full. "
                                             seed_given = False
                                             for item in player.items:
                                                 if item.name == "pet seed":
@@ -7750,6 +7827,7 @@ if __name__ == '__main__':
                             if player.quest_progress["hatch 'em all"] == 1 and not \
                                     player.quest_complete["hatch 'em all"]:
                                 if len(player.items) < 16:
+                                    pygame.mixer.Sound.play(sfx_quest_complete)
                                     player.quest_complete["hatch 'em all"] = True
                                     player.current_quests["hatch 'em all"] = "You completed this quest!"
                                     info_text_1 = "You've completed Aitor's quest!"
@@ -7818,6 +7896,8 @@ if __name__ == '__main__':
 
                         # options once quest window is open ------------------------------------------------------------
                         if quest_buttons == "accept":
+                            drawing_functions.quest_accept_box.append(quest_accepted)
+                            pygame.mixer.Sound.play(sfx_quest_start)
                             info_text_1 = "You've accepted the quest!"
                             button_highlighted = False
                             player.quest_status["hatch 'em all"] = True
@@ -7846,6 +7926,7 @@ if __name__ == '__main__':
                             menagerie_cat_pet = False
                             drawing_functions.quest_complete_box.clear()
                             drawing_functions.pets_window_container.clear()
+                            drawing_functions.quest_accept_box.clear()
 
                     # outside of inn event loop ------------------------------------------------------------------------
                     if not encounter_started:
@@ -7904,7 +7985,6 @@ if __name__ == '__main__':
                             if hatch_show:
                                 screen.blit(pet_hatch_window.surf, pet_hatch_window.rect)
                                 screen.blit(ok_button.surf, ok_button.rect)
-
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)
 
@@ -7926,6 +8006,7 @@ if __name__ == '__main__':
                                 drawing_functions.quest_complete_box.clear()
                                 drawing_functions.quest_box.clear()
                                 drawing_functions.type_advantage_window.clear()
+                                drawing_functions.quest_accept_box.clear()
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -7959,6 +8040,8 @@ if __name__ == '__main__':
                                 drawing_functions.level_up_draw(level_up_win, player, font, False)
                             if role_select_overlay.rect.collidepoint(pos):
                                 drawing_functions.type_advantage_window.clear()
+                            if quest_accepted.rect.collidepoint(pos):
+                                drawing_functions.quest_accept_box.clear()
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
@@ -7966,6 +8049,8 @@ if __name__ == '__main__':
                         quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
                         # options once quest window is open ------------------------------------------------------------
                         if quest_buttons == "accept":
+                            drawing_functions.quest_accept_box.append(quest_accepted)
+                            pygame.mixer.Sound.play(sfx_quest_start)
                             info_text_1 = "You've accepted the quest!"
                             button_highlighted = False
                             if current_npc_interacting.name == "garan":
@@ -8055,6 +8140,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["sneaky snakes"] == 4 and not \
                                         player.quest_complete["sneaky snakes"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         player.quest_complete["sneaky snakes"] = True
                                         player.current_quests["sneaky snakes"] = "You completed this quest!"
                                         info_text_1 = "You've completed Garan's quest!"
@@ -8129,6 +8215,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["where's nede?"] == 1 and not \
                                         player.quest_complete["where's nede?"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         nede.update(nede.x_coordinate, nede.y_coordinate, graphic_dict["nede_left"])
                                         player.quest_complete["where's nede?"] = True
                                         player.current_quests["where's nede?"] = "You completed this quest!"
@@ -8184,6 +8271,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["village repairs"] == 4 and not \
                                         player.quest_complete["village repairs"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         player.quest_complete["village repairs"] = True
                                         player.current_quests["village repairs"] = "You completed this quest!"
                                         info_text_1 = "You've completed Maurelle's quest!"
@@ -8239,6 +8327,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["ghouled again"] == 4 and not \
                                         player.quest_complete["ghouled again"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         player.quest_complete["ghouled again"] = True
                                         player.current_quests["ghouled again"] = "You completed this quest!"
                                         info_text_1 = "You've completed Torune's quest!"
@@ -8313,6 +8402,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["band hammer"] == 4 and not \
                                         player.quest_complete["band hammer"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         player.quest_complete["band hammer"] = True
                                         player.current_quests["band hammer"] = "You completed this quest!"
                                         info_text_1 = "You've completed Voruke's quest!"
@@ -8369,6 +8459,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["elementary elementals"] == 4 and not \
                                         player.quest_complete["elementary elementals"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         player.quest_complete["elementary elementals"] = True
                                         player.current_quests["elementary elementals"] = "You completed this quest!"
                                         info_text_1 = "You've completed Zerah's quest!"
@@ -8422,6 +8513,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["it's dangerous to go alone"] == 1 and not \
                                         player.quest_complete["it's dangerous to go alone"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         player.quest_complete["it's dangerous to go alone"] = True
                                         player.current_quests["it's dangerous to go alone"] = "You completed this" \
                                                                                               "quest!"
@@ -8496,6 +8588,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["kart troubles"] == 4 and not \
                                         player.quest_complete["kart troubles"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         player.quest_complete["kart troubles"] = True
                                         player.current_quests["kart troubles"] = "You completed this quest!"
                                         info_text_1 = "You've completed Omoku's quest!"
@@ -8549,6 +8642,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["las escondidas"] == 4 and not \
                                         player.quest_complete["las escondidas"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         player.quest_complete["las escondidas"] = True
                                         player.current_quests["las escondidas"] = "You completed this quest!"
                                         info_text_1 = "You've completed Leyre's quest!"
@@ -8602,6 +8696,7 @@ if __name__ == '__main__':
                                 if player.quest_progress["shades of fear"] == 4 and not \
                                         player.quest_complete["shades of fear"]:
                                     if len(player.items) < 16:
+                                        pygame.mixer.Sound.play(sfx_quest_complete)
                                         player.quest_complete["shades of fear"] = True
                                         player.current_quests["shades of fear"] = "You completed this quest!"
                                         info_text_1 = "You've completed Leyre's quest!"
@@ -8661,6 +8756,7 @@ if __name__ == '__main__':
                             drawing_functions.quest_complete_box.clear()
                             drawing_functions.quest_box.clear()
                             drawing_functions.type_advantage_window.clear()
+                            drawing_functions.quest_accept_box.clear()
 
                     # outside event loop -------------------------------------------------------------------------------
                     if not encounter_started:
@@ -8755,7 +8851,6 @@ if __name__ == '__main__':
 
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)
-
                         if first_npc_cond:
                             directional_arrow.update(855, 620, graphic_dict["arrow_down"])
                             screen.blit(directional_arrow.surf, directional_arrow.rect)

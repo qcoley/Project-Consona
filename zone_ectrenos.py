@@ -10,7 +10,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                   button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
                   info_text_3, info_text_4, npc_tic, in_npc_interaction, in_battle, movement_able,
-                  current_enemy_battling, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
+                  current_enemy_battling, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                   chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
                   chinzilla_battle_sprite, barrier_active, sharp_sense_active, current_npc_interacting, hearth_stone,
                   equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
@@ -101,7 +101,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                 movement_able = False
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
-                combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
+                combat_scenario.resting_animation(player, npc_leyre, player_battle_sprite, snake_battle_sprite,
                                                   ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                                   magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                                   barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
@@ -583,7 +583,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     screen.blit(npc_everett.surf, npc_everett.rect)
 
     if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
-        npc_leyre.update_position(901, 532)
+        npc_leyre.update_position(828, 532)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
 
     try:
@@ -736,28 +736,20 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
             npc_tic = time.perf_counter()
             if face_direction == "front":
                 npc_everett.update(graphic_dict["everett_down"])
+                if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
+                    npc_leyre.update(graphic_dict["leyre_up"])
             if face_direction == "back":
                 npc_everett.update(graphic_dict["everett_up"])
+                if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
+                    npc_leyre.update(graphic_dict["leyre_down"])
             if face_direction == "left":
                 npc_everett.update(graphic_dict["everett_left"])
+                if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
+                    npc_leyre.update(graphic_dict["leyre_right"])
             if face_direction == "right":
                 npc_everett.update(graphic_dict["everett_right"])
-
-    # npc movement updates
-    if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
-        face_direction = random.choice(["front", "back", "left", "right"])
-        if movement_able and in_over_world:
-            npc_toc = time.perf_counter()
-            if npc_toc - npc_tic > 5:
-                npc_tic = time.perf_counter()
-                if face_direction == "front":
-                    npc_leyre.update(graphic_dict["leyre_down"])
-                if face_direction == "back":
-                    npc_leyre.update(graphic_dict["leyre_up"])
-                if face_direction == "left":
+                if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:
                     npc_leyre.update(graphic_dict["leyre_left"])
-                if face_direction == "right":
-                    npc_leyre.update(graphic_dict["leyre_right"])
 
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])

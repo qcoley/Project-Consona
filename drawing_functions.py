@@ -9,6 +9,7 @@ level_up_text = []
 level_up_window = []
 quest_box = []
 quest_complete_box = []
+quest_accept_box = []
 player_equipment = []
 player_items = []
 item_info_window = []
@@ -54,6 +55,9 @@ def draw_it(screen):
     if len(quest_box) > 0:
         for quest_element in quest_box:
             screen.blit(quest_element.surf, quest_element.rect)
+    if len(quest_accept_box) > 0:
+        for accept_element in quest_accept_box:
+            screen.blit(accept_element.surf, accept_element.rect)
     if len(quest_complete_box) > 0:
         for quest_complete_element in quest_complete_box:
             screen.blit(quest_complete_element.surf, quest_complete_element.rect)
@@ -1376,15 +1380,16 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
 
             # quest window accept or decline button highlights when moused over
             if quest_clicked:
-                if accept_button.rect.collidepoint(pos):
-                    button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                elif decline_button.rect.collidepoint(pos):
-                    button_highlight.update(decline_button.x_coordinate,
-                                            decline_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
+                if len(quest_box) > 0:
+                    if accept_button.rect.collidepoint(pos):
+                        button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
+                                                graphic_dict["main high"])
+                        return True
+                    elif decline_button.rect.collidepoint(pos):
+                        button_highlight.update(decline_button.x_coordinate,
+                                                decline_button.y_coordinate + 7,
+                                                graphic_dict["main high"])
+                        return True
 
         if in_menagerie:
             if quest_button.rect.collidepoint(pos):
@@ -1419,15 +1424,16 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                     return True
             # quest window accept or decline button highlights when moused over
             if quest_clicked:
-                if accept_button.rect.collidepoint(pos):
-                    button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
-                elif decline_button.rect.collidepoint(pos):
-                    button_highlight.update(decline_button.x_coordinate,
-                                            decline_button.y_coordinate + 7,
-                                            graphic_dict["main high"])
-                    return True
+                if len(quest_box) > 0:
+                    if accept_button.rect.collidepoint(pos):
+                        button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
+                                                graphic_dict["main high"])
+                        return True
+                    elif decline_button.rect.collidepoint(pos):
+                        button_highlight.update(decline_button.x_coordinate,
+                                                decline_button.y_coordinate + 7,
+                                                graphic_dict["main high"])
+                        return True
 
 
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg

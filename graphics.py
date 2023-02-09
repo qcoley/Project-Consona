@@ -115,7 +115,7 @@ def load_graphics():
     learn_button = pygame.image.load(resource_path('resources/art/overlay_learn.png')).convert_alpha()
     skill_learn_button = pygame.image.load(resource_path('resources/art/overlay_skill_learn.png')).convert_alpha()
     nascent_gate_popup = pygame.image.load(resource_path('resources/art/popup_nascent_gate.png')).convert_alpha()
-    level_up = pygame.image.load(resource_path('resources/art/popup_level_up.png')).convert_alpha()
+    level_up_win = pygame.image.load(resource_path('resources/art/popup_level_up.png')).convert_alpha()
     close_button = pygame.image.load(resource_path('resources/art/button_close.png')).convert_alpha()
     knowledge_window = pygame.image.load(resource_path('resources/art/overlay_knowledge.png')).convert_alpha()
     skill_bar = pygame.image.load(resource_path('resources/art/overlay_skill_bar.png')).convert_alpha()
@@ -163,6 +163,8 @@ def load_graphics():
     alcove_star = pygame.image.load(resource_path('resources/art/overlay_alcove_star.png')).convert_alpha()
     tree_tops = pygame.image.load(resource_path('resources/art/overlay_tree_tops.png')).convert_alpha()
     a_building_tops = pygame.image.load(resource_path('resources/art/overlay_amuna_building_tops.png')).convert_alpha()
+    level_up_vis = pygame.image.load(resource_path('resources/art/overlay_level_up.png')).convert_alpha()
+    quest_accepted = pygame.image.load(resource_path('resources/art/overlay_quest_accepted.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -172,7 +174,7 @@ def load_graphics():
     apothis_scene_6 = pygame.image.load(resource_path('resources/art/cutscene_apothis_6.png')).convert_alpha()
 
     color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree,
-                  rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up,
+                  rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up_win,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
                   role_selection_overlay, location_overlay, popup_loot, stardust_entrance, book_high,
                   upgrade_overlay, cat_pet_button_overlay, save_hearth_high, lets_go_high, dungeon_entrance,
@@ -180,10 +182,12 @@ def load_graphics():
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
-                  chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops]
+                  chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["quest_accepted"] = quest_accepted
+    loaded_dict["level_up_vis"] = level_up_vis
     loaded_dict["amuna_building_top"] = a_building_tops
     loaded_dict["tree_top"] = tree_tops
     loaded_dict["alcove_star"] = alcove_star
@@ -251,7 +255,7 @@ def load_graphics():
     loaded_dict["learn_button"] = learn_button
     loaded_dict["skill_learn_button"] = skill_learn_button
     loaded_dict["nascent_gate_popup"] = nascent_gate_popup
-    loaded_dict["level_up"] = level_up
+    loaded_dict["level_up_win"] = level_up_win
     loaded_dict["close_button"] = close_button
     loaded_dict["knowledge_window"] = knowledge_window
     loaded_dict["skill_bar"] = skill_bar
