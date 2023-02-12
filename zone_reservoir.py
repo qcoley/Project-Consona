@@ -13,7 +13,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 muchador_battle_sprite, barrier_active, sharp_sense_active, in_npc_interaction, magmon_battle_sprite,
                 bandile_battle_sprite, chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan,
                 offense_meter, defense_meter, weapon_select, pet_energy_window, necrola_battle_sprite,
-                osodark_battle_sprite, sfx_item_rupee, sfx_item_key, sfx_item_potion, sfx_switch):
+                osodark_battle_sprite, sfx_item_rupee, sfx_item_key, sfx_item_potion, sfx_switch, sfx_teleporter):
 
     in_battle = False
 
@@ -238,6 +238,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
         if interacted:
             if switch_3:
+                pygame.mixer.Sound.play(sfx_teleporter)
                 dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
                 player.current_zone = "reservoir b"
                 in_over_world = True
@@ -295,7 +296,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 button_highlight, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
                 switch_1, switch_2, switch_3, has_key, magmon_battle_sprite, bandile_battle_sprite,
                 chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
-                weapon_select, pet_energy_window, necrola_battle_sprite, osodark_battle_sprite):
+                weapon_select, pet_energy_window, necrola_battle_sprite, osodark_battle_sprite, sfx_teleporter,
+                sfx_rupee, sfx_gate):
 
     in_battle = False
 
@@ -364,6 +366,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                     if not muchador_lights_on:
                         muchador.update_image(350, 360, graphic_dict["muchador"])
                         muchador_lights_on = True
+                    pygame.mixer.Sound.play(sfx_gate)
                     info_text_1 = "You used the key to open the gate."
                     info_text_2 = ""
                     player.x_coordinate = 625
@@ -390,6 +393,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted:
+            pygame.mixer.Sound.play(sfx_teleporter)
             dungeon_teleporter.update(519, 316, graphic_dict["dungeon_teleporter"])
             player.current_zone = "reservoir a"
             in_over_world = True
@@ -413,6 +417,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
             if interacted:
                 if not crate_5:
+                    pygame.mixer.Sound.play(sfx_rupee)
                     info_text_1 = "You found 10 Rupees!"
                     info_text_2 = ""
                     player.rupees += 10
@@ -510,7 +515,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 button_highlight, reservoir_c_bg, dungeon_chest, reservoir_exit, rock_1, rock_2, gloves_obtained,
                 power_gloves, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world, has_key,
                 muchador_lights_on, hearth_stone, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                defense_meter, weapon_select, pet_energy_window):
+                defense_meter, weapon_select, pet_energy_window, sfx_chest, sfx_rocks):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -568,6 +573,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 if len(player.items) < 16:
                     dungeon_chest.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate,
                                          graphic_dict["dungeon_chest_open"])
+                    pygame.mixer.Sound.play(sfx_chest)
                     info_text_1 = "You've obtained the power gloves!"
                     info_text_2 = ""
                     player.items.append(power_gloves)
@@ -592,6 +598,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock_1.x_coordinate == 580:
+                        pygame.mixer.Sound.play(sfx_rocks)
                         rock_1.update(rock_1.x_coordinate + 300, rock_1.y_coordinate, graphic_dict["rock"])
                 else:
                     info_text_1 = "The rock won't budge."
@@ -614,6 +621,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock_2.x_coordinate == 580:
+                        pygame.mixer.Sound.play(sfx_rocks)
                         rock_2.update(rock_2.x_coordinate + 300, rock_2.y_coordinate, graphic_dict["rock"])
                 else:
                     info_text_1 = "The rock won't budge."

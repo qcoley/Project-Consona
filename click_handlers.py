@@ -51,7 +51,7 @@ def equipment_event_item(player, equipment_event_here, pygame, basic_armor, forg
 
 # handles mouse clicks for equipment sub-screen
 def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
-              chroma_boots):
+              chroma_boots, sfx_equip):
     return_dict = {"equipment message": "", "gear checked": True}
     equipment_item = equipment_event_item(player, event, pygame, basic_armor, forged_armor, mythical_armor,
                                           legendary_armor, power_gloves, chroma_boots)
@@ -62,6 +62,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["armor"] = ""
+                pygame.mixer.Sound.play(sfx_equip)
                 return_dict["equipment message"] = "Basic Armor un-equipped."
                 player.defense = 0
             else:
@@ -70,6 +71,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["armor"] = ""
+                pygame.mixer.Sound.play(sfx_equip)
                 return_dict["equipment message"] = "Forged Armor un-equipped."
                 player.defense = 0
             else:
@@ -78,6 +80,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["armor"] = ""
+                pygame.mixer.Sound.play(sfx_equip)
                 return_dict["equipment message"] = "Mythical Armor un-equipped."
                 player.defense = 0
             else:
@@ -86,6 +89,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["armor"] = ""
+                pygame.mixer.Sound.play(sfx_equip)
                 return_dict["equipment message"] = "Legendary Armor un-equipped."
                 player.defense = 0
             else:
@@ -95,6 +99,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["gloves"] = ""
+                pygame.mixer.Sound.play(sfx_equip)
                 return_dict["equipment message"] = "Power gloves un-equipped."
             else:
                 return_dict["equipment message"] = "Your inventory is full."
@@ -103,6 +108,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["boots"] = ""
+                pygame.mixer.Sound.play(sfx_equip)
                 return_dict["equipment message"] = "Chroma boots un-equipped."
             else:
                 return_dict["equipment message"] = "Your inventory is full."
@@ -192,7 +198,7 @@ def inventory_event_item(inventory_event_here, pygame):
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory(pygame, player, item, sfx_potion):
+def inventory(pygame, player, item, sfx_potion, sfx_equip):
 
     return_dict = {"item message": ""}
 
@@ -310,6 +316,7 @@ def inventory(pygame, player, item, sfx_potion):
                 player.equipment["armor"] = item
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
+                pygame.mixer.Sound.play(sfx_equip)
                 return_dict["item message"] = "Armor equipped. "
                 player.defense = item.level
             else:
@@ -317,6 +324,7 @@ def inventory(pygame, player, item, sfx_potion):
         if item.name == "power gloves":
             if player.equipment["gloves"] == "":
                 player.equipment["gloves"] = item
+                pygame.mixer.Sound.play(sfx_equip)
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "Power gloves equipped."
@@ -325,6 +333,7 @@ def inventory(pygame, player, item, sfx_potion):
         if item.name == "chroma boots":
             if player.equipment["boots"] == "":
                 player.equipment["boots"] = item
+                pygame.mixer.Sound.play(sfx_equip)
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "Chroma boots equipped."
@@ -359,10 +368,11 @@ def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attac
 
 
 # getting event based on user click related to npc
-def npc_event_button(npc_event, quest_button, leave_button, pygame):
+def npc_event_button(npc_event, quest_button, leave_button, pygame, sfx_page):
     if npc_event.type == pygame.MOUSEBUTTONUP:
         npc_mouse = pygame.mouse.get_pos()
         if quest_button.rect.collidepoint(npc_mouse):
+            pygame.mixer.Sound.play(sfx_page)
             return "quest"
         if leave_button.rect.collidepoint(npc_mouse):
             return "leave"

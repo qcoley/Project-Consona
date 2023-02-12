@@ -2651,7 +2651,7 @@ if __name__ == '__main__':
                      True, False, ["Items"], False, graphic_dict["dionte_down"])
 
     npc_omoku = NPC("omoku", "nuldar", "Onur-oh.", "kart troubles", "", 460, 655,
-                     True, False, ["Items"], False, graphic_dict["omoku_down"])
+                    True, False, ["Items"], False, graphic_dict["omoku_down"])
     npc_leyre = NPC("leyre", "sorae", "Hola.", "las escondidas", "", 682, 420,
                     True, False, ["Items"], False, graphic_dict["leyre_down"])
     npc_everett = NPC("everett", "amuna", "shades of fear", "ayudame", "", 750, 320,
@@ -2774,17 +2774,17 @@ if __name__ == '__main__':
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     necrola_1 = Enemy("necrola", "necrola", 100, 100, 12, 230, 425, True,
-                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                        graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+                      Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     necrola_2 = Enemy("necrola", "necrola", 100, 100, 13, 385, 490, True,
-                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                        graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+                      Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     necrola_3 = Enemy("necrola", "necrola", 100, 100, 12, 460, 365, True,
-                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                        graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+                      Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     necrola_4 = Enemy("necrola", "necrola", 100, 100, 14, 618, 425, True,
-                        Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                        graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+                      Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
@@ -3242,11 +3242,13 @@ if __name__ == '__main__':
     sfx_no_weapon_attack = pygame.mixer.Sound("resources/sfx/no_weapon_attack.mp3")
     sfx_no_weapon_attack.set_volume(0.15)
     sfx_mage_attack = pygame.mixer.Sound("resources/sfx/mage_attack.mp3")
-    sfx_mage_attack.set_volume(0.15)
+    sfx_mage_attack.set_volume(0.18)
     sfx_mage_barrier = pygame.mixer.Sound("resources/sfx/mage_barrier.mp3")
     sfx_mage_barrier.set_volume(0.45)
     sfx_fighter_attack = pygame.mixer.Sound("resources/sfx/fighter_attack.mp3")
     sfx_fighter_attack.set_volume(0.30)
+    sfx_fighter_strike = pygame.mixer.Sound("resources/sfx/fighter_strike.mp3")
+    sfx_fighter_strike.set_volume(0.30)
     sfx_scout_attack = pygame.mixer.Sound("resources/sfx/scout_attack.mp3")
     sfx_scout_attack.set_volume(0.50)
     sfx_scout_sense = pygame.mixer.Sound("resources/sfx/scout_sense.mp3")
@@ -3255,15 +3257,18 @@ if __name__ == '__main__':
     sfx_quest_complete = pygame.mixer.Sound("resources/sfx/quest_complete.mp3")
     sfx_quest_complete.set_volume(0.40)
     sfx_quest_start = pygame.mixer.Sound("resources/sfx/quest_start.mp3")
-    sfx_quest_start.set_volume(0.15)
+    sfx_quest_start.set_volume(0.20)
     sfx_level_up = pygame.mixer.Sound("resources/sfx/level_up.mp3")
     sfx_level_up.set_volume(0.25)
 
     sfx_sheet_paper = pygame.mixer.Sound("resources/sfx/sheet_paper.mp3")
     sfx_sheet_paper.set_volume(0.50)
 
+    sfx_steps_path = pygame.mixer.Sound("resources/sfx/steps_path.mp3")
+    sfx_steps_path.set_volume(0.25)
+
     sfx_item_rupee = pygame.mixer.Sound("resources/sfx/item_rupee.mp3")
-    sfx_item_rupee.set_volume(0.25)
+    sfx_item_rupee.set_volume(0.20)
     sfx_item_key = pygame.mixer.Sound("resources/sfx/item_key.mp3")
     sfx_item_key.set_volume(0.30)
     sfx_item_potion = pygame.mixer.Sound("resources/sfx/item_potion.mp3")
@@ -3271,22 +3276,42 @@ if __name__ == '__main__':
     sfx_item_flower = pygame.mixer.Sound("resources/sfx/item_flower.mp3")
     sfx_item_flower.set_volume(0.45)
     sfx_item_pickup = pygame.mixer.Sound("resources/sfx/item_crate.mp3")
-    sfx_item_pickup.set_volume(0.25)
+    sfx_item_pickup.set_volume(0.15)
+    sfx_item_equip = pygame.mixer.Sound("resources/sfx/item_equip.mp3")
+    sfx_item_equip.set_volume(0.10)
 
     sfx_activate_switch = pygame.mixer.Sound("resources/sfx/activate_switch.mp3")
-    sfx_activate_switch.set_volume(0.15)
+    sfx_activate_switch.set_volume(0.10)
+    sfx_activate_teleporter = pygame.mixer.Sound("resources/sfx/activate_teleporter.mp3")
+    sfx_activate_teleporter.set_volume(0.20)
     sfx_door_open = pygame.mixer.Sound("resources/sfx/door_open.mp3")
     sfx_door_open.set_volume(0.40)
+    sfx_gate_open = pygame.mixer.Sound("resources/sfx/gate_open.mp3")
+    sfx_gate_open.set_volume(0.35)
+    sfx_chest_open = pygame.mixer.Sound("resources/sfx/chest_open.mp3")
+    sfx_chest_open.set_volume(0.25)
+    sfx_rock_push = pygame.mixer.Sound("resources/sfx/rock_push.mp3")
+    sfx_rock_push.set_volume(0.45)
 
+    sfx_button_click = pygame.mixer.Sound("resources/sfx/button_click.mp3")
+    sfx_button_click.set_volume(0.10)
+    sfx_button_start = pygame.mixer.Sound("resources/sfx/button_start.mp3")
+    sfx_button_start.set_volume(0.20)
+    sfx_button_key = pygame.mixer.Sound("resources/sfx/button_key.mp3")
+    sfx_button_key.set_volume(0.20)
+    sfx_button_role = pygame.mixer.Sound("resources/sfx/button_role.mp3")
+    sfx_button_role.set_volume(0.20)
+    sfx_button_inventory = pygame.mixer.Sound("resources/sfx/button_inventory.mp3")
+    sfx_button_inventory.set_volume(0.15)
     sfx_save_game = pygame.mixer.Sound("resources/sfx/save_game.mp3")
-    sfx_save_game.set_volume(0.45)
+    sfx_save_game.set_volume(0.40)
     sfx_map_teleport = pygame.mixer.Sound("resources/sfx/map_teleport.mp3")
     sfx_map_teleport.set_volume(0.25)
 
     sfx_shop_transaction = pygame.mixer.Sound("resources/sfx/shop_transaction.mp3")
-    sfx_shop_transaction.set_volume(0.50)
+    sfx_shop_transaction.set_volume(0.35)
     sfx_skill_learn = pygame.mixer.Sound("resources/sfx/skill_learn.mp3")
-    sfx_skill_learn.set_volume(0.55)
+    sfx_skill_learn.set_volume(0.50)
     sfx_inn_sleep = pygame.mixer.Sound("resources/sfx/inn_sleep.mp3")
     sfx_inn_sleep.set_volume(0.25)
     sfx_power_up = pygame.mixer.Sound("resources/sfx/power_up.mp3")
@@ -3414,6 +3439,7 @@ if __name__ == '__main__':
     torok_unlocked = False
     iriana_unlocked = False
 
+    rock_3_con = False
     rock_4_con = False
     rock_5_con = False
     rock_6_con = False
@@ -3516,10 +3542,12 @@ if __name__ == '__main__':
                 if event.type == pygame.MOUSEBUTTONUP:
                     # player chooses to start a new game or continue from previous
                     if new_game_button.rect.collidepoint(pos):
+                        pygame.mixer.Sound.play(sfx_button_click)
                         new_game_chosen = True
                         button_highlighted = False
                         save_data_window.clear()
                     if continue_button.rect.collidepoint(pos):
+                        pygame.mixer.Sound.play(sfx_button_start)
                         continue_game_chosen = True
                         button_highlighted = False
                     # click to dismiss save absent popup if player tries to continue with no save file
@@ -3547,10 +3575,12 @@ if __name__ == '__main__':
                         entered = True
                     if event.key == K_BACKSPACE:
                         if name_input_selected:
+                            pygame.mixer.Sound.play(sfx_button_key)
                             character_name_input = character_name_input[:-1]
                     else:
                         if name_input_selected:
                             if len(character_name_input) < 12:
+                                pygame.mixer.Sound.play(sfx_button_key)
                                 character_name_input += event.unicode
                 elif event.type == QUIT:
                     pygame.mixer.quit()
@@ -3575,22 +3605,26 @@ if __name__ == '__main__':
 
                     # player amuna race selection, set conditions to go to amuna select screen
                     if amuna_button.rect.collidepoint(pos):
+                        pygame.mixer.Sound.play(sfx_button_click)
                         amuna_race_selected = True
                         nuldar_race_selected = False
                         sorae_race_selected = False
                     # player amuna race selection, set conditions to go to amuna select screen
                     if nuldar_button.rect.collidepoint(pos):
+                        pygame.mixer.Sound.play(sfx_button_click)
                         amuna_race_selected = False
                         nuldar_race_selected = True
                         sorae_race_selected = False
                     # player amuna race selection, set conditions to go to amuna select screen
                     if sorae_button.rect.collidepoint(pos):
+                        pygame.mixer.Sound.play(sfx_button_click)
                         amuna_race_selected = False
                         nuldar_race_selected = False
                         sorae_race_selected = True
 
                     # noinspection PyUnboundLocalVariable
                     if start_button.rect.collidepoint(pos) or entered:
+                        pygame.mixer.Sound.play(sfx_button_start)
                         if amuna_race_selected:
                             player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
                                                  player.current_quests, player.quest_progress, player.quest_status,
@@ -3710,6 +3744,7 @@ if __name__ == '__main__':
                             beyond_seldon = True
 
                     if back_button.rect.collidepoint(pos):
+                        pygame.mixer.Sound.play(sfx_item_flower)
                         button_highlighted = False
                         new_game_chosen = False
 
@@ -3784,6 +3819,7 @@ if __name__ == '__main__':
                     switch_1 = load_returned["switch_1"]
                     switch_2 = load_returned["switch_2"]
                     switch_3 = load_returned["switch_3"]
+                    rock_3_con = load_returned["rock_3_con"]
                     rock_4_con = load_returned["rock_4_con"]
                     rock_5_con = load_returned["rock_5_con"]
                     rock_6_con = load_returned["rock_6_con"]
@@ -3963,7 +3999,7 @@ if __name__ == '__main__':
                                            graphic_dict["level_up_vis"])
                     if loot_level_toc - loot_level_tic > 3:
                         drawing_functions.level_up_draw(level_up_win, player, font, False, level_up_visual,
-                                                        in_over_world)
+                                                        in_npc_interaction)
                         leveled = False
 
                 # player information updates
@@ -4164,13 +4200,15 @@ if __name__ == '__main__':
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
 
-                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                         pressed_keys, sfx_button_role)
 
                             # click handlers
                             info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                             if info_choice == "yes":
+                                pygame.mixer.Sound.play(sfx_button_inventory)
                                 inventory_event = click_handlers.inventory(pygame, player, current_info_item,
-                                                                           sfx_item_potion)
+                                                                           sfx_item_potion, sfx_item_equip)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -4182,6 +4220,7 @@ if __name__ == '__main__':
 
                             inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                             if inventory_item_clicked["clicked"]:
+                                pygame.mixer.Sound.play(sfx_button_inventory)
                                 current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                                      info_items, item_info_button,
                                                                                      graphic_dict)
@@ -4189,7 +4228,8 @@ if __name__ == '__main__':
                             if len(drawing_functions.item_info_window) == 0:
                                 equipment_event = click_handlers.equipment(player, event, pygame, basic_armor,
                                                                            forged_armor, mythical_armor,
-                                                                           legendary_armor, power_gloves, chroma_boots)
+                                                                           legendary_armor, power_gloves, chroma_boots,
+                                                                           sfx_item_equip)
                                 if equipment_event["equipment message"] != "":
                                     button_highlighted = False
                                     info_text_1 = equipment_event["equipment message"]
@@ -4269,7 +4309,7 @@ if __name__ == '__main__':
                                                                      chinzilla_defeated, apothecary_access,
                                                                      beyond_seldon, seed_given, hatch_ready,
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked, rock_8_con)
+                                                                     iriana_unlocked, rock_8_con, rock_3_con)
                                         saved = True
                                         saving = False
                                         info_text_1 = "You saved your game. "
@@ -4294,7 +4334,7 @@ if __name__ == '__main__':
                                                              rock_7_con, chinzilla_defeated, apothecary_access,
                                                              beyond_seldon, seed_given, hatch_ready, menagerie_access,
                                                              kasper_unlocked, torok_unlocked, iriana_unlocked,
-                                                             rock_8_con)
+                                                             rock_8_con, rock_3_con)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -4449,7 +4489,7 @@ if __name__ == '__main__':
                                 drawing_functions.game_guide_container.clear()
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False, level_up_visual,
-                                                                in_over_world)
+                                                                in_npc_interaction)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -4508,6 +4548,7 @@ if __name__ == '__main__':
                                         rock_8.update(rock_8.x_coordinate + 120, rock_8.y_coordinate,
                                                       graphic_dict["rock_small"])
                                         if not rock_8_con:
+                                            pygame.mixer.Sound.play(sfx_item_rupee)
                                             player.rupees += 50
                                             rock_8_con = True
                                             info_text_1 = "You found 50 Rupees under the rock!"
@@ -4670,7 +4711,8 @@ if __name__ == '__main__':
                                                                   rock_5_con, rock_6_con, seldon_flowers,
                                                                   eldream_flowers, interactables_eldream,
                                                                   pet_energy_window, ectrenos_front_enemies,
-                                                                  necrola_battle_sprite, osodark_battle_sprite)
+                                                                  necrola_battle_sprite, osodark_battle_sprite,
+                                                                  sfx_item_rupee, sfx_map_teleport)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -5165,7 +5207,7 @@ if __name__ == '__main__':
                                                                   offense_meter, defense_meter, weapon_select, rock_7,
                                                                   rock_7_con, chinzilla_defeated, eldream_gate_rect,
                                                                   pet_energy_window, necrola_battle_sprite,
-                                                                  osodark_battle_sprite)
+                                                                  osodark_battle_sprite, sfx_item_rupee)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -5219,7 +5261,8 @@ if __name__ == '__main__':
                                                                        offense_meter, defense_meter, weapon_select,
                                                                        rock_3, pet_energy_window, stardust_top,
                                                                        necrola_battle_sprite, osodark_battle_sprite,
-                                                                       sfx_nede_bark, sfx_door_open)
+                                                                       sfx_nede_bark, sfx_door_open, sfx_item_rupee,
+                                                                       rock_3_con)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -5235,6 +5278,7 @@ if __name__ == '__main__':
                     in_shop = stardust_returned["in_shop"]
                     interacted = stardust_returned["interacted"]
                     npc_tic = stardust_returned["npc_tic"]
+                    rock_3_con = stardust_returned["rock_3_con"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -5312,7 +5356,7 @@ if __name__ == '__main__':
                                                                       defense_meter, weapon_select, pet_energy_window,
                                                                       necrola_battle_sprite, osodark_battle_sprite,
                                                                       sfx_item_rupee, sfx_item_key, sfx_item_potion,
-                                                                      sfx_activate_switch)
+                                                                      sfx_activate_switch, sfx_activate_teleporter)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -5368,7 +5412,8 @@ if __name__ == '__main__':
                                                                       equipment_screen, staff, sword, bow, npc_garan,
                                                                       offense_meter, defense_meter, weapon_select,
                                                                       pet_energy_window, necrola_battle_sprite,
-                                                                      osodark_battle_sprite)
+                                                                      osodark_battle_sprite, sfx_activate_teleporter,
+                                                                      sfx_item_rupee, sfx_gate_open)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -5411,7 +5456,7 @@ if __name__ == '__main__':
                                                                       muchador_lights_on, hearth_stone,
                                                                       equipment_screen, staff, sword, bow, npc_garan,
                                                                       offense_meter, defense_meter, weapon_select,
-                                                                      pet_energy_window)
+                                                                      pet_energy_window, sfx_chest_open, sfx_rock_push)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -5462,7 +5507,8 @@ if __name__ == '__main__':
 
                         if event.type == pygame.MOUSEBUTTONUP:
 
-                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                         pressed_keys, sfx_button_role)
 
                             if game_guide_overlay.rect.collidepoint(pos):
                                 drawing_functions.game_guide_container.clear()
@@ -5477,8 +5523,9 @@ if __name__ == '__main__':
 
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
-                                                                       sfx_item_potion)
+                                                                       sfx_item_potion, sfx_item_equip)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -5578,6 +5625,7 @@ if __name__ == '__main__':
 
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                         if inventory_item_clicked["clicked"]:
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                                  info_items, item_info_button,
                                                                                  graphic_dict)
@@ -5586,7 +5634,7 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots)
+                                                                       chroma_boots, sfx_item_equip)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -5846,6 +5894,7 @@ if __name__ == '__main__':
                                     # player is a fighter and uses hard strike
                                     if player.role == "fighter":
                                         if hard_strike_learned:
+                                            pygame.mixer.Sound.play(sfx_fighter_strike)
                                             hard_strike = True
                                             combat_scenario.fighter(graphic_dict, player, player_battle_sprite,
                                                                     current_enemy_battling, snake_battle_sprite,
@@ -6221,7 +6270,7 @@ if __name__ == '__main__':
                                 damage_done_rect.center = (850, 225)
                                 screen.blit(damage_done_surf, damage_done_rect)
                                 damage_pet_surf = level_up_font.render(str(combat_events["pet damage"]),
-                                                                        True, "black", "white")
+                                                                       True, "black", "white")
                                 damage_pet_rect = damage_pet_surf.get_rect()
                                 damage_pet_rect.center = (950, 275)
                                 if kasper_unlocked or torok_unlocked or iriana_unlocked:
@@ -6337,7 +6386,8 @@ if __name__ == '__main__':
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
-                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                         pressed_keys, sfx_button_role)
                             if player.current_zone == "seldon":
                                 cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
@@ -6818,7 +6868,8 @@ if __name__ == '__main__':
                         pos = pygame.mouse.get_pos()
                         button_highlighted = button_highlighter(pos)
 
-                        gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+                        gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                     pressed_keys, sfx_button_role)
 
                         # get which button player pressed during inn scenario (rest or leave)
                         inn_button = click_handlers.inn_event_button(event, rest_button, leave_button, pygame,
@@ -6827,8 +6878,9 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
-                                                                       sfx_item_potion)
+                                                                       sfx_item_potion, sfx_item_equip)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -6837,6 +6889,7 @@ if __name__ == '__main__':
                             drawing_functions.item_info_window.clear()
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                         if inventory_item_clicked["clicked"]:
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                                  info_items, item_info_button,
                                                                                  graphic_dict)
@@ -6844,7 +6897,7 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots)
+                                                                       chroma_boots, sfx_item_equip)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -7057,7 +7110,8 @@ if __name__ == '__main__':
                                 button_highlighted = False
 
                         if event.type == pygame.MOUSEBUTTONUP:
-                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                         pressed_keys, sfx_button_role)
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 pygame.mixer.Sound.play(sfx_cat_meow)
                                 academia_cat_pet = True
@@ -7069,8 +7123,9 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
-                                                                       sfx_item_potion)
+                                                                       sfx_item_potion, sfx_item_equip)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -7079,6 +7134,7 @@ if __name__ == '__main__':
                             drawing_functions.item_info_window.clear()
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                         if inventory_item_clicked["clicked"]:
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                                  info_items, item_info_button,
                                                                                  graphic_dict)
@@ -7086,7 +7142,7 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots)
+                                                                       chroma_boots, sfx_item_equip)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -7340,7 +7396,8 @@ if __name__ == '__main__':
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
-                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                         pressed_keys, sfx_button_role)
                             drawing_functions.quest_complete_box.clear()
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 pygame.mixer.Sound.play(sfx_cat_meow)
@@ -7410,15 +7467,17 @@ if __name__ == '__main__':
                                     info_text_2 = ""
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
-                        npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
+                        npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
+                                                                     sfx_sheet_paper)
                         # in quest window pop-up, if accept or decline buttons are clicked
                         quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
 
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
-                                                                       sfx_item_potion)
+                                                                       sfx_item_potion, sfx_item_equip)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -7427,15 +7486,15 @@ if __name__ == '__main__':
                             drawing_functions.item_info_window.clear()
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                         if inventory_item_clicked["clicked"]:
-                            current_info_item = drawing_functions.item_info_draw(
-                                inventory_item_clicked["element"],
-                                info_items, item_info_button,
-                                graphic_dict)
+                            pygame.mixer.Sound.play(sfx_button_inventory)
+                            current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                                 info_items, item_info_button,
+                                                                                 graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots)
+                                                                       chroma_boots, sfx_item_equip)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -7477,7 +7536,7 @@ if __name__ == '__main__':
                                                                      chinzilla_defeated, apothecary_access,
                                                                      beyond_seldon, seed_given, hatch_ready,
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked, rock_8_con)
+                                                                     iriana_unlocked, rock_8_con, rock_3_con)
                                     except PermissionError:
                                         pass
 
@@ -7656,7 +7715,8 @@ if __name__ == '__main__':
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
-                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                         pressed_keys, sfx_button_role)
                             drawing_functions.quest_complete_box.clear()
                             if cat_pet_button_overlay.rect.collidepoint(pos):
                                 pygame.mixer.Sound.play(sfx_cat_meow)
@@ -7874,15 +7934,17 @@ if __name__ == '__main__':
                                         button_highlighted = False
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
-                        npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
+                        npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
+                                                                     sfx_sheet_paper)
                         # in quest window pop-up, if accept or decline buttons are clicked
                         quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
 
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
-                                                                       sfx_item_potion)
+                                                                       sfx_item_potion, sfx_item_equip)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -7891,15 +7953,15 @@ if __name__ == '__main__':
                             drawing_functions.item_info_window.clear()
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                         if inventory_item_clicked["clicked"]:
-                            current_info_item = drawing_functions.item_info_draw(
-                                inventory_item_clicked["element"],
-                                info_items, item_info_button,
-                                graphic_dict)
+                            pygame.mixer.Sound.play(sfx_button_inventory)
+                            current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
+                                                                                 info_items, item_info_button,
+                                                                                 graphic_dict)
                         # function to handle equipment item clicks. apply item message to message box if not empty str.
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots)
+                                                                       chroma_boots, sfx_item_equip)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -7941,7 +8003,7 @@ if __name__ == '__main__':
                                                                      chinzilla_defeated, apothecary_access,
                                                                      beyond_seldon, seed_given, hatch_ready,
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked, rock_8_con)
+                                                                     iriana_unlocked, rock_8_con, rock_3_con)
                                     except PermissionError:
                                         pass
 
@@ -8046,13 +8108,13 @@ if __name__ == '__main__':
                                 screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
                             if player.quest_status["hatch 'em all"]:
                                 quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
-                                                             quest_star_menagerie.y_coordinate,
-                                                             graphic_dict["building_npc_star_progress"])
+                                                            quest_star_menagerie.y_coordinate,
+                                                            graphic_dict["building_npc_star_progress"])
                                 screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
                             if player.quest_progress["hatch 'em all"] == 1:
                                 quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
-                                                             quest_star_menagerie.y_coordinate,
-                                                             graphic_dict["building_npc_star_complete"])
+                                                            quest_star_menagerie.y_coordinate,
+                                                            graphic_dict["building_npc_star_complete"])
                                 screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
 
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
@@ -8097,7 +8159,8 @@ if __name__ == '__main__':
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
-                            gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
+                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                         pressed_keys, sfx_button_role)
                             if garan_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
                             if maurelle_complete_quest_window.rect.collidepoint(pos):
@@ -8120,14 +8183,15 @@ if __name__ == '__main__':
                                 drawing_functions.quest_complete_box.clear()
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False, level_up_visual,
-                                                                in_over_world)
+                                                                in_npc_interaction)
                             if role_select_overlay.rect.collidepoint(pos):
                                 drawing_functions.type_advantage_window.clear()
                             if quest_accepted.rect.collidepoint(pos):
                                 drawing_functions.quest_accept_box.clear()
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
-                        npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame)
+                        npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
+                                                                     sfx_sheet_paper)
                         # in quest window pop-up, if accept or decline buttons are clicked
                         quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
                         # options once quest window is open ------------------------------------------------------------
@@ -8192,8 +8256,9 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
-                                                                       sfx_item_potion)
+                                                                       sfx_item_potion, sfx_item_equip)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -8204,6 +8269,7 @@ if __name__ == '__main__':
                             button_highlighted = False
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
                         if inventory_item_clicked["clicked"]:
+                            pygame.mixer.Sound.play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
                                                                                  info_items, item_info_button,
                                                                                  graphic_dict)
@@ -8211,7 +8277,7 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots)
+                                                                       chroma_boots, sfx_item_equip)
                             if equipment_event["equipment message"] != "":
                                 button_highlighted = False
                                 info_text_1 = equipment_event["equipment message"]
@@ -8257,7 +8323,8 @@ if __name__ == '__main__':
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
                                                                          hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked, rock_8_con)
+                                                                         torok_unlocked, iriana_unlocked, rock_8_con,
+                                                                         rock_3_con)
                                         except PermissionError:
                                             pass
                                     else:
@@ -8447,7 +8514,8 @@ if __name__ == '__main__':
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
                                                                          hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked, rock_8_con)
+                                                                         torok_unlocked, iriana_unlocked, rock_8_con,
+                                                                         rock_3_con)
                                         except PermissionError:
                                             pass
                                     else:
@@ -8637,7 +8705,8 @@ if __name__ == '__main__':
                                                                          rock_6_con, rock_7_con, chinzilla_defeated,
                                                                          apothecary_access, beyond_seldon, seed_given,
                                                                          hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked, rock_8_con)
+                                                                         torok_unlocked, iriana_unlocked, rock_8_con,
+                                                                         rock_3_con)
                                         except PermissionError:
                                             pass
                                     else:
@@ -8976,6 +9045,7 @@ if __name__ == '__main__':
                     if event.type == pygame.MOUSEBUTTONUP:
                         # player chooses to continue, reset character experience and half health and energy on respawn
                         if lets_go_button.rect.collidepoint(pos):
+                            pygame.mixer.Sound.play(sfx_button_start)
                             info_text_1 = ""
                             info_text_2 = ""
                             info_text_3 = ""

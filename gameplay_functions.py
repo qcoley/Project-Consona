@@ -7,9 +7,10 @@ from pygame.locals import *
 import drawing_functions
 
 
-def role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys):
+def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys, sfx_swap):
 
     if staff.rect.collidepoint(pos):
+        pygame.mixer.Sound.play(sfx_swap)
         player.role = "mage"
         if player.race == "amuna":
             player.surf = graphic_dict["player_mage_amuna_down_1"]
@@ -37,6 +38,7 @@ def role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys):
                 player.surf = graphic_dict["player_mage_sorae_up_1"]
 
     if sword.rect.collidepoint(pos):
+        pygame.mixer.Sound.play(sfx_swap)
         player.role = "fighter"
         if player.race == "amuna":
             player.surf = graphic_dict["player_fighter_amuna_down_1"]
@@ -64,6 +66,7 @@ def role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys):
                 player.surf = graphic_dict["player_fighter_sorae_up_1"]
 
     if bow.rect.collidepoint(pos):
+        pygame.mixer.Sound.play(sfx_swap)
         player.role = "scout"
         if player.race == "amuna":
             player.surf = graphic_dict["player_scout_amuna_down_1"]
@@ -327,6 +330,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["switch_1"] = player_load_info["switch_1"]
             load_return["switch_2"] = player_load_info["switch_2"]
             load_return["switch_3"] = player_load_info["switch_3"]
+            load_return["rock_3_con"] = player_load_info["rock_3_con"]
             load_return["rock_4_con"] = player_load_info["rock_4_con"]
             load_return["rock_5_con"] = player_load_info["rock_5_con"]
             load_return["rock_6_con"] = player_load_info["rock_6_con"]
@@ -367,7 +371,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned,
               rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
               seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
-              rock_8_con):
+              rock_8_con, rock_3_con):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -426,12 +430,13 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "muchador_defeated": muchador_defeated, "has_key": has_key,
                         "mini_boss_1_defeated": mini_boss_1_defeated, "mini_boss_2_defeated": mini_boss_2_defeated,
                         "gloves_obtained": gloves_obtained, "korlok_attuned": korlok_attuned,
-                        "eldream_attuned": eldream_attuned, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
-                        "rock_6_con": rock_6_con, "rock_7_con": rock_7_con, "rock_8_con": rock_8_con,
-                        "chinzilla_defeated": chinzilla_defeated, "apothecary_access": apothecary_access,
-                        "flowers amuna": int(player.flowers_amuna), "flowers sorae": int(player.flowers_sorae),
-                        "beyond seldon": beyond_seldon, "seed given": seed_given, "hatch ready": hatch_ready,
-                        "pets": pets, "menagerie access": menagerie_access, "kasper unlocked": kasper_unlocked,
+                        "eldream_attuned": eldream_attuned, "rock_3_con": rock_3_con, "rock_4_con": rock_4_con,
+                        "rock_5_con": rock_5_con, "rock_6_con": rock_6_con, "rock_7_con": rock_7_con,
+                        "rock_8_con": rock_8_con, "chinzilla_defeated": chinzilla_defeated,
+                        "apothecary_access": apothecary_access, "flowers amuna": int(player.flowers_amuna),
+                        "flowers sorae": int(player.flowers_sorae), "beyond seldon": beyond_seldon,
+                        "seed given": seed_given, "hatch ready": hatch_ready, "pets": pets,
+                        "menagerie access": menagerie_access, "kasper unlocked": kasper_unlocked,
                         "torok unlocked": torok_unlocked, "iriana unlocked": iriana_unlocked}
     try:
         try:

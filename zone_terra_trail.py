@@ -15,7 +15,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, hearth_stone,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
                 rock_7_con, chinzilla_defeated, eldream_gate_rect, pet_energy_window, necrola_battle_sprite,
-                osodark_battle_sprite):
+                osodark_battle_sprite, sfx_rupee):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -140,6 +140,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                     if rock_7.x_coordinate == 515:
                         rock_7.update(rock_7.x_coordinate - 120, rock_7.y_coordinate, graphic_dict["rock_small"])
                         if not rock_7_con:
+                            pygame.mixer.Sound.play(sfx_rupee)
                             player.rupees += 20
                             rock_7_con = True
                             info_text_1 = "You found 20 Rupees under the rock!"

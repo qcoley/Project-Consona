@@ -15,7 +15,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                      equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                      rock, pet_energy_window, stardust_top, necrola_battle_sprite, osodark_battle_sprite, sfx_nede,
-                     sfx_door):
+                     sfx_door, sfx_rupee, rock_3_con):
 
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
@@ -176,6 +176,12 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                 if player.equipment["gloves"].name == "power gloves":
                     if rock.x_coordinate == 675:
                         rock.update(rock.x_coordinate - 110, rock.y_coordinate, graphic_dict["rock_small"])
+                        if not rock_3_con:
+                            pygame.mixer.Sound.play(sfx_rupee)
+                            player.rupees += 10
+                            rock_3_con = True
+                            info_text_1 = "You found 10 Rupees under the rock!"
+                            info_text_2 = ""
                 else:
                     info_text_1 = "The rock won't budge."
                     info_text_2 = ""
@@ -246,6 +252,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                        in_over_world, "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3":
                        info_text_3, "info_text_4": info_text_4, "movement_able": movement_able,
                        "current_building_entering": current_building_entering, "in_shop": in_shop,
-                       "interacted": interacted, "npc_tic": npc_tic}
+                       "interacted": interacted, "npc_tic": npc_tic, "rock_3_con": rock_3_con}
 
     return stardust_return

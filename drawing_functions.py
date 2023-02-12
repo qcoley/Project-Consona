@@ -791,22 +791,21 @@ def journal_info_draw(journal, player, font, draw_condition):
         journal_window.append(journal)
 
 
-def level_up_draw(level_up_win, player, level_up_font, draw_condition, level_up_visual, in_over_world):
+def level_up_draw(level_up_win, player, level_up_font, draw_condition, level_up_visual, in_npc_interaction):
     if not draw_condition:
         level_up_text.clear()
         level_up_window.clear()
 
     else:
+        if not in_npc_interaction:
+            level_up_window.append(level_up_visual)
+
         text_leveled_up_surf = level_up_font.render(str(player.level), True, "black", "light yellow")
         text_leveled_up_rect = text_leveled_up_surf.get_rect()
         text_leveled_up_rect.center = (260, 146)
 
         level_up_text.append((text_leveled_up_surf, text_leveled_up_rect))
         level_up_window.append(level_up_win)
-
-        if in_over_world:
-            print("yes")
-            level_up_window.append(level_up_visual)
 
 
 def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
