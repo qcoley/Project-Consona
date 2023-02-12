@@ -3235,7 +3235,7 @@ if __name__ == '__main__':
     eldream_overworld_music = resource_path("resources/music/eterna_eldream.mp3")
     eldream_building_music = resource_path("resources/music/eterna_building_eldream.mp3")
 
-    pygame.mixer.music.set_volume(0.70)
+    pygame.mixer.music.set_volume(0.65)
     pygame.mixer.music.load(start_screen_music)
     pygame.mixer.music.play(loops=-1)
 
@@ -3243,13 +3243,17 @@ if __name__ == '__main__':
     sfx_no_weapon_attack.set_volume(0.15)
     sfx_mage_attack = pygame.mixer.Sound("resources/sfx/mage_attack.mp3")
     sfx_mage_attack.set_volume(0.15)
+    sfx_mage_barrier = pygame.mixer.Sound("resources/sfx/mage_barrier.mp3")
+    sfx_mage_barrier.set_volume(0.45)
     sfx_fighter_attack = pygame.mixer.Sound("resources/sfx/fighter_attack.mp3")
     sfx_fighter_attack.set_volume(0.30)
     sfx_scout_attack = pygame.mixer.Sound("resources/sfx/scout_attack.mp3")
-    sfx_scout_attack.set_volume(0.12)
+    sfx_scout_attack.set_volume(0.50)
+    sfx_scout_sense = pygame.mixer.Sound("resources/sfx/scout_sense.mp3")
+    sfx_scout_sense.set_volume(0.20)
 
     sfx_quest_complete = pygame.mixer.Sound("resources/sfx/quest_complete.mp3")
-    sfx_quest_complete.set_volume(0.30)
+    sfx_quest_complete.set_volume(0.40)
     sfx_quest_start = pygame.mixer.Sound("resources/sfx/quest_start.mp3")
     sfx_quest_start.set_volume(0.15)
     sfx_level_up = pygame.mixer.Sound("resources/sfx/level_up.mp3")
@@ -3257,6 +3261,41 @@ if __name__ == '__main__':
 
     sfx_sheet_paper = pygame.mixer.Sound("resources/sfx/sheet_paper.mp3")
     sfx_sheet_paper.set_volume(0.50)
+
+    sfx_item_rupee = pygame.mixer.Sound("resources/sfx/item_rupee.mp3")
+    sfx_item_rupee.set_volume(0.25)
+    sfx_item_key = pygame.mixer.Sound("resources/sfx/item_key.mp3")
+    sfx_item_key.set_volume(0.30)
+    sfx_item_potion = pygame.mixer.Sound("resources/sfx/item_potion.mp3")
+    sfx_item_potion.set_volume(0.20)
+    sfx_item_flower = pygame.mixer.Sound("resources/sfx/item_flower.mp3")
+    sfx_item_flower.set_volume(0.45)
+    sfx_item_pickup = pygame.mixer.Sound("resources/sfx/item_crate.mp3")
+    sfx_item_pickup.set_volume(0.25)
+
+    sfx_activate_switch = pygame.mixer.Sound("resources/sfx/activate_switch.mp3")
+    sfx_activate_switch.set_volume(0.15)
+    sfx_door_open = pygame.mixer.Sound("resources/sfx/door_open.mp3")
+    sfx_door_open.set_volume(0.40)
+
+    sfx_save_game = pygame.mixer.Sound("resources/sfx/save_game.mp3")
+    sfx_save_game.set_volume(0.45)
+    sfx_map_teleport = pygame.mixer.Sound("resources/sfx/map_teleport.mp3")
+    sfx_map_teleport.set_volume(0.25)
+
+    sfx_shop_transaction = pygame.mixer.Sound("resources/sfx/shop_transaction.mp3")
+    sfx_shop_transaction.set_volume(0.50)
+    sfx_skill_learn = pygame.mixer.Sound("resources/sfx/skill_learn.mp3")
+    sfx_skill_learn.set_volume(0.55)
+    sfx_inn_sleep = pygame.mixer.Sound("resources/sfx/inn_sleep.mp3")
+    sfx_inn_sleep.set_volume(0.25)
+    sfx_power_up = pygame.mixer.Sound("resources/sfx/power_up.mp3")
+    sfx_power_up.set_volume(0.20)
+
+    sfx_nede_bark = pygame.mixer.Sound("resources/sfx/nede_bark.mp3")
+    sfx_nede_bark.set_volume(0.35)
+    sfx_cat_meow = pygame.mixer.Sound("resources/sfx/cat_meow.mp3")
+    sfx_cat_meow.set_volume(0.50)
 
     # main loop variables ----------------------------------------------------------------------------------------------
     game_running = True
@@ -3920,8 +3959,11 @@ if __name__ == '__main__':
                         drawing_functions.loot_text_container.clear()
                 # if player leveled, clear level up popup after about 3 seconds
                 if leveled:
+                    level_up_visual.update(player.x_coordinate, player.y_coordinate - 35,
+                                           graphic_dict["level_up_vis"])
                     if loot_level_toc - loot_level_tic > 3:
-                        drawing_functions.level_up_draw(level_up_win, player, font, False)
+                        drawing_functions.level_up_draw(level_up_win, player, font, False, level_up_visual,
+                                                        in_over_world)
                         leveled = False
 
                 # player information updates
@@ -4127,7 +4169,8 @@ if __name__ == '__main__':
                             # click handlers
                             info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                             if info_choice == "yes":
-                                inventory_event = click_handlers.inventory(player, current_info_item)
+                                inventory_event = click_handlers.inventory(pygame, player, current_info_item,
+                                                                           sfx_item_potion)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -4230,6 +4273,7 @@ if __name__ == '__main__':
                                         saved = True
                                         saving = False
                                         info_text_1 = "You saved your game. "
+                                        pygame.mixer.Sound.play(sfx_save_game)
                                 except PermissionError:
                                     pass
                             if yes_button.rect.collidepoint(pos) and saving:
@@ -4254,6 +4298,7 @@ if __name__ == '__main__':
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
+                                pygame.mixer.Sound.play(sfx_save_game)
                                 info_text_1 = "You saved your game. "
                             if no_button.rect.collidepoint(pos) and saving:
                                 save_check_window.clear()
@@ -4292,13 +4337,15 @@ if __name__ == '__main__':
                                     drawing_functions.journal_info_draw(journal, player, font, False)
                                     journal_button_clicked = False
                                 else:
-                                    pygame.mixer.Sound.play(sfx_sheet_paper)
+                                    if in_over_world:
+                                        pygame.mixer.Sound.play(sfx_sheet_paper)
                                     drawing_functions.journal_info_draw(journal, player, font, True)
                                     journal_button_clicked = True
 
                             # for clicking map buttons, when the map is open
                             if len(drawing_functions.world_map_container) > 0:
                                 if seldon_map_button.rect.collidepoint(pos):
+                                    pygame.mixer.Sound.play(sfx_map_teleport)
                                     player.current_zone = "seldon"
                                     drawing_functions.hearthstone_animation(pygame, screen, player,
                                                                             seldon_hearth_screen, seldon_district_bg,
@@ -4324,6 +4371,7 @@ if __name__ == '__main__':
                                     map_button_clicked = False
                                 if korlok_map_button.rect.collidepoint(pos):
                                     if korlok_attuned:
+                                        pygame.mixer.Sound.play(sfx_map_teleport)
                                         player.current_zone = "korlok"
                                         drawing_functions.hearthstone_animation(pygame, screen, player,
                                                                                 seldon_hearth_screen,
@@ -4354,6 +4402,7 @@ if __name__ == '__main__':
                                         info_text_2 = ""
                                 if eldream_map_button.rect.collidepoint(pos):
                                     if eldream_attuned:
+                                        pygame.mixer.Sound.play(sfx_map_teleport)
                                         player.current_zone = "eldream"
                                         drawing_functions.hearthstone_animation(pygame, screen, player,
                                                                                 seldon_hearth_screen,
@@ -4399,7 +4448,8 @@ if __name__ == '__main__':
                             if game_guide_overlay.rect.collidepoint(pos):
                                 drawing_functions.game_guide_container.clear()
                             if level_up_win.rect.collidepoint(pos):
-                                drawing_functions.level_up_draw(level_up_win, player, font, False)
+                                drawing_functions.level_up_draw(level_up_win, player, font, False, level_up_visual,
+                                                                in_over_world)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -4430,6 +4480,7 @@ if __name__ == '__main__':
                     if pygame.sprite.collide_rect(player, nascent_gate):
                         screen.blit(nascent_gate_popup.surf, nascent_gate_popup.rect)
                         if interacted and in_over_world:
+                            pygame.mixer.Sound.play(sfx_door_open)
                             nascent_gate.update(nascent_gate.x_coordinate, nascent_gate.y_coordinate,
                                                 graphic_dict["nascent_gate_open"])
                             if player.y_coordinate > 300:
@@ -4538,7 +4589,8 @@ if __name__ == '__main__':
                                                                   osodark_battle_sprite, pine_tree_1_top,
                                                                   pine_tree_2_top, pine_tree_3_top,
                                                                   amuna_building_top_1, amuna_building_top_2,
-                                                                  amuna_building_top_3)
+                                                                  amuna_building_top_3, sfx_item_pickup,
+                                                                  sfx_item_flower, sfx_door_open)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -4693,7 +4745,8 @@ if __name__ == '__main__':
                                                                      ectrenos_entrance_rect, quest_star_omoku,
                                                                      pet_energy_window, npc_omoku, quest_items_eldream,
                                                                      ectrenos_front_enemies,
-                                                                     necrola_battle_sprite, osodark_battle_sprite)
+                                                                     necrola_battle_sprite, osodark_battle_sprite,
+                                                                     sfx_item_flower)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -5165,7 +5218,8 @@ if __name__ == '__main__':
                                                                        equipment_screen, staff, sword, bow, npc_garan,
                                                                        offense_meter, defense_meter, weapon_select,
                                                                        rock_3, pet_energy_window, stardust_top,
-                                                                       necrola_battle_sprite, osodark_battle_sprite)
+                                                                       necrola_battle_sprite, osodark_battle_sprite,
+                                                                       sfx_nede_bark, sfx_door_open)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -5256,7 +5310,9 @@ if __name__ == '__main__':
                                                                       chinzilla_battle_sprite, equipment_screen, staff,
                                                                       sword, bow, npc_garan, offense_meter,
                                                                       defense_meter, weapon_select, pet_energy_window,
-                                                                      necrola_battle_sprite, osodark_battle_sprite)
+                                                                      necrola_battle_sprite, osodark_battle_sprite,
+                                                                      sfx_item_rupee, sfx_item_key, sfx_item_potion,
+                                                                      sfx_activate_switch)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -5377,11 +5433,6 @@ if __name__ == '__main__':
                     except TypeError:
                         pass
 
-                # keep level up overlay with players position so when leveled shows accurately
-                level_up_visual.update(player.x_coordinate + 3, player.y_coordinate - 35, graphic_dict["level_up_vis"])
-                if leveled:
-                    screen.blit(level_up_visual.surf, level_up_visual.rect)
-
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
                 if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
@@ -5426,7 +5477,8 @@ if __name__ == '__main__':
 
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item)
+                            inventory_event = click_handlers.inventory(pygame, player, current_info_item,
+                                                                       sfx_item_potion)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -5444,7 +5496,8 @@ if __name__ == '__main__':
                                                                                         level_up_win, level_up_font,
                                                                                         graphic_dict,
                                                                                         sharp_sense_active,
-                                                                                        barrier_active, turn_taken)
+                                                                                        barrier_active, turn_taken,
+                                                                                        level_up_visual, in_over_world)
                                         combat_happened = True
                                         # add all combat scenario happenings from function to message box
                                         try:
@@ -5471,7 +5524,8 @@ if __name__ == '__main__':
                                                                                         level_up_win, level_up_font,
                                                                                         graphic_dict,
                                                                                         sharp_sense_active,
-                                                                                        barrier_active, turn_taken)
+                                                                                        barrier_active, turn_taken,
+                                                                                        level_up_visual, in_over_world)
                                         combat_happened = True
                                         # add all combat scenario happenings from function to message box
                                         try:
@@ -5498,7 +5552,8 @@ if __name__ == '__main__':
                                                                                         level_up_win, level_up_font,
                                                                                         graphic_dict,
                                                                                         sharp_sense_active,
-                                                                                        barrier_active, turn_taken)
+                                                                                        barrier_active, turn_taken,
+                                                                                        level_up_visual, in_over_world)
                                         combat_happened = True
                                         # add all combat scenario happenings from function to message box
                                         try:
@@ -5564,7 +5619,8 @@ if __name__ == '__main__':
                                                                                 player, hard_strike_learned,
                                                                                 level_up_win, level_up_font,
                                                                                 graphic_dict, sharp_sense_active,
-                                                                                barrier_active, turn_taken)
+                                                                                barrier_active, turn_taken,
+                                                                                level_up_visual, in_over_world)
                                 combat_happened = True
 
                                 # add all combat scenario happenings from function to message box
@@ -5674,6 +5730,7 @@ if __name__ == '__main__':
                                     if player.role == "mage":
                                         if barrier_learned:
                                             if not barrier_active:
+                                                pygame.mixer.Sound.play(sfx_mage_barrier)
                                                 info_text_1 = "Barrier spell is active."
                                                 barrier_active = True
                                                 player.energy -= 35
@@ -5701,7 +5758,9 @@ if __name__ == '__main__':
                                                                                                 graphic_dict,
                                                                                                 sharp_sense_active,
                                                                                                 barrier_active,
-                                                                                                turn_taken)
+                                                                                                turn_taken,
+                                                                                                level_up_visual,
+                                                                                                in_over_world)
                                                 combat_happened = True
                                                 # add all combat scenario happenings from function to message box
                                                 try:
@@ -5730,6 +5789,7 @@ if __name__ == '__main__':
                                     if player.role == "scout":
                                         if sharp_sense_learned:
                                             if not sharp_sense_active:
+                                                pygame.mixer.Sound.play(sfx_scout_sense)
                                                 info_text_1 = "Sharp sense is active."
                                                 sharp_sense_active = True
                                                 player.energy -= 35
@@ -5757,7 +5817,9 @@ if __name__ == '__main__':
                                                                                                 graphic_dict,
                                                                                                 sharp_sense_active,
                                                                                                 barrier_active,
-                                                                                                turn_taken)
+                                                                                                turn_taken,
+                                                                                                level_up_visual,
+                                                                                                in_over_world)
                                                 combat_happened = True
                                                 # add all combat scenario happenings from function to message box
                                                 try:
@@ -5797,7 +5859,9 @@ if __name__ == '__main__':
                                                                                             level_up_win, level_up_font,
                                                                                             graphic_dict,
                                                                                             sharp_sense_active,
-                                                                                            barrier_active, turn_taken)
+                                                                                            barrier_active, turn_taken,
+                                                                                            level_up_visual,
+                                                                                            in_over_world)
                                             combat_happened = True
                                             player.energy -= 35
                                             if combat_events["damage done string"] == 0:
@@ -6233,6 +6297,7 @@ if __name__ == '__main__':
                                 if len(stardust_upgrade_elements) > 0:
                                     if upgrade_event == "offense":
                                         if player.star_power >= 4:
+                                            pygame.mixer.Sound.play(sfx_power_up)
                                             buy_clicked = False
                                             button_highlighted = False
                                             player.offense += 1
@@ -6276,16 +6341,19 @@ if __name__ == '__main__':
                             if player.current_zone == "seldon":
                                 cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
+                                    pygame.mixer.Sound.play(sfx_cat_meow)
                                     shop_cat_pet = True
                                     cats_pet["seldon_shop"] = True
                             if player.current_zone == "korlok":
                                 cat_pet_button_overlay.update(450, 400, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
+                                    pygame.mixer.Sound.play(sfx_cat_meow)
                                     shop_cat_pet = True
                                     cats_pet["korlok_shop"] = True
                             if player.current_zone == "ectrenos right":
                                 cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
+                                    pygame.mixer.Sound.play(sfx_cat_meow)
                                     shop_cat_pet = True
                                     cats_pet["eldream_shop"] = True
 
@@ -6295,7 +6363,7 @@ if __name__ == '__main__':
                         if buy_clicked:
                             # if player clicks yes button to sell item, get current item and buy -------------------
                             buy_choice = click_handlers.shop_buy_button(event, yes_button, pygame)
-                            buy_return = shop_scenario.buy_items(player, buy_choice, current_buy_item, Item,
+                            buy_return = shop_scenario.buy_items(pygame, player, buy_choice, current_buy_item, Item,
                                                                  graphic_dict["health_pot_img"],
                                                                  graphic_dict["energy_pot_img"],
                                                                  graphic_dict["basic_armor"],
@@ -6303,7 +6371,7 @@ if __name__ == '__main__':
                                                                  graphic_dict["mythical_armor"],
                                                                  graphic_dict["pet_cookie_img"],
                                                                  graphic_dict["pet_candy_img"],
-                                                                 graphic_dict["pet_tart_img"])
+                                                                 graphic_dict["pet_tart_img"], sfx_shop_transaction)
                             if buy_return["info 1"] != "":
                                 button_highlighted = False
                                 info_text_1 = buy_return["info 1"]
@@ -6320,7 +6388,8 @@ if __name__ == '__main__':
                             if player.current_zone != "stardust":
                                 # if player clicks yes button to sell item, get current item and sell ------------------
                                 sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame, sell_items)
-                                sell_return = shop_scenario.sell_items(player, sell_choice, current_sell_item)
+                                sell_return = shop_scenario.sell_items(pygame, player, sell_choice, current_sell_item,
+                                                                       sfx_shop_transaction)
                                 if sell_return["info 1"] != "":
                                     button_highlighted = False
                                     info_text_1 = sell_return["info 1"]
@@ -6752,12 +6821,14 @@ if __name__ == '__main__':
                         gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
 
                         # get which button player pressed during inn scenario (rest or leave)
-                        inn_button = click_handlers.inn_event_button(event, rest_button, leave_button, pygame)
+                        inn_button = click_handlers.inn_event_button(event, rest_button, leave_button, pygame,
+                                                                     sfx_inn_sleep)
 
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item)
+                            inventory_event = click_handlers.inventory(pygame, player, current_info_item,
+                                                                       sfx_item_potion)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -6988,16 +7059,18 @@ if __name__ == '__main__':
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
                             if cat_pet_button_overlay.rect.collidepoint(pos):
+                                pygame.mixer.Sound.play(sfx_cat_meow)
                                 academia_cat_pet = True
                                 cats_pet["seldon_academia"] = True
                         # get which button player pressed during academia scenario (learn or leave)
                         academia_button = click_handlers.academia_event_button(event, mage_learn_button,
                                                                                fighter_learn_button, scout_learn_button,
-                                                                               leave_button, pygame)
+                                                                               leave_button, pygame, sfx_sheet_paper)
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item)
+                            inventory_event = click_handlers.inventory(pygame, player, current_info_item,
+                                                                       sfx_item_potion)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -7025,6 +7098,7 @@ if __name__ == '__main__':
                                 if book_button.name == "barrier learn button":
                                     if not barrier_learned:
                                         if player.knowledge["mage"] > 49:
+                                            pygame.mixer.Sound.play(sfx_skill_learn)
                                             player.skills_mage["skill 2"] = "barrier"
                                             info_text_1 = "'Barrier' skill learned!"
                                             info_text_2 = "Skill added. 50 knowledge used."
@@ -7053,6 +7127,7 @@ if __name__ == '__main__':
                                 if book_button.name == "hard strike learn button":
                                     if not hard_strike_learned:
                                         if player.knowledge["fighter"] > 49:
+                                            pygame.mixer.Sound.play(sfx_skill_learn)
                                             player.skills_fighter["skill 2"] = "hard strike"
                                             info_text_1 = "'Hard Strike' skill learned!"
                                             info_text_2 = "Skill added. 50 knowledge used."
@@ -7081,6 +7156,7 @@ if __name__ == '__main__':
                                 if book_button.name == "sharp sense learn button":
                                     if not sharp_sense_learned:
                                         if player.knowledge["scout"] > 49:
+                                            pygame.mixer.Sound.play(sfx_skill_learn)
                                             player.skills_scout["skill 2"] = "sharp sense"
                                             info_text_1 = "'Sharp Sense' skill learned!"
                                             info_text_2 = "Skill added. 50 knowledge used."
@@ -7267,6 +7343,7 @@ if __name__ == '__main__':
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
                             drawing_functions.quest_complete_box.clear()
                             if cat_pet_button_overlay.rect.collidepoint(pos):
+                                pygame.mixer.Sound.play(sfx_cat_meow)
                                 apothecary_cat_pet = True
                                 cats_pet["korlok_apothecary"] = True
                             if quest_accepted.rect.collidepoint(pos):
@@ -7340,7 +7417,8 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item)
+                            inventory_event = click_handlers.inventory(pygame, player, current_info_item,
+                                                                       sfx_item_potion)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -7377,7 +7455,8 @@ if __name__ == '__main__':
                                     player.experience += 50
                                     apothecary_access = True
                                     if player.experience >= 100:
-                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                    level_up_visual, in_over_world)
                                         leveled = True
                                         loot_level_tic = time.perf_counter()
                                     player.reputation["sorae"] += 10
@@ -7580,6 +7659,7 @@ if __name__ == '__main__':
                             gameplay_functions.role_swap(player, pos, graphic_dict, staff, sword, bow, pressed_keys)
                             drawing_functions.quest_complete_box.clear()
                             if cat_pet_button_overlay.rect.collidepoint(pos):
+                                pygame.mixer.Sound.play(sfx_cat_meow)
                                 menagerie_cat_pet = True
                                 cats_pet["eldream_menagerie"] = True
                             if quest_accepted.rect.collidepoint(pos):
@@ -7801,7 +7881,8 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item)
+                            inventory_event = click_handlers.inventory(pygame, player, current_info_item,
+                                                                       sfx_item_potion)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -7838,7 +7919,8 @@ if __name__ == '__main__':
                                     player.experience += 50
                                     menagerie_access = True
                                     if player.experience >= 100:
-                                        gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                        gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                    level_up_visual, in_over_world)
                                         leveled = True
                                         loot_level_tic = time.perf_counter()
                                     player.reputation["sorae"] += 10
@@ -8037,7 +8119,8 @@ if __name__ == '__main__':
                             if everett_complete_quest_window.rect.collidepoint(pos):
                                 drawing_functions.quest_complete_box.clear()
                             if level_up_win.rect.collidepoint(pos):
-                                drawing_functions.level_up_draw(level_up_win, player, font, False)
+                                drawing_functions.level_up_draw(level_up_win, player, font, False, level_up_visual,
+                                                                in_over_world)
                             if role_select_overlay.rect.collidepoint(pos):
                                 drawing_functions.type_advantage_window.clear()
                             if quest_accepted.rect.collidepoint(pos):
@@ -8049,7 +8132,8 @@ if __name__ == '__main__':
                         quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
                         # options once quest window is open ------------------------------------------------------------
                         if quest_buttons == "accept":
-                            drawing_functions.quest_accept_box.append(quest_accepted)
+                            if current_npc_interacting.name != "garan":
+                                drawing_functions.quest_accept_box.append(quest_accepted)
                             pygame.mixer.Sound.play(sfx_quest_start)
                             info_text_1 = "You've accepted the quest!"
                             button_highlighted = False
@@ -8108,7 +8192,8 @@ if __name__ == '__main__':
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
                         if info_choice == "yes":
-                            inventory_event = click_handlers.inventory(player, current_info_item)
+                            inventory_event = click_handlers.inventory(pygame, player, current_info_item,
+                                                                       sfx_item_potion)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -8150,7 +8235,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
@@ -8226,7 +8312,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["sorae"] += 10
@@ -8281,7 +8368,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
@@ -8337,7 +8425,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["nuldar"] += 10
@@ -8412,7 +8501,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["nuldar"] += 10
@@ -8469,7 +8559,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["nuldar"] += 10
@@ -8524,7 +8615,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
@@ -8598,7 +8690,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["nuldar"] += 10
@@ -8652,7 +8745,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["sorae"] += 10
@@ -8706,7 +8800,8 @@ if __name__ == '__main__':
                                         player.star_power += 1
                                         player.experience += 50
                                         if player.experience >= 100:
-                                            gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                            gameplay_functions.level_up(player, level_up_win, level_up_font,
+                                                                        level_up_visual, in_over_world)
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10

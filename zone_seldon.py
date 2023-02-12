@@ -28,7 +28,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     offense_meter, defense_meter, weapon_select, player_cutscene, player_cutscene_2, beyond_seldon,
                     flowers, eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, tree_top_1, tree_top_2, tree_top_3, building_top_1,
-                    building_top_2, building_top_3):
+                    building_top_2, building_top_3, sfx_item_pickup, sfx_flower, sfx_door):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -163,6 +163,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                         if player.quest_progress["village repairs"] < 4:
                             player.quest_progress["village repairs"] += 1
                             info_text_1 = "You gathered 1 pine log."
+                            pygame.mixer.Sound.play(sfx_item_pickup)
                             quest_item.kill()
                             interacted = False
                         else:
@@ -268,6 +269,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         info_text_4 = ""
 
         if interacted:
+            pygame.mixer.Sound.play(sfx_door)
             current_building_entering = building
             movement_able = False
             in_over_world = False
@@ -287,6 +289,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     if flower and in_over_world:
         flower.update(flower.x_coordinate, flower.y_coordinate, graphic_dict["flower_seldon_high"])
         if interacted:
+            pygame.mixer.Sound.play(sfx_flower)
             player.flowers_amuna += 1
             flower.kill()
             info_text_1 = "You collected the Seldon Flower."

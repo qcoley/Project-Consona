@@ -192,7 +192,7 @@ def inventory_event_item(inventory_event_here, pygame):
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory(player, item):
+def inventory(pygame, player, item, sfx_potion):
 
     return_dict = {"item message": ""}
 
@@ -207,7 +207,6 @@ def inventory(player, item):
                     if pet.energy >= 100:
                         pet.energy = 100
                         return_dict["item message"] = "Your kasper is full of energy."
-
         if item.name == "pet candy":
             for pet in player.pet:
                 if pet.name == "torok":
@@ -218,7 +217,6 @@ def inventory(player, item):
                     if pet.energy >= 100:
                         pet.energy = 100
                         return_dict["item message"] = "Your torok is full of energy."
-
         if item.name == "pet tart":
             for pet in player.pet:
                 if pet.name == "iriana":
@@ -229,7 +227,6 @@ def inventory(player, item):
                     if pet.energy >= 100:
                         pet.energy = 100
                         return_dict["item message"] = "Your iriana is full of energy."
-
         if item.name == "pet whistle kasper":
             for pet in player.pet:
                 if pet.name == "kasper":
@@ -275,6 +272,7 @@ def inventory(player, item):
             if player.health == 100:
                 return_dict["item message"] = "You're already at full health."
             else:
+                pygame.mixer.Sound.play(sfx_potion)
                 player.health = player.health + 40
                 if player.health > 100:
                     player.health = 100
@@ -285,6 +283,7 @@ def inventory(player, item):
             if player.energy == 100:
                 return_dict["item message"] = "You're already at full energy."
             else:
+                pygame.mixer.Sound.play(sfx_potion)
                 player.energy = player.energy + 40
                 if player.energy > 100:
                     player.energy = 100
@@ -293,6 +292,7 @@ def inventory(player, item):
                 return_dict["item message"] = "The potion energizes you for 40 en."
         if item.name == "super potion":
             if player.health < 100 or player.energy < 100:
+                pygame.mixer.Sound.play(sfx_potion)
                 player.health = player.health + 50
                 player.energy = player.energy + 50
                 if player.energy > 100:
@@ -418,24 +418,28 @@ def shop_buy_button(shop_buy_event, yes_button, pygame):
 
 
 # getting event based on user click related to inn
-def inn_event_button(inn_event, rest_button, leave_button, pygame):
+def inn_event_button(inn_event, rest_button, leave_button, pygame, sfx_sleep):
     if inn_event.type == pygame.MOUSEBUTTONUP:
         inn_mouse = pygame.mouse.get_pos()
         if rest_button.rect.collidepoint(inn_mouse):
+            pygame.mixer.Sound.play(sfx_sleep)
             return "rest"
         if leave_button.rect.collidepoint(inn_mouse):
             return "leave"
 
 
 # getting event based on user click related to academia skill buttons
-def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn, leave_button, pygame):
+def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn, leave_button, pygame, sfx_paper):
     if academia_event.type == pygame.MOUSEBUTTONUP:
         academia_mouse = pygame.mouse.get_pos()
         if mage_learn.rect.collidepoint(academia_mouse):
+            pygame.mixer.Sound.play(sfx_paper)
             return "mage learn"
         if fighter_learn.rect.collidepoint(academia_mouse):
+            pygame.mixer.Sound.play(sfx_paper)
             return "fighter learn"
         if scout_learn.rect.collidepoint(academia_mouse):
+            pygame.mixer.Sound.play(sfx_paper)
             return "scout learn"
         if leave_button.rect.collidepoint(academia_mouse):
             return "leave"

@@ -13,7 +13,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 muchador_battle_sprite, barrier_active, sharp_sense_active, in_npc_interaction, magmon_battle_sprite,
                 bandile_battle_sprite, chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan,
                 offense_meter, defense_meter, weapon_select, pet_energy_window, necrola_battle_sprite,
-                osodark_battle_sprite):
+                osodark_battle_sprite, sfx_item_rupee, sfx_item_key, sfx_item_potion, sfx_switch):
 
     in_battle = False
 
@@ -103,6 +103,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         if interacted:
             if item.name == "dungeon crate 1":
                 if not crate_1:
+                    pygame.mixer.Sound.play(sfx_item_rupee)
                     info_text_1 = "You found 10 Rupees!"
                     info_text_2 = ""
                     player.rupees += 10
@@ -114,6 +115,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon crate 2":
                 if not crate_2:
                     if len(player.items) < 16:
+                        pygame.mixer.Sound.play(sfx_item_key)
                         info_text_1 = "You found a golden key!"
                         info_text_2 = ""
                         player.items.append(Item("boss key", "key", 200, 200, graphic_dict["key_img"], 0))
@@ -128,6 +130,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon crate 3":
                 if not crate_3:
                     if len(player.items) < 16:
+                        pygame.mixer.Sound.play(sfx_item_potion)
                         info_text_1 = "You found a health potion!"
                         info_text_2 = ""
                         player.items.append(Item("health potion", "potion", 200, 200,
@@ -143,6 +146,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon crate 4":
                 if not crate_4:
                     if len(player.items) < 16:
+                        pygame.mixer.Sound.play(sfx_item_potion)
                         info_text_1 = "You found an energy potion!"
                         info_text_2 = ""
                         player.items.append(Item("energy potion", "potion", 200, 200,
@@ -158,6 +162,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon switch 1":
                 if not switch_1:
                     info_text_1 = "You activated the first switch!"
+                    pygame.mixer.Sound.play(sfx_switch)
                     if not mini_boss_1_defeated:
                         info_text_2 = "It seems your path is blocked."
                     switch_1 = True
@@ -169,6 +174,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon switch 2":
                 if not switch_2:
                     info_text_1 = "You activated the second switch!"
+                    pygame.mixer.Sound.play(sfx_switch)
                     if not mini_boss_2_defeated:
                         info_text_2 = "It seems your path is blocked."
                     switch_2 = True
@@ -179,6 +185,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                     info_text_2 = ""
             if item.name == "dungeon switch 3":
                 if switch_1 and switch_2:
+                    pygame.mixer.Sound.play(sfx_switch)
                     info_text_1 = "You activated the final switch!"
                     info_text_2 = "Use the teleporter to proceed."
                     switch_3 = True

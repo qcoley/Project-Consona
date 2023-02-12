@@ -55,9 +55,6 @@ def draw_it(screen):
     if len(quest_box) > 0:
         for quest_element in quest_box:
             screen.blit(quest_element.surf, quest_element.rect)
-    if len(quest_accept_box) > 0:
-        for accept_element in quest_accept_box:
-            screen.blit(accept_element.surf, accept_element.rect)
     if len(quest_complete_box) > 0:
         for quest_complete_element in quest_complete_box:
             screen.blit(quest_complete_element.surf, quest_complete_element.rect)
@@ -108,6 +105,9 @@ def draw_it(screen):
     if len(pets_window_container) > 0:
         for pets_element in pets_window_container:
             screen.blit(pets_element.surf, pets_element.rect)
+    if len(quest_accept_box) > 0:
+        for accept_element in quest_accept_box:
+            screen.blit(accept_element.surf, accept_element.rect)
 
 
 def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
@@ -791,7 +791,7 @@ def journal_info_draw(journal, player, font, draw_condition):
         journal_window.append(journal)
 
 
-def level_up_draw(level_up_win, player, level_up_font, draw_condition):
+def level_up_draw(level_up_win, player, level_up_font, draw_condition, level_up_visual, in_over_world):
     if not draw_condition:
         level_up_text.clear()
         level_up_window.clear()
@@ -803,6 +803,10 @@ def level_up_draw(level_up_win, player, level_up_font, draw_condition):
 
         level_up_text.append((text_leveled_up_surf, text_leveled_up_rect))
         level_up_window.append(level_up_win)
+
+        if in_over_world:
+            print("yes")
+            level_up_window.append(level_up_visual)
 
 
 def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,

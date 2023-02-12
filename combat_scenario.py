@@ -460,7 +460,7 @@ def enemy_health_bar(enemys, graphics):
 
 
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
-                    sharp_sense_active, barrier_active, turn_taken):
+                    sharp_sense_active, barrier_active, turn_taken, level_up_visual, in_over_world):
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -619,7 +619,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                 # player will level up if experience greater than or equal to 100
                 if player.experience >= 100:
-                    gameplay_functions.level_up(player, level_up_win, level_up_font)
+                    gameplay_functions.level_up(player, level_up_win, level_up_font, level_up_visual, in_over_world)
                     combat_event_dictionary["leveled"] = True
 
                 enemy_combating.alive_status = False

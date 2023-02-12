@@ -21,7 +21,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      eldream_flowers, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles,
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
                      seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
-                     omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite):
+                     omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite,
+                     sfx_flower):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -78,6 +79,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     if flower and in_over_world:
         flower.update(flower.x_coordinate, flower.y_coordinate, graphic_dict["flower_eldream_high"])
         if interacted:
+            pygame.mixer.Sound.play(sfx_flower)
             player.flowers_sorae += 1
             flower.kill()
             info_text_1 = "You collected the Eldream Flower."
