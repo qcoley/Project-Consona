@@ -163,7 +163,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                         if player.quest_progress["village repairs"] < 4:
                             player.quest_progress["village repairs"] += 1
                             info_text_1 = "You gathered 1 pine log."
-                            pygame.mixer.find_channel().play(sfx_item_pickup)
+                            pygame.mixer.find_channel(True).play(sfx_item_pickup)
                             quest_item.kill()
                             interacted = False
                         else:
@@ -269,10 +269,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         info_text_4 = ""
 
         if interacted:
-            try:
-                pygame.mixer.find_channel().play(sfx_door)
-            except AttributeError:
-                pass
+            pygame.mixer.find_channel(True).play(sfx_door)
             current_building_entering = building
             movement_able = False
             in_over_world = False
@@ -292,10 +289,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     if flower and in_over_world:
         flower.update(flower.x_coordinate, flower.y_coordinate, graphic_dict["flower_seldon_high"])
         if interacted:
-            try:
-                pygame.mixer.find_channel().play(sfx_flower)
-            except AttributeError:
-                pass
+            pygame.mixer.find_channel(True).play(sfx_flower)
             player.flowers_amuna += 1
             flower.kill()
             info_text_1 = "You collected the Seldon Flower."

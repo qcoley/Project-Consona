@@ -103,7 +103,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         if interacted:
             if item.name == "dungeon crate 1":
                 if not crate_1:
-                    pygame.mixer.find_channel().play(sfx_item_rupee)
+                    pygame.mixer.find_channel(True).play(sfx_item_rupee)
                     info_text_1 = "You found 10 Rupees!"
                     info_text_2 = ""
                     player.rupees += 10
@@ -115,7 +115,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon crate 2":
                 if not crate_2:
                     if len(player.items) < 16:
-                        pygame.mixer.find_channel().play(sfx_item_key)
+                        pygame.mixer.find_channel(True).play(sfx_item_key)
                         info_text_1 = "You found a golden key!"
                         info_text_2 = ""
                         player.items.append(Item("boss key", "key", 200, 200, graphic_dict["key_img"], 0))
@@ -130,7 +130,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon crate 3":
                 if not crate_3:
                     if len(player.items) < 16:
-                        pygame.mixer.find_channel().play(sfx_item_potion)
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
                         info_text_1 = "You found a health potion!"
                         info_text_2 = ""
                         player.items.append(Item("health potion", "potion", 200, 200,
@@ -146,7 +146,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon crate 4":
                 if not crate_4:
                     if len(player.items) < 16:
-                        pygame.mixer.find_channel().play(sfx_item_potion)
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
                         info_text_1 = "You found an energy potion!"
                         info_text_2 = ""
                         player.items.append(Item("energy potion", "potion", 200, 200,
@@ -162,7 +162,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon switch 1":
                 if not switch_1:
                     info_text_1 = "You activated the first switch!"
-                    pygame.mixer.find_channel().play(sfx_switch)
+                    pygame.mixer.find_channel(True).play(sfx_switch)
                     if not mini_boss_1_defeated:
                         info_text_2 = "It seems your path is blocked."
                     switch_1 = True
@@ -174,7 +174,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon switch 2":
                 if not switch_2:
                     info_text_1 = "You activated the second switch!"
-                    pygame.mixer.find_channel().play(sfx_switch)
+                    pygame.mixer.find_channel(True).play(sfx_switch)
                     if not mini_boss_2_defeated:
                         info_text_2 = "It seems your path is blocked."
                     switch_2 = True
@@ -185,7 +185,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                     info_text_2 = ""
             if item.name == "dungeon switch 3":
                 if switch_1 and switch_2:
-                    pygame.mixer.find_channel().play(sfx_switch)
+                    pygame.mixer.find_channel(True).play(sfx_switch)
                     info_text_1 = "You activated the final switch!"
                     info_text_2 = "Use the teleporter to proceed."
                     switch_3 = True
@@ -238,7 +238,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
         if interacted:
             if switch_3:
-                pygame.mixer.find_channel().play(sfx_teleporter)
+                pygame.mixer.find_channel(True).play(sfx_teleporter)
                 dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
                 player.current_zone = "reservoir b"
                 in_over_world = True
@@ -366,7 +366,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                     if not muchador_lights_on:
                         muchador.update_image(350, 360, graphic_dict["muchador"])
                         muchador_lights_on = True
-                    pygame.mixer.find_channel().play(sfx_gate)
+                    pygame.mixer.find_channel(True).play(sfx_gate)
                     info_text_1 = "You used the key to open the gate."
                     info_text_2 = ""
                     player.x_coordinate = 625
@@ -393,7 +393,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted:
-            pygame.mixer.find_channel().play(sfx_teleporter)
+            pygame.mixer.find_channel(True).play(sfx_teleporter)
             dungeon_teleporter.update(519, 316, graphic_dict["dungeon_teleporter"])
             player.current_zone = "reservoir a"
             in_over_world = True
@@ -417,7 +417,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
             if interacted:
                 if not crate_5:
-                    pygame.mixer.find_channel().play(sfx_rupee)
+                    pygame.mixer.find_channel(True).play(sfx_rupee)
                     info_text_1 = "You found 10 Rupees!"
                     info_text_2 = ""
                     player.rupees += 10
@@ -573,7 +573,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 if len(player.items) < 16:
                     dungeon_chest.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate,
                                          graphic_dict["dungeon_chest_open"])
-                    pygame.mixer.find_channel().play(sfx_chest)
+                    pygame.mixer.find_channel(True).play(sfx_chest)
                     info_text_1 = "You've obtained the power gloves!"
                     info_text_2 = ""
                     player.items.append(power_gloves)
@@ -598,7 +598,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock_1.x_coordinate == 580:
-                        pygame.mixer.find_channel().play(sfx_rocks)
+                        pygame.mixer.find_channel(True).play(sfx_rocks)
                         rock_1.update(rock_1.x_coordinate + 300, rock_1.y_coordinate, graphic_dict["rock"])
                 else:
                     info_text_1 = "The rock won't budge."
@@ -621,7 +621,7 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
             try:
                 if player.equipment["gloves"].name == "power gloves":
                     if rock_2.x_coordinate == 580:
-                        pygame.mixer.find_channel().play(sfx_rocks)
+                        pygame.mixer.find_channel(True).play(sfx_rocks)
                         rock_2.update(rock_2.x_coordinate + 300, rock_2.y_coordinate, graphic_dict["rock"])
                 else:
                     info_text_1 = "The rock won't budge."

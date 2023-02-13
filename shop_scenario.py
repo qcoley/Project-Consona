@@ -63,7 +63,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Health Potion removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 5
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -72,7 +72,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Energy Potion removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 5
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -81,7 +81,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Shiny Rock removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 5
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -90,7 +90,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Bone Dust removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 10
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -99,7 +99,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Cracked Ember removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 25
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -108,7 +108,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Broken Band removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 20
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -117,7 +117,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Dried Fins removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 40
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -126,7 +126,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Oscura Pluma removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 45
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -135,7 +135,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Basic Armor removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 25
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -144,7 +144,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Forged Armor removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 100
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -153,7 +153,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Mythical Armor removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 250
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -162,7 +162,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Blueberry Cookie removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 10
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -171,7 +171,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Rock Candy removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 10
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -180,7 +180,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     sell_return["info 2"] = "Peach Tart removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
-                    pygame.mixer.Sound.play(sfx_sell)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 10
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
@@ -204,7 +204,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     buy_return["info 2"] = "Health Potion added to inventory."
                     player.items.append(Item("health potion", "potion", 200, 200, health_pot_img, 0))
                     player.rupees = player.rupees - 10
-                    pygame.mixer.Sound.play(sfx_buy)
+                    pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
@@ -221,7 +221,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     buy_return["info 2"] = "Energy Potion added to inventory."
                     player.items.append(Item("energy potion", "potion", 200, 200, energy_pot_img, 0))
                     player.rupees = player.rupees - 10
-                    pygame.mixer.Sound.play(sfx_buy)
+                    pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
@@ -238,7 +238,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     buy_return["info 2"] = "Basic Armor added to inventory."
                     player.items.append(Item("basic armor", "armor", 200, 200, basic_armor, 1))
                     player.rupees = player.rupees - 50
-                    pygame.mixer.Sound.play(sfx_buy)
+                    pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
@@ -255,7 +255,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     buy_return["info 2"] = "Forged Armor added to inventory."
                     player.items.append(Item("forged armor", "armor", 200, 200, forged_armor, 2))
                     player.rupees = player.rupees - 150
-                    pygame.mixer.Sound.play(sfx_buy)
+                    pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
@@ -272,7 +272,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     buy_return["info 2"] = "Mythical Armor added to inventory."
                     player.items.append(Item("mythical armor", "armor", 200, 200, mythical_armor, 3))
                     player.rupees = player.rupees - 500
-                    pygame.mixer.Sound.play(sfx_buy)
+                    pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
@@ -289,7 +289,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     buy_return["info 2"] = "Blueberry Cookie added to inventory."
                     player.items.append(Item("pet cookie", "cookie", 1078, 197, cookie, 1))
                     player.rupees = player.rupees - 20
-                    pygame.mixer.Sound.play(sfx_buy)
+                    pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
@@ -306,7 +306,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     buy_return["info 2"] = "Rock Candy added to inventory."
                     player.items.append(Item("pet candy", "candy", 1078, 197, candy, 1))
                     player.rupees = player.rupees - 20
-                    pygame.mixer.Sound.play(sfx_buy)
+                    pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
@@ -323,7 +323,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     buy_return["info 2"] = "Peach Tart added to inventory."
                     player.items.append(Item("pet tart", "tart", 1078, 197, tart, 1))
                     player.rupees = player.rupees - 20
-                    pygame.mixer.Sound.play(sfx_buy)
+                    pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:

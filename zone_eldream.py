@@ -79,10 +79,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     if flower and in_over_world:
         flower.update(flower.x_coordinate, flower.y_coordinate, graphic_dict["flower_eldream_high"])
         if interacted:
-            try:
-                pygame.mixer.find_channel().play(sfx_flower)
-            except AttributeError:
-                pass
+            pygame.mixer.find_channel(True).play(sfx_flower)
             player.flowers_sorae += 1
             flower.kill()
             info_text_1 = "You collected the Eldream Flower."
@@ -111,10 +108,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             info_text_4 = ""
 
             if interacted and in_over_world:
-                try:
-                    pygame.mixer.find_channel().play(sfx_hearth)
-                except AttributeError:
-                    pass
+                pygame.mixer.find_channel(True).play(sfx_hearth)
                 hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate,
                                     graphic_dict["hearth_stone_lit"])
                 eldream_attuned = True
@@ -162,10 +156,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                     info_text_1 = "Press 'F' key to pick up the supplies."
                     if interacted and in_over_world:
                         if player.quest_progress["kart troubles"] < 4:
-                            try:
-                                pygame.mixer.find_channel().play(sfx_item)
-                            except AttributeError:
-                                pass
+                            pygame.mixer.find_channel(True).play(sfx_item)
                             player.quest_progress["kart troubles"] += 1
                             info_text_1 = "You picked up 1 supplies."
                             quest_item.kill()

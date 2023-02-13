@@ -81,7 +81,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             else:
                 info_text_1 = "Press 'F' key to pet Nede."
                 if interacted and in_over_world:
-                    pygame.mixer.find_channel().play(sfx_nede)
+                    pygame.mixer.find_channel(True).play(sfx_nede)
                     if player.quest_progress["where's nede?"] < 1:
                         player.quest_progress["where's nede?"] += 1
                         info_text_2 = "You pet Nede. He seems calm now. "
@@ -157,7 +157,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         info_text_2 = ""
 
         if interacted:
-            pygame.mixer.find_channel().play(sfx_door)
+            pygame.mixer.find_channel(True).play(sfx_door)
             current_building_entering = stardust_entrance
             movement_able = False
             in_over_world = False
@@ -177,7 +177,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                     if rock.x_coordinate == 675:
                         rock.update(rock.x_coordinate - 110, rock.y_coordinate, graphic_dict["rock_small"])
                         if not rock_3_con:
-                            pygame.mixer.find_channel().play(sfx_rupee)
+                            pygame.mixer.find_channel(True).play(sfx_rupee)
                             player.rupees += 10
                             rock_3_con = True
                             info_text_1 = "You found 10 Rupees under the rock!"

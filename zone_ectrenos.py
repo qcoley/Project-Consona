@@ -70,10 +70,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         info_text_4 = ""
 
         if interacted and in_over_world:
-            try:
-                pygame.mixer.find_channel().play(sfx_ladder)
-            except AttributeError:
-                pass
+            pygame.mixer.find_channel(True).play(sfx_ladder)
             interacted = False
             chroma_bridge.update(764, 487, graphic_dict["chroma_bridge"])
             player.current_zone = "ectrenos alcove"
@@ -279,10 +276,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                     and not in_npc_interaction:
                 interacted = False
                 player.quest_progress["las escondidas"] += 1
-                try:
-                    pygame.mixer.find_channel().play(sfx_find)
-                except AttributeError:
-                    pass
+                pygame.mixer.find_channel(True).play(sfx_find)
                 info_text_1 = "You've found Leyre!"
                 info_text_2 = "Looks like they went to hide again. "
                 info_text_3 = ""
@@ -463,10 +457,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                     and not in_npc_interaction:
                 interacted = False
                 player.quest_progress["las escondidas"] += 1
-                try:
-                    pygame.mixer.find_channel().play(sfx_find)
-                except AttributeError:
-                    pass
+                pygame.mixer.find_channel(True).play(sfx_find)
                 info_text_1 = "You've found Leyre!"
                 info_text_2 = "Looks like they went to hide again. "
                 info_text_3 = ""
@@ -664,10 +655,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                     and not in_npc_interaction:
                 interacted = False
                 player.quest_progress["las escondidas"] += 1
-                try:
-                    pygame.mixer.find_channel().play(sfx_find)
-                except AttributeError:
-                    pass
+                pygame.mixer.find_channel(True).play(sfx_find)
                 info_text_1 = "You've found Leyre!"
                 info_text_2 = "Looks like they went to hide again. "
                 info_text_3 = ""
@@ -851,10 +839,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
         info_text_4 = ""
 
         if interacted and in_over_world:
-            try:
-                pygame.mixer.find_channel().play(sfx_ladder)
-            except AttributeError:
-                pass
+            pygame.mixer.find_channel(True).play(sfx_ladder)
             interacted = False
             chroma_bridge.update(477, 493, graphic_dict["chroma_bridge"])
             player.current_zone = "ectrenos"
@@ -882,10 +867,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     and not in_npc_interaction:
                 interacted = False
                 player.quest_progress["las escondidas"] += 1
-                try:
-                    pygame.mixer.find_channel().play(sfx_find)
-                except AttributeError:
-                    pass
+                pygame.mixer.find_channel(True).play(sfx_find)
                 info_text_1 = "You've found Leyre!"
                 info_text_2 = "You've finished hide and seek. "
                 info_text_3 = ""

@@ -650,7 +650,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         # add damage to enemy to event dictionary to be returned to main loop
                         combat_event_dictionary["damage done string"] = attacked_enemy_string
                         combat_event_dictionary["damage done"] = striked
-                        combat_event_dictionary["pet damage"] = 0
+                        combat_event_dictionary["pet damage"] = 1
 
                         # returns total damage output from enemy as attacked_player_health value
                         defend_dict = gameplay_functions.attack_player(player, enemy_combating, barrier_active)
