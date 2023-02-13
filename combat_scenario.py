@@ -460,7 +460,7 @@ def enemy_health_bar(enemys, graphics):
 
 
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
-                    sharp_sense_active, barrier_active, turn_taken, level_up_visual, in_over_world):
+                    sharp_sense_active, barrier_active, turn_taken):
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -619,7 +619,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
 
                 # player will level up if experience greater than or equal to 100
                 if player.experience >= 100:
-                    gameplay_functions.level_up(player, level_up_win, level_up_font, level_up_visual, in_over_world)
+                    gameplay_functions.level_up(player, level_up_win, level_up_font)
                     combat_event_dictionary["leveled"] = True
 
                 enemy_combating.alive_status = False
@@ -640,13 +640,17 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     enemy_health_bar(enemy_combating, graphics)
                     if enemy_combating.health > 0:
                         attacked_enemy_string = f" You did {striked} damage to {enemy_combating.kind}."
-                        combat_event_dictionary["damage done"] = striked
+                        combat_event_dictionary["player damage"] = striked
                         combat_event_dictionary["effective player"] = False
                         combat_event_dictionary["non effective player"] = False
                         combat_event_dictionary["critical dealt"] = False
+                        combat_event_dictionary["effective pet"] = False
+                        combat_event_dictionary["non effective pet"] = False
 
                         # add damage to enemy to event dictionary to be returned to main loop
                         combat_event_dictionary["damage done string"] = attacked_enemy_string
+                        combat_event_dictionary["damage done"] = striked
+                        combat_event_dictionary["pet damage"] = 0
 
                         # returns total damage output from enemy as attacked_player_health value
                         defend_dict = gameplay_functions.attack_player(player, enemy_combating, barrier_active)

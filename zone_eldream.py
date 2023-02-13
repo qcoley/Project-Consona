@@ -22,7 +22,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
                      seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
                      omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite,
-                     sfx_flower):
+                     sfx_flower, sfx_hearth, sfx_item):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -79,7 +79,10 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     if flower and in_over_world:
         flower.update(flower.x_coordinate, flower.y_coordinate, graphic_dict["flower_eldream_high"])
         if interacted:
-            pygame.mixer.Sound.play(sfx_flower)
+            try:
+                pygame.mixer.find_channel().play(sfx_flower)
+            except AttributeError:
+                pass
             player.flowers_sorae += 1
             flower.kill()
             info_text_1 = "You collected the Eldream Flower."
@@ -108,6 +111,10 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             info_text_4 = ""
 
             if interacted and in_over_world:
+                try:
+                    pygame.mixer.find_channel().play(sfx_hearth)
+                except AttributeError:
+                    pass
                 hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate,
                                     graphic_dict["hearth_stone_lit"])
                 eldream_attuned = True
@@ -155,6 +162,10 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                     info_text_1 = "Press 'F' key to pick up the supplies."
                     if interacted and in_over_world:
                         if player.quest_progress["kart troubles"] < 4:
+                            try:
+                                pygame.mixer.find_channel().play(sfx_item)
+                            except AttributeError:
+                                pass
                             player.quest_progress["kart troubles"] += 1
                             info_text_1 = "You picked up 1 supplies."
                             quest_item.kill()

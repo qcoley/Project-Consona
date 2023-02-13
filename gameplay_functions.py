@@ -763,7 +763,7 @@ def attack_player(player, mob, barrier_active):
 
 
 # level up function. increase player level by 1 if not at cap and return info in dictionary
-def level_up(player, level_up_win, level_up_font, level_up_visual, in_over_world):
+def level_up(player, level_up_win, level_up_font):
     level_up_dictionary = {"new level": 0, "player stats": []}
 
     if player.level < 20:
@@ -771,7 +771,7 @@ def level_up(player, level_up_win, level_up_font, level_up_visual, in_over_world
         player.health = 100
         player.energy = 100
         player.experience = player.experience - 100
-        drawing_functions.level_up_draw(level_up_win, player, level_up_font, True, level_up_visual, in_over_world)
+        drawing_functions.level_up_draw(level_up_win, player, level_up_font, True)
     else:
         level_up_dictionary["new level"] = "You are already max level. "
         return level_up_dictionary

@@ -103,7 +103,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             info_text_4 = ""
         else:
             info_text_1 = "You hear howls from within.."
-            info_text_2 = ""
+            info_text_2 = "Maybe you should ask around?"
             info_text_3 = ""
             info_text_4 = ""
 
@@ -140,7 +140,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                     if rock_7.x_coordinate == 515:
                         rock_7.update(rock_7.x_coordinate - 120, rock_7.y_coordinate, graphic_dict["rock_small"])
                         if not rock_7_con:
-                            pygame.mixer.Sound.play(sfx_rupee)
+                            pygame.mixer.find_channel().play(sfx_rupee)
                             player.rupees += 20
                             rock_7_con = True
                             info_text_1 = "You found 20 Rupees under the rock!"

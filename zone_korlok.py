@@ -21,7 +21,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     star_apothecary, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
                     weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
                     eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
-                    necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth):
+                    necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -70,8 +70,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(star_voruke.surf, star_voruke.rect)
     if not player.quest_complete["elementary elementals"]:
         screen.blit(star_zerah.surf, star_zerah.rect)
-    if not player.quest_complete["can't apothecary it"]:
-        screen.blit(star_apothecary.surf, star_apothecary.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -90,6 +88,12 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     except AttributeError:
         pass
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)
+    screen.blit(top_1.surf, top_1.rect)
+    screen.blit(top_2.surf, top_2.rect)
+    screen.blit(top_3.surf, top_3.rect)
+
+    if not player.quest_complete["can't apothecary it"]:
+        screen.blit(star_apothecary.surf, star_apothecary.rect)
 
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     enemy = pygame.sprite.spritecollideany(player, korlok_enemies, pygame.sprite.collide_rect_ratio(0.75))
@@ -170,6 +174,10 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         info_text_4 = ""
 
         if interacted:
+            try:
+                pygame.mixer.find_channel().play(sfx_door)
+            except AttributeError:
+                pass
             current_building_entering = building
             movement_able = False
             in_over_world = False
@@ -263,7 +271,10 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate,
                                     graphic_dict["hearth_stone_lit"])
                 korlok_attuned = True
-                pygame.mixer.Sound.play(sfx_hearth)
+                try:
+                    pygame.mixer.find_channel().play(sfx_hearth)
+                except AttributeError:
+                    pass
                 info_text_1 = "You have attuned to the stone."
                 info_text_2 = "You may now fast travel here."
                 interacted = False
@@ -284,7 +295,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     if rock_4.x_coordinate == 400:
                         rock_4.update(rock_4.x_coordinate - 90, rock_4.y_coordinate, graphic_dict["rock_small"])
                         if not rock_4_con:
-                            pygame.mixer.Sound.play(sfx_rupee)
+                            pygame.mixer.find_channel().play(sfx_rupee)
                             player.rupees += 10
                             rock_4_con = True
                             info_text_1 = "You found 10 Rupees under the rock!"
@@ -312,7 +323,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     if rock_5.x_coordinate == 660:
                         rock_5.update(rock_5.x_coordinate + 90, rock_5.y_coordinate, graphic_dict["rock_small"])
                         if not rock_5_con:
-                            pygame.mixer.Sound.play(sfx_rupee)
+                            pygame.mixer.find_channel().play(sfx_rupee)
                             player.rupees += 15
                             rock_5_con = True
                             info_text_1 = "You found 15 Rupees under the rock!"
@@ -340,7 +351,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     if rock_6.x_coordinate == 750:
                         rock_6.update(rock_6.x_coordinate + 110, rock_6.y_coordinate, graphic_dict["rock_small"])
                         if not rock_6_con:
-                            pygame.mixer.Sound.play(sfx_rupee)
+                            pygame.mixer.find_channel().play(sfx_rupee)
                             player.rupees += 10
                             rock_6_con = True
                             info_text_1 = "You found 10 Rupees under the rock!"

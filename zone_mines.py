@@ -17,7 +17,12 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  interactables_mines, ores, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                  defense_meter, weapon_select, hearth_stone, npc_prime, npc_jez, prime_popup, jez_popup, prime_1,
                  prime_2, prime_3, jez_1, jez_2, jez_3, seldon_flowers, eldream_flowers, interactables_eldream,
-                 pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite):
+                 pet_energy_window, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite, sfx_item,
+                 sfx_talk, talk_start):
+
+    if not talk_start:
+        pygame.mixer.find_channel().play(sfx_talk)
+        talk_start = True
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -111,6 +116,8 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     if player.x_coordinate > 660 and 685 < player.y_coordinate:
         player.current_zone = "korlok"
         in_over_world = True
+        talk_start = False
+        pygame.mixer.Sound.stop(sfx_talk)
         player.x_coordinate = 430
         player.y_coordinate = 430
         hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
@@ -136,6 +143,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
             info_text_3 = ""
             info_text_4 = ""
             if interacted and in_over_world:
+                pygame.mixer.find_channel().play(sfx_item)
                 player.quest_progress["can't apothecary it"] += 1
                 ore_pick.kill()
                 interacted = False
@@ -227,6 +235,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                     "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                     "in_battle": in_battle, "movement_able": movement_able,
                     "current_enemy_battling": current_enemy_battling, "prime_1": prime_1, "prime_2": prime_2,
-                    "prime_3": prime_3, "jez_1": jez_1, "jez_2": jez_2, "jez_3": jez_3}
+                    "prime_3": prime_3, "jez_1": jez_1, "jez_2": jez_2, "jez_3": jez_3, "talk_start": talk_start}
 
     return mines_return

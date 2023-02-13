@@ -163,6 +163,7 @@ def load_graphics():
     alcove_star = pygame.image.load(resource_path('resources/art/overlay_alcove_star.png')).convert_alpha()
     tree_tops = pygame.image.load(resource_path('resources/art/overlay_tree_tops.png')).convert_alpha()
     a_building_tops = pygame.image.load(resource_path('resources/art/overlay_amuna_building_tops.png')).convert_alpha()
+    n_building_tops = pygame.image.load(resource_path('resources/art/overlay_nuldar_building_tops.png')).convert_alpha()
     level_up_vis = pygame.image.load(resource_path('resources/art/overlay_level_up.png')).convert_alpha()
     quest_accepted = pygame.image.load(resource_path('resources/art/overlay_quest_accepted.png')).convert_alpha()
 
@@ -182,13 +183,14 @@ def load_graphics():
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
-                  chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis]
+                  chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops]
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
     loaded_dict["quest_accepted"] = quest_accepted
     loaded_dict["level_up_vis"] = level_up_vis
     loaded_dict["amuna_building_top"] = a_building_tops
+    loaded_dict["nuldar_building_top"] = n_building_tops
     loaded_dict["tree_top"] = tree_tops
     loaded_dict["alcove_star"] = alcove_star
     loaded_dict["ectrenos_front_interaction"] = e_f_interact

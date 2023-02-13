@@ -16,7 +16,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                   eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic, eldream_flowers,
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
-                  npc_leyre, necrola_battle_sprite, osodark_battle_sprite):
+                  npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -70,6 +70,10 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         info_text_4 = ""
 
         if interacted and in_over_world:
+            try:
+                pygame.mixer.find_channel().play(sfx_ladder)
+            except AttributeError:
+                pass
             interacted = False
             chroma_bridge.update(764, 487, graphic_dict["chroma_bridge"])
             player.current_zone = "ectrenos alcove"
@@ -194,7 +198,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   current_enemy_battling, current_npc_interacting, equipment_screen, staff, sword, bow, npc_garan,
                   offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                   current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos, ectrenos_pet_entrance,
-                  in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre):
+                  in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -275,7 +279,10 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                     and not in_npc_interaction:
                 interacted = False
                 player.quest_progress["las escondidas"] += 1
-
+                try:
+                    pygame.mixer.find_channel().play(sfx_find)
+                except AttributeError:
+                    pass
                 info_text_1 = "You've found Leyre!"
                 info_text_2 = "Looks like they went to hide again. "
                 info_text_3 = ""
@@ -358,7 +365,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    current_enemy_battling, current_npc_interacting, equipment_screen, staff, sword, bow, npc_garan,
                    offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                    current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
-                   ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre):
+                   ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre, sfx_find):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -456,7 +463,10 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                     and not in_npc_interaction:
                 interacted = False
                 player.quest_progress["las escondidas"] += 1
-
+                try:
+                    pygame.mixer.find_channel().play(sfx_find)
+                except AttributeError:
+                    pass
                 info_text_1 = "You've found Leyre!"
                 info_text_2 = "Looks like they went to hide again. "
                 info_text_3 = ""
@@ -545,7 +555,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
                    interactables_korlok, interactables_mines, Enemy, Item, UiElement, seldon_flowers,
                    interactables_ectrenos, quest_star_everett, pet_energy_window, npc_everett, npc_leyre,
-                   ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite):
+                   ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
+                   sfx_find):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -653,7 +664,10 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                     and not in_npc_interaction:
                 interacted = False
                 player.quest_progress["las escondidas"] += 1
-
+                try:
+                    pygame.mixer.find_channel().play(sfx_find)
+                except AttributeError:
+                    pass
                 info_text_1 = "You've found Leyre!"
                 info_text_2 = "Looks like they went to hide again. "
                 info_text_3 = ""
@@ -782,7 +796,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     movement_able, current_enemy_battling, current_npc_interacting, equipment_screen, staff, sword, bow,
                     npc_garan, offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                     current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
-                    pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies):
+                    pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -837,6 +851,10 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
         info_text_4 = ""
 
         if interacted and in_over_world:
+            try:
+                pygame.mixer.find_channel().play(sfx_ladder)
+            except AttributeError:
+                pass
             interacted = False
             chroma_bridge.update(477, 493, graphic_dict["chroma_bridge"])
             player.current_zone = "ectrenos"
@@ -864,7 +882,10 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     and not in_npc_interaction:
                 interacted = False
                 player.quest_progress["las escondidas"] += 1
-
+                try:
+                    pygame.mixer.find_channel().play(sfx_find)
+                except AttributeError:
+                    pass
                 info_text_1 = "You've found Leyre!"
                 info_text_2 = "You've finished hide and seek. "
                 info_text_3 = ""

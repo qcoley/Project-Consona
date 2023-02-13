@@ -7,6 +7,7 @@ journal_text = []
 journal_window = []
 level_up_text = []
 level_up_window = []
+level_up_visual = []
 quest_box = []
 quest_complete_box = []
 quest_accept_box = []
@@ -31,6 +32,9 @@ pets_window_container = []
 
 # draws elements on screen that have been appended to list by below functions
 def draw_it(screen):
+    if len(level_up_visual) > 0:
+        for visuals in level_up_visual:
+            screen.blit(visuals.surf, visuals.rect)
     if len(character_sheet_window) > 0:
         for character_window in character_sheet_window:
             screen.blit(character_window.surf, character_window.rect)
@@ -791,15 +795,12 @@ def journal_info_draw(journal, player, font, draw_condition):
         journal_window.append(journal)
 
 
-def level_up_draw(level_up_win, player, level_up_font, draw_condition, level_up_visual, in_npc_interaction):
+def level_up_draw(level_up_win, player, level_up_font, draw_condition):
     if not draw_condition:
         level_up_text.clear()
         level_up_window.clear()
 
     else:
-        if not in_npc_interaction:
-            level_up_window.append(level_up_visual)
-
         text_leveled_up_surf = level_up_font.render(str(player.level), True, "black", "light yellow")
         text_leveled_up_rect = text_leveled_up_surf.get_rect()
         text_leveled_up_rect.center = (260, 146)

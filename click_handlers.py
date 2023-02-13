@@ -62,7 +62,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["armor"] = ""
-                pygame.mixer.Sound.play(sfx_equip)
+                pygame.mixer.find_channel().play(sfx_equip)
                 return_dict["equipment message"] = "Basic Armor un-equipped."
                 player.defense = 0
             else:
@@ -71,7 +71,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["armor"] = ""
-                pygame.mixer.Sound.play(sfx_equip)
+                pygame.mixer.find_channel().play(sfx_equip)
                 return_dict["equipment message"] = "Forged Armor un-equipped."
                 player.defense = 0
             else:
@@ -80,7 +80,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["armor"] = ""
-                pygame.mixer.Sound.play(sfx_equip)
+                pygame.mixer.find_channel().play(sfx_equip)
                 return_dict["equipment message"] = "Mythical Armor un-equipped."
                 player.defense = 0
             else:
@@ -89,7 +89,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["armor"] = ""
-                pygame.mixer.Sound.play(sfx_equip)
+                pygame.mixer.find_channel().play(sfx_equip)
                 return_dict["equipment message"] = "Legendary Armor un-equipped."
                 player.defense = 0
             else:
@@ -99,7 +99,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["gloves"] = ""
-                pygame.mixer.Sound.play(sfx_equip)
+                pygame.mixer.find_channel().play(sfx_equip)
                 return_dict["equipment message"] = "Power gloves un-equipped."
             else:
                 return_dict["equipment message"] = "Your inventory is full."
@@ -108,7 +108,7 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
             if len(player.items) < 16:
                 player.items.append(equipment_item)
                 player.equipment["boots"] = ""
-                pygame.mixer.Sound.play(sfx_equip)
+                pygame.mixer.find_channel().play(sfx_equip)
                 return_dict["equipment message"] = "Chroma boots un-equipped."
             else:
                 return_dict["equipment message"] = "Your inventory is full."
@@ -278,7 +278,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip):
             if player.health == 100:
                 return_dict["item message"] = "You're already at full health."
             else:
-                pygame.mixer.Sound.play(sfx_potion)
+                pygame.mixer.find_channel().play(sfx_potion)
                 player.health = player.health + 40
                 if player.health > 100:
                     player.health = 100
@@ -289,7 +289,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip):
             if player.energy == 100:
                 return_dict["item message"] = "You're already at full energy."
             else:
-                pygame.mixer.Sound.play(sfx_potion)
+                pygame.mixer.find_channel().play(sfx_potion)
                 player.energy = player.energy + 40
                 if player.energy > 100:
                     player.energy = 100
@@ -298,7 +298,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip):
                 return_dict["item message"] = "The potion energizes you for 40 en."
         if item.name == "super potion":
             if player.health < 100 or player.energy < 100:
-                pygame.mixer.Sound.play(sfx_potion)
+                pygame.mixer.find_channel().play(sfx_potion)
                 player.health = player.health + 50
                 player.energy = player.energy + 50
                 if player.energy > 100:
@@ -316,7 +316,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip):
                 player.equipment["armor"] = item
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
-                pygame.mixer.Sound.play(sfx_equip)
+                pygame.mixer.find_channel().play(sfx_equip)
                 return_dict["item message"] = "Armor equipped. "
                 player.defense = item.level
             else:
@@ -324,7 +324,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip):
         if item.name == "power gloves":
             if player.equipment["gloves"] == "":
                 player.equipment["gloves"] = item
-                pygame.mixer.Sound.play(sfx_equip)
+                pygame.mixer.find_channel().play(sfx_equip)
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "Power gloves equipped."
@@ -333,7 +333,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip):
         if item.name == "chroma boots":
             if player.equipment["boots"] == "":
                 player.equipment["boots"] = item
-                pygame.mixer.Sound.play(sfx_equip)
+                pygame.mixer.find_channel().play(sfx_equip)
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
                 return_dict["item message"] = "Chroma boots equipped."
@@ -372,7 +372,10 @@ def npc_event_button(npc_event, quest_button, leave_button, pygame, sfx_page):
     if npc_event.type == pygame.MOUSEBUTTONUP:
         npc_mouse = pygame.mouse.get_pos()
         if quest_button.rect.collidepoint(npc_mouse):
-            pygame.mixer.Sound.play(sfx_page)
+            try:
+                pygame.mixer.find_channel().play(sfx_page)
+            except AttributeError:
+                pass
             return "quest"
         if leave_button.rect.collidepoint(npc_mouse):
             return "leave"
@@ -397,10 +400,11 @@ def stardust_upgrade_event(stardust_event, offense_button, pygame):
 
 
 # getting event based on user click related to shop
-def shop_event_button(shop_event, buy_button, leave_button, pygame):
+def shop_event_button(shop_event, buy_button, leave_button, pygame, sfx_paper):
     if shop_event.type == pygame.MOUSEBUTTONUP:
         shop_mouse = pygame.mouse.get_pos()
         if buy_button.rect.collidepoint(shop_mouse):
+            pygame.mixer.find_channel().play(sfx_paper)
             return "buy"
         if leave_button.rect.collidepoint(shop_mouse):
             return "leave"
@@ -432,7 +436,7 @@ def inn_event_button(inn_event, rest_button, leave_button, pygame, sfx_sleep):
     if inn_event.type == pygame.MOUSEBUTTONUP:
         inn_mouse = pygame.mouse.get_pos()
         if rest_button.rect.collidepoint(inn_mouse):
-            pygame.mixer.Sound.play(sfx_sleep)
+            pygame.mixer.find_channel().play(sfx_sleep)
             return "rest"
         if leave_button.rect.collidepoint(inn_mouse):
             return "leave"
@@ -443,20 +447,20 @@ def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn
     if academia_event.type == pygame.MOUSEBUTTONUP:
         academia_mouse = pygame.mouse.get_pos()
         if mage_learn.rect.collidepoint(academia_mouse):
-            pygame.mixer.Sound.play(sfx_paper)
+            pygame.mixer.find_channel().play(sfx_paper)
             return "mage learn"
         if fighter_learn.rect.collidepoint(academia_mouse):
-            pygame.mixer.Sound.play(sfx_paper)
+            pygame.mixer.find_channel().play(sfx_paper)
             return "fighter learn"
         if scout_learn.rect.collidepoint(academia_mouse):
-            pygame.mixer.Sound.play(sfx_paper)
+            pygame.mixer.find_channel().play(sfx_paper)
             return "scout learn"
         if leave_button.rect.collidepoint(academia_mouse):
             return "leave"
 
 
 # getting item player clicked based on it's name and return the corresponding item. for buying items
-def buy_event_item(buy_event, shopkeeper_items, pygame):
+def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item):
     if buy_event.type == pygame.MOUSEBUTTONUP:
         buy_mouse = pygame.mouse.get_pos()
         # list of sprites that collided with mouse cursor rect
@@ -464,24 +468,34 @@ def buy_event_item(buy_event, shopkeeper_items, pygame):
         # try to get inventory item player clicked based on it's name and return it
         try:
             if clicked_element[0].name == "health potion":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "energy potion":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "shiny rock":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "bone dust":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "basic armor":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "forged armor":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "mythical armor":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "pet cookie":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "pet candy":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "pet tart":
+                pygame.mixer.find_channel().play(sfx_item)
                 return clicked_element[0]
 
         except IndexError:
