@@ -2662,21 +2662,21 @@ if __name__ == '__main__':
 
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
         Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
+        Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
-        Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1)])
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
+        Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
-        Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1)])
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
     npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
         Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
+        Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
         Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0),
-        Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1)])
+        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 675, 325, graphic_dict["maurelle_interaction"])
@@ -2685,7 +2685,7 @@ if __name__ == '__main__':
 
     npc_voruke_interaction = UiElement("voruke interaction", 678, 325, graphic_dict["voruke_interaction"])
     npc_zerah_interaction = UiElement("zerah interaction", 675, 325, graphic_dict["zerah_interaction"])
-    npc_dionte_interaction = UiElement("dionte interaction", 675, 325, graphic_dict["dionte_interaction"])
+    npc_dionte_interaction = UiElement("dionte interaction", 678, 350, graphic_dict["dionte_interaction"])
 
     npc_omoku_interaction = UiElement("omoku interaction", 610, 352, graphic_dict["omoku_interaction"])
     npc_leyre_interaction = UiElement("leyre interaction", 680, 330, graphic_dict["leyre_interaction"])
@@ -6445,7 +6445,7 @@ if __name__ == '__main__':
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                          pressed_keys, sfx_button_role)
                             if player.current_zone == "seldon":
-                                cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
+                                cat_pet_button_overlay.update(505, 290, graphic_dict["cat_pet_button_overlay"])
                                 if cat_pet_button_overlay.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_cat_meow)
                                     shop_cat_pet = True
@@ -6639,10 +6639,9 @@ if __name__ == '__main__':
                         screen.blit(hp_bar.surf, hp_bar.rect)
                         screen.blit(en_bar.surf, en_bar.rect)
                         screen.blit(xp_bar.surf, xp_bar.rect)
-                        cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
-                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                        cat_pet_button_overlay.update(505, 290, graphic_dict["cat_pet_button_overlay"])
                         if shop_cat_pet:
-                            cat_pet_animation_overlay.update(524, 243, graphic_dict["seldon_shop_cat_pet_img"])
+                            cat_pet_animation_overlay.update(524, 296, graphic_dict["seldon_shop_cat_pet_img"])
                             screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
                         if buy_clicked:
