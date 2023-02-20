@@ -2688,7 +2688,7 @@ if __name__ == '__main__':
     npc_dionte_interaction = UiElement("dionte interaction", 678, 350, graphic_dict["dionte_interaction"])
 
     npc_omoku_interaction = UiElement("omoku interaction", 610, 352, graphic_dict["omoku_interaction"])
-    npc_leyre_interaction = UiElement("leyre interaction", 680, 330, graphic_dict["leyre_interaction"])
+    npc_leyre_interaction = UiElement("leyre interaction", 678, 350, graphic_dict["leyre_interaction"])
     npc_everett_interaction = UiElement("everett interaction", 678, 325, graphic_dict["everett_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
@@ -3225,119 +3225,139 @@ if __name__ == '__main__':
     interactables_eldream.add(eldream_flowers, hearth_stone, quest_items_eldream, npc_omoku)
 
     # music tracks
-    start_screen_music = resource_path("resources/music/eterna_title.mp3")
-    seldon_overworld_music = resource_path("resources/music/eterna_seldon.mp3")
-    seldon_building_music = resource_path("resources/music/eterna_building.mp3")
-    stardust_outpost_music = resource_path("resources/music/eterna_stardust.mp3")
-    apothis_intro_music = resource_path("resources/music/eterna_apothis.mp3")
-    rohir_river_music = resource_path("resources/music/eterna_rohir.mp3")
-    reservoir_music = resource_path("resources/music/eterna_dungeon.mp3")
-    korlok_overworld_music = resource_path("resources/music/eterna_korlok.mp3")
-    korlok_building_music = resource_path("resources/music/eterna_building_korlok.mp3")
-    eldream_overworld_music = resource_path("resources/music/eterna_eldream.mp3")
-    eldream_building_music = resource_path("resources/music/eterna_building_eldream.mp3")
+    start_screen_music = resource_path("resources/sounds/eterna_title.mp3")
+    seldon_overworld_music = resource_path("resources/sounds/eterna_seldon.mp3")
+    seldon_building_music = resource_path("resources/sounds/eterna_building.mp3")
+    stardust_outpost_music = resource_path("resources/sounds/eterna_stardust.mp3")
+    apothis_intro_music = resource_path("resources/sounds/eterna_apothis.mp3")
+    rohir_river_music = resource_path("resources/sounds/eterna_rohir.mp3")
+    reservoir_music = resource_path("resources/sounds/eterna_dungeon.mp3")
+    korlok_overworld_music = resource_path("resources/sounds/eterna_korlok.mp3")
+    korlok_building_music = resource_path("resources/sounds/eterna_building_korlok.mp3")
+    eldream_overworld_music = resource_path("resources/sounds/eterna_eldream.mp3")
+    eldream_building_music = resource_path("resources/sounds/eterna_building_eldream.mp3")
 
-    pygame.mixer.music.set_volume(0.65)
+    pygame.mixer.music.set_volume(0.50)
     pygame.mixer.music.load(start_screen_music)
     pygame.mixer.music.play(loops=-1)
 
-    sfx_no_weapon_attack = pygame.mixer.Sound("resources/sfx/no_weapon_attack.mp3")
+    sfx_game_over = pygame.mixer.Sound(resource_path("resources/sounds/game_over.mp3"))
+    sfx_game_over.set_volume(0.75)
+
+    sfx_no_weapon_attack = pygame.mixer.Sound(resource_path("resources/sounds/no_weapon_attack.mp3"))
     sfx_no_weapon_attack.set_volume(0.50)
-    sfx_mage_attack = pygame.mixer.Sound("resources/sfx/mage_attack.mp3")
+    sfx_mage_attack = pygame.mixer.Sound(resource_path("resources/sounds/mage_attack.mp3"))
     sfx_mage_attack.set_volume(0.18)
-    sfx_mage_barrier = pygame.mixer.Sound("resources/sfx/mage_barrier.mp3")
+    sfx_mage_barrier = pygame.mixer.Sound(resource_path("resources/sounds/mage_barrier.mp3"))
     sfx_mage_barrier.set_volume(0.45)
-    sfx_fighter_attack = pygame.mixer.Sound("resources/sfx/fighter_attack.mp3")
+    sfx_fighter_attack = pygame.mixer.Sound(resource_path("resources/sounds/fighter_attack.mp3"))
     sfx_fighter_attack.set_volume(0.30)
-    sfx_fighter_strike = pygame.mixer.Sound("resources/sfx/fighter_strike.mp3")
+    sfx_fighter_strike = pygame.mixer.Sound(resource_path("resources/sounds/fighter_strike.mp3"))
     sfx_fighter_strike.set_volume(0.40)
-    sfx_scout_attack = pygame.mixer.Sound("resources/sfx/scout_attack.mp3")
+    sfx_scout_attack = pygame.mixer.Sound(resource_path("resources/sounds/scout_attack.mp3"))
     sfx_scout_attack.set_volume(0.50)
-    sfx_scout_sense = pygame.mixer.Sound("resources/sfx/scout_sense.mp3")
+    sfx_scout_sense = pygame.mixer.Sound(resource_path("resources/sounds/scout_sense.mp3"))
     sfx_scout_sense.set_volume(0.25)
 
-    sfx_quest_complete = pygame.mixer.Sound("resources/sfx/quest_complete.mp3")
+    sfx_enemy_ghoul = pygame.mixer.Sound(resource_path("resources/sounds/enemy_ghoul.mp3"))
+    sfx_enemy_ghoul.set_volume(0.10)
+    sfx_enemy_snake = pygame.mixer.Sound(resource_path("resources/sounds/enemy_snake.mp3"))
+    sfx_enemy_snake.set_volume(0.15)
+    sfx_enemy_chorizon = pygame.mixer.Sound(resource_path("resources/sounds/enemy_chorizon.mp3"))
+    sfx_enemy_chorizon.set_volume(0.15)
+    sfx_enemy_muchador = pygame.mixer.Sound(resource_path("resources/sounds/enemy_muchador.mp3"))
+    sfx_enemy_muchador.set_volume(0.20)
+    sfx_enemy_bandile = pygame.mixer.Sound(resource_path("resources/sounds/enemy_bandile.mp3"))
+    sfx_enemy_bandile.set_volume(0.15)
+    sfx_enemy_magmon = pygame.mixer.Sound(resource_path("resources/sounds/enemy_magmon.mp3"))
+    sfx_enemy_magmon.set_volume(0.18)
+    sfx_enemy_chinzilla = pygame.mixer.Sound(resource_path("resources/sounds/enemy_chinzilla.mp3"))
+    sfx_enemy_chinzilla.set_volume(0.15)
+    sfx_enemy_necrola = pygame.mixer.Sound(resource_path("resources/sounds/enemy_necrola.mp3"))
+    sfx_enemy_necrola.set_volume(0.15)
+
+    sfx_quest_complete = pygame.mixer.Sound(resource_path("resources/sounds/quest_complete.mp3"))
     sfx_quest_complete.set_volume(0.40)
-    sfx_quest_start = pygame.mixer.Sound("resources/sfx/quest_start.mp3")
+    sfx_quest_start = pygame.mixer.Sound(resource_path("resources/sounds/quest_start.mp3"))
     sfx_quest_start.set_volume(0.20)
-    sfx_level_up = pygame.mixer.Sound("resources/sfx/level_up.mp3")
+    sfx_level_up = pygame.mixer.Sound(resource_path("resources/sounds/level_up.mp3"))
     sfx_level_up.set_volume(0.25)
 
-    sfx_sheet_paper = pygame.mixer.Sound("resources/sfx/sheet_paper.mp3")
+    sfx_sheet_paper = pygame.mixer.Sound(resource_path("resources/sounds/sheet_paper.mp3"))
     sfx_sheet_paper.set_volume(0.50)
 
-    sfx_steps_path = pygame.mixer.Sound("resources/sfx/steps_path.mp3")
+    sfx_steps_path = pygame.mixer.Sound(resource_path("resources/sounds/steps_path.mp3"))
     sfx_steps_path.set_volume(0.05)
-    sfx_steps_water = pygame.mixer.Sound("resources/sfx/steps_water.mp3")
+    sfx_steps_water = pygame.mixer.Sound(resource_path("resources/sounds/steps_water.mp3"))
     sfx_steps_water.set_volume(0.05)
 
-    sfx_item_rupee = pygame.mixer.Sound("resources/sfx/item_rupee.mp3")
+    sfx_item_rupee = pygame.mixer.Sound(resource_path("resources/sounds/item_rupee.mp3"))
     sfx_item_rupee.set_volume(0.20)
-    sfx_item_key = pygame.mixer.Sound("resources/sfx/item_key.mp3")
+    sfx_item_key = pygame.mixer.Sound(resource_path("resources/sounds/item_key.mp3"))
     sfx_item_key.set_volume(0.30)
-    sfx_item_potion = pygame.mixer.Sound("resources/sfx/item_potion.mp3")
+    sfx_item_potion = pygame.mixer.Sound(resource_path("resources/sounds/item_potion.mp3"))
     sfx_item_potion.set_volume(0.20)
-    sfx_item_flower = pygame.mixer.Sound("resources/sfx/item_flower.mp3")
+    sfx_item_flower = pygame.mixer.Sound(resource_path("resources/sounds/item_flower.mp3"))
     sfx_item_flower.set_volume(0.45)
-    sfx_item_pickup = pygame.mixer.Sound("resources/sfx/item_crate.mp3")
+    sfx_item_pickup = pygame.mixer.Sound(resource_path("resources/sounds/item_crate.mp3"))
     sfx_item_pickup.set_volume(0.15)
-    sfx_item_equip = pygame.mixer.Sound("resources/sfx/item_equip.mp3")
+    sfx_item_equip = pygame.mixer.Sound(resource_path("resources/sounds/item_equip.mp3"))
     sfx_item_equip.set_volume(0.08)
-    sfx_item_whistle = pygame.mixer.Sound("resources/sfx/pet_whistle.mp3")
+    sfx_item_whistle = pygame.mixer.Sound(resource_path("resources/sounds/pet_whistle.mp3"))
     sfx_item_whistle.set_volume(0.40)
-    sfx_item_snack = pygame.mixer.Sound("resources/sfx/pet_snack.mp3")
+    sfx_item_snack = pygame.mixer.Sound(resource_path("resources/sounds/pet_snack.mp3"))
     sfx_item_snack.set_volume(0.20)
 
-    sfx_activate_switch = pygame.mixer.Sound("resources/sfx/activate_switch.mp3")
+    sfx_activate_switch = pygame.mixer.Sound(resource_path("resources/sounds/activate_switch.mp3"))
     sfx_activate_switch.set_volume(0.10)
-    sfx_activate_teleporter = pygame.mixer.Sound("resources/sfx/activate_teleporter.mp3")
+    sfx_activate_teleporter = pygame.mixer.Sound(resource_path("resources/sounds/activate_teleporter.mp3"))
     sfx_activate_teleporter.set_volume(0.20)
-    sfx_door_open = pygame.mixer.Sound("resources/sfx/door_open.mp3")
+    sfx_door_open = pygame.mixer.Sound(resource_path("resources/sounds/door_open.mp3"))
     sfx_door_open.set_volume(0.35)
-    sfx_gate_open = pygame.mixer.Sound("resources/sfx/gate_open.mp3")
+    sfx_gate_open = pygame.mixer.Sound(resource_path("resources/sounds/gate_open.mp3"))
     sfx_gate_open.set_volume(0.30)
-    sfx_chest_open = pygame.mixer.Sound("resources/sfx/chest_open.mp3")
+    sfx_chest_open = pygame.mixer.Sound(resource_path("resources/sounds/chest_open.mp3"))
     sfx_chest_open.set_volume(0.25)
-    sfx_rock_push = pygame.mixer.Sound("resources/sfx/rock_push.mp3")
+    sfx_rock_push = pygame.mixer.Sound(resource_path("resources/sounds/rock_push.mp3"))
     sfx_rock_push.set_volume(0.45)
-    sfx_find = pygame.mixer.Sound("resources/sfx/find.mp3")
+    sfx_find = pygame.mixer.Sound(resource_path("resources/sounds/find.mp3"))
     sfx_find.set_volume(0.18)
-    sfx_ladder = pygame.mixer.Sound("resources/sfx/ladder.mp3")
+    sfx_ladder = pygame.mixer.Sound(resource_path("resources/sounds/ladder.mp3"))
     sfx_ladder.set_volume(0.15)
 
-    sfx_button_click = pygame.mixer.Sound("resources/sfx/button_click.mp3")
+    sfx_button_click = pygame.mixer.Sound(resource_path("resources/sounds/button_click.mp3"))
     sfx_button_click.set_volume(0.10)
-    sfx_button_start = pygame.mixer.Sound("resources/sfx/button_start.mp3")
+    sfx_button_start = pygame.mixer.Sound(resource_path("resources/sounds/button_start.mp3"))
     sfx_button_start.set_volume(0.20)
-    sfx_button_key = pygame.mixer.Sound("resources/sfx/button_key.mp3")
+    sfx_button_key = pygame.mixer.Sound(resource_path("resources/sounds/button_key.mp3"))
     sfx_button_key.set_volume(0.20)
-    sfx_button_role = pygame.mixer.Sound("resources/sfx/button_role.mp3")
+    sfx_button_role = pygame.mixer.Sound(resource_path("resources/sounds/button_role.mp3"))
     sfx_button_role.set_volume(0.15)
-    sfx_button_inventory = pygame.mixer.Sound("resources/sfx/button_inventory.mp3")
+    sfx_button_inventory = pygame.mixer.Sound(resource_path("resources/sounds/button_inventory.mp3"))
     sfx_button_inventory.set_volume(0.15)
-    sfx_save_game = pygame.mixer.Sound("resources/sfx/save_game.mp3")
+    sfx_save_game = pygame.mixer.Sound(resource_path("resources/sounds/save_game.mp3"))
     sfx_save_game.set_volume(0.40)
-    sfx_map_teleport = pygame.mixer.Sound("resources/sfx/map_teleport.mp3")
+    sfx_map_teleport = pygame.mixer.Sound(resource_path("resources/sounds/map_teleport.mp3"))
     sfx_map_teleport.set_volume(0.25)
 
-    sfx_shop_transaction = pygame.mixer.Sound("resources/sfx/shop_transaction.mp3")
+    sfx_shop_transaction = pygame.mixer.Sound(resource_path("resources/sounds/shop_transaction.mp3"))
     sfx_shop_transaction.set_volume(0.35)
-    sfx_skill_learn = pygame.mixer.Sound("resources/sfx/skill_learn.mp3")
+    sfx_skill_learn = pygame.mixer.Sound(resource_path("resources/sounds/skill_learn.mp3"))
     sfx_skill_learn.set_volume(0.50)
-    sfx_inn_sleep = pygame.mixer.Sound("resources/sfx/inn_sleep.mp3")
-    sfx_inn_sleep.set_volume(0.25)
-    sfx_power_up = pygame.mixer.Sound("resources/sfx/power_up.mp3")
+    sfx_inn_sleep = pygame.mixer.Sound(resource_path("resources/sounds/inn_sleep.mp3"))
+    sfx_inn_sleep.set_volume(0.20)
+    sfx_power_up = pygame.mixer.Sound(resource_path("resources/sounds/power_up.mp3"))
     sfx_power_up.set_volume(0.12)
-    sfx_hatch = pygame.mixer.Sound("resources/sfx/hatch.mp3")
+    sfx_hatch = pygame.mixer.Sound(resource_path("resources/sounds/hatch.mp3"))
     sfx_hatch.set_volume(0.10)
-    sfx_pet_reward = pygame.mixer.Sound("resources/sfx/pet_reward.mp3")
+    sfx_pet_reward = pygame.mixer.Sound(resource_path("resources/sounds/pet_reward.mp3"))
     sfx_pet_reward.set_volume(0.25)
 
-    sfx_nede_bark = pygame.mixer.Sound("resources/sfx/nede_bark.mp3")
+    sfx_nede_bark = pygame.mixer.Sound(resource_path("resources/sounds/nede_bark.mp3"))
     sfx_nede_bark.set_volume(0.35)
-    sfx_cat_meow = pygame.mixer.Sound("resources/sfx/cat_meow.mp3")
+    sfx_cat_meow = pygame.mixer.Sound(resource_path("resources/sounds/cat_meow.mp3"))
     sfx_cat_meow.set_volume(0.50)
-    sfx_talking = pygame.mixer.Sound("resources/sfx/prime_jezus_talk.mp3")
+    sfx_talking = pygame.mixer.Sound(resource_path("resources/sounds/prime_jezus_talk.mp3"))
     sfx_talking.set_volume(0.15)
 
     # main loop variables ----------------------------------------------------------------------------------------------
@@ -3345,6 +3365,7 @@ if __name__ == '__main__':
     saving = False
     new_game_chosen = False
     continue_game_chosen = False
+    game_over_sound_played = False
     start_chosen = False
     amuna_race_selected = True
     nuldar_race_selected = False
@@ -5554,6 +5575,15 @@ if __name__ == '__main__':
                     pygame.mixer.Sound.stop(sfx_fighter_attack)
                     pygame.mixer.Sound.stop(sfx_scout_attack)
 
+                    pygame.mixer.Sound.stop(sfx_enemy_snake)
+                    pygame.mixer.Sound.stop(sfx_enemy_ghoul)
+                    pygame.mixer.Sound.stop(sfx_enemy_chorizon)
+                    pygame.mixer.Sound.stop(sfx_enemy_muchador)
+                    pygame.mixer.Sound.stop(sfx_enemy_bandile)
+                    pygame.mixer.Sound.stop(sfx_enemy_magmon)
+                    pygame.mixer.Sound.stop(sfx_enemy_chinzilla)
+                    pygame.mixer.Sound.stop(sfx_enemy_necrola)
+
                     # reset on each new turn
                     turn_taken = False
 
@@ -5711,6 +5741,23 @@ if __name__ == '__main__':
                                 pygame.mixer.find_channel(True).play(sfx_fighter_attack)
                             if player.role == "scout":
                                 pygame.mixer.find_channel(True).play(sfx_scout_attack)
+
+                            if current_enemy_battling.kind == "snake":
+                                pygame.mixer.find_channel(True).play(sfx_enemy_snake)
+                            if current_enemy_battling.kind == "ghoul":
+                                pygame.mixer.find_channel(True).play(sfx_enemy_ghoul)
+                            if current_enemy_battling.kind == "chorizon":
+                                pygame.mixer.find_channel(True).play(sfx_enemy_chorizon)
+                            if current_enemy_battling.kind == "muchador":
+                                pygame.mixer.find_channel(True).play(sfx_enemy_muchador)
+                            if current_enemy_battling.kind == "bandile":
+                                pygame.mixer.find_channel(True).play(sfx_enemy_bandile)
+                            if current_enemy_battling.kind == "magmon":
+                                pygame.mixer.find_channel(True).play(sfx_enemy_magmon)
+                            if current_enemy_battling.kind == "chinzilla":
+                                pygame.mixer.find_channel(True).play(sfx_enemy_chinzilla)
+                            if current_enemy_battling.kind == "necrola":
+                                pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
 
                             first_battle_cond = False
                             drawing_functions.game_guide_container.clear()
@@ -9103,6 +9150,10 @@ if __name__ == '__main__':
             # ----------------------------------------------------------------------------------------------------------
             # player has died, show game over and give continue option -------------------------------------------------
             else:
+                if not game_over_sound_played:
+                    pygame.mixer.music.stop()
+                    pygame.mixer.find_channel(True).play(sfx_game_over)
+                    game_over_sound_played = True
                 button_highlight.update(lets_go_button.x_coordinate, lets_go_button.y_coordinate,
                                         graphic_dict["lets_go_button_high"])
                 screen.blit(game_over_screen, (0, 0))
@@ -9116,6 +9167,7 @@ if __name__ == '__main__':
                     if event.type == pygame.MOUSEBUTTONUP:
                         # player chooses to continue, reset character experience and half health and energy on respawn
                         if lets_go_button.rect.collidepoint(pos):
+                            game_over_sound_played = False
                             pygame.mixer.find_channel(True).play(sfx_button_start)
                             info_text_1 = ""
                             info_text_2 = ""
