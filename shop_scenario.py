@@ -12,11 +12,11 @@ def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, health_po
 
         buy_inventory_counter = 0
         for shop_item in npc_amuna_shopkeeper.items:
-            if shop_item.name == "health potion":
+            if shop_item.name == "small health potion":
                 shop_item.update(buy_first_coord, buy_second_coord, health_pot_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
-            if shop_item.name == "energy potion":
+            if shop_item.name == "small energy potion":
                 shop_item.update(buy_first_coord, buy_second_coord, energy_pot_img)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
@@ -58,18 +58,18 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
         # ensures sell confirmation button can only be selected when confirmation window is drawn
         if len(drawing_functions.sell_info_window) > 0:
             try:
-                if current_sell_item.name == "health potion":
-                    sell_return["info 1"] = "Sold Health Potion for 5 rupees."
-                    sell_return["info 2"] = "Health Potion removed from inventory."
+                if current_sell_item.name == "small health potion":
+                    sell_return["info 1"] = "Sold Small Health Potion for 5 rupees."
+                    sell_return["info 2"] = "Small Health Potion removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
                     pygame.mixer.find_channel(True).play(sfx_sell)
                     player.rupees = player.rupees + 5
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
-                if current_sell_item.name == "energy potion":
-                    sell_return["info 1"] = "Sold Energy Potion for 5 rupees."
-                    sell_return["info 2"] = "Energy Potion removed from inventory."
+                if current_sell_item.name == "small energy potion":
+                    sell_return["info 1"] = "Sold Small Energy Potion for 5 rupees."
+                    sell_return["info 2"] = "Small Energy Potion removed from inventory."
                     player.items.remove(current_sell_item)
                     drawing_functions.player_items.remove(current_sell_item)
                     pygame.mixer.find_channel(True).play(sfx_sell)
@@ -197,19 +197,19 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
     buy_return = {"info 1": "", "info 2": "", "bought": False}
 
     if buy_choice == "yes":
-        if current_buy_item.name == "health potion":
+        if current_buy_item.name == "small health potion":
             if len(player.items) < 16:
                 if player.rupees > 9:
-                    buy_return["info 1"] = "You Bought Health Potion for 10 rupees."
-                    buy_return["info 2"] = "Health Potion added to inventory."
-                    player.items.append(Item("health potion", "potion", 200, 200, health_pot_img, 0))
+                    buy_return["info 1"] = "You Bought Small Health Potion for 10 rupees."
+                    buy_return["info 2"] = "Small Health Potion added to inventory."
+                    player.items.append(Item("small health potion", "potion", 200, 200, health_pot_img, 0))
                     player.rupees = player.rupees - 10
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
-                    buy_return["info 2"] = "Health Potion cost 10 rupees."
+                    buy_return["info 2"] = "Small Health Potion cost 10 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""
@@ -217,16 +217,16 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
         if current_buy_item.name == "energy potion":
             if len(player.items) < 16:
                 if player.rupees > 9:
-                    buy_return["info 1"] = "Bought Energy Potion for 10 rupees."
-                    buy_return["info 2"] = "Energy Potion added to inventory."
-                    player.items.append(Item("energy potion", "potion", 200, 200, energy_pot_img, 0))
+                    buy_return["info 1"] = "Bought Small Energy Potion for 10 rupees."
+                    buy_return["info 2"] = "Small Energy Potion added to inventory."
+                    player.items.append(Item("small energy potion", "potion", 200, 200, energy_pot_img, 0))
                     player.rupees = player.rupees - 10
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
-                    buy_return["info 2"] = "Energy Potion cost 10 rupees."
+                    buy_return["info 2"] = "Small Energy Potion cost 10 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""

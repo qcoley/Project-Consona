@@ -103,12 +103,17 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
         if interacted:
             if item.name == "dungeon crate 1":
                 if not crate_1:
-                    pygame.mixer.find_channel(True).play(sfx_item_rupee)
-                    info_text_1 = "You found 10 Rupees!"
-                    info_text_2 = ""
-                    player.rupees += 10
-                    crate_1 = True
-                    item.kill()
+                    if len(player.items) < 16:
+                        pygame.mixer.find_channel(True).play(sfx_item_rupee)
+                        info_text_1 = "You found a health potion!"
+                        info_text_2 = ""
+                        player.items.append(Item("small health potion", "potion", 200, 200,
+                                                 graphic_dict["health_pot_img"], 0))
+                        crate_1 = True
+                        item.kill()
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
                 else:
                     info_text_1 = "This crate is empty."
                     info_text_2 = ""
@@ -133,7 +138,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                         pygame.mixer.find_channel(True).play(sfx_item_potion)
                         info_text_1 = "You found a health potion!"
                         info_text_2 = ""
-                        player.items.append(Item("health potion", "potion", 200, 200,
+                        player.items.append(Item("small health potion", "potion", 200, 200,
                                                  graphic_dict["health_pot_img"], 0))
                         crate_3 = True
                         item.kill()
@@ -149,7 +154,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                         pygame.mixer.find_channel(True).play(sfx_item_potion)
                         info_text_1 = "You found an energy potion!"
                         info_text_2 = ""
-                        player.items.append(Item("energy potion", "potion", 200, 200,
+                        player.items.append(Item("small energy potion", "potion", 200, 200,
                                                  graphic_dict["energy_pot_img"], 0))
                         crate_4 = True
                         item.kill()

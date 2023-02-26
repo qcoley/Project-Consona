@@ -1069,6 +1069,8 @@ def load_graphics():
     loaded_dict["info_cookie_img"] = items_info_sheet[19]
     loaded_dict["info_candy_img"] = items_info_sheet[20]
     loaded_dict["info_tart_img"] = items_info_sheet[21]
+    loaded_dict["info_big_health_pot_img"] = items_info_sheet[22]
+    loaded_dict["info_big_energy_pot_img"] = items_info_sheet[23]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)

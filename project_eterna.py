@@ -2663,24 +2663,24 @@ if __name__ == '__main__':
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
         Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
         Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
-        Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+        Item("small health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
+        Item("small energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
         Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
-        Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+        Item("small health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
+        Item("small energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
     npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
         Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
         Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
-        Item("health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+        Item("small health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
+        Item("small energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
-    npc_celeste_interaction = UiElement("celeste interaction", 677, 335, graphic_dict["celeste_interaction"])
+    npc_celeste_interaction = UiElement("celeste interaction", 676, 335, graphic_dict["celeste_interaction"])
     npc_torune_interaction = UiElement("torune interaction", 670, 335, graphic_dict["torune_interaction"])
 
     npc_voruke_interaction = UiElement("voruke interaction", 678, 325, graphic_dict["voruke_interaction"])
@@ -7553,7 +7553,7 @@ if __name__ == '__main__':
                                     if player.flowers_amuna >= 5:
                                         pygame.mixer.find_channel(True).play(sfx_item_potion)
                                         player.flowers_amuna -= 5
-                                        player.items.append(Item("health potion",
+                                        player.items.append(Item("big health potion",
                                                                  "potion", 200, 200, graphic_dict["health_pot_img"], 0))
                                     else:
                                         info_text_1 = "You need 5 seldon flowers."
@@ -7562,7 +7562,7 @@ if __name__ == '__main__':
                                     if player.flowers_sorae >= 5:
                                         pygame.mixer.find_channel(True).play(sfx_item_potion)
                                         player.flowers_sorae -= 5
-                                        player.items.append(Item("energy potion",
+                                        player.items.append(Item("big energy potion",
                                                                  "potion", 200, 200, graphic_dict["energy_pot_img"], 0))
                                     else:
                                         info_text_1 = "You need 5 eldream flowers."
@@ -7578,7 +7578,7 @@ if __name__ == '__main__':
                                         info_text_1 = "You need 5 seldon + eldream flowers."
                                         info_text_2 = ""
                                 else:
-                                    info_text_1 = "Add some flowers for the potion."
+                                    info_text_1 = "Add some flowers to the potion."
                                     info_text_2 = ""
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
@@ -8332,7 +8332,7 @@ if __name__ == '__main__':
                                 player.current_quests["sneaky snakes"] = \
                                     "Garan asked you to defeat snakes near the river."
                                 if not npc_garan.gift:
-                                    player.items.append(Item("health potion",
+                                    player.items.append(Item("big health potion",
                                                              "potion", 200, 200, graphic_dict["health_pot_img"], 0))
                                     npc_garan.gift = True
                                     drawing_functions.type_advantage_window.append(role_select_overlay)

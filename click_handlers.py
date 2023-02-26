@@ -126,10 +126,16 @@ def inventory_event_item(inventory_event_here, pygame):
                            if inventory_element.rect.collidepoint(inventory_mouse)]
         # try to get inventory item player clicked based on it's name and return it
         try:
-            if clicked_element[0].name == "health potion":
+            if clicked_element[0].name == "big health potion":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
-            if clicked_element[0].name == "energy potion":
+            if clicked_element[0].name == "big energy potion":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "small health potion":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "small energy potion":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
             if clicked_element[0].name == "super potion":
@@ -210,7 +216,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                         pygame.mixer.find_channel(True).play(sfx_snack)
                         drawing_functions.player_items.remove(item)
                         player.items.remove(item)
-                        pet.energy += 25
+                        pet.energy += 50
                     if pet.energy >= 100:
                         pet.energy = 100
                         return_dict["item message"] = "Your kasper is full of energy."
@@ -221,7 +227,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                         pygame.mixer.find_channel(True).play(sfx_snack)
                         drawing_functions.player_items.remove(item)
                         player.items.remove(item)
-                        pet.energy += 25
+                        pet.energy += 50
                     if pet.energy >= 100:
                         pet.energy = 100
                         return_dict["item message"] = "Your torok is full of energy."
@@ -232,7 +238,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                         pygame.mixer.find_channel(True).play(sfx_snack)
                         drawing_functions.player_items.remove(item)
                         player.items.remove(item)
-                        pet.energy += 25
+                        pet.energy += 50
                     if pet.energy >= 100:
                         pet.energy = 100
                         return_dict["item message"] = "Your iriana is full of energy."
@@ -280,28 +286,50 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                         case True:
                             pet.active = False
 
-        if item.name == "health potion":
+        if item.name == "small health potion":
             if player.health == 100:
                 return_dict["item message"] = "You're already at full health."
             else:
                 pygame.mixer.find_channel(True).play(sfx_potion)
-                player.health = player.health + 40
+                player.health = player.health + 25
                 if player.health > 100:
                     player.health = 100
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
-                return_dict["item message"] = "The potion heals you for 40 hp."
-        if item.name == "energy potion":
+                return_dict["item message"] = "The potion heals you for 25 hp."
+        if item.name == "small energy potion":
             if player.energy == 100:
                 return_dict["item message"] = "You're already at full energy."
             else:
                 pygame.mixer.find_channel(True).play(sfx_potion)
-                player.energy = player.energy + 40
+                player.energy = player.energy + 25
                 if player.energy > 100:
                     player.energy = 100
                 drawing_functions.player_items.remove(item)
                 player.items.remove(item)
-                return_dict["item message"] = "The potion energizes you for 40 en."
+                return_dict["item message"] = "The potion energizes you for 25 en."
+        if item.name == "big health potion":
+            if player.health == 100:
+                return_dict["item message"] = "You're already at full health."
+            else:
+                pygame.mixer.find_channel(True).play(sfx_potion)
+                player.health = player.health + 50
+                if player.health > 100:
+                    player.health = 100
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "The potion heals you for 50 hp."
+        if item.name == "big energy potion":
+            if player.energy == 100:
+                return_dict["item message"] = "You're already at full energy."
+            else:
+                pygame.mixer.find_channel(True).play(sfx_potion)
+                player.energy = player.energy + 50
+                if player.energy > 100:
+                    player.energy = 100
+                drawing_functions.player_items.remove(item)
+                player.items.remove(item)
+                return_dict["item message"] = "The potion energizes you for 50 en."
         if item.name == "super potion":
             if player.health < 100 or player.energy < 100:
                 pygame.mixer.find_channel(True).play(sfx_potion)
@@ -470,10 +498,10 @@ def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item):
         clicked_element = [buy_element for buy_element in shopkeeper_items if buy_element.rect.collidepoint(buy_mouse)]
         # try to get inventory item player clicked based on it's name and return it
         try:
-            if clicked_element[0].name == "health potion":
+            if clicked_element[0].name == "small health potion":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
-            if clicked_element[0].name == "energy potion":
+            if clicked_element[0].name == "small energy potion":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "shiny rock":
@@ -514,10 +542,10 @@ def sell_event_item(sell_event, pygame, sfx_item):
                            sell_element.rect.collidepoint(sell_mouse)]
         # try to get inventory item player clicked based on it's name and return it
         try:
-            if clicked_element[0].name == "health potion":
+            if clicked_element[0].name == "small health potion":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
-            if clicked_element[0].name == "energy potion":
+            if clicked_element[0].name == "small energy potion":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "shiny rock":

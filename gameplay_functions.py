@@ -9,89 +9,91 @@ import drawing_functions
 
 def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys, sfx_swap):
 
-    if staff.rect.collidepoint(pos):
-        pygame.mixer.Sound.play(sfx_swap)
-        player.role = "mage"
-        if player.race == "amuna":
-            player.surf = graphic_dict["player_mage_amuna_down_1"]
-            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                player.surf = graphic_dict["player_mage_amuna_right_1"]
-            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                player.surf = graphic_dict["player_mage_amuna_left_1"]
-            if pressed_keys[K_w] or pressed_keys[K_UP]:
-                player.surf = graphic_dict["player_mage_amuna_up_1"]
-        if player.race == "nuldar":
-            player.surf = graphic_dict["player_mage_nuldar_down_1"]
-            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                player.surf = graphic_dict["player_mage_nuldar_right_1"]
-            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                player.surf = graphic_dict["player_mage_nuldar_left_1"]
-            if pressed_keys[K_w] or pressed_keys[K_UP]:
-                player.surf = graphic_dict["player_mage_nuldar_up_1"]
-        if player.race == "sorae":
-            player.surf = graphic_dict["player_mage_sorae_down_1"]
-            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                player.surf = graphic_dict["player_mage_sorae_right_1"]
-            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                player.surf = graphic_dict["player_mage_sorae_left_1"]
-            if pressed_keys[K_w] or pressed_keys[K_UP]:
-                player.surf = graphic_dict["player_mage_sorae_up_1"]
+    if len(drawing_functions.item_info_window) == 0 and len(drawing_functions.sell_info_window) == 0:
 
-    if sword.rect.collidepoint(pos):
-        pygame.mixer.Sound.play(sfx_swap)
-        player.role = "fighter"
-        if player.race == "amuna":
-            player.surf = graphic_dict["player_fighter_amuna_down_1"]
-            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                player.surf = graphic_dict["player_fighter_amuna_right_1"]
-            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                player.surf = graphic_dict["player_fighter_amuna_left_1"]
-            if pressed_keys[K_w] or pressed_keys[K_UP]:
-                player.surf = graphic_dict["player_fighter_amuna_up_1"]
-        if player.race == "nuldar":
-            player.surf = graphic_dict["player_fighter_nuldar_down_1"]
-            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                player.surf = graphic_dict["player_fighter_nuldar_right_1"]
-            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                player.surf = graphic_dict["player_fighter_nuldar_left_1"]
-            if pressed_keys[K_w] or pressed_keys[K_UP]:
-                player.surf = graphic_dict["player_fighter_nuldar_up_1"]
-        if player.race == "sorae":
-            player.surf = graphic_dict["player_fighter_sorae_down_1"]
-            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                player.surf = graphic_dict["player_fighter_sorae_right_1"]
-            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                player.surf = graphic_dict["player_fighter_sorae_left_1"]
-            if pressed_keys[K_w] or pressed_keys[K_UP]:
-                player.surf = graphic_dict["player_fighter_sorae_up_1"]
+        if staff.rect.collidepoint(pos):
+            pygame.mixer.Sound.play(sfx_swap)
+            player.role = "mage"
+            if player.race == "amuna":
+                player.surf = graphic_dict["player_mage_amuna_down_1"]
+                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                    player.surf = graphic_dict["player_mage_amuna_right_1"]
+                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                    player.surf = graphic_dict["player_mage_amuna_left_1"]
+                if pressed_keys[K_w] or pressed_keys[K_UP]:
+                    player.surf = graphic_dict["player_mage_amuna_up_1"]
+            if player.race == "nuldar":
+                player.surf = graphic_dict["player_mage_nuldar_down_1"]
+                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                    player.surf = graphic_dict["player_mage_nuldar_right_1"]
+                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                    player.surf = graphic_dict["player_mage_nuldar_left_1"]
+                if pressed_keys[K_w] or pressed_keys[K_UP]:
+                    player.surf = graphic_dict["player_mage_nuldar_up_1"]
+            if player.race == "sorae":
+                player.surf = graphic_dict["player_mage_sorae_down_1"]
+                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                    player.surf = graphic_dict["player_mage_sorae_right_1"]
+                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                    player.surf = graphic_dict["player_mage_sorae_left_1"]
+                if pressed_keys[K_w] or pressed_keys[K_UP]:
+                    player.surf = graphic_dict["player_mage_sorae_up_1"]
 
-    if bow.rect.collidepoint(pos):
-        pygame.mixer.Sound.play(sfx_swap)
-        player.role = "scout"
-        if player.race == "amuna":
-            player.surf = graphic_dict["player_scout_amuna_down_1"]
-            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                player.surf = graphic_dict["player_scout_amuna_right_1"]
-            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                player.surf = graphic_dict["player_scout_amuna_left_1"]
-            if pressed_keys[K_w] or pressed_keys[K_UP]:
-                player.surf = graphic_dict["player_scout_amuna_up_1"]
-        if player.race == "nuldar":
-            player.surf = graphic_dict["player_scout_nuldar_down_1"]
-            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                player.surf = graphic_dict["player_scout_nuldar_right_1"]
-            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                player.surf = graphic_dict["player_scout_nuldar_left_1"]
-            if pressed_keys[K_w] or pressed_keys[K_UP]:
-                player.surf = graphic_dict["player_scout_nuldar_up_1"]
-        if player.race == "sorae":
-            player.surf = graphic_dict["player_scout_sorae_down_1"]
-            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                player.surf = graphic_dict["player_scout_sorae_right_1"]
-            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                player.surf = graphic_dict["player_scout_sorae_left_1"]
-            if pressed_keys[K_w] or pressed_keys[K_UP]:
-                player.surf = graphic_dict["player_scout_sorae_up_1"]
+        if sword.rect.collidepoint(pos):
+            pygame.mixer.Sound.play(sfx_swap)
+            player.role = "fighter"
+            if player.race == "amuna":
+                player.surf = graphic_dict["player_fighter_amuna_down_1"]
+                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                    player.surf = graphic_dict["player_fighter_amuna_right_1"]
+                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                    player.surf = graphic_dict["player_fighter_amuna_left_1"]
+                if pressed_keys[K_w] or pressed_keys[K_UP]:
+                    player.surf = graphic_dict["player_fighter_amuna_up_1"]
+            if player.race == "nuldar":
+                player.surf = graphic_dict["player_fighter_nuldar_down_1"]
+                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                    player.surf = graphic_dict["player_fighter_nuldar_right_1"]
+                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                    player.surf = graphic_dict["player_fighter_nuldar_left_1"]
+                if pressed_keys[K_w] or pressed_keys[K_UP]:
+                    player.surf = graphic_dict["player_fighter_nuldar_up_1"]
+            if player.race == "sorae":
+                player.surf = graphic_dict["player_fighter_sorae_down_1"]
+                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                    player.surf = graphic_dict["player_fighter_sorae_right_1"]
+                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                    player.surf = graphic_dict["player_fighter_sorae_left_1"]
+                if pressed_keys[K_w] or pressed_keys[K_UP]:
+                    player.surf = graphic_dict["player_fighter_sorae_up_1"]
+
+        if bow.rect.collidepoint(pos):
+            pygame.mixer.Sound.play(sfx_swap)
+            player.role = "scout"
+            if player.race == "amuna":
+                player.surf = graphic_dict["player_scout_amuna_down_1"]
+                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                    player.surf = graphic_dict["player_scout_amuna_right_1"]
+                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                    player.surf = graphic_dict["player_scout_amuna_left_1"]
+                if pressed_keys[K_w] or pressed_keys[K_UP]:
+                    player.surf = graphic_dict["player_scout_amuna_up_1"]
+            if player.race == "nuldar":
+                player.surf = graphic_dict["player_scout_nuldar_down_1"]
+                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                    player.surf = graphic_dict["player_scout_nuldar_right_1"]
+                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                    player.surf = graphic_dict["player_scout_nuldar_left_1"]
+                if pressed_keys[K_w] or pressed_keys[K_UP]:
+                    player.surf = graphic_dict["player_scout_nuldar_up_1"]
+            if player.race == "sorae":
+                player.surf = graphic_dict["player_scout_sorae_down_1"]
+                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                    player.surf = graphic_dict["player_scout_sorae_right_1"]
+                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                    player.surf = graphic_dict["player_scout_sorae_left_1"]
+                if pressed_keys[K_w] or pressed_keys[K_UP]:
+                    player.surf = graphic_dict["player_scout_sorae_up_1"]
 
 
 # quest stars for npcs that update based on player quest progress
@@ -220,10 +222,14 @@ def load_game(player, Item, graphics, Pet):
             # clear default starting items and load personal player items from save file
             player.items.clear()
             for item in player_load_info["inventory"]:
-                if item == "health potion":
-                    player.items.append(Item("health potion", "potion", 200, 200, graphics["health_pot_img"], 0))
-                if item == "energy potion":
-                    player.items.append(Item("energy potion", "potion", 200, 200, graphics["energy_pot_img"], 0))
+                if item == "small health potion":
+                    player.items.append(Item("small health potion", "potion", 200, 200, graphics["health_pot_img"], 0))
+                if item == "small energy potion":
+                    player.items.append(Item("small energy potion", "potion", 200, 200, graphics["energy_pot_img"], 0))
+                if item == "big health potion":
+                    player.items.append(Item("big health potion", "potion", 200, 200, graphics["health_pot_img"], 0))
+                if item == "big energy potion":
+                    player.items.append(Item("big energy potion", "potion", 200, 200, graphics["energy_pot_img"], 0))
                 if item == "super potion":
                     player.items.append(Item("super potion", "potion", 200, 200, graphics["super_pot_img"], 0))
                 if item == "pet cookie":
@@ -503,7 +509,6 @@ def creature_update(player, seed_scout_count, seed_fighter_count, seed_mage_coun
 def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter, offense_meter, defense_meter,
                                graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
                                chroma_boots):
-
     # update players status bars
     hp_bar.update(hp_bar.x_coordinate, hp_bar.y_coordinate, health_bar_update(player, graphics))
     en_bar.update(en_bar.x_coordinate, en_bar.y_coordinate, energy_bar_update(player, graphics))
@@ -548,7 +553,6 @@ def player_info_and_ui_updates(player, hp_bar, en_bar, xp_bar, star_power_meter,
 
 # player attacks enemy, gets damage to enemy done based on player's role and offense
 def attack_enemy(player, mob, sharp_sense_active):
-
     level_difference = mob.level - player.level
 
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False,
@@ -638,7 +642,7 @@ def attack_enemy(player, mob, sharp_sense_active):
         if pet.active:
             if pet.energy > 0:
                 # pet uses energy to do damage
-                pet.energy -= 2
+                pet.energy -= 1
                 if pet.energy < 0:
                     pet.energy = 0
 
@@ -680,7 +684,6 @@ def attack_enemy(player, mob, sharp_sense_active):
 
 # enemy attacks player, gets damage to player done, subtract players defense level
 def attack_player(player, mob, barrier_active):
-
     level_difference = mob.level - player.level
 
     attack_dict = {"damage": 0, "effective": False, "non effective": False, "critical": False}
@@ -781,7 +784,6 @@ def level_up(player, level_up_win, level_up_font):
 def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
                   interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers,
                   eldream_flowers, interactables_eldream, ectrenos_front_enemies):
-
     if player.current_zone == "seldon":
         snake_counter = 0
         ghoul_counter = 0
@@ -920,7 +922,8 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
     respawn_dict = {"seldon_enemies": seldon_enemies, "snakes": snakes, "ghouls": ghouls,
                     "interactables_seldon": interactables_seldon, "interactables_korlok": interactables_korlok,
                     "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles, "seldon_flowers":
-                    seldon_flowers, "eldream_flowers": eldream_flowers, "interactables_eldream": interactables_eldream,
+                        seldon_flowers, "eldream_flowers": eldream_flowers,
+                    "interactables_eldream": interactables_eldream,
                     "ectrenos_front_enemies": ectrenos_front_enemies}
 
     return respawn_dict
