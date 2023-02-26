@@ -780,6 +780,11 @@ def load_graphics():
     loaded_dict["pet_damage_img"] = damage_overlays_sheet[8]
     loaded_dict["effective_pet_damage_img"] = damage_overlays_sheet[9]
     loaded_dict["non_effective_pet_damage_img"] = damage_overlays_sheet[10]
+    # worker 1 npc -----------------------------------------------------------------------------------------------------
+    worker_1_url = resource_path('resources/art/sprites_worker_1.png')
+    worker_1_sheet = sprite_sheet((50, 60), worker_1_url)
+    loaded_dict["worker_1_a"] = worker_1_sheet[0]
+    loaded_dict["worker_1_b"] = worker_1_sheet[1]
     # garan npc --------------------------------------------------------------------------------------------------------
     garan_url = resource_path('resources/art/sprites_garans.png')
     garan_sheet = sprite_sheet((40, 62), garan_url)
@@ -1269,6 +1274,11 @@ def load_graphics():
     quest_logs_sheet = sprite_sheet((40, 50), quest_logs_url)
     loaded_dict["pine_logs_img"] = quest_logs_sheet[0]
     loaded_dict["pine_logs_high_img"] = quest_logs_sheet[1]
+    # quest pine logs pile----------------------------------------------------------------------------------------------
+    quest_logs_pile_url = resource_path('resources/art/sprite_logs_pile.png')
+    quest_logs_pile_sheet = sprite_sheet((50, 50), quest_logs_pile_url)
+    loaded_dict["pine_logs_pile_img"] = quest_logs_pile_sheet[0]
+    loaded_dict["pine_logs_piled_img"] = quest_logs_pile_sheet[1]
     # quest supplies --------------------------------------------------------------------------------------------------
     quest_supplies_url = resource_path('resources/art/sprites_supplies.png')
     quest_supplies_sheet = sprite_sheet((50, 50), quest_supplies_url)

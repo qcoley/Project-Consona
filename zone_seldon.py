@@ -28,7 +28,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     offense_meter, defense_meter, weapon_select, player_cutscene, player_cutscene_2, beyond_seldon,
                     flowers, eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, tree_top_1, tree_top_2, tree_top_3, building_top_1,
-                    building_top_2, building_top_3, sfx_item_pickup, sfx_flower, sfx_door):
+                    building_top_2, building_top_3, sfx_item_pickup, sfx_flower, sfx_door, worker_1, worker_tic,
+                    worker_positions, worker_move_tic, log_pile):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -55,6 +56,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     flowers = respawned_dict["seldon_flowers"]
     interactables_seldon = respawned_dict["interactables_seldon"]
 
+    screen.blit(log_pile.surf, log_pile.rect)
+
     for entity in most_sprites:
         screen.blit(entity.surf, entity.rect)
 
@@ -75,6 +78,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
 
     # condition to check if sprites have been reverted to original img after quest complete
     if player.quest_complete["village repairs"]:
+        if log_pile.level == 0:
+            log_pile.update_level(log_pile.name, 1, graphic_dict["pine_logs_piled_img"])
         log_sprite_reset = True
 
     for enemy_sprite in seldon_enemies:  # update enemy sprite to a highlighted version
@@ -116,6 +121,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
         screen.blit(quest_star_maurelle.surf, quest_star_maurelle.rect)
     if not player.quest_complete["ghouled again"]:
         screen.blit(quest_star_torune.surf, quest_star_torune.rect)
+
+    screen.blit(worker_1.surf, worker_1.rect)
 
     try:
         for pet in player.pet:
@@ -425,6 +432,25 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             move_snake.update_position([100, 300], [200, 300], direction_horizontal, direction_vertical)
             move_ghoul.update_position([700, 900], [200, 300], direction_horizontal, direction_vertical)
 
+    # worker animation updates
+    if movement_able and in_over_world:
+        worker_toc = time.perf_counter()
+        if worker_toc - worker_tic > 0.75:
+            worker_tic = time.perf_counter()
+            match worker_1.gift:
+                case True:
+                    worker_1.gift = False
+                    worker_1.update(graphic_dict["worker_1_a"])
+                case False:
+                    worker_1.gift = True
+                    worker_1.update(graphic_dict["worker_1_b"])
+
+        worker_move_toc = time.perf_counter()
+        if worker_move_toc - worker_move_tic > 20:
+            worker_move_tic = time.perf_counter()
+            worker_position = random.choice(worker_positions)
+            worker_1.update_position(worker_position[0], worker_position[1])
+
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
     face_this_npc = random.choice(npcs.sprites())
@@ -484,6 +510,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                      "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                      "in_battle": in_battle, "in_shop": in_shop, "in_academia": in_academia, "in_inn": in_inn,
                      "in_npc_interaction": in_npc_interaction, "movement_able": movement_able,
-                     "beyond_seldon": beyond_seldon}
+                     "beyond_seldon": beyond_seldon, "worker_tic": worker_tic, "worker_move_tic": worker_move_tic}
 
     return seldon_return

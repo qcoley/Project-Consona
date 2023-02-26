@@ -2441,7 +2441,7 @@ class Item(pygame.sprite.Sprite):
     def update_level(self, name, level, image):
         self.name = name
         self.level = level
-        self.image = image
+        self.surf = image
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -2659,6 +2659,9 @@ if __name__ == '__main__':
 
     npc_prime = NPC("prime", "nuldar", "", "", "", 130, 525, True, False, ["Items"], False, graphic_dict["prime"])
     npc_jez = NPC("jez", "nuldar", "", "", "", 265, 525, True, False, ["Items"], False, graphic_dict["jez"])
+
+    npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
+                       graphic_dict["worker_1_a"])
 
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
         Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
@@ -2896,6 +2899,7 @@ if __name__ == '__main__':
     quest_logs_2 = Item("pine logs", "quest", 315, 560, graphic_dict["pine_logs_img"], 0)
     quest_logs_3 = Item("pine logs", "quest", 415, 435, graphic_dict["pine_logs_img"], 0)
     quest_logs_4 = Item("pine logs", "quest", 100, 540, graphic_dict["pine_logs_img"], 0)
+    quest_logs_pile = Item("pine log pile", "quest", 725, 600, graphic_dict["pine_logs_pile_img"], 0)
     quest_supplies_1 = Item("quest supplies", "quest", 625, 48, graphic_dict["quest_supplies"], 0)
     quest_supplies_2 = Item("quest supplies", "quest", 715, 48, graphic_dict["quest_supplies"], 0)
     quest_supplies_3 = Item("quest supplies", "quest", 188, 232, graphic_dict["quest_supplies"], 0)
@@ -3514,6 +3518,9 @@ if __name__ == '__main__':
     apothecary_window_open = False
     menagerie_window_open = False
 
+    # worker position for updates on map
+    worker_positions = [[618, 428], [895, 475], [655, 638]]
+
     # apothecary flower counters
     seldon_flower_counter = 0
     eldream_flower_counter = 0
@@ -3554,6 +3561,8 @@ if __name__ == '__main__':
 
     clock = pygame.time.Clock()
     enemy_tic = time.perf_counter()
+    worker_tic = time.perf_counter()
+    worker_move_tic = time.perf_counter()
     npc_tic = time.perf_counter()
     walk_tic = time.perf_counter()
     loot_level_tic = time.perf_counter()
@@ -4712,7 +4721,9 @@ if __name__ == '__main__':
                                                                   pine_tree_2_top, pine_tree_3_top,
                                                                   amuna_building_top_1, amuna_building_top_2,
                                                                   amuna_building_top_3, sfx_item_pickup,
-                                                                  sfx_item_flower, sfx_door_open)
+                                                                  sfx_item_flower, sfx_door_open, npc_worker_1,
+                                                                  worker_tic, worker_positions, worker_move_tic,
+                                                                  quest_logs_pile)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -4733,6 +4744,8 @@ if __name__ == '__main__':
                     quest_guide_shown = seldon_returned["quest_guide_shown"]
                     enemy_tic = seldon_returned["enemy_tic"]
                     npc_tic = seldon_returned["npc_tic"]
+                    worker_tic = seldon_returned["worker_tic"]
+                    worker_move_tic = seldon_returned["worker_move_tic"]
                     info_text_1 = seldon_returned["info_text_1"]
                     info_text_2 = seldon_returned["info_text_2"]
                     info_text_3 = seldon_returned["info_text_3"]
