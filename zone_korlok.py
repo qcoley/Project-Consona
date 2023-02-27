@@ -98,7 +98,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         worker.y_coordinate += 1
 
     screen.blit(worker.surf, worker.rect)
-    print(worker.y_coordinate)
     # ------------------------------------------------------------------------------------------------------------------
 
     if not player.quest_complete["band hammer"]:
