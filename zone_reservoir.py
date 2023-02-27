@@ -104,7 +104,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
             if item.name == "dungeon crate 1":
                 if not crate_1:
                     if len(player.items) < 16:
-                        pygame.mixer.find_channel(True).play(sfx_item_rupee)
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
                         info_text_1 = "You found a health potion!"
                         info_text_2 = ""
                         player.items.append(Item("small health potion", "potion", 200, 200,

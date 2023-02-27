@@ -2662,6 +2662,8 @@ if __name__ == '__main__':
 
     npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
                        graphic_dict["worker_1_a"])
+    npc_worker_2 = NPC("worker", "nuldar", "", "", "", 490, 375, True, False, ["Items"], False,
+                       graphic_dict["worker_2_full"])
 
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
         Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
@@ -4808,7 +4810,7 @@ if __name__ == '__main__':
                                                                   necrola_battle_sprite, osodark_battle_sprite,
                                                                   sfx_item_rupee, sfx_map_teleport, sfx_door_open,
                                                                   nuldar_building_top_1, nuldar_building_top_2,
-                                                                  nuldar_building_top_3)
+                                                                  nuldar_building_top_3, npc_worker_2, worker_tic)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -4826,6 +4828,7 @@ if __name__ == '__main__':
                     current_npc_interacting = korlok_returned["current_npc_interacting"]
                     enemy_tic = korlok_returned["enemy_tic"]
                     npc_tic = korlok_returned["npc_tic"]
+                    worker_tic = korlok_returned["worker_tic"]
                     info_text_1 = korlok_returned["info_text_1"]
                     info_text_2 = korlok_returned["info_text_2"]
                     info_text_3 = korlok_returned["info_text_3"]

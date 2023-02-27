@@ -785,6 +785,13 @@ def load_graphics():
     worker_1_sheet = sprite_sheet((50, 60), worker_1_url)
     loaded_dict["worker_1_a"] = worker_1_sheet[0]
     loaded_dict["worker_1_b"] = worker_1_sheet[1]
+    # worker 2 npc -----------------------------------------------------------------------------------------------------
+    worker_2_url = resource_path('resources/art/sprites_worker_2.png')
+    worker_2_sheet = sprite_sheet((50, 60), worker_2_url)
+    loaded_dict["worker_2_full"] = worker_2_sheet[0]
+    loaded_dict["worker_2_empty"] = worker_2_sheet[1]
+    loaded_dict["worker_2_back_a"] = worker_2_sheet[2]
+    loaded_dict["worker_2_back_b"] = worker_2_sheet[3]
     # garan npc --------------------------------------------------------------------------------------------------------
     garan_url = resource_path('resources/art/sprites_garans.png')
     garan_sheet = sprite_sheet((40, 62), garan_url)
