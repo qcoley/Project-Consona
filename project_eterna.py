@@ -2662,7 +2662,7 @@ if __name__ == '__main__':
 
     npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
                        graphic_dict["worker_1_a"])
-    npc_worker_2 = NPC("worker", "nuldar", "", "", "", 490, 375, True, False, ["Items"], False,
+    npc_worker_2 = NPC("worker", "nuldar", "", "", "", 485, 400, True, False, ["Items"], False,
                        graphic_dict["worker_2_full"])
 
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [

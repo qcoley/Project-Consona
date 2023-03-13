@@ -68,14 +68,14 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(magmon.surf, magmon.rect)
 
     # ------------------------------------------------------------------------------------------------------------------
-    if 374 < worker.y_coordinate < 600:
+    if 399 < worker.y_coordinate < 600:
         if not worker.gift:
             worker.y_coordinate += 0.5
         if worker.gift:
             worker.y_coordinate -= 0.5
 
             worker_toc = time.perf_counter()
-            if worker_toc - worker_tic > 0.75:
+            if worker_toc - worker_tic > 0.50:
                 worker_tic = time.perf_counter()
                 match worker.quest_complete:
                     case True:
@@ -92,7 +92,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         worker.update(graphic_dict["worker_2_back_a"])
         worker.y_coordinate -= 1
 
-    if worker.y_coordinate == 374:
+    if worker.y_coordinate == 399:
         worker.gift = False
         worker.update(graphic_dict["worker_2_full"])
         worker.y_coordinate += 1
