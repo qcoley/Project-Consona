@@ -2573,10 +2573,14 @@ if __name__ == '__main__':
     # equipment items
     power_gloves = Item("power gloves", "gloves", 1153, 197, graphic_dict["gloves"], 0)
     chroma_boots = Item("chroma boots", "boots", 1200, 197, graphic_dict["gloves"], 0)
+
     # character selection
-    amuna_character = UiElement("amuna character", 640, 360, graphic_dict["amuna_character_img"])
-    nuldar_character = UiElement("nuldar character", 640, 360, graphic_dict["nuldar_character_img"])
-    sorae_character = UiElement("sorae character", 640, 360, graphic_dict["sorae_character_img"])
+    amuna_male_character = UiElement("amuna character", 640, 360, graphic_dict["amuna_male_character_img"])
+    amuna_female_character = UiElement("amuna character", 640, 360, graphic_dict["amuna_female_character_img"])
+    nuldar_male_character = UiElement("nuldar character", 640, 360, graphic_dict["nuldar_male_character_img"])
+    nuldar_female_character = UiElement("nuldar character", 640, 360, graphic_dict["nuldar_female_character_img"])
+    sorae_a_character = UiElement("sorae character", 640, 360, graphic_dict["sorae_a_character_img"])
+    sorae_b_character = UiElement("sorae character", 640, 360, graphic_dict["sorae_b_character_img"])
 
     # default player
     player = PlayerAmuna("stan", "amuna", "",  # name, race, role
@@ -2687,11 +2691,9 @@ if __name__ == '__main__':
     npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
     npc_celeste_interaction = UiElement("celeste interaction", 676, 335, graphic_dict["celeste_interaction"])
     npc_torune_interaction = UiElement("torune interaction", 670, 335, graphic_dict["torune_interaction"])
-
     npc_voruke_interaction = UiElement("voruke interaction", 678, 325, graphic_dict["voruke_interaction"])
     npc_zerah_interaction = UiElement("zerah interaction", 678, 330, graphic_dict["zerah_interaction"])
     npc_dionte_interaction = UiElement("dionte interaction", 678, 350, graphic_dict["dionte_interaction"])
-
     npc_omoku_interaction = UiElement("omoku interaction", 610, 352, graphic_dict["omoku_interaction"])
     npc_leyre_interaction = UiElement("leyre interaction", 678, 350, graphic_dict["leyre_interaction"])
     npc_everett_interaction = UiElement("everett interaction", 678, 325, graphic_dict["everett_interaction"])
@@ -2839,9 +2841,18 @@ if __name__ == '__main__':
     quests_button = UiElement("quests button", 970, 680, graphic_dict["journal_button_img"])
     new_game_button = UiElement("new game button", 640, 342, graphic_dict["new_game_img"])
     continue_button = UiElement("continue button", 640, 425, graphic_dict["continue_img"])
-    amuna_button = UiElement("amuna button", 100, 255, graphic_dict["amuna_button_img"])
-    nuldar_button = UiElement("nuldar button", 99, 350, graphic_dict["nuldar_button_img"])
-    sorae_button = UiElement("sorae button", 98, 445, graphic_dict["sorae_button_img"])
+
+    amuna_button = UiElement("amuna button", 70, 255, graphic_dict["amuna_button_img"])
+    nuldar_button = UiElement("nuldar button", 70, 350, graphic_dict["nuldar_button_img"])
+    sorae_button = UiElement("sorae button", 68, 445, graphic_dict["sorae_button_img"])
+
+    amuna_male_button = UiElement("amuna male button", 178, 255, graphic_dict["male_button_img"])
+    amuna_female_button = UiElement("amuna female button", 252, 255, graphic_dict["female_button_img"])
+    nuldar_male_button = UiElement("nuldar male button", 178, 350, graphic_dict["male_button_img"])
+    nuldar_female_button = UiElement("nuldar female button", 252, 350, graphic_dict["female_button_img"])
+    sorae_alpha_button = UiElement("sorae a button", 179, 445, graphic_dict["alpha_button_img"])
+    sorae_beta_button = UiElement("sorae b button", 253, 445, graphic_dict["beta_button_img"])
+
     start_button = UiElement("start button", 640, 660, graphic_dict["start_button"])
     lets_go_button = UiElement("lets go button", 625, 575, graphic_dict["lets_go_button"])
     buy_button = UiElement("buy button", 860, 680, graphic_dict["buy_button_img"])
@@ -3553,6 +3564,7 @@ if __name__ == '__main__':
     current_buy_item = ''
     current_sell_item = ''
     current_info_item = ''
+    gender_choice = 'male'
 
     # default objects for event loops, updated when player interacts with new object
     current_enemy_battling = snake_1
@@ -3674,6 +3686,30 @@ if __name__ == '__main__':
                         amuna_race_selected = False
                         nuldar_race_selected = False
                         sorae_race_selected = True
+
+                    # player gender selection for amuna and nuldar, type for sorae
+                    if amuna_race_selected:
+                        if amuna_male_button.rect.collidepoint(pos):
+                            pygame.mixer.find_channel(True).play(sfx_button_click)
+                            gender_choice = "male"
+                        if amuna_female_button.rect.collidepoint(pos):
+                            pygame.mixer.find_channel(True).play(sfx_button_click)
+                            gender_choice = "female"
+                    if nuldar_race_selected:
+                        if nuldar_male_button.rect.collidepoint(pos):
+                            pygame.mixer.find_channel(True).play(sfx_button_click)
+                            gender_choice = "male"
+                        if nuldar_female_button.rect.collidepoint(pos):
+                            pygame.mixer.find_channel(True).play(sfx_button_click)
+                            gender_choice = "female"
+                    if sorae_race_selected:
+                        if sorae_alpha_button.rect.collidepoint(pos):
+                            pygame.mixer.find_channel(True).play(sfx_button_click)
+                            gender_choice = "male"
+                        if sorae_beta_button.rect.collidepoint(pos):
+                            pygame.mixer.find_channel(True).play(sfx_button_click)
+                            gender_choice = "female"
+
 
                     # noinspection PyUnboundLocalVariable
                     if start_button.rect.collidepoint(pos) or entered:
@@ -3803,39 +3839,51 @@ if __name__ == '__main__':
 
             # amuna race selected on character selection screen --------------------------------------------------------
             if amuna_race_selected:
-                character_creation.character_screen_draw(screen, "amuna", amuna_character_screen,
+                character_creation.character_screen_draw(screen, "amuna", gender_choice, amuna_character_screen,
                                                          nuldar_character_screen, sorae_character_screen,
                                                          character_select_overlay, amuna_select_overlay,
-                                                         amuna_character, nuldar_select_overlay, nuldar_character,
-                                                         sorae_select_overlay, sorae_character, amuna_button,
+                                                         amuna_male_character, amuna_female_character,
+                                                         nuldar_select_overlay, nuldar_male_character,
+                                                         nuldar_female_character, sorae_select_overlay,
+                                                         sorae_a_character, sorae_b_character, amuna_button,
                                                          nuldar_button, sorae_button, start_button, back_button,
-                                                         name_input, name_input_font, character_name_input, pygame)
+                                                         name_input, name_input_font, character_name_input,
+                                                         amuna_male_button, amuna_female_button, nuldar_male_button,
+                                                         nuldar_female_button, sorae_alpha_button, sorae_beta_button)
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
                 pygame.display.flip()
 
             # nuldar race selected on character selection screen -------------------------------------------------------
             if nuldar_race_selected:
-                character_creation.character_screen_draw(screen, "nuldar", amuna_character_screen,
+                character_creation.character_screen_draw(screen, "nuldar", gender_choice, amuna_character_screen,
                                                          nuldar_character_screen, sorae_character_screen,
                                                          character_select_overlay, amuna_select_overlay,
-                                                         amuna_character, nuldar_select_overlay, nuldar_character,
-                                                         sorae_select_overlay, sorae_character, amuna_button,
+                                                         amuna_male_character, amuna_female_character,
+                                                         nuldar_select_overlay, nuldar_male_character,
+                                                         nuldar_female_character, sorae_select_overlay,
+                                                         sorae_a_character, sorae_b_character, amuna_button,
                                                          nuldar_button, sorae_button, start_button, back_button,
-                                                         name_input, name_input_font, character_name_input, pygame)
+                                                         name_input, name_input_font, character_name_input,
+                                                         amuna_male_button, amuna_female_button, nuldar_male_button,
+                                                         nuldar_female_button, sorae_alpha_button, sorae_beta_button)
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
                 pygame.display.flip()
 
             # sorae race selected on character selection screen --------------------------------------------------------
             if sorae_race_selected:
-                character_creation.character_screen_draw(screen, "sorae", amuna_character_screen,
+                character_creation.character_screen_draw(screen, "sorae", gender_choice, amuna_character_screen,
                                                          nuldar_character_screen, sorae_character_screen,
                                                          character_select_overlay, amuna_select_overlay,
-                                                         amuna_character, nuldar_select_overlay, nuldar_character,
-                                                         sorae_select_overlay, sorae_character, amuna_button,
+                                                         amuna_male_character, amuna_female_character,
+                                                         nuldar_select_overlay, nuldar_male_character,
+                                                         nuldar_female_character, sorae_select_overlay,
+                                                         sorae_a_character, sorae_b_character, amuna_button,
                                                          nuldar_button, sorae_button, start_button, back_button,
-                                                         name_input, name_input_font, character_name_input, pygame)
+                                                         name_input, name_input_font, character_name_input,
+                                                         amuna_male_button, amuna_female_button, nuldar_male_button,
+                                                         nuldar_female_button, sorae_alpha_button, sorae_beta_button)
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
                 pygame.display.flip()

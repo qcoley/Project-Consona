@@ -311,9 +311,12 @@ def load_graphics():
     # create character screen character race selections ----------------------------------------------------------------
     character_selections_url = resource_path('resources/art/overlay_character_selections.png')
     character_selections_sheet = sprite_sheet((250, 350), character_selections_url)
-    loaded_dict["amuna_character_img"] = character_selections_sheet[0]
-    loaded_dict["nuldar_character_img"] = character_selections_sheet[1]
-    loaded_dict["sorae_character_img"] = character_selections_sheet[2]
+    loaded_dict["amuna_male_character_img"] = character_selections_sheet[0]
+    loaded_dict["amuna_female_character_img"] = character_selections_sheet[1]
+    loaded_dict["nuldar_male_character_img"] = character_selections_sheet[2]
+    loaded_dict["nuldar_female_character_img"] = character_selections_sheet[3]
+    loaded_dict["sorae_a_character_img"] = character_selections_sheet[4]
+    loaded_dict["sorae_b_character_img"] = character_selections_sheet[5]
     # player character cutscene overlays -------------------------------------------------------------------------------
     player_cutscene_url = resource_path('resources/art/overlay_player_cutscene.png')
     player_cutscene_sheet = sprite_sheet((90, 160), player_cutscene_url)
@@ -1151,10 +1154,17 @@ def load_graphics():
     loaded_dict["begin high"] = start_buttons_high_sheet[2]
     # race select buttons on character screen --------------------------------------------------------------------------
     race_select_buttons_url = resource_path('resources/art/buttons_race_select.png')
-    race_select_buttons_sheet = sprite_sheet((384, 75), race_select_buttons_url)
+    race_select_buttons_sheet = sprite_sheet((150, 75), race_select_buttons_url)
     loaded_dict["amuna_button_img"] = race_select_buttons_sheet[0]
     loaded_dict["nuldar_button_img"] = race_select_buttons_sheet[1]
     loaded_dict["sorae_button_img"] = race_select_buttons_sheet[2]
+    # gender select buttons on character screen ------------------------------------------------------------------------
+    gender_select_buttons_url = resource_path('resources/art/buttons_gender_select.png')
+    gender_select_buttons_sheet = sprite_sheet((75, 75), gender_select_buttons_url)
+    loaded_dict["male_button_img"] = gender_select_buttons_sheet[0]
+    loaded_dict["female_button_img"] = gender_select_buttons_sheet[1]
+    loaded_dict["alpha_button_img"] = gender_select_buttons_sheet[2]
+    loaded_dict["beta_button_img"] = gender_select_buttons_sheet[3]
     # race select buttons on character screen --------------------------------------------------------------------------
     role_select_buttons_high_url = resource_path('resources/art/buttons_misc_high.png')
     role_select_buttons_high_sheet = sprite_sheet((200, 42), role_select_buttons_high_url)

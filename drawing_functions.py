@@ -1122,18 +1122,15 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                         graphic_dict["main high"])
                 return True
             if amuna_button.rect.collidepoint(pos):
-                button_highlight.update(amuna_button.x_coordinate - 6,
-                                        amuna_button.y_coordinate,
+                button_highlight.update(140, amuna_button.y_coordinate,
                                         graphic_dict["race high"])
                 return True
             if nuldar_button.rect.collidepoint(pos):
-                button_highlight.update(nuldar_button.x_coordinate - 5,
-                                        nuldar_button.y_coordinate,
+                button_highlight.update(140, nuldar_button.y_coordinate,
                                         graphic_dict["race high"])
                 return True
             if sorae_button.rect.collidepoint(pos):
-                button_highlight.update(sorae_button.x_coordinate - 4,
-                                        sorae_button.y_coordinate,
+                button_highlight.update(140, sorae_button.y_coordinate,
                                         graphic_dict["race high"])
                 return True
 
