@@ -22,9 +22,7 @@ import zone_terra_trail
 import zone_eldream
 import zone_ectrenos
 
-# global variables
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 720
+# global variable
 velocity = 3
 
 
@@ -52,17 +50,18 @@ class Pet(pygame.sprite.Sprite):
 
 
 class PlayerAmuna(pygame.sprite.Sprite):
-    def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
+    def __init__(self, name, race, gender, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
                  flowers_sorae, pets):
         super(PlayerAmuna, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
-        self.surf = graphic_dict["player_no_role_amuna_down_1"]
+        self.surf = graphic_dict["player_no_role_amuna_male_down_1"]
         self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
         self.name = name
         self.race = race
+        self.gender = gender
         self.role = role
         self.items = items
         self.equipment = p_equipment
@@ -91,189 +90,191 @@ class PlayerAmuna(pygame.sprite.Sprite):
 
     # move the player sprite based on input keys
     def update(self, pressed_key, current_zone, walk_timed):
-        if player.role == "":  # ---------------------------------------------------------------------------------------
 
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_amuna_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_amuna_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_amuna_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_amuna_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_amuna_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_amuna_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_amuna_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_amuna_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_amuna_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_amuna_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_amuna_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_amuna_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_amuna_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_amuna_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_amuna_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_amuna_right_4"]
-                self.x_coordinate += velocity
-        if player.role == "mage":  # -----------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_amuna_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_amuna_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_amuna_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_amuna_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_amuna_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_amuna_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_amuna_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_amuna_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_amuna_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_amuna_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_amuna_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_amuna_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_amuna_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_amuna_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_amuna_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_amuna_right_4"]
-                self.x_coordinate += velocity
-        if player.role == "fighter":  # --------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_amuna_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_amuna_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_amuna_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_amuna_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_amuna_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_amuna_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_amuna_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_amuna_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_amuna_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_amuna_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_amuna_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_amuna_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_amuna_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_amuna_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_amuna_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_amuna_right_4"]
-                self.x_coordinate += velocity
-        if player.role == "scout":  # ----------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_amuna_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_amuna_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_amuna_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_amuna_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_amuna_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_amuna_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_amuna_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_amuna_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_amuna_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_amuna_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_amuna_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_amuna_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_amuna_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_amuna_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_amuna_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_amuna_right_4"]
-                self.x_coordinate += velocity
+        if player.gender == "male":
+            if player.role == "":
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_male_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_male_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_amuna_male_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_amuna_male_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_male_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_male_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_amuna_male_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_amuna_male_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_male_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_male_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_amuna_male_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_amuna_male_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_male_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_male_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_amuna_male_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_amuna_male_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "mage":  # -------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_male_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_male_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_amuna_male_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_amuna_male_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_male_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_male_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_amuna_male_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_amuna_male_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_male_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_male_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_amuna_male_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_amuna_male_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_male_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_male_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_amuna_male_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_amuna_male_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "fighter":  # ----------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_male_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_male_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_amuna_male_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_amuna_male_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_male_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_male_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_amuna_male_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_amuna_male_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_male_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_male_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_amuna_male_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_amuna_male_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_male_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_male_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_amuna_male_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_amuna_male_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "scout":  # ------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_male_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_male_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_amuna_male_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_amuna_male_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_male_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_male_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_amuna_male_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_amuna_male_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_male_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_male_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_amuna_male_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_amuna_male_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_male_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_male_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_amuna_male_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_amuna_male_right_4"]
+                    self.x_coordinate += velocity
+
         if current_zone == "rohir":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
-            elif self.x_coordinate > SCREEN_WIDTH - 350:
-                self.x_coordinate = SCREEN_WIDTH - 350
+            elif self.x_coordinate > 930:
+                self.x_coordinate = 930
             if self.y_coordinate <= 145:
                 self.y_coordinate = 145
-            elif self.y_coordinate >= SCREEN_HEIGHT - 145:
-                self.y_coordinate = SCREEN_HEIGHT - 145
+            elif self.y_coordinate >= 575:
+                self.y_coordinate = 575
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
-            elif self.x_coordinate > SCREEN_WIDTH - 325:
-                self.x_coordinate = SCREEN_WIDTH - 325
+            elif self.x_coordinate > 955:
+                self.x_coordinate = 955
             if self.y_coordinate <= 60:
                 self.y_coordinate = 60
-            elif self.y_coordinate >= SCREEN_HEIGHT - 50:
-                self.y_coordinate = SCREEN_HEIGHT - 50
+            elif self.y_coordinate >= 670:
+                self.y_coordinate = 670
             elif 315 >= self.y_coordinate >= 300:
                 self.y_coordinate = 315
             elif 300 >= self.y_coordinate >= 230:
@@ -281,8 +282,8 @@ class PlayerAmuna(pygame.sprite.Sprite):
         if current_zone == "reservoir a":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
-            elif self.x_coordinate > SCREEN_WIDTH - 300:
-                self.x_coordinate = SCREEN_WIDTH - 300
+            elif self.x_coordinate > 980:
+                self.x_coordinate = 980
             elif self.x_coordinate < 365:
                 if self.y_coordinate > 350:
                     if self.x_coordinate > 360:
@@ -304,37 +305,37 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if self.y_coordinate <= 125:
                 self.y_coordinate = 125
             elif self.x_coordinate < 360 or self.x_coordinate > 725:
-                if self.y_coordinate >= SCREEN_HEIGHT - 200:
-                    self.y_coordinate = SCREEN_HEIGHT - 200
+                if self.y_coordinate >= 520:
+                    self.y_coordinate = 520
             elif self.x_coordinate > 300 or self.x_coordinate < 725:
-                if self.y_coordinate >= SCREEN_HEIGHT:
-                    self.y_coordinate = SCREEN_HEIGHT
+                if self.y_coordinate >= 720:
+                    self.y_coordinate = 720
         if current_zone == "reservoir b":
             if self.x_coordinate < 60:
                 self.x_coordinate = 60
-            elif self.x_coordinate < SCREEN_WIDTH - 535:
-                if self.x_coordinate > SCREEN_WIDTH - 575:
-                    self.x_coordinate = SCREEN_WIDTH - 535
-            if self.x_coordinate < SCREEN_WIDTH - 575:
-                if self.x_coordinate > SCREEN_WIDTH - 625:
-                    self.x_coordinate = SCREEN_WIDTH - 625
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate < 745:
+                if self.x_coordinate > 705:
+                    self.x_coordinate = 745
+            if self.x_coordinate < 705:
+                if self.x_coordinate > 655:
+                    self.x_coordinate = 655
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             if self.y_coordinate <= 75:
                 self.y_coordinate = 75
-            elif self.x_coordinate > SCREEN_WIDTH - 575:
-                if self.y_coordinate >= SCREEN_HEIGHT:
-                    self.y_coordinate = SCREEN_HEIGHT
+            elif self.x_coordinate > 705:
+                if self.y_coordinate >= 720:
+                    self.y_coordinate = 720
             else:
-                if self.y_coordinate >= SCREEN_HEIGHT - 50:
-                    self.y_coordinate = SCREEN_HEIGHT - 50
+                if self.y_coordinate >= 670:
+                    self.y_coordinate = 670
         if current_zone == "reservoir c":
             if self.x_coordinate < 90:
                 self.x_coordinate = 90
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
-            if self.y_coordinate >= SCREEN_HEIGHT - 82:
-                self.y_coordinate = SCREEN_HEIGHT - 82
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate >= 638:
+                self.y_coordinate = 638
             if self.x_coordinate > 510:
                 if self.y_coordinate < 400:
                     if self.y_coordinate <= 100:
@@ -353,21 +354,21 @@ class PlayerAmuna(pygame.sprite.Sprite):
         if current_zone == "seldon":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 355:
-                self.x_coordinate = SCREEN_WIDTH - 355
+            elif self.x_coordinate > 925:
+                self.x_coordinate = 925
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
         if current_zone == "stardust":
             if self.x_coordinate < 225:
                 self.x_coordinate = 225
-            elif self.x_coordinate > SCREEN_WIDTH - 325:
-                self.x_coordinate = SCREEN_WIDTH - 325
+            elif self.x_coordinate > 955:
+                self.x_coordinate = 955
             if self.y_coordinate <= 80:
                 self.y_coordinate = 80
-            elif self.y_coordinate >= SCREEN_HEIGHT - 80:
-                self.y_coordinate = SCREEN_HEIGHT - 80
+            elif self.y_coordinate >= 640:
+                self.y_coordinate = 640
             elif 360 >= self.y_coordinate >= 300 and 641 >= self.x_coordinate >= 409:
                 self.y_coordinate = 360
             elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
@@ -398,8 +399,8 @@ class PlayerAmuna(pygame.sprite.Sprite):
         if current_zone == "korlok":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             elif self.x_coordinate < 490 and 325 < self.y_coordinate < 400:
                 self.y_coordinate = 400
             elif self.x_coordinate < 490 and 400 > self.y_coordinate > 300:
@@ -408,34 +409,34 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.x_coordinate = 492
             if self.y_coordinate <= 50:
                 self.y_coordinate = 50
-            elif self.y_coordinate >= SCREEN_HEIGHT - 93:
-                self.y_coordinate = SCREEN_HEIGHT - 93
+            elif self.y_coordinate >= 627:
+                self.y_coordinate = 627
         if current_zone == "mines":
             if self.x_coordinate < 72:
                 self.x_coordinate = 72
-            elif self.x_coordinate > SCREEN_WIDTH - 315:
-                self.x_coordinate = SCREEN_WIDTH - 315
+            elif self.x_coordinate > 965:
+                self.x_coordinate = 965
             elif 430 < self.y_coordinate < 500 and self.x_coordinate > 545:
                 self.x_coordinate = 545
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
             elif self.x_coordinate < 660:
-                if self.y_coordinate >= SCREEN_HEIGHT - 75:
-                    self.y_coordinate = SCREEN_HEIGHT - 75
+                if self.y_coordinate >= 645:
+                    self.y_coordinate = 645
             elif self.x_coordinate > 660:
-                if self.y_coordinate >= SCREEN_HEIGHT:
-                    self.y_coordinate = SCREEN_HEIGHT
+                if self.y_coordinate >= 720:
+                    self.y_coordinate = 720
         if current_zone == "terra trail":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
-            elif self.x_coordinate > SCREEN_WIDTH - 550:
-                self.x_coordinate = SCREEN_WIDTH - 550
+            elif self.x_coordinate > 730:
+                self.x_coordinate = 730
             elif 470 < self.x_coordinate < 475 and 170 < self.y_coordinate < 400:
                 self.x_coordinate = 475
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
-            elif self.y_coordinate >= SCREEN_HEIGHT - 130:
-                self.y_coordinate = SCREEN_HEIGHT - 130
+            elif self.y_coordinate >= 590:
+                self.y_coordinate = 590
             elif 180 > self.y_coordinate > 170 and self.x_coordinate < 475:
                 self.y_coordinate = 170
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
@@ -447,13 +448,13 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 365
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             elif 885 < self.x_coordinate < 890 and 525 > self.y_coordinate > 155:
                 self.x_coordinate = 890
             elif 960 < self.x_coordinate > 885 and 425 > self.y_coordinate > 155:
@@ -462,8 +463,8 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.x_coordinate = 170
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
             elif 525 < self.y_coordinate < 530 and 220 < self.x_coordinate < 890:
                 self.y_coordinate = 530
             elif 140 < self.y_coordinate < 155 and self.x_coordinate < 170:
@@ -491,18 +492,18 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 565
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
         if current_zone == "ectrenos left":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 305 and 400 > self.y_coordinate or \
-                    self.x_coordinate > SCREEN_WIDTH - 305 and self.y_coordinate > 620:
-                self.x_coordinate = SCREEN_WIDTH - 305
+            elif self.x_coordinate > 975 and 400 > self.y_coordinate or \
+                    self.x_coordinate > 975 and self.y_coordinate > 620:
+                self.x_coordinate = 975
             if self.y_coordinate < 395 and 650 > self.x_coordinate > 500 or \
                     self.y_coordinate > 615 and 650 > self.x_coordinate > 500:
                 self.x_coordinate = 650
@@ -514,11 +515,11 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 575
             if self.y_coordinate <= 300:
                 self.y_coordinate = 300
-            elif self.y_coordinate >= SCREEN_HEIGHT:
-                self.y_coordinate = SCREEN_HEIGHT
+            elif self.y_coordinate >= 720:
+                self.y_coordinate = 720
         if current_zone == "ectrenos right":
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             elif self.x_coordinate < 50 and 400 > self.y_coordinate or \
                     self.x_coordinate < 50 and self.y_coordinate > 620:
                 self.x_coordinate = 50
@@ -533,17 +534,17 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 400
             if self.y_coordinate <= 300:
                 self.y_coordinate = 300
-            elif self.y_coordinate >= SCREEN_HEIGHT:
-                self.y_coordinate = SCREEN_HEIGHT
+            elif self.y_coordinate >= 720:
+                self.y_coordinate = 720
         if current_zone == "ectrenos front":
             if player.y_coordinate > 400:
-                if self.x_coordinate > SCREEN_WIDTH - 325:
-                    self.x_coordinate = SCREEN_WIDTH - 325
+                if self.x_coordinate > 955:
+                    self.x_coordinate = 955
                 if self.x_coordinate < 75:
                     self.x_coordinate = 75
             else:
-                if self.x_coordinate > SCREEN_WIDTH - 275:
-                    self.x_coordinate = SCREEN_WIDTH - 275
+                if self.x_coordinate > 1005:
+                    self.x_coordinate = 1005
                 if self.x_coordinate < 15:
                     self.x_coordinate = 15
             if self.y_coordinate <= 330:
@@ -554,14 +555,14 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if self.y_coordinate > 390:
                     self.y_coordinate = 390
         if current_zone == "ectrenos alcove":
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             if self.x_coordinate < 40:
                 self.x_coordinate = 40
             if self.y_coordinate <= 110:
                 self.y_coordinate = 110
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
             if self.y_coordinate > 525 and self.x_coordinate < 620 or \
                     self.y_coordinate > 525 and self.x_coordinate > 920:
                 if self.y_coordinate < 615:
@@ -777,7 +778,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
 
 
 class PlayerNuldar(pygame.sprite.Sprite):
-    def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
+    def __init__(self, name, race, gender, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
                  flowers_sorae, pets):
@@ -788,6 +789,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
         self.name = name
         self.race = race
+        self.gender = gender
         self.role = role
         self.items = items
         self.equipment = p_equipment
@@ -979,24 +981,25 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if walk_timed > 0.6:
                     self.surf = graphic_dict["player_scout_nuldar_right_4"]
                 self.x_coordinate += velocity
+
         if current_zone == "rohir":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
-            elif self.x_coordinate > SCREEN_WIDTH - 350:
-                self.x_coordinate = SCREEN_WIDTH - 350
+            elif self.x_coordinate > 930:
+                self.x_coordinate = 930
             if self.y_coordinate <= 145:
                 self.y_coordinate = 145
-            elif self.y_coordinate >= SCREEN_HEIGHT - 145:
-                self.y_coordinate = SCREEN_HEIGHT - 145
+            elif self.y_coordinate >= 575:
+                self.y_coordinate = 575
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
-            elif self.x_coordinate > SCREEN_WIDTH - 325:
-                self.x_coordinate = SCREEN_WIDTH - 325
+            elif self.x_coordinate > 955:
+                self.x_coordinate = 955
             if self.y_coordinate <= 60:
                 self.y_coordinate = 60
-            elif self.y_coordinate >= SCREEN_HEIGHT - 50:
-                self.y_coordinate = SCREEN_HEIGHT - 50
+            elif self.y_coordinate >= 670:
+                self.y_coordinate = 670
             elif 315 >= self.y_coordinate >= 300:
                 self.y_coordinate = 315
             elif 300 >= self.y_coordinate >= 230:
@@ -1004,8 +1007,8 @@ class PlayerNuldar(pygame.sprite.Sprite):
         if current_zone == "reservoir a":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
-            elif self.x_coordinate > SCREEN_WIDTH - 300:
-                self.x_coordinate = SCREEN_WIDTH - 300
+            elif self.x_coordinate > 980:
+                self.x_coordinate = 980
             elif self.x_coordinate < 365:
                 if self.y_coordinate > 350:
                     if self.x_coordinate > 360:
@@ -1027,37 +1030,37 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if self.y_coordinate <= 125:
                 self.y_coordinate = 125
             elif self.x_coordinate < 360 or self.x_coordinate > 725:
-                if self.y_coordinate >= SCREEN_HEIGHT - 200:
-                    self.y_coordinate = SCREEN_HEIGHT - 200
+                if self.y_coordinate >= 520:
+                    self.y_coordinate = 520
             elif self.x_coordinate > 300 or self.x_coordinate < 725:
-                if self.y_coordinate >= SCREEN_HEIGHT:
-                    self.y_coordinate = SCREEN_HEIGHT
+                if self.y_coordinate >= 720:
+                    self.y_coordinate = 720
         if current_zone == "reservoir b":
             if self.x_coordinate < 60:
                 self.x_coordinate = 60
-            elif self.x_coordinate < SCREEN_WIDTH - 535:
-                if self.x_coordinate > SCREEN_WIDTH - 575:
-                    self.x_coordinate = SCREEN_WIDTH - 535
-            if self.x_coordinate < SCREEN_WIDTH - 575:
-                if self.x_coordinate > SCREEN_WIDTH - 625:
-                    self.x_coordinate = SCREEN_WIDTH - 625
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate < 745:
+                if self.x_coordinate > 705:
+                    self.x_coordinate = 745
+            if self.x_coordinate < 705:
+                if self.x_coordinate > 655:
+                    self.x_coordinate = 655
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             if self.y_coordinate <= 75:
                 self.y_coordinate = 75
-            elif self.x_coordinate > SCREEN_WIDTH - 575:
-                if self.y_coordinate >= SCREEN_HEIGHT:
-                    self.y_coordinate = SCREEN_HEIGHT
+            elif self.x_coordinate > 705:
+                if self.y_coordinate >= 720:
+                    self.y_coordinate = 720
             else:
-                if self.y_coordinate >= SCREEN_HEIGHT - 50:
-                    self.y_coordinate = SCREEN_HEIGHT - 50
+                if self.y_coordinate >= 670:
+                    self.y_coordinate = 670
         if current_zone == "reservoir c":
             if self.x_coordinate < 90:
                 self.x_coordinate = 90
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
-            if self.y_coordinate >= SCREEN_HEIGHT - 82:
-                self.y_coordinate = SCREEN_HEIGHT - 82
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate >= 638:
+                self.y_coordinate = 638
             if self.x_coordinate > 510:
                 if self.y_coordinate < 400:
                     if self.y_coordinate <= 100:
@@ -1076,21 +1079,21 @@ class PlayerNuldar(pygame.sprite.Sprite):
         if current_zone == "seldon":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 355:
-                self.x_coordinate = SCREEN_WIDTH - 355
+            elif self.x_coordinate > 925:
+                self.x_coordinate = 925
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
         if current_zone == "stardust":
             if self.x_coordinate < 225:
                 self.x_coordinate = 225
-            elif self.x_coordinate > SCREEN_WIDTH - 325:
-                self.x_coordinate = SCREEN_WIDTH - 325
+            elif self.x_coordinate > 955:
+                self.x_coordinate = 955
             if self.y_coordinate <= 80:
                 self.y_coordinate = 80
-            elif self.y_coordinate >= SCREEN_HEIGHT - 80:
-                self.y_coordinate = SCREEN_HEIGHT - 80
+            elif self.y_coordinate >= 640:
+                self.y_coordinate = 640
             elif 360 >= self.y_coordinate >= 300 and 641 >= self.x_coordinate >= 409:
                 self.y_coordinate = 360
             elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
@@ -1118,12 +1121,11 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 240
             if 360 < self.x_coordinate < 440 and 300 > self.y_coordinate > 240:
                 self.y_coordinate = 240
-
         if current_zone == "korlok":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             elif self.x_coordinate < 490 and 325 < self.y_coordinate < 400:
                 self.y_coordinate = 400
             elif self.x_coordinate < 490 and 400 > self.y_coordinate > 300:
@@ -1132,34 +1134,34 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.x_coordinate = 492
             if self.y_coordinate <= 50:
                 self.y_coordinate = 50
-            elif self.y_coordinate >= SCREEN_HEIGHT - 93:
-                self.y_coordinate = SCREEN_HEIGHT - 93
+            elif self.y_coordinate >= 627:
+                self.y_coordinate = 627
         if current_zone == "mines":
             if self.x_coordinate < 72:
                 self.x_coordinate = 72
-            elif self.x_coordinate > SCREEN_WIDTH - 315:
-                self.x_coordinate = SCREEN_WIDTH - 315
+            elif self.x_coordinate > 965:
+                self.x_coordinate = 965
             elif 430 < self.y_coordinate < 500 and self.x_coordinate > 545:
                 self.x_coordinate = 545
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
             elif self.x_coordinate < 660:
-                if self.y_coordinate >= SCREEN_HEIGHT - 75:
-                    self.y_coordinate = SCREEN_HEIGHT - 75
+                if self.y_coordinate >= 645:
+                    self.y_coordinate = 645
             elif self.x_coordinate > 660:
-                if self.y_coordinate >= SCREEN_HEIGHT:
-                    self.y_coordinate = SCREEN_HEIGHT
+                if self.y_coordinate >= 720:
+                    self.y_coordinate = 720
         if current_zone == "terra trail":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
-            elif self.x_coordinate > SCREEN_WIDTH - 550:
-                self.x_coordinate = SCREEN_WIDTH - 550
+            elif self.x_coordinate > 730:
+                self.x_coordinate = 730
             elif 470 < self.x_coordinate < 475 and 170 < self.y_coordinate < 400:
                 self.x_coordinate = 475
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
-            elif self.y_coordinate >= SCREEN_HEIGHT - 130:
-                self.y_coordinate = SCREEN_HEIGHT - 130
+            elif self.y_coordinate >= 590:
+                self.y_coordinate = 590
             elif 180 > self.y_coordinate > 170 and self.x_coordinate < 475:
                 self.y_coordinate = 170
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
@@ -1171,13 +1173,13 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 365
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             elif 885 < self.x_coordinate < 890 and 525 > self.y_coordinate > 155:
                 self.x_coordinate = 890
             elif 960 < self.x_coordinate > 885 and 425 > self.y_coordinate > 155:
@@ -1186,8 +1188,8 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.x_coordinate = 170
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
             elif 525 < self.y_coordinate < 530 and 220 < self.x_coordinate < 890:
                 self.y_coordinate = 530
             elif 140 < self.y_coordinate < 155 and self.x_coordinate < 170:
@@ -1215,18 +1217,18 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 565
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
         if current_zone == "ectrenos left":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 305 and 400 > self.y_coordinate or \
-                    self.x_coordinate > SCREEN_WIDTH - 305 and self.y_coordinate > 620:
-                self.x_coordinate = SCREEN_WIDTH - 305
+            elif self.x_coordinate > 975 and 400 > self.y_coordinate or \
+                    self.x_coordinate > 975 and self.y_coordinate > 620:
+                self.x_coordinate = 975
             if self.y_coordinate < 395 and 650 > self.x_coordinate > 500 or \
                     self.y_coordinate > 615 and 650 > self.x_coordinate > 500:
                 self.x_coordinate = 650
@@ -1238,11 +1240,11 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 575
             if self.y_coordinate <= 300:
                 self.y_coordinate = 300
-            elif self.y_coordinate >= SCREEN_HEIGHT:
-                self.y_coordinate = SCREEN_HEIGHT
+            elif self.y_coordinate >= 720:
+                self.y_coordinate = 720
         if current_zone == "ectrenos right":
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             elif self.x_coordinate < 50 and 400 > self.y_coordinate or \
                     self.x_coordinate < 50 and self.y_coordinate > 620:
                 self.x_coordinate = 50
@@ -1257,17 +1259,17 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 400
             if self.y_coordinate <= 300:
                 self.y_coordinate = 300
-            elif self.y_coordinate >= SCREEN_HEIGHT:
-                self.y_coordinate = SCREEN_HEIGHT
+            elif self.y_coordinate >= 720:
+                self.y_coordinate = 720
         if current_zone == "ectrenos front":
             if player.y_coordinate > 400:
-                if self.x_coordinate > SCREEN_WIDTH - 325:
-                    self.x_coordinate = SCREEN_WIDTH - 325
+                if self.x_coordinate > 955:
+                    self.x_coordinate = 955
                 if self.x_coordinate < 75:
                     self.x_coordinate = 75
             else:
-                if self.x_coordinate > SCREEN_WIDTH - 275:
-                    self.x_coordinate = SCREEN_WIDTH - 275
+                if self.x_coordinate > 1005:
+                    self.x_coordinate = 1005
                 if self.x_coordinate < 15:
                     self.x_coordinate = 15
             if self.y_coordinate <= 330:
@@ -1278,14 +1280,14 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.y_coordinate > 390:
                     self.y_coordinate = 390
         if current_zone == "ectrenos alcove":
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             if self.x_coordinate < 40:
                 self.x_coordinate = 40
             if self.y_coordinate <= 110:
                 self.y_coordinate = 110
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
             if self.y_coordinate > 525 and self.x_coordinate < 620 or \
                     self.y_coordinate > 525 and self.x_coordinate > 920:
                 if self.y_coordinate < 615:
@@ -1501,17 +1503,18 @@ class PlayerNuldar(pygame.sprite.Sprite):
 
 
 class PlayerSorae(pygame.sprite.Sprite):
-    def __init__(self, name, race, role, items, p_equipment, current_quests, quest_progress, quest_status,
+    def __init__(self, name, race, gender, role, items, p_equipment, current_quests, quest_progress, quest_status,
                  quest_complete, knowledge, skills_mage, skills_fighter, skills_scout, level, experience, health,
                  energy, alive_status, rupees, reputation, current_zone, defense, offense, star_power, flowers_amuna,
                  flowers_sorae, pets):
         super(PlayerSorae, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
-        self.surf = graphic_dict["player_no_role_amuna_down_1"]
+        self.surf = graphic_dict["player_no_role_sorae_a_down_1"]
         self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
         self.name = name
         self.race = race
+        self.gender = gender
         self.role = role
         self.items = items
         self.equipment = p_equipment
@@ -1703,24 +1706,25 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if walk_timed > 0.6:
                     self.surf = graphic_dict["player_scout_sorae_right_4"]
                 self.x_coordinate += velocity
+
         if current_zone == "rohir":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
-            elif self.x_coordinate > SCREEN_WIDTH - 350:
-                self.x_coordinate = SCREEN_WIDTH - 350
+            elif self.x_coordinate > 930:
+                self.x_coordinate = 930
             if self.y_coordinate <= 145:
                 self.y_coordinate = 145
-            elif self.y_coordinate >= SCREEN_HEIGHT - 145:
-                self.y_coordinate = SCREEN_HEIGHT - 145
+            elif self.y_coordinate >= 575:
+                self.y_coordinate = 575
         if current_zone == "nascent":
             if self.x_coordinate < 340:
                 self.x_coordinate = 340
-            elif self.x_coordinate > SCREEN_WIDTH - 325:
-                self.x_coordinate = SCREEN_WIDTH - 325
+            elif self.x_coordinate > 955:
+                self.x_coordinate = 955
             if self.y_coordinate <= 60:
                 self.y_coordinate = 60
-            elif self.y_coordinate >= SCREEN_HEIGHT - 50:
-                self.y_coordinate = SCREEN_HEIGHT - 50
+            elif self.y_coordinate >= 670:
+                self.y_coordinate = 670
             elif 315 >= self.y_coordinate >= 300:
                 self.y_coordinate = 315
             elif 300 >= self.y_coordinate >= 230:
@@ -1728,8 +1732,8 @@ class PlayerSorae(pygame.sprite.Sprite):
         if current_zone == "reservoir a":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
-            elif self.x_coordinate > SCREEN_WIDTH - 300:
-                self.x_coordinate = SCREEN_WIDTH - 300
+            elif self.x_coordinate > 980:
+                self.x_coordinate = 980
             elif self.x_coordinate < 365:
                 if self.y_coordinate > 350:
                     if self.x_coordinate > 360:
@@ -1751,37 +1755,37 @@ class PlayerSorae(pygame.sprite.Sprite):
             if self.y_coordinate <= 125:
                 self.y_coordinate = 125
             elif self.x_coordinate < 360 or self.x_coordinate > 725:
-                if self.y_coordinate >= SCREEN_HEIGHT - 200:
-                    self.y_coordinate = SCREEN_HEIGHT - 200
+                if self.y_coordinate >= 520:
+                    self.y_coordinate = 520
             elif self.x_coordinate > 300 or self.x_coordinate < 725:
-                if self.y_coordinate >= SCREEN_HEIGHT:
-                    self.y_coordinate = SCREEN_HEIGHT
+                if self.y_coordinate >= 720:
+                    self.y_coordinate = 720
         if current_zone == "reservoir b":
             if self.x_coordinate < 60:
                 self.x_coordinate = 60
-            elif self.x_coordinate < SCREEN_WIDTH - 535:
-                if self.x_coordinate > SCREEN_WIDTH - 575:
-                    self.x_coordinate = SCREEN_WIDTH - 535
-            if self.x_coordinate < SCREEN_WIDTH - 575:
-                if self.x_coordinate > SCREEN_WIDTH - 625:
-                    self.x_coordinate = SCREEN_WIDTH - 625
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate < 745:
+                if self.x_coordinate > 705:
+                    self.x_coordinate = 745
+            if self.x_coordinate < 705:
+                if self.x_coordinate > 655:
+                    self.x_coordinate = 655
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             if self.y_coordinate <= 75:
                 self.y_coordinate = 75
-            elif self.x_coordinate > SCREEN_WIDTH - 575:
-                if self.y_coordinate >= SCREEN_HEIGHT:
-                    self.y_coordinate = SCREEN_HEIGHT
+            elif self.x_coordinate > 705:
+                if self.y_coordinate >= 720:
+                    self.y_coordinate = 720
             else:
-                if self.y_coordinate >= SCREEN_HEIGHT - 50:
-                    self.y_coordinate = SCREEN_HEIGHT - 50
+                if self.y_coordinate >= 670:
+                    self.y_coordinate = 670
         if current_zone == "reservoir c":
             if self.x_coordinate < 90:
                 self.x_coordinate = 90
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
-            if self.y_coordinate >= SCREEN_HEIGHT - 82:
-                self.y_coordinate = SCREEN_HEIGHT - 82
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate >= 638:
+                self.y_coordinate = 638
             if self.x_coordinate > 510:
                 if self.y_coordinate < 400:
                     if self.y_coordinate <= 100:
@@ -1800,21 +1804,21 @@ class PlayerSorae(pygame.sprite.Sprite):
         if current_zone == "seldon":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 355:
-                self.x_coordinate = SCREEN_WIDTH - 355
+            elif self.x_coordinate > 925:
+                self.x_coordinate = 925
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
         if current_zone == "stardust":
             if self.x_coordinate < 225:
                 self.x_coordinate = 225
-            elif self.x_coordinate > SCREEN_WIDTH - 325:
-                self.x_coordinate = SCREEN_WIDTH - 325
+            elif self.x_coordinate > 955:
+                self.x_coordinate = 955
             if self.y_coordinate <= 80:
                 self.y_coordinate = 80
-            elif self.y_coordinate >= SCREEN_HEIGHT - 80:
-                self.y_coordinate = SCREEN_HEIGHT - 80
+            elif self.y_coordinate >= 640:
+                self.y_coordinate = 640
             elif 360 >= self.y_coordinate >= 300 and 641 >= self.x_coordinate >= 409:
                 self.y_coordinate = 360
             elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
@@ -1845,8 +1849,8 @@ class PlayerSorae(pygame.sprite.Sprite):
         if current_zone == "korlok":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             elif self.x_coordinate < 490 and 325 < self.y_coordinate < 400:
                 self.y_coordinate = 400
             elif self.x_coordinate < 490 and 400 > self.y_coordinate > 300:
@@ -1855,34 +1859,34 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.x_coordinate = 492
             if self.y_coordinate <= 50:
                 self.y_coordinate = 50
-            elif self.y_coordinate >= SCREEN_HEIGHT - 93:
-                self.y_coordinate = SCREEN_HEIGHT - 93
+            elif self.y_coordinate >= 627:
+                self.y_coordinate = 627
         if current_zone == "mines":
             if self.x_coordinate < 72:
                 self.x_coordinate = 72
-            elif self.x_coordinate > SCREEN_WIDTH - 315:
-                self.x_coordinate = SCREEN_WIDTH - 315
+            elif self.x_coordinate > 965:
+                self.x_coordinate = 965
             elif 430 < self.y_coordinate < 500 and self.x_coordinate > 545:
                 self.x_coordinate = 545
             if self.y_coordinate <= 115:
                 self.y_coordinate = 115
             elif self.x_coordinate < 660:
-                if self.y_coordinate >= SCREEN_HEIGHT - 75:
-                    self.y_coordinate = SCREEN_HEIGHT - 75
+                if self.y_coordinate >= 645:
+                    self.y_coordinate = 645
             elif self.x_coordinate > 660:
-                if self.y_coordinate >= SCREEN_HEIGHT:
-                    self.y_coordinate = SCREEN_HEIGHT
+                if self.y_coordinate >= 720:
+                    self.y_coordinate = 720
         if current_zone == "terra trail":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
-            elif self.x_coordinate > SCREEN_WIDTH - 550:
-                self.x_coordinate = SCREEN_WIDTH - 550
+            elif self.x_coordinate > 730:
+                self.x_coordinate = 730
             elif 470 < self.x_coordinate < 475 and 170 < self.y_coordinate < 400:
                 self.x_coordinate = 475
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
-            elif self.y_coordinate >= SCREEN_HEIGHT - 130:
-                self.y_coordinate = SCREEN_HEIGHT - 130
+            elif self.y_coordinate >= 590:
+                self.y_coordinate = 590
             elif 180 > self.y_coordinate > 170 and self.x_coordinate < 475:
                 self.y_coordinate = 170
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
@@ -1894,13 +1898,13 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 365
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             elif 885 < self.x_coordinate < 890 and 525 > self.y_coordinate > 155:
                 self.x_coordinate = 890
             elif 960 < self.x_coordinate > 885 and 425 > self.y_coordinate > 155:
@@ -1909,8 +1913,8 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.x_coordinate = 170
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
             elif 525 < self.y_coordinate < 530 and 220 < self.x_coordinate < 890:
                 self.y_coordinate = 530
             elif 140 < self.y_coordinate < 155 and self.x_coordinate < 170:
@@ -1938,18 +1942,18 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 565
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            elif self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             if self.y_coordinate <= 70:
                 self.y_coordinate = 70
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
         if current_zone == "ectrenos left":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
-            elif self.x_coordinate > SCREEN_WIDTH - 305 and 400 > self.y_coordinate or \
-                    self.x_coordinate > SCREEN_WIDTH - 305 and self.y_coordinate > 620:
-                self.x_coordinate = SCREEN_WIDTH - 305
+            elif self.x_coordinate > 975 and 400 > self.y_coordinate or \
+                    self.x_coordinate > 975 and self.y_coordinate > 620:
+                self.x_coordinate = 975
             if self.y_coordinate < 395 and 650 > self.x_coordinate > 500 or \
                     self.y_coordinate > 615 and 650 > self.x_coordinate > 500:
                 self.x_coordinate = 650
@@ -1961,11 +1965,11 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 575
             if self.y_coordinate <= 300:
                 self.y_coordinate = 300
-            elif self.y_coordinate >= SCREEN_HEIGHT:
-                self.y_coordinate = SCREEN_HEIGHT
+            elif self.y_coordinate >= 720:
+                self.y_coordinate = 720
         if current_zone == "ectrenos right":
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             elif self.x_coordinate < 50 and 400 > self.y_coordinate or \
                     self.x_coordinate < 50 and self.y_coordinate > 620:
                 self.x_coordinate = 50
@@ -1980,17 +1984,17 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 400
             if self.y_coordinate <= 300:
                 self.y_coordinate = 300
-            elif self.y_coordinate >= SCREEN_HEIGHT:
-                self.y_coordinate = SCREEN_HEIGHT
+            elif self.y_coordinate >= 720:
+                self.y_coordinate = 720
         if current_zone == "ectrenos front":
             if player.y_coordinate > 400:
-                if self.x_coordinate > SCREEN_WIDTH - 325:
-                    self.x_coordinate = SCREEN_WIDTH - 325
+                if self.x_coordinate > 955:
+                    self.x_coordinate = 955
                 if self.x_coordinate < 75:
                     self.x_coordinate = 75
             else:
-                if self.x_coordinate > SCREEN_WIDTH - 275:
-                    self.x_coordinate = SCREEN_WIDTH - 275
+                if self.x_coordinate > 1005:
+                    self.x_coordinate = 1005
                 if self.x_coordinate < 15:
                     self.x_coordinate = 15
             if self.y_coordinate <= 330:
@@ -2001,14 +2005,14 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if self.y_coordinate > 390:
                     self.y_coordinate = 390
         if current_zone == "ectrenos alcove":
-            if self.x_coordinate > SCREEN_WIDTH - 275:
-                self.x_coordinate = SCREEN_WIDTH - 275
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
             if self.x_coordinate < 40:
                 self.x_coordinate = 40
             if self.y_coordinate <= 110:
                 self.y_coordinate = 110
-            elif self.y_coordinate >= SCREEN_HEIGHT - 15:
-                self.y_coordinate = SCREEN_HEIGHT - 15
+            elif self.y_coordinate >= 705:
+                self.y_coordinate = 705
             if self.y_coordinate > 525 and self.x_coordinate < 620 or \
                     self.y_coordinate > 525 and self.x_coordinate > 920:
                 if self.y_coordinate < 615:
@@ -2470,15 +2474,19 @@ def button_highlighter(posit):
                                                               sword, bow, potions_button, create_potion_button,
                                                               in_menagerie, ok_button, hatch_ready,
                                                               menagerie_window_open, kasper_manage_button,
-                                                              torok_manage_button, iriana_manage_button)
+                                                              torok_manage_button, iriana_manage_button,
+                                                              amuna_male_button, amuna_female_button,
+                                                              nuldar_male_button, nuldar_female_button,
+                                                              sorae_alpha_button, sorae_beta_button)
     return button_highlighters
 
 
 if __name__ == '__main__':
     # ------------------------------------------------------------------------------------------------------------------
     # initialize the screen in graphics file, return here. draw loading screen, then load from graphics file into dict
-    screen = graphics.initialize_display()
-    graphics.draw_loading_screen(screen)
+    game_window = graphics.initialize_display()
+    screen = pygame.Surface([1280, 720])
+    graphics.draw_loading_screen(game_window)
     # dictionary contains all graphical resources
     graphic_dict = graphics.load_graphics()
     # pygame.mixer.init()
@@ -2583,7 +2591,7 @@ if __name__ == '__main__':
     sorae_b_character = UiElement("sorae character", 640, 360, graphic_dict["sorae_b_character_img"])
 
     # default player
-    player = PlayerAmuna("stan", "amuna", "",  # name, race, role
+    player = PlayerAmuna("stan", "amuna", "male", "",  # name, race, role
                          [],  # inventory
                          {"weapon": "", "armor": "", "gloves": "", "boots": ""},
                          {"sneaky snakes": "Speak to Garan to start this quest.",
@@ -3343,7 +3351,7 @@ if __name__ == '__main__':
     sfx_ladder.set_volume(0.15)
 
     sfx_button_click = pygame.mixer.Sound(resource_path("resources/sounds/button_click.mp3"))
-    sfx_button_click.set_volume(0.10)
+    sfx_button_click.set_volume(0.05)
     sfx_button_start = pygame.mixer.Sound(resource_path("resources/sounds/button_start.mp3"))
     sfx_button_start.set_volume(0.18)
     sfx_button_key = pygame.mixer.Sound(resource_path("resources/sounds/button_key.mp3"))
@@ -3585,6 +3593,8 @@ if __name__ == '__main__':
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
 
+        SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
+
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
             screen.blit(start_screen, (0, 0))
             screen.blit(new_game_button.surf, new_game_button.rect)
@@ -3601,7 +3611,11 @@ if __name__ == '__main__':
                             for element in save_data_window:
                                 save_data_window.clear()
 
-                pos = pygame.mouse.get_pos()
+                init_pos = list(pygame.mouse.get_pos())
+                ratio_x = (SCREEN_WIDTH / screen.get_width())
+                ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
                 button_highlighted = button_highlighter(pos)
 
                 if event.type == pygame.MOUSEBUTTONUP:
@@ -3624,6 +3638,8 @@ if __name__ == '__main__':
             if button_highlighted:
                 screen.blit(button_highlight.surf, button_highlight.rect)
 
+            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+            game_window.blit(frame, frame.get_rect())
             pygame.display.flip()
 
         # --------------------------------------------------------------------------------------------------------------
@@ -3651,7 +3667,10 @@ if __name__ == '__main__':
                     pygame.mixer.quit()
                     sys.exit()
 
-                pos = pygame.mouse.get_pos()
+                init_pos = list(pygame.mouse.get_pos())
+                ratio_x = (SCREEN_WIDTH / screen.get_width())
+                ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                 button_highlighted = button_highlighter(pos)
 
                 if event.type == pygame.MOUSEBUTTONUP:
@@ -3710,51 +3729,60 @@ if __name__ == '__main__':
                             pygame.mixer.find_channel(True).play(sfx_button_click)
                             gender_choice = "female"
 
-
                     # noinspection PyUnboundLocalVariable
                     if start_button.rect.collidepoint(pos) or entered:
                         pygame.mixer.find_channel(True).play(sfx_button_start)
                         if amuna_race_selected:
-                            player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
-                                                 player.current_quests, player.quest_progress, player.quest_status,
-                                                 player.quest_complete, player.knowledge, player.skills_mage,
-                                                 player.skills_fighter, player.skills_scout, player.level,
-                                                 player.experience, player.health, player.energy, player.alive_status,
-                                                 player.rupees, player.reputation, player.current_zone, player.defense,
-                                                 player.offense, player.star_power, player.flowers_amuna,
-                                                 player.flowers_sorae, player.pet)
+                            player = PlayerAmuna(player.name, player.race, gender_choice, player.role, player.items,
+                                                 player.equipment, player.current_quests, player.quest_progress,
+                                                 player.quest_status, player.quest_complete, player.knowledge,
+                                                 player.skills_mage, player.skills_fighter, player.skills_scout,
+                                                 player.level, player.experience, player.health, player.energy,
+                                                 player.alive_status, player.rupees, player.reputation,
+                                                 player.current_zone, player.defense, player.offense, player.star_power,
+                                                 player.flowers_amuna, player.flowers_sorae, player.pet)
                             player.race = "amuna"
-                            player.surf = graphic_dict["player_no_role_amuna_down_1"]
+                            if player.gender == "male":
+                                player.surf = graphic_dict["player_no_role_amuna_male_down_1"]
+                            if player.gender == "female":
+                                player.surf = graphic_dict["player_no_role_amuna_female_down_1"]
                             player.current_zone = "nascent"
                             in_over_world = True
                             new_game_chosen = False
                             start_chosen = True
                         if nuldar_race_selected:
-                            player = PlayerNuldar(player.name, player.race, player.role, player.items, player.equipment,
-                                                  player.current_quests, player.quest_progress, player.quest_status,
-                                                  player.quest_complete, player.knowledge, player.skills_mage,
-                                                  player.skills_fighter, player.skills_scout, player.level,
-                                                  player.experience, player.health, player.energy, player.alive_status,
-                                                  player.rupees, player.reputation, player.current_zone, player.defense,
-                                                  player.offense, player.star_power, player.flowers_amuna,
-                                                  player.flowers_sorae, player.pet)
+                            player = PlayerNuldar(player.name, player.race, gender_choice, player.role, player.items,
+                                                  player.equipment, player.current_quests, player.quest_progress,
+                                                  player.quest_status, player.quest_complete, player.knowledge,
+                                                  player.skills_mage, player.skills_fighter, player.skills_scout,
+                                                  player.level, player.experience, player.health, player.energy,
+                                                  player.alive_status, player.rupees, player.reputation,
+                                                  player.current_zone, player.defense, player.offense,
+                                                  player.star_power, player.flowers_amuna, player.flowers_sorae,
+                                                  player.pet)
                             player.race = "nuldar"
-                            player.surf = graphic_dict["player_no_role_nuldar_down_1"]
+                            if player.gender == "male":
+                                player.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
+                            if player.gender == "female":
+                                player.surf = graphic_dict["player_no_role_nuldar_female_down_1"]
                             player.current_zone = "nascent"
                             in_over_world = True
                             new_game_chosen = False
                             start_chosen = True
                         if sorae_race_selected:
-                            player = PlayerSorae(player.name, player.race, player.role, player.items, player.equipment,
-                                                 player.current_quests, player.quest_progress, player.quest_status,
-                                                 player.quest_complete, player.knowledge, player.skills_mage,
-                                                 player.skills_fighter, player.skills_scout, player.level,
-                                                 player.experience, player.health, player.energy, player.alive_status,
-                                                 player.rupees, player.reputation, player.current_zone, player.defense,
-                                                 player.offense, player.star_power, player.flowers_amuna,
-                                                 player.flowers_sorae, player.pet)
+                            player = PlayerSorae(player.name, player.race, gender_choice, player.role, player.items,
+                                                 player.equipment, player.current_quests, player.quest_progress,
+                                                 player.quest_status, player.quest_complete, player.knowledge,
+                                                 player.skills_mage, player.skills_fighter, player.skills_scout,
+                                                 player.level, player.experience, player.health, player.energy,
+                                                 player.alive_status, player.rupees, player.reputation,
+                                                 player.current_zone, player.defense, player.offense, player.star_power,
+                                                 player.flowers_amuna, player.flowers_sorae, player.pet)
                             player.race = "sorae"
-                            player.surf = graphic_dict["player_no_role_sorae_down_1"]
+                            if player.gender == "male":
+                                player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
+                            if player.gender == "female":
+                                player.surf = graphic_dict["player_no_role_sorae_b_down_1"]
                             player.current_zone = "nascent"
                             in_over_world = True
                             new_game_chosen = False
@@ -3766,7 +3794,7 @@ if __name__ == '__main__':
                             player.name = "default"
 
                         if player.name == "dev":
-                            player = PlayerAmuna("stan", "amuna", "",  # name, race, role
+                            player = PlayerAmuna("stan", "amuna", "male", "",  # name, race, role
                                                  [],  # inventory
                                                  {"weapon": "", "armor": mythical_armor, "gloves": power_gloves,
                                                   "boots": ""},
@@ -3852,6 +3880,9 @@ if __name__ == '__main__':
                                                          nuldar_female_button, sorae_alpha_button, sorae_beta_button)
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
+
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
                 pygame.display.flip()
 
             # nuldar race selected on character selection screen -------------------------------------------------------
@@ -3869,6 +3900,9 @@ if __name__ == '__main__':
                                                          nuldar_female_button, sorae_alpha_button, sorae_beta_button)
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
+
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
                 pygame.display.flip()
 
             # sorae race selected on character selection screen --------------------------------------------------------
@@ -3886,6 +3920,9 @@ if __name__ == '__main__':
                                                          nuldar_female_button, sorae_alpha_button, sorae_beta_button)
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
+
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
                 pygame.display.flip()
 
         # continue game selected on start screen. try to load player info from save_game file --------------------------
@@ -3942,58 +3979,46 @@ if __name__ == '__main__':
                     iriana_unlocked = load_returned["iriana unlocked"]
 
                     if player.race == "amuna":
-                        player = PlayerAmuna(player.name, player.race, player.role, player.items, player.equipment,
-                                             player.current_quests, player.quest_progress, player.quest_status,
-                                             player.quest_complete, player.knowledge, player.skills_mage,
-                                             player.skills_fighter, player.skills_scout, player.level,
-                                             player.experience, player.health, player.energy, player.alive_status,
-                                             player.rupees, player.reputation, player.current_zone, player.defense,
-                                             player.offense, player.star_power, player.flowers_amuna,
+                        player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
+                                             player.equipment, player.current_quests, player.quest_progress,
+                                             player.quest_status, player.quest_complete, player.knowledge,
+                                             player.skills_mage, player.skills_fighter, player.skills_scout,
+                                             player.level, player.experience, player.health, player.energy,
+                                             player.alive_status, player.rupees, player.reputation, player.current_zone,
+                                             player.defense, player.offense, player.star_power, player.flowers_amuna,
                                              player.flowers_sorae, player.pet)
-                        if player.role == "":
-                            player.surf = graphic_dict["player_no_role_amuna_down_1"]
-                        if player.role == "mage":
-                            player.surf = graphic_dict["player_mage_amuna_down_1"]
-                        if player.role == "fighter":
-                            player.surf = graphic_dict["player_fighter_amuna_down_1"]
-                        if player.role == "scout":
-                            player.surf = graphic_dict["player_scout_amuna_down_1"]
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_no_role_amuna_male_down_1"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_no_role_amuna_female_down_1"]
 
                     if player.race == "nuldar":
-                        player = PlayerNuldar(player.name, player.race, player.role, player.items, player.equipment,
-                                              player.current_quests, player.quest_progress, player.quest_status,
-                                              player.quest_complete, player.knowledge, player.skills_mage,
-                                              player.skills_fighter, player.skills_scout, player.level,
-                                              player.experience, player.health, player.energy, player.alive_status,
-                                              player.rupees, player.reputation, player.current_zone, player.defense,
-                                              player.offense, player.star_power, player.flowers_amuna,
-                                              player.flowers_sorae, player.pet)
-                        if player.role == "":
-                            player.surf = graphic_dict["player_no_role_nuldar_down_1"]
-                        if player.role == "mage":
-                            player.surf = graphic_dict["player_mage_nuldar_down_1"]
-                        if player.role == "fighter":
-                            player.surf = graphic_dict["player_fighter_nuldar_down_1"]
-                        if player.role == "scout":
-                            player.surf = graphic_dict["player_scout_nuldar_down_1"]
+                        player = PlayerNuldar(player.name, player.race, player.gender, player.role, player.items,
+                                              player.equipment, player.current_quests, player.quest_progress,
+                                              player.quest_status, player.quest_complete, player.knowledge,
+                                              player.skills_mage, player.skills_fighter, player.skills_scout,
+                                              player.level, player.experience, player.health, player.energy,
+                                              player.alive_status, player.rupees, player.reputation,
+                                              player.current_zone, player.defense, player.offense, player.star_power,
+                                              player.flowers_amuna, player.flowers_sorae, player.pet)
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_no_role_nuldar_female_down_1"]
 
                     if player.race == "sorae":
-                        player = PlayerSorae(player.name, player.race, player.role, player.items, player.equipment,
-                                             player.current_quests, player.quest_progress, player.quest_status,
-                                             player.quest_complete, player.knowledge, player.skills_mage,
-                                             player.skills_fighter, player.skills_scout, player.level,
-                                             player.experience, player.health, player.energy, player.alive_status,
-                                             player.rupees, player.reputation, player.current_zone, player.defense,
-                                             player.offense, player.star_power, player.flowers_amuna,
+                        player = PlayerSorae(player.name, player.race, player.gender, player.role, player.items,
+                                             player.equipment, player.current_quests, player.quest_progress,
+                                             player.quest_status, player.quest_complete, player.knowledge,
+                                             player.skills_mage, player.skills_fighter, player.skills_scout,
+                                             player.level, player.experience, player.health, player.energy,
+                                             player.alive_status, player.rupees, player.reputation, player.current_zone,
+                                             player.defense, player.offense, player.star_power, player.flowers_amuna,
                                              player.flowers_sorae, player.pet)
-                        if player.role == "":
-                            player.surf = graphic_dict["player_no_role_sorae_down_1"]
-                        if player.role == "mage":
-                            player.surf = graphic_dict["player_mage_sorae_down_1"]
-                        if player.role == "fighter":
-                            player.surf = graphic_dict["player_fighter_sorae_down_1"]
-                        if player.role == "scout":
-                            player.surf = graphic_dict["player_scout_sorae_down_1"]
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_no_role_sorae_b_down_1"]
 
                     if player.quest_progress["where's nede?"] == 1:
                         nede.update(809, 390, graphic_dict["nede_left"])
@@ -4334,7 +4359,10 @@ if __name__ == '__main__':
                             sys.exit()
 
                         # getting mouse position and highlighting buttons if they collide
-                        pos = pygame.mouse.get_pos()
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
                         # continuing to use mouse position for clicking buttons
@@ -4344,7 +4372,8 @@ if __name__ == '__main__':
                                                          pressed_keys, sfx_button_role)
 
                             # click handlers
-                            info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
+                            info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
+                                                                          SCREEN_WIDTH, SCREEN_HEIGHT)
                             if info_choice == "yes":
                                 inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                            sfx_item_potion, sfx_item_equip,
@@ -4358,7 +4387,8 @@ if __name__ == '__main__':
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
 
-                            inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
+                            inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
+                                                                                         SCREEN_HEIGHT)
                             if inventory_item_clicked["clicked"]:
                                 pygame.mixer.find_channel(True).play(sfx_button_inventory)
                                 current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -4369,7 +4399,7 @@ if __name__ == '__main__':
                                 equipment_event = click_handlers.equipment(player, event, pygame, basic_armor,
                                                                            forged_armor, mythical_armor,
                                                                            legendary_armor, power_gloves, chroma_boots,
-                                                                           sfx_item_equip)
+                                                                           sfx_item_equip, SCREEN_WIDTH, SCREEN_HEIGHT)
                                 if equipment_event["equipment message"] != "":
                                     button_highlighted = False
                                     info_text_1 = equipment_event["equipment message"]
@@ -5662,7 +5692,10 @@ if __name__ == '__main__':
                             sys.exit()
 
                         # getting mouse position and highlighting buttons if they collide
-                        pos = pygame.mouse.get_pos()
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
@@ -5678,10 +5711,11 @@ if __name__ == '__main__':
                                                                            mage_attack_button, fighter_attack_button,
                                                                            scout_attack_button, barrier_button,
                                                                            hard_strike_button, sharp_sense_button,
-                                                                           pygame)
+                                                                           pygame, SCREEN_WIDTH, SCREEN_HEIGHT)
                         # click handlers
 
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
@@ -5719,7 +5753,6 @@ if __name__ == '__main__':
                                                                                       basic_armor, forged_armor,
                                                                                       mythical_armor, legendary_armor,
                                                                                       power_gloves, chroma_boots)
-                                        pygame.display.flip()
                                 if current_info_item.name == "health potion":
                                     if inventory_event["item message"] != "You're already at full health.":
                                         turn_taken = True
@@ -5746,7 +5779,6 @@ if __name__ == '__main__':
                                                                                       basic_armor, forged_armor,
                                                                                       mythical_armor, legendary_armor,
                                                                                       power_gloves, chroma_boots)
-                                        pygame.display.flip()
                                 if current_info_item.name == "super potion":
                                     if inventory_event["item message"] != "You're already at full health or energy.":
                                         turn_taken = True
@@ -5773,14 +5805,14 @@ if __name__ == '__main__':
                                                                                       basic_armor, forged_armor,
                                                                                       mythical_armor, legendary_armor,
                                                                                       power_gloves, chroma_boots)
-                                        pygame.display.flip()
                             except AttributeError:
                                 pass
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
                             button_highlighted = False
 
-                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
+                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
+                                                                                     SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
                             pygame.mixer.find_channel(True).play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -5791,7 +5823,8 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots, sfx_item_equip)
+                                                                       chroma_boots, sfx_item_equip, SCREEN_WIDTH,
+                                                                       SCREEN_HEIGHT)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -5999,6 +6032,9 @@ if __name__ == '__main__':
                                                                                               legendary_armor,
                                                                                               power_gloves,
                                                                                               chroma_boots)
+                                                frame = pygame.transform.smoothscale(screen,
+                                                                                     (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
                                                 pygame.display.flip()
                                             else:
                                                 info_text_1 = "Barrier spell is already active."
@@ -6056,6 +6092,9 @@ if __name__ == '__main__':
                                                                                               legendary_armor,
                                                                                               power_gloves,
                                                                                               chroma_boots)
+                                                frame = pygame.transform.smoothscale(screen,
+                                                                                     (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                                game_window.blit(frame, frame.get_rect())
                                                 pygame.display.flip()
                                             else:
                                                 info_text_1 = "Sharp sense is already active."
@@ -6301,6 +6340,8 @@ if __name__ == '__main__':
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
 
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
                         pygame.display.flip()
                         combat_cooldown = False
 
@@ -6468,6 +6509,8 @@ if __name__ == '__main__':
                         except TypeError:
                             pass
 
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
                         pygame.display.flip()
                         combat_cooldown = True
                         # when combat happens, apply a short cooldown so attack button can't be spammed
@@ -6508,7 +6551,8 @@ if __name__ == '__main__':
                         if buy_clicked:
                             if player.current_zone == "stardust":
                                 upgrade_event = click_handlers.stardust_upgrade_event(event, offense_select_button,
-                                                                                      pygame)
+                                                                                      pygame, SCREEN_WIDTH,
+                                                                                      SCREEN_HEIGHT)
                                 # if player is in stardust post and chooses to upgrade +10 offense, consume 4 stars
                                 if len(stardust_upgrade_elements) > 0:
                                     if upgrade_event == "offense":
@@ -6549,7 +6593,10 @@ if __name__ == '__main__':
                             sys.exit()
 
                         # getting mouse position and highlighting buttons if they collide
-                        pos = pygame.mouse.get_pos()
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
@@ -6575,12 +6622,13 @@ if __name__ == '__main__':
                                     cats_pet["eldream_shop"] = True
 
                         shop_button = click_handlers.shop_event_button(event, buy_button, leave_button, pygame,
-                                                                       sfx_sheet_paper)
+                                                                       sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
 
                         # get which button player pressed during shop scenario (buy or leave)
                         if buy_clicked:
                             # if player clicks yes button to sell item, get current item and buy -------------------
-                            buy_choice = click_handlers.shop_buy_button(event, yes_button, pygame)
+                            buy_choice = click_handlers.shop_buy_button(event, yes_button, pygame, SCREEN_WIDTH,
+                                                                        SCREEN_HEIGHT)
                             buy_return = shop_scenario.buy_items(pygame, player, buy_choice, current_buy_item, Item,
                                                                  graphic_dict["health_pot_img"],
                                                                  graphic_dict["energy_pot_img"],
@@ -6598,7 +6646,7 @@ if __name__ == '__main__':
                             item_bought = buy_return["bought"]
                             # draws buy info box for info and confirmation
                             buy_item = click_handlers.buy_event_item(event, shopkeeper_items, pygame, 
-                                                                     sfx_button_inventory)
+                                                                     sfx_button_inventory, SCREEN_WIDTH, SCREEN_HEIGHT)
                             if drawing_functions.buy_info_draw(buy_item, buy_items, yes_button,
                                                                graphic_dict) is not None:
                                 current_buy_item = drawing_functions.buy_info_draw(buy_item, buy_items, yes_button,
@@ -6606,7 +6654,8 @@ if __name__ == '__main__':
                         if not buy_clicked:
                             if player.current_zone != "stardust":
                                 # if player clicks yes button to sell item, get current item and sell ------------------
-                                sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame, sell_items)
+                                sell_choice = click_handlers.shop_sell_button(event, yes_button, pygame, sell_items,
+                                                                              SCREEN_WIDTH, SCREEN_HEIGHT)
                                 sell_return = shop_scenario.sell_items(pygame, player, sell_choice, current_sell_item,
                                                                        sfx_shop_transaction)
                                 if sell_return["info 1"] != "":
@@ -6616,7 +6665,8 @@ if __name__ == '__main__':
                                     info_text_1 = sell_return["info 2"]
                                 item_sold = sell_return["sold"]
                                 # draws sell info box for info and confirmation
-                                sell_item = click_handlers.sell_event_item(event, pygame, sfx_button_inventory)
+                                sell_item = click_handlers.sell_event_item(event, pygame, sfx_button_inventory,
+                                                                           SCREEN_WIDTH, SCREEN_HEIGHT)
                                 if drawing_functions.sell_info_draw(sell_item, sell_items, yes_button,
                                                                     graphic_dict) is not None:
                                     current_sell_item = drawing_functions.sell_info_draw(sell_item, sell_items,
@@ -7033,7 +7083,10 @@ if __name__ == '__main__':
                             sys.exit()
 
                         # getting mouse position and highlighting buttons if they collide
-                        pos = pygame.mouse.get_pos()
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
                         gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
@@ -7041,10 +7094,11 @@ if __name__ == '__main__':
 
                         # get which button player pressed during inn scenario (rest or leave)
                         inn_button = click_handlers.inn_event_button(event, rest_button, leave_button, pygame,
-                                                                     sfx_inn_sleep)
+                                                                     sfx_inn_sleep, SCREEN_WIDTH, SCREEN_HEIGHT)
 
                         # click handlers
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
@@ -7055,7 +7109,8 @@ if __name__ == '__main__':
                             drawing_functions.item_info_window.clear()
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
-                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
+                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
+                                                                                     SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
                             pygame.mixer.find_channel(True).play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -7065,7 +7120,8 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots, sfx_item_equip)
+                                                                       chroma_boots, sfx_item_equip, SCREEN_WIDTH,
+                                                                       SCREEN_HEIGHT)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -7119,6 +7175,8 @@ if __name__ == '__main__':
                                         seldon_district_inn.set_alpha(alpha)
                                         screen.blit(seldon_district_inn, (0, 0))
                                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                        game_window.blit(frame, frame.get_rect())
                                         pygame.display.flip()
                                     faded_inn_screen = True
                                 else:
@@ -7138,6 +7196,8 @@ if __name__ == '__main__':
                                         korlok_district_inn.set_alpha(alpha)
                                         screen.blit(korlok_district_inn, (0, 0))
                                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                        game_window.blit(frame, frame.get_rect())
                                         pygame.display.flip()
                                     faded_inn_screen = True
                                 else:
@@ -7157,6 +7217,8 @@ if __name__ == '__main__':
                                         eldream_district_inn.set_alpha(alpha)
                                         screen.blit(eldream_district_inn, (0, 0))
                                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                        game_window.blit(frame, frame.get_rect())
                                         pygame.display.flip()
                                     faded_inn_screen = True
                                 else:
@@ -7191,6 +7253,8 @@ if __name__ == '__main__':
                             for alpha in range(0, 255):
                                 nera_sleep_screen.set_alpha(alpha)
                                 screen.blit(nera_sleep_screen, (0, 0))
+                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                game_window.blit(frame, frame.get_rect())
                                 pygame.display.flip()
                             player.health = 100
                             player.energy = 100
@@ -7235,7 +7299,10 @@ if __name__ == '__main__':
                             sys.exit()
 
                         # getting mouse position and highlighting buttons if they collide
-                        pos = pygame.mouse.get_pos()
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         # highlighting books once moused over
                         if not mage_learn_clicked and not fighter_learn_clicked and not scout_learn_clicked:
                             if mage_learn_button.rect.collidepoint(pos):
@@ -7287,9 +7354,11 @@ if __name__ == '__main__':
                         # get which button player pressed during academia scenario (learn or leave)
                         academia_button = click_handlers.academia_event_button(event, mage_learn_button,
                                                                                fighter_learn_button, scout_learn_button,
-                                                                               leave_button, pygame, sfx_sheet_paper)
+                                                                               leave_button, pygame, sfx_sheet_paper,
+                                                                               SCREEN_WIDTH, SCREEN_HEIGHT)
                         # click handlers
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
@@ -7300,7 +7369,8 @@ if __name__ == '__main__':
                             drawing_functions.item_info_window.clear()
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
-                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
+                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame,
+                                                                                     SCREEN_WIDTH, SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
                             pygame.mixer.find_channel(True).play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -7310,13 +7380,15 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots, sfx_item_equip)
+                                                                       chroma_boots, sfx_item_equip,
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
 
                         # get which button player pressed during book skill open (skill or close)
-                        book_button = click_handlers.skill_learn_event_item(event, skill_learn_items, pygame)
+                        book_button = click_handlers.skill_learn_event_item(event, skill_learn_items, pygame,
+                                                                            SCREEN_WIDTH, SCREEN_HEIGHT)
                         if mage_learn_clicked:
                             try:
                                 if book_button.name == "barrier learn button":
@@ -7563,7 +7635,10 @@ if __name__ == '__main__':
                             pygame.mixer.quit()
                             sys.exit()
 
-                        pos = pygame.mouse.get_pos()
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
@@ -7647,12 +7722,14 @@ if __name__ == '__main__':
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
-                                                                     sfx_sheet_paper)
+                                                                     sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
                         # in quest window pop-up, if accept or decline buttons are clicked
-                        quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
+                        quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame,
+                                                                          SCREEN_WIDTH, SCREEN_HEIGHT)
 
                         # click handlers
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
@@ -7663,7 +7740,8 @@ if __name__ == '__main__':
                             drawing_functions.item_info_window.clear()
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
-                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
+                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
+                                                                                     SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
                             pygame.mixer.find_channel(True).play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -7673,7 +7751,8 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots, sfx_item_equip)
+                                                                       chroma_boots, sfx_item_equip, SCREEN_WIDTH,
+                                                                       SCREEN_HEIGHT)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -7896,7 +7975,10 @@ if __name__ == '__main__':
                                     pygame.mixer.find_channel(True).play(sfx_hatch)
                                     hatch_sound = True
 
-                        pos = pygame.mouse.get_pos()
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
@@ -8126,12 +8208,13 @@ if __name__ == '__main__':
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
-                                                                     sfx_sheet_paper)
+                                                                     sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
                         # in quest window pop-up, if accept or decline buttons are clicked
-                        quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
-
+                        quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame,
+                                                                          SCREEN_WIDTH, SCREEN_HEIGHT)
                         # click handlers
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
@@ -8142,7 +8225,8 @@ if __name__ == '__main__':
                             drawing_functions.item_info_window.clear()
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
-                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
+                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
+                                                                                     SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
                             pygame.mixer.find_channel(True).play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -8152,7 +8236,8 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots, sfx_item_equip)
+                                                                       chroma_boots, sfx_item_equip, SCREEN_WIDTH,
+                                                                       SCREEN_HEIGHT)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -8346,7 +8431,10 @@ if __name__ == '__main__':
                             pygame.mixer.quit()
                             sys.exit()
 
-                        pos = pygame.mouse.get_pos()
+                        init_pos = list(pygame.mouse.get_pos())
+                        ratio_x = (SCREEN_WIDTH / screen.get_width())
+                        ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                        pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
@@ -8381,9 +8469,10 @@ if __name__ == '__main__':
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button = click_handlers.npc_event_button(event, quest_button, leave_button, pygame,
-                                                                     sfx_sheet_paper)
+                                                                     sfx_sheet_paper, SCREEN_WIDTH, SCREEN_HEIGHT)
                         # in quest window pop-up, if accept or decline buttons are clicked
-                        quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame)
+                        quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame,
+                                                                          SCREEN_WIDTH, SCREEN_HEIGHT)
                         # options once quest window is open ------------------------------------------------------------
                         if quest_buttons == "accept":
                             if current_npc_interacting.name != "garan":
@@ -8446,7 +8535,8 @@ if __name__ == '__main__':
                             drawing_functions.quest_box.clear()
 
                         # click handlers
-                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items)
+                        info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT)
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
@@ -8459,7 +8549,8 @@ if __name__ == '__main__':
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
                             button_highlighted = False
-                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame)
+                        inventory_item_clicked = click_handlers.inventory_event_item(event, pygame,
+                                                                                     SCREEN_WIDTH, SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
                             pygame.mixer.find_channel(True).play(sfx_button_inventory)
                             current_info_item = drawing_functions.item_info_draw(inventory_item_clicked["element"],
@@ -8469,7 +8560,8 @@ if __name__ == '__main__':
                         if len(drawing_functions.item_info_window) == 0:
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
-                                                                       chroma_boots, sfx_item_equip)
+                                                                       chroma_boots, sfx_item_equip,
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
                             if equipment_event["equipment message"] != "":
                                 button_highlighted = False
                                 info_text_1 = equipment_event["equipment message"]
@@ -9204,12 +9296,14 @@ if __name__ == '__main__':
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------
                 # check each iteration if creature seed is ready to hatch from counters
-                hatch_ready = gameplay_functions.creature_update(player, seed_scout_count,
-                                                                 seed_fighter_count,
+                hatch_ready = gameplay_functions.creature_update(player, seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, hatch_ready,
                                                                  graphic_dict["seed_ready_img"])
-                clock.tick(60)
+
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
                 pygame.display.flip()
+                clock.tick(60)
 
             # ----------------------------------------------------------------------------------------------------------
             # player has died, show game over and give continue option -------------------------------------------------
@@ -9223,7 +9317,10 @@ if __name__ == '__main__':
                 screen.blit(game_over_screen, (0, 0))
                 screen.blit(lets_go_button.surf, lets_go_button.rect)
                 for event in pygame.event.get():
-                    pos = pygame.mouse.get_pos()
+                    init_pos = list(pygame.mouse.get_pos())
+                    ratio_x = (SCREEN_WIDTH / screen.get_width())
+                    ratio_y = (SCREEN_HEIGHT / screen.get_height())
+                    pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                     if lets_go_button.rect.collidepoint(pos):
                         button_highlighted = True
                     else:
@@ -9326,4 +9423,6 @@ if __name__ == '__main__':
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
 
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
                 pygame.display.flip()

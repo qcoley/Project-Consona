@@ -15,85 +15,94 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
             pygame.mixer.Sound.play(sfx_swap)
             player.role = "mage"
             if player.race == "amuna":
-                player.surf = graphic_dict["player_mage_amuna_down_1"]
-                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                    player.surf = graphic_dict["player_mage_amuna_right_1"]
-                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                    player.surf = graphic_dict["player_mage_amuna_left_1"]
-                if pressed_keys[K_w] or pressed_keys[K_UP]:
-                    player.surf = graphic_dict["player_mage_amuna_up_1"]
+                if player.gender == "male":
+                    player.surf = graphic_dict["player_mage_amuna_male_down_1"]
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.surf = graphic_dict["player_mage_amuna_male_right_1"]
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.surf = graphic_dict["player_mage_amuna_male_left_1"]
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.surf = graphic_dict["player_mage_amuna_male_up_1"]
             if player.race == "nuldar":
-                player.surf = graphic_dict["player_mage_nuldar_down_1"]
-                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                    player.surf = graphic_dict["player_mage_nuldar_right_1"]
-                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                    player.surf = graphic_dict["player_mage_nuldar_left_1"]
-                if pressed_keys[K_w] or pressed_keys[K_UP]:
-                    player.surf = graphic_dict["player_mage_nuldar_up_1"]
+                if player.gender == "male":
+                    player.surf = graphic_dict["player_mage_nuldar_male_down_1"]
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.surf = graphic_dict["player_mage_nuldar_male_right_1"]
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.surf = graphic_dict["player_mage_nuldar_male_left_1"]
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.surf = graphic_dict["player_mage_nuldar_male_up_1"]
             if player.race == "sorae":
-                player.surf = graphic_dict["player_mage_sorae_down_1"]
-                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                    player.surf = graphic_dict["player_mage_sorae_right_1"]
-                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                    player.surf = graphic_dict["player_mage_sorae_left_1"]
-                if pressed_keys[K_w] or pressed_keys[K_UP]:
-                    player.surf = graphic_dict["player_mage_sorae_up_1"]
+                if player.gender == "male":
+                    player.surf = graphic_dict["player_mage_sorae_a_down_1"]
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.surf = graphic_dict["player_mage_sorae_a_right_1"]
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.surf = graphic_dict["player_mage_sorae_a_left_1"]
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.surf = graphic_dict["player_mage_sorae_a_up_1"]
 
         if sword.rect.collidepoint(pos):
             pygame.mixer.Sound.play(sfx_swap)
             player.role = "fighter"
             if player.race == "amuna":
-                player.surf = graphic_dict["player_fighter_amuna_down_1"]
-                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                    player.surf = graphic_dict["player_fighter_amuna_right_1"]
-                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                    player.surf = graphic_dict["player_fighter_amuna_left_1"]
-                if pressed_keys[K_w] or pressed_keys[K_UP]:
-                    player.surf = graphic_dict["player_fighter_amuna_up_1"]
+                if player.gender == "male":
+                    player.surf = graphic_dict["player_fighter_amuna_male_down_1"]
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.surf = graphic_dict["player_fighter_amuna_male_right_1"]
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.surf = graphic_dict["player_fighter_amuna_male_left_1"]
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.surf = graphic_dict["player_fighter_amuna_male_up_1"]
             if player.race == "nuldar":
-                player.surf = graphic_dict["player_fighter_nuldar_down_1"]
-                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                    player.surf = graphic_dict["player_fighter_nuldar_right_1"]
-                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                    player.surf = graphic_dict["player_fighter_nuldar_left_1"]
-                if pressed_keys[K_w] or pressed_keys[K_UP]:
-                    player.surf = graphic_dict["player_fighter_nuldar_up_1"]
+                if player.gender == "male":
+                    player.surf = graphic_dict["player_fighter_nuldar_male_down_1"]
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.surf = graphic_dict["player_fighter_nuldar_male_right_1"]
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.surf = graphic_dict["player_fighter_nuldar_male_left_1"]
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.surf = graphic_dict["player_fighter_nuldar_male_up_1"]
             if player.race == "sorae":
-                player.surf = graphic_dict["player_fighter_sorae_down_1"]
-                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                    player.surf = graphic_dict["player_fighter_sorae_right_1"]
-                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                    player.surf = graphic_dict["player_fighter_sorae_left_1"]
-                if pressed_keys[K_w] or pressed_keys[K_UP]:
-                    player.surf = graphic_dict["player_fighter_sorae_up_1"]
+                if player.gender == "male":
+                    player.surf = graphic_dict["player_fighter_sorae_a_down_1"]
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.surf = graphic_dict["player_fighter_sorae_a_right_1"]
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.surf = graphic_dict["player_fighter_sorae_a_left_1"]
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.surf = graphic_dict["player_fighter_sorae_a_up_1"]
 
         if bow.rect.collidepoint(pos):
             pygame.mixer.Sound.play(sfx_swap)
             player.role = "scout"
             if player.race == "amuna":
-                player.surf = graphic_dict["player_scout_amuna_down_1"]
-                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                    player.surf = graphic_dict["player_scout_amuna_right_1"]
-                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                    player.surf = graphic_dict["player_scout_amuna_left_1"]
-                if pressed_keys[K_w] or pressed_keys[K_UP]:
-                    player.surf = graphic_dict["player_scout_amuna_up_1"]
+                if player.gender == "male":
+                    player.surf = graphic_dict["player_scout_amuna_male_down_1"]
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.surf = graphic_dict["player_scout_amuna_male_right_1"]
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.surf = graphic_dict["player_scout_amuna_male_left_1"]
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.surf = graphic_dict["player_scout_amuna_male_up_1"]
             if player.race == "nuldar":
-                player.surf = graphic_dict["player_scout_nuldar_down_1"]
-                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                    player.surf = graphic_dict["player_scout_nuldar_right_1"]
-                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                    player.surf = graphic_dict["player_scout_nuldar_left_1"]
-                if pressed_keys[K_w] or pressed_keys[K_UP]:
-                    player.surf = graphic_dict["player_scout_nuldar_up_1"]
+                if player.gender == "male":
+                    player.surf = graphic_dict["player_scout_nuldar_male_down_1"]
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.surf = graphic_dict["player_scout_nuldar_male_right_1"]
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.surf = graphic_dict["player_scout_nuldar_male_left_1"]
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.surf = graphic_dict["player_scout_nuldar_male_up_1"]
             if player.race == "sorae":
-                player.surf = graphic_dict["player_scout_sorae_down_1"]
-                if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                    player.surf = graphic_dict["player_scout_sorae_right_1"]
-                if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                    player.surf = graphic_dict["player_scout_sorae_left_1"]
-                if pressed_keys[K_w] or pressed_keys[K_UP]:
-                    player.surf = graphic_dict["player_scout_sorae_up_1"]
+                if player.gender == "male":
+                    player.surf = graphic_dict["player_scout_sorae_a_down_1"]
+                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                        player.surf = graphic_dict["player_scout_sorae_a_right_1"]
+                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                        player.surf = graphic_dict["player_scout_sorae_a_left_1"]
+                    if pressed_keys[K_w] or pressed_keys[K_UP]:
+                        player.surf = graphic_dict["player_scout_sorae_a_up_1"]
 
 
 # quest stars for npcs that update based on player quest progress
@@ -176,6 +185,7 @@ def load_game(player, Item, graphics, Pet):
             player.defense = player_load_info["defense"]
             player.experience = player_load_info["xp"]
             player.race = player_load_info["race"]
+            player.gender = player_load_info["gender"]
             player.role = player_load_info["role"]
             player.star_power = player_load_info["star power"]
             player.flowers_amuna = player_load_info["flowers amuna"]
@@ -192,32 +202,35 @@ def load_game(player, Item, graphics, Pet):
                                       graphics["iriana"], False))
 
             if player.race == "amuna":
-                if player.role == "mage":
-                    player.surf = graphics["player_mage_amuna_down_1"]
-                if player.role == "fighter":
-                    player.surf = graphics["player_fighter_amuna_down_1"]
-                if player.role == "scout":
-                    player.surf = graphics["player_scout_amuna_down_1"]
-                else:
-                    player.surf = graphics["player_no_role_amuna_down_1"]
+                if player.gender == "male":
+                    if player.role == "mage":
+                        player.surf = graphics["player_mage_amuna_male_down_1"]
+                    if player.role == "fighter":
+                        player.surf = graphics["player_fighter_amuna_male_down_1"]
+                    if player.role == "scout":
+                        player.surf = graphics["player_scout_amuna_male_down_1"]
+                    else:
+                        player.surf = graphics["player_no_role_amuna_male_down_1"]
             if player.race == "nuldar":
-                if player.role == "mage":
-                    player.surf = graphics["player_mage_nuldar_down_1"]
-                if player.role == "fighter":
-                    player.surf = graphics["player_fighter_nuldar_down_1"]
-                if player.role == "scout":
-                    player.surf = graphics["player_scout_nuldar_down_1"]
-                else:
-                    player.surf = graphics["player_no_role_nuldar_down_1"]
+                if player.gender == "male":
+                    if player.role == "mage":
+                        player.surf = graphics["player_mage_nuldar_male_down_1"]
+                    if player.role == "fighter":
+                        player.surf = graphics["player_fighter_nuldar_male_down_1"]
+                    if player.role == "scout":
+                        player.surf = graphics["player_scout_nuldar_male_down_1"]
+                    else:
+                        player.surf = graphics["player_no_role_nuldar_male_down_1"]
             if player.race == "sorae":
-                if player.role == "mage":
-                    player.surf = graphics["player_mage_sorae_down_1"]
-                if player.role == "fighter":
-                    player.surf = graphics["player_fighter_sorae_down_1"]
-                if player.role == "scout":
-                    player.surf = graphics["player_scout_sorae_down_1"]
-                else:
-                    player.surf = graphics["player_no_role_sorae_down_1"]
+                if player.gender == "male":
+                    if player.role == "mage":
+                        player.surf = graphics["player_mage_sorae_a_down_1"]
+                    if player.role == "fighter":
+                        player.surf = graphics["player_fighter_sorae_a_down_1"]
+                    if player.role == "scout":
+                        player.surf = graphics["player_scout_sorae_down_a_1"]
+                    else:
+                        player.surf = graphics["player_no_role_sorae_down_a_1"]
 
             # clear default starting items and load personal player items from save file
             player.items.clear()
@@ -408,18 +421,14 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
     except AttributeError:
         pass
 
-    player_save_info = {"name": str(player.name), "race": str(player.race), "level": int(player.level),
-                        "role": str(player.role), "inventory": inventory_save, "equipment": equipment_save,
-                        "hp": int(player.health), "en": int(player.energy), "xp": int(player.experience),
-                        "offense": int(player.offense), "defense": int(player.defense),
-                        "quests": dict(player.current_quests),
-                        "garan gift": garan_gift,
-                        "quest progress": dict(player.quest_progress),
-                        "quest status": dict(player.quest_status),
-                        "quest complete": dict(player.quest_complete),
-                        "knowledge": dict(player.knowledge),
-                        "mage skills": dict(player.skills_mage),
-                        "fighter skills": dict(player.skills_fighter),
+    player_save_info = {"name": str(player.name), "race": str(player.race), "gender": str(player.gender),
+                        "level": int(player.level), "role": str(player.role), "inventory": inventory_save,
+                        "equipment": equipment_save, "hp": int(player.health), "en": int(player.energy),
+                        "xp": int(player.experience), "offense": int(player.offense), "defense": int(player.defense),
+                        "quests": dict(player.current_quests), "garan gift": garan_gift,
+                        "quest progress": dict(player.quest_progress), "quest status": dict(player.quest_status),
+                        "quest complete": dict(player.quest_complete), "knowledge": dict(player.knowledge),
+                        "mage skills": dict(player.skills_mage), "fighter skills": dict(player.skills_fighter),
                         "scout skills": dict(player.skills_scout),
                         "learned":
                             {"barrier": barrier_learned, "strike": hard_strike_learned, "sense": sharp_sense_learned},

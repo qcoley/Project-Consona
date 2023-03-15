@@ -1065,7 +1065,9 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       quests_button, save_button, map_button, in_npc_interaction, quest_button, quest_clicked,
                       accept_button, decline_button, in_apothecary, staff, sword, bow, potion_button,
                       create_potion_button, in_menagerie, ok_button, hatch_ready, menagerie_window_open,
-                      kasper_manage_button, torok_manage_button, iriana_manage_button):
+                      kasper_manage_button, torok_manage_button, iriana_manage_button, amuna_male_button,
+                      amuna_female_button, nuldar_male_button, nuldar_female_button, sorae_alpha_button,
+                      sorae_beta_button):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1100,38 +1102,57 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
     if not start_chosen:
         if not new_game_chosen:
             if new_game_button.rect.collidepoint(pos):
-                button_highlight.update(new_game_button.x_coordinate + 10,
-                                        new_game_button.y_coordinate,
+                button_highlight.update(new_game_button.x_coordinate + 10, new_game_button.y_coordinate,
                                         graphic_dict["start high"])
                 return True
             if continue_button.rect.collidepoint(pos):
-                button_highlight.update(continue_button.x_coordinate + 10,
-                                        continue_button.y_coordinate,
+                button_highlight.update(continue_button.x_coordinate + 10, continue_button.y_coordinate,
                                         graphic_dict["start high"])
                 return True
 
         if new_game_chosen:
             if start_button.rect.collidepoint(pos):
-                button_highlight.update(start_button.x_coordinate + 15,
-                                        start_button.y_coordinate,
+                button_highlight.update(start_button.x_coordinate + 22, start_button.y_coordinate,
                                         graphic_dict["begin high"])
                 return True
             if back_button.rect.collidepoint(pos):
-                button_highlight.update(back_button.x_coordinate,
-                                        back_button.y_coordinate + 7,
+                button_highlight.update(back_button.x_coordinate, back_button.y_coordinate + 7,
                                         graphic_dict["main high"])
                 return True
+
             if amuna_button.rect.collidepoint(pos):
-                button_highlight.update(140, amuna_button.y_coordinate,
-                                        graphic_dict["race high"])
+                button_highlight.update(140, amuna_button.y_coordinate, graphic_dict["race high"])
                 return True
             if nuldar_button.rect.collidepoint(pos):
-                button_highlight.update(140, nuldar_button.y_coordinate,
-                                        graphic_dict["race high"])
+                button_highlight.update(140, nuldar_button.y_coordinate, graphic_dict["race high"])
                 return True
             if sorae_button.rect.collidepoint(pos):
-                button_highlight.update(140, sorae_button.y_coordinate,
-                                        graphic_dict["race high"])
+                button_highlight.update(140, sorae_button.y_coordinate, graphic_dict["race high"])
+                return True
+
+            if amuna_male_button.rect.collidepoint(pos):
+                button_highlight.update(amuna_male_button.x_coordinate + 154, amuna_male_button.y_coordinate,
+                                        graphic_dict["gender high"])
+                return True
+            if amuna_female_button.rect.collidepoint(pos):
+                button_highlight.update(amuna_female_button.x_coordinate + 154, amuna_female_button.y_coordinate,
+                                        graphic_dict["gender high"])
+                return True
+            if nuldar_male_button.rect.collidepoint(pos):
+                button_highlight.update(nuldar_male_button.x_coordinate + 154, nuldar_male_button.y_coordinate,
+                                        graphic_dict["gender high"])
+                return True
+            if nuldar_female_button.rect.collidepoint(pos):
+                button_highlight.update(nuldar_female_button.x_coordinate + 154, nuldar_female_button.y_coordinate,
+                                        graphic_dict["gender high"])
+                return True
+            if sorae_alpha_button.rect.collidepoint(pos):
+                button_highlight.update(sorae_alpha_button.x_coordinate + 153, sorae_alpha_button.y_coordinate,
+                                        graphic_dict["gender high"])
+                return True
+            if sorae_beta_button.rect.collidepoint(pos):
+                button_highlight.update(sorae_beta_button.x_coordinate + 153, sorae_beta_button.y_coordinate,
+                                        graphic_dict["gender high"])
                 return True
 
     if start_chosen:

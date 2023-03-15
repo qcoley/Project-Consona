@@ -2,9 +2,14 @@ import drawing_functions
 
 
 # getting event based on user click related to item info
-def item_info_button(item_info_event, item_button, pygame, info_window):
+def item_info_button(item_info_event, item_button, pygame, info_window, SCREEN_WIDTH, SCREEN_HEIGHT):
     if item_info_event.type == pygame.MOUSEBUTTONUP:
-        item_info_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        item_info_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if item_button.rect.collidepoint(item_info_mouse):
             if len(drawing_functions.item_info_window) > 0:
                 return "yes"
@@ -15,14 +20,18 @@ def item_info_button(item_info_event, item_button, pygame, info_window):
 
 # getting item player clicked based on it's name and return the corresponding item. for equipment
 def equipment_event_item(player, equipment_event_here, pygame, basic_armor, forged_armor, mythical_armor,
-                         legendary_armor, power_gloves, chroma_boots):
+                         legendary_armor, power_gloves, chroma_boots, SCREEN_WIDTH, SCREEN_HEIGHT):
 
     armor = pygame.Rect((1050, 170), (50, 50))
     gloves = pygame.Rect((1125, 170), (50, 50))
     boots = pygame.Rect((1200, 170), (50, 50))
 
     if equipment_event_here.type == pygame.MOUSEBUTTONUP:
-        equipment_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        equipment_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
 
         if player.equipment["armor"] != "":
             if player.equipment["armor"].name == "basic armor":
@@ -51,10 +60,10 @@ def equipment_event_item(player, equipment_event_here, pygame, basic_armor, forg
 
 # handles mouse clicks for equipment sub-screen
 def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
-              chroma_boots, sfx_equip):
+              chroma_boots, sfx_equip, SCREEN_WIDTH, SCREEN_HEIGHT):
     return_dict = {"equipment message": "", "gear checked": True}
     equipment_item = equipment_event_item(player, event, pygame, basic_armor, forged_armor, mythical_armor,
-                                          legendary_armor, power_gloves, chroma_boots)
+                                          legendary_armor, power_gloves, chroma_boots, SCREEN_WIDTH, SCREEN_HEIGHT)
 
     # if player clicks item in equipment sub-screen, un-equip the item and place in inventory, if inventory isn't full
     if equipment_item is not None:
@@ -117,10 +126,15 @@ def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, 
 
 
 # getting item player clicked based on it's name and return the corresponding item. for inventory items
-def inventory_event_item(inventory_event_here, pygame):
+def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
     event_return = {"element": "", "clicked": False}
     if inventory_event_here.type == pygame.MOUSEBUTTONUP:
-        inventory_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        inventory_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         # list of sprites that collided with mouse cursor rect
         clicked_element = [inventory_element for inventory_element in drawing_functions.player_items
                            if inventory_element.rect.collidepoint(inventory_mouse)]
@@ -382,9 +396,14 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
 
 # getting event based on user click related to combat scenario
 def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attack, scout_attack,
-                        barrier_button, strike_button, sense_button, pygame):
+                        barrier_button, strike_button, sense_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
     if combat_event.type == pygame.MOUSEBUTTONUP:
-        combat_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        combat_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if no_role_attack.rect.collidepoint(combat_mouse):
             return "attack"
         if mage_attack.rect.collidepoint(combat_mouse):
@@ -402,9 +421,14 @@ def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attac
 
 
 # getting event based on user click related to npc
-def npc_event_button(npc_event, quest_button, leave_button, pygame, sfx_page):
+def npc_event_button(npc_event, quest_button, leave_button, pygame, sfx_page, SCREEN_WIDTH, SCREEN_HEIGHT):
     if npc_event.type == pygame.MOUSEBUTTONUP:
-        npc_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        npc_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if quest_button.rect.collidepoint(npc_mouse):
             pygame.mixer.find_channel(True).play(sfx_page)
             return "quest"
@@ -413,9 +437,14 @@ def npc_event_button(npc_event, quest_button, leave_button, pygame, sfx_page):
 
 
 # getting event based on user click related to quest window
-def quest_event_button(quest_event, accept_button, decline_button, pygame):
+def quest_event_button(quest_event, accept_button, decline_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
     if quest_event.type == pygame.MOUSEBUTTONUP:
-        quest_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        quest_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if accept_button.rect.collidepoint(quest_mouse):
             return "accept"
         if decline_button.rect.collidepoint(quest_mouse):
@@ -423,17 +452,27 @@ def quest_event_button(quest_event, accept_button, decline_button, pygame):
 
 
 # getting event based on user click related to shop
-def stardust_upgrade_event(stardust_event, offense_button, pygame):
+def stardust_upgrade_event(stardust_event, offense_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
     if stardust_event.type == pygame.MOUSEBUTTONUP:
-        stardust_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        stardust_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if offense_button.rect.collidepoint(stardust_mouse):
             return "offense"
 
 
 # getting event based on user click related to shop
-def shop_event_button(shop_event, buy_button, leave_button, pygame, sfx_paper):
+def shop_event_button(shop_event, buy_button, leave_button, pygame, sfx_paper, SCREEN_WIDTH, SCREEN_HEIGHT):
     if shop_event.type == pygame.MOUSEBUTTONUP:
-        shop_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        shop_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if buy_button.rect.collidepoint(shop_mouse):
             pygame.mixer.find_channel(True).play(sfx_paper)
             return "buy"
@@ -442,9 +481,14 @@ def shop_event_button(shop_event, buy_button, leave_button, pygame, sfx_paper):
 
 
 # getting event based on user click related to shop
-def shop_sell_button(shop_sell_event, yes_button, pygame, info_window):
+def shop_sell_button(shop_sell_event, yes_button, pygame, info_window, SCREEN_WIDTH, SCREEN_HEIGHT):
     if shop_sell_event.type == pygame.MOUSEBUTTONUP:
-        shop_sell_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        shop_sell_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if yes_button.rect.collidepoint(shop_sell_mouse):
             return "yes"
         else:
@@ -453,9 +497,14 @@ def shop_sell_button(shop_sell_event, yes_button, pygame, info_window):
 
 
 # getting event based on user click related to shop
-def shop_buy_button(shop_buy_event, yes_button, pygame):
+def shop_buy_button(shop_buy_event, yes_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
     if shop_buy_event.type == pygame.MOUSEBUTTONUP:
-        shop_buy_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        shop_buy_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if yes_button.rect.collidepoint(shop_buy_mouse):
             return "yes"
         else:
@@ -463,9 +512,14 @@ def shop_buy_button(shop_buy_event, yes_button, pygame):
 
 
 # getting event based on user click related to inn
-def inn_event_button(inn_event, rest_button, leave_button, pygame, sfx_sleep):
+def inn_event_button(inn_event, rest_button, leave_button, pygame, sfx_sleep, SCREEN_WIDTH, SCREEN_HEIGHT):
     if inn_event.type == pygame.MOUSEBUTTONUP:
-        inn_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        inn_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if rest_button.rect.collidepoint(inn_mouse):
             pygame.mixer.find_channel(True).play(sfx_sleep)
             return "rest"
@@ -474,9 +528,15 @@ def inn_event_button(inn_event, rest_button, leave_button, pygame, sfx_sleep):
 
 
 # getting event based on user click related to academia skill buttons
-def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn, leave_button, pygame, sfx_paper):
+def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn, leave_button, pygame, sfx_paper,
+                          SCREEN_WIDTH, SCREEN_HEIGHT):
     if academia_event.type == pygame.MOUSEBUTTONUP:
-        academia_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        academia_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         if mage_learn.rect.collidepoint(academia_mouse):
             pygame.mixer.find_channel(True).play(sfx_paper)
             return "mage learn"
@@ -491,9 +551,14 @@ def academia_event_button(academia_event, mage_learn, fighter_learn, scout_learn
 
 
 # getting item player clicked based on it's name and return the corresponding item. for buying items
-def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item):
+def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
     if buy_event.type == pygame.MOUSEBUTTONUP:
-        buy_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        buy_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         # list of sprites that collided with mouse cursor rect
         clicked_element = [buy_element for buy_element in shopkeeper_items if buy_element.rect.collidepoint(buy_mouse)]
         # try to get inventory item player clicked based on it's name and return it
@@ -534,9 +599,14 @@ def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item):
 
 
 # getting item player clicked based on it's name and return the corresponding item. for selling items
-def sell_event_item(sell_event, pygame, sfx_item):
+def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
     if sell_event.type == pygame.MOUSEBUTTONUP:
-        sell_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        sell_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         # list of sprites that collided with mouse cursor rect
         clicked_element = [sell_element for sell_element in drawing_functions.player_items if
                            sell_element.rect.collidepoint(sell_mouse)]
@@ -590,9 +660,14 @@ def sell_event_item(sell_event, pygame, sfx_item):
 
 
 # getting item player clicked based on it's name and return the corresponding item
-def skill_learn_event_item(skill_learn_event, skill_learn_items, pygame):
+def skill_learn_event_item(skill_learn_event, skill_learn_items, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
     if skill_learn_event.type == pygame.MOUSEBUTTONUP:
-        skill_learn_mouse = pygame.mouse.get_pos()
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        skill_learn_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
         # list of sprites that collided with mouse cursor rect
         skill_learn_element = [skill_learn_element for skill_learn_element in skill_learn_items if
                                skill_learn_element.rect.collidepoint(skill_learn_mouse)]
