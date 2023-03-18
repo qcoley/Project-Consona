@@ -257,6 +257,172 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.surf = graphic_dict["player_scout_amuna_male_right_4"]
                     self.x_coordinate += velocity
 
+        if player.gender == "female":
+            if player.role == "":
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_female_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_female_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_amuna_female_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_amuna_female_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_female_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_female_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_amuna_female_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_amuna_female_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_female_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_female_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_amuna_female_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_amuna_female_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_female_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_amuna_female_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_amuna_female_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_amuna_female_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "mage":  # -------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_female_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_female_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_amuna_female_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_amuna_female_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_female_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_female_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_amuna_female_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_amuna_female_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_female_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_female_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_amuna_female_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_amuna_female_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_female_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_amuna_female_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_amuna_female_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_amuna_female_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "fighter":  # ----------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_female_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_female_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_amuna_female_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_amuna_female_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_female_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_female_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_amuna_female_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_amuna_female_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_female_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_female_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_amuna_female_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_amuna_female_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_female_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_amuna_female_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_amuna_female_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_amuna_female_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "scout":  # ------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_female_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_female_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_amuna_female_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_amuna_female_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_female_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_female_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_amuna_female_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_amuna_female_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_female_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_female_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_amuna_female_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_amuna_female_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_female_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_amuna_female_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_amuna_female_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_amuna_female_right_4"]
+                    self.x_coordinate += velocity
+
         if current_zone == "rohir":
             if self.x_coordinate < 50:
                 self.x_coordinate = 50
@@ -785,7 +951,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
         super(PlayerNuldar, self).__init__()
         self.x_coordinate = 760
         self.y_coordinate = 510
-        self.surf = graphic_dict["player_no_role_amuna_down_1"]
+        self.surf = graphic_dict["player_no_role_amuna_male_down_1"]
         self.rect = self.surf.get_rect(midbottom=(self.x_coordinate, self.y_coordinate))
         self.name = name
         self.race = race
@@ -817,170 +983,337 @@ class PlayerNuldar(pygame.sprite.Sprite):
         self.pet = pets
 
     def update(self, pressed_key, current_zone, walk_timed):
-        if player.role == "":  # ---------------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_nuldar_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_nuldar_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_nuldar_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_nuldar_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_nuldar_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_nuldar_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_nuldar_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_nuldar_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_nuldar_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_nuldar_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_nuldar_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_nuldar_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_nuldar_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_nuldar_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_nuldar_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_nuldar_right_4"]
-                self.x_coordinate += velocity
-        if player.role == "mage":  # -----------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_nuldar_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_nuldar_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_nuldar_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_nuldar_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_nuldar_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_nuldar_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_nuldar_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_nuldar_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_nuldar_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_nuldar_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_nuldar_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_nuldar_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_nuldar_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_nuldar_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_nuldar_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_nuldar_right_4"]
-                self.x_coordinate += velocity
-        if player.role == "fighter":  # --------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_nuldar_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_nuldar_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_nuldar_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_nuldar_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_nuldar_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_nuldar_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_nuldar_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_nuldar_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_nuldar_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_nuldar_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_nuldar_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_nuldar_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_nuldar_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_nuldar_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_nuldar_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_nuldar_right_4"]
-                self.x_coordinate += velocity
-        if player.role == "scout":  # ----------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_nuldar_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_nuldar_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_nuldar_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_nuldar_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_nuldar_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_nuldar_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_nuldar_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_nuldar_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_nuldar_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_nuldar_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_nuldar_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_nuldar_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_nuldar_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_nuldar_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_nuldar_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_nuldar_right_4"]
-                self.x_coordinate += velocity
+        if player.gender == "male":
+            if player.role == "":
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_nuldar_male_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "mage":  # -------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_male_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_male_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_nuldar_male_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_nuldar_male_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_male_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_male_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_nuldar_male_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_nuldar_male_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_male_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_male_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_nuldar_male_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_nuldar_male_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_male_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_male_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_nuldar_male_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_nuldar_male_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "fighter":  # ----------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_nuldar_male_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "scout":  # ------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_male_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_male_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_nuldar_male_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_nuldar_male_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_male_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_male_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_nuldar_male_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_nuldar_male_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_male_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_male_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_nuldar_male_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_nuldar_male_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_male_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_male_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_nuldar_male_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_nuldar_male_right_4"]
+                    self.x_coordinate += velocity
+
+        if player.gender == "female":
+            if player.role == "":
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_nuldar_female_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "mage":  # -------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_female_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_female_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_nuldar_female_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_nuldar_female_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_female_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_female_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_nuldar_female_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_nuldar_female_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_female_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_female_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_nuldar_female_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_nuldar_female_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_female_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_nuldar_female_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_nuldar_female_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_nuldar_female_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "fighter":  # ----------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_nuldar_female_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "scout":  # ------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_female_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_female_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_nuldar_female_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_nuldar_female_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_female_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_female_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_nuldar_female_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_nuldar_female_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_female_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_female_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_nuldar_female_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_nuldar_female_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_female_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_nuldar_female_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_nuldar_female_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_nuldar_female_right_4"]
+                    self.x_coordinate += velocity
 
         if current_zone == "rohir":
             if self.x_coordinate < 50:
@@ -1542,170 +1875,337 @@ class PlayerSorae(pygame.sprite.Sprite):
         self.pet = pets
 
     def update(self, pressed_key, current_zone, walk_timed):
-        if player.role == "":  # ---------------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_sorae_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_sorae_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_sorae_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_sorae_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_sorae_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_sorae_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_sorae_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_sorae_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_sorae_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_sorae_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_sorae_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_sorae_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_no_role_sorae_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_no_role_sorae_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_no_role_sorae_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_no_role_sorae_right_4"]
-                self.x_coordinate += velocity
-        if player.role == "mage":  # -----------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_sorae_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_sorae_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_sorae_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_sorae_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_sorae_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_sorae_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_sorae_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_sorae_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_sorae_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_sorae_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_sorae_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_sorae_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_mage_sorae_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_mage_sorae_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_mage_sorae_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_mage_sorae_right_4"]
-                self.x_coordinate += velocity
-        if player.role == "fighter":  # --------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_sorae_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_sorae_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_sorae_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_sorae_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_sorae_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_sorae_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_sorae_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_sorae_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_sorae_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_sorae_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_sorae_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_sorae_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_fighter_sorae_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_fighter_sorae_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_fighter_sorae_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_fighter_sorae_right_4"]
-                self.x_coordinate += velocity
-        if player.role == "scout":  # ----------------------------------------------------------------------------------
-            if pressed_key == "up":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_sorae_up_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_sorae_up_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_sorae_up_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_sorae_up_4"]
-                self.y_coordinate -= velocity
-            if pressed_key == "down":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_sorae_down_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_sorae_down_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_sorae_down_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_sorae_down_4"]
-                self.y_coordinate += velocity
-            if pressed_key == "left":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_sorae_left_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_sorae_left_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_sorae_left_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_sorae_left_4"]
-                self.x_coordinate -= velocity
-            if pressed_key == "right":
-                if walk_timed < 0.2:
-                    self.surf = graphic_dict["player_scout_sorae_right_1"]
-                if walk_timed > 0.2:
-                    self.surf = graphic_dict["player_scout_sorae_right_2"]
-                if walk_timed > 0.4:
-                    self.surf = graphic_dict["player_scout_sorae_right_3"]
-                if walk_timed > 0.6:
-                    self.surf = graphic_dict["player_scout_sorae_right_4"]
-                self.x_coordinate += velocity
+        if player.gender == "male":
+            if player.role == "":
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_a_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_a_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_sorae_a_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_sorae_a_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_a_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_a_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_sorae_a_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_sorae_a_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_a_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_a_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_sorae_a_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_sorae_a_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_a_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_a_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_sorae_a_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_sorae_a_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "mage":  # -------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_a_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_a_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_sorae_a_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_sorae_a_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_a_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_a_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_sorae_a_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_sorae_a_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_a_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_a_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_sorae_a_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_sorae_a_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_a_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_a_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_sorae_a_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_sorae_a_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "fighter":  # ----------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_a_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_a_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_sorae_a_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_sorae_a_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_a_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_a_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_sorae_a_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_sorae_a_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_a_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_a_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_sorae_a_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_sorae_a_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_a_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_a_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_sorae_a_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_sorae_a_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "scout":  # ------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_a_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_a_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_sorae_a_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_sorae_a_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_a_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_a_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_sorae_a_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_sorae_a_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_a_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_a_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_sorae_a_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_sorae_a_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_a_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_a_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_sorae_a_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_sorae_a_right_4"]
+                    self.x_coordinate += velocity
+
+        if player.gender == "female":
+            if player.role == "":
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_b_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_b_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_sorae_b_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_sorae_b_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_b_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_b_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_sorae_b_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_sorae_b_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_b_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_b_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_sorae_b_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_sorae_b_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_b_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_no_role_sorae_b_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_no_role_sorae_b_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_no_role_sorae_b_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "mage":  # -------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_b_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_b_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_sorae_b_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_sorae_b_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_b_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_b_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_sorae_b_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_sorae_b_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_b_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_b_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_sorae_b_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_sorae_b_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_b_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_mage_sorae_b_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_mage_sorae_b_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_mage_sorae_b_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "fighter":  # ----------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_b_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_b_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_sorae_b_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_sorae_b_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_b_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_b_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_sorae_b_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_sorae_b_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_b_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_b_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_sorae_b_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_sorae_b_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_b_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_fighter_sorae_b_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_fighter_sorae_b_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_fighter_sorae_b_right_4"]
+                    self.x_coordinate += velocity
+            if player.role == "scout":  # ------------------------------------------------------------------------------
+                if pressed_key == "up":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_b_up_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_b_up_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_sorae_b_up_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_sorae_b_up_4"]
+                    self.y_coordinate -= velocity
+                if pressed_key == "down":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_b_down_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_b_down_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_sorae_b_down_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_sorae_b_down_4"]
+                    self.y_coordinate += velocity
+                if pressed_key == "left":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_b_left_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_b_left_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_sorae_b_left_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_sorae_b_left_4"]
+                    self.x_coordinate -= velocity
+                if pressed_key == "right":
+                    if walk_timed < 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_b_right_1"]
+                    if walk_timed > 0.2:
+                        self.surf = graphic_dict["player_scout_sorae_b_right_2"]
+                    if walk_timed > 0.4:
+                        self.surf = graphic_dict["player_scout_sorae_b_right_3"]
+                    if walk_timed > 0.6:
+                        self.surf = graphic_dict["player_scout_sorae_b_right_4"]
+                    self.x_coordinate += velocity
 
         if current_zone == "rohir":
             if self.x_coordinate < 50:
@@ -3024,7 +3524,7 @@ if __name__ == '__main__':
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
     pet_damage_overlay = UiElement("pet damage overlay", 750, 250, graphic_dict["pet_damage_img"])
-    received_damage_overlay = UiElement("recieved damage overlay", 125, 275, graphic_dict["received_damage_img"])
+    received_damage_overlay = UiElement("received damage overlay", 125, 275, graphic_dict["received_damage_img"])
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
     button_highlight = UiElement("button_highlight", 200, 200, graphic_dict["main high"])
@@ -5713,7 +6213,6 @@ if __name__ == '__main__':
                                                                            hard_strike_button, sharp_sense_button,
                                                                            pygame, SCREEN_WIDTH, SCREEN_HEIGHT)
                         # click handlers
-
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
                         if info_choice == "yes":
