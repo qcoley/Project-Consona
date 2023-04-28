@@ -545,6 +545,7 @@ def load_graphics():
     loaded_dict["player_mage_amuna_female_right_3"] = player_mage_amuna_female_right_sheet[2]
     loaded_dict["player_mage_amuna_female_right_4"] = player_mage_amuna_female_right_sheet[3]
     # player mage nuldar race ------------------------------------------------------------------------------------------
+    # male -------------------------------------------------------------------------------------------------------------
     player_mage_nuldar_down_url = resource_path('resources/art/player_mage_nuldar_down_male.png')
     player_mage_nuldar_down_sheet = sprite_sheet((50, 75), player_mage_nuldar_down_url)
     loaded_dict["player_mage_nuldar_male_down_1"] = player_mage_nuldar_down_sheet[0]
@@ -569,6 +570,31 @@ def load_graphics():
     loaded_dict["player_mage_nuldar_male_right_2"] = player_mage_nuldar_right_sheet[1]
     loaded_dict["player_mage_nuldar_male_right_3"] = player_mage_nuldar_right_sheet[2]
     loaded_dict["player_mage_nuldar_male_right_4"] = player_mage_nuldar_right_sheet[3]
+    # female -----------------------------------------------------------------------------------------------------------
+    player_mage_nuldar_female_down_url = resource_path('resources/art/player_mage_nuldar_down_female.png')
+    player_mage_nuldar_female_down_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_down_url)
+    loaded_dict["player_mage_nuldar_female_down_1"] = player_mage_nuldar_female_down_sheet[0]
+    loaded_dict["player_mage_nuldar_female_down_2"] = player_mage_nuldar_female_down_sheet[1]
+    loaded_dict["player_mage_nuldar_female_down_3"] = player_mage_nuldar_female_down_sheet[2]
+    loaded_dict["player_mage_nuldar_female_down_4"] = player_mage_nuldar_female_down_sheet[3]
+    player_mage_nuldar_female_up_url = resource_path('resources/art/player_mage_nuldar_up_female.png')
+    player_mage_nuldar_female_up_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_up_url)
+    loaded_dict["player_mage_nuldar_female_up_1"] = player_mage_nuldar_female_up_sheet[0]
+    loaded_dict["player_mage_nuldar_female_up_2"] = player_mage_nuldar_female_up_sheet[1]
+    loaded_dict["player_mage_nuldar_female_up_3"] = player_mage_nuldar_female_up_sheet[2]
+    loaded_dict["player_mage_nuldar_female_up_4"] = player_mage_nuldar_female_up_sheet[3]
+    player_mage_nuldar_female_left_url = resource_path('resources/art/player_mage_nuldar_left_female.png')
+    player_mage_nuldar_female_left_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_left_url)
+    loaded_dict["player_mage_nuldar_female_left_1"] = player_mage_nuldar_female_left_sheet[0]
+    loaded_dict["player_mage_nuldar_female_left_2"] = player_mage_nuldar_female_left_sheet[1]
+    loaded_dict["player_mage_nuldar_female_left_3"] = player_mage_nuldar_female_left_sheet[2]
+    loaded_dict["player_mage_nuldar_female_left_4"] = player_mage_nuldar_female_left_sheet[3]
+    player_mage_nuldar_female_right_url = resource_path('resources/art/player_mage_nuldar_right_female.png')
+    player_mage_nuldar_female_right_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_right_url)
+    loaded_dict["player_mage_nuldar_female_right_1"] = player_mage_nuldar_female_right_sheet[0]
+    loaded_dict["player_mage_nuldar_female_right_2"] = player_mage_nuldar_female_right_sheet[1]
+    loaded_dict["player_mage_nuldar_female_right_3"] = player_mage_nuldar_female_right_sheet[2]
+    loaded_dict["player_mage_nuldar_female_right_4"] = player_mage_nuldar_female_right_sheet[3]
     # player mage sorae race -------------------------------------------------------------------------------------------
     player_mage_sorae_down_url = resource_path('resources/art/player_mage_sorae_down_a.png')
     player_mage_sorae_down_sheet = sprite_sheet((50, 75), player_mage_sorae_down_url)
@@ -646,6 +672,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_female_right_3"] = player_fighter_amuna_female_right_sheet[2]
     loaded_dict["player_fighter_amuna_female_right_4"] = player_fighter_amuna_female_right_sheet[3]
     # player fighter nuldar race ---------------------------------------------------------------------------------------
+    # male -------------------------------------------------------------------------------------------------------------
     player_fighter_nuldar_down_url = resource_path('resources/art/player_fighter_nuldar_down_male.png')
     player_fighter_nuldar_down_sheet = sprite_sheet((50, 75), player_fighter_nuldar_down_url)
     loaded_dict["player_fighter_nuldar_male_down_1"] = player_fighter_nuldar_down_sheet[0]
@@ -670,6 +697,31 @@ def load_graphics():
     loaded_dict["player_fighter_nuldar_male_right_2"] = player_fighter_nuldar_right_sheet[1]
     loaded_dict["player_fighter_nuldar_male_right_3"] = player_fighter_nuldar_right_sheet[2]
     loaded_dict["player_fighter_nuldar_male_right_4"] = player_fighter_nuldar_right_sheet[3]
+    # female -----------------------------------------------------------------------------------------------------------
+    player_fighter_nuldar_female_down_url = resource_path('resources/art/player_fighter_nuldar_down_female.png')
+    player_fighter_nuldar_female_down_sheet = sprite_sheet((50, 75), player_fighter_nuldar_female_down_url)
+    loaded_dict["player_fighter_nuldar_female_down_1"] = player_fighter_nuldar_female_down_sheet[0]
+    loaded_dict["player_fighter_nuldar_female_down_2"] = player_fighter_nuldar_female_down_sheet[1]
+    loaded_dict["player_fighter_nuldar_female_down_3"] = player_fighter_nuldar_female_down_sheet[2]
+    loaded_dict["player_fighter_nuldar_female_down_4"] = player_fighter_nuldar_female_down_sheet[3]
+    player_fighter_nuldar_female_up_url = resource_path('resources/art/player_fighter_nuldar_up_female.png')
+    player_fighter_nuldar_female_up_sheet = sprite_sheet((50, 75), player_fighter_nuldar_female_up_url)
+    loaded_dict["player_fighter_nuldar_female_up_1"] = player_fighter_nuldar_female_up_sheet[0]
+    loaded_dict["player_fighter_nuldar_female_up_2"] = player_fighter_nuldar_female_up_sheet[1]
+    loaded_dict["player_fighter_nuldar_female_up_3"] = player_fighter_nuldar_female_up_sheet[2]
+    loaded_dict["player_fighter_nuldar_female_up_4"] = player_fighter_nuldar_female_up_sheet[3]
+    player_fighter_nuldar_female_left_url = resource_path('resources/art/player_fighter_nuldar_left_female.png')
+    player_fighter_nuldar_female_left_sheet = sprite_sheet((50, 75), player_fighter_nuldar_female_left_url)
+    loaded_dict["player_fighter_nuldar_female_left_1"] = player_fighter_nuldar_female_left_sheet[0]
+    loaded_dict["player_fighter_nuldar_female_left_2"] = player_fighter_nuldar_female_left_sheet[1]
+    loaded_dict["player_fighter_nuldar_female_left_3"] = player_fighter_nuldar_female_left_sheet[2]
+    loaded_dict["player_fighter_nuldar_female_left_4"] = player_fighter_nuldar_female_left_sheet[3]
+    player_fighter_nuldar_female_right_url = resource_path('resources/art/player_fighter_nuldar_right_female.png')
+    player_fighter_nuldar_female_right_sheet = sprite_sheet((50, 75), player_fighter_nuldar_female_right_url)
+    loaded_dict["player_fighter_nuldar_female_right_1"] = player_fighter_nuldar_female_right_sheet[0]
+    loaded_dict["player_fighter_nuldar_female_right_2"] = player_fighter_nuldar_female_right_sheet[1]
+    loaded_dict["player_fighter_nuldar_female_right_3"] = player_fighter_nuldar_female_right_sheet[2]
+    loaded_dict["player_fighter_nuldar_female_right_4"] = player_fighter_nuldar_female_right_sheet[3]
     # player fighter sorae race ----------------------------------------------------------------------------------------
     player_fighter_sorae_down_url = resource_path('resources/art/player_fighter_sorae_down_a.png')
     player_fighter_sorae_down_sheet = sprite_sheet((50, 75), player_fighter_sorae_down_url)
@@ -747,6 +799,7 @@ def load_graphics():
     loaded_dict["player_scout_amuna_female_right_3"] = player_scout_amuna_female_right_sheet[2]
     loaded_dict["player_scout_amuna_female_right_4"] = player_scout_amuna_female_right_sheet[3]
     # player scout nuldar race -----------------------------------------------------------------------------------------
+    # male -------------------------------------------------------------------------------------------------------------
     player_scout_nuldar_down_url = resource_path('resources/art/player_scout_nuldar_down_male.png')
     player_scout_nuldar_down_sheet = sprite_sheet((50, 75), player_scout_nuldar_down_url)
     loaded_dict["player_scout_nuldar_male_down_1"] = player_scout_nuldar_down_sheet[0]
@@ -771,6 +824,31 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_male_right_2"] = player_scout_nuldar_right_sheet[1]
     loaded_dict["player_scout_nuldar_male_right_3"] = player_scout_nuldar_right_sheet[2]
     loaded_dict["player_scout_nuldar_male_right_4"] = player_scout_nuldar_right_sheet[3]
+    # female -----------------------------------------------------------------------------------------------------------
+    player_scout_nuldar_female_down_url = resource_path('resources/art/player_scout_nuldar_down_female.png')
+    player_scout_nuldar_female_down_sheet = sprite_sheet((50, 75), player_scout_nuldar_female_down_url)
+    loaded_dict["player_scout_nuldar_female_down_1"] = player_scout_nuldar_female_down_sheet[0]
+    loaded_dict["player_scout_nuldar_female_down_2"] = player_scout_nuldar_female_down_sheet[1]
+    loaded_dict["player_scout_nuldar_female_down_3"] = player_scout_nuldar_female_down_sheet[2]
+    loaded_dict["player_scout_nuldar_female_down_4"] = player_scout_nuldar_female_down_sheet[3]
+    player_scout_nuldar_female_up_url = resource_path('resources/art/player_scout_nuldar_up_female.png')
+    player_scout_nuldar_female_up_sheet = sprite_sheet((50, 75), player_scout_nuldar_female_up_url)
+    loaded_dict["player_scout_nuldar_female_up_1"] = player_scout_nuldar_female_up_sheet[0]
+    loaded_dict["player_scout_nuldar_female_up_2"] = player_scout_nuldar_female_up_sheet[1]
+    loaded_dict["player_scout_nuldar_female_up_3"] = player_scout_nuldar_female_up_sheet[2]
+    loaded_dict["player_scout_nuldar_female_up_4"] = player_scout_nuldar_female_up_sheet[3]
+    player_scout_nuldar_female_left_url = resource_path('resources/art/player_scout_nuldar_left_female.png')
+    player_scout_nuldar_female_left_sheet = sprite_sheet((50, 75), player_scout_nuldar_female_left_url)
+    loaded_dict["player_scout_nuldar_female_left_1"] = player_scout_nuldar_female_left_sheet[0]
+    loaded_dict["player_scout_nuldar_female_left_2"] = player_scout_nuldar_female_left_sheet[1]
+    loaded_dict["player_scout_nuldar_female_left_3"] = player_scout_nuldar_female_left_sheet[2]
+    loaded_dict["player_scout_nuldar_female_left_4"] = player_scout_nuldar_female_left_sheet[3]
+    player_scout_nuldar_female_right_url = resource_path('resources/art/player_scout_nuldar_right_female.png')
+    player_scout_nuldar_female_right_sheet = sprite_sheet((50, 75), player_scout_nuldar_female_right_url)
+    loaded_dict["player_scout_nuldar_female_right_1"] = player_scout_nuldar_female_right_sheet[0]
+    loaded_dict["player_scout_nuldar_female_right_2"] = player_scout_nuldar_female_right_sheet[1]
+    loaded_dict["player_scout_nuldar_female_right_3"] = player_scout_nuldar_female_right_sheet[2]
+    loaded_dict["player_scout_nuldar_female_right_4"] = player_scout_nuldar_female_right_sheet[3]
     # player scout sorae race ------------------------------------------------------------------------------------------
     player_scout_sorae_down_url = resource_path('resources/art/player_scout_sorae_down_a.png')
     player_scout_sorae_down_sheet = sprite_sheet((50, 75), player_scout_sorae_down_url)

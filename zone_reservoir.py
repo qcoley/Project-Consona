@@ -362,7 +362,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if interacted:
-            if player.x_coordinate > SCREEN_WIDTH - 575:
+            if player.x_coordinate > 705:
                 for item in player.items:
                     if item.name == "boss key":
                         player.items.remove(item)
