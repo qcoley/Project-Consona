@@ -493,6 +493,7 @@ def load_graphics():
     loaded_dict["player_no_role_nuldar_female_right_2"] = player_no_role_nuldar_male_right_sheet[1]
     loaded_dict["player_no_role_nuldar_female_right_3"] = player_no_role_nuldar_male_right_sheet[2]
     loaded_dict["player_no_role_nuldar_female_right_4"] = player_no_role_nuldar_male_right_sheet[3]
+
     # player mage amuna race -------------------------------------------------------------------------------------------
     # male -------------------------------------------------------------------------------------------------------------
     player_mage_amuna_down_url = resource_path('resources/art/player_mage_amuna_down_male.png')
@@ -501,24 +502,136 @@ def load_graphics():
     loaded_dict["player_mage_amuna_male_down_2"] = player_mage_amuna_down_sheet[1]
     loaded_dict["player_mage_amuna_male_down_3"] = player_mage_amuna_down_sheet[2]
     loaded_dict["player_mage_amuna_male_down_4"] = player_mage_amuna_down_sheet[3]
+    # basic
+    player_mage_amuna_down_basic_url = resource_path('resources/art/player_mage_amuna_down_male_basic.png')
+    player_mage_amuna_down_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_down_basic_url)
+    loaded_dict["player_mage_amuna_male_down_1_basic"] = player_mage_amuna_down_basic_sheet[0]
+    loaded_dict["player_mage_amuna_male_down_2_basic"] = player_mage_amuna_down_basic_sheet[1]
+    loaded_dict["player_mage_amuna_male_down_3_basic"] = player_mage_amuna_down_basic_sheet[2]
+    loaded_dict["player_mage_amuna_male_down_4_basic"] = player_mage_amuna_down_basic_sheet[3]
+    # forged
+    player_mage_amuna_down_forged_url = resource_path('resources/art/player_mage_amuna_down_male_forged.png')
+    player_mage_amuna_down_forged_sheet = sprite_sheet((50, 75), player_mage_amuna_down_forged_url)
+    loaded_dict["player_mage_amuna_male_down_1_forged"] = player_mage_amuna_down_forged_sheet[0]
+    loaded_dict["player_mage_amuna_male_down_2_forged"] = player_mage_amuna_down_forged_sheet[1]
+    loaded_dict["player_mage_amuna_male_down_3_forged"] = player_mage_amuna_down_forged_sheet[2]
+    loaded_dict["player_mage_amuna_male_down_4_forged"] = player_mage_amuna_down_forged_sheet[3]
+    # mythic
+    player_mage_amuna_down_mythic_url = resource_path('resources/art/player_mage_amuna_down_male_mythic.png')
+    player_mage_amuna_down_mythic_sheet = sprite_sheet((50, 75), player_mage_amuna_down_mythic_url)
+    loaded_dict["player_mage_amuna_male_down_1_mythic"] = player_mage_amuna_down_mythic_sheet[0]
+    loaded_dict["player_mage_amuna_male_down_2_mythic"] = player_mage_amuna_down_mythic_sheet[1]
+    loaded_dict["player_mage_amuna_male_down_3_mythic"] = player_mage_amuna_down_mythic_sheet[2]
+    loaded_dict["player_mage_amuna_male_down_4_mythic"] = player_mage_amuna_down_mythic_sheet[3]
+    # legend
+    player_mage_amuna_down_legend_url = resource_path('resources/art/player_mage_amuna_down_male_legend.png')
+    player_mage_amuna_down_legend_sheet = sprite_sheet((50, 75), player_mage_amuna_down_legend_url)
+    loaded_dict["player_mage_amuna_male_down_1_legend"] = player_mage_amuna_down_legend_sheet[0]
+    loaded_dict["player_mage_amuna_male_down_2_legend"] = player_mage_amuna_down_legend_sheet[1]
+    loaded_dict["player_mage_amuna_male_down_3_legend"] = player_mage_amuna_down_legend_sheet[2]
+    loaded_dict["player_mage_amuna_male_down_4_legend"] = player_mage_amuna_down_legend_sheet[3]
     player_mage_amuna_up_url = resource_path('resources/art/player_mage_amuna_up_male.png')
     player_mage_amuna_up_sheet = sprite_sheet((50, 75), player_mage_amuna_up_url)
     loaded_dict["player_mage_amuna_male_up_1"] = player_mage_amuna_up_sheet[0]
     loaded_dict["player_mage_amuna_male_up_2"] = player_mage_amuna_up_sheet[1]
     loaded_dict["player_mage_amuna_male_up_3"] = player_mage_amuna_up_sheet[2]
     loaded_dict["player_mage_amuna_male_up_4"] = player_mage_amuna_up_sheet[3]
+    # basic
+    player_mage_amuna_up_basic_url = resource_path('resources/art/player_mage_amuna_up_male_basic.png')
+    player_mage_amuna_up_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_up_basic_url)
+    loaded_dict["player_mage_amuna_male_up_1_basic"] = player_mage_amuna_up_basic_sheet[0]
+    loaded_dict["player_mage_amuna_male_up_2_basic"] = player_mage_amuna_up_basic_sheet[1]
+    loaded_dict["player_mage_amuna_male_up_3_basic"] = player_mage_amuna_up_basic_sheet[2]
+    loaded_dict["player_mage_amuna_male_up_4_basic"] = player_mage_amuna_up_basic_sheet[3]
+    # forged
+    player_mage_amuna_up_forged_url = resource_path('resources/art/player_mage_amuna_up_male_forged.png')
+    player_mage_amuna_up_forged_sheet = sprite_sheet((50, 75), player_mage_amuna_up_forged_url)
+    loaded_dict["player_mage_amuna_male_up_1_forged"] = player_mage_amuna_up_forged_sheet[0]
+    loaded_dict["player_mage_amuna_male_up_2_forged"] = player_mage_amuna_up_forged_sheet[1]
+    loaded_dict["player_mage_amuna_male_up_3_forged"] = player_mage_amuna_up_forged_sheet[2]
+    loaded_dict["player_mage_amuna_male_up_4_forged"] = player_mage_amuna_up_forged_sheet[3]
+    # mythic
+    player_mage_amuna_up_mythic_url = resource_path('resources/art/player_mage_amuna_up_male_mythic.png')
+    player_mage_amuna_up_mythic_sheet = sprite_sheet((50, 75), player_mage_amuna_up_mythic_url)
+    loaded_dict["player_mage_amuna_male_up_1_mythic"] = player_mage_amuna_up_mythic_sheet[0]
+    loaded_dict["player_mage_amuna_male_up_2_mythic"] = player_mage_amuna_up_mythic_sheet[1]
+    loaded_dict["player_mage_amuna_male_up_3_mythic"] = player_mage_amuna_up_mythic_sheet[2]
+    loaded_dict["player_mage_amuna_male_up_4_mythic"] = player_mage_amuna_up_mythic_sheet[3]
+    # legend
+    player_mage_amuna_up_legend_url = resource_path('resources/art/player_mage_amuna_up_male_legend.png')
+    player_mage_amuna_up_legend_sheet = sprite_sheet((50, 75), player_mage_amuna_up_legend_url)
+    loaded_dict["player_mage_amuna_male_up_1_legend"] = player_mage_amuna_up_legend_sheet[0]
+    loaded_dict["player_mage_amuna_male_up_2_legend"] = player_mage_amuna_up_legend_sheet[1]
+    loaded_dict["player_mage_amuna_male_up_3_legend"] = player_mage_amuna_up_legend_sheet[2]
+    loaded_dict["player_mage_amuna_male_up_4_legend"] = player_mage_amuna_up_legend_sheet[3]
     player_mage_amuna_left_url = resource_path('resources/art/player_mage_amuna_left_male.png')
     player_mage_amuna_left_sheet = sprite_sheet((50, 75), player_mage_amuna_left_url)
     loaded_dict["player_mage_amuna_male_left_1"] = player_mage_amuna_left_sheet[0]
     loaded_dict["player_mage_amuna_male_left_2"] = player_mage_amuna_left_sheet[1]
     loaded_dict["player_mage_amuna_male_left_3"] = player_mage_amuna_left_sheet[2]
     loaded_dict["player_mage_amuna_male_left_4"] = player_mage_amuna_left_sheet[3]
+    # basic
+    player_mage_amuna_left_basic_url = resource_path('resources/art/player_mage_amuna_left_male_basic.png')
+    player_mage_amuna_left_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_left_basic_url)
+    loaded_dict["player_mage_amuna_male_left_1_basic"] = player_mage_amuna_left_basic_sheet[0]
+    loaded_dict["player_mage_amuna_male_left_2_basic"] = player_mage_amuna_left_basic_sheet[1]
+    loaded_dict["player_mage_amuna_male_left_3_basic"] = player_mage_amuna_left_basic_sheet[2]
+    loaded_dict["player_mage_amuna_male_left_4_basic"] = player_mage_amuna_left_basic_sheet[3]
+    # forged
+    player_mage_amuna_left_forged_url = resource_path('resources/art/player_mage_amuna_left_male_forged.png')
+    player_mage_amuna_left_forged_sheet = sprite_sheet((50, 75), player_mage_amuna_left_forged_url)
+    loaded_dict["player_mage_amuna_male_left_1_forged"] = player_mage_amuna_left_forged_sheet[0]
+    loaded_dict["player_mage_amuna_male_left_2_forged"] = player_mage_amuna_left_forged_sheet[1]
+    loaded_dict["player_mage_amuna_male_left_3_forged"] = player_mage_amuna_left_forged_sheet[2]
+    loaded_dict["player_mage_amuna_male_left_4_forged"] = player_mage_amuna_left_forged_sheet[3]
+    # mythic
+    player_mage_amuna_left_mythic_url = resource_path('resources/art/player_mage_amuna_left_male_mythic.png')
+    player_mage_amuna_left_mythic_sheet = sprite_sheet((50, 75), player_mage_amuna_left_mythic_url)
+    loaded_dict["player_mage_amuna_male_left_1_mythic"] = player_mage_amuna_left_mythic_sheet[0]
+    loaded_dict["player_mage_amuna_male_left_2_mythic"] = player_mage_amuna_left_mythic_sheet[1]
+    loaded_dict["player_mage_amuna_male_left_3_mythic"] = player_mage_amuna_left_mythic_sheet[2]
+    loaded_dict["player_mage_amuna_male_left_4_mythic"] = player_mage_amuna_left_mythic_sheet[3]
+    # legend
+    player_mage_amuna_left_legend_url = resource_path('resources/art/player_mage_amuna_left_male_legend.png')
+    player_mage_amuna_left_legend_sheet = sprite_sheet((50, 75), player_mage_amuna_left_legend_url)
+    loaded_dict["player_mage_amuna_male_left_1_legend"] = player_mage_amuna_left_legend_sheet[0]
+    loaded_dict["player_mage_amuna_male_left_2_legend"] = player_mage_amuna_left_legend_sheet[1]
+    loaded_dict["player_mage_amuna_male_left_3_legend"] = player_mage_amuna_left_legend_sheet[2]
+    loaded_dict["player_mage_amuna_male_left_4_legend"] = player_mage_amuna_left_legend_sheet[3]
     player_mage_amuna_right_url = resource_path('resources/art/player_mage_amuna_right_male.png')
     player_mage_amuna_right_sheet = sprite_sheet((50, 75), player_mage_amuna_right_url)
     loaded_dict["player_mage_amuna_male_right_1"] = player_mage_amuna_right_sheet[0]
     loaded_dict["player_mage_amuna_male_right_2"] = player_mage_amuna_right_sheet[1]
     loaded_dict["player_mage_amuna_male_right_3"] = player_mage_amuna_right_sheet[2]
     loaded_dict["player_mage_amuna_male_right_4"] = player_mage_amuna_right_sheet[3]
+    # basic
+    player_mage_amuna_right_basic_url = resource_path('resources/art/player_mage_amuna_right_male_basic.png')
+    player_mage_amuna_right_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_right_basic_url)
+    loaded_dict["player_mage_amuna_male_right_1_basic"] = player_mage_amuna_right_basic_sheet[0]
+    loaded_dict["player_mage_amuna_male_right_2_basic"] = player_mage_amuna_right_basic_sheet[1]
+    loaded_dict["player_mage_amuna_male_right_3_basic"] = player_mage_amuna_right_basic_sheet[2]
+    loaded_dict["player_mage_amuna_male_right_4_basic"] = player_mage_amuna_right_basic_sheet[3]
+    # forged
+    player_mage_amuna_right_forged_url = resource_path('resources/art/player_mage_amuna_right_male_forged.png')
+    player_mage_amuna_right_forged_sheet = sprite_sheet((50, 75), player_mage_amuna_right_forged_url)
+    loaded_dict["player_mage_amuna_male_right_1_forged"] = player_mage_amuna_right_forged_sheet[0]
+    loaded_dict["player_mage_amuna_male_right_2_forged"] = player_mage_amuna_right_forged_sheet[1]
+    loaded_dict["player_mage_amuna_male_right_3_forged"] = player_mage_amuna_right_forged_sheet[2]
+    loaded_dict["player_mage_amuna_male_right_4_forged"] = player_mage_amuna_right_forged_sheet[3]
+    # mythic
+    player_mage_amuna_right_mythic_url = resource_path('resources/art/player_mage_amuna_right_male_mythic.png')
+    player_mage_amuna_right_mythic_sheet = sprite_sheet((50, 75), player_mage_amuna_right_mythic_url)
+    loaded_dict["player_mage_amuna_male_right_1_mythic"] = player_mage_amuna_right_mythic_sheet[0]
+    loaded_dict["player_mage_amuna_male_right_2_mythic"] = player_mage_amuna_right_mythic_sheet[1]
+    loaded_dict["player_mage_amuna_male_right_3_mythic"] = player_mage_amuna_right_mythic_sheet[2]
+    loaded_dict["player_mage_amuna_male_right_4_mythic"] = player_mage_amuna_right_mythic_sheet[3]
+    # legend
+    player_mage_amuna_right_legend_url = resource_path('resources/art/player_mage_amuna_right_male_legend.png')
+    player_mage_amuna_right_legend_sheet = sprite_sheet((50, 75), player_mage_amuna_right_legend_url)
+    loaded_dict["player_mage_amuna_male_right_1_legend"] = player_mage_amuna_right_legend_sheet[0]
+    loaded_dict["player_mage_amuna_male_right_2_legend"] = player_mage_amuna_right_legend_sheet[1]
+    loaded_dict["player_mage_amuna_male_right_3_legend"] = player_mage_amuna_right_legend_sheet[2]
+    loaded_dict["player_mage_amuna_male_right_4_legend"] = player_mage_amuna_right_legend_sheet[3]
     # female -----------------------------------------------------------------------------------------------------------
     player_mage_amuna_female_down_url = resource_path('resources/art/player_mage_amuna_down_female.png')
     player_mage_amuna_female_down_sheet = sprite_sheet((50, 75), player_mage_amuna_female_down_url)
@@ -526,24 +639,137 @@ def load_graphics():
     loaded_dict["player_mage_amuna_female_down_2"] = player_mage_amuna_female_down_sheet[1]
     loaded_dict["player_mage_amuna_female_down_3"] = player_mage_amuna_female_down_sheet[2]
     loaded_dict["player_mage_amuna_female_down_4"] = player_mage_amuna_female_down_sheet[3]
+    # basic
+    player_mage_amuna_female_down_basic_url = resource_path('resources/art/player_mage_amuna_down_female_basic.png')
+    player_mage_amuna_female_down_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_down_basic_url)
+    loaded_dict["player_mage_amuna_female_down_1_basic"] = player_mage_amuna_female_down_basic_sheet[0]
+    loaded_dict["player_mage_amuna_female_down_2_basic"] = player_mage_amuna_female_down_basic_sheet[1]
+    loaded_dict["player_mage_amuna_female_down_3_basic"] = player_mage_amuna_female_down_basic_sheet[2]
+    loaded_dict["player_mage_amuna_female_down_4_basic"] = player_mage_amuna_female_down_basic_sheet[3]
+    # forged
+    player_mage_amuna_female_down_forged_url = resource_path('resources/art/player_mage_amuna_down_female_forged.png')
+    player_mage_amuna_female_down_forged_sheet = sprite_sheet((50, 75), player_mage_amuna_female_down_forged_url)
+    loaded_dict["player_mage_amuna_female_down_1_forged"] = player_mage_amuna_female_down_forged_sheet[0]
+    loaded_dict["player_mage_amuna_female_down_2_forged"] = player_mage_amuna_female_down_forged_sheet[1]
+    loaded_dict["player_mage_amuna_female_down_3_forged"] = player_mage_amuna_female_down_forged_sheet[2]
+    loaded_dict["player_mage_amuna_female_down_4_forged"] = player_mage_amuna_female_down_forged_sheet[3]
+    # mythic
+    player_mage_amuna_female_down_mythic_url = resource_path('resources/art/player_mage_amuna_down_female_mythic.png')
+    player_mage_amuna_female_down_mythic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_down_mythic_url)
+    loaded_dict["player_mage_amuna_female_down_1_mythic"] = player_mage_amuna_female_down_mythic_sheet[0]
+    loaded_dict["player_mage_amuna_female_down_2_mythic"] = player_mage_amuna_female_down_mythic_sheet[1]
+    loaded_dict["player_mage_amuna_female_down_3_mythic"] = player_mage_amuna_female_down_mythic_sheet[2]
+    loaded_dict["player_mage_amuna_female_down_4_mythic"] = player_mage_amuna_female_down_mythic_sheet[3]
+    # legend
+    player_mage_amuna_female_down_legend_url = resource_path('resources/art/player_mage_amuna_down_female_legend.png')
+    player_mage_amuna_female_down_legend_sheet = sprite_sheet((50, 75), player_mage_amuna_female_down_legend_url)
+    loaded_dict["player_mage_amuna_female_down_1_legend"] = player_mage_amuna_female_down_legend_sheet[0]
+    loaded_dict["player_mage_amuna_female_down_2_legend"] = player_mage_amuna_female_down_legend_sheet[1]
+    loaded_dict["player_mage_amuna_female_down_3_legend"] = player_mage_amuna_female_down_legend_sheet[2]
+    loaded_dict["player_mage_amuna_female_down_4_legend"] = player_mage_amuna_female_down_legend_sheet[3]
     player_mage_amuna_female_up_url = resource_path('resources/art/player_mage_amuna_up_female.png')
     player_mage_amuna_female_up_sheet = sprite_sheet((50, 75), player_mage_amuna_female_up_url)
     loaded_dict["player_mage_amuna_female_up_1"] = player_mage_amuna_female_up_sheet[0]
     loaded_dict["player_mage_amuna_female_up_2"] = player_mage_amuna_female_up_sheet[1]
     loaded_dict["player_mage_amuna_female_up_3"] = player_mage_amuna_female_up_sheet[2]
     loaded_dict["player_mage_amuna_female_up_4"] = player_mage_amuna_female_up_sheet[3]
+    # basic
+    player_mage_amuna_female_up_basic_url = resource_path('resources/art/player_mage_amuna_up_female_basic.png')
+    player_mage_amuna_female_up_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_up_basic_url)
+    loaded_dict["player_mage_amuna_female_up_1_basic"] = player_mage_amuna_female_up_basic_sheet[0]
+    loaded_dict["player_mage_amuna_female_up_2_basic"] = player_mage_amuna_female_up_basic_sheet[1]
+    loaded_dict["player_mage_amuna_female_up_3_basic"] = player_mage_amuna_female_up_basic_sheet[2]
+    loaded_dict["player_mage_amuna_female_up_4_basic"] = player_mage_amuna_female_up_basic_sheet[3]
+    # forged
+    player_mage_amuna_female_up_forged_url = resource_path('resources/art/player_mage_amuna_up_female_forged.png')
+    player_mage_amuna_female_up_forged_sheet = sprite_sheet((50, 75), player_mage_amuna_female_up_forged_url)
+    loaded_dict["player_mage_amuna_female_up_1_forged"] = player_mage_amuna_female_up_forged_sheet[0]
+    loaded_dict["player_mage_amuna_female_up_2_forged"] = player_mage_amuna_female_up_forged_sheet[1]
+    loaded_dict["player_mage_amuna_female_up_3_forged"] = player_mage_amuna_female_up_forged_sheet[2]
+    loaded_dict["player_mage_amuna_female_up_4_forged"] = player_mage_amuna_female_up_forged_sheet[3]
+    # mythic
+    player_mage_amuna_female_up_mythic_url = resource_path('resources/art/player_mage_amuna_up_female_mythic.png')
+    player_mage_amuna_female_up_mythic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_up_mythic_url)
+    loaded_dict["player_mage_amuna_female_up_1_mythic"] = player_mage_amuna_female_up_mythic_sheet[0]
+    loaded_dict["player_mage_amuna_female_up_2_mythic"] = player_mage_amuna_female_up_mythic_sheet[1]
+    loaded_dict["player_mage_amuna_female_up_3_mythic"] = player_mage_amuna_female_up_mythic_sheet[2]
+    loaded_dict["player_mage_amuna_female_up_4_mythic"] = player_mage_amuna_female_up_mythic_sheet[3]
+    # legend
+    player_mage_amuna_female_up_legend_url = resource_path('resources/art/player_mage_amuna_up_female_legend.png')
+    player_mage_amuna_female_up_legend_sheet = sprite_sheet((50, 75), player_mage_amuna_female_up_legend_url)
+    loaded_dict["player_mage_amuna_female_up_1_legend"] = player_mage_amuna_female_up_legend_sheet[0]
+    loaded_dict["player_mage_amuna_female_up_2_legend"] = player_mage_amuna_female_up_legend_sheet[1]
+    loaded_dict["player_mage_amuna_female_up_3_legend"] = player_mage_amuna_female_up_legend_sheet[2]
+    loaded_dict["player_mage_amuna_female_up_4_legend"] = player_mage_amuna_female_up_legend_sheet[3]
     player_mage_amuna_female_left_url = resource_path('resources/art/player_mage_amuna_left_female.png')
     player_mage_amuna_female_left_sheet = sprite_sheet((50, 75), player_mage_amuna_female_left_url)
     loaded_dict["player_mage_amuna_female_left_1"] = player_mage_amuna_female_left_sheet[0]
     loaded_dict["player_mage_amuna_female_left_2"] = player_mage_amuna_female_left_sheet[1]
     loaded_dict["player_mage_amuna_female_left_3"] = player_mage_amuna_female_left_sheet[2]
     loaded_dict["player_mage_amuna_female_left_4"] = player_mage_amuna_female_left_sheet[3]
+    # basic
+    player_mage_amuna_female_left_basic_url = resource_path('resources/art/player_mage_amuna_left_female_basic.png')
+    player_mage_amuna_female_left_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_left_basic_url)
+    loaded_dict["player_mage_amuna_female_left_1_basic"] = player_mage_amuna_female_left_basic_sheet[0]
+    loaded_dict["player_mage_amuna_female_left_2_basic"] = player_mage_amuna_female_left_basic_sheet[1]
+    loaded_dict["player_mage_amuna_female_left_3_basic"] = player_mage_amuna_female_left_basic_sheet[2]
+    loaded_dict["player_mage_amuna_female_left_4_basic"] = player_mage_amuna_female_left_basic_sheet[3]
+    # forged
+    player_mage_amuna_female_left_forged_url = resource_path('resources/art/player_mage_amuna_left_female_forged.png')
+    player_mage_amuna_female_left_forged_sheet = sprite_sheet((50, 75), player_mage_amuna_female_left_forged_url)
+    loaded_dict["player_mage_amuna_female_left_1_forged"] = player_mage_amuna_female_left_forged_sheet[0]
+    loaded_dict["player_mage_amuna_female_left_2_forged"] = player_mage_amuna_female_left_forged_sheet[1]
+    loaded_dict["player_mage_amuna_female_left_3_forged"] = player_mage_amuna_female_left_forged_sheet[2]
+    loaded_dict["player_mage_amuna_female_left_4_forged"] = player_mage_amuna_female_left_forged_sheet[3]
+    # mythic
+    player_mage_amuna_female_left_mythic_url = resource_path('resources/art/player_mage_amuna_left_female_mythic.png')
+    player_mage_amuna_female_left_mythic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_left_mythic_url)
+    loaded_dict["player_mage_amuna_female_left_1_mythic"] = player_mage_amuna_female_left_mythic_sheet[0]
+    loaded_dict["player_mage_amuna_female_left_2_mythic"] = player_mage_amuna_female_left_mythic_sheet[1]
+    loaded_dict["player_mage_amuna_female_left_3_mythic"] = player_mage_amuna_female_left_mythic_sheet[2]
+    loaded_dict["player_mage_amuna_female_left_4_mythic"] = player_mage_amuna_female_left_mythic_sheet[3]
+    # legend
+    player_mage_amuna_female_left_legend_url = resource_path('resources/art/player_mage_amuna_left_female_legend.png')
+    player_mage_amuna_female_left_legend_sheet = sprite_sheet((50, 75), player_mage_amuna_female_left_legend_url)
+    loaded_dict["player_mage_amuna_female_left_1_legend"] = player_mage_amuna_female_left_legend_sheet[0]
+    loaded_dict["player_mage_amuna_female_left_2_legend"] = player_mage_amuna_female_left_legend_sheet[1]
+    loaded_dict["player_mage_amuna_female_left_3_legend"] = player_mage_amuna_female_left_legend_sheet[2]
+    loaded_dict["player_mage_amuna_female_left_4_legend"] = player_mage_amuna_female_left_legend_sheet[3]
     player_mage_amuna_female_right_url = resource_path('resources/art/player_mage_amuna_right_female.png')
     player_mage_amuna_female_right_sheet = sprite_sheet((50, 75), player_mage_amuna_female_right_url)
     loaded_dict["player_mage_amuna_female_right_1"] = player_mage_amuna_female_right_sheet[0]
     loaded_dict["player_mage_amuna_female_right_2"] = player_mage_amuna_female_right_sheet[1]
     loaded_dict["player_mage_amuna_female_right_3"] = player_mage_amuna_female_right_sheet[2]
     loaded_dict["player_mage_amuna_female_right_4"] = player_mage_amuna_female_right_sheet[3]
+    # basic
+    player_mage_amuna_female_right_basic_url = resource_path('resources/art/player_mage_amuna_right_female_basic.png')
+    player_mage_amuna_female_right_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_right_basic_url)
+    loaded_dict["player_mage_amuna_female_right_1_basic"] = player_mage_amuna_female_right_basic_sheet[0]
+    loaded_dict["player_mage_amuna_female_right_2_basic"] = player_mage_amuna_female_right_basic_sheet[1]
+    loaded_dict["player_mage_amuna_female_right_3_basic"] = player_mage_amuna_female_right_basic_sheet[2]
+    loaded_dict["player_mage_amuna_female_right_4_basic"] = player_mage_amuna_female_right_basic_sheet[3]
+    # forged
+    player_mage_amuna_female_right_forged_url = resource_path('resources/art/player_mage_amuna_right_female_forged.png')
+    player_mage_amuna_female_right_forged_sheet = sprite_sheet((50, 75), player_mage_amuna_female_right_forged_url)
+    loaded_dict["player_mage_amuna_female_right_1_forged"] = player_mage_amuna_female_right_forged_sheet[0]
+    loaded_dict["player_mage_amuna_female_right_2_forged"] = player_mage_amuna_female_right_forged_sheet[1]
+    loaded_dict["player_mage_amuna_female_right_3_forged"] = player_mage_amuna_female_right_forged_sheet[2]
+    loaded_dict["player_mage_amuna_female_right_4_forged"] = player_mage_amuna_female_right_forged_sheet[3]
+    # mythic
+    player_mage_amuna_female_right_mythic_url = resource_path('resources/art/player_mage_amuna_right_female_mythic.png')
+    player_mage_amuna_female_right_mythic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_right_mythic_url)
+    loaded_dict["player_mage_amuna_female_right_1_mythic"] = player_mage_amuna_female_right_mythic_sheet[0]
+    loaded_dict["player_mage_amuna_female_right_2_mythic"] = player_mage_amuna_female_right_mythic_sheet[1]
+    loaded_dict["player_mage_amuna_female_right_3_mythic"] = player_mage_amuna_female_right_mythic_sheet[2]
+    loaded_dict["player_mage_amuna_female_right_4_mythic"] = player_mage_amuna_female_right_mythic_sheet[3]
+    # legend
+    player_mage_amuna_female_right_legend_url = resource_path('resources/art/player_mage_amuna_right_female_legend.png')
+    player_mage_amuna_female_right_legend_sheet = sprite_sheet((50, 75), player_mage_amuna_female_right_legend_url)
+    loaded_dict["player_mage_amuna_female_right_1_legend"] = player_mage_amuna_female_right_legend_sheet[0]
+    loaded_dict["player_mage_amuna_female_right_2_legend"] = player_mage_amuna_female_right_legend_sheet[1]
+    loaded_dict["player_mage_amuna_female_right_3_legend"] = player_mage_amuna_female_right_legend_sheet[2]
+    loaded_dict["player_mage_amuna_female_right_4_legend"] = player_mage_amuna_female_right_legend_sheet[3]
+
     # player mage nuldar race ------------------------------------------------------------------------------------------
     # male -------------------------------------------------------------------------------------------------------------
     player_mage_nuldar_down_url = resource_path('resources/art/player_mage_nuldar_down_male.png')
@@ -552,24 +778,136 @@ def load_graphics():
     loaded_dict["player_mage_nuldar_male_down_2"] = player_mage_nuldar_down_sheet[1]
     loaded_dict["player_mage_nuldar_male_down_3"] = player_mage_nuldar_down_sheet[2]
     loaded_dict["player_mage_nuldar_male_down_4"] = player_mage_nuldar_down_sheet[3]
+    # basic
+    player_mage_nuldar_down_basic_url = resource_path('resources/art/player_mage_nuldar_down_male_basic.png')
+    player_mage_nuldar_down_basic_sheet = sprite_sheet((50, 75), player_mage_nuldar_down_basic_url)
+    loaded_dict["player_mage_nuldar_male_down_1_basic"] = player_mage_nuldar_down_basic_sheet[0]
+    loaded_dict["player_mage_nuldar_male_down_2_basic"] = player_mage_nuldar_down_basic_sheet[1]
+    loaded_dict["player_mage_nuldar_male_down_3_basic"] = player_mage_nuldar_down_basic_sheet[2]
+    loaded_dict["player_mage_nuldar_male_down_4_basic"] = player_mage_nuldar_down_basic_sheet[3]
+    # forged
+    player_mage_nuldar_down_forged_url = resource_path('resources/art/player_mage_nuldar_down_male_forged.png')
+    player_mage_nuldar_down_forged_sheet = sprite_sheet((50, 75), player_mage_nuldar_down_forged_url)
+    loaded_dict["player_mage_nuldar_male_down_1_forged"] = player_mage_nuldar_down_forged_sheet[0]
+    loaded_dict["player_mage_nuldar_male_down_2_forged"] = player_mage_nuldar_down_forged_sheet[1]
+    loaded_dict["player_mage_nuldar_male_down_3_forged"] = player_mage_nuldar_down_forged_sheet[2]
+    loaded_dict["player_mage_nuldar_male_down_4_forged"] = player_mage_nuldar_down_forged_sheet[3]
+    # mythic
+    player_mage_nuldar_down_mythic_url = resource_path('resources/art/player_mage_nuldar_down_male_mythic.png')
+    player_mage_nuldar_down_mythic_sheet = sprite_sheet((50, 75), player_mage_nuldar_down_mythic_url)
+    loaded_dict["player_mage_nuldar_male_down_1_mythic"] = player_mage_nuldar_down_mythic_sheet[0]
+    loaded_dict["player_mage_nuldar_male_down_2_mythic"] = player_mage_nuldar_down_mythic_sheet[1]
+    loaded_dict["player_mage_nuldar_male_down_3_mythic"] = player_mage_nuldar_down_mythic_sheet[2]
+    loaded_dict["player_mage_nuldar_male_down_4_mythic"] = player_mage_nuldar_down_mythic_sheet[3]
+    # legend
+    player_mage_nuldar_down_legend_url = resource_path('resources/art/player_mage_nuldar_down_male_legend.png')
+    player_mage_nuldar_down_legend_sheet = sprite_sheet((50, 75), player_mage_nuldar_down_legend_url)
+    loaded_dict["player_mage_nuldar_male_down_1_legend"] = player_mage_nuldar_down_legend_sheet[0]
+    loaded_dict["player_mage_nuldar_male_down_2_legend"] = player_mage_nuldar_down_legend_sheet[1]
+    loaded_dict["player_mage_nuldar_male_down_3_legend"] = player_mage_nuldar_down_legend_sheet[2]
+    loaded_dict["player_mage_nuldar_male_down_4_legend"] = player_mage_nuldar_down_legend_sheet[3]
     player_mage_nuldar_up_url = resource_path('resources/art/player_mage_nuldar_up_male.png')
     player_mage_nuldar_up_sheet = sprite_sheet((50, 75), player_mage_nuldar_up_url)
     loaded_dict["player_mage_nuldar_male_up_1"] = player_mage_nuldar_up_sheet[0]
     loaded_dict["player_mage_nuldar_male_up_2"] = player_mage_nuldar_up_sheet[1]
     loaded_dict["player_mage_nuldar_male_up_3"] = player_mage_nuldar_up_sheet[2]
     loaded_dict["player_mage_nuldar_male_up_4"] = player_mage_nuldar_up_sheet[3]
+    # basic
+    player_mage_nuldar_up_basic_url = resource_path('resources/art/player_mage_nuldar_up_male_basic.png')
+    player_mage_nuldar_up_basic_sheet = sprite_sheet((50, 75), player_mage_nuldar_up_basic_url)
+    loaded_dict["player_mage_nuldar_male_up_1_basic"] = player_mage_nuldar_up_basic_sheet[0]
+    loaded_dict["player_mage_nuldar_male_up_2_basic"] = player_mage_nuldar_up_basic_sheet[1]
+    loaded_dict["player_mage_nuldar_male_up_3_basic"] = player_mage_nuldar_up_basic_sheet[2]
+    loaded_dict["player_mage_nuldar_male_up_4_basic"] = player_mage_nuldar_up_basic_sheet[3]
+    # forged
+    player_mage_nuldar_up_forged_url = resource_path('resources/art/player_mage_nuldar_up_male_forged.png')
+    player_mage_nuldar_up_forged_sheet = sprite_sheet((50, 75), player_mage_nuldar_up_forged_url)
+    loaded_dict["player_mage_nuldar_male_up_1_forged"] = player_mage_nuldar_up_forged_sheet[0]
+    loaded_dict["player_mage_nuldar_male_up_2_forged"] = player_mage_nuldar_up_forged_sheet[1]
+    loaded_dict["player_mage_nuldar_male_up_3_forged"] = player_mage_nuldar_up_forged_sheet[2]
+    loaded_dict["player_mage_nuldar_male_up_4_forged"] = player_mage_nuldar_up_forged_sheet[3]
+    # mythic
+    player_mage_nuldar_up_mythic_url = resource_path('resources/art/player_mage_nuldar_up_male_mythic.png')
+    player_mage_nuldar_up_mythic_sheet = sprite_sheet((50, 75), player_mage_nuldar_up_mythic_url)
+    loaded_dict["player_mage_nuldar_male_up_1_mythic"] = player_mage_nuldar_up_mythic_sheet[0]
+    loaded_dict["player_mage_nuldar_male_up_2_mythic"] = player_mage_nuldar_up_mythic_sheet[1]
+    loaded_dict["player_mage_nuldar_male_up_3_mythic"] = player_mage_nuldar_up_mythic_sheet[2]
+    loaded_dict["player_mage_nuldar_male_up_4_mythic"] = player_mage_nuldar_up_mythic_sheet[3]
+    # legend
+    player_mage_nuldar_up_legend_url = resource_path('resources/art/player_mage_nuldar_up_male_legend.png')
+    player_mage_nuldar_up_legend_sheet = sprite_sheet((50, 75), player_mage_nuldar_up_legend_url)
+    loaded_dict["player_mage_nuldar_male_up_1_legend"] = player_mage_nuldar_up_legend_sheet[0]
+    loaded_dict["player_mage_nuldar_male_up_2_legend"] = player_mage_nuldar_up_legend_sheet[1]
+    loaded_dict["player_mage_nuldar_male_up_3_legend"] = player_mage_nuldar_up_legend_sheet[2]
+    loaded_dict["player_mage_nuldar_male_up_4_legend"] = player_mage_nuldar_up_legend_sheet[3]
     player_mage_nuldar_left_url = resource_path('resources/art/player_mage_nuldar_left_male.png')
     player_mage_nuldar_left_sheet = sprite_sheet((50, 75), player_mage_nuldar_left_url)
     loaded_dict["player_mage_nuldar_male_left_1"] = player_mage_nuldar_left_sheet[0]
     loaded_dict["player_mage_nuldar_male_left_2"] = player_mage_nuldar_left_sheet[1]
     loaded_dict["player_mage_nuldar_male_left_3"] = player_mage_nuldar_left_sheet[2]
     loaded_dict["player_mage_nuldar_male_left_4"] = player_mage_nuldar_left_sheet[3]
+    # basic
+    player_mage_nuldar_left_basic_url = resource_path('resources/art/player_mage_nuldar_left_male_basic.png')
+    player_mage_nuldar_left_basic_sheet = sprite_sheet((50, 75), player_mage_nuldar_left_basic_url)
+    loaded_dict["player_mage_nuldar_male_left_1_basic"] = player_mage_nuldar_left_basic_sheet[0]
+    loaded_dict["player_mage_nuldar_male_left_2_basic"] = player_mage_nuldar_left_basic_sheet[1]
+    loaded_dict["player_mage_nuldar_male_left_3_basic"] = player_mage_nuldar_left_basic_sheet[2]
+    loaded_dict["player_mage_nuldar_male_left_4_basic"] = player_mage_nuldar_left_basic_sheet[3]
+    # forged
+    player_mage_nuldar_left_forged_url = resource_path('resources/art/player_mage_nuldar_left_male_forged.png')
+    player_mage_nuldar_left_forged_sheet = sprite_sheet((50, 75), player_mage_nuldar_left_forged_url)
+    loaded_dict["player_mage_nuldar_male_left_1_forged"] = player_mage_nuldar_left_forged_sheet[0]
+    loaded_dict["player_mage_nuldar_male_left_2_forged"] = player_mage_nuldar_left_forged_sheet[1]
+    loaded_dict["player_mage_nuldar_male_left_3_forged"] = player_mage_nuldar_left_forged_sheet[2]
+    loaded_dict["player_mage_nuldar_male_left_4_forged"] = player_mage_nuldar_left_forged_sheet[3]
+    # mythic
+    player_mage_nuldar_left_mythic_url = resource_path('resources/art/player_mage_nuldar_left_male_mythic.png')
+    player_mage_nuldar_left_mythic_sheet = sprite_sheet((50, 75), player_mage_nuldar_left_mythic_url)
+    loaded_dict["player_mage_nuldar_male_left_1_mythic"] = player_mage_nuldar_left_mythic_sheet[0]
+    loaded_dict["player_mage_nuldar_male_left_2_mythic"] = player_mage_nuldar_left_mythic_sheet[1]
+    loaded_dict["player_mage_nuldar_male_left_3_mythic"] = player_mage_nuldar_left_mythic_sheet[2]
+    loaded_dict["player_mage_nuldar_male_left_4_mythic"] = player_mage_nuldar_left_mythic_sheet[3]
+    # legend
+    player_mage_nuldar_left_legend_url = resource_path('resources/art/player_mage_nuldar_left_male_legend.png')
+    player_mage_nuldar_left_legend_sheet = sprite_sheet((50, 75), player_mage_nuldar_left_legend_url)
+    loaded_dict["player_mage_nuldar_male_left_1_legend"] = player_mage_nuldar_left_legend_sheet[0]
+    loaded_dict["player_mage_nuldar_male_left_2_legend"] = player_mage_nuldar_left_legend_sheet[1]
+    loaded_dict["player_mage_nuldar_male_left_3_legend"] = player_mage_nuldar_left_legend_sheet[2]
+    loaded_dict["player_mage_nuldar_male_left_4_legend"] = player_mage_nuldar_left_legend_sheet[3]
     player_mage_nuldar_right_url = resource_path('resources/art/player_mage_nuldar_right_male.png')
     player_mage_nuldar_right_sheet = sprite_sheet((50, 75), player_mage_nuldar_right_url)
     loaded_dict["player_mage_nuldar_male_right_1"] = player_mage_nuldar_right_sheet[0]
     loaded_dict["player_mage_nuldar_male_right_2"] = player_mage_nuldar_right_sheet[1]
     loaded_dict["player_mage_nuldar_male_right_3"] = player_mage_nuldar_right_sheet[2]
     loaded_dict["player_mage_nuldar_male_right_4"] = player_mage_nuldar_right_sheet[3]
+    # basic
+    player_mage_nuldar_right_basic_url = resource_path('resources/art/player_mage_nuldar_right_male_basic.png')
+    player_mage_nuldar_right_basic_sheet = sprite_sheet((50, 75), player_mage_nuldar_right_basic_url)
+    loaded_dict["player_mage_nuldar_male_right_1_basic"] = player_mage_nuldar_right_basic_sheet[0]
+    loaded_dict["player_mage_nuldar_male_right_2_basic"] = player_mage_nuldar_right_basic_sheet[1]
+    loaded_dict["player_mage_nuldar_male_right_3_basic"] = player_mage_nuldar_right_basic_sheet[2]
+    loaded_dict["player_mage_nuldar_male_right_4_basic"] = player_mage_nuldar_right_basic_sheet[3]
+    # forged
+    player_mage_nuldar_right_forged_url = resource_path('resources/art/player_mage_nuldar_right_male_forged.png')
+    player_mage_nuldar_right_forged_sheet = sprite_sheet((50, 75), player_mage_nuldar_right_forged_url)
+    loaded_dict["player_mage_nuldar_male_right_1_forged"] = player_mage_nuldar_right_forged_sheet[0]
+    loaded_dict["player_mage_nuldar_male_right_2_forged"] = player_mage_nuldar_right_forged_sheet[1]
+    loaded_dict["player_mage_nuldar_male_right_3_forged"] = player_mage_nuldar_right_forged_sheet[2]
+    loaded_dict["player_mage_nuldar_male_right_4_forged"] = player_mage_nuldar_right_forged_sheet[3]
+    # mythic
+    player_mage_nuldar_right_mythic_url = resource_path('resources/art/player_mage_nuldar_right_male_mythic.png')
+    player_mage_nuldar_right_mythic_sheet = sprite_sheet((50, 75), player_mage_nuldar_right_mythic_url)
+    loaded_dict["player_mage_nuldar_male_right_1_mythic"] = player_mage_nuldar_right_mythic_sheet[0]
+    loaded_dict["player_mage_nuldar_male_right_2_mythic"] = player_mage_nuldar_right_mythic_sheet[1]
+    loaded_dict["player_mage_nuldar_male_right_3_mythic"] = player_mage_nuldar_right_mythic_sheet[2]
+    loaded_dict["player_mage_nuldar_male_right_4_mythic"] = player_mage_nuldar_right_mythic_sheet[3]
+    # legend
+    player_mage_nuldar_right_legend_url = resource_path('resources/art/player_mage_nuldar_right_male_legend.png')
+    player_mage_nuldar_right_legend_sheet = sprite_sheet((50, 75), player_mage_nuldar_right_legend_url)
+    loaded_dict["player_mage_nuldar_male_right_1_legend"] = player_mage_nuldar_right_legend_sheet[0]
+    loaded_dict["player_mage_nuldar_male_right_2_legend"] = player_mage_nuldar_right_legend_sheet[1]
+    loaded_dict["player_mage_nuldar_male_right_3_legend"] = player_mage_nuldar_right_legend_sheet[2]
+    loaded_dict["player_mage_nuldar_male_right_4_legend"] = player_mage_nuldar_right_legend_sheet[3]
     # female -----------------------------------------------------------------------------------------------------------
     player_mage_nuldar_female_down_url = resource_path('resources/art/player_mage_nuldar_down_female.png')
     player_mage_nuldar_female_down_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_down_url)
@@ -577,49 +915,416 @@ def load_graphics():
     loaded_dict["player_mage_nuldar_female_down_2"] = player_mage_nuldar_female_down_sheet[1]
     loaded_dict["player_mage_nuldar_female_down_3"] = player_mage_nuldar_female_down_sheet[2]
     loaded_dict["player_mage_nuldar_female_down_4"] = player_mage_nuldar_female_down_sheet[3]
+    # basic
+    player_mage_nuldar_female_down_basic_url = resource_path('resources/art/player_mage_nuldar_down_female_basic.png')
+    player_mage_nuldar_female_down_basic_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_down_basic_url)
+    loaded_dict["player_mage_nuldar_female_down_1_basic"] = player_mage_nuldar_female_down_basic_sheet[0]
+    loaded_dict["player_mage_nuldar_female_down_2_basic"] = player_mage_nuldar_female_down_basic_sheet[1]
+    loaded_dict["player_mage_nuldar_female_down_3_basic"] = player_mage_nuldar_female_down_basic_sheet[2]
+    loaded_dict["player_mage_nuldar_female_down_4_basic"] = player_mage_nuldar_female_down_basic_sheet[3]
+    # forged
+    player_mage_nuldar_female_down_forged_url = resource_path('resources/art/player_mage_nuldar_down_female_forged.png')
+    player_mage_nuldar_female_down_forged_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_down_forged_url)
+    loaded_dict["player_mage_nuldar_female_down_1_forged"] = player_mage_nuldar_female_down_forged_sheet[0]
+    loaded_dict["player_mage_nuldar_female_down_2_forged"] = player_mage_nuldar_female_down_forged_sheet[1]
+    loaded_dict["player_mage_nuldar_female_down_3_forged"] = player_mage_nuldar_female_down_forged_sheet[2]
+    loaded_dict["player_mage_nuldar_female_down_4_forged"] = player_mage_nuldar_female_down_forged_sheet[3]
+    # mythic
+    player_mage_nuldar_female_down_mythic_url = resource_path('resources/art/player_mage_nuldar_down_female_mythic.png')
+    player_mage_nuldar_female_down_mythic_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_down_mythic_url)
+    loaded_dict["player_mage_nuldar_female_down_1_mythic"] = player_mage_nuldar_female_down_mythic_sheet[0]
+    loaded_dict["player_mage_nuldar_female_down_2_mythic"] = player_mage_nuldar_female_down_mythic_sheet[1]
+    loaded_dict["player_mage_nuldar_female_down_3_mythic"] = player_mage_nuldar_female_down_mythic_sheet[2]
+    loaded_dict["player_mage_nuldar_female_down_4_mythic"] = player_mage_nuldar_female_down_mythic_sheet[3]
+    # legend
+    player_mage_nuldar_female_down_legend_url = resource_path('resources/art/player_mage_nuldar_down_female_legend.png')
+    player_mage_nuldar_female_down_legend_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_down_legend_url)
+    loaded_dict["player_mage_nuldar_female_down_1_legend"] = player_mage_nuldar_female_down_legend_sheet[0]
+    loaded_dict["player_mage_nuldar_female_down_2_legend"] = player_mage_nuldar_female_down_legend_sheet[1]
+    loaded_dict["player_mage_nuldar_female_down_3_legend"] = player_mage_nuldar_female_down_legend_sheet[2]
+    loaded_dict["player_mage_nuldar_female_down_4_legend"] = player_mage_nuldar_female_down_legend_sheet[3]
     player_mage_nuldar_female_up_url = resource_path('resources/art/player_mage_nuldar_up_female.png')
     player_mage_nuldar_female_up_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_up_url)
     loaded_dict["player_mage_nuldar_female_up_1"] = player_mage_nuldar_female_up_sheet[0]
     loaded_dict["player_mage_nuldar_female_up_2"] = player_mage_nuldar_female_up_sheet[1]
     loaded_dict["player_mage_nuldar_female_up_3"] = player_mage_nuldar_female_up_sheet[2]
     loaded_dict["player_mage_nuldar_female_up_4"] = player_mage_nuldar_female_up_sheet[3]
+    # basic
+    player_mage_nuldar_female_up_basic_url = resource_path('resources/art/player_mage_nuldar_up_female_basic.png')
+    player_mage_nuldar_female_up_basic_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_up_basic_url)
+    loaded_dict["player_mage_nuldar_female_up_1_basic"] = player_mage_nuldar_female_up_basic_sheet[0]
+    loaded_dict["player_mage_nuldar_female_up_2_basic"] = player_mage_nuldar_female_up_basic_sheet[1]
+    loaded_dict["player_mage_nuldar_female_up_3_basic"] = player_mage_nuldar_female_up_basic_sheet[2]
+    loaded_dict["player_mage_nuldar_female_up_4_basic"] = player_mage_nuldar_female_up_basic_sheet[3]
+    # forged
+    player_mage_nuldar_female_up_forged_url = resource_path('resources/art/player_mage_nuldar_up_female_forged.png')
+    player_mage_nuldar_female_up_forged_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_up_forged_url)
+    loaded_dict["player_mage_nuldar_female_up_1_forged"] = player_mage_nuldar_female_up_forged_sheet[0]
+    loaded_dict["player_mage_nuldar_female_up_2_forged"] = player_mage_nuldar_female_up_forged_sheet[1]
+    loaded_dict["player_mage_nuldar_female_up_3_forged"] = player_mage_nuldar_female_up_forged_sheet[2]
+    loaded_dict["player_mage_nuldar_female_up_4_forged"] = player_mage_nuldar_female_up_forged_sheet[3]
+    # mythic
+    player_mage_nuldar_female_up_mythic_url = resource_path('resources/art/player_mage_nuldar_up_female_mythic.png')
+    player_mage_nuldar_female_up_mythic_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_up_mythic_url)
+    loaded_dict["player_mage_nuldar_female_up_1_mythic"] = player_mage_nuldar_female_up_mythic_sheet[0]
+    loaded_dict["player_mage_nuldar_female_up_2_mythic"] = player_mage_nuldar_female_up_mythic_sheet[1]
+    loaded_dict["player_mage_nuldar_female_up_3_mythic"] = player_mage_nuldar_female_up_mythic_sheet[2]
+    loaded_dict["player_mage_nuldar_female_up_4_mythic"] = player_mage_nuldar_female_up_mythic_sheet[3]
+    # legend
+    player_mage_nuldar_female_up_legend_url = resource_path('resources/art/player_mage_nuldar_up_female_legend.png')
+    player_mage_nuldar_female_up_legend_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_up_legend_url)
+    loaded_dict["player_mage_nuldar_female_up_1_legend"] = player_mage_nuldar_female_up_legend_sheet[0]
+    loaded_dict["player_mage_nuldar_female_up_2_legend"] = player_mage_nuldar_female_up_legend_sheet[1]
+    loaded_dict["player_mage_nuldar_female_up_3_legend"] = player_mage_nuldar_female_up_legend_sheet[2]
+    loaded_dict["player_mage_nuldar_female_up_4_legend"] = player_mage_nuldar_female_up_legend_sheet[3]
     player_mage_nuldar_female_left_url = resource_path('resources/art/player_mage_nuldar_left_female.png')
     player_mage_nuldar_female_left_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_left_url)
     loaded_dict["player_mage_nuldar_female_left_1"] = player_mage_nuldar_female_left_sheet[0]
     loaded_dict["player_mage_nuldar_female_left_2"] = player_mage_nuldar_female_left_sheet[1]
     loaded_dict["player_mage_nuldar_female_left_3"] = player_mage_nuldar_female_left_sheet[2]
     loaded_dict["player_mage_nuldar_female_left_4"] = player_mage_nuldar_female_left_sheet[3]
+    # basic
+    player_mage_nuldar_female_left_basic_url = resource_path('resources/art/player_mage_nuldar_left_female_basic.png')
+    player_mage_nuldar_female_left_basic_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_left_basic_url)
+    loaded_dict["player_mage_nuldar_female_left_1_basic"] = player_mage_nuldar_female_left_basic_sheet[0]
+    loaded_dict["player_mage_nuldar_female_left_2_basic"] = player_mage_nuldar_female_left_basic_sheet[1]
+    loaded_dict["player_mage_nuldar_female_left_3_basic"] = player_mage_nuldar_female_left_basic_sheet[2]
+    loaded_dict["player_mage_nuldar_female_left_4_basic"] = player_mage_nuldar_female_left_basic_sheet[3]
+    # forged
+    player_mage_nuldar_female_left_forged_url = resource_path('resources/art/player_mage_nuldar_left_female_forged.png')
+    player_mage_nuldar_female_left_forged_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_left_forged_url)
+    loaded_dict["player_mage_nuldar_female_left_1_forged"] = player_mage_nuldar_female_left_forged_sheet[0]
+    loaded_dict["player_mage_nuldar_female_left_2_forged"] = player_mage_nuldar_female_left_forged_sheet[1]
+    loaded_dict["player_mage_nuldar_female_left_3_forged"] = player_mage_nuldar_female_left_forged_sheet[2]
+    loaded_dict["player_mage_nuldar_female_left_4_forged"] = player_mage_nuldar_female_left_forged_sheet[3]
+    # mythic
+    player_mage_nuldar_female_left_mythic_url = resource_path('resources/art/player_mage_nuldar_left_female_mythic.png')
+    player_mage_nuldar_female_left_mythic_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_left_mythic_url)
+    loaded_dict["player_mage_nuldar_female_left_1_mythic"] = player_mage_nuldar_female_left_mythic_sheet[0]
+    loaded_dict["player_mage_nuldar_female_left_2_mythic"] = player_mage_nuldar_female_left_mythic_sheet[1]
+    loaded_dict["player_mage_nuldar_female_left_3_mythic"] = player_mage_nuldar_female_left_mythic_sheet[2]
+    loaded_dict["player_mage_nuldar_female_left_4_mythic"] = player_mage_nuldar_female_left_mythic_sheet[3]
+    # legend
+    player_mage_nuldar_female_left_legend_url = resource_path('resources/art/player_mage_nuldar_left_female_legend.png')
+    player_mage_nuldar_female_left_legend_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_left_legend_url)
+    loaded_dict["player_mage_nuldar_female_left_1_legend"] = player_mage_nuldar_female_left_legend_sheet[0]
+    loaded_dict["player_mage_nuldar_female_left_2_legend"] = player_mage_nuldar_female_left_legend_sheet[1]
+    loaded_dict["player_mage_nuldar_female_left_3_legend"] = player_mage_nuldar_female_left_legend_sheet[2]
+    loaded_dict["player_mage_nuldar_female_left_4_legend"] = player_mage_nuldar_female_left_legend_sheet[3]
     player_mage_nuldar_female_right_url = resource_path('resources/art/player_mage_nuldar_right_female.png')
     player_mage_nuldar_female_right_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_right_url)
     loaded_dict["player_mage_nuldar_female_right_1"] = player_mage_nuldar_female_right_sheet[0]
     loaded_dict["player_mage_nuldar_female_right_2"] = player_mage_nuldar_female_right_sheet[1]
     loaded_dict["player_mage_nuldar_female_right_3"] = player_mage_nuldar_female_right_sheet[2]
     loaded_dict["player_mage_nuldar_female_right_4"] = player_mage_nuldar_female_right_sheet[3]
+    # basic
+    player_mage_nuldar_female_right_basic_url = resource_path('resources/art/player_mage_nuldar_right_female_basic.png')
+    player_mage_nuldar_female_right_basic_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_right_basic_url)
+    loaded_dict["player_mage_nuldar_female_right_1_basic"] = player_mage_nuldar_female_right_basic_sheet[0]
+    loaded_dict["player_mage_nuldar_female_right_2_basic"] = player_mage_nuldar_female_right_basic_sheet[1]
+    loaded_dict["player_mage_nuldar_female_right_3_basic"] = player_mage_nuldar_female_right_basic_sheet[2]
+    loaded_dict["player_mage_nuldar_female_right_4_basic"] = player_mage_nuldar_female_right_basic_sheet[3]
+    # forged
+    player_mage_nuldar_female_right_forged_url = resource_path('resources/art/player_mage_nuldar_right_'
+                                                               'female_forged.png')
+    player_mage_nuldar_female_right_forged_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_right_forged_url)
+    loaded_dict["player_mage_nuldar_female_right_1_forged"] = player_mage_nuldar_female_right_forged_sheet[0]
+    loaded_dict["player_mage_nuldar_female_right_2_forged"] = player_mage_nuldar_female_right_forged_sheet[1]
+    loaded_dict["player_mage_nuldar_female_right_3_forged"] = player_mage_nuldar_female_right_forged_sheet[2]
+    loaded_dict["player_mage_nuldar_female_right_4_forged"] = player_mage_nuldar_female_right_forged_sheet[3]
+    # mythic
+    player_mage_nuldar_female_right_mythic_url = resource_path('resources/art/player_mage_nuldar_right_'
+                                                               'female_mythic.png')
+    player_mage_nuldar_female_right_mythic_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_right_mythic_url)
+    loaded_dict["player_mage_nuldar_female_right_1_mythic"] = player_mage_nuldar_female_right_mythic_sheet[0]
+    loaded_dict["player_mage_nuldar_female_right_2_mythic"] = player_mage_nuldar_female_right_mythic_sheet[1]
+    loaded_dict["player_mage_nuldar_female_right_3_mythic"] = player_mage_nuldar_female_right_mythic_sheet[2]
+    loaded_dict["player_mage_nuldar_female_right_4_mythic"] = player_mage_nuldar_female_right_mythic_sheet[3]
+    # legend
+    player_mage_nuldar_female_right_legend_url = resource_path('resources/art/player_mage_nuldar_right_'
+                                                               'female_legend.png')
+    player_mage_nuldar_female_right_legend_sheet = sprite_sheet((50, 75), player_mage_nuldar_female_right_legend_url)
+    loaded_dict["player_mage_nuldar_female_right_1_legend"] = player_mage_nuldar_female_right_legend_sheet[0]
+    loaded_dict["player_mage_nuldar_female_right_2_legend"] = player_mage_nuldar_female_right_legend_sheet[1]
+    loaded_dict["player_mage_nuldar_female_right_3_legend"] = player_mage_nuldar_female_right_legend_sheet[2]
+    loaded_dict["player_mage_nuldar_female_right_4_legend"] = player_mage_nuldar_female_right_legend_sheet[3]
+
     # player mage sorae race -------------------------------------------------------------------------------------------
+    # alpha ------------------------------------------------------------------------------------------------------------
     player_mage_sorae_down_url = resource_path('resources/art/player_mage_sorae_down_a.png')
     player_mage_sorae_down_sheet = sprite_sheet((50, 75), player_mage_sorae_down_url)
     loaded_dict["player_mage_sorae_a_down_1"] = player_mage_sorae_down_sheet[0]
     loaded_dict["player_mage_sorae_a_down_2"] = player_mage_sorae_down_sheet[1]
     loaded_dict["player_mage_sorae_a_down_3"] = player_mage_sorae_down_sheet[2]
     loaded_dict["player_mage_sorae_a_down_4"] = player_mage_sorae_down_sheet[3]
+    # basic
+    player_mage_sorae_down_basic_url = resource_path('resources/art/player_mage_sorae_down_a_basic.png')
+    player_mage_sorae_down_basic_sheet = sprite_sheet((50, 75), player_mage_sorae_down_basic_url)
+    loaded_dict["player_mage_sorae_a_down_1_basic"] = player_mage_sorae_down_basic_sheet[0]
+    loaded_dict["player_mage_sorae_a_down_2_basic"] = player_mage_sorae_down_basic_sheet[1]
+    loaded_dict["player_mage_sorae_a_down_3_basic"] = player_mage_sorae_down_basic_sheet[2]
+    loaded_dict["player_mage_sorae_a_down_4_basic"] = player_mage_sorae_down_basic_sheet[3]
+    # forged
+    player_mage_sorae_down_forged_url = resource_path('resources/art/player_mage_sorae_down_a_forged.png')
+    player_mage_sorae_down_forged_sheet = sprite_sheet((50, 75), player_mage_sorae_down_forged_url)
+    loaded_dict["player_mage_sorae_a_down_1_forged"] = player_mage_sorae_down_forged_sheet[0]
+    loaded_dict["player_mage_sorae_a_down_2_forged"] = player_mage_sorae_down_forged_sheet[1]
+    loaded_dict["player_mage_sorae_a_down_3_forged"] = player_mage_sorae_down_forged_sheet[2]
+    loaded_dict["player_mage_sorae_a_down_4_forged"] = player_mage_sorae_down_forged_sheet[3]
+    # mythic
+    player_mage_sorae_down_mythic_url = resource_path('resources/art/player_mage_sorae_down_a_mythic.png')
+    player_mage_sorae_down_mythic_sheet = sprite_sheet((50, 75), player_mage_sorae_down_mythic_url)
+    loaded_dict["player_mage_sorae_a_down_1_mythic"] = player_mage_sorae_down_mythic_sheet[0]
+    loaded_dict["player_mage_sorae_a_down_2_mythic"] = player_mage_sorae_down_mythic_sheet[1]
+    loaded_dict["player_mage_sorae_a_down_3_mythic"] = player_mage_sorae_down_mythic_sheet[2]
+    loaded_dict["player_mage_sorae_a_down_4_mythic"] = player_mage_sorae_down_mythic_sheet[3]
+    # legend
+    player_mage_sorae_down_legend_url = resource_path('resources/art/player_mage_sorae_down_a_legend.png')
+    player_mage_sorae_down_legend_sheet = sprite_sheet((50, 75), player_mage_sorae_down_legend_url)
+    loaded_dict["player_mage_sorae_a_down_1_legend"] = player_mage_sorae_down_legend_sheet[0]
+    loaded_dict["player_mage_sorae_a_down_2_legend"] = player_mage_sorae_down_legend_sheet[1]
+    loaded_dict["player_mage_sorae_a_down_3_legend"] = player_mage_sorae_down_legend_sheet[2]
+    loaded_dict["player_mage_sorae_a_down_4_legend"] = player_mage_sorae_down_legend_sheet[3]
     player_mage_sorae_up_url = resource_path('resources/art/player_mage_sorae_up_a.png')
     player_mage_sorae_up_sheet = sprite_sheet((50, 75), player_mage_sorae_up_url)
     loaded_dict["player_mage_sorae_a_up_1"] = player_mage_sorae_up_sheet[0]
     loaded_dict["player_mage_sorae_a_up_2"] = player_mage_sorae_up_sheet[1]
     loaded_dict["player_mage_sorae_a_up_3"] = player_mage_sorae_up_sheet[2]
     loaded_dict["player_mage_sorae_a_up_4"] = player_mage_sorae_up_sheet[3]
+    # basic
+    player_mage_sorae_up_basic_url = resource_path('resources/art/player_mage_sorae_up_a_basic.png')
+    player_mage_sorae_up_basic_sheet = sprite_sheet((50, 75), player_mage_sorae_up_basic_url)
+    loaded_dict["player_mage_sorae_a_up_1_basic"] = player_mage_sorae_up_basic_sheet[0]
+    loaded_dict["player_mage_sorae_a_up_2_basic"] = player_mage_sorae_up_basic_sheet[1]
+    loaded_dict["player_mage_sorae_a_up_3_basic"] = player_mage_sorae_up_basic_sheet[2]
+    loaded_dict["player_mage_sorae_a_up_4_basic"] = player_mage_sorae_up_basic_sheet[3]
+    # forged
+    player_mage_sorae_up_forged_url = resource_path('resources/art/player_mage_sorae_up_a_forged.png')
+    player_mage_sorae_up_forged_sheet = sprite_sheet((50, 75), player_mage_sorae_up_forged_url)
+    loaded_dict["player_mage_sorae_a_up_1_forged"] = player_mage_sorae_up_forged_sheet[0]
+    loaded_dict["player_mage_sorae_a_up_2_forged"] = player_mage_sorae_up_forged_sheet[1]
+    loaded_dict["player_mage_sorae_a_up_3_forged"] = player_mage_sorae_up_forged_sheet[2]
+    loaded_dict["player_mage_sorae_a_up_4_forged"] = player_mage_sorae_up_forged_sheet[3]
+    # mythic
+    player_mage_sorae_up_mythic_url = resource_path('resources/art/player_mage_sorae_up_a_mythic.png')
+    player_mage_sorae_up_mythic_sheet = sprite_sheet((50, 75), player_mage_sorae_up_mythic_url)
+    loaded_dict["player_mage_sorae_a_up_1_mythic"] = player_mage_sorae_up_mythic_sheet[0]
+    loaded_dict["player_mage_sorae_a_up_2_mythic"] = player_mage_sorae_up_mythic_sheet[1]
+    loaded_dict["player_mage_sorae_a_up_3_mythic"] = player_mage_sorae_up_mythic_sheet[2]
+    loaded_dict["player_mage_sorae_a_up_4_mythic"] = player_mage_sorae_up_mythic_sheet[3]
+    # legend
+    player_mage_sorae_up_legend_url = resource_path('resources/art/player_mage_sorae_up_a_legend.png')
+    player_mage_sorae_up_legend_sheet = sprite_sheet((50, 75), player_mage_sorae_up_legend_url)
+    loaded_dict["player_mage_sorae_a_up_1_legend"] = player_mage_sorae_up_legend_sheet[0]
+    loaded_dict["player_mage_sorae_a_up_2_legend"] = player_mage_sorae_up_legend_sheet[1]
+    loaded_dict["player_mage_sorae_a_up_3_legend"] = player_mage_sorae_up_legend_sheet[2]
+    loaded_dict["player_mage_sorae_a_up_4_legend"] = player_mage_sorae_up_legend_sheet[3]
     player_mage_sorae_left_url = resource_path('resources/art/player_mage_sorae_left_a.png')
     player_mage_sorae_left_sheet = sprite_sheet((50, 75), player_mage_sorae_left_url)
     loaded_dict["player_mage_sorae_a_left_1"] = player_mage_sorae_left_sheet[0]
     loaded_dict["player_mage_sorae_a_left_2"] = player_mage_sorae_left_sheet[1]
     loaded_dict["player_mage_sorae_a_left_3"] = player_mage_sorae_left_sheet[2]
     loaded_dict["player_mage_sorae_a_left_4"] = player_mage_sorae_left_sheet[3]
+    # basic
+    player_mage_sorae_left_basic_url = resource_path('resources/art/player_mage_sorae_left_a_basic.png')
+    player_mage_sorae_left_basic_sheet = sprite_sheet((50, 75), player_mage_sorae_left_basic_url)
+    loaded_dict["player_mage_sorae_a_left_1_basic"] = player_mage_sorae_left_basic_sheet[0]
+    loaded_dict["player_mage_sorae_a_left_2_basic"] = player_mage_sorae_left_basic_sheet[1]
+    loaded_dict["player_mage_sorae_a_left_3_basic"] = player_mage_sorae_left_basic_sheet[2]
+    loaded_dict["player_mage_sorae_a_left_4_basic"] = player_mage_sorae_left_basic_sheet[3]
+    # forged
+    player_mage_sorae_left_forged_url = resource_path('resources/art/player_mage_sorae_left_a_forged.png')
+    player_mage_sorae_left_forged_sheet = sprite_sheet((50, 75), player_mage_sorae_left_forged_url)
+    loaded_dict["player_mage_sorae_a_left_1_forged"] = player_mage_sorae_left_forged_sheet[0]
+    loaded_dict["player_mage_sorae_a_left_2_forged"] = player_mage_sorae_left_forged_sheet[1]
+    loaded_dict["player_mage_sorae_a_left_3_forged"] = player_mage_sorae_left_forged_sheet[2]
+    loaded_dict["player_mage_sorae_a_left_4_forged"] = player_mage_sorae_left_forged_sheet[3]
+    # mythic
+    player_mage_sorae_left_mythic_url = resource_path('resources/art/player_mage_sorae_left_a_mythic.png')
+    player_mage_sorae_left_mythic_sheet = sprite_sheet((50, 75), player_mage_sorae_left_mythic_url)
+    loaded_dict["player_mage_sorae_a_left_1_mythic"] = player_mage_sorae_left_mythic_sheet[0]
+    loaded_dict["player_mage_sorae_a_left_2_mythic"] = player_mage_sorae_left_mythic_sheet[1]
+    loaded_dict["player_mage_sorae_a_left_3_mythic"] = player_mage_sorae_left_mythic_sheet[2]
+    loaded_dict["player_mage_sorae_a_left_4_mythic"] = player_mage_sorae_left_mythic_sheet[3]
+    # legend
+    player_mage_sorae_left_legend_url = resource_path('resources/art/player_mage_sorae_left_a_legend.png')
+    player_mage_sorae_left_legend_sheet = sprite_sheet((50, 75), player_mage_sorae_left_legend_url)
+    loaded_dict["player_mage_sorae_a_left_1_legend"] = player_mage_sorae_left_legend_sheet[0]
+    loaded_dict["player_mage_sorae_a_left_2_legend"] = player_mage_sorae_left_legend_sheet[1]
+    loaded_dict["player_mage_sorae_a_left_3_legend"] = player_mage_sorae_left_legend_sheet[2]
+    loaded_dict["player_mage_sorae_a_left_4_legend"] = player_mage_sorae_left_legend_sheet[3]
     player_mage_sorae_right_url = resource_path('resources/art/player_mage_sorae_right_a.png')
     player_mage_sorae_right_sheet = sprite_sheet((50, 75), player_mage_sorae_right_url)
     loaded_dict["player_mage_sorae_a_right_1"] = player_mage_sorae_right_sheet[0]
     loaded_dict["player_mage_sorae_a_right_2"] = player_mage_sorae_right_sheet[1]
     loaded_dict["player_mage_sorae_a_right_3"] = player_mage_sorae_right_sheet[2]
     loaded_dict["player_mage_sorae_a_right_4"] = player_mage_sorae_right_sheet[3]
+    # basic
+    player_mage_sorae_right_basic_url = resource_path('resources/art/player_mage_sorae_right_a_basic.png')
+    player_mage_sorae_right_basic_sheet = sprite_sheet((50, 75), player_mage_sorae_right_basic_url)
+    loaded_dict["player_mage_sorae_a_right_1_basic"] = player_mage_sorae_right_basic_sheet[0]
+    loaded_dict["player_mage_sorae_a_right_2_basic"] = player_mage_sorae_right_basic_sheet[1]
+    loaded_dict["player_mage_sorae_a_right_3_basic"] = player_mage_sorae_right_basic_sheet[2]
+    loaded_dict["player_mage_sorae_a_right_4_basic"] = player_mage_sorae_right_basic_sheet[3]
+    # forged
+    player_mage_sorae_right_forged_url = resource_path('resources/art/player_mage_sorae_right_a_forged.png')
+    player_mage_sorae_right_forged_sheet = sprite_sheet((50, 75), player_mage_sorae_right_forged_url)
+    loaded_dict["player_mage_sorae_a_right_1_forged"] = player_mage_sorae_right_forged_sheet[0]
+    loaded_dict["player_mage_sorae_a_right_2_forged"] = player_mage_sorae_right_forged_sheet[1]
+    loaded_dict["player_mage_sorae_a_right_3_forged"] = player_mage_sorae_right_forged_sheet[2]
+    loaded_dict["player_mage_sorae_a_right_4_forged"] = player_mage_sorae_right_forged_sheet[3]
+    # mythic
+    player_mage_sorae_right_mythic_url = resource_path('resources/art/player_mage_sorae_right_a_mythic.png')
+    player_mage_sorae_right_mythic_sheet = sprite_sheet((50, 75), player_mage_sorae_right_mythic_url)
+    loaded_dict["player_mage_sorae_a_right_1_mythic"] = player_mage_sorae_right_mythic_sheet[0]
+    loaded_dict["player_mage_sorae_a_right_2_mythic"] = player_mage_sorae_right_mythic_sheet[1]
+    loaded_dict["player_mage_sorae_a_right_3_mythic"] = player_mage_sorae_right_mythic_sheet[2]
+    loaded_dict["player_mage_sorae_a_right_4_mythic"] = player_mage_sorae_right_mythic_sheet[3]
+    # legend
+    player_mage_sorae_right_legend_url = resource_path('resources/art/player_mage_sorae_right_a_legend.png')
+    player_mage_sorae_right_legend_sheet = sprite_sheet((50, 75), player_mage_sorae_right_legend_url)
+    loaded_dict["player_mage_sorae_a_right_1_legend"] = player_mage_sorae_right_legend_sheet[0]
+    loaded_dict["player_mage_sorae_a_right_2_legend"] = player_mage_sorae_right_legend_sheet[1]
+    loaded_dict["player_mage_sorae_a_right_3_legend"] = player_mage_sorae_right_legend_sheet[2]
+    loaded_dict["player_mage_sorae_a_right_4_legend"] = player_mage_sorae_right_legend_sheet[3]
+    # beta -------------------------------------------------------------------------------------------------------------
+    player_mage_sorae_b_down_url = resource_path('resources/art/player_mage_sorae_down_b.png')
+    player_mage_sorae_b_down_sheet = sprite_sheet((50, 75), player_mage_sorae_b_down_url)
+    loaded_dict["player_mage_sorae_b_down_1"] = player_mage_sorae_b_down_sheet[0]
+    loaded_dict["player_mage_sorae_b_down_2"] = player_mage_sorae_b_down_sheet[1]
+    loaded_dict["player_mage_sorae_b_down_3"] = player_mage_sorae_b_down_sheet[2]
+    loaded_dict["player_mage_sorae_b_down_4"] = player_mage_sorae_b_down_sheet[3]
+    # basic
+    player_mage_sorae_b_down_basic_url = resource_path('resources/art/player_mage_sorae_down_b_basic.png')
+    player_mage_sorae_b_down_basic_sheet = sprite_sheet((50, 75), player_mage_sorae_b_down_basic_url)
+    loaded_dict["player_mage_sorae_b_down_1_basic"] = player_mage_sorae_b_down_basic_sheet[0]
+    loaded_dict["player_mage_sorae_b_down_2_basic"] = player_mage_sorae_b_down_basic_sheet[1]
+    loaded_dict["player_mage_sorae_b_down_3_basic"] = player_mage_sorae_b_down_basic_sheet[2]
+    loaded_dict["player_mage_sorae_b_down_4_basic"] = player_mage_sorae_b_down_basic_sheet[3]
+    # forged
+    player_mage_sorae_b_down_forged_url = resource_path('resources/art/player_mage_sorae_down_b_forged.png')
+    player_mage_sorae_b_down_forged_sheet = sprite_sheet((50, 75), player_mage_sorae_b_down_forged_url)
+    loaded_dict["player_mage_sorae_b_down_1_forged"] = player_mage_sorae_b_down_forged_sheet[0]
+    loaded_dict["player_mage_sorae_b_down_2_forged"] = player_mage_sorae_b_down_forged_sheet[1]
+    loaded_dict["player_mage_sorae_b_down_3_forged"] = player_mage_sorae_b_down_forged_sheet[2]
+    loaded_dict["player_mage_sorae_b_down_4_forged"] = player_mage_sorae_b_down_forged_sheet[3]
+    # mythic
+    player_mage_sorae_b_down_mythic_url = resource_path('resources/art/player_mage_sorae_down_b_mythic.png')
+    player_mage_sorae_b_down_mythic_sheet = sprite_sheet((50, 75), player_mage_sorae_b_down_mythic_url)
+    loaded_dict["player_mage_sorae_b_down_1_mythic"] = player_mage_sorae_b_down_mythic_sheet[0]
+    loaded_dict["player_mage_sorae_b_down_2_mythic"] = player_mage_sorae_b_down_mythic_sheet[1]
+    loaded_dict["player_mage_sorae_b_down_3_mythic"] = player_mage_sorae_b_down_mythic_sheet[2]
+    loaded_dict["player_mage_sorae_b_down_4_mythic"] = player_mage_sorae_b_down_mythic_sheet[3]
+    # legend
+    player_mage_sorae_b_down_legend_url = resource_path('resources/art/player_mage_sorae_down_b_legend.png')
+    player_mage_sorae_b_down_legend_sheet = sprite_sheet((50, 75), player_mage_sorae_b_down_legend_url)
+    loaded_dict["player_mage_sorae_b_down_1_legend"] = player_mage_sorae_b_down_legend_sheet[0]
+    loaded_dict["player_mage_sorae_b_down_2_legend"] = player_mage_sorae_b_down_legend_sheet[1]
+    loaded_dict["player_mage_sorae_b_down_3_legend"] = player_mage_sorae_b_down_legend_sheet[2]
+    loaded_dict["player_mage_sorae_b_down_4_legend"] = player_mage_sorae_b_down_legend_sheet[3]
+    player_mage_sorae_b_up_url = resource_path('resources/art/player_mage_sorae_up_b.png')
+    player_mage_sorae_b_up_sheet = sprite_sheet((50, 75), player_mage_sorae_b_up_url)
+    loaded_dict["player_mage_sorae_b_up_1"] = player_mage_sorae_b_up_sheet[0]
+    loaded_dict["player_mage_sorae_b_up_2"] = player_mage_sorae_b_up_sheet[1]
+    loaded_dict["player_mage_sorae_b_up_3"] = player_mage_sorae_b_up_sheet[2]
+    loaded_dict["player_mage_sorae_b_up_4"] = player_mage_sorae_b_up_sheet[3]
+    # basic
+    player_mage_sorae_b_up_basic_url = resource_path('resources/art/player_mage_sorae_up_b_basic.png')
+    player_mage_sorae_b_up_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_up_basic_url)
+    loaded_dict["player_mage_sorae_b_up_1_basic"] = player_mage_sorae_b_up_basic_sheet[0]
+    loaded_dict["player_mage_sorae_b_up_2_basic"] = player_mage_sorae_b_up_basic_sheet[1]
+    loaded_dict["player_mage_sorae_b_up_3_basic"] = player_mage_sorae_b_up_basic_sheet[2]
+    loaded_dict["player_mage_sorae_b_up_4_basic"] = player_mage_sorae_b_up_basic_sheet[3]
+    # forged
+    player_mage_sorae_b_up_forged_url = resource_path('resources/art/player_mage_sorae_up_b_forged.png')
+    player_mage_sorae_b_up_forged_sheet = sprite_sheet((50, 75), player_mage_sorae_b_up_forged_url)
+    loaded_dict["player_mage_sorae_b_up_1_forged"] = player_mage_sorae_b_up_forged_sheet[0]
+    loaded_dict["player_mage_sorae_b_up_2_forged"] = player_mage_sorae_b_up_forged_sheet[1]
+    loaded_dict["player_mage_sorae_b_up_3_forged"] = player_mage_sorae_b_up_forged_sheet[2]
+    loaded_dict["player_mage_sorae_b_up_4_forged"] = player_mage_sorae_b_up_forged_sheet[3]
+    # mythic
+    player_mage_sorae_b_up_mythic_url = resource_path('resources/art/player_mage_sorae_up_b_mythic.png')
+    player_mage_sorae_b_up_mythic_sheet = sprite_sheet((50, 75), player_mage_sorae_b_up_mythic_url)
+    loaded_dict["player_mage_sorae_b_up_1_mythic"] = player_mage_sorae_b_up_mythic_sheet[0]
+    loaded_dict["player_mage_sorae_b_up_2_mythic"] = player_mage_sorae_b_up_mythic_sheet[1]
+    loaded_dict["player_mage_sorae_b_up_3_mythic"] = player_mage_sorae_b_up_mythic_sheet[2]
+    loaded_dict["player_mage_sorae_b_up_4_mythic"] = player_mage_sorae_b_up_mythic_sheet[3]
+    # legend
+    player_mage_sorae_b_up_legend_url = resource_path('resources/art/player_mage_sorae_up_b_legend.png')
+    player_mage_sorae_b_up_legend_sheet = sprite_sheet((50, 75), player_mage_sorae_b_up_legend_url)
+    loaded_dict["player_mage_sorae_b_up_1_legend"] = player_mage_sorae_b_up_legend_sheet[0]
+    loaded_dict["player_mage_sorae_b_up_2_legend"] = player_mage_sorae_b_up_legend_sheet[1]
+    loaded_dict["player_mage_sorae_b_up_3_legend"] = player_mage_sorae_b_up_legend_sheet[2]
+    loaded_dict["player_mage_sorae_b_up_4_legend"] = player_mage_sorae_b_up_legend_sheet[3]
+    player_mage_sorae_b_left_url = resource_path('resources/art/player_mage_sorae_left_b.png')
+    player_mage_sorae_b_left_sheet = sprite_sheet((50, 75), player_mage_sorae_b_left_url)
+    loaded_dict["player_mage_sorae_b_left_1"] = player_mage_sorae_b_left_sheet[0]
+    loaded_dict["player_mage_sorae_b_left_2"] = player_mage_sorae_b_left_sheet[1]
+    loaded_dict["player_mage_sorae_b_left_3"] = player_mage_sorae_b_left_sheet[2]
+    loaded_dict["player_mage_sorae_b_left_4"] = player_mage_sorae_b_left_sheet[3]
+    # basic
+    player_mage_sorae_b_left_basic_url = resource_path('resources/art/player_mage_sorae_left_b_basic.png')
+    player_mage_sorae_b_left_basic_sheet = sprite_sheet((50, 75), player_mage_sorae_b_left_basic_url)
+    loaded_dict["player_mage_sorae_b_left_1_basic"] = player_mage_sorae_b_left_basic_sheet[0]
+    loaded_dict["player_mage_sorae_b_left_2_basic"] = player_mage_sorae_b_left_basic_sheet[1]
+    loaded_dict["player_mage_sorae_b_left_3_basic"] = player_mage_sorae_b_left_basic_sheet[2]
+    loaded_dict["player_mage_sorae_b_left_4_basic"] = player_mage_sorae_b_left_basic_sheet[3]
+    # forged
+    player_mage_sorae_b_left_forged_url = resource_path('resources/art/player_mage_sorae_left_b_forged.png')
+    player_mage_sorae_b_left_forged_sheet = sprite_sheet((50, 75), player_mage_sorae_b_left_forged_url)
+    loaded_dict["player_mage_sorae_b_left_1_forged"] = player_mage_sorae_b_left_forged_sheet[0]
+    loaded_dict["player_mage_sorae_b_left_2_forged"] = player_mage_sorae_b_left_forged_sheet[1]
+    loaded_dict["player_mage_sorae_b_left_3_forged"] = player_mage_sorae_b_left_forged_sheet[2]
+    loaded_dict["player_mage_sorae_b_left_4_forged"] = player_mage_sorae_b_left_forged_sheet[3]
+    # mythic
+    player_mage_sorae_b_left_mythic_url = resource_path('resources/art/player_mage_sorae_left_b_mythic.png')
+    player_mage_sorae_b_left_mythic_sheet = sprite_sheet((50, 75), player_mage_sorae_b_left_mythic_url)
+    loaded_dict["player_mage_sorae_b_left_1_mythic"] = player_mage_sorae_b_left_mythic_sheet[0]
+    loaded_dict["player_mage_sorae_b_left_2_mythic"] = player_mage_sorae_b_left_mythic_sheet[1]
+    loaded_dict["player_mage_sorae_b_left_3_mythic"] = player_mage_sorae_b_left_mythic_sheet[2]
+    loaded_dict["player_mage_sorae_b_left_4_mythic"] = player_mage_sorae_b_left_mythic_sheet[3]
+    # legend
+    player_mage_sorae_b_left_legend_url = resource_path('resources/art/player_mage_sorae_left_b_legend.png')
+    player_mage_sorae_b_left_legend_sheet = sprite_sheet((50, 75), player_mage_sorae_b_left_legend_url)
+    loaded_dict["player_mage_sorae_b_left_1_legend"] = player_mage_sorae_b_left_legend_sheet[0]
+    loaded_dict["player_mage_sorae_b_left_2_legend"] = player_mage_sorae_b_left_legend_sheet[1]
+    loaded_dict["player_mage_sorae_b_left_3_legend"] = player_mage_sorae_b_left_legend_sheet[2]
+    loaded_dict["player_mage_sorae_b_left_4_legend"] = player_mage_sorae_b_left_legend_sheet[3]
+    player_mage_sorae_b_right_url = resource_path('resources/art/player_mage_sorae_right_b.png')
+    player_mage_sorae_b_right_sheet = sprite_sheet((50, 75), player_mage_sorae_b_right_url)
+    loaded_dict["player_mage_sorae_b_right_1"] = player_mage_sorae_b_right_sheet[0]
+    loaded_dict["player_mage_sorae_b_right_2"] = player_mage_sorae_b_right_sheet[1]
+    loaded_dict["player_mage_sorae_b_right_3"] = player_mage_sorae_b_right_sheet[2]
+    loaded_dict["player_mage_sorae_b_right_4"] = player_mage_sorae_b_right_sheet[3]
+    # basic
+    player_mage_sorae_b_right_basic_url = resource_path('resources/art/player_mage_sorae_right_b_basic.png')
+    player_mage_sorae_b_right_basic_sheet = sprite_sheet((50, 75), player_mage_amuna_female_right_basic_url)
+    loaded_dict["player_mage_sorae_b_right_1_basic"] = player_mage_sorae_b_right_basic_sheet[0]
+    loaded_dict["player_mage_sorae_b_right_2_basic"] = player_mage_sorae_b_right_basic_sheet[1]
+    loaded_dict["player_mage_sorae_b_right_3_basic"] = player_mage_sorae_b_right_basic_sheet[2]
+    loaded_dict["player_mage_sorae_b_right_4_basic"] = player_mage_sorae_b_right_basic_sheet[3]
+    # forged
+    player_mage_sorae_b_right_forged_url = resource_path('resources/art/player_mage_sorae_right_b_forged.png')
+    player_mage_sorae_b_right_forged_sheet = sprite_sheet((50, 75), player_mage_sorae_b_right_forged_url)
+    loaded_dict["player_mage_sorae_b_right_1_forged"] = player_mage_sorae_b_right_forged_sheet[0]
+    loaded_dict["player_mage_sorae_b_right_2_forged"] = player_mage_sorae_b_right_forged_sheet[1]
+    loaded_dict["player_mage_sorae_b_right_3_forged"] = player_mage_sorae_b_right_forged_sheet[2]
+    loaded_dict["player_mage_sorae_b_right_4_forged"] = player_mage_sorae_b_right_forged_sheet[3]
+    # mythic
+    player_mage_sorae_b_right_mythic_url = resource_path('resources/art/player_mage_sorae_right_b_mythic.png')
+    player_mage_sorae_b_right_mythic_sheet = sprite_sheet((50, 75), player_mage_sorae_b_right_mythic_url)
+    loaded_dict["player_mage_sorae_b_right_1_mythic"] = player_mage_sorae_b_right_mythic_sheet[0]
+    loaded_dict["player_mage_sorae_b_right_2_mythic"] = player_mage_sorae_b_right_mythic_sheet[1]
+    loaded_dict["player_mage_sorae_b_right_3_mythic"] = player_mage_sorae_b_right_mythic_sheet[2]
+    loaded_dict["player_mage_sorae_b_right_4_mythic"] = player_mage_sorae_b_right_mythic_sheet[3]
+    # legend
+    player_mage_sorae_b_right_legend_url = resource_path('resources/art/player_mage_sorae_right_b_legend.png')
+    player_mage_sorae_b_right_legend_sheet = sprite_sheet((50, 75), player_mage_amuna_female_right_legend_url)
+    loaded_dict["player_mage_sorae_b_right_1_legend"] = player_mage_sorae_b_right_legend_sheet[0]
+    loaded_dict["player_mage_sorae_b_right_2_legend"] = player_mage_sorae_b_right_legend_sheet[1]
+    loaded_dict["player_mage_sorae_b_right_3_legend"] = player_mage_sorae_b_right_legend_sheet[2]
+    loaded_dict["player_mage_sorae_b_right_4_legend"] = player_mage_sorae_b_right_legend_sheet[3]
+
     # player fighter amuna race ----------------------------------------------------------------------------------------
     # male -------------------------------------------------------------------------------------------------------------
     player_fighter_amuna_down_url = resource_path('resources/art/player_fighter_amuna_down_male.png')
@@ -723,6 +1428,7 @@ def load_graphics():
     loaded_dict["player_fighter_nuldar_female_right_3"] = player_fighter_nuldar_female_right_sheet[2]
     loaded_dict["player_fighter_nuldar_female_right_4"] = player_fighter_nuldar_female_right_sheet[3]
     # player fighter sorae race ----------------------------------------------------------------------------------------
+    # alpha ------------------------------------------------------------------------------------------------------------
     player_fighter_sorae_down_url = resource_path('resources/art/player_fighter_sorae_down_a.png')
     player_fighter_sorae_down_sheet = sprite_sheet((50, 75), player_fighter_sorae_down_url)
     loaded_dict["player_fighter_sorae_a_down_1"] = player_fighter_sorae_down_sheet[0]
@@ -747,6 +1453,31 @@ def load_graphics():
     loaded_dict["player_fighter_sorae_a_right_2"] = player_fighter_sorae_right_sheet[1]
     loaded_dict["player_fighter_sorae_a_right_3"] = player_fighter_sorae_right_sheet[2]
     loaded_dict["player_fighter_sorae_a_right_4"] = player_fighter_sorae_right_sheet[3]
+    # beta -------------------------------------------------------------------------------------------------------------
+    player_fighter_sorae_b_down_url = resource_path('resources/art/player_fighter_sorae_down_b.png')
+    player_fighter_sorae_b_down_sheet = sprite_sheet((50, 75), player_fighter_sorae_b_down_url)
+    loaded_dict["player_fighter_sorae_b_down_1"] = player_fighter_sorae_b_down_sheet[0]
+    loaded_dict["player_fighter_sorae_b_down_2"] = player_fighter_sorae_b_down_sheet[1]
+    loaded_dict["player_fighter_sorae_b_down_3"] = player_fighter_sorae_b_down_sheet[2]
+    loaded_dict["player_fighter_sorae_b_down_4"] = player_fighter_sorae_b_down_sheet[3]
+    player_fighter_sorae_b_up_url = resource_path('resources/art/player_fighter_sorae_up_b.png')
+    player_fighter_sorae_b_up_sheet = sprite_sheet((50, 75), player_fighter_sorae_b_up_url)
+    loaded_dict["player_fighter_sorae_b_up_1"] = player_fighter_sorae_b_up_sheet[0]
+    loaded_dict["player_fighter_sorae_b_up_2"] = player_fighter_sorae_b_up_sheet[1]
+    loaded_dict["player_fighter_sorae_b_up_3"] = player_fighter_sorae_b_up_sheet[2]
+    loaded_dict["player_fighter_sorae_b_up_4"] = player_fighter_sorae_b_up_sheet[3]
+    player_fighter_sorae_b_left_url = resource_path('resources/art/player_fighter_sorae_left_b.png')
+    player_fighter_sorae_b_left_sheet = sprite_sheet((50, 75), player_fighter_sorae_b_left_url)
+    loaded_dict["player_fighter_sorae_b_left_1"] = player_fighter_sorae_b_left_sheet[0]
+    loaded_dict["player_fighter_sorae_b_left_2"] = player_fighter_sorae_b_left_sheet[1]
+    loaded_dict["player_fighter_sorae_b_left_3"] = player_fighter_sorae_b_left_sheet[2]
+    loaded_dict["player_fighter_sorae_b_left_4"] = player_fighter_sorae_b_left_sheet[3]
+    player_fighter_sorae_b_right_url = resource_path('resources/art/player_fighter_sorae_right_b.png')
+    player_fighter_sorae_b_right_sheet = sprite_sheet((50, 75), player_fighter_sorae_b_right_url)
+    loaded_dict["player_fighter_sorae_b_right_1"] = player_fighter_sorae_b_right_sheet[0]
+    loaded_dict["player_fighter_sorae_b_right_2"] = player_fighter_sorae_b_right_sheet[1]
+    loaded_dict["player_fighter_sorae_b_right_3"] = player_fighter_sorae_b_right_sheet[2]
+    loaded_dict["player_fighter_sorae_b_right_4"] = player_fighter_sorae_b_right_sheet[3]
     # player scout amuna race ------------------------------------------------------------------------------------------
     # male -------------------------------------------------------------------------------------------------------------
     player_scout_amuna_down_url = resource_path('resources/art/player_scout_amuna_down_male.png')
@@ -850,6 +1581,7 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_female_right_3"] = player_scout_nuldar_female_right_sheet[2]
     loaded_dict["player_scout_nuldar_female_right_4"] = player_scout_nuldar_female_right_sheet[3]
     # player scout sorae race ------------------------------------------------------------------------------------------
+    # alpha ------------------------------------------------------------------------------------------------------------
     player_scout_sorae_down_url = resource_path('resources/art/player_scout_sorae_down_a.png')
     player_scout_sorae_down_sheet = sprite_sheet((50, 75), player_scout_sorae_down_url)
     loaded_dict["player_scout_sorae_a_down_1"] = player_scout_sorae_down_sheet[0]
@@ -874,6 +1606,31 @@ def load_graphics():
     loaded_dict["player_scout_sorae_a_right_2"] = player_scout_sorae_right_sheet[1]
     loaded_dict["player_scout_sorae_a_right_3"] = player_scout_sorae_right_sheet[2]
     loaded_dict["player_scout_sorae_a_right_4"] = player_scout_sorae_right_sheet[3]
+    # beta -------------------------------------------------------------------------------------------------------------
+    player_scout_sorae_b_down_url = resource_path('resources/art/player_scout_sorae_down_b.png')
+    player_scout_sorae_b_down_sheet = sprite_sheet((50, 75), player_scout_sorae_b_down_url)
+    loaded_dict["player_scout_sorae_b_down_1"] = player_scout_sorae_b_down_sheet[0]
+    loaded_dict["player_scout_sorae_b_down_2"] = player_scout_sorae_b_down_sheet[1]
+    loaded_dict["player_scout_sorae_b_down_3"] = player_scout_sorae_b_down_sheet[2]
+    loaded_dict["player_scout_sorae_b_down_4"] = player_scout_sorae_b_down_sheet[3]
+    player_scout_sorae_b_up_url = resource_path('resources/art/player_scout_sorae_up_b.png')
+    player_scout_sorae_b_up_sheet = sprite_sheet((50, 75), player_scout_sorae_b_up_url)
+    loaded_dict["player_scout_sorae_b_up_1"] = player_scout_sorae_b_up_sheet[0]
+    loaded_dict["player_scout_sorae_b_up_2"] = player_scout_sorae_b_up_sheet[1]
+    loaded_dict["player_scout_sorae_b_up_3"] = player_scout_sorae_b_up_sheet[2]
+    loaded_dict["player_scout_sorae_b_up_4"] = player_scout_sorae_b_up_sheet[3]
+    player_scout_sorae_b_left_url = resource_path('resources/art/player_scout_sorae_left_b.png')
+    player_scout_sorae_b_left_sheet = sprite_sheet((50, 75), player_scout_sorae_b_left_url)
+    loaded_dict["player_scout_sorae_b_left_1"] = player_scout_sorae_b_left_sheet[0]
+    loaded_dict["player_scout_sorae_b_left_2"] = player_scout_sorae_b_left_sheet[1]
+    loaded_dict["player_scout_sorae_b_left_3"] = player_scout_sorae_b_left_sheet[2]
+    loaded_dict["player_scout_sorae_b_left_4"] = player_scout_sorae_b_left_sheet[3]
+    player_scout_sorae_b_right_url = resource_path('resources/art/player_scout_sorae_right_b.png')
+    player_scout_sorae_b_right_sheet = sprite_sheet((50, 75), player_scout_sorae_b_right_url)
+    loaded_dict["player_scout_sorae_b_right_1"] = player_scout_sorae_b_right_sheet[0]
+    loaded_dict["player_scout_sorae_b_right_2"] = player_scout_sorae_b_right_sheet[1]
+    loaded_dict["player_scout_sorae_b_right_3"] = player_scout_sorae_b_right_sheet[2]
+    loaded_dict["player_scout_sorae_b_right_4"] = player_scout_sorae_b_right_sheet[3]
     # player battle pets -----------------------------------------------------------------------------------------------
     player_battle_pets_url = resource_path('resources/art/pet_battle_sprites.png')
     player_battle_pets_sheet = sprite_sheet((500, 400), player_battle_pets_url)
