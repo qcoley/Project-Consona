@@ -135,126 +135,582 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.x_coordinate += velocity
             if player.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_male_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_male_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_amuna_male_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_amuna_male_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_male_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_male_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_amuna_male_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_amuna_male_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_male_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_male_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_amuna_male_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_amuna_male_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_male_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_male_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_amuna_male_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_amuna_male_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_male_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_male_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_amuna_male_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_amuna_male_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_male_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_male_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_amuna_male_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_amuna_male_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_male_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_male_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_amuna_male_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_amuna_male_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_male_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_male_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_male_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_amuna_male_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_amuna_male_right_4"]
                     self.x_coordinate += velocity
             if player.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_male_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_male_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_amuna_male_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_amuna_male_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_male_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_male_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_amuna_male_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_amuna_male_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_male_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_male_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_amuna_male_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_amuna_male_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_male_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_male_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_amuna_male_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_amuna_male_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_male_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_male_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_amuna_male_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_amuna_male_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_male_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_male_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_amuna_male_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_amuna_male_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_male_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_male_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_amuna_male_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_amuna_male_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_male_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_male_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_male_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_amuna_male_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_amuna_male_right_4"]
                     self.x_coordinate += velocity
             if player.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_male_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_male_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_amuna_male_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_amuna_male_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_male_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_male_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_amuna_male_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_amuna_male_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_male_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_male_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_amuna_male_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_amuna_male_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_male_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_male_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_amuna_male_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_amuna_male_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_male_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_male_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_amuna_male_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_amuna_male_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_male_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_male_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_amuna_male_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_amuna_male_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_male_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_male_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_amuna_male_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_amuna_male_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_male_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_male_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_male_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_amuna_male_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_amuna_male_right_4"]
                     self.x_coordinate += velocity
 
         if player.gender == "female":
@@ -301,126 +757,582 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.x_coordinate += velocity
             if player.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_female_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_female_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_amuna_female_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_amuna_female_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_female_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_female_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_amuna_female_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_amuna_female_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_female_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_female_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_amuna_female_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_amuna_female_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_female_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_female_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_amuna_female_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_amuna_female_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_female_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_female_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_amuna_female_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_amuna_female_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_female_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_female_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_amuna_female_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_amuna_female_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_female_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_amuna_female_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_amuna_female_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_amuna_female_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_amuna_female_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_female_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_amuna_female_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_amuna_female_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_amuna_female_right_4"]
                     self.x_coordinate += velocity
             if player.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_female_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_female_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_amuna_female_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_amuna_female_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_female_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_female_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_amuna_female_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_amuna_female_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_female_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_female_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_amuna_female_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_amuna_female_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_female_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_female_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_amuna_female_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_amuna_female_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_female_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_female_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_amuna_female_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_amuna_female_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_female_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_female_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_amuna_female_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_amuna_female_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_female_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_amuna_female_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_amuna_female_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_amuna_female_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_amuna_female_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_female_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_amuna_female_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_amuna_female_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_amuna_female_right_4"]
                     self.x_coordinate += velocity
             if player.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_female_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_female_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_amuna_female_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_amuna_female_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_female_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_female_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_amuna_female_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_amuna_female_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_female_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_female_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_amuna_female_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_amuna_female_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_female_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_female_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_amuna_female_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_amuna_female_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_female_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_female_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_amuna_female_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_amuna_female_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_female_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_female_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_amuna_female_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_amuna_female_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_female_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_amuna_female_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_amuna_female_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_amuna_female_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_amuna_female_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_female_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_amuna_female_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_amuna_female_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_amuna_female_right_4"]
                     self.x_coordinate += velocity
 
         if current_zone == "rohir":
@@ -1027,126 +1939,582 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.x_coordinate += velocity
             if player.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_male_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_male_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_nuldar_male_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_nuldar_male_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_male_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_male_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_nuldar_male_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_nuldar_male_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_male_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_male_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_nuldar_male_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_nuldar_male_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_male_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_male_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_nuldar_male_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_nuldar_male_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_male_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_male_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_nuldar_male_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_nuldar_male_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_male_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_male_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_nuldar_male_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_nuldar_male_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_male_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_male_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_nuldar_male_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_nuldar_male_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_male_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_male_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_male_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_nuldar_male_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_nuldar_male_right_4"]
                     self.x_coordinate += velocity
             if player.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_nuldar_male_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_male_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_nuldar_male_right_4"]
                     self.x_coordinate += velocity
             if player.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_male_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_male_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_nuldar_male_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_nuldar_male_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_male_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_male_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_nuldar_male_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_nuldar_male_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_male_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_male_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_nuldar_male_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_nuldar_male_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_male_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_male_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_nuldar_male_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_nuldar_male_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_male_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_male_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_nuldar_male_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_nuldar_male_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_male_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_male_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_nuldar_male_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_nuldar_male_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_male_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_male_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_nuldar_male_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_nuldar_male_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_male_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_male_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_male_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_nuldar_male_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_nuldar_male_right_4"]
                     self.x_coordinate += velocity
 
         if player.gender == "female":
@@ -1193,126 +2561,582 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.x_coordinate += velocity
             if player.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_female_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_female_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_nuldar_female_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_nuldar_female_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_female_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_female_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_nuldar_female_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_nuldar_female_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_female_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_female_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_nuldar_female_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_nuldar_female_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_female_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_female_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_nuldar_female_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_nuldar_female_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_female_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_female_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_nuldar_female_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_nuldar_female_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_female_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_female_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_nuldar_female_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_nuldar_female_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_female_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_nuldar_female_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_nuldar_female_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_nuldar_female_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_nuldar_female_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_female_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_nuldar_female_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_nuldar_female_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_nuldar_female_right_4"]
                     self.x_coordinate += velocity
             if player.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_nuldar_female_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_nuldar_female_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_nuldar_female_right_4"]
                     self.x_coordinate += velocity
             if player.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_female_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_female_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_nuldar_female_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_nuldar_female_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_female_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_female_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_nuldar_female_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_nuldar_female_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_female_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_female_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_nuldar_female_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_nuldar_female_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_female_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_female_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_nuldar_female_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_nuldar_female_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_female_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_female_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_nuldar_female_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_nuldar_female_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_female_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_female_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_nuldar_female_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_nuldar_female_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_female_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_nuldar_female_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_nuldar_female_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_nuldar_female_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_nuldar_female_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_female_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_nuldar_female_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_nuldar_female_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_nuldar_female_right_4"]
                     self.x_coordinate += velocity
 
         if current_zone == "rohir":
@@ -1919,126 +3743,582 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.x_coordinate += velocity
             if player.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_a_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_a_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_sorae_a_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_sorae_a_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_a_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_a_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_sorae_a_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_sorae_a_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_a_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_a_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_sorae_a_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_sorae_a_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_a_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_a_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_sorae_a_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_sorae_a_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_a_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_a_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_sorae_a_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_sorae_a_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_a_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_a_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_sorae_a_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_sorae_a_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_a_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_a_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_sorae_a_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_sorae_a_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_a_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_a_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_a_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_sorae_a_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_sorae_a_right_4"]
                     self.x_coordinate += velocity
             if player.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_a_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_a_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_sorae_a_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_sorae_a_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_a_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_a_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_sorae_a_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_sorae_a_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_a_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_a_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_sorae_a_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_sorae_a_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_a_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_a_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_sorae_a_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_sorae_a_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_a_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_a_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_sorae_a_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_sorae_a_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_a_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_a_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_sorae_a_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_sorae_a_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_a_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_a_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_sorae_a_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_sorae_a_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_a_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_a_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_a_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_sorae_a_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_sorae_a_right_4"]
                     self.x_coordinate += velocity
             if player.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_a_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_a_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_sorae_a_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_sorae_a_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_a_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_a_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_sorae_a_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_sorae_a_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_a_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_a_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_sorae_a_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_sorae_a_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_a_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_a_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_sorae_a_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_sorae_a_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_a_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_a_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_sorae_a_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_sorae_a_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_a_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_a_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_sorae_a_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_sorae_a_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_a_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_a_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_sorae_a_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_sorae_a_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_a_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_a_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_a_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_sorae_a_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_sorae_a_right_4"]
                     self.x_coordinate += velocity
 
         if player.gender == "female":
@@ -2085,126 +4365,582 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.x_coordinate += velocity
             if player.role == "mage":  # -------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_b_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_b_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_sorae_b_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_sorae_b_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_b_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_b_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_sorae_b_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_sorae_b_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_b_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_b_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_sorae_b_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_sorae_b_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_b_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_b_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_sorae_b_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_sorae_b_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_b_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_b_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_sorae_b_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_sorae_b_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_b_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_b_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_sorae_b_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_sorae_b_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_b_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_mage_sorae_b_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_mage_sorae_b_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_mage_sorae_b_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_mage_sorae_b_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_b_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_mage_sorae_b_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_mage_sorae_b_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_mage_sorae_b_right_4"]
                     self.x_coordinate += velocity
             if player.role == "fighter":  # ----------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_b_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_b_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_sorae_b_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_sorae_b_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_b_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_b_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_sorae_b_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_sorae_b_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_b_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_b_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_sorae_b_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_sorae_b_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_b_down_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_b_down_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_sorae_b_down_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_sorae_b_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_b_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_b_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_sorae_b_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_sorae_b_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_b_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_b_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_sorae_b_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_sorae_b_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_b_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_fighter_sorae_b_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_fighter_sorae_b_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_fighter_sorae_b_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_fighter_sorae_b_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_b_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_fighter_sorae_b_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_fighter_sorae_b_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_fighter_sorae_b_right_4"]
                     self.x_coordinate += velocity
             if player.role == "scout":  # ------------------------------------------------------------------------------
                 if pressed_key == "up":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_b_up_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_b_up_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_sorae_b_up_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_sorae_b_up_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_up_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_b_up_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_b_up_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_sorae_b_up_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_sorae_b_up_4"]
                     self.y_coordinate -= velocity
                 if pressed_key == "down":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_b_down_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_b_down_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_sorae_b_down_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_sorae_b_down_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_down_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_b_down_1"]
+                        if walk_timed > 0.2:       
+                            self.surf = graphic_dict["player_scout_sorae_b_down_2"]
+                        if walk_timed > 0.4:       
+                            self.surf = graphic_dict["player_scout_sorae_b_down_3"]
+                        if walk_timed > 0.6:       
+                            self.surf = graphic_dict["player_scout_sorae_b_down_4"]
                     self.y_coordinate += velocity
                 if pressed_key == "left":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_b_left_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_b_left_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_sorae_b_left_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_sorae_b_left_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_left_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_b_left_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_b_left_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_sorae_b_left_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_sorae_b_left_4"]
                     self.x_coordinate -= velocity
                 if pressed_key == "right":
-                    if walk_timed < 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_b_right_1"]
-                    if walk_timed > 0.2:
-                        self.surf = graphic_dict["player_scout_sorae_b_right_2"]
-                    if walk_timed > 0.4:
-                        self.surf = graphic_dict["player_scout_sorae_b_right_3"]
-                    if walk_timed > 0.6:
-                        self.surf = graphic_dict["player_scout_sorae_b_right_4"]
+                    try:
+                        if player.equipment["armor"].name == "basic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_1_basic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_2_basic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_3_basic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_4_basic"]
+                        if player.equipment["armor"].name == "forged armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_1_forged"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_2_forged"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_3_forged"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_4_forged"]
+                        if player.equipment["armor"].name == "mythic armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_1_mythic"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_2_mythic"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_3_mythic"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_4_mythic"]
+                        if player.equipment["armor"].name == "legend armor":
+                            if walk_timed < 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_1_legend"]
+                            if walk_timed > 0.2:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_2_legend"]
+                            if walk_timed > 0.4:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_3_legend"]
+                            if walk_timed > 0.6:
+                                self.surf = graphic_dict["player_scout_sorae_b_right_4_legend"]
+                    except AttributeError:
+                        if walk_timed < 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_b_right_1"]
+                        if walk_timed > 0.2:
+                            self.surf = graphic_dict["player_scout_sorae_b_right_2"]
+                        if walk_timed > 0.4:
+                            self.surf = graphic_dict["player_scout_sorae_b_right_3"]
+                        if walk_timed > 0.6:
+                            self.surf = graphic_dict["player_scout_sorae_b_right_4"]
                     self.x_coordinate += velocity
 
         if current_zone == "rohir":
