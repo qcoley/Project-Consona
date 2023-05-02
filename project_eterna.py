@@ -7797,7 +7797,8 @@ if __name__ == '__main__':
                                     drawing_functions.hearthstone_animation(pygame, screen, player,
                                                                             seldon_hearth_screen, seldon_district_bg,
                                                                             korlok_hearth_screen, korlok_district_bg,
-                                                                            eldream_hearth_screen, eldream_district_bg)
+                                                                            eldream_hearth_screen, eldream_district_bg,
+                                                                            SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
                                     player.x_coordinate = 860
                                     player.y_coordinate = 655
                                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
@@ -7826,7 +7827,8 @@ if __name__ == '__main__':
                                                                                 korlok_hearth_screen,
                                                                                 korlok_district_bg,
                                                                                 eldream_hearth_screen,
-                                                                                eldream_district_bg)
+                                                                                eldream_district_bg, SCREEN_WIDTH,
+                                                                                SCREEN_HEIGHT, game_window)
                                         player.x_coordinate = 895
                                         player.y_coordinate = 325
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
@@ -7857,7 +7859,8 @@ if __name__ == '__main__':
                                                                                 korlok_hearth_screen,
                                                                                 korlok_district_bg,
                                                                                 eldream_hearth_screen,
-                                                                                eldream_district_bg)
+                                                                                eldream_district_bg, SCREEN_WIDTH,
+                                                                                SCREEN_HEIGHT, game_window)
                                         player.x_coordinate = 890
                                         player.y_coordinate = 635
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
@@ -8039,7 +8042,8 @@ if __name__ == '__main__':
                                                                   amuna_building_top_3, sfx_item_pickup,
                                                                   sfx_item_flower, sfx_door_open, npc_worker_1,
                                                                   worker_tic, worker_positions, worker_move_tic,
-                                                                  quest_logs_pile)
+                                                                  quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                  game_window)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -8988,7 +8992,8 @@ if __name__ == '__main__':
                                                                                       basic_armor, forged_armor,
                                                                                       mythical_armor, legendary_armor,
                                                                                       power_gloves, chroma_boots)
-                                if current_info_item.name == "health potion":
+                                if current_info_item.name == "small health potion" or \
+                                        current_info_item.name == "big health potion":
                                     if inventory_event["item message"] != "You're already at full health.":
                                         turn_taken = True
                                         attack_hotkey = False
@@ -10324,8 +10329,9 @@ if __name__ == '__main__':
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
-                        gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
-                                                     pressed_keys, sfx_button_role)
+                        if event.type == pygame.MOUSEBUTTONUP:
+                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                         pressed_keys, sfx_button_role)
 
                         # get which button player pressed during inn scenario (rest or leave)
                         inn_button = click_handlers.inn_event_button(event, rest_button, leave_button, pygame,
@@ -10467,6 +10473,7 @@ if __name__ == '__main__':
 
                     screen.blit(offense_meter.surf, offense_meter.rect)
                     screen.blit(defense_meter.surf, defense_meter.rect)
+                    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                     screen.blit(rest_button.surf, rest_button.rect)
                     screen.blit(leave_button.surf, leave_button.rect)
                     screen.blit(star_power_meter.surf, star_power_meter.rect)

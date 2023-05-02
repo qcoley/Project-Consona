@@ -15,94 +15,796 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
             pygame.mixer.Sound.play(sfx_swap)
             player.role = "mage"
             if player.race == "amuna":
-                if player.gender == "male":
-                    player.surf = graphic_dict["player_mage_amuna_male_down_1"]
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.surf = graphic_dict["player_mage_amuna_male_right_1"]
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.surf = graphic_dict["player_mage_amuna_male_left_1"]
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.surf = graphic_dict["player_mage_amuna_male_up_1"]
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_amuna_male_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_amuna_male_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_amuna_male_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_amuna_male_up_1_basic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_amuna_female_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_amuna_female_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_amuna_female_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_amuna_female_up_1_basic"]
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_amuna_male_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_amuna_male_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_amuna_male_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_amuna_male_up_1_forged"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_amuna_female_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_amuna_female_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_amuna_female_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_amuna_female_up_1_forged"]
+                    if player.equipment["armor"].name == "mythic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_amuna_male_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_amuna_male_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_amuna_male_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_amuna_male_up_1_mythic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_amuna_female_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_amuna_female_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_amuna_female_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_amuna_female_up_1_mythic"]
+                    if player.equipment["armor"].name == "legend armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_amuna_male_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_amuna_male_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_amuna_male_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_amuna_male_up_1_legend"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_amuna_female_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_amuna_female_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_amuna_female_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_amuna_female_up_1_legend"]
+                except AttributeError:
+                    if player.gender == "male":
+                        player.surf = graphic_dict["player_mage_amuna_male_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_mage_amuna_male_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_mage_amuna_male_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_mage_amuna_male_up_1"]
+                    if player.gender == "female":
+                        player.surf = graphic_dict["player_mage_amuna_female_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_mage_amuna_female_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_mage_amuna_female_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_mage_amuna_female_up_1"]
             if player.race == "nuldar":
-                if player.gender == "male":
-                    player.surf = graphic_dict["player_mage_nuldar_male_down_1"]
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.surf = graphic_dict["player_mage_nuldar_male_right_1"]
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.surf = graphic_dict["player_mage_nuldar_male_left_1"]
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.surf = graphic_dict["player_mage_nuldar_male_up_1"]
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_nuldar_male_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_up_1_basic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_nuldar_female_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_up_1_basic"]
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_nuldar_male_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_up_1_forged"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_nuldar_female_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_up_1_forged"]
+                    if player.equipment["armor"].name == "mythic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_nuldar_male_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_up_1_mythic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_nuldar_female_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_up_1_mythic"]
+                    if player.equipment["armor"].name == "legend armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_nuldar_male_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_nuldar_male_up_1_legend"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_nuldar_female_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_nuldar_female_up_1_legend"]
+                except AttributeError:
+                    if player.gender == "male":
+                        player.surf = graphic_dict["player_mage_nuldar_male_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_mage_nuldar_male_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_mage_nuldar_male_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_mage_nuldar_male_up_1"]
+                    if player.gender == "female":
+                        player.surf = graphic_dict["player_mage_nuldar_female_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_mage_nuldar_female_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_mage_nuldar_female_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_mage_nuldar_female_up_1"]
             if player.race == "sorae":
-                if player.gender == "male":
-                    player.surf = graphic_dict["player_mage_sorae_a_down_1"]
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.surf = graphic_dict["player_mage_sorae_a_right_1"]
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.surf = graphic_dict["player_mage_sorae_a_left_1"]
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.surf = graphic_dict["player_mage_sorae_a_up_1"]
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_sorae_a_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_sorae_a_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_sorae_a_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_sorae_a_up_1_basic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_sorae_b_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_sorae_b_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_sorae_b_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_sorae_b_up_1_basic"]
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_sorae_a_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_sorae_a_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_sorae_a_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_sorae_a_up_1_forged"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_sorae_b_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_sorae_b_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_sorae_b_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_sorae_b_up_1_forged"]
+                    if player.equipment["armor"].name == "mythic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_sorae_a_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_sorae_a_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_sorae_a_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_sorae_a_up_1_mythic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_sorae_b_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_sorae_b_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_sorae_b_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_sorae_b_up_1_mythic"]
+                    if player.equipment["armor"].name == "legend armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_mage_sorae_a_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_sorae_a_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_sorae_a_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_sorae_a_up_1_legend"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_mage_sorae_b_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_mage_sorae_b_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_mage_sorae_b_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_mage_sorae_b_up_1_legend"]
+                except AttributeError:
+                    if player.gender == "male":
+                        player.surf = graphic_dict["player_mage_sorae_a_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_mage_sorae_a_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_mage_sorae_a_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_mage_sorae_a_up_1"]
+                    if player.gender == "female":
+                        player.surf = graphic_dict["player_mage_sorae_b_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_mage_sorae_b_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_mage_sorae_b_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_mage_sorae_b_up_1"]
 
         if sword.rect.collidepoint(pos):
             pygame.mixer.Sound.play(sfx_swap)
             player.role = "fighter"
             if player.race == "amuna":
-                if player.gender == "male":
-                    player.surf = graphic_dict["player_fighter_amuna_male_down_1"]
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.surf = graphic_dict["player_fighter_amuna_male_right_1"]
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.surf = graphic_dict["player_fighter_amuna_male_left_1"]
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.surf = graphic_dict["player_fighter_amuna_male_up_1"]
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_amuna_male_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_up_1_basic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_amuna_female_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_up_1_basic"]
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_amuna_male_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_up_1_forged"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_amuna_female_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_up_1_forged"]
+                    if player.equipment["armor"].name == "mythic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_amuna_male_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_up_1_mythic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_amuna_female_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_up_1_mythic"]
+                    if player.equipment["armor"].name == "legend armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_amuna_male_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_amuna_male_up_1_legend"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_amuna_female_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_amuna_female_up_1_legend"]
+                except AttributeError:
+                    if player.gender == "male":
+                        player.surf = graphic_dict["player_fighter_amuna_male_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_fighter_amuna_male_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_fighter_amuna_male_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_fighter_amuna_male_up_1"]
+                    if player.gender == "female":
+                        player.surf = graphic_dict["player_fighter_amuna_female_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_fighter_amuna_female_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_fighter_amuna_female_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_fighter_amuna_female_up_1"]
             if player.race == "nuldar":
-                if player.gender == "male":
-                    player.surf = graphic_dict["player_fighter_nuldar_male_down_1"]
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.surf = graphic_dict["player_fighter_nuldar_male_right_1"]
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.surf = graphic_dict["player_fighter_nuldar_male_left_1"]
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.surf = graphic_dict["player_fighter_nuldar_male_up_1"]
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_nuldar_male_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_up_1_basic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_nuldar_female_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_up_1_basic"]
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_nuldar_male_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_up_1_forged"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_nuldar_female_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_up_1_forged"]
+                    if player.equipment["armor"].name == "mythic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_nuldar_male_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_up_1_mythic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_nuldar_female_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_up_1_mythic"]
+                    if player.equipment["armor"].name == "legend armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_nuldar_male_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_nuldar_male_up_1_legend"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_nuldar_female_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_nuldar_female_up_1_legend"]
+                except AttributeError:
+                    if player.gender == "male":
+                        player.surf = graphic_dict["player_fighter_nuldar_male_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_fighter_nuldar_male_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_fighter_nuldar_male_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_fighter_nuldar_male_up_1"]
+                    if player.gender == "female":
+                        player.surf = graphic_dict["player_fighter_nuldar_female_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_fighter_nuldar_female_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_fighter_nuldar_female_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_fighter_nuldar_female_up_1"]
             if player.race == "sorae":
-                if player.gender == "male":
-                    player.surf = graphic_dict["player_fighter_sorae_a_down_1"]
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.surf = graphic_dict["player_fighter_sorae_a_right_1"]
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.surf = graphic_dict["player_fighter_sorae_a_left_1"]
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.surf = graphic_dict["player_fighter_sorae_a_up_1"]
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_sorae_a_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_up_1_basic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_sorae_b_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_up_1_basic"]
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_sorae_a_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_up_1_forged"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_sorae_b_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_up_1_forged"]
+                    if player.equipment["armor"].name == "mythic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_sorae_a_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_up_1_mythic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_sorae_b_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_up_1_mythic"]
+                    if player.equipment["armor"].name == "legend armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_fighter_sorae_a_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_sorae_a_up_1_legend"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_fighter_sorae_b_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_fighter_sorae_b_up_1_legend"]
+                except AttributeError:
+                    if player.gender == "male":
+                        player.surf = graphic_dict["player_fighter_sorae_a_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_fighter_sorae_a_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_fighter_sorae_a_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_fighter_sorae_a_up_1"]
+                    if player.gender == "female":
+                        player.surf = graphic_dict["player_fighter_sorae_b_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_fighter_sorae_b_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_fighter_sorae_b_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_fighter_sorae_b_up_1"]
 
         if bow.rect.collidepoint(pos):
             pygame.mixer.Sound.play(sfx_swap)
             player.role = "scout"
             if player.race == "amuna":
-                if player.gender == "male":
-                    player.surf = graphic_dict["player_scout_amuna_male_down_1"]
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.surf = graphic_dict["player_scout_amuna_male_right_1"]
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.surf = graphic_dict["player_scout_amuna_male_left_1"]
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.surf = graphic_dict["player_scout_amuna_male_up_1"]
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_amuna_male_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_amuna_male_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_amuna_male_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_amuna_male_up_1_basic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_amuna_female_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_amuna_female_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_amuna_female_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_amuna_female_up_1_basic"]
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_amuna_male_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_amuna_male_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_amuna_male_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_amuna_male_up_1_forged"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_amuna_female_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_amuna_female_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_amuna_female_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_amuna_female_up_1_forged"]
+                    if player.equipment["armor"].name == "mythic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_amuna_male_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_amuna_male_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_amuna_male_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_amuna_male_up_1_mythic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_amuna_female_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_amuna_female_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_amuna_female_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_amuna_female_up_1_mythic"]
+                    if player.equipment["armor"].name == "legend armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_amuna_male_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_amuna_male_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_amuna_male_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_amuna_male_up_1_legend"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_amuna_female_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_amuna_female_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_amuna_female_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_amuna_female_up_1_legend"]
+                except AttributeError:
+                    if player.gender == "male":
+                        player.surf = graphic_dict["player_scout_amuna_male_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_scout_amuna_male_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_scout_amuna_male_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_scout_amuna_male_up_1"]
+                    if player.gender == "female":
+                        player.surf = graphic_dict["player_scout_amuna_female_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_scout_amuna_female_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_scout_amuna_female_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_scout_amuna_female_up_1"]
             if player.race == "nuldar":
-                if player.gender == "male":
-                    player.surf = graphic_dict["player_scout_nuldar_male_down_1"]
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.surf = graphic_dict["player_scout_nuldar_male_right_1"]
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.surf = graphic_dict["player_scout_nuldar_male_left_1"]
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.surf = graphic_dict["player_scout_nuldar_male_up_1"]
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_nuldar_male_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_up_1_basic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_nuldar_female_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_up_1_basic"]
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_nuldar_male_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_up_1_forged"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_nuldar_female_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_up_1_forged"]
+                    if player.equipment["armor"].name == "mythic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_nuldar_male_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_up_1_mythic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_nuldar_female_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_up_1_mythic"]
+                    if player.equipment["armor"].name == "legend armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_nuldar_male_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_nuldar_male_up_1_legend"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_nuldar_female_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_nuldar_female_up_1_legend"]
+                except AttributeError:
+                    if player.gender == "male":
+                        player.surf = graphic_dict["player_scout_nuldar_male_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_scout_nuldar_male_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_scout_nuldar_male_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_scout_nuldar_male_up_1"]
+                    if player.gender == "female":
+                        player.surf = graphic_dict["player_scout_nuldar_female_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_scout_nuldar_female_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_scout_nuldar_female_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_scout_nuldar_female_up_1"]
             if player.race == "sorae":
-                if player.gender == "male":
-                    player.surf = graphic_dict["player_scout_sorae_a_down_1"]
-                    if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
-                        player.surf = graphic_dict["player_scout_sorae_a_right_1"]
-                    if pressed_keys[K_a] or pressed_keys[K_LEFT]:
-                        player.surf = graphic_dict["player_scout_sorae_a_left_1"]
-                    if pressed_keys[K_w] or pressed_keys[K_UP]:
-                        player.surf = graphic_dict["player_scout_sorae_a_up_1"]
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_sorae_a_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_sorae_a_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_sorae_a_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_sorae_a_up_1_basic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_sorae_b_down_1_basic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_sorae_b_right_1_basic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_sorae_b_left_1_basic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_sorae_b_up_1_basic"]
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_sorae_a_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_sorae_a_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_sorae_a_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_sorae_a_up_1_forged"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_sorae_b_down_1_forged"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_sorae_b_right_1_forged"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_sorae_b_left_1_forged"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_sorae_b_up_1_forged"]
+                    if player.equipment["armor"].name == "mythic armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_sorae_a_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_sorae_a_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_sorae_a_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_sorae_a_up_1_mythic"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_sorae_b_down_1_mythic"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_sorae_b_right_1_mythic"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_sorae_b_left_1_mythic"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_sorae_b_up_1_mythic"]
+                    if player.equipment["armor"].name == "legend armor":
+                        if player.gender == "male":
+                            player.surf = graphic_dict["player_scout_sorae_a_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_sorae_a_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_sorae_a_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_sorae_a_up_1_legend"]
+                        if player.gender == "female":
+                            player.surf = graphic_dict["player_scout_sorae_b_down_1_legend"]
+                            if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                                player.surf = graphic_dict["player_scout_sorae_b_right_1_legend"]
+                            if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                                player.surf = graphic_dict["player_scout_sorae_b_left_1_legend"]
+                            if pressed_keys[K_w] or pressed_keys[K_UP]:
+                                player.surf = graphic_dict["player_scout_sorae_b_up_1_legend"]
+                except AttributeError:
+                    if player.gender == "male":
+                        player.surf = graphic_dict["player_scout_sorae_a_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_scout_sorae_a_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_scout_sorae_a_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_scout_sorae_a_up_1"]
+                    if player.gender == "female":
+                        player.surf = graphic_dict["player_scout_sorae_b_down_1"]
+                        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
+                            player.surf = graphic_dict["player_scout_sorae_b_right_1"]
+                        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
+                            player.surf = graphic_dict["player_scout_sorae_b_left_1"]
+                        if pressed_keys[K_w] or pressed_keys[K_UP]:
+                            player.surf = graphic_dict["player_scout_sorae_b_up_1"]
 
 
 # quest stars for npcs that update based on player quest progress

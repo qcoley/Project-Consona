@@ -29,7 +29,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     flowers, eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, tree_top_1, tree_top_2, tree_top_3, building_top_1,
                     building_top_2, building_top_3, sfx_item_pickup, sfx_flower, sfx_door, worker_1, worker_tic,
-                    worker_positions, worker_move_tic, log_pile):
+                    worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -205,7 +205,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                             cutscenes.cutscenes_apothis_bridge(pygame, apothis_intro_music, screen, apothis_scene_1,
                                                                apothis_scene_2, apothis_scene_3, apothis_scene_4,
                                                                apothis_scene_5, apothis_scene_6, cutscene_tic,
-                                                               skip_button, player_cutscene, player_cutscene_2)
+                                                               skip_button, player_cutscene, player_cutscene_2,
+                                                               SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
                             bridge_cutscenes_not_viewed = False
                         player.x_coordinate = 900
                         player.y_coordinate = 400

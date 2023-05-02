@@ -5,7 +5,8 @@ from pygame import QUIT
 
 
 def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, scene_4, scene_5, scene_6, cutscene_tic,
-                             skip_button, player_overlay, player_overlay_2):
+                             skip_button, player_overlay, player_overlay_2, SCREEN_WIDTH, SCREEN_HEIGHT,
+                             game_window):
 
     in_cutscene = True
     first_viewed = False
@@ -40,6 +41,8 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                 screen.blit(scene_1, (0, 0))
                 screen.blit(player_overlay.surf, player_overlay.rect)
                 screen.blit(skip_button.surf, skip_button.rect)
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
                 pygame.display.flip()
             first_viewed = True
 
@@ -50,6 +53,8 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                     scene_2.set_alpha(alpha)
                     screen.blit(scene_2, (0, 0))
                     screen.blit(skip_button.surf, skip_button.rect)
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
                     pygame.display.flip()
                 second_viewed = True
 
@@ -60,6 +65,8 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                     scene_3.set_alpha(alpha)
                     screen.blit(scene_3, (0, 0))
                     screen.blit(skip_button.surf, skip_button.rect)
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
                     pygame.display.flip()
                 third_viewed = True
 
@@ -70,6 +77,8 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                     scene_4.set_alpha(alpha)
                     screen.blit(scene_4, (0, 0))
                     screen.blit(skip_button.surf, skip_button.rect)
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
                     pygame.display.flip()
                 fourth_viewed = True
 
@@ -81,6 +90,8 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                     screen.blit(scene_5, (0, 0))
                     screen.blit(player_overlay_2.surf, player_overlay_2.rect)
                     screen.blit(skip_button.surf, skip_button.rect)
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
                     pygame.display.flip()
                 fifth_viewed = True
 
@@ -91,6 +102,8 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
                     scene_6.set_alpha(alpha)
                     screen.blit(scene_6, (0, 0))
                     screen.blit(skip_button.surf, skip_button.rect)
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
                     pygame.display.flip()
                 sixth_viewed = True
 
