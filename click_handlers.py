@@ -60,13 +60,61 @@ def equipment_event_item(player, equipment_event_here, pygame, basic_armor, forg
 
 # handles mouse clicks for equipment sub-screen
 def equipment(player, event, pygame, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
-              chroma_boots, sfx_equip, SCREEN_WIDTH, SCREEN_HEIGHT):
+              chroma_boots, sfx_equip, SCREEN_WIDTH, SCREEN_HEIGHT, graphics):
     return_dict = {"equipment message": "", "gear checked": True}
     equipment_item = equipment_event_item(player, event, pygame, basic_armor, forged_armor, mythical_armor,
                                           legendary_armor, power_gloves, chroma_boots, SCREEN_WIDTH, SCREEN_HEIGHT)
 
     # if player clicks item in equipment sub-screen, un-equip the item and place in inventory, if inventory isn't full
     if equipment_item is not None:
+        if equipment_item.name == "basic armor" or equipment_item.name == "forged armor" \
+                or equipment_item.name == "mythical armor" or equipment_item.name == "legendary armor":
+            if player.race == "amuna":
+                if player.gender == "male":
+                    if player.role == "mage":
+                        player.surf = graphics["player_mage_amuna_male_down_1"]
+                    if player.role == "fighter":
+                        player.surf = graphics["player_fighter_amuna_male_down_1"]
+                    if player.role == "scout":
+                        player.surf = graphics["player_scout_amuna_male_down_1"]
+                if player.gender == "female":
+                    if player.role == "mage":
+                        player.surf = graphics["player_mage_amuna_female_down_1"]
+                    if player.role == "fighter":
+                        player.surf = graphics["player_fighter_amuna_female_down_1"]
+                    if player.role == "scout":
+                        player.surf = graphics["player_scout_amuna_female_down_1"]
+            if player.race == "nuldar":
+                if player.gender == "male":
+                    if player.role == "mage":
+                        player.surf = graphics["player_mage_nuldar_male_down_1"]
+                    if player.role == "fighter":
+                        player.surf = graphics["player_fighter_nuldar_male_down_1"]
+                    if player.role == "scout":
+                        player.surf = graphics["player_scout_nuldar_male_down_1"]
+                if player.gender == "female":
+                    if player.role == "mage":
+                        player.surf = graphics["player_mage_nuldar_female_down_1"]
+                    if player.role == "fighter":
+                        player.surf = graphics["player_fighter_nuldar_female_down_1"]
+                    if player.role == "scout":
+                        player.surf = graphics["player_scout_nuldar_female_down_1"]
+            if player.race == "sorae":
+                if player.gender == "male":
+                    if player.role == "mage":
+                        player.surf = graphics["player_mage_sorae_a_down_1"]
+                    if player.role == "fighter":
+                        player.surf = graphics["player_fighter_sorae_a_down_1"]
+                    if player.role == "scout":
+                        player.surf = graphics["player_scout_sorae_a_down_1"]
+                if player.gender == "female":
+                    if player.role == "mage":
+                        player.surf = graphics["player_mage_sorae_b_down_1"]
+                    if player.role == "fighter":
+                        player.surf = graphics["player_fighter_sorae_b_down_1"]
+                    if player.role == "scout":
+                        player.surf = graphics["player_scout_sorae_b_down_1"]
+
         if equipment_item.name == "basic armor":
             if len(player.items) < 16:
                 player.items.append(equipment_item)
@@ -218,7 +266,7 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack):
+def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics):
 
     return_dict = {"item message": ""}
 
@@ -367,8 +415,194 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                 pygame.mixer.find_channel(True).play(sfx_equip)
                 return_dict["item message"] = "Armor equipped. "
                 player.defense = item.level
+
+                if player.equipment["armor"].name == "basic armor":
+                    if player.race == "amuna":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_amuna_male_down_1_basic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_amuna_male_down_1_basic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_amuna_male_down_1_basic"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_amuna_female_down_1_basic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_amuna_female_down_1_basic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_amuna_female_down_1_basic"]
+                    if player.race == "nuldar":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_nuldar_male_down_1_basic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_nuldar_male_down_1_basic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_nuldar_male_down_1_basic"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_nuldar_female_down_1_basic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_nuldar_female_down_1_basic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_nuldar_female_down_1_basic"]
+                    if player.race == "sorae":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_sorae_a_down_1_basic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_sorae_a_down_1_basic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_sorae_a_down_1_basic"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_sorae_b_down_1_basic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_sorae_b_down_1_basic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_sorae_b_down_1_basic"]
+                if player.equipment["armor"].name == "forged armor":
+                    if player.race == "amuna":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_amuna_male_down_1_forged"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_amuna_male_down_1_forged"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_amuna_male_down_1_forged"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_amuna_female_down_1_forged"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_amuna_female_down_1_forged"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_amuna_female_down_1_forged"]
+                    if player.race == "nuldar":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_nuldar_male_down_1_forged"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_nuldar_male_down_1_forged"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_nuldar_male_down_1_forged"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_nuldar_female_down_1_forged"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_nuldar_female_down_1_forged"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_nuldar_female_down_1_forged"]
+                    if player.race == "sorae":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_sorae_a_down_1_forged"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_sorae_a_down_1_forged"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_sorae_a_down_1_forged"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_sorae_b_down_1_forged"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_sorae_b_down_1_forged"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_sorae_b_down_1_forged"]
+                if player.equipment["armor"].name == "mythical armor":
+                    if player.race == "amuna":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_amuna_male_down_1_mythic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_amuna_male_down_1_mythic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_amuna_male_down_1_mythic"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_amuna_female_down_1_mythic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_amuna_female_down_1_mythic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_amuna_female_down_1_mythic"]
+                    if player.race == "nuldar":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_nuldar_male_down_1_mythic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_nuldar_male_down_1_mythic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_nuldar_male_down_1_mythic"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_nuldar_female_down_1_mythic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_nuldar_female_down_1_mythic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_nuldar_female_down_1_mythic"]
+                    if player.race == "sorae":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_sorae_a_down_1_mythic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_sorae_a_down_1_mythic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_sorae_a_down_1_mythic"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_sorae_b_down_1_mythic"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_sorae_b_down_1_mythic"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_sorae_b_down_1_mythic"]
+                if player.equipment["armor"].name == "legendary armor":
+                    if player.race == "amuna":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_amuna_male_down_1_legend"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_amuna_male_down_1_legend"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_amuna_male_down_1_legend"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_amuna_female_down_1_legend"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_amuna_female_down_1_legend"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_amuna_female_down_1_legend"]
+                    if player.race == "nuldar":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_nuldar_male_down_1_legend"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_nuldar_male_down_1_legend"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_nuldar_male_down_1_legend"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_nuldar_female_down_1_legend"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_nuldar_female_down_1_legend"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_nuldar_female_down_1_legend"]
+                    if player.race == "sorae":
+                        if player.gender == "male":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_sorae_a_down_1_legend"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_sorae_a_down_1_legend"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_sorae_a_down_1_legend"]
+                        if player.gender == "female":
+                            if player.role == "mage":
+                                player.surf = graphics["player_mage_sorae_b_down_1_legend"]
+                            if player.role == "fighter":
+                                player.surf = graphics["player_fighter_sorae_b_down_1_legend"]
+                            if player.role == "scout":
+                                player.surf = graphics["player_scout_sorae_b_down_1_legend"]
             else:
                 return_dict["item message"] = "Un-equip your current gear first."
+
         if item.name == "power gloves":
             if player.equipment["gloves"] == "":
                 player.equipment["gloves"] = item

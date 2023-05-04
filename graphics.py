@@ -3764,8 +3764,11 @@ def load_graphics():
     character_selections_url = resource_path('resources/art/overlay_character_location.png')
     character_selections_sheet = sprite_sheet((62, 75), character_selections_url)
     loaded_dict["amuna_location"] = character_selections_sheet[0]
-    loaded_dict["nuldar_location"] = character_selections_sheet[1]
-    loaded_dict["sorae_location"] = character_selections_sheet[2]
+    loaded_dict["amuna_female"] = character_selections_sheet[1]
+    loaded_dict["nuldar_location"] = character_selections_sheet[2]
+    loaded_dict["nuldar_female"] = character_selections_sheet[3]
+    loaded_dict["sorae_location"] = character_selections_sheet[4]
+    loaded_dict["sorae_b"] = character_selections_sheet[5]
     # dungeon items ----------------------------------------------------------------------------------------------------
     dungeon_items_url = resource_path('resources/art/sprites_dungeon_items.png')
     dungeon_items_sheet = sprite_sheet((75, 100), dungeon_items_url)

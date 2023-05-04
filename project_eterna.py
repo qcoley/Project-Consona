@@ -6943,27 +6943,42 @@ if __name__ == '__main__':
                         sorae_race_selected = True
 
                     # player gender selection for amuna and nuldar, type for sorae
-                    if amuna_race_selected:
-                        if amuna_male_button.rect.collidepoint(pos):
-                            pygame.mixer.find_channel(True).play(sfx_button_click)
-                            gender_choice = "male"
-                        if amuna_female_button.rect.collidepoint(pos):
-                            pygame.mixer.find_channel(True).play(sfx_button_click)
-                            gender_choice = "female"
-                    if nuldar_race_selected:
-                        if nuldar_male_button.rect.collidepoint(pos):
-                            pygame.mixer.find_channel(True).play(sfx_button_click)
-                            gender_choice = "male"
-                        if nuldar_female_button.rect.collidepoint(pos):
-                            pygame.mixer.find_channel(True).play(sfx_button_click)
-                            gender_choice = "female"
-                    if sorae_race_selected:
-                        if sorae_alpha_button.rect.collidepoint(pos):
-                            pygame.mixer.find_channel(True).play(sfx_button_click)
-                            gender_choice = "male"
-                        if sorae_beta_button.rect.collidepoint(pos):
-                            pygame.mixer.find_channel(True).play(sfx_button_click)
-                            gender_choice = "female"
+                    if amuna_male_button.rect.collidepoint(pos):
+                        amuna_race_selected = True
+                        nuldar_race_selected = False
+                        sorae_race_selected = False
+                        pygame.mixer.find_channel(True).play(sfx_button_click)
+                        gender_choice = "male"
+                    if amuna_female_button.rect.collidepoint(pos):
+                        amuna_race_selected = True
+                        nuldar_race_selected = False
+                        sorae_race_selected = False
+                        pygame.mixer.find_channel(True).play(sfx_button_click)
+                        gender_choice = "female"
+                    if nuldar_male_button.rect.collidepoint(pos):
+                        amuna_race_selected = False
+                        nuldar_race_selected = True
+                        sorae_race_selected = False
+                        pygame.mixer.find_channel(True).play(sfx_button_click)
+                        gender_choice = "male"
+                    if nuldar_female_button.rect.collidepoint(pos):
+                        amuna_race_selected = False
+                        nuldar_race_selected = True
+                        sorae_race_selected = False
+                        pygame.mixer.find_channel(True).play(sfx_button_click)
+                        gender_choice = "female"
+                    if sorae_alpha_button.rect.collidepoint(pos):
+                        amuna_race_selected = False
+                        nuldar_race_selected = False
+                        sorae_race_selected = True
+                        pygame.mixer.find_channel(True).play(sfx_button_click)
+                        gender_choice = "male"
+                    if sorae_beta_button.rect.collidepoint(pos):
+                        amuna_race_selected = False
+                        nuldar_race_selected = False
+                        sorae_race_selected = True
+                        pygame.mixer.find_channel(True).play(sfx_button_click)
+                        gender_choice = "female"
 
                     # noinspection PyUnboundLocalVariable
                     if start_button.rect.collidepoint(pos) or entered:
@@ -7613,7 +7628,8 @@ if __name__ == '__main__':
                             if info_choice == "yes":
                                 inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                            sfx_item_potion, sfx_item_equip,
-                                                                           sfx_item_whistle, sfx_item_snack)
+                                                                           sfx_item_whistle, sfx_item_snack,
+                                                                           graphic_dict)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -7635,7 +7651,8 @@ if __name__ == '__main__':
                                 equipment_event = click_handlers.equipment(player, event, pygame, basic_armor,
                                                                            forged_armor, mythical_armor,
                                                                            legendary_armor, power_gloves, chroma_boots,
-                                                                           sfx_item_equip, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                           sfx_item_equip, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                           graphic_dict)
                                 if equipment_event["equipment message"] != "":
                                     button_highlighted = False
                                     info_text_1 = equipment_event["equipment message"]
@@ -8958,7 +8975,7 @@ if __name__ == '__main__':
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -8966,7 +8983,8 @@ if __name__ == '__main__':
                             button_highlighted = False
                             try:
                                 # consume a turn when an item is used in combat
-                                if current_info_item.name == "energy potion":
+                                if current_info_item.name == "small energy potion" or \
+                                        current_info_item.name == "big energy potion":
                                     if inventory_event["item message"] != "You're already at full energy.":
                                         turn_taken = True
                                         attack_hotkey = False
@@ -9064,7 +9082,7 @@ if __name__ == '__main__':
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip, SCREEN_WIDTH,
-                                                                       SCREEN_HEIGHT)
+                                                                       SCREEN_HEIGHT, graphic_dict)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -10343,7 +10361,7 @@ if __name__ == '__main__':
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -10362,7 +10380,7 @@ if __name__ == '__main__':
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip, SCREEN_WIDTH,
-                                                                       SCREEN_HEIGHT)
+                                                                       SCREEN_HEIGHT, graphic_dict)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -10604,7 +10622,7 @@ if __name__ == '__main__':
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -10623,7 +10641,7 @@ if __name__ == '__main__':
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, graphic_dict)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -10975,7 +10993,7 @@ if __name__ == '__main__':
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -10994,7 +11012,7 @@ if __name__ == '__main__':
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip, SCREEN_WIDTH,
-                                                                       SCREEN_HEIGHT)
+                                                                       SCREEN_HEIGHT, graphic_dict)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -11460,7 +11478,7 @@ if __name__ == '__main__':
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -11479,7 +11497,7 @@ if __name__ == '__main__':
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip, SCREEN_WIDTH,
-                                                                       SCREEN_HEIGHT)
+                                                                       SCREEN_HEIGHT, graphic_dict)
                             if equipment_event["equipment message"] != "":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
@@ -11782,7 +11800,7 @@ if __name__ == '__main__':
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -11803,7 +11821,7 @@ if __name__ == '__main__':
                             equipment_event = click_handlers.equipment(player, event, pygame, basic_armor, forged_armor,
                                                                        mythical_armor, legendary_armor, power_gloves,
                                                                        chroma_boots, sfx_item_equip,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, graphic_dict)
                             if equipment_event["equipment message"] != "":
                                 button_highlighted = False
                                 info_text_1 = equipment_event["equipment message"]
