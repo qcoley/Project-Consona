@@ -3043,6 +3043,7 @@ def load_graphics():
     loaded_dict["iriana_battle"] = player_battle_pets_sheet[4]
     loaded_dict["iriana_attack"] = player_battle_pets_sheet[5]
     # player battle amuna race -----------------------------------------------------------------------------------------
+    # male -------------------------------------------------------------------------------------------------------------
     player_battle_amuna_url = resource_path('resources/art/player_battle_sprites_amuna.png')
     player_battle_amuna_sheet = sprite_sheet((750, 624), player_battle_amuna_url)
     loaded_dict["player_no_role_amuna_battle"] = player_battle_amuna_sheet[0]
@@ -3053,6 +3054,89 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack"] = player_battle_amuna_sheet[5]
     loaded_dict["player_scout_amuna_battle"] = player_battle_amuna_sheet[6]
     loaded_dict["player_scout_amuna_attack"] = player_battle_amuna_sheet[7]
+    # basic
+    player_battle_amuna_url_basic = resource_path('resources/art/player_battle_sprites_amuna_basic.png')
+    player_battle_amuna_sheet_basic = sprite_sheet((750, 624), player_battle_amuna_url_basic)
+    loaded_dict["player_mage_amuna_battle_basic"] = player_battle_amuna_sheet_basic[0]
+    loaded_dict["player_mage_amuna_attack_basic"] = player_battle_amuna_sheet_basic[1]
+    loaded_dict["player_fighter_amuna_battle_basic"] = player_battle_amuna_sheet_basic[2]
+    loaded_dict["player_fighter_amuna_attack_basic"] = player_battle_amuna_sheet_basic[3]
+    loaded_dict["player_scout_amuna_battle_basic"] = player_battle_amuna_sheet_basic[4]
+    loaded_dict["player_scout_amuna_attack_basic"] = player_battle_amuna_sheet_basic[5]
+    # forged
+    player_battle_amuna_url_forged = resource_path('resources/art/player_battle_sprites_amuna_forged.png')
+    player_battle_amuna_sheet_forged = sprite_sheet((750, 624), player_battle_amuna_url_forged)
+    loaded_dict["player_mage_amuna_battle_forged"] = player_battle_amuna_sheet_forged[0]
+    loaded_dict["player_mage_amuna_attack_forged"] = player_battle_amuna_sheet_forged[1]
+    loaded_dict["player_fighter_amuna_battle_forged"] = player_battle_amuna_sheet_forged[2]
+    loaded_dict["player_fighter_amuna_attack_forged"] = player_battle_amuna_sheet_forged[3]
+    loaded_dict["player_scout_amuna_battle_forged"] = player_battle_amuna_sheet_forged[4]
+    loaded_dict["player_scout_amuna_attack_forged"] = player_battle_amuna_sheet_forged[5]
+    # mythic
+    player_battle_amuna_url_mythic = resource_path('resources/art/player_battle_sprites_amuna_mythic.png')
+    player_battle_amuna_sheet_mythic = sprite_sheet((750, 624), player_battle_amuna_url_mythic)
+    loaded_dict["player_mage_amuna_battle_mythic"] = player_battle_amuna_sheet_mythic[0]
+    loaded_dict["player_mage_amuna_attack_mythic"] = player_battle_amuna_sheet_mythic[1]
+    loaded_dict["player_fighter_amuna_battle_mythic"] = player_battle_amuna_sheet_mythic[2]
+    loaded_dict["player_fighter_amuna_attack_mythic"] = player_battle_amuna_sheet_mythic[3]
+    loaded_dict["player_scout_amuna_battle_mythic"] = player_battle_amuna_sheet_mythic[4]
+    loaded_dict["player_scout_amuna_attack_mythic"] = player_battle_amuna_sheet_mythic[5]
+    # legend
+    player_battle_amuna_url_legend = resource_path('resources/art/player_battle_sprites_amuna_legend.png')
+    player_battle_amuna_sheet_legend = sprite_sheet((750, 624), player_battle_amuna_url_legend)
+    loaded_dict["player_mage_amuna_battle_legend"] = player_battle_amuna_sheet_legend[0]
+    loaded_dict["player_mage_amuna_attack_legend"] = player_battle_amuna_sheet_legend[1]
+    loaded_dict["player_fighter_amuna_battle_legend"] = player_battle_amuna_sheet_legend[2]
+    loaded_dict["player_fighter_amuna_attack_legend"] = player_battle_amuna_sheet_legend[3]
+    loaded_dict["player_scout_amuna_battle_legend"] = player_battle_amuna_sheet_legend[4]
+    loaded_dict["player_scout_amuna_attack_legend"] = player_battle_amuna_sheet_legend[5]
+    # female -----------------------------------------------------------------------------------------------------------
+    player_battle_amuna_female_url = resource_path('resources/art/player_battle_sprites_amuna_female.png')
+    player_battle_amuna_female_sheet = sprite_sheet((750, 624), player_battle_amuna_female_url)
+    loaded_dict["player_no_role_amuna_female_battle"] = player_battle_amuna_female_sheet[0]
+    loaded_dict["player_no_role_amuna_female_attack"] = player_battle_amuna_female_sheet[1]
+    loaded_dict["player_mage_amuna_female_battle"] = player_battle_amuna_female_sheet[2]
+    loaded_dict["player_mage_amuna_female_attack"] = player_battle_amuna_female_sheet[3]
+    loaded_dict["player_fighter_amuna_female_battle"] = player_battle_amuna_female_sheet[4]
+    loaded_dict["player_fighter_amuna_female_attack"] = player_battle_amuna_female_sheet[5]
+    loaded_dict["player_scout_amuna_female_battle"] = player_battle_amuna_female_sheet[6]
+    loaded_dict["player_scout_amuna_female_attack"] = player_battle_amuna_female_sheet[7]
+    # basic
+    player_battle_amuna_female_url_basic = resource_path('resources/art/player_battle_sprites_amuna_female_basic.png')
+    player_battle_amuna_female_sheet_basic = sprite_sheet((750, 624), player_battle_amuna_female_url_basic)
+    loaded_dict["player_mage_amuna_female_battle_basic"] = player_battle_amuna_female_sheet_basic[0]
+    loaded_dict["player_mage_amuna_female_attack_basic"] = player_battle_amuna_female_sheet_basic[1]
+    loaded_dict["player_fighter_amuna_female_battle_basic"] = player_battle_amuna_female_sheet_basic[2]
+    loaded_dict["player_fighter_amuna_female_attack_basic"] = player_battle_amuna_female_sheet_basic[3]
+    loaded_dict["player_scout_amuna_female_battle_basic"] = player_battle_amuna_female_sheet_basic[4]
+    loaded_dict["player_scout_amuna_female_attack_basic"] = player_battle_amuna_female_sheet_basic[5]
+    # forged
+    player_battle_amuna_female_url_forged = resource_path('resources/art/player_battle_sprites_amuna_female_forged.png')
+    player_battle_amuna_female_sheet_forged = sprite_sheet((750, 624), player_battle_amuna_female_url_forged)
+    loaded_dict["player_mage_amuna_female_battle_forged"] = player_battle_amuna_female_sheet_forged[0]
+    loaded_dict["player_mage_amuna_female_attack_forged"] = player_battle_amuna_female_sheet_forged[1]
+    loaded_dict["player_fighter_amuna_female_battle_forged"] = player_battle_amuna_female_sheet_forged[2]
+    loaded_dict["player_fighter_amuna_female_attack_forged"] = player_battle_amuna_female_sheet_forged[3]
+    loaded_dict["player_scout_amuna_female_battle_forged"] = player_battle_amuna_female_sheet_forged[4]
+    loaded_dict["player_scout_amuna_female_attack_forged"] = player_battle_amuna_female_sheet_forged[5]
+    # mythic
+    player_battle_amuna_female_url_mythic = resource_path('resources/art/player_battle_sprites_amuna_female_mythic.png')
+    player_battle_amuna_female_sheet_mythic = sprite_sheet((750, 624), player_battle_amuna_female_url_mythic)
+    loaded_dict["player_mage_amuna_female_battle_mythic"] = player_battle_amuna_female_sheet_mythic[0]
+    loaded_dict["player_mage_amuna_female_attack_mythic"] = player_battle_amuna_female_sheet_mythic[1]
+    loaded_dict["player_fighter_amuna_female_battle_mythic"] = player_battle_amuna_female_sheet_mythic[2]
+    loaded_dict["player_fighter_amuna_female_attack_mythic"] = player_battle_amuna_female_sheet_mythic[3]
+    loaded_dict["player_scout_amuna_female_battle_mythic"] = player_battle_amuna_female_sheet_mythic[4]
+    loaded_dict["player_scout_amuna_female_attack_mythic"] = player_battle_amuna_female_sheet_mythic[5]
+    # legend
+    player_battle_amuna_female_url_legend = resource_path('resources/art/player_battle_sprites_amuna_female_legend.png')
+    player_battle_amuna_female_sheet_legend = sprite_sheet((750, 624), player_battle_amuna_female_url_legend)
+    loaded_dict["player_mage_amuna_female_battle_legend"] = player_battle_amuna_female_sheet_legend[0]
+    loaded_dict["player_mage_amuna_female_attack_legend"] = player_battle_amuna_female_sheet_legend[1]
+    loaded_dict["player_fighter_amuna_female_battle_legend"] = player_battle_amuna_female_sheet_legend[2]
+    loaded_dict["player_fighter_amuna_female_attack_legend"] = player_battle_amuna_female_sheet_legend[3]
+    loaded_dict["player_scout_amuna_female_battle_legend"] = player_battle_amuna_female_sheet_legend[4]
+    loaded_dict["player_scout_amuna_female_attack_legend"] = player_battle_amuna_female_sheet_legend[5]
     # player skills amuna race -----------------------------------------------------------------------------------------
     player_skills_amuna_url = resource_path('resources/art/player_battle_sprites_skills_amuna.png')
     player_skills_amuna_sheet = sprite_sheet((750, 624), player_skills_amuna_url)

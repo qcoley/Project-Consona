@@ -8,58 +8,513 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
                       graphics, necrola_battle_sprite, osodark_battle_sprite):
 
     if player.race == "amuna":
-        if player.role == "mage":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_mage_amuna_battle"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_barrier_amuna_battle"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_sense_amuna_battle"])
-            if barrier_active and sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_barrier_sense_amuna_battle"])
-        if player.role == "fighter":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_fighter_amuna_battle"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_barrier_amuna_battle"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_sense_amuna_battle"])
-            if barrier_active and sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_barrier_sense_amuna_battle"])
-        if player.role == "scout":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_scout_amuna_battle"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_barrier_amuna_battle"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_sense_amuna_battle"])
-            if barrier_active and sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_barrier_sense_amuna_battle"])
-        if player.role == "":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_no_role_amuna_battle"])
+        if player.gender == "male":
+            try:
+                if player.equipment["armor"].name == "basic armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_amuna_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_amuna_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_amuna_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_amuna_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_battle"])
+
+                if player.equipment["armor"].name == "forged armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_amuna_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_amuna_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_amuna_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_amuna_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_battle"])
+
+                if player.equipment["armor"].name == "mythical armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_amuna_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_amuna_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_amuna_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_amuna_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_battle"])
+
+                if player.equipment["armor"].name == "legendary armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_amuna_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_amuna_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_amuna_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_amuna_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_battle"])
+            except AttributeError:
+                if player.role == "mage":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_mage_amuna_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_amuna_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sense_amuna_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_sense_amuna_battle"])
+                if player.role == "fighter":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_fighter_amuna_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_amuna_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sense_amuna_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_sense_amuna_battle"])
+                if player.role == "scout":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_scout_amuna_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_amuna_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sense_amuna_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_sense_amuna_battle"])
+                if player.role == "":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_no_role_amuna_battle"])
+        if player.gender == "female":
+            try:
+                if player.equipment["armor"].name == "basic armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_amuna_female_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_amuna_female_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_amuna_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_amuna_female_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_battle"])
+                if player.equipment["armor"].name == "forged armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_amuna_female_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_amuna_female_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_amuna_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_amuna_female_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_battle"])
+
+                if player.equipment["armor"].name == "mythical armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_amuna_female_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_amuna_female_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_amuna_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_amuna_female_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_battle"])
+
+                if player.equipment["armor"].name == "legendary armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_amuna_female_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_amuna_female_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_amuna_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_amuna_female_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_battle"])
+            except AttributeError:
+                if player.role == "mage":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_mage_amuna_female_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_amuna_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sense_amuna_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_sense_amuna_battle"])
+                if player.role == "fighter":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_fighter_amuna_female_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_amuna_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sense_amuna_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_sense_amuna_battle"])
+                if player.role == "scout":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_scout_amuna_female_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_amuna_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sense_amuna_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_sense_amuna_battle"])
+                if player.role == "":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_no_role_amuna_female_battle"])
     if player.race == "sorae":
         if player.role == "mage":
             player_battle_sprite.update(player_battle_sprite.x_coordinate,
@@ -197,59 +652,524 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
     # update player character sprite for combat animation
     if not turn_taken:
         if player.race == "amuna":
-            if player.role == "mage":
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_amuna_attack"])
-                if barrier_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_mage_barrier_amuna_attack"])
-                if sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_mage_sense_amuna_attack"])
-                if barrier_active and sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_mage_barrier_sense_amuna_attack"])
-            if player.role == "fighter":
-                if not hard_strike:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_fighter_amuna_attack"])
-                    if barrier_active:
+            if player.gender == "male":
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_amuna_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_amuna_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_amuna_attack_basic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_amuna_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_amuna_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_amuna_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_amuna_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_amuna_attack"])
+
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_amuna_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_amuna_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_amuna_attack_forged"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_amuna_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_amuna_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_amuna_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_amuna_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_amuna_attack"])
+
+                    if player.equipment["armor"].name == "mythical armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_amuna_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_amuna_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_amuna_attack_mythic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_amuna_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_amuna_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_amuna_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_amuna_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_amuna_attack"])
+
+                    if player.equipment["armor"].name == "legendary armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_amuna_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_amuna_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_amuna_attack_legend"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_amuna_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_amuna_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_amuna_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_amuna_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_amuna_attack"])
+                except AttributeError:
+                    if player.role == "mage":
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
-                                                    graphics["player_fighter_barrier_amuna_attack"])
-                    if sharp_sense_active:
+                                                    graphics["player_mage_amuna_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_attack"])
+                    if player.role == "fighter":
+                        if not hard_strike:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_amuna_attack"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_sense_amuna_attack"])
+                    if player.role == "scout":
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
-                                                    graphics["player_fighter_sense_amuna_attack"])
-                    if barrier_active and sharp_sense_active:
+                                                    graphics["player_scout_amuna_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_attack"])
+                    if player.role == "":
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
-                                                    graphics["player_fighter_barrier_sense_amuna_attack"])
-            if player.role == "scout":
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_amuna_attack"])
-                if barrier_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_scout_barrier_amuna_attack"])
-                if sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_scout_sense_amuna_attack"])
-                if barrier_active and sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_scout_barrier_sense_amuna_attack"])
-            if player.role == "":
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_no_role_amuna_attack"])
+                                                    graphics["player_no_role_amuna_attack"])
+            if player.gender == "female":
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_amuna_female_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_amuna_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_amuna_female_attack_basic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_amuna_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_amuna_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_amuna_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_amuna_female_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_amuna_attack"])
+
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_amuna_female_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_amuna_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_amuna_female_attack_forged"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_amuna_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_amuna_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_amuna_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_amuna_female_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_amuna_attack"])
+
+                    if player.equipment["armor"].name == "mythical armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_amuna_female_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_amuna_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_amuna_female_attack_mythic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_amuna_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_amuna_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_amuna_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_amuna_female_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_amuna_attack"])
+
+                    if player.equipment["armor"].name == "legendary armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_amuna_female_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_amuna_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_amuna_female_attack_legend"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_amuna_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_amuna_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_amuna_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_amuna_female_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_amuna_attack"])
+                except AttributeError:
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_amuna_female_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_amuna_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_amuna_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_amuna_attack"])
+                    if player.role == "fighter":
+                        if not hard_strike:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_amuna_female_attack"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_amuna_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sense_amuna_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_sense_amuna_attack"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_amuna_female_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_amuna_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_amuna_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_amuna_attack"])
+                    if player.role == "":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_no_role_amuna_female_attack"])
         if player.race == "sorae":
             if player.role == "mage":
                 player_battle_sprite.update(player_battle_sprite.x_coordinate,
