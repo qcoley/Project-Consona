@@ -516,58 +516,513 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
                                                 player_battle_sprite.y_coordinate,
                                                 graphics["player_no_role_amuna_female_battle"])
     if player.race == "sorae":
-        if player.role == "mage":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_mage_sorae_battle"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_barrier_sorae_battle"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_sense_sorae_battle"])
-            if barrier_active and sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_barrier_sense_sorae_battle"])
-        if player.role == "fighter":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_fighter_sorae_battle"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_barrier_sorae_battle"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_sense_sorae_battle"])
-            if barrier_active and sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_barrier_sense_sorae_battle"])
-        if player.role == "scout":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_scout_sorae_battle"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_barrier_sorae_battle"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_sense_sorae_battle"])
-            if barrier_active and sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_barrier_sense_sorae_battle"])
-        if player.role == "":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_no_role_sorae_battle"])
+        if player.gender == "male":
+            try:
+                if player.equipment["armor"].name == "basic armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sorae_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sorae_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_sorae_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sorae_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_battle"])
+
+                if player.equipment["armor"].name == "forged armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sorae_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sorae_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_sorae_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sorae_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_battle"])
+
+                if player.equipment["armor"].name == "mythical armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sorae_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sorae_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_sorae_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sorae_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_battle"])
+
+                if player.equipment["armor"].name == "legendary armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sorae_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sorae_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_sorae_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sorae_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_battle"])
+            except AttributeError:
+                if player.role == "mage":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_mage_sorae_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_sorae_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sense_sorae_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_sense_sorae_battle"])
+                if player.role == "fighter":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_fighter_sorae_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_sorae_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sense_sorae_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_sense_sorae_battle"])
+                if player.role == "scout":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_scout_sorae_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_sorae_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sense_sorae_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_sense_sorae_battle"])
+                if player.role == "":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_no_role_sorae_battle"])
+        if player.gender == "female":
+            try:
+                if player.equipment["armor"].name == "basic armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sorae_b_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sorae_b_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_sorae_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sorae_b_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_battle"])
+                if player.equipment["armor"].name == "forged armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sorae_b_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sorae_b_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_sorae_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sorae_b_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_battle"])
+
+                if player.equipment["armor"].name == "mythical armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sorae_b_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sorae_b_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_sorae_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sorae_b_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_battle"])
+
+                if player.equipment["armor"].name == "legendary armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sorae_b_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sorae_b_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_sorae_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sorae_b_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_battle"])
+            except AttributeError:
+                if player.role == "mage":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_mage_sorae_b_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_sorae_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sense_sorae_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_sense_sorae_battle"])
+                if player.role == "fighter":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_fighter_sorae_b_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_sorae_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sense_sorae_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_sense_sorae_battle"])
+                if player.role == "scout":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_scout_sorae_b_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_sorae_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sense_sorae_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_sense_sorae_battle"])
+                if player.role == "":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_no_role_sorae_b_battle"])
     if player.race == "nuldar":
         if player.gender == "male":
             try:
@@ -1626,59 +2081,524 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
                                                     player_battle_sprite.y_coordinate,
                                                     graphics["player_no_role_amuna_female_attack"])
         if player.race == "sorae":
-            if player.role == "mage":
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_sorae_attack"])
-                if barrier_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_mage_barrier_sorae_attack"])
-                if sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_mage_sense_sorae_attack"])
-                if barrier_active and sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_mage_barrier_sense_sorae_attack"])
-            if player.role == "fighter":
-                if not hard_strike:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_fighter_sorae_attack"])
-                    if barrier_active:
+            if player.gender == "male":
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sorae_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_sorae_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sorae_attack_basic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sorae_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_sorae_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_sorae_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sorae_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_sorae_attack"])
+
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sorae_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_sorae_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sorae_attack_forged"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sorae_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_sorae_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_sorae_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sorae_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_sorae_attack"])
+
+                    if player.equipment["armor"].name == "mythical armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sorae_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_sorae_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sorae_attack_mythic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sorae_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_sorae_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_sorae_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sorae_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_sorae_attack"])
+
+                    if player.equipment["armor"].name == "legendary armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sorae_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_sorae_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sorae_attack_legend"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sorae_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_sorae_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_sorae_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sorae_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_sorae_attack"])
+                except AttributeError:
+                    if player.role == "mage":
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
-                                                    graphics["player_fighter_barrier_sorae_attack"])
-                    if sharp_sense_active:
+                                                    graphics["player_mage_sorae_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_attack"])
+                    if player.role == "fighter":
+                        if not hard_strike:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sorae_attack"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_sense_sorae_attack"])
+                    if player.role == "scout":
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
-                                                    graphics["player_fighter_sense_sorae_attack"])
-                    if barrier_active and sharp_sense_active:
+                                                    graphics["player_scout_sorae_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_attack"])
+                    if player.role == "":
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
-                                                    graphics["player_fighter_barrier_sense_sorae_attack"])
-            if player.role == "scout":
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_sorae_attack"])
-                if barrier_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_scout_barrier_sorae_attack"])
-                if sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_scout_sense_sorae_attack"])
-                if barrier_active and sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_scout_barrier_sense_sorae_attack"])
-            if player.role == "":
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_no_role_sorae_attack"])
+                                                    graphics["player_no_role_sorae_attack"])
+            if player.gender == "female":
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sorae_b_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_sorae_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sorae_b_attack_basic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sorae_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_sorae_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_sorae_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sorae_b_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_sorae_attack"])
+
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sorae_b_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_sorae_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sorae_b_attack_forged"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sorae_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_sorae_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_sorae_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sorae_b_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_sorae_attack"])
+
+                    if player.equipment["armor"].name == "mythical armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sorae_b_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_sorae_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sorae_b_attack_mythic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sorae_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_sorae_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_sorae_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sorae_b_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_sorae_attack"])
+
+                    if player.equipment["armor"].name == "legendary armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sorae_b_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_sorae_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sorae_b_attack_legend"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sorae_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_sorae_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_sorae_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sorae_b_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_sorae_attack"])
+                except AttributeError:
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sorae_b_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sorae_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_sorae_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_sorae_attack"])
+                    if player.role == "fighter":
+                        if not hard_strike:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sorae_b_attack"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_sorae_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sense_sorae_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_sense_sorae_attack"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sorae_b_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sorae_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_sorae_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_sorae_attack"])
+                    if player.role == "":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_no_role_sorae_b_attack"])
         if player.race == "nuldar":
             if player.gender == "male":
                 try:

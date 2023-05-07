@@ -3167,6 +3167,7 @@ def load_graphics():
     loaded_dict["player_fighter_barrier_sense_amuna_attack"] = player_skills_amuna_fighter_sheet[7]
     loaded_dict["player_fighter_barrier_sense_amuna_strike"] = player_skills_amuna_fighter_sheet[8]
     # player battle sorae race -----------------------------------------------------------------------------------------
+    # alpha ------------------------------------------------------------------------------------------------------------
     player_battle_sorae_url = resource_path('resources/art/player_battle_sprites_sorae.png')
     player_battle_sorae_sheet = sprite_sheet((750, 624), player_battle_sorae_url)
     loaded_dict["player_no_role_sorae_battle"] = player_battle_sorae_sheet[0]
@@ -3177,6 +3178,89 @@ def load_graphics():
     loaded_dict["player_fighter_sorae_attack"] = player_battle_sorae_sheet[5]
     loaded_dict["player_scout_sorae_battle"] = player_battle_sorae_sheet[6]
     loaded_dict["player_scout_sorae_attack"] = player_battle_sorae_sheet[7]
+    # basic
+    player_battle_sorae_url_basic = resource_path('resources/art/player_battle_sprites_sorae_basic.png')
+    player_battle_sorae_sheet_basic = sprite_sheet((750, 624), player_battle_sorae_url_basic)
+    loaded_dict["player_mage_sorae_battle_basic"] = player_battle_sorae_sheet_basic[0]
+    loaded_dict["player_mage_sorae_attack_basic"] = player_battle_sorae_sheet_basic[1]
+    loaded_dict["player_fighter_sorae_battle_basic"] = player_battle_sorae_sheet_basic[2]
+    loaded_dict["player_fighter_sorae_attack_basic"] = player_battle_sorae_sheet_basic[3]
+    loaded_dict["player_scout_sorae_battle_basic"] = player_battle_sorae_sheet_basic[4]
+    loaded_dict["player_scout_sorae_attack_basic"] = player_battle_sorae_sheet_basic[5]
+    # forged
+    player_battle_sorae_url_forged = resource_path('resources/art/player_battle_sprites_sorae_forged.png')
+    player_battle_sorae_sheet_forged = sprite_sheet((750, 624), player_battle_sorae_url_forged)
+    loaded_dict["player_mage_sorae_battle_forged"] = player_battle_sorae_sheet_forged[0]
+    loaded_dict["player_mage_sorae_attack_forged"] = player_battle_sorae_sheet_forged[1]
+    loaded_dict["player_fighter_sorae_battle_forged"] = player_battle_sorae_sheet_forged[2]
+    loaded_dict["player_fighter_sorae_attack_forged"] = player_battle_sorae_sheet_forged[3]
+    loaded_dict["player_scout_sorae_battle_forged"] = player_battle_sorae_sheet_forged[4]
+    loaded_dict["player_scout_sorae_attack_forged"] = player_battle_sorae_sheet_forged[5]
+    # mythic
+    player_battle_sorae_url_mythic = resource_path('resources/art/player_battle_sprites_sorae_mythic.png')
+    player_battle_sorae_sheet_mythic = sprite_sheet((750, 624), player_battle_sorae_url_mythic)
+    loaded_dict["player_mage_sorae_battle_mythic"] = player_battle_sorae_sheet_mythic[0]
+    loaded_dict["player_mage_sorae_attack_mythic"] = player_battle_sorae_sheet_mythic[1]
+    loaded_dict["player_fighter_sorae_battle_mythic"] = player_battle_sorae_sheet_mythic[2]
+    loaded_dict["player_fighter_sorae_attack_mythic"] = player_battle_sorae_sheet_mythic[3]
+    loaded_dict["player_scout_sorae_battle_mythic"] = player_battle_sorae_sheet_mythic[4]
+    loaded_dict["player_scout_sorae_attack_mythic"] = player_battle_sorae_sheet_mythic[5]
+    # legend
+    player_battle_sorae_url_legend = resource_path('resources/art/player_battle_sprites_sorae_legend.png')
+    player_battle_sorae_sheet_legend = sprite_sheet((750, 624), player_battle_sorae_url_legend)
+    loaded_dict["player_mage_sorae_battle_legend"] = player_battle_sorae_sheet_legend[0]
+    loaded_dict["player_mage_sorae_attack_legend"] = player_battle_sorae_sheet_legend[1]
+    loaded_dict["player_fighter_sorae_battle_legend"] = player_battle_sorae_sheet_legend[2]
+    loaded_dict["player_fighter_sorae_attack_legend"] = player_battle_sorae_sheet_legend[3]
+    loaded_dict["player_scout_sorae_battle_legend"] = player_battle_sorae_sheet_legend[4]
+    loaded_dict["player_scout_sorae_attack_legend"] = player_battle_sorae_sheet_legend[5]
+    # beta -------------------------------------------------------------------------------------------------------------
+    player_battle_sorae_b_url = resource_path('resources/art/player_battle_sprites_sorae_b.png')
+    player_battle_sorae_b_sheet = sprite_sheet((750, 624), player_battle_sorae_b_url)
+    loaded_dict["player_no_role_sorae_b_battle"] = player_battle_sorae_b_sheet[0]
+    loaded_dict["player_no_role_sorae_b_attack"] = player_battle_sorae_b_sheet[1]
+    loaded_dict["player_mage_sorae_b_battle"] = player_battle_sorae_b_sheet[2]
+    loaded_dict["player_mage_sorae_b_attack"] = player_battle_sorae_b_sheet[3]
+    loaded_dict["player_fighter_sorae_b_battle"] = player_battle_sorae_b_sheet[4]
+    loaded_dict["player_fighter_sorae_b_attack"] = player_battle_sorae_b_sheet[5]
+    loaded_dict["player_scout_sorae_b_battle"] = player_battle_sorae_b_sheet[6]
+    loaded_dict["player_scout_sorae_b_attack"] = player_battle_sorae_b_sheet[7]
+    # basic
+    player_battle_sorae_b_url_basic = resource_path('resources/art/player_battle_sprites_sorae_b_basic.png')
+    player_battle_sorae_b_sheet_basic = sprite_sheet((750, 624), player_battle_sorae_b_url_basic)
+    loaded_dict["player_mage_sorae_b_battle_basic"] = player_battle_sorae_b_sheet_basic[0]
+    loaded_dict["player_mage_sorae_b_attack_basic"] = player_battle_sorae_b_sheet_basic[1]
+    loaded_dict["player_fighter_sorae_b_battle_basic"] = player_battle_sorae_b_sheet_basic[2]
+    loaded_dict["player_fighter_sorae_b_attack_basic"] = player_battle_sorae_b_sheet_basic[3]
+    loaded_dict["player_scout_sorae_b_battle_basic"] = player_battle_sorae_b_sheet_basic[4]
+    loaded_dict["player_scout_sorae_b_attack_basic"] = player_battle_sorae_b_sheet_basic[5]
+    # forged
+    player_battle_sorae_b_url_forged = resource_path('resources/art/player_battle_sprites_sorae_b_forged.png')
+    player_battle_sorae_b_sheet_forged = sprite_sheet((750, 624), player_battle_sorae_b_url_forged)
+    loaded_dict["player_mage_sorae_b_battle_forged"] = player_battle_sorae_b_sheet_forged[0]
+    loaded_dict["player_mage_sorae_b_attack_forged"] = player_battle_sorae_b_sheet_forged[1]
+    loaded_dict["player_fighter_sorae_b_battle_forged"] = player_battle_sorae_b_sheet_forged[2]
+    loaded_dict["player_fighter_sorae_b_attack_forged"] = player_battle_sorae_b_sheet_forged[3]
+    loaded_dict["player_scout_sorae_b_battle_forged"] = player_battle_sorae_b_sheet_forged[4]
+    loaded_dict["player_scout_sorae_b_attack_forged"] = player_battle_sorae_b_sheet_forged[5]
+    # mythic
+    player_battle_sorae_b_url_mythic = resource_path('resources/art/player_battle_sprites_sorae_b_mythic.png')
+    player_battle_sorae_b_sheet_mythic = sprite_sheet((750, 624), player_battle_sorae_b_url_mythic)
+    loaded_dict["player_mage_sorae_b_battle_mythic"] = player_battle_sorae_b_sheet_mythic[0]
+    loaded_dict["player_mage_sorae_b_attack_mythic"] = player_battle_sorae_b_sheet_mythic[1]
+    loaded_dict["player_fighter_sorae_b_battle_mythic"] = player_battle_sorae_b_sheet_mythic[2]
+    loaded_dict["player_fighter_sorae_b_attack_mythic"] = player_battle_sorae_b_sheet_mythic[3]
+    loaded_dict["player_scout_sorae_b_battle_mythic"] = player_battle_sorae_b_sheet_mythic[4]
+    loaded_dict["player_scout_sorae_b_attack_mythic"] = player_battle_sorae_b_sheet_mythic[5]
+    # legend
+    player_battle_sorae_b_url_legend = resource_path('resources/art/player_battle_sprites_sorae_b_legend.png')
+    player_battle_sorae_b_sheet_legend = sprite_sheet((750, 624), player_battle_sorae_b_url_legend)
+    loaded_dict["player_mage_sorae_b_battle_legend"] = player_battle_sorae_b_sheet_legend[0]
+    loaded_dict["player_mage_sorae_b_attack_legend"] = player_battle_sorae_b_sheet_legend[1]
+    loaded_dict["player_fighter_sorae_b_battle_legend"] = player_battle_sorae_b_sheet_legend[2]
+    loaded_dict["player_fighter_sorae_b_attack_legend"] = player_battle_sorae_b_sheet_legend[3]
+    loaded_dict["player_scout_sorae_b_battle_legend"] = player_battle_sorae_b_sheet_legend[4]
+    loaded_dict["player_scout_sorae_b_attack_legend"] = player_battle_sorae_b_sheet_legend[5]
     # player skills sorae race -----------------------------------------------------------------------------------------
     player_skills_sorae_url = resource_path('resources/art/player_battle_sprites_skills_sorae.png')
     player_skills_sorae_sheet = sprite_sheet((750, 624), player_skills_sorae_url)
@@ -3210,14 +3294,14 @@ def load_graphics():
     # male -------------------------------------------------------------------------------------------------------------
     player_battle_nuldar_url = resource_path('resources/art/player_battle_sprites_nuldar.png')
     player_battle_nuldar_sheet = sprite_sheet((750, 624), player_battle_nuldar_url)
-    loaded_dict["player_no_role_amuna_battle"] = player_battle_nuldar_sheet[0]
-    loaded_dict["player_no_role_amuna_attack"] = player_battle_nuldar_sheet[1]
-    loaded_dict["player_mage_amuna_battle"] = player_battle_nuldar_sheet[2]
-    loaded_dict["player_mage_amuna_attack"] = player_battle_nuldar_sheet[3]
-    loaded_dict["player_fighter_amuna_battle"] = player_battle_nuldar_sheet[4]
-    loaded_dict["player_fighter_amuna_attack"] = player_battle_nuldar_sheet[5]
-    loaded_dict["player_scout_amuna_battle"] = player_battle_nuldar_sheet[6]
-    loaded_dict["player_scout_amuna_attack"] = player_battle_nuldar_sheet[7]
+    loaded_dict["player_no_role_nuldar_battle"] = player_battle_nuldar_sheet[0]
+    loaded_dict["player_no_role_nuldar_attack"] = player_battle_nuldar_sheet[1]
+    loaded_dict["player_mage_nuldar_battle"] = player_battle_nuldar_sheet[2]
+    loaded_dict["player_mage_nuldar_attack"] = player_battle_nuldar_sheet[3]
+    loaded_dict["player_fighter_nuldar_battle"] = player_battle_nuldar_sheet[4]
+    loaded_dict["player_fighter_nuldar_attack"] = player_battle_nuldar_sheet[5]
+    loaded_dict["player_scout_nuldar_battle"] = player_battle_nuldar_sheet[6]
+    loaded_dict["player_scout_nuldar_attack"] = player_battle_nuldar_sheet[7]
     # basic
     player_battle_nuldar_url_basic = resource_path('resources/art/player_battle_sprites_nuldar_basic.png')
     player_battle_nuldar_sheet_basic = sprite_sheet((750, 624), player_battle_nuldar_url_basic)
