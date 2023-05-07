@@ -569,58 +569,513 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
                                         player_battle_sprite.y_coordinate,
                                         graphics["player_no_role_sorae_battle"])
     if player.race == "nuldar":
-        if player.role == "mage":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_mage_nuldar_battle"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_barrier_nuldar_battle"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_sense_nuldar_battle"])
-            if barrier_active and sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_barrier_sense_nuldar_battle"])
-        if player.role == "fighter":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_fighter_nuldar_battle"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_barrier_nuldar_battle"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_sense_nuldar_battle"])
-            if barrier_active and sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_barrier_sense_nuldar_battle"])
-        if player.role == "scout":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_scout_nuldar_battle"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_barrier_nuldar_battle"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_sense_nuldar_battle"])
-            if barrier_active and sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_barrier_sense_nuldar_battle"])
-        if player.role == "":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_no_role_nuldar_battle"])
+        if player.gender == "male":
+            try:
+                if player.equipment["armor"].name == "basic armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_nuldar_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_nuldar_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_nuldar_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_battle"])
+
+                if player.equipment["armor"].name == "forged armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_nuldar_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_nuldar_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_nuldar_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_battle"])
+
+                if player.equipment["armor"].name == "mythical armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_nuldar_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_nuldar_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_nuldar_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_battle"])
+
+                if player.equipment["armor"].name == "legendary armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_nuldar_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_nuldar_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_nuldar_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_battle"])
+            except AttributeError:
+                if player.role == "mage":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_mage_nuldar_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_nuldar_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sense_nuldar_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_sense_nuldar_battle"])
+                if player.role == "fighter":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_fighter_nuldar_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_nuldar_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sense_nuldar_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_sense_nuldar_battle"])
+                if player.role == "scout":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_scout_nuldar_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_nuldar_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sense_nuldar_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_sense_nuldar_battle"])
+                if player.role == "":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_no_role_nuldar_battle"])
+        if player.gender == "female":
+            try:
+                if player.equipment["armor"].name == "basic armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_nuldar_female_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_female_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_nuldar_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_nuldar_female_battle_basic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_battle"])
+                if player.equipment["armor"].name == "forged armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_nuldar_female_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_female_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_nuldar_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_nuldar_female_battle_forged"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_battle"])
+
+                if player.equipment["armor"].name == "mythical armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_nuldar_female_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_female_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_nuldar_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_nuldar_female_battle_mythic"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_battle"])
+
+                if player.equipment["armor"].name == "legendary armor":
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_nuldar_female_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_battle"])
+                    if player.role == "fighter":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_female_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_barrier_sense_nuldar_battle"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_nuldar_female_battle_legend"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_battle"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_battle"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_battle"])
+            except AttributeError:
+                if player.role == "mage":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_mage_nuldar_female_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_nuldar_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_sense_nuldar_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_barrier_sense_nuldar_battle"])
+                if player.role == "fighter":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_fighter_nuldar_female_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_nuldar_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_sense_nuldar_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_barrier_sense_nuldar_battle"])
+                if player.role == "scout":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_scout_nuldar_female_battle"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_nuldar_battle"])
+                    if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_sense_nuldar_battle"])
+                    if barrier_active and sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_barrier_sense_nuldar_battle"])
+                if player.role == "":
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_no_role_nuldar_female_battle"])
 
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
@@ -1225,59 +1680,524 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
                                             player_battle_sprite.y_coordinate,
                                             graphics["player_no_role_sorae_attack"])
         if player.race == "nuldar":
-            if player.role == "mage":
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_mage_nuldar_attack"])
-                if barrier_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_mage_barrier_nuldar_attack"])
-                if sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_mage_sense_nuldar_attack"])
-                if barrier_active and sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_mage_barrier_sense_nuldar_attack"])
-            if player.role == "fighter":
-                if not hard_strike:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_fighter_nuldar_attack"])
-                    if barrier_active:
+            if player.gender == "male":
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_nuldar_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_nuldar_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_nuldar_attack_basic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_nuldar_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_nuldar_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_nuldar_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_nuldar_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_nuldar_attack"])
+
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_nuldar_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_nuldar_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_nuldar_attack_forged"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_nuldar_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_nuldar_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_nuldar_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_nuldar_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_nuldar_attack"])
+
+                    if player.equipment["armor"].name == "mythical armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_nuldar_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_nuldar_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_nuldar_attack_mythic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_nuldar_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_nuldar_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_nuldar_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_nuldar_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_nuldar_attack"])
+
+                    if player.equipment["armor"].name == "legendary armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_nuldar_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_nuldar_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_nuldar_attack_legend"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_nuldar_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_nuldar_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_nuldar_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_nuldar_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_nuldar_attack"])
+                except AttributeError:
+                    if player.role == "mage":
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
-                                                    graphics["player_fighter_barrier_nuldar_attack"])
-                    if sharp_sense_active:
+                                                    graphics["player_mage_nuldar_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_attack"])
+                    if player.role == "fighter":
+                        if not hard_strike:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_attack"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_sense_nuldar_attack"])
+                    if player.role == "scout":
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
-                                                    graphics["player_fighter_sense_nuldar_attack"])
-                    if barrier_active and sharp_sense_active:
+                                                    graphics["player_scout_nuldar_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_attack"])
+                    if player.role == "":
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
-                                                    graphics["player_fighter_barrier_sense_nuldar_attack"])
-            if player.role == "scout":
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_scout_nuldar_attack"])
-                if barrier_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_scout_barrier_nuldar_attack"])
-                if sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_scout_sense_nuldar_attack"])
-                if barrier_active and sharp_sense_active:
-                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                                player_battle_sprite.y_coordinate,
-                                                graphics["player_scout_barrier_sense_nuldar_attack"])
-            if player.role == "":
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_no_role_nuldar_attack"])
+                                                    graphics["player_no_role_nuldar_attack"])
+            if player.gender == "female":
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_nuldar_female_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_nuldar_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_nuldar_female_attack_basic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_nuldar_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_nuldar_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_nuldar_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_nuldar_female_attack_basic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_nuldar_attack"])
+
+                    if player.equipment["armor"].name == "forged armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_nuldar_female_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_nuldar_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_nuldar_female_attack_forged"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_nuldar_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_nuldar_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_nuldar_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_nuldar_female_attack_forged"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_nuldar_attack"])
+
+                    if player.equipment["armor"].name == "mythical armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_nuldar_female_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_nuldar_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_nuldar_female_attack_mythic"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_nuldar_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_nuldar_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_nuldar_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_nuldar_female_attack_mythic"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_nuldar_attack"])
+
+                    if player.equipment["armor"].name == "legendary armor":
+                        if player.role == "mage":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_nuldar_female_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_mage_barrier_sense_nuldar_attack"])
+                        if player.role == "fighter":
+                            if not hard_strike:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_nuldar_female_attack_legend"])
+                                if barrier_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_nuldar_attack"])
+                                if sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_sense_nuldar_attack"])
+                                if barrier_active and sharp_sense_active:
+                                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                                player_battle_sprite.y_coordinate,
+                                                                graphics["player_fighter_barrier_sense_nuldar_attack"])
+                        if player.role == "scout":
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_nuldar_female_attack_legend"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_scout_barrier_sense_nuldar_attack"])
+                except AttributeError:
+                    if player.role == "mage":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_mage_nuldar_female_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_nuldar_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_sense_nuldar_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_mage_barrier_sense_nuldar_attack"])
+                    if player.role == "fighter":
+                        if not hard_strike:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_female_attack"])
+                            if barrier_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_nuldar_attack"])
+                            if sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_sense_nuldar_attack"])
+                            if barrier_active and sharp_sense_active:
+                                player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                            player_battle_sprite.y_coordinate,
+                                                            graphics["player_fighter_barrier_sense_nuldar_attack"])
+                    if player.role == "scout":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_scout_nuldar_female_attack"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_nuldar_attack"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_sense_nuldar_attack"])
+                        if barrier_active and sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_scout_barrier_sense_nuldar_attack"])
+                    if player.role == "":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_no_role_nuldar_female_attack"])
     if enemy.kind == "snake":
         snake_battle_sprite.update(715, 250, graphics["snake_attack"])
     if enemy.kind == "ghoul":
