@@ -31,7 +31,7 @@ Coded in Python 3.11.2 using PyGame 2.3.0.
 # Installation
 
 The game itself currently requires no installation provided you have Python installed on your OS (https://www.python.org/downloads/).
-You can run the requirements.txt file to install PyGame with the command "pip install -r requirements.txt"
+You can run the requirements.txt file to install PyGame with the command "pip install -r requirements.txt".
 
 # Usage
 
