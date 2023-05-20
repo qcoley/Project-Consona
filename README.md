@@ -7,7 +7,7 @@ Fable, Everquest, Runescape and World of Warcraft among others.
 Coded in Python 3.11.2 using PyGame 2.3.0.
 
 # Choose Your Character
-![create](https://github.com/qcoley/Project-Eterna/assets/49097168/75cfca8a-e04c-458e-9095-f0217b84ea80)
+![create](https://github.com/qcoley/Project-Eterna/assets/49097168/601e3ae1-0c95-4462-a4b6-9bffcc9d47fe)
 
 # Start Your Adventure
 ![begin](https://github.com/qcoley/Project-Eterna/assets/49097168/defa4078-aca8-41a6-927a-2bdaaa569913)
