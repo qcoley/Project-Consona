@@ -1,34 +1,42 @@
 # Project Eterna
 
 Project Eterna is an adventure game in the vein of The Legend of Zelda
-with light RPG elements based on and inspired by games like The Elder Scrolls, 
-Ultima, Everquest, Runescape and World of Warcraft among others. 
+with elements inspired by games like Pokémon, The Elder Scrolls, 
+Fable, Everquest, Runescape and World of Warcraft among others. 
 
-Coded in Python 3.10 using PyGame 2.1.2.
+Coded in Python 3.11.2 using PyGame 2.3.0.
 
 # Choose Your Character
-![create](https://user-images.githubusercontent.com/49097168/167088139-a4f00d8e-221a-4d63-b9f8-b8d1dea0e585.png)
+![create](https://github.com/qcoley/Project-Eterna/assets/49097168/601e3ae1-0c95-4462-a4b6-9bffcc9d47fe)
 
 # Start Your Adventure
-![begin](https://user-images.githubusercontent.com/49097168/167088246-d46d7cfd-c811-48b8-ab40-80339f9aa575.png)
+![begin](https://github.com/qcoley/Project-Eterna/assets/49097168/defa4078-aca8-41a6-927a-2bdaaa569913)
 
 # Battle Enemies 
-![battle](https://user-images.githubusercontent.com/49097168/167088273-64dfa1e4-d6fa-4f3d-a310-b7cb83eed883.png)
+![fight](https://github.com/qcoley/Project-Eterna/assets/49097168/4bb37eb8-1a5b-4f6a-85c4-de8e8e735482)
 
 # Complete Quests
-![quest](https://user-images.githubusercontent.com/49097168/167088344-1be5a445-d23c-425d-880a-97f8a0cc6416.png)
+![quests](https://github.com/qcoley/Project-Eterna/assets/49097168/f22e1f2d-502c-4cb2-a622-b045d186d645)
 
-# Journey Across The Region
-![start_screen_original](https://user-images.githubusercontent.com/49097168/161449843-74a77324-94da-4e4e-87fc-c816e38f2679.png)
+# Learn New Abilities
+![skills](https://github.com/qcoley/Project-Eterna/assets/49097168/75a4b85c-68d4-417e-953e-c46c6d43efcb)
+
+# Create Potions
+![potions](https://github.com/qcoley/Project-Eterna/assets/49097168/6430f33f-1c55-4133-adfc-3345120a82ef)
+
+# Hatch Unique Pets
+![Pets](https://github.com/qcoley/Project-Eterna/assets/49097168/d0079cfd-5b58-4759-b435-4f51490bc7e9)
+
 
 # Installation
 
-The game itself currently requires no installation provided you have Python installed on your OS. (https://www.python.org/downloads/)
+The game itself currently requires no installation provided you have Python installed on your OS (https://www.python.org/downloads/).
+You can run the requirements.txt file to install PyGame with the command "pip install -r requirements.txt".
 
 # Usage
 
-You can start the game like running a standard python script with resources folder in the games current directory by typing 
-"python project_eterna.py", or on some OS's you can right click the "project_eterna.py" file and choose to run with python.
+Once the project is downloaded, navigate to the folder with your command line and type "python project_eterna.py", 
+or with some OS's you can just right click the "project_eterna.py" file and choose to run with python.
 
 There is also an .exe file within the "dist" folder thats updated periodically as new features are added. 
 This is a self-contained executable file that shouldn't need any dependancies to run provided your OS supports it. 
