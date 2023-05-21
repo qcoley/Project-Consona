@@ -2,8 +2,8 @@ import drawing_functions
 
 
 # go through shop items and assign inventory slots (coordinates) to them
-def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, health_pot_img, energy_pot_img, basic_armor,
-                               forged_armor, mythical_armor, cookie, candy, tart):
+def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, basic_armor, forged_armor, mythical_armor,
+                               cookie, candy, tart, small_health, small_energy):
 
     # if shopkeeper has items in their inventory
     if len(npc_amuna_shopkeeper.items) > 0:
@@ -13,11 +13,11 @@ def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, health_po
         buy_inventory_counter = 0
         for shop_item in npc_amuna_shopkeeper.items:
             if shop_item.name == "small health potion":
-                shop_item.update(buy_first_coord, buy_second_coord, health_pot_img)
+                shop_item.update(buy_first_coord, buy_second_coord, small_health)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             if shop_item.name == "small energy potion":
-                shop_item.update(buy_first_coord, buy_second_coord, energy_pot_img)
+                shop_item.update(buy_first_coord, buy_second_coord, small_energy)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             if shop_item.name == "basic armor":

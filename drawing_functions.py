@@ -945,11 +945,11 @@ def item_updates(player, graphic):
 
             for item_here in player.items:
                 if item_here.name == "small health potion":
-                    item_here.update(first_coord, second_coord, graphic["health_pot_img"])
+                    item_here.update(first_coord, second_coord, graphic["small_health_pot_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "small energy potion":
-                    item_here.update(first_coord, second_coord, graphic["energy_pot_img"])
+                    item_here.update(first_coord, second_coord, graphic["small_energy_pot_img"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "big health potion":

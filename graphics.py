@@ -3707,6 +3707,8 @@ def load_graphics():
     loaded_dict["pet_cookie_img"] = items_sheet[17]
     loaded_dict["pet_candy_img"] = items_sheet[18]
     loaded_dict["pet_tart_img"] = items_sheet[19]
+    loaded_dict["small_health_pot_img"] = items_sheet[20]
+    loaded_dict["small_energy_pot_img"] = items_sheet[21]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -3801,6 +3803,8 @@ def load_graphics():
     loaded_dict["race high"] = start_buttons_high_sheet[1]
     loaded_dict["begin high"] = start_buttons_high_sheet[2]
     loaded_dict["gender high"] = start_buttons_high_sheet[3]
+    loaded_dict["gender select"] = start_buttons_high_sheet[4]
+    loaded_dict["race select"] = start_buttons_high_sheet[5]
     # race select buttons on character screen --------------------------------------------------------------------------
     race_select_buttons_url = resource_path('resources/art/buttons_race_select.png')
     race_select_buttons_sheet = sprite_sheet((150, 75), race_select_buttons_url)

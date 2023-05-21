@@ -5916,20 +5916,20 @@ if __name__ == '__main__':
     npc_amuna_shopkeeper = Shopkeeper("amuna shopkeeper", "amuna", [
         Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
         Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
-        Item("small health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("small energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+        Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
+        Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
         Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
-        Item("small health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("small energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+        Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
+        Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0)])
 
     npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
         Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
         Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
-        Item("small health potion", "potion", 200, 200, graphic_dict["health_pot_img"], 0),
-        Item("small energy potion", "potion", 200, 200, graphic_dict["energy_pot_img"], 0)])
+        Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
+        Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
@@ -6086,16 +6086,16 @@ if __name__ == '__main__':
     new_game_button = UiElement("new game button", 640, 342, graphic_dict["new_game_img"])
     continue_button = UiElement("continue button", 640, 425, graphic_dict["continue_img"])
 
-    amuna_button = UiElement("amuna button", 70, 255, graphic_dict["amuna_button_img"])
-    nuldar_button = UiElement("nuldar button", 70, 350, graphic_dict["nuldar_button_img"])
-    sorae_button = UiElement("sorae button", 68, 445, graphic_dict["sorae_button_img"])
+    amuna_button = UiElement("amuna button", 70, 245, graphic_dict["amuna_button_img"])
+    nuldar_button = UiElement("nuldar button", 70, 340, graphic_dict["nuldar_button_img"])
+    sorae_button = UiElement("sorae button", 68, 435, graphic_dict["sorae_button_img"])
 
-    amuna_male_button = UiElement("amuna male button", 178, 255, graphic_dict["male_button_img"])
-    amuna_female_button = UiElement("amuna female button", 252, 255, graphic_dict["female_button_img"])
-    nuldar_male_button = UiElement("nuldar male button", 178, 350, graphic_dict["male_button_img"])
-    nuldar_female_button = UiElement("nuldar female button", 252, 350, graphic_dict["female_button_img"])
-    sorae_alpha_button = UiElement("sorae a button", 179, 445, graphic_dict["alpha_button_img"])
-    sorae_beta_button = UiElement("sorae b button", 253, 445, graphic_dict["beta_button_img"])
+    amuna_male_button = UiElement("amuna male button", 178, 245, graphic_dict["male_button_img"])
+    amuna_female_button = UiElement("amuna female button", 252, 245, graphic_dict["female_button_img"])
+    nuldar_male_button = UiElement("nuldar male button", 178, 340, graphic_dict["male_button_img"])
+    nuldar_female_button = UiElement("nuldar female button", 252, 340, graphic_dict["female_button_img"])
+    sorae_alpha_button = UiElement("sorae a button", 179, 435, graphic_dict["alpha_button_img"])
+    sorae_beta_button = UiElement("sorae b button", 253, 435, graphic_dict["beta_button_img"])
 
     start_button = UiElement("start button", 640, 660, graphic_dict["start_button"])
     lets_go_button = UiElement("lets go button", 625, 575, graphic_dict["lets_go_button"])
@@ -6267,6 +6267,8 @@ if __name__ == '__main__':
     critical_dealt_overlay = UiElement("critical dealt overlay", 905, 185, graphic_dict["critical_dealt"])
     critical_received_overlay = UiElement("critical received overlay", 65, 235, graphic_dict["critical_received"])
     level_up_visual = UiElement("level up visual", 65, 235, graphic_dict["level_up_vis"])
+    gender_select_highlight = UiElement("gender highlight", 182, 245, graphic_dict["gender select"])
+    race_select_highlight = UiElement("race highlight", 200, 245, graphic_dict["race select"])
 
     prime_popup = UiElement("prime popup", 130, 475, graphic_dict["popup_interaction"])
     jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
@@ -6498,12 +6500,12 @@ if __name__ == '__main__':
     eldream_overworld_music = resource_path("resources/sounds/eterna_eldream.mp3")
     eldream_building_music = resource_path("resources/sounds/eterna_building_eldream.mp3")
 
-    pygame.mixer.music.set_volume(0.50)
+    pygame.mixer.music.set_volume(0.40)
     pygame.mixer.music.load(start_screen_music)
     pygame.mixer.music.play(loops=-1)
 
     sfx_game_over = pygame.mixer.Sound(resource_path("resources/sounds/game_over.mp3"))
-    sfx_game_over.set_volume(0.75)
+    sfx_game_over.set_volume(0.70)
 
     sfx_no_weapon_attack = pygame.mixer.Sound(resource_path("resources/sounds/no_weapon_attack.mp3"))
     sfx_no_weapon_attack.set_volume(0.50)
@@ -6615,7 +6617,7 @@ if __name__ == '__main__':
     sfx_pet_reward.set_volume(0.25)
 
     sfx_nede_bark = pygame.mixer.Sound(resource_path("resources/sounds/nede_bark.mp3"))
-    sfx_nede_bark.set_volume(0.35)
+    sfx_nede_bark.set_volume(0.40)
     sfx_cat_meow = pygame.mixer.Sound(resource_path("resources/sounds/cat_meow.mp3"))
     sfx_cat_meow.set_volume(0.50)
     sfx_talking = pygame.mixer.Sound(resource_path("resources/sounds/prime_jezus_talk.mp3"))
@@ -7131,7 +7133,13 @@ if __name__ == '__main__':
                                                          nuldar_female_button, sorae_alpha_button, sorae_beta_button)
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
-
+                if gender_choice == "male":
+                    gender_select_highlight.update(275, 245, graphic_dict["gender select"])
+                if gender_choice == "female":
+                    gender_select_highlight.update(349, 245, graphic_dict["gender select"])
+                screen.blit(gender_select_highlight.surf, gender_select_highlight.rect)
+                race_select_highlight.update(158, 245, graphic_dict["race select"])
+                screen.blit(race_select_highlight.surf, race_select_highlight.rect)
                 frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                 game_window.blit(frame, frame.get_rect())
                 pygame.display.flip()
@@ -7151,7 +7159,13 @@ if __name__ == '__main__':
                                                          nuldar_female_button, sorae_alpha_button, sorae_beta_button)
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
-
+                if gender_choice == "male":
+                    gender_select_highlight.update(275, 340, graphic_dict["gender select"])
+                if gender_choice == "female":
+                    gender_select_highlight.update(349, 340, graphic_dict["gender select"])
+                screen.blit(gender_select_highlight.surf, gender_select_highlight.rect)
+                race_select_highlight.update(158, 340, graphic_dict["race select"])
+                screen.blit(race_select_highlight.surf, race_select_highlight.rect)
                 frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                 game_window.blit(frame, frame.get_rect())
                 pygame.display.flip()
@@ -7171,7 +7185,13 @@ if __name__ == '__main__':
                                                          nuldar_female_button, sorae_alpha_button, sorae_beta_button)
                 if button_highlighted:
                     screen.blit(button_highlight.surf, button_highlight.rect)
-
+                if gender_choice == "male":
+                    gender_select_highlight.update(275, 435, graphic_dict["gender select"])
+                if gender_choice == "female":
+                    gender_select_highlight.update(349, 435, graphic_dict["gender select"])
+                screen.blit(gender_select_highlight.surf, gender_select_highlight.rect)
+                race_select_highlight.update(158, 435, graphic_dict["race select"])
+                screen.blit(race_select_highlight.surf, race_select_highlight.rect)
                 frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                 game_window.blit(frame, frame.get_rect())
                 pygame.display.flip()
@@ -9987,36 +10007,36 @@ if __name__ == '__main__':
                                     buy_shop_elements.insert(0, buy_inventory)
                                     if player.current_zone == "seldon":
                                         shop_scenario.shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items,
-                                                                                 graphic_dict["health_pot_img"],
-                                                                                 graphic_dict["energy_pot_img"],
                                                                                  graphic_dict["basic_armor"],
                                                                                  graphic_dict["forged_armor"],
                                                                                  graphic_dict["mythical_armor"],
                                                                                  graphic_dict["pet_cookie_img"],
                                                                                  graphic_dict["pet_candy_img"],
-                                                                                 graphic_dict["pet_tart_img"])
+                                                                                 graphic_dict["pet_tart_img"],
+                                                                                 graphic_dict["small_health_pot_img"],
+                                                                                 graphic_dict["small_energy_pot_img"])
                                     if player.current_zone == "korlok":
                                         shop_scenario.shop_keeper_inventory_draw(npc_nuldar_shopkeeper,
                                                                                  shopkeeper_items,
-                                                                                 graphic_dict["health_pot_img"],
-                                                                                 graphic_dict["energy_pot_img"],
                                                                                  graphic_dict["basic_armor"],
                                                                                  graphic_dict["forged_armor"],
                                                                                  graphic_dict["mythical_armor"],
                                                                                  graphic_dict["pet_cookie_img"],
                                                                                  graphic_dict["pet_candy_img"],
-                                                                                 graphic_dict["pet_tart_img"])
+                                                                                 graphic_dict["pet_tart_img"],
+                                                                                 graphic_dict["small_health_pot_img"],
+                                                                                 graphic_dict["small_energy_pot_img"])
                                     if player.current_zone == "ectrenos right":
                                         shop_scenario.shop_keeper_inventory_draw(npc_sorae_shopkeeper,
                                                                                  shopkeeper_items,
-                                                                                 graphic_dict["health_pot_img"],
-                                                                                 graphic_dict["energy_pot_img"],
                                                                                  graphic_dict["basic_armor"],
                                                                                  graphic_dict["forged_armor"],
                                                                                  graphic_dict["mythical_armor"],
                                                                                  graphic_dict["pet_cookie_img"],
                                                                                  graphic_dict["pet_candy_img"],
-                                                                                 graphic_dict["pet_tart_img"])
+                                                                                 graphic_dict["pet_tart_img"],
+                                                                                 graphic_dict["small_health_pot_img"],
+                                                                                 graphic_dict["small_energy_pot_img"])
 
                         if shop_button == "leave":
                             shop_button = ''
