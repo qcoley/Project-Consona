@@ -1164,7 +1164,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 button_highlight.update(1152, 283, graphic_dict["item high"])
                 return True
             if bow.rect.collidepoint(pos):
-                button_highlight.update(1228, 283, graphic_dict["item high"])
+                button_highlight.update(1227, 283, graphic_dict["item high"])
                 return True
         if inv_1.collidepoint(pos):
             if len(player.items) > 0:

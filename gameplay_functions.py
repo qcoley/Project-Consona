@@ -50,7 +50,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_mage_amuna_female_left_1_forged"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_mage_amuna_female_up_1_forged"]
-                    if player.equipment["armor"].name == "mythic armor":
+                    if player.equipment["armor"].name == "mythical armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_mage_amuna_male_down_1_mythic"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -67,7 +67,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_mage_amuna_female_left_1_mythic"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_mage_amuna_female_up_1_mythic"]
-                    if player.equipment["armor"].name == "legend armor":
+                    if player.equipment["armor"].name == "legendary armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_mage_amuna_male_down_1_legend"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -137,7 +137,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_mage_nuldar_female_left_1_forged"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_mage_nuldar_female_up_1_forged"]
-                    if player.equipment["armor"].name == "mythic armor":
+                    if player.equipment["armor"].name == "mythical armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_mage_nuldar_male_down_1_mythic"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -154,7 +154,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_mage_nuldar_female_left_1_mythic"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_mage_nuldar_female_up_1_mythic"]
-                    if player.equipment["armor"].name == "legend armor":
+                    if player.equipment["armor"].name == "legendary armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_mage_nuldar_male_down_1_legend"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -224,7 +224,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_mage_sorae_b_left_1_forged"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_mage_sorae_b_up_1_forged"]
-                    if player.equipment["armor"].name == "mythic armor":
+                    if player.equipment["armor"].name == "mythical armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_mage_sorae_a_down_1_mythic"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -241,7 +241,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_mage_sorae_b_left_1_mythic"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_mage_sorae_b_up_1_mythic"]
-                    if player.equipment["armor"].name == "legend armor":
+                    if player.equipment["armor"].name == "legendary armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_mage_sorae_a_down_1_legend"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -315,7 +315,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_fighter_amuna_female_left_1_forged"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_fighter_amuna_female_up_1_forged"]
-                    if player.equipment["armor"].name == "mythic armor":
+                    if player.equipment["armor"].name == "mythical armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_fighter_amuna_male_down_1_mythic"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -402,7 +402,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_fighter_nuldar_female_left_1_forged"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_fighter_nuldar_female_up_1_forged"]
-                    if player.equipment["armor"].name == "mythic armor":
+                    if player.equipment["armor"].name == "mythical armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_fighter_nuldar_male_down_1_mythic"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -419,7 +419,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_fighter_nuldar_female_left_1_mythic"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_fighter_nuldar_female_up_1_mythic"]
-                    if player.equipment["armor"].name == "legend armor":
+                    if player.equipment["armor"].name == "legendary armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_fighter_nuldar_male_down_1_legend"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -489,7 +489,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_fighter_sorae_b_left_1_forged"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_fighter_sorae_b_up_1_forged"]
-                    if player.equipment["armor"].name == "mythic armor":
+                    if player.equipment["armor"].name == "mythical armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_fighter_sorae_a_down_1_mythic"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -506,7 +506,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_fighter_sorae_b_left_1_mythic"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_fighter_sorae_b_up_1_mythic"]
-                    if player.equipment["armor"].name == "legend armor":
+                    if player.equipment["armor"].name == "legendary armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_fighter_sorae_a_down_1_legend"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -580,7 +580,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_scout_amuna_female_left_1_forged"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_scout_amuna_female_up_1_forged"]
-                    if player.equipment["armor"].name == "mythic armor":
+                    if player.equipment["armor"].name == "mythical armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_scout_amuna_male_down_1_mythic"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -597,7 +597,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_scout_amuna_female_left_1_mythic"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_scout_amuna_female_up_1_mythic"]
-                    if player.equipment["armor"].name == "legend armor":
+                    if player.equipment["armor"].name == "legendary armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_scout_amuna_male_down_1_legend"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -667,7 +667,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_scout_nuldar_female_left_1_forged"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_scout_nuldar_female_up_1_forged"]
-                    if player.equipment["armor"].name == "mythic armor":
+                    if player.equipment["armor"].name == "mythical armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_scout_nuldar_male_down_1_mythic"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -684,7 +684,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_scout_nuldar_female_left_1_mythic"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_scout_nuldar_female_up_1_mythic"]
-                    if player.equipment["armor"].name == "legend armor":
+                    if player.equipment["armor"].name == "legendary armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_scout_nuldar_male_down_1_legend"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -754,7 +754,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_scout_sorae_b_left_1_forged"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_scout_sorae_b_up_1_forged"]
-                    if player.equipment["armor"].name == "mythic armor":
+                    if player.equipment["armor"].name == "mythical armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_scout_sorae_a_down_1_mythic"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -771,7 +771,7 @@ def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys
                                 player.surf = graphic_dict["player_scout_sorae_b_left_1_mythic"]
                             if pressed_keys[K_w] or pressed_keys[K_UP]:
                                 player.surf = graphic_dict["player_scout_sorae_b_up_1_mythic"]
-                    if player.equipment["armor"].name == "legend armor":
+                    if player.equipment["armor"].name == "legendary armor":
                         if player.gender == "male":
                             player.surf = graphic_dict["player_scout_sorae_a_down_1_legend"]
                             if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
@@ -875,9 +875,9 @@ def load_game(player, Item, graphics, Pet):
     load_return = {"barrier learned": False, "strike learned": False, "sensed learned": False,
                    "saved": False, "start": False, "continue": False, "not found": False, "garan gift": False,
                    "offense upgrade": 0, "defense upgrade": 0}
-    try:
-        directory = os.getcwd()
-        with open(directory + "/saves/save_game", "rb") as ff:
+
+    if os.path.getsize("save") > 0:
+        with open("save", "rb") as ff:
             player_load_info = pickle.load(ff)
             player.name = player_load_info["name"]
             player.level = player_load_info["level"]
@@ -1073,11 +1073,14 @@ def load_game(player, Item, graphics, Pet):
             load_return["kasper unlocked"] = player_load_info["kasper unlocked"]
             load_return["torok unlocked"] = player_load_info["torok unlocked"]
             load_return["iriana unlocked"] = player_load_info["iriana unlocked"]
+            load_return["seed scout"] = player_load_info["seed scout"]
+            load_return["seed fighter"] = player_load_info["seed fighter"]
+            load_return["seed mage"] = player_load_info["seed mage"]
             load_return["start"] = True
             load_return["continue"] = False
 
-    # no save file found, show a notification to player and reset condition
-    except FileNotFoundError:
+    # no save found, show a notification to player and reset condition
+    else:
         load_return["continue"] = False
         load_return["not found"] = True
 
@@ -1092,7 +1095,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned,
               rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
               seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
-              rock_8_con, rock_3_con):
+              rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1154,30 +1157,12 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "flowers sorae": int(player.flowers_sorae), "beyond seldon": beyond_seldon,
                         "seed given": seed_given, "hatch ready": hatch_ready, "pets": pets,
                         "menagerie access": menagerie_access, "kasper unlocked": kasper_unlocked,
-                        "torok unlocked": torok_unlocked, "iriana unlocked": iriana_unlocked}
-    try:
-        try:
-            # serialize dictionary and save to file ("save game") with python pickle (wb = write binary)
-            directory = os.getcwd()
-            save_directory = directory + "/saves/save_game"
-            assert os.path.isfile(save_directory)
-            with open(save_directory, "wb") as ff:
-                pickle.dump(player_save_info, ff)
-        # create the directory with save data if it doesn't exist
-        except FileNotFoundError and AssertionError:
-            try:
-                directory = os.getcwd()
-                os.mkdir(directory + "/saves")
-                with open(directory + "/saves/save_game", "wb") as ff:
-                    pickle.dump(player_save_info, ff)
-            except FileExistsError:
-                directory = os.getcwd()
-                os.removedirs(directory + "/saves")
-                os.mkdir(directory + "/saves")
-                with open(directory + "/saves/save_game", "wb") as ff:
-                    pickle.dump(player_save_info, ff)
-    except PermissionError:
-        pass
+                        "torok unlocked": torok_unlocked, "iriana unlocked": iriana_unlocked,
+                        "seed scout": seed_scout_count, "seed fighter": seed_fighter_count,
+                        "seed mage": seed_mage_count}
+
+    with open("save", "wb") as ff:
+        pickle.dump(player_save_info, ff)
 
 
 # function to handle player walking animation with time values

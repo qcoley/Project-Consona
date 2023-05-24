@@ -154,7 +154,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_male_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_male_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_male_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -163,7 +163,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_male_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_male_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_male_up_1_legend"]
                             if walk_timed > 0.2:
@@ -202,7 +202,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_male_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_male_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_male_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -211,7 +211,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_male_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_male_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_male_down_1_legend"]
                             if walk_timed > 0.2:
@@ -250,7 +250,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_male_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_male_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_male_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -259,7 +259,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_male_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_male_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_male_left_1_legend"]
                             if walk_timed > 0.2:
@@ -298,7 +298,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_male_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_male_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_male_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -307,7 +307,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_male_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_male_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_male_right_1_legend"]
                             if walk_timed > 0.2:
@@ -347,7 +347,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_male_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_male_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_male_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -356,7 +356,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_male_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_male_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_male_up_1_legend"]
                             if walk_timed > 0.2:
@@ -395,7 +395,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_male_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_male_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_male_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -404,7 +404,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_male_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_male_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_male_down_1_legend"]
                             if walk_timed > 0.2:
@@ -443,7 +443,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_male_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_male_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_male_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -452,7 +452,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_male_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_male_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_male_left_1_legend"]
                             if walk_timed > 0.2:
@@ -491,7 +491,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_male_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_male_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_male_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -500,7 +500,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_male_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_male_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_male_right_1_legend"]
                             if walk_timed > 0.2:
@@ -540,7 +540,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_male_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_male_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_male_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -549,7 +549,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_male_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_male_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_male_up_1_legend"]
                             if walk_timed > 0.2:
@@ -588,7 +588,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_male_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_male_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_male_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -597,7 +597,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_male_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_male_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_male_down_1_legend"]
                             if walk_timed > 0.2:
@@ -636,7 +636,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_male_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_male_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_male_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -645,7 +645,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_male_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_male_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_male_left_1_legend"]
                             if walk_timed > 0.2:
@@ -684,7 +684,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_male_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_male_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_male_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -693,7 +693,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_male_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_male_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_male_right_1_legend"]
                             if walk_timed > 0.2:
@@ -776,7 +776,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_female_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_female_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_female_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -785,7 +785,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_female_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_female_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_female_up_1_legend"]
                             if walk_timed > 0.2:
@@ -824,7 +824,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_female_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_female_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_female_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -833,7 +833,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_female_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_female_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_female_down_1_legend"]
                             if walk_timed > 0.2:
@@ -872,7 +872,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_female_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_female_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_female_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -881,7 +881,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_female_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_female_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_female_left_1_legend"]
                             if walk_timed > 0.2:
@@ -920,7 +920,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_female_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_female_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_female_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -929,7 +929,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_amuna_female_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_amuna_female_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_amuna_female_right_1_legend"]
                             if walk_timed > 0.2:
@@ -969,7 +969,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_female_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_female_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_female_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -978,7 +978,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_female_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_female_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_female_up_1_legend"]
                             if walk_timed > 0.2:
@@ -1017,7 +1017,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_female_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_female_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_female_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -1026,7 +1026,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_female_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_female_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_female_down_1_legend"]
                             if walk_timed > 0.2:
@@ -1065,7 +1065,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_female_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_female_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_female_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -1074,7 +1074,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_female_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_female_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_female_left_1_legend"]
                             if walk_timed > 0.2:
@@ -1113,7 +1113,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_female_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_female_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_female_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -1122,7 +1122,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_amuna_female_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_amuna_female_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_amuna_female_right_1_legend"]
                             if walk_timed > 0.2:
@@ -1162,7 +1162,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_female_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_female_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_female_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -1171,7 +1171,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_female_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_female_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_female_up_1_legend"]
                             if walk_timed > 0.2:
@@ -1210,7 +1210,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_female_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_female_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_female_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -1219,7 +1219,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_female_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_female_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_female_down_1_legend"]
                             if walk_timed > 0.2:
@@ -1258,7 +1258,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_female_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_female_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_female_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -1267,7 +1267,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_female_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_female_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_female_left_1_legend"]
                             if walk_timed > 0.2:
@@ -1306,7 +1306,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_female_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_female_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_female_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -1315,7 +1315,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_amuna_female_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_amuna_female_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_amuna_female_right_1_legend"]
                             if walk_timed > 0.2:
@@ -1958,7 +1958,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_male_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_male_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_male_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -1967,7 +1967,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_male_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_male_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_male_up_1_legend"]
                             if walk_timed > 0.2:
@@ -2006,7 +2006,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_male_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_male_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_male_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -2015,7 +2015,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_male_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_male_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_male_down_1_legend"]
                             if walk_timed > 0.2:
@@ -2054,7 +2054,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_male_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_male_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_male_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -2063,7 +2063,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_male_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_male_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_male_left_1_legend"]
                             if walk_timed > 0.2:
@@ -2102,7 +2102,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_male_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_male_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_male_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -2111,7 +2111,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_male_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_male_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_male_right_1_legend"]
                             if walk_timed > 0.2:
@@ -2151,7 +2151,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_male_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -2160,7 +2160,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_male_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_up_1_legend"]
                             if walk_timed > 0.2:
@@ -2199,7 +2199,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_male_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -2208,7 +2208,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_male_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_down_1_legend"]
                             if walk_timed > 0.2:
@@ -2247,7 +2247,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_male_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -2256,7 +2256,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_male_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_left_1_legend"]
                             if walk_timed > 0.2:
@@ -2295,7 +2295,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_male_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -2304,7 +2304,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_male_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_male_right_1_legend"]
                             if walk_timed > 0.2:
@@ -2344,7 +2344,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_male_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_male_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_male_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -2353,7 +2353,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_male_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_male_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_male_up_1_legend"]
                             if walk_timed > 0.2:
@@ -2392,7 +2392,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_male_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_male_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_male_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -2401,7 +2401,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_male_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_male_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_male_down_1_legend"]
                             if walk_timed > 0.2:
@@ -2440,7 +2440,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_male_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_male_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_male_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -2449,7 +2449,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_male_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_male_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_male_left_1_legend"]
                             if walk_timed > 0.2:
@@ -2488,7 +2488,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_male_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_male_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_male_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -2497,7 +2497,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_male_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_male_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_male_right_1_legend"]
                             if walk_timed > 0.2:
@@ -2580,7 +2580,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_female_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_female_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_female_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -2589,7 +2589,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_female_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_female_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_female_up_1_legend"]
                             if walk_timed > 0.2:
@@ -2628,7 +2628,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_female_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_female_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_female_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -2637,7 +2637,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_female_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_female_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_female_down_1_legend"]
                             if walk_timed > 0.2:
@@ -2676,7 +2676,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_female_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_female_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_female_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -2685,7 +2685,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_female_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_female_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_female_left_1_legend"]
                             if walk_timed > 0.2:
@@ -2724,7 +2724,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_female_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_female_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_female_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -2733,7 +2733,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_nuldar_female_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_nuldar_female_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_nuldar_female_right_1_legend"]
                             if walk_timed > 0.2:
@@ -2773,7 +2773,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_female_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -2782,7 +2782,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_female_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_up_1_legend"]
                             if walk_timed > 0.2:
@@ -2821,7 +2821,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_female_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -2830,7 +2830,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_female_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_down_1_legend"]
                             if walk_timed > 0.2:
@@ -2869,7 +2869,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_female_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -2878,7 +2878,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_female_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_left_1_legend"]
                             if walk_timed > 0.2:
@@ -2917,7 +2917,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_female_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -2926,7 +2926,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_nuldar_female_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_nuldar_female_right_1_legend"]
                             if walk_timed > 0.2:
@@ -2966,7 +2966,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_female_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_female_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_female_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -2975,7 +2975,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_female_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_female_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_female_up_1_legend"]
                             if walk_timed > 0.2:
@@ -3014,7 +3014,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_female_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_female_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_female_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -3023,7 +3023,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_female_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_female_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_female_down_1_legend"]
                             if walk_timed > 0.2:
@@ -3062,7 +3062,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_female_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_female_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_female_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -3071,7 +3071,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_female_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_female_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_female_left_1_legend"]
                             if walk_timed > 0.2:
@@ -3110,7 +3110,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_female_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_female_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_female_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -3119,7 +3119,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_nuldar_female_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_nuldar_female_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_nuldar_female_right_1_legend"]
                             if walk_timed > 0.2:
@@ -3762,7 +3762,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_a_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_a_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_a_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -3771,7 +3771,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_a_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_a_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_a_up_1_legend"]
                             if walk_timed > 0.2:
@@ -3810,7 +3810,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_a_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_a_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_a_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -3819,7 +3819,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_a_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_a_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_a_down_1_legend"]
                             if walk_timed > 0.2:
@@ -3858,7 +3858,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_a_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_a_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_a_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -3867,7 +3867,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_a_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_a_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_a_left_1_legend"]
                             if walk_timed > 0.2:
@@ -3906,7 +3906,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_a_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_a_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_a_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -3915,7 +3915,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_a_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_a_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_a_right_1_legend"]
                             if walk_timed > 0.2:
@@ -3955,7 +3955,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_a_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_a_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_a_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -3964,7 +3964,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_a_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_a_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_a_up_1_legend"]
                             if walk_timed > 0.2:
@@ -4003,7 +4003,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_a_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_a_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_a_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -4012,7 +4012,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_a_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_a_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_a_down_1_legend"]
                             if walk_timed > 0.2:
@@ -4051,7 +4051,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_a_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_a_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_a_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -4060,7 +4060,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_a_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_a_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_a_left_1_legend"]
                             if walk_timed > 0.2:
@@ -4099,7 +4099,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_a_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_a_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_a_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -4108,7 +4108,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_a_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_a_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_a_right_1_legend"]
                             if walk_timed > 0.2:
@@ -4148,7 +4148,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_a_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_a_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_a_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -4157,7 +4157,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_a_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_a_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_a_up_1_legend"]
                             if walk_timed > 0.2:
@@ -4196,7 +4196,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_a_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_a_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_a_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -4205,7 +4205,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_a_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_a_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_a_down_1_legend"]
                             if walk_timed > 0.2:
@@ -4244,7 +4244,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_a_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_a_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_a_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -4253,7 +4253,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_a_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_a_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_a_left_1_legend"]
                             if walk_timed > 0.2:
@@ -4292,7 +4292,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_a_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_a_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_a_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -4301,7 +4301,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_a_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_a_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_a_right_1_legend"]
                             if walk_timed > 0.2:
@@ -4384,7 +4384,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_b_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_b_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_b_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -4393,7 +4393,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_b_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_b_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_b_up_1_legend"]
                             if walk_timed > 0.2:
@@ -4432,7 +4432,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_b_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_b_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_b_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -4441,7 +4441,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_b_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_b_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_b_down_1_legend"]
                             if walk_timed > 0.2:
@@ -4480,7 +4480,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_b_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_b_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_b_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -4489,7 +4489,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_b_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_b_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_b_left_1_legend"]
                             if walk_timed > 0.2:
@@ -4528,7 +4528,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_b_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_b_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_b_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -4537,7 +4537,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_mage_sorae_b_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_mage_sorae_b_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_mage_sorae_b_right_1_legend"]
                             if walk_timed > 0.2:
@@ -4577,7 +4577,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_b_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_b_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_b_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -4586,7 +4586,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_b_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_b_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_b_up_1_legend"]
                             if walk_timed > 0.2:
@@ -4625,7 +4625,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_b_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_b_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_b_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -4634,7 +4634,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_b_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_b_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_b_down_1_legend"]
                             if walk_timed > 0.2:
@@ -4673,7 +4673,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_b_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_b_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_b_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -4682,7 +4682,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_b_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_b_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_b_left_1_legend"]
                             if walk_timed > 0.2:
@@ -4721,7 +4721,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_b_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_b_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_b_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -4730,7 +4730,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_fighter_sorae_b_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_fighter_sorae_b_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_fighter_sorae_b_right_1_legend"]
                             if walk_timed > 0.2:
@@ -4770,7 +4770,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_b_up_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_b_up_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_b_up_1_mythic"]
                             if walk_timed > 0.2:
@@ -4779,7 +4779,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_b_up_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_b_up_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_b_up_1_legend"]
                             if walk_timed > 0.2:
@@ -4818,7 +4818,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_b_down_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_b_down_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_b_down_1_mythic"]
                             if walk_timed > 0.2:
@@ -4827,7 +4827,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_b_down_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_b_down_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_b_down_1_legend"]
                             if walk_timed > 0.2:
@@ -4866,7 +4866,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_b_left_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_b_left_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_b_left_1_mythic"]
                             if walk_timed > 0.2:
@@ -4875,7 +4875,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_b_left_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_b_left_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_b_left_1_legend"]
                             if walk_timed > 0.2:
@@ -4914,7 +4914,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_b_right_3_forged"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_b_right_4_forged"]
-                        if player.equipment["armor"].name == "mythic armor":
+                        if player.equipment["armor"].name == "mythical armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_b_right_1_mythic"]
                             if walk_timed > 0.2:
@@ -4923,7 +4923,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                                 self.surf = graphic_dict["player_scout_sorae_b_right_3_mythic"]
                             if walk_timed > 0.6:
                                 self.surf = graphic_dict["player_scout_sorae_b_right_4_mythic"]
-                        if player.equipment["armor"].name == "legend armor":
+                        if player.equipment["armor"].name == "legendary armor":
                             if walk_timed < 0.2:
                                 self.surf = graphic_dict["player_scout_sorae_b_right_1_legend"]
                             if walk_timed > 0.2:
@@ -6834,13 +6834,21 @@ if __name__ == '__main__':
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
 
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
-            screen.blit(start_screen, (0, 0))
-            screen.blit(new_game_button.surf, new_game_button.rect)
-            screen.blit(continue_button.surf, continue_button.rect)
+            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                screen.blit(start_screen, (0, 0))
+                screen.blit(new_game_button.surf, new_game_button.rect)
+                screen.blit(continue_button.surf, continue_button.rect)
+            else:
+                game_window.blit(start_screen, (0, 0))
+                game_window.blit(new_game_button.surf, new_game_button.rect)
+                game_window.blit(continue_button.surf, continue_button.rect)
 
             if len(save_data_window) > 0:
                 for element in save_data_window:
-                    screen.blit(element.surf, element.rect)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(element.surf, element.rect)
+                    else:
+                        game_window.blit(element.surf, element.rect)
 
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
@@ -6874,11 +6882,18 @@ if __name__ == '__main__':
                     sys.exit()
 
             if button_highlighted:
-                screen.blit(button_highlight.surf, button_highlight.rect)
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(button_highlight.surf, button_highlight.rect)
+                else:
+                    game_window.blit(button_highlight.surf, button_highlight.rect)
 
-            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-            game_window.blit(frame, frame.get_rect())
-            pygame.display.flip()
+            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                game_window.blit(frame, frame.get_rect())
+                pygame.display.flip()
+
+            else:
+                pygame.display.flip()
 
         # --------------------------------------------------------------------------------------------------------------
         # character selection for new game -----------------------------------------------------------------------------
@@ -7120,85 +7135,172 @@ if __name__ == '__main__':
 
             # amuna race selected on character selection screen --------------------------------------------------------
             if amuna_race_selected:
-                character_creation.character_screen_draw(screen, "amuna", gender_choice, amuna_character_screen,
-                                                         nuldar_character_screen, sorae_character_screen,
-                                                         character_select_overlay, amuna_select_overlay,
-                                                         amuna_male_character, amuna_female_character,
-                                                         nuldar_select_overlay, nuldar_male_character,
-                                                         nuldar_female_character, sorae_select_overlay,
-                                                         sorae_a_character, sorae_b_character, amuna_button,
-                                                         nuldar_button, sorae_button, start_button, back_button,
-                                                         name_input, name_input_font, character_name_input,
-                                                         amuna_male_button, amuna_female_button, nuldar_male_button,
-                                                         nuldar_female_button, sorae_alpha_button, sorae_beta_button)
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    character_creation.character_screen_draw(screen, "amuna", gender_choice, amuna_character_screen,
+                                                             nuldar_character_screen, sorae_character_screen,
+                                                             character_select_overlay, amuna_select_overlay,
+                                                             amuna_male_character, amuna_female_character,
+                                                             nuldar_select_overlay, nuldar_male_character,
+                                                             nuldar_female_character, sorae_select_overlay,
+                                                             sorae_a_character, sorae_b_character, amuna_button,
+                                                             nuldar_button, sorae_button, start_button, back_button,
+                                                             name_input, name_input_font, character_name_input,
+                                                             amuna_male_button, amuna_female_button, nuldar_male_button,
+                                                             nuldar_female_button, sorae_alpha_button,
+                                                             sorae_beta_button)
+                else:
+                    character_creation.character_screen_draw(game_window, "amuna", gender_choice,
+                                                             amuna_character_screen, nuldar_character_screen,
+                                                             sorae_character_screen, character_select_overlay,
+                                                             amuna_select_overlay, amuna_male_character,
+                                                             amuna_female_character, nuldar_select_overlay,
+                                                             nuldar_male_character, nuldar_female_character,
+                                                             sorae_select_overlay, sorae_a_character, sorae_b_character,
+                                                             amuna_button, nuldar_button, sorae_button, start_button,
+                                                             back_button, name_input, name_input_font,
+                                                             character_name_input, amuna_male_button,
+                                                             amuna_female_button, nuldar_male_button,
+                                                             nuldar_female_button, sorae_alpha_button,
+                                                             sorae_beta_button)
                 if button_highlighted:
-                    screen.blit(button_highlight.surf, button_highlight.rect)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(button_highlight.surf, button_highlight.rect)
+                    else:
+                        game_window.blit(button_highlight.surf, button_highlight.rect)
                 if gender_choice == "male":
                     gender_select_highlight.update(275, 245, graphic_dict["gender select"])
                 if gender_choice == "female":
                     gender_select_highlight.update(349, 245, graphic_dict["gender select"])
-                screen.blit(gender_select_highlight.surf, gender_select_highlight.rect)
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(gender_select_highlight.surf, gender_select_highlight.rect)
+                else:
+                    game_window.blit(gender_select_highlight.surf, gender_select_highlight.rect)
                 race_select_highlight.update(158, 245, graphic_dict["race select"])
-                screen.blit(race_select_highlight.surf, race_select_highlight.rect)
-                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                game_window.blit(frame, frame.get_rect())
-                pygame.display.flip()
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(race_select_highlight.surf, race_select_highlight.rect)
+                else:
+                    game_window.blit(race_select_highlight.surf, race_select_highlight.rect)
+
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
+                    pygame.display.flip()
+
+                else:
+                    pygame.display.flip()
 
             # nuldar race selected on character selection screen -------------------------------------------------------
             if nuldar_race_selected:
-                character_creation.character_screen_draw(screen, "nuldar", gender_choice, amuna_character_screen,
-                                                         nuldar_character_screen, sorae_character_screen,
-                                                         character_select_overlay, amuna_select_overlay,
-                                                         amuna_male_character, amuna_female_character,
-                                                         nuldar_select_overlay, nuldar_male_character,
-                                                         nuldar_female_character, sorae_select_overlay,
-                                                         sorae_a_character, sorae_b_character, amuna_button,
-                                                         nuldar_button, sorae_button, start_button, back_button,
-                                                         name_input, name_input_font, character_name_input,
-                                                         amuna_male_button, amuna_female_button, nuldar_male_button,
-                                                         nuldar_female_button, sorae_alpha_button, sorae_beta_button)
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    character_creation.character_screen_draw(screen, "nuldar", gender_choice, amuna_character_screen,
+                                                             nuldar_character_screen, sorae_character_screen,
+                                                             character_select_overlay, amuna_select_overlay,
+                                                             amuna_male_character, amuna_female_character,
+                                                             nuldar_select_overlay, nuldar_male_character,
+                                                             nuldar_female_character, sorae_select_overlay,
+                                                             sorae_a_character, sorae_b_character, amuna_button,
+                                                             nuldar_button, sorae_button, start_button, back_button,
+                                                             name_input, name_input_font, character_name_input,
+                                                             amuna_male_button, amuna_female_button, nuldar_male_button,
+                                                             nuldar_female_button, sorae_alpha_button,
+                                                             sorae_beta_button)
+                else:
+                    character_creation.character_screen_draw(game_window, "nuldar", gender_choice,
+                                                             amuna_character_screen, nuldar_character_screen,
+                                                             sorae_character_screen, character_select_overlay,
+                                                             amuna_select_overlay, amuna_male_character,
+                                                             amuna_female_character, nuldar_select_overlay,
+                                                             nuldar_male_character, nuldar_female_character,
+                                                             sorae_select_overlay, sorae_a_character, sorae_b_character,
+                                                             amuna_button, nuldar_button, sorae_button, start_button,
+                                                             back_button, name_input, name_input_font,
+                                                             character_name_input, amuna_male_button,
+                                                             amuna_female_button, nuldar_male_button,
+                                                             nuldar_female_button, sorae_alpha_button,
+                                                             sorae_beta_button)
                 if button_highlighted:
-                    screen.blit(button_highlight.surf, button_highlight.rect)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(button_highlight.surf, button_highlight.rect)
+                    else:
+                        game_window.blit(button_highlight.surf, button_highlight.rect)
                 if gender_choice == "male":
                     gender_select_highlight.update(275, 340, graphic_dict["gender select"])
                 if gender_choice == "female":
                     gender_select_highlight.update(349, 340, graphic_dict["gender select"])
-                screen.blit(gender_select_highlight.surf, gender_select_highlight.rect)
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(gender_select_highlight.surf, gender_select_highlight.rect)
+                else:
+                    game_window.blit(gender_select_highlight.surf, gender_select_highlight.rect)
                 race_select_highlight.update(158, 340, graphic_dict["race select"])
-                screen.blit(race_select_highlight.surf, race_select_highlight.rect)
-                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                game_window.blit(frame, frame.get_rect())
-                pygame.display.flip()
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(race_select_highlight.surf, race_select_highlight.rect)
+                else:
+                    game_window.blit(race_select_highlight.surf, race_select_highlight.rect)
+
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
+                    pygame.display.flip()
+                else:
+                    pygame.display.flip()
 
             # sorae race selected on character selection screen --------------------------------------------------------
             if sorae_race_selected:
-                character_creation.character_screen_draw(screen, "sorae", gender_choice, amuna_character_screen,
-                                                         nuldar_character_screen, sorae_character_screen,
-                                                         character_select_overlay, amuna_select_overlay,
-                                                         amuna_male_character, amuna_female_character,
-                                                         nuldar_select_overlay, nuldar_male_character,
-                                                         nuldar_female_character, sorae_select_overlay,
-                                                         sorae_a_character, sorae_b_character, amuna_button,
-                                                         nuldar_button, sorae_button, start_button, back_button,
-                                                         name_input, name_input_font, character_name_input,
-                                                         amuna_male_button, amuna_female_button, nuldar_male_button,
-                                                         nuldar_female_button, sorae_alpha_button, sorae_beta_button)
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    character_creation.character_screen_draw(screen, "sorae", gender_choice, amuna_character_screen,
+                                                             nuldar_character_screen, sorae_character_screen,
+                                                             character_select_overlay, amuna_select_overlay,
+                                                             amuna_male_character, amuna_female_character,
+                                                             nuldar_select_overlay, nuldar_male_character,
+                                                             nuldar_female_character, sorae_select_overlay,
+                                                             sorae_a_character, sorae_b_character, amuna_button,
+                                                             nuldar_button, sorae_button, start_button, back_button,
+                                                             name_input, name_input_font, character_name_input,
+                                                             amuna_male_button, amuna_female_button, nuldar_male_button,
+                                                             nuldar_female_button, sorae_alpha_button,
+                                                             sorae_beta_button)
+                else:
+                    character_creation.character_screen_draw(game_window, "sorae", gender_choice,
+                                                             amuna_character_screen, nuldar_character_screen,
+                                                             sorae_character_screen, character_select_overlay,
+                                                             amuna_select_overlay, amuna_male_character,
+                                                             amuna_female_character, nuldar_select_overlay,
+                                                             nuldar_male_character, nuldar_female_character,
+                                                             sorae_select_overlay, sorae_a_character, sorae_b_character,
+                                                             amuna_button, nuldar_button, sorae_button, start_button,
+                                                             back_button, name_input, name_input_font,
+                                                             character_name_input, amuna_male_button,
+                                                             amuna_female_button, nuldar_male_button,
+                                                             nuldar_female_button, sorae_alpha_button,
+                                                             sorae_beta_button)
                 if button_highlighted:
-                    screen.blit(button_highlight.surf, button_highlight.rect)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(button_highlight.surf, button_highlight.rect)
+                    else:
+                        game_window.blit(button_highlight.surf, button_highlight.rect)
                 if gender_choice == "male":
                     gender_select_highlight.update(275, 435, graphic_dict["gender select"])
                 if gender_choice == "female":
                     gender_select_highlight.update(349, 435, graphic_dict["gender select"])
-                screen.blit(gender_select_highlight.surf, gender_select_highlight.rect)
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(gender_select_highlight.surf, gender_select_highlight.rect)
+                else:
+                    game_window.blit(gender_select_highlight.surf, gender_select_highlight.rect)
                 race_select_highlight.update(158, 435, graphic_dict["race select"])
-                screen.blit(race_select_highlight.surf, race_select_highlight.rect)
-                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                game_window.blit(frame, frame.get_rect())
-                pygame.display.flip()
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(race_select_highlight.surf, race_select_highlight.rect)
+                else:
+                    game_window.blit(race_select_highlight.surf, race_select_highlight.rect)
+
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
+                    pygame.display.flip()
+                else:
+                    pygame.display.flip()
 
         # continue game selected on start screen. try to load player info from save_game file --------------------------
         if continue_game_chosen:
-            directory = os.getcwd()
             try:
                 load_returned = gameplay_functions.load_game(player, Item, graphic_dict, Pet)
                 try:
@@ -7248,6 +7350,9 @@ if __name__ == '__main__':
                     kasper_unlocked = load_returned["kasper unlocked"]
                     torok_unlocked = load_returned["torok unlocked"]
                     iriana_unlocked = load_returned["iriana unlocked"]
+                    seed_mage_count = load_returned["seed mage"]
+                    seed_fighter_count = load_returned["seed fighter"]
+                    seed_scout_count = load_returned["seed scout"]
 
                     if player.race == "amuna":
                         player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
@@ -7706,60 +7811,58 @@ if __name__ == '__main__':
 
                             # save button was clicked. Save player info in dictionary to be loaded later
                             if save_button.rect.collidepoint(pos):
-                                try:
-                                    pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    # clears other windows first, if they were open
-                                    drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
-                                    character_button_clicked = False
-                                    drawing_functions.journal_info_draw(journal, player, font, False)
-                                    journal_button_clicked = False
-                                    drawing_functions.world_map_container.clear()
-                                    map_button_clicked = False
+                                pygame.mixer.find_channel(True).play(sfx_sheet_paper)
+                                # clears other windows first, if they were open
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
+                                character_button_clicked = False
+                                drawing_functions.journal_info_draw(journal, player, font, False)
+                                journal_button_clicked = False
+                                drawing_functions.world_map_container.clear()
+                                map_button_clicked = False
 
-                                    saving = True
-                                    yes_button.update(450, 394, graphic_dict["yes_button_img"])
-                                    # see if there already exists a save file by trying to read it
-                                    try:
-                                        directory = os.getcwd()
-                                        save_directory = directory + "/saves/save_game"
-                                        assert os.path.isfile(save_directory)
-                                        with open(save_directory, "rb") as f:
-                                            saved = True
-                                    except FileNotFoundError and AssertionError:
-                                        saved = False
-                                        pass
-                                    if saved:
-                                        save_check_window.append(save_check)
-                                        save_check_window.append(yes_button)
-                                        save_check_window.append(no_button)
-                                    if not saved:
-                                        # reset to prevent skipping
-                                        if not switch_3:
-                                            switch_1 = False
-                                            switch_2 = False
-                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                     sharp_sense_learned, saved, npc_garan.gift,
-                                                                     rest_recover_show, knowledge_academia_show,
-                                                                     quest_guide_shown, battle_guide_shown,
-                                                                     rest_shown_before, quest_highlight_popup,
-                                                                     bridge_not_repaired, nede_ghoul_defeated,
-                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                     crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                     switch_3, muchador_defeated, has_key,
-                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                     chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon, seed_given, hatch_ready,
-                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked, rock_8_con, rock_3_con)
+                                saving = True
+                                yes_button.update(450, 394, graphic_dict["yes_button_img"])
+
+                                # see if the save file has data by checking length
+                                with open("save", "rb") as f:
+                                    if os.path.getsize("save") > 0:
                                         saved = True
-                                        saving = False
-                                        info_text_1 = "You saved your game. "
-                                        pygame.mixer.find_channel(True).play(sfx_save_game)
+                                    else:
+                                        saved = False
 
-                                except PermissionError:
-                                    pass
+                                if saved:
+                                    save_check_window.append(save_check)
+                                    save_check_window.append(yes_button)
+                                    save_check_window.append(no_button)
+
+                                if not saved:
+                                    # reset to prevent skipping in first dungeon (reservoir)
+                                    if not switch_3:
+                                        switch_1 = False
+                                        switch_2 = False
+                                    gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                 sharp_sense_learned, saved, npc_garan.gift,
+                                                                 rest_recover_show, knowledge_academia_show,
+                                                                 quest_guide_shown, battle_guide_shown,
+                                                                 rest_shown_before, quest_highlight_popup,
+                                                                 bridge_not_repaired, nede_ghoul_defeated,
+                                                                 bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                 crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                 switch_3, muchador_defeated, has_key,
+                                                                 mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                 gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                 rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                 chinzilla_defeated, apothecary_access,
+                                                                 beyond_seldon, seed_given, hatch_ready,
+                                                                 menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                 iriana_unlocked, rock_8_con, rock_3_con,
+                                                                 seed_scout_count, seed_fighter_count,
+                                                                 seed_mage_count)
+                                    saved = True
+                                    saving = False
+                                    info_text_1 = "You saved your game. "
+                                    pygame.mixer.find_channel(True).play(sfx_save_game)
+
                             if yes_button.rect.collidepoint(pos) and saving:
                                 # reset to prevent skipping
                                 if not switch_3:
@@ -7778,7 +7881,8 @@ if __name__ == '__main__':
                                                              rock_7_con, chinzilla_defeated, apothecary_access,
                                                              beyond_seldon, seed_given, hatch_ready, menagerie_access,
                                                              kasper_unlocked, torok_unlocked, iriana_unlocked,
-                                                             rock_8_con, rock_3_con)
+                                                             rock_8_con, rock_3_con, seed_scout_count,
+                                                             seed_fighter_count, seed_mage_count)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -7944,27 +8048,44 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     pygame.mixer.music.fadeout(3000)
-                    screen.blit(nascent_grove_bg, (0, 0))
-                    screen.blit(equipment_screen.surf, equipment_screen.rect)
-                    screen.blit(nascent_gate.surf, nascent_gate.rect)
-                    screen.blit(rock_8.surf, rock_8.rect)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(nascent_grove_bg, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(nascent_gate.surf, nascent_gate.rect)
+                        screen.blit(rock_8.surf, rock_8.rect)
+                    else:
+                        game_window.blit(nascent_grove_bg, (0, 0))
+                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                        game_window.blit(nascent_gate.surf, nascent_gate.rect)
+                        game_window.blit(rock_8.surf, rock_8.rect)
                     try:
                         for pet in player.pet:
                             if pet.active:
-                                screen.blit(pet.surf, pet.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(pet.surf, pet.rect)
+                                else:
+                                    game_window.blit(pet.surf, pet.rect)
                     except AttributeError:
                         pass
-                    screen.blit(player.surf, player.rect)
 
                     text_rupee_surf = font.render(str(player.rupees), True, "black", "light green")
                     text_rupee_rect = text_rupee_surf.get_rect()
                     text_rupee_rect.center = (1120, 693)
-                    screen.blit(text_rupee_surf, text_rupee_rect)
 
-                    screen.blit(player.surf, player.rect)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(player.surf, player.rect)
+                        screen.blit(text_rupee_surf, text_rupee_rect)
+                        screen.blit(player.surf, player.rect)
+                    else:
+                        game_window.blit(player.surf, player.rect)
+                        game_window.blit(text_rupee_surf, text_rupee_rect)
+                        game_window.blit(player.surf, player.rect)
 
                     if pygame.sprite.collide_rect(player, nascent_gate):
-                        screen.blit(nascent_gate_popup.surf, nascent_gate_popup.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(nascent_gate_popup.surf, nascent_gate_popup.rect)
+                        else:
+                            game_window.blit(nascent_gate_popup.surf, nascent_gate_popup.rect)
                         if interacted and in_over_world:
                             pygame.mixer.find_channel(True).play(sfx_door_open)
                             nascent_gate.update(nascent_gate.x_coordinate, nascent_gate.y_coordinate,
@@ -7979,14 +8100,6 @@ if __name__ == '__main__':
                                             graphic_dict["nascent_gate_closed"])
 
                     if pygame.sprite.collide_rect(player, rock_8):
-                        interaction_popup.update(rock_8.x_coordinate, rock_8.y_coordinate - 50,
-                                                 graphic_dict["popup_interaction"])
-                        screen.blit(interaction_popup.surf, interaction_popup.rect)
-                        interaction_info_surf = font.render(str("rock"), True, "black", "light yellow")
-                        interaction_info_rect = interaction_info_surf.get_rect()
-                        interaction_info_rect.center = (rock_8.x_coordinate, rock_8.y_coordinate - 50)
-                        screen.blit(interaction_info_surf, interaction_info_rect)
-
                         if interacted and in_over_world:
                             try:
                                 if player.equipment["gloves"].name == "power gloves":
@@ -8019,9 +8132,14 @@ if __name__ == '__main__':
                         and not in_academia and not in_battle and not in_npc_interaction:
 
                     pygame.mixer.music.fadeout(3000)
-                    screen.blit(fishing_hut_bg, (0, 0))
-                    screen.blit(equipment_screen.surf, equipment_screen.rect)
-                    screen.blit(player.surf, player.rect)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(fishing_hut_bg, (0, 0))
+                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(player.surf, player.rect)
+                    else:
+                        game_window.blit(fishing_hut_bg, (0, 0))
+                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                        game_window.blit(player.surf, player.rect)
 
                     # move player to seldon district when they approach nascent grove exit
                     if player.x_coordinate < 50 and player.y_coordinate < 375:
@@ -8036,51 +8154,105 @@ if __name__ == '__main__':
                 if player.current_zone == "seldon" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    seldon_returned = zone_seldon.seldon_district(pygame, player, screen, graphic_dict, rohir_gate,
-                                                                  hearth_stone, over_world_song_set,
-                                                                  seldon_overworld_music, seldon_district_bg,
-                                                                  seldon_enemies, korlok_enemies, snakes,
-                                                                  ghouls, magmons, bandiles, interactables_seldon,
-                                                                  interactables_korlok, Enemy, Item, UiElement,
-                                                                  most_sprites, quest_items_seldon, log_sprite_reset,
-                                                                  snake_sprite_reset, ghoul_sprite_reset, nede,
-                                                                  quest_star_garan, quest_star_maurelle,
-                                                                  quest_star_celeste, quest_star_torune,
-                                                                  interaction_popup, font, interacted, in_over_world,
-                                                                  bridge_not_repaired, bridge_cutscenes_not_viewed,
-                                                                  apothis_intro_music, apothis_scene_1, apothis_scene_2,
-                                                                  apothis_scene_3, apothis_scene_4, apothis_scene_5,
-                                                                  apothis_scene_6, skip_button, player_battle_sprite,
-                                                                  snake_battle_sprite, ghoul_battle_sprite,
-                                                                  chorizon_battle_sprite, muchador_battle_sprite,
-                                                                  barrier_active, sharp_sense_active,
-                                                                  in_npc_interaction, amuna_buildings, npcs_seldon,
-                                                                  save_check_window, user_interface, bar_backdrop,
-                                                                  hp_bar, en_bar, xp_bar, button_highlighted,
-                                                                  button_highlight, knowledge_academia_show,
-                                                                  knowledge_academia, rest_recover_show,
-                                                                  rest_shown_before, rest_recover, quest_guide_shown,
-                                                                  game_guide_overlay, enemy_tic, npc_tic, npc_garan,
-                                                                  npc_maurelle, npc_celeste, npc_torune, info_text_1,
-                                                                  info_text_2, info_text_3, info_text_4, in_battle,
-                                                                  in_shop, in_academia, in_inn, movement_able,
-                                                                  current_enemy_battling, current_npc_interacting,
-                                                                  current_building_entering, magmon_battle_sprite,
-                                                                  bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                  interactables_mines, equipment_screen, staff, sword,
-                                                                  bow, offense_meter, defense_meter, weapon_select,
-                                                                  player_cutscene_overlay, player_cutscene_overlay_2,
-                                                                  beyond_seldon, seldon_flowers, eldream_flowers,
-                                                                  interactables_eldream, pet_energy_window,
-                                                                  ectrenos_front_enemies, necrola_battle_sprite,
-                                                                  osodark_battle_sprite, pine_tree_1_top,
-                                                                  pine_tree_2_top, pine_tree_3_top,
-                                                                  amuna_building_top_1, amuna_building_top_2,
-                                                                  amuna_building_top_3, sfx_item_pickup,
-                                                                  sfx_item_flower, sfx_door_open, npc_worker_1,
-                                                                  worker_tic, worker_positions, worker_move_tic,
-                                                                  quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                  game_window)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        seldon_returned = zone_seldon.seldon_district(pygame, player, screen, graphic_dict, rohir_gate,
+                                                                      hearth_stone, over_world_song_set,
+                                                                      seldon_overworld_music, seldon_district_bg,
+                                                                      seldon_enemies, korlok_enemies, snakes,
+                                                                      ghouls, magmons, bandiles, interactables_seldon,
+                                                                      interactables_korlok, Enemy, Item, UiElement,
+                                                                      most_sprites, quest_items_seldon,
+                                                                      log_sprite_reset, snake_sprite_reset,
+                                                                      ghoul_sprite_reset, nede, quest_star_garan,
+                                                                      quest_star_maurelle, quest_star_celeste,
+                                                                      quest_star_torune, interaction_popup, font,
+                                                                      interacted, in_over_world, bridge_not_repaired,
+                                                                      bridge_cutscenes_not_viewed, apothis_intro_music,
+                                                                      apothis_scene_1, apothis_scene_2,
+                                                                      apothis_scene_3, apothis_scene_4, apothis_scene_5,
+                                                                      apothis_scene_6, skip_button,
+                                                                      player_battle_sprite, snake_battle_sprite,
+                                                                      ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                      muchador_battle_sprite, barrier_active,
+                                                                      sharp_sense_active, in_npc_interaction,
+                                                                      amuna_buildings, npcs_seldon, save_check_window,
+                                                                      user_interface, bar_backdrop, hp_bar, en_bar,
+                                                                      xp_bar, button_highlighted, button_highlight,
+                                                                      knowledge_academia_show, knowledge_academia,
+                                                                      rest_recover_show, rest_shown_before,
+                                                                      rest_recover, quest_guide_shown,
+                                                                      game_guide_overlay, enemy_tic, npc_tic, npc_garan,
+                                                                      npc_maurelle, npc_celeste, npc_torune,
+                                                                      info_text_1, info_text_2, info_text_3,
+                                                                      info_text_4, in_battle, in_shop, in_academia,
+                                                                      in_inn, movement_able, current_enemy_battling,
+                                                                      current_npc_interacting,
+                                                                      current_building_entering, magmon_battle_sprite,
+                                                                      bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                      interactables_mines, equipment_screen, staff,
+                                                                      sword, bow, offense_meter, defense_meter,
+                                                                      weapon_select, player_cutscene_overlay,
+                                                                      player_cutscene_overlay_2, beyond_seldon,
+                                                                      seldon_flowers, eldream_flowers,
+                                                                      interactables_eldream, pet_energy_window,
+                                                                      ectrenos_front_enemies, necrola_battle_sprite,
+                                                                      osodark_battle_sprite, pine_tree_1_top,
+                                                                      pine_tree_2_top, pine_tree_3_top,
+                                                                      amuna_building_top_1, amuna_building_top_2,
+                                                                      amuna_building_top_3, sfx_item_pickup,
+                                                                      sfx_item_flower, sfx_door_open, npc_worker_1,
+                                                                      worker_tic, worker_positions, worker_move_tic,
+                                                                      quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                      game_window)
+                    else:
+                        seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
+                                                                      rohir_gate, hearth_stone, over_world_song_set,
+                                                                      seldon_overworld_music, seldon_district_bg,
+                                                                      seldon_enemies, korlok_enemies, snakes,
+                                                                      ghouls, magmons, bandiles, interactables_seldon,
+                                                                      interactables_korlok, Enemy, Item, UiElement,
+                                                                      most_sprites, quest_items_seldon,
+                                                                      log_sprite_reset, snake_sprite_reset,
+                                                                      ghoul_sprite_reset, nede, quest_star_garan,
+                                                                      quest_star_maurelle, quest_star_celeste,
+                                                                      quest_star_torune, interaction_popup, font,
+                                                                      interacted, in_over_world, bridge_not_repaired,
+                                                                      bridge_cutscenes_not_viewed, apothis_intro_music,
+                                                                      apothis_scene_1, apothis_scene_2, apothis_scene_3,
+                                                                      apothis_scene_4, apothis_scene_5, apothis_scene_6,
+                                                                      skip_button, player_battle_sprite,
+                                                                      snake_battle_sprite, ghoul_battle_sprite,
+                                                                      chorizon_battle_sprite, muchador_battle_sprite,
+                                                                      barrier_active, sharp_sense_active,
+                                                                      in_npc_interaction, amuna_buildings, npcs_seldon,
+                                                                      save_check_window, user_interface, bar_backdrop,
+                                                                      hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                      button_highlight, knowledge_academia_show,
+                                                                      knowledge_academia, rest_recover_show,
+                                                                      rest_shown_before, rest_recover,
+                                                                      quest_guide_shown,  game_guide_overlay, enemy_tic,
+                                                                      npc_tic, npc_garan, npc_maurelle, npc_celeste,
+                                                                      npc_torune, info_text_1, info_text_2, info_text_3,
+                                                                      info_text_4, in_battle, in_shop, in_academia,
+                                                                      in_inn, movement_able, current_enemy_battling,
+                                                                      current_npc_interacting,
+                                                                      current_building_entering, magmon_battle_sprite,
+                                                                      bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                      interactables_mines, equipment_screen, staff,
+                                                                      sword, bow, offense_meter, defense_meter,
+                                                                      weapon_select, player_cutscene_overlay,
+                                                                      player_cutscene_overlay_2, beyond_seldon,
+                                                                      seldon_flowers, eldream_flowers,
+                                                                      interactables_eldream, pet_energy_window,
+                                                                      ectrenos_front_enemies, necrola_battle_sprite,
+                                                                      osodark_battle_sprite, pine_tree_1_top,
+                                                                      pine_tree_2_top, pine_tree_3_top,
+                                                                      amuna_building_top_1, amuna_building_top_2,
+                                                                      amuna_building_top_3, sfx_item_pickup,
+                                                                      sfx_item_flower, sfx_door_open, npc_worker_1,
+                                                                      worker_tic, worker_positions, worker_move_tic,
+                                                                      quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                      game_window)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -8132,40 +8304,86 @@ if __name__ == '__main__':
                 if player.current_zone == "korlok" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    korlok_returned = zone_korlok.korlok_district(pygame, screen, graphic_dict, player,
-                                                                  korlok_district_bg, korlok_overworld_music,
-                                                                  over_world_song_set, nuldar_buildings, rohir_gate,
-                                                                  hearth_stone, mines_entrance, magmons,
-                                                                  interaction_popup, font, bridge_not_repaired,
-                                                                  reservoir_enter, rock_1, rock_2, save_check_window,
-                                                                  user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                  button_highlighted, button_highlight, in_over_world,
-                                                                  korlok_attuned, interacted, info_text_1, info_text_2,
-                                                                  info_text_3, info_text_4, enemy_tic, npc_tic,
-                                                                  in_battle, in_shop, in_academia, in_inn,
-                                                                  in_npc_interaction, movement_able,
-                                                                  current_enemy_battling, current_npc_interacting,
-                                                                  current_building_entering, korlok_enemies,
-                                                                  player_battle_sprite, snake_battle_sprite,
-                                                                  ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                  muchador_battle_sprite, barrier_active,
-                                                                  sharp_sense_active, magmon_battle_sprite,
-                                                                  bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                  npc_voruke, npc_zerah, npcs_korlok, seldon_enemies,
-                                                                  snakes, ghouls, bandiles, interactables_seldon,
-                                                                  interactables_korlok, Enemy, Item, UiElement,
-                                                                  interactables_mines, quest_star_voruke,
-                                                                  quest_star_zerah, korlok_mountains, in_apothecary,
-                                                                  quest_star_kirean, equipment_screen, staff, sword,
-                                                                  bow, npc_garan, offense_meter, defense_meter,
-                                                                  weapon_select, rock_4, rock_5, rock_6, rock_4_con,
-                                                                  rock_5_con, rock_6_con, seldon_flowers,
-                                                                  eldream_flowers, interactables_eldream,
-                                                                  pet_energy_window, ectrenos_front_enemies,
-                                                                  necrola_battle_sprite, osodark_battle_sprite,
-                                                                  sfx_item_rupee, sfx_map_teleport, sfx_door_open,
-                                                                  nuldar_building_top_1, nuldar_building_top_2,
-                                                                  nuldar_building_top_3, npc_worker_2, worker_tic)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        korlok_returned = zone_korlok.korlok_district(pygame, screen, graphic_dict, player,
+                                                                      korlok_district_bg, korlok_overworld_music,
+                                                                      over_world_song_set, nuldar_buildings, rohir_gate,
+                                                                      hearth_stone, mines_entrance, magmons,
+                                                                      interaction_popup, font, bridge_not_repaired,
+                                                                      reservoir_enter, rock_1, rock_2,
+                                                                      save_check_window,
+                                                                      user_interface, bar_backdrop, hp_bar, en_bar,
+                                                                      xp_bar,
+                                                                      button_highlighted, button_highlight,
+                                                                      in_over_world,
+                                                                      korlok_attuned, interacted, info_text_1,
+                                                                      info_text_2,
+                                                                      info_text_3, info_text_4, enemy_tic, npc_tic,
+                                                                      in_battle, in_shop, in_academia, in_inn,
+                                                                      in_npc_interaction, movement_able,
+                                                                      current_enemy_battling, current_npc_interacting,
+                                                                      current_building_entering, korlok_enemies,
+                                                                      player_battle_sprite, snake_battle_sprite,
+                                                                      ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                      muchador_battle_sprite, barrier_active,
+                                                                      sharp_sense_active, magmon_battle_sprite,
+                                                                      bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                      npc_voruke, npc_zerah, npcs_korlok,
+                                                                      seldon_enemies,
+                                                                      snakes, ghouls, bandiles, interactables_seldon,
+                                                                      interactables_korlok, Enemy, Item, UiElement,
+                                                                      interactables_mines, quest_star_voruke,
+                                                                      quest_star_zerah, korlok_mountains, in_apothecary,
+                                                                      quest_star_kirean, equipment_screen, staff, sword,
+                                                                      bow, npc_garan, offense_meter, defense_meter,
+                                                                      weapon_select, rock_4, rock_5, rock_6, rock_4_con,
+                                                                      rock_5_con, rock_6_con, seldon_flowers,
+                                                                      eldream_flowers, interactables_eldream,
+                                                                      pet_energy_window, ectrenos_front_enemies,
+                                                                      necrola_battle_sprite, osodark_battle_sprite,
+                                                                      sfx_item_rupee, sfx_map_teleport, sfx_door_open,
+                                                                      nuldar_building_top_1, nuldar_building_top_2,
+                                                                      nuldar_building_top_3, npc_worker_2, worker_tic)
+                    else:
+                        korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
+                                                                      korlok_district_bg, korlok_overworld_music,
+                                                                      over_world_song_set, nuldar_buildings, rohir_gate,
+                                                                      hearth_stone, mines_entrance, magmons,
+                                                                      interaction_popup, font, bridge_not_repaired,
+                                                                      reservoir_enter, rock_1, rock_2,
+                                                                      save_check_window,
+                                                                      user_interface, bar_backdrop, hp_bar, en_bar,
+                                                                      xp_bar,
+                                                                      button_highlighted, button_highlight,
+                                                                      in_over_world,
+                                                                      korlok_attuned, interacted, info_text_1,
+                                                                      info_text_2,
+                                                                      info_text_3, info_text_4, enemy_tic, npc_tic,
+                                                                      in_battle, in_shop, in_academia, in_inn,
+                                                                      in_npc_interaction, movement_able,
+                                                                      current_enemy_battling, current_npc_interacting,
+                                                                      current_building_entering, korlok_enemies,
+                                                                      player_battle_sprite, snake_battle_sprite,
+                                                                      ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                      muchador_battle_sprite, barrier_active,
+                                                                      sharp_sense_active, magmon_battle_sprite,
+                                                                      bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                      npc_voruke, npc_zerah, npcs_korlok,
+                                                                      seldon_enemies,
+                                                                      snakes, ghouls, bandiles, interactables_seldon,
+                                                                      interactables_korlok, Enemy, Item, UiElement,
+                                                                      interactables_mines, quest_star_voruke,
+                                                                      quest_star_zerah, korlok_mountains, in_apothecary,
+                                                                      quest_star_kirean, equipment_screen, staff, sword,
+                                                                      bow, npc_garan, offense_meter, defense_meter,
+                                                                      weapon_select, rock_4, rock_5, rock_6, rock_4_con,
+                                                                      rock_5_con, rock_6_con, seldon_flowers,
+                                                                      eldream_flowers, interactables_eldream,
+                                                                      pet_energy_window, ectrenos_front_enemies,
+                                                                      necrola_battle_sprite, osodark_battle_sprite,
+                                                                      sfx_item_rupee, sfx_map_teleport, sfx_door_open,
+                                                                      nuldar_building_top_1, nuldar_building_top_2,
+                                                                      nuldar_building_top_3, npc_worker_2, worker_tic)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -8207,42 +8425,96 @@ if __name__ == '__main__':
                 if player.current_zone == "eldream" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    eldream_returned = zone_eldream.eldream_district(pygame, screen, graphic_dict, player,
-                                                                     eldream_district_bg, eldream_overworld_music,
-                                                                     over_world_song_set, interaction_popup, font,
-                                                                     save_check_window, user_interface, bar_backdrop,
-                                                                     hp_bar, en_bar, xp_bar, button_highlighted,
-                                                                     button_highlight, in_over_world, interacted,
-                                                                     info_text_1, info_text_2, info_text_3, info_text_4,
-                                                                     npc_tic, in_npc_interaction, in_battle,
-                                                                     movement_able, current_enemy_battling,
-                                                                     quest_star_garan, quest_star_maurelle,
-                                                                     quest_star_celeste, quest_star_torune,
-                                                                     quest_star_voruke, quest_star_zerah,
-                                                                     quest_star_apothecary, terra_mountains,
-                                                                     terra_cave, npc_dionte, quest_star_dionte, Enemy,
-                                                                     player_battle_sprite, snake_battle_sprite,
-                                                                     ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                     muchador_battle_sprite, magmon_battle_sprite,
-                                                                     bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                     barrier_active, sharp_sense_active,
-                                                                     current_npc_interacting, chinzilla,
-                                                                     quest_star_dionte, hearth_stone, equipment_screen,
-                                                                     staff, sword, bow, npc_garan, offense_meter,
-                                                                     defense_meter, weapon_select, rock_7, rock_7_con,
-                                                                     chinzilla_defeated, eldream_gate_rect,
-                                                                     eldream_attuned, in_shop, in_inn,
-                                                                     current_building_entering, enemy_tic,
-                                                                     eldream_flowers, seldon_enemies, korlok_enemies,
-                                                                     snakes, ghouls, magmons, bandiles,
-                                                                     interactables_seldon, interactables_korlok,
-                                                                     interactables_mines, Enemy, Item, UiElement,
-                                                                     seldon_flowers, interactables_eldream,
-                                                                     ectrenos_entrance_rect, quest_star_omoku,
-                                                                     pet_energy_window, npc_omoku, quest_items_eldream,
-                                                                     ectrenos_front_enemies,
-                                                                     necrola_battle_sprite, osodark_battle_sprite,
-                                                                     sfx_item_flower, sfx_map_teleport, sfx_item_pickup)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        eldream_returned = zone_eldream.eldream_district(pygame, screen, graphic_dict, player,
+                                                                         eldream_district_bg, eldream_overworld_music,
+                                                                         over_world_song_set, interaction_popup, font,
+                                                                         save_check_window, user_interface,
+                                                                         bar_backdrop,
+                                                                         hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                         button_highlight, in_over_world, interacted,
+                                                                         info_text_1, info_text_2, info_text_3,
+                                                                         info_text_4,
+                                                                         npc_tic, in_npc_interaction, in_battle,
+                                                                         movement_able, current_enemy_battling,
+                                                                         quest_star_garan, quest_star_maurelle,
+                                                                         quest_star_celeste, quest_star_torune,
+                                                                         quest_star_voruke, quest_star_zerah,
+                                                                         quest_star_apothecary, terra_mountains,
+                                                                         terra_cave, npc_dionte, quest_star_dionte,
+                                                                         Enemy,
+                                                                         player_battle_sprite, snake_battle_sprite,
+                                                                         ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                         muchador_battle_sprite, magmon_battle_sprite,
+                                                                         bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                         barrier_active, sharp_sense_active,
+                                                                         current_npc_interacting, chinzilla,
+                                                                         quest_star_dionte, hearth_stone,
+                                                                         equipment_screen,
+                                                                         staff, sword, bow, npc_garan, offense_meter,
+                                                                         defense_meter, weapon_select, rock_7,
+                                                                         rock_7_con,
+                                                                         chinzilla_defeated, eldream_gate_rect,
+                                                                         eldream_attuned, in_shop, in_inn,
+                                                                         current_building_entering, enemy_tic,
+                                                                         eldream_flowers, seldon_enemies,
+                                                                         korlok_enemies,
+                                                                         snakes, ghouls, magmons, bandiles,
+                                                                         interactables_seldon, interactables_korlok,
+                                                                         interactables_mines, Enemy, Item, UiElement,
+                                                                         seldon_flowers, interactables_eldream,
+                                                                         ectrenos_entrance_rect, quest_star_omoku,
+                                                                         pet_energy_window, npc_omoku,
+                                                                         quest_items_eldream,
+                                                                         ectrenos_front_enemies,
+                                                                         necrola_battle_sprite, osodark_battle_sprite,
+                                                                         sfx_item_flower, sfx_map_teleport,
+                                                                         sfx_item_pickup)
+                    else:
+                        eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
+                                                                         eldream_district_bg, eldream_overworld_music,
+                                                                         over_world_song_set, interaction_popup, font,
+                                                                         save_check_window, user_interface,
+                                                                         bar_backdrop,
+                                                                         hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                         button_highlight, in_over_world, interacted,
+                                                                         info_text_1, info_text_2, info_text_3,
+                                                                         info_text_4,
+                                                                         npc_tic, in_npc_interaction, in_battle,
+                                                                         movement_able, current_enemy_battling,
+                                                                         quest_star_garan, quest_star_maurelle,
+                                                                         quest_star_celeste, quest_star_torune,
+                                                                         quest_star_voruke, quest_star_zerah,
+                                                                         quest_star_apothecary, terra_mountains,
+                                                                         terra_cave, npc_dionte, quest_star_dionte,
+                                                                         Enemy,
+                                                                         player_battle_sprite, snake_battle_sprite,
+                                                                         ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                         muchador_battle_sprite, magmon_battle_sprite,
+                                                                         bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                         barrier_active, sharp_sense_active,
+                                                                         current_npc_interacting, chinzilla,
+                                                                         quest_star_dionte, hearth_stone,
+                                                                         equipment_screen,
+                                                                         staff, sword, bow, npc_garan, offense_meter,
+                                                                         defense_meter, weapon_select, rock_7,
+                                                                         rock_7_con,
+                                                                         chinzilla_defeated, eldream_gate_rect,
+                                                                         eldream_attuned, in_shop, in_inn,
+                                                                         current_building_entering, enemy_tic,
+                                                                         eldream_flowers, seldon_enemies,
+                                                                         korlok_enemies,
+                                                                         snakes, ghouls, magmons, bandiles,
+                                                                         interactables_seldon, interactables_korlok,
+                                                                         interactables_mines, Enemy, Item, UiElement,
+                                                                         seldon_flowers, interactables_eldream,
+                                                                         ectrenos_entrance_rect, quest_star_omoku,
+                                                                         pet_energy_window, npc_omoku,
+                                                                         quest_items_eldream,
+                                                                         ectrenos_front_enemies,
+                                                                         necrola_battle_sprite, osodark_battle_sprite,
+                                                                         sfx_item_flower, sfx_map_teleport,
+                                                                         sfx_item_pickup)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -8280,31 +8552,80 @@ if __name__ == '__main__':
                 if player.current_zone == "ectrenos" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, screen, graphic_dict, player,
-                                                                         ectrenos_bg, eldream_building_music,
-                                                                         over_world_song_set, interaction_popup, font,
-                                                                         save_check_window, user_interface,
-                                                                         bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                         button_highlighted, button_highlight,
-                                                                         in_over_world, interacted, info_text_1,
-                                                                         info_text_2, info_text_3, info_text_4, npc_tic,
-                                                                         in_npc_interaction, in_battle, movement_able,
-                                                                         current_enemy_battling, player_battle_sprite,
-                                                                         snake_battle_sprite, ghoul_battle_sprite,
-                                                                         chorizon_battle_sprite, muchador_battle_sprite,
-                                                                         magmon_battle_sprite, bandile_battle_sprite,
-                                                                         chinzilla_battle_sprite, barrier_active,
-                                                                         sharp_sense_active, current_npc_interacting,
-                                                                         hearth_stone, equipment_screen, staff, sword,
-                                                                         bow, npc_garan, offense_meter, defense_meter,
-                                                                         weapon_select, eldream_attuned, in_shop,
-                                                                         in_inn, current_building_entering, enemy_tic,
-                                                                         eldream_flowers, interactables_ectrenos,
-                                                                         overlay_ectrene, ectrenos_ladder_rect,
-                                                                         quest_star_leyre, pet_energy_window,
-                                                                         chroma_bridge, npc_leyre,
-                                                                         necrola_battle_sprite, osodark_battle_sprite,
-                                                                         sfx_ladder)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, screen, graphic_dict, player,
+                                                                             ectrenos_bg, eldream_building_music,
+                                                                             over_world_song_set, interaction_popup,
+                                                                             font,
+                                                                             save_check_window, user_interface,
+                                                                             bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                             button_highlighted, button_highlight,
+                                                                             in_over_world, interacted, info_text_1,
+                                                                             info_text_2, info_text_3, info_text_4,
+                                                                             npc_tic,
+                                                                             in_npc_interaction, in_battle,
+                                                                             movement_able,
+                                                                             current_enemy_battling,
+                                                                             player_battle_sprite,
+                                                                             snake_battle_sprite, ghoul_battle_sprite,
+                                                                             chorizon_battle_sprite,
+                                                                             muchador_battle_sprite,
+                                                                             magmon_battle_sprite,
+                                                                             bandile_battle_sprite,
+                                                                             chinzilla_battle_sprite, barrier_active,
+                                                                             sharp_sense_active,
+                                                                             current_npc_interacting,
+                                                                             hearth_stone, equipment_screen, staff,
+                                                                             sword,
+                                                                             bow, npc_garan, offense_meter,
+                                                                             defense_meter,
+                                                                             weapon_select, eldream_attuned, in_shop,
+                                                                             in_inn, current_building_entering,
+                                                                             enemy_tic,
+                                                                             eldream_flowers, interactables_ectrenos,
+                                                                             overlay_ectrene, ectrenos_ladder_rect,
+                                                                             quest_star_leyre, pet_energy_window,
+                                                                             chroma_bridge, npc_leyre,
+                                                                             necrola_battle_sprite,
+                                                                             osodark_battle_sprite,
+                                                                             sfx_ladder)
+                    else:
+                        ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
+                                                                             ectrenos_bg, eldream_building_music,
+                                                                             over_world_song_set, interaction_popup,
+                                                                             font,
+                                                                             save_check_window, user_interface,
+                                                                             bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                             button_highlighted, button_highlight,
+                                                                             in_over_world, interacted, info_text_1,
+                                                                             info_text_2, info_text_3, info_text_4,
+                                                                             npc_tic,
+                                                                             in_npc_interaction, in_battle,
+                                                                             movement_able,
+                                                                             current_enemy_battling,
+                                                                             player_battle_sprite,
+                                                                             snake_battle_sprite, ghoul_battle_sprite,
+                                                                             chorizon_battle_sprite,
+                                                                             muchador_battle_sprite,
+                                                                             magmon_battle_sprite,
+                                                                             bandile_battle_sprite,
+                                                                             chinzilla_battle_sprite, barrier_active,
+                                                                             sharp_sense_active,
+                                                                             current_npc_interacting,
+                                                                             hearth_stone, equipment_screen, staff,
+                                                                             sword,
+                                                                             bow, npc_garan, offense_meter,
+                                                                             defense_meter,
+                                                                             weapon_select, eldream_attuned, in_shop,
+                                                                             in_inn, current_building_entering,
+                                                                             enemy_tic,
+                                                                             eldream_flowers, interactables_ectrenos,
+                                                                             overlay_ectrene, ectrenos_ladder_rect,
+                                                                             quest_star_leyre, pet_energy_window,
+                                                                             chroma_bridge, npc_leyre,
+                                                                             necrola_battle_sprite,
+                                                                             osodark_battle_sprite,
+                                                                             sfx_ladder)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -8343,24 +8664,56 @@ if __name__ == '__main__':
                 if player.current_zone == "ectrenos left" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, screen, graphic_dict, player,
-                                                                         ectrenos_left_bg, eldream_overworld_music,
-                                                                         over_world_song_set, interaction_popup, font,
-                                                                         save_check_window, user_interface,
-                                                                         bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                         button_highlighted, button_highlight,
-                                                                         in_over_world, interacted, info_text_1,
-                                                                         info_text_2, info_text_3, info_text_4, npc_tic,
-                                                                         in_npc_interaction, in_battle, movement_able,
-                                                                         current_enemy_battling,
-                                                                         current_npc_interacting, equipment_screen,
-                                                                         staff, sword, bow, npc_garan, offense_meter,
-                                                                         defense_meter, weapon_select, eldream_attuned,
-                                                                         in_shop, in_inn, current_building_entering,
-                                                                         enemy_tic, eldream_flowers,
-                                                                         interactables_ectrenos, ectrenos_pet_entrance,
-                                                                         in_menagerie, quest_star_aitor,
-                                                                         pet_energy_window, npc_leyre, sfx_find)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, screen, graphic_dict, player,
+                                                                             ectrenos_left_bg, eldream_overworld_music,
+                                                                             over_world_song_set, interaction_popup,
+                                                                             font,
+                                                                             save_check_window, user_interface,
+                                                                             bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                             button_highlighted, button_highlight,
+                                                                             in_over_world, interacted, info_text_1,
+                                                                             info_text_2, info_text_3, info_text_4,
+                                                                             npc_tic,
+                                                                             in_npc_interaction, in_battle,
+                                                                             movement_able,
+                                                                             current_enemy_battling,
+                                                                             current_npc_interacting, equipment_screen,
+                                                                             staff, sword, bow, npc_garan,
+                                                                             offense_meter,
+                                                                             defense_meter, weapon_select,
+                                                                             eldream_attuned,
+                                                                             in_shop, in_inn, current_building_entering,
+                                                                             enemy_tic, eldream_flowers,
+                                                                             interactables_ectrenos,
+                                                                             ectrenos_pet_entrance,
+                                                                             in_menagerie, quest_star_aitor,
+                                                                             pet_energy_window, npc_leyre, sfx_find)
+                    else:
+                        ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
+                                                                             ectrenos_left_bg, eldream_overworld_music,
+                                                                             over_world_song_set, interaction_popup,
+                                                                             font,
+                                                                             save_check_window, user_interface,
+                                                                             bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                             button_highlighted, button_highlight,
+                                                                             in_over_world, interacted, info_text_1,
+                                                                             info_text_2, info_text_3, info_text_4,
+                                                                             npc_tic,
+                                                                             in_npc_interaction, in_battle,
+                                                                             movement_able,
+                                                                             current_enemy_battling,
+                                                                             current_npc_interacting, equipment_screen,
+                                                                             staff, sword, bow, npc_garan,
+                                                                             offense_meter,
+                                                                             defense_meter, weapon_select,
+                                                                             eldream_attuned,
+                                                                             in_shop, in_inn, current_building_entering,
+                                                                             enemy_tic, eldream_flowers,
+                                                                             interactables_ectrenos,
+                                                                             ectrenos_pet_entrance,
+                                                                             in_menagerie, quest_star_aitor,
+                                                                             pet_energy_window, npc_leyre, sfx_find)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -8400,25 +8753,54 @@ if __name__ == '__main__':
                 if player.current_zone == "ectrenos right" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, screen, graphic_dict, player,
-                                                                           ectrenos_right_bg, eldream_overworld_music,
-                                                                           over_world_song_set, interaction_popup, font,
-                                                                           save_check_window, user_interface,
-                                                                           bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                           button_highlighted, button_highlight,
-                                                                           in_over_world, interacted, info_text_1,
-                                                                           info_text_2, info_text_3, info_text_4,
-                                                                           npc_tic, in_npc_interaction, in_battle,
-                                                                           movement_able, current_enemy_battling,
-                                                                           current_npc_interacting, equipment_screen,
-                                                                           staff, sword, bow, npc_garan, offense_meter,
-                                                                           defense_meter, weapon_select,
-                                                                           eldream_attuned, in_shop, in_inn,
-                                                                           current_building_entering, enemy_tic,
-                                                                           eldream_flowers, interactables_ectrenos,
-                                                                           ectrenos_shop_entrance,
-                                                                           ectrenos_inn_entrance, pet_energy_window,
-                                                                           npc_leyre, sfx_find)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, screen, graphic_dict, player,
+                                                                               ectrenos_right_bg,
+                                                                               eldream_overworld_music,
+                                                                               over_world_song_set, interaction_popup,
+                                                                               font,
+                                                                               save_check_window, user_interface,
+                                                                               bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                               button_highlighted, button_highlight,
+                                                                               in_over_world, interacted, info_text_1,
+                                                                               info_text_2, info_text_3, info_text_4,
+                                                                               npc_tic, in_npc_interaction, in_battle,
+                                                                               movement_able, current_enemy_battling,
+                                                                               current_npc_interacting,
+                                                                               equipment_screen,
+                                                                               staff, sword, bow, npc_garan,
+                                                                               offense_meter,
+                                                                               defense_meter, weapon_select,
+                                                                               eldream_attuned, in_shop, in_inn,
+                                                                               current_building_entering, enemy_tic,
+                                                                               eldream_flowers, interactables_ectrenos,
+                                                                               ectrenos_shop_entrance,
+                                                                               ectrenos_inn_entrance, pet_energy_window,
+                                                                               npc_leyre, sfx_find)
+                    else:
+                        ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
+                                                                               player, ectrenos_right_bg,
+                                                                               eldream_overworld_music,
+                                                                               over_world_song_set, interaction_popup,
+                                                                               font,
+                                                                               save_check_window, user_interface,
+                                                                               bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                               button_highlighted, button_highlight,
+                                                                               in_over_world, interacted, info_text_1,
+                                                                               info_text_2, info_text_3, info_text_4,
+                                                                               npc_tic, in_npc_interaction, in_battle,
+                                                                               movement_able, current_enemy_battling,
+                                                                               current_npc_interacting,
+                                                                               equipment_screen,
+                                                                               staff, sword, bow, npc_garan,
+                                                                               offense_meter,
+                                                                               defense_meter, weapon_select,
+                                                                               eldream_attuned, in_shop, in_inn,
+                                                                               current_building_entering, enemy_tic,
+                                                                               eldream_flowers, interactables_ectrenos,
+                                                                               ectrenos_shop_entrance,
+                                                                               ectrenos_inn_entrance, pet_energy_window,
+                                                                               npc_leyre, sfx_find)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -8457,36 +8839,90 @@ if __name__ == '__main__':
                 if player.current_zone == "ectrenos front" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, screen, graphic_dict, player,
-                                                                           ectrenos_front_bg, eldream_overworld_music,
-                                                                           over_world_song_set, interaction_popup, font,
-                                                                           save_check_window, user_interface,
-                                                                           bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                           button_highlighted, button_highlight,
-                                                                           in_over_world, interacted, info_text_1,
-                                                                           info_text_2, info_text_3, info_text_4,
-                                                                           npc_tic, in_npc_interaction, in_battle,
-                                                                           movement_able, current_enemy_battling,
-                                                                           player_battle_sprite, snake_battle_sprite,
-                                                                           ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                           muchador_battle_sprite, magmon_battle_sprite,
-                                                                           bandile_battle_sprite,
-                                                                           chinzilla_battle_sprite, barrier_active,
-                                                                           sharp_sense_active, current_npc_interacting,
-                                                                           equipment_screen, staff, sword, bow,
-                                                                           npc_garan, offense_meter, defense_meter,
-                                                                           weapon_select, eldream_attuned, in_shop,
-                                                                           in_inn, current_building_entering, enemy_tic,
-                                                                           eldream_flowers, seldon_enemies,
-                                                                           korlok_enemies, snakes, ghouls, magmons,
-                                                                           bandiles, interactables_seldon,
-                                                                           interactables_korlok, interactables_mines,
-                                                                           Enemy, Item, UiElement, seldon_flowers,
-                                                                           interactables_ectrenos, quest_star_everett,
-                                                                           pet_energy_window, npc_everett, npc_leyre,
-                                                                           ectrenos_front_enemies,
-                                                                           interactables_eldream, necrola_battle_sprite,
-                                                                           osodark_battle_sprite, sfx_find)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, screen, graphic_dict, player,
+                                                                               ectrenos_front_bg,
+                                                                               eldream_overworld_music,
+                                                                               over_world_song_set, interaction_popup,
+                                                                               font,
+                                                                               save_check_window, user_interface,
+                                                                               bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                               button_highlighted, button_highlight,
+                                                                               in_over_world, interacted, info_text_1,
+                                                                               info_text_2, info_text_3, info_text_4,
+                                                                               npc_tic, in_npc_interaction, in_battle,
+                                                                               movement_able, current_enemy_battling,
+                                                                               player_battle_sprite,
+                                                                               snake_battle_sprite,
+                                                                               ghoul_battle_sprite,
+                                                                               chorizon_battle_sprite,
+                                                                               muchador_battle_sprite,
+                                                                               magmon_battle_sprite,
+                                                                               bandile_battle_sprite,
+                                                                               chinzilla_battle_sprite, barrier_active,
+                                                                               sharp_sense_active,
+                                                                               current_npc_interacting,
+                                                                               equipment_screen, staff, sword, bow,
+                                                                               npc_garan, offense_meter, defense_meter,
+                                                                               weapon_select, eldream_attuned, in_shop,
+                                                                               in_inn, current_building_entering,
+                                                                               enemy_tic,
+                                                                               eldream_flowers, seldon_enemies,
+                                                                               korlok_enemies, snakes, ghouls, magmons,
+                                                                               bandiles, interactables_seldon,
+                                                                               interactables_korlok,
+                                                                               interactables_mines,
+                                                                               Enemy, Item, UiElement, seldon_flowers,
+                                                                               interactables_ectrenos,
+                                                                               quest_star_everett,
+                                                                               pet_energy_window, npc_everett,
+                                                                               npc_leyre,
+                                                                               ectrenos_front_enemies,
+                                                                               interactables_eldream,
+                                                                               necrola_battle_sprite,
+                                                                               osodark_battle_sprite, sfx_find)
+                    else:
+                        ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
+                                                                               player, ectrenos_front_bg,
+                                                                               eldream_overworld_music,
+                                                                               over_world_song_set, interaction_popup,
+                                                                               font,
+                                                                               save_check_window, user_interface,
+                                                                               bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                               button_highlighted, button_highlight,
+                                                                               in_over_world, interacted, info_text_1,
+                                                                               info_text_2, info_text_3, info_text_4,
+                                                                               npc_tic, in_npc_interaction, in_battle,
+                                                                               movement_able, current_enemy_battling,
+                                                                               player_battle_sprite,
+                                                                               snake_battle_sprite,
+                                                                               ghoul_battle_sprite,
+                                                                               chorizon_battle_sprite,
+                                                                               muchador_battle_sprite,
+                                                                               magmon_battle_sprite,
+                                                                               bandile_battle_sprite,
+                                                                               chinzilla_battle_sprite, barrier_active,
+                                                                               sharp_sense_active,
+                                                                               current_npc_interacting,
+                                                                               equipment_screen, staff, sword, bow,
+                                                                               npc_garan, offense_meter, defense_meter,
+                                                                               weapon_select, eldream_attuned, in_shop,
+                                                                               in_inn, current_building_entering,
+                                                                               enemy_tic,
+                                                                               eldream_flowers, seldon_enemies,
+                                                                               korlok_enemies, snakes, ghouls, magmons,
+                                                                               bandiles, interactables_seldon,
+                                                                               interactables_korlok,
+                                                                               interactables_mines,
+                                                                               Enemy, Item, UiElement, seldon_flowers,
+                                                                               interactables_ectrenos,
+                                                                               quest_star_everett,
+                                                                               pet_energy_window, npc_everett,
+                                                                               npc_leyre,
+                                                                               ectrenos_front_enemies,
+                                                                               interactables_eldream,
+                                                                               necrola_battle_sprite,
+                                                                               osodark_battle_sprite, sfx_find)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -8525,27 +8961,60 @@ if __name__ == '__main__':
                 if player.current_zone == "ectrenos alcove" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, screen, graphic_dict, player,
-                                                                             ectrenos_alcove_bg, eldream_building_music,
-                                                                             over_world_song_set, interaction_popup,
-                                                                             font, save_check_window, user_interface,
-                                                                             bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                             button_highlighted, button_highlight,
-                                                                             in_over_world, interacted, info_text_1,
-                                                                             info_text_2, info_text_3, info_text_4,
-                                                                             npc_tic, in_npc_interaction, in_battle,
-                                                                             movement_able, current_enemy_battling,
-                                                                             current_npc_interacting, equipment_screen,
-                                                                             staff, sword, bow, npc_garan,
-                                                                             offense_meter, defense_meter,
-                                                                             weapon_select, eldream_attuned, in_shop,
-                                                                             in_inn, current_building_entering,
-                                                                             enemy_tic, eldream_flowers,
-                                                                             interactables_ectrenos, pet_energy_window,
-                                                                             alcove_ladder_rect, chroma_bridge,
-                                                                             alcove_star, npc_leyre,
-                                                                             ectrenos_alcove_enemies, sfx_find,
-                                                                             sfx_ladder)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, screen, graphic_dict, player,
+                                                                                 ectrenos_alcove_bg,
+                                                                                 eldream_building_music,
+                                                                                 over_world_song_set, interaction_popup,
+                                                                                 font, save_check_window,
+                                                                                 user_interface,
+                                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                                 button_highlighted, button_highlight,
+                                                                                 in_over_world, interacted, info_text_1,
+                                                                                 info_text_2, info_text_3, info_text_4,
+                                                                                 npc_tic, in_npc_interaction, in_battle,
+                                                                                 movement_able, current_enemy_battling,
+                                                                                 current_npc_interacting,
+                                                                                 equipment_screen,
+                                                                                 staff, sword, bow, npc_garan,
+                                                                                 offense_meter, defense_meter,
+                                                                                 weapon_select, eldream_attuned,
+                                                                                 in_shop,
+                                                                                 in_inn, current_building_entering,
+                                                                                 enemy_tic, eldream_flowers,
+                                                                                 interactables_ectrenos,
+                                                                                 pet_energy_window,
+                                                                                 alcove_ladder_rect, chroma_bridge,
+                                                                                 alcove_star, npc_leyre,
+                                                                                 ectrenos_alcove_enemies, sfx_find,
+                                                                                 sfx_ladder)
+                    else:
+                        ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
+                                                                                 player, ectrenos_alcove_bg,
+                                                                                 eldream_building_music,
+                                                                                 over_world_song_set, interaction_popup,
+                                                                                 font, save_check_window,
+                                                                                 user_interface,
+                                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                                 button_highlighted, button_highlight,
+                                                                                 in_over_world, interacted, info_text_1,
+                                                                                 info_text_2, info_text_3, info_text_4,
+                                                                                 npc_tic, in_npc_interaction, in_battle,
+                                                                                 movement_able, current_enemy_battling,
+                                                                                 current_npc_interacting,
+                                                                                 equipment_screen,
+                                                                                 staff, sword, bow, npc_garan,
+                                                                                 offense_meter, defense_meter,
+                                                                                 weapon_select, eldream_attuned,
+                                                                                 in_shop,
+                                                                                 in_inn, current_building_entering,
+                                                                                 enemy_tic, eldream_flowers,
+                                                                                 interactables_ectrenos,
+                                                                                 pet_energy_window,
+                                                                                 alcove_ladder_rect, chroma_bridge,
+                                                                                 alcove_star, npc_leyre,
+                                                                                 ectrenos_alcove_enemies, sfx_find,
+                                                                                 sfx_ladder)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -8584,30 +9053,66 @@ if __name__ == '__main__':
                 if player.current_zone == "mines" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    mines_returned = zone_mines.korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg,
-                                                             korlok_overworld_music, over_world_song_set, bandiles,
-                                                             interaction_popup, font, save_check_window, user_interface,
-                                                             bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted,
-                                                             button_highlight, in_over_world, interacted, info_text_1,
-                                                             info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic,
-                                                             in_battle, in_npc_interaction, movement_able,
-                                                             current_enemy_battling, player_battle_sprite,
-                                                             snake_battle_sprite, ghoul_battle_sprite,
-                                                             chorizon_battle_sprite, muchador_battle_sprite,
-                                                             chinzilla_battle_sprite, barrier_active,
-                                                             sharp_sense_active, magmon_battle_sprite,
-                                                             bandile_battle_sprite, seldon_enemies, korlok_enemies,
-                                                             snakes, ghouls, magmons, interactables_seldon,
-                                                             interactables_korlok, Enemy, Item, UiElement,
-                                                             interactables_mines, ores, equipment_screen, staff,
-                                                             sword, bow, npc_garan, offense_meter, defense_meter,
-                                                             weapon_select, hearth_stone, npc_prime, npc_jez,
-                                                             prime_popup, jez_popup, prime_1, prime_2, prime_3, jez_1,
-                                                             jez_2, jez_3, seldon_flowers, eldream_flowers,
-                                                             interactables_eldream, pet_energy_window,
-                                                             ectrenos_front_enemies, necrola_battle_sprite,
-                                                             osodark_battle_sprite, sfx_item_pickup, sfx_talking,
-                                                             talk_start)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        mines_returned = zone_mines.korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg,
+                                                                 korlok_overworld_music, over_world_song_set, bandiles,
+                                                                 interaction_popup, font, save_check_window,
+                                                                 user_interface,
+                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                 button_highlighted,
+                                                                 button_highlight, in_over_world, interacted,
+                                                                 info_text_1,
+                                                                 info_text_2, info_text_3, info_text_4, enemy_tic,
+                                                                 npc_tic,
+                                                                 in_battle, in_npc_interaction, movement_able,
+                                                                 current_enemy_battling, player_battle_sprite,
+                                                                 snake_battle_sprite, ghoul_battle_sprite,
+                                                                 chorizon_battle_sprite, muchador_battle_sprite,
+                                                                 chinzilla_battle_sprite, barrier_active,
+                                                                 sharp_sense_active, magmon_battle_sprite,
+                                                                 bandile_battle_sprite, seldon_enemies, korlok_enemies,
+                                                                 snakes, ghouls, magmons, interactables_seldon,
+                                                                 interactables_korlok, Enemy, Item, UiElement,
+                                                                 interactables_mines, ores, equipment_screen, staff,
+                                                                 sword, bow, npc_garan, offense_meter, defense_meter,
+                                                                 weapon_select, hearth_stone, npc_prime, npc_jez,
+                                                                 prime_popup, jez_popup, prime_1, prime_2, prime_3,
+                                                                 jez_1,
+                                                                 jez_2, jez_3, seldon_flowers, eldream_flowers,
+                                                                 interactables_eldream, pet_energy_window,
+                                                                 ectrenos_front_enemies, necrola_battle_sprite,
+                                                                 osodark_battle_sprite, sfx_item_pickup, sfx_talking,
+                                                                 talk_start)
+                    else:
+                        mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
+                                                                 korlok_mines_bg, korlok_overworld_music,
+                                                                 over_world_song_set, bandiles, interaction_popup,
+                                                                 font, save_check_window, user_interface,
+                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                 button_highlighted,
+                                                                 button_highlight, in_over_world, interacted,
+                                                                 info_text_1,
+                                                                 info_text_2, info_text_3, info_text_4, enemy_tic,
+                                                                 npc_tic,
+                                                                 in_battle, in_npc_interaction, movement_able,
+                                                                 current_enemy_battling, player_battle_sprite,
+                                                                 snake_battle_sprite, ghoul_battle_sprite,
+                                                                 chorizon_battle_sprite, muchador_battle_sprite,
+                                                                 chinzilla_battle_sprite, barrier_active,
+                                                                 sharp_sense_active, magmon_battle_sprite,
+                                                                 bandile_battle_sprite, seldon_enemies, korlok_enemies,
+                                                                 snakes, ghouls, magmons, interactables_seldon,
+                                                                 interactables_korlok, Enemy, Item, UiElement,
+                                                                 interactables_mines, ores, equipment_screen, staff,
+                                                                 sword, bow, npc_garan, offense_meter, defense_meter,
+                                                                 weapon_select, hearth_stone, npc_prime, npc_jez,
+                                                                 prime_popup, jez_popup, prime_1, prime_2, prime_3,
+                                                                 jez_1,
+                                                                 jez_2, jez_3, seldon_flowers, eldream_flowers,
+                                                                 interactables_eldream, pet_energy_window,
+                                                                 ectrenos_front_enemies, necrola_battle_sprite,
+                                                                 osodark_battle_sprite, sfx_item_pickup, sfx_talking,
+                                                                 talk_start)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -8644,28 +9149,58 @@ if __name__ == '__main__':
                 if player.current_zone == "terra trail" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    trail_returned = zone_terra_trail.terra_trail(pygame, screen, graphic_dict, player,
-                                                                  terra_trail_bg, korlok_overworld_music,
-                                                                  over_world_song_set, interaction_popup, font,
-                                                                  save_check_window, user_interface, bar_backdrop,
-                                                                  hp_bar, en_bar, xp_bar, button_highlighted,
-                                                                  button_highlight, in_over_world, interacted,
-                                                                  info_text_1, info_text_2, info_text_3, info_text_4,
-                                                                  npc_tic, in_npc_interaction, in_battle, movement_able,
-                                                                  current_enemy_battling,
-                                                                  terra_mountains, terra_cave, npc_dionte,
-                                                                  quest_star_dionte, Enemy, player_battle_sprite,
-                                                                  snake_battle_sprite, ghoul_battle_sprite,
-                                                                  chorizon_battle_sprite, muchador_battle_sprite,
-                                                                  magmon_battle_sprite, bandile_battle_sprite,
-                                                                  chinzilla_battle_sprite, barrier_active,
-                                                                  sharp_sense_active, current_npc_interacting,
-                                                                  chinzilla, hearth_stone,
-                                                                  equipment_screen, staff, sword, bow, npc_garan,
-                                                                  offense_meter, defense_meter, weapon_select, rock_7,
-                                                                  rock_7_con, chinzilla_defeated, eldream_gate_rect,
-                                                                  pet_energy_window, necrola_battle_sprite,
-                                                                  osodark_battle_sprite, sfx_item_rupee)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        trail_returned = zone_terra_trail.terra_trail(pygame, screen, graphic_dict, player,
+                                                                      terra_trail_bg, korlok_overworld_music,
+                                                                      over_world_song_set, interaction_popup, font,
+                                                                      save_check_window, user_interface, bar_backdrop,
+                                                                      hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                      button_highlight, in_over_world, interacted,
+                                                                      info_text_1, info_text_2, info_text_3,
+                                                                      info_text_4,
+                                                                      npc_tic, in_npc_interaction, in_battle,
+                                                                      movement_able,
+                                                                      current_enemy_battling,
+                                                                      terra_mountains, terra_cave, npc_dionte,
+                                                                      quest_star_dionte, Enemy, player_battle_sprite,
+                                                                      snake_battle_sprite, ghoul_battle_sprite,
+                                                                      chorizon_battle_sprite, muchador_battle_sprite,
+                                                                      magmon_battle_sprite, bandile_battle_sprite,
+                                                                      chinzilla_battle_sprite, barrier_active,
+                                                                      sharp_sense_active, current_npc_interacting,
+                                                                      chinzilla, hearth_stone,
+                                                                      equipment_screen, staff, sword, bow, npc_garan,
+                                                                      offense_meter, defense_meter, weapon_select,
+                                                                      rock_7,
+                                                                      rock_7_con, chinzilla_defeated, eldream_gate_rect,
+                                                                      pet_energy_window, necrola_battle_sprite,
+                                                                      osodark_battle_sprite, sfx_item_rupee)
+                    else:
+                        trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
+                                                                      terra_trail_bg, korlok_overworld_music,
+                                                                      over_world_song_set, interaction_popup, font,
+                                                                      save_check_window, user_interface, bar_backdrop,
+                                                                      hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                      button_highlight, in_over_world, interacted,
+                                                                      info_text_1, info_text_2, info_text_3,
+                                                                      info_text_4,
+                                                                      npc_tic, in_npc_interaction, in_battle,
+                                                                      movement_able,
+                                                                      current_enemy_battling,
+                                                                      terra_mountains, terra_cave, npc_dionte,
+                                                                      quest_star_dionte, Enemy, player_battle_sprite,
+                                                                      snake_battle_sprite, ghoul_battle_sprite,
+                                                                      chorizon_battle_sprite, muchador_battle_sprite,
+                                                                      magmon_battle_sprite, bandile_battle_sprite,
+                                                                      chinzilla_battle_sprite, barrier_active,
+                                                                      sharp_sense_active, current_npc_interacting,
+                                                                      chinzilla, hearth_stone,
+                                                                      equipment_screen, staff, sword, bow, npc_garan,
+                                                                      offense_meter, defense_meter, weapon_select,
+                                                                      rock_7,
+                                                                      rock_7_con, chinzilla_defeated, eldream_gate_rect,
+                                                                      pet_energy_window, necrola_battle_sprite,
+                                                                      osodark_battle_sprite, sfx_item_rupee)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -8697,30 +9232,65 @@ if __name__ == '__main__':
                 if player.current_zone == "stardust" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    stardust_returned = zone_stardust.stardust_outpost(pygame, player, screen, stardust_song_set,
-                                                                       stardust_outpost_music, stardust_cove_bg,
-                                                                       nede_sprite_reset, nede, graphic_dict,
-                                                                       ghoul_nede, nede_ghoul_defeated,
-                                                                       interaction_popup, font, interacted,
-                                                                       in_over_world, player_battle_sprite,
-                                                                       snake_battle_sprite, ghoul_battle_sprite,
-                                                                       chorizon_battle_sprite, muchador_battle_sprite,
-                                                                       barrier_active, sharp_sense_active,
-                                                                       in_npc_interaction, stardust_entrance,
-                                                                       save_check_window, user_interface, bar_backdrop,
-                                                                       hp_bar, en_bar, xp_bar, button_highlighted,
-                                                                       button_highlight, npc_tic, info_text_1,
-                                                                       info_text_2, info_text_3, info_text_4,
-                                                                       current_enemy_battling,
-                                                                       current_building_entering, in_battle,
-                                                                       movement_able, in_shop, magmon_battle_sprite,
-                                                                       bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                       equipment_screen, staff, sword, bow, npc_garan,
-                                                                       offense_meter, defense_meter, weapon_select,
-                                                                       rock_3, pet_energy_window, stardust_top,
-                                                                       necrola_battle_sprite, osodark_battle_sprite,
-                                                                       sfx_nede_bark, sfx_door_open, sfx_item_rupee,
-                                                                       rock_3_con)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        stardust_returned = zone_stardust.stardust_outpost(pygame, player, screen, stardust_song_set,
+                                                                           stardust_outpost_music, stardust_cove_bg,
+                                                                           nede_sprite_reset, nede, graphic_dict,
+                                                                           ghoul_nede, nede_ghoul_defeated,
+                                                                           interaction_popup, font, interacted,
+                                                                           in_over_world, player_battle_sprite,
+                                                                           snake_battle_sprite, ghoul_battle_sprite,
+                                                                           chorizon_battle_sprite,
+                                                                           muchador_battle_sprite,
+                                                                           barrier_active, sharp_sense_active,
+                                                                           in_npc_interaction, stardust_entrance,
+                                                                           save_check_window, user_interface,
+                                                                           bar_backdrop,
+                                                                           hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                           button_highlight, npc_tic, info_text_1,
+                                                                           info_text_2, info_text_3, info_text_4,
+                                                                           current_enemy_battling,
+                                                                           current_building_entering, in_battle,
+                                                                           movement_able, in_shop, magmon_battle_sprite,
+                                                                           bandile_battle_sprite,
+                                                                           chinzilla_battle_sprite,
+                                                                           equipment_screen, staff, sword, bow,
+                                                                           npc_garan,
+                                                                           offense_meter, defense_meter, weapon_select,
+                                                                           rock_3, pet_energy_window, stardust_top,
+                                                                           necrola_battle_sprite, osodark_battle_sprite,
+                                                                           sfx_nede_bark, sfx_door_open, sfx_item_rupee,
+                                                                           rock_3_con)
+                    else:
+                        stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
+                                                                           stardust_song_set, stardust_outpost_music,
+                                                                           stardust_cove_bg, nede_sprite_reset, nede,
+                                                                           graphic_dict, ghoul_nede,
+                                                                           nede_ghoul_defeated, interaction_popup, font,
+                                                                           interacted, in_over_world,
+                                                                           player_battle_sprite,
+                                                                           snake_battle_sprite, ghoul_battle_sprite,
+                                                                           chorizon_battle_sprite,
+                                                                           muchador_battle_sprite,
+                                                                           barrier_active, sharp_sense_active,
+                                                                           in_npc_interaction, stardust_entrance,
+                                                                           save_check_window, user_interface,
+                                                                           bar_backdrop,
+                                                                           hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                           button_highlight, npc_tic, info_text_1,
+                                                                           info_text_2, info_text_3, info_text_4,
+                                                                           current_enemy_battling,
+                                                                           current_building_entering, in_battle,
+                                                                           movement_able, in_shop, magmon_battle_sprite,
+                                                                           bandile_battle_sprite,
+                                                                           chinzilla_battle_sprite,
+                                                                           equipment_screen, staff, sword, bow,
+                                                                           npc_garan,
+                                                                           offense_meter, defense_meter, weapon_select,
+                                                                           rock_3, pet_energy_window, stardust_top,
+                                                                           necrola_battle_sprite, osodark_battle_sprite,
+                                                                           sfx_nede_bark, sfx_door_open, sfx_item_rupee,
+                                                                           rock_3_con)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -8753,16 +9323,34 @@ if __name__ == '__main__':
                 if player.current_zone == "rohir" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    rohir_returned = zone_rohir.rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg,
-                                                            dungeon_entrance, water_1, water_2, water_3, water_4,
-                                                            water_5, water_player, graphic_dict, save_check_window,
-                                                            user_interface, bar_backdrop, hp_bar, en_bar, xp_bar, font,
-                                                            info_text_1, info_text_2, info_text_3, info_text_4,
-                                                            in_over_world, button_highlighted, button_highlight,
-                                                            rohir_river_music, interaction_popup, interacted,
-                                                            equipment_screen, staff, sword, bow, npc_garan,
-                                                            offense_meter, defense_meter, weapon_select, beyond_seldon,
-                                                            pet_energy_window)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        rohir_returned = zone_rohir.rohir_river(pygame, screen, player, over_world_song_set,
+                                                                rohir_river_bg,
+                                                                dungeon_entrance, water_1, water_2, water_3, water_4,
+                                                                water_5, water_player, graphic_dict, save_check_window,
+                                                                user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                font,
+                                                                info_text_1, info_text_2, info_text_3, info_text_4,
+                                                                in_over_world, button_highlighted, button_highlight,
+                                                                rohir_river_music, interaction_popup, interacted,
+                                                                equipment_screen, staff, sword, bow, npc_garan,
+                                                                offense_meter, defense_meter, weapon_select,
+                                                                beyond_seldon,
+                                                                pet_energy_window)
+                    else:
+                        rohir_returned = zone_rohir.rohir_river(pygame, game_window, player, over_world_song_set,
+                                                                rohir_river_bg,
+                                                                dungeon_entrance, water_1, water_2, water_3, water_4,
+                                                                water_5, water_player, graphic_dict, save_check_window,
+                                                                user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                font,
+                                                                info_text_1, info_text_2, info_text_3, info_text_4,
+                                                                in_over_world, button_highlighted, button_highlight,
+                                                                rohir_river_music, interaction_popup, interacted,
+                                                                equipment_screen, staff, sword, bow, npc_garan,
+                                                                offense_meter, defense_meter, weapon_select,
+                                                                beyond_seldon,
+                                                                pet_energy_window)
 
                     over_world_song_set = rohir_returned["over_world_song_set"]
                     info_text_1 = rohir_returned["info_text_1"]
@@ -8788,33 +9376,71 @@ if __name__ == '__main__':
                 if player.current_zone == "reservoir a" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    reservoir_a_returned = zone_reservoir.reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict,
-                                                                      player, reservoir_a_bg, reservoir_music,
-                                                                      over_world_song_set, interaction_popup, font,
-                                                                      save_check_window, user_interface,
-                                                                      loot_popup_container, loot_text_container,
-                                                                      bar_backdrop, hp_bar, en_bar, xp_bar,
-                                                                      button_highlighted, button_highlight,
-                                                                      in_over_world, interacted, info_text_1,
-                                                                      info_text_2, info_text_3, info_text_4, switch_1,
-                                                                      dungeon_switch_1, switch_2, dungeon_switch_2,
-                                                                      switch_3, dungeon_switch_3, dungeon_walls,
-                                                                      dungeon_items, dungeon_teleporter, mini_boss_1,
-                                                                      dungeon_drop_wall, chorizon_1, mini_boss_2,
-                                                                      chorizon_2, crate_1, Item, crate_2, crate_3,
-                                                                      crate_4, mini_boss_1_defeated,
-                                                                      mini_boss_2_defeated, boss_enemies,
-                                                                      player_battle_sprite, snake_battle_sprite,
-                                                                      ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                      muchador_battle_sprite, barrier_active,
-                                                                      sharp_sense_active, in_npc_interaction,
-                                                                      magmon_battle_sprite, bandile_battle_sprite,
-                                                                      chinzilla_battle_sprite, equipment_screen, staff,
-                                                                      sword, bow, npc_garan, offense_meter,
-                                                                      defense_meter, weapon_select, pet_energy_window,
-                                                                      necrola_battle_sprite, osodark_battle_sprite,
-                                                                      sfx_item_rupee, sfx_item_key, sfx_item_potion,
-                                                                      sfx_activate_switch, sfx_activate_teleporter)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        reservoir_a_returned = zone_reservoir.reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict,
+                                                                          player, reservoir_a_bg, reservoir_music,
+                                                                          over_world_song_set, interaction_popup, font,
+                                                                          save_check_window, user_interface,
+                                                                          loot_popup_container, loot_text_container,
+                                                                          bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                          button_highlighted, button_highlight,
+                                                                          in_over_world, interacted, info_text_1,
+                                                                          info_text_2, info_text_3, info_text_4,
+                                                                          switch_1,
+                                                                          dungeon_switch_1, switch_2, dungeon_switch_2,
+                                                                          switch_3, dungeon_switch_3, dungeon_walls,
+                                                                          dungeon_items, dungeon_teleporter,
+                                                                          mini_boss_1,
+                                                                          dungeon_drop_wall, chorizon_1, mini_boss_2,
+                                                                          chorizon_2, crate_1, Item, crate_2, crate_3,
+                                                                          crate_4, mini_boss_1_defeated,
+                                                                          mini_boss_2_defeated, boss_enemies,
+                                                                          player_battle_sprite, snake_battle_sprite,
+                                                                          ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                          muchador_battle_sprite, barrier_active,
+                                                                          sharp_sense_active, in_npc_interaction,
+                                                                          magmon_battle_sprite, bandile_battle_sprite,
+                                                                          chinzilla_battle_sprite, equipment_screen,
+                                                                          staff,
+                                                                          sword, bow, npc_garan, offense_meter,
+                                                                          defense_meter, weapon_select,
+                                                                          pet_energy_window,
+                                                                          necrola_battle_sprite, osodark_battle_sprite,
+                                                                          sfx_item_rupee, sfx_item_key, sfx_item_potion,
+                                                                          sfx_activate_switch, sfx_activate_teleporter)
+                    else:
+                        reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
+                                                                          graphic_dict,
+                                                                          player, reservoir_a_bg, reservoir_music,
+                                                                          over_world_song_set, interaction_popup, font,
+                                                                          save_check_window, user_interface,
+                                                                          loot_popup_container, loot_text_container,
+                                                                          bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                          button_highlighted, button_highlight,
+                                                                          in_over_world, interacted, info_text_1,
+                                                                          info_text_2, info_text_3, info_text_4,
+                                                                          switch_1,
+                                                                          dungeon_switch_1, switch_2, dungeon_switch_2,
+                                                                          switch_3, dungeon_switch_3, dungeon_walls,
+                                                                          dungeon_items, dungeon_teleporter,
+                                                                          mini_boss_1,
+                                                                          dungeon_drop_wall, chorizon_1, mini_boss_2,
+                                                                          chorizon_2, crate_1, Item, crate_2, crate_3,
+                                                                          crate_4, mini_boss_1_defeated,
+                                                                          mini_boss_2_defeated, boss_enemies,
+                                                                          player_battle_sprite, snake_battle_sprite,
+                                                                          ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                          muchador_battle_sprite, barrier_active,
+                                                                          sharp_sense_active, in_npc_interaction,
+                                                                          magmon_battle_sprite, bandile_battle_sprite,
+                                                                          chinzilla_battle_sprite, equipment_screen,
+                                                                          staff,
+                                                                          sword, bow, npc_garan, offense_meter,
+                                                                          defense_meter, weapon_select,
+                                                                          pet_energy_window,
+                                                                          necrola_battle_sprite, osodark_battle_sprite,
+                                                                          sfx_item_rupee, sfx_item_key, sfx_item_potion,
+                                                                          sfx_activate_switch, sfx_activate_teleporter)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -8848,30 +9474,68 @@ if __name__ == '__main__':
                 if player.current_zone == "reservoir b" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, screen, graphic_dict,
-                                                                      over_world_song_set, reservoir_music,
-                                                                      dungeon_teleporter, reservoir_b_bg, dungeon_gate,
-                                                                      crate_5, dungeon_crate_5, muchador_lights_on,
-                                                                      muchador_arena, muchador_defeated, muchador,
-                                                                      muchador_crate_1, muchador_crate_2,
-                                                                      muchador_crate_3, muchador_crate_4,
-                                                                      reservoir_passage, interaction_popup,
-                                                                      font, interacted, SCREEN_WIDTH, save_check_window,
-                                                                      player_battle_sprite, snake_battle_sprite,
-                                                                      ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                      muchador_battle_sprite, barrier_active,
-                                                                      sharp_sense_active, in_npc_interaction,
-                                                                      user_interface, bar_backdrop, hp_bar, en_bar,
-                                                                      xp_bar, button_highlighted, button_highlight,
-                                                                      info_text_1, info_text_2, info_text_3,
-                                                                      info_text_4, in_over_world, switch_1, switch_2,
-                                                                      switch_3, has_key, magmon_battle_sprite,
-                                                                      bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                      equipment_screen, staff, sword, bow, npc_garan,
-                                                                      offense_meter, defense_meter, weapon_select,
-                                                                      pet_energy_window, necrola_battle_sprite,
-                                                                      osodark_battle_sprite, sfx_activate_teleporter,
-                                                                      sfx_item_rupee, sfx_gate_open)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, screen, graphic_dict,
+                                                                          over_world_song_set, reservoir_music,
+                                                                          dungeon_teleporter, reservoir_b_bg,
+                                                                          dungeon_gate,
+                                                                          crate_5, dungeon_crate_5, muchador_lights_on,
+                                                                          muchador_arena, muchador_defeated, muchador,
+                                                                          muchador_crate_1, muchador_crate_2,
+                                                                          muchador_crate_3, muchador_crate_4,
+                                                                          reservoir_passage, interaction_popup,
+                                                                          font, interacted, SCREEN_WIDTH,
+                                                                          save_check_window,
+                                                                          player_battle_sprite, snake_battle_sprite,
+                                                                          ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                          muchador_battle_sprite, barrier_active,
+                                                                          sharp_sense_active, in_npc_interaction,
+                                                                          user_interface, bar_backdrop, hp_bar, en_bar,
+                                                                          xp_bar, button_highlighted, button_highlight,
+                                                                          info_text_1, info_text_2, info_text_3,
+                                                                          info_text_4, in_over_world, switch_1,
+                                                                          switch_2,
+                                                                          switch_3, has_key, magmon_battle_sprite,
+                                                                          bandile_battle_sprite,
+                                                                          chinzilla_battle_sprite,
+                                                                          equipment_screen, staff, sword, bow,
+                                                                          npc_garan,
+                                                                          offense_meter, defense_meter, weapon_select,
+                                                                          pet_energy_window, necrola_battle_sprite,
+                                                                          osodark_battle_sprite,
+                                                                          sfx_activate_teleporter,
+                                                                          sfx_item_rupee, sfx_gate_open)
+                    else:
+                        reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
+                                                                          over_world_song_set, reservoir_music,
+                                                                          dungeon_teleporter, reservoir_b_bg,
+                                                                          dungeon_gate,
+                                                                          crate_5, dungeon_crate_5, muchador_lights_on,
+                                                                          muchador_arena, muchador_defeated, muchador,
+                                                                          muchador_crate_1, muchador_crate_2,
+                                                                          muchador_crate_3, muchador_crate_4,
+                                                                          reservoir_passage, interaction_popup,
+                                                                          font, interacted, SCREEN_WIDTH,
+                                                                          save_check_window,
+                                                                          player_battle_sprite, snake_battle_sprite,
+                                                                          ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                          muchador_battle_sprite, barrier_active,
+                                                                          sharp_sense_active, in_npc_interaction,
+                                                                          user_interface, bar_backdrop, hp_bar, en_bar,
+                                                                          xp_bar, button_highlighted, button_highlight,
+                                                                          info_text_1, info_text_2, info_text_3,
+                                                                          info_text_4, in_over_world, switch_1,
+                                                                          switch_2,
+                                                                          switch_3, has_key, magmon_battle_sprite,
+                                                                          bandile_battle_sprite,
+                                                                          chinzilla_battle_sprite,
+                                                                          equipment_screen, staff, sword, bow,
+                                                                          npc_garan,
+                                                                          offense_meter, defense_meter, weapon_select,
+                                                                          pet_energy_window, necrola_battle_sprite,
+                                                                          osodark_battle_sprite,
+                                                                          sfx_activate_teleporter,
+                                                                          sfx_item_rupee, sfx_gate_open)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -8902,19 +9566,46 @@ if __name__ == '__main__':
                 if player.current_zone == "reservoir c" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, screen, graphic_dict,
-                                                                      over_world_song_set, reservoir_music,
-                                                                      interaction_popup, font, interacted,
-                                                                      save_check_window, user_interface, bar_backdrop,
-                                                                      hp_bar, en_bar, xp_bar, button_highlighted,
-                                                                      button_highlight, reservoir_c_bg, dungeon_chest,
-                                                                      reservoir_exit, rock_1, rock_2, gloves_obtained,
-                                                                      power_gloves, info_text_1, info_text_2,
-                                                                      info_text_3, info_text_4, in_over_world, has_key,
-                                                                      muchador_lights_on, hearth_stone,
-                                                                      equipment_screen, staff, sword, bow, npc_garan,
-                                                                      offense_meter, defense_meter, weapon_select,
-                                                                      pet_energy_window, sfx_chest_open, sfx_rock_push)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, screen, graphic_dict,
+                                                                          over_world_song_set, reservoir_music,
+                                                                          interaction_popup, font, interacted,
+                                                                          save_check_window, user_interface,
+                                                                          bar_backdrop,
+                                                                          hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                          button_highlight, reservoir_c_bg,
+                                                                          dungeon_chest,
+                                                                          reservoir_exit, rock_1, rock_2,
+                                                                          gloves_obtained,
+                                                                          power_gloves, info_text_1, info_text_2,
+                                                                          info_text_3, info_text_4, in_over_world,
+                                                                          has_key,
+                                                                          muchador_lights_on, hearth_stone,
+                                                                          equipment_screen, staff, sword, bow,
+                                                                          npc_garan,
+                                                                          offense_meter, defense_meter, weapon_select,
+                                                                          pet_energy_window, sfx_chest_open,
+                                                                          sfx_rock_push)
+                    else:
+                        reservoir_c_returned = zone_reservoir.reservoir_c(pygame, player, game_window, graphic_dict,
+                                                                          over_world_song_set, reservoir_music,
+                                                                          interaction_popup, font, interacted,
+                                                                          save_check_window, user_interface,
+                                                                          bar_backdrop,
+                                                                          hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                          button_highlight, reservoir_c_bg,
+                                                                          dungeon_chest,
+                                                                          reservoir_exit, rock_1, rock_2,
+                                                                          gloves_obtained,
+                                                                          power_gloves, info_text_1, info_text_2,
+                                                                          info_text_3, info_text_4, in_over_world,
+                                                                          has_key,
+                                                                          muchador_lights_on, hearth_stone,
+                                                                          equipment_screen, staff, sword, bow,
+                                                                          npc_garan,
+                                                                          offense_meter, defense_meter, weapon_select,
+                                                                          pet_energy_window, sfx_chest_open,
+                                                                          sfx_rock_push)
 
                     over_world_song_set = reservoir_c_returned["over_world_song_set"]
                     interacted = reservoir_c_returned["interacted"]
@@ -9310,10 +10001,13 @@ if __name__ == '__main__':
                                                                                               legendary_armor,
                                                                                               power_gloves,
                                                                                               chroma_boots)
-                                                frame = pygame.transform.smoothscale(screen,
-                                                                                     (SCREEN_WIDTH, SCREEN_HEIGHT))
-                                                game_window.blit(frame, frame.get_rect())
-                                                pygame.display.flip()
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    frame = pygame.transform.smoothscale(screen,
+                                                                                         (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                                    game_window.blit(frame, frame.get_rect())
+                                                    pygame.display.flip()
+                                                else:
+                                                    pygame.display.flip()
                                             else:
                                                 info_text_1 = "Barrier spell is already active."
 
@@ -9370,10 +10064,13 @@ if __name__ == '__main__':
                                                                                               legendary_armor,
                                                                                               power_gloves,
                                                                                               chroma_boots)
-                                                frame = pygame.transform.smoothscale(screen,
-                                                                                     (SCREEN_WIDTH, SCREEN_HEIGHT))
-                                                game_window.blit(frame, frame.get_rect())
-                                                pygame.display.flip()
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    frame = pygame.transform.smoothscale(screen,
+                                                                                         (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                                    game_window.blit(frame, frame.get_rect())
+                                                    pygame.display.flip()
+                                                else:
+                                                    pygame.display.flip()
                                             else:
                                                 info_text_1 = "Sharp sense is already active."
 
@@ -9470,31 +10167,58 @@ if __name__ == '__main__':
                     try:
                         if in_battle and not in_over_world and not in_shop \
                                 and not in_inn and not in_academia and not in_npc_interaction:
-                            if player.current_zone == "seldon":
-                                screen.blit(seldon_district_battle, (0, 0))
-                            if player.current_zone == "korlok":
-                                screen.blit(korlok_district_battle, (0, 0))
-                            if player.current_zone == "mines":
-                                screen.blit(mines_battle, (0, 0))
-                            if player.current_zone == "stardust":
-                                screen.blit(stardust_battle, (0, 0))
-                            if player.current_zone == "reservoir a" or player.current_zone == "reservoir b":
-                                screen.blit(reservoir_battle, (0, 0))
-                            if player.current_zone == "terra trail":
-                                screen.blit(caves_battle_screen, (0, 0))
-                            if player.current_zone == "ectrenos front":
-                                screen.blit(ectrenos_front_interaction_bg, (0, 0))
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                if player.current_zone == "seldon":
+                                    screen.blit(seldon_district_battle, (0, 0))
+                                if player.current_zone == "korlok":
+                                    screen.blit(korlok_district_battle, (0, 0))
+                                if player.current_zone == "mines":
+                                    screen.blit(mines_battle, (0, 0))
+                                if player.current_zone == "stardust":
+                                    screen.blit(stardust_battle, (0, 0))
+                                if player.current_zone == "reservoir a" or player.current_zone == "reservoir b":
+                                    screen.blit(reservoir_battle, (0, 0))
+                                if player.current_zone == "terra trail":
+                                    screen.blit(caves_battle_screen, (0, 0))
+                                if player.current_zone == "ectrenos front":
+                                    screen.blit(ectrenos_front_interaction_bg, (0, 0))
 
-                            screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
-                            try:
-                                screen.blit(current_enemy_battling.health_bar.surf,
-                                            current_enemy_battling.health_bar.rect)
-                            except TypeError:
-                                pass
-                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                            screen.blit(hp_bar.surf, hp_bar.rect)
-                            screen.blit(en_bar.surf, en_bar.rect)
-                            screen.blit(xp_bar.surf, xp_bar.rect)
+                                screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
+                                try:
+                                    screen.blit(current_enemy_battling.health_bar.surf,
+                                                current_enemy_battling.health_bar.rect)
+                                except TypeError:
+                                    pass
+                                screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                screen.blit(hp_bar.surf, hp_bar.rect)
+                                screen.blit(en_bar.surf, en_bar.rect)
+                                screen.blit(xp_bar.surf, xp_bar.rect)
+                            else:
+                                if player.current_zone == "seldon":
+                                    game_window.blit(seldon_district_battle, (0, 0))
+                                if player.current_zone == "korlok":
+                                    game_window.blit(korlok_district_battle, (0, 0))
+                                if player.current_zone == "mines":
+                                    game_window.blit(mines_battle, (0, 0))
+                                if player.current_zone == "stardust":
+                                    game_window.blit(stardust_battle, (0, 0))
+                                if player.current_zone == "reservoir a" or player.current_zone == "reservoir b":
+                                    game_window.blit(reservoir_battle, (0, 0))
+                                if player.current_zone == "terra trail":
+                                    game_window.blit(caves_battle_screen, (0, 0))
+                                if player.current_zone == "ectrenos front":
+                                    game_window.blit(ectrenos_front_interaction_bg, (0, 0))
+
+                                game_window.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
+                                try:
+                                    game_window.blit(current_enemy_battling.health_bar.surf,
+                                                     current_enemy_battling.health_bar.rect)
+                                except TypeError:
+                                    pass
+                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                game_window.blit(hp_bar.surf, hp_bar.rect)
+                                game_window.blit(en_bar.surf, en_bar.rect)
+                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             try:
                                 for pet in player.pet:
                                     if pet.active:
@@ -9502,8 +10226,12 @@ if __name__ == '__main__':
                                                                       "light yellow")
                                         pet_energy_rect = pet_energy_surf.get_rect()
                                         pet_energy_rect.midleft = (345, 57)
-                                        screen.blit(pet_energy_window.surf, pet_energy_window.rect)
-                                        screen.blit(pet_energy_surf, pet_energy_rect)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                                            screen.blit(pet_energy_surf, pet_energy_rect)
+                                        else:
+                                            game_window.blit(pet_energy_window.surf, pet_energy_window.rect)
+                                            game_window.blit(pet_energy_surf, pet_energy_rect)
                             except AttributeError:
                                 pass
                             text_enemy_name_surf = font.render(str(current_enemy_battling.kind), True, "black",
@@ -9521,10 +10249,16 @@ if __name__ == '__main__':
                                 type_advantage_overlay.update(580, 50, graphic_dict["fighter_type_overlay"])
                             if current_enemy_battling.type == "scout":
                                 type_advantage_overlay.update(580, 50, graphic_dict["scout_type_overlay"])
-                            screen.blit(type_advantage_overlay.surf, type_advantage_overlay.rect)
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(type_advantage_overlay.surf, type_advantage_overlay.rect)
+                            else:
+                                game_window.blit(type_advantage_overlay.surf, type_advantage_overlay.rect)
                             if not beyond_seldon and player.current_zone != "reservoir a" or player.current_zone != \
                                     "reservoir b" or player.current_zone != "reservoir c":
-                                screen.blit(type_advantage_mini.surf, type_advantage_mini.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(type_advantage_mini.surf, type_advantage_mini.rect)
+                                else:
+                                    game_window.blit(type_advantage_mini.surf, type_advantage_mini.rect)
                             # game guide popups
                             if not battle_guide_shown:
                                 game_guide_overlay.update(game_guide_overlay.x_coordinate,
@@ -9535,7 +10269,10 @@ if __name__ == '__main__':
 
                             if first_battle_cond:
                                 directional_arrow.update(745, 565, graphic_dict["arrow_down"])
-                                screen.blit(directional_arrow.surf, directional_arrow.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(directional_arrow.surf, directional_arrow.rect)
+                                else:
+                                    game_window.blit(directional_arrow.surf, directional_arrow.rect)
 
                     except AttributeError:
                         pass
@@ -9553,74 +10290,144 @@ if __name__ == '__main__':
                         torok_battle_sprite.update(825, 520, graphic_dict["torok_battle"])
                         iriana_battle_sprite.update(825, 520, graphic_dict["iriana_battle"])
 
-                        if current_enemy_battling.name == "snake":
-                            screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                        if current_enemy_battling.kind == "ghoul":
-                            screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                        if current_enemy_battling.kind == "chorizon":
-                            screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
-                        if current_enemy_battling.kind == "muchador":
-                            screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
-                        if current_enemy_battling.kind == "magmon":
-                            screen.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
-                        if current_enemy_battling.kind == "bandile":
-                            screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
-                        if current_enemy_battling.kind == "chinzilla":
-                            screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
-                        if current_enemy_battling.kind == "necrola":
-                            screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
-                        if current_enemy_battling.kind == "osodark":
-                            screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            if current_enemy_battling.name == "snake":
+                                screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                            if current_enemy_battling.kind == "ghoul":
+                                screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                            if current_enemy_battling.kind == "chorizon":
+                                screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
+                            if current_enemy_battling.kind == "muchador":
+                                screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
+                            if current_enemy_battling.kind == "magmon":
+                                screen.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
+                            if current_enemy_battling.kind == "bandile":
+                                screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
+                            if current_enemy_battling.kind == "chinzilla":
+                                screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+                            if current_enemy_battling.kind == "necrola":
+                                screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
+                            if current_enemy_battling.kind == "osodark":
+                                screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
 
-                        for pet in player.pet:
-                            if pet.active:
-                                if pet.name == "kasper":
-                                    screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
-                                if pet.name == "torok":
-                                    screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
-                                if pet.name == "iriana":
-                                    screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
+                            for pet in player.pet:
+                                if pet.active:
+                                    if pet.name == "kasper":
+                                        screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
+                                    if pet.name == "torok":
+                                        screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
+                                    if pet.name == "iriana":
+                                        screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
-                        screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                      weapon_select)
-                        screen.blit(skill_bar.surf, skill_bar.rect)
-                        screen.blit(enemy_status.surf, enemy_status.rect)
-                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
-                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+                            screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(skill_bar.surf, skill_bar.rect)
+                            screen.blit(enemy_status.surf, enemy_status.rect)
+                            screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                            screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
-                        if player.role == "mage":
-                            screen.blit(mage_attack_button.surf, mage_attack_button.rect)
-                            if player.skills_mage["skill 2"] == "barrier":
-                                screen.blit(barrier_button.surf, barrier_button.rect)
-                        if player.role == "fighter":
-                            screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
-                            if player.skills_fighter["skill 2"] == "hard strike":
-                                screen.blit(hard_strike_button.surf, hard_strike_button.rect)
-                        if player.role == "scout":
-                            screen.blit(scout_attack_button.surf, scout_attack_button.rect)
-                            if player.skills_scout["skill 2"] == "sharp sense":
-                                screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
-                        if player.role == "":
-                            screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
+                            if player.role == "mage":
+                                screen.blit(mage_attack_button.surf, mage_attack_button.rect)
+                                if player.skills_mage["skill 2"] == "barrier":
+                                    screen.blit(barrier_button.surf, barrier_button.rect)
+                            if player.role == "fighter":
+                                screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
+                                if player.skills_fighter["skill 2"] == "hard strike":
+                                    screen.blit(hard_strike_button.surf, hard_strike_button.rect)
+                            if player.role == "scout":
+                                screen.blit(scout_attack_button.surf, scout_attack_button.rect)
+                                if player.skills_scout["skill 2"] == "sharp sense":
+                                    screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                            if player.role == "":
+                                screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
+
+                        else:
+                            if current_enemy_battling.name == "snake":
+                                game_window.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                            if current_enemy_battling.kind == "ghoul":
+                                game_window.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                            if current_enemy_battling.kind == "chorizon":
+                                game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
+                            if current_enemy_battling.kind == "muchador":
+                                game_window.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
+                            if current_enemy_battling.kind == "magmon":
+                                game_window.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
+                            if current_enemy_battling.kind == "bandile":
+                                game_window.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
+                            if current_enemy_battling.kind == "chinzilla":
+                                game_window.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+                            if current_enemy_battling.kind == "necrola":
+                                game_window.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
+                            if current_enemy_battling.kind == "osodark":
+                                game_window.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+
+                            for pet in player.pet:
+                                if pet.active:
+                                    if pet.name == "kasper":
+                                        game_window.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
+                                    if pet.name == "torok":
+                                        game_window.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
+                                    if pet.name == "iriana":
+                                        game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
+
+                            game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(skill_bar.surf, skill_bar.rect)
+                            game_window.blit(enemy_status.surf, enemy_status.rect)
+                            game_window.blit(text_enemy_name_surf, text_enemy_name_rect)
+                            game_window.blit(text_enemy_level_surf, text_enemy_level_rect)
+
+                            if player.role == "mage":
+                                game_window.blit(mage_attack_button.surf, mage_attack_button.rect)
+                                if player.skills_mage["skill 2"] == "barrier":
+                                    game_window.blit(barrier_button.surf, barrier_button.rect)
+                            if player.role == "fighter":
+                                game_window.blit(fighter_attack_button.surf, fighter_attack_button.rect)
+                                if player.skills_fighter["skill 2"] == "hard strike":
+                                    game_window.blit(hard_strike_button.surf, hard_strike_button.rect)
+                            if player.role == "scout":
+                                game_window.blit(scout_attack_button.surf, scout_attack_button.rect)
+                                if player.skills_scout["skill 2"] == "sharp sense":
+                                    game_window.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                            if player.role == "":
+                                game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         if not combat_cooldown:
                             if button_highlighted:
-                                screen.blit(button_highlight.surf, button_highlight.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(button_highlight.surf, button_highlight.rect)
+                                else:
+                                    game_window.blit(button_highlight.surf, button_highlight.rect)
 
-                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                        game_window.blit(frame, frame.get_rect())
-                        pygame.display.flip()
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                            game_window.blit(frame, frame.get_rect())
+                            pygame.display.flip()
+                        else:
+                            pygame.display.flip()
+
                         combat_cooldown = False
 
                     # combat happened this turn, update sprites for attack and apply short cooldown to attack again
@@ -9665,70 +10472,136 @@ if __name__ == '__main__':
                                         if pet.name == "iriana":
                                             iriana_battle_sprite.update(500, 350, graphic_dict["iriana_attack"])
 
-                        if current_enemy_battling.name == "snake":
-                            screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
-                        if current_enemy_battling.kind == "ghoul":
-                            screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
-                        if current_enemy_battling.kind == "chorizon":
-                            screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
-                        if current_enemy_battling.kind == "muchador":
-                            screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
-                        if current_enemy_battling.kind == "magmon":
-                            screen.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
-                        if current_enemy_battling.kind == "bandile":
-                            screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
-                        if current_enemy_battling.kind == "chinzilla":
-                            screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
-                        if current_enemy_battling.kind == "necrola":
-                            screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
-                        if current_enemy_battling.kind == "osodark":
-                            screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            if current_enemy_battling.name == "snake":
+                                screen.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                            if current_enemy_battling.kind == "ghoul":
+                                screen.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                            if current_enemy_battling.kind == "chorizon":
+                                screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
+                            if current_enemy_battling.kind == "muchador":
+                                screen.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
+                            if current_enemy_battling.kind == "magmon":
+                                screen.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
+                            if current_enemy_battling.kind == "bandile":
+                                screen.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
+                            if current_enemy_battling.kind == "chinzilla":
+                                screen.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+                            if current_enemy_battling.kind == "necrola":
+                                screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
+                            if current_enemy_battling.kind == "osodark":
+                                screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
 
-                        for pet in player.pet:
-                            if pet.active:
-                                if pet.name == "kasper":
-                                    screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
-                                if pet.name == "torok":
-                                    screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
-                                if pet.name == "iriana":
-                                    screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
+                            for pet in player.pet:
+                                if pet.active:
+                                    if pet.name == "kasper":
+                                        screen.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
+                                    if pet.name == "torok":
+                                        screen.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
+                                    if pet.name == "iriana":
+                                        screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
-                        screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                      weapon_select)
-                        screen.blit(skill_bar.surf, skill_bar.rect)
-                        screen.blit(enemy_status.surf, enemy_status.rect)
-                        screen.blit(text_enemy_name_surf, text_enemy_name_rect)
-                        screen.blit(text_enemy_level_surf, text_enemy_level_rect)
+                            screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(skill_bar.surf, skill_bar.rect)
+                            screen.blit(enemy_status.surf, enemy_status.rect)
+                            screen.blit(text_enemy_name_surf, text_enemy_name_rect)
+                            screen.blit(text_enemy_level_surf, text_enemy_level_rect)
 
-                        if player.role == "mage":
-                            screen.blit(mage_attack_button.surf, mage_attack_button.rect)
-                            if player.skills_mage["skill 2"] == "barrier":
-                                screen.blit(barrier_button.surf, barrier_button.rect)
-                        if player.role == "fighter":
-                            screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
-                            if player.skills_fighter["skill 2"] == "hard strike":
-                                screen.blit(hard_strike_button.surf, hard_strike_button.rect)
-                        if player.role == "scout":
-                            screen.blit(scout_attack_button.surf, scout_attack_button.rect)
-                            if player.skills_scout["skill 2"] == "sharp sense":
-                                screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
-                        if player.role == "":
-                            screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
+                            if player.role == "mage":
+                                screen.blit(mage_attack_button.surf, mage_attack_button.rect)
+                                if player.skills_mage["skill 2"] == "barrier":
+                                    screen.blit(barrier_button.surf, barrier_button.rect)
+                            if player.role == "fighter":
+                                screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
+                                if player.skills_fighter["skill 2"] == "hard strike":
+                                    screen.blit(hard_strike_button.surf, hard_strike_button.rect)
+                            if player.role == "scout":
+                                screen.blit(scout_attack_button.surf, scout_attack_button.rect)
+                                if player.skills_scout["skill 2"] == "sharp sense":
+                                    screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                            if player.role == "":
+                                screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
+
+                        else:
+                            if current_enemy_battling.name == "snake":
+                                game_window.blit(snake_battle_sprite.surf, snake_battle_sprite.rect)
+                            if current_enemy_battling.kind == "ghoul":
+                                game_window.blit(ghoul_battle_sprite.surf, ghoul_battle_sprite.rect)
+                            if current_enemy_battling.kind == "chorizon":
+                                game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
+                            if current_enemy_battling.kind == "muchador":
+                                game_window.blit(muchador_battle_sprite.surf, muchador_battle_sprite.rect)
+                            if current_enemy_battling.kind == "magmon":
+                                game_window.blit(magmon_battle_sprite.surf, magmon_battle_sprite.rect)
+                            if current_enemy_battling.kind == "bandile":
+                                game_window.blit(bandile_battle_sprite.surf, bandile_battle_sprite.rect)
+                            if current_enemy_battling.kind == "chinzilla":
+                                game_window.blit(chinzilla_battle_sprite.surf, chinzilla_battle_sprite.rect)
+                            if current_enemy_battling.kind == "necrola":
+                                game_window.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
+                            if current_enemy_battling.kind == "osodark":
+                                game_window.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+
+                            for pet in player.pet:
+                                if pet.active:
+                                    if pet.name == "kasper":
+                                        game_window.blit(kasper_battle_sprite.surf, kasper_battle_sprite.rect)
+                                    if pet.name == "torok":
+                                        game_window.blit(torok_battle_sprite.surf, torok_battle_sprite.rect)
+                                    if pet.name == "iriana":
+                                        game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
+
+                            game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(skill_bar.surf, skill_bar.rect)
+                            game_window.blit(enemy_status.surf, enemy_status.rect)
+                            game_window.blit(text_enemy_name_surf, text_enemy_name_rect)
+                            game_window.blit(text_enemy_level_surf, text_enemy_level_rect)
+
+                            if player.role == "mage":
+                                game_window.blit(mage_attack_button.surf, mage_attack_button.rect)
+                                if player.skills_mage["skill 2"] == "barrier":
+                                    game_window.blit(barrier_button.surf, barrier_button.rect)
+                            if player.role == "fighter":
+                                game_window.blit(fighter_attack_button.surf, fighter_attack_button.rect)
+                                if player.skills_fighter["skill 2"] == "hard strike":
+                                    game_window.blit(hard_strike_button.surf, hard_strike_button.rect)
+                            if player.role == "scout":
+                                game_window.blit(scout_attack_button.surf, scout_attack_button.rect)
+                                if player.skills_scout["skill 2"] == "sharp sense":
+                                    game_window.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                            if player.role == "":
+                                game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         if not combat_cooldown:
                             if button_highlighted:
-                                screen.blit(button_highlight.surf, button_highlight.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(button_highlight.surf, button_highlight.rect)
+                                else:
+                                    game_window.blit(button_highlight.surf, button_highlight.rect)
 
                         # damage overlays, updated depending on if damage was in effective range
                         try:
@@ -9744,17 +10617,26 @@ if __name__ == '__main__':
                                     pet_damage_overlay.update(950, 275, graphic_dict["non_effective_pet_damage_img"])
                                 if combat_events["effective pet"]:
                                     pet_damage_overlay.update(950, 275, graphic_dict["effective_pet_damage_img"])
-                                screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
+                                else:
+                                    game_window.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
                                 if kasper_unlocked or torok_unlocked or iriana_unlocked:
                                     for pet in player.pet:
                                         if pet.active:
                                             if pet.energy > 0:
-                                                screen.blit(pet_damage_overlay.surf, pet_damage_overlay.rect)
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    screen.blit(pet_damage_overlay.surf, pet_damage_overlay.rect)
+                                                else:
+                                                    game_window.blit(pet_damage_overlay.surf, pet_damage_overlay.rect)
                                 damage_done_surf = level_up_font.render(str(combat_events["player damage"]),
                                                                         True, "black", "white")
                                 damage_done_rect = damage_done_surf.get_rect()
                                 damage_done_rect.center = (850, 225)
-                                screen.blit(damage_done_surf, damage_done_rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(damage_done_surf, damage_done_rect)
+                                else:
+                                    game_window.blit(damage_done_surf, damage_done_rect)
                                 damage_pet_surf = level_up_font.render(str(combat_events["pet damage"]),
                                                                        True, "black", "white")
                                 damage_pet_rect = damage_pet_surf.get_rect()
@@ -9763,9 +10645,15 @@ if __name__ == '__main__':
                                     for pet in player.pet:
                                         if pet.active:
                                             if pet.energy > 0:
-                                                screen.blit(damage_pet_surf, damage_pet_rect)
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    screen.blit(damage_pet_surf, damage_pet_rect)
+                                                else:
+                                                    game_window.blit(damage_pet_surf, damage_pet_rect)
                                 if combat_events["critical dealt"]:
-                                    screen.blit(critical_dealt_overlay.surf, critical_dealt_overlay.rect)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(critical_dealt_overlay.surf, critical_dealt_overlay.rect)
+                                    else:
+                                        game_window.blit(critical_dealt_overlay.surf, critical_dealt_overlay.rect)
 
                             if combat_events["damage taken"] != 0:
                                 received_damage_overlay.update(125, 275, graphic_dict["received_damage_img"])
@@ -9776,20 +10664,34 @@ if __name__ == '__main__':
                                     received_damage_overlay.update(125, 275,
                                                                    graphic_dict["effective_received_damage_img"])
 
-                                screen.blit(received_damage_overlay.surf, received_damage_overlay.rect)
-                                damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
-                                                                            True, "black", "white")
-                                damage_received_rect = damage_received_surf.get_rect()
-                                damage_received_rect.center = (125, 275)
-                                screen.blit(damage_received_surf, damage_received_rect)
-                                if combat_events["critical received"]:
-                                    screen.blit(critical_received_overlay.surf, critical_received_overlay.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(received_damage_overlay.surf, received_damage_overlay.rect)
+                                    damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
+                                                                                True, "black", "white")
+                                    damage_received_rect = damage_received_surf.get_rect()
+                                    damage_received_rect.center = (125, 275)
+                                    screen.blit(damage_received_surf, damage_received_rect)
+                                    if combat_events["critical received"]:
+                                        screen.blit(critical_received_overlay.surf, critical_received_overlay.rect)
+                                else:
+                                    game_window.blit(received_damage_overlay.surf, received_damage_overlay.rect)
+                                    damage_received_surf = level_up_font.render(str(combat_events["damage taken"]),
+                                                                                True, "black", "white")
+                                    damage_received_rect = damage_received_surf.get_rect()
+                                    damage_received_rect.center = (125, 275)
+                                    game_window.blit(damage_received_surf, damage_received_rect)
+                                    if combat_events["critical received"]:
+                                        game_window.blit(critical_received_overlay.surf, critical_received_overlay.rect)
                         except TypeError:
                             pass
 
-                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                        game_window.blit(frame, frame.get_rect())
-                        pygame.display.flip()
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                            game_window.blit(frame, frame.get_rect())
+                            pygame.display.flip()
+                        else:
+                            pygame.display.flip()
+
                         combat_cooldown = True
                         # when combat happens, apply a short cooldown so attack button can't be spammed
                         pygame.time.wait(750)
@@ -10060,162 +10962,329 @@ if __name__ == '__main__':
                     # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "seldon" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
-                        screen.blit(seldon_district_shop, (0, 0))
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                        screen.blit(buy_button.surf, buy_button.rect)
-                        screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(seldon_district_shop, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(buy_button.surf, buy_button.rect)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        else:
+                            game_window.blit(seldon_district_shop, (0, 0))
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(buy_button.surf, buy_button.rect)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        cat_pet_button_overlay.update(505, 290, graphic_dict["cat_pet_button_overlay"])
-                        if shop_cat_pet:
-                            cat_pet_animation_overlay.update(524, 296, graphic_dict["seldon_shop_cat_pet_img"])
-                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            cat_pet_button_overlay.update(505, 290, graphic_dict["cat_pet_button_overlay"])
+                            if shop_cat_pet:
+                                cat_pet_animation_overlay.update(524, 296, graphic_dict["seldon_shop_cat_pet_img"])
+                                screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
-                        if buy_clicked:
-                            for window in buy_shop_elements:
-                                screen.blit(window.surf, window.rect)
-                            for shop_item in shopkeeper_items:
-                                screen.blit(shop_item.surf, shop_item.rect)
-                            if len(buy_window) > 0:
-                                for element in buy_window:
+                            if buy_clicked:
+                                for window in buy_shop_elements:
+                                    screen.blit(window.surf, window.rect)
+                                for shop_item in shopkeeper_items:
+                                    screen.blit(shop_item.surf, shop_item.rect)
+                                if len(buy_window) > 0:
+                                    for element in buy_window:
+                                        screen.blit(element.surf, element.rect)
+                            if len(sell_window) > 0:
+                                for element in sell_window:
                                     screen.blit(element.surf, element.rect)
-                        if len(sell_window) > 0:
-                            for element in sell_window:
-                                screen.blit(element.surf, element.rect)
 
-                        if first_shop_cond:
-                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
-                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+                            if first_shop_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                screen.blit(directional_arrow.surf, directional_arrow.rect)
 
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+                        else:
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            cat_pet_button_overlay.update(505, 290, graphic_dict["cat_pet_button_overlay"])
+                            if shop_cat_pet:
+                                cat_pet_animation_overlay.update(524, 296, graphic_dict["seldon_shop_cat_pet_img"])
+                                game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+
+                            if buy_clicked:
+                                for window in buy_shop_elements:
+                                    game_window.blit(window.surf, window.rect)
+                                for shop_item in shopkeeper_items:
+                                    game_window.blit(shop_item.surf, shop_item.rect)
+                                if len(buy_window) > 0:
+                                    for element in buy_window:
+                                        game_window.blit(element.surf, element.rect)
+                            if len(sell_window) > 0:
+                                for element in sell_window:
+                                    game_window.blit(element.surf, element.rect)
+
+                            if first_shop_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                game_window.blit(directional_arrow.surf, directional_arrow.rect)
+
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
 
                     # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "korlok" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
-                        screen.blit(korlok_district_shop, (0, 0))
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                        screen.blit(buy_button.surf, buy_button.rect)
-                        screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(korlok_district_shop, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(buy_button.surf, buy_button.rect)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        else:
+                            game_window.blit(korlok_district_shop, (0, 0))
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(buy_button.surf, buy_button.rect)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
-                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
-                        if shop_cat_pet:
-                            cat_pet_animation_overlay.update(465, 407, graphic_dict["korlok_shop_cat_pet_img"])
-                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
+                            screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if shop_cat_pet:
+                                cat_pet_animation_overlay.update(465, 407, graphic_dict["korlok_shop_cat_pet_img"])
+                                screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
-                        if buy_clicked:
-                            for window in buy_shop_elements:
-                                screen.blit(window.surf, window.rect)
-                            for shop_item in shopkeeper_items:
-                                screen.blit(shop_item.surf, shop_item.rect)
-                            if len(buy_window) > 0:
-                                for element in buy_window:
+                            if buy_clicked:
+                                for window in buy_shop_elements:
+                                    screen.blit(window.surf, window.rect)
+                                for shop_item in shopkeeper_items:
+                                    screen.blit(shop_item.surf, shop_item.rect)
+                                if len(buy_window) > 0:
+                                    for element in buy_window:
+                                        screen.blit(element.surf, element.rect)
+                            if len(sell_window) > 0:
+                                for element in sell_window:
                                     screen.blit(element.surf, element.rect)
-                        if len(sell_window) > 0:
-                            for element in sell_window:
-                                screen.blit(element.surf, element.rect)
 
-                        if first_shop_cond:
-                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
-                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+                            if first_shop_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                screen.blit(directional_arrow.surf, directional_arrow.rect)
 
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+
+                        else:
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            cat_pet_button_overlay.update(505, 235, graphic_dict["cat_pet_button_overlay"])
+                            game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if shop_cat_pet:
+                                cat_pet_animation_overlay.update(465, 407, graphic_dict["korlok_shop_cat_pet_img"])
+                                game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+
+                            if buy_clicked:
+                                for window in buy_shop_elements:
+                                    game_window.blit(window.surf, window.rect)
+                                for shop_item in shopkeeper_items:
+                                    game_window.blit(shop_item.surf, shop_item.rect)
+                                if len(buy_window) > 0:
+                                    for element in buy_window:
+                                        game_window.blit(element.surf, element.rect)
+                            if len(sell_window) > 0:
+                                for element in sell_window:
+                                    game_window.blit(element.surf, element.rect)
+
+                            if first_shop_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                game_window.blit(directional_arrow.surf, directional_arrow.rect)
+
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
 
                     # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "ectrenos right" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
-                        screen.blit(eldream_district_shop, (0, 0))
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
-                                                      weapon_select)
-                        screen.blit(buy_button.surf, buy_button.rect)
-                        screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(eldream_district_shop, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(buy_button.surf, buy_button.rect)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        else:
+                            game_window.blit(eldream_district_shop, (0, 0))
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(buy_button.surf, buy_button.rect)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
-                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
-                        if shop_cat_pet:
-                            cat_pet_animation_overlay.update(445, 369, graphic_dict["eldream_shop_cat_pet_img"])
-                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
+                            screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if shop_cat_pet:
+                                cat_pet_animation_overlay.update(445, 369, graphic_dict["eldream_shop_cat_pet_img"])
+                                screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
-                        if buy_clicked:
-                            for window in buy_shop_elements:
-                                screen.blit(window.surf, window.rect)
-                            for shop_item in shopkeeper_items:
-                                screen.blit(shop_item.surf, shop_item.rect)
-                            if len(buy_window) > 0:
-                                for element in buy_window:
+                            if buy_clicked:
+                                for window in buy_shop_elements:
+                                    screen.blit(window.surf, window.rect)
+                                for shop_item in shopkeeper_items:
+                                    screen.blit(shop_item.surf, shop_item.rect)
+                                if len(buy_window) > 0:
+                                    for element in buy_window:
+                                        screen.blit(element.surf, element.rect)
+                            if len(sell_window) > 0:
+                                for element in sell_window:
                                     screen.blit(element.surf, element.rect)
-                        if len(sell_window) > 0:
-                            for element in sell_window:
-                                screen.blit(element.surf, element.rect)
 
-                        if first_shop_cond:
-                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
-                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+                            if first_shop_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                screen.blit(directional_arrow.surf, directional_arrow.rect)
 
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+                        else:
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            cat_pet_button_overlay.update(440, 350, graphic_dict["cat_pet_button_overlay"])
+                            game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if shop_cat_pet:
+                                cat_pet_animation_overlay.update(445, 369, graphic_dict["eldream_shop_cat_pet_img"])
+                                game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
+                            if buy_clicked:
+                                for window in buy_shop_elements:
+                                    game_window.blit(window.surf, window.rect)
+                                for shop_item in shopkeeper_items:
+                                    game_window.blit(shop_item.surf, shop_item.rect)
+                                if len(buy_window) > 0:
+                                    for element in buy_window:
+                                        game_window.blit(element.surf, element.rect)
+                            if len(sell_window) > 0:
+                                for element in sell_window:
+                                    game_window.blit(element.surf, element.rect)
+
+                            if first_shop_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                game_window.blit(directional_arrow.surf, directional_arrow.rect)
+
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
                     # draw objects to screen related to shop scenario --------------------------------------------------
                     if player.current_zone == "stardust" and in_shop and not in_over_world and not in_battle \
                             and not in_inn and not in_academia and not in_npc_interaction:
-                        screen.blit(stardust_post_bg, (0, 0))
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                        screen.blit(upgrade_button.surf, upgrade_button.rect)
-                        screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(stardust_post_bg, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(upgrade_button.surf, upgrade_button.rect)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        else:
+                            game_window.blit(stardust_post_bg, (0, 0))
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(upgrade_button.surf, upgrade_button.rect)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                        else:
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
 
                         quests_complete = 0
                         if player.quest_complete["sneaky snakes"]:
@@ -10244,77 +11313,151 @@ if __name__ == '__main__':
                             quests_complete += 1
 
                         # stardust outpost stars on the wall representing player progress in each zone
-                        if quests_complete == 1:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_01"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                        if quests_complete == 2:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_02"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                        if quests_complete == 3:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_03"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                        if quests_complete == 4:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                        if quests_complete == 5:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_01_korlok"])
-                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                        if quests_complete == 6:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_02_korlok"])
-                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                        if quests_complete == 7:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_03_korlok"])
-                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                        if quests_complete == 8:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                        if quests_complete == 9:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_01_eldream"])
-                            screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                        if quests_complete == 10:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_02_eldream"])
-                            screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                        if quests_complete == 11:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_03_eldream"])
-                            screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
-                        if quests_complete == 12:
-                            stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
-                            screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
-                            stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
-                            screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
-                            stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
-                            screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            if quests_complete == 1:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_01"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            if quests_complete == 2:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_02"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            if quests_complete == 3:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_03"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            if quests_complete == 4:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            if quests_complete == 5:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_01_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            if quests_complete == 6:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_02_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            if quests_complete == 7:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_03_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            if quests_complete == 8:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            if quests_complete == 9:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_01_eldream"])
+                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                            if quests_complete == 10:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_02_eldream"])
+                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                            if quests_complete == 11:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_03_eldream"])
+                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                            if quests_complete == 12:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                screen.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                screen.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                screen.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
 
-                        if buy_clicked:
-                            for element in stardust_upgrade_elements:
-                                screen.blit(element.surf, element.rect)
+                            if buy_clicked:
+                                for element in stardust_upgrade_elements:
+                                    screen.blit(element.surf, element.rect)
 
-                        if first_shop_cond:
-                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
-                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+                            if first_shop_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                screen.blit(directional_arrow.surf, directional_arrow.rect)
 
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+
+                        else:
+                            if quests_complete == 1:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_01"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            if quests_complete == 2:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_02"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            if quests_complete == 3:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_03"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            if quests_complete == 4:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                            if quests_complete == 5:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_01_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            if quests_complete == 6:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_02_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            if quests_complete == 7:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_03_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            if quests_complete == 8:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                            if quests_complete == 9:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_01_eldream"])
+                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                            if quests_complete == 10:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_02_eldream"])
+                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                            if quests_complete == 11:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_03_eldream"])
+                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+                            if quests_complete == 12:
+                                stardust_star_overlay.update(236, 185, graphic_dict["stardust_star_04"])
+                                game_window.blit(stardust_star_overlay.surf, stardust_star_overlay.rect)
+                                stardust_star_overlay_korlok.update(236, 295, graphic_dict["stardust_star_04_korlok"])
+                                game_window.blit(stardust_star_overlay_korlok.surf, stardust_star_overlay_korlok.rect)
+                                stardust_star_overlay_eldream.update(798, 185, graphic_dict["stardust_star_04_eldream"])
+                                game_window.blit(stardust_star_overlay_eldream.surf, stardust_star_overlay_eldream.rect)
+
+                            if buy_clicked:
+                                for element in stardust_upgrade_elements:
+                                    game_window.blit(element.surf, element.rect)
+
+                            if first_shop_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                game_window.blit(directional_arrow.surf, directional_arrow.rect)
+
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -10452,20 +11595,35 @@ if __name__ == '__main__':
                                 if not faded_inn_screen:
                                     for alpha in range(0, 50):
                                         seldon_district_inn.set_alpha(alpha)
-                                        screen.blit(seldon_district_inn, (0, 0))
-                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                                        game_window.blit(frame, frame.get_rect())
-                                        pygame.display.flip()
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(seldon_district_inn, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(seldon_district_inn, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                            game_window.blit(frame, frame.get_rect())
+                                            pygame.display.flip()
+                                        else:
+                                            pygame.display.flip()
                                     faded_inn_screen = True
                                 else:
                                     seldon_district_inn.set_alpha(255)
-                                    screen.blit(seldon_district_inn, (0, 0))
-                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(seldon_district_inn, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(seldon_district_inn, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
                             if not rested:
                                 seldon_district_inn.set_alpha(255)
-                                screen.blit(seldon_district_inn, (0, 0))
-                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(seldon_district_inn, (0, 0))
+                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                else:
+                                    game_window.blit(seldon_district_inn, (0, 0))
+                                    game_window.blit(equipment_screen.surf, equipment_screen.rect)
 
                         if player.current_zone == "korlok":
                             # if player has just rested, fade inn screen back in with alpha value loop
@@ -10473,20 +11631,35 @@ if __name__ == '__main__':
                                 if not faded_inn_screen:
                                     for alpha in range(0, 50):
                                         korlok_district_inn.set_alpha(alpha)
-                                        screen.blit(korlok_district_inn, (0, 0))
-                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                                        game_window.blit(frame, frame.get_rect())
-                                        pygame.display.flip()
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(korlok_district_inn, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(korlok_district_inn, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                            game_window.blit(frame, frame.get_rect())
+                                            pygame.display.flip()
+                                        else:
+                                            pygame.display.flip()
                                     faded_inn_screen = True
                                 else:
                                     korlok_district_inn.set_alpha(255)
-                                    screen.blit(korlok_district_inn, (0, 0))
-                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(korlok_district_inn, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(korlok_district_inn, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
                             if not rested:
                                 korlok_district_inn.set_alpha(255)
-                                screen.blit(korlok_district_inn, (0, 0))
-                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(korlok_district_inn, (0, 0))
+                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                else:
+                                    game_window.blit(korlok_district_inn, (0, 0))
+                                    game_window.blit(equipment_screen.surf, equipment_screen.rect)
 
                         if player.current_zone == "ectrenos right":
                             # if player has just rested, fade inn screen back in with alpha value loop
@@ -10494,55 +11667,100 @@ if __name__ == '__main__':
                                 if not faded_inn_screen:
                                     for alpha in range(0, 50):
                                         eldream_district_inn.set_alpha(alpha)
-                                        screen.blit(eldream_district_inn, (0, 0))
-                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                                        game_window.blit(frame, frame.get_rect())
-                                        pygame.display.flip()
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            screen.blit(eldream_district_inn, (0, 0))
+                                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                        else:
+                                            game_window.blit(eldream_district_inn, (0, 0))
+                                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                            game_window.blit(frame, frame.get_rect())
+                                            pygame.display.flip()
+                                        else:
+                                            pygame.display.flip()
                                     faded_inn_screen = True
                                 else:
                                     eldream_district_inn.set_alpha(255)
-                                    screen.blit(eldream_district_inn, (0, 0))
-                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                        screen.blit(eldream_district_inn, (0, 0))
+                                        screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                    else:
+                                        game_window.blit(eldream_district_inn, (0, 0))
+                                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
                             if not rested:
                                 eldream_district_inn.set_alpha(255)
-                                screen.blit(eldream_district_inn, (0, 0))
-                                screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(eldream_district_inn, (0, 0))
+                                    screen.blit(equipment_screen.surf, equipment_screen.rect)
+                                else:
+                                    game_window.blit(eldream_district_inn, (0, 0))
+                                    game_window.blit(equipment_screen.surf, equipment_screen.rect)
 
-                    screen.blit(offense_meter.surf, offense_meter.rect)
-                    screen.blit(defense_meter.surf, defense_meter.rect)
-                    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                    screen.blit(rest_button.surf, rest_button.rect)
-                    screen.blit(leave_button.surf, leave_button.rect)
-                    screen.blit(star_power_meter.surf, star_power_meter.rect)
-                    screen.blit(message_box.surf, message_box.rect)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+                        screen.blit(rest_button.surf, rest_button.rect)
+                        screen.blit(leave_button.surf, leave_button.rect)
+                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        screen.blit(message_box.surf, message_box.rect)
+                    else:
+                        game_window.blit(offense_meter.surf, offense_meter.rect)
+                        game_window.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+                        game_window.blit(rest_button.surf, rest_button.rect)
+                        game_window.blit(leave_button.surf, leave_button.rect)
+                        game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                        game_window.blit(message_box.surf, message_box.rect)
                     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                     info_text_4, in_over_world)
-                    drawing_functions.draw_it(screen)
-                    if button_highlighted:
-                        screen.blit(button_highlight.surf, button_highlight.rect)
-                    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                    screen.blit(hp_bar.surf, hp_bar.rect)
-                    screen.blit(en_bar.surf, en_bar.rect)
-                    screen.blit(xp_bar.surf, xp_bar.rect)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                         info_text_3, info_text_4, in_over_world)
+                        drawing_functions.draw_it(screen)
+                    else:
+                        drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                         info_text_3, info_text_4, in_over_world)
+                        drawing_functions.draw_it(game_window)
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        if button_highlighted:
+                            screen.blit(button_highlight.surf, button_highlight.rect)
+                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                    else:
+                        if button_highlighted:
+                            game_window.blit(button_highlight.surf, button_highlight.rect)
+                        game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        game_window.blit(hp_bar.surf, hp_bar.rect)
+                        game_window.blit(en_bar.surf, en_bar.rect)
+                        game_window.blit(xp_bar.surf, xp_bar.rect)
 
                     if rest_clicked:
                         if not rested:
                             # set sleep screen to fade in with alpha value loop. flip each iteration to show
                             for alpha in range(0, 255):
                                 nera_sleep_screen.set_alpha(alpha)
-                                screen.blit(nera_sleep_screen, (0, 0))
-                                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                                game_window.blit(frame, frame.get_rect())
-                                pygame.display.flip()
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(nera_sleep_screen, (0, 0))
+                                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                                    game_window.blit(frame, frame.get_rect())
+                                    pygame.display.flip()
+                                else:
+                                    game_window.blit(nera_sleep_screen, (0, 0))
+                                    pygame.display.flip()
                             player.health = 100
                             player.energy = 100
                             rested = True
 
                     if first_inn_cond:
                         directional_arrow.update(855, 620, graphic_dict["arrow_down"])
-                        screen.blit(directional_arrow.surf, directional_arrow.rect)
+
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+                        else:
+                            game_window.blit(directional_arrow.surf, directional_arrow.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -10803,56 +12021,114 @@ if __name__ == '__main__':
                     if in_academia and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
                             and not in_battle:
 
-                        screen.blit(seldon_district_academia, (0, 0))
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                        screen.blit(mage_learn_button.surf, mage_learn_button.rect)
-                        screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
-                        screen.blit(scout_learn_button.surf, scout_learn_button.rect)
-                        screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
-                        cat_pet_button_overlay.update(125, 500, graphic_dict["cat_pet_button_overlay"])
-                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
-                        if academia_cat_pet:
-                            cat_pet_animation_overlay.update(153, 501, graphic_dict["academia_cat_pet_img"])
-                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(seldon_district_academia, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(mage_learn_button.surf, mage_learn_button.rect)
+                            screen.blit(fighter_learn_button.surf, fighter_learn_button.rect)
+                            screen.blit(scout_learn_button.surf, scout_learn_button.rect)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            cat_pet_button_overlay.update(125, 500, graphic_dict["cat_pet_button_overlay"])
+                            screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if academia_cat_pet:
+                                cat_pet_animation_overlay.update(153, 501, graphic_dict["academia_cat_pet_img"])
+                                screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+
+                        else:
+                            game_window.blit(seldon_district_academia, (0, 0))
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(mage_learn_button.surf, mage_learn_button.rect)
+                            game_window.blit(fighter_learn_button.surf, fighter_learn_button.rect)
+                            game_window.blit(scout_learn_button.surf, scout_learn_button.rect)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            cat_pet_button_overlay.update(125, 500, graphic_dict["cat_pet_button_overlay"])
+                            game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if academia_cat_pet:
+                                cat_pet_animation_overlay.update(153, 501, graphic_dict["academia_cat_pet_img"])
+                                game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
-                        if len(books) > 0:
-                            for book in books:
-                                screen.blit(book.surf, book.rect)
-                        if len(skill_learn_items) > 0:
-                            for skill_item in skill_learn_items:
-                                screen.blit(skill_item.surf, skill_item.rect)
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            if len(books) > 0:
+                                for book in books:
+                                    screen.blit(book.surf, book.rect)
+                            if len(skill_learn_items) > 0:
+                                for skill_item in skill_learn_items:
+                                    screen.blit(skill_item.surf, skill_item.rect)
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
 
-                        screen.blit(knowledge_window.surf, knowledge_window.rect)
-                        text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
-                                                               "light yellow")
-                        text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
-                        text_mage_knowledge_rect.center = (515, 680)
-                        screen.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
-                        text_fighter_know_surf = font.render(str(player.knowledge["fighter"]), True, "black",
-                                                             "light yellow")
-                        text_fighter_know_rect = text_fighter_know_surf.get_rect()
-                        text_fighter_know_rect.center = (695, 680)
-                        screen.blit(text_fighter_know_surf, text_fighter_know_rect)
-                        text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black",
-                                                                "light yellow")
-                        text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
-                        text_scout_knowledge_rect.center = (865, 680)
-                        screen.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
+                            screen.blit(knowledge_window.surf, knowledge_window.rect)
+                            text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
+                                                                   "light yellow")
+                            text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
+                            text_mage_knowledge_rect.center = (515, 680)
+                            screen.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
+                            text_fighter_know_surf = font.render(str(player.knowledge["fighter"]), True, "black",
+                                                                 "light yellow")
+                            text_fighter_know_rect = text_fighter_know_surf.get_rect()
+                            text_fighter_know_rect.center = (695, 680)
+                            screen.blit(text_fighter_know_surf, text_fighter_know_rect)
+                            text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black",
+                                                                    "light yellow")
+                            text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
+                            text_scout_knowledge_rect.center = (865, 680)
+                            screen.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
+
+                        else:
+                            if len(books) > 0:
+                                for book in books:
+                                    game_window.blit(book.surf, book.rect)
+                            if len(skill_learn_items) > 0:
+                                for skill_item in skill_learn_items:
+                                    game_window.blit(skill_item.surf, skill_item.rect)
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
+
+                            game_window.blit(knowledge_window.surf, knowledge_window.rect)
+                            text_mage_knowledge_surf = font.render(str(player.knowledge["mage"]), True, "black",
+                                                                   "light yellow")
+                            text_mage_knowledge_rect = text_mage_knowledge_surf.get_rect()
+                            text_mage_knowledge_rect.center = (515, 680)
+                            game_window.blit(text_mage_knowledge_surf, text_mage_knowledge_rect)
+                            text_fighter_know_surf = font.render(str(player.knowledge["fighter"]), True, "black",
+                                                                 "light yellow")
+                            text_fighter_know_rect = text_fighter_know_surf.get_rect()
+                            text_fighter_know_rect.center = (695, 680)
+                            game_window.blit(text_fighter_know_surf, text_fighter_know_rect)
+                            text_scout_knowledge_surf = font.render(str(player.knowledge["scout"]), True, "black",
+                                                                    "light yellow")
+                            text_scout_knowledge_rect = text_scout_knowledge_surf.get_rect()
+                            text_scout_knowledge_rect.center = (865, 680)
+                            game_window.blit(text_scout_knowledge_surf, text_scout_knowledge_rect)
 
                         if not book_appended:
                             if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
@@ -10873,15 +12149,26 @@ if __name__ == '__main__':
 
                         # the first time player enters academy, show an arrow pointing to their book button
                         if first_academy_cond:
-                            if player.role == "mage":
-                                directional_arrow.update(753, 195, graphic_dict["arrow_down"])
-                                screen.blit(directional_arrow.surf, directional_arrow.rect)
-                            if player.role == "fighter":
-                                directional_arrow.update(298, 280, graphic_dict["arrow_down"])
-                                screen.blit(directional_arrow.surf, directional_arrow.rect)
-                            if player.role == "scout":
-                                directional_arrow.update(555, 360, graphic_dict["arrow_down"])
-                                screen.blit(directional_arrow.surf, directional_arrow.rect)
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                if player.role == "mage":
+                                    directional_arrow.update(753, 195, graphic_dict["arrow_down"])
+                                    screen.blit(directional_arrow.surf, directional_arrow.rect)
+                                if player.role == "fighter":
+                                    directional_arrow.update(298, 280, graphic_dict["arrow_down"])
+                                    screen.blit(directional_arrow.surf, directional_arrow.rect)
+                                if player.role == "scout":
+                                    directional_arrow.update(555, 360, graphic_dict["arrow_down"])
+                                    screen.blit(directional_arrow.surf, directional_arrow.rect)
+                            else:
+                                if player.role == "mage":
+                                    directional_arrow.update(753, 195, graphic_dict["arrow_down"])
+                                    game_window.blit(directional_arrow.surf, directional_arrow.rect)
+                                if player.role == "fighter":
+                                    directional_arrow.update(298, 280, graphic_dict["arrow_down"])
+                                    game_window.blit(directional_arrow.surf, directional_arrow.rect)
+                                if player.role == "scout":
+                                    directional_arrow.update(555, 360, graphic_dict["arrow_down"])
+                                    game_window.blit(directional_arrow.surf, directional_arrow.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -11056,26 +12343,26 @@ if __name__ == '__main__':
                                         leveled = True
                                         loot_level_tic = time.perf_counter()
                                     player.reputation["sorae"] += 10
+
                                     # autosave on quest complete
-                                    try:
-                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                     sharp_sense_learned, saved, npc_garan.gift,
-                                                                     rest_recover_show, knowledge_academia_show,
-                                                                     quest_guide_shown, battle_guide_shown,
-                                                                     rest_shown_before, quest_highlight_popup,
-                                                                     bridge_not_repaired, nede_ghoul_defeated,
-                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                     crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                     switch_3, muchador_defeated, has_key,
-                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                     chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon, seed_given, hatch_ready,
-                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked, rock_8_con, rock_3_con)
-                                    except PermissionError:
-                                        pass
+                                    gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                 sharp_sense_learned, saved, npc_garan.gift,
+                                                                 rest_recover_show, knowledge_academia_show,
+                                                                 quest_guide_shown, battle_guide_shown,
+                                                                 rest_shown_before, quest_highlight_popup,
+                                                                 bridge_not_repaired, nede_ghoul_defeated,
+                                                                 bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                 crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                 switch_3, muchador_defeated, has_key,
+                                                                 mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                 gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                 rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                 chinzilla_defeated, apothecary_access,
+                                                                 beyond_seldon, seed_given, hatch_ready,
+                                                                 menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                 iriana_unlocked, rock_8_con, rock_3_con,
+                                                                 seed_scout_count, seed_fighter_count,
+                                                                 seed_mage_count)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -11109,22 +12396,23 @@ if __name__ == '__main__':
                                 quest_clicked = False
 
                         # options once quest window is open ------------------------------------------------------------
-                        if quest_buttons == "accept":
-                            drawing_functions.quest_accept_box.append(quest_accepted)
-                            pygame.mixer.find_channel(True).play(sfx_quest_start)
-                            info_text_1 = "You've accepted the quest!"
-                            button_highlighted = False
-                            player.quest_status["can't apothecary it"] = True
-                            player.current_quests["can't apothecary it"] = "Kirean asked you to gather ore."
-                            quest_clicked = False
-                            drawing_functions.quest_box.clear()
+                        if len(drawing_functions.quest_box) > 1:
+                            if quest_buttons == "accept":
+                                drawing_functions.quest_accept_box.append(quest_accepted)
+                                pygame.mixer.find_channel(True).play(sfx_quest_start)
+                                info_text_1 = "You've accepted the quest!"
+                                button_highlighted = False
+                                player.quest_status["can't apothecary it"] = True
+                                player.current_quests["can't apothecary it"] = "Kirean asked you to gather ore."
+                                quest_clicked = False
+                                drawing_functions.quest_box.clear()
 
-                        # if player chooses to decline, just close the quest window
-                        if quest_buttons == "decline":
-                            info_text_1 = ""
-                            quest_clicked = False
-                            button_highlighted = False
-                            drawing_functions.quest_box.clear()
+                            # if player chooses to decline, just close the quest window
+                            if quest_buttons == "decline":
+                                info_text_1 = ""
+                                quest_clicked = False
+                                button_highlighted = False
+                                drawing_functions.quest_box.clear()
                         if npc_button == "leave":
                             movement_able = True
                             interacted = False
@@ -11150,72 +12438,142 @@ if __name__ == '__main__':
                     if in_apothecary and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
                             and not in_battle:
 
-                        screen.blit(korlok_district_apothecary, (0, 0))
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                        screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        screen.blit(quest_button.surf, quest_button.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
-                        cat_pet_button_overlay.update(630, 65, graphic_dict["cat_pet_button_overlay"])
-                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
-                        if apothecary_cat_pet:
-                            cat_pet_animation_overlay.update(634, 63, graphic_dict["apothecary_cat_pet_img"])
-                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
-                        if not player.quest_complete["can't apothecary it"]:
-                            if not player.quest_status["can't apothecary it"]:
-                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                            if player.quest_status["can't apothecary it"]:
-                                quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                             quest_star_apothecary.y_coordinate,
-                                                             graphic_dict["building_npc_star_progress"])
-                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
-                            if player.quest_progress["can't apothecary it"] == 4:
-                                quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
-                                                             quest_star_apothecary.y_coordinate,
-                                                             graphic_dict["building_npc_star_complete"])
-                                screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(korlok_district_apothecary, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(quest_button.surf, quest_button.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            cat_pet_button_overlay.update(630, 65, graphic_dict["cat_pet_button_overlay"])
+                            screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if apothecary_cat_pet:
+                                cat_pet_animation_overlay.update(634, 63, graphic_dict["apothecary_cat_pet_img"])
+                                screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+                            if not player.quest_complete["can't apothecary it"]:
+                                if not player.quest_status["can't apothecary it"]:
+                                    screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                                if player.quest_status["can't apothecary it"]:
+                                    quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
+                                                                 quest_star_apothecary.y_coordinate,
+                                                                 graphic_dict["building_npc_star_progress"])
+                                    screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                                if player.quest_progress["can't apothecary it"] == 4:
+                                    quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
+                                                                 quest_star_apothecary.y_coordinate,
+                                                                 graphic_dict["building_npc_star_complete"])
+                                    screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                        else:
+                            game_window.blit(korlok_district_apothecary, (0, 0))
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            game_window.blit(quest_button.surf, quest_button.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            cat_pet_button_overlay.update(630, 65, graphic_dict["cat_pet_button_overlay"])
+                            game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if apothecary_cat_pet:
+                                cat_pet_animation_overlay.update(634, 63, graphic_dict["apothecary_cat_pet_img"])
+                                game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+                            if not player.quest_complete["can't apothecary it"]:
+                                if not player.quest_status["can't apothecary it"]:
+                                    game_window.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                                if player.quest_status["can't apothecary it"]:
+                                    quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
+                                                                 quest_star_apothecary.y_coordinate,
+                                                                 graphic_dict["building_npc_star_progress"])
+                                    game_window.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                                if player.quest_progress["can't apothecary it"] == 4:
+                                    quest_star_apothecary.update(quest_star_apothecary.x_coordinate,
+                                                                 quest_star_apothecary.y_coordinate,
+                                                                 graphic_dict["building_npc_star_complete"])
+                                    game_window.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
 
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         # if player has access to apothecary functions by completing quest and window is open
-                        screen.blit(potions_button.surf, potions_button.rect)
-                        if apothecary_access:
-                            if apothecary_window_open:
-                                seldon_flowers_surf = level_up_font.render(str(seldon_flower_counter),
-                                                                           True, "black", "light yellow")
-                                seldon_flowers_surf_rect = seldon_flowers_surf.get_rect()
-                                seldon_flowers_surf_rect.midleft = (223, 280)
-                                screen.blit(seldon_flowers_surf, seldon_flowers_surf_rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(potions_button.surf, potions_button.rect)
+                            if apothecary_access:
+                                if apothecary_window_open:
+                                    seldon_flowers_surf = level_up_font.render(str(seldon_flower_counter),
+                                                                               True, "black", "light yellow")
+                                    seldon_flowers_surf_rect = seldon_flowers_surf.get_rect()
+                                    seldon_flowers_surf_rect.midleft = (223, 280)
+                                    screen.blit(seldon_flowers_surf, seldon_flowers_surf_rect)
 
-                                eldream_flowers_surf = level_up_font.render(str(eldream_flower_counter),
-                                                                            True, "black", "light yellow")
-                                eldream_flowers_surf_rect = eldream_flowers_surf.get_rect()
-                                eldream_flowers_surf_rect.midleft = (440, 280)
-                                screen.blit(eldream_flowers_surf, eldream_flowers_surf_rect)
+                                    eldream_flowers_surf = level_up_font.render(str(eldream_flower_counter),
+                                                                                True, "black", "light yellow")
+                                    eldream_flowers_surf_rect = eldream_flowers_surf.get_rect()
+                                    eldream_flowers_surf_rect.midleft = (440, 280)
+                                    screen.blit(eldream_flowers_surf, eldream_flowers_surf_rect)
 
-                                if seldon_flower_counter >= 5 > eldream_flower_counter:
-                                    potion_mix_overlay.update(150, 478, graphic_dict["apothecary_health_potion"])
-                                elif seldon_flower_counter < 5 <= eldream_flower_counter:
-                                    potion_mix_overlay.update(150, 478, graphic_dict["apothecary_energy_potion"])
-                                elif seldon_flower_counter >= 5 <= eldream_flower_counter:
-                                    potion_mix_overlay.update(150, 478, graphic_dict["apothecary_rejuv_potion"])
-                                else:
-                                    potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
+                                    if seldon_flower_counter >= 5 > eldream_flower_counter:
+                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_health_potion"])
+                                    elif seldon_flower_counter < 5 <= eldream_flower_counter:
+                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_energy_potion"])
+                                    elif seldon_flower_counter >= 5 <= eldream_flower_counter:
+                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_rejuv_potion"])
+                                    else:
+                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
 
-                                screen.blit(potion_mix_overlay.surf, potion_mix_overlay.rect)
+                                    screen.blit(potion_mix_overlay.surf, potion_mix_overlay.rect)
 
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+                        else:
+                            game_window.blit(potions_button.surf, potions_button.rect)
+                            if apothecary_access:
+                                if apothecary_window_open:
+                                    seldon_flowers_surf = level_up_font.render(str(seldon_flower_counter),
+                                                                               True, "black", "light yellow")
+                                    seldon_flowers_surf_rect = seldon_flowers_surf.get_rect()
+                                    seldon_flowers_surf_rect.midleft = (223, 280)
+                                    game_window.blit(seldon_flowers_surf, seldon_flowers_surf_rect)
+
+                                    eldream_flowers_surf = level_up_font.render(str(eldream_flower_counter),
+                                                                                True, "black", "light yellow")
+                                    eldream_flowers_surf_rect = eldream_flowers_surf.get_rect()
+                                    eldream_flowers_surf_rect.midleft = (440, 280)
+                                    game_window.blit(eldream_flowers_surf, eldream_flowers_surf_rect)
+
+                                    if seldon_flower_counter >= 5 > eldream_flower_counter:
+                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_health_potion"])
+                                    elif seldon_flower_counter < 5 <= eldream_flower_counter:
+                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_energy_potion"])
+                                    elif seldon_flower_counter >= 5 <= eldream_flower_counter:
+                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_rejuv_potion"])
+                                    else:
+                                        potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
+
+                                    game_window.blit(potion_mix_overlay.surf, potion_mix_overlay.rect)
+
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -11541,26 +12899,26 @@ if __name__ == '__main__':
                                         leveled = True
                                         loot_level_tic = time.perf_counter()
                                     player.reputation["sorae"] += 10
+
                                     # autosave on quest complete
-                                    try:
-                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                     sharp_sense_learned, saved, npc_garan.gift,
-                                                                     rest_recover_show, knowledge_academia_show,
-                                                                     quest_guide_shown, battle_guide_shown,
-                                                                     rest_shown_before, quest_highlight_popup,
-                                                                     bridge_not_repaired, nede_ghoul_defeated,
-                                                                     bridge_cutscenes_not_viewed, crate_1,
-                                                                     crate_2, crate_3, crate_4, crate_5, switch_1,
-                                                                     switch_2, switch_3, muchador_defeated, has_key,
-                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
-                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
-                                                                     chinzilla_defeated, apothecary_access,
-                                                                     beyond_seldon, seed_given, hatch_ready,
-                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
-                                                                     iriana_unlocked, rock_8_con, rock_3_con)
-                                    except PermissionError:
-                                        pass
+                                    gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                 sharp_sense_learned, saved, npc_garan.gift,
+                                                                 rest_recover_show, knowledge_academia_show,
+                                                                 quest_guide_shown, battle_guide_shown,
+                                                                 rest_shown_before, quest_highlight_popup,
+                                                                 bridge_not_repaired, nede_ghoul_defeated,
+                                                                 bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                 crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                 switch_3, muchador_defeated, has_key,
+                                                                 mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                 gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                 rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                 chinzilla_defeated, apothecary_access,
+                                                                 beyond_seldon, seed_given, hatch_ready,
+                                                                 menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                 iriana_unlocked, rock_8_con, rock_3_con,
+                                                                 seed_scout_count, seed_fighter_count,
+                                                                 seed_mage_count)
 
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -11594,25 +12952,26 @@ if __name__ == '__main__':
                                 quest_clicked = False
 
                         # options once quest window is open ------------------------------------------------------------
-                        if quest_buttons == "accept":
-                            drawing_functions.quest_accept_box.append(quest_accepted)
-                            pygame.mixer.find_channel(True).play(sfx_quest_start)
-                            info_text_1 = "You've accepted the quest!"
-                            button_highlighted = False
-                            player.quest_status["hatch 'em all"] = True
-                            player.current_quests["hatch 'em all"] = "Defeat enemies to hatch your creature."
-                            if not seed_given:
-                                player.items.append(pet_seed)
-                                seed_given = True
-                            quest_clicked = False
-                            drawing_functions.quest_box.clear()
+                        if len(drawing_functions.quest_box) > 1:
+                            if quest_buttons == "accept":
+                                drawing_functions.quest_accept_box.append(quest_accepted)
+                                pygame.mixer.find_channel(True).play(sfx_quest_start)
+                                info_text_1 = "You've accepted the quest!"
+                                button_highlighted = False
+                                player.quest_status["hatch 'em all"] = True
+                                player.current_quests["hatch 'em all"] = "Defeat enemies to hatch your creature."
+                                if not seed_given:
+                                    player.items.append(pet_seed)
+                                    seed_given = True
+                                quest_clicked = False
+                                drawing_functions.quest_box.clear()
 
-                        # if player chooses to decline, just close the quest window
-                        if quest_buttons == "decline":
-                            info_text_1 = ""
-                            quest_clicked = False
-                            button_highlighted = False
-                            drawing_functions.quest_box.clear()
+                            # if player chooses to decline, just close the quest window
+                            if quest_buttons == "decline":
+                                info_text_1 = ""
+                                quest_clicked = False
+                                button_highlighted = False
+                                drawing_functions.quest_box.clear()
 
                         if npc_button == "leave":
                             movement_able = True
@@ -11640,53 +12999,103 @@ if __name__ == '__main__':
                     if in_menagerie and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
                             and not in_battle:
 
-                        screen.blit(eldream_district_menagerie, (0, 0))
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                        screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        screen.blit(quest_button.surf, quest_button.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
-                        cat_pet_button_overlay.update(950, 130, graphic_dict["cat_pet_button_overlay"])
-                        screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
-                        if menagerie_cat_pet:
-                            cat_pet_animation_overlay.update(953, 131, graphic_dict["menagerie_cat_pet_img"])
-                            screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(eldream_district_menagerie, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(quest_button.surf, quest_button.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            cat_pet_button_overlay.update(950, 130, graphic_dict["cat_pet_button_overlay"])
+                            screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if menagerie_cat_pet:
+                                cat_pet_animation_overlay.update(953, 131, graphic_dict["menagerie_cat_pet_img"])
+                                screen.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
 
-                        if not player.quest_complete["hatch 'em all"]:
-                            if not player.quest_status["hatch 'em all"]:
-                                screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
-                            if player.quest_status["hatch 'em all"]:
-                                quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
-                                                            quest_star_menagerie.y_coordinate,
-                                                            graphic_dict["building_npc_star_progress"])
-                                screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
-                            if player.quest_progress["hatch 'em all"] == 1:
-                                quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
-                                                            quest_star_menagerie.y_coordinate,
-                                                            graphic_dict["building_npc_star_complete"])
-                                screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
+                            if not player.quest_complete["hatch 'em all"]:
+                                if not player.quest_status["hatch 'em all"]:
+                                    screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
+                                if player.quest_status["hatch 'em all"]:
+                                    quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
+                                                                quest_star_menagerie.y_coordinate,
+                                                                graphic_dict["building_npc_star_progress"])
+                                    screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
+                                if player.quest_progress["hatch 'em all"] == 1:
+                                    quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
+                                                                quest_star_menagerie.y_coordinate,
+                                                                graphic_dict["building_npc_star_complete"])
+                                    screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
+                        else:
+                            game_window.blit(eldream_district_menagerie, (0, 0))
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            game_window.blit(quest_button.surf, quest_button.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            cat_pet_button_overlay.update(950, 130, graphic_dict["cat_pet_button_overlay"])
+                            game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
+                            if menagerie_cat_pet:
+                                cat_pet_animation_overlay.update(953, 131, graphic_dict["menagerie_cat_pet_img"])
+                                game_window.blit(cat_pet_animation_overlay.surf, cat_pet_animation_overlay.rect)
+
+                            if not player.quest_complete["hatch 'em all"]:
+                                if not player.quest_status["hatch 'em all"]:
+                                    game_window.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
+                                if player.quest_status["hatch 'em all"]:
+                                    quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
+                                                                quest_star_menagerie.y_coordinate,
+                                                                graphic_dict["building_npc_star_progress"])
+                                    game_window.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
+                                if player.quest_progress["hatch 'em all"] == 1:
+                                    quest_star_menagerie.update(quest_star_menagerie.x_coordinate,
+                                                                quest_star_menagerie.y_coordinate,
+                                                                graphic_dict["building_npc_star_complete"])
+                                    game_window.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
 
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         # if player has access to apothecary functions by completing quest and window is open
-                        screen.blit(pets_button.surf, pets_button.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(pets_button.surf, pets_button.rect)
+                            if hatch_ready:
+                                if hatch_show:
+                                    screen.blit(pet_hatch_window.surf, pet_hatch_window.rect)
+                                    screen.blit(ok_button.surf, ok_button.rect)
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
 
-                        if hatch_ready:
-                            if hatch_show:
-                                screen.blit(pet_hatch_window.surf, pet_hatch_window.rect)
-                                screen.blit(ok_button.surf, ok_button.rect)
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
+                        else:
+                            game_window.blit(pets_button.surf, pets_button.rect)
+                            if hatch_ready:
+                                if hatch_show:
+                                    game_window.blit(pet_hatch_window.surf, pet_hatch_window.rect)
+                                    game_window.blit(ok_button.surf, ok_button.rect)
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -11754,65 +13163,67 @@ if __name__ == '__main__':
                         quest_buttons = click_handlers.quest_event_button(event, accept_button, decline_button, pygame,
                                                                           SCREEN_WIDTH, SCREEN_HEIGHT)
                         # options once quest window is open ------------------------------------------------------------
-                        if quest_buttons == "accept":
-                            if current_npc_interacting.name != "garan":
-                                drawing_functions.quest_accept_box.append(quest_accepted)
-                            pygame.mixer.find_channel(True).play(sfx_quest_start)
-                            info_text_1 = "You've accepted the quest!"
-                            button_highlighted = False
-                            if current_npc_interacting.name == "garan":
-                                player.quest_status["sneaky snakes"] = True
-                                player.current_quests["sneaky snakes"] = \
-                                    "Garan asked you to defeat snakes near the river."
-                                if not npc_garan.gift:
-                                    player.items.append(Item("big health potion",
-                                                             "potion", 200, 200, graphic_dict["health_pot_img"], 0))
-                                    npc_garan.gift = True
-                                    drawing_functions.type_advantage_window.append(role_select_overlay)
-                            if current_npc_interacting.name == "maurelle":
-                                player.quest_status["village repairs"] = True
-                                player.current_quests["village repairs"] = "Maurelle asked you to " \
-                                                                           "gather lumber from nearby trees."
-                            if current_npc_interacting.name == "celeste":
-                                player.quest_status["where's nede?"] = True
-                                player.current_quests["where's nede?"] = "Celeste asked you to find her pet dog Nede. "
-                            if current_npc_interacting.name == "torune":
-                                player.quest_status["ghouled again"] = True
-                                player.current_quests["ghouled again"] = "Torune asked you to defeat " \
-                                                                         "ghouls nearby the Castle wall."
-                            if current_npc_interacting.name == "voruke":
-                                player.quest_status["band hammer"] = True
-                                player.current_quests["band hammer"] = "Voruke asked you to defeat bandiles in the " \
-                                                                       "mines. "
-                            if current_npc_interacting.name == "zerah":
-                                player.quest_status["elementary elementals"] = True
-                                player.current_quests["elementary elementals"] = "Zerah asked you to defeat magmons" \
-                                                                                 " near the lava pool. "
-                            if current_npc_interacting.name == "dionte":
-                                player.quest_status["it's dangerous to go alone"] = True
-                                player.current_quests["it's dangerous to go alone"] = "Dionte asked you to face the" \
-                                                                                      " monster in the cave."
-                            if current_npc_interacting.name == "omoku":
-                                player.quest_status["kart troubles"] = True
-                                player.current_quests["kart troubles"] = "Omoku asked if you could pick up his stray " \
-                                                                         "supplies."
-                            if current_npc_interacting.name == "leyre":
-                                player.quest_status["las escondidas"] = True
-                                player.current_quests["las escondidas"] = "Leyre is playing hide and seek with you! " \
-                                                                          "Try to find her."
-                            if current_npc_interacting.name == "everett":
-                                player.quest_status["shades of fear"] = True
-                                player.current_quests["shades of fear"] = "Everett hopes you'll defeat some of the" \
-                                                                          " Necrolas around. "
-                            quest_clicked = False
-                            drawing_functions.quest_box.clear()
+                        if len(drawing_functions.quest_box) > 1:
+                            if quest_buttons == "accept":
+                                if current_npc_interacting.name != "garan":
+                                    drawing_functions.quest_accept_box.append(quest_accepted)
+                                pygame.mixer.find_channel(True).play(sfx_quest_start)
+                                info_text_1 = "You've accepted the quest!"
+                                button_highlighted = False
+                                if current_npc_interacting.name == "garan":
+                                    player.quest_status["sneaky snakes"] = True
+                                    player.current_quests["sneaky snakes"] = \
+                                        "Garan asked you to defeat snakes near the river."
+                                    if not npc_garan.gift:
+                                        player.items.append(Item("big health potion",
+                                                                 "potion", 200, 200, graphic_dict["health_pot_img"], 0))
+                                        npc_garan.gift = True
+                                        drawing_functions.type_advantage_window.append(role_select_overlay)
+                                if current_npc_interacting.name == "maurelle":
+                                    player.quest_status["village repairs"] = True
+                                    player.current_quests["village repairs"] = "Maurelle asked you to " \
+                                                                               "gather lumber from nearby trees."
+                                if current_npc_interacting.name == "celeste":
+                                    player.quest_status["where's nede?"] = True
+                                    player.current_quests["where's nede?"] = "Celeste asked you to find her pet " \
+                                                                             "dog Nede. "
+                                if current_npc_interacting.name == "torune":
+                                    player.quest_status["ghouled again"] = True
+                                    player.current_quests["ghouled again"] = "Torune asked you to defeat " \
+                                                                             "ghouls nearby the Castle wall."
+                                if current_npc_interacting.name == "voruke":
+                                    player.quest_status["band hammer"] = True
+                                    player.current_quests["band hammer"] = "Voruke asked you to defeat bandiles " \
+                                                                           "in the mines. "
+                                if current_npc_interacting.name == "zerah":
+                                    player.quest_status["elementary elementals"] = True
+                                    player.current_quests["elementary elementals"] = "Zerah asked you to defeat " \
+                                                                                     "magmons near the lava pool. "
+                                if current_npc_interacting.name == "dionte":
+                                    player.quest_status["it's dangerous to go alone"] = True
+                                    player.current_quests["it's dangerous to go alone"] = "Dionte asked you to face " \
+                                                                                          "the monster in the cave."
+                                if current_npc_interacting.name == "omoku":
+                                    player.quest_status["kart troubles"] = True
+                                    player.current_quests["kart troubles"] = "Omoku asked if you could pick up his " \
+                                                                             "stray supplies."
+                                if current_npc_interacting.name == "leyre":
+                                    player.quest_status["las escondidas"] = True
+                                    player.current_quests["las escondidas"] = "Leyre is playing hide and seek with " \
+                                                                              "you! Try to find her."
+                                if current_npc_interacting.name == "everett":
+                                    player.quest_status["shades of fear"] = True
+                                    player.current_quests["shades of fear"] = "Everett hopes you'll defeat some " \
+                                                                              "of the Necrolas around. "
+                                quest_clicked = False
+                                drawing_functions.quest_box.clear()
 
-                        # if player chooses to decline, just close the quest window
-                        if quest_buttons == "decline":
-                            info_text_1 = ""
-                            quest_clicked = False
-                            button_highlighted = False
-                            drawing_functions.quest_box.clear()
+                            # if player chooses to decline, just close the quest window
+                            if quest_buttons == "decline":
+                                info_text_1 = ""
+                                quest_clicked = False
+                                button_highlighted = False
+                                drawing_functions.quest_box.clear()
 
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
@@ -11869,27 +13280,26 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
+
                                         # autosave on quest complete
-                                        try:
-                                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                         sharp_sense_learned, saved, npc_garan.gift,
-                                                                         rest_recover_show, knowledge_academia_show,
-                                                                         quest_guide_shown, battle_guide_shown,
-                                                                         rest_shown_before, quest_highlight_popup,
-                                                                         bridge_not_repaired, nede_ghoul_defeated,
-                                                                         bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                         crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                         switch_3, muchador_defeated, has_key,
-                                                                         mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                         gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned, rock_4_con, rock_5_con,
-                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked, rock_8_con,
-                                                                         rock_3_con)
-                                        except PermissionError:
-                                            pass
+                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                     sharp_sense_learned, saved, npc_garan.gift,
+                                                                     rest_recover_show, knowledge_academia_show,
+                                                                     quest_guide_shown, battle_guide_shown,
+                                                                     rest_shown_before, quest_highlight_popup,
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
+                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                     crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                     switch_3, muchador_defeated, has_key,
+                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                     chinzilla_defeated, apothecary_access,
+                                                                     beyond_seldon, seed_given, hatch_ready,
+                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                     iriana_unlocked, rock_8_con, rock_3_con,
+                                                                     seed_scout_count, seed_fighter_count,
+                                                                     seed_mage_count)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -12057,27 +13467,26 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["nuldar"] += 10
+
                                         # autosave on quest complete
-                                        try:
-                                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                         sharp_sense_learned, saved, npc_garan.gift,
-                                                                         rest_recover_show, knowledge_academia_show,
-                                                                         quest_guide_shown, battle_guide_shown,
-                                                                         rest_shown_before, quest_highlight_popup,
-                                                                         bridge_not_repaired, nede_ghoul_defeated,
-                                                                         bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                         crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                         switch_3, muchador_defeated, has_key,
-                                                                         mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                         gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned, rock_4_con, rock_5_con,
-                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked, rock_8_con,
-                                                                         rock_3_con)
-                                        except PermissionError:
-                                            pass
+                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                     sharp_sense_learned, saved, npc_garan.gift,
+                                                                     rest_recover_show, knowledge_academia_show,
+                                                                     quest_guide_shown, battle_guide_shown,
+                                                                     rest_shown_before, quest_highlight_popup,
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
+                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                     crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                     switch_3, muchador_defeated, has_key,
+                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                     chinzilla_defeated, apothecary_access,
+                                                                     beyond_seldon, seed_given, hatch_ready,
+                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                     iriana_unlocked, rock_8_con, rock_3_con,
+                                                                     seed_scout_count, seed_fighter_count,
+                                                                     seed_mage_count)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -12245,27 +13654,26 @@ if __name__ == '__main__':
                                             leveled = True
                                             loot_level_tic = time.perf_counter()
                                         player.reputation["amuna"] += 10
+
                                         # autosave on quest complete
-                                        try:
-                                            gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
-                                                                         sharp_sense_learned, saved, npc_garan.gift,
-                                                                         rest_recover_show, knowledge_academia_show,
-                                                                         quest_guide_shown, battle_guide_shown,
-                                                                         rest_shown_before, quest_highlight_popup,
-                                                                         bridge_not_repaired, nede_ghoul_defeated,
-                                                                         bridge_cutscenes_not_viewed, crate_1, crate_2,
-                                                                         crate_3, crate_4, crate_5, switch_1, switch_2,
-                                                                         switch_3, muchador_defeated, has_key,
-                                                                         mini_boss_1_defeated, mini_boss_2_defeated,
-                                                                         gloves_obtained, korlok_attuned,
-                                                                         eldream_attuned, rock_4_con, rock_5_con,
-                                                                         rock_6_con, rock_7_con, chinzilla_defeated,
-                                                                         apothecary_access, beyond_seldon, seed_given,
-                                                                         hatch_ready, menagerie_access, kasper_unlocked,
-                                                                         torok_unlocked, iriana_unlocked, rock_8_con,
-                                                                         rock_3_con)
-                                        except PermissionError:
-                                            pass
+                                        gameplay_functions.save_game(player, barrier_learned, hard_strike_learned,
+                                                                     sharp_sense_learned, saved, npc_garan.gift,
+                                                                     rest_recover_show, knowledge_academia_show,
+                                                                     quest_guide_shown, battle_guide_shown,
+                                                                     rest_shown_before, quest_highlight_popup,
+                                                                     bridge_not_repaired, nede_ghoul_defeated,
+                                                                     bridge_cutscenes_not_viewed, crate_1, crate_2,
+                                                                     crate_3, crate_4, crate_5, switch_1, switch_2,
+                                                                     switch_3, muchador_defeated, has_key,
+                                                                     mini_boss_1_defeated, mini_boss_2_defeated,
+                                                                     gloves_obtained, korlok_attuned, eldream_attuned,
+                                                                     rock_4_con, rock_5_con, rock_6_con, rock_7_con,
+                                                                     chinzilla_defeated, apothecary_access,
+                                                                     beyond_seldon, seed_given, hatch_ready,
+                                                                     menagerie_access, kasper_unlocked, torok_unlocked,
+                                                                     iriana_unlocked, rock_8_con, rock_3_con,
+                                                                     seed_scout_count, seed_fighter_count,
+                                                                     seed_mage_count)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -12487,76 +13895,158 @@ if __name__ == '__main__':
                     # draw objects to screen related to npc interaction scenario ---------------------------------------
                     if in_npc_interaction and not in_over_world and not in_shop and not in_inn and not \
                             in_academia and not in_battle:
-                        if player.current_zone == "seldon":
-                            screen.blit(seldon_district_battle, (0, 0))
-                        if player.current_zone == "korlok":
-                            screen.blit(korlok_district_battle, (0, 0))
-                        if player.current_zone == "terra trail":
-                            screen.blit(terra_trail_screen, (0, 0))
-                        if player.current_zone == "eldream":
-                            screen.blit(eldream_interaction_bg, (0, 0))
-                        if player.current_zone == "ectrenos":
-                            screen.blit(ectrenos_interaction_bg, (0, 0))
-                        if player.current_zone == "ectrenos front":
-                            screen.blit(ectrenos_front_interaction_bg, (0, 0))
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                        combat_scenario.resting_animation(player, current_enemy_battling, player_battle_sprite,
-                                                          snake_battle_sprite, ghoul_battle_sprite,
-                                                          chorizon_battle_sprite, muchador_battle_sprite,
-                                                          magmon_battle_sprite, bandile_battle_sprite,
-                                                          chinzilla_battle_sprite, barrier_active,
-                                                          sharp_sense_active, in_battle, in_npc_interaction,
-                                                          graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(quest_button.surf, quest_button.rect)
-                        # noinspection PyUnboundLocalVariable
-                        if current_npc_interacting.name == "garan":
-                            screen.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
-                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                        if current_npc_interacting.name == "maurelle":
-                            screen.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
-                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                        if current_npc_interacting.name == "celeste":
-                            if player.quest_progress["where's nede?"] == 1:
-                                screen.blit(nede_big.surf, nede_big.rect)
-                            screen.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
-                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                        if current_npc_interacting.name == "torune":
-                            screen.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
-                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                        if current_npc_interacting.name == "voruke":
-                            screen.blit(npc_voruke_interaction.surf, npc_voruke_interaction.rect)
-                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                        if current_npc_interacting.name == "zerah":
-                            screen.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
-                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                        if current_npc_interacting.name == "dionte":
-                            screen.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
-                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                        if current_npc_interacting.name == "omoku":
-                            screen.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
-                            npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
-                        if current_npc_interacting.name == "leyre":
-                            screen.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
-                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                        if current_npc_interacting.name == "everett":
-                            screen.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
-                            npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
 
-                        screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
-                        screen.blit(npc_name_plate.surf, npc_name_plate.rect)
-                        screen.blit(message_box.surf, message_box.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            if player.current_zone == "seldon":
+                                screen.blit(seldon_district_battle, (0, 0))
+                            if player.current_zone == "korlok":
+                                screen.blit(korlok_district_battle, (0, 0))
+                            if player.current_zone == "terra trail":
+                                screen.blit(terra_trail_screen, (0, 0))
+                            if player.current_zone == "eldream":
+                                screen.blit(eldream_interaction_bg, (0, 0))
+                            if player.current_zone == "ectrenos":
+                                screen.blit(ectrenos_interaction_bg, (0, 0))
+                            if player.current_zone == "ectrenos front":
+                                screen.blit(ectrenos_front_interaction_bg, (0, 0))
+                            screen.blit(equipment_screen.surf, equipment_screen.rect)
+                            screen.blit(offense_meter.surf, offense_meter.rect)
+                            screen.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            combat_scenario.resting_animation(player, current_enemy_battling, player_battle_sprite,
+                                                              snake_battle_sprite, ghoul_battle_sprite,
+                                                              chorizon_battle_sprite, muchador_battle_sprite,
+                                                              magmon_battle_sprite, bandile_battle_sprite,
+                                                              chinzilla_battle_sprite, barrier_active,
+                                                              sharp_sense_active, in_battle, in_npc_interaction,
+                                                              graphic_dict, necrola_battle_sprite,
+                                                              osodark_battle_sprite)
+                            screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            screen.blit(hp_bar.surf, hp_bar.rect)
+                            screen.blit(en_bar.surf, en_bar.rect)
+                            screen.blit(xp_bar.surf, xp_bar.rect)
+                            screen.blit(leave_button.surf, leave_button.rect)
+                            screen.blit(quest_button.surf, quest_button.rect)
+                            # noinspection PyUnboundLocalVariable
+                            if current_npc_interacting.name == "garan":
+                                screen.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "maurelle":
+                                screen.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "celeste":
+                                if player.quest_progress["where's nede?"] == 1:
+                                    screen.blit(nede_big.surf, nede_big.rect)
+                                screen.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "torune":
+                                screen.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "voruke":
+                                screen.blit(npc_voruke_interaction.surf, npc_voruke_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "zerah":
+                                screen.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "dionte":
+                                screen.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "omoku":
+                                screen.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
+                                npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "leyre":
+                                screen.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "everett":
+                                screen.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+
+                            screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                            screen.blit(npc_name_plate.surf, npc_name_plate.rect)
+                            screen.blit(message_box.surf, message_box.rect)
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+
+                        else:
+                            if player.current_zone == "seldon":
+                                game_window.blit(seldon_district_battle, (0, 0))
+                            if player.current_zone == "korlok":
+                                game_window.blit(korlok_district_battle, (0, 0))
+                            if player.current_zone == "terra trail":
+                                game_window.blit(terra_trail_screen, (0, 0))
+                            if player.current_zone == "eldream":
+                                game_window.blit(eldream_interaction_bg, (0, 0))
+                            if player.current_zone == "ectrenos":
+                                game_window.blit(ectrenos_interaction_bg, (0, 0))
+                            if player.current_zone == "ectrenos front":
+                                game_window.blit(ectrenos_front_interaction_bg, (0, 0))
+                            game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                            game_window.blit(offense_meter.surf, offense_meter.rect)
+                            game_window.blit(defense_meter.surf, defense_meter.rect)
+                            drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
+                                                          weapon_select)
+                            combat_scenario.resting_animation(player, current_enemy_battling, player_battle_sprite,
+                                                              snake_battle_sprite, ghoul_battle_sprite,
+                                                              chorizon_battle_sprite, muchador_battle_sprite,
+                                                              magmon_battle_sprite, bandile_battle_sprite,
+                                                              chinzilla_battle_sprite, barrier_active,
+                                                              sharp_sense_active, in_battle, in_npc_interaction,
+                                                              graphic_dict, necrola_battle_sprite,
+                                                              osodark_battle_sprite)
+                            game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                            game_window.blit(hp_bar.surf, hp_bar.rect)
+                            game_window.blit(en_bar.surf, en_bar.rect)
+                            game_window.blit(xp_bar.surf, xp_bar.rect)
+                            game_window.blit(leave_button.surf, leave_button.rect)
+                            game_window.blit(quest_button.surf, quest_button.rect)
+                            # noinspection PyUnboundLocalVariable
+                            if current_npc_interacting.name == "garan":
+                                game_window.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "maurelle":
+                                game_window.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "celeste":
+                                if player.quest_progress["where's nede?"] == 1:
+                                    game_window.blit(nede_big.surf, nede_big.rect)
+                                game_window.blit(npc_celeste_interaction.surf, npc_celeste_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "torune":
+                                game_window.blit(npc_torune_interaction.surf, npc_torune_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "voruke":
+                                game_window.blit(npc_voruke_interaction.surf, npc_voruke_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "zerah":
+                                game_window.blit(npc_zerah_interaction.surf, npc_zerah_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "dionte":
+                                game_window.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "omoku":
+                                game_window.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
+                                npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "leyre":
+                                game_window.blit(npc_leyre_interaction.surf, npc_leyre_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "everett":
+                                game_window.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
+                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+
+                            game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
+                            game_window.blit(npc_name_plate.surf, npc_name_plate.rect)
+                            game_window.blit(message_box.surf, message_box.rect)
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(screen)
+                        else:
+                            drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                             info_text_3, info_text_4, in_over_world)
+                            drawing_functions.draw_it(game_window)
+
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
                                                          (203, 195, 227))
                         text_npc_name_rect = text_npc_name_surf.get_rect()
@@ -12564,14 +14054,21 @@ if __name__ == '__main__':
                             text_npc_name_rect.center = (605, 193)
                         if current_npc_interacting.name != "omoku":
                             text_npc_name_rect.center = (675, 165)
-                        screen.blit(text_npc_name_surf, text_npc_name_rect)
-                        drawing_functions.draw_it(screen)
 
-                        if button_highlighted:
-                            screen.blit(button_highlight.surf, button_highlight.rect)
-                        if first_npc_cond:
-                            directional_arrow.update(855, 620, graphic_dict["arrow_down"])
-                            screen.blit(directional_arrow.surf, directional_arrow.rect)
+                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            screen.blit(text_npc_name_surf, text_npc_name_rect)
+                            if button_highlighted:
+                                screen.blit(button_highlight.surf, button_highlight.rect)
+                            if first_npc_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                screen.blit(directional_arrow.surf, directional_arrow.rect)
+                        else:
+                            game_window.blit(text_npc_name_surf, text_npc_name_rect)
+                            if button_highlighted:
+                                game_window.blit(button_highlight.surf, button_highlight.rect)
+                            if first_npc_cond:
+                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                game_window.blit(directional_arrow.surf, directional_arrow.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------
@@ -12580,9 +14077,13 @@ if __name__ == '__main__':
                                                                  seed_mage_count, hatch_ready,
                                                                  graphic_dict["seed_ready_img"])
 
-                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                game_window.blit(frame, frame.get_rect())
-                pygame.display.flip()
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
+                    pygame.display.flip()
+                else:
+                    pygame.display.flip()
+
                 clock.tick(60)
 
             # ----------------------------------------------------------------------------------------------------------
@@ -12594,8 +14095,14 @@ if __name__ == '__main__':
                     game_over_sound_played = True
                 button_highlight.update(lets_go_button.x_coordinate, lets_go_button.y_coordinate,
                                         graphic_dict["lets_go_button_high"])
-                screen.blit(game_over_screen, (0, 0))
-                screen.blit(lets_go_button.surf, lets_go_button.rect)
+
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(game_over_screen, (0, 0))
+                    screen.blit(lets_go_button.surf, lets_go_button.rect)
+                else:
+                    game_window.blit(game_over_screen, (0, 0))
+                    game_window.blit(lets_go_button.surf, lets_go_button.rect)
+
                 for event in pygame.event.get():
                     init_pos = list(pygame.mouse.get_pos())
                     ratio_x = (SCREEN_WIDTH / screen.get_width())
@@ -12700,9 +14207,14 @@ if __name__ == '__main__':
                         pygame.mixer.quit()
                         sys.exit()
 
-                if button_highlighted:
-                    screen.blit(button_highlight.surf, button_highlight.rect)
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    if button_highlighted:
+                        screen.blit(button_highlight.surf, button_highlight.rect)
+                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                    game_window.blit(frame, frame.get_rect())
+                    pygame.display.flip()
 
-                frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                game_window.blit(frame, frame.get_rect())
-                pygame.display.flip()
+                else:
+                    if button_highlighted:
+                        game_window.blit(button_highlight.surf, button_highlight.rect)
+                    pygame.display.flip()

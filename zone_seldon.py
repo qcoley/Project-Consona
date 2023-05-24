@@ -187,20 +187,44 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     if bridge_not_repaired:
                         if bridge_cutscenes_not_viewed:
                             if player.race == "amuna":
-                                player_cutscene.update(player_cutscene.x_coordinate, player_cutscene.y_coordinate,
-                                                       graphic_dict["amuna_cutscene"])
-                                player_cutscene_2.update(player_cutscene_2.x_coordinate, player_cutscene_2.y_coordinate,
-                                                         graphic_dict["amuna_cutscene_2"])
+                                if player.gender == "male":
+                                    player_cutscene.update(player_cutscene.x_coordinate, player_cutscene.y_coordinate,
+                                                           graphic_dict["amuna_cutscene"])
+                                    player_cutscene_2.update(player_cutscene_2.x_coordinate,
+                                                             player_cutscene_2.y_coordinate,
+                                                             graphic_dict["amuna_cutscene_2"])
+                                if player.gender == "female":
+                                    player_cutscene.update(player_cutscene.x_coordinate, player_cutscene.y_coordinate,
+                                                           graphic_dict["amuna_cutscene_female"])
+                                    player_cutscene_2.update(player_cutscene_2.x_coordinate,
+                                                             player_cutscene_2.y_coordinate,
+                                                             graphic_dict["amuna_cutscene_2_female"])
                             if player.race == "nuldar":
-                                player_cutscene.update(player_cutscene.x_coordinate, player_cutscene.y_coordinate,
-                                                       graphic_dict["nuldar_cutscene"])
-                                player_cutscene_2.update(player_cutscene_2.x_coordinate, player_cutscene_2.y_coordinate,
-                                                         graphic_dict["nuldar_cutscene_2"])
+                                if player.gender == "male":
+                                    player_cutscene.update(player_cutscene.x_coordinate, player_cutscene.y_coordinate,
+                                                           graphic_dict["nuldar_cutscene"])
+                                    player_cutscene_2.update(player_cutscene_2.x_coordinate,
+                                                             player_cutscene_2.y_coordinate,
+                                                             graphic_dict["nuldar_cutscene_2"])
+                                if player.gender == "female":
+                                    player_cutscene.update(player_cutscene.x_coordinate, player_cutscene.y_coordinate,
+                                                           graphic_dict["nuldar_cutscene_female"])
+                                    player_cutscene_2.update(player_cutscene_2.x_coordinate,
+                                                             player_cutscene_2.y_coordinate,
+                                                             graphic_dict["nuldar_cutscene_2_female"])
                             if player.race == "sorae":
-                                player_cutscene.update(player_cutscene.x_coordinate, player_cutscene.y_coordinate,
-                                                       graphic_dict["sorae_cutscene"])
-                                player_cutscene_2.update(player_cutscene_2.x_coordinate, player_cutscene_2.y_coordinate,
-                                                         graphic_dict["sorae_cutscene_2"])
+                                if player.gender == "male":
+                                    player_cutscene.update(player_cutscene.x_coordinate, player_cutscene.y_coordinate,
+                                                           graphic_dict["sorae_cutscene"])
+                                    player_cutscene_2.update(player_cutscene_2.x_coordinate,
+                                                             player_cutscene_2.y_coordinate,
+                                                             graphic_dict["sorae_cutscene_2"])
+                                if player.gender == "female":
+                                    player_cutscene.update(player_cutscene.x_coordinate, player_cutscene.y_coordinate,
+                                                           graphic_dict["sorae_cutscene_beta"])
+                                    player_cutscene_2.update(player_cutscene_2.x_coordinate,
+                                                             player_cutscene_2.y_coordinate,
+                                                             graphic_dict["sorae_cutscene_2_beta"])
                             cutscene_tic = time.perf_counter()
                             cutscenes.cutscenes_apothis_bridge(pygame, apothis_intro_music, screen, apothis_scene_1,
                                                                apothis_scene_2, apothis_scene_3, apothis_scene_4,

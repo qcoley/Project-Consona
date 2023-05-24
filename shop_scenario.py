@@ -214,7 +214,7 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""
 
-        if current_buy_item.name == "energy potion":
+        if current_buy_item.name == "small energy potion":
             if len(player.items) < 16:
                 if player.rupees > 9:
                     buy_return["info 1"] = "Bought Small Energy Potion for 10 rupees."
