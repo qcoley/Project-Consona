@@ -3142,6 +3142,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_forged"] = player_battle_amuna_sheet_forged[3]
     loaded_dict["player_scout_amuna_battle_forged"] = player_battle_amuna_sheet_forged[4]
     loaded_dict["player_scout_amuna_attack_forged"] = player_battle_amuna_sheet_forged[5]
+    loaded_dict["player_fighter_amuna_strike_forged"] = player_battle_amuna_sheet_forged[6]
     # forged barrier
     player_battle_amuna_url_forged_barrier = resource_path('resources/art/player_battle_sprites_amuna_'
                                                            'forged_barrier.png')
@@ -3152,6 +3153,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[3]
     loaded_dict["player_scout_amuna_battle_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[4]
     loaded_dict["player_scout_amuna_attack_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[5]
+    loaded_dict["player_fighter_amuna_strike_forged_barrier"] = player_battle_amuna_sheet_forged_barrier[6]
     # forged sense
     player_battle_amuna_url_forged_sense = resource_path('resources/art/player_battle_sprites_amuna_'
                                                          'forged_sense.png')
@@ -3162,6 +3164,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_forged_sense"] = player_battle_amuna_sheet_forged_sense[3]
     loaded_dict["player_scout_amuna_battle_forged_sense"] = player_battle_amuna_sheet_forged_sense[4]
     loaded_dict["player_scout_amuna_attack_forged_sense"] = player_battle_amuna_sheet_forged_sense[5]
+    loaded_dict["player_fighter_amuna_strike_forged_sense"] = player_battle_amuna_sheet_forged_sense[6]
     # forged barrier sense
     player_battle_amuna_url_forged_barrier_sense = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                  'forged_barrier_sense.png')
@@ -3173,6 +3176,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[3]
     loaded_dict["player_scout_amuna_battle_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[4]
     loaded_dict["player_scout_amuna_attack_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[5]
+    loaded_dict["player_fighter_amuna_strike_forged_barrier_sense"] = player_battle_amuna_sheet_forged_barrier_sense[6]
     # mythic
     player_battle_amuna_url_mythic = resource_path('resources/art/player_battle_sprites_amuna_mythic.png')
     player_battle_amuna_sheet_mythic = sprite_sheet((750, 624), player_battle_amuna_url_mythic)
@@ -3182,6 +3186,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_mythic"] = player_battle_amuna_sheet_mythic[3]
     loaded_dict["player_scout_amuna_battle_mythic"] = player_battle_amuna_sheet_mythic[4]
     loaded_dict["player_scout_amuna_attack_mythic"] = player_battle_amuna_sheet_mythic[5]
+    loaded_dict["player_fighter_amuna_strike_mythic"] = player_battle_amuna_sheet_mythic[6]
     # mythic barrier
     player_battle_amuna_url_mythic_barrier = resource_path('resources/art/player_battle_sprites_amuna_'
                                                            'mythic_barrier.png')
@@ -3192,6 +3197,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[3]
     loaded_dict["player_scout_amuna_battle_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[4]
     loaded_dict["player_scout_amuna_attack_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[5]
+    loaded_dict["player_fighter_amuna_strike_mythic_barrier"] = player_battle_amuna_sheet_mythic_barrier[6]
     # mythic sense
     player_battle_amuna_url_mythic_sense = resource_path('resources/art/player_battle_sprites_amuna_'
                                                          'mythic_sense.png')
@@ -3202,6 +3208,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_mythic_sense"] = player_battle_amuna_sheet_mythic_sense[3]
     loaded_dict["player_scout_amuna_battle_mythic_sense"] = player_battle_amuna_sheet_mythic_sense[4]
     loaded_dict["player_scout_amuna_attack_mythic_sense"] = player_battle_amuna_sheet_mythic_sense[5]
+    loaded_dict["player_fighter_amuna_strike_mythic_sense"] = player_battle_amuna_sheet_mythic_sense[6]
     # mythic barrier sense
     player_battle_amuna_url_mythic_barrier_sense = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                  'mythic_barrier_sense.png')
@@ -3213,6 +3220,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[3]
     loaded_dict["player_scout_amuna_battle_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[4]
     loaded_dict["player_scout_amuna_attack_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[5]
+    loaded_dict["player_fighter_amuna_strike_mythic_barrier_sense"] = player_battle_amuna_sheet_mythic_barrier_sense[6]
     # legend
     player_battle_amuna_url_legend = resource_path('resources/art/player_battle_sprites_amuna_legend.png')
     player_battle_amuna_sheet_legend = sprite_sheet((750, 624), player_battle_amuna_url_legend)
@@ -3222,6 +3230,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_legend"] = player_battle_amuna_sheet_legend[3]
     loaded_dict["player_scout_amuna_battle_legend"] = player_battle_amuna_sheet_legend[4]
     loaded_dict["player_scout_amuna_attack_legend"] = player_battle_amuna_sheet_legend[5]
+    loaded_dict["player_fighter_amuna_strike_legend"] = player_battle_amuna_sheet_legend[6]
     # legend barrier
     player_battle_amuna_url_legend_barrier = resource_path('resources/art/player_battle_sprites_amuna_'
                                                            'legend_barrier.png')
@@ -3232,6 +3241,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[3]
     loaded_dict["player_scout_amuna_battle_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[4]
     loaded_dict["player_scout_amuna_attack_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[5]
+    loaded_dict["player_fighter_amuna_strike_legend_barrier"] = player_battle_amuna_sheet_legend_barrier[6]
     # legend sense
     player_battle_amuna_url_legend_sense = resource_path('resources/art/player_battle_sprites_amuna_'
                                                          'legend_sense.png')
@@ -3242,6 +3252,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_legend_sense"] = player_battle_amuna_sheet_legend_sense[3]
     loaded_dict["player_scout_amuna_battle_legend_sense"] = player_battle_amuna_sheet_legend_sense[4]
     loaded_dict["player_scout_amuna_attack_legend_sense"] = player_battle_amuna_sheet_legend_sense[5]
+    loaded_dict["player_fighter_amuna_strike_legend_sense"] = player_battle_amuna_sheet_legend_sense[6]
     # legend barrier sense
     player_battle_amuna_url_legend_barrier_sense = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                  'legend_barrier_sense.png')
@@ -3253,6 +3264,7 @@ def load_graphics():
     loaded_dict["player_fighter_amuna_attack_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[3]
     loaded_dict["player_scout_amuna_battle_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[4]
     loaded_dict["player_scout_amuna_attack_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[5]
+    loaded_dict["player_fighter_amuna_strike_legend_barrier_sense"] = player_battle_amuna_sheet_legend_barrier_sense[6]
     # female -----------------------------------------------------------------------------------------------------------
     player_battle_amuna_female_url = resource_path('resources/art/player_battle_sprites_amuna_female.png')
     player_battle_amuna_female_sheet = sprite_sheet((750, 624), player_battle_amuna_female_url)

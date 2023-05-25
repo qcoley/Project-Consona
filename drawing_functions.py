@@ -1067,7 +1067,9 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       create_potion_button, in_menagerie, ok_button, hatch_ready, menagerie_window_open,
                       kasper_manage_button, torok_manage_button, iriana_manage_button, amuna_male_button,
                       amuna_female_button, nuldar_male_button, nuldar_female_button, sorae_alpha_button,
-                      sorae_beta_button):
+                      sorae_beta_button, in_academia, mage_learn_clicked, fighter_learn_clicked,
+                      scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
+                      barrier_learn_button, close_button):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1400,6 +1402,45 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 elif decline_button.rect.collidepoint(pos):
                     button_highlight.update(decline_button.x_coordinate,
                                             decline_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+
+        if in_academia:
+            # highlighting books once moused over
+            if not mage_learn_clicked and not fighter_learn_clicked and not scout_learn_clicked:
+                if mage_learn_button.rect.collidepoint(pos):
+                    button_highlight.update(mage_learn_button.x_coordinate - 7,
+                                            mage_learn_button.y_coordinate + 12,
+                                            graphic_dict["skill high"])
+                    return True
+                elif fighter_learn_button.rect.collidepoint(pos):
+                    button_highlight.update(fighter_learn_button.x_coordinate - 1,
+                                            fighter_learn_button.y_coordinate + 12,
+                                            graphic_dict["skill high"])
+                    return True
+                elif scout_learn_button.rect.collidepoint(pos):
+                    button_highlight.update(scout_learn_button.x_coordinate - 2,
+                                            scout_learn_button.y_coordinate + 12,
+                                            graphic_dict["skill high"])
+                    return True
+                elif leave_button.rect.collidepoint(pos):
+                    button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+
+            # highlighting skill learn buttons inside of books once moused over
+            else:
+                if barrier_learn_button.rect.collidepoint(pos):
+                    button_highlight.update(barrier_learn_button.x_coordinate + 2,
+                                            barrier_learn_button.y_coordinate + 3,
+                                            graphic_dict["book_high"])
+                    return True
+                elif close_button.rect.collidepoint(pos):
+                    button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
+                                            graphic_dict["close high"])
+                    return True
+                elif leave_button.rect.collidepoint(pos):
+                    button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
                                             graphic_dict["main high"])
                     return True
 

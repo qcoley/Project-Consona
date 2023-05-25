@@ -302,7 +302,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 switch_1, switch_2, switch_3, has_key, magmon_battle_sprite, bandile_battle_sprite,
                 chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
                 weapon_select, pet_energy_window, necrola_battle_sprite, osodark_battle_sprite, sfx_teleporter,
-                sfx_rupee, sfx_gate):
+                sfx_rupee, sfx_gate, directional_arrow):
 
     in_battle = False
 
@@ -334,6 +334,9 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
         screen.blit(muchador_crate_4.surf, muchador_crate_4.rect)
     if muchador_defeated:
         screen.blit(reservoir_passage.surf, reservoir_passage.rect)
+        if muchador_lights_on:
+            directional_arrow.update(350, 375, graphic_dict["arrow_left"])
+            screen.blit(directional_arrow.surf, directional_arrow.rect)
     try:
         for pet in player.pet:
             if pet.active:

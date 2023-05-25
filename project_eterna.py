@@ -5713,7 +5713,11 @@ def button_highlighter(posit):
                                                               torok_manage_button, iriana_manage_button,
                                                               amuna_male_button, amuna_female_button,
                                                               nuldar_male_button, nuldar_female_button,
-                                                              sorae_alpha_button, sorae_beta_button)
+                                                              sorae_alpha_button, sorae_beta_button, in_academia,
+                                                              mage_learn_clicked, fighter_learn_clicked,
+                                                              scout_learn_clicked, mage_learn_button,
+                                                              fighter_learn_button, scout_learn_button,
+                                                              barrier_learn_button, close_button)
     return button_highlighters
 
 
@@ -7763,6 +7767,8 @@ if __name__ == '__main__':
                             if info_choice == "no":
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
+                            else:
+                                button_highlighted = False
 
                             inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
                                                                                          SCREEN_HEIGHT)
@@ -9504,7 +9510,8 @@ if __name__ == '__main__':
                                                                           pet_energy_window, necrola_battle_sprite,
                                                                           osodark_battle_sprite,
                                                                           sfx_activate_teleporter,
-                                                                          sfx_item_rupee, sfx_gate_open)
+                                                                          sfx_item_rupee, sfx_gate_open,
+                                                                          directional_arrow)
                     else:
                         reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -9535,7 +9542,8 @@ if __name__ == '__main__':
                                                                           pet_energy_window, necrola_battle_sprite,
                                                                           osodark_battle_sprite,
                                                                           sfx_activate_teleporter,
-                                                                          sfx_item_rupee, sfx_gate_open)
+                                                                          sfx_item_rupee, sfx_gate_open,
+                                                                          directional_arrow)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -11529,8 +11537,12 @@ if __name__ == '__main__':
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
+
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
+
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
                                                                                      SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
@@ -11801,46 +11813,7 @@ if __name__ == '__main__':
                         ratio_x = (SCREEN_WIDTH / screen.get_width())
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
-                        # highlighting books once moused over
-                        if not mage_learn_clicked and not fighter_learn_clicked and not scout_learn_clicked:
-                            if mage_learn_button.rect.collidepoint(pos):
-                                button_highlight.update(mage_learn_button.x_coordinate - 7,
-                                                        mage_learn_button.y_coordinate + 12,
-                                                        graphic_dict["skill high"])
-                                button_highlighted = True
-                            elif fighter_learn_button.rect.collidepoint(pos):
-                                button_highlight.update(fighter_learn_button.x_coordinate - 1,
-                                                        fighter_learn_button.y_coordinate + 12,
-                                                        graphic_dict["skill high"])
-                                button_highlighted = True
-                            elif scout_learn_button.rect.collidepoint(pos):
-                                button_highlight.update(scout_learn_button.x_coordinate - 2,
-                                                        scout_learn_button.y_coordinate + 12,
-                                                        graphic_dict["skill high"])
-                                button_highlighted = True
-                            elif leave_button.rect.collidepoint(pos):
-                                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
-                                                        graphic_dict["main high"])
-                                button_highlighted = True
-                            else:
-                                button_highlighted = False
-                        # highlighting skill learn buttons inside of books once moused over
-                        else:
-                            if barrier_learn_button.rect.collidepoint(pos):
-                                button_highlight.update(barrier_learn_button.x_coordinate + 2,
-                                                        barrier_learn_button.y_coordinate + 3,
-                                                        graphic_dict["book_high"])
-                                button_highlighted = True
-                            elif close_button.rect.collidepoint(pos):
-                                button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
-                                                        graphic_dict["close high"])
-                                button_highlighted = True
-                            elif leave_button.rect.collidepoint(pos):
-                                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
-                                                        graphic_dict["main high"])
-                                button_highlighted = True
-                            else:
-                                button_highlighted = False
+                        button_highlighted = button_highlighter(pos)
 
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
@@ -11865,8 +11838,12 @@ if __name__ == '__main__':
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
+
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
+
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame,
                                                                                      SCREEN_WIDTH, SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
@@ -12134,16 +12111,19 @@ if __name__ == '__main__':
                             if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
                                 books.append(mage_book)
                                 skill_learn_items.append(barrier_learn_button)
+                                close_button.update(975, 135, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
                                 books.append(fighter_book)
                                 skill_learn_items.append(hard_strike_learn_button)
+                                close_button.update(975, 135, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
                                 books.append(scout_book)
                                 skill_learn_items.append(sharp_sense_learn_button)
+                                close_button.update(975, 135, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
 
@@ -12208,6 +12188,11 @@ if __name__ == '__main__':
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
 
+                        if close_button.rect.collidepoint(pos) and apothecary_window_open:
+                            button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
+                                                    graphic_dict["close high"])
+                            button_highlighted = True
+
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
                                                          pressed_keys, sfx_button_role)
@@ -12232,6 +12217,12 @@ if __name__ == '__main__':
                                 else:
                                     info_text_1 = "You need to complete Kirean's quest."
                                     info_text_2 = ""
+
+                            if close_button.rect.collidepoint(pos) and apothecary_window_open:
+                                pygame.mixer.find_channel(True).play(sfx_button_click)
+                                drawing_functions.potion_window_container.clear()
+                                apothecary_window_open = False
+                                button_highlighted = False
 
                             if seldon_flower_more_button.collidepoint(pos):
                                 if apothecary_window_open:
@@ -12305,8 +12296,12 @@ if __name__ == '__main__':
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
+
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
+
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
                                                                                      SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
@@ -12542,6 +12537,8 @@ if __name__ == '__main__':
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
 
                                     screen.blit(potion_mix_overlay.surf, potion_mix_overlay.rect)
+                                    close_button.update(500, 135, graphic_dict["close_button"])
+                                    screen.blit(close_button.surf, close_button.rect)
 
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
@@ -12571,6 +12568,8 @@ if __name__ == '__main__':
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
 
                                     game_window.blit(potion_mix_overlay.surf, potion_mix_overlay.rect)
+                                    close_button.update(560, 110, graphic_dict["close_button"])
+                                    game_window.blit(close_button.surf, close_button.rect)
 
                             if button_highlighted:
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
@@ -12618,6 +12617,11 @@ if __name__ == '__main__':
                         ratio_y = (SCREEN_HEIGHT / screen.get_height())
                         pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
                         button_highlighted = button_highlighter(pos)
+
+                        if close_button.rect.collidepoint(pos) and menagerie_window_open:
+                            button_highlight.update(close_button.x_coordinate - 3, close_button.y_coordinate + 3,
+                                                    graphic_dict["close high"])
+                            button_highlighted = True
 
                         if event.type == pygame.MOUSEBUTTONUP:
                             gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
@@ -12683,13 +12687,21 @@ if __name__ == '__main__':
 
                             # buttons for pet management window. If pet is unlocked, can evolve. if not, give seed.
                             if menagerie_window_open:
+                                if close_button.rect.collidepoint(pos):
+                                    pygame.mixer.find_channel(True).play(sfx_button_click)
+                                    drawing_functions.pets_window_container.clear()
+                                    menagerie_window_open = False
+                                    button_highlighted = False
+
                                 if kasper_manage_button.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     if kasper_unlocked:
                                         for pet in player.pet:
                                             # when pet can evolve
                                             if pet.name == "kasper":
-                                                pass
+                                                drawing_functions.pets_window_container.clear()
+                                                menagerie_window_open = False
+                                                button_highlighted = False
                                     else:
                                         if not seed_given:
                                             hatch_ready = False
@@ -12701,15 +12713,20 @@ if __name__ == '__main__':
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
-                                    button_highlighted = False
+                                            button_highlighted = False
+                                            menagerie_window_open = False
                                     drawing_functions.pets_window_container.clear()
+                                    button_highlighted = False
+                                    menagerie_window_open = False
                                 if torok_manage_button.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     if torok_unlocked:
                                         for pet in player.pet:
                                             # when pet can evolve
                                             if pet.name == "torok":
-                                                pass
+                                                drawing_functions.pets_window_container.clear()
+                                                menagerie_window_open = False
+                                                button_highlighted = False
                                     else:
                                         if not seed_given:
                                             hatch_ready = False
@@ -12721,15 +12738,22 @@ if __name__ == '__main__':
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
-                                    button_highlighted = False
+                                            button_highlighted = False
+                                            menagerie_window_open = False
                                     drawing_functions.pets_window_container.clear()
+                                    # noinspection PyRedeclaration
+                                    button_highlighted = False
+                                    # noinspection PyRedeclaration
+                                    menagerie_window_open = False
                                 if iriana_manage_button.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     if iriana_unlocked:
                                         for pet in player.pet:
                                             # when pet can evolve
                                             if pet.name == "iriana":
-                                                pass
+                                                drawing_functions.pets_window_container.clear()
+                                                menagerie_window_open = False
+                                                button_highlighted = False
                                     else:
                                         if not seed_given:
                                             hatch_ready = False
@@ -12741,8 +12765,13 @@ if __name__ == '__main__':
                                             seed_given = True
                                             hatched = False
                                             hatch_show = True
-                                    button_highlighted = False
+                                            button_highlighted = False
+                                            menagerie_window_open = False
                                     drawing_functions.pets_window_container.clear()
+                                    # noinspection PyRedeclaration
+                                    button_highlighted = False
+                                    # noinspection PyRedeclaration
+                                    menagerie_window_open = False
 
                             # if seed is ready to hatch, give player whistle and unlock that pet. reset counts.
                             if hatch_ready:
@@ -12861,8 +12890,11 @@ if __name__ == '__main__':
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
                         if info_choice == "no":
                             drawing_functions.item_info_window.clear()
+                            button_highlighted = False
+
                         inventory_item_clicked = click_handlers.inventory_event_item(event, pygame, SCREEN_WIDTH,
                                                                                      SCREEN_HEIGHT)
                         if inventory_item_clicked["clicked"]:
@@ -13033,6 +13065,7 @@ if __name__ == '__main__':
                                                                 quest_star_menagerie.y_coordinate,
                                                                 graphic_dict["building_npc_star_complete"])
                                     screen.blit(quest_star_menagerie.surf, quest_star_menagerie.rect)
+
                         else:
                             game_window.blit(eldream_district_menagerie, (0, 0))
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -13078,7 +13111,7 @@ if __name__ == '__main__':
                                                              info_text_3, info_text_4, in_over_world)
                             drawing_functions.draw_it(game_window)
 
-                        # if player has access to apothecary functions by completing quest and window is open
+                        # if player has access to menagerie functions by completing quest and window is open
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(pets_button.surf, pets_button.rect)
                             if hatch_ready:
@@ -13088,6 +13121,10 @@ if __name__ == '__main__':
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
 
+                            if menagerie_window_open:
+                                close_button.update(500, 135, graphic_dict["close_button"])
+                                screen.blit(close_button.surf, close_button.rect)
+
                         else:
                             game_window.blit(pets_button.surf, pets_button.rect)
                             if hatch_ready:
@@ -13096,6 +13133,10 @@ if __name__ == '__main__':
                                     game_window.blit(ok_button.surf, ok_button.rect)
                             if button_highlighted:
                                 game_window.blit(button_highlight.surf, button_highlight.rect)
+
+                            if menagerie_window_open:
+                                close_button.update(792, 108, graphic_dict["close_button"])
+                                game_window.blit(close_button.surf, close_button.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
