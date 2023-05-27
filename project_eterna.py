@@ -12716,7 +12716,9 @@ if __name__ == '__main__':
                                             button_highlighted = False
                                             menagerie_window_open = False
                                     drawing_functions.pets_window_container.clear()
+                                    # noinspection PyRedeclaration
                                     button_highlighted = False
+                                    # noinspection PyRedeclaration
                                     menagerie_window_open = False
                                 if torok_manage_button.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
