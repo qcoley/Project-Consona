@@ -3369,22 +3369,91 @@ def fighter(graphics, player, player_battle_sprite, current_enemy_battling, snak
                                             player_battle_sprite.y_coordinate,
                                             graphics["player_fighter_barrier_sense_sorae_strike"])
     if player.race == "nuldar":
-        if player.role == "fighter":
-            player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                        player_battle_sprite.y_coordinate,
-                                        graphics["player_fighter_nuldar_strike"])
-            if sharp_sense_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_sense_nuldar_strike"])
-            if barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_barrier_nuldar_strike"])
-            if sharp_sense_active and barrier_active:
-                player_battle_sprite.update(player_battle_sprite.x_coordinate,
-                                            player_battle_sprite.y_coordinate,
-                                            graphics["player_fighter_barrier_sense_nuldar_strike"])
+        if player.gender == "male":
+            if player.role == "fighter":
+                try:
+                    if player.equipment["armor"].name == "basic armor":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_strike_basic"])
+                        """
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_basic_sense"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_basic_barrier"])
+                        if sharp_sense_active and barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_basic_barrier_sense"])
+                    if player.equipment["armor"].name == "forged armor":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_strike_forged"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_forged_sense"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_forged_barrier"])
+                        if sharp_sense_active and barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_forged_barrier_sense"])
+                    if player.equipment["armor"].name == "mythical armor":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_strike_mythic"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_mythic_sense"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_mythic_barrier"])
+                        if sharp_sense_active and barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_mythic_barrier_sense"])
+                    if player.equipment["armor"].name == "legendary armor":
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_strike_legend"])
+                        if sharp_sense_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_legend_sense"])
+                        if barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_legend_barrier"])
+                        if sharp_sense_active and barrier_active:
+                            player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                        player_battle_sprite.y_coordinate,
+                                                        graphics["player_fighter_nuldar_strike_legend_barrier_sense"])
+                                                        """
+                except AttributeError:
+                    player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                player_battle_sprite.y_coordinate,
+                                                graphics["player_fighter_nuldar_strike"])
+                    """if sharp_sense_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_strike_sense"])
+                    if barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_strike_barrier"])
+                    if sharp_sense_active and barrier_active:
+                        player_battle_sprite.update(player_battle_sprite.x_coordinate,
+                                                    player_battle_sprite.y_coordinate,
+                                                    graphics["player_fighter_nuldar_strike_barrier_sense"])"""
 
     if current_enemy_battling.kind == "snake":
         snake_battle_sprite.update(715, 250, graphics["snake_battle"])
