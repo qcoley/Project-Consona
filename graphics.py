@@ -3672,6 +3672,43 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle"] = player_battle_nuldar_sheet[6]
     loaded_dict["player_scout_nuldar_attack"] = player_battle_nuldar_sheet[7]
     loaded_dict["player_fighter_nuldar_strike"] = player_battle_nuldar_sheet[8]
+    # barrier
+    player_battle_nuldar_url_barrier = resource_path('resources/art/player_battle_sprites_nuldar_barrier.png')
+    player_battle_nuldar_sheet_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_barrier)
+    loaded_dict["player_no_role_nuldar_battle_barrier"] = player_battle_nuldar_sheet_barrier[0]
+    loaded_dict["player_no_role_nuldar_attack_barrier"] = player_battle_nuldar_sheet_barrier[1]
+    loaded_dict["player_mage_nuldar_battle_barrier"] = player_battle_nuldar_sheet_barrier[2]
+    loaded_dict["player_mage_nuldar_attack_barrier"] = player_battle_nuldar_sheet_barrier[3]
+    loaded_dict["player_fighter_nuldar_battle_barrier"] = player_battle_nuldar_sheet_barrier[4]
+    loaded_dict["player_fighter_nuldar_attack_barrier"] = player_battle_nuldar_sheet_barrier[5]
+    loaded_dict["player_scout_nuldar_battle_barrier"] = player_battle_nuldar_sheet_barrier[6]
+    loaded_dict["player_scout_nuldar_attack_barrier"] = player_battle_nuldar_sheet_barrier[7]
+    loaded_dict["player_fighter_nuldar_strike_barrier"] = player_battle_nuldar_sheet_barrier[8]
+    # sense
+    player_battle_nuldar_url_sense = resource_path('resources/art/player_battle_sprites_nuldar_sense.png')
+    player_battle_nuldar_sheet_sense = sprite_sheet((750, 624), player_battle_nuldar_url_sense)
+    loaded_dict["player_no_role_nuldar_battle_sense"] = player_battle_nuldar_sheet_sense[0]
+    loaded_dict["player_no_role_nuldar_attack_sense"] = player_battle_nuldar_sheet_sense[1]
+    loaded_dict["player_mage_nuldar_battle_sense"] = player_battle_nuldar_sheet_sense[2]
+    loaded_dict["player_mage_nuldar_attack_sense"] = player_battle_nuldar_sheet_sense[3]
+    loaded_dict["player_fighter_nuldar_battle_sense"] = player_battle_nuldar_sheet_sense[4]
+    loaded_dict["player_fighter_nuldar_attack_sense"] = player_battle_nuldar_sheet_sense[5]
+    loaded_dict["player_scout_nuldar_battle_sense"] = player_battle_nuldar_sheet_sense[6]
+    loaded_dict["player_scout_nuldar_attack_sense"] = player_battle_nuldar_sheet_sense[7]
+    loaded_dict["player_fighter_nuldar_strike_sense"] = player_battle_nuldar_sheet_sense[8]
+    # barrier sense
+    player_battle_nuldar_url_barrier_sense = \
+        resource_path('resources/art/player_battle_sprites_nuldar_barrier_sense.png')
+    player_battle_nuldar_sheet_barrier_sense = sprite_sheet((750, 624), player_battle_nuldar_url_barrier_sense)
+    loaded_dict["player_no_role_nuldar_battle_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[0]
+    loaded_dict["player_no_role_nuldar_attack_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[1]
+    loaded_dict["player_mage_nuldar_battle_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[2]
+    loaded_dict["player_mage_nuldar_attack_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[3]
+    loaded_dict["player_fighter_nuldar_battle_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[4]
+    loaded_dict["player_fighter_nuldar_attack_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[5]
+    loaded_dict["player_scout_nuldar_battle_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[6]
+    loaded_dict["player_scout_nuldar_attack_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[7]
+    loaded_dict["player_fighter_nuldar_strike_barrier_sense"] = player_battle_nuldar_sheet_barrier_sense[8]
     # basic
     player_battle_nuldar_url_basic = resource_path('resources/art/player_battle_sprites_nuldar_basic.png')
     player_battle_nuldar_sheet_basic = sprite_sheet((750, 624), player_battle_nuldar_url_basic)
@@ -3682,6 +3719,39 @@ def load_graphics():
     loaded_dict["player_scout_nuldar_battle_basic"] = player_battle_nuldar_sheet_basic[4]
     loaded_dict["player_scout_nuldar_attack_basic"] = player_battle_nuldar_sheet_basic[5]
     loaded_dict["player_fighter_nuldar_strike_basic"] = player_battle_nuldar_sheet_basic[6]
+    # basic barrier
+    player_battle_nuldar_url_basic_barrier = resource_path('resources/art/player_battle_sprites_nuldar_'
+                                                           'basic_barrier.png')
+    player_battle_nuldar_sheet_basic_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_basic_barrier)
+    loaded_dict["player_mage_nuldar_battle_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[0]
+    loaded_dict["player_mage_nuldar_attack_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[1]
+    loaded_dict["player_fighter_nuldar_battle_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[2]
+    loaded_dict["player_fighter_nuldar_attack_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[3]
+    loaded_dict["player_scout_nuldar_battle_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[4]
+    loaded_dict["player_scout_nuldar_attack_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[5]
+    loaded_dict["player_fighter_nuldar_strike_basic_barrier"] = player_battle_nuldar_sheet_basic_barrier[6]
+    # basic sense
+    player_battle_nuldar_url_basic_sense = resource_path('resources/art/player_battle_sprites_nuldar_basic_sense.png')
+    player_battle_nuldar_sheet_basic_sense = sprite_sheet((750, 624), player_battle_nuldar_url_basic_sense)
+    loaded_dict["player_mage_nuldar_battle_basic_sense"] = player_battle_nuldar_sheet_basic_sense[0]
+    loaded_dict["player_mage_nuldar_attack_basic_sense"] = player_battle_nuldar_sheet_basic_sense[1]
+    loaded_dict["player_fighter_nuldar_battle_basic_sense"] = player_battle_nuldar_sheet_basic_sense[2]
+    loaded_dict["player_fighter_nuldar_attack_basic_sense"] = player_battle_nuldar_sheet_basic_sense[3]
+    loaded_dict["player_scout_nuldar_battle_basic_sense"] = player_battle_nuldar_sheet_basic_sense[4]
+    loaded_dict["player_scout_nuldar_attack_basic_sense"] = player_battle_nuldar_sheet_basic_sense[5]
+    loaded_dict["player_fighter_nuldar_strike_basic_sense"] = player_battle_nuldar_sheet_basic_sense[6]
+    # basic barrier sense
+    player_battle_nuldar_url_basic_barrier_sense = resource_path('resources/art/player_battle_sprites_nuldar_'
+                                                                 'basic_barrier_sense.png')
+    player_battle_nuldar_sheet_basic_barrier_sense = sprite_sheet((750, 624),
+                                                                  player_battle_nuldar_url_basic_barrier_sense)
+    loaded_dict["player_mage_nuldar_battle_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[0]
+    loaded_dict["player_mage_nuldar_attack_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[1]
+    loaded_dict["player_fighter_nuldar_battle_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[2]
+    loaded_dict["player_fighter_nuldar_attack_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[3]
+    loaded_dict["player_scout_nuldar_battle_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[4]
+    loaded_dict["player_scout_nuldar_attack_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[5]
+    loaded_dict["player_fighter_nuldar_strike_basic_barrier_sense"] = player_battle_nuldar_sheet_basic_barrier_sense[6]
     # forged
     player_battle_nuldar_url_forged = resource_path('resources/art/player_battle_sprites_nuldar_forged.png')
     player_battle_nuldar_sheet_forged = sprite_sheet((750, 624), player_battle_nuldar_url_forged)
@@ -3691,6 +3761,43 @@ def load_graphics():
     loaded_dict["player_fighter_nuldar_attack_forged"] = player_battle_nuldar_sheet_forged[3]
     loaded_dict["player_scout_nuldar_battle_forged"] = player_battle_nuldar_sheet_forged[4]
     loaded_dict["player_scout_nuldar_attack_forged"] = player_battle_nuldar_sheet_forged[5]
+    loaded_dict["player_fighter_nuldar_strike_forged"] = player_battle_nuldar_sheet_forged[6]
+    # forged barrier
+    player_battle_nuldar_url_forged_barrier = resource_path('resources/art/player_battle_sprites_nuldar_'
+                                                            'forged_barrier.png')
+    player_battle_nuldar_sheet_forged_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_forged_barrier)
+    loaded_dict["player_mage_nuldar_battle_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[0]
+    loaded_dict["player_mage_nuldar_attack_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[1]
+    loaded_dict["player_fighter_nuldar_battle_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[2]
+    loaded_dict["player_fighter_nuldar_attack_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[3]
+    loaded_dict["player_scout_nuldar_battle_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[4]
+    loaded_dict["player_scout_nuldar_attack_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[5]
+    loaded_dict["player_fighter_nuldar_strike_forged_barrier"] = player_battle_nuldar_sheet_forged_barrier[6]
+    # forged sense
+    player_battle_nuldar_url_forged_sense = resource_path('resources/art/player_battle_sprites_nuldar_forged_sense.png')
+    player_battle_nuldar_sheet_forged_sense = sprite_sheet((750, 624), player_battle_nuldar_url_forged_sense)
+    loaded_dict["player_mage_nuldar_battle_forged_sense"] = player_battle_nuldar_sheet_forged_sense[0]
+    loaded_dict["player_mage_nuldar_attack_forged_sense"] = player_battle_nuldar_sheet_forged_sense[1]
+    loaded_dict["player_fighter_nuldar_battle_forged_sense"] = player_battle_nuldar_sheet_forged_sense[2]
+    loaded_dict["player_fighter_nuldar_attack_forged_sense"] = player_battle_nuldar_sheet_forged_sense[3]
+    loaded_dict["player_scout_nuldar_battle_forged_sense"] = player_battle_nuldar_sheet_forged_sense[4]
+    loaded_dict["player_scout_nuldar_attack_forged_sense"] = player_battle_nuldar_sheet_forged_sense[5]
+    loaded_dict["player_fighter_nuldar_strike_forged_sense"] = player_battle_nuldar_sheet_forged_sense[6]
+    # forged barrier sense
+    player_battle_nuldar_url_forged_barrier_sense = resource_path('resources/art/player_battle_sprites_nuldar_'
+                                                                  'forged_barrier_sense.png')
+    player_battle_nuldar_sheet_forged_barrier_sense = sprite_sheet((750, 624),
+                                                                   player_battle_nuldar_url_forged_barrier_sense)
+    loaded_dict["player_mage_nuldar_battle_forged_barrier_sense"] = player_battle_nuldar_sheet_forged_barrier_sense[0]
+    loaded_dict["player_mage_nuldar_attack_forged_barrier_sense"] = player_battle_nuldar_sheet_forged_barrier_sense[1]
+    loaded_dict["player_fighter_nuldar_battle_forged_barrier_sense"] = \
+        player_battle_nuldar_sheet_forged_barrier_sense[2]
+    loaded_dict["player_fighter_nuldar_attack_forged_barrier_sense"] = \
+        player_battle_nuldar_sheet_forged_barrier_sense[3]
+    loaded_dict["player_scout_nuldar_battle_forged_barrier_sense"] = player_battle_nuldar_sheet_forged_barrier_sense[4]
+    loaded_dict["player_scout_nuldar_attack_forged_barrier_sense"] = player_battle_nuldar_sheet_forged_barrier_sense[5]
+    loaded_dict["player_fighter_nuldar_strike_forged_barrier_sense"] = \
+        player_battle_nuldar_sheet_forged_barrier_sense[6]
     # mythic
     player_battle_nuldar_url_mythic = resource_path('resources/art/player_battle_sprites_nuldar_mythic.png')
     player_battle_nuldar_sheet_mythic = sprite_sheet((750, 624), player_battle_nuldar_url_mythic)
@@ -3700,6 +3807,43 @@ def load_graphics():
     loaded_dict["player_fighter_nuldar_attack_mythic"] = player_battle_nuldar_sheet_mythic[3]
     loaded_dict["player_scout_nuldar_battle_mythic"] = player_battle_nuldar_sheet_mythic[4]
     loaded_dict["player_scout_nuldar_attack_mythic"] = player_battle_nuldar_sheet_mythic[5]
+    loaded_dict["player_fighter_nuldar_strike_mythic"] = player_battle_nuldar_sheet_mythic[6]
+    # mythic barrier
+    player_battle_nuldar_url_mythic_barrier = resource_path('resources/art/player_battle_sprites_nuldar_'
+                                                            'mythic_barrier.png')
+    player_battle_nuldar_sheet_mythic_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_mythic_barrier)
+    loaded_dict["player_mage_nuldar_battle_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[0]
+    loaded_dict["player_mage_nuldar_attack_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[1]
+    loaded_dict["player_fighter_nuldar_battle_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[2]
+    loaded_dict["player_fighter_nuldar_attack_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[3]
+    loaded_dict["player_scout_nuldar_battle_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[4]
+    loaded_dict["player_scout_nuldar_attack_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[5]
+    loaded_dict["player_fighter_nuldar_strike_mythic_barrier"] = player_battle_nuldar_sheet_mythic_barrier[6]
+    # mythic sense
+    player_battle_nuldar_url_mythic_sense = resource_path('resources/art/player_battle_sprites_nuldar_mythic_sense.png')
+    player_battle_nuldar_sheet_mythic_sense = sprite_sheet((750, 624), player_battle_nuldar_url_mythic_sense)
+    loaded_dict["player_mage_nuldar_battle_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[0]
+    loaded_dict["player_mage_nuldar_attack_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[1]
+    loaded_dict["player_fighter_nuldar_battle_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[2]
+    loaded_dict["player_fighter_nuldar_attack_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[3]
+    loaded_dict["player_scout_nuldar_battle_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[4]
+    loaded_dict["player_scout_nuldar_attack_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[5]
+    loaded_dict["player_fighter_nuldar_strike_mythic_sense"] = player_battle_nuldar_sheet_mythic_sense[6]
+    # mythic barrier sense
+    player_battle_nuldar_url_mythic_barrier_sense = resource_path('resources/art/player_battle_sprites_nuldar_'
+                                                                  'mythic_barrier_sense.png')
+    player_battle_nuldar_sheet_mythic_barrier_sense = sprite_sheet((750, 624),
+                                                                   player_battle_nuldar_url_mythic_barrier_sense)
+    loaded_dict["player_mage_nuldar_battle_mythic_barrier_sense"] = player_battle_nuldar_sheet_mythic_barrier_sense[0]
+    loaded_dict["player_mage_nuldar_attack_mythic_barrier_sense"] = player_battle_nuldar_sheet_mythic_barrier_sense[1]
+    loaded_dict["player_fighter_nuldar_battle_mythic_barrier_sense"] = \
+        player_battle_nuldar_sheet_mythic_barrier_sense[2]
+    loaded_dict["player_fighter_nuldar_attack_mythic_barrier_sense"] = \
+        player_battle_nuldar_sheet_mythic_barrier_sense[3]
+    loaded_dict["player_scout_nuldar_battle_mythic_barrier_sense"] = player_battle_nuldar_sheet_mythic_barrier_sense[4]
+    loaded_dict["player_scout_nuldar_attack_mythic_barrier_sense"] = player_battle_nuldar_sheet_mythic_barrier_sense[5]
+    loaded_dict["player_fighter_nuldar_strike_mythic_barrier_sense"] = \
+        player_battle_nuldar_sheet_mythic_barrier_sense[6]
     # legend
     player_battle_nuldar_url_legend = resource_path('resources/art/player_battle_sprites_nuldar_legend.png')
     player_battle_nuldar_sheet_legend = sprite_sheet((750, 624), player_battle_nuldar_url_legend)
@@ -3709,6 +3853,43 @@ def load_graphics():
     loaded_dict["player_fighter_nuldar_attack_legend"] = player_battle_nuldar_sheet_legend[3]
     loaded_dict["player_scout_nuldar_battle_legend"] = player_battle_nuldar_sheet_legend[4]
     loaded_dict["player_scout_nuldar_attack_legend"] = player_battle_nuldar_sheet_legend[5]
+    loaded_dict["player_fighter_nuldar_strike_legend"] = player_battle_nuldar_sheet_legend[6]
+    # legend barrier
+    player_battle_nuldar_url_legend_barrier = resource_path('resources/art/player_battle_sprites_nuldar_'
+                                                            'legend_barrier.png')
+    player_battle_nuldar_sheet_legend_barrier = sprite_sheet((750, 624), player_battle_nuldar_url_legend_barrier)
+    loaded_dict["player_mage_nuldar_battle_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[0]
+    loaded_dict["player_mage_nuldar_attack_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[1]
+    loaded_dict["player_fighter_nuldar_battle_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[2]
+    loaded_dict["player_fighter_nuldar_attack_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[3]
+    loaded_dict["player_scout_nuldar_battle_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[4]
+    loaded_dict["player_scout_nuldar_attack_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[5]
+    loaded_dict["player_fighter_nuldar_strike_legend_barrier"] = player_battle_nuldar_sheet_legend_barrier[6]
+    # legend sense
+    player_battle_nuldar_url_legend_sense = resource_path('resources/art/player_battle_sprites_nuldar_legend_sense.png')
+    player_battle_nuldar_sheet_legend_sense = sprite_sheet((750, 624), player_battle_nuldar_url_legend_sense)
+    loaded_dict["player_mage_nuldar_battle_legend_sense"] = player_battle_nuldar_sheet_legend_sense[0]
+    loaded_dict["player_mage_nuldar_attack_legend_sense"] = player_battle_nuldar_sheet_legend_sense[1]
+    loaded_dict["player_fighter_nuldar_battle_legend_sense"] = player_battle_nuldar_sheet_legend_sense[2]
+    loaded_dict["player_fighter_nuldar_attack_legend_sense"] = player_battle_nuldar_sheet_legend_sense[3]
+    loaded_dict["player_scout_nuldar_battle_legend_sense"] = player_battle_nuldar_sheet_legend_sense[4]
+    loaded_dict["player_scout_nuldar_attack_legend_sense"] = player_battle_nuldar_sheet_legend_sense[5]
+    loaded_dict["player_fighter_nuldar_strike_legend_sense"] = player_battle_nuldar_sheet_legend_sense[6]
+    # legend barrier sense
+    player_battle_nuldar_url_legend_barrier_sense = resource_path('resources/art/player_battle_sprites_nuldar_'
+                                                                  'legend_barrier_sense.png')
+    player_battle_nuldar_sheet_legend_barrier_sense = sprite_sheet((750, 624),
+                                                                   player_battle_nuldar_url_legend_barrier_sense)
+    loaded_dict["player_mage_nuldar_battle_legend_barrier_sense"] = player_battle_nuldar_sheet_legend_barrier_sense[0]
+    loaded_dict["player_mage_nuldar_attack_legend_barrier_sense"] = player_battle_nuldar_sheet_legend_barrier_sense[1]
+    loaded_dict["player_fighter_nuldar_battle_legend_barrier_sense"] = \
+        player_battle_nuldar_sheet_legend_barrier_sense[2]
+    loaded_dict["player_fighter_nuldar_attack_legend_barrier_sense"] = \
+        player_battle_nuldar_sheet_legend_barrier_sense[3]
+    loaded_dict["player_scout_nuldar_battle_legend_barrier_sense"] = player_battle_nuldar_sheet_legend_barrier_sense[4]
+    loaded_dict["player_scout_nuldar_attack_legend_barrier_sense"] = player_battle_nuldar_sheet_legend_barrier_sense[5]
+    loaded_dict["player_fighter_nuldar_strike_legend_barrier_sense"] = \
+        player_battle_nuldar_sheet_legend_barrier_sense[6]
     # female -----------------------------------------------------------------------------------------------------------
     player_battle_nuldar_female_url = resource_path('resources/art/player_battle_sprites_nuldar_female.png')
     player_battle_nuldar_female_sheet = sprite_sheet((750, 624), player_battle_nuldar_female_url)
@@ -3814,12 +3995,12 @@ def load_graphics():
     loaded_dict["nede_high_left"] = nede_sheet[2]
     loaded_dict["nede_high_right"] = nede_sheet[3]
     # guard npc --------------------------------------------------------------------------------------------------------
-    guard_url = resource_path('resources/art/sprites_guards.png')
+    guard_url = resource_path('resources/art/sprites_artherians.png')
     guard_sheet = sprite_sheet((50, 62), guard_url)
-    loaded_dict["guard_down"] = guard_sheet[0]
-    loaded_dict["guard_up"] = guard_sheet[1]
-    loaded_dict["guard_left"] = guard_sheet[2]
-    loaded_dict["guard_right"] = guard_sheet[3]
+    loaded_dict["artherian_down"] = guard_sheet[0]
+    loaded_dict["artherian_up"] = guard_sheet[1]
+    loaded_dict["artherian_left"] = guard_sheet[2]
+    loaded_dict["artherian_right"] = guard_sheet[3]
     # torune npc -------------------------------------------------------------------------------------------------------
     torune_url = resource_path('resources/art/sprites_torune.png')
     torune_sheet = sprite_sheet((50, 62), torune_url)

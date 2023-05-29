@@ -10221,12 +10221,12 @@ if __name__ == '__main__':
                                 try:
                                     game_window.blit(current_enemy_battling.health_bar.surf,
                                                      current_enemy_battling.health_bar.rect)
+                                    game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                                    game_window.blit(hp_bar.surf, hp_bar.rect)
+                                    game_window.blit(en_bar.surf, en_bar.rect)
+                                    game_window.blit(xp_bar.surf, xp_bar.rect)
                                 except TypeError:
                                     pass
-                                game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                                game_window.blit(hp_bar.surf, hp_bar.rect)
-                                game_window.blit(en_bar.surf, en_bar.rect)
-                                game_window.blit(xp_bar.surf, xp_bar.rect)
                             try:
                                 for pet in player.pet:
                                     if pet.active:
