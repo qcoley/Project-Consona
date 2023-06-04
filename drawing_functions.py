@@ -170,7 +170,8 @@ def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
         if player.role == "scout":
             weapon_select.update(1229, 284, graphics["weapon_select"])
 
-        weapon_container.append(weapon_select)
+        if player.role != "":
+            weapon_container.append(weapon_select)
 
 
 def item_info_draw(inventory_item, info_items, item_info_button, graphic):

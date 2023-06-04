@@ -3901,6 +3901,7 @@ def load_graphics():
     loaded_dict["player_fighter_nuldar_female_attack"] = player_battle_nuldar_female_sheet[5]
     loaded_dict["player_scout_nuldar_female_battle"] = player_battle_nuldar_female_sheet[6]
     loaded_dict["player_scout_nuldar_female_attack"] = player_battle_nuldar_female_sheet[7]
+    loaded_dict["player_fighter_nuldar_female_strike"] = player_battle_nuldar_female_sheet[8]
     # basic
     player_battle_nuldar_female_url_basic = resource_path('resources/art/player_battle_sprites_nuldar_female_basic.png')
     player_battle_nuldar_female_sheet_basic = sprite_sheet((750, 624), player_battle_nuldar_female_url_basic)
