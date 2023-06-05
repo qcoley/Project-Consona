@@ -930,10 +930,9 @@ def load_game(player, Item, graphics, Pet):
                     if player.role == "fighter":
                         player.surf = graphics["player_fighter_sorae_a_down_1"]
                     if player.role == "scout":
-                        player.surf = graphics["player_scout_sorae_down_a_1"]
+                        player.surf = graphics["player_scout_sorae_a_down_1"]
                     else:
-                        player.surf = graphics["player_no_role_sorae_down_a_1"]
-
+                        player.surf = graphics["player_no_role_sorae_a_down_1"]
             # clear default starting items and load personal player items from save file
             player.items.clear()
             for item in player_load_info["inventory"]:
