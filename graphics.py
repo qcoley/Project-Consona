@@ -5029,7 +5029,7 @@ def load_graphics():
     loaded_dict["save_popup"] = popups_sheet[3]
     loaded_dict["save_not_found"] = popups_sheet[4]
     loaded_dict["quest_popup"] = popups_sheet[5]
-    loaded_dict["drop_popup"] = popups_sheet[6]
+    loaded_dict["outpost_popup"] = popups_sheet[6]
     # quest pine logs --------------------------------------------------------------------------------------------------
     quest_logs_url = resource_path('resources/art/sprite_logs.png')
     quest_logs_sheet = sprite_sheet((40, 50), quest_logs_url)
@@ -5040,6 +5040,16 @@ def load_graphics():
     quest_logs_pile_sheet = sprite_sheet((50, 50), quest_logs_pile_url)
     loaded_dict["pine_logs_pile_img"] = quest_logs_pile_sheet[0]
     loaded_dict["pine_logs_piled_img"] = quest_logs_pile_sheet[1]
+    # quest logs visual ------------------------------------------------------------------------------------------------
+    quest_logs_big_url = resource_path('resources/art/sprite_logs_big.png')
+    quest_logs_big_sheet = sprite_sheet((300, 250), quest_logs_big_url)
+    loaded_dict["pine_logs_big_img"] = quest_logs_big_sheet[0]
+    loaded_dict["pine_logs_big_pile_img"] = quest_logs_big_sheet[1]
+    # quest ore visual ------------------------------------------------------------------------------------------------
+    quest_ore_big_url = resource_path('resources/art/sprite_ore_big.png')
+    quest_ore_big_sheet = sprite_sheet((300, 250), quest_ore_big_url)
+    loaded_dict["ore_big_img"] = quest_ore_big_sheet[0]
+    loaded_dict["ore_big_pile_img"] = quest_ore_big_sheet[1]
     # quest supplies --------------------------------------------------------------------------------------------------
     quest_supplies_url = resource_path('resources/art/sprites_supplies.png')
     quest_supplies_sheet = sprite_sheet((50, 50), quest_supplies_url)

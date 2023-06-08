@@ -15,7 +15,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                      equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                      rock, pet_energy_window, stardust_top, necrola_battle_sprite, osodark_battle_sprite, sfx_nede,
-                     sfx_door, sfx_rupee, rock_3_con):
+                     sfx_door, sfx_rupee, rock_3_con, outpost_show, outpost_notify):
 
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
@@ -213,6 +213,10 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
 
+    if len(drawing_functions.outpost_window) > 0:
+        for outpost_item in drawing_functions.outpost_window:
+            screen.blit(outpost_item.surf, outpost_item.rect)
+
     # move player to seldon district when they approach nascent grove exit
     if player.x_coordinate > 925 and 175 < player.y_coordinate < 275:
         player.current_zone = "seldon"
@@ -235,6 +239,12 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                     if face_direction == "right":
                         nede.update(nede.x_coordinate, nede.y_coordinate,
                                     graphic_dict["nede_high_right"])
+        else:
+            if not player.quest_complete["where's nede?"]:
+                if outpost_show:
+                    drawing_functions.outpost_window.append(outpost_notify)
+                    outpost_show = False
+
     else:
         if player.quest_progress["where's nede?"] < 1:
             face_direction = random.choice(["left", "right"])
@@ -252,6 +262,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                        in_over_world, "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3":
                        info_text_3, "info_text_4": info_text_4, "movement_able": movement_able,
                        "current_building_entering": current_building_entering, "in_shop": in_shop,
-                       "interacted": interacted, "npc_tic": npc_tic, "rock_3_con": rock_3_con}
+                       "interacted": interacted, "npc_tic": npc_tic, "rock_3_con": rock_3_con,
+                       "outpost_show": outpost_show}
 
     return stardust_return

@@ -21,6 +21,7 @@ loot_text_container = []
 knowledge_academia_window = []
 first_quest_window = []
 rest_recover_window = []
+outpost_window = []
 first_item_window = []
 game_guide_container = []
 world_map_container = []
@@ -90,6 +91,9 @@ def draw_it(screen):
     if len(first_item_window) > 0:
         for item_window in first_item_window:
             screen.blit(item_window.surf, item_window.rect)
+    if len(outpost_window) > 0:
+        for outpost_item in outpost_window:
+            screen.blit(outpost_item.surf, outpost_item.rect)
     if len(game_guide_container) > 0:
         for guide_overlay in game_guide_container:
             screen.blit(guide_overlay.surf, guide_overlay.rect)

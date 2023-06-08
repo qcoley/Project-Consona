@@ -5799,6 +5799,7 @@ if __name__ == '__main__':
     knowledge_academia = Notification("knowledge academia notification", False, 510, 365,
                                       graphic_dict["knowledge_popup"])
     rest_recover = Notification("rest recover", False, 510, 365, graphic_dict["health_popup"])
+    outpost_notify = Notification("outpost notify", False, 510, 365, graphic_dict["outpost_popup"])
     shop_gear = Notification("shop gear", False, 510, 365, graphic_dict["gear_popup"])
     save_check = Notification("save check", False, 510, 365, graphic_dict["save_popup"])
     save_absent = Notification("save absent", False, 640, 574, graphic_dict["save_not_found"])
@@ -6174,6 +6175,7 @@ if __name__ == '__main__':
     menagerie_window = UiElement("menagerie window", 500, 319, graphic_dict["kasper_manage"])
     pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
     pet_energy_window = UiElement("pet energy", 375, 45, graphic_dict["pet_energy"])
+    quest_visual = UiElement("quest visual", 500, 500, graphic_dict["pine_logs_big_img"])
 
     seldon_flower_more_button = pygame.Rect((205, 225), (50, 50))
     seldon_flower_less_button = pygame.Rect((205, 290), (50, 50))
@@ -6672,6 +6674,7 @@ if __name__ == '__main__':
     knowledge_academia_show = False
     knowledge_window_clicked = False
     rest_recover_show = False
+    outpost_show = True
     rest_window_clicked = False
     saved = False
     entered = False
@@ -8046,6 +8049,10 @@ if __name__ == '__main__':
                                 drawing_functions.game_guide_container.clear()
                             if level_up_win.rect.collidepoint(pos):
                                 drawing_functions.level_up_draw(level_up_win, player, font, False)
+                            if outpost_notify.rect.collidepoint(pos):
+                                drawing_functions.outpost_window.clear()
+                                if len(drawing_functions.outpost_window) > 0:
+                                    outpost_show = False
 
                 # ------------------------------------------------------------------------------------------------------
                 # ------------------------------------------------------------------------------------------------------
@@ -9266,7 +9273,7 @@ if __name__ == '__main__':
                                                                            rock_3, pet_energy_window, stardust_top,
                                                                            necrola_battle_sprite, osodark_battle_sprite,
                                                                            sfx_nede_bark, sfx_door_open, sfx_item_rupee,
-                                                                           rock_3_con)
+                                                                           rock_3_con, outpost_show, outpost_notify)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -9296,7 +9303,7 @@ if __name__ == '__main__':
                                                                            rock_3, pet_energy_window, stardust_top,
                                                                            necrola_battle_sprite, osodark_battle_sprite,
                                                                            sfx_nede_bark, sfx_door_open, sfx_item_rupee,
-                                                                           rock_3_con)
+                                                                           rock_3_con, outpost_show, outpost_notify)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -9313,6 +9320,7 @@ if __name__ == '__main__':
                     interacted = stardust_returned["interacted"]
                     npc_tic = stardust_returned["npc_tic"]
                     rock_3_con = stardust_returned["rock_3_con"]
+                    outpost_show = stardust_returned["outpost_show"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -12466,6 +12474,12 @@ if __name__ == '__main__':
                                                                  quest_star_apothecary.y_coordinate,
                                                                  graphic_dict["building_npc_star_complete"])
                                     screen.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+                            if player.quest_complete["can't apothecary it"]:
+                                quest_visual.update(115, 380, graphic_dict["ore_big_pile_img"])
+                                screen.blit(quest_visual.surf, quest_visual.rect)
+                            else:
+                                quest_visual.update(115, 380, graphic_dict["ore_big_img"])
+                                screen.blit(quest_visual.surf, quest_visual.rect)
                         else:
                             game_window.blit(korlok_district_apothecary, (0, 0))
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -12499,6 +12513,13 @@ if __name__ == '__main__':
                                                                  quest_star_apothecary.y_coordinate,
                                                                  graphic_dict["building_npc_star_complete"])
                                     game_window.blit(quest_star_apothecary.surf, quest_star_apothecary.rect)
+
+                            if player.quest_complete["can't apothecary it"]:
+                                quest_visual.update(115, 380, graphic_dict["ore_big_pile_img"])
+                                game_window.blit(quest_visual.surf, quest_visual.rect)
+                            else:
+                                quest_visual.update(115, 380, graphic_dict["ore_big_img"])
+                                game_window.blit(quest_visual.surf, quest_visual.rect)
 
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -13978,6 +13999,8 @@ if __name__ == '__main__':
                             if current_npc_interacting.name == "maurelle":
                                 screen.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                                quest_visual.update(500, 500, graphic_dict["pine_logs_big_img"])
+                                screen.blit(quest_visual.surf, quest_visual.rect)
                             if current_npc_interacting.name == "celeste":
                                 if player.quest_progress["where's nede?"] == 1:
                                     screen.blit(nede_big.surf, nede_big.rect)
@@ -14047,6 +14070,12 @@ if __name__ == '__main__':
                                 game_window.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "maurelle":
+                                if player.quest_complete["village repairs"]:
+                                    quest_visual.update(880, 250, graphic_dict["pine_logs_big_pile_img"])
+                                    game_window.blit(quest_visual.surf, quest_visual.rect)
+                                else:
+                                    quest_visual.update(880, 250, graphic_dict["pine_logs_big_img"])
+                                    game_window.blit(quest_visual.surf, quest_visual.rect)
                                 game_window.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "celeste":
