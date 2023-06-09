@@ -6368,6 +6368,7 @@ if __name__ == '__main__':
     terra_mountains = UiElement("terra mountains", 250, 270, graphic_dict["terra_mountains"])
     terra_cave = UiElement("terra cave", 100, 400, graphic_dict["terra_cave"])
     eldream_cart = UiElement("eldream cart", 380, 640, graphic_dict["mines_light"])
+    kart_full = UiElement("kart full", 388, 636, graphic_dict["kart_overworld"])
 
     stardust_top = UiElement("stardust top", 531, 205, graphic_dict["stardust_top"])
     alcove_star = UiElement("alcove star", 979, 674, graphic_dict["alcove_star"])
@@ -8482,7 +8483,7 @@ if __name__ == '__main__':
                                                                          ectrenos_front_enemies,
                                                                          necrola_battle_sprite, osodark_battle_sprite,
                                                                          sfx_item_flower, sfx_map_teleport,
-                                                                         sfx_item_pickup)
+                                                                         sfx_item_pickup, kart_full)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -8527,7 +8528,7 @@ if __name__ == '__main__':
                                                                          ectrenos_front_enemies,
                                                                          necrola_battle_sprite, osodark_battle_sprite,
                                                                          sfx_item_flower, sfx_map_teleport,
-                                                                         sfx_item_pickup)
+                                                                         sfx_item_pickup, kart_full)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -13997,10 +13998,12 @@ if __name__ == '__main__':
                                 screen.blit(npc_garan_interaction.surf, npc_garan_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "maurelle":
-                                screen.blit(npc_maurelle_interaction.surf, npc_maurelle_interaction.rect)
-                                npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
-                                quest_visual.update(500, 500, graphic_dict["pine_logs_big_img"])
-                                screen.blit(quest_visual.surf, quest_visual.rect)
+                                if player.quest_complete["village repairs"]:
+                                    quest_visual.update(880, 250, graphic_dict["pine_logs_big_pile_img"])
+                                    screen.blit(quest_visual.surf, quest_visual.rect)
+                                else:
+                                    quest_visual.update(880, 250, graphic_dict["pine_logs_big_img"])
+                                    screen.blit(quest_visual.surf, quest_visual.rect)
                             if current_npc_interacting.name == "celeste":
                                 if player.quest_progress["where's nede?"] == 1:
                                     screen.blit(nede_big.surf, nede_big.rect)
@@ -14019,6 +14022,9 @@ if __name__ == '__main__':
                                 screen.blit(npc_dionte_interaction.surf, npc_dionte_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "omoku":
+                                if player.quest_complete["kart troubles"]:
+                                    quest_visual.update(861, 295, graphic_dict["kart_full"])
+                                    screen.blit(quest_visual.surf, quest_visual.rect)
                                 screen.blit(npc_omoku_interaction.surf, npc_omoku_interaction.rect)
                                 npc_name_plate.update(606, 193, graphic_dict["npc_name_plate"])
                             if current_npc_interacting.name == "leyre":

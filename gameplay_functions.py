@@ -1390,26 +1390,26 @@ def attack_player(player, mob, barrier_active):
         if player.defense == 0:
             damage = 9
         if player.defense == 1:
-            damage = 8
-        if player.defense == 2:
             damage = 7
-        if player.defense == 3:
-            damage = 6
-        if player.defense == 4:
+        if player.defense == 2:
             damage = 5
+        if player.defense == 3:
+            damage = 3
+        if player.defense == 4:
+            damage = 1
     else:
         attack_dict["critical"] = False
         # base damage
         if player.defense == 0:
             damage = 7
         if player.defense == 1:
-            damage = 6
-        if player.defense == 2:
             damage = 5
-        if player.defense == 3:
-            damage = 4
-        if player.defense == 4:
+        if player.defense == 2:
             damage = 3
+        if player.defense == 3:
+            damage = 2
+        if player.defense == 4:
+            damage = 1
 
     # increase or decrease damage based on type advantage/disadvantage
     if mob.type == "mage":

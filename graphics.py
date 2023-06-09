@@ -166,6 +166,8 @@ def load_graphics():
     n_building_tops = pygame.image.load(resource_path('resources/art/overlay_nuldar_building_tops.png')).convert_alpha()
     level_up_vis = pygame.image.load(resource_path('resources/art/overlay_level_up.png')).convert_alpha()
     quest_accepted = pygame.image.load(resource_path('resources/art/overlay_quest_accepted.png')).convert_alpha()
+    kart_overworld = pygame.image.load(resource_path('resources/art/sprite_kart_overworld_full.png')).convert_alpha()
+    kart_big_full = pygame.image.load(resource_path('resources/art/sprite_kart_full.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -183,7 +185,9 @@ def load_graphics():
                   muchador_crate, reservoir_passage, reservoir_exit, reservoir_enter, mines_entrance,
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
-                  chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops]
+                  chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
+                  kart_overworld, kart_big_full]
+
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
@@ -306,6 +310,8 @@ def load_graphics():
     loaded_dict["terra_mountains"] = terra_mountains
     loaded_dict["terra_cave"] = terra_cave
     loaded_dict["terra_trail_screen"] = terra_trail_screen
+    loaded_dict["kart_overworld"] = kart_overworld
+    loaded_dict["kart_full"] = kart_big_full
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------

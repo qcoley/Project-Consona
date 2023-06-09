@@ -22,7 +22,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
                      seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
                      omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite,
-                     sfx_flower, sfx_hearth, sfx_item):
+                     sfx_flower, sfx_hearth, sfx_item, kart_full):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -38,6 +38,10 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
 
     if not player.quest_complete["kart troubles"]:
         screen.blit(quest_star_omoku.surf, quest_star_omoku.rect)
+        for supplies in quest_supplies:
+            screen.blit(supplies.surf, supplies.rect)
+    if player.quest_complete["kart troubles"]:
+        screen.blit(kart_full.surf, kart_full.rect)
 
     respawned_dict = gameplay_functions.enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons,
                                                       bandiles, interactables_seldon, interactables_korlok,
@@ -50,9 +54,6 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
 
     for flower in eldream_flowers:
         screen.blit(flower.surf, flower.rect)
-
-    for supplies in quest_supplies:
-        screen.blit(supplies.surf, supplies.rect)
 
     screen.blit(hearth_stone.surf, hearth_stone.rect)
     screen.blit(omoku.surf, omoku.rect)
@@ -140,37 +141,38 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # player encounters a quest item. check progress and add to if interacted with
-    quest_item = pygame.sprite.spritecollideany(player, quest_supplies, pygame.sprite.collide_rect_ratio(0.75))
-    try:
-        interaction_popup.update(quest_item.x_coordinate, quest_item.y_coordinate - 35,
-                                 graphic_dict["popup_interaction"])
-        screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("Supplies"), True, "black", "light yellow")
-        interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (quest_item.x_coordinate, quest_item.y_coordinate - 35)
-        screen.blit(interaction_info_surf, interaction_info_rect)
+    if not player.quest_complete["kart troubles"]:
+        quest_item = pygame.sprite.spritecollideany(player, quest_supplies, pygame.sprite.collide_rect_ratio(0.75))
+        try:
+            interaction_popup.update(quest_item.x_coordinate, quest_item.y_coordinate - 35,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("Supplies"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (quest_item.x_coordinate, quest_item.y_coordinate - 35)
+            screen.blit(interaction_info_surf, interaction_info_rect)
 
-        if quest_item.name == "quest supplies":
-            if not player.quest_complete["kart troubles"]:
-                if player.quest_status["kart troubles"]:
-                    info_text_1 = "Press 'F' key to pick up the supplies."
-                    if interacted and in_over_world:
-                        if player.quest_progress["kart troubles"] < 4:
-                            pygame.mixer.find_channel(True).play(sfx_item)
-                            player.quest_progress["kart troubles"] += 1
-                            info_text_1 = "You picked up 1 supplies."
-                            quest_item.kill()
-                            interacted = False
-                        else:
-                            info_text_1 = "You've already gathered these."
-                            interacted = False
-            if not player.quest_status["kart troubles"]:
-                info_text_1 = "It's someone's supplies."
-                info_text_2 = ""
-                info_text_3 = ""
-                info_text_4 = ""
-    except AttributeError:
-        pass
+            if quest_item.name == "quest supplies":
+                if not player.quest_complete["kart troubles"]:
+                    if player.quest_status["kart troubles"]:
+                        info_text_1 = "Press 'F' key to pick up the supplies."
+                        if interacted and in_over_world:
+                            if player.quest_progress["kart troubles"] < 4:
+                                pygame.mixer.find_channel(True).play(sfx_item)
+                                player.quest_progress["kart troubles"] += 1
+                                info_text_1 = "You picked up 1 supplies."
+                                quest_item.kill()
+                                interacted = False
+                            else:
+                                info_text_1 = "You've already gathered these."
+                                interacted = False
+                if not player.quest_status["kart troubles"]:
+                    info_text_1 = "It's someone's supplies."
+                    info_text_2 = ""
+                    info_text_3 = ""
+                    info_text_4 = ""
+        except AttributeError:
+            pass
 
     # if player collides with npc sprite and chooses to interact with it
     if pygame.sprite.collide_rect(player, omoku):
