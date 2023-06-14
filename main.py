@@ -6830,6 +6830,10 @@ if __name__ == "__main__":
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
 
+        if not in_over_world:
+            if len(drawing_functions.level_up_visual) > 0:
+                drawing_functions.level_up_visual.pop(0)
+
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                 screen.blit(start_screen, (0, 0))
@@ -9654,6 +9658,8 @@ if __name__ == "__main__":
                         level_visual_toc = time.perf_counter()
                         if level_visual_toc - level_visual_tic > 3:
                             level_visual = False
+                            drawing_functions.level_up_visual.clear()
+
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
@@ -9714,7 +9720,8 @@ if __name__ == "__main__":
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict,
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -11548,7 +11555,8 @@ if __name__ == "__main__":
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict,
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -11846,7 +11854,8 @@ if __name__ == "__main__":
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict,
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -12301,7 +12310,8 @@ if __name__ == "__main__":
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict,
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -12902,7 +12912,8 @@ if __name__ == "__main__":
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict,
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -13290,7 +13301,8 @@ if __name__ == "__main__":
                         if info_choice == "yes":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
-                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict)
+                                                                       sfx_item_whistle, sfx_item_snack, graphic_dict,
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
