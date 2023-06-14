@@ -32,10 +32,14 @@ pets_window_container = []
 
 
 # draws elements on screen that have been appended to list by below functions
-def draw_it(screen):
+def draw_it(screen, in_over_world):
     if len(level_up_visual) > 0:
         for visuals in level_up_visual:
-            screen.blit(visuals.surf, visuals.rect)
+            if not in_over_world:
+                if visuals.name != "level up visual":
+                    screen.blit(visuals.surf, visuals.rect)
+            else:
+                screen.blit(visuals.surf, visuals.rect)
     if len(character_sheet_window) > 0:
         for character_window in character_sheet_window:
             screen.blit(character_window.surf, character_window.rect)
@@ -495,7 +499,8 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
     text_level_rect = text_level_surf.get_rect()
     text_level_rect.center = (1102, 360)
-    screen.blit(text_level_surf, text_level_rect)
+    if len(item_info_window) == 0 and len(sell_info_window) == 0:
+        screen.blit(text_level_surf, text_level_rect)
     # current player location for UI overlay ---------------------------------------------------------------------------
     if in_over_world:
         if player.current_zone == "seldon":
@@ -543,28 +548,29 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     text_info_rect_4.midleft = (30, 690)
     screen.blit(text_info_surf_4, text_info_rect_4)
 
-    if player.star_power > 4:
-        if player.star_power == 5:
-            star_extra_surf = font.render(str("+1"), True, "black", "light yellow")
-        if player.star_power == 6:
-            star_extra_surf = font.render(str("+2"), True, "black", "light yellow")
-        if player.star_power == 7:
-            star_extra_surf = font.render(str("+3"), True, "black", "light yellow")
-        if player.star_power == 8:
-            star_extra_surf = font.render(str("+4"), True, "black", "light yellow")
+    if len(item_info_window) == 0 and len(buy_info_window) == 0 and len(sell_info_window) == 0:
+        if player.star_power > 4:
+            if player.star_power == 5:
+                star_extra_surf = font.render(str("+1"), True, "black", "light yellow")
+            if player.star_power == 6:
+                star_extra_surf = font.render(str("+2"), True, "black", "light yellow")
+            if player.star_power == 7:
+                star_extra_surf = font.render(str("+3"), True, "black", "light yellow")
+            if player.star_power == 8:
+                star_extra_surf = font.render(str("+4"), True, "black", "light yellow")
 
-        if player.star_power == 9:
-            star_extra_surf = font.render(str("+5"), True, "black", "light yellow")
-        if player.star_power == 10:
-            star_extra_surf = font.render(str("+6"), True, "black", "light yellow")
-        if player.star_power == 11:
-            star_extra_surf = font.render(str("+7"), True, "black", "light yellow")
-        if player.star_power == 12:
-            star_extra_surf = font.render(str("+8"), True, "black", "light yellow")
+            if player.star_power == 9:
+                star_extra_surf = font.render(str("+5"), True, "black", "light yellow")
+            if player.star_power == 10:
+                star_extra_surf = font.render(str("+6"), True, "black", "light yellow")
+            if player.star_power == 11:
+                star_extra_surf = font.render(str("+7"), True, "black", "light yellow")
+            if player.star_power == 12:
+                star_extra_surf = font.render(str("+8"), True, "black", "light yellow")
 
-        star_extra_rect = star_extra_surf.get_rect()
-        star_extra_rect.midleft = (1240, 360)
-        screen.blit(star_extra_surf, star_extra_rect)
+            star_extra_rect = star_extra_surf.get_rect()
+            star_extra_rect.midleft = (1240, 360)
+            screen.blit(star_extra_surf, star_extra_rect)
 
 
 def character_sheet_info_draw(character_sheet, player, font, draw_condition):

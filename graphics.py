@@ -4727,6 +4727,7 @@ def load_graphics():
     loaded_dict["chorizon_battle"] = boss_enemies_battle_sheet[0]
     loaded_dict["muchador_battle"] = boss_enemies_battle_sheet[1]
     loaded_dict["chinzilla_battle"] = boss_enemies_battle_sheet[2]
+    loaded_dict["chorizon_phase"] = boss_enemies_battle_sheet[3]
     # boss enemies attack ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_attack.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)

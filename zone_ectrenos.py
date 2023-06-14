@@ -44,6 +44,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    drawing_functions.draw_it(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -54,7 +55,6 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
-    screen.blit(ectrene.surf, ectrene.rect)
 
     if pygame.Rect.colliderect(player.rect, ladder):
         interaction_popup.update(515, 452, graphic_dict["popup_interaction"])
@@ -112,7 +112,11 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
-        screen.blit(ui_elements.surf, ui_elements.rect)
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
@@ -129,7 +133,6 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
-    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -223,6 +226,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    drawing_functions.draw_it(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -233,8 +237,6 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
-
-    screen.blit(player.surf, player.rect)
 
     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
         interaction_popup.update(816, 178, graphic_dict["popup_interaction"])
@@ -286,7 +288,11 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
-        screen.blit(ui_elements.surf, ui_elements.rect)
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
@@ -303,7 +309,6 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
-    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -384,6 +389,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    drawing_functions.draw_it(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -394,8 +400,6 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
-
-    screen.blit(player.surf, player.rect)
 
     if pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance):
         interaction_popup.update(217, 178, graphic_dict["popup_interaction"])
@@ -467,7 +471,11 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
-        screen.blit(ui_elements.surf, ui_elements.rect)
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
@@ -484,7 +492,6 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
-    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -595,6 +602,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    drawing_functions.draw_it(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -695,7 +703,11 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
-        screen.blit(ui_elements.surf, ui_elements.rect)
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
@@ -712,7 +724,6 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
-    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -812,6 +823,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    drawing_functions.draw_it(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -877,7 +889,11 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
-        screen.blit(ui_elements.surf, ui_elements.rect)
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
@@ -894,7 +910,6 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
-    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)

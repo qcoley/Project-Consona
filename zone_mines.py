@@ -72,6 +72,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    drawing_functions.draw_it(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -152,7 +153,11 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:
-        screen.blit(ui_elements.surf, ui_elements.rect)
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
 
     screen.blit(bar_backdrop.surf, bar_backdrop.rect)
     screen.blit(hp_bar.surf, hp_bar.rect)
@@ -162,7 +167,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
-    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)

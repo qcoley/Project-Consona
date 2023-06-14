@@ -5980,11 +5980,11 @@ if __name__ == "__main__":
                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # reservoir enemies ------------------------------------------------------------------------------------------------
     chorizon_1 = Enemy("chorizon_1", "chorizon", 100, 100, 7, 150, 230, True, "item", graphic_dict["chorizon"],
-                       UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                       UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     chorizon_2 = Enemy("chorizon_2", "chorizon", 100, 100, 7, 870, 230, True, "item", graphic_dict["chorizon"],
-                       UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                       UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     muchador = Enemy("muchador", "muchador", 100, 100, 8, 350, 360, True, "item", graphic_dict["muchador_dark"],
-                     UiElement("muchador hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
+                     UiElement("muchador hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     # korlok enemies ---------------------------------------------------------------------------------------------------
     magmon_1 = Enemy("magmon", "magmon", 100, 100, 9, 125, 135, True,
                      Item("cracked ember", "ember", 200, 200, graphic_dict["ember"], 0),
@@ -6733,6 +6733,8 @@ if __name__ == "__main__":
     jez_2 = False
     jez_3 = False
     talk_start = False
+    chorizon_phase = False
+    chorizon_reset = False
 
     seed_given = False
     hatch_ready = False
@@ -6832,6 +6834,7 @@ if __name__ == "__main__":
 
         if not in_over_world:
             if len(drawing_functions.level_up_visual) > 0:
+                level_visual = False
                 drawing_functions.level_up_visual.pop(0)
 
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
@@ -9660,7 +9663,6 @@ if __name__ == "__main__":
                             level_visual = False
                             drawing_functions.level_up_visual.clear()
 
-
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
                 if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
@@ -9945,13 +9947,17 @@ if __name__ == "__main__":
                                             nede_ghoul_defeated = True
                                             ghoul_nede.kill()
                                         if current_enemy_battling.name == "chorizon_1":
-                                            mini_boss_1_defeated = True
                                             mini_boss_1 = False
+                                            mini_boss_1_defeated = True
                                             chorizon_1.kill()
+                                            chorizon_reset = False
+                                            chorizon_phase = False
                                         if current_enemy_battling.name == "chorizon_2":
-                                            mini_boss_2_defeated = True
                                             mini_boss_2 = False
+                                            mini_boss_2_defeated = True
                                             chorizon_2.kill()
+                                            chorizon_reset = False
+                                            chorizon_phase = False
                                         if current_enemy_battling.name == "muchador":
                                             muchador_defeated = True
                                             muchador.kill()
@@ -10158,10 +10164,14 @@ if __name__ == "__main__":
                                                     mini_boss_1 = False
                                                     mini_boss_1_defeated = True
                                                     chorizon_1.kill()
+                                                    chorizon_reset = False
+                                                    chorizon_phase = False
                                                 if current_enemy_battling.name == "chorizon_2":
                                                     mini_boss_2 = False
                                                     mini_boss_2_defeated = True
                                                     chorizon_2.kill()
+                                                    chorizon_reset = False
+                                                    chorizon_phase = False
                                                 if current_enemy_battling.name == "muchador":
                                                     muchador_defeated = True
                                                     muchador.kill()
@@ -10359,7 +10369,8 @@ if __name__ == "__main__":
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
@@ -10416,7 +10427,8 @@ if __name__ == "__main__":
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
@@ -10445,11 +10457,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         if not combat_cooldown:
                             if button_highlighted:
@@ -10459,11 +10471,30 @@ if __name__ == "__main__":
                                     game_window.blit(button_highlight.surf, button_highlight.rect)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                            if chorizon_phase and not chorizon_reset:
+                                chorizon_battle_sprite.update(chorizon_battle_sprite.x_coordinate,
+                                                              chorizon_battle_sprite.y_coordinate,
+                                                              graphic_dict["chorizon_phase"])
+                                screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
+
                             frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                             game_window.blit(frame, frame.get_rect())
                             pygame.display.flip()
+                            if chorizon_phase and not chorizon_reset:
+                                pygame.time.wait(1500)
+                                chorizon_reset = True
                         else:
-                            pygame.display.flip()
+                            if current_enemy_battling.kind == "chorizon":
+                                if chorizon_phase and not chorizon_reset:
+                                    chorizon_battle_sprite.update(chorizon_battle_sprite.x_coordinate,
+                                                                  chorizon_battle_sprite.y_coordinate,
+                                                                  graphic_dict["chorizon_phase"])
+                                    game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
+                                    pygame.display.flip()
+                                    pygame.time.wait(1500)
+                                    chorizon_reset = True
+                            else:
+                                pygame.display.flip()
 
                         combat_cooldown = False
 
@@ -10487,8 +10518,12 @@ if __name__ == "__main__":
                                     random_crate = random.choice(muchador_crates_list)
                                     muchador.update_image(random_crate.x_coordinate, random_crate.y_coordinate,
                                                           graphic_dict["muchador"])
-                                    # type change for second phase
-                                    muchador.type = "mage"
+
+                        if current_enemy_battling.kind == "chorizon":
+                            if current_enemy_battling.health < 75 and not chorizon_phase:
+                                chorizon_phase = True
+                                # type change for second phase
+                                current_enemy_battling.type = "mage"
 
                         combat_scenario.combat_animation(player, current_enemy_battling, player_battle_sprite,
                                                          snake_battle_sprite, ghoul_battle_sprite,
@@ -10540,7 +10575,8 @@ if __name__ == "__main__":
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
@@ -10597,7 +10633,8 @@ if __name__ == "__main__":
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
@@ -10626,11 +10663,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         if not combat_cooldown:
                             if button_highlighted:
@@ -10725,6 +10762,7 @@ if __name__ == "__main__":
                             frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
                             game_window.blit(frame, frame.get_rect())
                             pygame.display.flip()
+
                         else:
                             pygame.display.flip()
 
@@ -11004,7 +11042,8 @@ if __name__ == "__main__":
                             screen.blit(buy_button.surf, buy_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.sell_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
                         else:
                             game_window.blit(seldon_district_shop, (0, 0))
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -11015,16 +11054,17 @@ if __name__ == "__main__":
                             game_window.blit(buy_button.surf, buy_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.sell_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -11097,7 +11137,8 @@ if __name__ == "__main__":
                             screen.blit(buy_button.surf, buy_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.sell_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
                         else:
                             game_window.blit(korlok_district_shop, (0, 0))
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -11108,16 +11149,17 @@ if __name__ == "__main__":
                             game_window.blit(buy_button.surf, buy_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.sell_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -11192,7 +11234,8 @@ if __name__ == "__main__":
                             screen.blit(buy_button.surf, buy_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.sell_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
                         else:
                             game_window.blit(eldream_district_shop, (0, 0))
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -11203,16 +11246,17 @@ if __name__ == "__main__":
                             game_window.blit(buy_button.surf, buy_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.sell_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -11285,7 +11329,8 @@ if __name__ == "__main__":
                             screen.blit(upgrade_button.surf, upgrade_button.rect)
                             screen.blit(leave_button.surf, leave_button.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.sell_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
                         else:
                             game_window.blit(stardust_post_bg, (0, 0))
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -11296,16 +11341,17 @@ if __name__ == "__main__":
                             game_window.blit(upgrade_button.surf, upgrade_button.rect)
                             game_window.blit(leave_button.surf, leave_button.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.sell_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -11738,7 +11784,8 @@ if __name__ == "__main__":
                         drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                         screen.blit(rest_button.surf, rest_button.rect)
                         screen.blit(leave_button.surf, leave_button.rect)
-                        screen.blit(star_power_meter.surf, star_power_meter.rect)
+                        if len(drawing_functions.item_info_window) == 0:
+                            screen.blit(star_power_meter.surf, star_power_meter.rect)
                         screen.blit(message_box.surf, message_box.rect)
                     else:
                         game_window.blit(offense_meter.surf, offense_meter.rect)
@@ -11746,17 +11793,18 @@ if __name__ == "__main__":
                         drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                         game_window.blit(rest_button.surf, rest_button.rect)
                         game_window.blit(leave_button.surf, leave_button.rect)
-                        game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                        if len(drawing_functions.item_info_window) == 0:
+                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         game_window.blit(message_box.surf, message_box.rect)
                     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
+                        drawing_functions.draw_it(screen, in_over_world)
                     else:
                         drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world)
-                        drawing_functions.draw_it(game_window)
+                        drawing_functions.draw_it(game_window, in_over_world)
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)
@@ -12034,7 +12082,8 @@ if __name__ == "__main__":
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
                             cat_pet_button_overlay.update(125, 500, graphic_dict["cat_pet_button_overlay"])
                             screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if academia_cat_pet:
@@ -12057,7 +12106,8 @@ if __name__ == "__main__":
                             game_window.blit(hp_bar.surf, hp_bar.rect)
                             game_window.blit(en_bar.surf, en_bar.rect)
                             game_window.blit(xp_bar.surf, xp_bar.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                             cat_pet_button_overlay.update(125, 500, graphic_dict["cat_pet_button_overlay"])
                             game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if academia_cat_pet:
@@ -12067,11 +12117,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             if len(books) > 0:
@@ -12469,7 +12519,8 @@ if __name__ == "__main__":
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(quest_button.surf, quest_button.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
                             cat_pet_button_overlay.update(630, 65, graphic_dict["cat_pet_button_overlay"])
                             screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if apothecary_cat_pet:
@@ -12508,7 +12559,8 @@ if __name__ == "__main__":
                             game_window.blit(en_bar.surf, en_bar.rect)
                             game_window.blit(xp_bar.surf, xp_bar.rect)
                             game_window.blit(quest_button.surf, quest_button.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                             cat_pet_button_overlay.update(630, 65, graphic_dict["cat_pet_button_overlay"])
                             game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if apothecary_cat_pet:
@@ -12539,11 +12591,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         # if player has access to apothecary functions by completing quest and window is open
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -13075,7 +13127,8 @@ if __name__ == "__main__":
                             screen.blit(en_bar.surf, en_bar.rect)
                             screen.blit(xp_bar.surf, xp_bar.rect)
                             screen.blit(quest_button.surf, quest_button.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
                             cat_pet_button_overlay.update(950, 130, graphic_dict["cat_pet_button_overlay"])
                             screen.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if menagerie_cat_pet:
@@ -13110,7 +13163,8 @@ if __name__ == "__main__":
                             game_window.blit(en_bar.surf, en_bar.rect)
                             game_window.blit(xp_bar.surf, xp_bar.rect)
                             game_window.blit(quest_button.surf, quest_button.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                             cat_pet_button_overlay.update(950, 130, graphic_dict["cat_pet_button_overlay"])
                             game_window.blit(cat_pet_button_overlay.surf, cat_pet_button_overlay.rect)
                             if menagerie_cat_pet:
@@ -13135,11 +13189,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         # if player has access to menagerie functions by completing quest and window is open
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14064,7 +14118,8 @@ if __name__ == "__main__":
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(npc_name_plate.surf, npc_name_plate.rect)
                             screen.blit(message_box.surf, message_box.rect)
-                            screen.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                screen.blit(star_power_meter.surf, star_power_meter.rect)
 
                         else:
                             if player.current_zone == "seldon":
@@ -14141,16 +14196,17 @@ if __name__ == "__main__":
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(npc_name_plate.surf, npc_name_plate.rect)
                             game_window.blit(message_box.surf, message_box.rect)
-                            game_window.blit(star_power_meter.surf, star_power_meter.rect)
+                            if len(drawing_functions.item_info_window) == 0:
+                                game_window.blit(star_power_meter.surf, star_power_meter.rect)
                         # draw texts to the screen, like message box, player rupees and level, inv and equ updates
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen)
+                            drawing_functions.draw_it(screen, in_over_world)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window)
+                            drawing_functions.draw_it(game_window, in_over_world)
 
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
                                                          (203, 195, 227))
