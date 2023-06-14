@@ -266,7 +266,7 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics):
+def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics, width, height):
 
     return_dict = {"item message": ""}
 
@@ -313,7 +313,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                             pet.active = False
                         case False:
                             pet.active = True
-                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
                 # set other pets to de-active, so they don't overlap
                 else:
                     match pet.active:
@@ -328,7 +328,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                             pet.active = False
                         case False:
                             pet.active = True
-                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
                 else:
                     match pet.active:
                         case True:
@@ -342,7 +342,7 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
                             pet.active = False
                         case False:
                             pet.active = True
-                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25)
+                            pet.update(player.x_coordinate + 25, player.y_coordinate - 25, width, height)
                 else:
                     match pet.active:
                         case True:

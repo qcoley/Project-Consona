@@ -41,8 +41,8 @@ class Pet(pygame.sprite.Sprite):
         self.active = active
 
     def update(self, x_coordinate, y_coordinate, screen_width, screen_height):
-        if self.x_coordinate > screen_width:
-            x_coordinate = screen_width
+        if self.x_coordinate > screen_width - 275:
+            x_coordinate = screen_width - 275
         if self.x_coordinate < 0:
             x_coordinate = 0
         if self.y_coordinate > screen_height:
@@ -7474,7 +7474,17 @@ if __name__ == "__main__":
                 try:
                     for pet in player.pet:
                         if pet.active:
-                            pet.update(player.x_coordinate + 35, player.y_coordinate - 25)
+                            pet_update_x = player.x_coordinate + 35
+                            pet_update_y = player.y_coordinate - 25
+                            if pet_update_x > SCREEN_WIDTH - 275:
+                                pet_update_x = SCREEN_WIDTH - 275
+                            if pet_update_x < 0:
+                                pet_update_x = 0
+                            if pet_update_y > SCREEN_HEIGHT:
+                                pet_update_y = SCREEN_HEIGHT
+                            if pet_update_y < 0:
+                                pet_update_y = 0
+                            pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
                 except AttributeError:
                     pass
 
@@ -7751,7 +7761,7 @@ if __name__ == "__main__":
                                 inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                            sfx_item_potion, sfx_item_equip,
                                                                            sfx_item_whistle, sfx_item_snack,
-                                                                           graphic_dict)
+                                                                           graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
