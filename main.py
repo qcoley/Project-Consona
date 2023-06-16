@@ -5978,6 +5978,14 @@ if __name__ == "__main__":
     ghoul_nede = Enemy("nede ghoul", "ghoul", 100, 100, 3, 450, 455, True,
                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    # friendly's -------------------------------------------------------------------------------------------------------
+    # classed as enemies so players can fight with them, but cannot be killed
+    stelli_a = Enemy("stellia", "stelli", 100, 100, 3, 805, 525, True, "item", graphic_dict["stelli_a"],
+                     UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    stelli_b = Enemy("stellib", "stelli", 100, 100, 3, 805, 140, True, "item", graphic_dict["stelli_b"],
+                     UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    stelli_c = Enemy("stellic", "stelli", 100, 100, 3, 305, 545, True, "item", graphic_dict["stelli_c"],
+                     UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     # reservoir enemies ------------------------------------------------------------------------------------------------
     chorizon_1 = Enemy("chorizon_1", "chorizon", 100, 100, 7, 150, 230, True, "item", graphic_dict["chorizon"],
                        UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
@@ -6245,6 +6253,7 @@ if __name__ == "__main__":
     chinzilla_battle_sprite = BattleCharacter("chinzilla battle", 715, 300, graphic_dict["chinzilla_battle"])
     necrola_battle_sprite = BattleCharacter("necrola battle", 705, 300, graphic_dict["necrola_battle"])
     osodark_battle_sprite = BattleCharacter("osodark battle", 695, 300, graphic_dict["osodark_battle"])
+    stelli_battle_sprite = BattleCharacter("stelli battle", 710, 275, graphic_dict["stelli_battle_a"])
 
     kasper_battle_sprite = BattleCharacter("kasper battle", 825, 520, graphic_dict["kasper_battle"])
     torok_battle_sprite = BattleCharacter("torok battle", 825, 520, graphic_dict["torok_battle"])
@@ -6412,6 +6421,7 @@ if __name__ == "__main__":
     mine_enemies = pygame.sprite.Group()
     mine_walls = pygame.sprite.Group()
     boss_enemies = pygame.sprite.Group()
+    stardust_stelli = pygame.sprite.Group()
     trees = pygame.sprite.Group()
     ores = pygame.sprite.Group()
     dungeon_rocks = pygame.sprite.Group()
@@ -6448,6 +6458,7 @@ if __name__ == "__main__":
     ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     magmons.add(magmon_1, magmon_2, magmon_3, magmon_4)
     bandiles.add(bandile_1, bandile_2, bandile_3, bandile_4)
+    stardust_stelli.add(stelli_a, stelli_b, stelli_c)
     npcs_seldon.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
     npcs_korlok.add(npc_voruke, npc_zerah)
     seldon_enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
@@ -6483,7 +6494,7 @@ if __name__ == "__main__":
     interactables_nascent.add(nascent_gate, rock_8)
     interactables_seldon.add(npcs_seldon, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon,
                              seldon_flowers)
-    interactables_stardust.add(stardust_entrance, nede, ghoul_nede, rock_3)
+    interactables_stardust.add(stardust_entrance, nede, ghoul_nede, rock_3, stelli_a, stelli_b, stelli_c)
     interactables_korlok.add(nuldar_buildings, reservoir_enter, rohir_gate, hearth_stone, korlok_enemies,
                              mines_entrance, npc_voruke, npc_zerah, rock_4, rock_5, rock_6)
     interactables_reservoir_a.add(dungeon_items, chorizon_1, chorizon_2, dungeon_teleporter)
@@ -6831,6 +6842,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
+        # print(player.x_coordinate, player.y_coordinate)
 
         if not in_over_world:
             if len(drawing_functions.level_up_visual) > 0:
@@ -9279,7 +9291,9 @@ if __name__ == "__main__":
                                                                            rock_3, pet_energy_window, stardust_top,
                                                                            necrola_battle_sprite, osodark_battle_sprite,
                                                                            sfx_nede_bark, sfx_door_open, sfx_item_rupee,
-                                                                           rock_3_con, outpost_show, outpost_notify)
+                                                                           rock_3_con, outpost_show, outpost_notify,
+                                                                           stardust_stelli, enemy_tic,
+                                                                           stelli_battle_sprite)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -9309,7 +9323,9 @@ if __name__ == "__main__":
                                                                            rock_3, pet_energy_window, stardust_top,
                                                                            necrola_battle_sprite, osodark_battle_sprite,
                                                                            sfx_nede_bark, sfx_door_open, sfx_item_rupee,
-                                                                           rock_3_con, outpost_show, outpost_notify)
+                                                                           rock_3_con, outpost_show, outpost_notify,
+                                                                           stardust_stelli, enemy_tic,
+                                                                           stelli_battle_sprite)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -9327,6 +9343,7 @@ if __name__ == "__main__":
                     npc_tic = stardust_returned["npc_tic"]
                     rock_3_con = stardust_returned["rock_3_con"]
                     outpost_show = stardust_returned["outpost_show"]
+                    enemy_tic = stardust_returned["enemy_tic"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -9873,7 +9890,7 @@ if __name__ == "__main__":
                                                                  chinzilla_battle_sprite, barrier_active,
                                                                  sharp_sense_active, hard_strike, graphic_dict,
                                                                  turn_taken, necrola_battle_sprite,
-                                                                 osodark_battle_sprite)
+                                                                 osodark_battle_sprite, stelli_battle_sprite)
 
                                 # combat event function that handles and returns damage and health
                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
@@ -10332,7 +10349,8 @@ if __name__ == "__main__":
                                                           magmon_battle_sprite, bandile_battle_sprite,
                                                           chinzilla_battle_sprite, barrier_active,
                                                           sharp_sense_active, in_battle, in_npc_interaction,
-                                                          graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                                          graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                                          stelli_battle_sprite)
                         kasper_battle_sprite.update(825, 520, graphic_dict["kasper_battle"])
                         torok_battle_sprite.update(825, 520, graphic_dict["torok_battle"])
                         iriana_battle_sprite.update(825, 520, graphic_dict["iriana_battle"])
@@ -10356,6 +10374,8 @@ if __name__ == "__main__":
                                 screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
                             if current_enemy_battling.kind == "osodark":
                                 screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+                            if current_enemy_battling.kind == "stelli":
+                                screen.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
 
                             for pet in player.pet:
                                 if pet.active:
@@ -10414,6 +10434,8 @@ if __name__ == "__main__":
                                 game_window.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
                             if current_enemy_battling.kind == "osodark":
                                 game_window.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+                            if current_enemy_battling.kind == "stelli":
+                                game_window.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
 
                             for pet in player.pet:
                                 if pet.active:
@@ -10531,7 +10553,8 @@ if __name__ == "__main__":
                                                          magmon_battle_sprite, bandile_battle_sprite,
                                                          chinzilla_battle_sprite, barrier_active,
                                                          sharp_sense_active, hard_strike, graphic_dict, turn_taken,
-                                                         necrola_battle_sprite, osodark_battle_sprite)
+                                                         necrola_battle_sprite, osodark_battle_sprite,
+                                                         stelli_battle_sprite)
                         if not turn_taken:
                             if kasper_unlocked or torok_unlocked or iriana_unlocked:
                                 for pet in player.pet:
@@ -10562,6 +10585,8 @@ if __name__ == "__main__":
                                 screen.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
                             if current_enemy_battling.kind == "osodark":
                                 screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+                            if current_enemy_battling.kind == "stelli":
+                                screen.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
 
                             for pet in player.pet:
                                 if pet.active:
@@ -10620,6 +10645,8 @@ if __name__ == "__main__":
                                 game_window.blit(necrola_battle_sprite.surf, necrola_battle_sprite.rect)
                             if current_enemy_battling.kind == "osodark":
                                 game_window.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
+                            if current_enemy_battling.kind == "stelli":
+                                game_window.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
 
                             for pet in player.pet:
                                 if pet.active:

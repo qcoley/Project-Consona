@@ -4691,6 +4691,21 @@ def load_graphics():
     loaded_dict["bandile"] = enemies_sheet[3]
     loaded_dict["necrola"] = enemies_sheet[4]
     loaded_dict["osodark"] = enemies_sheet[5]
+    # stelli ----------------------------------------------------------------------------------------------------------
+    stelli_url = resource_path('resources/art/sprites_stelli.png')
+    stelli_sheet = sprite_sheet((50, 50), stelli_url)
+    loaded_dict["stelli_a"] = stelli_sheet[0]
+    loaded_dict["stelli_b"] = stelli_sheet[1]
+    loaded_dict["stelli_c"] = stelli_sheet[2]
+    # stelli battle ----------------------------------------------------------------------------------------------------
+    stelli_battle_url = resource_path('resources/art/sprites_stelli_battle.png')
+    stelli_battle_sheet = sprite_sheet((300, 280), stelli_battle_url)
+    loaded_dict["stelli_battle_a"] = stelli_battle_sheet[0]
+    loaded_dict["stelli_attack_a"] = stelli_battle_sheet[1]
+    loaded_dict["stelli_battle_b"] = stelli_battle_sheet[2]
+    loaded_dict["stelli_attack_b"] = stelli_battle_sheet[3]
+    loaded_dict["stelli_battle_c"] = stelli_battle_sheet[4]
+    loaded_dict["stelli_attack_c"] = stelli_battle_sheet[5]
     # boss enemies -----------------------------------------------------------------------------------------------------
     boss_enemies_url = resource_path('resources/art/sprites_bosses.png')
     boss_enemies_sheet = sprite_sheet((125, 125), boss_enemies_url)

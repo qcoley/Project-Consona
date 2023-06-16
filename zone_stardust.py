@@ -15,7 +15,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      movement_able, in_shop, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                      equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                      rock, pet_energy_window, stardust_top, necrola_battle_sprite, osodark_battle_sprite, sfx_nede,
-                     sfx_door, sfx_rupee, rock_3_con, outpost_show, outpost_notify):
+                     sfx_door, sfx_rupee, rock_3_con, outpost_show, outpost_notify, stellis, enemy_tic,
+                     stelli_battle_sprite):
 
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
@@ -29,6 +30,24 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    # stelli movement updates
+    direction_horizontal = random.choice(["left", "right"])
+    direction_vertical = random.choice(["up", "down"])
+    move_stelli = random.choice(stellis.sprites())
+    if movement_able and in_over_world:
+        enemy_toc = time.perf_counter()
+        if enemy_toc - enemy_tic > 2:
+            enemy_tic = time.perf_counter()
+            if move_stelli.name == "stellia":
+                move_stelli.update_position([525, 900], [350, 650], direction_horizontal, direction_vertical)
+            if move_stelli.name == "stellib":
+                move_stelli.update_position([550, 900], [100, 380], direction_horizontal, direction_vertical)
+            if move_stelli.name == "stellic":
+                move_stelli.update_position([225, 550], [350, 625], direction_horizontal, direction_vertical)
+
+    for stelli in stellis:
+        screen.blit(stelli.surf, stelli.rect)
 
     if player.quest_progress["where's nede?"] < 1:
         if player.quest_status["where's nede?"]:
@@ -126,7 +145,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                       magmon_battle_sprite, bandile_battle_sprite,
                                                       chinzilla_battle_sprite, barrier_active, sharp_sense_active,
                                                       in_battle, in_npc_interaction, graphic_dict,
-                                                      necrola_battle_sprite, osodark_battle_sprite)
+                                                      necrola_battle_sprite, osodark_battle_sprite,
+                                                      stelli_battle_sprite)
             else:
                 if not player.quest_complete["where's nede?"]:
                     interaction_popup.update(ghoul_nede.x_coordinate, ghoul_nede.y_coordinate - 40,
@@ -191,6 +211,39 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                 info_text_2 = ""
                 pass
             interacted = False
+
+    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
+    stelli = pygame.sprite.spritecollideany(player, stellis, pygame.sprite.collide_rect_ratio(0.75))
+    if stelli:
+        interaction_popup.update(stelli.x_coordinate, stelli.y_coordinate - 40, graphic_dict["popup_interaction_red"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(stelli.name) + " lvl " + str(stelli.level), True, "black",
+                                            (255, 204, 203))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (stelli.x_coordinate, stelli.y_coordinate - 40)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        # lets player know if they are in range of enemy they can press f to attack it
+        info_text_1 = "Press 'F' key to train with stelli."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            current_enemy_battling = stelli
+            in_over_world = False
+            in_battle = True
+
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.resting_animation(player, ghoul_nede, player_battle_sprite,
+                                              snake_battle_sprite, ghoul_battle_sprite,
+                                              chorizon_battle_sprite, muchador_battle_sprite,
+                                              magmon_battle_sprite, bandile_battle_sprite,
+                                              chinzilla_battle_sprite, barrier_active, sharp_sense_active,
+                                              in_battle, in_npc_interaction, graphic_dict,
+                                              necrola_battle_sprite, osodark_battle_sprite,
+                                              stelli_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -267,6 +320,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                        info_text_3, "info_text_4": info_text_4, "movement_able": movement_able,
                        "current_building_entering": current_building_entering, "in_shop": in_shop,
                        "interacted": interacted, "npc_tic": npc_tic, "rock_3_con": rock_3_con,
-                       "outpost_show": outpost_show}
+                       "outpost_show": outpost_show, "enemy_tic": enemy_tic}
 
     return stardust_return
