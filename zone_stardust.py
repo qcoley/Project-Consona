@@ -17,7 +17,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      rock, pet_energy_window, stardust_top, necrola_battle_sprite, osodark_battle_sprite, sfx_nede,
                      sfx_door, sfx_rupee, rock_3_con, outpost_show, outpost_notify, stellis, enemy_tic,
                      stelli_battle_sprite):
-
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(stardust_outpost_music)
@@ -71,8 +70,10 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
-    screen.blit(stardust_top.surf, stardust_top.rect)
+    drawing_functions.draw_level_up(screen, in_over_world)
+    if len(drawing_functions.character_sheet_window) == 0 and len(drawing_functions.journal_window) == 0 and \
+            len(drawing_functions.world_map_container) == 0:
+        screen.blit(stardust_top.surf, stardust_top.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -267,6 +268,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                      info_text_3, info_text_4, in_over_world)
+    drawing_functions.draw_it(screen)
+
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
 
@@ -316,8 +319,8 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
 
     stardust_return = {"stardust_song_set": stardust_song_set, "nede_sprite_reset": nede_sprite_reset,
                        "current_enemy_battling": current_enemy_battling, "in_battle": in_battle, "in_over_world":
-                       in_over_world, "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3":
-                       info_text_3, "info_text_4": info_text_4, "movement_able": movement_able,
+                           in_over_world, "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3":
+                           info_text_3, "info_text_4": info_text_4, "movement_able": movement_able,
                        "current_building_entering": current_building_entering, "in_shop": in_shop,
                        "interacted": interacted, "npc_tic": npc_tic, "rock_3_con": rock_3_con,
                        "outpost_show": outpost_show, "enemy_tic": enemy_tic}

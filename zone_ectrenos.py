@@ -16,7 +16,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                   eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic, eldream_flowers,
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
-                  npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder):
+                  npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -44,7 +44,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -106,7 +106,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                                                   ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                                   magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                                   barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                                  graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                                  graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                                  stelli_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -133,6 +134,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -226,7 +228,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -309,6 +311,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -389,7 +392,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -492,6 +495,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -554,7 +558,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    interactables_korlok, interactables_mines, Enemy, Item, UiElement, seldon_flowers,
                    interactables_ectrenos, quest_star_everett, pet_energy_window, npc_everett, npc_leyre,
                    ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
-                   sfx_find):
+                   sfx_find, stelli_battle_sprite):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -602,7 +606,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -641,7 +645,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                              stelli_battle_sprite)
 
     # if player collides with npc sprite and chooses to interact with it
     if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
@@ -697,7 +702,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                              stelli_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -724,6 +730,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -823,7 +830,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -910,6 +917,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)

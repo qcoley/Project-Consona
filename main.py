@@ -5727,7 +5727,7 @@ def button_highlighter(posit):
                                                               mage_learn_clicked, fighter_learn_clicked,
                                                               scout_learn_clicked, mage_learn_button,
                                                               fighter_learn_button, scout_learn_button,
-                                                              barrier_learn_button, close_button)
+                                                              barrier_learn_button, close_button, npc_garan.gift)
     return button_highlighters
 
 
@@ -6063,7 +6063,7 @@ if __name__ == "__main__":
     korlok_shop = Building("shop", "korlok shop", 675, 390, graphic_dict["nuldar_shop_building"])
     korlok_herb = Building("apothecary", "korlok apothecary", 745, 240, graphic_dict["nuldar_herb_building"])
     nuldar_building_top_1 = UiElement("building top", 896, 365, graphic_dict["nuldar_building_top"])
-    nuldar_building_top_2 = UiElement("building top", 676, 390, graphic_dict["nuldar_building_top"])
+    nuldar_building_top_2 = UiElement("building top", 677, 390, graphic_dict["nuldar_building_top"])
     nuldar_building_top_3 = UiElement("building top", 746, 240, graphic_dict["nuldar_building_top"])
     mines_entrance = Building("entrance", "mines entrance", 430, 375, graphic_dict["mines_entrance"])
 
@@ -6555,6 +6555,9 @@ if __name__ == "__main__":
     sfx_enemy_chinzilla.set_volume(0.15)
     sfx_enemy_necrola = pygame.mixer.Sound(resource_path("resources/sounds/enemy_necrola.mp3"))
     sfx_enemy_necrola.set_volume(0.15)
+
+    sfx_stelli_battle = pygame.mixer.Sound(resource_path("resources/sounds/stelli_battle.mp3"))
+    sfx_stelli_battle.set_volume(0.30)
 
     sfx_quest_complete = pygame.mixer.Sound(resource_path("resources/sounds/quest_complete.mp3"))
     sfx_quest_complete.set_volume(0.35)
@@ -7486,9 +7489,6 @@ if __name__ == "__main__":
         if start_chosen:
             if player.alive_status:
 
-                # print(player.x_coordinate, player.y_coordinate)
-                # print(player.current_zone)
-
                 # keep player pet with player as they move
                 try:
                     for pet in player.pet:
@@ -7770,8 +7770,9 @@ if __name__ == "__main__":
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
 
-                            gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
-                                                         pressed_keys, sfx_button_role)
+                            if npc_garan.gift:
+                                gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
+                                                             pressed_keys, sfx_button_role)
 
                             # click handlers
                             info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
@@ -8234,7 +8235,7 @@ if __name__ == "__main__":
                                                                       sfx_item_flower, sfx_door_open, npc_worker_1,
                                                                       worker_tic, worker_positions, worker_move_tic,
                                                                       quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                      game_window)
+                                                                      game_window, stelli_battle_sprite)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone, over_world_song_set,
@@ -8283,7 +8284,7 @@ if __name__ == "__main__":
                                                                       sfx_item_flower, sfx_door_open, npc_worker_1,
                                                                       worker_tic, worker_positions, worker_move_tic,
                                                                       quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                      game_window)
+                                                                      game_window, stelli_battle_sprite)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -8374,7 +8375,8 @@ if __name__ == "__main__":
                                                                       necrola_battle_sprite, osodark_battle_sprite,
                                                                       sfx_item_rupee, sfx_map_teleport, sfx_door_open,
                                                                       nuldar_building_top_1, nuldar_building_top_2,
-                                                                      nuldar_building_top_3, npc_worker_2, worker_tic)
+                                                                      nuldar_building_top_3, npc_worker_2, worker_tic,
+                                                                      stelli_battle_sprite)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -8414,7 +8416,8 @@ if __name__ == "__main__":
                                                                       necrola_battle_sprite, osodark_battle_sprite,
                                                                       sfx_item_rupee, sfx_map_teleport, sfx_door_open,
                                                                       nuldar_building_top_1, nuldar_building_top_2,
-                                                                      nuldar_building_top_3, npc_worker_2, worker_tic)
+                                                                      nuldar_building_top_3, npc_worker_2, worker_tic,
+                                                                      stelli_battle_sprite)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -8500,7 +8503,8 @@ if __name__ == "__main__":
                                                                          ectrenos_front_enemies,
                                                                          necrola_battle_sprite, osodark_battle_sprite,
                                                                          sfx_item_flower, sfx_map_teleport,
-                                                                         sfx_item_pickup, kart_full)
+                                                                         sfx_item_pickup, kart_full,
+                                                                         stelli_battle_sprite)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -8545,7 +8549,8 @@ if __name__ == "__main__":
                                                                          ectrenos_front_enemies,
                                                                          necrola_battle_sprite, osodark_battle_sprite,
                                                                          sfx_item_flower, sfx_map_teleport,
-                                                                         sfx_item_pickup, kart_full)
+                                                                         sfx_item_pickup, kart_full,
+                                                                         stelli_battle_sprite)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -8619,7 +8624,7 @@ if __name__ == "__main__":
                                                                              chroma_bridge, npc_leyre,
                                                                              necrola_battle_sprite,
                                                                              osodark_battle_sprite,
-                                                                             sfx_ladder)
+                                                                             sfx_ladder, stelli_battle_sprite)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -8656,7 +8661,7 @@ if __name__ == "__main__":
                                                                              chroma_bridge, npc_leyre,
                                                                              necrola_battle_sprite,
                                                                              osodark_battle_sprite,
-                                                                             sfx_ladder)
+                                                                             sfx_ladder, stelli_battle_sprite)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -8911,7 +8916,8 @@ if __name__ == "__main__":
                                                                                ectrenos_front_enemies,
                                                                                interactables_eldream,
                                                                                necrola_battle_sprite,
-                                                                               osodark_battle_sprite, sfx_find)
+                                                                               osodark_battle_sprite, sfx_find,
+                                                                               stelli_battle_sprite)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -8953,7 +8959,8 @@ if __name__ == "__main__":
                                                                                ectrenos_front_enemies,
                                                                                interactables_eldream,
                                                                                necrola_battle_sprite,
-                                                                               osodark_battle_sprite, sfx_find)
+                                                                               osodark_battle_sprite, sfx_find,
+                                                                               stelli_battle_sprite)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -9113,7 +9120,7 @@ if __name__ == "__main__":
                                                                  interactables_eldream, pet_energy_window,
                                                                  ectrenos_front_enemies, necrola_battle_sprite,
                                                                  osodark_battle_sprite, sfx_item_pickup, sfx_talking,
-                                                                 talk_start)
+                                                                 talk_start, stelli_battle_sprite)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -9143,7 +9150,7 @@ if __name__ == "__main__":
                                                                  interactables_eldream, pet_energy_window,
                                                                  ectrenos_front_enemies, necrola_battle_sprite,
                                                                  osodark_battle_sprite, sfx_item_pickup, sfx_talking,
-                                                                 talk_start)
+                                                                 talk_start, stelli_battle_sprite)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -9205,7 +9212,8 @@ if __name__ == "__main__":
                                                                       rock_7,
                                                                       rock_7_con, chinzilla_defeated, eldream_gate_rect,
                                                                       pet_energy_window, necrola_battle_sprite,
-                                                                      osodark_battle_sprite, sfx_item_rupee)
+                                                                      osodark_battle_sprite, sfx_item_rupee,
+                                                                      stelli_battle_sprite)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -9231,7 +9239,8 @@ if __name__ == "__main__":
                                                                       rock_7,
                                                                       rock_7_con, chinzilla_defeated, eldream_gate_rect,
                                                                       pet_energy_window, necrola_battle_sprite,
-                                                                      osodark_battle_sprite, sfx_item_rupee)
+                                                                      osodark_battle_sprite, sfx_item_rupee,
+                                                                      stelli_battle_sprite)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -9444,7 +9453,8 @@ if __name__ == "__main__":
                                                                           pet_energy_window,
                                                                           necrola_battle_sprite, osodark_battle_sprite,
                                                                           sfx_item_rupee, sfx_item_key, sfx_item_potion,
-                                                                          sfx_activate_switch, sfx_activate_teleporter)
+                                                                          sfx_activate_switch, sfx_activate_teleporter,
+                                                                          stelli_battle_sprite)
                     else:
                         reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
                                                                           graphic_dict,
@@ -9477,7 +9487,8 @@ if __name__ == "__main__":
                                                                           pet_energy_window,
                                                                           necrola_battle_sprite, osodark_battle_sprite,
                                                                           sfx_item_rupee, sfx_item_key, sfx_item_potion,
-                                                                          sfx_activate_switch, sfx_activate_teleporter)
+                                                                          sfx_activate_switch, sfx_activate_teleporter,
+                                                                          stelli_battle_sprite)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -9542,7 +9553,7 @@ if __name__ == "__main__":
                                                                           osodark_battle_sprite,
                                                                           sfx_activate_teleporter,
                                                                           sfx_item_rupee, sfx_gate_open,
-                                                                          directional_arrow)
+                                                                          directional_arrow, stelli_battle_sprite)
                     else:
                         reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -9574,7 +9585,7 @@ if __name__ == "__main__":
                                                                           osodark_battle_sprite,
                                                                           sfx_activate_teleporter,
                                                                           sfx_item_rupee, sfx_gate_open,
-                                                                          directional_arrow)
+                                                                          directional_arrow, stelli_battle_sprite)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -9698,6 +9709,7 @@ if __name__ == "__main__":
                     pygame.mixer.Sound.stop(sfx_enemy_magmon)
                     pygame.mixer.Sound.stop(sfx_enemy_chinzilla)
                     pygame.mixer.Sound.stop(sfx_enemy_necrola)
+                    pygame.mixer.Sound.stop(sfx_stelli_battle)
 
                     # reset on each new turn
                     turn_taken = False
@@ -9852,7 +9864,7 @@ if __name__ == "__main__":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
 
-                        if combat_button == "attack" or attack_hotkey:
+                        if combat_button == "attack" or attack_hotkey and not chorizon_phase:
                             if player.role == "":
                                 pygame.mixer.find_channel(True).play(sfx_no_weapon_attack)
                             if player.role == "mage":
@@ -9878,6 +9890,8 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_enemy_chinzilla)
                             if current_enemy_battling.kind == "necrola":
                                 pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
+                            if current_enemy_battling.kind == "stelli":
+                                pygame.mixer.find_channel(True).play(sfx_stelli_battle)
 
                             first_battle_cond = False
                             drawing_functions.game_guide_container.clear()
@@ -9982,6 +9996,9 @@ if __name__ == "__main__":
                                             chinzilla_defeated = True
                                             chinzilla.kill()
 
+                                        if current_enemy_battling.kind == "stelli":
+                                            current_enemy_battling.health = 100
+
                                         # if barrier is active on enemy defeat, restore original defence and set off
                                         if barrier_active:
                                             barrier_active = False
@@ -10031,7 +10048,8 @@ if __name__ == "__main__":
                                                                                   barrier_active, sharp_sense_active,
                                                                                   in_battle, in_npc_interaction,
                                                                                   graphic_dict, necrola_battle_sprite,
-                                                                                  osodark_battle_sprite)
+                                                                                  osodark_battle_sprite,
+                                                                                  stelli_battle_sprite)
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                                 "attack", player,
@@ -10094,7 +10112,8 @@ if __name__ == "__main__":
                                                                                   barrier_active, sharp_sense_active,
                                                                                   in_battle, in_npc_interaction,
                                                                                   graphic_dict, necrola_battle_sprite,
-                                                                                  osodark_battle_sprite)
+                                                                                  osodark_battle_sprite,
+                                                                                  stelli_battle_sprite)
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                                 "attack", player,
@@ -10144,7 +10163,8 @@ if __name__ == "__main__":
                                                                     ghoul_battle_sprite, chorizon_battle_sprite,
                                                                     muchador_battle_sprite, magmon_battle_sprite,
                                                                     bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                    sharp_sense_active, barrier_active)
+                                                                    sharp_sense_active, barrier_active,
+                                                                    stelli_battle_sprite)
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                             "skill 1", player,
                                                                                             hard_strike_learned,
@@ -10479,11 +10499,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         if not combat_cooldown:
                             if button_highlighted:
@@ -10690,11 +10710,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         if not combat_cooldown:
                             if button_highlighted:
@@ -11087,11 +11107,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -11182,11 +11202,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -11279,11 +11299,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -11374,11 +11394,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
@@ -11827,11 +11847,11 @@ if __name__ == "__main__":
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen, in_over_world)
+                        drawing_functions.draw_it(screen)
                     else:
                         drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                          info_text_3, info_text_4, in_over_world)
-                        drawing_functions.draw_it(game_window, in_over_world)
+                        drawing_functions.draw_it(game_window)
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         if button_highlighted:
                             screen.blit(button_highlight.surf, button_highlight.rect)
@@ -12144,11 +12164,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             if len(books) > 0:
@@ -12618,11 +12638,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         # if player has access to apothecary functions by completing quest and window is open
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -12651,7 +12671,7 @@ if __name__ == "__main__":
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
 
                                     screen.blit(potion_mix_overlay.surf, potion_mix_overlay.rect)
-                                    close_button.update(500, 135, graphic_dict["close_button"])
+                                    close_button.update(560, 110, graphic_dict["close_button"])
                                     screen.blit(close_button.surf, close_button.rect)
 
                             if button_highlighted:
@@ -13216,11 +13236,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         # if player has access to menagerie functions by completing quest and window is open
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -14092,7 +14112,7 @@ if __name__ == "__main__":
                                                               chinzilla_battle_sprite, barrier_active,
                                                               sharp_sense_active, in_battle, in_npc_interaction,
                                                               graphic_dict, necrola_battle_sprite,
-                                                              osodark_battle_sprite)
+                                                              osodark_battle_sprite, stelli_battle_sprite)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
@@ -14173,7 +14193,7 @@ if __name__ == "__main__":
                                                               chinzilla_battle_sprite, barrier_active,
                                                               sharp_sense_active, in_battle, in_npc_interaction,
                                                               graphic_dict, necrola_battle_sprite,
-                                                              osodark_battle_sprite)
+                                                              osodark_battle_sprite, stelli_battle_sprite)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
                             game_window.blit(hp_bar.surf, hp_bar.rect)
                             game_window.blit(en_bar.surf, en_bar.rect)
@@ -14229,11 +14249,11 @@ if __name__ == "__main__":
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(screen, in_over_world)
+                            drawing_functions.draw_it(screen)
                         else:
                             drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
                                                              info_text_3, info_text_4, in_over_world)
-                            drawing_functions.draw_it(game_window, in_over_world)
+                            drawing_functions.draw_it(game_window)
 
                         text_npc_name_surf = font.render(str(current_npc_interacting.name), True, "black",
                                                          (203, 195, 227))
@@ -14243,20 +14263,21 @@ if __name__ == "__main__":
                         if current_npc_interacting.name != "omoku":
                             text_npc_name_rect.center = (675, 165)
 
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(text_npc_name_surf, text_npc_name_rect)
-                            if button_highlighted:
-                                screen.blit(button_highlight.surf, button_highlight.rect)
-                            if first_npc_cond:
-                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
-                                screen.blit(directional_arrow.surf, directional_arrow.rect)
-                        else:
-                            game_window.blit(text_npc_name_surf, text_npc_name_rect)
-                            if button_highlighted:
-                                game_window.blit(button_highlight.surf, button_highlight.rect)
-                            if first_npc_cond:
-                                directional_arrow.update(855, 620, graphic_dict["arrow_down"])
-                                game_window.blit(directional_arrow.surf, directional_arrow.rect)
+                        if len(drawing_functions.type_advantage_window) == 0:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(text_npc_name_surf, text_npc_name_rect)
+                                if button_highlighted:
+                                    screen.blit(button_highlight.surf, button_highlight.rect)
+                                if first_npc_cond:
+                                    directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                    screen.blit(directional_arrow.surf, directional_arrow.rect)
+                            else:
+                                game_window.blit(text_npc_name_surf, text_npc_name_rect)
+                                if button_highlighted:
+                                    game_window.blit(button_highlight.surf, button_highlight.rect)
+                                if first_npc_cond:
+                                    directional_arrow.update(855, 620, graphic_dict["arrow_down"])
+                                    game_window.blit(directional_arrow.surf, directional_arrow.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # end of whole iteration -------------------------------------------------------------------------------

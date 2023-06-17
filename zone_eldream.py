@@ -22,7 +22,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
                      seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
                      omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite,
-                     sfx_flower, sfx_hearth, sfx_item, kart_full):
+                     sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -64,7 +64,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -201,7 +201,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                              stelli_battle_sprite)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -228,6 +229,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)

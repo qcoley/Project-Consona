@@ -15,7 +15,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, hearth_stone,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
                 rock_7_con, chinzilla_defeated, eldream_gate_rect, pet_energy_window, necrola_battle_sprite,
-                osodark_battle_sprite, sfx_rupee):
+                osodark_battle_sprite, sfx_rupee, stelli_battle_sprite):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -42,7 +42,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -80,7 +80,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                              stelli_battle_sprite)
 
     if pygame.sprite.collide_rect(player, terra_cave):
         interaction_popup.update(terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20,
@@ -123,7 +124,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                                                       muchador_battle_sprite, magmon_battle_sprite,
                                                       bandile_battle_sprite, chinzilla_battle_sprite, barrier_active,
                                                       sharp_sense_active, in_battle, in_npc_interaction, graphic_dict,
-                                                      necrola_battle_sprite, osodark_battle_sprite)
+                                                      necrola_battle_sprite, osodark_battle_sprite,
+                                                      stelli_battle_sprite)
 
             interacted = False
 
@@ -205,6 +207,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)

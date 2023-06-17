@@ -29,7 +29,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     flowers, eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, tree_top_1, tree_top_2, tree_top_3, building_top_1,
                     building_top_2, building_top_3, sfx_item_pickup, sfx_flower, sfx_door, worker_1, worker_tic,
-                    worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window):
+                    worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
+                    stelli_battle_sprite):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -131,7 +132,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -146,9 +147,11 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     screen.blit(tree_top_1.surf, tree_top_1.rect)
     screen.blit(tree_top_2.surf, tree_top_2.rect)
     screen.blit(tree_top_3.surf, tree_top_3.rect)
-    screen.blit(building_top_1.surf, building_top_1.rect)
-    screen.blit(building_top_2.surf, building_top_2.rect)
-    screen.blit(building_top_3.surf, building_top_3.rect)
+    if len(drawing_functions.character_sheet_window) == 0 and len(drawing_functions.game_guide_container) == 0\
+            and len(drawing_functions.quest_box):
+        screen.blit(building_top_1.surf, building_top_1.rect)
+        screen.blit(building_top_2.surf, building_top_2.rect)
+        screen.blit(building_top_3.surf, building_top_3.rect)
 
     # player encounters objects and draws popup information box ----------------------------------------
     # player encounters a quest item. check progress and add to if interacted with
@@ -282,7 +285,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                              stelli_battle_sprite)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, amuna_buildings, pygame.sprite.collide_rect_ratio(0.75))
@@ -362,7 +366,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                              stelli_battle_sprite)
 
     if pygame.sprite.collide_rect(player, hearth_stone):
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
@@ -381,7 +386,12 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             if ui_elements.name != "star power":
                 screen.blit(ui_elements.surf, ui_elements.rect)
         else:
-            screen.blit(ui_elements.surf, ui_elements.rect)
+            if len(drawing_functions.game_guide_container) != 0:
+                if ui_elements.name != "location overlay" and ui_elements.name != "map button" \
+                        and ui_elements.name != "save button":
+                    screen.blit(ui_elements.surf, ui_elements.rect)
+            else:
+                screen.blit(ui_elements.surf, ui_elements.rect)
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:
             screen.blit(popup.surf, popup.rect)
@@ -397,6 +407,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)

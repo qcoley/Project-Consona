@@ -3977,8 +3977,9 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     gameplay_functions.level_up(player, level_up_win, level_up_font)
                     combat_event_dictionary["leveled"] = True
 
-                enemy_combating.alive_status = False
-                enemy_combating.kill()
+                if enemy_combating.kind != "stelli":
+                    enemy_combating.alive_status = False
+                    enemy_combating.kill()
 
                 # add to dictionary True if enemy has been defeated
                 combat_event_dictionary["enemy defeated"] = True

@@ -30,7 +30,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -65,6 +65,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
                                      info_text_4, in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)

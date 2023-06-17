@@ -32,14 +32,7 @@ pets_window_container = []
 
 
 # draws elements on screen that have been appended to list by below functions
-def draw_it(screen, in_over_world):
-    if len(level_up_visual) > 0:
-        for visuals in level_up_visual:
-            if not in_over_world:
-                if visuals.name != "level up visual":
-                    screen.blit(visuals.surf, visuals.rect)
-            else:
-                screen.blit(visuals.surf, visuals.rect)
+def draw_it(screen):
     if len(character_sheet_window) > 0:
         for character_window in character_sheet_window:
             screen.blit(character_window.surf, character_window.rect)
@@ -120,6 +113,16 @@ def draw_it(screen, in_over_world):
     if len(quest_accept_box) > 0:
         for accept_element in quest_accept_box:
             screen.blit(accept_element.surf, accept_element.rect)
+
+
+def draw_level_up(screen, in_over_world):
+    if len(level_up_visual) > 0:
+        for visuals in level_up_visual:
+            if not in_over_world:
+                if visuals.name != "level up visual":
+                    screen.blit(visuals.surf, visuals.rect)
+            else:
+                screen.blit(visuals.surf, visuals.rect)
 
 
 def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
@@ -526,7 +529,8 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
             text_location = font.render(str("Ectrenos"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
-        screen.blit(text_location, text_location_rect)
+        if len(game_guide_container) == 0:
+            screen.blit(text_location, text_location_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
     text_info_rect_1 = text_info_surf_1.get_rect()
@@ -1080,7 +1084,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       amuna_female_button, nuldar_male_button, nuldar_female_button, sorae_alpha_button,
                       sorae_beta_button, in_academia, mage_learn_clicked, fighter_learn_clicked,
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
-                      barrier_learn_button, close_button):
+                      barrier_learn_button, close_button, garan_gift):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1169,7 +1173,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 return True
 
     if start_chosen:
-        if len(item_info_window) == 0 and len(sell_info_window) == 0:
+        if len(item_info_window) == 0 and len(sell_info_window) == 0 and garan_gift:
             if staff.rect.collidepoint(pos):
                 button_highlight.update(1077, 283, graphic_dict["item high"])
                 return True
@@ -1386,13 +1390,15 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                         graphic_dict["main high"])
                 return True
             elif save_button.rect.collidepoint(pos):
-                button_highlight.update(save_button.x_coordinate + 1, save_button.y_coordinate + 2,
-                                        graphic_dict["save hearth high"])
-                return True
+                if len(game_guide_container) == 0:
+                    button_highlight.update(save_button.x_coordinate + 1, save_button.y_coordinate + 2,
+                                            graphic_dict["save hearth high"])
+                    return True
             elif map_button.rect.collidepoint(pos):
-                button_highlight.update(map_button.x_coordinate + 1, map_button.y_coordinate + 2,
-                                        graphic_dict["save hearth high"])
-                return True
+                if len(game_guide_container) == 0:
+                    button_highlight.update(map_button.x_coordinate + 1, map_button.y_coordinate + 2,
+                                            graphic_dict["save hearth high"])
+                    return True
 
         if in_npc_interaction:
             if quest_button.rect.collidepoint(pos):

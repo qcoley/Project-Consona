@@ -22,7 +22,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
                     eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
-                    worker, worker_tic):
+                    worker, worker_tic, stelli_battle_sprite):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -111,7 +111,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
-    drawing_functions.draw_it(screen, in_over_world)
+    drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
             if pet.active:
@@ -123,9 +123,10 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     except AttributeError:
         pass
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)
-    screen.blit(top_1.surf, top_1.rect)
-    screen.blit(top_2.surf, top_2.rect)
-    screen.blit(top_3.surf, top_3.rect)
+    if len(drawing_functions.character_sheet_window) == 0:
+        screen.blit(top_1.surf, top_1.rect)
+        screen.blit(top_2.surf, top_2.rect)
+        screen.blit(top_3.surf, top_3.rect)
 
     if not player.quest_complete["can't apothecary it"]:
         screen.blit(star_apothecary.surf, star_apothecary.rect)
@@ -158,7 +159,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                              stelli_battle_sprite)
 
     # if player collides with npc sprite and chooses to interact with it
     npc = pygame.sprite.spritecollideany(player, npcs, pygame.sprite.collide_rect_ratio(0.75))
@@ -188,7 +190,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite)
+                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
+                                              stelli_battle_sprite)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, nuldar_buildings, pygame.sprite.collide_rect_ratio(0.75))
@@ -419,6 +422,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
+    drawing_functions.draw_it(screen)
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
