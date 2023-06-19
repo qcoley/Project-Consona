@@ -5,7 +5,7 @@ import gameplay_functions
 def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                       chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
                       chinzilla_battle_sprite, barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                      graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite):
+                      graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, chorizon_phase):
 
     if player.race == "amuna":
         if player.gender == "male":
@@ -1564,7 +1564,10 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
         if enemy.kind == "ghoul":
             ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
         if enemy.kind == "chorizon":
-            chorizon_battle_sprite.update(720, 325, graphics["chorizon_battle"])
+            if chorizon_phase:
+                chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase"])
+            else:
+                chorizon_battle_sprite.update(720, 325, graphics["chorizon_battle"])
         if enemy.kind == "muchador":
             muchador_battle_sprite.update(705, 290, graphics["muchador_battle"])
         if enemy.kind == "magmon":
@@ -1595,7 +1598,7 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
 def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                      chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
                      chinzilla_battle_sprite, barrier_active, sharp_sense_active, hard_strike, graphics, turn_taken,
-                     necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite):
+                     necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, chorizon_phase):
 
     # update player character sprite for combat animation
     if not turn_taken:
@@ -3228,7 +3231,10 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
     if enemy.kind == "ghoul":
         ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack"])
     if enemy.kind == "chorizon":
-        chorizon_battle_sprite.update(720, 325, graphics["chorizon_attack"])
+        if chorizon_phase:
+            chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase_attack"])
+        else:
+            chorizon_battle_sprite.update(720, 325, graphics["chorizon_attack"])
     if enemy.kind == "muchador":
         muchador_battle_sprite.update(705, 290, graphics["muchador_attack"])
     if enemy.kind == "magmon":
@@ -3259,7 +3265,7 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
 def fighter(graphics, player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
             ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite,
             bandile_battle_sprite, chinzilla_battle_sprite, sharp_sense_active, barrier_active,
-            stelli_battle_sprite):
+            stelli_battle_sprite, chorizon_phase):
 
     # update animations for hard strike attack
     if player.race == "amuna":
@@ -3782,7 +3788,10 @@ def fighter(graphics, player, player_battle_sprite, current_enemy_battling, snak
     if current_enemy_battling.kind == "ghoul":
         ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
     if current_enemy_battling.kind == "chorizon":
-        chorizon_battle_sprite.update(720, 325, graphics["chorizon_battle"])
+        if chorizon_phase:
+            chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase"])
+        else:
+            chorizon_battle_sprite.update(720, 325, graphics["chorizon_battle"])
     if current_enemy_battling.kind == "muchador":
         muchador_battle_sprite.update(725, 350, graphics["muchador_battle"])
     if current_enemy_battling.kind == "magmon":

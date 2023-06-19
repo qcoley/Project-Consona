@@ -202,7 +202,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
                                               graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite)
+                                              stelli_battle_sprite, chorizon_phase=False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

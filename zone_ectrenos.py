@@ -646,7 +646,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
                                               graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite)
+                                              stelli_battle_sprite, chorizon_phase=False)
 
     # if player collides with npc sprite and chooses to interact with it
     if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
@@ -703,7 +703,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
                                               graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite)
+                                              stelli_battle_sprite, chorizon_phase=False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

@@ -176,6 +176,15 @@ def load_graphics():
     apothis_scene_5 = pygame.image.load(resource_path('resources/art/cutscene_apothis_5.png')).convert_alpha()
     apothis_scene_6 = pygame.image.load(resource_path('resources/art/cutscene_apothis_6.png')).convert_alpha()
 
+    dreth_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_1.png')).convert_alpha()
+    dreth_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_2.png')).convert_alpha()
+    dreth_scene_3 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_3.png')).convert_alpha()
+    dreth_scene_4 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_4.png')).convert_alpha()
+    dreth_scene_5 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_5.png')).convert_alpha()
+    dreth_scene_6 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_6.png')).convert_alpha()
+    dreth_scene_7 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_7.png')).convert_alpha()
+    dreth_scene_8 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_8.png')).convert_alpha()
+
     color_keys = [bar_backdrop, enemy_status, enemy_bar_backdrop, buy_inventory, message_box, pine_tree,
                   rohir_gate, lets_go_button, learn_button, skill_learn_button, nascent_gate_popup, level_up_win,
                   close_button, knowledge_window, skill_bar, start_button, npc_name_plate, char_select_overlay,
@@ -283,6 +292,14 @@ def load_graphics():
     loaded_dict["apothis_4"] = apothis_scene_4
     loaded_dict["apothis_5"] = apothis_scene_5
     loaded_dict["apothis_6"] = apothis_scene_6
+    loaded_dict["dreth_1"] = dreth_scene_1
+    loaded_dict["dreth_2"] = dreth_scene_2
+    loaded_dict["dreth_3"] = dreth_scene_3
+    loaded_dict["dreth_4"] = dreth_scene_4
+    loaded_dict["dreth_5"] = dreth_scene_5
+    loaded_dict["dreth_6"] = dreth_scene_6
+    loaded_dict["dreth_7"] = dreth_scene_7
+    loaded_dict["dreth_8"] = dreth_scene_8
     loaded_dict["water_player"] = water_player
     loaded_dict["water"] = water
     loaded_dict["dungeon_entrance"] = dungeon_entrance
@@ -4749,6 +4766,7 @@ def load_graphics():
     loaded_dict["chorizon_attack"] = boss_enemies_battle_sheet[0]
     loaded_dict["muchador_attack"] = boss_enemies_battle_sheet[1]
     loaded_dict["chinzilla_attack"] = boss_enemies_battle_sheet[2]
+    loaded_dict["chorizon_phase_attack"] = boss_enemies_battle_sheet[3]
     # enemies attacking ------------------------------------------------------------------------------------------------
     type_overlay_url = resource_path('resources/art/overlay_enemy_types.png')
     type_overlay_sheet = sprite_sheet((50, 50), type_overlay_url)

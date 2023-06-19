@@ -14,7 +14,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 bandile_battle_sprite, chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan,
                 offense_meter, defense_meter, weapon_select, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_item_rupee, sfx_item_key, sfx_item_potion, sfx_switch, sfx_teleporter,
-                stelli_battle_sprite):
+                stelli_battle_sprite, chorizon_phase):
 
     in_battle = False
 
@@ -231,7 +231,8 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                                                   muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
                                                   chinzilla_battle_sprite, barrier_active, sharp_sense_active,
                                                   in_battle, in_npc_interaction, graphic_dict,
-                                                  necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite)
+                                                  necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite,
+                                                  chorizon_phase)
 
     # player defeats mini bosses and activates teleporter
     if pygame.sprite.collide_rect(player, dungeon_teleporter):
@@ -486,7 +487,7 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                                                   magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                                   barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
                                                   graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                                  stelli_battle_sprite)
+                                                  stelli_battle_sprite, chorizon_phase=False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

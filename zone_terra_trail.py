@@ -1,6 +1,7 @@
 import random
 import time
 
+import cutscenes
 import drawing_functions
 import combat_scenario
 
@@ -15,7 +16,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 barrier_active, sharp_sense_active, current_npc_interacting, chinzilla, hearth_stone,
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
                 rock_7_con, chinzilla_defeated, eldream_gate_rect, pet_energy_window, necrola_battle_sprite,
-                osodark_battle_sprite, sfx_rupee, stelli_battle_sprite):
+                osodark_battle_sprite, sfx_rupee, stelli_battle_sprite, apothis_music, scene_1, scene_2, scene_3,
+                scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -81,7 +83,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
                                               graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite)
+                                              stelli_battle_sprite, chorizon_phase=False)
 
     if pygame.sprite.collide_rect(player, terra_cave):
         interaction_popup.update(terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20,
@@ -125,7 +127,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                                                       bandile_battle_sprite, chinzilla_battle_sprite, barrier_active,
                                                       sharp_sense_active, in_battle, in_npc_interaction, graphic_dict,
                                                       necrola_battle_sprite, osodark_battle_sprite,
-                                                      stelli_battle_sprite)
+                                                      stelli_battle_sprite, chorizon_phase=False)
 
             interacted = False
 
@@ -177,6 +179,10 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 player.y_coordinate = 175
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
+                cutscene_tic = time.perf_counter()
+                cutscenes.cutscenes_apothis_dreth(pygame, apothis_music, screen, scene_1, scene_2, scene_3, scene_4,
+                                                  scene_5, scene_6, scene_7, scene_8, cutscene_tic, skip_button,
+                                                  SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
             else:
                 interacted = False
                 info_text_1 = "The gate appears to be shut."

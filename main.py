@@ -5805,6 +5805,15 @@ if __name__ == "__main__":
     apothis_scene_5 = graphic_dict["apothis_5"]
     apothis_scene_6 = graphic_dict["apothis_6"]
 
+    dreth_scene_1 = graphic_dict["dreth_1"]
+    dreth_scene_2 = graphic_dict["dreth_2"]
+    dreth_scene_3 = graphic_dict["dreth_3"]
+    dreth_scene_4 = graphic_dict["dreth_4"]
+    dreth_scene_5 = graphic_dict["dreth_5"]
+    dreth_scene_6 = graphic_dict["dreth_6"]
+    dreth_scene_7 = graphic_dict["dreth_7"]
+    dreth_scene_8 = graphic_dict["dreth_8"]
+
     player_cutscene_overlay = UiElement("player cutscene", 800, 225, graphic_dict["amuna_cutscene"])
     player_cutscene_overlay_2 = UiElement("player cutscene 2", 300, 400, graphic_dict["amuna_cutscene_2"])
 
@@ -6728,6 +6737,7 @@ if __name__ == "__main__":
     bridge_not_repaired = True
     nede_ghoul_defeated = False
     bridge_cutscenes_not_viewed = True
+    dreth_cutscenes_not_viewed = True
     has_key = False
     muchador_lights_on = False
     muchador_relocate = False
@@ -6748,7 +6758,6 @@ if __name__ == "__main__":
     jez_3 = False
     talk_start = False
     chorizon_phase = False
-    chorizon_reset = False
 
     seed_given = False
     hatch_ready = False
@@ -9213,7 +9222,11 @@ if __name__ == "__main__":
                                                                       rock_7_con, chinzilla_defeated, eldream_gate_rect,
                                                                       pet_energy_window, necrola_battle_sprite,
                                                                       osodark_battle_sprite, sfx_item_rupee,
-                                                                      stelli_battle_sprite)
+                                                                      stelli_battle_sprite, apothis_intro_music,
+                                                                      dreth_scene_1, dreth_scene_2, dreth_scene_3,
+                                                                      dreth_scene_4, dreth_scene_5, dreth_scene_6,
+                                                                      dreth_scene_7, dreth_scene_8, skip_button,
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -9240,7 +9253,11 @@ if __name__ == "__main__":
                                                                       rock_7_con, chinzilla_defeated, eldream_gate_rect,
                                                                       pet_energy_window, necrola_battle_sprite,
                                                                       osodark_battle_sprite, sfx_item_rupee,
-                                                                      stelli_battle_sprite)
+                                                                      stelli_battle_sprite, apothis_intro_music,
+                                                                      dreth_scene_1, dreth_scene_2, dreth_scene_3,
+                                                                      dreth_scene_4, dreth_scene_5, dreth_scene_6,
+                                                                      dreth_scene_7, dreth_scene_8, skip_button,
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -9454,7 +9471,7 @@ if __name__ == "__main__":
                                                                           necrola_battle_sprite, osodark_battle_sprite,
                                                                           sfx_item_rupee, sfx_item_key, sfx_item_potion,
                                                                           sfx_activate_switch, sfx_activate_teleporter,
-                                                                          stelli_battle_sprite)
+                                                                          stelli_battle_sprite, chorizon_phase)
                     else:
                         reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
                                                                           graphic_dict,
@@ -9488,7 +9505,7 @@ if __name__ == "__main__":
                                                                           necrola_battle_sprite, osodark_battle_sprite,
                                                                           sfx_item_rupee, sfx_item_key, sfx_item_potion,
                                                                           sfx_activate_switch, sfx_activate_teleporter,
-                                                                          stelli_battle_sprite)
+                                                                          stelli_battle_sprite, chorizon_phase)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -9864,7 +9881,7 @@ if __name__ == "__main__":
                                 info_text_1 = equipment_event["equipment message"]
                                 info_text_2 = ""
 
-                        if combat_button == "attack" or attack_hotkey and not chorizon_phase:
+                        if combat_button == "attack" or attack_hotkey:
                             if player.role == "":
                                 pygame.mixer.find_channel(True).play(sfx_no_weapon_attack)
                             if player.role == "mage":
@@ -9904,7 +9921,8 @@ if __name__ == "__main__":
                                                                  chinzilla_battle_sprite, barrier_active,
                                                                  sharp_sense_active, hard_strike, graphic_dict,
                                                                  turn_taken, necrola_battle_sprite,
-                                                                 osodark_battle_sprite, stelli_battle_sprite)
+                                                                 osodark_battle_sprite, stelli_battle_sprite,
+                                                                 chorizon_phase)
 
                                 # combat event function that handles and returns damage and health
                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
@@ -9981,13 +9999,11 @@ if __name__ == "__main__":
                                             mini_boss_1 = False
                                             mini_boss_1_defeated = True
                                             chorizon_1.kill()
-                                            chorizon_reset = False
                                             chorizon_phase = False
                                         if current_enemy_battling.name == "chorizon_2":
                                             mini_boss_2 = False
                                             mini_boss_2_defeated = True
                                             chorizon_2.kill()
-                                            chorizon_reset = False
                                             chorizon_phase = False
                                         if current_enemy_battling.name == "muchador":
                                             muchador_defeated = True
@@ -10049,7 +10065,7 @@ if __name__ == "__main__":
                                                                                   in_battle, in_npc_interaction,
                                                                                   graphic_dict, necrola_battle_sprite,
                                                                                   osodark_battle_sprite,
-                                                                                  stelli_battle_sprite)
+                                                                                  stelli_battle_sprite, chorizon_phase)
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                                 "attack", player,
@@ -10113,7 +10129,7 @@ if __name__ == "__main__":
                                                                                   in_battle, in_npc_interaction,
                                                                                   graphic_dict, necrola_battle_sprite,
                                                                                   osodark_battle_sprite,
-                                                                                  stelli_battle_sprite)
+                                                                                  stelli_battle_sprite, chorizon_phase)
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                                 "attack", player,
@@ -10164,7 +10180,7 @@ if __name__ == "__main__":
                                                                     muchador_battle_sprite, magmon_battle_sprite,
                                                                     bandile_battle_sprite, chinzilla_battle_sprite,
                                                                     sharp_sense_active, barrier_active,
-                                                                    stelli_battle_sprite)
+                                                                    stelli_battle_sprite, chorizon_phase)
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                             "skill 1", player,
                                                                                             hard_strike_learned,
@@ -10201,13 +10217,11 @@ if __name__ == "__main__":
                                                     mini_boss_1 = False
                                                     mini_boss_1_defeated = True
                                                     chorizon_1.kill()
-                                                    chorizon_reset = False
                                                     chorizon_phase = False
                                                 if current_enemy_battling.name == "chorizon_2":
                                                     mini_boss_2 = False
                                                     mini_boss_2_defeated = True
                                                     chorizon_2.kill()
-                                                    chorizon_reset = False
                                                     chorizon_phase = False
                                                 if current_enemy_battling.name == "muchador":
                                                     muchador_defeated = True
@@ -10370,7 +10384,7 @@ if __name__ == "__main__":
                                                           chinzilla_battle_sprite, barrier_active,
                                                           sharp_sense_active, in_battle, in_npc_interaction,
                                                           graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                                          stelli_battle_sprite)
+                                                          stelli_battle_sprite, chorizon_phase)
                         kasper_battle_sprite.update(825, 520, graphic_dict["kasper_battle"])
                         torok_battle_sprite.update(825, 520, graphic_dict["torok_battle"])
                         iriana_battle_sprite.update(825, 520, graphic_dict["iriana_battle"])
@@ -10512,32 +10526,6 @@ if __name__ == "__main__":
                                 else:
                                     game_window.blit(button_highlight.surf, button_highlight.rect)
 
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            if chorizon_phase and not chorizon_reset:
-                                chorizon_battle_sprite.update(chorizon_battle_sprite.x_coordinate,
-                                                              chorizon_battle_sprite.y_coordinate,
-                                                              graphic_dict["chorizon_phase"])
-                                screen.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
-
-                            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
-                            game_window.blit(frame, frame.get_rect())
-                            pygame.display.flip()
-                            if chorizon_phase and not chorizon_reset:
-                                pygame.time.wait(1500)
-                                chorizon_reset = True
-                        else:
-                            if current_enemy_battling.kind == "chorizon":
-                                if chorizon_phase and not chorizon_reset:
-                                    chorizon_battle_sprite.update(chorizon_battle_sprite.x_coordinate,
-                                                                  chorizon_battle_sprite.y_coordinate,
-                                                                  graphic_dict["chorizon_phase"])
-                                    game_window.blit(chorizon_battle_sprite.surf, chorizon_battle_sprite.rect)
-                                    pygame.display.flip()
-                                    pygame.time.wait(1500)
-                                    chorizon_reset = True
-                            else:
-                                pygame.display.flip()
-
                         combat_cooldown = False
 
                     # combat happened this turn, update sprites for attack and apply short cooldown to attack again
@@ -10574,7 +10562,7 @@ if __name__ == "__main__":
                                                          chinzilla_battle_sprite, barrier_active,
                                                          sharp_sense_active, hard_strike, graphic_dict, turn_taken,
                                                          necrola_battle_sprite, osodark_battle_sprite,
-                                                         stelli_battle_sprite)
+                                                         stelli_battle_sprite, chorizon_phase)
                         if not turn_taken:
                             if kasper_unlocked or torok_unlocked or iriana_unlocked:
                                 for pet in player.pet:
@@ -14112,7 +14100,8 @@ if __name__ == "__main__":
                                                               chinzilla_battle_sprite, barrier_active,
                                                               sharp_sense_active, in_battle, in_npc_interaction,
                                                               graphic_dict, necrola_battle_sprite,
-                                                              osodark_battle_sprite, stelli_battle_sprite)
+                                                              osodark_battle_sprite, stelli_battle_sprite,
+                                                              chorizon_phase)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
@@ -14193,7 +14182,8 @@ if __name__ == "__main__":
                                                               chinzilla_battle_sprite, barrier_active,
                                                               sharp_sense_active, in_battle, in_npc_interaction,
                                                               graphic_dict, necrola_battle_sprite,
-                                                              osodark_battle_sprite, stelli_battle_sprite)
+                                                              osodark_battle_sprite, stelli_battle_sprite,
+                                                              chorizon_phase)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
                             game_window.blit(hp_bar.surf, hp_bar.rect)
                             game_window.blit(en_bar.surf, en_bar.rect)

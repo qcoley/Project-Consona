@@ -160,7 +160,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
                                               graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite)
+                                              stelli_battle_sprite, chorizon_phase=False)
 
     # if player collides with npc sprite and chooses to interact with it
     npc = pygame.sprite.spritecollideany(player, npcs, pygame.sprite.collide_rect_ratio(0.75))
@@ -191,7 +191,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                               magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                               barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
                                               graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite)
+                                              stelli_battle_sprite, chorizon_phase=False)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, nuldar_buildings, pygame.sprite.collide_rect_ratio(0.75))
