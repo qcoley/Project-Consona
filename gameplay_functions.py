@@ -1042,6 +1042,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["bridge not repaired"] = player_load_info["bridge not repaired"]
             load_return["nede ghoul defeated"] = player_load_info["nede ghoul defeated"]
             load_return["bridge_cutscenes_not_viewed"] = player_load_info["bridge_cutscenes_not_viewed"]
+            load_return["dreth_cutscenes_not_viewed"] = player_load_info["dreth_cutscenes_not_viewed"]
             load_return["crate_1"] = player_load_info["crate_1"]
             load_return["crate_2"] = player_load_info["crate_2"]
             load_return["crate_3"] = player_load_info["crate_3"]
@@ -1094,7 +1095,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned,
               rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
               seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
-              rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count):
+              rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count, dreth_cutscenes):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1144,6 +1145,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "rest shown before": rest_shown_before, "quest highlight popup": quest_highlight_popup,
                         "bridge not repaired": bridge_not_repaired, "nede ghoul defeated": nede_ghoul_defeated,
                         "bridge_cutscenes_not_viewed": bridge_cutscenes_not_viewed,
+                        "dreth_cutscenes_not_viewed": dreth_cutscenes,
                         "crate_1": crate_1, "crate_2": crate_2, "crate_3": crate_3, "crate_4": crate_4,
                         "crate_5": crate_5, "switch_1": switch_1, "switch_2": switch_2, "switch_3": switch_3,
                         "muchador_defeated": muchador_defeated, "has_key": has_key,
@@ -1260,26 +1262,26 @@ def attack_enemy(player, mob, sharp_sense_active):
         if player.offense == 0:
             damage = 7
         if player.offense == 1:
-            damage = 8
-        if player.offense == 2:
             damage = 9
-        if player.offense == 3:
-            damage = 10
-        if player.offense == 4:
+        if player.offense == 2:
             damage = 11
+        if player.offense == 3:
+            damage = 14
+        if player.offense == 4:
+            damage = 17
     else:
         attack_dict["critical"] = False
         # base damage
         if player.offense == 0:
             damage = 5
         if player.offense == 1:
-            damage = 6
-        if player.offense == 2:
             damage = 7
-        if player.offense == 3:
-            damage = 8
-        if player.offense == 4:
+        if player.offense == 2:
             damage = 9
+        if player.offense == 3:
+            damage = 11
+        if player.offense == 4:
+            damage = 15
 
     # increase or decrease damage based on type advantage/disadvantage
     if player.role == "mage":

@@ -17,7 +17,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, rock_7,
                 rock_7_con, chinzilla_defeated, eldream_gate_rect, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_rupee, stelli_battle_sprite, apothis_music, scene_1, scene_2, scene_3,
-                scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window):
+                scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
+                dreth_cutscenes_not_viewed, dreth_0):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -179,10 +180,16 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 player.y_coordinate = 175
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
-                cutscene_tic = time.perf_counter()
-                cutscenes.cutscenes_apothis_dreth(pygame, apothis_music, screen, scene_1, scene_2, scene_3, scene_4,
-                                                  scene_5, scene_6, scene_7, scene_8, cutscene_tic, skip_button,
-                                                  SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                if dreth_cutscenes_not_viewed:
+                    pygame.mixer.music.fadeout(50)
+                    cutscene_tic = time.perf_counter()
+                    screen.blit(dreth_0, (0, 0))
+                    pygame.display.flip()
+                    pygame.time.wait(2000)
+                    cutscenes.cutscenes_apothis_dreth(pygame, apothis_music, screen, scene_1, scene_2, scene_3, scene_4,
+                                                      scene_5, scene_6, scene_7, scene_8, cutscene_tic, skip_button,
+                                                      SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                    dreth_cutscenes_not_viewed = False
             else:
                 interacted = False
                 info_text_1 = "The gate appears to be shut."
@@ -246,6 +253,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                     "interacted": interacted, "in_over_world": in_over_world, "in_battle": in_battle,
                     "in_npc_interaction": in_npc_interaction, "movement_able": movement_able,
                     "current_enemy_battling": current_enemy_battling,
-                    "current_npc_interacting": current_npc_interacting, "rock_7_con": rock_7_con}
+                    "current_npc_interacting": current_npc_interacting, "rock_7_con": rock_7_con,
+                    "dreth_cutscenes_not_viewed": dreth_cutscenes_not_viewed}
 
     return trail_return

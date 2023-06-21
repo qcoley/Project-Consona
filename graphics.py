@@ -176,6 +176,7 @@ def load_graphics():
     apothis_scene_5 = pygame.image.load(resource_path('resources/art/cutscene_apothis_5.png')).convert_alpha()
     apothis_scene_6 = pygame.image.load(resource_path('resources/art/cutscene_apothis_6.png')).convert_alpha()
 
+    dreth_scene_0 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_0.png')).convert_alpha()
     dreth_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_1.png')).convert_alpha()
     dreth_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_2.png')).convert_alpha()
     dreth_scene_3 = pygame.image.load(resource_path('resources/art/cutscene_apothis_dreth_3.png')).convert_alpha()
@@ -292,6 +293,7 @@ def load_graphics():
     loaded_dict["apothis_4"] = apothis_scene_4
     loaded_dict["apothis_5"] = apothis_scene_5
     loaded_dict["apothis_6"] = apothis_scene_6
+    loaded_dict["dreth_0"] = dreth_scene_0
     loaded_dict["dreth_1"] = dreth_scene_1
     loaded_dict["dreth_2"] = dreth_scene_2
     loaded_dict["dreth_3"] = dreth_scene_3

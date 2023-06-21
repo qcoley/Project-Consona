@@ -4000,7 +4000,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
         if player.role == "fighter":
             if hard_strike_learned:
                 if enemy_combating.alive_status:
-                    striked = random.randrange(15, 20)  # hard strike damage
+                    striked = random.randrange(15, 30)  # hard strike damage
                     enemy_combating.health = enemy_combating.health - striked
                     enemy_health_bar(enemy_combating, graphics)
                     if enemy_combating.health > 0:

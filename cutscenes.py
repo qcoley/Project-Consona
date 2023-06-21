@@ -125,7 +125,6 @@ def cutscenes_apothis_dreth(pygame, music, screen, scene_1, scene_2, scene_3, sc
     seventh_viewed = False
     eighth_viewed = False
 
-    pygame.mixer.music.fadeout(50)
     pygame.mixer.music.load(music)
     pygame.mixer.music.play(loops=-1)
 

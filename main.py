@@ -5805,6 +5805,7 @@ if __name__ == "__main__":
     apothis_scene_5 = graphic_dict["apothis_5"]
     apothis_scene_6 = graphic_dict["apothis_6"]
 
+    dreth_scene_0 = graphic_dict["dreth_0"]
     dreth_scene_1 = graphic_dict["dreth_1"]
     dreth_scene_2 = graphic_dict["dreth_2"]
     dreth_scene_3 = graphic_dict["dreth_3"]
@@ -6519,6 +6520,7 @@ if __name__ == "__main__":
     seldon_building_music = resource_path("resources/sounds/eterna_building.mp3")
     stardust_outpost_music = resource_path("resources/sounds/eterna_stardust.mp3")
     apothis_intro_music = resource_path("resources/sounds/eterna_apothis.mp3")
+    apothis_dreth_music = resource_path("resources/sounds/eterna_apothis_2.mp3")
     rohir_river_music = resource_path("resources/sounds/eterna_rohir.mp3")
     reservoir_music = resource_path("resources/sounds/eterna_dungeon.mp3")
     korlok_overworld_music = resource_path("resources/sounds/eterna_korlok.mp3")
@@ -6538,11 +6540,11 @@ if __name__ == "__main__":
     sfx_mage_attack = pygame.mixer.Sound(resource_path("resources/sounds/mage_attack.mp3"))
     sfx_mage_attack.set_volume(0.18)
     sfx_mage_barrier = pygame.mixer.Sound(resource_path("resources/sounds/mage_barrier.mp3"))
-    sfx_mage_barrier.set_volume(0.45)
+    sfx_mage_barrier.set_volume(0.50)
     sfx_fighter_attack = pygame.mixer.Sound(resource_path("resources/sounds/fighter_attack.mp3"))
     sfx_fighter_attack.set_volume(0.30)
     sfx_fighter_strike = pygame.mixer.Sound(resource_path("resources/sounds/fighter_strike.mp3"))
-    sfx_fighter_strike.set_volume(0.40)
+    sfx_fighter_strike.set_volume(0.45)
     sfx_scout_attack = pygame.mixer.Sound(resource_path("resources/sounds/scout_attack.mp3"))
     sfx_scout_attack.set_volume(0.50)
     sfx_scout_sense = pygame.mixer.Sound(resource_path("resources/sounds/scout_sense.mp3"))
@@ -7350,6 +7352,7 @@ if __name__ == "__main__":
                     bridge_not_repaired = load_returned["bridge not repaired"]
                     nede_ghoul_defeated = load_returned["nede ghoul defeated"]
                     bridge_cutscenes_not_viewed = load_returned["bridge_cutscenes_not_viewed"]
+                    dreth_cutscenes_not_viewed = load_returned["dreth_cutscenes_not_viewed"]
                     crate_1 = load_returned["crate_1"]
                     crate_2 = load_returned["crate_2"]
                     crate_3 = load_returned["crate_3"]
@@ -7895,7 +7898,7 @@ if __name__ == "__main__":
                                                                  menagerie_access, kasper_unlocked, torok_unlocked,
                                                                  iriana_unlocked, rock_8_con, rock_3_con,
                                                                  seed_scout_count, seed_fighter_count,
-                                                                 seed_mage_count)
+                                                                 seed_mage_count, dreth_cutscenes_not_viewed)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -7920,7 +7923,8 @@ if __name__ == "__main__":
                                                              beyond_seldon, seed_given, hatch_ready, menagerie_access,
                                                              kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                              rock_8_con, rock_3_con, seed_scout_count,
-                                                             seed_fighter_count, seed_mage_count)
+                                                             seed_fighter_count, seed_mage_count,
+                                                             dreth_cutscenes_not_viewed)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -9222,11 +9226,12 @@ if __name__ == "__main__":
                                                                       rock_7_con, chinzilla_defeated, eldream_gate_rect,
                                                                       pet_energy_window, necrola_battle_sprite,
                                                                       osodark_battle_sprite, sfx_item_rupee,
-                                                                      stelli_battle_sprite, apothis_intro_music,
+                                                                      stelli_battle_sprite, apothis_dreth_music,
                                                                       dreth_scene_1, dreth_scene_2, dreth_scene_3,
                                                                       dreth_scene_4, dreth_scene_5, dreth_scene_6,
                                                                       dreth_scene_7, dreth_scene_8, skip_button,
-                                                                      SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
+                                                                      dreth_cutscenes_not_viewed, dreth_scene_0)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -9253,11 +9258,12 @@ if __name__ == "__main__":
                                                                       rock_7_con, chinzilla_defeated, eldream_gate_rect,
                                                                       pet_energy_window, necrola_battle_sprite,
                                                                       osodark_battle_sprite, sfx_item_rupee,
-                                                                      stelli_battle_sprite, apothis_intro_music,
+                                                                      stelli_battle_sprite, apothis_dreth_music,
                                                                       dreth_scene_1, dreth_scene_2, dreth_scene_3,
                                                                       dreth_scene_4, dreth_scene_5, dreth_scene_6,
                                                                       dreth_scene_7, dreth_scene_8, skip_button,
-                                                                      SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                                                                      SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
+                                                                      dreth_cutscenes_not_viewed, dreth_scene_0)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -9273,6 +9279,7 @@ if __name__ == "__main__":
                     info_text_3 = trail_returned["info_text_3"]
                     info_text_4 = trail_returned["info_text_4"]
                     rock_7_con = trail_returned["rock_7_con"]
+                    dreth_cutscenes_not_viewed = trail_returned["dreth_cutscenes_not_viewed"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
@@ -12350,33 +12357,33 @@ if __name__ == "__main__":
                                         eldream_flower_counter -= 1
 
                             if create_potion_button.rect.collidepoint(pos):
-                                if seldon_flower_counter >= 5 > eldream_flower_counter:
-                                    if player.flowers_amuna >= 5:
+                                if seldon_flower_counter >= 3 > eldream_flower_counter:
+                                    if player.flowers_amuna >= 3:
                                         pygame.mixer.find_channel(True).play(sfx_item_potion)
-                                        player.flowers_amuna -= 5
+                                        player.flowers_amuna -= 3
                                         player.items.append(Item("big health potion",
                                                                  "potion", 200, 200, graphic_dict["health_pot_img"], 0))
                                     else:
-                                        info_text_1 = "You need 5 seldon flowers."
+                                        info_text_1 = "You need 3 seldon flowers."
                                         info_text_2 = ""
-                                elif seldon_flower_counter < 5 <= eldream_flower_counter:
-                                    if player.flowers_sorae >= 5:
+                                elif seldon_flower_counter < 3 <= eldream_flower_counter:
+                                    if player.flowers_sorae >= 3:
                                         pygame.mixer.find_channel(True).play(sfx_item_potion)
-                                        player.flowers_sorae -= 5
+                                        player.flowers_sorae -= 3
                                         player.items.append(Item("big energy potion",
                                                                  "potion", 200, 200, graphic_dict["energy_pot_img"], 0))
                                     else:
-                                        info_text_1 = "You need 5 eldream flowers."
+                                        info_text_1 = "You need 3 eldream flowers."
                                         info_text_2 = ""
-                                elif seldon_flower_counter >= 5 <= eldream_flower_counter:
-                                    if player.flowers_amuna >= 5 and player.flowers_sorae >= 5:
+                                elif seldon_flower_counter >= 3 <= eldream_flower_counter:
+                                    if player.flowers_amuna >= 3 and player.flowers_sorae >= 3:
                                         pygame.mixer.find_channel(True).play(sfx_item_potion)
-                                        player.flowers_amuna -= 5
-                                        player.flowers_sorae -= 5
+                                        player.flowers_amuna -= 3
+                                        player.flowers_sorae -= 3
                                         player.items.append(Item("super potion",
                                                                  "potion", 200, 200, graphic_dict["super_pot_img"], 0))
                                     else:
-                                        info_text_1 = "You need 5 seldon + eldream flowers."
+                                        info_text_1 = "You need 3 seldon + 3 eldream flowers."
                                         info_text_2 = ""
                                 else:
                                     info_text_1 = "Add some flowers to the potion."
@@ -12464,7 +12471,7 @@ if __name__ == "__main__":
                                                                  menagerie_access, kasper_unlocked, torok_unlocked,
                                                                  iriana_unlocked, rock_8_con, rock_3_con,
                                                                  seed_scout_count, seed_fighter_count,
-                                                                 seed_mage_count)
+                                                                 seed_mage_count, dreth_cutscenes_not_viewed)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -12649,11 +12656,11 @@ if __name__ == "__main__":
                                     eldream_flowers_surf_rect.midleft = (440, 280)
                                     screen.blit(eldream_flowers_surf, eldream_flowers_surf_rect)
 
-                                    if seldon_flower_counter >= 5 > eldream_flower_counter:
+                                    if seldon_flower_counter >= 3 > eldream_flower_counter:
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_health_potion"])
-                                    elif seldon_flower_counter < 5 <= eldream_flower_counter:
+                                    elif seldon_flower_counter < 3 <= eldream_flower_counter:
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_energy_potion"])
-                                    elif seldon_flower_counter >= 5 <= eldream_flower_counter:
+                                    elif seldon_flower_counter >= 3 <= eldream_flower_counter:
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_rejuv_potion"])
                                     else:
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
@@ -12680,11 +12687,11 @@ if __name__ == "__main__":
                                     eldream_flowers_surf_rect.midleft = (440, 280)
                                     game_window.blit(eldream_flowers_surf, eldream_flowers_surf_rect)
 
-                                    if seldon_flower_counter >= 5 > eldream_flower_counter:
+                                    if seldon_flower_counter >= 3 > eldream_flower_counter:
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_health_potion"])
-                                    elif seldon_flower_counter < 5 <= eldream_flower_counter:
+                                    elif seldon_flower_counter < 3 <= eldream_flower_counter:
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_energy_potion"])
-                                    elif seldon_flower_counter >= 5 <= eldream_flower_counter:
+                                    elif seldon_flower_counter >= 3 <= eldream_flower_counter:
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_rejuv_potion"])
                                     else:
                                         potion_mix_overlay.update(150, 478, graphic_dict["apothecary_empty_potion"])
@@ -13067,7 +13074,7 @@ if __name__ == "__main__":
                                                                  menagerie_access, kasper_unlocked, torok_unlocked,
                                                                  iriana_unlocked, rock_8_con, rock_3_con,
                                                                  seed_scout_count, seed_fighter_count,
-                                                                 seed_mage_count)
+                                                                 seed_mage_count, dreth_cutscenes_not_viewed)
 
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -13461,7 +13468,7 @@ if __name__ == "__main__":
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
                                                                      iriana_unlocked, rock_8_con, rock_3_con,
                                                                      seed_scout_count, seed_fighter_count,
-                                                                     seed_mage_count)
+                                                                     seed_mage_count, dreth_cutscenes_not_viewed)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -13654,7 +13661,7 @@ if __name__ == "__main__":
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
                                                                      iriana_unlocked, rock_8_con, rock_3_con,
                                                                      seed_scout_count, seed_fighter_count,
-                                                                     seed_mage_count)
+                                                                     seed_mage_count, dreth_cutscenes_not_viewed)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -13847,7 +13854,7 @@ if __name__ == "__main__":
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
                                                                      iriana_unlocked, rock_8_con, rock_3_con,
                                                                      seed_scout_count, seed_fighter_count,
-                                                                     seed_mage_count)
+                                                                     seed_mage_count, dreth_cutscenes_not_viewed)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
