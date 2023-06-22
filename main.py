@@ -6159,9 +6159,13 @@ if __name__ == "__main__":
     mage_attack_button = UiElement("mage attack button", 750, 642, graphic_dict["mage_attack_button_img"])
     fighter_attack_button = UiElement("fighter attack button", 750, 642, graphic_dict["fighter_attack_button_img"])
     scout_attack_button = UiElement("scout attack button", 750, 642, graphic_dict["scout_attack_button_img"])
-    barrier_button = UiElement("barrier button", 820, 642, graphic_dict["barrier_button_img"])
-    hard_strike_button = UiElement("hard strike button", 820, 642, graphic_dict["strike_button_img"])
-    sharp_sense_button = UiElement("sharp sense button", 820, 642, graphic_dict["sense_button_img"])
+    barrier_button = UiElement("barrier button", 820, 641, graphic_dict["barrier_button_img"])
+    hard_strike_button = UiElement("hard strike button", 820, 641, graphic_dict["strike_button_img"])
+    sharp_sense_button = UiElement("sharp sense button", 820, 641, graphic_dict["sense_button_img"])
+
+    mirror_button = UiElement("mirror button", 890, 641, graphic_dict["mirror_button_img"])
+    stun_button = UiElement("stun button", 890, 641, graphic_dict["stun_button_img"])
+    vanish_button = UiElement("vanish button", 890, 641, graphic_dict["vanish_button_img"])
 
     type_advantage_overlay = UiElement("type advantage overlay", 580, 48, graphic_dict["mage_type_overlay"])
     type_advantage_mini = UiElement("type advantage mini", 960, 58, graphic_dict["type advantages"])
@@ -7332,169 +7336,172 @@ if __name__ == "__main__":
         # continue game selected on start screen. try to load player info from save_game file --------------------------
         if continue_game_chosen:
             try:
-                load_returned = gameplay_functions.load_game(player, Item, graphic_dict, Pet)
                 try:
-                    if load_returned["not found"]:
-                        save_data_window.append(save_absent)
-                    continue_game_chosen = load_returned["continue"]
-                    barrier_learned = load_returned["barrier learned"]
-                    hard_strike_learned = load_returned["strike learned"]
-                    sharp_sense_learned = load_returned["sense learned"]
-                    saved = load_returned["saved"]
-                    start_chosen = load_returned["start"]
-                    npc_garan.gift = load_returned["garan gift"]
-                    rest_recover_show = load_returned["rest popup"]
-                    knowledge_academia_show = load_returned["knowledge popup"]
-                    quest_guide_shown = load_returned["quest guide"]
-                    battle_guide_shown = load_returned["battle guide"]
-                    rest_shown_before = load_returned["rest shown before"]
-                    quest_highlight_popup = load_returned["quest highlight popup"]
-                    bridge_not_repaired = load_returned["bridge not repaired"]
-                    nede_ghoul_defeated = load_returned["nede ghoul defeated"]
-                    bridge_cutscenes_not_viewed = load_returned["bridge_cutscenes_not_viewed"]
-                    dreth_cutscenes_not_viewed = load_returned["dreth_cutscenes_not_viewed"]
-                    crate_1 = load_returned["crate_1"]
-                    crate_2 = load_returned["crate_2"]
-                    crate_3 = load_returned["crate_3"]
-                    crate_4 = load_returned["crate_4"]
-                    crate_5 = load_returned["crate_5"]
-                    switch_1 = load_returned["switch_1"]
-                    switch_2 = load_returned["switch_2"]
-                    switch_3 = load_returned["switch_3"]
-                    rock_3_con = load_returned["rock_3_con"]
-                    rock_4_con = load_returned["rock_4_con"]
-                    rock_5_con = load_returned["rock_5_con"]
-                    rock_6_con = load_returned["rock_6_con"]
-                    rock_7_con = load_returned["rock_7_con"]
-                    rock_8_con = load_returned["rock_8_con"]
-                    muchador_defeated = load_returned["muchador_defeated"]
-                    chinzilla_defeated = load_returned["chinzilla_defeated"]
-                    has_key = load_returned["has_key"]
-                    gloves_obtained = load_returned["gloves_obtained"]
-                    korlok_attuned = load_returned["korlok_attuned"]
-                    eldream_attuned = load_returned["eldream_attuned"]
-                    apothecary_access = load_returned["apothecary_access"]
-                    beyond_seldon = load_returned["beyond seldon"]
-                    seed_given = load_returned["seed given"]
-                    hatch_ready = load_returned["hatch ready"]
-                    menagerie_access = load_returned["menagerie access"]
-                    kasper_unlocked = load_returned["kasper unlocked"]
-                    torok_unlocked = load_returned["torok unlocked"]
-                    iriana_unlocked = load_returned["iriana unlocked"]
-                    seed_mage_count = load_returned["seed mage"]
-                    seed_fighter_count = load_returned["seed fighter"]
-                    seed_scout_count = load_returned["seed scout"]
+                    load_returned = gameplay_functions.load_game(player, Item, graphic_dict, Pet)
+                    try:
+                        if load_returned["not found"]:
+                            save_data_window.append(save_absent)
+                        continue_game_chosen = load_returned["continue"]
+                        barrier_learned = load_returned["barrier learned"]
+                        hard_strike_learned = load_returned["strike learned"]
+                        sharp_sense_learned = load_returned["sense learned"]
+                        saved = load_returned["saved"]
+                        start_chosen = load_returned["start"]
+                        npc_garan.gift = load_returned["garan gift"]
+                        rest_recover_show = load_returned["rest popup"]
+                        knowledge_academia_show = load_returned["knowledge popup"]
+                        quest_guide_shown = load_returned["quest guide"]
+                        battle_guide_shown = load_returned["battle guide"]
+                        rest_shown_before = load_returned["rest shown before"]
+                        quest_highlight_popup = load_returned["quest highlight popup"]
+                        bridge_not_repaired = load_returned["bridge not repaired"]
+                        nede_ghoul_defeated = load_returned["nede ghoul defeated"]
+                        bridge_cutscenes_not_viewed = load_returned["bridge_cutscenes_not_viewed"]
+                        dreth_cutscenes_not_viewed = load_returned["dreth_cutscenes_not_viewed"]
+                        crate_1 = load_returned["crate_1"]
+                        crate_2 = load_returned["crate_2"]
+                        crate_3 = load_returned["crate_3"]
+                        crate_4 = load_returned["crate_4"]
+                        crate_5 = load_returned["crate_5"]
+                        switch_1 = load_returned["switch_1"]
+                        switch_2 = load_returned["switch_2"]
+                        switch_3 = load_returned["switch_3"]
+                        rock_3_con = load_returned["rock_3_con"]
+                        rock_4_con = load_returned["rock_4_con"]
+                        rock_5_con = load_returned["rock_5_con"]
+                        rock_6_con = load_returned["rock_6_con"]
+                        rock_7_con = load_returned["rock_7_con"]
+                        rock_8_con = load_returned["rock_8_con"]
+                        muchador_defeated = load_returned["muchador_defeated"]
+                        chinzilla_defeated = load_returned["chinzilla_defeated"]
+                        has_key = load_returned["has_key"]
+                        gloves_obtained = load_returned["gloves_obtained"]
+                        korlok_attuned = load_returned["korlok_attuned"]
+                        eldream_attuned = load_returned["eldream_attuned"]
+                        apothecary_access = load_returned["apothecary_access"]
+                        beyond_seldon = load_returned["beyond seldon"]
+                        seed_given = load_returned["seed given"]
+                        hatch_ready = load_returned["hatch ready"]
+                        menagerie_access = load_returned["menagerie access"]
+                        kasper_unlocked = load_returned["kasper unlocked"]
+                        torok_unlocked = load_returned["torok unlocked"]
+                        iriana_unlocked = load_returned["iriana unlocked"]
+                        seed_mage_count = load_returned["seed mage"]
+                        seed_fighter_count = load_returned["seed fighter"]
+                        seed_scout_count = load_returned["seed scout"]
 
-                    if player.race == "amuna":
-                        player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
-                                             player.equipment, player.current_quests, player.quest_progress,
-                                             player.quest_status, player.quest_complete, player.knowledge,
-                                             player.skills_mage, player.skills_fighter, player.skills_scout,
-                                             player.level, player.experience, player.health, player.energy,
-                                             player.alive_status, player.rupees, player.reputation, player.current_zone,
-                                             player.defense, player.offense, player.star_power, player.flowers_amuna,
-                                             player.flowers_sorae, player.pet)
-                        if player.gender == "male":
-                            player.surf = graphic_dict["player_no_role_amuna_male_down_1"]
-                        if player.gender == "female":
-                            player.surf = graphic_dict["player_no_role_amuna_female_down_1"]
+                        if player.race == "amuna":
+                            player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
+                                                 player.equipment, player.current_quests, player.quest_progress,
+                                                 player.quest_status, player.quest_complete, player.knowledge,
+                                                 player.skills_mage, player.skills_fighter, player.skills_scout,
+                                                 player.level, player.experience, player.health, player.energy,
+                                                 player.alive_status, player.rupees, player.reputation, player.current_zone,
+                                                 player.defense, player.offense, player.star_power, player.flowers_amuna,
+                                                 player.flowers_sorae, player.pet)
+                            if player.gender == "male":
+                                player.surf = graphic_dict["player_no_role_amuna_male_down_1"]
+                            if player.gender == "female":
+                                player.surf = graphic_dict["player_no_role_amuna_female_down_1"]
 
-                    if player.race == "nuldar":
-                        player = PlayerNuldar(player.name, player.race, player.gender, player.role, player.items,
-                                              player.equipment, player.current_quests, player.quest_progress,
-                                              player.quest_status, player.quest_complete, player.knowledge,
-                                              player.skills_mage, player.skills_fighter, player.skills_scout,
-                                              player.level, player.experience, player.health, player.energy,
-                                              player.alive_status, player.rupees, player.reputation,
-                                              player.current_zone, player.defense, player.offense, player.star_power,
-                                              player.flowers_amuna, player.flowers_sorae, player.pet)
-                        if player.gender == "male":
-                            player.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
-                        if player.gender == "female":
-                            player.surf = graphic_dict["player_no_role_nuldar_female_down_1"]
+                        if player.race == "nuldar":
+                            player = PlayerNuldar(player.name, player.race, player.gender, player.role, player.items,
+                                                  player.equipment, player.current_quests, player.quest_progress,
+                                                  player.quest_status, player.quest_complete, player.knowledge,
+                                                  player.skills_mage, player.skills_fighter, player.skills_scout,
+                                                  player.level, player.experience, player.health, player.energy,
+                                                  player.alive_status, player.rupees, player.reputation,
+                                                  player.current_zone, player.defense, player.offense, player.star_power,
+                                                  player.flowers_amuna, player.flowers_sorae, player.pet)
+                            if player.gender == "male":
+                                player.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
+                            if player.gender == "female":
+                                player.surf = graphic_dict["player_no_role_nuldar_female_down_1"]
 
-                    if player.race == "sorae":
-                        player = PlayerSorae(player.name, player.race, player.gender, player.role, player.items,
-                                             player.equipment, player.current_quests, player.quest_progress,
-                                             player.quest_status, player.quest_complete, player.knowledge,
-                                             player.skills_mage, player.skills_fighter, player.skills_scout,
-                                             player.level, player.experience, player.health, player.energy,
-                                             player.alive_status, player.rupees, player.reputation, player.current_zone,
-                                             player.defense, player.offense, player.star_power, player.flowers_amuna,
-                                             player.flowers_sorae, player.pet)
-                        if player.gender == "male":
-                            player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
-                        if player.gender == "female":
-                            player.surf = graphic_dict["player_no_role_sorae_b_down_1"]
+                        if player.race == "sorae":
+                            player = PlayerSorae(player.name, player.race, player.gender, player.role, player.items,
+                                                 player.equipment, player.current_quests, player.quest_progress,
+                                                 player.quest_status, player.quest_complete, player.knowledge,
+                                                 player.skills_mage, player.skills_fighter, player.skills_scout,
+                                                 player.level, player.experience, player.health, player.energy,
+                                                 player.alive_status, player.rupees, player.reputation, player.current_zone,
+                                                 player.defense, player.offense, player.star_power, player.flowers_amuna,
+                                                 player.flowers_sorae, player.pet)
+                            if player.gender == "male":
+                                player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
+                            if player.gender == "female":
+                                player.surf = graphic_dict["player_no_role_sorae_b_down_1"]
 
-                    if player.quest_progress["where's nede?"] == 1:
-                        nede.update(809, 390, graphic_dict["nede_left"])
+                        if player.quest_progress["where's nede?"] == 1:
+                            nede.update(809, 390, graphic_dict["nede_left"])
 
-                    if player.current_zone == "seldon":
-                        player.x_coordinate = 860
-                        player.y_coordinate = 655
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "stardust":
-                        player.x_coordinate = 925
-                        player.y_coordinate = 275
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "korlok":
-                        player.x_coordinate = 882
-                        player.y_coordinate = 290
-                        hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "mines":
-                        player.x_coordinate = 815
-                        player.y_coordinate = 600
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "rohir":
-                        player.x_coordinate = 900
-                        player.y_coordinate = 400
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "reservoir a":
-                        player.x_coordinate = 525
-                        player.y_coordinate = 650
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "reservoir b":
-                        player.x_coordinate = 880
-                        player.y_coordinate = 560
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                        dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
-                    if player.current_zone == "reservoir c":
-                        player.x_coordinate = 900
-                        player.y_coordinate = 545
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "terra trail":
-                        player.x_coordinate = 150
-                        player.y_coordinate = 150
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "eldream":
-                        player.x_coordinate = 255
-                        player.y_coordinate = 175
-                        hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "ectrenos":
-                        player.x_coordinate = 500
-                        player.y_coordinate = 675
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "ectrenos left":
-                        player.x_coordinate = 850
-                        player.y_coordinate = 530
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "ectrenos right":
-                        player.x_coordinate = 210
-                        player.y_coordinate = 515
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                    if player.current_zone == "ectrenos alcove":
-                        player.x_coordinate = 425
-                        player.y_coordinate = 675
-                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                        chroma_bridge.update(764, 487, graphic_dict["chroma_bridge"])
+                        if player.current_zone == "seldon":
+                            player.x_coordinate = 860
+                            player.y_coordinate = 655
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "stardust":
+                            player.x_coordinate = 925
+                            player.y_coordinate = 275
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "korlok":
+                            player.x_coordinate = 882
+                            player.y_coordinate = 290
+                            hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "mines":
+                            player.x_coordinate = 815
+                            player.y_coordinate = 600
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "rohir":
+                            player.x_coordinate = 900
+                            player.y_coordinate = 400
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "reservoir a":
+                            player.x_coordinate = 525
+                            player.y_coordinate = 650
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "reservoir b":
+                            player.x_coordinate = 880
+                            player.y_coordinate = 560
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
+                        if player.current_zone == "reservoir c":
+                            player.x_coordinate = 900
+                            player.y_coordinate = 545
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "terra trail":
+                            player.x_coordinate = 150
+                            player.y_coordinate = 150
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "eldream":
+                            player.x_coordinate = 255
+                            player.y_coordinate = 175
+                            hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "ectrenos":
+                            player.x_coordinate = 500
+                            player.y_coordinate = 675
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "ectrenos left":
+                            player.x_coordinate = 850
+                            player.y_coordinate = 530
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "ectrenos right":
+                            player.x_coordinate = 210
+                            player.y_coordinate = 515
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "ectrenos alcove":
+                            player.x_coordinate = 425
+                            player.y_coordinate = 675
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                            chroma_bridge.update(764, 487, graphic_dict["chroma_bridge"])
 
-                except TypeError:
+                    except TypeError:
+                        pass
+                except KeyError:
                     pass
-            except KeyError:
-                pass
+            except FileNotFoundError:
+                continue_game_chosen = False
 
         # --------------------------------------------------------------------------------------------------------------
         # player has chosen to start game ------------------------------------------------------------------------------

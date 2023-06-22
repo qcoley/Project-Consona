@@ -4998,6 +4998,9 @@ def load_graphics():
     loaded_dict["barrier_button_img"] = skill_buttons_sheet[0]
     loaded_dict["strike_button_img"] = skill_buttons_sheet[1]
     loaded_dict["sense_button_img"] = skill_buttons_sheet[2]
+    loaded_dict["mirror_button_img"] = skill_buttons_sheet[3]
+    loaded_dict["stun_button_img"] = skill_buttons_sheet[4]
+    loaded_dict["vanish_button_img"] = skill_buttons_sheet[5]
     # function buttons -------------------------------------------------------------------------------------------------
     game_play_function_buttons_url = resource_path('resources/art/buttons_game_play_function.png')
     game_play_function_buttons_sheet = sprite_sheet((100, 25), game_play_function_buttons_url)

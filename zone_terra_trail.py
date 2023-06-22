@@ -183,7 +183,12 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 if dreth_cutscenes_not_viewed:
                     pygame.mixer.music.fadeout(50)
                     cutscene_tic = time.perf_counter()
-                    screen.blit(dreth_0, (0, 0))
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(dreth_0, (0, 0))
+                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+                        game_window.blit(frame, frame.get_rect())
+                    else:
+                        game_window.blit(dreth_0, (0, 0))
                     pygame.display.flip()
                     pygame.time.wait(2000)
                     cutscenes.cutscenes_apothis_dreth(pygame, apothis_music, screen, scene_1, scene_2, scene_3, scene_4,

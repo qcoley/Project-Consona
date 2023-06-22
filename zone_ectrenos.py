@@ -45,6 +45,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
         pass
     screen.blit(player.surf, player.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
+    screen.blit(ectrene.surf, ectrene.rect)
     try:
         for pet in player.pet:
             if pet.active:
@@ -107,7 +108,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                                                   magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                                                   barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
                                                   graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                                  stelli_battle_sprite)
+                                                  stelli_battle_sprite, chorizon_phase=False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
