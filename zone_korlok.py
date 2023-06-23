@@ -123,7 +123,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     except AttributeError:
         pass
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)
-    if len(drawing_functions.character_sheet_window) == 0:
+    if len(drawing_functions.character_sheet_window) == 0 and len(drawing_functions.game_guide_container) == 0 \
+            and len(drawing_functions.journal_window) == 0:
         screen.blit(top_1.surf, top_1.rect)
         screen.blit(top_2.surf, top_2.rect)
         screen.blit(top_3.surf, top_3.rect)

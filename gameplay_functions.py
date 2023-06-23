@@ -1014,6 +1014,9 @@ def load_game(player, Item, graphics, Pet):
             load_return["barrier learned"] = player_load_info["learned"]["barrier"]
             load_return["strike learned"] = player_load_info["learned"]["strike"]
             load_return["sense learned"] = player_load_info["learned"]["sense"]
+            load_return["mirror learned"] = player_load_info["learned"]["mirror"]
+            load_return["stun learned"] = player_load_info["learned"]["stun"]
+            load_return["vanish learned"] = player_load_info["learned"]["vanish"]
             player.rupees = player_load_info["rupees"]
             player.reputation = player_load_info["reputation"]
             player.current_zone = player_load_info["zone"]
@@ -1095,7 +1098,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               mini_boss_1_defeated, mini_boss_2_defeated, gloves_obtained, korlok_attuned, eldream_attuned,
               rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
               seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
-              rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count, dreth_cutscenes):
+              rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count, dreth_cutscenes,
+              mirror_learned, stun_learned, vanish_learned):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1136,7 +1140,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "mage skills": dict(player.skills_mage), "fighter skills": dict(player.skills_fighter),
                         "scout skills": dict(player.skills_scout),
                         "learned":
-                            {"barrier": barrier_learned, "strike": hard_strike_learned, "sense": sharp_sense_learned},
+                            {"barrier": barrier_learned, "strike": hard_strike_learned, "sense": sharp_sense_learned,
+                             "mirror": mirror_learned, "stun": stun_learned, "vanish": vanish_learned},
                         "rupees": int(player.rupees), "reputation": dict(player.reputation),
                         "zone": str(player.current_zone), "saved": saved,
                         "rest popup": rest_popup, "knowledge popup": knowledge_popup,

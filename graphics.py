@@ -4917,6 +4917,12 @@ def load_graphics():
     loaded_dict["mage_book_img"] = books_sheet[0]
     loaded_dict["fighter_book_img"] = books_sheet[1]
     loaded_dict["scout_book_img"] = books_sheet[2]
+    # books level 10 ---------------------------------------------------------------------------------------------------
+    books_url_10 = resource_path('resources/art/overlay_role_books_10+.png')
+    books_sheet_10 = sprite_sheet((700, 525), books_url_10)
+    loaded_dict["mage_book_img_10"] = books_sheet_10[0]
+    loaded_dict["fighter_book_img_10"] = books_sheet_10[1]
+    loaded_dict["scout_book_img_10"] = books_sheet_10[2]
     # buttons highlight ------------------------------------------------------------------------------------------------
     buttons_high_url = resource_path('resources/art/buttons_highlight.png')
     buttons_high_sheet = sprite_sheet((100, 65), buttons_high_url)

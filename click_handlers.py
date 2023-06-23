@@ -913,6 +913,13 @@ def skill_learn_event_item(skill_learn_event, skill_learn_items, pygame, SCREEN_
                 return skill_learn_element[0]
             if skill_learn_element[0].name == "sharp sense learn button":
                 return skill_learn_element[0]
+            if skill_learn_element[0].name == "mirror learn button":
+                return skill_learn_element[0]
+            if skill_learn_element[0].name == "stun learn button":
+                return skill_learn_element[0]
+            if skill_learn_element[0].name == "vanish learn button":
+                return skill_learn_element[0]
+
             if skill_learn_element[0].name == "close button":
                 return skill_learn_element[0]
         except IndexError:

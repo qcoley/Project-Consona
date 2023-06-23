@@ -618,16 +618,22 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         text_sorae_surf = font.render(str(player.reputation["sorae"]), True, "black", "light yellow")
         text_sorae_rect = text_sorae_surf.get_rect()
         text_sorae_rect.midleft = (935, 385)
-        text_mage_skills_surf = font.render(str(player.skills_mage["skill 2"]) +
-                                            (player.skills_mage["skill 3"]), True, "black", "light yellow")
+        text_mage_skills_surf = font.render("[ " + str(player.skills_mage["skill 2"]) + " ] " +
+                                            "[ " + str(player.skills_mage["skill 3"]) + " ] " +
+                                            "[ " + str(player.skills_mage["skill 4"]) + " ] ",
+                                            True, "black", "light yellow")
         text_mage_skills_rect = text_mage_skills_surf.get_rect()
         text_mage_skills_rect.midleft = (650, 506)
-        text_fighter_skills_surf = font.render(str(player.skills_fighter["skill 2"]) +
-                                               (player.skills_fighter["skill 3"]), True, "black", "light yellow")
+        text_fighter_skills_surf = font.render("[ " + str(player.skills_fighter["skill 2"]) + " ] " +
+                                               "[ " + str(player.skills_fighter["skill 3"]) + " ] " +
+                                               "[ " + str(player.skills_fighter["skill 4"]) + " ] ",
+                                               True, "black", "light yellow")
         text_fighter_skills_rect = text_fighter_skills_surf.get_rect()
         text_fighter_skills_rect.midleft = (650, 543)
-        text_scout_skills_surf = font.render(str(player.skills_scout["skill 2"]) +
-                                             (player.skills_scout["skill 3"]), True, "black", "light yellow")
+        text_scout_skills_surf = font.render("[ " + str(player.skills_scout["skill 2"]) + " ] " +
+                                             "[ " + str(player.skills_scout["skill 3"]) + " ] " +
+                                             "[ " + str(player.skills_scout["skill 4"]) + " ] ",
+                                             True, "black", "light yellow")
         text_scout_skills_rect = text_scout_skills_surf.get_rect()
         text_scout_skills_rect.midleft = (650, 582)
 
@@ -1084,7 +1090,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       amuna_female_button, nuldar_male_button, nuldar_female_button, sorae_alpha_button,
                       sorae_beta_button, in_academia, mage_learn_clicked, fighter_learn_clicked,
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
-                      barrier_learn_button, close_button, garan_gift):
+                      barrier_learn_button, close_button, garan_gift, mirror_learn_button):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1450,6 +1456,11 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 if barrier_learn_button.rect.collidepoint(pos):
                     button_highlight.update(barrier_learn_button.x_coordinate + 2,
                                             barrier_learn_button.y_coordinate + 3,
+                                            graphic_dict["book_high"])
+                    return True
+                elif mirror_learn_button.rect.collidepoint(pos):
+                    button_highlight.update(mirror_learn_button.x_coordinate + 2,
+                                            mirror_learn_button.y_coordinate + 3,
                                             graphic_dict["book_high"])
                     return True
                 elif close_button.rect.collidepoint(pos):

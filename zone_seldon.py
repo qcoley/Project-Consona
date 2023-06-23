@@ -147,8 +147,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     screen.blit(tree_top_1.surf, tree_top_1.rect)
     screen.blit(tree_top_2.surf, tree_top_2.rect)
     screen.blit(tree_top_3.surf, tree_top_3.rect)
-    if len(drawing_functions.character_sheet_window) == 0 and len(drawing_functions.game_guide_container) == 0\
-            and len(drawing_functions.quest_box):
+    if len(drawing_functions.character_sheet_window) == 0 and len(drawing_functions.game_guide_container) == 0 \
+            and len(drawing_functions.journal_window) == 0:
         screen.blit(building_top_1.surf, building_top_1.rect)
         screen.blit(building_top_2.surf, building_top_2.rect)
         screen.blit(building_top_3.surf, building_top_3.rect)

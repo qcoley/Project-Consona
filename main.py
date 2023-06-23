@@ -5727,7 +5727,8 @@ def button_highlighter(posit):
                                                               mage_learn_clicked, fighter_learn_clicked,
                                                               scout_learn_clicked, mage_learn_button,
                                                               fighter_learn_button, scout_learn_button,
-                                                              barrier_learn_button, close_button, npc_garan.gift)
+                                                              barrier_learn_button, close_button, npc_garan.gift,
+                                                              mirror_learn_button)
     return button_highlighters
 
 
@@ -6134,6 +6135,9 @@ if __name__ == "__main__":
     barrier_learn_button = UiElement("barrier learn button", 505, 300, graphic_dict["skill_learn_button"])
     hard_strike_learn_button = UiElement("hard strike learn button", 505, 300, graphic_dict["skill_learn_button"])
     sharp_sense_learn_button = UiElement("sharp sense learn button", 505, 300, graphic_dict["skill_learn_button"])
+    mirror_learn_button = UiElement("mirror learn button", 505, 503, graphic_dict["skill_learn_button"])
+    stun_learn_button = UiElement("stun learn button", 505, 503, graphic_dict["skill_learn_button"])
+    vanish_learn_button = UiElement("vanish learn button", 505, 503, graphic_dict["skill_learn_button"])
     close_button = UiElement("close button", 975, 135, graphic_dict["close_button"])
     quest_button = UiElement("quest button", 860, 680, graphic_dict["quest_button_img"])
     accept_button = UiElement("accept button", 340, 670, graphic_dict["accept_button_img"])
@@ -6695,6 +6699,9 @@ if __name__ == "__main__":
     barrier_learned = False
     hard_strike_learned = False
     sharp_sense_learned = False
+    mirror_learned = False
+    stun_learned = False
+    vanish_learned = False
     barrier_active = False
     sharp_sense_active = False
     faded_inn_screen = False
@@ -7095,73 +7102,6 @@ if __name__ == "__main__":
                         else:
                             player.name = "default"
 
-                        if player.name == "dev":
-                            player = PlayerAmuna("stan", "amuna", "male", "",  # name, race, role
-                                                 [],  # inventory
-                                                 {"weapon": "", "armor": mythical_armor, "gloves": power_gloves,
-                                                  "boots": ""},
-                                                 {"sneaky snakes": "Speak to Garan to start this quest.",
-                                                  "village repairs": "Speak to Maurelle to start this quest.",
-                                                  "where's nede?": "Speak to Celeste to start this quest",
-                                                  "ghouled again": "Speak to the gate Guard to start this quest.",
-                                                  "band hammer": "Speak to Voruke to start this quest.",
-                                                  "elementary elementals": "Speak to Zerah to start this quest.",
-                                                  "can't apothecary it":
-                                                      "Speak to the apothecary owner to start this quest.",
-                                                  "it's dangerous to go alone": "Speak to Dionte to start this quest",
-                                                  "kart troubles": "Speak to Omoku to start this quest",
-                                                  "las escondidas": "Speak to Leyre to start this quest",
-                                                  "hatch 'em all": "Speak to the menagerie owner to start this quest",
-                                                  "shades of fear": "Speak to Everett to start this quest"},
-                                                 {"sneaky snakes": 4, "village repairs": 4, "where's nede?": 1,
-                                                  "ghouled again": 4,
-                                                  "band hammer": 4, "elementary elementals": 4,
-                                                  "can't apothecary it": 4,
-                                                  "it's dangerous to go alone": 0, "kart troubles": 0,
-                                                  "las escondidas": 0, "hatch 'em all": 0,
-                                                  "shades of fear": 0},
-                                                 {"sneaky snakes": False, "village repairs": False,
-                                                  "where's nede?": False,
-                                                  "ghouled again": False, "band hammer": False,
-                                                  "elementary elementals": False,
-                                                  "can't apothecary it": False, "it's dangerous to go alone": False,
-                                                  "kart troubles": False,
-                                                  "las escondidas": False, "hatch 'em all": False,
-                                                  "shades of fear": False},
-                                                 {"sneaky snakes": True, "village repairs": True,
-                                                  "where's nede?": True,
-                                                  "ghouled again": True, "band hammer": True,
-                                                  "elementary elementals": True,
-                                                  "can't apothecary it": True, "it's dangerous to go alone": True,
-                                                  "kart troubles": False,
-                                                  "las escondidas": False, "hatch 'em all": False,
-                                                  "shades of fear": False},
-                                                 {"mage": 100, "fighter": 100, "scout": 100},
-                                                 # role knowledge ('role', 'amount')
-                                                 {"skill 2": "barrier", "skill 3": "", "skill 4": ""},
-                                                 {"skill 2": "hard strike", "skill 3": "", "skill 4": ""},
-                                                 {"skill 2": "sharp sense", "skill 3": "", "skill 4": ""},
-                                                 14, 0, 100, 100,  # lvl, exp, health, energy
-                                                 True, 500, {"amuna": 200, "nuldar": 200, "sorae": 200},
-                                                 # alive, rupees, reputation
-                                                 "eldream", 0, 0, 0, 50, 50, [])
-                            player.x_coordinate = 255
-                            player.y_coordinate = 175
-                            hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
-                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                            player.role = "mage"
-                            player.offense = 3
-                            player.defense = 3
-                            apothecary_access = True
-                            barrier_learned = True
-                            hard_strike_learned = True
-                            sharp_sense_learned = True
-                            korlok_attuned = True
-                            eldream_attuned = True
-                            npc_garan.gift = True
-                            gloves_obtained = True
-                            beyond_seldon = True
-
                     if back_button.rect.collidepoint(pos):
                         pygame.mixer.find_channel(True).play(sfx_item_flower)
                         button_highlighted = False
@@ -7345,6 +7285,9 @@ if __name__ == "__main__":
                         barrier_learned = load_returned["barrier learned"]
                         hard_strike_learned = load_returned["strike learned"]
                         sharp_sense_learned = load_returned["sense learned"]
+                        mirror_learned = load_returned["mirror learned"]
+                        stun_learned = load_returned["stun learned"]
+                        vanish_learned = load_returned["vanish learned"]
                         saved = load_returned["saved"]
                         start_chosen = load_returned["start"]
                         npc_garan.gift = load_returned["garan gift"]
@@ -7396,9 +7339,9 @@ if __name__ == "__main__":
                                                  player.quest_status, player.quest_complete, player.knowledge,
                                                  player.skills_mage, player.skills_fighter, player.skills_scout,
                                                  player.level, player.experience, player.health, player.energy,
-                                                 player.alive_status, player.rupees, player.reputation, player.current_zone,
-                                                 player.defense, player.offense, player.star_power, player.flowers_amuna,
-                                                 player.flowers_sorae, player.pet)
+                                                 player.alive_status, player.rupees, player.reputation,
+                                                 player.current_zone, player.defense, player.offense, player.star_power,
+                                                 player.flowers_amuna, player.flowers_sorae, player.pet)
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_amuna_male_down_1"]
                             if player.gender == "female":
@@ -7411,8 +7354,9 @@ if __name__ == "__main__":
                                                   player.skills_mage, player.skills_fighter, player.skills_scout,
                                                   player.level, player.experience, player.health, player.energy,
                                                   player.alive_status, player.rupees, player.reputation,
-                                                  player.current_zone, player.defense, player.offense, player.star_power,
-                                                  player.flowers_amuna, player.flowers_sorae, player.pet)
+                                                  player.current_zone, player.defense, player.offense,
+                                                  player.star_power, player.flowers_amuna, player.flowers_sorae,
+                                                  player.pet)
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_nuldar_male_down_1"]
                             if player.gender == "female":
@@ -7424,9 +7368,9 @@ if __name__ == "__main__":
                                                  player.quest_status, player.quest_complete, player.knowledge,
                                                  player.skills_mage, player.skills_fighter, player.skills_scout,
                                                  player.level, player.experience, player.health, player.energy,
-                                                 player.alive_status, player.rupees, player.reputation, player.current_zone,
-                                                 player.defense, player.offense, player.star_power, player.flowers_amuna,
-                                                 player.flowers_sorae, player.pet)
+                                                 player.alive_status, player.rupees, player.reputation,
+                                                 player.current_zone, player.defense, player.offense, player.star_power,
+                                                 player.flowers_amuna, player.flowers_sorae, player.pet)
                             if player.gender == "male":
                                 player.surf = graphic_dict["player_no_role_sorae_a_down_1"]
                             if player.gender == "female":
@@ -7905,7 +7849,8 @@ if __name__ == "__main__":
                                                                  menagerie_access, kasper_unlocked, torok_unlocked,
                                                                  iriana_unlocked, rock_8_con, rock_3_con,
                                                                  seed_scout_count, seed_fighter_count,
-                                                                 seed_mage_count, dreth_cutscenes_not_viewed)
+                                                                 seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                 mirror_learned, stun_learned, vanish_learned)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -7931,7 +7876,8 @@ if __name__ == "__main__":
                                                              kasper_unlocked, torok_unlocked, iriana_unlocked,
                                                              rock_8_con, rock_3_con, seed_scout_count,
                                                              seed_fighter_count, seed_mage_count,
-                                                             dreth_cutscenes_not_viewed)
+                                                             dreth_cutscenes_not_viewed, mirror_learned, stun_learned,
+                                                             vanish_learned)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -9303,6 +9249,19 @@ if __name__ == "__main__":
                 if player.current_zone == "stardust" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
+                    if len(stardust_stelli) == 0:
+                        stelli_a = Enemy("stellia", "stelli", 100, 100, 3, 805, 525, True, "item",
+                                         graphic_dict["stelli_a"],
+                                         UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                        stelli_b = Enemy("stellib", "stelli", 100, 100, 3, 805, 140, True, "item",
+                                         graphic_dict["stelli_b"],
+                                         UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                        stelli_c = Enemy("stellic", "stelli", 100, 100, 3, 305, 545, True, "item",
+                                         graphic_dict["stelli_c"],
+                                         UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                        stardust_stelli.add(stelli_a, stelli_b, stelli_c)
+                        interactables_stardust.add(stelli_a, stelli_b, stelli_c)
+
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, screen, stardust_song_set,
                                                                            stardust_outpost_music, stardust_cove_bg,
@@ -10025,9 +9984,6 @@ if __name__ == "__main__":
                                         if current_enemy_battling.name == "chinzilla":
                                             chinzilla_defeated = True
                                             chinzilla.kill()
-
-                                        if current_enemy_battling.kind == "stelli":
-                                            current_enemy_battling.health = 100
 
                                         # if barrier is active on enemy defeat, restore original defence and set off
                                         if barrier_active:
@@ -12004,6 +11960,26 @@ if __name__ == "__main__":
                                     else:
                                         info_text_1 = "You've already learned 'Barrier'."
                                         info_text_2 = ""
+                                if player.level > 9:
+                                    if book_button.name == "mirror learn button":
+                                        if not mirror_learned:
+                                            if player.knowledge["mage"] > 79:
+                                                pygame.mixer.find_channel(True).play(sfx_skill_learn)
+                                                player.skills_mage["skill 3"] = "mirror image"
+                                                info_text_1 = "'Mirror Image' skill learned!"
+                                                info_text_2 = "Skill added. 80 knowledge used."
+                                                player.knowledge["mage"] -= 80
+                                                mirror_learned = True
+                                                button_highlighted = False
+                                                mage_learn_clicked = False
+                                                book_appended = False
+                                                books.clear()
+                                                skill_learn_items.clear()
+                                            else:
+                                                info_text_1 = "80 mage knowledge required to learn."
+                                        else:
+                                            info_text_1 = "You've already learned 'Mirror Image'."
+                                            info_text_2 = ""
                                 if book_button.name == "close button":
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     mage_learn_clicked = False
@@ -12034,6 +12010,26 @@ if __name__ == "__main__":
                                     else:
                                         info_text_1 = "You've already learned 'Hard Strike'."
                                         info_text_2 = ""
+                                if player.level > 9:
+                                    if book_button.name == "stun learn button":
+                                        if not stun_learned:
+                                            if player.knowledge["fighter"] > 79:
+                                                pygame.mixer.find_channel(True).play(sfx_skill_learn)
+                                                player.skills_fighter["skill 3"] = "stunning swing"
+                                                info_text_1 = "'Stunning Swing' skill learned!"
+                                                info_text_2 = "Skill added. 80 knowledge used."
+                                                player.knowledge["fighter"] -= 80
+                                                stun_learned = True
+                                                fighter_learn_clicked = False
+                                                book_appended = False
+                                                button_highlighted = False
+                                                books.clear()
+                                                skill_learn_items.clear()
+                                            else:
+                                                info_text_1 = "80 fighter knowledge required to learn."
+                                        else:
+                                            info_text_1 = "You've already learned 'Stunning Swing'."
+                                            info_text_2 = ""
                                 if book_button.name == "close button":
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     fighter_learn_clicked = False
@@ -12049,7 +12045,7 @@ if __name__ == "__main__":
                                     if not sharp_sense_learned:
                                         if player.knowledge["scout"] > 39:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-                                            player.skills_scout["skill 2"] = "sharp sense"
+                                            player.skills_scout["skill 3"] = "sharp sense"
                                             info_text_1 = "'Sharp Sense' skill learned!"
                                             info_text_2 = "Skill added. 40 knowledge used."
                                             player.knowledge["scout"] -= 40
@@ -12064,6 +12060,26 @@ if __name__ == "__main__":
                                     else:
                                         info_text_1 = "You've already learned 'Sharp Sense'."
                                         info_text_2 = ""
+                                if player.level > 9:
+                                    if book_button.name == "vanish learn button":
+                                        if not vanish_learned:
+                                            if player.knowledge["scout"] > 79:
+                                                pygame.mixer.find_channel(True).play(sfx_skill_learn)
+                                                player.skills_scout["skill 2"] = "vanishing shroud"
+                                                info_text_1 = "'Vanishing Shroud' skill learned!"
+                                                info_text_2 = "Skill added. 80 knowledge used."
+                                                player.knowledge["scout"] -= 80
+                                                vanish_learned = True
+                                                button_highlighted = False
+                                                scout_learn_clicked = False
+                                                book_appended = False
+                                                books.clear()
+                                                skill_learn_items.clear()
+                                            else:
+                                                info_text_1 = "80 scout knowledge required to learn."
+                                        else:
+                                            info_text_1 = "You've already learned 'Vanishing Shroud'."
+                                            info_text_2 = ""
                                 if book_button.name == "close button":
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
                                     scout_learn_clicked = False
@@ -12228,20 +12244,29 @@ if __name__ == "__main__":
 
                         if not book_appended:
                             if mage_learn_clicked and fighter_learn_clicked is False and scout_learn_clicked is False:
+                                if player.level > 9:
+                                    mage_book.update(670, 375, graphic_dict["mage_book_img_10"])
                                 books.append(mage_book)
                                 skill_learn_items.append(barrier_learn_button)
+                                skill_learn_items.append(mirror_learn_button)
                                 close_button.update(975, 135, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if fighter_learn_clicked and mage_learn_clicked is False and scout_learn_clicked is False:
+                                if player.level > 9:
+                                    fighter_book.update(670, 375, graphic_dict["fighter_book_img_10"])
                                 books.append(fighter_book)
                                 skill_learn_items.append(hard_strike_learn_button)
+                                skill_learn_items.append(stun_learn_button)
                                 close_button.update(975, 135, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
                             if scout_learn_clicked and fighter_learn_clicked is False and mage_learn_clicked is False:
+                                if player.level > 9:
+                                    scout_book.update(670, 375, graphic_dict["scout_book_img_10"])
                                 books.append(scout_book)
                                 skill_learn_items.append(sharp_sense_learn_button)
+                                skill_learn_items.append(vanish_learn_button)
                                 close_button.update(975, 135, graphic_dict["close_button"])
                                 skill_learn_items.append(close_button)
                                 book_appended = True
@@ -12478,7 +12503,8 @@ if __name__ == "__main__":
                                                                  menagerie_access, kasper_unlocked, torok_unlocked,
                                                                  iriana_unlocked, rock_8_con, rock_3_con,
                                                                  seed_scout_count, seed_fighter_count,
-                                                                 seed_mage_count, dreth_cutscenes_not_viewed)
+                                                                 seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                 mirror_learned, stun_learned, vanish_learned)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -13081,7 +13107,8 @@ if __name__ == "__main__":
                                                                  menagerie_access, kasper_unlocked, torok_unlocked,
                                                                  iriana_unlocked, rock_8_con, rock_3_con,
                                                                  seed_scout_count, seed_fighter_count,
-                                                                 seed_mage_count, dreth_cutscenes_not_viewed)
+                                                                 seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                 mirror_learned, stun_learned, vanish_learned)
 
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -13475,7 +13502,8 @@ if __name__ == "__main__":
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
                                                                      iriana_unlocked, rock_8_con, rock_3_con,
                                                                      seed_scout_count, seed_fighter_count,
-                                                                     seed_mage_count, dreth_cutscenes_not_viewed)
+                                                                     seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                     mirror_learned, stun_learned, vanish_learned)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -13668,7 +13696,8 @@ if __name__ == "__main__":
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
                                                                      iriana_unlocked, rock_8_con, rock_3_con,
                                                                      seed_scout_count, seed_fighter_count,
-                                                                     seed_mage_count, dreth_cutscenes_not_viewed)
+                                                                     seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                     mirror_learned, stun_learned, vanish_learned)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -13861,7 +13890,8 @@ if __name__ == "__main__":
                                                                      menagerie_access, kasper_unlocked, torok_unlocked,
                                                                      iriana_unlocked, rock_8_con, rock_3_con,
                                                                      seed_scout_count, seed_fighter_count,
-                                                                     seed_mage_count, dreth_cutscenes_not_viewed)
+                                                                     seed_mage_count, dreth_cutscenes_not_viewed,
+                                                                     mirror_learned, stun_learned, vanish_learned)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -14401,6 +14431,10 @@ if __name__ == "__main__":
                                 # noinspection PyTypeChecker
                                 combat_scenario.enemy_health_bar(enemy, graphic_dict)
                             for enemy in ectrenos_alcove_enemies:
+                                enemy.health = 100
+                                # noinspection PyTypeChecker
+                                combat_scenario.enemy_health_bar(enemy, graphic_dict)
+                            for enemy in stardust_stelli:
                                 enemy.health = 100
                                 # noinspection PyTypeChecker
                                 combat_scenario.enemy_health_bar(enemy, graphic_dict)

@@ -26,7 +26,10 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
             if event.type == QUIT:
                 pygame.mixer.quit()
                 sys.exit()
-            pos = pygame.mouse.get_pos()
+            init_pos = list(pygame.mouse.get_pos())
+            ratio_x = (SCREEN_WIDTH / 1280)
+            ratio_y = (SCREEN_HEIGHT / 720)
+            pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
             if event.type == pygame.MOUSEBUTTONUP:
                 if skip_button.rect.collidepoint(pos):
                     in_cutscene = False
@@ -201,7 +204,10 @@ def cutscenes_apothis_dreth(pygame, music, screen, scene_1, scene_2, scene_3, sc
             if event.type == QUIT:
                 pygame.mixer.quit()
                 sys.exit()
-            pos = pygame.mouse.get_pos()
+            init_pos = list(pygame.mouse.get_pos())
+            ratio_x = (SCREEN_WIDTH / 1280)
+            ratio_y = (SCREEN_HEIGHT / 720)
+            pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
             if event.type == pygame.MOUSEBUTTONUP:
                 if skip_button.rect.collidepoint(pos):
                     in_cutscene = False

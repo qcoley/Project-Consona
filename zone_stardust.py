@@ -31,19 +31,20 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     # stelli movement updates
-    direction_horizontal = random.choice(["left", "right"])
-    direction_vertical = random.choice(["up", "down"])
-    move_stelli = random.choice(stellis.sprites())
-    if movement_able and in_over_world:
-        enemy_toc = time.perf_counter()
-        if enemy_toc - enemy_tic > 2:
-            enemy_tic = time.perf_counter()
-            if move_stelli.name == "stellia":
-                move_stelli.update_position([525, 900], [350, 650], direction_horizontal, direction_vertical)
-            if move_stelli.name == "stellib":
-                move_stelli.update_position([550, 900], [100, 380], direction_horizontal, direction_vertical)
-            if move_stelli.name == "stellic":
-                move_stelli.update_position([225, 550], [350, 625], direction_horizontal, direction_vertical)
+    if len(stellis) > 0:
+        direction_horizontal = random.choice(["left", "right"])
+        direction_vertical = random.choice(["up", "down"])
+        move_stelli = random.choice(stellis.sprites())
+        if movement_able and in_over_world:
+            enemy_toc = time.perf_counter()
+            if enemy_toc - enemy_tic > 2:
+                enemy_tic = time.perf_counter()
+                if move_stelli.name == "stellia":
+                    move_stelli.update_position([525, 900], [350, 650], direction_horizontal, direction_vertical)
+                if move_stelli.name == "stellib":
+                    move_stelli.update_position([550, 900], [100, 380], direction_horizontal, direction_vertical)
+                if move_stelli.name == "stellic":
+                    move_stelli.update_position([225, 550], [350, 625], direction_horizontal, direction_vertical)
 
     for stelli in stellis:
         screen.blit(stelli.surf, stelli.rect)
