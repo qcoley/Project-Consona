@@ -16,7 +16,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                      rock, pet_energy_window, stardust_top, necrola_battle_sprite, osodark_battle_sprite, sfx_nede,
                      sfx_door, sfx_rupee, rock_3_con, outpost_show, outpost_notify, stellis, enemy_tic,
-                     stelli_battle_sprite):
+                     stelli_battle_sprite, vanished, vanish_overlay):
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(stardust_outpost_music)
@@ -71,6 +71,9 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     if len(drawing_functions.character_sheet_window) == 0 and len(drawing_functions.journal_window) == 0 and \
             len(drawing_functions.world_map_container) == 0:
@@ -238,6 +241,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
+            drawing_functions.outpost_window.clear()
             combat_scenario.resting_animation(player, ghoul_nede, player_battle_sprite,
                                               snake_battle_sprite, ghoul_battle_sprite,
                                               chorizon_battle_sprite, muchador_battle_sprite,

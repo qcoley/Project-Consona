@@ -559,7 +559,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    interactables_korlok, interactables_mines, Enemy, Item, UiElement, seldon_flowers,
                    interactables_ectrenos, quest_star_everett, pet_energy_window, npc_everett, npc_leyre,
                    ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
-                   sfx_find, stelli_battle_sprite):
+                   sfx_find, stelli_battle_sprite, vanished, vanish_overlay):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -607,6 +607,9 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
@@ -803,7 +806,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     movement_able, current_enemy_battling, current_npc_interacting, equipment_screen, staff, sword, bow,
                     npc_garan, offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                     current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
-                    pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder):
+                    pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder,
+                    vanished, vanish_overlay):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -831,6 +835,9 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:

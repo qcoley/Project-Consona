@@ -22,7 +22,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
                     eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
-                    worker, worker_tic, stelli_battle_sprite):
+                    worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -111,6 +111,9 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:

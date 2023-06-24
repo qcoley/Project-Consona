@@ -18,7 +18,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 rock_7_con, chinzilla_defeated, eldream_gate_rect, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_rupee, stelli_battle_sprite, apothis_music, scene_1, scene_2, scene_3,
                 scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
-                dreth_cutscenes_not_viewed, dreth_0):
+                dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -45,6 +45,9 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
@@ -90,14 +93,14 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
         interaction_popup.update(terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20,
                                  graphic_dict["popup_interaction_red"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str(terra_cave.name), True, "black", (255, 204, 203))
+        interaction_info_surf = font.render(str("Terra Cave"), True, "black", (255, 204, 203))
         interaction_info_rect = interaction_info_surf.get_rect()
         interaction_info_rect.center = (terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         if player.quest_status["it's dangerous to go alone"] and not \
                 player.quest_complete["it's dangerous to go alone"]:
-            info_text_1 = "Press 'F' key to enter cave.."
+            info_text_1 = "Press 'F' key to enter the cave.."
             info_text_2 = ""
             info_text_3 = ""
             info_text_4 = ""

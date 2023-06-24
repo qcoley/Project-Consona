@@ -14,7 +14,7 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                 bandile_battle_sprite, chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan,
                 offense_meter, defense_meter, weapon_select, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_item_rupee, sfx_item_key, sfx_item_potion, sfx_switch, sfx_teleporter,
-                stelli_battle_sprite, chorizon_phase):
+                stelli_battle_sprite, chorizon_phase, vanished, vanish_overlay):
 
     in_battle = False
 
@@ -73,6 +73,9 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
@@ -309,7 +312,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 switch_1, switch_2, switch_3, has_key, magmon_battle_sprite, bandile_battle_sprite,
                 chinzilla_battle_sprite, equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter,
                 weapon_select, pet_energy_window, necrola_battle_sprite, osodark_battle_sprite, sfx_teleporter,
-                sfx_rupee, sfx_gate, directional_arrow, stelli_battle_sprite):
+                sfx_rupee, sfx_gate, directional_arrow, stelli_battle_sprite, vanished, vanish_overlay,
+                sfx_item_potion, Item):
 
     in_battle = False
 
@@ -351,6 +355,9 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
@@ -433,13 +440,19 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
             if interacted:
                 if not crate_5:
-                    pygame.mixer.find_channel(True).play(sfx_rupee)
-                    info_text_1 = "You found 10 Rupees!"
+                    if len(player.items) < 16:
+                        crate_5 = True
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
+                        info_text_1 = "You found an energy potion!"
+                        info_text_2 = ""
+                        player.items.append(Item("small energy potion", "potion", 200, 200,
+                                                 graphic_dict["energy_pot_img"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+                else:
+                    info_text_1 = "This crate is empty."
                     info_text_2 = ""
-                    player.rupees += 10
-                    crate_5 = True
-                    interacted = False
-                    dungeon_crate_5.kill()
 
     if pygame.sprite.collide_rect(player, reservoir_passage):
         if muchador_defeated:

@@ -5703,7 +5703,7 @@ def resource_path(relative_path):
 
 def button_highlighter(posit):
     button_highlighters = drawing_functions.button_highlights(pygame, player, start_chosen, new_game_chosen,
-                                                              new_game_button, pos, button_highlight, graphic_dict,
+                                                              new_game_button, posit, button_highlight, graphic_dict,
                                                               continue_button, start_button, back_button, amuna_button,
                                                               nuldar_button, sorae_button, save_check_window,
                                                               yes_button, no_button, item_info_button, rest_button,
@@ -6172,7 +6172,7 @@ if __name__ == "__main__":
     stun_button = UiElement("stun button", 890, 641, graphic_dict["stun_button_img"])
     vanish_button = UiElement("vanish button", 890, 641, graphic_dict["vanish_button_img"])
 
-    stun_overlay = UiElement("stun overlay", 700, 250, graphic_dict["stun_img"])
+    stun_overlay = UiElement("stun overlay", 700, 260, graphic_dict["stun_img"])
     vanish_overlay = UiElement("vanish overlay", 100, 600, graphic_dict["vanish_img"])
 
     type_advantage_overlay = UiElement("type advantage overlay", 580, 48, graphic_dict["mage_type_overlay"])
@@ -6400,6 +6400,7 @@ if __name__ == "__main__":
     mines_cart = UiElement("mines cart", 885, 475, graphic_dict["mines_light"])
     terra_mountains = UiElement("terra mountains", 250, 270, graphic_dict["terra_mountains"])
     terra_cave = UiElement("terra cave", 100, 400, graphic_dict["terra_cave"])
+    terra_cave_enter = UiElement("terra cave entrance", 145, 400, graphic_dict["terra_cave"])
     eldream_cart = UiElement("eldream cart", 380, 640, graphic_dict["mines_light"])
     kart_full = UiElement("kart full", 388, 636, graphic_dict["kart_overworld"])
 
@@ -6523,7 +6524,7 @@ if __name__ == "__main__":
     interactables_reservoir_b.add(dungeon_gate, dungeon_teleporter, dungeon_crate_5, muchador, reservoir_passage)
     interactables_reservoir_c.add(dungeon_chest, rock_1, rock_2, reservoir_exit)
     interactables_mines.add(bandiles, mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
-    interactables_terra_trail.add(npc_dionte, terra_cave, rock_7)
+    interactables_terra_trail.add(npc_dionte, terra_cave, rock_7, terra_cave_enter)
     interactables_eldream.add(eldream_flowers, hearth_stone, quest_items_eldream, npc_omoku)
 
     # music tracks
@@ -6557,10 +6558,14 @@ if __name__ == "__main__":
     sfx_fighter_attack.set_volume(0.30)
     sfx_fighter_strike = pygame.mixer.Sound(resource_path("resources/sounds/fighter_strike.mp3"))
     sfx_fighter_strike.set_volume(0.45)
+    sfx_fighter_stun = pygame.mixer.Sound(resource_path("resources/sounds/sfx_stun.mp3"))
+    sfx_fighter_stun.set_volume(0.35)
     sfx_scout_attack = pygame.mixer.Sound(resource_path("resources/sounds/scout_attack.mp3"))
     sfx_scout_attack.set_volume(0.50)
     sfx_scout_sense = pygame.mixer.Sound(resource_path("resources/sounds/scout_sense.mp3"))
     sfx_scout_sense.set_volume(0.25)
+    sfx_scout_vanish = pygame.mixer.Sound(resource_path("resources/sounds/sfx_vanish.mp3"))
+    sfx_scout_vanish.set_volume(0.60)
 
     sfx_enemy_ghoul = pygame.mixer.Sound(resource_path("resources/sounds/enemy_ghoul.mp3"))
     sfx_enemy_ghoul.set_volume(0.30)
@@ -8304,20 +8309,6 @@ if __name__ == "__main__":
                     movement_able = seldon_returned["movement_able"]
                     beyond_seldon = seldon_returned["beyond_seldon"]
 
-                    try:
-                        loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                            battle_info_to_return_to_main_loop, leveled)
-                    except TypeError:
-                        drawing_functions.loot_popup_container.clear()
-                        drawing_functions.loot_text_container.clear()
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
-
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok district ----------------------------------------------------------------------
                 if player.current_zone == "korlok" and in_over_world and not in_shop and not in_inn \
@@ -8363,7 +8354,7 @@ if __name__ == "__main__":
                                                                       sfx_item_rupee, sfx_map_teleport, sfx_door_open,
                                                                       nuldar_building_top_1, nuldar_building_top_2,
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
-                                                                      stelli_battle_sprite)
+                                                                      stelli_battle_sprite, vanished, vanish_overlay)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -8404,7 +8395,7 @@ if __name__ == "__main__":
                                                                       sfx_item_rupee, sfx_map_teleport, sfx_door_open,
                                                                       nuldar_building_top_1, nuldar_building_top_2,
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
-                                                                      stelli_battle_sprite)
+                                                                      stelli_battle_sprite, vanished, vanish_overlay)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -8430,16 +8421,6 @@ if __name__ == "__main__":
                     rock_4_con = korlok_returned["rock_4_con"]
                     rock_5_con = korlok_returned["rock_5_con"]
                     rock_6_con = korlok_returned["rock_6_con"]
-
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop, leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -8560,16 +8541,6 @@ if __name__ == "__main__":
                     eldream_flowers = eldream_returned["eldream_flowers"]
                     interactables_eldream = eldream_returned["interactables_eldream"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop, leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
-
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
                 if player.current_zone == "ectrenos" and in_over_world and not in_shop and not in_inn \
@@ -8671,17 +8642,6 @@ if __name__ == "__main__":
                     eldream_flowers = ectrenos_main_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_main_returned["interactables_ectrenos"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop,
-                                                                        leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
-
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
                 if player.current_zone == "ectrenos left" and in_over_world and not in_shop and not in_inn \
@@ -8759,17 +8719,6 @@ if __name__ == "__main__":
                     info_text_4 = ectrenos_left_returned["info_text_4"]
                     eldream_flowers = ectrenos_left_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_left_returned["interactables_ectrenos"]
-
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop,
-                                                                        leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -8904,7 +8853,8 @@ if __name__ == "__main__":
                                                                                interactables_eldream,
                                                                                necrola_battle_sprite,
                                                                                osodark_battle_sprite, sfx_find,
-                                                                               stelli_battle_sprite)
+                                                                               stelli_battle_sprite, vanished,
+                                                                               vanish_overlay)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -8947,7 +8897,8 @@ if __name__ == "__main__":
                                                                                interactables_eldream,
                                                                                necrola_battle_sprite,
                                                                                osodark_battle_sprite, sfx_find,
-                                                                               stelli_battle_sprite)
+                                                                               stelli_battle_sprite, vanished,
+                                                                               vanish_overlay)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -8969,17 +8920,6 @@ if __name__ == "__main__":
                     info_text_4 = ectrenos_front_returned["info_text_4"]
                     eldream_flowers = ectrenos_front_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_front_returned["interactables_ectrenos"]
-
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop,
-                                                                        leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -9012,7 +8952,7 @@ if __name__ == "__main__":
                                                                                  alcove_ladder_rect, chroma_bridge,
                                                                                  alcove_star, npc_leyre,
                                                                                  ectrenos_alcove_enemies, sfx_find,
-                                                                                 sfx_ladder)
+                                                                                 sfx_ladder, vanished, vanish_overlay)
                     else:
                         ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
                                                                                  player, ectrenos_alcove_bg,
@@ -9039,7 +8979,7 @@ if __name__ == "__main__":
                                                                                  alcove_ladder_rect, chroma_bridge,
                                                                                  alcove_star, npc_leyre,
                                                                                  ectrenos_alcove_enemies, sfx_find,
-                                                                                 sfx_ladder)
+                                                                                 sfx_ladder, vanished, vanish_overlay)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -9061,17 +9001,6 @@ if __name__ == "__main__":
                     info_text_4 = ectrenos_alcove_returned["info_text_4"]
                     eldream_flowers = ectrenos_alcove_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_alcove_returned["interactables_ectrenos"]
-
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop,
-                                                                        leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok district ----------------------------------------------------------------------
@@ -9107,7 +9036,8 @@ if __name__ == "__main__":
                                                                  interactables_eldream, pet_energy_window,
                                                                  ectrenos_front_enemies, necrola_battle_sprite,
                                                                  osodark_battle_sprite, sfx_item_pickup, sfx_talking,
-                                                                 talk_start, stelli_battle_sprite)
+                                                                 talk_start, stelli_battle_sprite, vanished,
+                                                                 vanish_overlay)
                     else:
                         mines_returned = zone_mines.korlok_mines(pygame, game_window, graphic_dict, player,
                                                                  korlok_mines_bg, korlok_overworld_music,
@@ -9137,7 +9067,8 @@ if __name__ == "__main__":
                                                                  interactables_eldream, pet_energy_window,
                                                                  ectrenos_front_enemies, necrola_battle_sprite,
                                                                  osodark_battle_sprite, sfx_item_pickup, sfx_talking,
-                                                                 talk_start, stelli_battle_sprite)
+                                                                 talk_start, stelli_battle_sprite, vanished,
+                                                                 vanish_overlay)
 
                     talk_start = mines_returned["talk_start"]
                     over_world_song_set = mines_returned["over_world_song_set"]
@@ -9159,16 +9090,6 @@ if __name__ == "__main__":
                     jez_2 = mines_returned["jez_2"]
                     jez_3 = mines_returned["jez_3"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop, leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
-
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok district ----------------------------------------------------------------------
                 if player.current_zone == "terra trail" and in_over_world and not in_shop and not in_inn \
@@ -9186,7 +9107,7 @@ if __name__ == "__main__":
                                                                       npc_tic, in_npc_interaction, in_battle,
                                                                       movement_able,
                                                                       current_enemy_battling,
-                                                                      terra_mountains, terra_cave, npc_dionte,
+                                                                      terra_mountains, terra_cave_enter, npc_dionte,
                                                                       quest_star_dionte, Enemy, player_battle_sprite,
                                                                       snake_battle_sprite, ghoul_battle_sprite,
                                                                       chorizon_battle_sprite, muchador_battle_sprite,
@@ -9205,7 +9126,8 @@ if __name__ == "__main__":
                                                                       dreth_scene_4, dreth_scene_5, dreth_scene_6,
                                                                       dreth_scene_7, dreth_scene_8, skip_button,
                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
-                                                                      dreth_cutscenes_not_viewed, dreth_scene_0)
+                                                                      dreth_cutscenes_not_viewed, dreth_scene_0,
+                                                                      vanished, vanish_overlay)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -9218,7 +9140,7 @@ if __name__ == "__main__":
                                                                       npc_tic, in_npc_interaction, in_battle,
                                                                       movement_able,
                                                                       current_enemy_battling,
-                                                                      terra_mountains, terra_cave, npc_dionte,
+                                                                      terra_mountains, terra_cave_enter, npc_dionte,
                                                                       quest_star_dionte, Enemy, player_battle_sprite,
                                                                       snake_battle_sprite, ghoul_battle_sprite,
                                                                       chorizon_battle_sprite, muchador_battle_sprite,
@@ -9237,7 +9159,8 @@ if __name__ == "__main__":
                                                                       dreth_scene_4, dreth_scene_5, dreth_scene_6,
                                                                       dreth_scene_7, dreth_scene_8, skip_button,
                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
-                                                                      dreth_cutscenes_not_viewed, dreth_scene_0)
+                                                                      dreth_cutscenes_not_viewed, dreth_scene_0,
+                                                                      vanished, vanish_overlay)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -9254,16 +9177,6 @@ if __name__ == "__main__":
                     info_text_4 = trail_returned["info_text_4"]
                     rock_7_con = trail_returned["rock_7_con"]
                     dreth_cutscenes_not_viewed = trail_returned["dreth_cutscenes_not_viewed"]
-
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop, leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in stardust outpost ---------------------------------------------------------------------
@@ -9313,7 +9226,8 @@ if __name__ == "__main__":
                                                                            sfx_nede_bark, sfx_door_open, sfx_item_rupee,
                                                                            rock_3_con, outpost_show, outpost_notify,
                                                                            stardust_stelli, enemy_tic,
-                                                                           stelli_battle_sprite)
+                                                                           stelli_battle_sprite, vanished,
+                                                                           vanish_overlay)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -9345,7 +9259,8 @@ if __name__ == "__main__":
                                                                            sfx_nede_bark, sfx_door_open, sfx_item_rupee,
                                                                            rock_3_con, outpost_show, outpost_notify,
                                                                            stardust_stelli, enemy_tic,
-                                                                           stelli_battle_sprite)
+                                                                           stelli_battle_sprite, vanished,
+                                                                           vanish_overlay)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -9364,16 +9279,6 @@ if __name__ == "__main__":
                     rock_3_con = stardust_returned["rock_3_con"]
                     outpost_show = stardust_returned["outpost_show"]
                     enemy_tic = stardust_returned["enemy_tic"]
-
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop, leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in rohir river (after apothis cutscene) -------------------------------------------------
@@ -9418,16 +9323,6 @@ if __name__ == "__main__":
                     interacted = rohir_returned["interacted"]
                     beyond_seldon = rohir_returned["beyond seldon"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop, leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
-
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in first dungeon, first floor -----------------------------------------------------------
                 if player.current_zone == "reservoir a" and in_over_world and not in_shop and not in_inn \
@@ -9465,7 +9360,8 @@ if __name__ == "__main__":
                                                                           necrola_battle_sprite, osodark_battle_sprite,
                                                                           sfx_item_rupee, sfx_item_key, sfx_item_potion,
                                                                           sfx_activate_switch, sfx_activate_teleporter,
-                                                                          stelli_battle_sprite, chorizon_phase)
+                                                                          stelli_battle_sprite, chorizon_phase,
+                                                                          vanished, vanish_overlay)
                     else:
                         reservoir_a_returned = zone_reservoir.reservoir_a(pygame, game_window, SCREEN_HEIGHT,
                                                                           graphic_dict,
@@ -9499,7 +9395,8 @@ if __name__ == "__main__":
                                                                           necrola_battle_sprite, osodark_battle_sprite,
                                                                           sfx_item_rupee, sfx_item_key, sfx_item_potion,
                                                                           sfx_activate_switch, sfx_activate_teleporter,
-                                                                          stelli_battle_sprite, chorizon_phase)
+                                                                          stelli_battle_sprite, chorizon_phase,
+                                                                          vanished, vanish_overlay)
 
                     over_world_song_set = reservoir_a_returned["over_world_song_set"]
                     interacted = reservoir_a_returned["interacted"]
@@ -9517,16 +9414,6 @@ if __name__ == "__main__":
                     current_enemy_battling = reservoir_a_returned["current_enemy_battling"]
                     in_over_world = reservoir_a_returned["in_over_world"]
                     in_battle = reservoir_a_returned["in_battle"]
-
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop, leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in first dungeon, second floor ----------------------------------------------------------
@@ -9564,7 +9451,9 @@ if __name__ == "__main__":
                                                                           osodark_battle_sprite,
                                                                           sfx_activate_teleporter,
                                                                           sfx_item_rupee, sfx_gate_open,
-                                                                          directional_arrow, stelli_battle_sprite)
+                                                                          directional_arrow, stelli_battle_sprite,
+                                                                          vanished, vanish_overlay, sfx_item_potion,
+                                                                          Item)
                     else:
                         reservoir_b_returned = zone_reservoir.reservoir_b(pygame, player, game_window, graphic_dict,
                                                                           over_world_song_set, reservoir_music,
@@ -9596,7 +9485,9 @@ if __name__ == "__main__":
                                                                           osodark_battle_sprite,
                                                                           sfx_activate_teleporter,
                                                                           sfx_item_rupee, sfx_gate_open,
-                                                                          directional_arrow, stelli_battle_sprite)
+                                                                          directional_arrow, stelli_battle_sprite,
+                                                                          vanished, vanish_overlay, sfx_item_potion,
+                                                                          Item)
 
                     over_world_song_set = reservoir_b_returned["over_world_song_set"]
                     interacted = reservoir_b_returned["interacted"]
@@ -9611,16 +9502,6 @@ if __name__ == "__main__":
                     in_over_world = reservoir_b_returned["in_over_world"]
                     in_battle = reservoir_b_returned["in_battle"]
                     has_key = reservoir_b_returned["has_key"]
-
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop, leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in first dungeon, third floor -----------------------------------------------------------
@@ -9678,15 +9559,21 @@ if __name__ == "__main__":
                     info_text_3 = reservoir_c_returned["info_text_3"]
                     info_text_4 = reservoir_c_returned["info_text_4"]
 
+                # ------------------------------------------------------------------------------------------------------
+                # loot from any battle
+                try:
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop, leveled)
-                    try:
-                        loot_updated = loot_popup_returned["loot_updated"]
-                        loot_level_tic = loot_popup_returned["loot_level_tic"]
-                        loot_info = loot_popup_returned["loot_info"]
-                        leveled = loot_popup_returned["leveled"]
-                    except TypeError:
-                        pass
+                except TypeError:
+                    drawing_functions.loot_popup_container.clear()
+                    drawing_functions.loot_text_container.clear()
+                try:
+                    loot_updated = loot_popup_returned["loot_updated"]
+                    loot_level_tic = loot_popup_returned["loot_level_tic"]
+                    loot_info = loot_popup_returned["loot_info"]
+                    leveled = loot_popup_returned["leveled"]
+                except TypeError:
+                    pass
 
                 # visual if player levels up
                 if in_over_world and not in_battle and not in_shop and not in_inn and not in_academia \
@@ -10277,20 +10164,22 @@ if __name__ == "__main__":
                             if player.energy > 49:
                                 if player.role == "mage":
                                     if mirror_learned:
+                                        pygame.mixer.find_channel(True).play(sfx_scout_sense)
                                         mirror_image = True
                                         print("skill 2 mage")
                                         player.energy -= 50
 
                                 if player.role == "fighter":
                                     if stun_learned:
+                                        pygame.mixer.find_channel(True).play(sfx_fighter_stun)
                                         stun_visual_tic = time.perf_counter()
                                         stun_them = True
                                         stun_visual = True
-                                        print("skill 2 fighter")
                                         player.energy -= 50
 
                                 if player.role == "scout":
                                     if vanish_learned:
+                                        pygame.mixer.find_channel(True).play(sfx_scout_vanish)
                                         movement_able = True
                                         combat_happened = False
                                         interacted = False
@@ -10419,8 +10308,8 @@ if __name__ == "__main__":
                                 screen.blit(type_advantage_overlay.surf, type_advantage_overlay.rect)
                             else:
                                 game_window.blit(type_advantage_overlay.surf, type_advantage_overlay.rect)
-                            if not beyond_seldon and player.current_zone != "reservoir a" or player.current_zone != \
-                                    "reservoir b" or player.current_zone != "reservoir c":
+                            if not beyond_seldon and player.current_zone != "reservoir a" and player.current_zone != \
+                                    "reservoir b" and player.current_zone != "reservoir c":
                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                     screen.blit(type_advantage_mini.surf, type_advantage_mini.rect)
                                 else:
@@ -12181,7 +12070,7 @@ if __name__ == "__main__":
                                     if not sharp_sense_learned:
                                         if player.knowledge["scout"] > 39:
                                             pygame.mixer.find_channel(True).play(sfx_skill_learn)
-                                            player.skills_scout["skill 3"] = "sharp sense"
+                                            player.skills_scout["skill 2"] = "sharp sense"
                                             info_text_1 = "'Sharp Sense' skill learned!"
                                             info_text_2 = "Skill added. 40 knowledge used."
                                             player.knowledge["scout"] -= 40
@@ -12201,7 +12090,7 @@ if __name__ == "__main__":
                                         if not vanish_learned:
                                             if player.knowledge["scout"] > 79:
                                                 pygame.mixer.find_channel(True).play(sfx_skill_learn)
-                                                player.skills_scout["skill 2"] = "vanishing shroud"
+                                                player.skills_scout["skill 3"] = "vanishing shroud"
                                                 info_text_1 = "'Vanishing Shroud' skill learned!"
                                                 info_text_2 = "Skill added. 80 knowledge used."
                                                 player.knowledge["scout"] -= 80
