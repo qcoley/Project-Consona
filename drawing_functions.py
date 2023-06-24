@@ -1090,7 +1090,8 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       amuna_female_button, nuldar_male_button, nuldar_female_button, sorae_alpha_button,
                       sorae_beta_button, in_academia, mage_learn_clicked, fighter_learn_clicked,
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
-                      barrier_learn_button, close_button, garan_gift, mirror_learn_button):
+                      barrier_learn_button, close_button, garan_gift, mirror_learn_button, mirror_button,
+                      vanish_button, stun_button):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1365,6 +1366,12 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                     or hard_strike_button.rect.collidepoint(pos):
                 button_highlight.update(barrier_button.x_coordinate - 2,
                                         barrier_button.y_coordinate + 1,
+                                        graphic_dict["skill high"])
+                return True
+            elif mirror_button.rect.collidepoint(pos) or vanish_button.rect.collidepoint(pos) \
+                    or stun_button.rect.collidepoint(pos):
+                button_highlight.update(mirror_button.x_coordinate - 2,
+                                        mirror_button.y_coordinate + 1,
                                         graphic_dict["skill high"])
                 return True
 

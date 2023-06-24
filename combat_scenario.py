@@ -1598,7 +1598,7 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
 def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
                      chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
                      chinzilla_battle_sprite, barrier_active, sharp_sense_active, hard_strike, graphics, turn_taken,
-                     necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, chorizon_phase):
+                     necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, chorizon_phase, damage):
 
     # update player character sprite for combat animation
     if not turn_taken:
@@ -3226,40 +3226,41 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
                                                     graphics["player_no_role_nuldar_female_attack"])
-    if enemy.kind == "snake":
-        snake_battle_sprite.update(715, 250, graphics["snake_attack"])
-    if enemy.kind == "ghoul":
-        ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack"])
-    if enemy.kind == "chorizon":
-        if chorizon_phase:
-            chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase_attack"])
-        else:
-            chorizon_battle_sprite.update(720, 325, graphics["chorizon_attack"])
-    if enemy.kind == "muchador":
-        muchador_battle_sprite.update(705, 290, graphics["muchador_attack"])
-    if enemy.kind == "magmon":
-        magmon_battle_sprite.update(705, 286, graphics["magmon_attack"])
-    if enemy.kind == "bandile":
-        bandile_battle_sprite.update(695, 300, graphics["bandile_attack"])
-    if enemy.kind == "chinzilla":
-        chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_attack"])
-    if enemy.kind == "necrola":
-        necrola_battle_sprite.update(705, 300, graphics["necrola_attack"])
-    if enemy.kind == "osodark":
-        osodark_battle_sprite.update(695, 300, graphics["osodark_attack"])
-    if enemy.kind == "stelli":
-        if enemy.name == "stellia":
-            stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                        stelli_battle_sprite.y_coordinate,
-                                        graphics["stelli_attack_a"])
-        if enemy.name == "stellib":
-            stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                        stelli_battle_sprite.y_coordinate,
-                                        graphics["stelli_attack_b"])
-        if enemy.name == "stellic":
-            stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                        stelli_battle_sprite.y_coordinate,
-                                        graphics["stelli_attack_c"])
+    if damage > 0:
+        if enemy.kind == "snake":
+            snake_battle_sprite.update(715, 250, graphics["snake_attack"])
+        if enemy.kind == "ghoul":
+            ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack"])
+        if enemy.kind == "chorizon":
+            if chorizon_phase:
+                chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase_attack"])
+            else:
+                chorizon_battle_sprite.update(720, 325, graphics["chorizon_attack"])
+        if enemy.kind == "muchador":
+            muchador_battle_sprite.update(705, 290, graphics["muchador_attack"])
+        if enemy.kind == "magmon":
+            magmon_battle_sprite.update(705, 286, graphics["magmon_attack"])
+        if enemy.kind == "bandile":
+            bandile_battle_sprite.update(695, 300, graphics["bandile_attack"])
+        if enemy.kind == "chinzilla":
+            chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_attack"])
+        if enemy.kind == "necrola":
+            necrola_battle_sprite.update(705, 300, graphics["necrola_attack"])
+        if enemy.kind == "osodark":
+            osodark_battle_sprite.update(695, 300, graphics["osodark_attack"])
+        if enemy.kind == "stelli":
+            if enemy.name == "stellia":
+                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                            stelli_battle_sprite.y_coordinate,
+                                            graphics["stelli_attack_a"])
+            if enemy.name == "stellib":
+                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                            stelli_battle_sprite.y_coordinate,
+                                            graphics["stelli_attack_b"])
+            if enemy.name == "stellic":
+                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                            stelli_battle_sprite.y_coordinate,
+                                            graphics["stelli_attack_c"])
 
 
 def fighter(graphics, player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
@@ -3824,7 +3825,7 @@ def enemy_health_bar(enemys, graphics):
 
 
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
-                    sharp_sense_active, barrier_active, turn_taken):
+                    sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image):
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -3858,27 +3859,35 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     combat_event_dictionary["damage done string"] = attacked_enemy_string
 
                 # returns total damage output from enemy as attacked_player_health value
-                defend_dict = gameplay_functions.attack_player(player, enemy_combating, barrier_active)
-                combat_event_dictionary["effective enemy"] = defend_dict["effective"]
-                combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
-                combat_event_dictionary["critical received"] = defend_dict["critical"]
-                damage_to_player = defend_dict["damage"]
+                if not stun_them:
+                    defend_dict = gameplay_functions.attack_player(player, enemy_combating, barrier_active)
+                    combat_event_dictionary["effective enemy"] = defend_dict["effective"]
+                    combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
+                    combat_event_dictionary["critical received"] = defend_dict["critical"]
+                    damage_to_player = defend_dict["damage"]
 
-                if damage_to_player > 0:
-                    attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.kind}."
-                    player.health = player.health - damage_to_player
-                    combat_event_dictionary["damage taken"] = damage_to_player
-                    # add damage done to player from enemy to dictionary
-                    combat_event_dictionary["damage taken string"] = attacked_player_string
+                    if damage_to_player > 0:
+                        attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.kind}."
+                        player.health = player.health - damage_to_player
+                        combat_event_dictionary["damage taken"] = damage_to_player
+                        # add damage done to player from enemy to dictionary
+                        combat_event_dictionary["damage taken string"] = attacked_player_string
 
-                    # player health is less than or equal to 0, player is dead
-                    if player.health <= 0:
-                        player.alive_status = False
-                    return combat_event_dictionary
+                        # player health is less than or equal to 0, player is dead
+                        if player.health <= 0:
+                            player.alive_status = False
+                        return combat_event_dictionary
+                    else:
+                        enemy_miss_string = f'{enemy_combating.kind} missed.'
+                        # add to dictionary that enemy did no damage to player
+                        combat_event_dictionary["damage taken string"] = enemy_miss_string
+                        return combat_event_dictionary
                 else:
-                    enemy_miss_string = f'{enemy_combating.kind} missed.'
+                    stun_them = False
+                    enemy_stun_string = f'{enemy_combating.kind} is stunned.'
                     # add to dictionary that enemy did no damage to player
-                    combat_event_dictionary["damage taken string"] = enemy_miss_string
+                    combat_event_dictionary["damage taken string"] = enemy_stun_string
+                    combat_event_dictionary["stunned"] = stun_them
                     return combat_event_dictionary
 
             # enemy has been defeated, will return an amount of xp based on current levels

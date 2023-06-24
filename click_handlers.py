@@ -630,7 +630,8 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
 
 # getting event based on user click related to combat scenario
 def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attack, scout_attack,
-                        barrier_button, strike_button, sense_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
+                        barrier_button, strike_button, sense_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT,
+                        mirror_button, stun_button, vanish_button):
     if combat_event.type == pygame.MOUSEBUTTONUP:
 
         init_pos = list(pygame.mouse.get_pos())
@@ -652,6 +653,12 @@ def combat_event_button(combat_event, no_role_attack, mage_attack, fighter_attac
             return "skill 1"
         if sense_button.rect.collidepoint(combat_mouse):
             return "skill 1"
+        if mirror_button.rect.collidepoint(combat_mouse):
+            return "skill 2"
+        if stun_button.rect.collidepoint(combat_mouse):
+            return "skill 2"
+        if vanish_button.rect.collidepoint(combat_mouse):
+            return "skill 2"
 
 
 # getting event based on user click related to npc

@@ -5703,7 +5703,7 @@ def resource_path(relative_path):
 
 def button_highlighter(posit):
     button_highlighters = drawing_functions.button_highlights(pygame, player, start_chosen, new_game_chosen,
-                                                              new_game_button, posit, button_highlight, graphic_dict,
+                                                              new_game_button, pos, button_highlight, graphic_dict,
                                                               continue_button, start_button, back_button, amuna_button,
                                                               nuldar_button, sorae_button, save_check_window,
                                                               yes_button, no_button, item_info_button, rest_button,
@@ -5728,7 +5728,8 @@ def button_highlighter(posit):
                                                               scout_learn_clicked, mage_learn_button,
                                                               fighter_learn_button, scout_learn_button,
                                                               barrier_learn_button, close_button, npc_garan.gift,
-                                                              mirror_learn_button)
+                                                              mirror_learn_button, mirror_button, vanish_button,
+                                                              stun_button)
     return button_highlighters
 
 
@@ -6170,6 +6171,9 @@ if __name__ == "__main__":
     mirror_button = UiElement("mirror button", 890, 641, graphic_dict["mirror_button_img"])
     stun_button = UiElement("stun button", 890, 641, graphic_dict["stun_button_img"])
     vanish_button = UiElement("vanish button", 890, 641, graphic_dict["vanish_button_img"])
+
+    stun_overlay = UiElement("stun overlay", 700, 250, graphic_dict["stun_img"])
+    vanish_overlay = UiElement("vanish overlay", 100, 600, graphic_dict["vanish_img"])
 
     type_advantage_overlay = UiElement("type advantage overlay", 580, 48, graphic_dict["mage_type_overlay"])
     type_advantage_mini = UiElement("type advantage mini", 960, 58, graphic_dict["type advantages"])
@@ -6795,6 +6799,12 @@ if __name__ == "__main__":
 
     attack_hotkey = False
     skill_1_hotkey = False
+    skill_2_hotkey = False
+
+    mirror_image = False
+    vanished = False
+    stun_them = False
+    stun_visual = False
 
     beyond_seldon = False
 
@@ -7451,6 +7461,11 @@ if __name__ == "__main__":
         # player has chosen to start game ------------------------------------------------------------------------------
         if start_chosen:
             if player.alive_status:
+
+                if vanished:
+                    vanished_toc = time.perf_counter()
+                    if vanished_toc - vanished_tic > 2:
+                        vanished = False
 
                 # keep player pet with player as they move
                 try:
@@ -8201,7 +8216,8 @@ if __name__ == "__main__":
                                                                       sfx_item_flower, sfx_door_open, npc_worker_1,
                                                                       worker_tic, worker_positions, worker_move_tic,
                                                                       quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                      game_window, stelli_battle_sprite)
+                                                                      game_window, stelli_battle_sprite, vanished,
+                                                                      vanish_overlay)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone, over_world_song_set,
@@ -8250,7 +8266,8 @@ if __name__ == "__main__":
                                                                       sfx_item_flower, sfx_door_open, npc_worker_1,
                                                                       worker_tic, worker_positions, worker_move_tic,
                                                                       quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
-                                                                      game_window, stelli_battle_sprite)
+                                                                      game_window, stelli_battle_sprite, vanished,
+                                                                      vanish_overlay)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -8287,8 +8304,12 @@ if __name__ == "__main__":
                     movement_able = seldon_returned["movement_able"]
                     beyond_seldon = seldon_returned["beyond_seldon"]
 
-                    loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
-                                                                        battle_info_to_return_to_main_loop, leveled)
+                    try:
+                        loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
+                                                                            battle_info_to_return_to_main_loop, leveled)
+                    except TypeError:
+                        drawing_functions.loot_popup_container.clear()
+                        drawing_functions.loot_text_container.clear()
                     try:
                         loot_updated = loot_popup_returned["loot_updated"]
                         loot_level_tic = loot_popup_returned["loot_level_tic"]
@@ -9710,6 +9731,8 @@ if __name__ == "__main__":
                                 attack_hotkey = True
                             if event.key == K_2:
                                 skill_1_hotkey = True
+                            if event.key == K_3:
+                                skill_2_hotkey = True
                         elif event.type == QUIT:
                             pygame.mixer.quit()
                             sys.exit()
@@ -9734,7 +9757,8 @@ if __name__ == "__main__":
                                                                            mage_attack_button, fighter_attack_button,
                                                                            scout_attack_button, barrier_button,
                                                                            hard_strike_button, sharp_sense_button,
-                                                                           pygame, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                           pygame, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                           mirror_button, stun_button, vanish_button)
                         # click handlers
                         info_choice = click_handlers.item_info_button(event, item_info_button, pygame, info_items,
                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -9761,7 +9785,12 @@ if __name__ == "__main__":
                                                                                         level_up_win, level_up_font,
                                                                                         graphic_dict,
                                                                                         sharp_sense_active,
-                                                                                        barrier_active, turn_taken)
+                                                                                        barrier_active, turn_taken,
+                                                                                        stun_them, mirror_image)
+                                        try:
+                                            stun_them = combat_events["stunned"]
+                                        except TypeError and KeyError:
+                                            stun_them = False
                                         combat_happened = True
                                         # add all combat scenario happenings from function to message box
                                         try:
@@ -9788,7 +9817,12 @@ if __name__ == "__main__":
                                                                                         level_up_win, level_up_font,
                                                                                         graphic_dict,
                                                                                         sharp_sense_active,
-                                                                                        barrier_active, turn_taken)
+                                                                                        barrier_active, turn_taken,
+                                                                                        stun_them, mirror_image)
+                                        try:
+                                            stun_them = combat_events["stunned"]
+                                        except TypeError and KeyError:
+                                            stun_them = False
                                         combat_happened = True
                                         # add all combat scenario happenings from function to message box
                                         try:
@@ -9814,7 +9848,12 @@ if __name__ == "__main__":
                                                                                         level_up_win, level_up_font,
                                                                                         graphic_dict,
                                                                                         sharp_sense_active,
-                                                                                        barrier_active, turn_taken)
+                                                                                        barrier_active, turn_taken,
+                                                                                        stun_them, mirror_image)
+                                        try:
+                                            stun_them = combat_events["stunned"]
+                                        except TypeError and KeyError:
+                                            stun_them = False
                                         combat_happened = True
                                         # add all combat scenario happenings from function to message box
                                         try:
@@ -9887,6 +9926,13 @@ if __name__ == "__main__":
                             drawing_functions.game_guide_container.clear()
                             if not combat_cooldown:
                                 attack_hotkey = False
+                                # combat event function that handles and returns damage and health
+                                combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
+                                                                                player, hard_strike_learned,
+                                                                                level_up_win, level_up_font,
+                                                                                graphic_dict, sharp_sense_active,
+                                                                                barrier_active, turn_taken, stun_them,
+                                                                                mirror_image)
                                 combat_scenario.combat_animation(player, current_enemy_battling, player_battle_sprite,
                                                                  snake_battle_sprite, ghoul_battle_sprite,
                                                                  chorizon_battle_sprite, muchador_battle_sprite,
@@ -9895,14 +9941,11 @@ if __name__ == "__main__":
                                                                  sharp_sense_active, hard_strike, graphic_dict,
                                                                  turn_taken, necrola_battle_sprite,
                                                                  osodark_battle_sprite, stelli_battle_sprite,
-                                                                 chorizon_phase)
-
-                                # combat event function that handles and returns damage and health
-                                combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
-                                                                                player, hard_strike_learned,
-                                                                                level_up_win, level_up_font,
-                                                                                graphic_dict, sharp_sense_active,
-                                                                                barrier_active, turn_taken)
+                                                                 chorizon_phase, combat_events["damage taken"])
+                                try:
+                                    stun_them = combat_events["stunned"]
+                                except TypeError and KeyError:
+                                    stun_them = False
                                 combat_happened = True
 
                                 # add all combat scenario happenings from function to message box
@@ -10045,7 +10088,12 @@ if __name__ == "__main__":
                                                                                                 graphic_dict,
                                                                                                 sharp_sense_active,
                                                                                                 barrier_active,
-                                                                                                turn_taken)
+                                                                                                turn_taken, stun_them,
+                                                                                                mirror_image)
+                                                try:
+                                                    stun_them = combat_events["stunned"]
+                                                except TypeError and KeyError:
+                                                    stun_them = False
                                                 combat_happened = True
                                                 # add all combat scenario happenings from function to message box
                                                 try:
@@ -10109,7 +10157,12 @@ if __name__ == "__main__":
                                                                                                 graphic_dict,
                                                                                                 sharp_sense_active,
                                                                                                 barrier_active,
-                                                                                                turn_taken)
+                                                                                                turn_taken, stun_them,
+                                                                                                mirror_image)
+                                                try:
+                                                    stun_them = combat_events["stunned"]
+                                                except TypeError and KeyError:
+                                                    stun_them = False
                                                 combat_happened = True
                                                 # add all combat scenario happenings from function to message box
                                                 try:
@@ -10157,7 +10210,12 @@ if __name__ == "__main__":
                                                                                             level_up_win, level_up_font,
                                                                                             graphic_dict,
                                                                                             sharp_sense_active,
-                                                                                            barrier_active, turn_taken)
+                                                                                            barrier_active, turn_taken,
+                                                                                            stun_them, mirror_image)
+                                            try:
+                                                stun_them = combat_events["stunned"]
+                                            except TypeError and KeyError:
+                                                stun_them = False
                                             combat_happened = True
                                             player.energy -= 35
                                             if combat_events["damage done string"] == 0:
@@ -10214,6 +10272,46 @@ if __name__ == "__main__":
                                                     # noinspection PyUnboundLocalVariable
                                 else:
                                     info_text_1 = "Not enough energy to use this skill."
+
+                        elif combat_button == "skill 2" or skill_2_hotkey:
+                            if player.energy > 49:
+                                if player.role == "mage":
+                                    if mirror_learned:
+                                        mirror_image = True
+                                        print("skill 2 mage")
+                                        player.energy -= 50
+
+                                if player.role == "fighter":
+                                    if stun_learned:
+                                        stun_visual_tic = time.perf_counter()
+                                        stun_them = True
+                                        stun_visual = True
+                                        print("skill 2 fighter")
+                                        player.energy -= 50
+
+                                if player.role == "scout":
+                                    if vanish_learned:
+                                        movement_able = True
+                                        combat_happened = False
+                                        interacted = False
+                                        encounter_started = False
+                                        in_battle = False
+                                        in_over_world = True
+                                        loot_updated = False
+                                        if barrier_active:
+                                            barrier_active = False
+                                            # noinspection PyUnboundLocalVariable
+                                        if sharp_sense_active:
+                                            sharp_sense_active = False
+                                            # noinspection PyUnboundLocalVariable
+                                        player.energy -= 50
+                                        vanished = True
+                                        vanished_tic = time.perf_counter()
+
+                            else:
+                                info_text_1 = "Not enough energy to use this skill."
+
+                            skill_2_hotkey = False
 
                     # outside of battle event loop ---------------------------------------------------------------------
                     combat_scenario.enemy_health_bar(current_enemy_battling, graphic_dict)
@@ -10408,14 +10506,20 @@ if __name__ == "__main__":
                                 screen.blit(mage_attack_button.surf, mage_attack_button.rect)
                                 if player.skills_mage["skill 2"] == "barrier":
                                     screen.blit(barrier_button.surf, barrier_button.rect)
+                                if player.skills_mage["skill 3"] == "mirror image":
+                                    screen.blit(mirror_button.surf, mirror_button.rect)
                             if player.role == "fighter":
                                 screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
                                 if player.skills_fighter["skill 2"] == "hard strike":
                                     screen.blit(hard_strike_button.surf, hard_strike_button.rect)
+                                if player.skills_fighter["skill 3"] == "stunning swing":
+                                    screen.blit(stun_button.surf, stun_button.rect)
                             if player.role == "scout":
                                 screen.blit(scout_attack_button.surf, scout_attack_button.rect)
                                 if player.skills_scout["skill 2"] == "sharp sense":
                                     screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                                if player.skills_scout["skill 3"] == "vanishing shroud":
+                                    screen.blit(vanish_button.surf, vanish_button.rect)
                             if player.role == "":
                                 screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
@@ -10468,14 +10572,20 @@ if __name__ == "__main__":
                                 game_window.blit(mage_attack_button.surf, mage_attack_button.rect)
                                 if player.skills_mage["skill 2"] == "barrier":
                                     game_window.blit(barrier_button.surf, barrier_button.rect)
+                                if player.skills_mage["skill 3"] == "mirror image":
+                                    game_window.blit(mirror_button.surf, mirror_button.rect)
                             if player.role == "fighter":
                                 game_window.blit(fighter_attack_button.surf, fighter_attack_button.rect)
                                 if player.skills_fighter["skill 2"] == "hard strike":
                                     game_window.blit(hard_strike_button.surf, hard_strike_button.rect)
+                                if player.skills_fighter["skill 3"] == "stunning swing":
+                                    game_window.blit(stun_button.surf, stun_button.rect)
                             if player.role == "scout":
                                 game_window.blit(scout_attack_button.surf, scout_attack_button.rect)
                                 if player.skills_scout["skill 2"] == "sharp sense":
                                     game_window.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                                if player.skills_scout["skill 3"] == "vanishing shroud":
+                                    game_window.blit(vanish_button.surf, vanish_button.rect)
                             if player.role == "":
                                 game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
@@ -10498,8 +10608,21 @@ if __name__ == "__main__":
 
                         combat_cooldown = False
 
+                        # draw fighter stun visual to screen if it was used. timer checks for reset to remove.
+                        if stun_visual:
+                            stun_visual_toc = time.perf_counter()
+                            if stun_visual_toc - stun_visual_tic > 1:
+                                stun_visual = False
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(stun_overlay.surf, stun_overlay.rect)
+                            else:
+                                game_window.blit(stun_overlay.surf, stun_overlay.rect)
+
                     # combat happened this turn, update sprites for attack and apply short cooldown to attack again
                     if combat_happened:
+                        # reset stun animation
+                        stun_visual = False
+
                         # disengage player when fighting muchador boss after it's health gets low
                         # muchador picks a random crate and hides in it
                         if current_enemy_battling.name == "muchador":
@@ -10532,7 +10655,8 @@ if __name__ == "__main__":
                                                          chinzilla_battle_sprite, barrier_active,
                                                          sharp_sense_active, hard_strike, graphic_dict, turn_taken,
                                                          necrola_battle_sprite, osodark_battle_sprite,
-                                                         stelli_battle_sprite, chorizon_phase)
+                                                         stelli_battle_sprite, chorizon_phase,
+                                                         combat_events["damage taken"])
                         if not turn_taken:
                             if kasper_unlocked or torok_unlocked or iriana_unlocked:
                                 for pet in player.pet:
@@ -10593,14 +10717,20 @@ if __name__ == "__main__":
                                 screen.blit(mage_attack_button.surf, mage_attack_button.rect)
                                 if player.skills_mage["skill 2"] == "barrier":
                                     screen.blit(barrier_button.surf, barrier_button.rect)
+                                if player.skills_mage["skill 3"] == "mirror image":
+                                    screen.blit(mirror_button.surf, mirror_button.rect)
                             if player.role == "fighter":
                                 screen.blit(fighter_attack_button.surf, fighter_attack_button.rect)
                                 if player.skills_fighter["skill 2"] == "hard strike":
                                     screen.blit(hard_strike_button.surf, hard_strike_button.rect)
+                                if player.skills_fighter["skill 3"] == "stunning swing":
+                                    screen.blit(stun_button.surf, stun_button.rect)
                             if player.role == "scout":
                                 screen.blit(scout_attack_button.surf, scout_attack_button.rect)
                                 if player.skills_scout["skill 2"] == "sharp sense":
                                     screen.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                                if player.skills_scout["skill 3"] == "vanishing shroud":
+                                    screen.blit(vanish_button.surf, vanish_button.rect)
                             if player.role == "":
                                 screen.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 
@@ -10653,14 +10783,20 @@ if __name__ == "__main__":
                                 game_window.blit(mage_attack_button.surf, mage_attack_button.rect)
                                 if player.skills_mage["skill 2"] == "barrier":
                                     game_window.blit(barrier_button.surf, barrier_button.rect)
+                                if player.skills_mage["skill 3"] == "mirror image":
+                                    game_window.blit(mirror_button.surf, mirror_button.rect)
                             if player.role == "fighter":
                                 game_window.blit(fighter_attack_button.surf, fighter_attack_button.rect)
                                 if player.skills_fighter["skill 2"] == "hard strike":
                                     game_window.blit(hard_strike_button.surf, hard_strike_button.rect)
+                                if player.skills_fighter["skill 3"] == "stunning swing":
+                                    game_window.blit(stun_button.surf, stun_button.rect)
                             if player.role == "scout":
                                 game_window.blit(scout_attack_button.surf, scout_attack_button.rect)
                                 if player.skills_scout["skill 2"] == "sharp sense":
                                     game_window.blit(sharp_sense_button.surf, sharp_sense_button.rect)
+                                if player.skills_scout["skill 3"] == "vanishing shroud":
+                                    game_window.blit(vanish_button.surf, vanish_button.rect)
                             if player.role == "":
                                 game_window.blit(no_role_attack_button.surf, no_role_attack_button.rect)
 

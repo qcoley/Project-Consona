@@ -5007,6 +5007,11 @@ def load_graphics():
     loaded_dict["mirror_button_img"] = skill_buttons_sheet[3]
     loaded_dict["stun_button_img"] = skill_buttons_sheet[4]
     loaded_dict["vanish_button_img"] = skill_buttons_sheet[5]
+    # skill two overlays -----------------------------------------------------------------------------------------------
+    skill_two_url = resource_path('resources/art/overlay_skills_two.png')
+    skill_two_sheet = sprite_sheet((300, 300), skill_two_url)
+    loaded_dict["stun_img"] = skill_two_sheet[0]
+    loaded_dict["vanish_img"] = skill_two_sheet[1]
     # function buttons -------------------------------------------------------------------------------------------------
     game_play_function_buttons_url = resource_path('resources/art/buttons_game_play_function.png')
     game_play_function_buttons_sheet = sprite_sheet((100, 25), game_play_function_buttons_url)
