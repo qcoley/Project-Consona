@@ -6277,6 +6277,8 @@ if __name__ == "__main__":
     osodark_battle_sprite = BattleCharacter("osodark battle", 695, 300, graphic_dict["osodark_battle"])
     stelli_battle_sprite = BattleCharacter("stelli battle", 710, 275, graphic_dict["stelli_battle_a"])
 
+    mirror_battle_sprite = BattleCharacter("mirror battle", 260, 425, graphic_dict["player_no_role_amuna_battle"])
+
     kasper_battle_sprite = BattleCharacter("kasper battle", 825, 520, graphic_dict["kasper_battle"])
     torok_battle_sprite = BattleCharacter("torok battle", 825, 520, graphic_dict["torok_battle"])
     iriana_battle_sprite = BattleCharacter("iriana battle", 825, 520, graphic_dict["iriana_battle"])
@@ -6299,6 +6301,7 @@ if __name__ == "__main__":
     upgrade_overlay = UiElement("upgrade overlay", 764, 380, graphic_dict["upgrade_overlay"])
     dealt_damage_overlay = UiElement("dealt damage overlay", 850, 225, graphic_dict["dealt_damage_img"])
     pet_damage_overlay = UiElement("pet damage overlay", 750, 250, graphic_dict["pet_damage_img"])
+    mirror_damage_overlay = UiElement("mirror damage overlay", 800, 200, graphic_dict["dealt_damage_img"])
     received_damage_overlay = UiElement("received damage overlay", 125, 275, graphic_dict["received_damage_img"])
     interaction_popup = UiElement("interaction popup", 125, 275, graphic_dict["popup_interaction"])
     loot_popup = UiElement("loot popup", 171, 528, graphic_dict["popup_loot"])
@@ -6554,6 +6557,8 @@ if __name__ == "__main__":
     sfx_mage_attack.set_volume(0.18)
     sfx_mage_barrier = pygame.mixer.Sound(resource_path("resources/sounds/mage_barrier.mp3"))
     sfx_mage_barrier.set_volume(0.50)
+    sfx_mage_mirror = pygame.mixer.Sound(resource_path("resources/sounds/sfx_mirror.mp3"))
+    sfx_mage_mirror.set_volume(0.25)
     sfx_fighter_attack = pygame.mixer.Sound(resource_path("resources/sounds/fighter_attack.mp3"))
     sfx_fighter_attack.set_volume(0.30)
     sfx_fighter_strike = pygame.mixer.Sound(resource_path("resources/sounds/fighter_strike.mp3"))
@@ -9820,15 +9825,16 @@ if __name__ == "__main__":
                                                                                 graphic_dict, sharp_sense_active,
                                                                                 barrier_active, turn_taken, stun_them,
                                                                                 mirror_image)
-                                combat_scenario.combat_animation(player, current_enemy_battling, player_battle_sprite,
-                                                                 snake_battle_sprite, ghoul_battle_sprite,
-                                                                 chorizon_battle_sprite, muchador_battle_sprite,
-                                                                 magmon_battle_sprite, bandile_battle_sprite,
-                                                                 chinzilla_battle_sprite, barrier_active,
-                                                                 sharp_sense_active, hard_strike, graphic_dict,
-                                                                 turn_taken, necrola_battle_sprite,
-                                                                 osodark_battle_sprite, stelli_battle_sprite,
-                                                                 chorizon_phase, combat_events["damage taken"])
+                                combat_scenario.attack_animation_player(player, player_battle_sprite, barrier_active,
+                                                                        sharp_sense_active, hard_strike, graphic_dict,
+                                                                        turn_taken)
+                                combat_scenario.attack_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                                       ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                       muchador_battle_sprite, magmon_battle_sprite,
+                                                                       bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                       graphic_dict, necrola_battle_sprite,
+                                                                       osodark_battle_sprite, stelli_battle_sprite,
+                                                                       chorizon_phase, combat_events["damage taken"])
                                 try:
                                     stun_them = combat_events["stunned"]
                                 except TypeError and KeyError:
@@ -9931,6 +9937,7 @@ if __name__ == "__main__":
                                         in_battle = False
                                         in_over_world = True
                                         loot_updated = False
+                                        mirror_image = False
 
                                 except TypeError:
                                     pass
@@ -9952,20 +9959,29 @@ if __name__ == "__main__":
                                                 player.energy -= 35
                                                 turn_taken = True
                                                 attack_hotkey = False
-                                                combat_scenario.resting_animation(player, current_enemy_battling,
-                                                                                  player_battle_sprite,
-                                                                                  snake_battle_sprite,
-                                                                                  ghoul_battle_sprite,
-                                                                                  chorizon_battle_sprite,
-                                                                                  muchador_battle_sprite,
-                                                                                  magmon_battle_sprite,
-                                                                                  bandile_battle_sprite,
-                                                                                  chinzilla_battle_sprite,
-                                                                                  barrier_active, sharp_sense_active,
-                                                                                  in_battle, in_npc_interaction,
-                                                                                  graphic_dict, necrola_battle_sprite,
-                                                                                  osodark_battle_sprite,
-                                                                                  stelli_battle_sprite, chorizon_phase)
+                                                combat_scenario.battle_animation_player(player, player_battle_sprite,
+                                                                                        barrier_active,
+                                                                                        sharp_sense_active,
+                                                                                        graphic_dict)
+                                                combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite,
+                                                                                       ghoul_battle_sprite,
+                                                                                       chorizon_battle_sprite,
+                                                                                       muchador_battle_sprite,
+                                                                                       magmon_battle_sprite,
+                                                                                       bandile_battle_sprite,
+                                                                                       chinzilla_battle_sprite,
+                                                                                       in_battle, in_npc_interaction,
+                                                                                       graphic_dict,
+                                                                                       necrola_battle_sprite,
+                                                                                       osodark_battle_sprite,
+                                                                                       stelli_battle_sprite,
+                                                                                       chorizon_phase)
+                                                if mirror_image:
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            mirror_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                                 "attack", player,
@@ -10021,20 +10037,29 @@ if __name__ == "__main__":
                                                 player.energy -= 35
                                                 turn_taken = True
                                                 attack_hotkey = False
-                                                combat_scenario.resting_animation(player, current_enemy_battling,
-                                                                                  player_battle_sprite,
-                                                                                  snake_battle_sprite,
-                                                                                  ghoul_battle_sprite,
-                                                                                  chorizon_battle_sprite,
-                                                                                  muchador_battle_sprite,
-                                                                                  magmon_battle_sprite,
-                                                                                  bandile_battle_sprite,
-                                                                                  chinzilla_battle_sprite,
-                                                                                  barrier_active, sharp_sense_active,
-                                                                                  in_battle, in_npc_interaction,
-                                                                                  graphic_dict, necrola_battle_sprite,
-                                                                                  osodark_battle_sprite,
-                                                                                  stelli_battle_sprite, chorizon_phase)
+                                                combat_scenario.battle_animation_player(player, player_battle_sprite,
+                                                                                        barrier_active,
+                                                                                        sharp_sense_active,
+                                                                                        graphic_dict)
+                                                combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite,
+                                                                                       ghoul_battle_sprite,
+                                                                                       chorizon_battle_sprite,
+                                                                                       muchador_battle_sprite,
+                                                                                       magmon_battle_sprite,
+                                                                                       bandile_battle_sprite,
+                                                                                       chinzilla_battle_sprite,
+                                                                                       in_battle, in_npc_interaction,
+                                                                                       graphic_dict,
+                                                                                       necrola_battle_sprite,
+                                                                                       osodark_battle_sprite,
+                                                                                       stelli_battle_sprite,
+                                                                                       chorizon_phase)
+                                                if mirror_image:
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            mirror_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
                                                 # combat event function that handles and returns damage and health
                                                 combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                                 "attack", player,
@@ -10151,6 +10176,7 @@ if __name__ == "__main__":
                                                 in_battle = False
                                                 in_over_world = True
                                                 loot_updated = False
+                                                mirror_image = False
                                                 if barrier_active:
                                                     barrier_active = False
                                                     # noinspection PyUnboundLocalVariable
@@ -10164,9 +10190,8 @@ if __name__ == "__main__":
                             if player.energy > 49:
                                 if player.role == "mage":
                                     if mirror_learned:
-                                        pygame.mixer.find_channel(True).play(sfx_scout_sense)
+                                        pygame.mixer.find_channel(True).play(sfx_mage_mirror)
                                         mirror_image = True
-                                        print("skill 2 mage")
                                         player.energy -= 50
 
                                 if player.role == "fighter":
@@ -10194,6 +10219,7 @@ if __name__ == "__main__":
                                             sharp_sense_active = False
                                             # noinspection PyUnboundLocalVariable
                                         player.energy -= 50
+                                        mirror_image = False
                                         vanished = True
                                         vanished_tic = time.perf_counter()
 
@@ -10334,14 +10360,19 @@ if __name__ == "__main__":
 
                     # combat didn't happen this iteration, reset sprites to default surface image
                     if not combat_happened:
-                        combat_scenario.resting_animation(player, current_enemy_battling, player_battle_sprite,
-                                                          snake_battle_sprite, ghoul_battle_sprite,
-                                                          chorizon_battle_sprite, muchador_battle_sprite,
-                                                          magmon_battle_sprite, bandile_battle_sprite,
-                                                          chinzilla_battle_sprite, barrier_active,
-                                                          sharp_sense_active, in_battle, in_npc_interaction,
-                                                          graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                                          stelli_battle_sprite, chorizon_phase)
+                        combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                                sharp_sense_active, graphic_dict)
+                        combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                               ghoul_battle_sprite, chorizon_battle_sprite,
+                                                               muchador_battle_sprite, magmon_battle_sprite,
+                                                               bandile_battle_sprite, chinzilla_battle_sprite,
+                                                               in_battle, in_npc_interaction, graphic_dict,
+                                                               necrola_battle_sprite, osodark_battle_sprite,
+                                                               stelli_battle_sprite, chorizon_phase)
+                        if mirror_image:
+                            combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
+                                                                    sharp_sense_active, graphic_dict)
+
                         kasper_battle_sprite.update(825, 520, graphic_dict["kasper_battle"])
                         torok_battle_sprite.update(825, 520, graphic_dict["torok_battle"])
                         iriana_battle_sprite.update(825, 520, graphic_dict["iriana_battle"])
@@ -10377,6 +10408,8 @@ if __name__ == "__main__":
                                     if pet.name == "iriana":
                                         screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
+                            if mirror_image:
+                                screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -10443,6 +10476,8 @@ if __name__ == "__main__":
                                     if pet.name == "iriana":
                                         game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
+                            if mirror_image:
+                                game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -10537,15 +10572,21 @@ if __name__ == "__main__":
                                 # type change for second phase
                                 current_enemy_battling.type = "mage"
 
-                        combat_scenario.combat_animation(player, current_enemy_battling, player_battle_sprite,
-                                                         snake_battle_sprite, ghoul_battle_sprite,
-                                                         chorizon_battle_sprite, muchador_battle_sprite,
-                                                         magmon_battle_sprite, bandile_battle_sprite,
-                                                         chinzilla_battle_sprite, barrier_active,
-                                                         sharp_sense_active, hard_strike, graphic_dict, turn_taken,
-                                                         necrola_battle_sprite, osodark_battle_sprite,
-                                                         stelli_battle_sprite, chorizon_phase,
-                                                         combat_events["damage taken"])
+                        combat_scenario.attack_animation_player(player, player_battle_sprite, barrier_active,
+                                                                sharp_sense_active, hard_strike, graphic_dict,
+                                                                turn_taken)
+                        combat_scenario.attack_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                               ghoul_battle_sprite, chorizon_battle_sprite,
+                                                               muchador_battle_sprite, magmon_battle_sprite,
+                                                               bandile_battle_sprite, chinzilla_battle_sprite,
+                                                               graphic_dict, necrola_battle_sprite,
+                                                               osodark_battle_sprite, stelli_battle_sprite,
+                                                               chorizon_phase, combat_events["damage taken"])
+                        if mirror_image:
+                            combat_scenario.attack_animation_player(player, mirror_battle_sprite, barrier_active,
+                                                                    sharp_sense_active, hard_strike, graphic_dict,
+                                                                    turn_taken)
+
                         if not turn_taken:
                             if kasper_unlocked or torok_unlocked or iriana_unlocked:
                                 for pet in player.pet:
@@ -10588,6 +10629,8 @@ if __name__ == "__main__":
                                     if pet.name == "iriana":
                                         screen.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
+                            if mirror_image:
+                                screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -10654,6 +10697,8 @@ if __name__ == "__main__":
                                     if pet.name == "iriana":
                                         game_window.blit(iriana_battle_sprite.surf, iriana_battle_sprite.rect)
 
+                            if mirror_image:
+                                game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -10720,10 +10765,24 @@ if __name__ == "__main__":
                                     pet_damage_overlay.update(950, 275, graphic_dict["non_effective_pet_damage_img"])
                                 if combat_events["effective pet"]:
                                     pet_damage_overlay.update(950, 275, graphic_dict["effective_pet_damage_img"])
+                                if mirror_image:
+                                    if combat_events["mirror damage"] == 5:
+                                        mirror_damage_overlay.update(850, 400,
+                                                                     graphic_dict["effective_dealt_damage_img"])
+                                    elif combat_events["mirror damage"] == 1:
+                                        mirror_damage_overlay.update(850, 400,
+                                                                     graphic_dict["non_effective_dealt_damage_img"])
+                                    elif combat_events["mirror damage"] == 3:
+                                        mirror_damage_overlay.update(850, 400,
+                                                                     graphic_dict["dealt_damage_img"])
                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                     screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
+                                    if mirror_image:
+                                        screen.blit(mirror_damage_overlay.surf, mirror_damage_overlay.rect)
                                 else:
                                     game_window.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
+                                    if mirror_image:
+                                        game_window.blit(mirror_damage_overlay.surf, mirror_damage_overlay.rect)
                                 if kasper_unlocked or torok_unlocked or iriana_unlocked:
                                     for pet in player.pet:
                                         if pet.active:
@@ -10736,10 +10795,22 @@ if __name__ == "__main__":
                                                                         True, "black", "white")
                                 damage_done_rect = damage_done_surf.get_rect()
                                 damage_done_rect.center = (850, 225)
+
+                                if mirror_image:
+                                    mirror_dmg_surf = level_up_font.render(str(combat_events["mirror damage"]),
+                                                                           True, "black", "white")
+                                    mirror_dmg_rect = damage_done_surf.get_rect()
+                                    mirror_dmg_rect.center = (850, 400)
+
                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                     screen.blit(damage_done_surf, damage_done_rect)
+                                    if mirror_image:
+                                        screen.blit(mirror_dmg_surf, mirror_dmg_rect)
                                 else:
                                     game_window.blit(damage_done_surf, damage_done_rect)
+                                    if mirror_image:
+                                        game_window.blit(mirror_dmg_surf, mirror_dmg_rect)
+
                                 damage_pet_surf = level_up_font.render(str(combat_events["pet damage"]),
                                                                        True, "black", "white")
                                 damage_pet_rect = damage_pet_surf.get_rect()
@@ -14162,15 +14233,15 @@ if __name__ == "__main__":
                             screen.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
                                                           weapon_select)
-                            combat_scenario.resting_animation(player, current_enemy_battling, player_battle_sprite,
-                                                              snake_battle_sprite, ghoul_battle_sprite,
-                                                              chorizon_battle_sprite, muchador_battle_sprite,
-                                                              magmon_battle_sprite, bandile_battle_sprite,
-                                                              chinzilla_battle_sprite, barrier_active,
-                                                              sharp_sense_active, in_battle, in_npc_interaction,
-                                                              graphic_dict, necrola_battle_sprite,
-                                                              osodark_battle_sprite, stelli_battle_sprite,
-                                                              chorizon_phase)
+                            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                                    sharp_sense_active, graphic_dict)
+                            combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite,
+                                                                   chorizon_battle_sprite, muchador_battle_sprite,
+                                                                   magmon_battle_sprite, bandile_battle_sprite,
+                                                                   chinzilla_battle_sprite, in_battle,
+                                                                   in_npc_interaction, graphic_dict,
+                                                                   necrola_battle_sprite, osodark_battle_sprite,
+                                                                   stelli_battle_sprite, chorizon_phase)
                             screen.blit(bar_backdrop.surf, bar_backdrop.rect)
                             screen.blit(hp_bar.surf, hp_bar.rect)
                             screen.blit(en_bar.surf, en_bar.rect)
@@ -14244,15 +14315,15 @@ if __name__ == "__main__":
                             game_window.blit(defense_meter.surf, defense_meter.rect)
                             drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan,
                                                           weapon_select)
-                            combat_scenario.resting_animation(player, current_enemy_battling, player_battle_sprite,
-                                                              snake_battle_sprite, ghoul_battle_sprite,
-                                                              chorizon_battle_sprite, muchador_battle_sprite,
-                                                              magmon_battle_sprite, bandile_battle_sprite,
-                                                              chinzilla_battle_sprite, barrier_active,
-                                                              sharp_sense_active, in_battle, in_npc_interaction,
-                                                              graphic_dict, necrola_battle_sprite,
-                                                              osodark_battle_sprite, stelli_battle_sprite,
-                                                              chorizon_phase)
+                            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                                    sharp_sense_active, graphic_dict)
+                            combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite,
+                                                                   chorizon_battle_sprite, muchador_battle_sprite,
+                                                                   magmon_battle_sprite, bandile_battle_sprite,
+                                                                   chinzilla_battle_sprite, in_battle,
+                                                                   in_npc_interaction, graphic_dict,
+                                                                   necrola_battle_sprite, osodark_battle_sprite,
+                                                                   stelli_battle_sprite, chorizon_phase)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
                             game_window.blit(hp_bar.surf, hp_bar.rect)
                             game_window.blit(en_bar.surf, en_bar.rect)

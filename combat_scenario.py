@@ -2,10 +2,7 @@ import random
 import gameplay_functions
 
 
-def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
-                      chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
-                      chinzilla_battle_sprite, barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                      graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, chorizon_phase):
+def battle_animation_player(player, player_battle_sprite, barrier_active, sharp_sense_active, graphics):
 
     if player.race == "amuna":
         if player.gender == "male":
@@ -1558,6 +1555,12 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
                                                 player_battle_sprite.y_coordinate,
                                                 graphics["player_no_role_nuldar_female_battle"])
 
+
+def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
+                           muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                           in_battle, in_npc_interaction, graphics, necrola_battle_sprite, osodark_battle_sprite,
+                           stelli_battle_sprite, chorizon_phase):
+
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
             snake_battle_sprite.update(715, 250, graphics["snake_battle"])
@@ -1595,10 +1598,8 @@ def resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite, 
 
 
 # update player character and enemy sprites for combat animation
-def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, ghoul_battle_sprite,
-                     chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
-                     chinzilla_battle_sprite, barrier_active, sharp_sense_active, hard_strike, graphics, turn_taken,
-                     necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, chorizon_phase, damage):
+def attack_animation_player(player, player_battle_sprite, barrier_active, sharp_sense_active, hard_strike, graphics,
+                            turn_taken):
 
     # update player character sprite for combat animation
     if not turn_taken:
@@ -3226,47 +3227,9 @@ def combat_animation(player, enemy, player_battle_sprite, snake_battle_sprite, g
                         player_battle_sprite.update(player_battle_sprite.x_coordinate,
                                                     player_battle_sprite.y_coordinate,
                                                     graphics["player_no_role_nuldar_female_attack"])
-    if damage > 0:
-        if enemy.kind == "snake":
-            snake_battle_sprite.update(715, 250, graphics["snake_attack"])
-        if enemy.kind == "ghoul":
-            ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack"])
-        if enemy.kind == "chorizon":
-            if chorizon_phase:
-                chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase_attack"])
-            else:
-                chorizon_battle_sprite.update(720, 325, graphics["chorizon_attack"])
-        if enemy.kind == "muchador":
-            muchador_battle_sprite.update(705, 290, graphics["muchador_attack"])
-        if enemy.kind == "magmon":
-            magmon_battle_sprite.update(705, 286, graphics["magmon_attack"])
-        if enemy.kind == "bandile":
-            bandile_battle_sprite.update(695, 300, graphics["bandile_attack"])
-        if enemy.kind == "chinzilla":
-            chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_attack"])
-        if enemy.kind == "necrola":
-            necrola_battle_sprite.update(705, 300, graphics["necrola_attack"])
-        if enemy.kind == "osodark":
-            osodark_battle_sprite.update(695, 300, graphics["osodark_attack"])
-        if enemy.kind == "stelli":
-            if enemy.name == "stellia":
-                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                            stelli_battle_sprite.y_coordinate,
-                                            graphics["stelli_attack_a"])
-            if enemy.name == "stellib":
-                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                            stelli_battle_sprite.y_coordinate,
-                                            graphics["stelli_attack_b"])
-            if enemy.name == "stellic":
-                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                            stelli_battle_sprite.y_coordinate,
-                                            graphics["stelli_attack_c"])
 
 
-def fighter(graphics, player, player_battle_sprite, current_enemy_battling, snake_battle_sprite,
-            ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite, magmon_battle_sprite,
-            bandile_battle_sprite, chinzilla_battle_sprite, sharp_sense_active, barrier_active,
-            stelli_battle_sprite, chorizon_phase):
+def fighter(graphics, player, player_battle_sprite, sharp_sense_active, barrier_active):
 
     # update animations for hard strike attack
     if player.race == "amuna":
@@ -3784,36 +3747,47 @@ def fighter(graphics, player, player_battle_sprite, current_enemy_battling, snak
                                                     player_battle_sprite.y_coordinate,
                                                     graphics["player_fighter_nuldar_female_strike_barrier_sense"])
 
-    if current_enemy_battling.kind == "snake":
-        snake_battle_sprite.update(715, 250, graphics["snake_battle"])
-    if current_enemy_battling.kind == "ghoul":
-        ghoul_battle_sprite.update(698, 280, graphics["ghoul_battle"])
-    if current_enemy_battling.kind == "chorizon":
-        if chorizon_phase:
-            chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase"])
-        else:
-            chorizon_battle_sprite.update(720, 325, graphics["chorizon_battle"])
-    if current_enemy_battling.kind == "muchador":
-        muchador_battle_sprite.update(725, 350, graphics["muchador_battle"])
-    if current_enemy_battling.kind == "magmon":
-        magmon_battle_sprite.update(705, 286, graphics["magmon_battle"])
-    if current_enemy_battling.kind == "bandile":
-        bandile_battle_sprite.update(695, 300, graphics["bandile_battle"])
-    if current_enemy_battling.kind == "chinzilla":
-        chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_battle"])
-    if current_enemy_battling.kind == "stelli":
-        if current_enemy_battling.name == "stellia":
-            stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                        stelli_battle_sprite.y_coordinate,
-                                        graphics["stelli_attack_a"])
-        if current_enemy_battling.name == "stellib":
-            stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                        stelli_battle_sprite.y_coordinate,
-                                        graphics["stelli_attack_b"])
-        if current_enemy_battling.name == "stellic":
-            stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
-                                        stelli_battle_sprite.y_coordinate,
-                                        graphics["stelli_attack_c"])
+
+def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
+                           muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
+                           graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite,
+                           chorizon_phase, damage):
+
+    if damage > 0:
+        if enemy.kind == "snake":
+            snake_battle_sprite.update(715, 250, graphics["snake_attack"])
+        if enemy.kind == "ghoul":
+            ghoul_battle_sprite.update(698, 280, graphics["ghoul_attack"])
+        if enemy.kind == "chorizon":
+            if chorizon_phase:
+                chorizon_battle_sprite.update(720, 325, graphics["chorizon_phase_attack"])
+            else:
+                chorizon_battle_sprite.update(720, 325, graphics["chorizon_attack"])
+        if enemy.kind == "muchador":
+            muchador_battle_sprite.update(705, 290, graphics["muchador_attack"])
+        if enemy.kind == "magmon":
+            magmon_battle_sprite.update(705, 286, graphics["magmon_attack"])
+        if enemy.kind == "bandile":
+            bandile_battle_sprite.update(695, 300, graphics["bandile_attack"])
+        if enemy.kind == "chinzilla":
+            chinzilla_battle_sprite.update(700, 300, graphics["chinzilla_attack"])
+        if enemy.kind == "necrola":
+            necrola_battle_sprite.update(705, 300, graphics["necrola_attack"])
+        if enemy.kind == "osodark":
+            osodark_battle_sprite.update(695, 300, graphics["osodark_attack"])
+        if enemy.kind == "stelli":
+            if enemy.name == "stellia":
+                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                            stelli_battle_sprite.y_coordinate,
+                                            graphics["stelli_attack_a"])
+            if enemy.name == "stellib":
+                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                            stelli_battle_sprite.y_coordinate,
+                                            graphics["stelli_attack_b"])
+            if enemy.name == "stellic":
+                stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
+                                            stelli_battle_sprite.y_coordinate,
+                                            graphics["stelli_attack_c"])
 
 
 def enemy_health_bar(enemys, graphics):
@@ -3826,6 +3800,7 @@ def enemy_health_bar(enemys, graphics):
 
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
                     sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image):
+
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
         "damage done string": 0, "damage taken string": 0, "damage done": 0, "damage taken": 0,
@@ -3836,6 +3811,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
     if combat_event == "attack":
         if enemy_combating.alive_status:
             if not turn_taken:
+
                 # returns players damage to the enemy based on level and equipment
                 attack_dict = gameplay_functions.attack_enemy(player, enemy_combating, sharp_sense_active)
                 combat_event_dictionary["effective player"] = attack_dict["effective"]
@@ -3846,6 +3822,17 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 combat_event_dictionary["pet damage"] = attack_dict["pet damage"]
                 combat_event_dictionary["player damage"] = attack_dict["damage"]
                 damage_to_enemy = attack_dict["damage"] + attack_dict["pet damage"]
+
+                if mirror_image:
+                    if attack_dict["effective"]:
+                        combat_event_dictionary["mirror damage"] = 5
+                        damage_to_enemy += 5
+                    elif attack_dict["non effective"]:
+                        combat_event_dictionary["mirror damage"] = 1
+                        damage_to_enemy += 1
+                    else:
+                        combat_event_dictionary["mirror damage"] = 3
+                        damage_to_enemy += 3
 
                 enemy_combating.health = enemy_combating.health - damage_to_enemy
                 enemy_health_bar(enemy_combating, graphics)

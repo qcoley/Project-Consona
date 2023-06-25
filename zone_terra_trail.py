@@ -82,12 +82,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
             movement_able = False
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
-            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
-                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite, chorizon_phase=False)
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
 
     if pygame.sprite.collide_rect(player, terra_cave):
         interaction_popup.update(terra_cave.x_coordinate + 75, terra_cave.y_coordinate + 20,
@@ -125,13 +121,16 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
 
                     drawing_functions.loot_popup_container.clear()
                     drawing_functions.loot_text_container.clear()
-                    combat_scenario.resting_animation(player, chinzilla, player_battle_sprite, snake_battle_sprite,
-                                                      ghoul_battle_sprite, chorizon_battle_sprite,
-                                                      muchador_battle_sprite, magmon_battle_sprite,
-                                                      bandile_battle_sprite, chinzilla_battle_sprite, barrier_active,
-                                                      sharp_sense_active, in_battle, in_npc_interaction, graphic_dict,
-                                                      necrola_battle_sprite, osodark_battle_sprite,
-                                                      stelli_battle_sprite, chorizon_phase=False)
+                    combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                            sharp_sense_active, graphic_dict)
+                    combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                           ghoul_battle_sprite,
+                                                           chorizon_battle_sprite, muchador_battle_sprite,
+                                                           magmon_battle_sprite, bandile_battle_sprite,
+                                                           chinzilla_battle_sprite, in_battle, in_npc_interaction,
+                                                           graphic_dict, necrola_battle_sprite,
+                                                           osodark_battle_sprite, stelli_battle_sprite,
+                                                           chorizon_phase=False)
 
             interacted = False
 

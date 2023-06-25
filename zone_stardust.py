@@ -144,14 +144,16 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
 
                     drawing_functions.loot_popup_container.clear()
                     drawing_functions.loot_text_container.clear()
-                    combat_scenario.resting_animation(player, ghoul_nede, player_battle_sprite,
-                                                      snake_battle_sprite, ghoul_battle_sprite,
-                                                      chorizon_battle_sprite, muchador_battle_sprite,
-                                                      magmon_battle_sprite, bandile_battle_sprite,
-                                                      chinzilla_battle_sprite, barrier_active, sharp_sense_active,
-                                                      in_battle, in_npc_interaction, graphic_dict,
-                                                      necrola_battle_sprite, osodark_battle_sprite,
-                                                      stelli_battle_sprite, chorizon_phase=False)
+                    combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                            sharp_sense_active, graphic_dict)
+                    combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                           ghoul_battle_sprite,
+                                                           chorizon_battle_sprite, muchador_battle_sprite,
+                                                           magmon_battle_sprite, bandile_battle_sprite,
+                                                           chinzilla_battle_sprite, in_battle, in_npc_interaction,
+                                                           graphic_dict, necrola_battle_sprite,
+                                                           osodark_battle_sprite, stelli_battle_sprite,
+                                                           chorizon_phase=False)
             else:
                 if not player.quest_complete["where's nede?"]:
                     interaction_popup.update(ghoul_nede.x_coordinate, ghoul_nede.y_coordinate - 40,
@@ -242,14 +244,15 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
             drawing_functions.outpost_window.clear()
-            combat_scenario.resting_animation(player, ghoul_nede, player_battle_sprite,
-                                              snake_battle_sprite, ghoul_battle_sprite,
-                                              chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite,
-                                              chinzilla_battle_sprite, barrier_active, sharp_sense_active,
-                                              in_battle, in_npc_interaction, graphic_dict,
-                                              necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite, chorizon_phase=False)
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
+            combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite, ghoul_battle_sprite,
+                                                   chorizon_battle_sprite, muchador_battle_sprite,
+                                                   magmon_battle_sprite, bandile_battle_sprite,
+                                                   chinzilla_battle_sprite, in_battle, in_npc_interaction,
+                                                   graphic_dict, necrola_battle_sprite,
+                                                   osodark_battle_sprite, stelli_battle_sprite,
+                                                   chorizon_phase=False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

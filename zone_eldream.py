@@ -197,12 +197,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             movement_able = False
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
-            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
-                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite, chorizon_phase=False)
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

@@ -229,13 +229,15 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
 
                 loot_popup_container.clear()
                 loot_text_container.clear()
-                combat_scenario.resting_animation(player, current_enemy_battling, player_battle_sprite,
-                                                  snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
-                                                  muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite,
-                                                  chinzilla_battle_sprite, barrier_active, sharp_sense_active,
-                                                  in_battle, in_npc_interaction, graphic_dict,
-                                                  necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite,
-                                                  chorizon_phase)
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active, graphic_dict)
+                combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite, ghoul_battle_sprite,
+                                                       chorizon_battle_sprite, muchador_battle_sprite,
+                                                       magmon_battle_sprite, bandile_battle_sprite,
+                                                       chinzilla_battle_sprite, in_battle, in_npc_interaction,
+                                                       graphic_dict, necrola_battle_sprite,
+                                                       osodark_battle_sprite, stelli_battle_sprite,
+                                                       chorizon_phase=False)
 
     # player defeats mini bosses and activates teleporter
     if pygame.sprite.collide_rect(player, dungeon_teleporter):
@@ -495,12 +497,15 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
 
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
-                combat_scenario.resting_animation(player, muchador, player_battle_sprite, snake_battle_sprite,
-                                                  ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                                  magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                                  barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                                  graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                                  stelli_battle_sprite, chorizon_phase=False)
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active, graphic_dict)
+                combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite, ghoul_battle_sprite,
+                                                       chorizon_battle_sprite, muchador_battle_sprite,
+                                                       magmon_battle_sprite, bandile_battle_sprite,
+                                                       chinzilla_battle_sprite, in_battle, in_npc_interaction,
+                                                       graphic_dict, necrola_battle_sprite,
+                                                       osodark_battle_sprite, stelli_battle_sprite,
+                                                       chorizon_phase=False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

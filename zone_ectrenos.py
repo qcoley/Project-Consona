@@ -103,12 +103,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                 movement_able = False
                 drawing_functions.loot_popup_container.clear()
                 drawing_functions.loot_text_container.clear()
-                combat_scenario.resting_animation(player, npc_leyre, player_battle_sprite, snake_battle_sprite,
-                                                  ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                                  magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                                  barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                                  graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                                  stelli_battle_sprite, chorizon_phase=False)
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active, graphic_dict)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -645,12 +641,15 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
             movement_able = False
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
-            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
-                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite, chorizon_phase=False)
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
+            combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite,
+                                                   chorizon_battle_sprite, muchador_battle_sprite,
+                                                   magmon_battle_sprite, bandile_battle_sprite,
+                                                   chinzilla_battle_sprite, in_battle, in_npc_interaction,
+                                                   graphic_dict, necrola_battle_sprite,
+                                                   osodark_battle_sprite, stelli_battle_sprite,
+                                                   chorizon_phase=False)
 
     # if player collides with npc sprite and chooses to interact with it
     if player.quest_progress["las escondidas"] == 2 and player.quest_status["las escondidas"]:
@@ -702,12 +701,15 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
-            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
-                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite, chorizon_phase=False)
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
+            combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite,
+                                                   chorizon_battle_sprite, muchador_battle_sprite,
+                                                   magmon_battle_sprite, bandile_battle_sprite,
+                                                   chinzilla_battle_sprite, in_battle, in_npc_interaction,
+                                                   graphic_dict, necrola_battle_sprite,
+                                                   osodark_battle_sprite, stelli_battle_sprite,
+                                                   chorizon_phase=False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
