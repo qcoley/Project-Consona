@@ -22,7 +22,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
                     eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
-                    worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay):
+                    worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -87,15 +87,19 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
 
         worker.rect = worker.surf.get_rect(midbottom=(worker.x_coordinate, worker.y_coordinate))
 
-    if worker.y_coordinate == 600:
-        worker.gift = True
-        worker.update(graphic_dict["worker_2_back_a"])
-        worker.y_coordinate -= 1
+    worker_delay_toc = time.perf_counter()
+    if worker_delay_toc - worker_delay_tic > 10:
+        if worker.y_coordinate == 600:
+            worker.gift = True
+            worker.update(graphic_dict["worker_2_back_a"])
+            worker.y_coordinate -= 1
+            worker_delay_tic = time.perf_counter()
 
-    if worker.y_coordinate == 399:
-        worker.gift = False
-        worker.update(graphic_dict["worker_2_full"])
-        worker.y_coordinate += 1
+        if worker.y_coordinate == 399:
+            worker.gift = False
+            worker.update(graphic_dict["worker_2_full"])
+            worker.y_coordinate += 1
+            worker_delay_tic = time.perf_counter()
 
     screen.blit(worker.surf, worker.rect)
     # ------------------------------------------------------------------------------------------------------------------
@@ -494,6 +498,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                      "current_building_entering": current_building_entering,
                      "current_npc_interacting": current_npc_interacting,
                      "in_apothecary": in_apothecary, "rock_4_con": rock_4_con, "rock_5_con": rock_5_con,
-                     "rock_6_con": rock_6_con, "worker_tic": worker_tic}
+                     "rock_6_con": rock_6_con, "worker_tic": worker_tic, "worker_delay_tic": worker_delay_tic}
 
     return korlok_return

@@ -16,7 +16,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                   eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic, eldream_flowers,
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
-                  npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite):
+                  npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite, critter,
+                  right_move, left_move, critter_tic, walk_move):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -29,6 +30,47 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    screen.blit(critter.surf, critter.rect)
+
+    critter_toc = time.perf_counter()
+    if critter_toc - critter_tic > 2:
+        if right_move:
+            if critter.x_coordinate < 680:
+                if walk_move and critter.x_coordinate % 9 == 0:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
+                    walk_move = False
+                else:
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
+                        walk_move = True
+                critter.x_coordinate += 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = False
+                left_move = True
+                critter.x_coordinate -= 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+
+    if critter_toc - critter_tic > 2:
+        if left_move:
+            if critter.x_coordinate > 360:
+                if walk_move and critter.x_coordinate % 9 == 0:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
+                    walk_move = False
+                else:
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
+                        walk_move = True
+                critter.x_coordinate -= 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = True
+                left_move = False
+                critter.x_coordinate += 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
     if not player.quest_status["las escondidas"] or player.quest_progress["las escondidas"] == 4:
         if not player.quest_complete["las escondidas"]:
@@ -185,7 +227,8 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                             "in_shop": in_shop, "in_inn": in_inn,
                             "current_building_entering": current_building_entering,
                             "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
-                            "interactables_ectrenos": interactables_ectrenos}
+                            "interactables_ectrenos": interactables_ectrenos, "right_move": right_move,
+                            "left_move": left_move, "critter_tic": critter_tic, "walk_move": walk_move}
 
     return ectrenos_main_return
 
@@ -197,7 +240,8 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   current_enemy_battling, current_npc_interacting, equipment_screen, staff, sword, bow, npc_garan,
                   offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                   current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos, ectrenos_pet_entrance,
-                  in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find):
+                  in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find, critter, right_move,
+                  left_move, critter_tic, walk_move):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -217,6 +261,48 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     if player.quest_progress["las escondidas"] == 0 and player.quest_status["las escondidas"]:
         npc_leyre.update_position(626, 355)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
+
+    if critter.x_coordinate < 590:
+        screen.blit(critter.surf, critter.rect)
+
+    critter_toc = time.perf_counter()
+    if critter_toc - critter_tic > 2:
+        if right_move:
+            if critter.x_coordinate < 680:
+                if walk_move and critter.x_coordinate % 9 == 0:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
+                    walk_move = False
+                else:
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
+                        walk_move = True
+                critter.x_coordinate += 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = False
+                left_move = True
+                critter.x_coordinate -= 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+
+    if critter_toc - critter_tic > 2:
+        if left_move:
+            if critter.x_coordinate > 475:
+                if walk_move and critter.x_coordinate % 9 == 0:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
+                    walk_move = False
+                else:
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
+                        walk_move = True
+                critter.x_coordinate -= 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = True
+                left_move = False
+                critter.x_coordinate += 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
     try:
         for pet in player.pet:
@@ -352,7 +438,9 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                             "in_shop": in_shop, "in_inn": in_inn,
                             "current_building_entering": current_building_entering,
                             "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
-                            "interactables_ectrenos": interactables_ectrenos, "in_menagerie": in_menagerie}
+                            "interactables_ectrenos": interactables_ectrenos, "in_menagerie": in_menagerie,
+                            "right_move": right_move, "left_move": left_move, "critter_tic": critter_tic,
+                            "walk_move": walk_move}
 
     return ectrenos_left_return
 
@@ -364,7 +452,8 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    current_enemy_battling, current_npc_interacting, equipment_screen, staff, sword, bow, npc_garan,
                    offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                    current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
-                   ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre, sfx_find):
+                   ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre, sfx_find, critter,
+                   right_move, left_move, critter_tic, walk_move):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -381,6 +470,48 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     if player.quest_progress["las escondidas"] == 1 and player.quest_status["las escondidas"]:
         npc_leyre.update_position(722, 350)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
+
+    if critter.x_coordinate > 450:
+        screen.blit(critter.surf, critter.rect)
+
+    critter_toc = time.perf_counter()
+    if critter_toc - critter_tic > 2:
+        if right_move:
+            if critter.x_coordinate < 575:
+                if walk_move and critter.x_coordinate % 9 == 0:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
+                    walk_move = False
+                else:
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
+                        walk_move = True
+                critter.x_coordinate += 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = False
+                left_move = True
+                critter.x_coordinate -= 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+
+    if critter_toc - critter_tic > 2:
+        if left_move:
+            if critter.x_coordinate > 400:
+                if walk_move and critter.x_coordinate % 9 == 0:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
+                    walk_move = False
+                else:
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
+                        walk_move = True
+                critter.x_coordinate -= 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = True
+                left_move = False
+                critter.x_coordinate += 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
     try:
         for pet in player.pet:
@@ -537,7 +668,8 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                              "in_shop": in_shop, "in_inn": in_inn,
                              "current_building_entering": current_building_entering,
                              "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
-                             "interactables_ectrenos": interactables_ectrenos}
+                             "interactables_ectrenos": interactables_ectrenos, "right_move": right_move,
+                             "left_move": left_move, "critter_tic": critter_tic, "walk_move": walk_move}
 
     return ectrenos_right_return
 

@@ -5895,10 +5895,11 @@ if __name__ == "__main__":
     pet_whistle_torok = Item("pet whistle torok", "whistle", 1078, 197, graphic_dict["whistle_torok_img"], 1)
     pet_whistle_iriana = Item("pet whistle iriana", "whistle", 1078, 197, graphic_dict["whistle_iriana_img"], 1)
 
+    critter_terra = UiElement("critter terra", 940, 350, graphic_dict["critter_front"])
     critter_eldream = UiElement("critter eldream", 350, 50, graphic_dict["critter_front"])
-    critter_ectrenos_1 = UiElement("critter ectrenos 1", 680, 335, graphic_dict["critter_front"])
-    critter_ectrenos_2 = UiElement("critter ectrenos 2", 680, 335, graphic_dict["critter_front"])
-    critter_ectrenos_3 = UiElement("critter ectrenos 3", 680, 335, graphic_dict["critter_front"])
+    critter_ectrenos_1 = UiElement("critter ectrenos 1", 360, 290, graphic_dict["critter_front"])
+    critter_ectrenos_2 = UiElement("critter ectrenos 2", 680, 220, graphic_dict["critter_front"])
+    critter_ectrenos_3 = UiElement("critter ectrenos 3", 400, 220, graphic_dict["critter_front"])
 
     seed_scout_count = 0
     seed_fighter_count = 0
@@ -6894,7 +6895,7 @@ if __name__ == "__main__":
     walk_sound_tic = time.perf_counter()
     level_visual_tic = time.perf_counter()
     critter_tic = time.perf_counter()
-    critter_move_tic = time.perf_counter()
+    worker_delay_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -8372,7 +8373,8 @@ if __name__ == "__main__":
                                                                       sfx_item_rupee, sfx_map_teleport, sfx_door_open,
                                                                       nuldar_building_top_1, nuldar_building_top_2,
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
-                                                                      stelli_battle_sprite, vanished, vanish_overlay)
+                                                                      stelli_battle_sprite, vanished, vanish_overlay,
+                                                                      worker_delay_tic)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -8413,7 +8415,8 @@ if __name__ == "__main__":
                                                                       sfx_item_rupee, sfx_map_teleport, sfx_door_open,
                                                                       nuldar_building_top_1, nuldar_building_top_2,
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
-                                                                      stelli_battle_sprite, vanished, vanish_overlay)
+                                                                      stelli_battle_sprite, vanished, vanish_overlay,
+                                                                      worker_delay_tic)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -8439,6 +8442,7 @@ if __name__ == "__main__":
                     rock_4_con = korlok_returned["rock_4_con"]
                     rock_5_con = korlok_returned["rock_5_con"]
                     rock_6_con = korlok_returned["rock_6_con"]
+                    worker_delay_tic = korlok_returned["worker_delay_tic"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -8492,7 +8496,7 @@ if __name__ == "__main__":
                                                                          sfx_item_pickup, kart_full,
                                                                          stelli_battle_sprite, critter_eldream,
                                                                          critter_right_move, critter_left_move,
-                                                                         critter_tic, critter_move_tic)
+                                                                         critter_tic, walk_move)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -8608,7 +8612,9 @@ if __name__ == "__main__":
                                                                              chroma_bridge, npc_leyre,
                                                                              necrola_battle_sprite,
                                                                              osodark_battle_sprite,
-                                                                             sfx_ladder, stelli_battle_sprite)
+                                                                             sfx_ladder, stelli_battle_sprite,
+                                                                             critter_ectrenos_1, critter_right_move,
+                                                                             critter_left_move, critter_tic, walk_move)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -8645,7 +8651,9 @@ if __name__ == "__main__":
                                                                              chroma_bridge, npc_leyre,
                                                                              necrola_battle_sprite,
                                                                              osodark_battle_sprite,
-                                                                             sfx_ladder, stelli_battle_sprite)
+                                                                             sfx_ladder, stelli_battle_sprite,
+                                                                             critter_ectrenos_1, critter_right_move,
+                                                                             critter_left_move, critter_tic, walk_move)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -8667,6 +8675,10 @@ if __name__ == "__main__":
                     info_text_4 = ectrenos_main_returned["info_text_4"]
                     eldream_flowers = ectrenos_main_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_main_returned["interactables_ectrenos"]
+                    critter_right_move = ectrenos_main_returned["right_move"]
+                    critter_left_move = ectrenos_main_returned["left_move"]
+                    critter_tic = ectrenos_main_returned["critter_tic"]
+                    walk_move = ectrenos_main_returned["walk_move"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -8697,7 +8709,9 @@ if __name__ == "__main__":
                                                                              interactables_ectrenos,
                                                                              ectrenos_pet_entrance,
                                                                              in_menagerie, quest_star_aitor,
-                                                                             pet_energy_window, npc_leyre, sfx_find)
+                                                                             pet_energy_window, npc_leyre, sfx_find,
+                                                                             critter_ectrenos_2, critter_right_move,
+                                                                             critter_left_move, critter_tic, walk_move)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -8722,7 +8736,9 @@ if __name__ == "__main__":
                                                                              interactables_ectrenos,
                                                                              ectrenos_pet_entrance,
                                                                              in_menagerie, quest_star_aitor,
-                                                                             pet_energy_window, npc_leyre, sfx_find)
+                                                                             pet_energy_window, npc_leyre, sfx_find,
+                                                                             critter_ectrenos_2, critter_right_move,
+                                                                             critter_left_move, critter_tic, walk_move)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -8745,6 +8761,10 @@ if __name__ == "__main__":
                     info_text_4 = ectrenos_left_returned["info_text_4"]
                     eldream_flowers = ectrenos_left_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_left_returned["interactables_ectrenos"]
+                    critter_right_move = ectrenos_left_returned["right_move"]
+                    critter_left_move = ectrenos_left_returned["left_move"]
+                    critter_tic = ectrenos_left_returned["critter_tic"]
+                    walk_move = ectrenos_left_returned["walk_move"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -8774,7 +8794,9 @@ if __name__ == "__main__":
                                                                                eldream_flowers, interactables_ectrenos,
                                                                                ectrenos_shop_entrance,
                                                                                ectrenos_inn_entrance, pet_energy_window,
-                                                                               npc_leyre, sfx_find)
+                                                                               npc_leyre, sfx_find, critter_ectrenos_3,
+                                                                               critter_right_move, critter_left_move,
+                                                                               critter_tic, walk_move)
                     else:
                         ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_right_bg,
@@ -8798,7 +8820,9 @@ if __name__ == "__main__":
                                                                                eldream_flowers, interactables_ectrenos,
                                                                                ectrenos_shop_entrance,
                                                                                ectrenos_inn_entrance, pet_energy_window,
-                                                                               npc_leyre, sfx_find)
+                                                                               npc_leyre, sfx_find, critter_ectrenos_3,
+                                                                               critter_right_move, critter_left_move,
+                                                                               critter_tic, walk_move)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -8820,6 +8844,10 @@ if __name__ == "__main__":
                     info_text_4 = ectrenos_right_returned["info_text_4"]
                     eldream_flowers = ectrenos_right_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_right_returned["interactables_ectrenos"]
+                    critter_right_move = ectrenos_right_returned["right_move"]
+                    critter_left_move = ectrenos_right_returned["left_move"]
+                    critter_tic = ectrenos_right_returned["critter_tic"]
+                    walk_move = ectrenos_right_returned["walk_move"]
 
                     loot_popup_returned = drawing_functions.loot_popups(time, loot_updated, font, loot_popup,
                                                                         battle_info_to_return_to_main_loop,
@@ -9153,7 +9181,9 @@ if __name__ == "__main__":
                                                                       dreth_scene_7, dreth_scene_8, skip_button,
                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                                                                       dreth_cutscenes_not_viewed, dreth_scene_0,
-                                                                      vanished, vanish_overlay)
+                                                                      vanished, vanish_overlay, critter_terra,
+                                                                      critter_right_move, critter_left_move,
+                                                                      critter_tic, walk_move)
                     else:
                         trail_returned = zone_terra_trail.terra_trail(pygame, game_window, graphic_dict, player,
                                                                       terra_trail_bg, korlok_overworld_music,
@@ -9186,7 +9216,9 @@ if __name__ == "__main__":
                                                                       dreth_scene_7, dreth_scene_8, skip_button,
                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
                                                                       dreth_cutscenes_not_viewed, dreth_scene_0,
-                                                                      vanished, vanish_overlay)
+                                                                      vanished, vanish_overlay, critter_terra,
+                                                                      critter_right_move, critter_left_move,
+                                                                      critter_tic, walk_move)
 
                     over_world_song_set = trail_returned["over_world_song_set"]
                     interacted = trail_returned["interacted"]
@@ -9203,6 +9235,10 @@ if __name__ == "__main__":
                     info_text_4 = trail_returned["info_text_4"]
                     rock_7_con = trail_returned["rock_7_con"]
                     dreth_cutscenes_not_viewed = trail_returned["dreth_cutscenes_not_viewed"]
+                    critter_right_move = trail_returned["right_move"]
+                    critter_left_move = trail_returned["left_move"]
+                    critter_tic = trail_returned["critter_tic"]
+                    walk_move = trail_returned["walk_move"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in stardust outpost ---------------------------------------------------------------------

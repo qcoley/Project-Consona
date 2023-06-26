@@ -18,7 +18,8 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 rock_7_con, chinzilla_defeated, eldream_gate_rect, pet_energy_window, necrola_battle_sprite,
                 osodark_battle_sprite, sfx_rupee, stelli_battle_sprite, apothis_music, scene_1, scene_2, scene_3,
                 scene_4, scene_5, scene_6, scene_7, scene_8, skip_button, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
-                dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay):
+                dreth_cutscenes_not_viewed, dreth_0, vanished, vanish_overlay, critter, right_move, left_move,
+                critter_tic, walk_move):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -35,6 +36,48 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     screen.blit(terra_mountains.surf, terra_mountains.rect)
     screen.blit(terra_cave.surf, terra_cave.rect)
     screen.blit(npc_dionte.surf, npc_dionte.rect)
+
+    if critter.x_coordinate < 1010:
+        screen.blit(critter.surf, critter.rect)
+
+    critter_toc = time.perf_counter()
+    if critter_toc - critter_tic > 2:
+        if right_move:
+            if critter.x_coordinate < 1100:
+                if walk_move and critter.x_coordinate % 9 == 0:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
+                    walk_move = False
+                else:
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
+                        walk_move = True
+                critter.x_coordinate += 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = False
+                left_move = True
+                critter.x_coordinate -= 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+
+    if critter_toc - critter_tic > 2:
+        if left_move:
+            if critter.x_coordinate > 940:
+                if walk_move and critter.x_coordinate % 9 == 0:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
+                    walk_move = False
+                else:
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
+                        walk_move = True
+                critter.x_coordinate -= 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = True
+                left_move = False
+                critter.x_coordinate += 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
 
     if not player.quest_complete["it's dangerous to go alone"]:
         screen.blit(quest_star_dionte.surf, quest_star_dionte.rect)
@@ -261,6 +304,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                     "in_npc_interaction": in_npc_interaction, "movement_able": movement_able,
                     "current_enemy_battling": current_enemy_battling,
                     "current_npc_interacting": current_npc_interacting, "rock_7_con": rock_7_con,
-                    "dreth_cutscenes_not_viewed": dreth_cutscenes_not_viewed}
+                    "dreth_cutscenes_not_viewed": dreth_cutscenes_not_viewed, "right_move": right_move,
+                    "left_move": left_move, "critter_tic": critter_tic, "walk_move": walk_move}
 
     return trail_return

@@ -64,12 +64,13 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     if critter_toc - critter_tic > 2:
         if right_move:
             if critter.x_coordinate < 730:
-                if walk_move:
+                if walk_move and critter.x_coordinate % 9 == 0:
                     critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
                     walk_move = False
                 else:
-                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
-                    walk_move = True
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
+                        walk_move = True
                 critter.x_coordinate += 1
             else:
                 critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
@@ -81,8 +82,14 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
 
     if critter_toc - critter_tic > 2:
         if left_move:
-            critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
             if critter.x_coordinate > 350:
+                if walk_move and critter.x_coordinate % 9 == 0:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left_walk"])
+                    walk_move = False
+                else:
+                    if critter.x_coordinate % 9 == 0:
+                        critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
+                        walk_move = True
                 critter.x_coordinate -= 1
             else:
                 critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
