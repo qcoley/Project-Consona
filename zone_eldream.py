@@ -22,7 +22,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      interactables_seldon, interactables_korlok, interactables_mines, Enemy, Item, UiElement,
                      seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
                      omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite,
-                     sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite):
+                     sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite, critter, right_move, left_move,
+                     critter_tic, walk_move):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -57,6 +58,40 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
 
     screen.blit(hearth_stone.surf, hearth_stone.rect)
     screen.blit(omoku.surf, omoku.rect)
+    screen.blit(critter.surf, critter.rect)
+
+    critter_toc = time.perf_counter()
+    if critter_toc - critter_tic > 2:
+        if right_move:
+            if critter.x_coordinate < 730:
+                if walk_move:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right_walk"])
+                    walk_move = False
+                else:
+                    critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_right"])
+                    walk_move = True
+                critter.x_coordinate += 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = False
+                left_move = True
+                critter.x_coordinate -= 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+
+    if critter_toc - critter_tic > 2:
+        if left_move:
+            critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_side_left"])
+            if critter.x_coordinate > 350:
+                critter.x_coordinate -= 1
+            else:
+                critter.update(critter.x_coordinate, critter.y_coordinate, graphic_dict["critter_front"])
+                right_move = True
+                left_move = False
+                critter.x_coordinate += 1
+                critter_tic = time.perf_counter()
+            critter.rect = critter.surf.get_rect(center=(critter.x_coordinate, critter.y_coordinate))
+
     try:
         for pet in player.pet:
             if pet.active:
@@ -269,6 +304,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                       "current_npc_interacting": current_npc_interacting, "eldream_attuned": eldream_attuned,
                       "in_shop": in_shop, "in_inn": in_inn, "current_building_entering": current_building_entering,
                       "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
-                      "interactables_eldream": interactables_eldream}
+                      "interactables_eldream": interactables_eldream, "right_move": right_move, "left_move": left_move,
+                      "critter_tic": critter_tic, "walk_move": walk_move}
 
     return eldream_return

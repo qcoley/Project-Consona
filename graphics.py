@@ -168,6 +168,7 @@ def load_graphics():
     quest_accepted = pygame.image.load(resource_path('resources/art/overlay_quest_accepted.png')).convert_alpha()
     kart_overworld = pygame.image.load(resource_path('resources/art/sprite_kart_overworld_full.png')).convert_alpha()
     kart_big_full = pygame.image.load(resource_path('resources/art/sprite_kart_full.png')).convert_alpha()
+    mirror_overlay = pygame.image.load(resource_path('resources/art/overlay_mirror_image.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -196,7 +197,7 @@ def load_graphics():
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
                   chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
-                  kart_overworld, kart_big_full]
+                  kart_overworld, kart_big_full, mirror_overlay]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -331,6 +332,7 @@ def load_graphics():
     loaded_dict["terra_trail_screen"] = terra_trail_screen
     loaded_dict["kart_overworld"] = kart_overworld
     loaded_dict["kart_full"] = kart_big_full
+    loaded_dict["mirror_overlay"] = mirror_overlay
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -3418,7 +3420,8 @@ def load_graphics():
         player_battle_amuna_female_barrier_sheet_forged[3]
     loaded_dict["player_scout_amuna_female_battle_forged_barrier"] = player_battle_amuna_female_barrier_sheet_forged[4]
     loaded_dict["player_scout_amuna_female_attack_forged_barrier"] = player_battle_amuna_female_barrier_sheet_forged[5]
-    loaded_dict["player_fighter_amuna_female_strike_forged_barrier"] = player_battle_amuna_female_barrier_sheet_forged[6]
+    loaded_dict["player_fighter_amuna_female_strike_forged_barrier"] = \
+        player_battle_amuna_female_barrier_sheet_forged[6]
     # forged sense
     player_battle_amuna_female_sense_url_forged = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                 'female_forged_sense.png')
@@ -3473,7 +3476,8 @@ def load_graphics():
         player_battle_amuna_female_barrier_sheet_mythic[3]
     loaded_dict["player_scout_amuna_female_battle_mythic_barrier"] = player_battle_amuna_female_barrier_sheet_mythic[4]
     loaded_dict["player_scout_amuna_female_attack_mythic_barrier"] = player_battle_amuna_female_barrier_sheet_mythic[5]
-    loaded_dict["player_fighter_amuna_female_strike_mythic_barrier"] = player_battle_amuna_female_barrier_sheet_mythic[6]
+    loaded_dict["player_fighter_amuna_female_strike_mythic_barrier"] = \
+        player_battle_amuna_female_barrier_sheet_mythic[6]
     # mythic sense
     player_battle_amuna_female_sense_url_mythic = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                 'female_mythic_sense.png')
@@ -3528,7 +3532,8 @@ def load_graphics():
         player_battle_amuna_female_barrier_sheet_legend[3]
     loaded_dict["player_scout_amuna_female_battle_legend_barrier"] = player_battle_amuna_female_barrier_sheet_legend[4]
     loaded_dict["player_scout_amuna_female_attack_legend_barrier"] = player_battle_amuna_female_barrier_sheet_legend[5]
-    loaded_dict["player_fighter_amuna_female_strike_legend_barrier"] = player_battle_amuna_female_barrier_sheet_legend[6]
+    loaded_dict["player_fighter_amuna_female_strike_legend_barrier"] = \
+        player_battle_amuna_female_barrier_sheet_legend[6]
     # legend sense
     player_battle_amuna_female_sense_url_legend = resource_path('resources/art/player_battle_sprites_amuna_'
                                                                 'female_legend_sense.png')
@@ -4710,12 +4715,20 @@ def load_graphics():
     loaded_dict["bandile"] = enemies_sheet[3]
     loaded_dict["necrola"] = enemies_sheet[4]
     loaded_dict["osodark"] = enemies_sheet[5]
-    # stelli ----------------------------------------------------------------------------------------------------------
+    # stelli -----------------------------------------------------------------------------------------------------------
     stelli_url = resource_path('resources/art/sprites_stelli.png')
     stelli_sheet = sprite_sheet((50, 50), stelli_url)
     loaded_dict["stelli_a"] = stelli_sheet[0]
     loaded_dict["stelli_b"] = stelli_sheet[1]
     loaded_dict["stelli_c"] = stelli_sheet[2]
+    # critters
+    critter_url = resource_path('resources/art/sprites_critters.png')
+    critter_sheet = sprite_sheet((60, 60), critter_url)
+    loaded_dict["critter_front"] = critter_sheet[0]
+    loaded_dict["critter_side_left"] = critter_sheet[1]
+    loaded_dict["critter_side_left_walk"] = critter_sheet[2]
+    loaded_dict["critter_side_right"] = critter_sheet[3]
+    loaded_dict["critter_side_right_walk"] = critter_sheet[4]
     # stelli battle ----------------------------------------------------------------------------------------------------
     stelli_battle_url = resource_path('resources/art/sprites_stelli_battle.png')
     stelli_battle_sheet = sprite_sheet((300, 280), stelli_battle_url)

@@ -5895,6 +5895,11 @@ if __name__ == "__main__":
     pet_whistle_torok = Item("pet whistle torok", "whistle", 1078, 197, graphic_dict["whistle_torok_img"], 1)
     pet_whistle_iriana = Item("pet whistle iriana", "whistle", 1078, 197, graphic_dict["whistle_iriana_img"], 1)
 
+    critter_eldream = UiElement("critter eldream", 350, 50, graphic_dict["critter_front"])
+    critter_ectrenos_1 = UiElement("critter ectrenos 1", 680, 335, graphic_dict["critter_front"])
+    critter_ectrenos_2 = UiElement("critter ectrenos 2", 680, 335, graphic_dict["critter_front"])
+    critter_ectrenos_3 = UiElement("critter ectrenos 3", 680, 335, graphic_dict["critter_front"])
+
     seed_scout_count = 0
     seed_fighter_count = 0
     seed_mage_count = 0
@@ -6278,6 +6283,8 @@ if __name__ == "__main__":
     stelli_battle_sprite = BattleCharacter("stelli battle", 710, 275, graphic_dict["stelli_battle_a"])
 
     mirror_battle_sprite = BattleCharacter("mirror battle", 260, 425, graphic_dict["player_no_role_amuna_battle"])
+    mirror_overlay = UiElement("mirror overlay", 225, 425, graphic_dict["mirror_overlay"])
+    mirror_overlay.surf.set_alpha(75)
 
     kasper_battle_sprite = BattleCharacter("kasper battle", 825, 520, graphic_dict["kasper_battle"])
     torok_battle_sprite = BattleCharacter("torok battle", 825, 520, graphic_dict["torok_battle"])
@@ -6834,6 +6841,10 @@ if __name__ == "__main__":
     apothecary_window_open = False
     menagerie_window_open = False
 
+    critter_right_move = False
+    critter_left_move = True
+    walk_move = True
+
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
 
@@ -6882,6 +6893,8 @@ if __name__ == "__main__":
     loot_level_tic = time.perf_counter()
     walk_sound_tic = time.perf_counter()
     level_visual_tic = time.perf_counter()
+    critter_tic = time.perf_counter()
+    critter_move_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -7968,7 +7981,7 @@ if __name__ == "__main__":
                                     try:
                                         for pet in player.pet:
                                             if pet.active:
-                                                pet.update(player.x_coordinate + 35, player.y_coordinate - 25)
+                                                pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
                                     except AttributeError:
                                         pass
 
@@ -7998,7 +8011,7 @@ if __name__ == "__main__":
                                         try:
                                             for pet in player.pet:
                                                 if pet.active:
-                                                    pet.update(player.x_coordinate + 35, player.y_coordinate - 25)
+                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
                                         except AttributeError:
                                             pass
                                         hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
@@ -8030,7 +8043,7 @@ if __name__ == "__main__":
                                         try:
                                             for pet in player.pet:
                                                 if pet.active:
-                                                    pet.update(player.x_coordinate + 35, player.y_coordinate - 25)
+                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
                                         except AttributeError:
                                             pass
                                         hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
@@ -8477,7 +8490,9 @@ if __name__ == "__main__":
                                                                          necrola_battle_sprite, osodark_battle_sprite,
                                                                          sfx_item_flower, sfx_map_teleport,
                                                                          sfx_item_pickup, kart_full,
-                                                                         stelli_battle_sprite)
+                                                                         stelli_battle_sprite, critter_eldream,
+                                                                         critter_right_move, critter_left_move,
+                                                                         critter_tic, critter_move_tic)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -8523,7 +8538,9 @@ if __name__ == "__main__":
                                                                          necrola_battle_sprite, osodark_battle_sprite,
                                                                          sfx_item_flower, sfx_map_teleport,
                                                                          sfx_item_pickup, kart_full,
-                                                                         stelli_battle_sprite)
+                                                                         stelli_battle_sprite, critter_eldream,
+                                                                         critter_right_move, critter_left_move,
+                                                                         critter_tic, walk_move)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -8545,6 +8562,10 @@ if __name__ == "__main__":
                     info_text_4 = eldream_returned["info_text_4"]
                     eldream_flowers = eldream_returned["eldream_flowers"]
                     interactables_eldream = eldream_returned["interactables_eldream"]
+                    critter_right_move = eldream_returned["right_move"]
+                    critter_left_move = eldream_returned["left_move"]
+                    critter_tic = eldream_returned["critter_tic"]
+                    walk_move = eldream_returned["walk_move"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -10109,13 +10130,8 @@ if __name__ == "__main__":
                                         if hard_strike_learned:
                                             pygame.mixer.find_channel(True).play(sfx_fighter_strike)
                                             hard_strike = True
-                                            combat_scenario.fighter(graphic_dict, player, player_battle_sprite,
-                                                                    current_enemy_battling, snake_battle_sprite,
-                                                                    ghoul_battle_sprite, chorizon_battle_sprite,
-                                                                    muchador_battle_sprite, magmon_battle_sprite,
-                                                                    bandile_battle_sprite, chinzilla_battle_sprite,
-                                                                    sharp_sense_active, barrier_active,
-                                                                    stelli_battle_sprite, chorizon_phase)
+                                            combat_scenario.fighter(graphics, player, player_battle_sprite,
+                                                                    sharp_sense_active, barrier_active)
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                             "skill 1", player,
                                                                                             hard_strike_learned,
@@ -10410,6 +10426,7 @@ if __name__ == "__main__":
 
                             if mirror_image:
                                 screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
+                                screen.blit(mirror_overlay.surf, mirror_overlay.rect)
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -10478,6 +10495,7 @@ if __name__ == "__main__":
 
                             if mirror_image:
                                 game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
+                                game_window.blit(mirror_overlay.surf, mirror_overlay.rect)
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
@@ -10631,6 +10649,7 @@ if __name__ == "__main__":
 
                             if mirror_image:
                                 screen.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
+                                screen.blit(mirror_overlay.surf, mirror_overlay.rect)
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(message_box.surf, message_box.rect)
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -10699,6 +10718,7 @@ if __name__ == "__main__":
 
                             if mirror_image:
                                 game_window.blit(mirror_battle_sprite.surf, mirror_battle_sprite.rect)
+                                game_window.blit(mirror_overlay.surf, mirror_overlay.rect)
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(message_box.surf, message_box.rect)
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
