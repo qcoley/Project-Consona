@@ -6539,7 +6539,8 @@ if __name__ == "__main__":
     interactables_eldream.add(eldream_flowers, hearth_stone, quest_items_eldream, npc_omoku)
 
     # music tracks
-    start_screen_music = resource_path("resources/sounds/eterna_title.mp3")
+    start_screen_music = resource_path("resources/sounds/eterna_start_new.mp3")
+    character_select_music = resource_path("resources/sounds/eterna_title.mp3")
     seldon_overworld_music = resource_path("resources/sounds/eterna_seldon.mp3")
     seldon_building_music = resource_path("resources/sounds/eterna_building.mp3")
     stardust_outpost_music = resource_path("resources/sounds/eterna_stardust.mp3")
@@ -6814,6 +6815,7 @@ if __name__ == "__main__":
     over_world_song_set = False
     stardust_song_set = False
     building_song_set = False
+    new_game_music = False
 
     attack_hotkey = False
     skill_1_hotkey = False
@@ -6973,6 +6975,12 @@ if __name__ == "__main__":
         # --------------------------------------------------------------------------------------------------------------
         # character selection for new game -----------------------------------------------------------------------------
         if new_game_chosen:
+
+            if not new_game_music:
+                pygame.mixer.music.fadeout(50)
+                pygame.mixer.music.load(character_select_music)
+                pygame.mixer.music.play(loops=-1)
+                new_game_music = True
 
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
@@ -10166,7 +10174,7 @@ if __name__ == "__main__":
                                         if hard_strike_learned:
                                             pygame.mixer.find_channel(True).play(sfx_fighter_strike)
                                             hard_strike = True
-                                            combat_scenario.fighter(graphics, player, player_battle_sprite,
+                                            combat_scenario.fighter(graphic_dict, player, player_battle_sprite,
                                                                     sharp_sense_active, barrier_active)
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
                                                                                             "skill 1", player,
