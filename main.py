@@ -5776,6 +5776,10 @@ if __name__ == "__main__":
     eldream_hearth_screen = graphic_dict["eldream_hearth_screen"]
     game_over_screen = graphic_dict["game_over_screen"]
     start_screen = graphic_dict["start_screen"]
+    start_screen_0 = graphic_dict["start_screen_0"]
+    start_screen_1 = graphic_dict["start_screen_1"]
+    start_screen_2 = graphic_dict["start_screen_2"]
+    start_screen_3 = graphic_dict["start_screen_3"]
     nera_sleep_screen = graphic_dict["nera_sleep_screen"]
     korlok_district_bg = graphic_dict["korlok_bg_screen"]
     korlok_mines_bg = graphic_dict["korlok_mines"]
@@ -6116,8 +6120,8 @@ if __name__ == "__main__":
 
     character_button = UiElement("character button", 860, 680, graphic_dict["character_button_img"])
     quests_button = UiElement("quests button", 970, 680, graphic_dict["journal_button_img"])
-    new_game_button = UiElement("new game button", 640, 342, graphic_dict["new_game_img"])
-    continue_button = UiElement("continue button", 640, 425, graphic_dict["continue_img"])
+    new_game_button = UiElement("new game button", 640, 422, graphic_dict["new_game_img"])
+    continue_button = UiElement("continue button", 640, 505, graphic_dict["continue_img"])
 
     amuna_button = UiElement("amuna button", 70, 245, graphic_dict["amuna_button_img"])
     nuldar_button = UiElement("nuldar button", 70, 340, graphic_dict["nuldar_button_img"])
@@ -6898,6 +6902,7 @@ if __name__ == "__main__":
     level_visual_tic = time.perf_counter()
     critter_tic = time.perf_counter()
     worker_delay_tic = time.perf_counter()
+    intro_animation_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -6911,14 +6916,33 @@ if __name__ == "__main__":
                 drawing_functions.level_up_visual.pop(0)
 
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
+
+            intro_animation_toc = time.perf_counter()
+
             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                 screen.blit(start_screen, (0, 0))
-                screen.blit(new_game_button.surf, new_game_button.rect)
-                screen.blit(continue_button.surf, continue_button.rect)
+                if intro_animation_toc - intro_animation_tic > 2:
+                    screen.blit(start_screen_0, (0, 0))
+                if intro_animation_toc - intro_animation_tic > 4:
+                    screen.blit(start_screen_1, (0, 0))
+                if intro_animation_toc - intro_animation_tic > 6:
+                    screen.blit(start_screen_2, (0, 0))
+                if intro_animation_toc - intro_animation_tic > 8:
+                    screen.blit(start_screen_3, (0, 0))
+                    screen.blit(new_game_button.surf, new_game_button.rect)
+                    screen.blit(continue_button.surf, continue_button.rect)
             else:
                 game_window.blit(start_screen, (0, 0))
-                game_window.blit(new_game_button.surf, new_game_button.rect)
-                game_window.blit(continue_button.surf, continue_button.rect)
+                if intro_animation_toc - intro_animation_tic > 2:
+                    game_window.blit(start_screen_0, (0, 0))
+                if intro_animation_toc - intro_animation_tic > 4:
+                    game_window.blit(start_screen_1, (0, 0))
+                if intro_animation_toc - intro_animation_tic > 6:
+                    game_window.blit(start_screen_2, (0, 0))
+                if intro_animation_toc - intro_animation_tic > 8:
+                    game_window.blit(start_screen_3, (0, 0))
+                    game_window.blit(new_game_button.surf, new_game_button.rect)
+                    game_window.blit(continue_button.surf, continue_button.rect)
 
             if len(save_data_window) > 0:
                 for element in save_data_window:
@@ -6939,22 +6963,22 @@ if __name__ == "__main__":
                 ratio_y = (SCREEN_HEIGHT / screen.get_height())
                 pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
 
-                button_highlighted = button_highlighter(pos)
-
-                if event.type == pygame.MOUSEBUTTONUP:
-                    # player chooses to start a new game or continue from previous
-                    if new_game_button.rect.collidepoint(pos):
-                        pygame.mixer.find_channel(True).play(sfx_button_click)
-                        new_game_chosen = True
-                        button_highlighted = False
-                        save_data_window.clear()
-                    if continue_button.rect.collidepoint(pos):
-                        pygame.mixer.find_channel(True).play(sfx_button_start)
-                        continue_game_chosen = True
-                        button_highlighted = False
-                    # click to dismiss save absent popup if player tries to continue with no save file
-                    if save_absent.rect.collidepoint(pos):
-                        save_data_window.clear()
+                if intro_animation_toc - intro_animation_tic > 8:
+                    button_highlighted = button_highlighter(pos)
+                    if event.type == pygame.MOUSEBUTTONUP:
+                        # player chooses to start a new game or continue from previous
+                        if new_game_button.rect.collidepoint(pos):
+                            pygame.mixer.find_channel(True).play(sfx_button_click)
+                            new_game_chosen = True
+                            button_highlighted = False
+                            save_data_window.clear()
+                        if continue_button.rect.collidepoint(pos):
+                            pygame.mixer.find_channel(True).play(sfx_button_start)
+                            continue_game_chosen = True
+                            button_highlighted = False
+                        # click to dismiss save absent popup if player tries to continue with no save file
+                        if save_absent.rect.collidepoint(pos):
+                            save_data_window.clear()
                 elif event.type == QUIT:
                     sys.exit()
 
