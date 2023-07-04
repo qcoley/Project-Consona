@@ -5776,7 +5776,6 @@ if __name__ == "__main__":
     eldream_hearth_screen = graphic_dict["eldream_hearth_screen"]
     game_over_screen = graphic_dict["game_over_screen"]
     start_screen = graphic_dict["start_screen"]
-    start_screen_0 = graphic_dict["start_screen_0"]
     start_screen_1 = graphic_dict["start_screen_1"]
     start_screen_2 = graphic_dict["start_screen_2"]
     start_screen_3 = graphic_dict["start_screen_3"]
@@ -6832,6 +6831,10 @@ if __name__ == "__main__":
 
     beyond_seldon = False
 
+    start_1_set = False
+    start_2_set = False
+    start_3_set = False
+
     # reservoir dungeon conditions
     crate_1 = False
     crate_2 = False
@@ -6902,7 +6905,7 @@ if __name__ == "__main__":
     level_visual_tic = time.perf_counter()
     critter_tic = time.perf_counter()
     worker_delay_tic = time.perf_counter()
-    intro_animation_tic = time.perf_counter()
+    start_animation_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -6917,32 +6920,68 @@ if __name__ == "__main__":
 
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
 
-            intro_animation_toc = time.perf_counter()
+            screen.blit(start_screen, (0, 0))
+            start_animation_toc = time.perf_counter()
 
-            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                screen.blit(start_screen, (0, 0))
-                if intro_animation_toc - intro_animation_tic > 2:
-                    screen.blit(start_screen_0, (0, 0))
-                if intro_animation_toc - intro_animation_tic > 4:
-                    screen.blit(start_screen_1, (0, 0))
-                if intro_animation_toc - intro_animation_tic > 6:
-                    screen.blit(start_screen_2, (0, 0))
-                if intro_animation_toc - intro_animation_tic > 8:
-                    screen.blit(start_screen_3, (0, 0))
-                    screen.blit(new_game_button.surf, new_game_button.rect)
-                    screen.blit(continue_button.surf, continue_button.rect)
+            if start_1_set:
+                screen.blit(start_screen_1, (0, 0))
+            if start_2_set:
+                screen.blit(start_screen_2, (0, 0))
+            if start_3_set:
+                screen.blit(start_screen_3, (0, 0))
+                screen.blit(continue_button.surf, continue_button.rect)
+                screen.blit(new_game_button.surf, new_game_button.rect)
+
+            if start_animation_toc - start_animation_tic > 1:
+                if not start_1_set:
+                    for alpha in range(0, 255):
+                        start_screen_1.set_alpha(alpha)
+                        screen.blit(start_screen_1, (0, 0))
+                        pygame.display.flip()
+                    start_1_set = True
+            if start_1_set:
+                if not start_2_set:
+                    for alpha in range(0, 255):
+                        start_screen_2.set_alpha(alpha)
+                        screen.blit(start_screen_2, (0, 0))
+                        pygame.display.flip()
+                    start_2_set = True
+            if start_animation_toc - start_animation_tic > 7:
+                if start_2_set:
+                    if not start_3_set:
+                        start_3_set = True
+
             else:
                 game_window.blit(start_screen, (0, 0))
-                if intro_animation_toc - intro_animation_tic > 2:
-                    game_window.blit(start_screen_0, (0, 0))
-                if intro_animation_toc - intro_animation_tic > 4:
+                start_animation_toc = time.perf_counter()
+
+                if start_1_set:
                     game_window.blit(start_screen_1, (0, 0))
-                if intro_animation_toc - intro_animation_tic > 6:
+                if start_2_set:
                     game_window.blit(start_screen_2, (0, 0))
-                if intro_animation_toc - intro_animation_tic > 8:
+                if start_3_set:
                     game_window.blit(start_screen_3, (0, 0))
-                    game_window.blit(new_game_button.surf, new_game_button.rect)
                     game_window.blit(continue_button.surf, continue_button.rect)
+                    game_window.blit(new_game_button.surf, new_game_button.rect)
+
+                if start_animation_toc - start_animation_tic > 1:
+                    if not start_1_set:
+                        for alpha in range(0, 255):
+                            start_screen_1.set_alpha(alpha)
+                            game_window.blit(start_screen_1, (0, 0))
+                            pygame.display.flip()
+                        start_1_set = True
+                if start_1_set:
+                    if not start_2_set:
+                        for alpha in range(0, 255):
+                            start_screen_2.set_alpha(alpha)
+                            game_window.blit(start_screen_2, (0, 0))
+                            pygame.display.flip()
+                        start_2_set = True
+                if start_animation_toc - start_animation_tic > 7:
+                    if start_2_set:
+                        if not start_3_set:
+                            start_3_set = True
 
             if len(save_data_window) > 0:
                 for element in save_data_window:
@@ -6963,9 +7002,10 @@ if __name__ == "__main__":
                 ratio_y = (SCREEN_HEIGHT / screen.get_height())
                 pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
 
-                if intro_animation_toc - intro_animation_tic > 8:
+                if start_3_set:
                     button_highlighted = button_highlighter(pos)
-                    if event.type == pygame.MOUSEBUTTONUP:
+                if event.type == pygame.MOUSEBUTTONUP:
+                    if start_3_set:
                         # player chooses to start a new game or continue from previous
                         if new_game_button.rect.collidepoint(pos):
                             pygame.mixer.find_channel(True).play(sfx_button_click)
@@ -6976,9 +7016,9 @@ if __name__ == "__main__":
                             pygame.mixer.find_channel(True).play(sfx_button_start)
                             continue_game_chosen = True
                             button_highlighted = False
-                        # click to dismiss save absent popup if player tries to continue with no save file
-                        if save_absent.rect.collidepoint(pos):
-                            save_data_window.clear()
+                    # click to dismiss save absent popup if player tries to continue with no save file
+                    if save_absent.rect.collidepoint(pos):
+                        save_data_window.clear()
                 elif event.type == QUIT:
                     sys.exit()
 

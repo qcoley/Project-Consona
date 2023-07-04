@@ -103,7 +103,6 @@ def load_graphics():
     eldream_hearth_screen = pygame.image.load(resource_path('resources/art/screen_eldream_hearth.png')).convert_alpha()
     game_over_screen = pygame.image.load(resource_path('resources/art/screen_game_over.png')).convert_alpha()
     start_screen = pygame.image.load(resource_path('resources/art/start_screen.png')).convert_alpha()
-    start_screen_0 = pygame.image.load(resource_path('resources/art/start_screen_0.png')).convert_alpha()
     start_screen_1 = pygame.image.load(resource_path('resources/art/start_screen_1.png')).convert_alpha()
     start_screen_2 = pygame.image.load(resource_path('resources/art/start_screen_2.png')).convert_alpha()
     start_screen_3 = pygame.image.load(resource_path('resources/art/start_screen_3.png')).convert_alpha()
@@ -201,8 +200,7 @@ def load_graphics():
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
                   chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
-                  kart_overworld, kart_big_full, mirror_overlay, start_screen_0, start_screen_1, start_screen_2,
-                  start_screen_3]
+                  kart_overworld, kart_big_full, mirror_overlay, start_screen_1, start_screen_2, start_screen_3]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -265,7 +263,6 @@ def load_graphics():
     loaded_dict["eldream_hearth_screen"] = eldream_hearth_screen
     loaded_dict["game_over_screen"] = game_over_screen
     loaded_dict["start_screen"] = start_screen
-    loaded_dict["start_screen_0"] = start_screen_0
     loaded_dict["start_screen_1"] = start_screen_1
     loaded_dict["start_screen_2"] = start_screen_2
     loaded_dict["start_screen_3"] = start_screen_3
