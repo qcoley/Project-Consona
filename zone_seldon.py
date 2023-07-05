@@ -368,12 +368,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             movement_able = False
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
-            combat_scenario.resting_animation(player, enemy, player_battle_sprite, snake_battle_sprite,
-                                              ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
-                                              magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
-                                              barrier_active, sharp_sense_active, in_battle, in_npc_interaction,
-                                              graphic_dict, necrola_battle_sprite, osodark_battle_sprite,
-                                              stelli_battle_sprite, chorizon_phase=False)
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active, sharp_sense_active,
+                                                    graphic_dict)
 
     if pygame.sprite.collide_rect(player, hearth_stone):
         interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,

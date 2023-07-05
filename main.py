@@ -5776,9 +5776,7 @@ if __name__ == "__main__":
     eldream_hearth_screen = graphic_dict["eldream_hearth_screen"]
     game_over_screen = graphic_dict["game_over_screen"]
     start_screen = graphic_dict["start_screen"]
-    start_screen_1 = graphic_dict["start_screen_1"]
-    start_screen_2 = graphic_dict["start_screen_2"]
-    start_screen_3 = graphic_dict["start_screen_3"]
+    start_screen_logo = graphic_dict["start_screen_logo"]
     nera_sleep_screen = graphic_dict["nera_sleep_screen"]
     korlok_district_bg = graphic_dict["korlok_bg_screen"]
     korlok_mines_bg = graphic_dict["korlok_mines"]
@@ -6119,8 +6117,8 @@ if __name__ == "__main__":
 
     character_button = UiElement("character button", 860, 680, graphic_dict["character_button_img"])
     quests_button = UiElement("quests button", 970, 680, graphic_dict["journal_button_img"])
-    new_game_button = UiElement("new game button", 640, 422, graphic_dict["new_game_img"])
-    continue_button = UiElement("continue button", 640, 505, graphic_dict["continue_img"])
+    new_game_button = UiElement("new game button", 640, 423, graphic_dict["new_game_img"])
+    continue_button = UiElement("continue button", 640, 516, graphic_dict["continue_img"])
 
     amuna_button = UiElement("amuna button", 70, 245, graphic_dict["amuna_button_img"])
     nuldar_button = UiElement("nuldar button", 70, 340, graphic_dict["nuldar_button_img"])
@@ -6558,7 +6556,7 @@ if __name__ == "__main__":
 
     pygame.mixer.music.set_volume(0.40)
     pygame.mixer.music.load(start_screen_music)
-    pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.play(loops=0)
 
     sfx_game_over = pygame.mixer.Sound(resource_path("resources/sounds/game_over.mp3"))
     sfx_game_over.set_volume(0.70)
@@ -6831,9 +6829,7 @@ if __name__ == "__main__":
 
     beyond_seldon = False
 
-    start_1_set = False
-    start_2_set = False
-    start_3_set = False
+    start_logo_set = False
 
     # reservoir dungeon conditions
     crate_1 = False
@@ -6905,7 +6901,7 @@ if __name__ == "__main__":
     level_visual_tic = time.perf_counter()
     critter_tic = time.perf_counter()
     worker_delay_tic = time.perf_counter()
-    start_animation_tic = time.perf_counter()
+    start_logo_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -6920,68 +6916,38 @@ if __name__ == "__main__":
 
         if not new_game_chosen and not continue_game_chosen and not start_chosen:
 
-            screen.blit(start_screen, (0, 0))
-            start_animation_toc = time.perf_counter()
+            if not start_logo_set:
+                start_logo_toc = time.perf_counter()
 
-            if start_1_set:
-                screen.blit(start_screen_1, (0, 0))
-            if start_2_set:
-                screen.blit(start_screen_2, (0, 0))
-            if start_3_set:
-                screen.blit(start_screen_3, (0, 0))
-                screen.blit(continue_button.surf, continue_button.rect)
-                screen.blit(new_game_button.surf, new_game_button.rect)
+            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                screen.blit(start_screen, (0, 0))
+                if start_logo_set:
+                    screen.blit(start_screen_logo, (0, 0))
+                    screen.blit(new_game_button.surf, new_game_button.rect)
+                    screen.blit(continue_button.surf, continue_button.rect)
 
-            if start_animation_toc - start_animation_tic > 1:
-                if not start_1_set:
-                    for alpha in range(0, 255):
-                        start_screen_1.set_alpha(alpha)
-                        screen.blit(start_screen_1, (0, 0))
-                        pygame.display.flip()
-                    start_1_set = True
-            if start_1_set:
-                if not start_2_set:
-                    for alpha in range(0, 255):
-                        start_screen_2.set_alpha(alpha)
-                        screen.blit(start_screen_2, (0, 0))
-                        pygame.display.flip()
-                    start_2_set = True
-            if start_animation_toc - start_animation_tic > 7:
-                if start_2_set:
-                    if not start_3_set:
-                        start_3_set = True
+                if start_logo_toc - start_logo_tic > 2:
+                    if not start_logo_set:
+                        for alpha in range(0, 255):
+                            start_screen_logo.set_alpha(alpha)
+                            screen.blit(start_screen_logo, (0, 0))
+                            pygame.display.flip()
+                        start_logo_set = True
 
             else:
                 game_window.blit(start_screen, (0, 0))
-                start_animation_toc = time.perf_counter()
-
-                if start_1_set:
-                    game_window.blit(start_screen_1, (0, 0))
-                if start_2_set:
-                    game_window.blit(start_screen_2, (0, 0))
-                if start_3_set:
-                    game_window.blit(start_screen_3, (0, 0))
-                    game_window.blit(continue_button.surf, continue_button.rect)
+                if start_logo_set:
+                    game_window.blit(start_screen_logo, (0, 0))
                     game_window.blit(new_game_button.surf, new_game_button.rect)
+                    game_window.blit(continue_button.surf, continue_button.rect)
 
-                if start_animation_toc - start_animation_tic > 1:
-                    if not start_1_set:
+                if start_logo_toc - start_logo_tic > 2:
+                    if not start_logo_set:
                         for alpha in range(0, 255):
-                            start_screen_1.set_alpha(alpha)
-                            game_window.blit(start_screen_1, (0, 0))
+                            start_screen_logo.set_alpha(alpha)
+                            game_window.blit(start_screen_logo, (0, 0))
                             pygame.display.flip()
-                        start_1_set = True
-                if start_1_set:
-                    if not start_2_set:
-                        for alpha in range(0, 255):
-                            start_screen_2.set_alpha(alpha)
-                            game_window.blit(start_screen_2, (0, 0))
-                            pygame.display.flip()
-                        start_2_set = True
-                if start_animation_toc - start_animation_tic > 7:
-                    if start_2_set:
-                        if not start_3_set:
-                            start_3_set = True
+                        start_logo_set = True
 
             if len(save_data_window) > 0:
                 for element in save_data_window:
@@ -7002,10 +6968,10 @@ if __name__ == "__main__":
                 ratio_y = (SCREEN_HEIGHT / screen.get_height())
                 pos = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
 
-                if start_3_set:
+                if start_logo_set:
                     button_highlighted = button_highlighter(pos)
                 if event.type == pygame.MOUSEBUTTONUP:
-                    if start_3_set:
+                    if start_logo_set:
                         # player chooses to start a new game or continue from previous
                         if new_game_button.rect.collidepoint(pos):
                             pygame.mixer.find_channel(True).play(sfx_button_click)
@@ -10170,7 +10136,8 @@ if __name__ == "__main__":
                                                                                         barrier_active,
                                                                                         sharp_sense_active,
                                                                                         graphic_dict)
-                                                combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite,
+                                                combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                       snake_battle_sprite,
                                                                                        ghoul_battle_sprite,
                                                                                        chorizon_battle_sprite,
                                                                                        muchador_battle_sprite,
@@ -14445,11 +14412,11 @@ if __name__ == "__main__":
                                                           weapon_select)
                             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                                     sharp_sense_active, graphic_dict)
-                            combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite,
-                                                                   chorizon_battle_sprite, muchador_battle_sprite,
-                                                                   magmon_battle_sprite, bandile_battle_sprite,
-                                                                   chinzilla_battle_sprite, in_battle,
-                                                                   in_npc_interaction, graphic_dict,
+                            combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                                   ghoul_battle_sprite, chorizon_battle_sprite,
+                                                                   muchador_battle_sprite, magmon_battle_sprite,
+                                                                   bandile_battle_sprite, chinzilla_battle_sprite,
+                                                                   in_battle, in_npc_interaction, graphic_dict,
                                                                    necrola_battle_sprite, osodark_battle_sprite,
                                                                    stelli_battle_sprite, chorizon_phase)
                             game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
