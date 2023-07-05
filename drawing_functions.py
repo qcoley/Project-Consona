@@ -529,17 +529,23 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
             text_location = font.render(str("Ectrenos"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
+        if player.x_coordinate > 800 and player.y_coordinate < 125:
+            text_location.set_alpha(50)
         if len(game_guide_container) == 0:
             screen.blit(text_location, text_location_rect)
     # current info text for message box in lower left corner of screen, first line--------------------------------------
     text_info_surf_1 = font.render(info_text_1, True, "black", "light yellow")
     text_info_rect_1 = text_info_surf_1.get_rect()
     text_info_rect_1.midleft = (30, 630)
+    if player.x_coordinate < 335 and 600 < player.y_coordinate:
+        text_info_surf_1.set_alpha(50)
     screen.blit(text_info_surf_1, text_info_rect_1)
     # current info text for message box in lower left corner of screen, second line-------------------------------------
     text_info_surf_2 = font.render(info_text_2, True, "black", "light yellow")
     text_info_rect_2 = text_info_surf_2.get_rect()
     text_info_rect_2.midleft = (30, 650)
+    if player.x_coordinate < 335 and 600 < player.y_coordinate:
+        text_info_surf_2.set_alpha(50)
     screen.blit(text_info_surf_2, text_info_rect_2)
     # current info text for message box in lower left corner of screen, third line--------------------------------------
     text_info_surf_3 = font.render(info_text_3, True, "black", "light yellow")

@@ -6395,6 +6395,9 @@ if __name__ == "__main__":
     eldream_riv_21 = UiElement("eldream river 21", 0, 540, graphic_dict["eldream_river"])
     overlay_ectrene = UiElement("ectrene", 525, 325, graphic_dict["overlay_ectrene"])
 
+    overlay_stardust_waterfall = UiElement("waterfall", 857, 593, graphic_dict["overlay_stardust_waterfall"])
+    overlay_stardust_waterfall.surf.set_alpha(200)
+
     chroma_bridge = UiElement("chroma bridge", 477, 493, graphic_dict["chroma_bridge"])
     chroma_bridge_small = UiElement("chroma bridge small", 308, 281, graphic_dict["chroma_bridge_small"])
 
@@ -6524,8 +6527,8 @@ if __name__ == "__main__":
     quest_items_seldon.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
     quest_items_eldream.add(quest_supplies_1, quest_supplies_2, quest_supplies_3, quest_supplies_4)
     most_sprites.add(npcs_seldon, trees, amuna_buildings, quest_items_seldon, seldon_enemies, hearth_stone, rohir_gate)
-    user_interface.add(rest_button, buy_button, leave_button, character_button, quests_button, save_button,
-                       map_button, message_box, location_overlay, star_power_meter)
+    user_interface.add(character_button, quests_button, save_button, map_button, message_box, location_overlay,
+                       star_power_meter)
     interactables_nascent.add(nascent_gate, rock_8)
     interactables_seldon.add(npcs_seldon, seldon_enemies, amuna_buildings, hearth_stone, quest_items_seldon,
                              seldon_flowers)
@@ -6851,6 +6854,9 @@ if __name__ == "__main__":
     critter_left_move = True
     walk_move = True
 
+    alpha_set = False
+    logo_alpha_set = False
+
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
 
@@ -6909,6 +6915,49 @@ if __name__ == "__main__":
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
         # print(player.x_coordinate, player.y_coordinate)
 
+        # hide UI elements if player walks under them ------------------------------------------------------------------
+        if player.x_coordinate < 335 and 600 < player.y_coordinate:
+            if not alpha_set:
+                message_box.surf.set_alpha(50)
+                alpha_set = True
+        else:
+            message_box.surf.set_alpha(255)
+            alpha_set = False
+        if player.y_coordinate > 660 and player.x_coordinate > 800:
+            if not alpha_set:
+                character_button.surf.set_alpha(50)
+                quests_button.surf.set_alpha(50)
+                alpha_set = True
+        else:
+            character_button.surf.set_alpha(255)
+            quests_button.surf.set_alpha(255)
+            alpha_set = False
+        if player.x_coordinate < 325 and player.y_coordinate < 125:
+            if not alpha_set:
+                hp_bar.surf.set_alpha(50)
+                en_bar.surf.set_alpha(50)
+                xp_bar.surf.set_alpha(50)
+                bar_backdrop.surf.set_alpha(50)
+                alpha_set = True
+        else:
+            hp_bar.surf.set_alpha(255)
+            en_bar.surf.set_alpha(255)
+            xp_bar.surf.set_alpha(255)
+            bar_backdrop.surf.set_alpha(255)
+            alpha_set = False
+        if player.x_coordinate > 800 and player.y_coordinate < 125:
+            if not alpha_set:
+                save_button.surf.set_alpha(50)
+                map_button.surf.set_alpha(50)
+                location_overlay.surf.set_alpha(50)
+                alpha_set = True
+        else:
+            save_button.surf.set_alpha(255)
+            map_button.surf.set_alpha(255)
+            location_overlay.surf.set_alpha(255)
+            alpha_set = False
+        # --------------------------------------------------------------------------------------------------------------
+
         if not in_over_world:
             if len(drawing_functions.level_up_visual) > 0:
                 level_visual = False
@@ -6922,13 +6971,16 @@ if __name__ == "__main__":
             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                 screen.blit(start_screen, (0, 0))
                 if start_logo_set:
+                    if not logo_alpha_set:
+                        start_screen_logo.set_alpha(255)
+                        logo_alpha_set = True
                     screen.blit(start_screen_logo, (0, 0))
                     screen.blit(new_game_button.surf, new_game_button.rect)
                     screen.blit(continue_button.surf, continue_button.rect)
 
                 if start_logo_toc - start_logo_tic > 2:
                     if not start_logo_set:
-                        for alpha in range(0, 255):
+                        for alpha in range(0, 150):
                             start_screen_logo.set_alpha(alpha)
                             screen.blit(start_screen_logo, (0, 0))
                             pygame.display.flip()
@@ -6937,13 +6989,16 @@ if __name__ == "__main__":
             else:
                 game_window.blit(start_screen, (0, 0))
                 if start_logo_set:
+                    if not logo_alpha_set:
+                        start_screen_logo.set_alpha(255)
+                        logo_alpha_set = True
                     game_window.blit(start_screen_logo, (0, 0))
                     game_window.blit(new_game_button.surf, new_game_button.rect)
                     game_window.blit(continue_button.surf, continue_button.rect)
 
                 if start_logo_toc - start_logo_tic > 2:
                     if not start_logo_set:
-                        for alpha in range(0, 255):
+                        for alpha in range(0, 150):
                             start_screen_logo.set_alpha(alpha)
                             game_window.blit(start_screen_logo, (0, 0))
                             pygame.display.flip()
@@ -9327,7 +9382,7 @@ if __name__ == "__main__":
                                                                            rock_3_con, outpost_show, outpost_notify,
                                                                            stardust_stelli, enemy_tic,
                                                                            stelli_battle_sprite, vanished,
-                                                                           vanish_overlay)
+                                                                           vanish_overlay, overlay_stardust_waterfall)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -9360,7 +9415,7 @@ if __name__ == "__main__":
                                                                            rock_3_con, outpost_show, outpost_notify,
                                                                            stardust_stelli, enemy_tic,
                                                                            stelli_battle_sprite, vanished,
-                                                                           vanish_overlay)
+                                                                           vanish_overlay, overlay_stardust_waterfall)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]

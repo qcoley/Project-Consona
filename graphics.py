@@ -55,6 +55,7 @@ def load_graphics():
     pet_energy_overlay = pygame.image.load(resource_path('resources/art/overlay_pet_energy.png')).convert_alpha()
     overlay_ectrene = pygame.image.load(resource_path('resources/art/overlay_ectrene.png')).convert_alpha()
     overlay_advantages = pygame.image.load(resource_path('resources/art/overlay_type_advantages.png')).convert_alpha()
+    overlay_star_waterfall = pygame.image.load(resource_path('resources/art/stardust_waterfall.png')).convert_alpha()
     apothecary_window = pygame.image.load(resource_path('resources/art/overlay_apothecary_window.png')).convert_alpha()
     weapon_select = pygame.image.load(resource_path('resources/art/overlay_weapon_select.png')).convert_alpha()
     equipment_screen = pygame.image.load(resource_path('resources/art/overlay_equipment_screen.png')).convert_alpha()
@@ -198,7 +199,7 @@ def load_graphics():
                   mines_wall, mines_light, korlok_mountains, terra_mountains, terra_cave, weapon_select,
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
                   chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
-                  kart_overworld, kart_big_full, mirror_overlay, start_screen_logo]
+                  kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -218,6 +219,7 @@ def load_graphics():
     loaded_dict["pet_energy"] = pet_energy_overlay
     loaded_dict["eldream_menagerie"] = eldream_menagerie
     loaded_dict["overlay_ectrene"] = overlay_ectrene
+    loaded_dict["overlay_stardust_waterfall"] = overlay_star_waterfall
     loaded_dict["ectrenos_bg"] = ectrenos_bg_screen
     loaded_dict["ectrenos_left_bg"] = ectrenos_left_bg_screen
     loaded_dict["ectrenos_right_bg"] = ectrenos_right_bg_screen
