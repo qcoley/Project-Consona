@@ -5747,9 +5747,9 @@ if __name__ == "__main__":
     graphic_dict = graphics.load_graphics()
 
     # fonts
-    font = pygame.font.SysFont('freesansbold.ttf', 22, bold=False, italic=False)
-    level_up_font = pygame.font.SysFont('freesansbold.ttf', 28, bold=True, italic=False)
-    name_input_font = pygame.font.SysFont('freesansbold.ttf', 32, bold=True, italic=False)
+    font = pygame.font.Font(resource_path("resources/fonts/Lato-Bold.ttf"), 16)
+    level_up_font = pygame.font.Font(resource_path("resources/fonts/Lato-Bold.ttf"), 20)
+    name_input_font = pygame.font.Font(resource_path("resources/fonts/Lato-Bold.ttf"), 24)
 
     # background textures ----------------------------------------------------------------------------------------------
     nascent_grove_bg = graphic_dict["nascent_grove_screen"]
