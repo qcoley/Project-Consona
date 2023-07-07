@@ -127,7 +127,7 @@ def load_graphics():
     char_select_overlay = pygame.image.load(resource_path('resources/art/overlay_character_select.png')).convert_alpha()
     role_selection_overlay = pygame.image.load(resource_path('resources/art/overlay_role_select.png')).convert_alpha()
     location_overlay = pygame.image.load(resource_path('resources/art/overlay_location.png')).convert_alpha()
-    popup_loot = pygame.image.load(resource_path('resources/art/popup_loot.png')).convert_alpha()
+    popup_loot = pygame.image.load(resource_path('resources/art/popup_enemy_defeat.png')).convert_alpha()
     stardust_entrance = pygame.image.load(resource_path('resources/art/overlay_stardust_entrance.png')).convert_alpha()
     upgrade_overlay = pygame.image.load(resource_path('resources/art/overlay_upgrade_select.png')).convert_alpha()
     cat_pet_button_overlay = pygame.image.load(resource_path('resources/art/overlay_cat_pet.png')).convert_alpha()

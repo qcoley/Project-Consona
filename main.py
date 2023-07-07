@@ -10098,7 +10098,7 @@ if __name__ == "__main__":
                             if not combat_cooldown:
                                 skill_1_hotkey = False
                                 # make sure player has enough energy to use the skill
-                                if player.energy > 34:
+                                if player.energy > 19:
                                     # player is a mage and uses the barrier spell. Set barrier active to true
                                     # save original defence value to be re applied upon enemy or player defeat
                                     if player.role == "mage":
@@ -10107,7 +10107,7 @@ if __name__ == "__main__":
                                                 pygame.mixer.find_channel(True).play(sfx_mage_barrier)
                                                 info_text_1 = "Barrier spell is active."
                                                 barrier_active = True
-                                                player.energy -= 35
+                                                player.energy -= 20
                                                 turn_taken = True
                                                 attack_hotkey = False
                                                 combat_scenario.battle_animation_player(player, player_battle_sprite,
@@ -10185,7 +10185,7 @@ if __name__ == "__main__":
                                                 pygame.mixer.find_channel(True).play(sfx_scout_sense)
                                                 info_text_1 = "Sharp sense is active."
                                                 sharp_sense_active = True
-                                                player.energy -= 35
+                                                player.energy -= 20
                                                 turn_taken = True
                                                 attack_hotkey = False
                                                 combat_scenario.battle_animation_player(player, player_battle_sprite,
@@ -10276,7 +10276,7 @@ if __name__ == "__main__":
                                             except TypeError and KeyError:
                                                 stun_them = False
                                             combat_happened = True
-                                            player.energy -= 35
+                                            player.energy -= 20
                                             if combat_events["damage done string"] == 0:
                                                 info_text_1 = ""
                                             else:
@@ -10334,12 +10334,12 @@ if __name__ == "__main__":
                                     info_text_1 = "Not enough energy to use this skill."
 
                         elif combat_button == "skill 2" or skill_2_hotkey:
-                            if player.energy > 49:
+                            if player.energy > 39:
                                 if player.role == "mage":
                                     if mirror_learned:
                                         pygame.mixer.find_channel(True).play(sfx_mage_mirror)
                                         mirror_image = True
-                                        player.energy -= 50
+                                        player.energy -= 40
 
                                 if player.role == "fighter":
                                     if stun_learned:
@@ -10347,7 +10347,7 @@ if __name__ == "__main__":
                                         stun_visual_tic = time.perf_counter()
                                         stun_them = True
                                         stun_visual = True
-                                        player.energy -= 50
+                                        player.energy -= 40
 
                                 if player.role == "scout":
                                     if vanish_learned:
@@ -10365,7 +10365,7 @@ if __name__ == "__main__":
                                         if sharp_sense_active:
                                             sharp_sense_active = False
                                             # noinspection PyUnboundLocalVariable
-                                        player.energy -= 50
+                                        player.energy -= 40
                                         mirror_image = False
                                         vanished = True
                                         vanished_tic = time.perf_counter()
