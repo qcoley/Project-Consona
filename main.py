@@ -6394,6 +6394,7 @@ if __name__ == "__main__":
     eldream_riv_20 = UiElement("eldream river 20", 40, 500, graphic_dict["eldream_river"])
     eldream_riv_21 = UiElement("eldream river 21", 0, 540, graphic_dict["eldream_river"])
     overlay_ectrene = UiElement("ectrene", 525, 325, graphic_dict["overlay_ectrene"])
+    overlay_bridge_gate = UiElement("overlay bridge gate", 527, 619, graphic_dict["overlay_bridge_gate"])
 
     overlay_stardust_waterfall = UiElement("waterfall", 857, 593, graphic_dict["overlay_stardust_waterfall"])
     overlay_stardust_waterfall.surf.set_alpha(200)
@@ -8467,7 +8468,7 @@ if __name__ == "__main__":
                                                                       nuldar_building_top_1, nuldar_building_top_2,
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
                                                                       stelli_battle_sprite, vanished, vanish_overlay,
-                                                                      worker_delay_tic)
+                                                                      worker_delay_tic, overlay_bridge_gate)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -8509,7 +8510,7 @@ if __name__ == "__main__":
                                                                       nuldar_building_top_1, nuldar_building_top_2,
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
                                                                       stelli_battle_sprite, vanished, vanish_overlay,
-                                                                      worker_delay_tic)
+                                                                      worker_delay_tic, overlay_bridge_gate)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]

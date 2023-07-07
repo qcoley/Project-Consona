@@ -22,7 +22,8 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     weapon_select, rock_4, rock_5, rock_6, rock_4_con, rock_5_con, rock_6_con, seldon_flowers,
                     eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
-                    worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic):
+                    worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
+                    bridge_gate):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -130,6 +131,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     except AttributeError:
         pass
     screen.blit(korlok_mountains.surf, korlok_mountains.rect)
+    screen.blit(bridge_gate.surf, bridge_gate.rect)
     if len(drawing_functions.character_sheet_window) == 0 and len(drawing_functions.game_guide_container) == 0 \
             and len(drawing_functions.journal_window) == 0:
         screen.blit(top_1.surf, top_1.rect)

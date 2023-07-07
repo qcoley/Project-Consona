@@ -456,6 +456,8 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                     info_text_1 = "This crate is empty."
                     info_text_2 = ""
 
+                interacted = False
+
     if pygame.sprite.collide_rect(player, reservoir_passage):
         if muchador_defeated:
             interaction_popup.update(reservoir_passage.x_coordinate + 45, reservoir_passage.y_coordinate - 75,
