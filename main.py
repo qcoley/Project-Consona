@@ -10026,8 +10026,9 @@ if __name__ == "__main__":
                                     if combat_events["enemy defeated"]:
                                         # player will gain knowledge based on their current role
                                         if player.role == "mage":
-                                            player.knowledge["mage"] += 10
-                                            battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
+                                            if player.level <= current_enemy_battling.level + 1:
+                                                player.knowledge["mage"] += 10
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
                                             # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
                                                 if seed_mage_count < 4 and seed_fighter_count < 4 and \
@@ -10035,8 +10036,9 @@ if __name__ == "__main__":
                                                     seed_mage_count += 1
 
                                         if player.role == "fighter":
-                                            player.knowledge["fighter"] += 10
-                                            battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
+                                            if player.level <= current_enemy_battling.level + 1:
+                                                player.knowledge["fighter"] += 10
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
                                             # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
                                                 if seed_mage_count < 4 and seed_fighter_count < 4 and \
@@ -10044,8 +10046,9 @@ if __name__ == "__main__":
                                                     seed_fighter_count += 1
 
                                         if player.role == "scout":
-                                            player.knowledge["scout"] += 10
-                                            battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
+                                            if player.level <= current_enemy_battling.level + 1:
+                                                player.knowledge["scout"] += 10
+                                                battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
                                             # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
                                                 if seed_mage_count < 4 and seed_fighter_count < 4 and \
@@ -10295,9 +10298,10 @@ if __name__ == "__main__":
                                                         str(combat_events["experience gained"])
                                             if combat_events["enemy defeated"]:
                                                 if player.role == "fighter":
-                                                    player.knowledge["fighter"] += 10
-                                                    battle_info_to_return_to_main_loop["knowledge"] = \
-                                                        "10 fighter knowledge gained."
+                                                    if player.level <= current_enemy_battling.level + 1:
+                                                        player.knowledge["fighter"] += 10
+                                                        battle_info_to_return_to_main_loop["knowledge"] = \
+                                                            "10 fighter knowledge gained."
                                                 if current_enemy_battling.name == "nede ghoul":
                                                     nede_ghoul_defeated = True
                                                     ghoul_nede.kill()
