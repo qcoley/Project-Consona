@@ -527,6 +527,11 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
                 player.current_zone == "ectrenos right" or player.current_zone == "ectrenos alcove" or \
                 player.current_zone == "ectrenos front":
             text_location = font.render(str("Ectrenos"), True, "black", "light yellow")
+        if player.current_zone == "marrow" or player.current_zone == "marrow entrance" or \
+                player.current_zone == "marrow tower east" or player.current_zone == "marrow tower west" or \
+                player.current_zone == "marrow ramparts east" or player.current_zone == "marrow ramparts west" or \
+                player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow ramparts west end":
+            text_location = font.render(str("Marrow"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
         if player.x_coordinate > 800 and player.y_coordinate < 125:
@@ -817,6 +822,59 @@ def journal_info_draw(journal, player, font, draw_condition):
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
             text_quest4_info_rect.midleft = (540, 585)
             text_quest4_prog_surf = font.render(str(player.quest_progress["shades of fear"]) + " /4", True,
+                                                "black", "light yellow")
+            text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
+            text_quest4_prog_rect.midleft = (950, 538)
+
+        if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
+                player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
+                or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
+                or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
+
+            text_quest1_surf = font.render("Get to marrow", True, "black", "light yellow")
+            text_quest1_rect = text_quest1_surf.get_rect()
+            text_quest1_rect.midleft = (600, 145)
+            text_quest1_info_surf = font.render("", True, "black",
+                                                "light yellow")
+            text_quest1_info_rect = text_quest1_info_surf.get_rect()
+            text_quest1_info_rect.midleft = (540, 190)
+            text_quest1_prog_surf = font.render(" /4",
+                                                True, "black", "light yellow")
+            text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
+            text_quest1_prog_rect.midleft = (950, 145)
+
+            text_quest2_surf = font.render("Battle Apothis", True, "black", "light yellow")
+            text_quest2_rect = text_quest2_surf.get_rect()
+            text_quest2_rect.midleft = (600, 272)
+            text_quest2_info_surf = font.render("", True, "black",
+                                                "light yellow")
+            text_quest2_info_rect = text_quest2_info_surf.get_rect()
+            text_quest2_info_rect.midleft = (540, 320)
+            text_quest2_prog_surf = font.render(" /4",
+                                                True, "black", "light yellow")
+            text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
+            text_quest2_prog_rect.midleft = (950, 272)
+
+            text_quest3_surf = font.render("Help Vanguard", True, "black", "light yellow")
+            text_quest3_rect = text_quest3_surf.get_rect()
+            text_quest3_rect.midleft = (600, 405)
+            text_quest3_info_surf = font.render("", True, "black",
+                                                "light yellow")
+            text_quest3_info_rect = text_quest3_info_surf.get_rect()
+            text_quest3_info_rect.midleft = (540, 455)
+            text_quest3_prog_surf = font.render(" /1", True,
+                                                "black", "light yellow")
+            text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
+            text_quest3_prog_rect.midleft = (950, 405)
+
+            text_quest4_surf = font.render("Defeat Dreth", True, "black", "light yellow")
+            text_quest4_rect = text_quest4_surf.get_rect()
+            text_quest4_rect.midleft = (600, 538)
+            text_quest4_info_surf = font.render("", True, "black",
+                                                "light yellow")
+            text_quest4_info_rect = text_quest4_info_surf.get_rect()
+            text_quest4_info_rect.midleft = (540, 585)
+            text_quest4_prog_surf = font.render(" /4", True,
                                                 "black", "light yellow")
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
@@ -1694,7 +1752,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 amuna_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
-            if player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
+                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
+                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
                 amuna_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
@@ -1725,7 +1786,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 amuna_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
-            if player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
+                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
+                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
                 amuna_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
@@ -1757,7 +1821,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 nuldar_location.update(eldream_map_button.x_coordinate,
                                        eldream_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
-            if player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
+                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
+                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
                 nuldar_location.update(marrow_map_button.x_coordinate,
                                        marrow_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
@@ -1788,7 +1855,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 nuldar_location.update(eldream_map_button.x_coordinate,
                                        eldream_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
-            if player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
+                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
+                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
                 nuldar_location.update(marrow_map_button.x_coordinate,
                                        marrow_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
@@ -1820,7 +1890,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 sorae_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
-            if player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
+                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
+                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
                 sorae_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
@@ -1851,7 +1924,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 sorae_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])
-            if player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
+                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
+                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
                 sorae_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])

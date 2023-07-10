@@ -280,6 +280,14 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
         player.y_coordinate = 145
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    if 500 < player.x_coordinate < 600 and player.y_coordinate == 705:
+        player.current_zone = "marrow entrance"
+        in_over_world = True
+        over_world_song_set = False
+        player.x_coordinate = 550
+        player.y_coordinate = 50
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
     if movement_able and in_over_world:

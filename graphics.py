@@ -86,6 +86,14 @@ def load_graphics():
     ectrenos_front_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_front.png')).convert_alpha()
     ectrenos_alcove_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_alcove.png')).convert_alpha()
     ectrenos_interaction = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction.png')).convert_alpha()
+    marrow_entrance_bg = pygame.image.load(resource_path('resources/art/bg_marrow_enter.png')).convert_alpha()
+    mar_tower_e_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_tower_east.png')).convert_alpha()
+    mar_tower_w_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_tower_west.png')).convert_alpha()
+    mar_rampart_e_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_east.png')).convert_alpha()
+    mar_rampart_w_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_west.png')).convert_alpha()
+    m_ramp_e_end_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_east_end.png')).convert_alpha()
+    m_ramp_w_end_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_west_end.png')).convert_alpha()
+    marrow_district_bg = pygame.image.load(resource_path('resources/art/bg_marrow_district.png')).convert_alpha()
     e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
     fishing_hut_screen = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
@@ -172,6 +180,8 @@ def load_graphics():
     kart_overworld = pygame.image.load(resource_path('resources/art/sprite_kart_overworld_full.png')).convert_alpha()
     kart_big_full = pygame.image.load(resource_path('resources/art/sprite_kart_full.png')).convert_alpha()
     mirror_overlay = pygame.image.load(resource_path('resources/art/overlay_mirror_image.png')).convert_alpha()
+    over_mar_ramps_west = pygame.image.load(resource_path('resources/art/overlay_marrow_ramp_west.png')).convert_alpha()
+    over_mar_ramps_east = pygame.image.load(resource_path('resources/art/overlay_marrow_ramp_east.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -201,7 +211,7 @@ def load_graphics():
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
                   chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
-                  overlay_bridge_gate]
+                  overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -246,6 +256,16 @@ def load_graphics():
     loaded_dict["seldon_bg_screen"] = seldon_bg_screen
     loaded_dict["korlok_bg_screen"] = korlok_bg_screen
     loaded_dict["eldream_bg_screen"] = eldream_bg_screen
+    loaded_dict["marrow_entrance_bg"] = marrow_entrance_bg
+    loaded_dict["marrow_tower_east_bg"] = mar_tower_e_bg
+    loaded_dict["marrow_tower_west_bg"] = mar_tower_w_bg
+    loaded_dict["marrow_rampart_east_bg"] = mar_rampart_e_bg
+    loaded_dict["marrow_rampart_west_bg"] = mar_rampart_w_bg
+    loaded_dict["marrow_rampart_east_end_bg"] = m_ramp_e_end_bg
+    loaded_dict["marrow_rampart_west_end_bg"] = m_ramp_w_end_bg
+    loaded_dict["marrow_district_bg"] = marrow_district_bg
+    loaded_dict["overlay_marrow_ramps_east"] = over_mar_ramps_east
+    loaded_dict["overlay_marrow_ramps_west"] = over_mar_ramps_west
     loaded_dict["rohir_river_screen"] = rohir_river_screen
     loaded_dict["reservoir_a_screen"] = reservoir_a_screen
     loaded_dict["reservoir_b_screen"] = reservoir_b_screen

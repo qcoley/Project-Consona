@@ -21,6 +21,7 @@ import zone_mines
 import zone_terra_trail
 import zone_eldream
 import zone_ectrenos
+import zone_marrow
 
 # global variable
 velocity = 3
@@ -1674,6 +1675,23 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 160
             if self.x_coordinate < 280 and self.y_coordinate > 290:
                 self.y_coordinate = 290
+        if current_zone == "marrow entrance":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate <= 30:
+                self.y_coordinate = 30
+            if self.y_coordinate >= 550:
+                self.y_coordinate = 550
+            if self.y_coordinate <= 340:
+                if self.x_coordinate < 260:
+                    self.x_coordinate = 260
+                if self.x_coordinate > 765:
+                    self.x_coordinate = 765
+            if self.x_coordinate <= 240 or self.x_coordinate >= 790:
+                if self.y_coordinate <= 345:
+                    self.y_coordinate = 345
 
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
@@ -3479,6 +3497,24 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if self.x_coordinate < 280 and self.y_coordinate > 290:
                 self.y_coordinate = 290
 
+        if current_zone == "marrow entrance":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate <= 30:
+                self.y_coordinate = 30
+            if self.y_coordinate >= 550:
+                self.y_coordinate = 550
+            if self.y_coordinate <= 340:
+                if self.x_coordinate < 260:
+                    self.x_coordinate = 260
+                if self.x_coordinate > 765:
+                    self.x_coordinate = 765
+            if self.x_coordinate <= 240 or self.x_coordinate >= 790:
+                if self.y_coordinate <= 345:
+                    self.y_coordinate = 345
+
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -5282,6 +5318,23 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 160
             if self.x_coordinate < 280 and self.y_coordinate > 290:
                 self.y_coordinate = 290
+        if current_zone == "marrow entrance":
+            if self.x_coordinate < 25:
+                self.x_coordinate = 25
+            if self.x_coordinate > 1005:
+                self.x_coordinate = 1005
+            if self.y_coordinate <= 30:
+                self.y_coordinate = 30
+            if self.y_coordinate >= 550:
+                self.y_coordinate = 550
+            if self.y_coordinate <= 340:
+                if self.x_coordinate < 260:
+                    self.x_coordinate = 260
+                if self.x_coordinate > 765:
+                    self.x_coordinate = 765
+            if self.x_coordinate <= 240 or self.x_coordinate >= 790:
+                if self.y_coordinate <= 345:
+                    self.y_coordinate = 345
 
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
@@ -5799,6 +5852,15 @@ if __name__ == "__main__":
     terra_trail_bg = graphic_dict["terra_trail_bg"]
     terra_trail_screen = graphic_dict["terra_trail_screen"]
     caves_battle_screen = graphic_dict["caves_battle_screen"]
+
+    marrow_entrance_bg = graphic_dict["marrow_entrance_bg"]
+    marrow_tower_east_bg = graphic_dict["marrow_tower_east_bg"]
+    marrow_tower_west_bg = graphic_dict["marrow_tower_west_bg"]
+    marrow_rampart_east_bg = graphic_dict["marrow_rampart_east_bg"]
+    marrow_rampart_west_bg = graphic_dict["marrow_rampart_west_bg"]
+    marrow_rampart_east_end_bg = graphic_dict["marrow_rampart_east_end_bg"]
+    marrow_rampart_west_end_bg = graphic_dict["marrow_rampart_west_end_bg"]
+    marrow_district_bg = graphic_dict["marrow_district_bg"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -6396,6 +6458,9 @@ if __name__ == "__main__":
     overlay_ectrene = UiElement("ectrene", 525, 325, graphic_dict["overlay_ectrene"])
     overlay_bridge_gate = UiElement("overlay bridge gate", 527, 619, graphic_dict["overlay_bridge_gate"])
 
+    overlay_marrow_ramps_west = UiElement("marrow west", 110, 250, graphic_dict["overlay_marrow_ramps_west"])
+    overlay_marrow_ramps_east = UiElement("marrow east", 925, 250, graphic_dict["overlay_marrow_ramps_east"])
+
     overlay_stardust_waterfall = UiElement("waterfall", 857, 593, graphic_dict["overlay_stardust_waterfall"])
     overlay_stardust_waterfall.surf.set_alpha(200)
 
@@ -6557,6 +6622,7 @@ if __name__ == "__main__":
     korlok_building_music = resource_path("resources/sounds/eterna_building_korlok.mp3")
     eldream_overworld_music = resource_path("resources/sounds/eterna_eldream.mp3")
     eldream_building_music = resource_path("resources/sounds/eterna_building_eldream.mp3")
+    marrow_overworld_music = resource_path("resources/sounds/eterna_marrow.mp3")
 
     pygame.mixer.music.set_volume(0.40)
     pygame.mixer.music.load(start_screen_music)
@@ -6914,7 +6980,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -7567,6 +7633,10 @@ if __name__ == "__main__":
                             player.y_coordinate = 675
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                             chroma_bridge.update(764, 487, graphic_dict["chroma_bridge"])
+                        if player.current_zone == "marrow entrance":
+                            player.x_coordinate = 510
+                            player.y_coordinate = 100
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
                     except TypeError:
                         pass
@@ -8664,6 +8734,52 @@ if __name__ == "__main__":
                     critter_left_move = eldream_returned["left_move"]
                     critter_tic = eldream_returned["critter_tic"]
                     walk_move = eldream_returned["walk_move"]
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in eldream district ---------------------------------------------------------------------
+                if player.current_zone == "marrow entrance" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        marrow_entrance_returned = zone_marrow.marrow_entrance(pygame, screen, graphic_dict, player,
+                                                                               marrow_entrance_bg, over_world_song_set,
+                                                                               interaction_popup, font,
+                                                                               save_check_window, user_interface,
+                                                                               bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                               button_highlighted, button_highlight,
+                                                                               in_over_world, interacted,
+                                                                               info_text_1, info_text_2, info_text_3,
+                                                                               info_text_4, npc_tic, movement_able,
+                                                                               equipment_screen, staff, sword, bow,
+                                                                               npc_garan, offense_meter, defense_meter,
+                                                                               weapon_select, pet_energy_window,
+                                                                               overlay_marrow_ramps_west,
+                                                                               overlay_marrow_ramps_east)
+                    else:
+                        marrow_entrance_returned = zone_marrow.marrow_entrance(pygame, game_window, graphic_dict,
+                                                                               player, marrow_entrance_bg,
+                                                                               over_world_song_set, interaction_popup,
+                                                                               font, save_check_window, user_interface,
+                                                                               bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                               button_highlighted, button_highlight,
+                                                                               in_over_world, interacted,
+                                                                               info_text_1, info_text_2, info_text_3,
+                                                                               info_text_4, npc_tic, movement_able,
+                                                                               equipment_screen, staff, sword, bow,
+                                                                               npc_garan, offense_meter,
+                                                                               defense_meter, weapon_select,
+                                                                               pet_energy_window,
+                                                                               overlay_marrow_ramps_west,
+                                                                               overlay_marrow_ramps_east)
+
+                    over_world_song_set = marrow_entrance_returned["over_world_song_set"]
+                    interacted = marrow_entrance_returned["interacted"]
+                    in_over_world = marrow_entrance_returned["in_over_world"]
+                    movement_able = marrow_entrance_returned["movement_able"]
+                    info_text_1 = marrow_entrance_returned["info_text_1"]
+                    info_text_2 = marrow_entrance_returned["info_text_2"]
+                    info_text_3 = marrow_entrance_returned["info_text_3"]
+                    info_text_4 = marrow_entrance_returned["info_text_4"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
