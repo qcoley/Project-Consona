@@ -9,10 +9,12 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                     staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                     overlay_marrow_west, overlay_marrow_east):
-
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         over_world_song_set = True
+
+    overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
+    overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
 
     screen.blit(marrow_entrance_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -55,7 +57,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         if interacted and in_over_world:
             interacted = False
             over_world_song_set = False
-            player.current_zone = "ectrenos"
+            player.current_zone = "marrow tower west"
             player.x_coordinate = 500
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -76,7 +78,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         if interacted and in_over_world:
             interacted = False
             over_world_song_set = False
-            player.current_zone = "ectrenos"
+            player.current_zone = "marrow tower east"
             player.x_coordinate = 500
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -125,3 +127,393 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                               "movement_able": movement_able}
 
     return marrow_entrance_return
+
+
+def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, over_world_song_set, marrow_music,
+                      interaction_popup, font, save_check_window, user_interface, bar_backdrop,
+                      hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
+                      info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
+                      staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window):
+    if not over_world_song_set:
+        pygame.mixer.music.fadeout(50)
+        pygame.mixer.music.load(marrow_music)
+        pygame.mixer.music.play(loops=-1)
+        over_world_song_set = True
+
+    screen.blit(marrow_tower_w_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
+    screen.blit(player.surf, player.rect)
+    drawing_functions.draw_level_up(screen, in_over_world)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
+    # --------------------------------------------------------------------------------------------------
+    for save_window in save_check_window:
+        screen.blit(save_window.surf, save_window.rect)
+    for ui_elements in user_interface:
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
+
+    if len(drawing_functions.loot_popup_container) > 0:
+        for popup in drawing_functions.loot_popup_container:
+            screen.blit(popup.surf, popup.rect)
+    if len(drawing_functions.loot_text_container) > 0:
+        for loot_text in drawing_functions.loot_text_container:
+            screen.blit(loot_text[0], loot_text[1])
+
+    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+    screen.blit(hp_bar.surf, hp_bar.rect)
+    screen.blit(en_bar.surf, en_bar.rect)
+    screen.blit(xp_bar.surf, xp_bar.rect)
+
+    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                                     in_over_world)
+    drawing_functions.draw_it(screen)
+
+    if button_highlighted:
+        screen.blit(button_highlight.surf, button_highlight.rect)
+
+    if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
+        player.current_zone = "marrow entrance"
+        in_over_world = True
+        over_world_song_set = False
+        player.x_coordinate = 120
+        player.y_coordinate = 385
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    if 315 < player.x_coordinate < 350 and player.y_coordinate >= 575:
+        player.current_zone = "marrow ramps west"
+        in_over_world = True
+        player.x_coordinate = 515
+        player.y_coordinate = 200
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    marrow_tower_west_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
+                                "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
+                                "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
+                                "movement_able": movement_able}
+
+    return marrow_tower_west_return
+
+
+def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, over_world_song_set, marrow_music,
+                      interaction_popup, font, save_check_window, user_interface, bar_backdrop,
+                      hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
+                      info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
+                      staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window):
+    if not over_world_song_set:
+        pygame.mixer.music.fadeout(50)
+        pygame.mixer.music.load(marrow_music)
+        pygame.mixer.music.play(loops=-1)
+        over_world_song_set = True
+
+    screen.blit(marrow_tower_e_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
+    screen.blit(player.surf, player.rect)
+    drawing_functions.draw_level_up(screen, in_over_world)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
+    # --------------------------------------------------------------------------------------------------
+    for save_window in save_check_window:
+        screen.blit(save_window.surf, save_window.rect)
+    for ui_elements in user_interface:
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
+
+    if len(drawing_functions.loot_popup_container) > 0:
+        for popup in drawing_functions.loot_popup_container:
+            screen.blit(popup.surf, popup.rect)
+    if len(drawing_functions.loot_text_container) > 0:
+        for loot_text in drawing_functions.loot_text_container:
+            screen.blit(loot_text[0], loot_text[1])
+
+    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+    screen.blit(hp_bar.surf, hp_bar.rect)
+    screen.blit(en_bar.surf, en_bar.rect)
+    screen.blit(xp_bar.surf, xp_bar.rect)
+
+    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                                     in_over_world)
+    drawing_functions.draw_it(screen)
+
+    if button_highlighted:
+        screen.blit(button_highlight.surf, button_highlight.rect)
+
+    if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
+        player.current_zone = "marrow entrance"
+        in_over_world = True
+        over_world_song_set = False
+        player.x_coordinate = 900
+        player.y_coordinate = 385
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    if 700 < player.x_coordinate < 725 and player.y_coordinate >= 575:
+        player.current_zone = "marrow ramps east"
+        in_over_world = True
+        over_world_song_set = False
+        player.x_coordinate = 515
+        player.y_coordinate = 200
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    marrow_tower_east_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
+                                "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
+                                "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
+                                "movement_able": movement_able}
+
+    return marrow_tower_east_return
+
+
+def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, over_world_song_set, marrow_music,
+                      interaction_popup, font, save_check_window, user_interface, bar_backdrop,
+                      hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
+                      info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
+                      staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
+                      overlay_marrow_west):
+
+    if not over_world_song_set:
+        pygame.mixer.music.fadeout(50)
+        pygame.mixer.music.load(marrow_music)
+        pygame.mixer.music.play(loops=-1)
+        over_world_song_set = True
+
+    overlay_marrow_west.update(515, 50, graphic_dict["overlay_marrow_ramps_west"])
+
+    screen.blit(marrow_ramps_w_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
+    screen.blit(player.surf, player.rect)
+    drawing_functions.draw_level_up(screen, in_over_world)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
+    # --------------------------------------------------------------------------------------------------
+    for save_window in save_check_window:
+        screen.blit(save_window.surf, save_window.rect)
+    for ui_elements in user_interface:
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
+
+    if len(drawing_functions.loot_popup_container) > 0:
+        for popup in drawing_functions.loot_popup_container:
+            screen.blit(popup.surf, popup.rect)
+    if len(drawing_functions.loot_text_container) > 0:
+        for loot_text in drawing_functions.loot_text_container:
+            screen.blit(loot_text[0], loot_text[1])
+
+    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+    screen.blit(hp_bar.surf, hp_bar.rect)
+    screen.blit(en_bar.surf, en_bar.rect)
+    screen.blit(xp_bar.surf, xp_bar.rect)
+
+    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                                     in_over_world)
+    drawing_functions.draw_it(screen)
+
+    if button_highlighted:
+        screen.blit(button_highlight.surf, button_highlight.rect)
+
+    if pygame.Rect.colliderect(player.rect, overlay_marrow_west):
+        interaction_popup.update(515, 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("West Tower"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (515, 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to enter Tower."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            player.current_zone = "marrow tower west"
+            player.x_coordinate = 100
+            player.y_coordinate = 550
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    """if 315 < player.x_coordinate < 350 and player.y_coordinate >= 575:
+        player.current_zone = "marrow ramparts west"
+        in_over_world = True
+        over_world_song_set = False
+        player.x_coordinate = 120
+        player.y_coordinate = 385
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))"""
+
+    marrow_tower_west_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
+                                "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
+                                "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
+                                "movement_able": movement_able}
+
+    return marrow_tower_west_return
+
+
+def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, over_world_song_set, marrow_music,
+                      interaction_popup, font, save_check_window, user_interface, bar_backdrop,
+                      hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
+                      info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
+                      staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
+                      overlay_marrow_east):
+    if not over_world_song_set:
+        pygame.mixer.music.fadeout(50)
+        pygame.mixer.music.load(marrow_music)
+        pygame.mixer.music.play(loops=-1)
+        over_world_song_set = True
+
+    overlay_marrow_east.update(515, 50, graphic_dict["overlay_marrow_ramps_east"])
+
+    screen.blit(marrow_ramps_e_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
+    screen.blit(player.surf, player.rect)
+    drawing_functions.draw_level_up(screen, in_over_world)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
+    # --------------------------------------------------------------------------------------------------
+    for save_window in save_check_window:
+        screen.blit(save_window.surf, save_window.rect)
+    for ui_elements in user_interface:
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
+
+    if len(drawing_functions.loot_popup_container) > 0:
+        for popup in drawing_functions.loot_popup_container:
+            screen.blit(popup.surf, popup.rect)
+    if len(drawing_functions.loot_text_container) > 0:
+        for loot_text in drawing_functions.loot_text_container:
+            screen.blit(loot_text[0], loot_text[1])
+
+    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+    screen.blit(hp_bar.surf, hp_bar.rect)
+    screen.blit(en_bar.surf, en_bar.rect)
+    screen.blit(xp_bar.surf, xp_bar.rect)
+
+    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                                     in_over_world)
+    drawing_functions.draw_it(screen)
+
+    if button_highlighted:
+        screen.blit(button_highlight.surf, button_highlight.rect)
+
+    if pygame.Rect.colliderect(player.rect, overlay_marrow_east):
+        interaction_popup.update(515, 50, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("East Tower"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (515, 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to enter Tower."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            player.current_zone = "marrow tower east"
+            player.x_coordinate = 930
+            player.y_coordinate = 550
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    """if 700 < player.x_coordinate < 725 and player.y_coordinate >= 575:
+        player.current_zone = "marrow ramparts east"
+        in_over_world = True
+        over_world_song_set = False
+        player.x_coordinate = 120
+        player.y_coordinate = 385
+        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))"""
+
+    marrow_ramps_east_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
+                                "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
+                                "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
+                                "movement_able": movement_able}
+
+    return marrow_ramps_east_return

@@ -529,8 +529,8 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
             text_location = font.render(str("Ectrenos"), True, "black", "light yellow")
         if player.current_zone == "marrow" or player.current_zone == "marrow entrance" or \
                 player.current_zone == "marrow tower east" or player.current_zone == "marrow tower west" or \
-                player.current_zone == "marrow ramparts east" or player.current_zone == "marrow ramparts west" or \
-                player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow ramparts west end":
+                player.current_zone == "marrow ramps east" or player.current_zone == "marrow ramps west" or \
+                player.current_zone == "marrow ramps east end" or player.current_zone == "marrow ramps west end":
             text_location = font.render(str("Marrow"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
