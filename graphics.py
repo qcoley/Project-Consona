@@ -182,6 +182,7 @@ def load_graphics():
     mirror_overlay = pygame.image.load(resource_path('resources/art/overlay_mirror_image.png')).convert_alpha()
     over_mar_ramps_west = pygame.image.load(resource_path('resources/art/overlay_marrow_ramp_west.png')).convert_alpha()
     over_mar_ramps_east = pygame.image.load(resource_path('resources/art/overlay_marrow_ramp_east.png')).convert_alpha()
+    overlay_chroma_ramps = pygame.image.load(resource_path('resources/art/overlay_chroma_ramps.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -211,7 +212,7 @@ def load_graphics():
                   overlay_eldream_river, overlay_advantages, overlay_ectrene, pet_energy_overlay, overlay_chroma_bridge,
                   chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
-                  overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west]
+                  overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -233,6 +234,7 @@ def load_graphics():
     loaded_dict["overlay_ectrene"] = overlay_ectrene
     loaded_dict["overlay_stardust_waterfall"] = overlay_star_waterfall
     loaded_dict["overlay_bridge_gate"] = overlay_bridge_gate
+    loaded_dict["overlay_chroma_ramps"] = overlay_chroma_ramps
     loaded_dict["ectrenos_bg"] = ectrenos_bg_screen
     loaded_dict["ectrenos_left_bg"] = ectrenos_left_bg_screen
     loaded_dict["ectrenos_right_bg"] = ectrenos_right_bg_screen

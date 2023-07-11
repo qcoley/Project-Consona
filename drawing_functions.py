@@ -501,7 +501,7 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     # get current player level and create surf and rectangle to blit to screen------------------------------------------
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
     text_level_rect = text_level_surf.get_rect()
-    text_level_rect.center = (1102, 360)
+    text_level_rect.center = (1105, 360)
     if len(item_info_window) == 0 and len(sell_info_window) == 0:
         screen.blit(text_level_surf, text_level_rect)
     # current player location for UI overlay ---------------------------------------------------------------------------
@@ -826,10 +826,10 @@ def journal_info_draw(journal, player, font, draw_condition):
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
 
-        if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
-                player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
-                or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
-                or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
+        if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
+                player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
+                or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
+                or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
 
             text_quest1_surf = font.render("Get to marrow", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
