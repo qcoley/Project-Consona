@@ -6597,8 +6597,8 @@ if __name__ == "__main__":
 
     character_button = UiElement("character button", 860, 680, graphic_dict["character_button_img"])
     quests_button = UiElement("quests button", 970, 680, graphic_dict["journal_button_img"])
-    new_game_button = UiElement("new game button", 640, 423, graphic_dict["new_game_img"])
-    continue_button = UiElement("continue button", 640, 516, graphic_dict["continue_img"])
+    new_game_button = UiElement("new game button", 651, 415, graphic_dict["new_game_img"])
+    continue_button = UiElement("continue button", 651, 507, graphic_dict["continue_img"])
 
     amuna_button = UiElement("amuna button", 70, 245, graphic_dict["amuna_button_img"])
     nuldar_button = UiElement("nuldar button", 70, 340, graphic_dict["nuldar_button_img"])
@@ -6838,7 +6838,6 @@ if __name__ == "__main__":
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
 
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 520, 575, graphic_dict["dungeon_chest"], 0)
-
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
@@ -7938,6 +7937,7 @@ if __name__ == "__main__":
                         chinzilla_defeated = load_returned["chinzilla_defeated"]
                         has_key = load_returned["has_key"]
                         gloves_obtained = load_returned["gloves_obtained"]
+                        boots_obtained = load_returned["boots_obtained"]
                         korlok_attuned = load_returned["korlok_attuned"]
                         eldream_attuned = load_returned["eldream_attuned"]
                         apothecary_access = load_returned["apothecary_access"]
@@ -8075,6 +8075,14 @@ if __name__ == "__main__":
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps east":
+                            player.x_coordinate = 515
+                            player.y_coordinate = 260
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "marrow ramps west end":
+                            player.x_coordinate = 515
+                            player.y_coordinate = 260
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "marrow ramps east end":
                             player.x_coordinate = 515
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -8507,7 +8515,8 @@ if __name__ == "__main__":
                                                                  iriana_unlocked, rock_8_con, rock_3_con,
                                                                  seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                 mirror_learned, stun_learned, vanish_learned)
+                                                                 mirror_learned, stun_learned, vanish_learned,
+                                                                 boots_obtained)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -8534,7 +8543,7 @@ if __name__ == "__main__":
                                                              rock_8_con, rock_3_con, seed_scout_count,
                                                              seed_fighter_count, seed_mage_count,
                                                              dreth_cutscenes_not_viewed, mirror_learned, stun_learned,
-                                                             vanish_learned)
+                                                             vanish_learned, boots_obtained)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -10917,6 +10926,7 @@ if __name__ == "__main__":
 
                                 # adds item dropped and experienced gained messages to box if enemy was defeated
                                 try:
+                                    battle_info_to_return_to_main_loop["knowledge"] = ""
                                     if combat_events["enemy defeated"]:
                                         if combat_events["item dropped"] != "No":
                                             battle_info_to_return_to_main_loop["item dropped"] = \
@@ -10936,9 +10946,12 @@ if __name__ == "__main__":
                                     if combat_events["enemy defeated"]:
                                         # player will gain knowledge based on their current role
                                         if player.role == "mage":
-                                            if player.level <= current_enemy_battling.level + 1:
+                                            if player.level < 10 and player.knowledge["mage"] < 120 or \
+                                                    player.level > 10 and player.knowledge["mage"] < 240:
                                                 player.knowledge["mage"] += 10
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
+                                            else:
+                                                battle_info_to_return_to_main_loop["knowledge"] = ""
                                             # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
                                                 if seed_mage_count < 4 and seed_fighter_count < 4 and \
@@ -10946,9 +10959,12 @@ if __name__ == "__main__":
                                                     seed_mage_count += 1
 
                                         if player.role == "fighter":
-                                            if player.level <= current_enemy_battling.level + 1:
+                                            if player.level < 10 and player.knowledge["fighter"] < 120 or \
+                                                    player.level > 10 and player.knowledge["fighter"] < 240:
                                                 player.knowledge["fighter"] += 10
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
+                                            else:
+                                                battle_info_to_return_to_main_loop["knowledge"] = ""
                                             # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
                                                 if seed_mage_count < 4 and seed_fighter_count < 4 and \
@@ -10956,9 +10972,12 @@ if __name__ == "__main__":
                                                     seed_fighter_count += 1
 
                                         if player.role == "scout":
-                                            if player.level <= current_enemy_battling.level + 1:
+                                            if player.level < 10 and player.knowledge["scout"] < 120 or \
+                                                    player.level > 10 and player.knowledge["scout"] < 240:
                                                 player.knowledge["scout"] += 10
                                                 battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
+                                            else:
+                                                battle_info_to_return_to_main_loop["knowledge"] = ""
                                             # if player has a pet seed, add to it for this role. stop all counts at 8
                                             if seed_given:
                                                 if seed_mage_count < 4 and seed_fighter_count < 4 and \
@@ -11208,7 +11227,8 @@ if __name__ == "__main__":
                                                         str(combat_events["experience gained"])
                                             if combat_events["enemy defeated"]:
                                                 if player.role == "fighter":
-                                                    if player.level <= current_enemy_battling.level + 1:
+                                                    if player.level < 10 and player.knowledge["fighter"] < 120 or \
+                                                            player.level > 10 and player.knowledge["fighter"] < 240:
                                                         player.knowledge["fighter"] += 10
                                                         battle_info_to_return_to_main_loop["knowledge"] = \
                                                             "10 fighter knowledge gained."
@@ -11380,11 +11400,11 @@ if __name__ == "__main__":
                             text_enemy_name_surf = font.render(str(current_enemy_battling.kind), True, "black",
                                                                (255, 204, 203))
                             text_enemy_name_rect = text_enemy_name_surf.get_rect()
-                            text_enemy_name_rect.center = (812, 685)
+                            text_enemy_name_rect.center = (812, 688)
                             text_enemy_level_surf = font.render(str(current_enemy_battling.level), True, "black",
                                                                 (255, 204, 203))
                             text_enemy_level_rect = text_enemy_level_surf.get_rect()
-                            text_enemy_level_rect.center = (918, 685)
+                            text_enemy_level_rect.center = (918, 688)
 
                             if current_enemy_battling.type == "mage":
                                 type_advantage_overlay.update(580, 50, graphic_dict["mage_type_overlay"])
@@ -11866,7 +11886,7 @@ if __name__ == "__main__":
                                     mirror_dmg_surf = level_up_font.render(str(combat_events["mirror damage"]),
                                                                            True, "black", "white")
                                     mirror_dmg_rect = damage_done_surf.get_rect()
-                                    mirror_dmg_rect.center = (850, 400)
+                                    mirror_dmg_rect.center = (855, 402)
 
                                 if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                     screen.blit(damage_done_surf, damage_done_rect)
@@ -13666,7 +13686,8 @@ if __name__ == "__main__":
                                                                  iriana_unlocked, rock_8_con, rock_3_con,
                                                                  seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                 mirror_learned, stun_learned, vanish_learned)
+                                                                 mirror_learned, stun_learned, vanish_learned,
+                                                                 boots_obtained)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -14270,7 +14291,8 @@ if __name__ == "__main__":
                                                                  iriana_unlocked, rock_8_con, rock_3_con,
                                                                  seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                 mirror_learned, stun_learned, vanish_learned)
+                                                                 mirror_learned, stun_learned, vanish_learned,
+                                                                 boots_obtained)
 
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -14665,7 +14687,8 @@ if __name__ == "__main__":
                                                                      iriana_unlocked, rock_8_con, rock_3_con,
                                                                      seed_scout_count, seed_fighter_count,
                                                                      seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                     mirror_learned, stun_learned, vanish_learned)
+                                                                     mirror_learned, stun_learned, vanish_learned,
+                                                                     boots_obtained)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -14859,7 +14882,8 @@ if __name__ == "__main__":
                                                                      iriana_unlocked, rock_8_con, rock_3_con,
                                                                      seed_scout_count, seed_fighter_count,
                                                                      seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                     mirror_learned, stun_learned, vanish_learned)
+                                                                     mirror_learned, stun_learned, vanish_learned,
+                                                                     boots_obtained)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -15053,7 +15077,8 @@ if __name__ == "__main__":
                                                                      iriana_unlocked, rock_8_con, rock_3_con,
                                                                      seed_scout_count, seed_fighter_count,
                                                                      seed_mage_count, dreth_cutscenes_not_viewed,
-                                                                     mirror_learned, stun_learned, vanish_learned)
+                                                                     mirror_learned, stun_learned, vanish_learned,
+                                                                     boots_obtained)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"

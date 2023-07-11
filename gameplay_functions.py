@@ -1067,6 +1067,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["chinzilla_defeated"] = player_load_info["chinzilla_defeated"]
             load_return["has_key"] = player_load_info["has_key"]
             load_return["gloves_obtained"] = player_load_info["gloves_obtained"]
+            load_return["boots_obtained"] = player_load_info["boots_obtained"]
             load_return["korlok_attuned"] = player_load_info["korlok_attuned"]
             load_return["eldream_attuned"] = player_load_info["eldream_attuned"]
             load_return["beyond seldon"] = player_load_info["beyond seldon"]
@@ -1099,7 +1100,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
               seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
               rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count, dreth_cutscenes,
-              mirror_learned, stun_learned, vanish_learned):
+              mirror_learned, stun_learned, vanish_learned, boots_obtained):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1165,7 +1166,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "menagerie access": menagerie_access, "kasper unlocked": kasper_unlocked,
                         "torok unlocked": torok_unlocked, "iriana unlocked": iriana_unlocked,
                         "seed scout": seed_scout_count, "seed fighter": seed_fighter_count,
-                        "seed mage": seed_mage_count}
+                        "seed mage": seed_mage_count, "boots_obtained": boots_obtained}
 
     with open("save", "wb") as ff:
         pickle.dump(player_save_info, ff)

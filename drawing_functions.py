@@ -502,7 +502,7 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
     # get current player level and create surf and rectangle to blit to screen------------------------------------------
     text_level_surf = font.render(str(player.level), True, "black", "light yellow")
     text_level_rect = text_level_surf.get_rect()
-    text_level_rect.center = (1105, 360)
+    text_level_rect.center = (1108, 359)
     if len(item_info_window) == 0 and len(sell_info_window) == 0:
         screen.blit(text_level_surf, text_level_rect)
     # current player location for UI overlay ---------------------------------------------------------------------------
@@ -1753,10 +1753,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 amuna_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
-            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
-                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
-                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
+                    player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
                 amuna_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])

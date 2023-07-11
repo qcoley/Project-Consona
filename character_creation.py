@@ -27,7 +27,7 @@ def character_screen_draw(screen, race, gender, amuna_character_screen, nuldar_c
         screen.blit(back_button.surf, back_button.rect)
         screen.blit(name_input.surf, name_input.rect)
         character_name_surface = name_input_font.render(character_name_input, True, (255, 255, 255))
-        screen.blit(character_name_surface, (605, 575))
+        screen.blit(character_name_surface, (605, 569))
 
     if race == "nuldar":
         screen.blit(nuldar_character_screen, (0, 0))
@@ -50,7 +50,7 @@ def character_screen_draw(screen, race, gender, amuna_character_screen, nuldar_c
         screen.blit(back_button.surf, back_button.rect)
         screen.blit(name_input.surf, name_input.rect)
         character_name_surface = name_input_font.render(character_name_input, True, (255, 255, 255))
-        screen.blit(character_name_surface, (605, 575))
+        screen.blit(character_name_surface, (605, 569))
 
     if race == "sorae":
         screen.blit(sorae_character_screen, (0, 0))
@@ -73,4 +73,4 @@ def character_screen_draw(screen, race, gender, amuna_character_screen, nuldar_c
         screen.blit(back_button.surf, back_button.rect)
         screen.blit(name_input.surf, name_input.rect)
         character_name_surface = name_input_font.render(character_name_input, True, (255, 255, 255))
-        screen.blit(character_name_surface, (605, 575))
+        screen.blit(character_name_surface, (605, 569))
