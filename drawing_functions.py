@@ -314,8 +314,9 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
             info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_chroma_boots"])
             item_info_window.append(info_items)
             item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
-                                    graphic["ok_button_img"])
+                                    graphic["equip_button_img"])
             item_info_window.append(item_info_button)
+            return inventory_item
         if inventory_item.name == "pet cookie":
             info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_cookie_img"])
             item_info_window.append(info_items)
@@ -1015,7 +1016,7 @@ def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armo
 
     if player.equipment["boots"] != "":
         if player.equipment["boots"].name == "chroma boots":
-            power_gloves.update(1153, 197, graphics["boots_img"])
+            chroma_boots.update(1229, 197, graphics["boots_img"])
             player_equipment.append(chroma_boots)
 
 

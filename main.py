@@ -1798,14 +1798,19 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     self.y_coordinate = 180
 
         if current_zone == "marrow ramps west":
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
+                        if self.y_coordinate < chroma_bridge_ramps.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate > chroma_bridge_ramps.y_coordinate:
+                            self.y_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
-                    if self.y_coordinate < chroma_bridge.y_coordinate:
+                    if self.y_coordinate < chroma_bridge_ramps.y_coordinate:
                         self.y_coordinate -= velocity
-                    if self.y_coordinate > chroma_bridge.y_coordinate:
+                    if self.y_coordinate > chroma_bridge_ramps.y_coordinate:
                         self.y_coordinate += velocity
-
-
         if current_zone == "nascent":
             collided = pygame.sprite.spritecollideany(self, other_rocks, pygame.sprite.collide_rect_ratio(0.50))
             if collided:
@@ -1956,7 +1961,14 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if self.y_coordinate > collided.y_coordinate:
                         self.y_coordinate += velocity
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge_small):
+                        if self.y_coordinate < chroma_bridge_small.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate < 335:
+                            self.y_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_small):
                     if self.y_coordinate < chroma_bridge_small.y_coordinate:
                         self.y_coordinate -= velocity
@@ -1979,14 +1991,28 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if self.y_coordinate > eldream_cart.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "ectrenos left":
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge):
+                        if self.x_coordinate < chroma_bridge.x_coordinate:
+                            self.x_coordinate -= velocity
+                        if self.x_coordinate > chroma_bridge.x_coordinate:
+                            self.x_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge):
                     if self.x_coordinate < chroma_bridge.x_coordinate:
                         self.x_coordinate -= velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
                         self.x_coordinate += velocity
         if current_zone == "ectrenos alcove":
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge):
+                        if self.y_coordinate < chroma_bridge.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate < 616:
+                            self.y_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge):
                     if self.y_coordinate < chroma_bridge.y_coordinate:
                         self.y_coordinate -= velocity
@@ -3733,7 +3759,14 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     self.y_coordinate = 180
 
         if current_zone == "marrow ramps west":
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
+                        if self.y_coordinate < chroma_bridge.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate > chroma_bridge.y_coordinate:
+                            self.y_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
                     if self.y_coordinate < chroma_bridge.y_coordinate:
                         self.y_coordinate -= velocity
@@ -3890,7 +3923,14 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if self.y_coordinate > collided.y_coordinate:
                         self.y_coordinate += velocity
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge_small):
+                        if self.y_coordinate < chroma_bridge_small.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate < 335:
+                            self.y_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_small):
                     if self.y_coordinate < chroma_bridge_small.y_coordinate:
                         self.y_coordinate -= velocity
@@ -3913,14 +3953,28 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.y_coordinate > eldream_cart.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "ectrenos left":
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge):
+                        if self.x_coordinate < chroma_bridge.x_coordinate:
+                            self.x_coordinate -= velocity
+                        if self.x_coordinate > chroma_bridge.x_coordinate:
+                            self.x_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge):
                     if self.x_coordinate < chroma_bridge.x_coordinate:
                         self.x_coordinate -= velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
                         self.x_coordinate += velocity
         if current_zone == "ectrenos alcove":
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge):
+                        if self.y_coordinate < chroma_bridge.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate < 616:
+                            self.y_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge):
                     if self.y_coordinate < chroma_bridge.y_coordinate:
                         self.y_coordinate -= velocity
@@ -5665,7 +5719,14 @@ class PlayerSorae(pygame.sprite.Sprite):
                     self.y_coordinate = 180
 
         if current_zone == "marrow ramps west":
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
+                        if self.y_coordinate < chroma_bridge.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate > chroma_bridge.y_coordinate:
+                            self.y_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_ramps):
                     if self.y_coordinate < chroma_bridge.y_coordinate:
                         self.y_coordinate -= velocity
@@ -5822,7 +5883,14 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if self.y_coordinate > collided.y_coordinate:
                         self.y_coordinate += velocity
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge_small):
+                        if self.y_coordinate < chroma_bridge_small.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate < 335:
+                            self.y_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge_small):
                     if self.y_coordinate < chroma_bridge_small.y_coordinate:
                         self.y_coordinate -= velocity
@@ -5845,14 +5913,28 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if self.y_coordinate > eldream_cart.y_coordinate:
                     self.y_coordinate += velocity
         if current_zone == "ectrenos left":
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge):
+                        if self.x_coordinate < chroma_bridge.x_coordinate:
+                            self.x_coordinate -= velocity
+                        if self.x_coordinate > chroma_bridge.x_coordinate:
+                            self.x_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge):
                     if self.x_coordinate < chroma_bridge.x_coordinate:
                         self.x_coordinate -= velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
                         self.x_coordinate += velocity
         if current_zone == "ectrenos alcove":
-            if self.equipment["boots"] != "chroma boots":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge):
+                        if self.y_coordinate < chroma_bridge.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate < 616:
+                            self.y_coordinate += velocity
+            except AttributeError:
                 if pygame.sprite.collide_rect(self, chroma_bridge):
                     if self.y_coordinate < chroma_bridge.y_coordinate:
                         self.y_coordinate -= velocity
@@ -7323,7 +7405,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
