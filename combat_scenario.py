@@ -3946,6 +3946,11 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 # experienced gained by player from defeating enemy
                 if player.level <= enemy_combating.level + 1:
                     experience = int((enemy_combating.level / player.level) * 30)
+
+                    # stelli are for training knowledge and shouldn't give much if any XP
+                    if enemy_combating.kind == "stelli":
+                        experience = 1
+
                     player.experience = player.experience + experience
                     enemy_experience = f"{experience}"
                     # add to dictionary experience given from defeating enemy
@@ -3953,6 +3958,11 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                 # player gains less experience if they're 1 level higher or more than enemy
                 if player.level > enemy_combating.level + 1:
                     experience = int((enemy_combating.level / player.level))
+
+                    # stelli are for training knowledge and shouldn't give much if any XP
+                    if enemy_combating.kind == "stelli":
+                        experience = 1
+
                     player.experience = player.experience + experience
                     enemy_experience = f"{experience}"
                     # add to dictionary experience given from defeating enemy

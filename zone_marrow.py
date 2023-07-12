@@ -8,7 +8,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                     info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                     staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                    overlay_marrow_west, overlay_marrow_east):
+                    overlay_marrow_west, overlay_marrow_east, overlay_switch, switch_shadow, switch_phase):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         over_world_song_set = True
@@ -21,6 +21,8 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    screen.blit(switch_shadow.surf, switch_shadow.rect)
 
     try:
         for pet in player.pet:
@@ -40,6 +42,17 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if switch_phase == "blue":
+        overlay_switch.update(640, 360, graphic_dict["marrow_switch_blue"])
+    if switch_phase == "red":
+        overlay_switch.update(640, 360, graphic_dict["marrow_switch_red"])
+    if switch_phase == "purple":
+        overlay_switch.update(640, 360, graphic_dict["marrow_switch_purple"])
+    if switch_phase == "complete":
+        overlay_switch.update(640, 360, graphic_dict["marrow_switch_complete"])
+
+    screen.blit(overlay_switch.surf, overlay_switch.rect)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_west):
         interaction_popup.update(125, 220, graphic_dict["popup_interaction"])
@@ -83,6 +96,24 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    if pygame.Rect.colliderect(player.rect, switch_shadow):
+        interaction_popup.update(640, 360, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Barrier Switch"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (640, 360)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to activate switch."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            if switch_phase == "none":
+                switch_phase = "blue"
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -124,7 +155,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     marrow_entrance_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                               "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                               "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                              "movement_able": movement_able}
+                              "movement_able": movement_able, "switch_phase": switch_phase}
 
     return marrow_entrance_return
 

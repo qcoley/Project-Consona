@@ -16,7 +16,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                      rock, pet_energy_window, stardust_top, necrola_battle_sprite, osodark_battle_sprite, sfx_nede,
                      sfx_door, sfx_rupee, rock_3_con, outpost_show, outpost_notify, stellis, enemy_tic,
-                     stelli_battle_sprite, vanished, vanish_overlay, waterfall):
+                     stelli_battle_sprite, vanished, vanish_overlay, waterfall, leveled):
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(stardust_outpost_music)
@@ -29,6 +29,11 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if player.level > 3:
+        if leveled:
+            for stelli in stellis:
+                stelli.level = player.level
 
     # stelli movement updates
     if len(stellis) > 0:

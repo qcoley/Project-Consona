@@ -43,10 +43,12 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
         pass
 
     if 1000 > player.x_coordinate > 270:
-        player.x_coordinate -= 0.5
+        player.x_coordinate -= 1
         player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
-        water_player.update(player.x_coordinate, player.y_coordinate - 5, graphic_dict["water_player"])
-        screen.blit(water_player.surf, water_player.rect)
+
+        if player.x_coordinate > 285:
+            water_player.update(player.x_coordinate, player.y_coordinate - 5, graphic_dict["water_player"])
+            screen.blit(water_player.surf, water_player.rect)
 
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
