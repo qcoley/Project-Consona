@@ -6919,6 +6919,7 @@ if __name__ == "__main__":
     overlay_marrow_ramps_east = UiElement("marrow east", 925, 250, graphic_dict["overlay_marrow_ramps_east"])
     overlay_marrow_switch = UiElement("marrow switch", 640, 360, graphic_dict["marrow_switch"])
     overlay_marrow_switch_shadow = UiElement("marrow switch shadow", 640, 360, graphic_dict["marrow_switch_shadow"])
+    marrow_switch_box = UiElement("marrow box", 515, 225, graphic_dict["marrow_switch_box"])
 
     overlay_stardust_waterfall = UiElement("waterfall", 857, 593, graphic_dict["overlay_stardust_waterfall"])
     overlay_stardust_waterfall.surf.set_alpha(200)
@@ -7068,8 +7069,7 @@ if __name__ == "__main__":
     interactables_mines.add(bandiles, mines_ore_1, mines_ore_2, mines_ore_3, mines_ore_4)
     interactables_terra_trail.add(npc_dionte, terra_cave, rock_7, terra_cave_enter)
     interactables_eldream.add(eldream_flowers, hearth_stone, quest_items_eldream, npc_omoku)
-    interactables_marrow_entrance.add(overlay_marrow_ramps_west, overlay_marrow_ramps_east,
-                                      overlay_marrow_switch_shadow)
+    interactables_marrow_entrance.add(overlay_marrow_ramps_west, overlay_marrow_ramps_east)
 
     # music tracks
     start_screen_music = resource_path("resources/sounds/eterna_start_new.mp3")
@@ -8112,18 +8112,22 @@ if __name__ == "__main__":
                             player.y_coordinate = 440
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps west":
+                            overlay_marrow_ramps_west.update(570, 55, graphic_dict["overlay_marrow_ramps_west"])
                             player.x_coordinate = 515
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps east":
+                            overlay_marrow_ramps_east.update(570, 55, graphic_dict["overlay_marrow_ramps_east"])
                             player.x_coordinate = 515
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps west end":
+                            overlay_marrow_ramps_west.update(570, 55, graphic_dict["overlay_marrow_ramps_west"])
                             player.x_coordinate = 515
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps east end":
+                            overlay_marrow_ramps_east.update(570, 55, graphic_dict["overlay_marrow_ramps_east"])
                             player.x_coordinate = 515
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -8414,6 +8418,8 @@ if __name__ == "__main__":
                                         interacted = True
                                 if player.current_zone == "marrow entrance":
                                     if pygame.sprite.spritecollideany(player, interactables_marrow_entrance):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, marrow_switch_box):
                                         interacted = True
                                 if player.current_zone == "marrow ramps west":
                                     if pygame.Rect.colliderect(player.rect, overlay_marrow_ramps_west):
@@ -9265,7 +9271,7 @@ if __name__ == "__main__":
                                                                                overlay_marrow_ramps_east,
                                                                                overlay_marrow_switch,
                                                                                overlay_marrow_switch_shadow,
-                                                                               marrow_switch_phase)
+                                                                               marrow_switch_phase, marrow_switch_box)
                     else:
                         marrow_entrance_returned = zone_marrow.marrow_entrance(pygame, game_window, graphic_dict,
                                                                                player, marrow_entrance_bg,
@@ -9284,7 +9290,7 @@ if __name__ == "__main__":
                                                                                overlay_marrow_ramps_east,
                                                                                overlay_marrow_switch,
                                                                                overlay_marrow_switch_shadow,
-                                                                               marrow_switch_phase)
+                                                                               marrow_switch_phase, marrow_switch_box)
 
                     over_world_song_set = marrow_entrance_returned["over_world_song_set"]
                     interacted = marrow_entrance_returned["interacted"]
@@ -9317,7 +9323,9 @@ if __name__ == "__main__":
                                                                                    equipment_screen, staff, sword, bow,
                                                                                    npc_garan, offense_meter,
                                                                                    defense_meter,
-                                                                                   weapon_select, pet_energy_window)
+                                                                                   weapon_select, pet_energy_window,
+                                                                                   overlay_marrow_ramps_west,
+                                                                                   overlay_marrow_ramps_east)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -9334,7 +9342,9 @@ if __name__ == "__main__":
                                                                                    equipment_screen, staff, sword, bow,
                                                                                    npc_garan, offense_meter,
                                                                                    defense_meter, weapon_select,
-                                                                                   pet_energy_window)
+                                                                                   pet_energy_window,
+                                                                                   overlay_marrow_ramps_west,
+                                                                                   overlay_marrow_ramps_east)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -9367,7 +9377,9 @@ if __name__ == "__main__":
                                                                                    movement_able, equipment_screen,
                                                                                    staff, sword, bow, npc_garan,
                                                                                    offense_meter, defense_meter,
-                                                                                   weapon_select, pet_energy_window)
+                                                                                   weapon_select, pet_energy_window,
+                                                                                   overlay_marrow_ramps_west,
+                                                                                   overlay_marrow_ramps_east)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -9385,7 +9397,9 @@ if __name__ == "__main__":
                                                                                    movement_able, equipment_screen,
                                                                                    staff, sword, bow, npc_garan,
                                                                                    offense_meter, defense_meter,
-                                                                                   weapon_select, pet_energy_window)
+                                                                                   weapon_select, pet_energy_window,
+                                                                                   overlay_marrow_ramps_west,
+                                                                                   overlay_marrow_ramps_east)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]

@@ -190,6 +190,7 @@ def load_graphics():
     m_switch_p = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_purple.png')).convert_alpha()
     m_switch_c = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_complete.png')).convert_alpha()
     m_switch_shadow = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_shadow.png')).convert_alpha()
+    m_switch_box = pygame.image.load(resource_path('resources/art/marrow_switch_box.png')).convert_alpha()
 
     apothis_scene_1 = pygame.image.load(resource_path('resources/art/cutscene_apothis_1.png')).convert_alpha()
     apothis_scene_2 = pygame.image.load(resource_path('resources/art/cutscene_apothis_2.png')).convert_alpha()
@@ -220,7 +221,7 @@ def load_graphics():
                   chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
-                  m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_shadow]
+                  m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_shadow, m_switch_box]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -376,6 +377,7 @@ def load_graphics():
     loaded_dict["marrow_switch_purple"] = m_switch_p
     loaded_dict["marrow_switch_complete"] = m_switch_c
     loaded_dict["marrow_switch_shadow"] = m_switch_shadow
+    loaded_dict["marrow_switch_box"] = m_switch_box
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------

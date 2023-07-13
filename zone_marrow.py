@@ -8,13 +8,10 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                     info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                     staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                    overlay_marrow_west, overlay_marrow_east, overlay_switch, switch_shadow, switch_phase):
+                    overlay_marrow_west, overlay_marrow_east, overlay_switch, switch_shadow, switch_phase, switch_box):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         over_world_song_set = True
-
-    overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
-    overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
 
     screen.blit(marrow_entrance_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -23,6 +20,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     screen.blit(switch_shadow.surf, switch_shadow.rect)
+    screen.blit(switch_box.surf, switch_box.rect)
 
     try:
         for pet in player.pet:
@@ -96,12 +94,12 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
-    if pygame.Rect.colliderect(player.rect, switch_shadow):
-        interaction_popup.update(640, 360, graphic_dict["popup_interaction"])
+    if pygame.Rect.colliderect(player.rect, switch_box):
+        interaction_popup.update(515, 225, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str("Barrier Switch"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (640, 360)
+        interaction_info_rect.center = (515, 225)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         info_text_1 = "Press 'F' key to activate switch."
@@ -111,8 +109,8 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
 
         if interacted and in_over_world:
             interacted = False
-            if switch_phase == "none":
-                switch_phase = "blue"
+            if switch_phase == "purple":
+                switch_phase = "complete"
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -164,7 +162,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       interaction_popup, font, save_check_window, user_interface, bar_backdrop,
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
-                      staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window):
+                      staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
+                      overlay_marrow_west, overlay_marrow_east):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -227,6 +226,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
         screen.blit(button_highlight.surf, button_highlight.rect)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
+        overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
+        overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
         player.current_zone = "marrow entrance"
         in_over_world = True
         over_world_song_set = False
@@ -235,6 +236,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if 315 < player.x_coordinate < 350 and player.y_coordinate >= 575:
+        overlay_marrow_west.update(570, 55, graphic_dict["overlay_marrow_ramps_west"])
         player.current_zone = "marrow ramps west"
         in_over_world = True
         player.x_coordinate = 515
@@ -253,7 +255,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       interaction_popup, font, save_check_window, user_interface, bar_backdrop,
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
-                      staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window):
+                      staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
+                      overlay_marrow_west, overlay_marrow_east):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -316,6 +319,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         screen.blit(button_highlight.surf, button_highlight.rect)
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
+        overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
+        overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
         player.current_zone = "marrow entrance"
         in_over_world = True
         over_world_song_set = False
@@ -324,6 +329,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if 700 < player.x_coordinate < 725 and player.y_coordinate >= 575:
+        overlay_marrow_east.update(570, 55, graphic_dict["overlay_marrow_ramps_east"])
         player.current_zone = "marrow ramps east"
         in_over_world = True
         player.x_coordinate = 515
@@ -349,8 +355,6 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
         pygame.mixer.music.load(marrow_music)
         pygame.mixer.music.play(loops=-1)
         over_world_song_set = True
-
-    overlay_marrow_west.update(515, 50, graphic_dict["overlay_marrow_ramps_west"])
 
     screen.blit(marrow_ramps_w_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -410,11 +414,11 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
         screen.blit(button_highlight.surf, button_highlight.rect)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_west):
-        interaction_popup.update(515, 50, graphic_dict["popup_interaction"])
+        interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str("West Tower"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (515, 50)
+        interaction_info_rect.center = (570, 55)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         info_text_1 = "Press 'F' key to enter Tower."
@@ -456,8 +460,6 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
         pygame.mixer.music.load(marrow_music)
         pygame.mixer.music.play(loops=-1)
         over_world_song_set = True
-
-    overlay_marrow_east.update(515, 50, graphic_dict["overlay_marrow_ramps_east"])
 
     screen.blit(marrow_ramps_e_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -515,11 +517,11 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
         screen.blit(button_highlight.surf, button_highlight.rect)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_east):
-        interaction_popup.update(515, 50, graphic_dict["popup_interaction"])
+        interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str("East Tower"), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (515, 50)
+        interaction_info_rect.center = (570, 55)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
         info_text_1 = "Press 'F' key to enter Tower."
