@@ -1787,10 +1787,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 amuna_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
-            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
-                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
-                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
+                    player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
                 amuna_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
@@ -1822,10 +1822,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 nuldar_location.update(eldream_map_button.x_coordinate,
                                        eldream_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
-            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
-                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
-                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
+                    player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
                 nuldar_location.update(marrow_map_button.x_coordinate,
                                        marrow_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
@@ -1856,10 +1856,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 nuldar_location.update(eldream_map_button.x_coordinate,
                                        eldream_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
-            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
-                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
-                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
+                    player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
                 nuldar_location.update(marrow_map_button.x_coordinate,
                                        marrow_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
@@ -1891,10 +1891,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 sorae_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
-            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
-                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
-                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
+                    player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
                 sorae_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
@@ -1925,10 +1925,10 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 sorae_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])
-            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramparts west" or \
-                    player.current_zone == "marrow ramparts east" or player.current_zone == "marrow tower west" \
-                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramparts west end" \
-                    or player.current_zone == "marrow ramparts east end" or player.current_zone == "marrow":
+            if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
+                    player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
+                    or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
                 sorae_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])

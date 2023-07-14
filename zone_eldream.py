@@ -23,7 +23,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
                      omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite,
                      sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite, critter, right_move, left_move,
-                     critter_tic, walk_move):
+                     critter_tic, walk_move, overlay_marrow_west, overlay_marrow_east):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -281,6 +281,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if 500 < player.x_coordinate < 600 and player.y_coordinate == 705:
+        overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
+        overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
         player.current_zone = "marrow entrance"
         in_over_world = True
         over_world_song_set = False

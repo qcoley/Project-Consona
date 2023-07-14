@@ -87,6 +87,7 @@ def load_graphics():
     ectrenos_alcove_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_alcove.png')).convert_alpha()
     ectrenos_interaction = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction.png')).convert_alpha()
     marrow_entrance_bg = pygame.image.load(resource_path('resources/art/bg_marrow_enter.png')).convert_alpha()
+    marrow_entrance_bg_open = pygame.image.load(resource_path('resources/art/bg_marrow_enter_open.png')).convert_alpha()
     mar_tower_e_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_tower_east.png')).convert_alpha()
     mar_tower_w_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_tower_west.png')).convert_alpha()
     mar_rampart_e_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_east.png')).convert_alpha()
@@ -268,6 +269,7 @@ def load_graphics():
     loaded_dict["korlok_bg_screen"] = korlok_bg_screen
     loaded_dict["eldream_bg_screen"] = eldream_bg_screen
     loaded_dict["marrow_entrance_bg"] = marrow_entrance_bg
+    loaded_dict["marrow_entrance_bg_open"] = marrow_entrance_bg_open
     loaded_dict["marrow_tower_east_bg"] = mar_tower_e_bg
     loaded_dict["marrow_tower_west_bg"] = mar_tower_w_bg
     loaded_dict["marrow_rampart_east_bg"] = mar_rampart_e_bg
@@ -5255,6 +5257,11 @@ def load_graphics():
     dungeon_chest_sheet = sprite_sheet((175, 150), dungeon_chest_url)
     loaded_dict["dungeon_chest"] = dungeon_chest_sheet[0]
     loaded_dict["dungeon_chest_open"] = dungeon_chest_sheet[1]
+    # marrow ramparts switches
+    ramps_switches_url = resource_path('resources/art/overlay_ramps_switches.png')
+    ramps_switches_sheet = sprite_sheet((140, 200), ramps_switches_url)
+    loaded_dict["ramp_switch_west"] = ramps_switches_sheet[0]
+    loaded_dict["ramp_switch_east"] = ramps_switches_sheet[1]
     # heath bars -------------------------------------------------------------------------------------------------------
     hp_url = resource_path('resources/art/bars_health.png')
     hp_sheet = sprite_sheet((305, 19), hp_url)
