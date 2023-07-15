@@ -23,7 +23,8 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      seldon_flowers, interactables_eldream, ectrenos_entrance, quest_star_omoku, pet_energy_window,
                      omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite,
                      sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite, critter, right_move, left_move,
-                     critter_tic, walk_move, overlay_marrow_west, overlay_marrow_east):
+                     critter_tic, walk_move, overlay_marrow_west, overlay_marrow_east, entrance_1, entrance_2,
+                     entrance_3):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -283,11 +284,14 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
     if 500 < player.x_coordinate < 600 and player.y_coordinate == 705:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
         overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
+        entrance_1 = True
+        entrance_2 = False
+        entrance_3 = False
         player.current_zone = "marrow entrance"
         in_over_world = True
         over_world_song_set = False
-        player.x_coordinate = 550
-        player.y_coordinate = 50
+        player.x_coordinate = 515
+        player.y_coordinate = 75
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # npc movement updates
@@ -322,6 +326,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                       "in_shop": in_shop, "in_inn": in_inn, "current_building_entering": current_building_entering,
                       "enemy_tic": enemy_tic, "eldream_flowers": eldream_flowers,
                       "interactables_eldream": interactables_eldream, "right_move": right_move, "left_move": left_move,
-                      "critter_tic": critter_tic, "walk_move": walk_move}
+                      "critter_tic": critter_tic, "walk_move": walk_move, "entrance_1": entrance_1,
+                      "entrance_2": entrance_2, "entrance_3": entrance_3}
 
     return eldream_return

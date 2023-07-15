@@ -1,6 +1,7 @@
 import drawing_functions
 import combat_scenario
-import gameplay_functions
+import random
+import time
 
 
 def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_song_set, marrow_music,
@@ -71,6 +72,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
 
     if player.y_coordinate <= 50:
         player.current_zone = "marrow entrance"
+        over_world_song_set = False
         in_over_world = True
         player.x_coordinate = 465
         player.y_coordinate = 675
@@ -90,9 +92,12 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                     staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                     overlay_marrow_west, overlay_marrow_east, overlay_switch, switch_shadow, switch_phase, switch_box,
-                    marrow_entrance_bg_open):
+                    marrow_entrance_bg_open, entrance_music, entrance_npc, entrance_1, entrance_2, entrance_3,
+                    entrance_popup, sfx_switch):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
+        pygame.mixer.music.load(entrance_music)
+        pygame.mixer.music.play(loops=-1)
         over_world_song_set = True
 
     if switch_phase == "complete":
@@ -104,8 +109,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    screen.blit(switch_shadow.surf, switch_shadow.rect)
-    screen.blit(switch_box.surf, switch_box.rect)
+    screen.blit(entrance_npc.surf, entrance_npc.rect)
 
     try:
         for pet in player.pet:
@@ -184,6 +188,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         info_text_4 = ""
 
         if interacted and in_over_world:
+            pygame.mixer.find_channel(True).play(sfx_switch)
             interacted = False
             if switch_phase == "purple":
                 switch_phase = "complete"
@@ -219,11 +224,58 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
 
+    if switch_phase != "complete":
+        face_direction = random.choice(["left", "right", "front", "back"])
+        if movement_able and in_over_world:
+            npc_toc = time.perf_counter()
+            if npc_toc - npc_tic > 7:
+                npc_tic = time.perf_counter()
+                if entrance_2:
+                    entrance_3 = True
+                if entrance_1:
+                    entrance_1 = False
+                    entrance_2 = True
+                if face_direction == "left":
+                    entrance_npc.update(graphic_dict["entrance_npc_left"])
+                if face_direction == "right":
+                    entrance_npc.update(graphic_dict["entrance_npc_right"])
+                if face_direction == "front":
+                    entrance_npc.update(graphic_dict["entrance_npc_down"])
+                if face_direction == "back":
+                    entrance_npc.update(graphic_dict["entrance_npc_up"])
+        if entrance_1:
+            entrance_text_surf = font.render("Please, you must help.", True, "black", "light yellow")
+        if entrance_2:
+            entrance_text_surf = font.render("The barrier is locked.", True, "black", "light yellow")
+        if entrance_3:
+            entrance_text_surf = font.render("The vanguard is trapped.", True, "black", "light yellow")
+
+    else:
+        face_direction = random.choice(["left", "right", "front", "back"])
+        if movement_able and in_over_world:
+            npc_toc = time.perf_counter()
+            if npc_toc - npc_tic > 7:
+                npc_tic = time.perf_counter()
+                if face_direction == "left":
+                    entrance_npc.update(graphic_dict["entrance_npc_left"])
+                if face_direction == "right":
+                    entrance_npc.update(graphic_dict["entrance_npc_right"])
+                if face_direction == "front":
+                    entrance_npc.update(graphic_dict["entrance_npc_down"])
+                if face_direction == "back":
+                    entrance_npc.update(graphic_dict["entrance_npc_up"])
+            entrance_text_surf = font.render("Thank you.", True, "black", "light yellow")
+
+    screen.blit(entrance_popup.surf, entrance_popup.rect)
+    entrance_text_rect = entrance_text_surf.get_rect()
+    entrance_text_rect.center = (entrance_popup.x_coordinate, entrance_popup.y_coordinate)
+    screen.blit(entrance_text_surf, entrance_text_rect)
+
     if 450 < player.x_coordinate < 550 and player.y_coordinate < 40:
         player.current_zone = "eldream"
         in_over_world = True
         over_world_song_set = False
-        player.x_coordinate = 550
+        player.x_coordinate = 545
         player.y_coordinate = 690
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
     if player.y_coordinate > 690:
@@ -237,7 +289,8 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     marrow_entrance_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                               "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                               "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                              "movement_able": movement_able, "switch_phase": switch_phase}
+                              "movement_able": movement_able, "switch_phase": switch_phase, "entrance_1": entrance_1,
+                              "entrance_2": entrance_2, "entrance_3": entrance_3}
 
     return marrow_entrance_return
 
@@ -641,18 +694,28 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                           staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                           dungeon_chest, boots_obtained, chroma_boots, sfx_chest, switch_2, marrow_switch_phase,
-                          main_switch):
+                          main_switch, sfx_switch, erebith_defeated, marrow_ramps_e_end_bg_block, erebith,
+                          player_battle_sprite, barrier_active, sharp_sense_active, snake_battle_sprite,
+                          ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
+                          magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, in_npc_interaction,
+                          necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         over_world_song_set = True
 
-    screen.blit(marrow_ramps_e_end_bg, (0, 0))
+    if erebith_defeated:
+        screen.blit(marrow_ramps_e_end_bg, (0, 0))
+    else:
+        screen.blit(marrow_ramps_e_end_bg_block, (0, 0))
+        screen.blit(erebith.surf, erebith.rect)
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    screen.blit(dungeon_chest.surf, dungeon_chest.rect)
+    if erebith_defeated:
+        screen.blit(dungeon_chest.surf, dungeon_chest.rect)
+
     screen.blit(switch_2.surf, switch_2.rect)
 
     try:
@@ -674,32 +737,66 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     except AttributeError:
         pass
 
-    if pygame.sprite.collide_rect(player, dungeon_chest):
-        interaction_popup.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50,
-                                 graphic_dict["popup_interaction"])
-        screen.blit(interaction_popup.surf, interaction_popup.rect)
-        interaction_info_surf = font.render(str("chest"), True, "black", "light yellow")
-        interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50)
-        screen.blit(interaction_info_surf, interaction_info_rect)
+    if erebith_defeated:
+        if pygame.sprite.collide_rect(player, dungeon_chest):
+            interaction_popup.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("chest"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
 
-        if interacted and in_over_world:
-            if not boots_obtained:
-                if len(player.items) < 16:
-                    dungeon_chest.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate,
-                                         graphic_dict["dungeon_chest_open"])
-                    pygame.mixer.find_channel(True).play(sfx_chest)
-                    info_text_1 = "You've obtained the chroma boots!"
-                    info_text_2 = ""
-                    player.items.append(chroma_boots)
-                    boots_obtained = True
+            if interacted and in_over_world:
+                if not boots_obtained:
+                    if len(player.items) < 16:
+                        dungeon_chest.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate,
+                                             graphic_dict["dungeon_chest_open"])
+                        pygame.mixer.find_channel(True).play(sfx_chest)
+                        info_text_1 = "You've obtained the chroma boots!"
+                        info_text_2 = ""
+                        player.items.append(chroma_boots)
+                        boots_obtained = True
+                    else:
+                        info_text_1 = "You're inventory is full."
+                        info_text_2 = ""
                 else:
-                    info_text_1 = "You're inventory is full."
+                    info_text_1 = "You've already obtained this item."
                     info_text_2 = ""
-            else:
-                info_text_1 = "You've already obtained this item."
-                info_text_2 = ""
-            interacted = False
+                interacted = False
+
+    if not erebith_defeated:
+        if pygame.sprite.collide_rect(player, erebith):
+            interaction_popup.update(erebith.x_coordinate, erebith.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("erebith"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (erebith.x_coordinate, erebith.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            # lets player know if they are in range of enemy they can press f to attack it
+            info_text_1 = "Press 'F' key to attack enemy."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted:
+                current_enemy_battling = erebith
+                in_over_world = False
+                in_battle = True
+
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active, graphic_dict)
+                combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite, ghoul_battle_sprite,
+                                                       chorizon_battle_sprite, muchador_battle_sprite,
+                                                       magmon_battle_sprite, bandile_battle_sprite,
+                                                       chinzilla_battle_sprite, in_battle, in_npc_interaction,
+                                                       graphic_dict, necrola_battle_sprite,
+                                                       osodark_battle_sprite, stelli_battle_sprite,
+                                                       chorizon_phase=False)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -753,6 +850,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
         info_text_4 = ""
 
         if interacted and in_over_world:
+            pygame.mixer.find_channel(True).play(sfx_switch)
             interacted = False
             switch_2.update(147, 74, graphic_dict["ramp_switch_east"])
 
@@ -767,7 +865,10 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                                     "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                                     "info_text_4": info_text_4, "interacted": interacted,
                                     "in_over_world": in_over_world, "movement_able": movement_able, "boots obtained":
-                                    boots_obtained, "marrow_switch_phase": marrow_switch_phase}
+                                    boots_obtained, "marrow_switch_phase": marrow_switch_phase,
+                                    "erebith_defeated": erebith_defeated, "in_battle": in_battle}
+    if in_battle:
+        marrow_ramps_east_end_return["current_enemy_battling"] = erebith
 
     return marrow_ramps_east_end_return
 
@@ -777,7 +878,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                           hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                           info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                           staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                          switch_1, marrow_switch_phase, main_switch):
+                          switch_1, marrow_switch_phase, main_switch, sfx_switch):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -862,6 +963,7 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
         info_text_4 = ""
 
         if interacted and in_over_world:
+            pygame.mixer.find_channel(True).play(sfx_switch)
             interacted = False
             switch_1.update(995, 90, graphic_dict["ramp_switch_west"])
 

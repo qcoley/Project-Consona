@@ -93,6 +93,7 @@ def load_graphics():
     mar_rampart_e_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_east.png')).convert_alpha()
     mar_rampart_w_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_west.png')).convert_alpha()
     m_ramp_e_end_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_east_end.png')).convert_alpha()
+    m_end_block = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_east_end_block.png')).convert_alpha()
     m_ramp_w_end_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_west_end.png')).convert_alpha()
     marrow_district_bg = pygame.image.load(resource_path('resources/art/bg_marrow_district.png')).convert_alpha()
     e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
@@ -184,6 +185,8 @@ def load_graphics():
     over_mar_ramps_west = pygame.image.load(resource_path('resources/art/overlay_marrow_ramp_west.png')).convert_alpha()
     over_mar_ramps_east = pygame.image.load(resource_path('resources/art/overlay_marrow_ramp_east.png')).convert_alpha()
     overlay_chroma_ramps = pygame.image.load(resource_path('resources/art/overlay_chroma_ramps.png')).convert_alpha()
+    popup_wide = pygame.image.load(resource_path('resources/art/popup_interaction_wide.png')).convert_alpha()
+    ramparts_battle = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_battle.png')).convert_alpha()
 
     m_switch = pygame.image.load(resource_path('resources/art/overlay_marrow_switch.png')).convert_alpha()
     m_switch_b = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_blue.png')).convert_alpha()
@@ -222,7 +225,7 @@ def load_graphics():
                   chroma_small, stardust_top, alcove_star, tree_tops, a_building_tops, level_up_vis, n_building_tops,
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
-                  m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_shadow, m_switch_box]
+                  m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_shadow, m_switch_box, popup_wide]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -276,6 +279,7 @@ def load_graphics():
     loaded_dict["marrow_rampart_west_bg"] = mar_rampart_w_bg
     loaded_dict["marrow_rampart_east_end_bg"] = m_ramp_e_end_bg
     loaded_dict["marrow_rampart_west_end_bg"] = m_ramp_w_end_bg
+    loaded_dict["marrow_rampart_west_end_bg_block"] = m_end_block
     loaded_dict["marrow_district_bg"] = marrow_district_bg
     loaded_dict["overlay_marrow_ramps_east"] = over_mar_ramps_east
     loaded_dict["overlay_marrow_ramps_west"] = over_mar_ramps_west
@@ -380,6 +384,8 @@ def load_graphics():
     loaded_dict["marrow_switch_complete"] = m_switch_c
     loaded_dict["marrow_switch_shadow"] = m_switch_shadow
     loaded_dict["marrow_switch_box"] = m_switch_box
+    loaded_dict["popup_wide"] = popup_wide
+    loaded_dict["marrow_ramparts_battle"] = ramparts_battle
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
     # create character screen character race selections ----------------------------------------------------------------
@@ -4660,6 +4666,13 @@ def load_graphics():
     loaded_dict["voruke_up"] = voruke_sheet[1]
     loaded_dict["voruke_left"] = voruke_sheet[2]
     loaded_dict["voruke_right"] = voruke_sheet[3]
+    # marrow entrance npc ----------------------------------------------------------------------------------------------
+    entrance_npc_url = resource_path('resources/art/sprites_entrance_nuldar.png')
+    entrance_npc_sheet = sprite_sheet((50, 62), entrance_npc_url)
+    loaded_dict["entrance_npc_down"] = entrance_npc_sheet[0]
+    loaded_dict["entrance_npc_left"] = entrance_npc_sheet[1]
+    loaded_dict["entrance_npc_right"] = entrance_npc_sheet[2]
+    loaded_dict["entrance_npc_up"] = entrance_npc_sheet[3]
     # zerah npc -------------------------------------------------------------------------------------------------------
     zerah_url = resource_path('resources/art/sprites_zerah.png')
     zerah_sheet = sprite_sheet((50, 62), zerah_url)
@@ -4791,6 +4804,7 @@ def load_graphics():
     loaded_dict["chorizon"] = boss_enemies_sheet[0]
     loaded_dict["muchador"] = boss_enemies_sheet[1]
     loaded_dict["muchador_dark"] = boss_enemies_sheet[2]
+    loaded_dict["erebith"] = boss_enemies_sheet[3]
     # enemies highlighted ----------------------------------------------------------------------------------------------
     enemies_high_url = resource_path('resources/art/sprites_enemies_highlighted.png')
     enemies_high_sheet = sprite_sheet((50, 75), enemies_high_url)
