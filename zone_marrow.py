@@ -694,7 +694,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                           staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                           dungeon_chest, boots_obtained, chroma_boots, sfx_chest, switch_2, marrow_switch_phase,
-                          main_switch, sfx_switch, erebith_defeated, marrow_ramps_e_end_bg_block, erebith,
+                          main_switch, sfx_switch, erebyth_defeated, marrow_ramps_e_end_bg_block, erebyth,
                           player_battle_sprite, barrier_active, sharp_sense_active, snake_battle_sprite,
                           ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                           magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, in_npc_interaction,
@@ -703,17 +703,17 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
         pygame.mixer.music.fadeout(50)
         over_world_song_set = True
 
-    if erebith_defeated:
+    if erebyth_defeated:
         screen.blit(marrow_ramps_e_end_bg, (0, 0))
     else:
         screen.blit(marrow_ramps_e_end_bg_block, (0, 0))
-        screen.blit(erebith.surf, erebith.rect)
+        screen.blit(erebyth.surf, erebyth.rect)
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    if erebith_defeated:
+    if erebyth_defeated:
         screen.blit(dungeon_chest.surf, dungeon_chest.rect)
 
     screen.blit(switch_2.surf, switch_2.rect)
@@ -737,7 +737,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     except AttributeError:
         pass
 
-    if erebith_defeated:
+    if erebyth_defeated:
         if pygame.sprite.collide_rect(player, dungeon_chest):
             interaction_popup.update(dungeon_chest.x_coordinate, dungeon_chest.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
@@ -765,14 +765,14 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                     info_text_2 = ""
                 interacted = False
 
-    if not erebith_defeated:
-        if pygame.sprite.collide_rect(player, erebith):
-            interaction_popup.update(erebith.x_coordinate, erebith.y_coordinate - 50,
+    if not erebyth_defeated:
+        if pygame.sprite.collide_rect(player, erebyth):
+            interaction_popup.update(erebyth.x_coordinate, erebyth.y_coordinate - 50,
                                      graphic_dict["popup_interaction"])
             screen.blit(interaction_popup.surf, interaction_popup.rect)
-            interaction_info_surf = font.render(str("erebith"), True, "black", "light yellow")
+            interaction_info_surf = font.render(str("erebyth"), True, "black", "light yellow")
             interaction_info_rect = interaction_info_surf.get_rect()
-            interaction_info_rect.center = (erebith.x_coordinate, erebith.y_coordinate - 50)
+            interaction_info_rect.center = (erebyth.x_coordinate, erebyth.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
 
             # lets player know if they are in range of enemy they can press f to attack it
@@ -782,7 +782,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
             info_text_4 = ""
 
             if interacted:
-                current_enemy_battling = erebith
+                current_enemy_battling = erebyth
                 in_over_world = False
                 in_battle = True
 
@@ -866,9 +866,9 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                                     "info_text_4": info_text_4, "interacted": interacted,
                                     "in_over_world": in_over_world, "movement_able": movement_able, "boots obtained":
                                     boots_obtained, "marrow_switch_phase": marrow_switch_phase,
-                                    "erebith_defeated": erebith_defeated, "in_battle": in_battle}
+                                    "erebyth_defeated": erebyth_defeated, "in_battle": in_battle}
     if in_battle:
-        marrow_ramps_east_end_return["current_enemy_battling"] = erebith
+        marrow_ramps_east_end_return["current_enemy_battling"] = erebyth
 
     return marrow_ramps_east_end_return
 

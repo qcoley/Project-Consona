@@ -4804,7 +4804,7 @@ def load_graphics():
     loaded_dict["chorizon"] = boss_enemies_sheet[0]
     loaded_dict["muchador"] = boss_enemies_sheet[1]
     loaded_dict["muchador_dark"] = boss_enemies_sheet[2]
-    loaded_dict["erebith"] = boss_enemies_sheet[3]
+    loaded_dict["erebyth"] = boss_enemies_sheet[3]
     # enemies highlighted ----------------------------------------------------------------------------------------------
     enemies_high_url = resource_path('resources/art/sprites_enemies_highlighted.png')
     enemies_high_sheet = sprite_sheet((50, 75), enemies_high_url)
@@ -4836,6 +4836,7 @@ def load_graphics():
     loaded_dict["muchador_battle"] = boss_enemies_battle_sheet[1]
     loaded_dict["chinzilla_battle"] = boss_enemies_battle_sheet[2]
     loaded_dict["chorizon_phase"] = boss_enemies_battle_sheet[3]
+    loaded_dict["erebyth_battle"] = boss_enemies_battle_sheet[4]
     # boss enemies attack ----------------------------------------------------------------------------------------------
     boss_enemies_battle_url = resource_path('resources/art/sprites_bosses_attack.png')
     boss_enemies_battle_sheet = sprite_sheet((500, 500), boss_enemies_battle_url)

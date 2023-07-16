@@ -1819,7 +1819,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
         if current_zone == "marrow ramps east end":
-            if not erebith_defeated:
+            if not erebyth_defeated:
                 if self.y_coordinate < 100:
                     self.y_coordinate = 100
         if current_zone == "marrow ramps west":
@@ -1837,7 +1837,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                     if self.y_coordinate > chroma_bridge.y_coordinate:
                         self.y_coordinate += velocity
         if current_zone == "marrow ramps east end":
-            if erebith_defeated:
+            if erebyth_defeated:
                 if pygame.Rect.colliderect(self.rect, dungeon_chest_ramps_rect):
                     if self.x_coordinate < dungeon_chest_ramps_rect.x:
                         self.x_coordinate -= velocity
@@ -3816,7 +3816,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
         if current_zone == "marrow ramps east end":
-            if not erebith_defeated:
+            if not erebyth_defeated:
                 if self.y_coordinate < 100:
                     self.y_coordinate = 100
         if current_zone == "marrow ramps west":
@@ -3834,7 +3834,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     if self.y_coordinate > chroma_bridge.y_coordinate:
                         self.y_coordinate += velocity
         if current_zone == "marrow ramps east end":
-            if erebith_defeated:
+            if erebyth_defeated:
                 if pygame.Rect.colliderect(self.rect, dungeon_chest_ramps_rect):
                     if self.x_coordinate < dungeon_chest_ramps_rect.x:
                         self.x_coordinate -= velocity
@@ -5812,7 +5812,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
         if current_zone == "marrow ramps east end":
-            if not erebith_defeated:
+            if not erebyth_defeated:
                 if self.y_coordinate < 100:
                     self.y_coordinate = 100
         if current_zone == "marrow ramps west":
@@ -5830,7 +5830,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                     if self.y_coordinate > chroma_bridge.y_coordinate:
                         self.y_coordinate += velocity
         if current_zone == "marrow ramps east end":
-            if erebith_defeated:
+            if erebyth_defeated:
                 if pygame.Rect.colliderect(self.rect, dungeon_chest_ramps_rect):
                     if self.x_coordinate < dungeon_chest_ramps_rect.x:
                         self.x_coordinate -= velocity
@@ -6664,8 +6664,8 @@ if __name__ == "__main__":
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # marrow enemies ---------------------------------------------------------------------------------------------------
-    erebith = Enemy("erebith", "erebith", 100, 100, 20, 575, 450, True, "item", graphic_dict["erebith"],
-                    UiElement("erebith hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    erebyth = Enemy("erebyth", "erebyth", 100, 100, 20, 575, 450, True, "item", graphic_dict["erebyth"],
+                    UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
@@ -6879,6 +6879,7 @@ if __name__ == "__main__":
     necrola_battle_sprite = BattleCharacter("necrola battle", 705, 300, graphic_dict["necrola_battle"])
     osodark_battle_sprite = BattleCharacter("osodark battle", 695, 300, graphic_dict["osodark_battle"])
     stelli_battle_sprite = BattleCharacter("stelli battle", 710, 275, graphic_dict["stelli_battle_a"])
+    erebyth_battle_sprite = BattleCharacter("erebyth battle", 695, 350, graphic_dict["erebyth_battle"])
 
     mirror_battle_sprite = BattleCharacter("mirror battle", 260, 425, graphic_dict["player_no_role_amuna_battle"])
     mirror_overlay = UiElement("mirror overlay", 225, 425, graphic_dict["mirror_overlay"])
@@ -7418,7 +7419,7 @@ if __name__ == "__main__":
     talk_start = False
     chorizon_phase = False
     boots_obtained = False
-    erebith_defeated = False
+    erebyth_defeated = False
 
     seed_given = False
     hatch_ready = False
@@ -7535,7 +7536,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -8082,6 +8083,8 @@ if __name__ == "__main__":
                         seed_mage_count = load_returned["seed mage"]
                         seed_fighter_count = load_returned["seed fighter"]
                         seed_scout_count = load_returned["seed scout"]
+                        marrow_switch_phase = load_returned["marrow switch phase"]
+                        erebyth_defeated = load_returned["erebyth defeated"]
 
                         if player.race == "amuna":
                             player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
@@ -8225,6 +8228,13 @@ if __name__ == "__main__":
                             player.x_coordinate = 575
                             player.y_coordinate = 250
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+                        if marrow_switch_phase == "red":
+                            overlay_marrow_switch.update(640, 360, graphic_dict["marrow_switch_red"])
+                        if marrow_switch_phase == "blue":
+                            overlay_marrow_switch.update(640, 360, graphic_dict["marrow_switch_blue"])
+                        if marrow_switch_phase == "purple":
+                            overlay_marrow_switch.update(640, 360, graphic_dict["marrow_switch_purple"])
 
                     except TypeError:
                         pass
@@ -8666,7 +8676,7 @@ if __name__ == "__main__":
                                                                  seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, dreth_cutscenes_not_viewed,
                                                                  mirror_learned, stun_learned, vanish_learned,
-                                                                 boots_obtained)
+                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -8693,7 +8703,8 @@ if __name__ == "__main__":
                                                              rock_8_con, rock_3_con, seed_scout_count,
                                                              seed_fighter_count, seed_mage_count,
                                                              dreth_cutscenes_not_viewed, mirror_learned, stun_learned,
-                                                             vanish_learned, boots_obtained)
+                                                             vanish_learned, boots_obtained, marrow_switch_phase,
+                                                             erebyth_defeated)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -9794,9 +9805,9 @@ if __name__ == "__main__":
                                                                                            marrow_switch_phase,
                                                                                            overlay_marrow_switch,
                                                                                            sfx_activate_switch,
-                                                                                           erebith_defeated,
+                                                                                           erebyth_defeated,
                                                                                            marrow_ramps_w_end_bg_block,
-                                                                                           erebith,
+                                                                                           erebyth,
                                                                                            player_battle_sprite,
                                                                                            barrier_active,
                                                                                            sharp_sense_active,
@@ -9840,9 +9851,9 @@ if __name__ == "__main__":
                                                                                            marrow_switch_phase,
                                                                                            overlay_marrow_switch,
                                                                                            sfx_activate_switch,
-                                                                                           erebith_defeated,
+                                                                                           erebyth_defeated,
                                                                                            marrow_ramps_w_end_bg_block,
-                                                                                           erebith,
+                                                                                           erebyth,
                                                                                            player_battle_sprite,
                                                                                            barrier_active,
                                                                                            sharp_sense_active,
@@ -9869,7 +9880,7 @@ if __name__ == "__main__":
                     info_text_4 = marrow_ramps_east_end_returned["info_text_4"]
                     boots_obtained = marrow_ramps_east_end_returned["boots obtained"]
                     marrow_switch_phase = marrow_ramps_east_end_returned["marrow_switch_phase"]
-                    erebith_defeated = marrow_ramps_east_end_returned["erebith_defeated"]
+                    erebyth_defeated = marrow_ramps_east_end_returned["erebyth_defeated"]
                     in_battle = marrow_ramps_east_end_returned["in_battle"]
                     if in_battle:
                         current_enemy_battling = marrow_ramps_east_end_returned["current_enemy_battling"]
@@ -11308,6 +11319,9 @@ if __name__ == "__main__":
                                             if current_enemy_battling.name == "chinzilla":
                                                 chinzilla_defeated = True
                                                 chinzilla.kill()
+                                            if current_enemy_battling.name == "erebyth":
+                                                erebyth_defeated = True
+                                                erebyth.kill()
 
                                             # if barrier is active on enemy defeat, restore original defence and set off
                                             if barrier_active:
@@ -11566,6 +11580,9 @@ if __name__ == "__main__":
                                                     if current_enemy_battling.name == "chinzilla":
                                                         chinzilla_defeated = True
                                                         chinzilla.kill()
+                                                    if current_enemy_battling.name == "erebyth":
+                                                        erebyth_defeated = True
+                                                        erebyth.kill()
                                                     movement_able = True
                                                     combat_happened = False
                                                     interacted = False
@@ -11799,6 +11816,8 @@ if __name__ == "__main__":
                                     screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
                                 if current_enemy_battling.kind == "stelli":
                                     screen.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
+                                if current_enemy_battling.kind == "erebyth":
+                                    screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -11868,6 +11887,8 @@ if __name__ == "__main__":
                                     game_window.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
                                 if current_enemy_battling.kind == "stelli":
                                     game_window.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
+                                if current_enemy_battling.kind == "erebyth":
+                                    game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -14013,7 +14034,7 @@ if __name__ == "__main__":
                                                                  seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, dreth_cutscenes_not_viewed,
                                                                  mirror_learned, stun_learned, vanish_learned,
-                                                                 boots_obtained)
+                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -14618,7 +14639,7 @@ if __name__ == "__main__":
                                                                  seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, dreth_cutscenes_not_viewed,
                                                                  mirror_learned, stun_learned, vanish_learned,
-                                                                 boots_obtained)
+                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated)
 
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -15014,7 +15035,8 @@ if __name__ == "__main__":
                                                                      seed_scout_count, seed_fighter_count,
                                                                      seed_mage_count, dreth_cutscenes_not_viewed,
                                                                      mirror_learned, stun_learned, vanish_learned,
-                                                                     boots_obtained)
+                                                                     boots_obtained, marrow_switch_phase,
+                                                                     erebyth_defeated)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -15209,7 +15231,8 @@ if __name__ == "__main__":
                                                                      seed_scout_count, seed_fighter_count,
                                                                      seed_mage_count, dreth_cutscenes_not_viewed,
                                                                      mirror_learned, stun_learned, vanish_learned,
-                                                                     boots_obtained)
+                                                                     boots_obtained, marrow_switch_phase,
+                                                                     erebyth_defeated)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -15404,7 +15427,8 @@ if __name__ == "__main__":
                                                                      seed_scout_count, seed_fighter_count,
                                                                      seed_mage_count, dreth_cutscenes_not_viewed,
                                                                      mirror_learned, stun_learned, vanish_learned,
-                                                                     boots_obtained)
+                                                                     boots_obtained, marrow_switch_phase,
+                                                                     erebyth_defeated)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -15955,8 +15979,8 @@ if __name__ == "__main__":
                             combat_scenario.enemy_health_bar(muchador, graphic_dict)
                             chinzilla.health = 100
                             combat_scenario.enemy_health_bar(chinzilla, graphic_dict)
-                            erebith.health = 100
-                            combat_scenario.enemy_health_bar(erebith, graphic_dict)
+                            erebyth.health = 100
+                            combat_scenario.enemy_health_bar(erebyth, graphic_dict)
 
                     elif event.type == QUIT:
                         pygame.mixer.quit()

@@ -1082,6 +1082,8 @@ def load_game(player, Item, graphics, Pet):
             load_return["seed mage"] = player_load_info["seed mage"]
             load_return["start"] = True
             load_return["continue"] = False
+            load_return["marrow switch phase"] = player_load_info["marrow switch phase"]
+            load_return["erebyth defeated"] = player_load_info["erebyth defeated"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -1100,7 +1102,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
               seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
               rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count, dreth_cutscenes,
-              mirror_learned, stun_learned, vanish_learned, boots_obtained):
+              mirror_learned, stun_learned, vanish_learned, boots_obtained, marrow_switch_phase, erebyth_defeated):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1166,7 +1168,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "menagerie access": menagerie_access, "kasper unlocked": kasper_unlocked,
                         "torok unlocked": torok_unlocked, "iriana unlocked": iriana_unlocked,
                         "seed scout": seed_scout_count, "seed fighter": seed_fighter_count,
-                        "seed mage": seed_mage_count, "boots_obtained": boots_obtained}
+                        "seed mage": seed_mage_count, "boots_obtained": boots_obtained,
+                        "marrow switch phase": marrow_switch_phase, "erebyth defeated": erebyth_defeated}
 
     with open("save", "wb") as ff:
         pickle.dump(player_save_info, ff)
