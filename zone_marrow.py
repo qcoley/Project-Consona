@@ -147,7 +147,6 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
 
         if interacted and in_over_world:
             interacted = False
-            over_world_song_set = False
             player.current_zone = "marrow tower west"
             player.x_coordinate = 500
             player.y_coordinate = 675
@@ -168,7 +167,6 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
 
         if interacted and in_over_world:
             interacted = False
-            over_world_song_set = False
             player.current_zone = "marrow tower east"
             player.x_coordinate = 500
             player.y_coordinate = 675
@@ -367,7 +365,6 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
         overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
         player.current_zone = "marrow entrance"
         in_over_world = True
-        over_world_song_set = False
         player.x_coordinate = 120
         player.y_coordinate = 385
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -460,7 +457,6 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
         player.current_zone = "marrow entrance"
         in_over_world = True
-        over_world_song_set = False
         player.x_coordinate = 900
         player.y_coordinate = 385
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -469,6 +465,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         overlay_marrow_east.update(570, 55, graphic_dict["overlay_marrow_ramps_east"])
         player.current_zone = "marrow ramps east"
         in_over_world = True
+        over_world_song_set = False
         player.x_coordinate = 515
         player.y_coordinate = 200
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -667,6 +664,7 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
 
         if interacted and in_over_world:
             interacted = False
+            over_world_song_set = False
             player.current_zone = "marrow tower east"
             player.x_coordinate = 930
             player.y_coordinate = 550
@@ -675,7 +673,6 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
     if player.y_coordinate >= 675:
         player.current_zone = "marrow ramps east end"
         in_over_world = True
-        over_world_song_set = False
         player.x_coordinate = 515
         player.y_coordinate = 150
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -698,9 +695,11 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           player_battle_sprite, barrier_active, sharp_sense_active, snake_battle_sprite,
                           ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                           magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, in_npc_interaction,
-                          necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle):
+                          necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle, boss_music):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
+        pygame.mixer.music.load(boss_music)
+        pygame.mixer.music.play(loops=-1)
         over_world_song_set = True
 
     if erebyth_defeated:
@@ -831,7 +830,6 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     if player.y_coordinate <= 75:
         player.current_zone = "marrow ramps east"
         in_over_world = True
-        over_world_song_set = False
         player.x_coordinate = 515
         player.y_coordinate = 650
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))

@@ -6664,7 +6664,7 @@ if __name__ == "__main__":
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # marrow enemies ---------------------------------------------------------------------------------------------------
-    erebyth = Enemy("erebyth", "erebyth", 100, 100, 20, 575, 450, True, "item", graphic_dict["erebyth"],
+    erebyth = Enemy("erebyth", "erebyth", 100, 100, 25, 575, 450, True, "item", graphic_dict["erebyth"],
                     UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
@@ -6959,8 +6959,8 @@ if __name__ == "__main__":
     dungeon_switch_ramps_1 = Item("switch ramps 1", "switch", 945, 135, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_switch_ramps_2 = Item("switch ramps 2", "switch", 195, 135, graphic_dict["dungeon_switch_inactive"], 0)
 
-    dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 425, graphic_dict["dungeon_chest"], 0)
-    dungeon_chest_ramps_rect = pygame.Rect((530, 380,), (90, 10))
+    dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
+    dungeon_chest_ramps_rect = pygame.Rect((530, 595,), (90, 10))
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
@@ -7173,6 +7173,7 @@ if __name__ == "__main__":
     eldream_building_music = resource_path("resources/sounds/eterna_building_eldream.mp3")
     marrow_overworld_music = resource_path("resources/sounds/eterna_marrow.mp3")
     marrow_entrance_music = resource_path("resources/sounds/eterna_marrow_entrance.mp3")
+    boss_battle_music = resource_path("resources/sounds/eterna_boss_battle.mp3")
 
     pygame.mixer.music.set_volume(0.40)
     pygame.mixer.music.load(start_screen_music)
@@ -8536,6 +8537,8 @@ if __name__ == "__main__":
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_2):
                                         interacted = True
+                                    if pygame.Rect.colliderect(player.rect, erebyth):
+                                        interacted = True
                                 if player.current_zone == "marrow ramps west end":
                                     if pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1):
                                         interacted = True
@@ -9488,7 +9491,7 @@ if __name__ == "__main__":
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, screen, graphic_dict, player,
                                                                                    marrow_tower_west_bg,
                                                                                    over_world_song_set,
-                                                                                   marrow_overworld_music,
+                                                                                   marrow_entrance_music,
                                                                                    interaction_popup, font,
                                                                                    save_check_window, user_interface,
                                                                                    bar_backdrop, hp_bar, en_bar, xp_bar,
@@ -9507,7 +9510,7 @@ if __name__ == "__main__":
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
                                                                                    over_world_song_set,
-                                                                                   marrow_overworld_music,
+                                                                                   marrow_entrance_music,
                                                                                    interaction_popup, font,
                                                                                    save_check_window, user_interface,
                                                                                    bar_backdrop, hp_bar, en_bar, xp_bar,
@@ -9541,7 +9544,7 @@ if __name__ == "__main__":
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, screen, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
                                                                                    over_world_song_set,
-                                                                                   marrow_overworld_music,
+                                                                                   marrow_entrance_music,
                                                                                    interaction_popup, font,
                                                                                    save_check_window,
                                                                                    user_interface,
@@ -9561,7 +9564,7 @@ if __name__ == "__main__":
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
                                                                                    over_world_song_set,
-                                                                                   marrow_overworld_music,
+                                                                                   marrow_entrance_music,
                                                                                    interaction_popup, font,
                                                                                    save_check_window,
                                                                                    user_interface,
@@ -9596,7 +9599,7 @@ if __name__ == "__main__":
                         marrow_ramps_west_returned = zone_marrow.marrow_ramps_west(pygame, screen, graphic_dict,
                                                                                    player, marrow_ramps_west_bg,
                                                                                    over_world_song_set,
-                                                                                   marrow_overworld_music,
+                                                                                   marrow_entrance_music,
                                                                                    interaction_popup, font,
                                                                                    save_check_window,
                                                                                    user_interface,
@@ -9621,7 +9624,7 @@ if __name__ == "__main__":
                                                                                    graphic_dict,
                                                                                    player, marrow_ramps_west_bg,
                                                                                    over_world_song_set,
-                                                                                   marrow_overworld_music,
+                                                                                   marrow_entrance_music,
                                                                                    interaction_popup, font,
                                                                                    save_check_window,
                                                                                    user_interface,
@@ -9660,7 +9663,7 @@ if __name__ == "__main__":
                         marrow_ramps_east_returned = zone_marrow.marrow_ramps_east(pygame, screen, graphic_dict,
                                                                                    player, marrow_ramps_east_bg,
                                                                                    over_world_song_set,
-                                                                                   marrow_overworld_music,
+                                                                                   boss_battle_music,
                                                                                    interaction_popup, font,
                                                                                    save_check_window,
                                                                                    user_interface,
@@ -9681,7 +9684,7 @@ if __name__ == "__main__":
                                                                                    graphic_dict,
                                                                                    player, marrow_ramps_east_bg,
                                                                                    over_world_song_set,
-                                                                                   marrow_overworld_music,
+                                                                                   boss_battle_music,
                                                                                    interaction_popup, font,
                                                                                    save_check_window,
                                                                                    user_interface,
@@ -9717,7 +9720,7 @@ if __name__ == "__main__":
                                                                                            player,
                                                                                            marrow_ramps_w_end_bg,
                                                                                            over_world_song_set,
-                                                                                           marrow_overworld_music,
+                                                                                           marrow_entrance_music,
                                                                                            interaction_popup, font,
                                                                                            save_check_window,
                                                                                            user_interface, bar_backdrop,
@@ -9742,7 +9745,7 @@ if __name__ == "__main__":
                                                                                            graphic_dict, player,
                                                                                            marrow_ramps_w_end_bg,
                                                                                            over_world_song_set,
-                                                                                           marrow_overworld_music,
+                                                                                           marrow_entrance_music,
                                                                                            interaction_popup, font,
                                                                                            save_check_window,
                                                                                            user_interface, bar_backdrop,
@@ -9822,7 +9825,7 @@ if __name__ == "__main__":
                                                                                            necrola_battle_sprite,
                                                                                            osodark_battle_sprite,
                                                                                            stelli_battle_sprite,
-                                                                                           in_battle)
+                                                                                           in_battle, boss_battle_music)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -9868,7 +9871,7 @@ if __name__ == "__main__":
                                                                                            necrola_battle_sprite,
                                                                                            osodark_battle_sprite,
                                                                                            stelli_battle_sprite,
-                                                                                           in_battle)
+                                                                                           in_battle, boss_battle_music)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
