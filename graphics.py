@@ -4844,6 +4844,8 @@ def load_graphics():
     loaded_dict["muchador_attack"] = boss_enemies_battle_sheet[1]
     loaded_dict["chinzilla_attack"] = boss_enemies_battle_sheet[2]
     loaded_dict["chorizon_phase_attack"] = boss_enemies_battle_sheet[3]
+    loaded_dict["erebyth_phase_attack"] = boss_enemies_battle_sheet[4]
+    loaded_dict["erebyth_attack"] = boss_enemies_battle_sheet[5]
     # enemies attacking ------------------------------------------------------------------------------------------------
     type_overlay_url = resource_path('resources/art/overlay_enemy_types.png')
     type_overlay_sheet = sprite_sheet((50, 50), type_overlay_url)

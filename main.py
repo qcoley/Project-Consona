@@ -6956,6 +6956,11 @@ if __name__ == "__main__":
     dungeon_chest = Item("dungeon chest", "chest", 297, 355, graphic_dict["dungeon_chest"], 0)
     dungeon_chest_rect = pygame.Rect((245, 310,), (90, 10))
 
+    ramps_crate_1 = Item("ramps crate 1", "crate", 390, 350, graphic_dict["dungeon_crate"], 0)
+    ramps_crate_2 = Item("ramps crate 2", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
+    ramps_crate_3 = Item("ramps crate 3", "crate", 390, 350, graphic_dict["dungeon_crate"], 0)
+    ramps_crate_4 = Item("ramps crate 4", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
+
     dungeon_switch_ramps_1 = Item("switch ramps 1", "switch", 945, 135, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_switch_ramps_2 = Item("switch ramps 2", "switch", 195, 135, graphic_dict["dungeon_switch_inactive"], 0)
 
@@ -7470,6 +7475,11 @@ if __name__ == "__main__":
     mini_boss_1 = False
     mini_boss_2 = False
 
+    ramps_crate_1_got = False
+    ramps_crate_2_got = False
+    ramps_crate_3_got = False
+    ramps_crate_4_got = False
+
     apothecary_window_open = False
     menagerie_window_open = False
 
@@ -7486,6 +7496,9 @@ if __name__ == "__main__":
     # apothecary flower counters
     seldon_flower_counter = 0
     eldream_flower_counter = 0
+
+    # combat event counters
+    erebyth_turn_counter = 0
 
     cats_pet = {"seldon_shop": False, "seldon_academia": False, "korlok_shop": False, "korlok_apothecary": False,
                 "eldream_shop": False, "eldream_menagerie": False}
@@ -7537,7 +7550,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -8526,6 +8539,16 @@ if __name__ == "__main__":
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, marrow_switch_box):
                                         interacted = True
+                                if player.current_zone == "marrow tower west":
+                                    if pygame.Rect.colliderect(player.rect, ramps_crate_1):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, ramps_crate_2):
+                                        interacted = True
+                                if player.current_zone == "marrow tower east":
+                                    if pygame.Rect.colliderect(player.rect, ramps_crate_3):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, ramps_crate_4):
+                                        interacted = True
                                 if player.current_zone == "marrow ramps west":
                                     if pygame.Rect.colliderect(player.rect, overlay_marrow_ramps_west):
                                         interacted = True
@@ -9505,7 +9528,10 @@ if __name__ == "__main__":
                                                                                    defense_meter,
                                                                                    weapon_select, pet_energy_window,
                                                                                    overlay_marrow_ramps_west,
-                                                                                   overlay_marrow_ramps_east)
+                                                                                   overlay_marrow_ramps_east,
+                                                                                   ramps_crate_1, ramps_crate_2,
+                                                                                   ramps_crate_1_got, ramps_crate_2_got,
+                                                                                   sfx_item_potion, Item)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -9524,7 +9550,10 @@ if __name__ == "__main__":
                                                                                    defense_meter, weapon_select,
                                                                                    pet_energy_window,
                                                                                    overlay_marrow_ramps_west,
-                                                                                   overlay_marrow_ramps_east)
+                                                                                   overlay_marrow_ramps_east,
+                                                                                   ramps_crate_1, ramps_crate_2,
+                                                                                   ramps_crate_1_got, ramps_crate_2_got,
+                                                                                   sfx_item_potion, Item)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -9534,6 +9563,8 @@ if __name__ == "__main__":
                     info_text_2 = marrow_tower_west_returned["info_text_2"]
                     info_text_3 = marrow_tower_west_returned["info_text_3"]
                     info_text_4 = marrow_tower_west_returned["info_text_4"]
+                    ramps_crate_1_got = marrow_tower_west_returned["ramps_crate_1_got"]
+                    ramps_crate_2_got = marrow_tower_west_returned["ramps_crate_2_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in ramparts tower east ------------------------------------------------------------------
@@ -9559,7 +9590,10 @@ if __name__ == "__main__":
                                                                                    offense_meter, defense_meter,
                                                                                    weapon_select, pet_energy_window,
                                                                                    overlay_marrow_ramps_west,
-                                                                                   overlay_marrow_ramps_east)
+                                                                                   overlay_marrow_ramps_east,
+                                                                                   ramps_crate_3, ramps_crate_4,
+                                                                                   ramps_crate_3_got, ramps_crate_4_got,
+                                                                                   sfx_item_potion, Item)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -9579,7 +9613,10 @@ if __name__ == "__main__":
                                                                                    offense_meter, defense_meter,
                                                                                    weapon_select, pet_energy_window,
                                                                                    overlay_marrow_ramps_west,
-                                                                                   overlay_marrow_ramps_east)
+                                                                                   overlay_marrow_ramps_east,
+                                                                                   ramps_crate_3, ramps_crate_4,
+                                                                                   ramps_crate_3_got, ramps_crate_4_got,
+                                                                                   sfx_item_potion, Item)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -9589,6 +9626,8 @@ if __name__ == "__main__":
                     info_text_2 = marrow_tower_east_returned["info_text_2"]
                     info_text_3 = marrow_tower_east_returned["info_text_3"]
                     info_text_4 = marrow_tower_east_returned["info_text_4"]
+                    ramps_crate_3_got = marrow_tower_east_returned["ramps_crate_3_got"]
+                    ramps_crate_4_got = marrow_tower_east_returned["ramps_crate_4_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in ramparts tower west ------------------------------------------------------------------
@@ -9825,7 +9864,8 @@ if __name__ == "__main__":
                                                                                            necrola_battle_sprite,
                                                                                            osodark_battle_sprite,
                                                                                            stelli_battle_sprite,
-                                                                                           in_battle, boss_battle_music)
+                                                                                           in_battle, boss_battle_music,
+                                                                                           erebyth_battle_sprite)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -9871,7 +9911,8 @@ if __name__ == "__main__":
                                                                                            necrola_battle_sprite,
                                                                                            osodark_battle_sprite,
                                                                                            stelli_battle_sprite,
-                                                                                           in_battle, boss_battle_music)
+                                                                                           in_battle, boss_battle_music,
+                                                                                           erebyth_battle_sprite)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -11203,6 +11244,8 @@ if __name__ == "__main__":
                                 first_battle_cond = False
                                 drawing_functions.game_guide_container.clear()
                                 if not combat_cooldown:
+                                    if current_enemy_battling.name == "erebyth":
+                                        erebyth_turn_counter += 1
                                     attack_hotkey = False
                                     # combat event function that handles and returns damage and health
                                     combat_events = combat_scenario.attack_scenario(current_enemy_battling, "attack",
@@ -11223,7 +11266,9 @@ if __name__ == "__main__":
                                                                            necrola_battle_sprite,
                                                                            osodark_battle_sprite, stelli_battle_sprite,
                                                                            chorizon_phase,
-                                                                           combat_events["damage taken"])
+                                                                           combat_events["damage taken"],
+                                                                           erebyth_battle_sprite,
+                                                                           erebyth_turn_counter)
                                     try:
                                         stun_them = combat_events["stunned"]
                                     except TypeError and KeyError:
@@ -11351,8 +11396,13 @@ if __name__ == "__main__":
                             elif combat_button == "skill 1" or skill_1_hotkey:
                                 if not combat_cooldown:
                                     skill_1_hotkey = False
+
                                     # make sure player has enough energy to use the skill
                                     if player.energy > 19:
+
+                                        if current_enemy_battling.name == "erebyth":
+                                            erebyth_turn_counter += 1
+
                                         # player is a mage and uses the barrier spell. Set barrier active to true
                                         # save original defence value to be re applied upon enemy or player defeat
                                         if player.role == "mage":
@@ -11604,46 +11654,51 @@ if __name__ == "__main__":
                                         info_text_1 = "Not enough energy to use this skill."
 
                             elif combat_button == "skill 2" or skill_2_hotkey:
-                                if player.energy > 39:
-                                    if player.role == "mage":
-                                        if mirror_learned:
-                                            pygame.mixer.find_channel(True).play(sfx_mage_mirror)
-                                            mirror_image = True
-                                            player.energy -= 40
+                                if not combat_cooldown:
+                                    if player.energy > 39:
 
-                                    if player.role == "fighter":
-                                        if stun_learned:
-                                            pygame.mixer.find_channel(True).play(sfx_fighter_stun)
-                                            stun_visual_tic = time.perf_counter()
-                                            stun_them = True
-                                            stun_visual = True
-                                            player.energy -= 40
+                                        if current_enemy_battling.name == "erebyth":
+                                            erebyth_turn_counter += 1
 
-                                    if player.role == "scout":
-                                        if vanish_learned:
-                                            pygame.mixer.find_channel(True).play(sfx_scout_vanish)
-                                            movement_able = True
-                                            combat_happened = False
-                                            interacted = False
-                                            encounter_started = False
-                                            in_battle = False
-                                            in_over_world = True
-                                            loot_updated = False
-                                            if barrier_active:
-                                                barrier_active = False
-                                                # noinspection PyUnboundLocalVariable
-                                            if sharp_sense_active:
-                                                sharp_sense_active = False
-                                                # noinspection PyUnboundLocalVariable
-                                            player.energy -= 40
-                                            mirror_image = False
-                                            vanished = True
-                                            vanished_tic = time.perf_counter()
+                                        if player.role == "mage":
+                                            if mirror_learned:
+                                                pygame.mixer.find_channel(True).play(sfx_mage_mirror)
+                                                mirror_image = True
+                                                player.energy -= 40
 
-                                else:
-                                    info_text_1 = "Not enough energy to use this skill."
+                                        if player.role == "fighter":
+                                            if stun_learned:
+                                                pygame.mixer.find_channel(True).play(sfx_fighter_stun)
+                                                stun_visual_tic = time.perf_counter()
+                                                stun_them = True
+                                                stun_visual = True
+                                                player.energy -= 40
 
-                                skill_2_hotkey = False
+                                        if player.role == "scout":
+                                            if vanish_learned:
+                                                pygame.mixer.find_channel(True).play(sfx_scout_vanish)
+                                                movement_able = True
+                                                combat_happened = False
+                                                interacted = False
+                                                encounter_started = False
+                                                in_battle = False
+                                                in_over_world = True
+                                                loot_updated = False
+                                                if barrier_active:
+                                                    barrier_active = False
+                                                    # noinspection PyUnboundLocalVariable
+                                                if sharp_sense_active:
+                                                    sharp_sense_active = False
+                                                    # noinspection PyUnboundLocalVariable
+                                                player.energy -= 40
+                                                mirror_image = False
+                                                vanished = True
+                                                vanished_tic = time.perf_counter()
+
+                                    else:
+                                        info_text_1 = "Not enough energy to use this skill."
+
+                                    skill_2_hotkey = False
 
                         # outside of battle event loop -----------------------------------------------------------------
                         combat_scenario.enemy_health_bar(current_enemy_battling, graphic_dict)
@@ -11789,7 +11844,8 @@ if __name__ == "__main__":
                                                                    bandile_battle_sprite, chinzilla_battle_sprite,
                                                                    in_battle, in_npc_interaction, graphic_dict,
                                                                    necrola_battle_sprite, osodark_battle_sprite,
-                                                                   stelli_battle_sprite, chorizon_phase)
+                                                                   stelli_battle_sprite, chorizon_phase,
+                                                                   erebyth_battle_sprite)
                             if mirror_image:
                                 combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, graphic_dict)
@@ -12008,7 +12064,8 @@ if __name__ == "__main__":
                                                                    bandile_battle_sprite, chinzilla_battle_sprite,
                                                                    graphic_dict, necrola_battle_sprite,
                                                                    osodark_battle_sprite, stelli_battle_sprite,
-                                                                   chorizon_phase, combat_events["damage taken"])
+                                                                   chorizon_phase, combat_events["damage taken"],
+                                                                   erebyth_battle_sprite, erebyth_turn_counter)
                             if mirror_image:
                                 combat_scenario.attack_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, hard_strike, graphic_dict,
@@ -12046,6 +12103,8 @@ if __name__ == "__main__":
                                     screen.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
                                 if current_enemy_battling.kind == "stelli":
                                     screen.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
+                                if current_enemy_battling.kind == "erebyth":
+                                    screen.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:
@@ -12115,6 +12174,8 @@ if __name__ == "__main__":
                                     game_window.blit(osodark_battle_sprite.surf, osodark_battle_sprite.rect)
                                 if current_enemy_battling.kind == "stelli":
                                     game_window.blit(stelli_battle_sprite.surf, stelli_battle_sprite.rect)
+                                if current_enemy_battling.kind == "erebyth":
+                                    game_window.blit(erebyth_battle_sprite.surf, erebyth_battle_sprite.rect)
 
                                 for pet in player.pet:
                                     if pet.active:

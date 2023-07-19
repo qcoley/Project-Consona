@@ -298,7 +298,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                      overlay_marrow_west, overlay_marrow_east):
+                      overlay_marrow_west, overlay_marrow_east, crate_1, crate_2, ramps_crate_1_got,
+                      ramps_crate_2_got, sfx_item_potion, Item):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -310,6 +311,11 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if not ramps_crate_1_got:
+        screen.blit(crate_1.surf, crate_1.rect)
+    if not ramps_crate_2_got:
+        screen.blit(crate_2.surf, crate_2.rect)
 
     try:
         for pet in player.pet:
@@ -359,6 +365,62 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
+
+    if pygame.sprite.collide_rect(player, crate_1):
+        if not ramps_crate_1_got:
+            interaction_popup.update(crate_1.x_coordinate, crate_1.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (crate_1.x_coordinate, crate_1.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not ramps_crate_1_got:
+                    if len(player.items) < 16:
+                        ramps_crate_1_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
+                        info_text_1 = "You found a health potion!"
+                        info_text_2 = ""
+                        player.items.append(Item("small health potion", "potion", 200, 200,
+                                                 graphic_dict["health_pot_img"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+                else:
+                    info_text_1 = "This crate is empty."
+                    info_text_2 = ""
+
+            interacted = False
+
+    if pygame.sprite.collide_rect(player, crate_2):
+        if not ramps_crate_2_got:
+            interaction_popup.update(crate_2.x_coordinate, crate_2.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (crate_2.x_coordinate, crate_2.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not ramps_crate_2_got:
+                    if len(player.items) < 16:
+                        ramps_crate_2_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
+                        info_text_1 = "You found an energy potion!"
+                        info_text_2 = ""
+                        player.items.append(Item("small energy potion", "potion", 200, 200,
+                                                 graphic_dict["energy_pot_img"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+                else:
+                    info_text_1 = "This crate is empty."
+                    info_text_2 = ""
+
+            interacted = False
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -380,7 +442,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     marrow_tower_west_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                                 "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                                 "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                                "movement_able": movement_able}
+                                "movement_able": movement_able, "ramps_crate_1_got": ramps_crate_1_got,
+                                "ramps_crate_2_got": ramps_crate_2_got}
 
     return marrow_tower_west_return
 
@@ -390,7 +453,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                      overlay_marrow_west, overlay_marrow_east):
+                      overlay_marrow_west, overlay_marrow_east, crate_3, crate_4, ramps_crate_3_got, ramps_crate_4_got,
+                      sfx_item_potion, Item):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -402,6 +466,11 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if not ramps_crate_3_got:
+        screen.blit(crate_3.surf, crate_3.rect)
+    if not ramps_crate_4_got:
+        screen.blit(crate_4.surf, crate_4.rect)
 
     try:
         for pet in player.pet:
@@ -451,6 +520,62 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
+
+    if pygame.sprite.collide_rect(player, crate_3):
+        if not ramps_crate_3_got:
+            interaction_popup.update(crate_3.x_coordinate, crate_3.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (crate_3.x_coordinate, crate_3.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not ramps_crate_3_got:
+                    if len(player.items) < 16:
+                        ramps_crate_3_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
+                        info_text_1 = "You found a health potion!"
+                        info_text_2 = ""
+                        player.items.append(Item("small health potion", "potion", 200, 200,
+                                                 graphic_dict["health_pot_img"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+                else:
+                    info_text_1 = "This crate is empty."
+                    info_text_2 = ""
+
+            interacted = False
+
+    if pygame.sprite.collide_rect(player, crate_4):
+        if not ramps_crate_4_got:
+            interaction_popup.update(crate_4.x_coordinate, crate_4.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (crate_4.x_coordinate, crate_4.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            if interacted:
+                if not ramps_crate_4_got:
+                    if len(player.items) < 16:
+                        ramps_crate_4_got = True
+                        pygame.mixer.find_channel(True).play(sfx_item_potion)
+                        info_text_1 = "You found an energy potion!"
+                        info_text_2 = ""
+                        player.items.append(Item("small energy potion", "potion", 200, 200,
+                                                 graphic_dict["energy_pot_img"], 0))
+                    else:
+                        info_text_1 = "Your inventory is full."
+                        info_text_2 = ""
+                else:
+                    info_text_1 = "This crate is empty."
+                    info_text_2 = ""
+
+            interacted = False
 
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
@@ -473,7 +598,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     marrow_tower_east_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                                 "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                                 "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                                "movement_able": movement_able}
+                                "movement_able": movement_able, "ramps_crate_3_got": ramps_crate_3_got,
+                                "ramps_crate_4_got": ramps_crate_4_got}
 
     return marrow_tower_east_return
 
@@ -695,7 +821,8 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           player_battle_sprite, barrier_active, sharp_sense_active, snake_battle_sprite,
                           ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                           magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, in_npc_interaction,
-                          necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle, boss_music):
+                          necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle, boss_music,
+                          erebyth_battle_sprite):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(boss_music)
@@ -795,7 +922,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                                                        chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                        graphic_dict, necrola_battle_sprite,
                                                        osodark_battle_sprite, stelli_battle_sprite,
-                                                       chorizon_phase=False)
+                                                       False, erebyth_battle_sprite, erebyth_counter=0)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

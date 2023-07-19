@@ -1559,7 +1559,7 @@ def battle_animation_player(player, player_battle_sprite, barrier_active, sharp_
 def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            in_battle, in_npc_interaction, graphics, necrola_battle_sprite, osodark_battle_sprite,
-                           stelli_battle_sprite, chorizon_phase):
+                           stelli_battle_sprite, chorizon_phase, erebyth_battle_sprite, erebyth_counter):
 
     if in_battle and not in_npc_interaction:
         if enemy.kind == "snake":
@@ -1595,6 +1595,10 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
             stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
                                         stelli_battle_sprite.y_coordinate,
                                         graphics["stelli_battle_c"])
+        if enemy.kind == "erebyth":
+            erebyth_battle_sprite.update(695, 350, graphics["erebyth_battle"])
+            if erebyth_counter == 2:
+                erebyth_battle_sprite.update(695, 350, graphics["erebyth_phase_attack"])
 
 
 # update player character and enemy sprites for combat animation
@@ -3751,7 +3755,7 @@ def fighter(graphics, player, player_battle_sprite, sharp_sense_active, barrier_
 def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chorizon_battle_sprite,
                            muchador_battle_sprite, magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite,
                            graphics, necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite,
-                           chorizon_phase, damage):
+                           chorizon_phase, damage, erebyth_battle_sprite, erebyth_counter):
 
     if damage > 0:
         if enemy.kind == "snake":
@@ -3788,6 +3792,11 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
                 stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
                                             stelli_battle_sprite.y_coordinate,
                                             graphics["stelli_attack_c"])
+        if enemy.kind == "erebyth":
+            if erebyth_counter == 2:
+                erebyth_battle_sprite.update(695, 350, graphics["erebyth_phase_attack"])
+            if erebyth_counter == 3:
+                erebyth_battle_sprite.update(695, 350, graphics["erebyth_attack"])
 
 
 def enemy_health_bar(enemys, graphics):

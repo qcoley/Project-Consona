@@ -292,7 +292,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                                                    chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
-                                                   chorizon_phase=False)
+                                                   False, stelli_battle_sprite)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, amuna_buildings, pygame.sprite.collide_rect_ratio(0.75))
