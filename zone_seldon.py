@@ -284,15 +284,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
 
             drawing_functions.loot_popup_container.clear()
             drawing_functions.loot_text_container.clear()
-            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
-                                                    sharp_sense_active, graphic_dict)
-            combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite,
-                                                   chorizon_battle_sprite, muchador_battle_sprite,
-                                                   magmon_battle_sprite, bandile_battle_sprite,
-                                                   chinzilla_battle_sprite, in_battle, in_npc_interaction,
-                                                   graphic_dict, necrola_battle_sprite,
-                                                   osodark_battle_sprite, stelli_battle_sprite,
-                                                   False, stelli_battle_sprite)
 
     # player collides with building, enters if chosen to interact and starts related scenario
     building = pygame.sprite.spritecollideany(player, amuna_buildings, pygame.sprite.collide_rect_ratio(0.75))

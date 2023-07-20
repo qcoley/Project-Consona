@@ -4845,7 +4845,8 @@ def load_graphics():
     loaded_dict["chinzilla_attack"] = boss_enemies_battle_sheet[2]
     loaded_dict["chorizon_phase_attack"] = boss_enemies_battle_sheet[3]
     loaded_dict["erebyth_phase_attack"] = boss_enemies_battle_sheet[4]
-    loaded_dict["erebyth_attack"] = boss_enemies_battle_sheet[5]
+    loaded_dict["erebyth_big_attack"] = boss_enemies_battle_sheet[5]
+    loaded_dict["erebyth_attack"] = boss_enemies_battle_sheet[6]
     # enemies attacking ------------------------------------------------------------------------------------------------
     type_overlay_url = resource_path('resources/art/overlay_enemy_types.png')
     type_overlay_sheet = sprite_sheet((50, 50), type_overlay_url)
@@ -5279,6 +5280,11 @@ def load_graphics():
     ramps_switches_sheet = sprite_sheet((140, 200), ramps_switches_url)
     loaded_dict["ramp_switch_west"] = ramps_switches_sheet[0]
     loaded_dict["ramp_switch_east"] = ramps_switches_sheet[1]
+    # apothis sprites
+    apothis_url = resource_path('resources/art/sprites_apothis.png')
+    apothis_sheet = sprite_sheet((60, 95), apothis_url)
+    loaded_dict["apothis_front"] = apothis_sheet[0]
+    loaded_dict["apothis_back"] = apothis_sheet[1]
     # heath bars -------------------------------------------------------------------------------------------------------
     hp_url = resource_path('resources/art/bars_health.png')
     hp_sheet = sprite_sheet((305, 19), hp_url)

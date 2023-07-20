@@ -6666,6 +6666,8 @@ if __name__ == "__main__":
     # marrow enemies ---------------------------------------------------------------------------------------------------
     erebyth = Enemy("erebyth", "erebyth", 100, 100, 25, 575, 450, True, "item", graphic_dict["erebyth"],
                     UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    apothis = Enemy("apothis", "apothis", 100, 100, 75, 575, 450, True, "item", graphic_dict["apothis_back"],
+                    UiElement("apothis hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
@@ -6922,6 +6924,7 @@ if __name__ == "__main__":
     jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
 
     entrance_popup = UiElement("entrance popup", 675, 60, graphic_dict["popup_wide"])
+    apothis_popup = UiElement("apothis popup", 575, 375, graphic_dict["popup_wide"])
 
     world_map = UiElement("world map", 769, 332, graphic_dict["world_map"])
     korlok_map_button = UiElement("seldon map button", 663, 238, graphic_dict["map_button"])
@@ -7426,6 +7429,9 @@ if __name__ == "__main__":
     chorizon_phase = False
     boots_obtained = False
     erebyth_defeated = False
+    apothis_push = False
+    apothis_1 = True
+    apothis_2 = False
 
     seed_given = False
     hatch_ready = False
@@ -7550,7 +7556,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -9865,7 +9871,10 @@ if __name__ == "__main__":
                                                                                            osodark_battle_sprite,
                                                                                            stelli_battle_sprite,
                                                                                            in_battle, boss_battle_music,
-                                                                                           erebyth_battle_sprite)
+                                                                                           erebyth_battle_sprite,
+                                                                                           apothis_push, apothis,
+                                                                                           apothis_popup, apothis_1,
+                                                                                           apothis_2)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -9912,7 +9921,10 @@ if __name__ == "__main__":
                                                                                            osodark_battle_sprite,
                                                                                            stelli_battle_sprite,
                                                                                            in_battle, boss_battle_music,
-                                                                                           erebyth_battle_sprite)
+                                                                                           erebyth_battle_sprite,
+                                                                                           apothis_push, apothis,
+                                                                                           apothis_popup, apothis_1,
+                                                                                           apothis_2)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -9926,6 +9938,10 @@ if __name__ == "__main__":
                     marrow_switch_phase = marrow_ramps_east_end_returned["marrow_switch_phase"]
                     erebyth_defeated = marrow_ramps_east_end_returned["erebyth_defeated"]
                     in_battle = marrow_ramps_east_end_returned["in_battle"]
+                    apothis_push = marrow_ramps_east_end_returned["apothis_push"]
+                    apothis_1 = marrow_ramps_east_end_returned["apothis_1"]
+                    apothis_2 = marrow_ramps_east_end_returned["apothis_2"]
+                    npc_tic = marrow_ramps_east_end_returned["npc_tic"]
                     if in_battle:
                         current_enemy_battling = marrow_ramps_east_end_returned["current_enemy_battling"]
 
@@ -11016,7 +11032,29 @@ if __name__ == "__main__":
                 if in_battle and not in_over_world and not in_shop and not in_inn and not in_academia \
                         and not in_npc_interaction:
 
+                    if erebyth_turn_counter == 4:
+                        erebyth_turn_counter = 0
+
                     try:
+                        if current_enemy_battling.name == "erebyth":
+                            if current_enemy_battling.health <= 25:
+                                current_enemy_battling.health = 25
+                                npc_tic = time.perf_counter()
+                                erebyth_defeated = True
+                                if barrier_active:
+                                    barrier_active = False
+                                    # noinspection PyUnboundLocalVariable
+                                if sharp_sense_active:
+                                    sharp_sense_active = False
+                                    # noinspection PyUnboundLocalVariable
+                                combat_happened = False
+                                interacted = False
+                                encounter_started = False
+                                in_battle = False
+                                in_over_world = True
+                                loot_updated = False
+                                mirror_image = False
+
                         pygame.mixer.Sound.stop(sfx_no_weapon_attack)
                         pygame.mixer.Sound.stop(sfx_mage_attack)
                         pygame.mixer.Sound.stop(sfx_fighter_attack)
@@ -11099,7 +11137,8 @@ if __name__ == "__main__":
                                                                                             graphic_dict,
                                                                                             sharp_sense_active,
                                                                                             barrier_active, turn_taken,
-                                                                                            stun_them, mirror_image)
+                                                                                            stun_them, mirror_image,
+                                                                                            erebyth_turn_counter)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -11133,7 +11172,8 @@ if __name__ == "__main__":
                                                                                             graphic_dict,
                                                                                             sharp_sense_active,
                                                                                             barrier_active, turn_taken,
-                                                                                            stun_them, mirror_image)
+                                                                                            stun_them, mirror_image,
+                                                                                            erebyth_turn_counter)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -11155,7 +11195,8 @@ if __name__ == "__main__":
                                                                                           legendary_armor, power_gloves,
                                                                                           chroma_boots)
                                     if current_info_item.name == "super potion":
-                                        if inventory_event["item message"] != "You're already at full health or energy.":
+                                        if inventory_event["item message"] != "You're already at " \
+                                                                              "full health or energy.":
                                             turn_taken = True
                                             attack_hotkey = False
                                             combat_events = combat_scenario.attack_scenario(current_enemy_battling,
@@ -11165,7 +11206,8 @@ if __name__ == "__main__":
                                                                                             graphic_dict,
                                                                                             sharp_sense_active,
                                                                                             barrier_active, turn_taken,
-                                                                                            stun_them, mirror_image)
+                                                                                            stun_them, mirror_image,
+                                                                                            erebyth_turn_counter)
                                             try:
                                                 stun_them = combat_events["stunned"]
                                             except TypeError and KeyError:
@@ -11253,8 +11295,8 @@ if __name__ == "__main__":
                                                                                     level_up_win, level_up_font,
                                                                                     graphic_dict, sharp_sense_active,
                                                                                     barrier_active, turn_taken,
-                                                                                    stun_them,
-                                                                                    mirror_image)
+                                                                                    stun_them, mirror_image,
+                                                                                    erebyth_turn_counter)
                                     combat_scenario.attack_animation_player(player, player_battle_sprite,
                                                                             barrier_active, sharp_sense_active,
                                                                             hard_strike, graphic_dict, turn_taken)
@@ -11367,9 +11409,6 @@ if __name__ == "__main__":
                                             if current_enemy_battling.name == "chinzilla":
                                                 chinzilla_defeated = True
                                                 chinzilla.kill()
-                                            if current_enemy_battling.name == "erebyth":
-                                                erebyth_defeated = True
-                                                erebyth.kill()
 
                                             # if barrier is active on enemy defeat, restore original defence and set off
                                             if barrier_active:
@@ -11433,7 +11472,9 @@ if __name__ == "__main__":
                                                                                            necrola_battle_sprite,
                                                                                            osodark_battle_sprite,
                                                                                            stelli_battle_sprite,
-                                                                                           chorizon_phase)
+                                                                                           chorizon_phase,
+                                                                                           erebyth_battle_sprite,
+                                                                                           erebyth_turn_counter)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -11449,7 +11490,8 @@ if __name__ == "__main__":
                                                                                         graphic_dict,
                                                                                         sharp_sense_active,
                                                                                         barrier_active, turn_taken,
-                                                                                        stun_them, mirror_image)
+                                                                                        stun_them, mirror_image,
+                                                                                        erebyth_turn_counter)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -11516,7 +11558,9 @@ if __name__ == "__main__":
                                                                                            necrola_battle_sprite,
                                                                                            osodark_battle_sprite,
                                                                                            stelli_battle_sprite,
-                                                                                           chorizon_phase)
+                                                                                           chorizon_phase,
+                                                                                           erebyth_battle_sprite,
+                                                                                           erebyth_turn_counter)
                                                     if mirror_image:
                                                         combat_scenario.battle_animation_player(player,
                                                                                                 mirror_battle_sprite,
@@ -11532,7 +11576,8 @@ if __name__ == "__main__":
                                                                                         graphic_dict,
                                                                                         sharp_sense_active,
                                                                                         barrier_active, turn_taken,
-                                                                                        stun_them, mirror_image)
+                                                                                        stun_them, mirror_image,
+                                                                                        erebyth_turn_counter)
                                                     try:
                                                         stun_them = combat_events["stunned"]
                                                     except TypeError and KeyError:
@@ -11584,8 +11629,9 @@ if __name__ == "__main__":
                                                                                                 graphic_dict,
                                                                                                 sharp_sense_active,
                                                                                                 barrier_active,
-                                                                                                turn_taken,
-                                                                                                stun_them, mirror_image)
+                                                                                                turn_taken, stun_them,
+                                                                                                mirror_image,
+                                                                                                erebyth_turn_counter)
                                                 try:
                                                     stun_them = combat_events["stunned"]
                                                 except TypeError and KeyError:
@@ -11656,6 +11702,8 @@ if __name__ == "__main__":
                             elif combat_button == "skill 2" or skill_2_hotkey:
                                 if not combat_cooldown:
                                     if player.energy > 39:
+
+                                        turn_taken = True
 
                                         if current_enemy_battling.name == "erebyth":
                                             erebyth_turn_counter += 1
@@ -11845,7 +11893,7 @@ if __name__ == "__main__":
                                                                    in_battle, in_npc_interaction, graphic_dict,
                                                                    necrola_battle_sprite, osodark_battle_sprite,
                                                                    stelli_battle_sprite, chorizon_phase,
-                                                                   erebyth_battle_sprite)
+                                                                   erebyth_battle_sprite, erebyth_turn_counter)
                             if mirror_image:
                                 combat_scenario.battle_animation_player(player, mirror_battle_sprite, barrier_active,
                                                                         sharp_sense_active, graphic_dict)
@@ -12258,15 +12306,20 @@ if __name__ == "__main__":
                                     if combat_events["effective pet"]:
                                         pet_damage_overlay.update(950, 275, graphic_dict["effective_pet_damage_img"])
                                     if mirror_image:
-                                        if combat_events["mirror damage"] == 5:
-                                            mirror_damage_overlay.update(850, 400,
-                                                                         graphic_dict["effective_dealt_damage_img"])
-                                        elif combat_events["mirror damage"] == 1:
-                                            mirror_damage_overlay.update(850, 400,
-                                                                         graphic_dict["non_effective_dealt_damage_img"])
-                                        elif combat_events["mirror damage"] == 3:
-                                            mirror_damage_overlay.update(850, 400,
-                                                                         graphic_dict["dealt_damage_img"])
+                                        try:
+                                            if combat_events["mirror damage"] == 5:
+                                                mirror_damage_overlay.update(850, 400,
+                                                                             graphic_dict["effective_dealt_damage_img"])
+                                            elif combat_events["mirror damage"] == 1:
+                                                mirror_damage_overlay.update(850, 400,
+                                                                             graphic_dict["non_effective_dealt_"
+                                                                                          "damage_img"])
+                                            elif combat_events["mirror damage"] == 3:
+                                                mirror_damage_overlay.update(850, 400,
+                                                                             graphic_dict["dealt_damage_img"])
+                                        except KeyError:
+                                            pass
+
                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                         screen.blit(dealt_damage_overlay.surf, dealt_damage_overlay.rect)
                                         if mirror_image:
@@ -12290,10 +12343,13 @@ if __name__ == "__main__":
                                     damage_done_rect.center = (850, 225)
 
                                     if mirror_image:
-                                        mirror_dmg_surf = level_up_font.render(str(combat_events["mirror damage"]),
-                                                                               True, "black", "white")
-                                        mirror_dmg_rect = damage_done_surf.get_rect()
-                                        mirror_dmg_rect.center = (855, 402)
+                                        try:
+                                            mirror_dmg_surf = level_up_font.render(str(combat_events["mirror damage"]),
+                                                                                   True, "black", "white")
+                                            mirror_dmg_rect = damage_done_surf.get_rect()
+                                            mirror_dmg_rect.center = (855, 402)
+                                        except KeyError:
+                                            pass
 
                                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                                         screen.blit(damage_done_surf, damage_done_rect)
@@ -16045,6 +16101,8 @@ if __name__ == "__main__":
                             combat_scenario.enemy_health_bar(chinzilla, graphic_dict)
                             erebyth.health = 100
                             combat_scenario.enemy_health_bar(erebyth, graphic_dict)
+
+                            erebyth_turn_counter = 0
 
                     elif event.type == QUIT:
                         pygame.mixer.quit()

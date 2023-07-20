@@ -3795,7 +3795,9 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "erebyth":
             if erebyth_counter == 2:
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_phase_attack"])
-            if erebyth_counter == 3:
+            elif erebyth_counter == 3:
+                erebyth_battle_sprite.update(695, 350, graphics["erebyth_big_attack"])
+            else:
                 erebyth_battle_sprite.update(695, 350, graphics["erebyth_attack"])
 
 
@@ -3808,7 +3810,7 @@ def enemy_health_bar(enemys, graphics):
 
 
 def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, level_up_win, level_up_font, graphics,
-                    sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image):
+                    sharp_sense_active, barrier_active, turn_taken, stun_them, mirror_image, erebyth_counter):
 
     # get the all the stuff that happened in this scenario and return it to main loop via dictionary keys and values
     combat_event_dictionary = {
@@ -3861,6 +3863,11 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
                     combat_event_dictionary["critical received"] = defend_dict["critical"]
                     damage_to_player = defend_dict["damage"]
+
+                    if enemy_combating.name == "erebyth":
+                        if erebyth_counter == 3:
+                            damage_to_player = 35
+                            combat_event_dictionary["effective enemy"] = "effective"
 
                     if damage_to_player > 0:
                         attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.kind}."
