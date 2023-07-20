@@ -964,7 +964,7 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("dried fins", "fins", 200, 200, graphics["fins_img"], 0))
                 if item == "oscura pluma":
                     player.items.append(Item("oscura pluma", "pluma", 200, 200, graphics["pluma_img"], 0))
-                if item == "boss key":
+                if item == "boss key" or item == "ramps key":
                     player.items.append(Item("boss key", "key", 200, 200, graphics["key_img"], 0))
                 if item == "power gloves":
                     player.items.append(Item("power gloves", "gloves", 200, 200, graphics["gloves"], 0))
@@ -1051,6 +1051,11 @@ def load_game(player, Item, graphics, Pet):
             load_return["crate_3"] = player_load_info["crate_3"]
             load_return["crate_4"] = player_load_info["crate_4"]
             load_return["crate_5"] = player_load_info["crate_5"]
+            load_return["ramps_crate_1"] = player_load_info["ramps_crate_1"]
+            load_return["ramps_crate_2"] = player_load_info["ramps_crate_2"]
+            load_return["ramps_crate_3"] = player_load_info["ramps_crate_3"]
+            load_return["ramps_crate_4"] = player_load_info["ramps_crate_4"]
+            load_return["ramps_crate_5"] = player_load_info["ramps_crate_5"]
             load_return["switch_1"] = player_load_info["switch_1"]
             load_return["switch_2"] = player_load_info["switch_2"]
             load_return["switch_3"] = player_load_info["switch_3"]
@@ -1102,7 +1107,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               rock_4_con, rock_5_con, rock_6_con, rock_7_con, chinzilla_defeated, apothecary_access, beyond_seldon,
               seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
               rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count, dreth_cutscenes,
-              mirror_learned, stun_learned, vanish_learned, boots_obtained, marrow_switch_phase, erebyth_defeated):
+              mirror_learned, stun_learned, vanish_learned, boots_obtained, marrow_switch_phase, erebyth_defeated,
+              ramps_crate_1, ramps_crate_2, ramps_crate_3, ramps_crate_4, ramps_crate_5):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1169,7 +1175,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "torok unlocked": torok_unlocked, "iriana unlocked": iriana_unlocked,
                         "seed scout": seed_scout_count, "seed fighter": seed_fighter_count,
                         "seed mage": seed_mage_count, "boots_obtained": boots_obtained,
-                        "marrow switch phase": marrow_switch_phase, "erebyth defeated": erebyth_defeated}
+                        "marrow switch phase": marrow_switch_phase, "erebyth defeated": erebyth_defeated,
+                        "ramps_crate_1": ramps_crate_1, "ramps_crate_2": ramps_crate_2, "ramps_crate_3": ramps_crate_3,
+                        "ramps_crate_4": ramps_crate_4, "ramps_crate_5": ramps_crate_5}
 
     with open("save", "wb") as ff:
         pickle.dump(player_save_info, ff)

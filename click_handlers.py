@@ -236,7 +236,7 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
             if clicked_element[0].name == "temporary item":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
-            if clicked_element[0].name == "boss key":
+            if clicked_element[0].name == "boss key" or clicked_element[0].name == "ramps key":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
             if clicked_element[0].name == "power gloves":

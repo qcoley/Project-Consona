@@ -1687,6 +1687,34 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 160
             if self.x_coordinate < 280 and self.y_coordinate > 290:
                 self.y_coordinate = 290
+        if current_zone == "marrow":
+            if self.x_coordinate < 115:
+                self.x_coordinate = 115
+            if self.x_coordinate < 390:
+                if self.y_coordinate > 705:
+                    self.y_coordinate = 705
+            if self.x_coordinate > 390:
+                if self.y_coordinate > 420:
+                    self.y_coordinate = 420
+            if self.y_coordinate > 420:
+                if self.x_coordinate > 385:
+                    self.x_coordinate = 385
+            if self.x_coordinate > 1010:
+                self.x_coordinate = 1010
+            if 730 < self.x_coordinate or self.x_coordinate < 630:
+                if self.y_coordinate < 100:
+                    self.y_coordinate = 100
+            if 220 < self.y_coordinate < 295:
+                if self.x_coordinate > 765:
+                    if self.y_coordinate > 245:
+                        self.y_coordinate = 245
+            if 255 < self.y_coordinate < 320:
+                if self.x_coordinate > 760:
+                    self.x_coordinate = 760
+            if 300 < self.y_coordinate < 390:
+                if self.x_coordinate > 765:
+                    if self.y_coordinate < 325:
+                        self.y_coordinate = 325
         if current_zone == "marrow entrance":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -1802,7 +1830,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 self.y_coordinate = 165
             if self.x_coordinate > 765:
                 self.x_coordinate = 765
-        if current_zone == "marrow ramps east end" or current_zone == "marrow ramps west end":
+        if current_zone == "marrow ramps east end":
             if self.y_coordinate > 700:
                 self.y_coordinate = 700
             if self.y_coordinate > 175:
@@ -1818,10 +1846,23 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if self.x_coordinate < 375 or self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
-        if current_zone == "marrow ramps east end":
             if not erebyth_defeated:
                 if self.y_coordinate < 100:
                     self.y_coordinate = 100
+        if current_zone == "marrow ramps west end":
+            if self.x_coordinate < 385:
+                self.x_coordinate = 385
+            if self.y_coordinate > 700:
+                self.y_coordinate = 700
+            if self.y_coordinate > 175:
+                if self.x_coordinate > 930:
+                    self.x_coordinate = 930
+            if self.y_coordinate < 175:
+                if self.x_coordinate > 770:
+                    self.x_coordinate = 770
+            if self.x_coordinate > 775:
+                if self.y_coordinate < 180:
+                    self.y_coordinate = 180
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -3684,6 +3725,34 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 160
             if self.x_coordinate < 280 and self.y_coordinate > 290:
                 self.y_coordinate = 290
+        if current_zone == "marrow":
+            if self.x_coordinate < 115:
+                self.x_coordinate = 115
+            if self.x_coordinate < 390:
+                if self.y_coordinate > 705:
+                    self.y_coordinate = 705
+            if self.x_coordinate > 390:
+                if self.y_coordinate > 420:
+                    self.y_coordinate = 420
+            if self.y_coordinate > 420:
+                if self.x_coordinate > 385:
+                    self.x_coordinate = 385
+            if self.x_coordinate > 1010:
+                self.x_coordinate = 1010
+            if 730 < self.x_coordinate or self.x_coordinate < 630:
+                if self.y_coordinate < 100:
+                    self.y_coordinate = 100
+            if 220 < self.y_coordinate < 295:
+                if self.x_coordinate > 765:
+                    if self.y_coordinate > 245:
+                        self.y_coordinate = 245
+            if 255 < self.y_coordinate < 320:
+                if self.x_coordinate > 760:
+                    self.x_coordinate = 760
+            if 300 < self.y_coordinate < 390:
+                if self.x_coordinate > 765:
+                    if self.y_coordinate < 325:
+                        self.y_coordinate = 325
         if current_zone == "marrow entrance":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -3799,7 +3868,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 self.y_coordinate = 165
             if self.x_coordinate > 765:
                 self.x_coordinate = 765
-        if current_zone == "marrow ramps east end" or current_zone == "marrow ramps west end":
+        if current_zone == "marrow ramps east end":
             if self.y_coordinate > 700:
                 self.y_coordinate = 700
             if self.y_coordinate > 175:
@@ -3815,10 +3884,23 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if self.x_coordinate < 375 or self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
-        if current_zone == "marrow ramps east end":
             if not erebyth_defeated:
                 if self.y_coordinate < 100:
                     self.y_coordinate = 100
+        if current_zone == "marrow ramps west end":
+            if self.x_coordinate < 385:
+                self.x_coordinate = 385
+            if self.y_coordinate > 700:
+                self.y_coordinate = 700
+            if self.y_coordinate > 175:
+                if self.x_coordinate > 930:
+                    self.x_coordinate = 930
+            if self.y_coordinate < 175:
+                if self.x_coordinate > 770:
+                    self.x_coordinate = 770
+            if self.x_coordinate > 775:
+                if self.y_coordinate < 180:
+                    self.y_coordinate = 180
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -5680,6 +5762,35 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 160
             if self.x_coordinate < 280 and self.y_coordinate > 290:
                 self.y_coordinate = 290
+
+        if current_zone == "marrow":
+            if self.x_coordinate < 115:
+                self.x_coordinate = 115
+            if self.x_coordinate < 390:
+                if self.y_coordinate > 705:
+                    self.y_coordinate = 705
+            if self.x_coordinate > 390:
+                if self.y_coordinate > 420:
+                    self.y_coordinate = 420
+            if self.y_coordinate > 420:
+                if self.x_coordinate > 385:
+                    self.x_coordinate = 385
+            if self.x_coordinate > 1010:
+                self.x_coordinate = 1010
+            if 730 < self.x_coordinate or self.x_coordinate < 630:
+                if self.y_coordinate < 100:
+                    self.y_coordinate = 100
+            if 220 < self.y_coordinate < 295:
+                if self.x_coordinate > 765:
+                    if self.y_coordinate > 245:
+                        self.y_coordinate = 245
+            if 255 < self.y_coordinate < 320:
+                if self.x_coordinate > 760:
+                    self.x_coordinate = 760
+            if 300 < self.y_coordinate < 390:
+                if self.x_coordinate > 765:
+                    if self.y_coordinate < 325:
+                        self.y_coordinate = 325
         if current_zone == "marrow entrance":
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
@@ -5795,7 +5906,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                 self.y_coordinate = 165
             if self.x_coordinate > 765:
                 self.x_coordinate = 765
-        if current_zone == "marrow ramps east end" or current_zone == "marrow ramps west end":
+        if current_zone == "marrow ramps east end":
             if self.y_coordinate > 700:
                 self.y_coordinate = 700
             if self.y_coordinate > 175:
@@ -5811,10 +5922,24 @@ class PlayerSorae(pygame.sprite.Sprite):
             if self.x_coordinate < 375 or self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
-        if current_zone == "marrow ramps east end":
             if not erebyth_defeated:
                 if self.y_coordinate < 100:
                     self.y_coordinate = 100
+        if current_zone == "marrow ramps west end":
+            if self.x_coordinate < 385:
+                self.x_coordinate = 385
+            if self.y_coordinate > 700:
+                self.y_coordinate = 700
+            if self.y_coordinate > 175:
+                if self.x_coordinate > 930:
+                    self.x_coordinate = 930
+            if self.y_coordinate < 175:
+                if self.x_coordinate > 770:
+                    self.x_coordinate = 770
+            if self.x_coordinate > 775:
+                if self.y_coordinate < 180:
+                    self.y_coordinate = 180
+
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -6527,6 +6652,9 @@ if __name__ == "__main__":
     npc_marrow_entrance = NPC("m.e.n.", "nuldar", "", "", "", 675, 115, True, False, ["Items"], False,
                               graphic_dict["entrance_npc_down"])
 
+    npc_artherian = NPC("artherian", "amuna", "legends never die", "hail", "", 300, 400,
+                        True, False, ["Items"], False, graphic_dict["artherian_down"])
+
     npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
                        graphic_dict["worker_1_a"])
     npc_worker_2 = NPC("worker", "nuldar", "", "", "", 485, 400, True, False, ["Items"], False,
@@ -6590,6 +6718,10 @@ if __name__ == "__main__":
     ghoul_nede = Enemy("nede ghoul", "ghoul", 100, 100, 3, 450, 455, True,
                        Item("bone dust", "dust", 200, 200, graphic_dict["bone_dust_img"], 0),
                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    ghoul_ramps = Enemy("ramps ghoul", "ghoul", 100, 100, 3, 175, 200, True, "item",
+                        graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    ghoul_ramps_2 = Enemy("ramps ghoul 2", "ghoul", 100, 100, 3, 925, 200, True, "item",
+                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # friendly's -------------------------------------------------------------------------------------------------------
     # classed as enemies so players can fight with them, but cannot be killed
     stelli_a = Enemy("stellia", "stelli", 100, 100, 3, 805, 525, True, "item", graphic_dict["stelli_a"],
@@ -6887,6 +7019,8 @@ if __name__ == "__main__":
     mirror_overlay = UiElement("mirror overlay", 225, 425, graphic_dict["mirror_overlay"])
     mirror_overlay.surf.set_alpha(75)
 
+    overlay_enemy_vanish = UiElement("enemy vanish", 575, 450, graphic_dict["overlay_enemy_vanish"])
+
     kasper_battle_sprite = BattleCharacter("kasper battle", 825, 520, graphic_dict["kasper_battle"])
     torok_battle_sprite = BattleCharacter("torok battle", 825, 520, graphic_dict["torok_battle"])
     iriana_battle_sprite = BattleCharacter("iriana battle", 825, 520, graphic_dict["iriana_battle"])
@@ -6963,6 +7097,7 @@ if __name__ == "__main__":
     ramps_crate_2 = Item("ramps crate 2", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_3 = Item("ramps crate 3", "crate", 390, 350, graphic_dict["dungeon_crate"], 0)
     ramps_crate_4 = Item("ramps crate 4", "crate", 650, 350, graphic_dict["dungeon_crate"], 0)
+    ramps_crate_5 = Item("ramps crate 5", "crate", 500, 650, graphic_dict["dungeon_crate"], 0)
 
     dungeon_switch_ramps_1 = Item("switch ramps 1", "switch", 945, 135, graphic_dict["dungeon_switch_inactive"], 0)
     dungeon_switch_ramps_2 = Item("switch ramps 2", "switch", 195, 135, graphic_dict["dungeon_switch_inactive"], 0)
@@ -7068,6 +7203,8 @@ if __name__ == "__main__":
     flower_eldream_3 = Item("flower eldream 3", "flower", 775, 50, graphic_dict["flower_eldream"], 0)
     flower_eldream_4 = Item("flower eldream 4", "flower", 985, 450, graphic_dict["flower_eldream"], 0)
     flower_eldream_5 = Item("flower eldream 5", "flower", 775, 670, graphic_dict["flower_eldream"], 0)
+
+    ramps_flower = Item("flower ramps", "flower", 150, 225, graphic_dict["flower_seldon"], 0)
 
     quest_items_seldon = pygame.sprite.Group()
     quest_items_eldream = pygame.sprite.Group()
@@ -7485,6 +7622,7 @@ if __name__ == "__main__":
     ramps_crate_2_got = False
     ramps_crate_3_got = False
     ramps_crate_4_got = False
+    ramps_crate_5_got = False
 
     apothecary_window_open = False
     menagerie_window_open = False
@@ -7556,7 +7694,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -8076,6 +8214,11 @@ if __name__ == "__main__":
                         crate_3 = load_returned["crate_3"]
                         crate_4 = load_returned["crate_4"]
                         crate_5 = load_returned["crate_5"]
+                        ramps_crate_1_got = load_returned["ramps_crate_1"]
+                        ramps_crate_2_got = load_returned["ramps_crate_2"]
+                        ramps_crate_3_got = load_returned["ramps_crate_3"]
+                        ramps_crate_4_got = load_returned["ramps_crate_4"]
+                        ramps_crate_5_got = load_returned["ramps_crate_5"]
                         switch_1 = load_returned["switch_1"]
                         switch_2 = load_returned["switch_2"]
                         switch_3 = load_returned["switch_3"]
@@ -8571,6 +8714,8 @@ if __name__ == "__main__":
                                 if player.current_zone == "marrow ramps west end":
                                     if pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1):
                                         interacted = True
+                                    if pygame.Rect.colliderect(player.rect, ramps_crate_5):
+                                        interacted = True
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -8708,7 +8853,10 @@ if __name__ == "__main__":
                                                                  seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, dreth_cutscenes_not_viewed,
                                                                  mirror_learned, stun_learned, vanish_learned,
-                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated)
+                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated,
+                                                                 ramps_crate_1_got, ramps_crate_2_got,
+                                                                 ramps_crate_3_got, ramps_crate_4_got,
+                                                                 ramps_crate_5_got)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -8736,7 +8884,8 @@ if __name__ == "__main__":
                                                              seed_fighter_count, seed_mage_count,
                                                              dreth_cutscenes_not_viewed, mirror_learned, stun_learned,
                                                              vanish_learned, boots_obtained, marrow_switch_phase,
-                                                             erebyth_defeated)
+                                                             erebyth_defeated, ramps_crate_1_got, ramps_crate_2_got,
+                                                             ramps_crate_3_got, ramps_crate_4_got, ramps_crate_5_got)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -9418,7 +9567,8 @@ if __name__ == "__main__":
                                                                                npc_tic, movement_able, equipment_screen,
                                                                                staff, sword, bow, npc_garan,
                                                                                offense_meter, defense_meter,
-                                                                               weapon_select, pet_energy_window)
+                                                                               weapon_select, pet_energy_window,
+                                                                               npc_artherian)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -9433,7 +9583,8 @@ if __name__ == "__main__":
                                                                                npc_tic, movement_able, equipment_screen,
                                                                                staff, sword, bow, npc_garan,
                                                                                offense_meter, defense_meter,
-                                                                               weapon_select, pet_energy_window)
+                                                                               weapon_select, pet_energy_window,
+                                                                               npc_artherian)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -9443,6 +9594,7 @@ if __name__ == "__main__":
                     info_text_2 = marrow_district_returned["info_text_2"]
                     info_text_3 = marrow_district_returned["info_text_3"]
                     info_text_4 = marrow_district_returned["info_text_4"]
+                    npc_tic = marrow_district_returned["npc_tic"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow entrance ----------------------------------------------------------------------
@@ -9663,7 +9815,8 @@ if __name__ == "__main__":
                                                                                    defense_meter,
                                                                                    weapon_select, pet_energy_window,
                                                                                    overlay_marrow_ramps_west,
-                                                                                   chroma_bridge_ramps)
+                                                                                   chroma_bridge_ramps, ghoul_ramps,
+                                                                                   ghoul_ramps_2, enemy_tic)
                     else:
                         marrow_ramps_west_returned = zone_marrow.marrow_ramps_west(pygame, game_window,
                                                                                    graphic_dict,
@@ -9688,7 +9841,8 @@ if __name__ == "__main__":
                                                                                    defense_meter, weapon_select,
                                                                                    pet_energy_window,
                                                                                    overlay_marrow_ramps_west,
-                                                                                   chroma_bridge_ramps)
+                                                                                   chroma_bridge_ramps, ghoul_ramps,
+                                                                                   ghoul_ramps_2, enemy_tic)
 
                     over_world_song_set = marrow_ramps_west_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_returned["interacted"]
@@ -9698,6 +9852,7 @@ if __name__ == "__main__":
                     info_text_2 = marrow_ramps_west_returned["info_text_2"]
                     info_text_3 = marrow_ramps_west_returned["info_text_3"]
                     info_text_4 = marrow_ramps_west_returned["info_text_4"]
+                    enemy_tic = marrow_ramps_west_returned["enemy_tic"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in ramparts tower east ------------------------------------------------------------------
@@ -9784,7 +9939,10 @@ if __name__ == "__main__":
                                                                                            dungeon_switch_ramps_1,
                                                                                            marrow_switch_phase,
                                                                                            overlay_marrow_switch,
-                                                                                           sfx_activate_switch)
+                                                                                           sfx_activate_switch,
+                                                                                           ramps_flower, ramps_crate_5,
+                                                                                           ramps_crate_5_got, Item,
+                                                                                           sfx_item_key)
                     else:
                         marrow_ramps_west_end_returned = zone_marrow.marrow_ramps_west_end(pygame, game_window,
                                                                                            graphic_dict, player,
@@ -9809,7 +9967,10 @@ if __name__ == "__main__":
                                                                                            dungeon_switch_ramps_1,
                                                                                            marrow_switch_phase,
                                                                                            overlay_marrow_switch,
-                                                                                           sfx_activate_switch)
+                                                                                           sfx_activate_switch,
+                                                                                           ramps_flower, ramps_crate_5,
+                                                                                           ramps_crate_5_got, Item,
+                                                                                           sfx_item_key)
 
                     over_world_song_set = marrow_ramps_west_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_end_returned["interacted"]
@@ -9820,6 +9981,7 @@ if __name__ == "__main__":
                     info_text_3 = marrow_ramps_west_end_returned["info_text_3"]
                     info_text_4 = marrow_ramps_west_end_returned["info_text_4"]
                     marrow_switch_phase = marrow_ramps_west_end_returned["marrow_switch_phase"]
+                    ramps_crate_5_got = marrow_ramps_west_end_returned["ramps_crate_5_got"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in ramparts tower east ------------------------------------------------------------------
@@ -9874,7 +10036,8 @@ if __name__ == "__main__":
                                                                                            erebyth_battle_sprite,
                                                                                            apothis_push, apothis,
                                                                                            apothis_popup, apothis_1,
-                                                                                           apothis_2)
+                                                                                           apothis_2,
+                                                                                           overlay_enemy_vanish)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -9924,7 +10087,8 @@ if __name__ == "__main__":
                                                                                            erebyth_battle_sprite,
                                                                                            apothis_push, apothis,
                                                                                            apothis_popup, apothis_1,
-                                                                                           apothis_2)
+                                                                                           apothis_2,
+                                                                                           overlay_enemy_vanish)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -14154,7 +14318,10 @@ if __name__ == "__main__":
                                                                  seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, dreth_cutscenes_not_viewed,
                                                                  mirror_learned, stun_learned, vanish_learned,
-                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated)
+                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated,
+                                                                 ramps_crate_1_got, ramps_crate_2_got,
+                                                                 ramps_crate_3_got, ramps_crate_4_got,
+                                                                 ramps_crate_5_got)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -14759,7 +14926,10 @@ if __name__ == "__main__":
                                                                  seed_scout_count, seed_fighter_count,
                                                                  seed_mage_count, dreth_cutscenes_not_viewed,
                                                                  mirror_learned, stun_learned, vanish_learned,
-                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated)
+                                                                 boots_obtained, marrow_switch_phase, erebyth_defeated,
+                                                                 ramps_crate_1_got, ramps_crate_2_got,
+                                                                 ramps_crate_3_got, ramps_crate_4_got,
+                                                                 ramps_crate_5_got)
 
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -15156,7 +15326,9 @@ if __name__ == "__main__":
                                                                      seed_mage_count, dreth_cutscenes_not_viewed,
                                                                      mirror_learned, stun_learned, vanish_learned,
                                                                      boots_obtained, marrow_switch_phase,
-                                                                     erebyth_defeated)
+                                                                     erebyth_defeated, ramps_crate_1_got,
+                                                                     ramps_crate_2_got, ramps_crate_3_got,
+                                                                     ramps_crate_4_got, ramps_crate_5_got)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -15352,7 +15524,9 @@ if __name__ == "__main__":
                                                                      seed_mage_count, dreth_cutscenes_not_viewed,
                                                                      mirror_learned, stun_learned, vanish_learned,
                                                                      boots_obtained, marrow_switch_phase,
-                                                                     erebyth_defeated)
+                                                                     erebyth_defeated, ramps_crate_1_got,
+                                                                     ramps_crate_2_got, ramps_crate_3_got,
+                                                                     ramps_crate_4_got, ramps_crate_5_got)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -15548,7 +15722,9 @@ if __name__ == "__main__":
                                                                      seed_mage_count, dreth_cutscenes_not_viewed,
                                                                      mirror_learned, stun_learned, vanish_learned,
                                                                      boots_obtained, marrow_switch_phase,
-                                                                     erebyth_defeated)
+                                                                     erebyth_defeated, ramps_crate_1_got,
+                                                                     ramps_crate_2_got, ramps_crate_3_got,
+                                                                     ramps_crate_4_got, ramps_crate_5_got)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"

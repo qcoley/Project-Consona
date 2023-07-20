@@ -8,7 +8,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                     button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
                     info_text_3, info_text_4, npc_tic, movement_able, equipment_screen, staff, sword, bow, npc_garan,
-                    offense_meter, defense_meter, weapon_select, pet_energy_window):
+                    offense_meter, defense_meter, weapon_select, pet_energy_window, artherian):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -20,6 +20,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+    screen.blit(artherian.surf, artherian.rect)
 
     try:
         for pet in player.pet:
@@ -69,6 +70,21 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
 
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
+
+    # npc movement updates
+    face_direction = random.choice(["front", "back", "left", "right"])
+    if movement_able and in_over_world:
+        npc_toc = time.perf_counter()
+        if npc_toc - npc_tic > 5:
+            npc_tic = time.perf_counter()
+            if face_direction == "front":
+                artherian.update(graphic_dict["artherian_down"])
+            if face_direction == "back":
+                artherian.update(graphic_dict["artherian_up"])
+            if face_direction == "left":
+                artherian.update(graphic_dict["artherian_left"])
+            if face_direction == "right":
+                artherian.update(graphic_dict["artherian_right"])
 
     if player.y_coordinate <= 50:
         player.current_zone = "marrow entrance"
@@ -609,7 +625,7 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                      overlay_marrow_west, chroma_bridge):
+                      overlay_marrow_west, chroma_bridge, ghoul, ghoul_2, enemy_tic):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -623,6 +639,8 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     screen.blit(chroma_bridge.surf, chroma_bridge.rect)
+    screen.blit(ghoul.surf, ghoul.rect)
+    screen.blit(ghoul_2.surf, ghoul_2.rect)
 
     try:
         for pet in player.pet:
@@ -693,6 +711,20 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
             player.y_coordinate = 550
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    ghouls = [ghoul, ghoul_2]
+    ghoul_choice = random.choice(ghouls)
+    # enemy movement updates
+    direction_horizontal = random.choice(["left", "right"])
+    direction_vertical = random.choice(["up", "down"])
+    if movement_able and in_over_world:
+        enemy_toc = time.perf_counter()
+        if enemy_toc - enemy_tic > 2:
+            enemy_tic = time.perf_counter()
+            if ghoul_choice.name == "ramps ghoul":
+                ghoul.update_position([100, 300], [200, 300], direction_horizontal, direction_vertical)
+            if ghoul_choice.name == "ramps ghoul 2":
+                ghoul_2.update_position([700, 900], [200, 300], direction_horizontal, direction_vertical)
+
     if player.y_coordinate >= 675:
         player.current_zone = "marrow ramps west end"
         in_over_world = True
@@ -703,7 +735,7 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     marrow_tower_west_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                                 "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                                 "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                                "movement_able": movement_able}
+                                "movement_able": movement_able, "enemy_tic": enemy_tic}
 
     return marrow_tower_west_return
 
@@ -822,7 +854,8 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           ghoul_battle_sprite, chorizon_battle_sprite, muchador_battle_sprite,
                           magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, in_npc_interaction,
                           necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle, boss_music,
-                          erebyth_battle_sprite, apothis_push, apothis, apothis_popup, apothis_1, apothis_2):
+                          erebyth_battle_sprite, apothis_push, apothis, apothis_popup, apothis_1, apothis_2,
+                          enemy_vanish):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(boss_music)
@@ -839,19 +872,22 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
-    npc_toc = time.perf_counter()
-    if npc_toc - npc_tic < 3 and erebyth_defeated:
-        screen.blit(apothis.surf, apothis.rect)
-        entrance_text_surf = font.render("Harm him no more.", True, "black", "light yellow")
-        screen.blit(apothis_popup.surf, apothis_popup.rect)
-        entrance_text_rect = entrance_text_surf.get_rect()
-        entrance_text_rect.center = (apothis_popup.x_coordinate, apothis_popup.y_coordinate)
-        screen.blit(entrance_text_surf, entrance_text_rect)
+    if erebyth_defeated and not apothis_push:
+        npc_toc = time.perf_counter()
+        if npc_toc - npc_tic < 3 and erebyth_defeated:
+            screen.blit(apothis.surf, apothis.rect)
+            entrance_text_surf = font.render("Harm him no more.", True, "black", "light yellow")
+            screen.blit(apothis_popup.surf, apothis_popup.rect)
+            entrance_text_rect = entrance_text_surf.get_rect()
+            entrance_text_rect.center = (apothis_popup.x_coordinate, apothis_popup.y_coordinate)
+            screen.blit(entrance_text_surf, entrance_text_rect)
+        else:
+            npc_tic = time.perf_counter()
 
     if erebyth_defeated and not apothis_push:
         screen.blit(apothis.surf, apothis.rect)
-        if player.y_coordinate > 225:
-            player.y_coordinate -= 3
+        if player.y_coordinate > 220:
+            player.y_coordinate -= 2
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
         else:
             apothis_2 = True
@@ -863,6 +899,9 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
             apothis_push = True
 
     if erebyth_defeated and apothis_push:
+        npc_toc = time.perf_counter()
+        if npc_toc - npc_tic < 3:
+            screen.blit(enemy_vanish.surf, enemy_vanish.rect)
         screen.blit(dungeon_chest.surf, dungeon_chest.rect)
         movement_able = True
 
@@ -1028,7 +1067,8 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                           hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                           info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                           staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                          switch_1, marrow_switch_phase, main_switch, sfx_switch):
+                          switch_1, marrow_switch_phase, main_switch, sfx_switch, flower, crate, crate_got, Item,
+                          sfx_item_key):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -1042,6 +1082,10 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     screen.blit(switch_1.surf, switch_1.rect)
+    screen.blit(flower.surf, flower.rect)
+
+    if not crate_got:
+        screen.blit(crate.surf, crate.rect)
 
     try:
         for pet in player.pet:
@@ -1124,10 +1168,37 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                 main_switch.update(640, 360, graphic_dict["marrow_switch_purple"])
                 marrow_switch_phase = 'purple'
 
+    if pygame.Rect.colliderect(player.rect, crate):
+        if not crate_got:
+            interaction_popup.update(crate.x_coordinate, crate.y_coordinate - 50,
+                                     graphic_dict["popup_interaction"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("crate"), True, "black", "light yellow")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (crate.x_coordinate, crate.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if interacted and in_over_world:
+            if not crate_got:
+                if len(player.items) < 16:
+                    pygame.mixer.find_channel(True).play(sfx_item_key)
+                    info_text_1 = "You found a golden key!"
+                    info_text_2 = ""
+                    player.items.append(Item("ramps key", "key", 200, 200, graphic_dict["key_img"], 0))
+                    crate_got = True
+                    crate.kill()
+                else:
+                    info_text_1 = "Your inventory is full."
+                    info_text_2 = ""
+            else:
+                info_text_1 = "This crate is empty."
+                info_text_2 = ""
+            interacted = False
+
     marrow_ramps_west_end_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                                     "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                                     "info_text_4": info_text_4, "interacted": interacted,
                                     "in_over_world": in_over_world, "movement_able": movement_able,
-                                    "marrow_switch_phase": marrow_switch_phase}
+                                    "marrow_switch_phase": marrow_switch_phase, "ramps_crate_5_got": crate_got}
 
     return marrow_ramps_west_end_return
