@@ -6432,7 +6432,8 @@ def button_highlighter(posit):
                                                               fighter_learn_button, scout_learn_button,
                                                               barrier_learn_button, close_button, npc_garan.gift,
                                                               mirror_learn_button, mirror_button, vanish_button,
-                                                              stun_button)
+                                                              stun_button, kasper_unlocked, torok_unlocked,
+                                                              iriana_unlocked)
     return button_highlighters
 
 
@@ -6514,6 +6515,7 @@ if __name__ == "__main__":
     marrow_ramps_w_end_bg_block = graphic_dict["marrow_rampart_west_end_bg_block"]
     marrow_district_bg = graphic_dict["marrow_district_bg"]
     marrow_ramparts_battle = graphic_dict["marrow_ramparts_battle"]
+    marrow_interaction_bg = graphic_dict["marrow_interaction_bg"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -6649,10 +6651,10 @@ if __name__ == "__main__":
     npc_prime = NPC("prime", "nuldar", "", "", "", 130, 525, True, False, ["Items"], False, graphic_dict["prime"])
     npc_jez = NPC("jez", "nuldar", "", "", "", 265, 525, True, False, ["Items"], False, graphic_dict["jez"])
 
-    npc_marrow_entrance = NPC("m.e.n.", "nuldar", "", "", "", 675, 115, True, False, ["Items"], False,
+    npc_marrow_entrance = NPC("m.e.n.", "nuldar", "", "", "", 675, 152, True, False, ["Items"], False,
                               graphic_dict["entrance_npc_down"])
 
-    npc_artherian = NPC("artherian", "amuna", "legends never die", "hail", "", 300, 400,
+    npc_artherian = NPC("artherian", "amuna", "legends never die", "hail", "", 210, 450,
                         True, False, ["Items"], False, graphic_dict["artherian_down"])
 
     npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
@@ -6688,6 +6690,7 @@ if __name__ == "__main__":
     npc_omoku_interaction = UiElement("omoku interaction", 610, 352, graphic_dict["omoku_interaction"])
     npc_leyre_interaction = UiElement("leyre interaction", 678, 350, graphic_dict["leyre_interaction"])
     npc_everett_interaction = UiElement("everett interaction", 678, 325, graphic_dict["everett_interaction"])
+    npc_artherian_interaction = UiElement("artherian interaction", 678, 325, graphic_dict["artherian_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -6735,7 +6738,7 @@ if __name__ == "__main__":
                        UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     chorizon_2 = Enemy("chorizon_2", "chorizon", 100, 100, 7, 870, 230, True, "item", graphic_dict["chorizon"],
                        UiElement("chorizon hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    muchador = Enemy("muchador", "muchador", 100, 100, 8, 350, 360, True, "item", graphic_dict["muchador_dark"],
+    muchador = Enemy("muchador", "muchador", 100, 100, 10, 350, 360, True, "item", graphic_dict["muchador_dark"],
                      UiElement("muchador hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     # korlok enemies ---------------------------------------------------------------------------------------------------
     magmon_1 = Enemy("magmon", "magmon", 100, 100, 9, 125, 135, True,
@@ -6767,7 +6770,7 @@ if __name__ == "__main__":
                       graphic_dict["bandile"], UiElement("bandile hp bar", 700, 90, graphic_dict["hp_100"]),
                       "fighter")
     # terra cave enemy -------------------------------------------------------------------------------------------------
-    chinzilla = Enemy("chinzilla", "chinzilla", 100, 100, 14, 350, 360, True, "item", graphic_dict["chinzilla"],
+    chinzilla = Enemy("chinzilla", "chinzilla", 100, 100, 15, 350, 360, True, "item", graphic_dict["chinzilla"],
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     # eldream enemies --------------------------------------------------------------------------------------------------
@@ -7057,7 +7060,7 @@ if __name__ == "__main__":
     prime_popup = UiElement("prime popup", 130, 475, graphic_dict["popup_interaction"])
     jez_popup = UiElement("jez popup", 265, 475, graphic_dict["popup_interaction"])
 
-    entrance_popup = UiElement("entrance popup", 675, 60, graphic_dict["popup_wide"])
+    entrance_popup = UiElement("entrance popup", 675, 97, graphic_dict["popup_wide"])
     apothis_popup = UiElement("apothis popup", 575, 375, graphic_dict["popup_wide"])
 
     world_map = UiElement("world map", 769, 332, graphic_dict["world_map"])
@@ -7453,6 +7456,7 @@ if __name__ == "__main__":
     sfx_talking.set_volume(0.15)
 
     # main loop variables ----------------------------------------------------------------------------------------------
+    level_checked = False
     game_running = True
     saving = False
     new_game_chosen = False
@@ -7713,18 +7717,20 @@ if __name__ == "__main__":
             character_button.surf.set_alpha(255)
             quests_button.surf.set_alpha(255)
             alpha_set = False
-        if player.x_coordinate < 325 and player.y_coordinate < 125:
+        if player.x_coordinate < 420 and player.y_coordinate < 125:
             if not alpha_set:
                 hp_bar.surf.set_alpha(50)
                 en_bar.surf.set_alpha(50)
                 xp_bar.surf.set_alpha(50)
                 bar_backdrop.surf.set_alpha(50)
+                pet_energy_window.surf.set_alpha(50)
                 alpha_set = True
         else:
             hp_bar.surf.set_alpha(255)
             en_bar.surf.set_alpha(255)
             xp_bar.surf.set_alpha(255)
             bar_backdrop.surf.set_alpha(255)
+            pet_energy_window.surf.set_alpha(255)
             alpha_set = False
         if player.x_coordinate > 800 and player.y_coordinate < 125:
             if not alpha_set:
@@ -7737,6 +7743,7 @@ if __name__ == "__main__":
             map_button.surf.set_alpha(255)
             location_overlay.surf.set_alpha(255)
             alpha_set = False
+
         # --------------------------------------------------------------------------------------------------------------
 
         if not in_over_world:
@@ -8683,6 +8690,9 @@ if __name__ == "__main__":
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
                                         interacted = True
+                                if player.current_zone == "marrow":
+                                    if pygame.Rect.colliderect(player.rect, npc_artherian.rect):
+                                        interacted = True
                                 if player.current_zone == "marrow entrance":
                                     if pygame.sprite.spritecollideany(player, interactables_marrow_entrance):
                                         interacted = True
@@ -9568,7 +9578,9 @@ if __name__ == "__main__":
                                                                                staff, sword, bow, npc_garan,
                                                                                offense_meter, defense_meter,
                                                                                weapon_select, pet_energy_window,
-                                                                               npc_artherian)
+                                                                               npc_artherian, player_battle_sprite,
+                                                                               current_npc_interacting,
+                                                                               in_npc_interaction)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -9584,7 +9596,9 @@ if __name__ == "__main__":
                                                                                staff, sword, bow, npc_garan,
                                                                                offense_meter, defense_meter,
                                                                                weapon_select, pet_energy_window,
-                                                                               npc_artherian)
+                                                                               npc_artherian, player_battle_sprite,
+                                                                               current_npc_interacting,
+                                                                               in_npc_interaction)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -9595,6 +9609,8 @@ if __name__ == "__main__":
                     info_text_3 = marrow_district_returned["info_text_3"]
                     info_text_4 = marrow_district_returned["info_text_4"]
                     npc_tic = marrow_district_returned["npc_tic"]
+                    current_npc_interacting = marrow_district_returned["current_npc_interacting"]
+                    in_npc_interaction = marrow_district_returned["in_npc_interaction"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow entrance ----------------------------------------------------------------------
@@ -10783,19 +10799,6 @@ if __name__ == "__main__":
                 if player.current_zone == "stardust" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    if len(stardust_stelli) == 0:
-                        stelli_a = Enemy("stellia", "stelli", 100, 100, player.level, 805, 525, True, "item",
-                                         graphic_dict["stelli_a"],
-                                         UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-                        stelli_b = Enemy("stellib", "stelli", 100, 100, player.level, 805, 140, True, "item",
-                                         graphic_dict["stelli_b"],
-                                         UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-                        stelli_c = Enemy("stellic", "stelli", 100, 100, player.level, 305, 545, True, "item",
-                                         graphic_dict["stelli_c"],
-                                         UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-                        stardust_stelli.add(stelli_a, stelli_b, stelli_c)
-                        interactables_stardust.add(stelli_a, stelli_b, stelli_c)
-
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, screen, stardust_song_set,
                                                                            stardust_outpost_music, stardust_cove_bg,
@@ -10828,7 +10831,7 @@ if __name__ == "__main__":
                                                                            stardust_stelli, enemy_tic,
                                                                            stelli_battle_sprite, vanished,
                                                                            vanish_overlay, overlay_stardust_waterfall,
-                                                                           leveled)
+                                                                           level_checked)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -10862,7 +10865,7 @@ if __name__ == "__main__":
                                                                            stardust_stelli, enemy_tic,
                                                                            stelli_battle_sprite, vanished,
                                                                            vanish_overlay, overlay_stardust_waterfall,
-                                                                           leveled)
+                                                                           level_checked)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -10881,6 +10884,7 @@ if __name__ == "__main__":
                     rock_3_con = stardust_returned["rock_3_con"]
                     outpost_show = stardust_returned["outpost_show"]
                     enemy_tic = stardust_returned["enemy_tic"]
+                    level_checked = stardust_returned["level_checked"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in rohir river (after apothis cutscene) -------------------------------------------------
@@ -12262,7 +12266,7 @@ if __name__ == "__main__":
                                                               graphic_dict["muchador"])
 
                             if current_enemy_battling.kind == "chorizon":
-                                if current_enemy_battling.health < 75 and not chorizon_phase:
+                                if current_enemy_battling.health < 50 and not chorizon_phase:
                                     chorizon_phase = True
                                     # type change for second phase
                                     current_enemy_battling.type = "mage"
@@ -14651,10 +14655,14 @@ if __name__ == "__main__":
                                             kasper_manage_button.update(145, 460, graphic_dict["activate_button"])
                                             torok_manage_button.update(415, 460, graphic_dict["activate_button"])
                                             iriana_manage_button.update(685, 460, graphic_dict["activate_button"])
+
                                         drawing_functions.pets_window_container.append(menagerie_window)
-                                        drawing_functions.pets_window_container.append(kasper_manage_button)
-                                        drawing_functions.pets_window_container.append(torok_manage_button)
-                                        drawing_functions.pets_window_container.append(iriana_manage_button)
+                                        if not kasper_unlocked:
+                                            drawing_functions.pets_window_container.append(kasper_manage_button)
+                                        if not torok_unlocked:
+                                            drawing_functions.pets_window_container.append(torok_manage_button)
+                                        if not iriana_unlocked:
+                                            drawing_functions.pets_window_container.append(iriana_manage_button)
 
                                     else:
                                         drawing_functions.pets_window_container.clear()
@@ -14673,12 +14681,7 @@ if __name__ == "__main__":
 
                                 if kasper_manage_button.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
-                                    if kasper_unlocked:
-                                        for pet in player.pet:
-                                            # when pet can evolve
-                                            if pet.name == "kasper":
-                                                drawing_functions.pets_window_container.clear()
-                                    else:
+                                    if not kasper_unlocked:
                                         if not seed_given:
                                             hatch_ready = False
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
@@ -14697,12 +14700,7 @@ if __name__ == "__main__":
                                     menagerie_window_open = False
                                 if torok_manage_button.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
-                                    if torok_unlocked:
-                                        for pet in player.pet:
-                                            # when pet can evolve
-                                            if pet.name == "torok":
-                                                drawing_functions.pets_window_container.clear()
-                                    else:
+                                    if not torok_unlocked:
                                         if not seed_given:
                                             hatch_ready = False
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
@@ -14721,12 +14719,7 @@ if __name__ == "__main__":
                                     menagerie_window_open = False
                                 if iriana_manage_button.rect.collidepoint(pos):
                                     pygame.mixer.find_channel(True).play(sfx_button_click)
-                                    if iriana_unlocked:
-                                        for pet in player.pet:
-                                            # when pet can evolve
-                                            if pet.name == "iriana":
-                                                drawing_functions.pets_window_container.clear()
-                                    else:
+                                    if not iriana_unlocked:
                                         if not seed_given:
                                             hatch_ready = False
                                             pet_hatch_window.update(pet_hatch_window.x_coordinate,
@@ -15965,6 +15958,8 @@ if __name__ == "__main__":
                                 screen.blit(ectrenos_interaction_bg, (0, 0))
                             if player.current_zone == "ectrenos front":
                                 screen.blit(ectrenos_front_interaction_bg, (0, 0))
+                            if player.current_zone == "marrow":
+                                screen.blit(marrow_interaction_bg, (0, 0))
                             screen.blit(equipment_screen.surf, equipment_screen.rect)
                             screen.blit(offense_meter.surf, offense_meter.rect)
                             screen.blit(defense_meter.surf, defense_meter.rect)
@@ -16020,6 +16015,9 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "everett":
                                 screen.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "artherian":
+                                screen.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
+                                npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
 
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(npc_name_plate.surf, npc_name_plate.rect)
@@ -16040,6 +16038,8 @@ if __name__ == "__main__":
                                 game_window.blit(ectrenos_interaction_bg, (0, 0))
                             if player.current_zone == "ectrenos front":
                                 game_window.blit(ectrenos_front_interaction_bg, (0, 0))
+                            if player.current_zone == "marrow":
+                                game_window.blit(marrow_interaction_bg, (0, 0))
                             game_window.blit(equipment_screen.surf, equipment_screen.rect)
                             game_window.blit(offense_meter.surf, offense_meter.rect)
                             game_window.blit(defense_meter.surf, defense_meter.rect)
@@ -16092,6 +16092,9 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "everett":
                                 game_window.blit(npc_everett_interaction.surf, npc_everett_interaction.rect)
                                 npc_name_plate.update(675, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "artherian":
+                                game_window.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
+                                npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
 
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(npc_name_plate.surf, npc_name_plate.rect)
@@ -16115,6 +16118,8 @@ if __name__ == "__main__":
                             text_npc_name_rect.center = (605, 193)
                         if current_npc_interacting.name != "omoku":
                             text_npc_name_rect.center = (675, 165)
+                            if current_npc_interacting.name == "artherian":
+                                text_npc_name_rect.center = (680, 165)
 
                         if len(drawing_functions.type_advantage_window) == 0:
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:

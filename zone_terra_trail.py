@@ -173,7 +173,7 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                                                            chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                            graphic_dict, necrola_battle_sprite,
                                                            osodark_battle_sprite, stelli_battle_sprite,
-                                                           chorizon_phase=False)
+                                                           False, stelli_battle_sprite, 0)
 
             interacted = False
 

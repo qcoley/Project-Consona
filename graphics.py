@@ -86,6 +86,7 @@ def load_graphics():
     ectrenos_front_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_front.png')).convert_alpha()
     ectrenos_alcove_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_alcove.png')).convert_alpha()
     ectrenos_interaction = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction.png')).convert_alpha()
+    marrow_interaction_bg = pygame.image.load(resource_path('resources/art/bg_marrow_interaction.png')).convert_alpha()
     marrow_entrance_bg = pygame.image.load(resource_path('resources/art/bg_marrow_enter.png')).convert_alpha()
     marrow_entrance_bg_open = pygame.image.load(resource_path('resources/art/bg_marrow_enter_open.png')).convert_alpha()
     mar_tower_e_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_tower_east.png')).convert_alpha()
@@ -273,6 +274,7 @@ def load_graphics():
     loaded_dict["seldon_bg_screen"] = seldon_bg_screen
     loaded_dict["korlok_bg_screen"] = korlok_bg_screen
     loaded_dict["eldream_bg_screen"] = eldream_bg_screen
+    loaded_dict["marrow_interaction_bg"] = marrow_interaction_bg
     loaded_dict["marrow_entrance_bg"] = marrow_entrance_bg
     loaded_dict["marrow_entrance_bg_open"] = marrow_entrance_bg_open
     loaded_dict["marrow_tower_east_bg"] = mar_tower_e_bg
@@ -4731,6 +4733,7 @@ def load_graphics():
     loaded_dict["omoku_interaction"] = npc_interactions_sheet[7]
     loaded_dict["leyre_interaction"] = npc_interactions_sheet[8]
     loaded_dict["everett_interaction"] = npc_interactions_sheet[9]
+    loaded_dict["artherian_interaction"] = npc_interactions_sheet[10]
     # interaction popup ------------------------------------------------------------------------------------------------
     interaction_popup_url = resource_path('resources/art/popup_interaction.png')
     interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)

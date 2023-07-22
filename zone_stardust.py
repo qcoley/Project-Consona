@@ -16,7 +16,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                      rock, pet_energy_window, stardust_top, necrola_battle_sprite, osodark_battle_sprite, sfx_nede,
                      sfx_door, sfx_rupee, rock_3_con, outpost_show, outpost_notify, stellis, enemy_tic,
-                     stelli_battle_sprite, vanished, vanish_overlay, waterfall, leveled):
+                     stelli_battle_sprite, vanished, vanish_overlay, waterfall, level_checked):
     if not stardust_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(stardust_outpost_music)
@@ -31,9 +31,10 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     if player.level > 3:
-        if leveled:
+        if not level_checked:
             for stelli in stellis:
                 stelli.level = player.level
+            level_checked = True
 
     # stelli movement updates
     if len(stellis) > 0:
@@ -160,7 +161,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                            chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                            graphic_dict, necrola_battle_sprite,
                                                            osodark_battle_sprite, stelli_battle_sprite,
-                                                           chorizon_phase=False)
+                                                           False, stelli_battle_sprite, 0)
             else:
                 if not player.quest_complete["where's nede?"]:
                     interaction_popup.update(ghoul_nede.x_coordinate, ghoul_nede.y_coordinate - 40,
@@ -259,7 +260,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                    chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
-                                                   chorizon_phase=False)
+                                                   False, stelli_battle_sprite, 0)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -297,6 +298,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
         player.current_zone = "seldon"
         stardust_song_set = False
         in_over_world = True
+        level_checked = False
         player.x_coordinate = 125
         player.y_coordinate = 375
 
@@ -338,6 +340,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                            info_text_3, "info_text_4": info_text_4, "movement_able": movement_able,
                        "current_building_entering": current_building_entering, "in_shop": in_shop,
                        "interacted": interacted, "npc_tic": npc_tic, "rock_3_con": rock_3_con,
-                       "outpost_show": outpost_show, "enemy_tic": enemy_tic}
+                       "outpost_show": outpost_show, "enemy_tic": enemy_tic, "level_checked": level_checked}
 
     return stardust_return

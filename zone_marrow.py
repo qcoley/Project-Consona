@@ -8,7 +8,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     interaction_popup, font, save_check_window, user_interface, bar_backdrop, hp_bar, en_bar, xp_bar,
                     button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
                     info_text_3, info_text_4, npc_tic, movement_able, equipment_screen, staff, sword, bow, npc_garan,
-                    offense_meter, defense_meter, weapon_select, pet_energy_window, artherian):
+                    offense_meter, defense_meter, weapon_select, pet_energy_window, artherian, player_battle_sprite,
+                    current_npc_interacting, in_npc_interaction):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -40,6 +41,31 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                 screen.blit(pet_energy_surf, pet_energy_rect)
     except AttributeError:
         pass
+
+    if pygame.sprite.collide_rect(player, artherian):
+        interaction_popup.update(artherian.x_coordinate, artherian.y_coordinate - 50,
+                                 graphic_dict["popup_interaction_purple"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(artherian.name), True, "black", (203, 195, 227))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (artherian.x_coordinate, artherian.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to talk to NPC."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            current_npc_interacting = artherian
+            in_over_world = False
+            in_npc_interaction = True
+            movement_able = False
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.battle_animation_player(player, player_battle_sprite, False,
+                                                    False, graphic_dict)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -97,7 +123,8 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     marrow_district_return = {"over_world_song_set": over_world_song_set, "npc_tic": npc_tic,
                               "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                               "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                              "movement_able": movement_able}
+                              "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
+                              "in_npc_interaction": in_npc_interaction}
 
     return marrow_district_return
 
@@ -196,17 +223,17 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
         interaction_info_rect.center = (515, 225)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        info_text_1 = "Press 'F' key to activate switch."
-        info_text_2 = ""
-        info_text_3 = ""
-        info_text_4 = ""
-
         if interacted and in_over_world:
-            pygame.mixer.find_channel(True).play(sfx_switch)
             interacted = False
             if switch_phase == "purple":
+                pygame.mixer.find_channel(True).play(sfx_switch)
                 switch_phase = "complete"
                 overlay_switch.update(640, 360, graphic_dict["marrow_switch_complete"])
+            else:
+                info_text_1 = "Requires activation sequence."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:

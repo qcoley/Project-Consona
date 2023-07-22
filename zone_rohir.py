@@ -112,7 +112,7 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
         screen.blit(interaction_popup.surf, interaction_popup.rect)
         interaction_info_surf = font.render(str(dungeon_entrance.name), True, "black", "light yellow")
         interaction_info_rect = interaction_info_surf.get_rect()
-        interaction_info_rect.center = (dungeon_entrance.x_coordinate + 50,
+        interaction_info_rect.center = (dungeon_entrance.x_coordinate + 40,
                                         dungeon_entrance.y_coordinate - 50)
         screen.blit(interaction_info_surf, interaction_info_rect)
 

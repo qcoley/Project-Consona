@@ -113,13 +113,14 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
                                                     sharp_sense_active, graphic_dict)
-            combat_scenario.battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite,
+            combat_scenario.battle_animation_enemy(current_enemy_battling, snake_battle_sprite,
+                                                   ghoul_battle_sprite,
                                                    chorizon_battle_sprite, muchador_battle_sprite,
                                                    magmon_battle_sprite, bandile_battle_sprite,
                                                    chinzilla_battle_sprite, in_battle, in_npc_interaction,
                                                    graphic_dict, necrola_battle_sprite,
                                                    osodark_battle_sprite, stelli_battle_sprite,
-                                                   chorizon_phase=False)
+                                                   False, stelli_battle_sprite, 0)
 
     if player.x_coordinate > 660 and 685 < player.y_coordinate:
         player.current_zone = "korlok"

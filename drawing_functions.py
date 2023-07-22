@@ -1156,7 +1156,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       sorae_beta_button, in_academia, mage_learn_clicked, fighter_learn_clicked,
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
                       barrier_learn_button, close_button, garan_gift, mirror_learn_button, mirror_button,
-                      vanish_button, stun_button):
+                      vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1595,18 +1595,21 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                             graphic_dict["main high"])
                     return True
             if menagerie_window_open:
-                if kasper_manage_button.rect.collidepoint(pos):
-                    button_highlight.update(kasper_manage_button.x_coordinate, kasper_manage_button.y_coordinate,
-                                            graphic_dict["role_high"])
-                    return True
-                if torok_manage_button.rect.collidepoint(pos):
-                    button_highlight.update(torok_manage_button.x_coordinate, torok_manage_button.y_coordinate,
-                                            graphic_dict["role_high"])
-                    return True
-                if iriana_manage_button.rect.collidepoint(pos):
-                    button_highlight.update(iriana_manage_button.x_coordinate, iriana_manage_button.y_coordinate,
-                                            graphic_dict["role_high"])
-                    return True
+                if not kasper_unlocked:
+                    if kasper_manage_button.rect.collidepoint(pos):
+                        button_highlight.update(kasper_manage_button.x_coordinate, kasper_manage_button.y_coordinate,
+                                                graphic_dict["role_high"])
+                        return True
+                if not torok_unlocked:
+                    if torok_manage_button.rect.collidepoint(pos):
+                        button_highlight.update(torok_manage_button.x_coordinate, torok_manage_button.y_coordinate,
+                                                graphic_dict["role_high"])
+                        return True
+                if not iriana_unlocked:
+                    if iriana_manage_button.rect.collidepoint(pos):
+                        button_highlight.update(iriana_manage_button.x_coordinate, iriana_manage_button.y_coordinate,
+                                                graphic_dict["role_high"])
+                        return True
             # quest window accept or decline button highlights when moused over
             if quest_clicked:
                 if len(quest_box) > 0:
