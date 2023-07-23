@@ -1617,7 +1617,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if not scaled, coordinates set to default boundaries
         random_necrola_x = random.randrange(200, 600)
         random_necrola_y = random.randrange(350, 500)
-        random_necrola_level = random.randrange(11, 15)
+        random_necrola_level = random.randrange(14, 16)
 
         # count current enemies active in game
         for mob in ectrenos_front_enemies:

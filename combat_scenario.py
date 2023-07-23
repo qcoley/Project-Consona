@@ -3966,6 +3966,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     # stelli are for training knowledge and shouldn't give much if any XP
                     if enemy_combating.kind == "stelli":
                         experience = 1
+                    # boss battle gives a full level
+                    if enemy_combating.kind == "muchador" or enemy_combating.kind == "chinzilla" or \
+                            enemy_combating.kind == "erebyth":
+                        experience = 100
 
                     player.experience = player.experience + experience
                     enemy_experience = f"{experience}"
@@ -3978,6 +3982,10 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                     # stelli are for training knowledge and shouldn't give much if any XP
                     if enemy_combating.kind == "stelli":
                         experience = 1
+                    # boss battle gives a full level
+                    if enemy_combating.kind == "muchador" or enemy_combating.kind == "chinzilla" or \
+                            enemy_combating.kind == "erebyth":
+                        experience = 100
 
                     player.experience = player.experience + experience
                     enemy_experience = f"{experience}"
@@ -4022,67 +4030,95 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
     # active combat skill, if player is fighter and has learned hard strike from the academia
     # same as default attack from above, but attack replaced by hard strike skill
     if combat_event == "skill 1":
-        if player.role == "fighter":
-            if hard_strike_learned:
-                if enemy_combating.alive_status:
-                    striked = random.randrange(15, 30)  # hard strike damage
-                    enemy_combating.health = enemy_combating.health - striked
-                    enemy_health_bar(enemy_combating, graphics)
-                    if enemy_combating.health > 0:
-                        attacked_enemy_string = f" You did {striked} damage to {enemy_combating.kind}."
-                        combat_event_dictionary["player damage"] = striked
+        if enemy_combating.alive_status:
+            if not turn_taken:
+                if player.role == "fighter":
+                    if hard_strike_learned:
+                        # returns players damage to the enemy based on level and equipment
+                        striked = random.randrange(15, 30)  # hard strike damage
                         combat_event_dictionary["effective player"] = False
                         combat_event_dictionary["non effective player"] = False
                         combat_event_dictionary["critical dealt"] = False
                         combat_event_dictionary["effective pet"] = False
                         combat_event_dictionary["non effective pet"] = False
-
-                        # add damage to enemy to event dictionary to be returned to main loop
-                        combat_event_dictionary["damage done string"] = attacked_enemy_string
-                        combat_event_dictionary["damage done"] = striked
                         combat_event_dictionary["pet damage"] = 1
+                        combat_event_dictionary["player damage"] = striked
+                        damage_to_enemy = striked + 1
+                        if mirror_image:
+                            combat_event_dictionary["mirror damage"] = 3
+                            damage_to_enemy += 3
+                        enemy_combating.health = enemy_combating.health - damage_to_enemy
+                        enemy_health_bar(enemy_combating, graphics)
+
+                    # if enemy is not dead yet
+                    if enemy_combating.health > 0:
+                        if not turn_taken:
+                            attacked_enemy_string = f" You did {striked} damage to {enemy_combating.kind}."
+                            combat_event_dictionary["damage done"] = striked
+                            # add damage to enemy to event dictionary to be returned to main loop
+                            combat_event_dictionary["damage done string"] = attacked_enemy_string
 
                         # returns total damage output from enemy as attacked_player_health value
-                        defend_dict = gameplay_functions.attack_player(player, enemy_combating, barrier_active)
-                        combat_event_dictionary["effective enemy"] = defend_dict["effective"]
-                        combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
-                        combat_event_dictionary["critical received"] = defend_dict["critical"]
-                        damage_to_player = defend_dict["damage"]
+                        if not stun_them:
+                            defend_dict = gameplay_functions.attack_player(player, enemy_combating,
+                                                                           barrier_active)
+                            combat_event_dictionary["effective enemy"] = defend_dict["effective"]
+                            combat_event_dictionary["non effective enemy"] = defend_dict["non effective"]
+                            combat_event_dictionary["critical received"] = defend_dict["critical"]
+                            damage_to_player = defend_dict["damage"]
+                            if enemy_combating.name == "erebyth":
+                                if erebyth_counter == 3:
+                                    damage_to_player = 35
+                                    combat_event_dictionary["effective enemy"] = "effective"
+                            if damage_to_player > 0:
+                                attacked_player_string = f"You take {damage_to_player} damage from " \
+                                                         f"{enemy_combating.kind}."
+                                player.health = player.health - damage_to_player
+                                combat_event_dictionary["damage taken"] = damage_to_player
+                                # add damage done to player from enemy to dictionary
+                                combat_event_dictionary["damage taken string"] = attacked_player_string
 
-                        if damage_to_player > 0:
-                            attacked_player_string = f"You take {damage_to_player} damage from {enemy_combating.kind}."
-                            player.health = player.health - damage_to_player
-                            combat_event_dictionary["damage taken"] = damage_to_player
-                            # add damage done to player from enemy to dictionary
-                            combat_event_dictionary["damage taken string"] = attacked_player_string
-
-                            # player health is less than or equal to 0, player is dead
-                            if player.health <= 0:
-                                player.alive_status = False
-                            return combat_event_dictionary
+                                # player health is less than or equal to 0, player is dead
+                                if player.health <= 0:
+                                    player.alive_status = False
+                                return combat_event_dictionary
+                            else:
+                                enemy_miss_string = f'{enemy_combating.kind} missed.'
+                                # add to dictionary that enemy did no damage to player
+                                combat_event_dictionary["damage taken string"] = enemy_miss_string
+                                return combat_event_dictionary
                         else:
-                            enemy_miss_string = f'{enemy_combating.kind} missed.'
+                            stun_them = False
+                            enemy_stun_string = f'{enemy_combating.kind} is stunned.'
                             # add to dictionary that enemy did no damage to player
-                            combat_event_dictionary["damage taken string"] = enemy_miss_string
+                            combat_event_dictionary["damage taken string"] = enemy_stun_string
+                            combat_event_dictionary["stunned"] = stun_them
                             return combat_event_dictionary
 
+                    # enemy has been defeated, will return an amount of xp based on current levels
                     else:
+                        # if player is on quest to kill snakes
                         if enemy_combating.kind == "snake":
                             if player.quest_status["sneaky snakes"]:
                                 if player.quest_progress["sneaky snakes"] < 4:
-                                    player.quest_progress["sneaky snakes"] = player.quest_progress["sneaky snakes"] + 1
+                                    player.quest_progress["sneaky snakes"] = player.quest_progress[
+                                                                                 "sneaky snakes"] + 1
                                     quest_string = f"{player.quest_progress['sneaky snakes']}/4 snakes"
                                     combat_event_dictionary["quest update"] = quest_string
                         else:
                             combat_event_dictionary["quest update"] = "No"
+
+                        # if player is on quest to kill ghouls
                         if enemy_combating.kind == "ghoul":
                             if player.quest_status["ghouled again"]:
                                 if player.quest_progress["ghouled again"] < 4:
-                                    player.quest_progress["ghouled again"] = player.quest_progress["ghouled again"] + 1
+                                    player.quest_progress["ghouled again"] = player.quest_progress[
+                                                                                 "ghouled again"] + 1
                                     quest_string = f"{player.quest_status['ghouled again']}/4 ghouls"
                                     combat_event_dictionary["quest update"] = quest_string
                         else:
                             combat_event_dictionary["quest update"] = "No"
+
                         # if player is on quest to kill magmons
                         if enemy_combating.kind == "magmon":
                             if player.quest_status["elementary elementals"]:
@@ -4093,6 +4129,7 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                     combat_event_dictionary["quest update"] = quest_string
                         else:
                             combat_event_dictionary["quest update"] = "No"
+
                         # if player is on quest to kill bandiles
                         if enemy_combating.kind == "bandile":
                             if player.quest_status["band hammer"]:
@@ -4103,17 +4140,19 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                     combat_event_dictionary["quest update"] = quest_string
                         else:
                             combat_event_dictionary["quest update"] = "No"
+
                         # if player is on quest to kill bandiles
                         if enemy_combating.kind == "chinzilla":
                             if player.quest_status["it's dangerous to go alone"]:
                                 if player.quest_progress["it's dangerous to go alone"] < 1:
                                     player.quest_progress["it's dangerous to go alone"] = \
                                         player.quest_progress["it's dangerous to go alone"] + 1
-                                    quest_string = player.quest_status[
-                                                       "it's dangerous to go alone"] + "/1 chinzilla"
+                                    quest_string = str(player.quest_progress[
+                                                           "it's dangerous to go alone"]) + "/1 chinzilla"
                                     combat_event_dictionary["quest update"] = quest_string
                         else:
                             combat_event_dictionary["quest update"] = "No"
+
                         # if player is on quest to kill necrolas
                         if enemy_combating.kind == "necrola":
                             if player.quest_status["shades of fear"]:
@@ -4124,9 +4163,17 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                                     combat_event_dictionary["quest update"] = quest_string
                         else:
                             combat_event_dictionary["quest update"] = "No"
+
                         # experienced gained by player from defeating enemy
                         if player.level <= enemy_combating.level + 1:
                             experience = int((enemy_combating.level / player.level) * 30)
+                            # stelli are for training knowledge and shouldn't give much if any XP
+                            if enemy_combating.kind == "stelli":
+                                experience = 1
+                            # boss battle gives a full level
+                            if enemy_combating.kind == "muchador" or enemy_combating.kind == "chinzilla" or \
+                                    enemy_combating.kind == "erebyth":
+                                experience = 100
                             player.experience = player.experience + experience
                             enemy_experience = f"{experience}"
                             # add to dictionary experience given from defeating enemy
@@ -4134,29 +4181,48 @@ def attack_scenario(enemy_combating, combat_event, player, hard_strike_learned, 
                         # player gains less experience if they're 1 level higher or more than enemy
                         if player.level > enemy_combating.level + 1:
                             experience = int((enemy_combating.level / player.level))
+                            # stelli are for training knowledge and shouldn't give much if any XP
+                            if enemy_combating.kind == "stelli":
+                                experience = 1
+                            # boss battle gives a full level
+                            if enemy_combating.kind == "muchador" or enemy_combating.kind == "chinzilla" or \
+                                    enemy_combating.kind == "erebyth":
+                                experience = 100
                             player.experience = player.experience + experience
                             enemy_experience = f"{experience}"
                             # add to dictionary experience given from defeating enemy
                             combat_event_dictionary["experience gained"] = enemy_experience
                         try:
                             drop_chance = random.randrange(1, 10)
+                            # 80% chance (roughly?) to drop merchant item sellable by player for rupees at shops
                             if drop_chance > 2:
+                                # if item dropped isn't just a placeholder string
                                 if enemy_combating.items != "item":
+                                    # doesn't give item to player if their inventory is full
                                     if len(player.items) < 16:
                                         player.items.append(enemy_combating.items)
-                                        enemy_dropped_this = f"{enemy_combating.name} dropped " \
-                                                             f"[{enemy_combating.items.name}]."
+                                        enemy_dropped_this = f"{enemy_combating.name} dropped [" \
+                                                             f"{enemy_combating.items.name}]."
+                                        # add to dictionary anything dropped from enemy upon their defeat
                                         combat_event_dictionary["item dropped"] = enemy_dropped_this
                                     else:
-                                        combat_event_dictionary["item dropped"] = "Item, but your inventory is full."
+                                        combat_event_dictionary[
+                                            "item dropped"] = "Item, but your inventory is full."
                             else:
                                 combat_event_dictionary["item dropped"] = "No"
                         except AttributeError:
                             combat_event_dictionary["item dropped"] = "No"
+
+                        # player will level up if experience greater than or equal to 100
                         if player.experience >= 100:
                             gameplay_functions.level_up(player, level_up_win, level_up_font)
                             combat_event_dictionary["leveled"] = True
-                        enemy_combating.alive_status = False
-                        enemy_combating.kill()
+                        if enemy_combating.kind != "stelli":
+                            enemy_combating.alive_status = False
+                            enemy_combating.kill()
+                        if enemy_combating.kind == "stelli":
+                            enemy_combating.health = 100
+
+                        # add to dictionary True if enemy has been defeated
                         combat_event_dictionary["enemy defeated"] = True
                         return combat_event_dictionary

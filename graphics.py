@@ -69,6 +69,7 @@ def load_graphics():
     star_battle_screen = pygame.image.load(resource_path('resources/art/bg_stardust_battle_screen.png')).convert_alpha()
     seldon_bg_screen = pygame.image.load(resource_path('resources/art/bg_seldon_district.png')).convert_alpha()
     korlok_bg_screen = pygame.image.load(resource_path('resources/art/bg_korlok_district.png')).convert_alpha()
+    korlok_re_screen = pygame.image.load(resource_path('resources/art/bg_korlok_district_repaired.png')).convert_alpha()
     korlok_mines_screen = pygame.image.load(resource_path('resources/art/bg_korlok_mines.png')).convert_alpha()
     korlok_battle_screen = pygame.image.load(resource_path('resources/art/bg_korlok_battle_screen.png')).convert_alpha()
     korlok_shop_screen = pygame.image.load(resource_path('resources/art/bg_korlok_shop.png')).convert_alpha()
@@ -273,6 +274,7 @@ def load_graphics():
     loaded_dict["star_battle_screen"] = star_battle_screen
     loaded_dict["seldon_bg_screen"] = seldon_bg_screen
     loaded_dict["korlok_bg_screen"] = korlok_bg_screen
+    loaded_dict["korlok_repaired_screen"] = korlok_re_screen
     loaded_dict["eldream_bg_screen"] = eldream_bg_screen
     loaded_dict["marrow_interaction_bg"] = marrow_interaction_bg
     loaded_dict["marrow_entrance_bg"] = marrow_entrance_bg

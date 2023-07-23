@@ -23,7 +23,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
                     worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
-                    bridge_gate):
+                    bridge_gate, erebyth_defeated, repaired_bg):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -50,7 +50,10 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         pygame.mixer.music.play(loops=-1)
         over_world_song_set = True
 
-    screen.blit(korlok_district_bg, (0, 0))
+    if not erebyth_defeated:
+        screen.blit(korlok_district_bg, (0, 0))
+    if erebyth_defeated:
+        screen.blit(repaired_bg, (0, 0))
     screen.blit(rock_4.surf, rock_4.rect)
     screen.blit(rock_5.surf, rock_5.rect)
     screen.blit(rock_6.surf, rock_6.rect)
@@ -69,40 +72,41 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         screen.blit(magmon.surf, magmon.rect)
 
     # ------------------------------------------------------------------------------------------------------------------
-    if 399 < worker.y_coordinate < 600:
-        if not worker.gift:
-            worker.y_coordinate += 0.5
-        if worker.gift:
-            worker.y_coordinate -= 0.5
+    if not erebyth_defeated:
+        if 399 < worker.y_coordinate < 600:
+            if not worker.gift:
+                worker.y_coordinate += 0.5
+            if worker.gift:
+                worker.y_coordinate -= 0.5
 
-            worker_toc = time.perf_counter()
-            if worker_toc - worker_tic > 0.50:
-                worker_tic = time.perf_counter()
-                match worker.quest_complete:
-                    case True:
-                        worker.quest_complete = False
-                        worker.update(graphic_dict["worker_2_back_a"])
-                    case False:
-                        worker.quest_complete = True
-                        worker.update(graphic_dict["worker_2_back_b"])
+                worker_toc = time.perf_counter()
+                if worker_toc - worker_tic > 0.50:
+                    worker_tic = time.perf_counter()
+                    match worker.quest_complete:
+                        case True:
+                            worker.quest_complete = False
+                            worker.update(graphic_dict["worker_2_back_a"])
+                        case False:
+                            worker.quest_complete = True
+                            worker.update(graphic_dict["worker_2_back_b"])
 
-        worker.rect = worker.surf.get_rect(midbottom=(worker.x_coordinate, worker.y_coordinate))
+            worker.rect = worker.surf.get_rect(midbottom=(worker.x_coordinate, worker.y_coordinate))
 
-    worker_delay_toc = time.perf_counter()
-    if worker_delay_toc - worker_delay_tic > 10:
-        if worker.y_coordinate == 600:
-            worker.gift = True
-            worker.update(graphic_dict["worker_2_back_a"])
-            worker.y_coordinate -= 1
-            worker_delay_tic = time.perf_counter()
+        worker_delay_toc = time.perf_counter()
+        if worker_delay_toc - worker_delay_tic > 10:
+            if worker.y_coordinate == 600:
+                worker.gift = True
+                worker.update(graphic_dict["worker_2_back_a"])
+                worker.y_coordinate -= 1
+                worker_delay_tic = time.perf_counter()
 
-        if worker.y_coordinate == 399:
-            worker.gift = False
-            worker.update(graphic_dict["worker_2_full"])
-            worker.y_coordinate += 1
-            worker_delay_tic = time.perf_counter()
+            if worker.y_coordinate == 399:
+                worker.gift = False
+                worker.update(graphic_dict["worker_2_full"])
+                worker.y_coordinate += 1
+                worker_delay_tic = time.perf_counter()
 
-    screen.blit(worker.surf, worker.rect)
+        screen.blit(worker.surf, worker.rect)
     # ------------------------------------------------------------------------------------------------------------------
 
     if not player.quest_complete["band hammer"]:
@@ -245,7 +249,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
         interaction_info_rect.center = (rohir_gate.x_coordinate, rohir_gate.y_coordinate)
         screen.blit(interaction_info_surf, interaction_info_rect)
 
-        if not bridge_not_repaired:
+        if erebyth_defeated:
             info_text_1 = "Press 'F' key to enter Seldon District."
 
             if interacted:

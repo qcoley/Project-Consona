@@ -30,7 +30,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                     necrola_battle_sprite, osodark_battle_sprite, tree_top_1, tree_top_2, tree_top_3, building_top_1,
                     building_top_2, building_top_3, sfx_item_pickup, sfx_flower, sfx_door, worker_1, worker_tic,
                     worker_positions, worker_move_tic, log_pile, SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
-                    stelli_battle_sprite, vanished, vanish_overlay):
+                    stelli_battle_sprite, vanished, vanish_overlay, erebyth_defeated):
 
     rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
@@ -123,7 +123,8 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     if not player.quest_complete["ghouled again"]:
         screen.blit(quest_star_torune.surf, quest_star_torune.rect)
 
-    screen.blit(worker_1.surf, worker_1.rect)
+    if not erebyth_defeated:
+        screen.blit(worker_1.surf, worker_1.rect)
 
     try:
         for pet in player.pet:
@@ -191,7 +192,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                 info_text_1 = "Press 'F' key to enter Korlok District."
 
                 if interacted and in_over_world:
-                    if bridge_not_repaired:
+                    if not erebyth_defeated:
                         if bridge_cutscenes_not_viewed:
                             if player.race == "amuna":
                                 if player.gender == "male":
@@ -465,7 +466,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
             move_ghoul.update_position([700, 900], [200, 300], direction_horizontal, direction_vertical)
 
     # worker animation updates
-    if movement_able and in_over_world:
+    if movement_able and in_over_world and not erebyth_defeated:
         worker_toc = time.perf_counter()
         if worker_toc - worker_tic > 0.75:
             worker_tic = time.perf_counter()

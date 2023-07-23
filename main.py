@@ -6483,6 +6483,7 @@ if __name__ == "__main__":
     start_screen_logo = graphic_dict["start_screen_logo"]
     nera_sleep_screen = graphic_dict["nera_sleep_screen"]
     korlok_district_bg = graphic_dict["korlok_bg_screen"]
+    korlok_district_repaired_bg = graphic_dict["korlok_repaired_screen"]
     korlok_mines_bg = graphic_dict["korlok_mines"]
     eldream_district_bg = graphic_dict["eldream_bg_screen"]
     eldream_interaction_bg = graphic_dict["eldream_interaction"]
@@ -6774,28 +6775,28 @@ if __name__ == "__main__":
                       UiElement("chinzilla hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
 
     # eldream enemies --------------------------------------------------------------------------------------------------
-    osodark_1 = Enemy("osodark", "osodark", 100, 100, 18, 700, 225, True,
+    osodark_1 = Enemy("osodark", "osodark", 100, 100, 22, 700, 225, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_2 = Enemy("osodark", "osodark", 100, 100, 19, 590, 200, True,
+    osodark_2 = Enemy("osodark", "osodark", 100, 100, 20, 590, 200, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    osodark_3 = Enemy("osodark", "osodark", 100, 100, 18, 250, 250, True,
+    osodark_3 = Enemy("osodark", "osodark", 100, 100, 21, 250, 250, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     osodark_4 = Enemy("osodark", "osodark", 100, 100, 20, 375, 280, True,
                       Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
-    necrola_1 = Enemy("necrola", "necrola", 100, 100, 12, 230, 425, True,
+    necrola_1 = Enemy("necrola", "necrola", 100, 100, 13, 230, 425, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_2 = Enemy("necrola", "necrola", 100, 100, 13, 385, 490, True,
+    necrola_2 = Enemy("necrola", "necrola", 100, 100, 14, 385, 490, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_3 = Enemy("necrola", "necrola", 100, 100, 12, 460, 365, True,
+    necrola_3 = Enemy("necrola", "necrola", 100, 100, 13, 460, 365, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
-    necrola_4 = Enemy("necrola", "necrola", 100, 100, 14, 618, 425, True,
+    necrola_4 = Enemy("necrola", "necrola", 100, 100, 15, 618, 425, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                       graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # marrow enemies ---------------------------------------------------------------------------------------------------
@@ -7367,6 +7368,10 @@ if __name__ == "__main__":
     sfx_enemy_chinzilla.set_volume(0.15)
     sfx_enemy_necrola = pygame.mixer.Sound(resource_path("resources/sounds/enemy_necrola.mp3"))
     sfx_enemy_necrola.set_volume(0.15)
+    sfx_enemy_erebyth_growl = pygame.mixer.Sound(resource_path("resources/sounds/enemy_erebyth_growl.mp3"))
+    sfx_enemy_erebyth_growl.set_volume(0.55)
+    sfx_enemy_erebyth_flame = pygame.mixer.Sound(resource_path("resources/sounds/enemy_erebyth_flame.mp3"))
+    sfx_enemy_erebyth_flame.set_volume(0.25)
 
     sfx_stelli_battle = pygame.mixer.Sound(resource_path("resources/sounds/stelli_battle.mp3"))
     sfx_stelli_battle.set_volume(0.30)
@@ -9220,7 +9225,7 @@ if __name__ == "__main__":
                                                                       worker_tic, worker_positions, worker_move_tic,
                                                                       quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                       game_window, stelli_battle_sprite, vanished,
-                                                                      vanish_overlay)
+                                                                      vanish_overlay, erebyth_defeated)
                     else:
                         seldon_returned = zone_seldon.seldon_district(pygame, player, game_window, graphic_dict,
                                                                       rohir_gate, hearth_stone, over_world_song_set,
@@ -9270,7 +9275,7 @@ if __name__ == "__main__":
                                                                       worker_tic, worker_positions, worker_move_tic,
                                                                       quest_logs_pile, SCREEN_WIDTH, SCREEN_HEIGHT,
                                                                       game_window, stelli_battle_sprite, vanished,
-                                                                      vanish_overlay)
+                                                                      vanish_overlay, erebyth_defeated)
 
                     over_world_song_set = seldon_returned["over_world_song_set"]
                     interactables_seldon = seldon_returned["interactables_seldon"]
@@ -9353,7 +9358,8 @@ if __name__ == "__main__":
                                                                       nuldar_building_top_1, nuldar_building_top_2,
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
                                                                       stelli_battle_sprite, vanished, vanish_overlay,
-                                                                      worker_delay_tic, overlay_bridge_gate)
+                                                                      worker_delay_tic, overlay_bridge_gate,
+                                                                      erebyth_defeated, korlok_district_repaired_bg)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -9395,7 +9401,8 @@ if __name__ == "__main__":
                                                                       nuldar_building_top_1, nuldar_building_top_2,
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
                                                                       stelli_battle_sprite, vanished, vanish_overlay,
-                                                                      worker_delay_tic, overlay_bridge_gate)
+                                                                      worker_delay_tic, overlay_bridge_gate,
+                                                                      erebyth_defeated, korlok_district_repaired_bg)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -11450,6 +11457,11 @@ if __name__ == "__main__":
                                     pygame.mixer.find_channel(True).play(sfx_enemy_necrola)
                                 if current_enemy_battling.kind == "stelli":
                                     pygame.mixer.find_channel(True).play(sfx_stelli_battle)
+                                if current_enemy_battling.kind == "erebyth":
+                                    if erebyth_turn_counter == 2:
+                                        pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_flame)
+                                    else:
+                                        pygame.mixer.find_channel(True).play(sfx_enemy_erebyth_growl)
 
                                 first_battle_cond = False
                                 drawing_functions.game_guide_container.clear()
@@ -11603,13 +11615,10 @@ if __name__ == "__main__":
                             elif combat_button == "skill 1" or skill_1_hotkey:
                                 if not combat_cooldown:
                                     skill_1_hotkey = False
-
                                     # make sure player has enough energy to use the skill
                                     if player.energy > 19:
-
                                         if current_enemy_battling.name == "erebyth":
                                             erebyth_turn_counter += 1
-
                                         # player is a mage and uses the barrier spell. Set barrier active to true
                                         # save original defence value to be re applied upon enemy or player defeat
                                         if player.role == "mage":
@@ -11805,94 +11814,206 @@ if __name__ == "__main__":
                                                 except TypeError and KeyError:
                                                     stun_them = False
                                                 combat_happened = True
-                                                player.energy -= 20
-                                                if combat_events["damage done string"] == 0:
-                                                    info_text_1 = ""
-                                                else:
-                                                    info_text_1 = str(combat_events["damage done string"])
-                                                if combat_events["damage taken string"] == 0:
-                                                    info_text_2 = ""
-                                                else:
-                                                    info_text_2 = str(combat_events["damage taken string"])
-                                                if combat_events["enemy defeated"]:
-                                                    if combat_events["item dropped"] != "No":
-                                                        battle_info_to_return_to_main_loop["item dropped"] = \
-                                                            str(combat_events["item dropped"])
-                                                    if combat_events["experience gained"] != 0:
-                                                        battle_info_to_return_to_main_loop["experience"] = \
-                                                            str(combat_events["experience gained"])
-                                                if combat_events["enemy defeated"]:
-                                                    if player.role == "fighter":
+                                                # add all combat scenario happenings from function to message box
+                                                try:
+                                                    if combat_events["damage done string"] == 0:
+                                                        info_text_1 = ""
+                                                    else:
+                                                        info_text_1 = str(combat_events["damage done string"])
+                                                    if combat_events["damage taken string"] == 0:
+                                                        info_text_2 = ""
+                                                    else:
+                                                        info_text_2 = str(combat_events["damage taken string"])
+                                                except TypeError:
+                                                    pass
+                                                try:
+                                                    battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                    if combat_events["enemy defeated"]:
+                                                        if combat_events["item dropped"] != "No":
+                                                            battle_info_to_return_to_main_loop["item dropped"] = \
+                                                                str(combat_events["item dropped"])
+                                                        if combat_events["experience gained"] != 0:
+                                                            battle_info_to_return_to_main_loop["experience"] = \
+                                                                str(combat_events["experience gained"])
+                                                    if combat_events["enemy defeated"]:
+                                                        if combat_events["leveled"]:
+                                                            pygame.mixer.find_channel(True).play(sfx_level_up)
+                                                            battle_info_to_return_to_main_loop["leveled_up"] = True
+                                                            level_visual = True
+                                                            level_visual_tic = time.perf_counter()
+                                                    if combat_events["enemy defeated"]:
+                                                        # player will gain knowledge based on their current role
                                                         if player.level < 10 and player.knowledge["fighter"] < 80 or \
                                                                 player.level > 10 and player.knowledge["fighter"] < 120:
                                                             player.knowledge["fighter"] += 10
                                                             battle_info_to_return_to_main_loop["knowledge"] = \
-                                                                "10 fighter knowledge gained."
-                                                    if current_enemy_battling.name == "nede ghoul":
-                                                        nede_ghoul_defeated = True
-                                                        ghoul_nede.kill()
-                                                    if current_enemy_battling.name == "chorizon_1":
-                                                        mini_boss_1 = False
-                                                        mini_boss_1_defeated = True
-                                                        chorizon_1.kill()
-                                                        chorizon_phase = False
-                                                    if current_enemy_battling.name == "chorizon_2":
-                                                        mini_boss_2 = False
-                                                        mini_boss_2_defeated = True
-                                                        chorizon_2.kill()
-                                                        chorizon_phase = False
-                                                    if current_enemy_battling.name == "muchador":
-                                                        muchador_defeated = True
-                                                        muchador.kill()
-                                                    if current_enemy_battling.name == "chinzilla":
-                                                        chinzilla_defeated = True
-                                                        chinzilla.kill()
-                                                    if current_enemy_battling.name == "erebyth":
-                                                        erebyth_defeated = True
-                                                        erebyth.kill()
-                                                    movement_able = True
-                                                    combat_happened = False
-                                                    interacted = False
-                                                    encounter_started = False
-                                                    in_battle = False
-                                                    in_over_world = True
-                                                    loot_updated = False
-                                                    mirror_image = False
-                                                    if barrier_active:
-                                                        barrier_active = False
-                                                        # noinspection PyUnboundLocalVariable
-                                                    if sharp_sense_active:
-                                                        sharp_sense_active = False
-                                                        # noinspection PyUnboundLocalVariable
-                                    else:
-                                        info_text_1 = "Not enough energy to use this skill."
+                                                                "+10 fighter"
+                                                        else:
+                                                            battle_info_to_return_to_main_loop["knowledge"] = ""
+                                                        # if player has a pet seed, add to it for this role
+                                                        if seed_given:
+                                                            if seed_mage_count < 4 and seed_fighter_count < 4 and \
+                                                                    seed_scout_count < 4:
+                                                                seed_fighter_count += 1
+                                                        if current_enemy_battling.name == "nede ghoul":
+                                                            nede_ghoul_defeated = True
+                                                            ghoul_nede.kill()
+                                                        if current_enemy_battling.name == "chorizon_1":
+                                                            mini_boss_1 = False
+                                                            mini_boss_1_defeated = True
+                                                            chorizon_1.kill()
+                                                            chorizon_phase = False
+                                                        if current_enemy_battling.name == "chorizon_2":
+                                                            mini_boss_2 = False
+                                                            mini_boss_2_defeated = True
+                                                            chorizon_2.kill()
+                                                            chorizon_phase = False
+                                                        if current_enemy_battling.name == "muchador":
+                                                            muchador_defeated = True
+                                                            muchador.kill()
+                                                        if current_enemy_battling.name == "chinzilla":
+                                                            chinzilla_defeated = True
+                                                            chinzilla.kill()
+                                                        if barrier_active:
+                                                            barrier_active = False
+                                                            # noinspection PyUnboundLocalVariable
+                                                        if sharp_sense_active:
+                                                            sharp_sense_active = False
+                                                            # noinspection PyUnboundLocalVariable
+                                                        movement_able = True
+                                                        combat_happened = False
+                                                        interacted = False
+                                                        encounter_started = False
+                                                        in_battle = False
+                                                        in_over_world = True
+                                                        loot_updated = False
+                                                        mirror_image = False
+                                                except TypeError:
+                                                    pass
 
                             elif combat_button == "skill 2" or skill_2_hotkey:
                                 if not combat_cooldown:
+                                    skill_2_hotkey = False
+                                    # make sure player has enough energy to use the skill
                                     if player.energy > 39:
-
-                                        turn_taken = True
-
                                         if current_enemy_battling.name == "erebyth":
                                             erebyth_turn_counter += 1
 
                                         if player.role == "mage":
                                             if mirror_learned:
-                                                pygame.mixer.find_channel(True).play(sfx_mage_mirror)
-                                                mirror_image = True
-                                                player.energy -= 40
+                                                if not mirror_image:
+                                                    pygame.mixer.find_channel(True).play(sfx_mage_mirror)
+                                                    info_text_1 = "Mirror spell is active."
+                                                    mirror_image = True
+                                                    player.energy -= 40
+                                                    turn_taken = True
+                                                    attack_hotkey = False
+                                                    combat_scenario.battle_animation_player(player,
+                                                                                            player_battle_sprite,
+                                                                                            barrier_active,
+                                                                                            sharp_sense_active,
+                                                                                            graphic_dict)
+                                                    combat_scenario.battle_animation_enemy(current_enemy_battling,
+                                                                                           snake_battle_sprite,
+                                                                                           ghoul_battle_sprite,
+                                                                                           chorizon_battle_sprite,
+                                                                                           magmon_battle_sprite,
+                                                                                           muchador_battle_sprite,
+                                                                                           bandile_battle_sprite,
+                                                                                           chinzilla_battle_sprite,
+                                                                                           in_battle,
+                                                                                           in_npc_interaction,
+                                                                                           graphic_dict,
+                                                                                           necrola_battle_sprite,
+                                                                                           osodark_battle_sprite,
+                                                                                           stelli_battle_sprite,
+                                                                                           chorizon_phase,
+                                                                                           erebyth_battle_sprite,
+                                                                                           erebyth_turn_counter)
+                                                    if mirror_image:
+                                                        combat_scenario.battle_animation_player(player,
+                                                                                                mirror_battle_sprite,
+                                                                                                barrier_active,
+                                                                                                sharp_sense_active,
+                                                                                                graphic_dict)
+                                                    # combat event function that handles and returns damage and health
+                                                    combat_events = combat_scenario.attack_scenario(
+                                                        current_enemy_battling, "attack", player, hard_strike_learned,
+                                                        level_up_win, level_up_font, graphic_dict, sharp_sense_active,
+                                                        barrier_active, turn_taken, stun_them, mirror_image,
+                                                        erebyth_turn_counter)
+                                                    try:
+                                                        stun_them = combat_events["stunned"]
+                                                    except TypeError and KeyError:
+                                                        stun_them = False
+                                                    combat_happened = True
+
+                                                    # add all combat scenario happenings from function to message box
+                                                    try:
+                                                        if combat_events["damage taken string"] == 0:
+                                                            info_text_2 = ""
+                                                        else:
+                                                            info_text_2 = str(combat_events["damage taken string"])
+                                                    except TypeError:
+                                                        pass
+                                                    gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                                  en_bar, xp_bar,
+                                                                                                  star_power_meter,
+                                                                                                  offense_meter,
+                                                                                                  defense_meter,
+                                                                                                  graphic_dict,
+                                                                                                  basic_armor,
+                                                                                                  forged_armor,
+                                                                                                  mythical_armor,
+                                                                                                  legendary_armor,
+                                                                                                  power_gloves,
+                                                                                                  chroma_boots)
+                                                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                                      SCREEN_HEIGHT))
+                                                        game_window.blit(frame, frame.get_rect())
+                                                        pygame.display.flip()
+                                                    else:
+                                                        pygame.display.flip()
+                                                else:
+                                                    info_text_1 = "Mirror spell is already active."
 
                                         if player.role == "fighter":
                                             if stun_learned:
+                                                info_text_1 = f"{current_enemy_battling.name} is stunned."
                                                 pygame.mixer.find_channel(True).play(sfx_fighter_stun)
                                                 stun_visual_tic = time.perf_counter()
                                                 stun_them = True
                                                 stun_visual = True
                                                 player.energy -= 40
+                                                turn_taken = True
+                                                attack_hotkey = False
+                                                gameplay_functions.player_info_and_ui_updates(player, hp_bar,
+                                                                                              en_bar, xp_bar,
+                                                                                              star_power_meter,
+                                                                                              offense_meter,
+                                                                                              defense_meter,
+                                                                                              graphic_dict,
+                                                                                              basic_armor,
+                                                                                              forged_armor,
+                                                                                              mythical_armor,
+                                                                                              legendary_armor,
+                                                                                              power_gloves,
+                                                                                              chroma_boots)
+                                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                                    frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH,
+                                                                                                  SCREEN_HEIGHT))
+                                                    game_window.blit(frame, frame.get_rect())
+                                                    pygame.display.flip()
+                                                else:
+                                                    pygame.display.flip()
+                                            else:
+                                                info_text_1 = "Stun not learned."
 
                                         if player.role == "scout":
                                             if vanish_learned:
                                                 pygame.mixer.find_channel(True).play(sfx_scout_vanish)
+                                                skill_2_hotkey = False
                                                 movement_able = True
                                                 combat_happened = False
                                                 interacted = False
@@ -11913,8 +12034,6 @@ if __name__ == "__main__":
 
                                     else:
                                         info_text_1 = "Not enough energy to use this skill."
-
-                                    skill_2_hotkey = False
 
                         # outside of battle event loop -----------------------------------------------------------------
                         combat_scenario.enemy_health_bar(current_enemy_battling, graphic_dict)
