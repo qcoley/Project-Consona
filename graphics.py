@@ -4783,6 +4783,7 @@ def load_graphics():
     loaded_dict["bandile"] = enemies_sheet[3]
     loaded_dict["necrola"] = enemies_sheet[4]
     loaded_dict["osodark"] = enemies_sheet[5]
+    loaded_dict["necrola_sleep"] = enemies_sheet[6]
     # stelli -----------------------------------------------------------------------------------------------------------
     stelli_url = resource_path('resources/art/sprites_stelli.png')
     stelli_sheet = sprite_sheet((50, 50), stelli_url)

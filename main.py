@@ -6804,6 +6804,18 @@ if __name__ == "__main__":
                     UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     apothis = Enemy("apothis", "apothis", 100, 100, 75, 575, 450, True, "item", graphic_dict["apothis_back"],
                     UiElement("apothis hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+    necrola_ramps_1 = Enemy("necrola ramp", "necrola", 100, 100, 16, 198, 360, True,
+                            Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                            graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
+                            "scout")
+    necrola_ramps_2 = Enemy("necrola ramp", "necrola", 100, 100, 15, 835, 360, True,
+                            Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                            graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
+                            "scout")
+    necrola_ramps_3 = Enemy("necrola ramp", "necrola", 100, 100, 17, 514, 140, True,
+                            Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
+                            graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
+                            "scout")
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
@@ -7107,7 +7119,7 @@ if __name__ == "__main__":
     dungeon_switch_ramps_2 = Item("switch ramps 2", "switch", 195, 135, graphic_dict["dungeon_switch_inactive"], 0)
 
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
-    dungeon_chest_ramps_rect = pygame.Rect((530, 595,), (90, 10))
+    dungeon_chest_ramps_rect = pygame.Rect((530, 600,), (90, 10))
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
@@ -9712,7 +9724,8 @@ if __name__ == "__main__":
                                                                                    overlay_marrow_ramps_east,
                                                                                    ramps_crate_1, ramps_crate_2,
                                                                                    ramps_crate_1_got, ramps_crate_2_got,
-                                                                                   sfx_item_potion, Item)
+                                                                                   sfx_item_potion, Item,
+                                                                                   necrola_ramps_1, necrola_ramps_2)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -9734,7 +9747,8 @@ if __name__ == "__main__":
                                                                                    overlay_marrow_ramps_east,
                                                                                    ramps_crate_1, ramps_crate_2,
                                                                                    ramps_crate_1_got, ramps_crate_2_got,
-                                                                                   sfx_item_potion, Item)
+                                                                                   sfx_item_potion, Item,
+                                                                                   necrola_ramps_1, necrola_ramps_2)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -9774,7 +9788,8 @@ if __name__ == "__main__":
                                                                                    overlay_marrow_ramps_east,
                                                                                    ramps_crate_3, ramps_crate_4,
                                                                                    ramps_crate_3_got, ramps_crate_4_got,
-                                                                                   sfx_item_potion, Item)
+                                                                                   sfx_item_potion, Item,
+                                                                                   necrola_ramps_3)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -9797,7 +9812,8 @@ if __name__ == "__main__":
                                                                                    overlay_marrow_ramps_east,
                                                                                    ramps_crate_3, ramps_crate_4,
                                                                                    ramps_crate_3_got, ramps_crate_4_got,
-                                                                                   sfx_item_potion, Item)
+                                                                                   sfx_item_potion, Item,
+                                                                                   necrola_ramps_3)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -16345,8 +16361,8 @@ if __name__ == "__main__":
                                 hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                             elif player.current_zone == "marrow tower east" or \
-                                player.current_zone == "marrow tower west" or \
-                                player.current_zone == "marrow ramps east end":
+                                    player.current_zone == "marrow tower west" or \
+                                    player.current_zone == "marrow ramps east end":
                                 overlay_marrow_ramps_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
                                 overlay_marrow_ramps_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
                                 player.current_zone = "marrow entrance"

@@ -342,7 +342,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_west, overlay_marrow_east, crate_1, crate_2, ramps_crate_1_got,
-                      ramps_crate_2_got, sfx_item_potion, Item):
+                      ramps_crate_2_got, sfx_item_potion, Item, necrola_1, necrola_2):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -359,6 +359,9 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
         screen.blit(crate_1.surf, crate_1.rect)
     if not ramps_crate_2_got:
         screen.blit(crate_2.surf, crate_2.rect)
+
+    screen.blit(necrola_1.surf, necrola_1.rect)
+    screen.blit(necrola_2.surf, necrola_2.rect)
 
     try:
         for pet in player.pet:
@@ -497,7 +500,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_west, overlay_marrow_east, crate_3, crate_4, ramps_crate_3_got, ramps_crate_4_got,
-                      sfx_item_potion, Item):
+                      sfx_item_potion, Item, necrola_3):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -514,6 +517,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
         screen.blit(crate_3.surf, crate_3.rect)
     if not ramps_crate_4_got:
         screen.blit(crate_4.surf, crate_4.rect)
+
+    screen.blit(necrola_3.surf, necrola_3.rect)
 
     try:
         for pet in player.pet:

@@ -248,7 +248,7 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
                         over_world_song_set = False
                     else:
                         player.x_coordinate = 525
-                        player.y_coordinate = 650
+                        player.y_coordinate = 640
                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
                         player.current_zone = "korlok"

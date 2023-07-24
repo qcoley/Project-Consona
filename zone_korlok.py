@@ -256,6 +256,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 player.current_zone = "seldon"
                 in_over_world = True
                 interacted = False
+                over_world_song_set = False
                 player.x_coordinate = 525
                 player.y_coordinate = 100
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
