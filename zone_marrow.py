@@ -342,7 +342,9 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_west, overlay_marrow_east, crate_1, crate_2, ramps_crate_1_got,
-                      ramps_crate_2_got, sfx_item_potion, Item, necrola_1, necrola_2):
+                      ramps_crate_2_got, sfx_item_potion, Item, necrola_1, necrola_2, necrola_rect_1, necrola_rect_2,
+                      player_battle_sprite, barrier_active, sharp_sense_active, necrola_battle_sprite, in_battle,
+                      current_enemy_battling):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -360,8 +362,10 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     if not ramps_crate_2_got:
         screen.blit(crate_2.surf, crate_2.rect)
 
-    screen.blit(necrola_1.surf, necrola_1.rect)
-    screen.blit(necrola_2.surf, necrola_2.rect)
+    if necrola_1.alive_status:
+        screen.blit(necrola_1.surf, necrola_1.rect)
+    if necrola_2.alive_status:
+        screen.blit(necrola_2.surf, necrola_2.rect)
 
     try:
         for pet in player.pet:
@@ -468,6 +472,55 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
 
             interacted = False
 
+    if necrola_1.alive_status:
+        if pygame.Rect.colliderect(player.rect, necrola_rect_1):
+            if necrola_1.x_coordinate >= player.x_coordinate:
+                movement_able = False
+                necrola_1.x_coordinate -= 5
+                necrola_1.surf = graphic_dict["necrola"]
+                necrola_1.rect = necrola_1.surf.get_rect(center=(necrola_1.x_coordinate, necrola_1.y_coordinate))
+            else:
+                current_enemy_battling = necrola_1
+                in_over_world = False
+                movement_able = False
+                in_battle = True
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active, graphic_dict)
+                combat_scenario.battle_animation_enemy(current_enemy_battling, necrola_battle_sprite,
+                                                       necrola_battle_sprite,
+                                                       necrola_battle_sprite, necrola_battle_sprite,
+                                                       necrola_battle_sprite, necrola_battle_sprite,
+                                                       necrola_battle_sprite, in_battle, necrola_battle_sprite,
+                                                       graphic_dict, necrola_battle_sprite,
+                                                       necrola_battle_sprite, necrola_battle_sprite,
+                                                       False, necrola_battle_sprite, 0)
+    if necrola_2.alive_status:
+        if pygame.Rect.colliderect(player.rect, necrola_rect_2):
+            if necrola_2.x_coordinate <= player.x_coordinate:
+                movement_able = False
+                necrola_2.x_coordinate += 5
+                necrola_2.surf = graphic_dict["necrola"]
+                necrola_2.rect = necrola_2.surf.get_rect(center=(necrola_2.x_coordinate, necrola_2.y_coordinate))
+            else:
+                current_enemy_battling = necrola_2
+                in_over_world = False
+                movement_able = False
+                in_battle = True
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active, graphic_dict)
+                combat_scenario.battle_animation_enemy(current_enemy_battling, necrola_battle_sprite,
+                                                       necrola_battle_sprite,
+                                                       necrola_battle_sprite, necrola_battle_sprite,
+                                                       necrola_battle_sprite, necrola_battle_sprite,
+                                                       necrola_battle_sprite, in_battle, necrola_battle_sprite,
+                                                       graphic_dict, necrola_battle_sprite,
+                                                       necrola_battle_sprite, necrola_battle_sprite,
+                                                       False, necrola_battle_sprite, 0)
+
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
         overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
@@ -489,7 +542,8 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                                 "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                                 "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                                 "movement_able": movement_able, "ramps_crate_1_got": ramps_crate_1_got,
-                                "ramps_crate_2_got": ramps_crate_2_got}
+                                "ramps_crate_2_got": ramps_crate_2_got, "in_battle": in_battle,
+                                "current_enemy": current_enemy_battling}
 
     return marrow_tower_west_return
 
@@ -500,7 +554,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_west, overlay_marrow_east, crate_3, crate_4, ramps_crate_3_got, ramps_crate_4_got,
-                      sfx_item_potion, Item, necrola_3):
+                      sfx_item_potion, Item, necrola_3, in_battle, necrola_rect_3, player_battle_sprite,
+                      barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -518,7 +573,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     if not ramps_crate_4_got:
         screen.blit(crate_4.surf, crate_4.rect)
 
-    screen.blit(necrola_3.surf, necrola_3.rect)
+    if necrola_3.alive_status:
+        screen.blit(necrola_3.surf, necrola_3.rect)
 
     try:
         for pet in player.pet:
@@ -625,6 +681,31 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
 
             interacted = False
 
+    if necrola_3.alive_status:
+        if pygame.Rect.colliderect(player.rect, necrola_rect_3):
+            if necrola_3.y_coordinate >= player.y_coordinate:
+                necrola_3.y_coordinate -= 5
+                necrola_3.surf = graphic_dict["necrola"]
+                necrola_3.rect = necrola_3.surf.get_rect(center=(necrola_3.x_coordinate, necrola_3.y_coordinate))
+            else:
+                current_enemy_battling = necrola_3
+                in_over_world = False
+                movement_able = False
+                in_battle = True
+
+                drawing_functions.loot_popup_container.clear()
+                drawing_functions.loot_text_container.clear()
+                combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                        sharp_sense_active, graphic_dict)
+                combat_scenario.battle_animation_enemy(current_enemy_battling, necrola_battle_sprite,
+                                                       necrola_battle_sprite,
+                                                       necrola_battle_sprite, necrola_battle_sprite,
+                                                       necrola_battle_sprite, necrola_battle_sprite,
+                                                       necrola_battle_sprite, in_battle, necrola_battle_sprite,
+                                                       graphic_dict, necrola_battle_sprite,
+                                                       necrola_battle_sprite, necrola_battle_sprite,
+                                                       False, necrola_battle_sprite, 0)
+
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
         overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
@@ -647,7 +728,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                                 "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                                 "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                                 "movement_able": movement_able, "ramps_crate_3_got": ramps_crate_3_got,
-                                "ramps_crate_4_got": ramps_crate_4_got}
+                                "ramps_crate_4_got": ramps_crate_4_got, "in_battle": in_battle,
+                                "current_enemy": current_enemy_battling}
 
     return marrow_tower_east_return
 

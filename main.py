@@ -6517,6 +6517,7 @@ if __name__ == "__main__":
     marrow_district_bg = graphic_dict["marrow_district_bg"]
     marrow_ramparts_battle = graphic_dict["marrow_ramparts_battle"]
     marrow_interaction_bg = graphic_dict["marrow_interaction_bg"]
+    marrow_tower_battle = graphic_dict["marrow_tower_battle"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -6804,18 +6805,21 @@ if __name__ == "__main__":
                     UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     apothis = Enemy("apothis", "apothis", 100, 100, 75, 575, 450, True, "item", graphic_dict["apothis_back"],
                     UiElement("apothis hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    necrola_ramps_1 = Enemy("necrola ramp", "necrola", 100, 100, 16, 198, 360, True,
+    necrola_ramps_1 = Enemy("necrola", "necrola", 100, 100, 19, 198, 360, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
-    necrola_ramps_2 = Enemy("necrola ramp", "necrola", 100, 100, 15, 835, 360, True,
+    necrola_rect_1 = pygame.Rect((25, 360), (150, 100))
+    necrola_ramps_2 = Enemy("necrola", "necrola", 100, 100, 18, 835, 360, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
-    necrola_ramps_3 = Enemy("necrola ramp", "necrola", 100, 100, 17, 514, 140, True,
+    necrola_rect_2 = pygame.Rect((865, 300), (150, 50))
+    necrola_ramps_3 = Enemy("necrola", "necrola", 100, 100, 20, 514, 140, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
+    necrola_rect_3 = pygame.Rect((514, 0), (50, 100))
 
     seldon_inn = Building("inn", "seldon inn", 635, 600, graphic_dict["amuna_inn_building"])
     seldon_shop = Building("shop", "seldon shop", 665, 400, graphic_dict["amuna_shop_building"])
@@ -7715,7 +7719,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -9725,7 +9729,12 @@ if __name__ == "__main__":
                                                                                    ramps_crate_1, ramps_crate_2,
                                                                                    ramps_crate_1_got, ramps_crate_2_got,
                                                                                    sfx_item_potion, Item,
-                                                                                   necrola_ramps_1, necrola_ramps_2)
+                                                                                   necrola_ramps_1, necrola_ramps_2,
+                                                                                   necrola_rect_1, necrola_rect_2,
+                                                                                   player_battle_sprite, barrier_active,
+                                                                                   sharp_sense_active,
+                                                                                   necrola_battle_sprite, in_battle,
+                                                                                   current_enemy_battling)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -9748,7 +9757,12 @@ if __name__ == "__main__":
                                                                                    ramps_crate_1, ramps_crate_2,
                                                                                    ramps_crate_1_got, ramps_crate_2_got,
                                                                                    sfx_item_potion, Item,
-                                                                                   necrola_ramps_1, necrola_ramps_2)
+                                                                                   necrola_ramps_1, necrola_ramps_2,
+                                                                                   necrola_rect_1, necrola_rect_2,
+                                                                                   player_battle_sprite, barrier_active,
+                                                                                   sharp_sense_active,
+                                                                                   necrola_battle_sprite, in_battle,
+                                                                                   current_enemy_battling)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -9760,6 +9774,8 @@ if __name__ == "__main__":
                     info_text_4 = marrow_tower_west_returned["info_text_4"]
                     ramps_crate_1_got = marrow_tower_west_returned["ramps_crate_1_got"]
                     ramps_crate_2_got = marrow_tower_west_returned["ramps_crate_2_got"]
+                    in_battle = marrow_tower_west_returned["in_battle"]
+                    current_enemy_battling = marrow_tower_west_returned["current_enemy"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in ramparts tower east ------------------------------------------------------------------
@@ -9789,7 +9805,11 @@ if __name__ == "__main__":
                                                                                    ramps_crate_3, ramps_crate_4,
                                                                                    ramps_crate_3_got, ramps_crate_4_got,
                                                                                    sfx_item_potion, Item,
-                                                                                   necrola_ramps_3)
+                                                                                   necrola_ramps_3, in_battle,
+                                                                                   necrola_rect_3, player_battle_sprite,
+                                                                                   barrier_active, sharp_sense_active,
+                                                                                   necrola_battle_sprite,
+                                                                                   current_enemy_battling)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -9813,7 +9833,11 @@ if __name__ == "__main__":
                                                                                    ramps_crate_3, ramps_crate_4,
                                                                                    ramps_crate_3_got, ramps_crate_4_got,
                                                                                    sfx_item_potion, Item,
-                                                                                   necrola_ramps_3)
+                                                                                   necrola_ramps_3, in_battle,
+                                                                                   necrola_rect_3, player_battle_sprite,
+                                                                                   barrier_active, sharp_sense_active,
+                                                                                   necrola_battle_sprite,
+                                                                                   current_enemy_battling)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -9825,6 +9849,8 @@ if __name__ == "__main__":
                     info_text_4 = marrow_tower_east_returned["info_text_4"]
                     ramps_crate_3_got = marrow_tower_east_returned["ramps_crate_3_got"]
                     ramps_crate_4_got = marrow_tower_east_returned["ramps_crate_4_got"]
+                    in_battle = marrow_tower_east_returned["in_battle"]
+                    current_enemy_battling = marrow_tower_east_returned["current_enemy"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in ramparts tower west ------------------------------------------------------------------
@@ -11546,6 +11572,7 @@ if __name__ == "__main__":
 
                                         # if player was successful in defeating enemy, combat ends, movement is allowed
                                         if combat_events["enemy defeated"]:
+                                            current_enemy_battling.alive_status = False
                                             # player will gain knowledge based on their current role
                                             if player.role == "mage":
                                                 if player.level < 10 and player.knowledge["mage"] < 80 or \
@@ -11858,6 +11885,7 @@ if __name__ == "__main__":
                                                             level_visual = True
                                                             level_visual_tic = time.perf_counter()
                                                     if combat_events["enemy defeated"]:
+                                                        current_enemy_battling.alive_status = False
                                                         # player will gain knowledge based on their current role
                                                         if player.level < 10 and player.knowledge["fighter"] < 80 or \
                                                                 player.level > 10 and player.knowledge["fighter"] < 120:
@@ -12088,6 +12116,9 @@ if __name__ == "__main__":
                                         screen.blit(ectrenos_front_interaction_bg, (0, 0))
                                     if player.current_zone == "marrow ramps east end":
                                         screen.blit(marrow_ramparts_battle, (0, 0))
+                                    if player.current_zone == "marrow tower east" or \
+                                            player.current_zone == "marrow tower west":
+                                        screen.blit(marrow_tower_battle, (0, 0))
                                     screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                     try:
                                         screen.blit(current_enemy_battling.health_bar.surf,
@@ -12115,6 +12146,9 @@ if __name__ == "__main__":
                                         game_window.blit(ectrenos_front_interaction_bg, (0, 0))
                                     if player.current_zone == "marrow ramps east end":
                                         game_window.blit(marrow_ramparts_battle, (0, 0))
+                                    if player.current_zone == "marrow tower east" or \
+                                            player.current_zone == "marrow tower west":
+                                        game_window.blit(marrow_tower_battle, (0, 0))
 
                                     game_window.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                     try:

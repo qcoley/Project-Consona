@@ -189,6 +189,7 @@ def load_graphics():
     overlay_chroma_ramps = pygame.image.load(resource_path('resources/art/overlay_chroma_ramps.png')).convert_alpha()
     popup_wide = pygame.image.load(resource_path('resources/art/popup_interaction_wide.png')).convert_alpha()
     ramparts_battle = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_battle.png')).convert_alpha()
+    tower_battle = pygame.image.load(resource_path('resources/art/bg_marrow_tower_battle.png')).convert_alpha()
     overlay_enemy_vanish = pygame.image.load(resource_path('resources/art/overlay_enemy_vanish.png')).convert_alpha()
 
     m_switch = pygame.image.load(resource_path('resources/art/overlay_marrow_switch.png')).convert_alpha()
@@ -392,6 +393,7 @@ def load_graphics():
     loaded_dict["marrow_switch_box"] = m_switch_box
     loaded_dict["popup_wide"] = popup_wide
     loaded_dict["marrow_ramparts_battle"] = ramparts_battle
+    loaded_dict["marrow_tower_battle"] = tower_battle
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
