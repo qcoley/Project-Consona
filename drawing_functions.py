@@ -338,6 +338,41 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["use_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "bone shard":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_bone_shard"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "prism":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_prism"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "casing":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_casing"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "smelted casing":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_smelted_casing"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "enchanted casing":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_enchanted_casing"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -477,6 +512,12 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "pet tart":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_tart_img"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "bone shard":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_bone_shard"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
@@ -667,7 +708,7 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         character_sheet_window.append(character_sheet)
 
 
-def journal_info_draw(journal, player, font, draw_condition):
+def journal_info_draw(journal, player, font, draw_condition, switch_phase):
     if not draw_condition:
         journal_text.clear()
         journal_window.clear()
@@ -832,51 +873,47 @@ def journal_info_draw(journal, player, font, draw_condition):
                 or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
                 or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
 
-            text_quest1_surf = font.render("Get to marrow", True, "black", "light yellow")
+            text_quest1_surf = font.render("Barrier blockade", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 145)
             text_quest1_info_surf = font.render("", True, "black",
                                                 "light yellow")
             text_quest1_info_rect = text_quest1_info_surf.get_rect()
             text_quest1_info_rect.midleft = (540, 190)
-            text_quest1_prog_surf = font.render(" /4",
-                                                True, "black", "light yellow")
+            if switch_phase != "complete":
+                text_quest1_prog_surf = font.render("0/1", True, "black", "light yellow")
+            if switch_phase == "complete":
+                text_quest1_prog_surf = font.render("1/1", True, "black", "light yellow")
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
             text_quest1_prog_rect.midleft = (950, 145)
 
-            text_quest2_surf = font.render("Battle Apothis", True, "black", "light yellow")
+            text_quest2_surf = font.render("Vamos Vanguard", True, "black", "light yellow")
             text_quest2_rect = text_quest2_surf.get_rect()
             text_quest2_rect.midleft = (600, 272)
-            text_quest2_info_surf = font.render("", True, "black",
-                                                "light yellow")
+            text_quest2_info_surf = font.render("", True, "black", "light yellow")
             text_quest2_info_rect = text_quest2_info_surf.get_rect()
             text_quest2_info_rect.midleft = (540, 320)
-            text_quest2_prog_surf = font.render(" /4",
-                                                True, "black", "light yellow")
+            text_quest2_prog_surf = font.render("0/2", True, "black", "light yellow")
             text_quest2_prog_rect = text_quest2_prog_surf.get_rect()
             text_quest2_prog_rect.midleft = (950, 272)
 
-            text_quest3_surf = font.render("Help Vanguard", True, "black", "light yellow")
+            text_quest3_surf = font.render("Legends never die", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
             text_quest3_rect.midleft = (600, 405)
-            text_quest3_info_surf = font.render("", True, "black",
-                                                "light yellow")
+            text_quest3_info_surf = font.render("", True, "black", "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
             text_quest3_info_rect.midleft = (540, 455)
-            text_quest3_prog_surf = font.render(" /1", True,
-                                                "black", "light yellow")
+            text_quest3_prog_surf = font.render("0/4", True, "black", "light yellow")
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
             text_quest3_prog_rect.midleft = (950, 405)
 
-            text_quest4_surf = font.render("Defeat Dreth", True, "black", "light yellow")
+            text_quest4_surf = font.render("Ultimate ultimatum", True, "black", "light yellow")
             text_quest4_rect = text_quest4_surf.get_rect()
             text_quest4_rect.midleft = (600, 538)
-            text_quest4_info_surf = font.render("", True, "black",
-                                                "light yellow")
+            text_quest4_info_surf = font.render("", True, "black", "light yellow")
             text_quest4_info_rect = text_quest4_info_surf.get_rect()
             text_quest4_info_rect.midleft = (540, 585)
-            text_quest4_prog_surf = font.render(" /4", True,
-                                                "black", "light yellow")
+            text_quest4_prog_surf = font.render("0/1", True, "black", "light yellow")
             text_quest4_prog_rect = text_quest4_prog_surf.get_rect()
             text_quest4_prog_rect.midleft = (950, 538)
 
@@ -912,7 +949,8 @@ def level_up_draw(level_up_win, player, level_up_font, draw_condition):
 def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
                    torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
                    dionte_quest_window, accept_button, decline_button, omoku_quest_window, leyre_quest_window,
-                   aitor_quest_window, everett_quest_window):
+                   aitor_quest_window, everett_quest_window, artherian_quest_window, artherian_quest_window_2,
+                   artherian_1):
     if not draw_condition:
         quest_box.clear()
     else:
@@ -941,6 +979,11 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
                 quest_box.append(aitor_quest_window)
             if quest_npc.name == "everett":
                 quest_box.append(everett_quest_window)
+            if quest_npc.name == "artherian":
+                if not artherian_1:
+                    quest_box.append(artherian_quest_window)
+                else:
+                    quest_box.append(artherian_quest_window_2)
 
         except AttributeError:
             if quest_npc == "kirean":
@@ -1127,6 +1170,26 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "pet tart":
                     item_here.update(first_coord, second_coord, graphic["pet_tart_img"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "bone shard":
+                    item_here.update(first_coord, second_coord, graphic["bone_shard"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "prism":
+                    item_here.update(first_coord, second_coord, graphic["prism"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "casing":
+                    item_here.update(first_coord, second_coord, graphic["casing"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "smelted casing":
+                    item_here.update(first_coord, second_coord, graphic["smelted casing"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "enchanted casing":
+                    item_here.update(first_coord, second_coord, graphic["enchanted casing"])
                     player_items.append(item_here)
                     inventory_counter += 1
 

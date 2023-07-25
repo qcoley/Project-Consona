@@ -8,7 +8,6 @@ import drawing_functions
 
 
 def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys, sfx_swap):
-
     if len(drawing_functions.item_info_window) == 0 and len(drawing_functions.sell_info_window) == 0:
 
         if staff.rect.collidepoint(pos):
@@ -987,6 +986,16 @@ def load_game(player, Item, graphics, Pet):
                 if item == "pet whistle iriana":
                     player.items.append(Item("pet whistle iriana", "whistle", 200, 200,
                                              graphics["whistle_iriana_img"], 1))
+                if item == "bone shard":
+                    player.items.append(Item("bone shard", "shard", 200, 200, graphics["bone_shard"], 0))
+                if item == "prism":
+                    player.items.append(Item("prism", "prism", 200, 200, graphics["prism"], 0))
+                if item == "casing":
+                    player.items.append(Item("casing", "casing", 200, 200, graphics["casing"], 0))
+                if item == "smelted casing":
+                    player.items.append(Item("smelted casing", "casing", 200, 200, graphics["smelted casing"], 0))
+                if item == "enchanted casing":
+                    player.items.append(Item("enchanted casing", "casing", 200, 200, graphics["enchanted casing"], 0))
 
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
@@ -1499,7 +1508,7 @@ def level_up(player, level_up_win, level_up_font):
 # function to respawn enemies if they are less than a specified amount active in game. spawns with random coord. and lvl
 def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
                   interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers,
-                  eldream_flowers, interactables_eldream, ectrenos_front_enemies):
+                  eldream_flowers, interactables_eldream, ectrenos_front_enemies, marrow_ghouls):
     if player.current_zone == "seldon":
         snake_counter = 0
         ghoul_counter = 0
@@ -1635,12 +1644,34 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
                                 "scout")
             ectrenos_front_enemies.add(new_necrola)
 
+    if player.current_zone == "marrow":
+        marrow_ghoul_counter = 0
+        # generate random coordinates and level for new enemy to spawn within boundaries and level range
+        # if not scaled, coordinates set to default boundaries
+        random_marrow_ghoul_x = random.randrange(125, 600)
+        random_marrow_ghoul_y = random.randrange(100, 300)
+        random_marrow_ghoul_level = random.randrange(18, 22)
+
+        # count current enemies active in game
+        for mob in marrow_ghouls:
+            if mob.name == "ghoul":
+                marrow_ghoul_counter += 1
+
+        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        if marrow_ghoul_counter < 3:
+            new_marrow_ghoul = Enemy("ghoul", "ghoul", 100, 100, random_marrow_ghoul_level, random_marrow_ghoul_x,
+                                     random_marrow_ghoul_y, True, Item("bone shard", "shard", 200, 200,
+                                                                       graphic_dict["bone_shard"], 0),
+                                     graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]),
+                                     "scout")
+            marrow_ghouls.add(new_marrow_ghoul)
+
     respawn_dict = {"seldon_enemies": seldon_enemies, "snakes": snakes, "ghouls": ghouls,
                     "interactables_seldon": interactables_seldon, "interactables_korlok": interactables_korlok,
                     "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles, "seldon_flowers":
                         seldon_flowers, "eldream_flowers": eldream_flowers,
                     "interactables_eldream": interactables_eldream,
-                    "ectrenos_front_enemies": ectrenos_front_enemies}
+                    "ectrenos_front_enemies": ectrenos_front_enemies, "marrow_ghouls": marrow_ghouls}
 
     return respawn_dict
 

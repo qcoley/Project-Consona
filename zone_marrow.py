@@ -1,3 +1,4 @@
+import gameplay_functions
 import drawing_functions
 import combat_scenario
 import random
@@ -9,7 +10,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
                     info_text_3, info_text_4, npc_tic, movement_able, equipment_screen, staff, sword, bow, npc_garan,
                     offense_meter, defense_meter, weapon_select, pet_energy_window, artherian, player_battle_sprite,
-                    current_npc_interacting, in_npc_interaction, hearth_stone, marrow_attuned, sfx_hearth):
+                    current_npc_interacting, in_npc_interaction, hearth_stone, marrow_attuned, sfx_hearth,
+                    marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
+                    current_enemy_battling, Enemy, Item, UiElement):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -23,6 +26,16 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     screen.blit(artherian.surf, artherian.rect)
     screen.blit(hearth_stone.surf, hearth_stone.rect)
+
+    respawned_dict = gameplay_functions.enemy_respawn(player, marrow_ghouls, marrow_ghouls, marrow_ghouls,
+                                                      marrow_ghouls, marrow_ghouls, marrow_ghouls, marrow_ghouls,
+                                                      marrow_ghouls, marrow_ghouls, Enemy, Item, graphic_dict,
+                                                      UiElement, marrow_ghouls, marrow_ghouls, marrow_ghouls,
+                                                      marrow_ghouls, marrow_ghouls)
+    marrow_ghouls = respawned_dict["marrow_ghouls"]
+
+    for ghoul in marrow_ghouls:
+        screen.blit(ghoul.surf, ghoul.rect)
 
     try:
         for pet in player.pet:
@@ -124,6 +137,39 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     if button_highlighted:
         screen.blit(button_highlight.surf, button_highlight.rect)
 
+    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
+    enemy = pygame.sprite.spritecollideany(player, marrow_ghouls)
+    if enemy:
+        interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(enemy.name) + " lvl " + str(enemy.level), True, "black",
+                                            (255, 204, 203))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (enemy.x_coordinate, enemy.y_coordinate - 40)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        # lets player know if they are in range of enemy they can press f to attack it
+        info_text_1 = "Press 'F' key to attack enemy."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            current_enemy_battling = enemy
+            in_over_world = False
+            in_battle = True
+
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
+            combat_scenario.battle_animation_enemy(current_enemy_battling, ghoul_battle_sprite,
+                                                   ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
+                                                   ghoul_battle_sprite, ghoul_battle_sprite, ghoul_battle_sprite,
+                                                   in_battle, in_npc_interaction, graphic_dict, ghoul_battle_sprite,
+                                                   ghoul_battle_sprite, ghoul_battle_sprite, False, ghoul_battle_sprite,
+                                                   0)
+
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
     if movement_able and in_over_world:
@@ -139,6 +185,16 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             if face_direction == "right":
                 artherian.update(graphic_dict["artherian_right"])
 
+    # enemy movement updates
+    direction_horizontal = random.choice(["left", "right"])
+    direction_vertical = random.choice(["up", "down"])
+    move_mon = random.choice(marrow_ghouls.sprites())
+    if movement_able and in_over_world:
+        enemy_toc = time.perf_counter()
+        if enemy_toc - enemy_tic > 2:
+            enemy_tic = time.perf_counter()
+            move_mon.update_position([125, 600], [100, 300], direction_horizontal, direction_vertical)
+
     if player.y_coordinate <= 50:
         player.current_zone = "marrow entrance"
         over_world_song_set = False
@@ -151,7 +207,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                               "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                               "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                               "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
-                              "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned}
+                              "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned,
+                              "enemy_tic": enemy_tic, "in_battle": in_battle, "current_enemy": current_enemy_battling,
+                              "marrow_ghouls": marrow_ghouls}
 
     return marrow_district_return
 

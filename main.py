@@ -6728,6 +6728,18 @@ if __name__ == "__main__":
                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     ghoul_ramps_2 = Enemy("ramps ghoul 2", "ghoul", 100, 100, 3, 925, 200, True, "item",
                           graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    ghoul_high_1 = Enemy("ghoul", "ghoul", 100, 100, 18, 220, 175, True,
+                         Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
+                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    ghoul_high_2 = Enemy("ghoul", "ghoul", 100, 100, 19, 330, 135, True,
+                         Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
+                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    ghoul_high_3 = Enemy("ghoul", "ghoul", 100, 100, 20, 430, 200, True,
+                         Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
+                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+    ghoul_high_4 = Enemy("ghoul", "ghoul", 100, 100, 19, 530, 150, True,
+                         Item("bone shard", "shard", 200, 200, graphic_dict["bone_shard"], 0),
+                         graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # friendly's -------------------------------------------------------------------------------------------------------
     # classed as enemies so players can fight with them, but cannot be killed
     stelli_a = Enemy("stellia", "stelli", 100, 100, 3, 805, 525, True, "item", graphic_dict["stelli_a"],
@@ -7000,6 +7012,9 @@ if __name__ == "__main__":
     everett_quest_window = UiElement("everett quest window", 262, 443, graphic_dict["everett_quest"])
     everett_complete_quest_window = UiElement("everett complete window", 550, 350, graphic_dict["everett_complete"])
 
+    artherian_task_window = UiElement("artherian task window", 262, 443, graphic_dict["artherian_quest"])
+    artherian_task_window_2 = UiElement("artherian task window", 262, 443, graphic_dict["artherian_quest_2"])
+
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
     enemy_status_bar_back = UiElement("enemy bar backdrop", 700, 90, graphic_dict["enemy_bar_backdrop"])
@@ -7258,6 +7273,7 @@ if __name__ == "__main__":
     most_sprites = pygame.sprite.Group()
     snakes = pygame.sprite.Group()
     ghouls = pygame.sprite.Group()
+    ghouls_marrow = pygame.sprite.Group()
     magmons = pygame.sprite.Group()
     bandiles = pygame.sprite.Group()
     interactables_nascent = pygame.sprite.Group()
@@ -7275,6 +7291,7 @@ if __name__ == "__main__":
 
     snakes.add(snake_1, snake_2, snake_3, snake_4)
     ghouls.add(ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
+    ghouls_marrow.add(ghoul_high_1, ghoul_high_2, ghoul_high_3, ghoul_high_4)
     magmons.add(magmon_1, magmon_2, magmon_3, magmon_4)
     bandiles.add(bandile_1, bandile_2, bandile_3, bandile_4)
     stardust_stelli.add(stelli_a, stelli_b, stelli_c)
@@ -7599,6 +7616,8 @@ if __name__ == "__main__":
     apothis_push = False
     apothis_1 = True
     apothis_2 = False
+    artherian_1 = False
+    artherian_2 = False
 
     seed_given = False
     hatch_ready = False
@@ -8718,6 +8737,8 @@ if __name__ == "__main__":
                                     if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
                                         interacted = True
                                 if player.current_zone == "marrow":
+                                    if pygame.sprite.spritecollideany(player, ghouls_marrow):
+                                        interacted = True
                                     if pygame.Rect.colliderect(player.rect, npc_artherian.rect):
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, marrow_hearth.rect):
@@ -8815,7 +8836,7 @@ if __name__ == "__main__":
                             # map button was clicked, set animation and move player to stone
                             if map_button.rect.collidepoint(pos):
                                 # clears other windows first, if they were open
-                                drawing_functions.journal_info_draw(journal, player, font, False)
+                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase)
                                 journal_button_clicked = False
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 character_button_clicked = False
@@ -8844,7 +8865,7 @@ if __name__ == "__main__":
                                 # clears other windows first, if they were open
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 character_button_clicked = False
-                                drawing_functions.journal_info_draw(journal, player, font, False)
+                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -8938,7 +8959,7 @@ if __name__ == "__main__":
 
                             if character_button.rect.collidepoint(pos):
                                 # clears other open windows first, if they were open
-                                drawing_functions.journal_info_draw(journal, player, font, False)
+                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -8965,12 +8986,14 @@ if __name__ == "__main__":
                                 button_highlighted = False
 
                                 if journal_button_clicked:
-                                    drawing_functions.journal_info_draw(journal, player, font, False)
+                                    drawing_functions.journal_info_draw(journal, player, font, False,
+                                                                        marrow_switch_phase)
                                     journal_button_clicked = False
                                 else:
                                     if in_over_world:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    drawing_functions.journal_info_draw(journal, player, font, True)
+                                    drawing_functions.journal_info_draw(journal, player, font, True,
+                                                                        marrow_switch_phase)
                                     journal_button_clicked = True
 
                             # for clicking map buttons, when the map is open
@@ -9648,7 +9671,11 @@ if __name__ == "__main__":
                                                                                npc_artherian, player_battle_sprite,
                                                                                current_npc_interacting,
                                                                                in_npc_interaction, marrow_hearth,
-                                                                               marrow_attuned, sfx_map_teleport)
+                                                                               marrow_attuned, sfx_map_teleport,
+                                                                               ghouls_marrow, enemy_tic, barrier_active,
+                                                                               sharp_sense_active, ghoul_battle_sprite,
+                                                                               in_battle, current_enemy_battling, Enemy,
+                                                                               Item, UiElement)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -9667,7 +9694,11 @@ if __name__ == "__main__":
                                                                                npc_artherian, player_battle_sprite,
                                                                                current_npc_interacting,
                                                                                in_npc_interaction, marrow_hearth,
-                                                                               marrow_attuned, sfx_map_teleport)
+                                                                               marrow_attuned, sfx_map_teleport,
+                                                                               ghouls_marrow, enemy_tic, barrier_active,
+                                                                               sharp_sense_active, ghoul_battle_sprite,
+                                                                               in_battle, current_enemy_battling, Enemy,
+                                                                               Item, UiElement)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -9681,6 +9712,10 @@ if __name__ == "__main__":
                     current_npc_interacting = marrow_district_returned["current_npc_interacting"]
                     in_npc_interaction = marrow_district_returned["in_npc_interaction"]
                     marrow_attuned = marrow_district_returned["marrow_attuned"]
+                    enemy_tic = marrow_district_returned["enemy_tic"]
+                    in_battle = marrow_district_returned["in_battle"]
+                    current_enemy_battling = marrow_district_returned["current_enemy"]
+                    marrow_ghouls = marrow_district_returned["marrow_ghouls"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow entrance ----------------------------------------------------------------------
@@ -12173,6 +12208,8 @@ if __name__ == "__main__":
                                     if player.current_zone == "marrow tower east" or \
                                             player.current_zone == "marrow tower west":
                                         screen.blit(marrow_tower_battle, (0, 0))
+                                    if player.current_zone == "marrow":
+                                        screen.blit(marrow_interaction_bg, (0, 0))
                                     screen.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                     try:
                                         screen.blit(current_enemy_battling.health_bar.surf,
@@ -12203,6 +12240,8 @@ if __name__ == "__main__":
                                     if player.current_zone == "marrow tower east" or \
                                             player.current_zone == "marrow tower west":
                                         game_window.blit(marrow_tower_battle, (0, 0))
+                                    if player.current_zone == "marrow":
+                                        game_window.blit(marrow_interaction_bg, (0, 0))
 
                                     game_window.blit(enemy_status_bar_back.surf, enemy_status_bar_back.rect)
                                     try:
@@ -16091,7 +16130,7 @@ if __name__ == "__main__":
                                     drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
-                            # leyre npc, check player's quest progress and reward if completed -------------------------
+                            # everett npc, check player's quest progress and reward if completed -----------------------
                             if current_npc_interacting.name == "everett":
                                 if player.quest_progress["shades of fear"] == 4 and not \
                                         player.quest_complete["shades of fear"]:
@@ -16143,6 +16182,63 @@ if __name__ == "__main__":
                                                                                   everett_complete_quest_window)
                                             everett_complete_shown = True
                                             quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box.clear()
+                                    quest_clicked = False
+
+                            # artherian npc, check player's task progress and reward if completed ----------------------
+                            if current_npc_interacting.name == "artherian":
+                                shard_counter = 0
+                                for item in player.items:
+                                    if item.name == "bone shard":
+                                        shard_counter += 1
+                                if shard_counter >= 4:
+                                    if len(player.items) < 16:
+                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                        artherian_1 = True
+                                        info_text_1 = "You've completed Legends Never Die 1!"
+                                        info_text_2 = ""
+                                        info_text_3 = ""
+                                        info_text_4 = ""
+                                        player.reputation["amuna"] += 10
+                                        player.items.append(Item("casing", "casing", 200, 200, graphic_dict["casing"],
+                                                                 0))
+                                    else:
+                                        info_text_1 = "You completed the task, but "
+                                        info_text_2 = "Your inventory is full!"
+                                if not quest_clicked:
+                                    if shard_counter < 4:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window,
+                                                                         celeste_quest_window,
+                                                                         torune_quest_window,
+                                                                         voruke_quest_window,
+                                                                         zerah_quest_window,
+                                                                         kirean_quest_window,
+                                                                         dionte_quest_window,
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window,
+                                                                         everett_quest_window, artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
+                                        quest_clicked = True
+                                    else:  # artherian task 2
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window,
+                                                                         celeste_quest_window,
+                                                                         torune_quest_window,
+                                                                         voruke_quest_window,
+                                                                         zerah_quest_window,
+                                                                         kirean_quest_window,
+                                                                         dionte_quest_window,
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window,
+                                                                         everett_quest_window, artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
+                                        quest_clicked = True
                                 else:
                                     drawing_functions.quest_box.clear()
                                     quest_clicked = False

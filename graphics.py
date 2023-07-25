@@ -4933,6 +4933,11 @@ def load_graphics():
     loaded_dict["pet_tart_img"] = items_sheet[19]
     loaded_dict["small_health_pot_img"] = items_sheet[20]
     loaded_dict["small_energy_pot_img"] = items_sheet[21]
+    loaded_dict["bone_shard"] = items_sheet[22]
+    loaded_dict["prism"] = items_sheet[23]
+    loaded_dict["casing"] = items_sheet[24]
+    loaded_dict["smelted_casing"] = items_sheet[25]
+    loaded_dict["enchanted_casing"] = items_sheet[26]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -4960,6 +4965,11 @@ def load_graphics():
     loaded_dict["info_tart_img"] = items_info_sheet[21]
     loaded_dict["info_big_health_pot_img"] = items_info_sheet[22]
     loaded_dict["info_big_energy_pot_img"] = items_info_sheet[23]
+    loaded_dict["info_bone_shard"] = items_info_sheet[24]
+    loaded_dict["info_prism"] = items_info_sheet[25]
+    loaded_dict["info_casing"] = items_info_sheet[26]
+    loaded_dict["info_smelted_casing"] = items_info_sheet[27]
+    loaded_dict["info_enchanted_casing"] = items_info_sheet[28]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -4990,6 +5000,7 @@ def load_graphics():
     loaded_dict["s_cookie_img"] = sell_items_sheet[12]
     loaded_dict["s_candy_img"] = sell_items_sheet[13]
     loaded_dict["s_tart_img"] = sell_items_sheet[14]
+    loaded_dict["s_bone_shard"] = sell_items_sheet[15]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)
@@ -5129,6 +5140,9 @@ def load_graphics():
     loaded_dict["leyre_quest"] = quest_windows_sheet[9]
     loaded_dict["aitor_quest"] = quest_windows_sheet[10]
     loaded_dict["everett_quest"] = quest_windows_sheet[11]
+    loaded_dict["artherian_quest"] = quest_windows_sheet[12]
+    loaded_dict["artherian_quest_2"] = quest_windows_sheet[13]
+    loaded_dict["vanguard_quest"] = quest_windows_sheet[14]
     # quest complete popups --------------------------------------------------------------------------------------------
     quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
     quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)

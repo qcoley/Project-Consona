@@ -260,6 +260,21 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
             if clicked_element[0].name == "pet tart":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "bone shard":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "prism":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "casing":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "smelted casing":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
+            if clicked_element[0].name == "enchanted casing":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
         except IndexError:
             pass
     return event_return
@@ -893,6 +908,9 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "pet tart":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "bone shard":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
 
