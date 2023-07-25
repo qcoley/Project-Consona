@@ -115,6 +115,7 @@ def load_graphics():
     seldon_hearth_screen = pygame.image.load(resource_path('resources/art/screen_seldon_hearth.png')).convert_alpha()
     korlok_hearth_screen = pygame.image.load(resource_path('resources/art/screen_korlok_hearth.png')).convert_alpha()
     eldream_hearth_screen = pygame.image.load(resource_path('resources/art/screen_eldream_hearth.png')).convert_alpha()
+    marrow_hearth_screen = pygame.image.load(resource_path('resources/art/screen_marrow_hearth.png')).convert_alpha()
     game_over_screen = pygame.image.load(resource_path('resources/art/screen_game_over.png')).convert_alpha()
     start_screen = pygame.image.load(resource_path('resources/art/start_screen.png')).convert_alpha()
     start_screen_logo = pygame.image.load(resource_path('resources/art/start_screen_logo.png')).convert_alpha()
@@ -308,6 +309,7 @@ def load_graphics():
     loaded_dict["seldon_academia_screen"] = seldon_academia_screen
     loaded_dict["seldon_hearth_screen"] = seldon_hearth_screen
     loaded_dict["eldream_hearth_screen"] = eldream_hearth_screen
+    loaded_dict["marrow_hearth_screen"] = marrow_hearth_screen
     loaded_dict["game_over_screen"] = game_over_screen
     loaded_dict["start_screen"] = start_screen
     loaded_dict["start_screen_logo"] = start_screen_logo

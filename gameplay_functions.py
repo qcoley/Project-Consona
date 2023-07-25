@@ -1075,6 +1075,7 @@ def load_game(player, Item, graphics, Pet):
             load_return["boots_obtained"] = player_load_info["boots_obtained"]
             load_return["korlok_attuned"] = player_load_info["korlok_attuned"]
             load_return["eldream_attuned"] = player_load_info["eldream_attuned"]
+            load_return["marrow_attuned"] = player_load_info["marrow_attuned"]
             load_return["beyond seldon"] = player_load_info["beyond seldon"]
             load_return["seed given"] = player_load_info["seed given"]
             load_return["hatch ready"] = player_load_info["hatch ready"]
@@ -1108,7 +1109,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
               rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count, dreth_cutscenes,
               mirror_learned, stun_learned, vanish_learned, boots_obtained, marrow_switch_phase, erebyth_defeated,
-              ramps_crate_1, ramps_crate_2, ramps_crate_3, ramps_crate_4, ramps_crate_5):
+              ramps_crate_1, ramps_crate_2, ramps_crate_3, ramps_crate_4, ramps_crate_5, marrow_attuned):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1165,7 +1166,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "muchador_defeated": muchador_defeated, "has_key": has_key,
                         "mini_boss_1_defeated": mini_boss_1_defeated, "mini_boss_2_defeated": mini_boss_2_defeated,
                         "gloves_obtained": gloves_obtained, "korlok_attuned": korlok_attuned,
-                        "eldream_attuned": eldream_attuned, "rock_3_con": rock_3_con, "rock_4_con": rock_4_con,
+                        "marrow_attuned": marrow_attuned, "eldream_attuned": eldream_attuned,
+                        "rock_3_con": rock_3_con, "rock_4_con": rock_4_con,
                         "rock_5_con": rock_5_con, "rock_6_con": rock_6_con, "rock_7_con": rock_7_con,
                         "rock_8_con": rock_8_con, "chinzilla_defeated": chinzilla_defeated,
                         "apothecary_access": apothecary_access, "flowers amuna": int(player.flowers_amuna),

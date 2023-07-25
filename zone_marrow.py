@@ -9,7 +9,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     button_highlighted, button_highlight, in_over_world, interacted, info_text_1, info_text_2,
                     info_text_3, info_text_4, npc_tic, movement_able, equipment_screen, staff, sword, bow, npc_garan,
                     offense_meter, defense_meter, weapon_select, pet_energy_window, artherian, player_battle_sprite,
-                    current_npc_interacting, in_npc_interaction):
+                    current_npc_interacting, in_npc_interaction, hearth_stone, marrow_attuned, sfx_hearth):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -22,6 +22,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     screen.blit(artherian.surf, artherian.rect)
+    screen.blit(hearth_stone.surf, hearth_stone.rect)
 
     try:
         for pet in player.pet:
@@ -66,6 +67,32 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
             drawing_functions.loot_text_container.clear()
             combat_scenario.battle_animation_player(player, player_battle_sprite, False,
                                                     False, graphic_dict)
+
+    if pygame.sprite.collide_rect(player, hearth_stone):
+        interaction_popup.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("hearth stone"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (hearth_stone.x_coordinate, hearth_stone.y_coordinate - 25)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        if not marrow_attuned:
+            info_text_1 = "Press 'F' key to attune to stone."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            if interacted and in_over_world:
+                pygame.mixer.find_channel(True).play(sfx_hearth)
+                hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate,
+                                    graphic_dict["hearth_stone_lit"])
+                marrow_attuned = True
+                info_text_1 = "You have attuned to the stone."
+                info_text_2 = "You may now fast travel here."
+                interacted = False
+    else:
+        hearth_stone.update(hearth_stone.x_coordinate, hearth_stone.y_coordinate, graphic_dict["hearth_stone"])
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -124,7 +151,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                               "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                               "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
                               "movement_able": movement_able, "current_npc_interacting": current_npc_interacting,
-                              "in_npc_interaction": in_npc_interaction}
+                              "in_npc_interaction": in_npc_interaction, "marrow_attuned": marrow_attuned}
 
     return marrow_district_return
 
@@ -344,7 +371,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       overlay_marrow_west, overlay_marrow_east, crate_1, crate_2, ramps_crate_1_got,
                       ramps_crate_2_got, sfx_item_potion, Item, necrola_1, necrola_2, necrola_rect_1, necrola_rect_2,
                       player_battle_sprite, barrier_active, sharp_sense_active, necrola_battle_sprite, in_battle,
-                      current_enemy_battling):
+                      current_enemy_battling, sfx_surprise):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -480,6 +507,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                 necrola_1.surf = graphic_dict["necrola"]
                 necrola_1.rect = necrola_1.surf.get_rect(center=(necrola_1.x_coordinate, necrola_1.y_coordinate))
             else:
+                pygame.mixer.find_channel(True).play(sfx_surprise)
                 current_enemy_battling = necrola_1
                 in_over_world = False
                 movement_able = False
@@ -504,6 +532,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                 necrola_2.surf = graphic_dict["necrola"]
                 necrola_2.rect = necrola_2.surf.get_rect(center=(necrola_2.x_coordinate, necrola_2.y_coordinate))
             else:
+                pygame.mixer.find_channel(True).play(sfx_surprise)
                 current_enemy_battling = necrola_2
                 in_over_world = False
                 movement_able = False
@@ -555,7 +584,8 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                       overlay_marrow_west, overlay_marrow_east, crate_3, crate_4, ramps_crate_3_got, ramps_crate_4_got,
                       sfx_item_potion, Item, necrola_3, in_battle, necrola_rect_3, player_battle_sprite,
-                      barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling):
+                      barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling,
+                      sfx_surprise):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -688,6 +718,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                 necrola_3.surf = graphic_dict["necrola"]
                 necrola_3.rect = necrola_3.surf.get_rect(center=(necrola_3.x_coordinate, necrola_3.y_coordinate))
             else:
+                pygame.mixer.find_channel(True).play(sfx_surprise)
                 current_enemy_battling = necrola_3
                 in_over_world = False
                 movement_able = False

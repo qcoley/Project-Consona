@@ -6478,6 +6478,7 @@ if __name__ == "__main__":
     seldon_hearth_screen = graphic_dict["seldon_hearth_screen"]
     korlok_hearth_screen = graphic_dict["korlok_hearth_screen"]
     eldream_hearth_screen = graphic_dict["eldream_hearth_screen"]
+    marrow_hearth_screen = graphic_dict["marrow_hearth_screen"]
     game_over_screen = graphic_dict["game_over_screen"]
     start_screen = graphic_dict["start_screen"]
     start_screen_logo = graphic_dict["start_screen_logo"]
@@ -6842,6 +6843,7 @@ if __name__ == "__main__":
     mines_ore_4 = Item("mines ore", "ore", 275, 150, graphic_dict["sprite_ore_img"], 0)
 
     hearth_stone = Building("hearth", "seldon hearth", 860, 595, graphic_dict["hearth_stone"])
+    marrow_hearth = Building("hearth", "marrow hearth", 960, 350, graphic_dict["hearth_stone"])
 
     stardust_entrance = Building("shop", "stardust post", 530, 325, graphic_dict["stardust_entrance"])
     rohir_gate = Building("gate", "rohir gate", 525, 50, graphic_dict["rohir_gate"])
@@ -7123,7 +7125,7 @@ if __name__ == "__main__":
     dungeon_switch_ramps_2 = Item("switch ramps 2", "switch", 195, 135, graphic_dict["dungeon_switch_inactive"], 0)
 
     dungeon_chest_ramps = Item("dungeon chest ramps", "chest", 575, 635, graphic_dict["dungeon_chest"], 0)
-    dungeon_chest_ramps_rect = pygame.Rect((530, 600,), (90, 10))
+    dungeon_chest_ramps_rect = pygame.Rect((530, 625,), (90, 10))
 
     pine_tree_1 = Tree("tree", "pine tree", 80, 445, False, graphic_dict["pine_tree"])
     pine_tree_2 = Tree("tree", "pine tree", 260, 590, False, graphic_dict["pine_tree"])
@@ -7388,9 +7390,11 @@ if __name__ == "__main__":
     sfx_enemy_erebyth_growl.set_volume(0.55)
     sfx_enemy_erebyth_flame = pygame.mixer.Sound(resource_path("resources/sounds/enemy_erebyth_flame.mp3"))
     sfx_enemy_erebyth_flame.set_volume(0.25)
-
     sfx_stelli_battle = pygame.mixer.Sound(resource_path("resources/sounds/stelli_battle.mp3"))
     sfx_stelli_battle.set_volume(0.30)
+
+    sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
+    sfx_surprise_attack.set_volume(0.20)
 
     sfx_quest_complete = pygame.mixer.Sound(resource_path("resources/sounds/quest_complete.mp3"))
     sfx_quest_complete.set_volume(0.35)
@@ -7576,6 +7580,7 @@ if __name__ == "__main__":
     gloves_obtained = False
     korlok_attuned = False
     eldream_attuned = False
+    marrow_attuned = False
     apothecary_access = False
     menagerie_access = False
     prime_1 = True
@@ -7719,7 +7724,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -8263,6 +8268,7 @@ if __name__ == "__main__":
                         boots_obtained = load_returned["boots_obtained"]
                         korlok_attuned = load_returned["korlok_attuned"]
                         eldream_attuned = load_returned["eldream_attuned"]
+                        marrow_attuned = load_returned["marrow_attuned"]
                         apothecary_access = load_returned["apothecary_access"]
                         beyond_seldon = load_returned["beyond seldon"]
                         seed_given = load_returned["seed given"]
@@ -8714,6 +8720,8 @@ if __name__ == "__main__":
                                 if player.current_zone == "marrow":
                                     if pygame.Rect.colliderect(player.rect, npc_artherian.rect):
                                         interacted = True
+                                    if pygame.Rect.colliderect(player.rect, marrow_hearth.rect):
+                                        interacted = True
                                 if player.current_zone == "marrow entrance":
                                     if pygame.sprite.spritecollideany(player, interactables_marrow_entrance):
                                         interacted = True
@@ -8887,7 +8895,7 @@ if __name__ == "__main__":
                                                                  boots_obtained, marrow_switch_phase, erebyth_defeated,
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
-                                                                 ramps_crate_5_got)
+                                                                 ramps_crate_5_got, marrow_attuned)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -8916,7 +8924,8 @@ if __name__ == "__main__":
                                                              dreth_cutscenes_not_viewed, mirror_learned, stun_learned,
                                                              vanish_learned, boots_obtained, marrow_switch_phase,
                                                              erebyth_defeated, ramps_crate_1_got, ramps_crate_2_got,
-                                                             ramps_crate_3_got, ramps_crate_4_got, ramps_crate_5_got)
+                                                             ramps_crate_3_got, ramps_crate_4_got, ramps_crate_5_got,
+                                                             marrow_attuned)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -8973,7 +8982,8 @@ if __name__ == "__main__":
                                                                             seldon_hearth_screen, seldon_district_bg,
                                                                             korlok_hearth_screen, korlok_district_bg,
                                                                             eldream_hearth_screen, eldream_district_bg,
-                                                                            SCREEN_WIDTH, SCREEN_HEIGHT, game_window)
+                                                                            SCREEN_WIDTH, SCREEN_HEIGHT, game_window,
+                                                                            marrow_hearth_screen, marrow_district_bg)
                                     player.x_coordinate = 860
                                     player.y_coordinate = 655
                                     player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
@@ -9003,7 +9013,9 @@ if __name__ == "__main__":
                                                                                 korlok_district_bg,
                                                                                 eldream_hearth_screen,
                                                                                 eldream_district_bg, SCREEN_WIDTH,
-                                                                                SCREEN_HEIGHT, game_window)
+                                                                                SCREEN_HEIGHT, game_window,
+                                                                                marrow_hearth_screen,
+                                                                                marrow_district_bg)
                                         player.x_coordinate = 895
                                         player.y_coordinate = 325
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
@@ -9035,7 +9047,9 @@ if __name__ == "__main__":
                                                                                 korlok_district_bg,
                                                                                 eldream_hearth_screen,
                                                                                 eldream_district_bg, SCREEN_WIDTH,
-                                                                                SCREEN_HEIGHT, game_window)
+                                                                                SCREEN_HEIGHT, game_window,
+                                                                                marrow_hearth_screen,
+                                                                                marrow_district_bg)
                                         player.x_coordinate = 890
                                         player.y_coordinate = 635
                                         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
@@ -9057,8 +9071,38 @@ if __name__ == "__main__":
                                         info_text_1 = "You have not yet attuned there. "
                                         info_text_2 = ""
                                 if marrow_map_button.rect.collidepoint(pos):
-                                    info_text_1 = "You have not yet attuned there. "
-                                    info_text_2 = ""
+                                    if marrow_attuned:
+                                        pygame.mixer.find_channel(True).play(sfx_map_teleport)
+                                        player.current_zone = "marrow"
+                                        drawing_functions.hearthstone_animation(pygame, screen, player,
+                                                                                seldon_hearth_screen,
+                                                                                seldon_district_bg,
+                                                                                korlok_hearth_screen,
+                                                                                korlok_district_bg,
+                                                                                eldream_hearth_screen,
+                                                                                eldream_district_bg, SCREEN_WIDTH,
+                                                                                SCREEN_HEIGHT, game_window,
+                                                                                marrow_hearth_screen,
+                                                                                marrow_district_bg)
+                                        player.x_coordinate = 890
+                                        player.y_coordinate = 390
+                                        player.rect = player.surf.get_rect(midbottom=(player.x_coordinate,
+                                                                                      player.y_coordinate))
+                                        # keep player pet with player as they move
+                                        try:
+                                            for pet in player.pet:
+                                                if pet.active:
+                                                    pet.update(pet_update_x, pet_update_y, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                        except AttributeError:
+                                            pass
+                                        info_text_1 = "You recalled to the marrow stone."
+                                        over_world_song_set = False
+                                        stardust_song_set = False
+                                        drawing_functions.world_map_container.clear()
+                                        map_button_clicked = False
+                                    else:
+                                        info_text_1 = "You have not yet attuned there. "
+                                        info_text_2 = ""
 
                             # pop-up notifications, click to hide
                             if knowledge_academia.rect.collidepoint(pos):
@@ -9603,7 +9647,8 @@ if __name__ == "__main__":
                                                                                weapon_select, pet_energy_window,
                                                                                npc_artherian, player_battle_sprite,
                                                                                current_npc_interacting,
-                                                                               in_npc_interaction)
+                                                                               in_npc_interaction, marrow_hearth,
+                                                                               marrow_attuned, sfx_map_teleport)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -9621,7 +9666,8 @@ if __name__ == "__main__":
                                                                                weapon_select, pet_energy_window,
                                                                                npc_artherian, player_battle_sprite,
                                                                                current_npc_interacting,
-                                                                               in_npc_interaction)
+                                                                               in_npc_interaction, marrow_hearth,
+                                                                               marrow_attuned, sfx_map_teleport)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -9634,6 +9680,7 @@ if __name__ == "__main__":
                     npc_tic = marrow_district_returned["npc_tic"]
                     current_npc_interacting = marrow_district_returned["current_npc_interacting"]
                     in_npc_interaction = marrow_district_returned["in_npc_interaction"]
+                    marrow_attuned = marrow_district_returned["marrow_attuned"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in marrow entrance ----------------------------------------------------------------------
@@ -9734,7 +9781,8 @@ if __name__ == "__main__":
                                                                                    player_battle_sprite, barrier_active,
                                                                                    sharp_sense_active,
                                                                                    necrola_battle_sprite, in_battle,
-                                                                                   current_enemy_battling)
+                                                                                   current_enemy_battling,
+                                                                                   sfx_surprise_attack)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -9762,7 +9810,8 @@ if __name__ == "__main__":
                                                                                    player_battle_sprite, barrier_active,
                                                                                    sharp_sense_active,
                                                                                    necrola_battle_sprite, in_battle,
-                                                                                   current_enemy_battling)
+                                                                                   current_enemy_battling,
+                                                                                   sfx_surprise_attack)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -9809,7 +9858,8 @@ if __name__ == "__main__":
                                                                                    necrola_rect_3, player_battle_sprite,
                                                                                    barrier_active, sharp_sense_active,
                                                                                    necrola_battle_sprite,
-                                                                                   current_enemy_battling)
+                                                                                   current_enemy_battling,
+                                                                                   sfx_surprise_attack)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -9837,7 +9887,8 @@ if __name__ == "__main__":
                                                                                    necrola_rect_3, player_battle_sprite,
                                                                                    barrier_active, sharp_sense_active,
                                                                                    necrola_battle_sprite,
-                                                                                   current_enemy_battling)
+                                                                                   current_enemy_battling,
+                                                                                   sfx_surprise_attack)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -11341,6 +11392,8 @@ if __name__ == "__main__":
                                 drawing_functions.item_info_window.clear()
                                 button_highlighted = False
                                 try:
+                                    if current_enemy_battling.name == "erebyth":
+                                        erebyth_turn_counter += 1
                                     # consume a turn when an item is used in combat
                                     if current_info_item.name == "small energy potion" or \
                                             current_info_item.name == "big energy potion":
@@ -11572,7 +11625,8 @@ if __name__ == "__main__":
 
                                         # if player was successful in defeating enemy, combat ends, movement is allowed
                                         if combat_events["enemy defeated"]:
-                                            current_enemy_battling.alive_status = False
+                                            if current_enemy_battling.kind != "stelli":
+                                                current_enemy_battling.alive_status = False
                                             # player will gain knowledge based on their current role
                                             if player.role == "mage":
                                                 if player.level < 10 and player.knowledge["mage"] < 80 or \
@@ -14494,7 +14548,7 @@ if __name__ == "__main__":
                                                                  boots_obtained, marrow_switch_phase, erebyth_defeated,
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
-                                                                 ramps_crate_5_got)
+                                                                 ramps_crate_5_got, marrow_attuned)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -15091,7 +15145,7 @@ if __name__ == "__main__":
                                                                  boots_obtained, marrow_switch_phase, erebyth_defeated,
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
-                                                                 ramps_crate_5_got)
+                                                                 ramps_crate_5_got, marrow_attuned)
 
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -15490,7 +15544,8 @@ if __name__ == "__main__":
                                                                      boots_obtained, marrow_switch_phase,
                                                                      erebyth_defeated, ramps_crate_1_got,
                                                                      ramps_crate_2_got, ramps_crate_3_got,
-                                                                     ramps_crate_4_got, ramps_crate_5_got)
+                                                                     ramps_crate_4_got, ramps_crate_5_got,
+                                                                     marrow_attuned)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -15688,7 +15743,8 @@ if __name__ == "__main__":
                                                                      boots_obtained, marrow_switch_phase,
                                                                      erebyth_defeated, ramps_crate_1_got,
                                                                      ramps_crate_2_got, ramps_crate_3_got,
-                                                                     ramps_crate_4_got, ramps_crate_5_got)
+                                                                     ramps_crate_4_got, ramps_crate_5_got,
+                                                                     marrow_attuned)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -15886,7 +15942,8 @@ if __name__ == "__main__":
                                                                      boots_obtained, marrow_switch_phase,
                                                                      erebyth_defeated, ramps_crate_1_got,
                                                                      ramps_crate_2_got, ramps_crate_3_got,
-                                                                     ramps_crate_4_got, ramps_crate_5_got)
+                                                                     ramps_crate_4_got, ramps_crate_5_got,
+                                                                     marrow_attuned)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -16451,7 +16508,12 @@ if __name__ == "__main__":
                             combat_scenario.enemy_health_bar(chinzilla, graphic_dict)
                             erebyth.health = 100
                             combat_scenario.enemy_health_bar(erebyth, graphic_dict)
-
+                            necrola_ramps_1.health = 100
+                            combat_scenario.enemy_health_bar(necrola_ramps_1, graphic_dict)
+                            necrola_ramps_2.health = 100
+                            combat_scenario.enemy_health_bar(necrola_ramps_2, graphic_dict)
+                            necrola_ramps_3.health = 100
+                            combat_scenario.enemy_health_bar(necrola_ramps_3, graphic_dict)
                             erebyth_turn_counter = 0
 
                     elif event.type == QUIT:

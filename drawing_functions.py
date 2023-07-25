@@ -1627,7 +1627,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg
 def hearthstone_animation(pygame, screen, player, seldon_hearth_screen, seldon_district_bg, korlok_hearth_screen,
                           korlok_district_bg, eldream_hearth_screen, eldream_district_bg, SCREEN_WIDTH,
-                          SCREEN_HEIGHT, game_window):
+                          SCREEN_HEIGHT, game_window, marrow_hearth_screen, marrow_district_bg):
     if player.current_zone == "seldon":
         screen.fill((0, 0, 0))
         for alphas in range(0, 200):
@@ -1683,6 +1683,26 @@ def hearthstone_animation(pygame, screen, player, seldon_hearth_screen, seldon_d
             pygame.display.flip()
         eldream_district_bg.set_alpha(255)
         screen.blit(eldream_district_bg, (0, 0))
+        frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        game_window.blit(frame, frame.get_rect())
+        pygame.display.flip()
+    if player.current_zone == "marrow":
+        screen.fill((0, 0, 0))
+        for alphas in range(0, 200):
+            marrow_hearth_screen.set_alpha(alphas)
+            screen.blit(marrow_hearth_screen, (0, 0))
+            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+            game_window.blit(frame, frame.get_rect())
+            pygame.display.flip()
+        screen.fill((0, 0, 0))
+        for alphas in range(0, 50):
+            marrow_district_bg.set_alpha(alphas)
+            screen.blit(marrow_district_bg, (0, 0))
+            frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
+            game_window.blit(frame, frame.get_rect())
+            pygame.display.flip()
+        marrow_district_bg.set_alpha(255)
+        screen.blit(marrow_district_bg, (0, 0))
         frame = pygame.transform.smoothscale(screen, (SCREEN_WIDTH, SCREEN_HEIGHT))
         game_window.blit(frame, frame.get_rect())
         pygame.display.flip()
