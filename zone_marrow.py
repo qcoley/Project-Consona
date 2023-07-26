@@ -221,7 +221,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                     overlay_marrow_west, overlay_marrow_east, overlay_switch, switch_shadow, switch_phase, switch_box,
                     marrow_entrance_bg_open, entrance_music, entrance_npc, entrance_1, entrance_2, entrance_3,
-                    entrance_popup, sfx_switch):
+                    entrance_popup, sfx_switch, hearth_stone):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(entrance_music)
@@ -398,6 +398,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     screen.blit(entrance_text_surf, entrance_text_rect)
 
     if 450 < player.x_coordinate < 550 and player.y_coordinate < 40:
+        hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
         player.current_zone = "eldream"
         in_over_world = True
         over_world_song_set = False

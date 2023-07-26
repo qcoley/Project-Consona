@@ -28,7 +28,7 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
-                                                      ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies)
     bandiles = respawned_dict["bandiles"]
 
     for enemy_sprite in bandiles:  # update enemy sprite to a highlighted version

@@ -22,6 +22,8 @@ import zone_terra_trail
 import zone_eldream
 import zone_ectrenos
 import zone_marrow
+import zone_forge
+import zone_altar
 
 # global variable
 velocity = 3
@@ -2095,6 +2097,20 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if self.y_coordinate < 616:
                         self.y_coordinate += velocity
+        if current_zone == "forge":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge_forge):
+                        if self.y_coordinate < chroma_bridge_forge.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate < 620:
+                            self.y_coordinate += velocity
+            except AttributeError:
+                if pygame.sprite.collide_rect(self, chroma_bridge_forge):
+                    if self.y_coordinate < chroma_bridge_forge.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if self.y_coordinate < 620:
+                        self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -4132,6 +4148,20 @@ class PlayerNuldar(pygame.sprite.Sprite):
                     if self.y_coordinate < chroma_bridge.y_coordinate:
                         self.y_coordinate -= velocity
                     if self.y_coordinate < 616:
+                        self.y_coordinate += velocity
+        if current_zone == "forge":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge_forge):
+                        if self.y_coordinate < chroma_bridge_forge.y_coordinate:
+                            self.y_coordinate -= velocity
+                        if self.y_coordinate < 620:
+                            self.y_coordinate += velocity
+            except AttributeError:
+                if pygame.sprite.collide_rect(self, chroma_bridge_forge):
+                    if self.y_coordinate < chroma_bridge_forge.y_coordinate:
+                        self.y_coordinate -= velocity
+                    if self.y_coordinate < 620:
                         self.y_coordinate += velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
@@ -6172,6 +6202,20 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.y_coordinate -= velocity
                     if self.y_coordinate < 616:
                         self.y_coordinate += velocity
+        if current_zone == "forge":
+            try:
+                if self.equipment["boots"].name != "chroma boots":
+                    if pygame.sprite.collide_rect(self, chroma_bridge_forge):
+                        if self.y_coordinate > chroma_bridge_forge.y_coordinate:
+                            self.y_coordinate += velocity
+                        if self.y_coordinate < 625:
+                            self.y_coordinate -= velocity
+            except AttributeError:
+                if pygame.sprite.collide_rect(self, chroma_bridge_forge):
+                    if self.y_coordinate > chroma_bridge_forge.y_coordinate:
+                        self.y_coordinate += velocity
+                    if self.y_coordinate < 625:
+                        self.y_coordinate -= velocity
 
         self.rect.midbottom = (self.x_coordinate, self.y_coordinate)
 
@@ -6486,6 +6530,7 @@ if __name__ == "__main__":
     korlok_district_bg = graphic_dict["korlok_bg_screen"]
     korlok_district_repaired_bg = graphic_dict["korlok_repaired_screen"]
     korlok_mines_bg = graphic_dict["korlok_mines"]
+    korlok_forge_bg = graphic_dict["korlok_forge_bg"]
     eldream_district_bg = graphic_dict["eldream_bg_screen"]
     eldream_interaction_bg = graphic_dict["eldream_interaction"]
     ectrenos_bg = graphic_dict["ectrenos_bg"]
@@ -6848,6 +6893,8 @@ if __name__ == "__main__":
     nuldar_building_top_2 = UiElement("building top", 677, 390, graphic_dict["nuldar_building_top"])
     nuldar_building_top_3 = UiElement("building top", 746, 240, graphic_dict["nuldar_building_top"])
     mines_entrance = Building("entrance", "mines entrance", 430, 375, graphic_dict["mines_entrance"])
+    forge_entrance = Building("entrance", "forge entrance", 500, 125, graphic_dict["mines_entrance"])
+    altar_entrance = Building("entrance", "altar entrance", 150, 390, graphic_dict["mines_entrance"])
 
     mines_ore_1 = Item("mines ore", "ore", 125, 230, graphic_dict["sprite_ore_img"], 0)
     mines_ore_2 = Item("mines ore", "ore", 200, 230, graphic_dict["sprite_ore_img"], 0)
@@ -7193,6 +7240,7 @@ if __name__ == "__main__":
     chroma_bridge = UiElement("chroma bridge", 477, 493, graphic_dict["chroma_bridge"])
     chroma_bridge_small = UiElement("chroma bridge small", 308, 281, graphic_dict["chroma_bridge_small"])
     chroma_bridge_ramps = UiElement("chroma bridge ramps", 575, 395, graphic_dict["overlay_chroma_ramps"])
+    chroma_bridge_forge = UiElement("chroma bridge forge", 516, 545, graphic_dict["chroma_forge"])
 
     volcano_rect = pygame.Rect((450, 15), (100, 50))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
@@ -8444,6 +8492,10 @@ if __name__ == "__main__":
                             player.x_coordinate = 575
                             player.y_coordinate = 250
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "forge":
+                            player.x_coordinate = 515
+                            player.y_coordinate = 650
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
                         if marrow_switch_phase == "red":
                             overlay_marrow_switch.update(640, 360, graphic_dict["marrow_switch_red"])
@@ -8640,7 +8692,7 @@ if __name__ == "__main__":
 
                                 # clear character or journal sheet
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
-                                drawing_functions.journal_info_draw(journal, player, font, False)
+                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase)
 
                             # "F" key for player interaction
                             if event.key == K_f:
@@ -8691,6 +8743,8 @@ if __name__ == "__main__":
                                     if pygame.sprite.spritecollideany(player, interactables_korlok,
                                                                       pygame.sprite.collide_rect_ratio(0.75)):
                                         interacted = True
+                                    if pygame.Rect.colliderect(player.rect, forge_entrance):
+                                        interacted = True
                                 if player.current_zone == "mines":
                                     if pygame.sprite.spritecollideany(player, interactables_mines,
                                                                       pygame.sprite.collide_rect_ratio(0.75)):
@@ -8722,6 +8776,8 @@ if __name__ == "__main__":
                                     if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, altar_entrance):
                                         interacted = True
                                 if player.current_zone == "ectrenos front":
                                     if pygame.Rect.colliderect(player.rect, npc_everett.rect):
@@ -9442,7 +9498,8 @@ if __name__ == "__main__":
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
                                                                       stelli_battle_sprite, vanished, vanish_overlay,
                                                                       worker_delay_tic, overlay_bridge_gate,
-                                                                      erebyth_defeated, korlok_district_repaired_bg)
+                                                                      erebyth_defeated, korlok_district_repaired_bg,
+                                                                      forge_entrance)
                     else:
                         korlok_returned = zone_korlok.korlok_district(pygame, game_window, graphic_dict, player,
                                                                       korlok_district_bg, korlok_overworld_music,
@@ -9485,7 +9542,8 @@ if __name__ == "__main__":
                                                                       nuldar_building_top_3, npc_worker_2, worker_tic,
                                                                       stelli_battle_sprite, vanished, vanish_overlay,
                                                                       worker_delay_tic, overlay_bridge_gate,
-                                                                      erebyth_defeated, korlok_district_repaired_bg)
+                                                                      erebyth_defeated, korlok_district_repaired_bg,
+                                                                      forge_entrance)
 
                     over_world_song_set = korlok_returned["over_world_song_set"]
                     korlok_attuned = korlok_returned["korlok_attuned"]
@@ -9744,7 +9802,7 @@ if __name__ == "__main__":
                                                                                marrow_entrance_music,
                                                                                npc_marrow_entrance, entrance_1,
                                                                                entrance_2, entrance_3, entrance_popup,
-                                                                               sfx_activate_switch)
+                                                                               sfx_activate_switch, hearth_stone)
                     else:
                         marrow_entrance_returned = zone_marrow.marrow_entrance(pygame, game_window, graphic_dict,
                                                                                player, marrow_entrance_bg,
@@ -9768,7 +9826,7 @@ if __name__ == "__main__":
                                                                                marrow_entrance_music,
                                                                                npc_marrow_entrance, entrance_1,
                                                                                entrance_2, entrance_3, entrance_popup,
-                                                                               sfx_activate_switch)
+                                                                               sfx_activate_switch, hearth_stone)
 
                     over_world_song_set = marrow_entrance_returned["over_world_song_set"]
                     interacted = marrow_entrance_returned["interacted"]
@@ -10400,7 +10458,8 @@ if __name__ == "__main__":
                                                                              in_menagerie, quest_star_aitor,
                                                                              pet_energy_window, npc_leyre, sfx_find,
                                                                              critter_ectrenos_2, critter_right_move,
-                                                                             critter_left_move, critter_tic, walk_move)
+                                                                             critter_left_move, critter_tic, walk_move,
+                                                                             altar_entrance)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -10427,7 +10486,8 @@ if __name__ == "__main__":
                                                                              in_menagerie, quest_star_aitor,
                                                                              pet_energy_window, npc_leyre, sfx_find,
                                                                              critter_ectrenos_2, critter_right_move,
-                                                                             critter_left_move, critter_tic, walk_move)
+                                                                             critter_left_move, critter_tic, walk_move,
+                                                                             altar_entrance)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -10746,7 +10806,7 @@ if __name__ == "__main__":
                     interactables_ectrenos = ectrenos_alcove_returned["interactables_ectrenos"]
 
                 # ------------------------------------------------------------------------------------------------------
-                # if player is in korlok district ----------------------------------------------------------------------
+                # if player is in korlok district mines ----------------------------------------------------------------
                 if player.current_zone == "mines" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
@@ -10834,7 +10894,95 @@ if __name__ == "__main__":
                     jez_3 = mines_returned["jez_3"]
 
                 # ------------------------------------------------------------------------------------------------------
-                # if player is in korlok district ----------------------------------------------------------------------
+                # if player is in korlok forge -------------------------------------------------------------------------
+                if player.current_zone == "forge" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        forge_returned = zone_forge.korlok_forge(pygame, screen, graphic_dict, player,
+                                                                 korlok_forge_bg, korlok_overworld_music,
+                                                                 over_world_song_set, interaction_popup, font,
+                                                                 save_check_window, user_interface,
+                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                 button_highlighted, button_highlight,
+                                                                 in_over_world, interacted, info_text_1,
+                                                                 info_text_2, info_text_3, info_text_4, enemy_tic,
+                                                                 npc_tic, in_battle, in_npc_interaction,
+                                                                 movement_able, equipment_screen, staff, sword, bow,
+                                                                 npc_garan, offense_meter, defense_meter,
+                                                                 weapon_select, pet_energy_window, vanished,
+                                                                 vanish_overlay, hearth_stone, chroma_bridge_forge)
+                    else:
+                        forge_returned = zone_forge.korlok_forge(pygame, game_window, graphic_dict, player,
+                                                                 korlok_forge_bg, korlok_overworld_music,
+                                                                 over_world_song_set, interaction_popup, font,
+                                                                 save_check_window, user_interface,
+                                                                 bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                 button_highlighted, button_highlight,
+                                                                 in_over_world, interacted, info_text_1,
+                                                                 info_text_2, info_text_3, info_text_4, enemy_tic,
+                                                                 npc_tic, in_battle, in_npc_interaction,
+                                                                 movement_able, equipment_screen, staff, sword, bow,
+                                                                 npc_garan, offense_meter, defense_meter,
+                                                                 weapon_select, pet_energy_window, vanished,
+                                                                 vanish_overlay, hearth_stone, chroma_bridge_forge)
+
+                    over_world_song_set = forge_returned["over_world_song_set"]
+                    interacted = forge_returned["interacted"]
+                    in_over_world = forge_returned["in_over_world"]
+                    movement_able = forge_returned["movement_able"]
+                    npc_tic = forge_returned["npc_tic"]
+                    info_text_1 = forge_returned["info_text_1"]
+                    info_text_2 = forge_returned["info_text_2"]
+                    info_text_3 = forge_returned["info_text_3"]
+                    info_text_4 = forge_returned["info_text_4"]
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in eldream altar ------------------------------------------------------------------------
+                if player.current_zone == "altar" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        altar_returned = zone_altar.eldream_altar(pygame, screen, graphic_dict, player,
+                                                                  korlok_mines_bg, korlok_overworld_music,
+                                                                  over_world_song_set, interaction_popup, font,
+                                                                  save_check_window, user_interface,
+                                                                  bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                  button_highlighted, button_highlight,
+                                                                  in_over_world, interacted, info_text_1,
+                                                                  info_text_2, info_text_3, info_text_4, enemy_tic,
+                                                                  npc_tic, in_battle, in_npc_interaction,
+                                                                  movement_able, equipment_screen, staff, sword, bow,
+                                                                  npc_garan, offense_meter, defense_meter,
+                                                                  weapon_select, pet_energy_window, vanished,
+                                                                  vanish_overlay, hearth_stone)
+                    else:
+                        altar_returned = zone_altar.eldream_altar(pygame, game_window, graphic_dict, player,
+                                                                  korlok_mines_bg, korlok_overworld_music,
+                                                                  over_world_song_set, interaction_popup, font,
+                                                                  save_check_window, user_interface,
+                                                                  bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                  button_highlighted, button_highlight,
+                                                                  in_over_world, interacted, info_text_1,
+                                                                  info_text_2, info_text_3, info_text_4, enemy_tic,
+                                                                  npc_tic, in_battle, in_npc_interaction,
+                                                                  movement_able, equipment_screen, staff, sword, bow,
+                                                                  npc_garan, offense_meter, defense_meter,
+                                                                  weapon_select, pet_energy_window, vanished,
+                                                                  vanish_overlay, hearth_stone)
+
+                    over_world_song_set = altar_returned["over_world_song_set"]
+                    interacted = altar_returned["interacted"]
+                    in_over_world = altar_returned["in_over_world"]
+                    movement_able = altar_returned["movement_able"]
+                    npc_tic = altar_returned["npc_tic"]
+                    info_text_1 = altar_returned["info_text_1"]
+                    info_text_2 = altar_returned["info_text_2"]
+                    info_text_3 = altar_returned["info_text_3"]
+                    info_text_4 = altar_returned["info_text_4"]
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in terra trail --------------------------------------------------------------------------
                 if player.current_zone == "terra trail" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
@@ -14597,7 +14745,9 @@ if __name__ == "__main__":
                                                                      zerah_quest_window, kirean_quest_window,
                                                                      dionte_quest_window, accept_button, decline_button,
                                                                      omoku_quest_window, leyre_quest_window,
-                                                                     aitor_quest_window, everett_quest_window)
+                                                                     aitor_quest_window, everett_quest_window,
+                                                                     artherian_task_window, artherian_task_window_2,
+                                                                     artherian_1)
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not kirean_complete_shown:
@@ -15194,7 +15344,9 @@ if __name__ == "__main__":
                                                                      zerah_quest_window, kirean_quest_window,
                                                                      dionte_quest_window, accept_button, decline_button,
                                                                      omoku_quest_window, leyre_quest_window,
-                                                                     aitor_quest_window, everett_quest_window)
+                                                                     aitor_quest_window, everett_quest_window,
+                                                                     artherian_task_window, artherian_task_window_2,
+                                                                     artherian_1)
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not aitor_complete_shown:
@@ -15598,7 +15750,8 @@ if __name__ == "__main__":
                                                                          dionte_quest_window, accept_button,
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
-                                                                         everett_quest_window)
+                                                                         everett_quest_window, artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not garan_complete_shown:
@@ -15656,7 +15809,8 @@ if __name__ == "__main__":
                                                                          dionte_quest_window, accept_button,
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
-                                                                         everett_quest_window)
+                                                                         everett_quest_window, artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not celeste_complete_shown:
@@ -15714,7 +15868,8 @@ if __name__ == "__main__":
                                                                          dionte_quest_window, accept_button,
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
-                                                                         everett_quest_window)
+                                                                         everett_quest_window, artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not maurelle_complete_shown:
@@ -15797,7 +15952,8 @@ if __name__ == "__main__":
                                                                          dionte_quest_window, accept_button,
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
-                                                                         everett_quest_window)
+                                                                         everett_quest_window, artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not torune_complete_shown:
@@ -15856,7 +16012,8 @@ if __name__ == "__main__":
                                                                          dionte_quest_window, accept_button,
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
-                                                                         everett_quest_window)
+                                                                         everett_quest_window, artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not voruke_complete_shown:
@@ -15912,7 +16069,9 @@ if __name__ == "__main__":
                                                                          kirean_quest_window, dionte_quest_window,
                                                                          accept_button, decline_button,
                                                                          omoku_quest_window, leyre_quest_window,
-                                                                         aitor_quest_window, everett_quest_window)
+                                                                         aitor_quest_window, everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not zerah_complete_shown:
@@ -15995,7 +16154,9 @@ if __name__ == "__main__":
                                                                          kirean_quest_window, dionte_quest_window,
                                                                          accept_button, decline_button,
                                                                          omoku_quest_window, leyre_quest_window,
-                                                                         aitor_quest_window, everett_quest_window)
+                                                                         aitor_quest_window, everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not dionte_complete_shown:
@@ -16051,7 +16212,9 @@ if __name__ == "__main__":
                                                                          kirean_quest_window, dionte_quest_window,
                                                                          accept_button, decline_button,
                                                                          omoku_quest_window, leyre_quest_window,
-                                                                         aitor_quest_window, everett_quest_window)
+                                                                         aitor_quest_window, everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not omoku_complete_shown:
@@ -16107,7 +16270,9 @@ if __name__ == "__main__":
                                                                          kirean_quest_window, dionte_quest_window,
                                                                          accept_button, decline_button,
                                                                          omoku_quest_window, leyre_quest_window,
-                                                                         aitor_quest_window, everett_quest_window)
+                                                                         aitor_quest_window, everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not leyre_complete_shown:
@@ -16163,7 +16328,9 @@ if __name__ == "__main__":
                                                                          kirean_quest_window, dionte_quest_window,
                                                                          accept_button, decline_button,
                                                                          omoku_quest_window, leyre_quest_window,
-                                                                         aitor_quest_window, everett_quest_window)
+                                                                         aitor_quest_window, everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not everett_complete_shown:
@@ -16194,6 +16361,16 @@ if __name__ == "__main__":
                                         shard_counter += 1
                                 if shard_counter >= 4:
                                     if len(player.items) < 16:
+                                        for item_x in player.items:
+                                            if item_x.name == "bone shard":
+                                                player.items.remove(item_x)
+                                        for item_y in player.items:
+                                            if item_y.name == "bone shard":
+                                                player.items.remove(item_y)
+                                        for item_z in player.items:
+                                            if item_z.name == "bone shard":
+                                                player.items.remove(item_z)
+
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                         artherian_1 = True
                                         info_text_1 = "You've completed Legends Never Die 1!"

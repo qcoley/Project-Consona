@@ -23,7 +23,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                     eldream_flowers, interactables_eldream, pet_energy_window, ectrenos_front_enemies,
                     necrola_battle_sprite, osodark_battle_sprite, sfx_rupee, sfx_hearth, sfx_door, top_1, top_2, top_3,
                     worker, worker_tic, stelli_battle_sprite, vanished, vanish_overlay, worker_delay_tic,
-                    bridge_gate, erebyth_defeated, repaired_bg):
+                    bridge_gate, erebyth_defeated, repaired_bg, forge_entrance):
 
     rohir_gate.update(525, 600, graphic_dict["rohir_gate"])
 
@@ -31,7 +31,7 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
-                                                      ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies)
     korlok_enemies = respawned_dict["korlok_enemies"]
     magmons = respawned_dict["magmons"]
 
@@ -257,10 +257,11 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
                 in_over_world = True
                 interacted = False
                 over_world_song_set = False
-                player.x_coordinate = 525
-                player.y_coordinate = 100
+                player.x_coordinate = 545
+                player.y_coordinate = 175
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                 rohir_gate.update(525, 50, graphic_dict["rohir_gate"])
+                hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
 
     if pygame.sprite.collide_rect(player, reservoir_enter):
         interaction_popup.update(reservoir_enter.x_coordinate + 50, reservoir_enter.y_coordinate - 55,
@@ -300,6 +301,23 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             player.current_zone = "mines"
             player.x_coordinate = 705
             player.y_coordinate = 600
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    if pygame.sprite.collide_rect(player, forge_entrance):
+        interaction_popup.update(forge_entrance.x_coordinate + 5, forge_entrance.y_coordinate - 50,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("forge"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (forge_entrance.x_coordinate + 5, forge_entrance.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+        info_text_1 = "Press 'F' key to enter the Forge."
+
+        if interacted:
+            interacted = False
+            player.current_zone = "forge"
+            player.x_coordinate = 515
+            player.y_coordinate = 670
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if pygame.sprite.collide_rect(player, hearth_stone):

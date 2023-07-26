@@ -561,13 +561,15 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
             text_location = font.render(str("Korlok"), True, "black", "light yellow")
         if player.current_zone == "mines":
             text_location = font.render(str("Mines"), True, "black", "light yellow")
+        if player.current_zone == "forge":
+            text_location = font.render(str("Forge"), True, "black", "light yellow")
         if player.current_zone == "terra trail":
             text_location = font.render(str("Terra Trail"), True, "black", "light yellow")
         if player.current_zone == "eldream":
             text_location = font.render(str("Eldream"), True, "black", "light yellow")
         if player.current_zone == "ectrenos" or player.current_zone == "ectrenos left" or \
                 player.current_zone == "ectrenos right" or player.current_zone == "ectrenos alcove" or \
-                player.current_zone == "ectrenos front":
+                player.current_zone == "ectrenos front" or player.current_zone == "altar":
             text_location = font.render(str("Ectrenos"), True, "black", "light yellow")
         if player.current_zone == "marrow" or player.current_zone == "marrow entrance" or \
                 player.current_zone == "marrow tower east" or player.current_zone == "marrow tower west" or \
@@ -766,7 +768,8 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase):
             text_quest4_prog_rect.midleft = (950, 538)
 
         if player.current_zone == "korlok" or player.current_zone == "mines" or \
-                player.current_zone == "terra trail" or player.current_zone == "fishing hut":
+                player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
+                or player.current_zone == "forge":
 
             text_quest1_surf = font.render(str(list(player.current_quests)[4]), True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
@@ -818,7 +821,8 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase):
 
         if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                 player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" \
-                or player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
+                or player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" \
+                or player.current_zone == "altar":
 
             text_quest1_surf = font.render(str(list(player.current_quests)[8]), True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()

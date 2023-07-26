@@ -75,6 +75,7 @@ def load_graphics():
     korlok_shop_screen = pygame.image.load(resource_path('resources/art/bg_korlok_shop.png')).convert_alpha()
     korlok_inn_screen = pygame.image.load(resource_path('resources/art/bg_korlok_inn.png')).convert_alpha()
     korlok_apothecary = pygame.image.load(resource_path('resources/art/bg_korlok_apothecary.png')).convert_alpha()
+    korlok_forge_bg = pygame.image.load(resource_path('resources/art/bg_korlok_forge.png')).convert_alpha()
     terra_trail_bg = pygame.image.load(resource_path('resources/art/bg_terra_trail.png')).convert_alpha()
     eldream_bg_screen = pygame.image.load(resource_path('resources/art/bg_eldream_district.png')).convert_alpha()
     eldream_inn_screen = pygame.image.load(resource_path('resources/art/bg_eldream_inn.png')).convert_alpha()
@@ -175,6 +176,7 @@ def load_graphics():
     overlay_eldream_river = pygame.image.load(resource_path('resources/art/overlay_eldream_river.png')).convert_alpha()
     overlay_chroma_bridge = pygame.image.load(resource_path('resources/art/overlay_chroma_bridge.png')).convert_alpha()
     chroma_small = pygame.image.load(resource_path('resources/art/overlay_chroma_bridge_small.png')).convert_alpha()
+    chroma_forge = pygame.image.load(resource_path('resources/art/overlay_chroma_bridge_forge.png')).convert_alpha()
     stardust_top = pygame.image.load(resource_path('resources/art/overlay_stardust_top.png')).convert_alpha()
     alcove_star = pygame.image.load(resource_path('resources/art/overlay_alcove_star.png')).convert_alpha()
     tree_tops = pygame.image.load(resource_path('resources/art/overlay_tree_tops.png')).convert_alpha()
@@ -231,7 +233,7 @@ def load_graphics():
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
                   m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_shadow, m_switch_box, popup_wide,
-                  overlay_enemy_vanish]
+                  overlay_enemy_vanish, chroma_forge]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
@@ -248,6 +250,7 @@ def load_graphics():
     loaded_dict["stardust_top"] = stardust_top
     loaded_dict["chroma_bridge_small"] = chroma_small
     loaded_dict["chroma_bridge"] = overlay_chroma_bridge
+    loaded_dict["chroma_forge"] = chroma_forge
     loaded_dict["pet_energy"] = pet_energy_overlay
     loaded_dict["eldream_menagerie"] = eldream_menagerie
     loaded_dict["overlay_ectrene"] = overlay_ectrene
@@ -277,6 +280,7 @@ def load_graphics():
     loaded_dict["seldon_bg_screen"] = seldon_bg_screen
     loaded_dict["korlok_bg_screen"] = korlok_bg_screen
     loaded_dict["korlok_repaired_screen"] = korlok_re_screen
+    loaded_dict["korlok_forge_bg"] = korlok_forge_bg
     loaded_dict["eldream_bg_screen"] = eldream_bg_screen
     loaded_dict["marrow_interaction_bg"] = marrow_interaction_bg
     loaded_dict["marrow_entrance_bg"] = marrow_entrance_bg

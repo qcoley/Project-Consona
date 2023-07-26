@@ -241,7 +241,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                   current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos, ectrenos_pet_entrance,
                   in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find, critter, right_move,
-                  left_move, critter_tic, walk_move):
+                  left_move, critter_tic, walk_move, altar):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -342,6 +342,23 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
             in_over_world = False
             over_world_song_set = False
             in_menagerie = True
+
+    if pygame.sprite.collide_rect(player, altar):
+        interaction_popup.update(altar.x_coordinate + 8, altar.y_coordinate - 115,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("altar"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (altar.x_coordinate + 8, altar.y_coordinate - 115)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+        info_text_1 = "Press 'F' key to enter the Altar."
+
+        if interacted:
+            interacted = False
+            player.current_zone = "altar"
+            player.x_coordinate = 515
+            player.y_coordinate = 650
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     # if player collides with npc sprite and chooses to interact with it
     if player.quest_progress["las escondidas"] == 0 and player.quest_status["las escondidas"]:
@@ -705,7 +722,7 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
-                                                      ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies)
     ectrenos_front_enemies = respawned_dict["ectrenos_front_enemies"]
 
     for enemy_sprite in ectrenos_front_enemies:  # update enemy sprite to a highlighted version
