@@ -194,6 +194,7 @@ def load_graphics():
     ramparts_battle = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_battle.png')).convert_alpha()
     tower_battle = pygame.image.load(resource_path('resources/art/bg_marrow_tower_battle.png')).convert_alpha()
     overlay_enemy_vanish = pygame.image.load(resource_path('resources/art/overlay_enemy_vanish.png')).convert_alpha()
+    overlay_smelting = pygame.image.load(resource_path('resources/art/overlay_smelting.png')).convert_alpha()
 
     m_switch = pygame.image.load(resource_path('resources/art/overlay_marrow_switch.png')).convert_alpha()
     m_switch_b = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_blue.png')).convert_alpha()
@@ -233,11 +234,12 @@ def load_graphics():
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
                   m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_shadow, m_switch_box, popup_wide,
-                  overlay_enemy_vanish, chroma_forge]
+                  overlay_enemy_vanish, chroma_forge, overlay_smelting]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["overlay_smelting"] = overlay_smelting
     loaded_dict["quest_accepted"] = quest_accepted
     loaded_dict["level_up_vis"] = level_up_vis
     loaded_dict["amuna_building_top"] = a_building_tops

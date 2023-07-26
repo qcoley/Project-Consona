@@ -1189,11 +1189,11 @@ def item_updates(player, graphic):
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "smelted casing":
-                    item_here.update(first_coord, second_coord, graphic["smelted casing"])
+                    item_here.update(first_coord, second_coord, graphic["smelted_casing"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "enchanted casing":
-                    item_here.update(first_coord, second_coord, graphic["enchanted casing"])
+                    item_here.update(first_coord, second_coord, graphic["enchanted_casing"])
                     player_items.append(item_here)
                     inventory_counter += 1
 

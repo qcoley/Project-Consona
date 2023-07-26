@@ -1,4 +1,5 @@
 import drawing_functions
+import time
 
 
 def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_overworld_music,
@@ -7,7 +8,7 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  info_text_1, info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic, in_battle, in_npc_interaction,
                  movement_able, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                  defense_meter, weapon_select, pet_energy_window,  vanished, vanish_overlay, hearth_stone,
-                 chroma_forge):
+                 chroma_forge, forge_rect, Item, sfx_smelting, overlay_smelting, using_forge, smelted_casing):
 
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
@@ -21,6 +22,13 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     screen.blit(defense_meter.surf, defense_meter.rect)
     screen.blit(chroma_forge.surf, chroma_forge.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if using_forge and not smelted_casing:
+        npc_toc = time.perf_counter()
+        if not npc_toc - npc_tic > 2:
+            screen.blit(overlay_smelting.surf, overlay_smelting.rect)
+        else:
+            smelted_casing = True
     try:
         for pet in player.pet:
             if pet.active:
@@ -43,7 +51,30 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     except AttributeError:
         pass
 
+    if pygame.Rect.colliderect(player.rect, forge_rect):
+        interaction_popup.update(515, 100,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("forge"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (515, 100)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+        info_text_1 = "Press 'F' key to use the Forge."
+
+        if interacted:
+            npc_tic = time.perf_counter()
+            using_forge = True
+            interacted = False
+            if not smelted_casing:
+                pygame.mixer.find_channel(True).play(sfx_smelting)
+                for item in player.items:
+                    if item.name == "casing":
+                        player.items.remove(item)
+                        player.items.append(Item("smelted casing", "casing", 200, 200, graphic_dict["smelted_casing"],
+                                                 0))
+
     if 700 < player.y_coordinate:
+        using_forge = False
         player.current_zone = "korlok"
         in_over_world = True
         player.x_coordinate = 540
@@ -84,6 +115,6 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     forge_return = {"over_world_song_set": over_world_song_set, "enemy_tic": enemy_tic, "npc_tic": npc_tic,
                     "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                     "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                    "movement_able": movement_able}
+                    "movement_able": movement_able, "using_forge": using_forge, "smelted_casing": smelted_casing}
 
     return forge_return

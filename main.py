@@ -1865,6 +1865,30 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
+        if current_zone == "forge":
+            if self.y_coordinate < 150:
+                self.y_coordinate = 150
+            if self.y_coordinate < 505:
+                if self.x_coordinate < 182:
+                    self.x_coordinate = 182
+                if self.x_coordinate > 842:
+                    self.x_coordinate = 842
+            if self.y_coordinate > 505:
+                if self.x_coordinate < 390:
+                    self.x_coordinate = 390
+                if self.x_coordinate > 635:
+                    self.x_coordinate = 635
+            if self.x_coordinate > 640 or self.x_coordinate < 385:
+                if self.y_coordinate > 475:
+                    self.y_coordinate = 475
+            if self.y_coordinate < 205:
+                if 515 > self.x_coordinate > 390:
+                    self.x_coordinate = 390
+                if 515 < self.x_coordinate < 635:
+                    self.x_coordinate = 635
+            if 390 < self.x_coordinate < 635:
+                if self.y_coordinate < 215:
+                    self.y_coordinate = 215
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -3917,6 +3941,30 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
+        if current_zone == "forge":
+            if self.y_coordinate < 150:
+                self.y_coordinate = 150
+            if self.y_coordinate < 505:
+                if self.x_coordinate < 182:
+                    self.x_coordinate = 182
+                if self.x_coordinate > 842:
+                    self.x_coordinate = 842
+            if self.y_coordinate > 505:
+                if self.x_coordinate < 390:
+                    self.x_coordinate = 390
+                if self.x_coordinate > 635:
+                    self.x_coordinate = 635
+            if self.x_coordinate > 640 or self.x_coordinate < 385:
+                if self.y_coordinate > 475:
+                    self.y_coordinate = 475
+            if self.y_coordinate < 205:
+                if 515 > self.x_coordinate > 390:
+                    self.x_coordinate = 390
+                if 515 < self.x_coordinate < 635:
+                    self.x_coordinate = 635
+            if 390 < self.x_coordinate < 635:
+                if self.y_coordinate < 215:
+                    self.y_coordinate = 215
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -5969,7 +6017,30 @@ class PlayerSorae(pygame.sprite.Sprite):
             if self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
-
+        if current_zone == "forge":
+            if self.y_coordinate < 150:
+                self.y_coordinate = 150
+            if self.y_coordinate < 505:
+                if self.x_coordinate < 182:
+                    self.x_coordinate = 182
+                if self.x_coordinate > 842:
+                    self.x_coordinate = 842
+            if self.y_coordinate > 505:
+                if self.x_coordinate < 390:
+                    self.x_coordinate = 390
+                if self.x_coordinate > 635:
+                    self.x_coordinate = 635
+            if self.x_coordinate > 640 or self.x_coordinate < 385:
+                if self.y_coordinate > 475:
+                    self.y_coordinate = 475
+            if self.y_coordinate < 205:
+                if 515 > self.x_coordinate > 390:
+                    self.x_coordinate = 390
+                if 515 < self.x_coordinate < 635:
+                    self.x_coordinate = 635
+            if 390 < self.x_coordinate < 635:
+                if self.y_coordinate < 215:
+                    self.y_coordinate = 215
         if current_zone == "marrow ramps west":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -7243,6 +7314,7 @@ if __name__ == "__main__":
     chroma_bridge_forge = UiElement("chroma bridge forge", 516, 545, graphic_dict["chroma_forge"])
 
     volcano_rect = pygame.Rect((450, 15), (100, 50))
+    forge_rect = pygame.Rect((515, 150), (100, 100))
     eldream_gate_rect = pygame.Rect((715, 0), (100, 200))
     ectrenos_entrance_rect = pygame.Rect((520, 520), (100, 50))
     ectrenos_ladder_rect = pygame.Rect((500, 520), (100, 50))
@@ -7259,6 +7331,7 @@ if __name__ == "__main__":
     terra_cave_enter = UiElement("terra cave entrance", 145, 400, graphic_dict["terra_cave"])
     eldream_cart = UiElement("eldream cart", 380, 640, graphic_dict["mines_light"])
     kart_full = UiElement("kart full", 388, 636, graphic_dict["kart_overworld"])
+    overlay_smelting = UiElement("smelting", 517, 150, graphic_dict["overlay_smelting"])
 
     stardust_top = UiElement("stardust top", 531, 205, graphic_dict["stardust_top"])
     alcove_star = UiElement("alcove star", 979, 674, graphic_dict["alcove_star"])
@@ -7509,6 +7582,8 @@ if __name__ == "__main__":
     sfx_find.set_volume(0.18)
     sfx_ladder = pygame.mixer.Sound(resource_path("resources/sounds/ladder.mp3"))
     sfx_ladder.set_volume(0.15)
+    sfx_smelting = pygame.mixer.Sound(resource_path("resources/sounds/sfx_smelting.mp3"))
+    sfx_smelting.set_volume(0.35)
 
     sfx_button_click = pygame.mixer.Sound(resource_path("resources/sounds/button_click.mp3"))
     sfx_button_click.set_volume(0.05)
@@ -7701,6 +7776,10 @@ if __name__ == "__main__":
     beyond_seldon = False
 
     start_logo_set = False
+
+    using_forge = False
+    smelted_casing = False
+    enchanted_casing = False
 
     # reservoir dungeon conditions
     crate_1 = False
@@ -8831,6 +8910,9 @@ if __name__ == "__main__":
                                     if pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1):
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, ramps_crate_5):
+                                        interacted = True
+                                if player.current_zone == "forge":
+                                    if pygame.Rect.colliderect(player.rect, forge_rect):
                                         interacted = True
 
                         elif event.type == QUIT:
@@ -10911,7 +10993,9 @@ if __name__ == "__main__":
                                                                  movement_able, equipment_screen, staff, sword, bow,
                                                                  npc_garan, offense_meter, defense_meter,
                                                                  weapon_select, pet_energy_window, vanished,
-                                                                 vanish_overlay, hearth_stone, chroma_bridge_forge)
+                                                                 vanish_overlay, hearth_stone, chroma_bridge_forge,
+                                                                 forge_rect, Item, sfx_smelting, overlay_smelting,
+                                                                 using_forge, smelted_casing)
                     else:
                         forge_returned = zone_forge.korlok_forge(pygame, game_window, graphic_dict, player,
                                                                  korlok_forge_bg, korlok_overworld_music,
@@ -10925,7 +11009,9 @@ if __name__ == "__main__":
                                                                  movement_able, equipment_screen, staff, sword, bow,
                                                                  npc_garan, offense_meter, defense_meter,
                                                                  weapon_select, pet_energy_window, vanished,
-                                                                 vanish_overlay, hearth_stone, chroma_bridge_forge)
+                                                                 vanish_overlay, hearth_stone, chroma_bridge_forge,
+                                                                 forge_rect, Item, sfx_smelting, overlay_smelting,
+                                                                 using_forge, smelted_casing)
 
                     over_world_song_set = forge_returned["over_world_song_set"]
                     interacted = forge_returned["interacted"]
@@ -10936,6 +11022,8 @@ if __name__ == "__main__":
                     info_text_2 = forge_returned["info_text_2"]
                     info_text_3 = forge_returned["info_text_3"]
                     info_text_4 = forge_returned["info_text_4"]
+                    using_forge = forge_returned["using_forge"]
+                    smelted_casing = forge_returned["smelted_casing"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream altar ------------------------------------------------------------------------
