@@ -355,6 +355,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
 
         if interacted:
             interacted = False
+            over_world_song_set = False
             player.current_zone = "altar"
             player.x_coordinate = 515
             player.y_coordinate = 650

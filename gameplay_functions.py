@@ -993,9 +993,9 @@ def load_game(player, Item, graphics, Pet):
                 if item == "casing":
                     player.items.append(Item("casing", "casing", 200, 200, graphics["casing"], 0))
                 if item == "smelted casing":
-                    player.items.append(Item("smelted casing", "casing", 200, 200, graphics["smelted casing"], 0))
+                    player.items.append(Item("smelted casing", "casing", 200, 200, graphics["smelted_casing"], 0))
                 if item == "enchanted casing":
-                    player.items.append(Item("enchanted casing", "casing", 200, 200, graphics["enchanted casing"], 0))
+                    player.items.append(Item("enchanted casing", "casing", 200, 200, graphics["enchanted_casing"], 0))
 
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
@@ -1045,6 +1045,8 @@ def load_game(player, Item, graphics, Pet):
 
             load_return["saved"] = player_load_info["saved"]
             load_return["garan gift"] = player_load_info["garan gift"]
+            load_return["artherian gift"] = player_load_info["artherian gift"]
+            load_return["artherian_2"] = player_load_info["artherian_2"]
             load_return["rest popup"] = player_load_info["rest popup"]
             load_return["knowledge popup"] = player_load_info["knowledge popup"]
             load_return["quest guide"] = player_load_info["quest guide"]
@@ -1118,7 +1120,8 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               seed_given, hatch_ready, menagerie_access, kasper_unlocked, torok_unlocked, iriana_unlocked,
               rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count, dreth_cutscenes,
               mirror_learned, stun_learned, vanish_learned, boots_obtained, marrow_switch_phase, erebyth_defeated,
-              ramps_crate_1, ramps_crate_2, ramps_crate_3, ramps_crate_4, ramps_crate_5, marrow_attuned):
+              ramps_crate_1, ramps_crate_2, ramps_crate_3, ramps_crate_4, ramps_crate_5, marrow_attuned,
+              artherian_gift, artherian_2):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1154,6 +1157,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "equipment": equipment_save, "hp": int(player.health), "en": int(player.energy),
                         "xp": int(player.experience), "offense": int(player.offense), "defense": int(player.defense),
                         "quests": dict(player.current_quests), "garan gift": garan_gift,
+                        "artherian gift": artherian_gift, "artherian_2": artherian_2,
                         "quest progress": dict(player.quest_progress), "quest status": dict(player.quest_status),
                         "quest complete": dict(player.quest_complete), "knowledge": dict(player.knowledge),
                         "mage skills": dict(player.skills_mage), "fighter skills": dict(player.skills_fighter),
@@ -1494,7 +1498,7 @@ def attack_player(player, mob, barrier_active):
 def level_up(player, level_up_win, level_up_font):
     level_up_dictionary = {"new level": 0, "player stats": []}
 
-    if player.level < 20:
+    if player.level < 30:
         player.level = player.level + 1
         player.health = 100
         player.energy = 100

@@ -1,23 +1,34 @@
+import time
 import drawing_functions
 
 
-def eldream_altar(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_overworld_music,
+def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectrenos_music,
                   over_world_song_set, interaction_popup, font, save_check_window, user_interface,
                   bar_backdrop, hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                   info_text_1, info_text_2, info_text_3, info_text_4, enemy_tic, npc_tic, in_battle, in_npc_interaction,
                   movement_able, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
-                  defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay, hearth_stone):
+                  defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay, hearth_stone,
+                  chroma_forge, forge_rect, Item, sfx_enchanting, overlay_smelting, using_forge, enchanted_casing,
+                  artherian_2):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(korlok_overworld_music)
+        pygame.mixer.music.load(ectrenos_music)
         pygame.mixer.music.play(loops=-1)
         over_world_song_set = True
 
-    screen.blit(korlok_mines_bg, (0, 0))
+    screen.blit(eldream_altar_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
+    screen.blit(chroma_forge.surf, chroma_forge.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    if using_forge and not enchanted_casing:
+        npc_toc = time.perf_counter()
+        if not npc_toc - npc_tic > 2:
+            screen.blit(overlay_smelting.surf, overlay_smelting.rect)
+        else:
+            enchanted_casing = True
     try:
         for pet in player.pet:
             if pet.active:
@@ -40,11 +51,36 @@ def eldream_altar(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_
     except AttributeError:
         pass
 
-    if player.x_coordinate > 660 and 685 < player.y_coordinate:
+    if pygame.Rect.colliderect(player.rect, forge_rect):
+        interaction_popup.update(515, 100,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("altar"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (515, 100)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+        info_text_1 = "Press 'F' key to use the Altar."
+
+        if interacted:
+            npc_tic = time.perf_counter()
+            using_forge = True
+            interacted = False
+            if not enchanted_casing:
+                pygame.mixer.find_channel(True).play(sfx_enchanting)
+                for item in player.items:
+                    if item.name == "smelted casing":
+                        player.items.remove(item)
+                        player.items.append(Item("enchanted casing", "casing", 200, 200,
+                                                 graphic_dict["enchanted_casing"], 0))
+                        artherian_2 = True
+
+    if 700 < player.y_coordinate:
+        using_forge = False
         player.current_zone = "ectrenos left"
         in_over_world = True
-        player.x_coordinate = 155
+        player.x_coordinate = 150
         player.y_coordinate = 475
+        over_world_song_set = False
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -80,6 +116,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_
     altar_return = {"over_world_song_set": over_world_song_set, "enemy_tic": enemy_tic, "npc_tic": npc_tic,
                     "info_text_1": info_text_1, "info_text_2": info_text_2, "info_text_3": info_text_3,
                     "info_text_4": info_text_4, "interacted": interacted, "in_over_world": in_over_world,
-                    "movement_able": movement_able}
+                    "movement_able": movement_able, "using_forge": using_forge, "enchanted_casing": enchanted_casing,
+                    "artherian_2": artherian_2}
 
     return altar_return

@@ -1865,7 +1865,7 @@ class PlayerAmuna(pygame.sprite.Sprite):
             if self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
-        if current_zone == "forge":
+        if current_zone == "forge" or current_zone == "altar":
             if self.y_coordinate < 150:
                 self.y_coordinate = 150
             if self.y_coordinate < 505:
@@ -3941,7 +3941,7 @@ class PlayerNuldar(pygame.sprite.Sprite):
             if self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
-        if current_zone == "forge":
+        if current_zone == "forge" or current_zone == "altar":
             if self.y_coordinate < 150:
                 self.y_coordinate = 150
             if self.y_coordinate < 505:
@@ -6017,7 +6017,7 @@ class PlayerSorae(pygame.sprite.Sprite):
             if self.x_coordinate > 775:
                 if self.y_coordinate < 180:
                     self.y_coordinate = 180
-        if current_zone == "forge":
+        if current_zone == "forge" or current_zone == "altar":
             if self.y_coordinate < 150:
                 self.y_coordinate = 150
             if self.y_coordinate < 505:
@@ -6604,6 +6604,7 @@ if __name__ == "__main__":
     korlok_forge_bg = graphic_dict["korlok_forge_bg"]
     eldream_district_bg = graphic_dict["eldream_bg_screen"]
     eldream_interaction_bg = graphic_dict["eldream_interaction"]
+    eldream_altar_bg = graphic_dict["eldream_altar_bg"]
     ectrenos_bg = graphic_dict["ectrenos_bg"]
     ectrenos_left_bg = graphic_dict["ectrenos_left_bg"]
     ectrenos_right_bg = graphic_dict["ectrenos_right_bg"]
@@ -6919,16 +6920,16 @@ if __name__ == "__main__":
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     necrola_1 = Enemy("necrola", "necrola", 100, 100, 13, 230, 425, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     necrola_2 = Enemy("necrola", "necrola", 100, 100, 14, 385, 490, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     necrola_3 = Enemy("necrola", "necrola", 100, 100, 13, 460, 365, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     necrola_4 = Enemy("necrola", "necrola", 100, 100, 15, 618, 425, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     # marrow enemies ---------------------------------------------------------------------------------------------------
     erebyth = Enemy("erebyth", "erebyth", 100, 100, 25, 575, 450, True, "item", graphic_dict["erebyth"],
                     UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
@@ -7129,6 +7130,7 @@ if __name__ == "__main__":
     aitor_complete_quest_window = UiElement("aitor quest complete window", 550, 350, graphic_dict["aitor_complete"])
     everett_quest_window = UiElement("everett quest window", 262, 443, graphic_dict["everett_quest"])
     everett_complete_quest_window = UiElement("everett complete window", 550, 350, graphic_dict["everett_complete"])
+    artherian_complete_window = UiElement("artherian complete window", 550, 350, graphic_dict["artherian_complete"])
 
     artherian_task_window = UiElement("artherian task window", 262, 443, graphic_dict["artherian_quest"])
     artherian_task_window_2 = UiElement("artherian task window", 262, 443, graphic_dict["artherian_quest_2"])
@@ -7332,6 +7334,7 @@ if __name__ == "__main__":
     eldream_cart = UiElement("eldream cart", 380, 640, graphic_dict["mines_light"])
     kart_full = UiElement("kart full", 388, 636, graphic_dict["kart_overworld"])
     overlay_smelting = UiElement("smelting", 517, 150, graphic_dict["overlay_smelting"])
+    overlay_enchanting = UiElement("enchanting", 517, 150, graphic_dict["overlay_enchanting"])
 
     stardust_top = UiElement("stardust top", 531, 205, graphic_dict["stardust_top"])
     alcove_star = UiElement("alcove star", 979, 674, graphic_dict["alcove_star"])
@@ -7584,6 +7587,8 @@ if __name__ == "__main__":
     sfx_ladder.set_volume(0.15)
     sfx_smelting = pygame.mixer.Sound(resource_path("resources/sounds/sfx_smelting.mp3"))
     sfx_smelting.set_volume(0.35)
+    sfx_enchanting = pygame.mixer.Sound(resource_path("resources/sounds/sfx_enchanting.mp3"))
+    sfx_enchanting.set_volume(0.35)
 
     sfx_button_click = pygame.mixer.Sound(resource_path("resources/sounds/button_click.mp3"))
     sfx_button_click.set_volume(0.05)
@@ -7686,6 +7691,7 @@ if __name__ == "__main__":
     omoku_complete_shown = False
     leyre_complete_shown = False
     everett_complete_shown = False
+    artherian_complete_shown = False
     snake_sprite_reset = False
     ghoul_sprite_reset = False
     log_sprite_reset = False
@@ -7870,7 +7876,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -8378,6 +8384,8 @@ if __name__ == "__main__":
                         saved = load_returned["saved"]
                         start_chosen = load_returned["start"]
                         npc_garan.gift = load_returned["garan gift"]
+                        npc_artherian.gift = load_returned["artherian gift"]
+                        artherian_2 = load_returned["artherian_2"]
                         rest_recover_show = load_returned["rest popup"]
                         knowledge_academia_show = load_returned["knowledge popup"]
                         quest_guide_shown = load_returned["quest guide"]
@@ -8571,7 +8579,7 @@ if __name__ == "__main__":
                             player.x_coordinate = 575
                             player.y_coordinate = 250
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-                        if player.current_zone == "forge":
+                        if player.current_zone == "forge" or player.current_zone == "altar":
                             player.x_coordinate = 515
                             player.y_coordinate = 650
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -8911,7 +8919,7 @@ if __name__ == "__main__":
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, ramps_crate_5):
                                         interacted = True
-                                if player.current_zone == "forge":
+                                if player.current_zone == "forge" or player.current_zone == "altar":
                                     if pygame.Rect.colliderect(player.rect, forge_rect):
                                         interacted = True
 
@@ -9054,7 +9062,8 @@ if __name__ == "__main__":
                                                                  boots_obtained, marrow_switch_phase, erebyth_defeated,
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
-                                                                 ramps_crate_5_got, marrow_attuned)
+                                                                 ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
+                                                                 artherian_2)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -9084,7 +9093,7 @@ if __name__ == "__main__":
                                                              vanish_learned, boots_obtained, marrow_switch_phase,
                                                              erebyth_defeated, ramps_crate_1_got, ramps_crate_2_got,
                                                              ramps_crate_3_got, ramps_crate_4_got, ramps_crate_5_got,
-                                                             marrow_attuned)
+                                                             marrow_attuned, npc_artherian.gift, artherian_2)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -11032,7 +11041,7 @@ if __name__ == "__main__":
 
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         altar_returned = zone_altar.eldream_altar(pygame, screen, graphic_dict, player,
-                                                                  korlok_mines_bg, korlok_overworld_music,
+                                                                  eldream_altar_bg, eldream_building_music,
                                                                   over_world_song_set, interaction_popup, font,
                                                                   save_check_window, user_interface,
                                                                   bar_backdrop, hp_bar, en_bar, xp_bar,
@@ -11043,10 +11052,12 @@ if __name__ == "__main__":
                                                                   movement_able, equipment_screen, staff, sword, bow,
                                                                   npc_garan, offense_meter, defense_meter,
                                                                   weapon_select, pet_energy_window, vanished,
-                                                                  vanish_overlay, hearth_stone)
+                                                                  vanish_overlay, hearth_stone, chroma_bridge_forge,
+                                                                  forge_rect, Item, sfx_enchanting, overlay_enchanting,
+                                                                  using_forge, enchanted_casing, artherian_2)
                     else:
                         altar_returned = zone_altar.eldream_altar(pygame, game_window, graphic_dict, player,
-                                                                  korlok_mines_bg, korlok_overworld_music,
+                                                                  eldream_altar_bg, eldream_building_music,
                                                                   over_world_song_set, interaction_popup, font,
                                                                   save_check_window, user_interface,
                                                                   bar_backdrop, hp_bar, en_bar, xp_bar,
@@ -11057,7 +11068,9 @@ if __name__ == "__main__":
                                                                   movement_able, equipment_screen, staff, sword, bow,
                                                                   npc_garan, offense_meter, defense_meter,
                                                                   weapon_select, pet_energy_window, vanished,
-                                                                  vanish_overlay, hearth_stone)
+                                                                  vanish_overlay, hearth_stone, chroma_bridge_forge,
+                                                                  forge_rect, Item, sfx_enchanting, overlay_enchanting,
+                                                                  using_forge, enchanted_casing, artherian_2)
 
                     over_world_song_set = altar_returned["over_world_song_set"]
                     interacted = altar_returned["interacted"]
@@ -11068,6 +11081,9 @@ if __name__ == "__main__":
                     info_text_2 = altar_returned["info_text_2"]
                     info_text_3 = altar_returned["info_text_3"]
                     info_text_4 = altar_returned["info_text_4"]
+                    using_forge = altar_returned["using_forge"]
+                    enchanted_casing = altar_returned["enchanted_casing"]
+                    artherian_2 = altar_returned["artherian_2"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in terra trail --------------------------------------------------------------------------
@@ -11580,6 +11596,15 @@ if __name__ == "__main__":
                                 current_enemy_battling.health = 25
                                 npc_tic = time.perf_counter()
                                 erebyth_defeated = True
+                                player.experience += 100
+                                if player.experience >= 100:
+                                    gameplay_functions.level_up(player, level_up_win, level_up_font)
+                                    pygame.mixer.find_channel(True).play(sfx_level_up)
+                                    battle_info_to_return_to_main_loop["leveled_up"] = True
+                                    level_visual = True
+                                    level_visual_tic = time.perf_counter()
+                                    loot_level_tic = time.perf_counter()
+
                                 if barrier_active:
                                     barrier_active = False
                                     # noinspection PyUnboundLocalVariable
@@ -12162,6 +12187,7 @@ if __name__ == "__main__":
                                         # player is a fighter and uses hard strike
                                         if player.role == "fighter":
                                             if hard_strike_learned:
+                                                player.energy -= 20
                                                 pygame.mixer.find_channel(True).play(sfx_fighter_strike)
                                                 hard_strike = True
                                                 combat_scenario.fighter(graphic_dict, player, player_battle_sprite,
@@ -14823,7 +14849,8 @@ if __name__ == "__main__":
                                                                  boots_obtained, marrow_switch_phase, erebyth_defeated,
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
-                                                                 ramps_crate_5_got, marrow_attuned)
+                                                                 ramps_crate_5_got, marrow_attuned,
+                                                                 npc_artherian.gift, artherian_2)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -14851,6 +14878,7 @@ if __name__ == "__main__":
                                                                               omoku_complete_quest_window,
                                                                               leyre_complete_quest_window,
                                                                               aitor_complete_quest_window,
+                                                                              everett_complete_quest_window,
                                                                               everett_complete_quest_window)
                                         kirean_complete_shown = True
                                         quest_clicked = True
@@ -15422,7 +15450,8 @@ if __name__ == "__main__":
                                                                  boots_obtained, marrow_switch_phase, erebyth_defeated,
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
-                                                                 ramps_crate_5_got, marrow_attuned)
+                                                                 ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
+                                                                 artherian_2)
 
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -15450,6 +15479,7 @@ if __name__ == "__main__":
                                                                               omoku_complete_quest_window,
                                                                               leyre_complete_quest_window,
                                                                               aitor_complete_quest_window,
+                                                                              everett_complete_quest_window,
                                                                               everett_complete_quest_window)
                                         aitor_complete_shown = True
                                         quest_clicked = True
@@ -15824,7 +15854,7 @@ if __name__ == "__main__":
                                                                      erebyth_defeated, ramps_crate_1_got,
                                                                      ramps_crate_2_got, ramps_crate_3_got,
                                                                      ramps_crate_4_got, ramps_crate_5_got,
-                                                                     marrow_attuned)
+                                                                     marrow_attuned, npc_artherian.gift, artherian_2)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -15855,6 +15885,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             garan_complete_shown = True
                                             quest_clicked = True
@@ -15914,6 +15945,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             celeste_complete_shown = True
                                             quest_clicked = True
@@ -15973,6 +16005,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             maurelle_complete_shown = True
                                             quest_clicked = True
@@ -16026,7 +16059,7 @@ if __name__ == "__main__":
                                                                      erebyth_defeated, ramps_crate_1_got,
                                                                      ramps_crate_2_got, ramps_crate_3_got,
                                                                      ramps_crate_4_got, ramps_crate_5_got,
-                                                                     marrow_attuned)
+                                                                     marrow_attuned, npc_artherian.gift, artherian_2)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -16057,6 +16090,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             torune_complete_shown = True
                                             quest_clicked = True
@@ -16117,6 +16151,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             voruke_complete_shown = True
                                             quest_clicked = True
@@ -16175,6 +16210,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             zerah_complete_shown = True
                                             quest_clicked = True
@@ -16229,7 +16265,7 @@ if __name__ == "__main__":
                                                                      erebyth_defeated, ramps_crate_1_got,
                                                                      ramps_crate_2_got, ramps_crate_3_got,
                                                                      ramps_crate_4_got, ramps_crate_5_got,
-                                                                     marrow_attuned)
+                                                                     marrow_attuned, npc_artherian.gift, artherian_2)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -16260,6 +16296,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             dionte_complete_shown = True
                                             quest_clicked = True
@@ -16318,6 +16355,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             omoku_complete_shown = True
                                             quest_clicked = True
@@ -16376,6 +16414,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             leyre_complete_shown = True
                                             quest_clicked = True
@@ -16434,6 +16473,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             everett_complete_shown = True
                                             quest_clicked = True
@@ -16447,7 +16487,7 @@ if __name__ == "__main__":
                                 for item in player.items:
                                     if item.name == "bone shard":
                                         shard_counter += 1
-                                if shard_counter >= 4:
+                                if shard_counter >= 4 and not npc_artherian.gift:
                                     if len(player.items) < 16:
                                         for item_x in player.items:
                                             if item_x.name == "bone shard":
@@ -16460,7 +16500,6 @@ if __name__ == "__main__":
                                                 player.items.remove(item_z)
 
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
-                                        artherian_1 = True
                                         info_text_1 = "You've completed Legends Never Die 1!"
                                         info_text_2 = ""
                                         info_text_3 = ""
@@ -16468,11 +16507,12 @@ if __name__ == "__main__":
                                         player.reputation["amuna"] += 10
                                         player.items.append(Item("casing", "casing", 200, 200, graphic_dict["casing"],
                                                                  0))
+                                        npc_artherian.gift = True
                                     else:
                                         info_text_1 = "You completed the task, but "
                                         info_text_2 = "Your inventory is full!"
                                 if not quest_clicked:
-                                    if shard_counter < 4:
+                                    if not npc_artherian.gift:
                                         drawing_functions.quest_box_draw(current_npc_interacting, True,
                                                                          garan_quest_window,
                                                                          maurelle_quest_window,
@@ -16489,21 +16529,49 @@ if __name__ == "__main__":
                                                                          artherian_task_window_2, artherian_1)
                                         quest_clicked = True
                                     else:  # artherian task 2
-                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
-                                                                         garan_quest_window,
-                                                                         maurelle_quest_window,
-                                                                         celeste_quest_window,
-                                                                         torune_quest_window,
-                                                                         voruke_quest_window,
-                                                                         zerah_quest_window,
-                                                                         kirean_quest_window,
-                                                                         dionte_quest_window,
-                                                                         accept_button, decline_button,
-                                                                         omoku_quest_window, leyre_quest_window,
-                                                                         aitor_quest_window,
-                                                                         everett_quest_window, artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
-                                        quest_clicked = True
+                                        if not artherian_2:
+                                            drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                             garan_quest_window,
+                                                                             maurelle_quest_window,
+                                                                             celeste_quest_window,
+                                                                             torune_quest_window,
+                                                                             voruke_quest_window,
+                                                                             zerah_quest_window,
+                                                                             kirean_quest_window,
+                                                                             dionte_quest_window,
+                                                                             accept_button, decline_button,
+                                                                             omoku_quest_window, leyre_quest_window,
+                                                                             aitor_quest_window,
+                                                                             everett_quest_window,
+                                                                             artherian_task_window,
+                                                                             artherian_task_window_2,
+                                                                             npc_artherian.gift)
+                                            quest_clicked = True
+                                        else:
+                                            for item in player.items:
+                                                if item.name == "enchanted casing":
+                                                    player.items.remove(item)
+                                            player.items.append(Item("legendary armor", "armor", 200, 200,
+                                                                     graphic_dict["legendary_armor"], 4))
+                                            if not artherian_complete_shown:
+                                                pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                                drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                      garan_complete_quest_window,
+                                                                                      maurelle_complete_quest_window,
+                                                                                      celeste_complete_quest_window,
+                                                                                      torune_complete_quest_window,
+                                                                                      voruke_complete_quest_window,
+                                                                                      zerah_complete_quest_window,
+                                                                                      kirean_complete_quest_window,
+                                                                                      dionte_complete_quest_window,
+                                                                                      omoku_complete_quest_window,
+                                                                                      leyre_complete_quest_window,
+                                                                                      aitor_complete_quest_window,
+                                                                                      everett_complete_quest_window,
+                                                                                      artherian_complete_window)
+                                                artherian_complete_shown = True
+                                                quest_clicked = True
+
                                 else:
                                     drawing_functions.quest_box.clear()
                                     quest_clicked = False

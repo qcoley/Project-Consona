@@ -82,6 +82,7 @@ def load_graphics():
     eldream_shop_screen = pygame.image.load(resource_path('resources/art/bg_eldream_shop.png')).convert_alpha()
     eldream_menagerie = pygame.image.load(resource_path('resources/art/bg_eldream_menagerie.png')).convert_alpha()
     eldream_interaction = pygame.image.load(resource_path('resources/art/bg_eldream_interaction.png')).convert_alpha()
+    eldream_altar_bg = pygame.image.load(resource_path('resources/art/bg_eldream_altar.png')).convert_alpha()
     ectrenos_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos.png')).convert_alpha()
     ectrenos_left_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_left.png')).convert_alpha()
     ectrenos_right_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_right.png')).convert_alpha()
@@ -195,6 +196,7 @@ def load_graphics():
     tower_battle = pygame.image.load(resource_path('resources/art/bg_marrow_tower_battle.png')).convert_alpha()
     overlay_enemy_vanish = pygame.image.load(resource_path('resources/art/overlay_enemy_vanish.png')).convert_alpha()
     overlay_smelting = pygame.image.load(resource_path('resources/art/overlay_smelting.png')).convert_alpha()
+    overlay_enchanting = pygame.image.load(resource_path('resources/art/overlay_enchanting.png')).convert_alpha()
 
     m_switch = pygame.image.load(resource_path('resources/art/overlay_marrow_switch.png')).convert_alpha()
     m_switch_b = pygame.image.load(resource_path('resources/art/overlay_marrow_switch_blue.png')).convert_alpha()
@@ -234,12 +236,13 @@ def load_graphics():
                   kart_overworld, kart_big_full, mirror_overlay, start_screen_logo, overlay_star_waterfall,
                   overlay_bridge_gate, over_mar_ramps_east, over_mar_ramps_west, overlay_chroma_ramps, m_switch,
                   m_switch_b, m_switch_r, m_switch_p, m_switch_c, m_switch_shadow, m_switch_box, popup_wide,
-                  overlay_enemy_vanish, chroma_forge, overlay_smelting]
+                  overlay_enemy_vanish, chroma_forge, overlay_smelting, overlay_enchanting]
 
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
     loaded_dict["overlay_smelting"] = overlay_smelting
+    loaded_dict["overlay_enchanting"] = overlay_enchanting
     loaded_dict["quest_accepted"] = quest_accepted
     loaded_dict["level_up_vis"] = level_up_vis
     loaded_dict["amuna_building_top"] = a_building_tops
@@ -284,6 +287,7 @@ def load_graphics():
     loaded_dict["korlok_repaired_screen"] = korlok_re_screen
     loaded_dict["korlok_forge_bg"] = korlok_forge_bg
     loaded_dict["eldream_bg_screen"] = eldream_bg_screen
+    loaded_dict["eldream_altar_bg"] = eldream_altar_bg
     loaded_dict["marrow_interaction_bg"] = marrow_interaction_bg
     loaded_dict["marrow_entrance_bg"] = marrow_entrance_bg
     loaded_dict["marrow_entrance_bg_open"] = marrow_entrance_bg_open
@@ -5167,6 +5171,7 @@ def load_graphics():
     loaded_dict["leyre_complete"] = quest_popups_2_sheet[1]
     loaded_dict["aitor_complete"] = quest_popups_2_sheet[2]
     loaded_dict["everett_complete"] = quest_popups_2_sheet[3]
+    loaded_dict["artherian_complete"] = quest_popups_2_sheet[4]
     # quest stars ------------------------------------------------------------------------------------------------------
     quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
     quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)

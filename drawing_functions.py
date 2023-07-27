@@ -1002,7 +1002,7 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
 def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
                         torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
                         dionte_quest_window, omoku_quest_window, leyre_quest_window, aitor_quest_window,
-                        everett_quest_window):
+                        everett_quest_window, artherian_quest_window):
     if not draw_condition:
         quest_complete_box.clear()
     else:
@@ -1031,6 +1031,8 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
                 quest_complete_box.append(aitor_quest_window)
             if quest_npc.name == "everett":
                 quest_complete_box.append(everett_quest_window)
+            if quest_npc.name == "artherian":
+                quest_complete_box.append(artherian_quest_window)
         except AttributeError:
             if quest_npc == "kirean":
                 quest_complete_box.append(kirean_quest_window)
@@ -1115,6 +1117,10 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "mythical armor":
                     item_here.update(first_coord, second_coord, graphic["mythical_armor"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "legendary armor":
+                    item_here.update(first_coord, second_coord, graphic["legendary_armor"])
                     player_items.append(item_here)
                     inventory_counter += 1
                 if item_here.name == "boss key" or item_here.name == "ramps key":
@@ -1839,7 +1845,8 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                                       graphic_dict["amuna_location"])
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
+                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
+                    player.current_zone == "altar":
                 amuna_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
@@ -1867,13 +1874,14 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "korlok" or player.current_zone == "mines" or \
                     player.current_zone == "terra trail" or player.current_zone == "fishing hut" or \
                     player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or \
-                    player.current_zone == "reservoir c":
+                    player.current_zone == "reservoir c" or player.current_zone == "forge":
                 amuna_location.update(korlok_map_button.x_coordinate,
                                       korlok_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
+                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
+                    player.current_zone == "altar":
                 amuna_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
@@ -1902,13 +1910,14 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "korlok" or player.current_zone == "mines" \
                     or player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
                     or player.current_zone == "reservoir a" or player.current_zone == "reservoir b" \
-                    or player.current_zone == "reservoir c":
+                    or player.current_zone == "reservoir c" or player.current_zone == "forge":
                 nuldar_location.update(korlok_map_button.x_coordinate,
                                        korlok_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
+                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
+                    player.current_zone == "altar":
                 nuldar_location.update(eldream_map_button.x_coordinate,
                                        eldream_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
@@ -1936,13 +1945,14 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "korlok" or player.current_zone == "mines" or \
                     player.current_zone == "terra trail" or player.current_zone == "fishing hut" or \
                     player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or \
-                    player.current_zone == "reservoir c":
+                    player.current_zone == "reservoir c" or player.current_zone == "forge":
                 nuldar_location.update(korlok_map_button.x_coordinate,
                                        korlok_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
+                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
+                    player.current_zone == "altar":
                 nuldar_location.update(eldream_map_button.x_coordinate,
                                        eldream_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
@@ -1971,13 +1981,14 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "korlok" or player.current_zone == "mines" or \
                     player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
                     or player.current_zone == "reservoir a" or player.current_zone == "reservoir b" \
-                    or player.current_zone == "reservoir c":
+                    or player.current_zone == "reservoir c" or player.current_zone == "forge":
                 sorae_location.update(korlok_map_button.x_coordinate,
                                       korlok_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
+                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
+                    player.current_zone == "altar":
                 sorae_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
@@ -2005,13 +2016,14 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "korlok" or player.current_zone == "mines" or \
                     player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
                     or player.current_zone == "reservoir a" or player.current_zone == "reservoir b" \
-                    or player.current_zone == "reservoir c":
+                    or player.current_zone == "reservoir c" or player.current_zone == "forge":
                 sorae_location.update(korlok_map_button.x_coordinate,
                                       korlok_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
-                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove":
+                    player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
+                    player.current_zone == "altar":
                 sorae_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])

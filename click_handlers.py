@@ -901,6 +901,9 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
             if clicked_element[0].name == "mythical armor":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
+            if clicked_element[0].name == "legendary armor":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
             if clicked_element[0].name == "pet cookie":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
