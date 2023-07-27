@@ -63,7 +63,6 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
 
         if interacted:
             npc_tic = time.perf_counter()
-            using_forge = True
             interacted = False
             if not smelted_casing:
                 pygame.mixer.find_channel(True).play(sfx_smelting)
@@ -72,6 +71,7 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                         player.items.remove(item)
                         player.items.append(Item("smelted casing", "casing", 200, 200, graphic_dict["smelted_casing"],
                                                  0))
+                        using_forge = True
 
     if 700 < player.y_coordinate:
         using_forge = False

@@ -244,6 +244,13 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["equip_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "legendary armor":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_legendary_armor"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["equip_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
 
         if inventory_item.name == "shiny rock":
             info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_shiny_rock_img"])
@@ -710,7 +717,7 @@ def character_sheet_info_draw(character_sheet, player, font, draw_condition):
         character_sheet_window.append(character_sheet)
 
 
-def journal_info_draw(journal, player, font, draw_condition, switch_phase):
+def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_artherian, artherian_2):
     if not draw_condition:
         journal_text.clear()
         journal_window.clear()
@@ -886,8 +893,13 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase):
             text_quest1_info_rect.midleft = (540, 190)
             if switch_phase != "complete":
                 text_quest1_prog_surf = font.render("0/1", True, "black", "light yellow")
+                text_quest1_info_surf = font.render("Activate the switch to access Marrow.",
+                                                    True, "black", "light yellow")
             if switch_phase == "complete":
                 text_quest1_prog_surf = font.render("1/1", True, "black", "light yellow")
+                text_quest1_info_surf = font.render("You opened the barrier.",
+                                                    True, "black", "light yellow")
+
             text_quest1_prog_rect = text_quest1_prog_surf.get_rect()
             text_quest1_prog_rect.midleft = (950, 145)
 
@@ -904,10 +916,22 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase):
             text_quest3_surf = font.render("Legends never die", True, "black", "light yellow")
             text_quest3_rect = text_quest3_surf.get_rect()
             text_quest3_rect.midleft = (600, 405)
-            text_quest3_info_surf = font.render("", True, "black", "light yellow")
+            if not npc_artherian.gift:
+                text_quest3_info_surf = font.render("Talk to Artherian to start this task.",
+                                                    True, "black", "light yellow")
+            if npc_artherian.gift and not artherian_2:
+                text_quest3_info_surf = font.render("Smelt and Enchant the armor casing.",
+                                                    True, "black", "light yellow")
+            if artherian_2:
+                text_quest3_info_surf = font.render("Return to Artherian with the Enchanted Casing.",
+                                                    True, "black", "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
             text_quest3_info_rect.midleft = (540, 455)
-            text_quest3_prog_surf = font.render("0/4", True, "black", "light yellow")
+            text_quest3_prog_surf = font.render("0/2", True, "black", "light yellow")
+            if npc_artherian.gift and not artherian_2:
+                text_quest3_prog_surf = font.render("1/2", True, "black", "light yellow")
+            if artherian_2:
+                text_quest3_prog_surf = font.render("2/2", True, "black", "light yellow")
             text_quest3_prog_rect = text_quest3_prog_surf.get_rect()
             text_quest3_prog_rect.midleft = (950, 405)
 

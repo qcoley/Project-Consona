@@ -63,7 +63,6 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
 
         if interacted:
             npc_tic = time.perf_counter()
-            using_forge = True
             interacted = False
             if not enchanted_casing:
                 pygame.mixer.find_channel(True).play(sfx_enchanting)
@@ -73,6 +72,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                         player.items.append(Item("enchanted casing", "casing", 200, 200,
                                                  graphic_dict["enchanted_casing"], 0))
                         artherian_2 = True
+                        using_forge = True
 
     if 700 < player.y_coordinate:
         using_forge = False

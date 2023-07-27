@@ -6920,16 +6920,16 @@ if __name__ == "__main__":
                       graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     necrola_1 = Enemy("necrola", "necrola", 100, 100, 13, 230, 425, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     necrola_2 = Enemy("necrola", "necrola", 100, 100, 14, 385, 490, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     necrola_3 = Enemy("necrola", "necrola", 100, 100, 13, 460, 365, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     necrola_4 = Enemy("necrola", "necrola", 100, 100, 15, 618, 425, True,
                       Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
-                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
+                      graphic_dict["necrola"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # marrow enemies ---------------------------------------------------------------------------------------------------
     erebyth = Enemy("erebyth", "erebyth", 100, 100, 25, 575, 450, True, "item", graphic_dict["erebyth"],
                     UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
@@ -7304,7 +7304,6 @@ if __name__ == "__main__":
     overlay_marrow_ramps_west = UiElement("marrow west", 110, 250, graphic_dict["overlay_marrow_ramps_west"])
     overlay_marrow_ramps_east = UiElement("marrow east", 925, 250, graphic_dict["overlay_marrow_ramps_east"])
     overlay_marrow_switch = UiElement("marrow switch", 640, 360, graphic_dict["marrow_switch"])
-    overlay_marrow_switch_shadow = UiElement("marrow switch shadow", 640, 360, graphic_dict["marrow_switch_shadow"])
     marrow_switch_box = UiElement("marrow box", 515, 225, graphic_dict["marrow_switch_box"])
 
     overlay_stardust_waterfall = UiElement("waterfall", 857, 593, graphic_dict["overlay_stardust_waterfall"])
@@ -8385,6 +8384,7 @@ if __name__ == "__main__":
                         start_chosen = load_returned["start"]
                         npc_garan.gift = load_returned["garan gift"]
                         npc_artherian.gift = load_returned["artherian gift"]
+                        npc_artherian.quest_complete = load_returned["artherian_complete"]
                         artherian_2 = load_returned["artherian_2"]
                         rest_recover_show = load_returned["rest popup"]
                         knowledge_academia_show = load_returned["knowledge popup"]
@@ -8779,7 +8779,8 @@ if __name__ == "__main__":
 
                                 # clear character or journal sheet
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
-                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase)
+                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
+                                                                    npc_artherian, artherian_2)
 
                             # "F" key for player interaction
                             if event.key == K_f:
@@ -8982,7 +8983,8 @@ if __name__ == "__main__":
                             # map button was clicked, set animation and move player to stone
                             if map_button.rect.collidepoint(pos):
                                 # clears other windows first, if they were open
-                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase)
+                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
+                                                                    npc_artherian, artherian_2)
                                 journal_button_clicked = False
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 character_button_clicked = False
@@ -9011,7 +9013,8 @@ if __name__ == "__main__":
                                 # clears other windows first, if they were open
                                 drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
                                 character_button_clicked = False
-                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase)
+                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
+                                                                    npc_artherian, artherian_2)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -9063,7 +9066,7 @@ if __name__ == "__main__":
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
                                                                  ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
-                                                                 artherian_2)
+                                                                 artherian_2, npc_artherian.quest_complete)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -9093,7 +9096,8 @@ if __name__ == "__main__":
                                                              vanish_learned, boots_obtained, marrow_switch_phase,
                                                              erebyth_defeated, ramps_crate_1_got, ramps_crate_2_got,
                                                              ramps_crate_3_got, ramps_crate_4_got, ramps_crate_5_got,
-                                                             marrow_attuned, npc_artherian.gift, artherian_2)
+                                                             marrow_attuned, npc_artherian.gift, artherian_2,
+                                                             npc_artherian.quest_complete)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -9106,7 +9110,8 @@ if __name__ == "__main__":
 
                             if character_button.rect.collidepoint(pos):
                                 # clears other open windows first, if they were open
-                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase)
+                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
+                                                                    npc_artherian, artherian_2)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -9134,13 +9139,13 @@ if __name__ == "__main__":
 
                                 if journal_button_clicked:
                                     drawing_functions.journal_info_draw(journal, player, font, False,
-                                                                        marrow_switch_phase)
+                                                                        marrow_switch_phase, npc_artherian, artherian_2)
                                     journal_button_clicked = False
                                 else:
                                     if in_over_world:
                                         pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                     drawing_functions.journal_info_draw(journal, player, font, True,
-                                                                        marrow_switch_phase)
+                                                                        marrow_switch_phase, npc_artherian, artherian_2)
                                     journal_button_clicked = True
 
                             # for clicking map buttons, when the map is open
@@ -9203,6 +9208,7 @@ if __name__ == "__main__":
                                         stardust_song_set = False
                                         drawing_functions.world_map_container.clear()
                                         map_button_clicked = False
+                                        using_forge = False
                                     else:
                                         info_text_1 = "You have not yet attuned there. "
                                         info_text_2 = ""
@@ -9237,6 +9243,7 @@ if __name__ == "__main__":
                                         stardust_song_set = False
                                         drawing_functions.world_map_container.clear()
                                         map_button_clicked = False
+                                        using_forge = False
                                     else:
                                         info_text_1 = "You have not yet attuned there. "
                                         info_text_2 = ""
@@ -9887,7 +9894,7 @@ if __name__ == "__main__":
                                                                                overlay_marrow_ramps_west,
                                                                                overlay_marrow_ramps_east,
                                                                                overlay_marrow_switch,
-                                                                               overlay_marrow_switch_shadow,
+                                                                               overlay_marrow_switch,
                                                                                marrow_switch_phase, marrow_switch_box,
                                                                                marrow_entrance_bg_open,
                                                                                marrow_entrance_music,
@@ -9911,7 +9918,7 @@ if __name__ == "__main__":
                                                                                overlay_marrow_ramps_west,
                                                                                overlay_marrow_ramps_east,
                                                                                overlay_marrow_switch,
-                                                                               overlay_marrow_switch_shadow,
+                                                                               overlay_marrow_switch,
                                                                                marrow_switch_phase, marrow_switch_box,
                                                                                marrow_entrance_bg_open,
                                                                                marrow_entrance_music,
@@ -14850,7 +14857,8 @@ if __name__ == "__main__":
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
                                                                  ramps_crate_5_got, marrow_attuned,
-                                                                 npc_artherian.gift, artherian_2)
+                                                                 npc_artherian.gift, artherian_2,
+                                                                 npc_artherian.quest_complete)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -15451,7 +15459,7 @@ if __name__ == "__main__":
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
                                                                  ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
-                                                                 artherian_2)
+                                                                 artherian_2, npc_artherian.quest_complete)
 
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
@@ -15854,7 +15862,8 @@ if __name__ == "__main__":
                                                                      erebyth_defeated, ramps_crate_1_got,
                                                                      ramps_crate_2_got, ramps_crate_3_got,
                                                                      ramps_crate_4_got, ramps_crate_5_got,
-                                                                     marrow_attuned, npc_artherian.gift, artherian_2)
+                                                                     marrow_attuned, npc_artherian.gift, artherian_2,
+                                                                     npc_artherian.quest_complete)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -16059,7 +16068,8 @@ if __name__ == "__main__":
                                                                      erebyth_defeated, ramps_crate_1_got,
                                                                      ramps_crate_2_got, ramps_crate_3_got,
                                                                      ramps_crate_4_got, ramps_crate_5_got,
-                                                                     marrow_attuned, npc_artherian.gift, artherian_2)
+                                                                     marrow_attuned, npc_artherian.gift, artherian_2,
+                                                                     npc_artherian.quest_complete)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -16265,7 +16275,8 @@ if __name__ == "__main__":
                                                                      erebyth_defeated, ramps_crate_1_got,
                                                                      ramps_crate_2_got, ramps_crate_3_got,
                                                                      ramps_crate_4_got, ramps_crate_5_got,
-                                                                     marrow_attuned, npc_artherian.gift, artherian_2)
+                                                                     marrow_attuned, npc_artherian.gift, artherian_2,
+                                                                     npc_artherian.quest_complete)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -16548,11 +16559,13 @@ if __name__ == "__main__":
                                                                              npc_artherian.gift)
                                             quest_clicked = True
                                         else:
-                                            for item in player.items:
-                                                if item.name == "enchanted casing":
-                                                    player.items.remove(item)
-                                            player.items.append(Item("legendary armor", "armor", 200, 200,
-                                                                     graphic_dict["legendary_armor"], 4))
+                                            if not npc_artherian.quest_complete:
+                                                for item in player.items:
+                                                    if item.name == "enchanted casing":
+                                                        player.items.remove(item)
+                                                player.items.append(Item("legendary armor", "armor", 200, 200,
+                                                                         graphic_dict["legendary_armor"], 4))
+                                                npc_artherian.quest_complete = True
                                             if not artherian_complete_shown:
                                                 pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                                 drawing_functions.quest_complete_draw(current_npc_interacting, True,
@@ -16927,6 +16940,8 @@ if __name__ == "__main__":
                                 # noinspection PyTypeChecker
                                 combat_scenario.enemy_health_bar(enemy, graphic_dict)
 
+                            ghoul_nede.health = 100
+                            combat_scenario.enemy_health_bar(ghoul_nede, graphic_dict)
                             chorizon_1.health = 100
                             combat_scenario.enemy_health_bar(chorizon_1, graphic_dict)
                             chorizon_2.health = 100

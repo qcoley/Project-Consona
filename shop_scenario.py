@@ -276,17 +276,17 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
 
         if current_buy_item.name == "mythical armor":
             if len(player.items) < 16:
-                if player.rupees > 499:
-                    buy_return["info 1"] = "Bought Mythical Armor for 500 rupees."
+                if player.rupees > 399:
+                    buy_return["info 1"] = "Bought Mythical Armor for 400 rupees."
                     buy_return["info 2"] = "Mythical Armor added to inventory."
                     player.items.append(Item("mythical armor", "armor", 200, 200, mythical_armor, 3))
-                    player.rupees = player.rupees - 500
+                    player.rupees = player.rupees - 400
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
                     drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
-                    buy_return["info 2"] = "Mythical Armor cost 500 rupees."
+                    buy_return["info 2"] = "Mythical Armor cost 400 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""
