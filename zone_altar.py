@@ -9,7 +9,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                   movement_able, equipment_screen, staff, sword, bow, npc_garan, offense_meter,
                   defense_meter, weapon_select, pet_energy_window, vanished, vanish_overlay, hearth_stone,
                   chroma_forge, forge_rect, Item, sfx_enchanting, overlay_smelting, using_forge, enchanted_casing,
-                  artherian_2):
+                  artherian_2, task_star_artherian):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(ectrenos_music)
@@ -73,6 +73,7 @@ def eldream_altar(pygame, screen, graphic_dict, player, eldream_altar_bg, ectren
                                                  graphic_dict["enchanted_casing"], 0))
                         artherian_2 = True
                         using_forge = True
+                        task_star_artherian.update(210, 400, graphic_dict["artherian_complete_star"])
 
     if 700 < player.y_coordinate:
         using_forge = False

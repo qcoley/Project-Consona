@@ -12,7 +12,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     offense_meter, defense_meter, weapon_select, pet_energy_window, artherian, player_battle_sprite,
                     current_npc_interacting, in_npc_interaction, hearth_stone, marrow_attuned, sfx_hearth,
                     marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
-                    current_enemy_battling, Enemy, Item, UiElement):
+                    current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, adria, npcs):
     if not over_world_song_set:
         pygame.mixer.music.fadeout(50)
         pygame.mixer.music.load(marrow_music)
@@ -25,6 +25,13 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
     screen.blit(artherian.surf, artherian.rect)
+    screen.blit(noren.surf, noren.rect)
+    screen.blit(boro.surf, boro.rect)
+    screen.blit(adria.surf, adria.rect)
+
+    if not artherian.quest_complete:
+        screen.blit(artherian_star.surf, artherian_star.rect)
+
     screen.blit(hearth_stone.surf, hearth_stone.rect)
 
     respawned_dict = gameplay_functions.enemy_respawn(player, marrow_ghouls, marrow_ghouls, marrow_ghouls,
@@ -73,6 +80,65 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
         if interacted and in_over_world:
             interacted = False
             current_npc_interacting = artherian
+            in_over_world = False
+            in_npc_interaction = True
+            movement_able = False
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.battle_animation_player(player, player_battle_sprite, False,
+                                                    False, graphic_dict)
+
+    if pygame.sprite.collide_rect(player, noren):
+        interaction_popup.update(noren.x_coordinate, noren.y_coordinate - 50,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(noren.name), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (noren.x_coordinate, noren.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = ""
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+
+    if pygame.sprite.collide_rect(player, boro):
+        interaction_popup.update(boro.x_coordinate, boro.y_coordinate - 50,
+                                 graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(boro.name), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (boro.x_coordinate, boro.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = ""
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+
+    if pygame.sprite.collide_rect(player, adria):
+        interaction_popup.update(adria.x_coordinate, adria.y_coordinate - 50,
+                                 graphic_dict["popup_interaction_purple"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(adria.name), True, "black", (203, 195, 227))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (adria.x_coordinate, adria.y_coordinate - 50)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to talk to NPC."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            current_npc_interacting = adria
             in_over_world = False
             in_npc_interaction = True
             movement_able = False
@@ -172,18 +238,47 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
 
     # npc movement updates
     face_direction = random.choice(["front", "back", "left", "right"])
+    face_this_npc = random.choice(npcs.sprites())
     if movement_able and in_over_world:
         npc_toc = time.perf_counter()
         if npc_toc - npc_tic > 5:
             npc_tic = time.perf_counter()
             if face_direction == "front":
-                artherian.update(graphic_dict["artherian_down"])
+                if face_this_npc.name == "adria":
+                    face_this_npc.update(graphic_dict["adria_down"])
+                if face_this_npc.name == "noren":
+                    face_this_npc.update(graphic_dict["noren_down"])
+                if face_this_npc.name == "boro":
+                    face_this_npc.update(graphic_dict["boro_down"])
+                if face_this_npc.name == "artherian":
+                    face_this_npc.update(graphic_dict["artherian_down"])
             if face_direction == "back":
-                artherian.update(graphic_dict["artherian_up"])
+                if face_this_npc.name == "adria":
+                    face_this_npc.update(graphic_dict["adria_up"])
+                if face_this_npc.name == "noren":
+                    face_this_npc.update(graphic_dict["noren_up"])
+                if face_this_npc.name == "boro":
+                    face_this_npc.update(graphic_dict["boro_up"])
+                if face_this_npc.name == "artherian":
+                    face_this_npc.update(graphic_dict["artherian_up"])
             if face_direction == "left":
-                artherian.update(graphic_dict["artherian_left"])
+                if face_this_npc.name == "adria":
+                    face_this_npc.update(graphic_dict["adria_left"])
+                if face_this_npc.name == "noren":
+                    face_this_npc.update(graphic_dict["noren_left"])
+                if face_this_npc.name == "boro":
+                    face_this_npc.update(graphic_dict["boro_left"])
+                if face_this_npc.name == "artherian":
+                    face_this_npc.update(graphic_dict["artherian_left"])
             if face_direction == "right":
-                artherian.update(graphic_dict["artherian_right"])
+                if face_this_npc.name == "adria":
+                    face_this_npc.update(graphic_dict["adria_right"])
+                if face_this_npc.name == "noren":
+                    face_this_npc.update(graphic_dict["noren_right"])
+                if face_this_npc.name == "boro":
+                    face_this_npc.update(graphic_dict["boro_right"])
+                if face_this_npc.name == "artherian":
+                    face_this_npc.update(graphic_dict["artherian_right"])
 
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])

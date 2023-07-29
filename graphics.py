@@ -4734,6 +4734,27 @@ def load_graphics():
     loaded_dict["everett_up"] = everett_sheet[1]
     loaded_dict["everett_left"] = everett_sheet[2]
     loaded_dict["everett_right"] = everett_sheet[3]
+    # noren npc --------------------------------------------------------------------------------------------------------
+    noren_url = resource_path('resources/art/sprites_noren.png')
+    noren_sheet = sprite_sheet((50, 62), noren_url)
+    loaded_dict["noren_down"] = noren_sheet[0]
+    loaded_dict["noren_up"] = noren_sheet[1]
+    loaded_dict["noren_left"] = noren_sheet[2]
+    loaded_dict["noren_right"] = noren_sheet[3]
+    # boro npc ---------------------------------------------------------------------------------------------------------
+    boro_url = resource_path('resources/art/sprites_boro.png')
+    boro_sheet = sprite_sheet((50, 62), boro_url)
+    loaded_dict["boro_down"] = boro_sheet[0]
+    loaded_dict["boro_up"] = boro_sheet[1]
+    loaded_dict["boro_left"] = boro_sheet[2]
+    loaded_dict["boro_right"] = boro_sheet[3]
+    # adria npc --------------------------------------------------------------------------------------------------------
+    adria_url = resource_path('resources/art/sprites_adria.png')
+    adria_sheet = sprite_sheet((50, 75), adria_url)
+    loaded_dict["adria_down"] = adria_sheet[0]
+    loaded_dict["adria_up"] = adria_sheet[1]
+    loaded_dict["adria_left"] = adria_sheet[2]
+    loaded_dict["adria_right"] = adria_sheet[3]
     # npc interactions -------------------------------------------------------------------------------------------------
     npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
     npc_interactions_sheet = sprite_sheet((220, 300), npc_interactions_url)
@@ -4748,6 +4769,7 @@ def load_graphics():
     loaded_dict["leyre_interaction"] = npc_interactions_sheet[8]
     loaded_dict["everett_interaction"] = npc_interactions_sheet[9]
     loaded_dict["artherian_interaction"] = npc_interactions_sheet[10]
+    loaded_dict["adria_interaction"] = npc_interactions_sheet[11]
     # interaction popup ------------------------------------------------------------------------------------------------
     interaction_popup_url = resource_path('resources/art/popup_interaction.png')
     interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)
@@ -5176,6 +5198,12 @@ def load_graphics():
     loaded_dict["quest_start_star"] = quest_stars_sheet[0]
     loaded_dict["quest_progress_star"] = quest_stars_sheet[1]
     loaded_dict["quest_complete_star"] = quest_stars_sheet[2]
+    loaded_dict["artherian_start_star"] = quest_stars_sheet[3]
+    loaded_dict["artherian_progress_star"] = quest_stars_sheet[4]
+    loaded_dict["artherian_complete_star"] = quest_stars_sheet[5]
+    loaded_dict["vanguard_start_star"] = quest_stars_sheet[6]
+    loaded_dict["vanguard_progress_star"] = quest_stars_sheet[7]
+    loaded_dict["vanguard_complete_star"] = quest_stars_sheet[8]
     # quest stars ------------------------------------------------------------------------------------------------------
     building_quest_stars_url = resource_path('resources/art/overlay_building_npc_stars.png')
     building_quest_stars_sheet = sprite_sheet((125, 125), building_quest_stars_url)

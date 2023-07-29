@@ -925,6 +925,8 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
             if artherian_2:
                 text_quest3_info_surf = font.render("Return to Artherian with the Enchanted Casing.",
                                                     True, "black", "light yellow")
+            if npc_artherian.quest_complete:
+                text_quest3_info_surf = font.render("You completed this task.", True, "black", "light yellow")
             text_quest3_info_rect = text_quest3_info_surf.get_rect()
             text_quest3_info_rect.midleft = (540, 455)
             text_quest3_prog_surf = font.render("0/2", True, "black", "light yellow")

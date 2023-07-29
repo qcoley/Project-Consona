@@ -6776,6 +6776,12 @@ if __name__ == "__main__":
 
     npc_artherian = NPC("artherian", "amuna", "legends never die", "hail", "", 210, 450,
                         True, False, ["Items"], False, graphic_dict["artherian_down"])
+    npc_noren = NPC("noren", "sorae", "vamos vanguard", "Hola", "", 860, 375, True, False, ["Items"], False,
+                    graphic_dict["noren_down"])
+    npc_boro = NPC("boro", "nuldar", "vamos vanguard", "Onur-oh", "", 580, 375, True, False, ["Items"], False,
+                   graphic_dict["boro_down"])
+    npc_adria = NPC("adria", "amuna", "vamos", "hail", "", 860, 175, True, False, ["Items"], False,
+                    graphic_dict["adria_down"])
 
     npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
                        graphic_dict["worker_1_a"])
@@ -6811,6 +6817,7 @@ if __name__ == "__main__":
     npc_leyre_interaction = UiElement("leyre interaction", 678, 350, graphic_dict["leyre_interaction"])
     npc_everett_interaction = UiElement("everett interaction", 678, 325, graphic_dict["everett_interaction"])
     npc_artherian_interaction = UiElement("artherian interaction", 678, 325, graphic_dict["artherian_interaction"])
+    npc_adria_interaction = UiElement("adria interaction", 678, 325, graphic_dict["adria_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -7159,6 +7166,8 @@ if __name__ == "__main__":
     quest_star_apothecary = UiElement("quest star apothecary", 796, 85, graphic_dict["building_npc_star_available"])
     quest_star_menagerie = UiElement("quest star menagerie", 790, 150, graphic_dict["building_npc_star_available"])
 
+    task_star_artherian = UiElement("task star artherian", 210, 400, graphic_dict["artherian_start_star"])
+
     player_battle_sprite = BattleCharacter("stan battle", 375, 450, graphic_dict["player_no_role_amuna_battle"])
     snake_battle_sprite = BattleCharacter("snake battle", 715, 250, graphic_dict["snake_battle"])
     ghoul_battle_sprite = BattleCharacter("ghoul battle", 698, 280, graphic_dict["ghoul_battle"])
@@ -7370,6 +7379,7 @@ if __name__ == "__main__":
     quest_items_eldream = pygame.sprite.Group()
     npcs_seldon = pygame.sprite.Group()
     npcs_korlok = pygame.sprite.Group()
+    npcs_marrow = pygame.sprite.Group()
     seldon_enemies = pygame.sprite.Group()
     korlok_enemies = pygame.sprite.Group()
     ectrenos_front_enemies = pygame.sprite.Group()
@@ -7420,6 +7430,7 @@ if __name__ == "__main__":
     stardust_stelli.add(stelli_a, stelli_b, stelli_c)
     npcs_seldon.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
     npcs_korlok.add(npc_voruke, npc_zerah)
+    npcs_marrow.add(npc_adria, npc_noren, npc_boro, npc_artherian)
     seldon_enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     korlok_enemies.add(magmon_1, magmon_2, magmon_3, magmon_4)
     mine_enemies.add(bandile_1, bandile_2, bandile_3, bandile_4)
@@ -7875,7 +7886,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -8887,6 +8898,12 @@ if __name__ == "__main__":
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, marrow_hearth.rect):
                                         interacted = True
+                                    if pygame.Rect.colliderect(player.rect, npc_adria.rect):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, npc_noren.rect):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, npc_boro.rect):
+                                        interacted = True
                                 if player.current_zone == "marrow entrance":
                                     if pygame.sprite.spritecollideany(player, interactables_marrow_entrance):
                                         interacted = True
@@ -8937,6 +8954,12 @@ if __name__ == "__main__":
 
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
+
+                            if player.current_zone == "altar":
+                                cat_pet_button_overlay.update(990, 440, graphic_dict["cat_pet_button_overlay"])
+                                if cat_pet_button_overlay.rect.collidepoint(pos):
+                                    pygame.mixer.find_channel(True).play(sfx_nede_bark)
+                                    info_text_1 = "For the best boy. "
 
                             if npc_garan.gift:
                                 gameplay_functions.role_swap(pygame, player, pos, graphic_dict, staff, sword, bow,
@@ -9831,7 +9854,9 @@ if __name__ == "__main__":
                                                                                ghouls_marrow, enemy_tic, barrier_active,
                                                                                sharp_sense_active, ghoul_battle_sprite,
                                                                                in_battle, current_enemy_battling, Enemy,
-                                                                               Item, UiElement)
+                                                                               Item, UiElement, task_star_artherian,
+                                                                               npc_noren, npc_boro, npc_adria,
+                                                                               npcs_marrow)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -9854,7 +9879,9 @@ if __name__ == "__main__":
                                                                                ghouls_marrow, enemy_tic, barrier_active,
                                                                                sharp_sense_active, ghoul_battle_sprite,
                                                                                in_battle, current_enemy_battling, Enemy,
-                                                                               Item, UiElement)
+                                                                               Item, UiElement, task_star_artherian,
+                                                                               npc_noren, npc_boro, npc_adria,
+                                                                               npcs_marrow)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -11061,7 +11088,8 @@ if __name__ == "__main__":
                                                                   weapon_select, pet_energy_window, vanished,
                                                                   vanish_overlay, hearth_stone, chroma_bridge_forge,
                                                                   forge_rect, Item, sfx_enchanting, overlay_enchanting,
-                                                                  using_forge, enchanted_casing, artherian_2)
+                                                                  using_forge, enchanted_casing, artherian_2,
+                                                                  task_star_artherian)
                     else:
                         altar_returned = zone_altar.eldream_altar(pygame, game_window, graphic_dict, player,
                                                                   eldream_altar_bg, eldream_building_music,
@@ -11077,7 +11105,8 @@ if __name__ == "__main__":
                                                                   weapon_select, pet_energy_window, vanished,
                                                                   vanish_overlay, hearth_stone, chroma_bridge_forge,
                                                                   forge_rect, Item, sfx_enchanting, overlay_enchanting,
-                                                                  using_forge, enchanted_casing, artherian_2)
+                                                                  using_forge, enchanted_casing, artherian_2,
+                                                                  task_star_artherian)
 
                     over_world_song_set = altar_returned["over_world_song_set"]
                     interacted = altar_returned["interacted"]
@@ -16519,6 +16548,7 @@ if __name__ == "__main__":
                                         player.items.append(Item("casing", "casing", 200, 200, graphic_dict["casing"],
                                                                  0))
                                         npc_artherian.gift = True
+                                        task_star_artherian.update(210, 400, graphic_dict["artherian_progress_star"])
                                     else:
                                         info_text_1 = "You completed the task, but "
                                         info_text_2 = "Your inventory is full!"
@@ -16686,6 +16716,9 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "artherian":
                                 screen.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
                                 npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "adria":
+                                screen.blit(npc_adria_interaction.surf, npc_adria_interaction.rect)
+                                npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
 
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             screen.blit(npc_name_plate.surf, npc_name_plate.rect)
@@ -16763,6 +16796,9 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "artherian":
                                 game_window.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
                                 npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
+                            if current_npc_interacting.name == "adria":
+                                game_window.blit(npc_adria_interaction.surf, npc_adria_interaction.rect)
+                                npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
 
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
                             game_window.blit(npc_name_plate.surf, npc_name_plate.rect)
@@ -16788,6 +16824,8 @@ if __name__ == "__main__":
                             text_npc_name_rect.center = (675, 165)
                             if current_npc_interacting.name == "artherian":
                                 text_npc_name_rect.center = (680, 165)
+                            if current_npc_interacting.name == "adria":
+                                text_npc_name_rect.center = (685, 165)
 
                         if len(drawing_functions.type_advantage_window) == 0:
                             if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
@@ -16879,6 +16917,8 @@ if __name__ == "__main__":
                             # turn off barrier and restore original defence if player mage was killed while active
                             if sharp_sense_active:
                                 sharp_sense_active = False
+                            if mirror_image:
+                                mirror_image = False
 
                             if player.current_zone == "korlok" or player.current_zone == "mines" or \
                                     player.current_zone == "terra trail":
