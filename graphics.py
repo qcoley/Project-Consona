@@ -100,6 +100,7 @@ def load_graphics():
     m_end_block = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_east_end_block.png')).convert_alpha()
     m_ramp_w_end_bg = pygame.image.load(resource_path('resources/art/bg_marrow_rampart_west_end.png')).convert_alpha()
     marrow_district_bg = pygame.image.load(resource_path('resources/art/bg_marrow_district.png')).convert_alpha()
+    sub_marrow_bg = pygame.image.load(resource_path('resources/art/bg_sub_marrow.png')).convert_alpha()
     e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
     fishing_hut_screen = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
@@ -185,6 +186,7 @@ def load_graphics():
     n_building_tops = pygame.image.load(resource_path('resources/art/overlay_nuldar_building_tops.png')).convert_alpha()
     level_up_vis = pygame.image.load(resource_path('resources/art/overlay_level_up.png')).convert_alpha()
     quest_accepted = pygame.image.load(resource_path('resources/art/overlay_quest_accepted.png')).convert_alpha()
+    task_accepted = pygame.image.load(resource_path('resources/art/overlay_task_accepted.png')).convert_alpha()
     kart_overworld = pygame.image.load(resource_path('resources/art/sprite_kart_overworld_full.png')).convert_alpha()
     kart_big_full = pygame.image.load(resource_path('resources/art/sprite_kart_full.png')).convert_alpha()
     mirror_overlay = pygame.image.load(resource_path('resources/art/overlay_mirror_image.png')).convert_alpha()
@@ -243,6 +245,7 @@ def load_graphics():
     loaded_dict["overlay_smelting"] = overlay_smelting
     loaded_dict["overlay_enchanting"] = overlay_enchanting
     loaded_dict["quest_accepted"] = quest_accepted
+    loaded_dict["task_accepted"] = task_accepted
     loaded_dict["level_up_vis"] = level_up_vis
     loaded_dict["amuna_building_top"] = a_building_tops
     loaded_dict["nuldar_building_top"] = n_building_tops
@@ -298,6 +301,7 @@ def load_graphics():
     loaded_dict["marrow_rampart_west_end_bg"] = m_ramp_w_end_bg
     loaded_dict["marrow_rampart_west_end_bg_block"] = m_end_block
     loaded_dict["marrow_district_bg"] = marrow_district_bg
+    loaded_dict["sub_marrow_bg"] = sub_marrow_bg
     loaded_dict["overlay_marrow_ramps_east"] = over_mar_ramps_east
     loaded_dict["overlay_marrow_ramps_west"] = over_mar_ramps_west
     loaded_dict["rohir_river_screen"] = rohir_river_screen
@@ -4749,12 +4753,12 @@ def load_graphics():
     loaded_dict["boro_left"] = boro_sheet[2]
     loaded_dict["boro_right"] = boro_sheet[3]
     # adria npc --------------------------------------------------------------------------------------------------------
-    adria_url = resource_path('resources/art/sprites_adria.png')
+    adria_url = resource_path('resources/art/sprites_maydria.png')
     adria_sheet = sprite_sheet((50, 75), adria_url)
-    loaded_dict["adria_down"] = adria_sheet[0]
-    loaded_dict["adria_up"] = adria_sheet[1]
-    loaded_dict["adria_left"] = adria_sheet[2]
-    loaded_dict["adria_right"] = adria_sheet[3]
+    loaded_dict["maydria_down"] = adria_sheet[0]
+    loaded_dict["maydria_up"] = adria_sheet[1]
+    loaded_dict["maydria_left"] = adria_sheet[2]
+    loaded_dict["maydria_right"] = adria_sheet[3]
     # npc interactions -------------------------------------------------------------------------------------------------
     npc_interactions_url = resource_path('resources/art/sprites_npc_interactions.png')
     npc_interactions_sheet = sprite_sheet((220, 300), npc_interactions_url)
@@ -4769,7 +4773,7 @@ def load_graphics():
     loaded_dict["leyre_interaction"] = npc_interactions_sheet[8]
     loaded_dict["everett_interaction"] = npc_interactions_sheet[9]
     loaded_dict["artherian_interaction"] = npc_interactions_sheet[10]
-    loaded_dict["adria_interaction"] = npc_interactions_sheet[11]
+    loaded_dict["maydria_interaction"] = npc_interactions_sheet[11]
     # interaction popup ------------------------------------------------------------------------------------------------
     interaction_popup_url = resource_path('resources/art/popup_interaction.png')
     interaction_popup_sheet = sprite_sheet((125, 25), interaction_popup_url)
@@ -5172,7 +5176,7 @@ def load_graphics():
     loaded_dict["everett_quest"] = quest_windows_sheet[11]
     loaded_dict["artherian_quest"] = quest_windows_sheet[12]
     loaded_dict["artherian_quest_2"] = quest_windows_sheet[13]
-    loaded_dict["vanguard_quest"] = quest_windows_sheet[14]
+    loaded_dict["maydria_quest"] = quest_windows_sheet[14]
     # quest complete popups --------------------------------------------------------------------------------------------
     quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
     quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)
@@ -5192,6 +5196,7 @@ def load_graphics():
     loaded_dict["aitor_complete"] = quest_popups_2_sheet[2]
     loaded_dict["everett_complete"] = quest_popups_2_sheet[3]
     loaded_dict["artherian_complete"] = quest_popups_2_sheet[4]
+    loaded_dict["maydria_complete"] = quest_popups_2_sheet[5]
     # quest stars ------------------------------------------------------------------------------------------------------
     quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
     quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)
@@ -5201,9 +5206,9 @@ def load_graphics():
     loaded_dict["artherian_start_star"] = quest_stars_sheet[3]
     loaded_dict["artherian_progress_star"] = quest_stars_sheet[4]
     loaded_dict["artherian_complete_star"] = quest_stars_sheet[5]
-    loaded_dict["vanguard_start_star"] = quest_stars_sheet[6]
-    loaded_dict["vanguard_progress_star"] = quest_stars_sheet[7]
-    loaded_dict["vanguard_complete_star"] = quest_stars_sheet[8]
+    loaded_dict["maydria_start_star"] = quest_stars_sheet[6]
+    loaded_dict["maydria_progress_star"] = quest_stars_sheet[7]
+    loaded_dict["maydria_complete_star"] = quest_stars_sheet[8]
     # quest stars ------------------------------------------------------------------------------------------------------
     building_quest_stars_url = resource_path('resources/art/overlay_building_npc_stars.png')
     building_quest_stars_sheet = sprite_sheet((125, 125), building_quest_stars_url)

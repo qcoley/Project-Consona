@@ -581,7 +581,8 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
         if player.current_zone == "marrow" or player.current_zone == "marrow entrance" or \
                 player.current_zone == "marrow tower east" or player.current_zone == "marrow tower west" or \
                 player.current_zone == "marrow ramps east" or player.current_zone == "marrow ramps west" or \
-                player.current_zone == "marrow ramps east end" or player.current_zone == "marrow ramps west end":
+                player.current_zone == "marrow ramps east end" or player.current_zone == "marrow ramps west end" \
+                or player.current_zone == "sub marrow":
             text_location = font.render(str("Marrow"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
@@ -882,7 +883,8 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
                 player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
                 or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
-                or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
+                or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow" \
+                or player.current_zone == "sub marrow":
 
             text_quest1_surf = font.render("Barrier blockade", True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
@@ -980,7 +982,7 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
                    torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
                    dionte_quest_window, accept_button, decline_button, omoku_quest_window, leyre_quest_window,
                    aitor_quest_window, everett_quest_window, artherian_quest_window, artherian_quest_window_2,
-                   artherian_1):
+                   artherian_1, maydria_quest_window):
     if not draw_condition:
         quest_box.clear()
     else:
@@ -1014,6 +1016,8 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
                     quest_box.append(artherian_quest_window)
                 else:
                     quest_box.append(artherian_quest_window_2)
+            if quest_npc.name == "maydria":
+                quest_box.append(maydria_quest_window)
 
         except AttributeError:
             if quest_npc == "kirean":
@@ -1028,7 +1032,7 @@ def quest_box_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest
 def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_quest_window, celeste_quest_window,
                         torune_quest_window, voruke_quest_window, zerah_quest_window, kirean_quest_window,
                         dionte_quest_window, omoku_quest_window, leyre_quest_window, aitor_quest_window,
-                        everett_quest_window, artherian_quest_window):
+                        everett_quest_window, artherian_quest_window, maydria_task_window):
     if not draw_condition:
         quest_complete_box.clear()
     else:
@@ -1059,6 +1063,8 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
                 quest_complete_box.append(everett_quest_window)
             if quest_npc.name == "artherian":
                 quest_complete_box.append(artherian_quest_window)
+            if quest_npc.name == "maydria":
+                quest_complete_box.append(maydria_task_window)
         except AttributeError:
             if quest_npc == "kirean":
                 quest_complete_box.append(kirean_quest_window)
@@ -1879,7 +1885,8 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
                     player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
                     or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow" \
+                    or player.current_zone == "sub marrow":
                 amuna_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
@@ -1914,7 +1921,8 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
                     player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
                     or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow" \
+                    or player.current_zone == "sub marrow":
                 amuna_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
@@ -1950,7 +1958,8 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
                     player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
                     or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow" \
+                    or player.current_zone == "sub marrow":
                 nuldar_location.update(marrow_map_button.x_coordinate,
                                        marrow_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
@@ -1985,7 +1994,8 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
                     player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
                     or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow" \
+                    or player.current_zone == "sub marrow":
                 nuldar_location.update(marrow_map_button.x_coordinate,
                                        marrow_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
@@ -2021,7 +2031,8 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
                     player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
                     or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow" \
+                    or player.current_zone == "sub marrow":
                 sorae_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
@@ -2056,7 +2067,8 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "marrow entrance" or player.current_zone == "marrow ramps west" or \
                     player.current_zone == "marrow ramps east" or player.current_zone == "marrow tower west" \
                     or player.current_zone == "marrow tower east" or player.current_zone == "marrow ramps west end" \
-                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow":
+                    or player.current_zone == "marrow ramps east end" or player.current_zone == "marrow" \
+                    or player.current_zone == "sub marrow":
                 sorae_location.update(marrow_map_button.x_coordinate,
                                       marrow_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])

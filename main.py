@@ -6636,6 +6636,7 @@ if __name__ == "__main__":
     marrow_ramparts_battle = graphic_dict["marrow_ramparts_battle"]
     marrow_interaction_bg = graphic_dict["marrow_interaction_bg"]
     marrow_tower_battle = graphic_dict["marrow_tower_battle"]
+    sub_marrow_bg = graphic_dict["sub_marrow_bg"]
 
     # cutscenes --------------------------------------------------------------------------------------------------------
     apothis_scene_1 = graphic_dict["apothis_1"]
@@ -6780,8 +6781,8 @@ if __name__ == "__main__":
                     graphic_dict["noren_down"])
     npc_boro = NPC("boro", "nuldar", "vamos vanguard", "Onur-oh", "", 580, 375, True, False, ["Items"], False,
                    graphic_dict["boro_down"])
-    npc_adria = NPC("adria", "amuna", "vamos", "hail", "", 860, 175, True, False, ["Items"], False,
-                    graphic_dict["adria_down"])
+    npc_maydria = NPC("maydria", "amuna", "vamos", "hail", "", 860, 175, True, False, ["Items"], False,
+                    graphic_dict["maydria_down"])
 
     npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
                        graphic_dict["worker_1_a"])
@@ -6817,7 +6818,7 @@ if __name__ == "__main__":
     npc_leyre_interaction = UiElement("leyre interaction", 678, 350, graphic_dict["leyre_interaction"])
     npc_everett_interaction = UiElement("everett interaction", 678, 325, graphic_dict["everett_interaction"])
     npc_artherian_interaction = UiElement("artherian interaction", 678, 325, graphic_dict["artherian_interaction"])
-    npc_adria_interaction = UiElement("adria interaction", 678, 325, graphic_dict["adria_interaction"])
+    npc_maydria_interaction = UiElement("maydria interaction", 678, 325, graphic_dict["maydria_interaction"])
 
     # enemies: kind, health, energy, level, x_coordinate, y_coordinate, alive_status, items, image, color, health bar
     # seldon enemies ---------------------------------------------------------------------------------------------------
@@ -6942,12 +6943,12 @@ if __name__ == "__main__":
                     UiElement("erebyth hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
     apothis = Enemy("apothis", "apothis", 100, 100, 75, 575, 450, True, "item", graphic_dict["apothis_back"],
                     UiElement("apothis hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    necrola_ramps_1 = Enemy("necrola", "necrola", 100, 100, 19, 198, 360, True,
+    necrola_ramps_1 = Enemy("necrola", "necrola", 100, 100, 22, 198, 360, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
     necrola_rect_1 = pygame.Rect((25, 360), (150, 100))
-    necrola_ramps_2 = Enemy("necrola", "necrola", 100, 100, 18, 835, 360, True,
+    necrola_ramps_2 = Enemy("necrola", "necrola", 100, 100, 22, 835, 360, True,
                             Item("oscura pluma", "pluma", 200, 200, graphic_dict["pluma_img"], 0),
                             graphic_dict["necrola_sleep"], UiElement("necrola hp bar", 700, 90, graphic_dict["hp_100"]),
                             "scout")
@@ -7138,15 +7139,19 @@ if __name__ == "__main__":
     everett_quest_window = UiElement("everett quest window", 262, 443, graphic_dict["everett_quest"])
     everett_complete_quest_window = UiElement("everett complete window", 550, 350, graphic_dict["everett_complete"])
     artherian_complete_window = UiElement("artherian complete window", 550, 350, graphic_dict["artherian_complete"])
+    maydria_complete_window = UiElement("maydria complete window", 550, 350, graphic_dict["maydria_complete"])
 
     artherian_task_window = UiElement("artherian task window", 262, 443, graphic_dict["artherian_quest"])
     artherian_task_window_2 = UiElement("artherian task window", 262, 443, graphic_dict["artherian_quest_2"])
+
+    maydria_task_window = UiElement("maydria task window", 262, 443, graphic_dict["maydria_quest"])
 
     message_box = UiElement("message box", 173, 650, graphic_dict["message_box"])
     bar_backdrop = UiElement("bar backdrop", 165, 45, graphic_dict["bar_backdrop"])
     enemy_status_bar_back = UiElement("enemy bar backdrop", 700, 90, graphic_dict["enemy_bar_backdrop"])
 
     quest_accepted = UiElement("quest accept overlay", 550, 325, graphic_dict["quest_accepted"])
+    task_accepted = UiElement("task accept overlay", 550, 325, graphic_dict["task_accepted"])
 
     quest_star_garan = UiElement("quest star garan", 209, 390, graphic_dict["quest_start_star"])
     quest_star_maurelle = UiElement("quest star maurelle", 744, 575, graphic_dict["quest_start_star"])
@@ -7167,6 +7172,7 @@ if __name__ == "__main__":
     quest_star_menagerie = UiElement("quest star menagerie", 790, 150, graphic_dict["building_npc_star_available"])
 
     task_star_artherian = UiElement("task star artherian", 210, 400, graphic_dict["artherian_start_star"])
+    task_star_maydria = UiElement("task star maydria", 861, 132, graphic_dict["maydria_start_star"])
 
     player_battle_sprite = BattleCharacter("stan battle", 375, 450, graphic_dict["player_no_role_amuna_battle"])
     snake_battle_sprite = BattleCharacter("snake battle", 715, 250, graphic_dict["snake_battle"])
@@ -7332,6 +7338,7 @@ if __name__ == "__main__":
     ectrenos_inn_entrance = pygame.Rect((825, 275), (100, 100))
     ectrenos_shop_entrance = pygame.Rect((215, 175), (100, 100))
     ectrenos_pet_entrance = pygame.Rect((775, 175), (100, 100))
+    sub_marrow_rect = pygame.Rect((360, 610), (100, 100))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
@@ -7430,7 +7437,7 @@ if __name__ == "__main__":
     stardust_stelli.add(stelli_a, stelli_b, stelli_c)
     npcs_seldon.add(npc_garan, npc_maurelle, npc_celeste, npc_torune)
     npcs_korlok.add(npc_voruke, npc_zerah)
-    npcs_marrow.add(npc_adria, npc_noren, npc_boro, npc_artherian)
+    npcs_marrow.add(npc_maydria, npc_noren, npc_boro, npc_artherian)
     seldon_enemies.add(snake_1, snake_2, snake_3, snake_4, ghoul_low_1, ghoul_low_2, ghoul_low_3, ghoul_low_4)
     korlok_enemies.add(magmon_1, magmon_2, magmon_3, magmon_4)
     mine_enemies.add(bandile_1, bandile_2, bandile_3, bandile_4)
@@ -7702,6 +7709,7 @@ if __name__ == "__main__":
     leyre_complete_shown = False
     everett_complete_shown = False
     artherian_complete_shown = False
+    maydria_complete_shown = False
     snake_sprite_reset = False
     ghoul_sprite_reset = False
     log_sprite_reset = False
@@ -8594,6 +8602,10 @@ if __name__ == "__main__":
                             player.x_coordinate = 515
                             player.y_coordinate = 650
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "sub marrow":
+                            player.x_coordinate = 425
+                            player.y_coordinate = 650
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
                         if marrow_switch_phase == "red":
                             overlay_marrow_switch.update(640, 360, graphic_dict["marrow_switch_red"])
@@ -8898,11 +8910,13 @@ if __name__ == "__main__":
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, marrow_hearth.rect):
                                         interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_adria.rect):
+                                    if pygame.Rect.colliderect(player.rect, npc_maydria.rect):
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, npc_noren.rect):
                                         interacted = True
                                     if pygame.Rect.colliderect(player.rect, npc_boro.rect):
+                                        interacted = True
+                                    if pygame.Rect.colliderect(player.rect, sub_marrow_rect):
                                         interacted = True
                                 if player.current_zone == "marrow entrance":
                                     if pygame.sprite.spritecollideany(player, interactables_marrow_entrance):
@@ -9855,8 +9869,9 @@ if __name__ == "__main__":
                                                                                sharp_sense_active, ghoul_battle_sprite,
                                                                                in_battle, current_enemy_battling, Enemy,
                                                                                Item, UiElement, task_star_artherian,
-                                                                               npc_noren, npc_boro, npc_adria,
-                                                                               npcs_marrow)
+                                                                               npc_noren, npc_boro, npc_maydria,
+                                                                               npcs_marrow, task_star_maydria,
+                                                                               sub_marrow_rect, sfx_ladder)
                     else:
                         marrow_district_returned = zone_marrow.marrow_district(pygame, game_window, graphic_dict,
                                                                                player, marrow_district_bg,
@@ -9880,8 +9895,9 @@ if __name__ == "__main__":
                                                                                sharp_sense_active, ghoul_battle_sprite,
                                                                                in_battle, current_enemy_battling, Enemy,
                                                                                Item, UiElement, task_star_artherian,
-                                                                               npc_noren, npc_boro, npc_adria,
-                                                                               npcs_marrow)
+                                                                               npc_noren, npc_boro, npc_maydria,
+                                                                               npcs_marrow, task_star_maydria,
+                                                                               sub_marrow_rect, sfx_ladder)
 
                     over_world_song_set = marrow_district_returned["over_world_song_set"]
                     interacted = marrow_district_returned["interacted"]
@@ -10442,6 +10458,49 @@ if __name__ == "__main__":
                     npc_tic = marrow_ramps_east_end_returned["npc_tic"]
                     if in_battle:
                         current_enemy_battling = marrow_ramps_east_end_returned["current_enemy_battling"]
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in subterranean marrow ------------------------------------------------------------------
+                if player.current_zone == "sub marrow" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        sub_marrow_returned = zone_marrow.sub_marrow(pygame, screen, graphic_dict, player,
+                                                                     sub_marrow_bg, over_world_song_set,
+                                                                     marrow_overworld_music, interaction_popup, font,
+                                                                     save_check_window, user_interface, bar_backdrop,
+                                                                     hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                     button_highlight, in_over_world, interacted,
+                                                                     info_text_1, info_text_2, info_text_3, info_text_4,
+                                                                     npc_tic, movement_able, equipment_screen,
+                                                                     staff, sword, bow, npc_garan, offense_meter,
+                                                                     defense_meter, weapon_select, pet_energy_window,
+                                                                     Item, in_battle)
+                    else:
+                        sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
+                                                                     sub_marrow_bg, over_world_song_set,
+                                                                     marrow_overworld_music, interaction_popup, font,
+                                                                     save_check_window, user_interface, bar_backdrop,
+                                                                     hp_bar, en_bar, xp_bar, button_highlighted,
+                                                                     button_highlight, in_over_world, interacted,
+                                                                     info_text_1, info_text_2, info_text_3, info_text_4,
+                                                                     npc_tic, movement_able, equipment_screen,
+                                                                     staff, sword, bow, npc_garan, offense_meter,
+                                                                     defense_meter, weapon_select, pet_energy_window,
+                                                                     Item, in_battle)
+
+                    over_world_song_set = sub_marrow_returned["over_world_song_set"]
+                    interacted = sub_marrow_returned["interacted"]
+                    in_over_world = sub_marrow_returned["in_over_world"]
+                    movement_able = sub_marrow_returned["movement_able"]
+                    info_text_1 = sub_marrow_returned["info_text_1"]
+                    info_text_2 = sub_marrow_returned["info_text_2"]
+                    info_text_3 = sub_marrow_returned["info_text_3"]
+                    info_text_4 = sub_marrow_returned["info_text_4"]
+                    in_battle = sub_marrow_returned["in_battle"]
+                    npc_tic = sub_marrow_returned["npc_tic"]
+                    if in_battle:
+                        current_enemy_battling = sub_marrow_returned["current_enemy_battling"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in eldream district ---------------------------------------------------------------------
@@ -15749,9 +15808,19 @@ if __name__ == "__main__":
                         if len(drawing_functions.quest_box) > 1:
                             if quest_buttons == "accept":
                                 if current_npc_interacting.name != "garan":
-                                    drawing_functions.quest_accept_box.append(quest_accepted)
+                                    if current_npc_interacting.name != "artherian":
+                                        if current_npc_interacting.name != "maydria":
+                                            info_text_1 = "You've accepted the quest!"
+                                            drawing_functions.quest_accept_box.append(quest_accepted)
+                                        else:
+                                            info_text_1 = "You've accepted the task!"
+                                            drawing_functions.quest_accept_box.append(task_accepted)
+                                            task_star_maydria.update(860, 128, graphic_dict["maydria_progress_star"])
+                                    else:
+                                        info_text_1 = "You've accepted the task!"
+                                        drawing_functions.quest_accept_box.append(task_accepted)
+                                        task_star_artherian.update(210, 400, graphic_dict["artherian_progress_star"])
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
-                                info_text_1 = "You've accepted the quest!"
                                 button_highlighted = False
                                 if current_npc_interacting.name == "garan":
                                     player.quest_status["sneaky snakes"] = True
@@ -16619,6 +16688,60 @@ if __name__ == "__main__":
                                     drawing_functions.quest_box.clear()
                                     quest_clicked = False
 
+                            # maydria npc, check player's quest progress and reward if completed -----------------------
+                            if current_npc_interacting.name == "maydria":
+                                if npc_maydria.quest_complete:
+                                    pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                    player.quest_complete["shades of fear"] = True
+                                    player.current_quests["shades of fear"] = "You completed this task!"
+                                    info_text_1 = "You've completed Maydria's task!"
+                                    info_text_2 = ""
+                                    info_text_3 = ""
+                                    info_text_4 = ""
+                                    player.reputation["amuna"] += 10
+
+                                if not quest_clicked:
+                                    if not npc_maydria.quest_complete:
+                                        drawing_functions.quest_box_draw(current_npc_interacting, True,
+                                                                         garan_quest_window,
+                                                                         maurelle_quest_window,
+                                                                         celeste_quest_window,
+                                                                         torune_quest_window,
+                                                                         voruke_quest_window,
+                                                                         zerah_quest_window,
+                                                                         kirean_quest_window,
+                                                                         dionte_quest_window,
+                                                                         accept_button, decline_button,
+                                                                         omoku_quest_window, leyre_quest_window,
+                                                                         aitor_quest_window,
+                                                                         everett_quest_window,
+                                                                         artherian_task_window,
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         maydria_task_window)
+                                        quest_clicked = True
+                                    else:  # quest complete popup
+                                        if not maydria_complete_shown:
+                                            drawing_functions.quest_complete_draw(current_npc_interacting, True,
+                                                                                  garan_complete_quest_window,
+                                                                                  maurelle_complete_quest_window,
+                                                                                  celeste_complete_quest_window,
+                                                                                  torune_complete_quest_window,
+                                                                                  voruke_complete_quest_window,
+                                                                                  zerah_complete_quest_window,
+                                                                                  kirean_complete_quest_window,
+                                                                                  dionte_complete_quest_window,
+                                                                                  omoku_complete_quest_window,
+                                                                                  leyre_complete_quest_window,
+                                                                                  aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  everett_complete_quest_window,
+                                                                                  madria_complete_quest_window)
+                                            maydria_complete_shown = True
+                                            quest_clicked = True
+                                else:
+                                    drawing_functions.quest_box.clear()
+                                    quest_clicked = False
+
                         if npc_button == "leave":
                             movement_able = True
                             interacted = False
@@ -16716,8 +16839,8 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "artherian":
                                 screen.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
                                 npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "adria":
-                                screen.blit(npc_adria_interaction.surf, npc_adria_interaction.rect)
+                            if current_npc_interacting.name == "maydria":
+                                screen.blit(npc_maydria_interaction.surf, npc_maydria_interaction.rect)
                                 npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
 
                             screen.blit(player_battle_sprite.surf, player_battle_sprite.rect)
@@ -16796,8 +16919,8 @@ if __name__ == "__main__":
                             if current_npc_interacting.name == "artherian":
                                 game_window.blit(npc_artherian_interaction.surf, npc_artherian_interaction.rect)
                                 npc_name_plate.update(680, 165, graphic_dict["npc_name_plate"])
-                            if current_npc_interacting.name == "adria":
-                                game_window.blit(npc_adria_interaction.surf, npc_adria_interaction.rect)
+                            if current_npc_interacting.name == "maydria":
+                                game_window.blit(npc_maydria_interaction.surf, npc_maydria_interaction.rect)
                                 npc_name_plate.update(685, 165, graphic_dict["npc_name_plate"])
 
                             game_window.blit(player_battle_sprite.surf, player_battle_sprite.rect)
@@ -16824,7 +16947,7 @@ if __name__ == "__main__":
                             text_npc_name_rect.center = (675, 165)
                             if current_npc_interacting.name == "artherian":
                                 text_npc_name_rect.center = (680, 165)
-                            if current_npc_interacting.name == "adria":
+                            if current_npc_interacting.name == "maydria":
                                 text_npc_name_rect.center = (685, 165)
 
                         if len(drawing_functions.type_advantage_window) == 0:
