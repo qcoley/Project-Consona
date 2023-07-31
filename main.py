@@ -7765,6 +7765,7 @@ if __name__ == "__main__":
     apothis_2 = False
     artherian_1 = False
     artherian_2 = False
+    npc_text_reset = False
 
     seed_given = False
     hatch_ready = False
@@ -7894,7 +7895,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         if player.x_coordinate < 335 and 600 < player.y_coordinate:
@@ -8660,12 +8661,12 @@ if __name__ == "__main__":
                 loot_level_toc = time.perf_counter()
                 # after battle, clear loot popup after about 3 seconds
                 if loot_info:
-                    if loot_level_toc - loot_level_tic > 3:
+                    if loot_level_toc - loot_level_tic > 5:
                         drawing_functions.loot_popup_container.clear()
                         drawing_functions.loot_text_container.clear()
                 # if player leveled, clear level up popup after about 3 seconds
                 if leveled:
-                    if loot_level_toc - loot_level_tic > 3:
+                    if loot_level_toc - loot_level_tic > 5:
                         drawing_functions.level_up_draw(level_up_win, player, font, False)
                         drawing_functions.level_up_visual.clear()
                         leveled = False
@@ -14736,6 +14737,12 @@ if __name__ == "__main__":
                 if in_apothecary and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
                         and not in_battle:
 
+                    if not npc_text_reset:
+                        info_text_1 = "Press the 'Talk' button to interact"
+                        info_text_2 = "with the NPC. "
+                        info_text_3 = ""
+                        info_text_4 = ""
+
                     if not building_song_set:
                         pygame.mixer.music.fadeout(50)
                         pygame.mixer.music.load(korlok_building_music)
@@ -14752,6 +14759,7 @@ if __name__ == "__main__":
                                 in_over_world = True
                                 building_song_set = False
                                 quest_clicked = False
+                                npc_text_reset = False
                                 drawing_functions.quest_complete_box.clear()
                                 drawing_functions.quest_box.clear()
                                 drawing_functions.potion_window_container.clear()
@@ -14900,6 +14908,7 @@ if __name__ == "__main__":
                                 info_text_2 = ""
 
                         if npc_button == "quest":
+                            npc_text_reset = True
                             if player.quest_progress["can't apothecary it"] == 4 and not \
                                     player.quest_complete["can't apothecary it"]:
                                 if len(player.items) < 16:
@@ -14958,7 +14967,7 @@ if __name__ == "__main__":
                                                                      omoku_quest_window, leyre_quest_window,
                                                                      aitor_quest_window, everett_quest_window,
                                                                      artherian_task_window, artherian_task_window_2,
-                                                                     artherian_1)
+                                                                     artherian_1, artherian_task_window)
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not kirean_complete_shown:
@@ -14974,6 +14983,7 @@ if __name__ == "__main__":
                                                                               omoku_complete_quest_window,
                                                                               leyre_complete_quest_window,
                                                                               aitor_complete_quest_window,
+                                                                              everett_complete_quest_window,
                                                                               everett_complete_quest_window,
                                                                               everett_complete_quest_window)
                                         kirean_complete_shown = True
@@ -15009,6 +15019,7 @@ if __name__ == "__main__":
                             building_song_set = False
                             apothecary_window_open = False
                             apothecary_cat_pet = False
+                            npc_text_reset = False
                             drawing_functions.potion_window_container.clear()
                             drawing_functions.quest_complete_box.clear()
                             drawing_functions.quest_accept_box.clear()
@@ -15187,6 +15198,12 @@ if __name__ == "__main__":
                 if in_menagerie and not in_over_world and not in_shop and not in_inn and not in_npc_interaction \
                         and not in_battle:
 
+                    if not npc_text_reset:
+                        info_text_1 = "Press the 'Talk' button to interact"
+                        info_text_2 = "with the NPC. "
+                        info_text_3 = ""
+                        info_text_4 = ""
+
                     if not building_song_set:
                         pygame.mixer.music.fadeout(50)
                         pygame.mixer.music.load(eldream_building_music)
@@ -15204,6 +15221,7 @@ if __name__ == "__main__":
                                 building_song_set = False
                                 quest_clicked = False
                                 hatch_sound = False
+                                npc_text_reset = False
                                 drawing_functions.quest_complete_box.clear()
                                 drawing_functions.pets_window_container.clear()
                                 drawing_functions.quest_accept_box.clear()
@@ -15502,6 +15520,7 @@ if __name__ == "__main__":
                                 info_text_2 = ""
 
                         if npc_button == "quest":
+                            npc_text_reset = True
                             if player.quest_progress["hatch 'em all"] == 1 and not \
                                     player.quest_complete["hatch 'em all"]:
                                 if len(player.items) < 16:
@@ -15559,7 +15578,7 @@ if __name__ == "__main__":
                                                                      omoku_quest_window, leyre_quest_window,
                                                                      aitor_quest_window, everett_quest_window,
                                                                      artherian_task_window, artherian_task_window_2,
-                                                                     artherian_1)
+                                                                     artherian_1, artherian_task_window)
                                     quest_clicked = True
                                 else:  # quest complete popup
                                     if not aitor_complete_shown:
@@ -15575,6 +15594,7 @@ if __name__ == "__main__":
                                                                               omoku_complete_quest_window,
                                                                               leyre_complete_quest_window,
                                                                               aitor_complete_quest_window,
+                                                                              everett_complete_quest_window,
                                                                               everett_complete_quest_window,
                                                                               everett_complete_quest_window)
                                         aitor_complete_shown = True
@@ -15615,6 +15635,7 @@ if __name__ == "__main__":
                             menagerie_window_open = False
                             menagerie_cat_pet = False
                             hatch_sound = False
+                            npc_text_reset = False
                             drawing_functions.quest_complete_box.clear()
                             drawing_functions.pets_window_container.clear()
                             drawing_functions.quest_accept_box.clear()
@@ -15745,6 +15766,13 @@ if __name__ == "__main__":
                 # if player interacting with an npc (quest) ------------------------------------------------------------
                 if in_npc_interaction and not in_over_world and not in_shop and not in_inn and not in_academia \
                         and not in_battle:
+
+                    if not npc_text_reset:
+                        info_text_1 = "Press the 'Talk' button to interact"
+                        info_text_2 = "with the NPC. "
+                        info_text_3 = ""
+                        info_text_4 = ""
+
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
                             if event.key == K_ESCAPE:
@@ -15754,6 +15782,7 @@ if __name__ == "__main__":
                                 in_npc_interaction = False
                                 in_over_world = True
                                 quest_clicked = False
+                                npc_text_reset = False
                                 drawing_functions.quest_complete_box.clear()
                                 drawing_functions.quest_box.clear()
                                 drawing_functions.type_advantage_window.clear()
@@ -15807,17 +15836,20 @@ if __name__ == "__main__":
                         # options once quest window is open ------------------------------------------------------------
                         if len(drawing_functions.quest_box) > 1:
                             if quest_buttons == "accept":
+                                info_text_1 = "You've accepted the quest!"
+                                info_text_2 = ""
                                 if current_npc_interacting.name != "garan":
                                     if current_npc_interacting.name != "artherian":
                                         if current_npc_interacting.name != "maydria":
-                                            info_text_1 = "You've accepted the quest!"
                                             drawing_functions.quest_accept_box.append(quest_accepted)
                                         else:
                                             info_text_1 = "You've accepted the task!"
+                                            info_text_2 = ""
                                             drawing_functions.quest_accept_box.append(task_accepted)
                                             task_star_maydria.update(860, 128, graphic_dict["maydria_progress_star"])
                                     else:
                                         info_text_1 = "You've accepted the task!"
+                                        info_text_2 = ""
                                         drawing_functions.quest_accept_box.append(task_accepted)
                                         task_star_artherian.update(210, 400, graphic_dict["artherian_progress_star"])
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
@@ -15912,6 +15944,7 @@ if __name__ == "__main__":
                                 info_text_2 = ""
 
                         if npc_button == "quest":
+                            npc_text_reset = True
                             if first_npc_cond:
                                 first_npc_cond = False
                             # garan npc, check player's quest progress and reward if completed -------------------------
@@ -15976,7 +16009,8 @@ if __name__ == "__main__":
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not garan_complete_shown:
@@ -15992,6 +16026,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             garan_complete_shown = True
@@ -16036,7 +16071,8 @@ if __name__ == "__main__":
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not celeste_complete_shown:
@@ -16052,6 +16088,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             celeste_complete_shown = True
@@ -16096,7 +16133,8 @@ if __name__ == "__main__":
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not maurelle_complete_shown:
@@ -16112,6 +16150,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             maurelle_complete_shown = True
@@ -16182,7 +16221,8 @@ if __name__ == "__main__":
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not torune_complete_shown:
@@ -16198,6 +16238,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             torune_complete_shown = True
@@ -16243,7 +16284,8 @@ if __name__ == "__main__":
                                                                          decline_button, omoku_quest_window,
                                                                          leyre_quest_window, aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not voruke_complete_shown:
@@ -16259,6 +16301,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             voruke_complete_shown = True
@@ -16302,7 +16345,8 @@ if __name__ == "__main__":
                                                                          omoku_quest_window, leyre_quest_window,
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not zerah_complete_shown:
@@ -16318,6 +16362,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             zerah_complete_shown = True
@@ -16389,7 +16434,8 @@ if __name__ == "__main__":
                                                                          omoku_quest_window, leyre_quest_window,
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not dionte_complete_shown:
@@ -16405,6 +16451,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             dionte_complete_shown = True
@@ -16448,7 +16495,8 @@ if __name__ == "__main__":
                                                                          omoku_quest_window, leyre_quest_window,
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not omoku_complete_shown:
@@ -16464,6 +16512,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             omoku_complete_shown = True
@@ -16507,7 +16556,8 @@ if __name__ == "__main__":
                                                                          omoku_quest_window, leyre_quest_window,
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not leyre_complete_shown:
@@ -16523,6 +16573,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             leyre_complete_shown = True
@@ -16566,7 +16617,8 @@ if __name__ == "__main__":
                                                                          omoku_quest_window, leyre_quest_window,
                                                                          aitor_quest_window, everett_quest_window,
                                                                          artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # quest complete popup
                                         if not everett_complete_shown:
@@ -16582,6 +16634,7 @@ if __name__ == "__main__":
                                                                                   omoku_complete_quest_window,
                                                                                   leyre_complete_quest_window,
                                                                                   aitor_complete_quest_window,
+                                                                                  everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window)
                                             everett_complete_shown = True
@@ -16636,7 +16689,8 @@ if __name__ == "__main__":
                                                                          omoku_quest_window, leyre_quest_window,
                                                                          aitor_quest_window,
                                                                          everett_quest_window, artherian_task_window,
-                                                                         artherian_task_window_2, artherian_1)
+                                                                         artherian_task_window_2, artherian_1,
+                                                                         artherian_task_window_2)
                                         quest_clicked = True
                                     else:  # artherian task 2
                                         if not artherian_2:
@@ -16655,7 +16709,8 @@ if __name__ == "__main__":
                                                                              everett_quest_window,
                                                                              artherian_task_window,
                                                                              artherian_task_window_2,
-                                                                             npc_artherian.gift)
+                                                                             npc_artherian.gift,
+                                                                             artherian_task_window_2)
                                             quest_clicked = True
                                         else:
                                             if not npc_artherian.quest_complete:
@@ -16680,6 +16735,7 @@ if __name__ == "__main__":
                                                                                       leyre_complete_quest_window,
                                                                                       aitor_complete_quest_window,
                                                                                       everett_complete_quest_window,
+                                                                                      artherian_complete_window,
                                                                                       artherian_complete_window)
                                                 artherian_complete_shown = True
                                                 quest_clicked = True
@@ -16735,7 +16791,7 @@ if __name__ == "__main__":
                                                                                   aitor_complete_quest_window,
                                                                                   everett_complete_quest_window,
                                                                                   everett_complete_quest_window,
-                                                                                  madria_complete_quest_window)
+                                                                                  maydria_complete_window)
                                             maydria_complete_shown = True
                                             quest_clicked = True
                                 else:
@@ -16749,6 +16805,7 @@ if __name__ == "__main__":
                             in_npc_interaction = False
                             in_over_world = True
                             quest_clicked = False
+                            npc_text_reset = False
                             drawing_functions.quest_complete_box.clear()
                             drawing_functions.quest_box.clear()
                             drawing_functions.type_advantage_window.clear()
