@@ -17,11 +17,13 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      rock, pet_energy_window, stardust_top, necrola_battle_sprite, osodark_battle_sprite, sfx_nede,
                      sfx_door, sfx_rupee, rock_3_con, outpost_show, outpost_notify, stellis, enemy_tic,
                      stelli_battle_sprite, vanished, vanish_overlay, waterfall, level_checked):
+
     if not stardust_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(stardust_outpost_music)
-        pygame.mixer.music.play(loops=-1)
-        stardust_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(stardust_outpost_music)
+            pygame.mixer.music.play(loops=-1)
+            stardust_song_set = True
 
     screen.blit(stardust_cove_bg, (0, 0))
     screen.blit(rock.surf, rock.rect)
@@ -285,9 +287,6 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2,
                                      info_text_3, info_text_4, in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if len(drawing_functions.outpost_window) > 0:
         for outpost_item in drawing_functions.outpost_window:

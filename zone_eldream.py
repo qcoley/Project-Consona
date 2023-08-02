@@ -24,13 +24,14 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                      omoku, quest_supplies, ectrenos_front_enemies, necrola_battle_sprite, osodark_battle_sprite,
                      sfx_flower, sfx_hearth, sfx_item, kart_full, stelli_battle_sprite, critter, right_move, left_move,
                      critter_tic, walk_move, overlay_marrow_west, overlay_marrow_east, entrance_1, entrance_2,
-                     entrance_3):
+                     entrance_3, mini_map):
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(eldream_overworld_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(eldream_overworld_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(eldream_district_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -203,6 +204,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
             interacted = False
             over_world_song_set = False
             player.current_zone = "ectrenos"
+            mini_map.update(915, 596, graphic_dict["ectrenos_mini_map"])
             player.x_coordinate = 500
             player.y_coordinate = 675
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -293,9 +295,6 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
                                      in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     if player.x_coordinate < 100 and player.y_coordinate < 175:
         player.current_zone = "terra trail"
         in_over_world = True
@@ -305,6 +304,7 @@ def eldream_district(pygame, screen, graphic_dict, player, eldream_district_bg, 
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if 500 < player.x_coordinate < 600 and player.y_coordinate == 705:
+        mini_map.update(915, 596, graphic_dict["marrow_mini_map"])
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
         overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
         entrance_1 = True

@@ -586,7 +586,7 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
             text_location = font.render(str("Marrow"), True, "black", "light yellow")
         text_location_rect = text_location.get_rect()
         text_location_rect.midleft = (935, 29)
-        if player.x_coordinate > 800 and player.y_coordinate < 125:
+        if player.x_coordinate > 730 and player.y_coordinate < 125:
             text_location.set_alpha(50)
         if len(game_guide_container) == 0:
             screen.blit(text_location, text_location_rect)
@@ -1261,7 +1261,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       sorae_beta_button, in_academia, mage_learn_clicked, fighter_learn_clicked,
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
                       barrier_learn_button, close_button, garan_gift, mirror_learn_button, mirror_button,
-                      vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked):
+                      vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked, music_toggle):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1302,6 +1302,10 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
             if continue_button.rect.collidepoint(pos):
                 button_highlight.update(continue_button.x_coordinate + 10, continue_button.y_coordinate,
                                         graphic_dict["start high"])
+                return True
+            if music_toggle.rect.collidepoint(pos):
+                button_highlight.update(music_toggle.x_coordinate, music_toggle.y_coordinate,
+                                        graphic_dict["music_button_high"])
                 return True
 
         if new_game_chosen:
@@ -1347,6 +1351,10 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
             if sorae_beta_button.rect.collidepoint(pos):
                 button_highlight.update(sorae_beta_button.x_coordinate + 153, sorae_beta_button.y_coordinate,
                                         graphic_dict["gender high"])
+                return True
+            if music_toggle.rect.collidepoint(pos):
+                button_highlight.update(music_toggle.x_coordinate, music_toggle.y_coordinate,
+                                        graphic_dict["music_button_high"])
                 return True
 
     if start_chosen:
@@ -1581,6 +1589,11 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                 if len(game_guide_container) == 0:
                     button_highlight.update(map_button.x_coordinate + 1, map_button.y_coordinate + 2,
                                             graphic_dict["save hearth high"])
+                    return True
+            elif music_toggle.rect.collidepoint(pos):
+                if len(game_guide_container) == 0:
+                    button_highlight.update(music_toggle.x_coordinate, music_toggle.y_coordinate,
+                                            graphic_dict["music_button_high"])
                     return True
 
         if in_npc_interaction:

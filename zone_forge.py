@@ -11,10 +11,11 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
                  chroma_forge, forge_rect, Item, sfx_smelting, overlay_smelting, using_forge, smelted_casing):
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(korlok_overworld_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(korlok_overworld_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(korlok_mines_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -100,9 +101,6 @@ def korlok_forge(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if len(drawing_functions.loot_popup_container) > 0:
         for popup in drawing_functions.loot_popup_container:

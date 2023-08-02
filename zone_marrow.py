@@ -14,11 +14,13 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
                     current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
                     maydria_star, sub_marrow, sfx_ladder):
+
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(marrow_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(marrow_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(marrow_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -223,9 +225,6 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                                      in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
     enemy = pygame.sprite.spritecollideany(player, marrow_ghouls)
     if enemy:
@@ -339,12 +338,14 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
                     staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                     overlay_marrow_west, overlay_marrow_east, overlay_switch, switch_shadow, switch_phase, switch_box,
                     marrow_entrance_bg_open, entrance_music, entrance_npc, entrance_1, entrance_2, entrance_3,
-                    entrance_popup, sfx_switch, hearth_stone):
+                    entrance_popup, sfx_switch, hearth_stone, mini_map):
+
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(entrance_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(entrance_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     if switch_phase == "complete":
         screen.blit(marrow_entrance_bg_open, (0, 0))
@@ -393,6 +394,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
 
         if interacted and in_over_world:
             interacted = False
+            mini_map.update(915, 596, graphic_dict["marrow_mini_map_tower_left"])
             player.current_zone = "marrow tower west"
             player.x_coordinate = 500
             player.y_coordinate = 675
@@ -413,6 +415,7 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
 
         if interacted and in_over_world:
             interacted = False
+            mini_map.update(915, 596, graphic_dict["marrow_mini_map_tower_right"])
             player.current_zone = "marrow tower east"
             player.x_coordinate = 500
             player.y_coordinate = 675
@@ -460,13 +463,12 @@ def marrow_entrance(pygame, screen, graphic_dict, player, marrow_entrance_bg, ov
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if switch_phase != "complete":
         face_direction = random.choice(["left", "right", "front", "back"])
@@ -548,12 +550,14 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       overlay_marrow_west, overlay_marrow_east, crate_1, crate_2, ramps_crate_1_got,
                       ramps_crate_2_got, sfx_item_potion, Item, necrola_1, necrola_2, necrola_rect_1, necrola_rect_2,
                       player_battle_sprite, barrier_active, sharp_sense_active, necrola_battle_sprite, in_battle,
-                      current_enemy_battling, sfx_surprise):
+                      current_enemy_battling, sfx_surprise, mini_map):
+
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(marrow_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(marrow_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(marrow_tower_w_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -612,13 +616,12 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if pygame.sprite.collide_rect(player, crate_1):
         if not ramps_crate_1_got:
@@ -730,6 +733,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
         overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
+        mini_map.update(915, 596, graphic_dict["marrow_mini_map"])
         player.current_zone = "marrow entrance"
         in_over_world = True
         player.x_coordinate = 120
@@ -738,6 +742,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
 
     if 315 < player.x_coordinate < 350 and player.y_coordinate >= 575:
         overlay_marrow_west.update(570, 55, graphic_dict["overlay_marrow_ramps_west"])
+        mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_left"])
         player.current_zone = "marrow ramps west"
         in_over_world = True
         player.x_coordinate = 515
@@ -762,12 +767,14 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       overlay_marrow_west, overlay_marrow_east, crate_3, crate_4, ramps_crate_3_got, ramps_crate_4_got,
                       sfx_item_potion, Item, necrola_3, in_battle, necrola_rect_3, player_battle_sprite,
                       barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling,
-                      sfx_surprise):
+                      sfx_surprise, mini_map):
+
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(marrow_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(marrow_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(marrow_tower_e_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -824,13 +831,12 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if pygame.sprite.collide_rect(player, crate_3):
         if not ramps_crate_3_got:
@@ -917,6 +923,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     if 425 < player.x_coordinate < 600 and player.y_coordinate >= 710:
         overlay_marrow_west.update(110, 250, graphic_dict["overlay_marrow_ramps_west"])
         overlay_marrow_east.update(925, 250, graphic_dict["overlay_marrow_ramps_east"])
+        mini_map.update(915, 596, graphic_dict["marrow_mini_map"])
         player.current_zone = "marrow entrance"
         in_over_world = True
         player.x_coordinate = 900
@@ -925,6 +932,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
 
     if 700 < player.x_coordinate < 725 and player.y_coordinate >= 575:
         overlay_marrow_east.update(570, 55, graphic_dict["overlay_marrow_ramps_east"])
+        mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_right"])
         player.current_zone = "marrow ramps east"
         in_over_world = True
         over_world_song_set = False
@@ -947,12 +955,14 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                      overlay_marrow_west, chroma_bridge, ghoul, ghoul_2, enemy_tic):
+                      overlay_marrow_west, chroma_bridge, ghoul, ghoul_2, enemy_tic, mini_map):
+
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(marrow_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(marrow_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(marrow_ramps_w_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -1005,13 +1015,12 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_west):
         interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
@@ -1028,6 +1037,7 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
 
         if interacted and in_over_world:
             interacted = False
+            mini_map.update(915, 596, graphic_dict["marrow_mini_map_tower_left"])
             player.current_zone = "marrow tower west"
             player.x_coordinate = 100
             player.y_coordinate = 550
@@ -1048,6 +1058,7 @@ def marrow_ramps_west(pygame, screen, graphic_dict, player, marrow_ramps_w_bg, o
                 ghoul_2.update_position([700, 900], [200, 300], direction_horizontal, direction_vertical)
 
     if player.y_coordinate >= 675:
+        mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_left_end"])
         player.current_zone = "marrow ramps west end"
         in_over_world = True
         player.x_coordinate = 515
@@ -1067,12 +1078,14 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
                       hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                       info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                       staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-                      overlay_marrow_east):
+                      overlay_marrow_east, mini_map):
+
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(marrow_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(marrow_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(marrow_ramps_e_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -1121,13 +1134,12 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if pygame.Rect.colliderect(player.rect, overlay_marrow_east):
         interaction_popup.update(570, 55, graphic_dict["popup_interaction"])
@@ -1145,12 +1157,14 @@ def marrow_ramps_east(pygame, screen, graphic_dict, player, marrow_ramps_e_bg, o
         if interacted and in_over_world:
             interacted = False
             over_world_song_set = False
+            mini_map.update(915, 596, graphic_dict["marrow_mini_map_tower_right"])
             player.current_zone = "marrow tower east"
             player.x_coordinate = 930
             player.y_coordinate = 550
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
     if player.y_coordinate >= 675:
+        mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_right_end"])
         player.current_zone = "marrow ramps east end"
         in_over_world = True
         player.x_coordinate = 515
@@ -1177,12 +1191,14 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, in_npc_interaction,
                           necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle, boss_music,
                           erebyth_battle_sprite, apothis_push, apothis, apothis_popup, apothis_1, apothis_2,
-                          enemy_vanish):
+                          enemy_vanish, mini_map):
+
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(boss_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(boss_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     if erebyth_defeated:
         screen.blit(marrow_ramps_e_end_bg, (0, 0))
@@ -1331,15 +1347,15 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     if player.y_coordinate <= 75:
+        mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_right"])
         player.current_zone = "marrow ramps east"
         in_over_world = True
         player.x_coordinate = 515
@@ -1390,12 +1406,14 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
                           info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                           staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                           switch_1, marrow_switch_phase, main_switch, sfx_switch, flower, crate, crate_got, Item,
-                          sfx_item_key):
+                          sfx_item_key, mini_map):
+
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(marrow_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(marrow_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(marrow_ramps_w_end_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -1450,15 +1468,15 @@ def marrow_ramps_west_end(pygame, screen, graphic_dict, player, marrow_ramps_w_e
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     if player.y_coordinate <= 75:
+        mini_map.update(915, 596, graphic_dict["marrow_mini_map_ramps_left"])
         player.current_zone = "marrow ramps west"
         in_over_world = True
         player.x_coordinate = 515
@@ -1532,11 +1550,13 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
                Item, in_battle):
+
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(marrow_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(marrow_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(marrow_ramps_w_end_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -1589,9 +1609,6 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if player.y_coordinate <= 75:
         player.current_zone = "marrow ramps west"

@@ -17,13 +17,14 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   eldream_attuned, in_shop, in_inn, current_building_entering, enemy_tic, eldream_flowers,
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
                   npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite, critter,
-                  right_move, left_move, critter_tic, walk_move):
+                  right_move, left_move, critter_tic, walk_move, mini_map):
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(eldream_building_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(eldream_building_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(ectrenos_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -170,13 +171,12 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if 380 < player.x_coordinate < 650 and player.y_coordinate > 700:
         player.current_zone = "eldream"
@@ -189,6 +189,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
 
     if player.x_coordinate < 35 and 565 > player.y_coordinate > 470:
         player.current_zone = "ectrenos left"
+        mini_map.update(915, 596, graphic_dict["ectrenos_mini_map_left"])
         in_over_world = True
         over_world_song_set = False
         player.x_coordinate = 850
@@ -197,6 +198,7 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
 
     if player.x_coordinate > 995 and 570 > player.y_coordinate > 470:
         player.current_zone = "ectrenos right"
+        mini_map.update(915, 596, graphic_dict["ectrenos_mini_map_right"])
         in_over_world = True
         over_world_song_set = False
         player.x_coordinate = 210
@@ -241,13 +243,14 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                   current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos, ectrenos_pet_entrance,
                   in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find, critter, right_move,
-                  left_move, critter_tic, walk_move, altar):
+                  left_move, critter_tic, walk_move, altar, mini_map):
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(eldream_overworld_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(eldream_overworld_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(ectrenos_left_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -409,16 +412,16 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     if 990 < player.x_coordinate and 395 < player.y_coordinate < 625:
         player.current_zone = "ectrenos"
+        mini_map.update(915, 596, graphic_dict["ectrenos_mini_map"])
         in_over_world = True
         over_world_song_set = False
         player.x_coordinate = 80
@@ -426,6 +429,7 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
     if 660 < player.x_coordinate < 975 and 675 < player.y_coordinate:
         player.current_zone = "ectrenos front"
+        mini_map.update(915, 596, graphic_dict["ectrenos_mini_map_front"])
         in_over_world = True
         player.x_coordinate = 120
         player.y_coordinate = 445
@@ -471,13 +475,14 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                    current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
                    ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre, sfx_find, critter,
-                   right_move, left_move, critter_tic, walk_move):
+                   right_move, left_move, critter_tic, walk_move, mini_map):
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(eldream_overworld_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(eldream_overworld_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(ectrenos_right_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -638,16 +643,16 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     if 50 > player.x_coordinate and 400 < player.y_coordinate < 620:
         player.current_zone = "ectrenos"
+        mini_map.update(915, 596, graphic_dict["ectrenos_mini_map"])
         in_over_world = True
         over_world_song_set = False
         player.x_coordinate = 958
@@ -656,6 +661,7 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
 
     if 50 < player.x_coordinate < 375 and 675 < player.y_coordinate:
         player.current_zone = "ectrenos front"
+        mini_map.update(915, 596, graphic_dict["ectrenos_mini_map_front"])
         in_over_world = True
         player.x_coordinate = 900
         player.y_coordinate = 445
@@ -705,13 +711,14 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    interactables_korlok, interactables_mines, Enemy, Item, UiElement, seldon_flowers,
                    interactables_ectrenos, quest_star_everett, pet_energy_window, npc_everett, npc_leyre,
                    ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
-                   sfx_find, stelli_battle_sprite, vanished, vanish_overlay):
+                   sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map):
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(eldream_overworld_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(eldream_overworld_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(ectrenos_front_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -885,22 +892,23 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     if 85 > player.x_coordinate and player.y_coordinate < 375:
         player.current_zone = "ectrenos left"
+        mini_map.update(915, 596, graphic_dict["ectrenos_mini_map_left"])
         in_over_world = True
         player.x_coordinate = 850
         player.y_coordinate = 530
         player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
     if 920 < player.x_coordinate and player.y_coordinate < 375:
         player.current_zone = "ectrenos right"
+        mini_map.update(915, 596, graphic_dict["ectrenos_mini_map_right"])
         in_over_world = True
         player.x_coordinate = 210
         player.y_coordinate = 515
@@ -961,13 +969,14 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     npc_garan, offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                     current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
                     pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder,
-                    vanished, vanish_overlay):
+                    vanished, vanish_overlay, mini_map):
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(eldream_building_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(eldream_building_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(ectrenos_alcove_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -976,7 +985,7 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
 
     if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:
-        npc_leyre.update_position(967, 530)
+        npc_leyre.update_position(563, 530)
         screen.blit(npc_leyre.surf, npc_leyre.rect)
 
     for enemy in enemies:
@@ -1076,13 +1085,12 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     screen.blit(en_bar.surf, en_bar.rect)
     screen.blit(xp_bar.surf, xp_bar.rect)
 
+    screen.blit(mini_map.surf, mini_map.rect)
+
     # draw texts to the screen, like message box, player rupees and level, inv and equ updates
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     # npc movement updates
     if player.quest_status["las escondidas"] and not player.quest_complete["las escondidas"]:

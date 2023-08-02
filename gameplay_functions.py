@@ -1574,7 +1574,7 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
         # if not scaled, coordinates set to default boundaries
         random_magmon_x = random.randrange(100, 375)
         random_magmon_y = random.randrange(125, 225)
-        random_magmon_level = random.randrange(8, 12)
+        random_magmon_level = random.randrange(10, 12)
 
         # count current enemies active in game
         for mob in magmons:

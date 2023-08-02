@@ -22,10 +22,11 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
                 critter_tic, walk_move):
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(korlok_overworld_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(korlok_overworld_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(mountain_trail_bg, (0, 0))
     screen.blit(rock_7.surf, rock_7.rect)
@@ -271,9 +272,6 @@ def terra_trail(pygame, screen, graphic_dict, player, mountain_trail_bg, korlok_
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     if player.x_coordinate < 75 and player.y_coordinate < 225:
         player.current_zone = "korlok"

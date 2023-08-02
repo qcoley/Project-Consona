@@ -36,10 +36,11 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     hearth_stone.update(860, 595, graphic_dict["hearth_stone"])
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(seldon_overworld_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(seldon_overworld_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(seldon_district_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -403,9 +404,6 @@ def seldon_district(pygame, player, screen, graphic_dict, rohir_gate, hearth_sto
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     # pop up notifications for situations like low health or first weapon acquire
     if not knowledge_academia_show and not beyond_seldon:

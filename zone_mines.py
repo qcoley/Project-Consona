@@ -49,10 +49,11 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
             ore_sprite.update(ore_sprite.x_coordinate, ore_sprite.y_coordinate, graphic_dict["sprite_ore_img"])
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(korlok_overworld_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(korlok_overworld_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(korlok_mines_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -176,9 +177,6 @@ def korlok_mines(pygame, screen, graphic_dict, player, korlok_mines_bg, korlok_o
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])

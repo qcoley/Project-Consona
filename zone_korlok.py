@@ -45,10 +45,11 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
             enemy_sprite.update_image(enemy_sprite.x_coordinate, enemy_sprite.y_coordinate, graphic_dict["magmon"])
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(korlok_overworld_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(korlok_overworld_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     if not erebyth_defeated:
         screen.blit(korlok_district_bg, (0, 0))
@@ -456,9 +457,6 @@ def korlok_district(pygame, screen, graphic_dict, player, korlok_district_bg, ko
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     # enemy movement updates
     direction_horizontal = random.choice(["left", "right"])

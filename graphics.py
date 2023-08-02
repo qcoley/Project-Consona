@@ -89,6 +89,19 @@ def load_graphics():
     ectrenos_front_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_front.png')).convert_alpha()
     ectrenos_alcove_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_alcove.png')).convert_alpha()
     ectrenos_interaction = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction.png')).convert_alpha()
+    ectrenos_mini_map = pygame.image.load(resource_path('resources/art/overlay_mini_map_ectrenos.png')).convert_alpha()
+    ect_mini_l = pygame.image.load(resource_path('resources/art/overlay_mini_map_ectrenos_left.png')).convert_alpha()
+    ect_mini_r = pygame.image.load(resource_path('resources/art/overlay_mini_map_ectrenos_right.png')).convert_alpha()
+    ect_mini_f = pygame.image.load(resource_path('resources/art/overlay_mini_map_ectrenos_front.png')).convert_alpha()
+    marrow_mini_map = pygame.image.load(resource_path('resources/art/overlay_mini_map_marrow.png')).convert_alpha()
+    mar_mini_t_l = pygame.image.load(resource_path('resources/art/overlay_mini_map_marrow_tower_l.png')).convert_alpha()
+    mar_mini_t_r = pygame.image.load(resource_path('resources/art/overlay_mini_map_marrow_tower_r.png')).convert_alpha()
+    mar_mini_r_l = pygame.image.load(resource_path('resources/art/overlay_mini_map_marrow_ramp_l.png')).convert_alpha()
+    mar_mini_r_r = pygame.image.load(resource_path('resources/art/overlay_mini_map_marrow_ramp_r.png')).convert_alpha()
+    mar_mini_r_e = \
+        pygame.image.load(resource_path('resources/art/overlay_mini_map_marrow_ramp_r_end.png')).convert_alpha()
+    mar_mini_l_e = \
+        pygame.image.load(resource_path('resources/art/overlay_mini_map_marrow_ramp_l_end.png')).convert_alpha()
     marrow_interaction_bg = pygame.image.load(resource_path('resources/art/bg_marrow_interaction.png')).convert_alpha()
     marrow_entrance_bg = pygame.image.load(resource_path('resources/art/bg_marrow_enter.png')).convert_alpha()
     marrow_entrance_bg_open = pygame.image.load(resource_path('resources/art/bg_marrow_enter_open.png')).convert_alpha()
@@ -242,6 +255,17 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["marrow_mini_map"] = marrow_mini_map
+    loaded_dict["marrow_mini_map_tower_left"] = mar_mini_t_l
+    loaded_dict["marrow_mini_map_tower_right"] = mar_mini_t_r
+    loaded_dict["marrow_mini_map_ramps_left"] = mar_mini_r_l
+    loaded_dict["marrow_mini_map_ramps_right"] = mar_mini_r_r
+    loaded_dict["marrow_mini_map_ramps_right_end"] = mar_mini_r_e
+    loaded_dict["marrow_mini_map_ramps_left_end"] = mar_mini_l_e
+    loaded_dict["ectrenos_mini_map_left"] = ect_mini_l
+    loaded_dict["ectrenos_mini_map_right"] = ect_mini_r
+    loaded_dict["ectrenos_mini_map_front"] = ect_mini_f
+    loaded_dict["ectrenos_mini_map"] = ectrenos_mini_map
     loaded_dict["overlay_smelting"] = overlay_smelting
     loaded_dict["overlay_enchanting"] = overlay_enchanting
     loaded_dict["quest_accepted"] = quest_accepted
@@ -5119,6 +5143,12 @@ def load_graphics():
     loaded_dict["potions_button_img"] = buttons_sheet[16]
     loaded_dict["create_potion_img"] = buttons_sheet[17]
     loaded_dict["manage_pets_img"] = buttons_sheet[18]
+    # music toggle button ----------------------------------------------------------------------------------------------
+    buttons_url = resource_path('resources/art/button_music_toggle.png')
+    buttons_sheet = sprite_sheet((50, 57), buttons_url)
+    loaded_dict["music_button"] = buttons_sheet[0]
+    loaded_dict["music_button_off"] = buttons_sheet[1]
+    loaded_dict["music_button_high"] = buttons_sheet[2]
     # offense/defense overlay ------------------------------------------------------------------------------------------
     offense_defense_url = resource_path('resources/art/overlay_offense_defense_level.png')
     offense_defense_sheet = sprite_sheet((82, 14), offense_defense_url)

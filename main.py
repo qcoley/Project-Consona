@@ -6548,7 +6548,7 @@ def button_highlighter(posit):
                                                               barrier_learn_button, close_button, npc_garan.gift,
                                                               mirror_learn_button, mirror_button, vanish_button,
                                                               stun_button, kasper_unlocked, torok_unlocked,
-                                                              iriana_unlocked)
+                                                              iriana_unlocked, music_toggle_button)
     return button_highlighters
 
 
@@ -7000,6 +7000,7 @@ if __name__ == "__main__":
     nuldar_select_overlay = UiElement("nuldar select overlay", 1140, 305, graphic_dict["nuldar_overlay_img"])
     sorae_select_overlay = UiElement("sorae select overlay", 1140, 305, graphic_dict["sorae_overlay_img"])
     name_input = UiElement("name input", 640, 585, graphic_dict["name_input_img"])
+    mini_map_overlay = UiElement("mini map", 915, 596, graphic_dict["marrow_mini_map"])
 
     equipment_screen = UiElement("equipment screen", 1155, 360, graphic_dict["equipment_screen"])
     offense_meter = UiElement("offense meter", 1200, 81, graphic_dict["offense_defense_0"])
@@ -7057,6 +7058,7 @@ if __name__ == "__main__":
     kasper_manage_button = UiElement("kasper manage", 145, 460, graphic_dict["activate_button"])
     torok_manage_button = UiElement("torok manage", 415, 460, graphic_dict["activate_button"])
     iriana_manage_button = UiElement("iriana manage", 685, 460, graphic_dict["activate_button"])
+    music_toggle_button = UiElement("music toggle", 1235, 44, graphic_dict["music_button"])
 
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
     mage_attack_button = UiElement("mage attack button", 750, 642, graphic_dict["mage_attack_button_img"])
@@ -7835,6 +7837,8 @@ if __name__ == "__main__":
     alpha_set = False
     logo_alpha_set = False
 
+    music_toggle = False
+
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
 
@@ -7898,48 +7902,55 @@ if __name__ == "__main__":
         # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
-        if player.x_coordinate < 335 and 600 < player.y_coordinate:
-            if not alpha_set:
-                message_box.surf.set_alpha(50)
-                alpha_set = True
-        else:
-            message_box.surf.set_alpha(255)
-            alpha_set = False
-        if player.y_coordinate > 660 and player.x_coordinate > 800:
-            if not alpha_set:
-                character_button.surf.set_alpha(50)
-                quests_button.surf.set_alpha(50)
-                alpha_set = True
-        else:
-            character_button.surf.set_alpha(255)
-            quests_button.surf.set_alpha(255)
-            alpha_set = False
-        if player.x_coordinate < 420 and player.y_coordinate < 125:
-            if not alpha_set:
-                hp_bar.surf.set_alpha(50)
-                en_bar.surf.set_alpha(50)
-                xp_bar.surf.set_alpha(50)
-                bar_backdrop.surf.set_alpha(50)
-                pet_energy_window.surf.set_alpha(50)
-                alpha_set = True
-        else:
-            hp_bar.surf.set_alpha(255)
-            en_bar.surf.set_alpha(255)
-            xp_bar.surf.set_alpha(255)
-            bar_backdrop.surf.set_alpha(255)
-            pet_energy_window.surf.set_alpha(255)
-            alpha_set = False
-        if player.x_coordinate > 800 and player.y_coordinate < 125:
-            if not alpha_set:
-                save_button.surf.set_alpha(50)
-                map_button.surf.set_alpha(50)
-                location_overlay.surf.set_alpha(50)
-                alpha_set = True
-        else:
-            save_button.surf.set_alpha(255)
-            map_button.surf.set_alpha(255)
-            location_overlay.surf.set_alpha(255)
-            alpha_set = False
+        try:
+            if player.x_coordinate < 335 and 600 < player.y_coordinate:
+                if not alpha_set:
+                    message_box.surf.set_alpha(50)
+                    alpha_set = True
+            else:
+                message_box.surf.set_alpha(255)
+                alpha_set = False
+            if player.y_coordinate > 550 and player.x_coordinate > 800:
+                if not alpha_set:
+                    mini_map_overlay.surf.set_alpha(50)
+                    character_button.surf.set_alpha(50)
+                    quests_button.surf.set_alpha(50)
+                    alpha_set = True
+            else:
+                mini_map_overlay.surf.set_alpha(225)
+                character_button.surf.set_alpha(255)
+                quests_button.surf.set_alpha(255)
+                alpha_set = False
+            if player.x_coordinate < 420 and player.y_coordinate < 125:
+                if not alpha_set:
+                    hp_bar.surf.set_alpha(50)
+                    en_bar.surf.set_alpha(50)
+                    xp_bar.surf.set_alpha(50)
+                    bar_backdrop.surf.set_alpha(50)
+                    pet_energy_window.surf.set_alpha(50)
+                    alpha_set = True
+            else:
+                hp_bar.surf.set_alpha(255)
+                en_bar.surf.set_alpha(255)
+                xp_bar.surf.set_alpha(255)
+                bar_backdrop.surf.set_alpha(255)
+                pet_energy_window.surf.set_alpha(255)
+                alpha_set = False
+            if player.x_coordinate > 730 and player.y_coordinate < 125:
+                if not alpha_set:
+                    save_button.surf.set_alpha(50)
+                    map_button.surf.set_alpha(50)
+                    location_overlay.surf.set_alpha(50)
+                    music_toggle_button.surf.set_alpha(50)
+                    alpha_set = True
+            else:
+                save_button.surf.set_alpha(255)
+                map_button.surf.set_alpha(255)
+                location_overlay.surf.set_alpha(255)
+                music_toggle_button.surf.set_alpha(255)
+                alpha_set = False
+        except AttributeError:
+            pass
 
         # --------------------------------------------------------------------------------------------------------------
 
@@ -7962,6 +7973,7 @@ if __name__ == "__main__":
                     screen.blit(start_screen_logo, (0, 0))
                     screen.blit(new_game_button.surf, new_game_button.rect)
                     screen.blit(continue_button.surf, continue_button.rect)
+                    screen.blit(music_toggle_button.surf, music_toggle_button.rect)
 
                 if start_logo_toc - start_logo_tic > 2:
                     if not start_logo_set:
@@ -7980,6 +7992,7 @@ if __name__ == "__main__":
                     game_window.blit(start_screen_logo, (0, 0))
                     game_window.blit(new_game_button.surf, new_game_button.rect)
                     game_window.blit(continue_button.surf, continue_button.rect)
+                    game_window.blit(music_toggle_button.surf, music_toggle_button.rect)
 
                 if start_logo_toc - start_logo_tic > 2:
                     if not start_logo_set:
@@ -8011,6 +8024,18 @@ if __name__ == "__main__":
                 if start_logo_set:
                     button_highlighted = button_highlighter(pos)
                 if event.type == pygame.MOUSEBUTTONUP:
+
+                    # turn music off and on
+                    if music_toggle_button.rect.collidepoint(pos):
+                        if not music_toggle:
+                            pygame.mixer.music.pause()
+                            music_toggle_button.update(1235, 44, graphic_dict["music_button_off"])
+                            music_toggle = True
+                        else:
+                            pygame.mixer.music.unpause()
+                            music_toggle_button.update(1235, 44, graphic_dict["music_button"])
+                            music_toggle = False
+
                     if start_logo_set:
                         # player chooses to start a new game or continue from previous
                         if new_game_button.rect.collidepoint(pos):
@@ -8019,6 +8044,10 @@ if __name__ == "__main__":
                             button_highlighted = False
                             save_data_window.clear()
                         if continue_button.rect.collidepoint(pos):
+                            if music_toggle:
+                                music_toggle_button.update(775, 44, graphic_dict["music_button_off"])
+                            if not music_toggle:
+                                music_toggle_button.update(775, 44, graphic_dict["music_button"])
                             pygame.mixer.find_channel(True).play(sfx_button_start)
                             continue_game_chosen = True
                             button_highlighted = False
@@ -8047,10 +8076,11 @@ if __name__ == "__main__":
         if new_game_chosen:
 
             if not new_game_music:
-                pygame.mixer.music.fadeout(50)
-                pygame.mixer.music.load(character_select_music)
-                pygame.mixer.music.play(loops=-1)
-                new_game_music = True
+                if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.fadeout(50)
+                    pygame.mixer.music.load(character_select_music)
+                    pygame.mixer.music.play(loops=-1)
+                    new_game_music = True
 
             for event in pygame.event.get():
                 if event.type == KEYDOWN:
@@ -8080,6 +8110,17 @@ if __name__ == "__main__":
                 button_highlighted = button_highlighter(pos)
 
                 if event.type == pygame.MOUSEBUTTONUP:
+
+                    # turn music off and on
+                    if music_toggle_button.rect.collidepoint(pos):
+                        if not music_toggle:
+                            pygame.mixer.music.pause()
+                            music_toggle_button.update(1235, 44, graphic_dict["music_button_off"])
+                            music_toggle = True
+                        else:
+                            pygame.mixer.music.unpause()
+                            music_toggle_button.update(1235, 44, graphic_dict["music_button"])
+                            music_toggle = False
 
                     # player clicks on the box to type name
                     if name_input.rect.collidepoint(pos):
@@ -8152,6 +8193,10 @@ if __name__ == "__main__":
 
                     # noinspection PyUnboundLocalVariable
                     if start_button.rect.collidepoint(pos) or entered:
+                        if music_toggle:
+                            music_toggle_button.update(775, 44, graphic_dict["music_button_off"])
+                        if not music_toggle:
+                            music_toggle_button.update(775, 44, graphic_dict["music_button"])
                         pygame.mixer.find_channel(True).play(sfx_button_start)
                         if amuna_race_selected:
                             player = PlayerAmuna(player.name, player.race, gender_choice, player.role, player.items,
@@ -8248,6 +8293,12 @@ if __name__ == "__main__":
                                                              amuna_female_button, nuldar_male_button,
                                                              nuldar_female_button, sorae_alpha_button,
                                                              sorae_beta_button)
+
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(music_toggle_button.surf, music_toggle_button.rect)
+                else:
+                    game_window.blit(music_toggle_button.surf, music_toggle_button.rect)
+
                 if button_highlighted:
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -8304,6 +8355,12 @@ if __name__ == "__main__":
                                                              amuna_female_button, nuldar_male_button,
                                                              nuldar_female_button, sorae_alpha_button,
                                                              sorae_beta_button)
+
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(music_toggle_button.surf, music_toggle_button.rect)
+                else:
+                    game_window.blit(music_toggle_button.surf, music_toggle_button.rect)
+
                 if button_highlighted:
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -8359,6 +8416,12 @@ if __name__ == "__main__":
                                                              amuna_female_button, nuldar_male_button,
                                                              nuldar_female_button, sorae_alpha_button,
                                                              sorae_beta_button)
+
+                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                    screen.blit(music_toggle_button.surf, music_toggle_button.rect)
+                else:
+                    game_window.blit(music_toggle_button.surf, music_toggle_button.rect)
+
                 if button_highlighted:
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(button_highlight.surf, button_highlight.rect)
@@ -8969,6 +9032,17 @@ if __name__ == "__main__":
 
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
+
+                            # turn music off and on
+                            if music_toggle_button.rect.collidepoint(pos):
+                                if not music_toggle:
+                                    pygame.mixer.music.pause()
+                                    music_toggle_button.update(775, 44, graphic_dict["music_button_off"])
+                                    music_toggle = True
+                                else:
+                                    pygame.mixer.music.unpause()
+                                    music_toggle_button.update(775, 44, graphic_dict["music_button"])
+                                    music_toggle = False
 
                             if player.current_zone == "altar":
                                 cat_pet_button_overlay.update(990, 440, graphic_dict["cat_pet_button_overlay"])
@@ -9762,7 +9836,7 @@ if __name__ == "__main__":
                                                                          critter_tic, walk_move,
                                                                          overlay_marrow_ramps_west,
                                                                          overlay_marrow_ramps_east, entrance_1,
-                                                                         entrance_2, entrance_3)
+                                                                         entrance_2, entrance_3, mini_map_overlay)
                     else:
                         eldream_returned = zone_eldream.eldream_district(pygame, game_window, graphic_dict, player,
                                                                          eldream_district_bg, eldream_overworld_music,
@@ -9813,7 +9887,7 @@ if __name__ == "__main__":
                                                                          critter_tic, walk_move,
                                                                          overlay_marrow_ramps_west,
                                                                          overlay_marrow_ramps_east, entrance_1,
-                                                                         entrance_2, entrance_3)
+                                                                         entrance_2, entrance_3, mini_map_overlay)
 
                     over_world_song_set = eldream_returned["over_world_song_set"]
                     eldream_attuned = eldream_returned["eldream_attuned"]
@@ -9944,7 +10018,8 @@ if __name__ == "__main__":
                                                                                marrow_entrance_music,
                                                                                npc_marrow_entrance, entrance_1,
                                                                                entrance_2, entrance_3, entrance_popup,
-                                                                               sfx_activate_switch, hearth_stone)
+                                                                               sfx_activate_switch, hearth_stone,
+                                                                               mini_map_overlay)
                     else:
                         marrow_entrance_returned = zone_marrow.marrow_entrance(pygame, game_window, graphic_dict,
                                                                                player, marrow_entrance_bg,
@@ -9968,7 +10043,8 @@ if __name__ == "__main__":
                                                                                marrow_entrance_music,
                                                                                npc_marrow_entrance, entrance_1,
                                                                                entrance_2, entrance_3, entrance_popup,
-                                                                               sfx_activate_switch, hearth_stone)
+                                                                               sfx_activate_switch, hearth_stone,
+                                                                               mini_map_overlay)
 
                     over_world_song_set = marrow_entrance_returned["over_world_song_set"]
                     interacted = marrow_entrance_returned["interacted"]
@@ -10017,7 +10093,8 @@ if __name__ == "__main__":
                                                                                    sharp_sense_active,
                                                                                    necrola_battle_sprite, in_battle,
                                                                                    current_enemy_battling,
-                                                                                   sfx_surprise_attack)
+                                                                                   sfx_surprise_attack,
+                                                                                   mini_map_overlay)
                     else:
                         marrow_tower_west_returned = zone_marrow.marrow_tower_west(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_west_bg,
@@ -10046,7 +10123,8 @@ if __name__ == "__main__":
                                                                                    sharp_sense_active,
                                                                                    necrola_battle_sprite, in_battle,
                                                                                    current_enemy_battling,
-                                                                                   sfx_surprise_attack)
+                                                                                   sfx_surprise_attack,
+                                                                                   mini_map_overlay)
 
                     over_world_song_set = marrow_tower_west_returned["over_world_song_set"]
                     interacted = marrow_tower_west_returned["interacted"]
@@ -10094,7 +10172,8 @@ if __name__ == "__main__":
                                                                                    barrier_active, sharp_sense_active,
                                                                                    necrola_battle_sprite,
                                                                                    current_enemy_battling,
-                                                                                   sfx_surprise_attack)
+                                                                                   sfx_surprise_attack,
+                                                                                   mini_map_overlay)
                     else:
                         marrow_tower_east_returned = zone_marrow.marrow_tower_east(pygame, game_window, graphic_dict,
                                                                                    player, marrow_tower_east_bg,
@@ -10123,7 +10202,8 @@ if __name__ == "__main__":
                                                                                    barrier_active, sharp_sense_active,
                                                                                    necrola_battle_sprite,
                                                                                    current_enemy_battling,
-                                                                                   sfx_surprise_attack)
+                                                                                   sfx_surprise_attack,
+                                                                                   mini_map_overlay)
 
                     over_world_song_set = marrow_tower_east_returned["over_world_song_set"]
                     interacted = marrow_tower_east_returned["interacted"]
@@ -10167,7 +10247,8 @@ if __name__ == "__main__":
                                                                                    weapon_select, pet_energy_window,
                                                                                    overlay_marrow_ramps_west,
                                                                                    chroma_bridge_ramps, ghoul_ramps,
-                                                                                   ghoul_ramps_2, enemy_tic)
+                                                                                   ghoul_ramps_2, enemy_tic,
+                                                                                   mini_map_overlay)
                     else:
                         marrow_ramps_west_returned = zone_marrow.marrow_ramps_west(pygame, game_window,
                                                                                    graphic_dict,
@@ -10193,7 +10274,8 @@ if __name__ == "__main__":
                                                                                    pet_energy_window,
                                                                                    overlay_marrow_ramps_west,
                                                                                    chroma_bridge_ramps, ghoul_ramps,
-                                                                                   ghoul_ramps_2, enemy_tic)
+                                                                                   ghoul_ramps_2, enemy_tic,
+                                                                                   mini_map_overlay)
 
                     over_world_song_set = marrow_ramps_west_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_returned["interacted"]
@@ -10229,7 +10311,8 @@ if __name__ == "__main__":
                                                                                    staff, sword, bow, npc_garan,
                                                                                    offense_meter, defense_meter,
                                                                                    weapon_select, pet_energy_window,
-                                                                                   overlay_marrow_ramps_east)
+                                                                                   overlay_marrow_ramps_east,
+                                                                                   mini_map_overlay)
                     else:
                         marrow_ramps_east_returned = zone_marrow.marrow_ramps_east(pygame, game_window,
                                                                                    graphic_dict,
@@ -10250,7 +10333,8 @@ if __name__ == "__main__":
                                                                                    staff, sword, bow, npc_garan,
                                                                                    offense_meter, defense_meter,
                                                                                    weapon_select, pet_energy_window,
-                                                                                   overlay_marrow_ramps_east)
+                                                                                   overlay_marrow_ramps_east,
+                                                                                   mini_map_overlay)
 
                     over_world_song_set = marrow_ramps_east_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_returned["interacted"]
@@ -10293,7 +10377,8 @@ if __name__ == "__main__":
                                                                                            sfx_activate_switch,
                                                                                            ramps_flower, ramps_crate_5,
                                                                                            ramps_crate_5_got, Item,
-                                                                                           sfx_item_key)
+                                                                                           sfx_item_key,
+                                                                                           mini_map_overlay)
                     else:
                         marrow_ramps_west_end_returned = zone_marrow.marrow_ramps_west_end(pygame, game_window,
                                                                                            graphic_dict, player,
@@ -10321,7 +10406,8 @@ if __name__ == "__main__":
                                                                                            sfx_activate_switch,
                                                                                            ramps_flower, ramps_crate_5,
                                                                                            ramps_crate_5_got, Item,
-                                                                                           sfx_item_key)
+                                                                                           sfx_item_key,
+                                                                                           mini_map_overlay)
 
                     over_world_song_set = marrow_ramps_west_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_west_end_returned["interacted"]
@@ -10388,7 +10474,8 @@ if __name__ == "__main__":
                                                                                            apothis_push, apothis,
                                                                                            apothis_popup, apothis_1,
                                                                                            apothis_2,
-                                                                                           overlay_enemy_vanish)
+                                                                                           overlay_enemy_vanish,
+                                                                                           mini_map_overlay)
                     else:
                         marrow_ramps_east_end_returned = zone_marrow.marrow_ramps_east_end(pygame, game_window,
                                                                                            graphic_dict,
@@ -10439,7 +10526,8 @@ if __name__ == "__main__":
                                                                                            apothis_push, apothis,
                                                                                            apothis_popup, apothis_1,
                                                                                            apothis_2,
-                                                                                           overlay_enemy_vanish)
+                                                                                           overlay_enemy_vanish,
+                                                                                           mini_map_overlay)
 
                     over_world_song_set = marrow_ramps_east_end_returned["over_world_song_set"]
                     interacted = marrow_ramps_east_end_returned["interacted"]
@@ -10546,7 +10634,8 @@ if __name__ == "__main__":
                                                                              osodark_battle_sprite,
                                                                              sfx_ladder, stelli_battle_sprite,
                                                                              critter_ectrenos_1, critter_right_move,
-                                                                             critter_left_move, critter_tic, walk_move)
+                                                                             critter_left_move, critter_tic, walk_move,
+                                                                             mini_map_overlay)
                     else:
                         ectrenos_main_returned = zone_ectrenos.ectrenos_main(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_bg, eldream_building_music,
@@ -10585,7 +10674,8 @@ if __name__ == "__main__":
                                                                              osodark_battle_sprite,
                                                                              sfx_ladder, stelli_battle_sprite,
                                                                              critter_ectrenos_1, critter_right_move,
-                                                                             critter_left_move, critter_tic, walk_move)
+                                                                             critter_left_move, critter_tic, walk_move,
+                                                                             mini_map_overlay)
 
                     over_world_song_set = ectrenos_main_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_main_returned["eldream_attuned"]
@@ -10644,7 +10734,7 @@ if __name__ == "__main__":
                                                                              pet_energy_window, npc_leyre, sfx_find,
                                                                              critter_ectrenos_2, critter_right_move,
                                                                              critter_left_move, critter_tic, walk_move,
-                                                                             altar_entrance)
+                                                                             altar_entrance, mini_map_overlay)
                     else:
                         ectrenos_left_returned = zone_ectrenos.ectrenos_left(pygame, game_window, graphic_dict, player,
                                                                              ectrenos_left_bg, eldream_overworld_music,
@@ -10672,7 +10762,7 @@ if __name__ == "__main__":
                                                                              pet_energy_window, npc_leyre, sfx_find,
                                                                              critter_ectrenos_2, critter_right_move,
                                                                              critter_left_move, critter_tic, walk_move,
-                                                                             altar_entrance)
+                                                                             altar_entrance, mini_map_overlay)
 
                     over_world_song_set = ectrenos_left_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_left_returned["eldream_attuned"]
@@ -10730,7 +10820,7 @@ if __name__ == "__main__":
                                                                                ectrenos_inn_entrance, pet_energy_window,
                                                                                npc_leyre, sfx_find, critter_ectrenos_3,
                                                                                critter_right_move, critter_left_move,
-                                                                               critter_tic, walk_move)
+                                                                               critter_tic, walk_move, mini_map_overlay)
                     else:
                         ectrenos_right_returned = zone_ectrenos.ectrenos_right(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_right_bg,
@@ -10756,7 +10846,7 @@ if __name__ == "__main__":
                                                                                ectrenos_inn_entrance, pet_energy_window,
                                                                                npc_leyre, sfx_find, critter_ectrenos_3,
                                                                                critter_right_move, critter_left_move,
-                                                                               critter_tic, walk_move)
+                                                                               critter_tic, walk_move, mini_map_overlay)
 
                     over_world_song_set = ectrenos_right_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_right_returned["eldream_attuned"]
@@ -10842,7 +10932,7 @@ if __name__ == "__main__":
                                                                                necrola_battle_sprite,
                                                                                osodark_battle_sprite, sfx_find,
                                                                                stelli_battle_sprite, vanished,
-                                                                               vanish_overlay)
+                                                                               vanish_overlay, mini_map_overlay)
                     else:
                         ectrenos_front_returned = zone_ectrenos.ectrenos_front(pygame, game_window, graphic_dict,
                                                                                player, ectrenos_front_bg,
@@ -10886,7 +10976,7 @@ if __name__ == "__main__":
                                                                                necrola_battle_sprite,
                                                                                osodark_battle_sprite, sfx_find,
                                                                                stelli_battle_sprite, vanished,
-                                                                               vanish_overlay)
+                                                                               vanish_overlay, mini_map_overlay)
 
                     over_world_song_set = ectrenos_front_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_front_returned["eldream_attuned"]
@@ -10940,7 +11030,8 @@ if __name__ == "__main__":
                                                                                  alcove_ladder_rect, chroma_bridge,
                                                                                  alcove_star, npc_leyre,
                                                                                  ectrenos_alcove_enemies, sfx_find,
-                                                                                 sfx_ladder, vanished, vanish_overlay)
+                                                                                 sfx_ladder, vanished, vanish_overlay,
+                                                                                 mini_map_overlay)
                     else:
                         ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
                                                                                  player, ectrenos_alcove_bg,
@@ -10967,7 +11058,8 @@ if __name__ == "__main__":
                                                                                  alcove_ladder_rect, chroma_bridge,
                                                                                  alcove_star, npc_leyre,
                                                                                  ectrenos_alcove_enemies, sfx_find,
-                                                                                 sfx_ladder, vanished, vanish_overlay)
+                                                                                 sfx_ladder, vanished, vanish_overlay,
+                                                                                 mini_map_overlay)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -11677,6 +11769,20 @@ if __name__ == "__main__":
                         if level_visual_toc - level_visual_tic > 3:
                             level_visual = False
                             drawing_functions.level_up_visual.clear()
+
+                if not in_battle and not in_inn and not in_academia and not in_shop and not in_npc_interaction:
+                    if player.current_zone != "nascent":
+                        if len(drawing_functions.game_guide_container) == 0:
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(music_toggle_button.surf, music_toggle_button.rect)
+                            else:
+                                game_window.blit(music_toggle_button.surf, music_toggle_button.rect)
+
+                            if button_highlighted:
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(button_highlight.surf, button_highlight.rect)
+                                else:
+                                    game_window.blit(button_highlight.surf, button_highlight.rect)
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in battle -------------------------------------------------------------------------------
@@ -13222,26 +13328,27 @@ if __name__ == "__main__":
                 if in_shop and not in_over_world and not in_battle and not in_inn and not in_academia \
                         and not in_npc_interaction:
 
-                    if player.current_zone == "seldon":
-                        if not building_song_set:
-                            pygame.mixer.music.fadeout(50)
-                            pygame.mixer.music.load(seldon_building_music)
-                            pygame.mixer.music.play(loops=-1)
-                            building_song_set = True
+                    if pygame.mixer.music.get_busy():
+                        if player.current_zone == "seldon":
+                            if not building_song_set:
+                                pygame.mixer.music.fadeout(50)
+                                pygame.mixer.music.load(seldon_building_music)
+                                pygame.mixer.music.play(loops=-1)
+                                building_song_set = True
 
-                    if player.current_zone == "korlok":
-                        if not building_song_set:
-                            pygame.mixer.music.fadeout(50)
-                            pygame.mixer.music.load(korlok_building_music)
-                            pygame.mixer.music.play(loops=-1)
-                            building_song_set = True
+                        if player.current_zone == "korlok":
+                            if not building_song_set:
+                                pygame.mixer.music.fadeout(50)
+                                pygame.mixer.music.load(korlok_building_music)
+                                pygame.mixer.music.play(loops=-1)
+                                building_song_set = True
 
-                    if player.current_zone == "ectrenos right":
-                        if not building_song_set:
-                            pygame.mixer.music.fadeout(50)
-                            pygame.mixer.music.load(eldream_building_music)
-                            pygame.mixer.music.play(loops=-1)
-                            building_song_set = True
+                        if player.current_zone == "ectrenos right":
+                            if not building_song_set:
+                                pygame.mixer.music.fadeout(50)
+                                pygame.mixer.music.load(eldream_building_music)
+                                pygame.mixer.music.play(loops=-1)
+                                building_song_set = True
 
                     for event in pygame.event.get():
                         if buy_clicked:
@@ -13985,26 +14092,27 @@ if __name__ == "__main__":
                 if in_inn and not in_over_world and not in_shop and not in_battle and not in_academia \
                         and not in_npc_interaction:
 
-                    if player.current_zone == "seldon":
-                        if not building_song_set:
-                            pygame.mixer.music.fadeout(50)
-                            pygame.mixer.music.load(seldon_building_music)
-                            pygame.mixer.music.play(loops=-1)
-                            building_song_set = True
+                    if pygame.mixer.music.get_busy():
+                        if player.current_zone == "seldon":
+                            if not building_song_set:
+                                pygame.mixer.music.fadeout(50)
+                                pygame.mixer.music.load(seldon_building_music)
+                                pygame.mixer.music.play(loops=-1)
+                                building_song_set = True
 
-                    if player.current_zone == "korlok":
-                        if not building_song_set:
-                            pygame.mixer.music.fadeout(50)
-                            pygame.mixer.music.load(korlok_building_music)
-                            pygame.mixer.music.play(loops=-1)
-                            building_song_set = True
+                        if player.current_zone == "korlok":
+                            if not building_song_set:
+                                pygame.mixer.music.fadeout(50)
+                                pygame.mixer.music.load(korlok_building_music)
+                                pygame.mixer.music.play(loops=-1)
+                                building_song_set = True
 
-                    if player.current_zone == "ectrenos right":
-                        if not building_song_set:
-                            pygame.mixer.music.fadeout(50)
-                            pygame.mixer.music.load(eldream_building_music)
-                            pygame.mixer.music.play(loops=-1)
-                            building_song_set = True
+                        if player.current_zone == "ectrenos right":
+                            if not building_song_set:
+                                pygame.mixer.music.fadeout(50)
+                                pygame.mixer.music.load(eldream_building_music)
+                                pygame.mixer.music.play(loops=-1)
+                                building_song_set = True
 
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
@@ -14294,10 +14402,11 @@ if __name__ == "__main__":
                         and not in_battle:
 
                     if not building_song_set:
-                        pygame.mixer.music.fadeout(50)
-                        pygame.mixer.music.load(seldon_building_music)
-                        pygame.mixer.music.play(loops=-1)
-                        building_song_set = True
+                        if pygame.mixer.music.get_busy():
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(seldon_building_music)
+                            pygame.mixer.music.play(loops=-1)
+                            building_song_set = True
 
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
@@ -14744,10 +14853,11 @@ if __name__ == "__main__":
                         info_text_4 = ""
 
                     if not building_song_set:
-                        pygame.mixer.music.fadeout(50)
-                        pygame.mixer.music.load(korlok_building_music)
-                        pygame.mixer.music.play(loops=-1)
-                        building_song_set = True
+                        if pygame.mixer.music.get_busy():
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(korlok_building_music)
+                            pygame.mixer.music.play(loops=-1)
+                            building_song_set = True
 
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:
@@ -15205,10 +15315,11 @@ if __name__ == "__main__":
                         info_text_4 = ""
 
                     if not building_song_set:
-                        pygame.mixer.music.fadeout(50)
-                        pygame.mixer.music.load(eldream_building_music)
-                        pygame.mixer.music.play(loops=-1)
-                        building_song_set = True
+                        if pygame.mixer.music.get_busy():
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(eldream_building_music)
+                            pygame.mixer.music.play(loops=-1)
+                            building_song_set = True
 
                     for event in pygame.event.get():
                         if event.type == KEYDOWN:

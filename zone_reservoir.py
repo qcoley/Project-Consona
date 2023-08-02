@@ -19,10 +19,11 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
     in_battle = False
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(reservoir_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(reservoir_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     # set switches to active graphics, or inactive, depending on their current condition
     if switch_1:
@@ -288,9 +289,6 @@ def reservoir_a(pygame, screen, SCREEN_HEIGHT, graphic_dict, player, reservoir_a
                                      in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     # info to return to main loop --------------------------------------------------------------------------------------
     reservoir_a_return = {"over_world_song_set": over_world_song_set, "interacted": interacted, "crate_1": crate_1,
                           "crate_2": crate_2, "crate_3": crate_3, "crate_4": crate_4, "switch_1": switch_1,
@@ -321,10 +319,11 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
     in_battle = False
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(reservoir_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(reservoir_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     dungeon_teleporter.update(880, 525, graphic_dict["dungeon_teleporter"])
 
@@ -538,9 +537,6 @@ def reservoir_b(pygame, player, screen, graphic_dict, over_world_song_set, reser
                                      in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     # info to return to main loop --------------------------------------------------------------------------------------
     reservoir_b_return = {"over_world_song_set": over_world_song_set, "interacted": interacted, "muchador_lights_on":
                           muchador_lights_on, "switch_1": switch_1, "switch_2": switch_2, "switch_3": switch_3,
@@ -561,10 +557,11 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
                 defense_meter, weapon_select, pet_energy_window, sfx_chest, sfx_rocks):
 
     if not over_world_song_set:
-        pygame.mixer.music.fadeout(50)
-        pygame.mixer.music.load(reservoir_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(reservoir_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     screen.blit(reservoir_c_bg, (0, 0))
     screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -721,9 +718,6 @@ def reservoir_c(pygame, player, screen, graphic_dict, over_world_song_set, reser
     drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
                                      in_over_world)
     drawing_functions.draw_it(screen)
-
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
 
     # info to return to main loop --------------------------------------------------------------------------------------
     reservoir_c_return = {"over_world_song_set": over_world_song_set, "interacted": interacted,

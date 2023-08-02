@@ -69,9 +69,6 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
                                      info_text_4, in_over_world)
     drawing_functions.draw_it(screen)
 
-    if button_highlighted:
-        screen.blit(button_highlight.surf, button_highlight.rect)
-
     # water movement animation -------------------------------------------------------------------------
     if 1000 > water_1.x_coordinate > 270:
         water_1.x_coordinate -= 1
@@ -101,9 +98,10 @@ def rohir_river(pygame, screen, player, over_world_song_set, rohir_river_bg, dun
     # --------------------------------------------------------------------------------------------------
 
     if not over_world_song_set:
-        pygame.mixer.music.load(rohir_river_music)
-        pygame.mixer.music.play(loops=-1)
-        over_world_song_set = True
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.load(rohir_river_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
 
     if pygame.sprite.collide_rect(player, dungeon_entrance):
         interaction_popup.update(dungeon_entrance.x_coordinate + 40,
