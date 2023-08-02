@@ -1760,28 +1760,28 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 610 < self.x_coordinate < 840 and self.y_coordinate > 555:
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 610 < self.x_coordinate < 840 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 165 < self.y_coordinate < 580:
                 if 210 > self.x_coordinate > 180:
                     self.x_coordinate = 180
-                if 185 < self.x_coordinate < 215:
-                    self.x_coordinate = 215
+                if 185 < self.x_coordinate < 230:
+                    self.x_coordinate = 230
                 if 830 < self.x_coordinate < 850:
                     self.x_coordinate = 850
-                if 815 < self.x_coordinate < 840:
-                    self.x_coordinate = 815
+                if 800 < self.x_coordinate < 840:
+                    self.x_coordinate = 800
             if 200 < self.x_coordinate < 840:
                 if 165 > self.y_coordinate > 160:
                     self.y_coordinate = 160
-                if 165 < self.y_coordinate < 175:
-                    self.y_coordinate = 175
+                if 165 < self.y_coordinate < 200:
+                    self.y_coordinate = 200
             if self.y_coordinate > 550:
                 if 375 < self.x_coordinate < 430:
                     self.x_coordinate = 430
@@ -1798,29 +1798,29 @@ class PlayerAmuna(pygame.sprite.Sprite):
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 610 < self.x_coordinate < 840 and self.y_coordinate > 555:
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 610 < self.x_coordinate < 840 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 165 < self.y_coordinate < 580:
                 if 210 > self.x_coordinate > 180:
                     self.x_coordinate = 180
-                if 185 < self.x_coordinate < 215:
-                    self.x_coordinate = 215
+                if 185 < self.x_coordinate < 230:
+                    self.x_coordinate = 230
                 if 830 < self.x_coordinate < 850:
                     self.x_coordinate = 850
-                if 815 < self.x_coordinate < 840:
-                    self.x_coordinate = 815
+                if 800 < self.x_coordinate < 840:
+                    self.x_coordinate = 800
             if 200 < self.x_coordinate < 840:
                 if 165 > self.y_coordinate > 160:
                     self.y_coordinate = 160
-                if 165 < self.y_coordinate < 175:
-                    self.y_coordinate = 175
-            if self.y_coordinate > 550:
+                if 165 < self.y_coordinate < 200:
+                    self.y_coordinate = 200
+            if self.y_coordinate > 540:
                 if 650 > self.x_coordinate > 600:
                     self.x_coordinate = 600
         if current_zone == "marrow ramps west" or current_zone == "marrow ramps east":
@@ -3836,28 +3836,28 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 610 < self.x_coordinate < 840 and self.y_coordinate > 555:
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 610 < self.x_coordinate < 840 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 165 < self.y_coordinate < 580:
                 if 210 > self.x_coordinate > 180:
                     self.x_coordinate = 180
-                if 185 < self.x_coordinate < 215:
-                    self.x_coordinate = 215
+                if 185 < self.x_coordinate < 230:
+                    self.x_coordinate = 230
                 if 830 < self.x_coordinate < 850:
                     self.x_coordinate = 850
-                if 815 < self.x_coordinate < 840:
-                    self.x_coordinate = 815
+                if 800 < self.x_coordinate < 840:
+                    self.x_coordinate = 800
             if 200 < self.x_coordinate < 840:
                 if 165 > self.y_coordinate > 160:
                     self.y_coordinate = 160
-                if 165 < self.y_coordinate < 175:
-                    self.y_coordinate = 175
+                if 165 < self.y_coordinate < 200:
+                    self.y_coordinate = 200
             if self.y_coordinate > 550:
                 if 375 < self.x_coordinate < 430:
                     self.x_coordinate = 430
@@ -3874,29 +3874,29 @@ class PlayerNuldar(pygame.sprite.Sprite):
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 610 < self.x_coordinate < 840 and self.y_coordinate > 555:
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 610 < self.x_coordinate < 840 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 165 < self.y_coordinate < 580:
                 if 210 > self.x_coordinate > 180:
                     self.x_coordinate = 180
-                if 185 < self.x_coordinate < 215:
-                    self.x_coordinate = 215
+                if 185 < self.x_coordinate < 230:
+                    self.x_coordinate = 230
                 if 830 < self.x_coordinate < 850:
                     self.x_coordinate = 850
-                if 815 < self.x_coordinate < 840:
-                    self.x_coordinate = 815
+                if 800 < self.x_coordinate < 840:
+                    self.x_coordinate = 800
             if 200 < self.x_coordinate < 840:
                 if 165 > self.y_coordinate > 160:
                     self.y_coordinate = 160
-                if 165 < self.y_coordinate < 175:
-                    self.y_coordinate = 175
-            if self.y_coordinate > 550:
+                if 165 < self.y_coordinate < 200:
+                    self.y_coordinate = 200
+            if self.y_coordinate > 540:
                 if 650 > self.x_coordinate > 600:
                     self.x_coordinate = 600
         if current_zone == "marrow ramps west" or current_zone == "marrow ramps east":
@@ -5912,28 +5912,28 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 610 < self.x_coordinate < 840 and self.y_coordinate > 555:
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 610 < self.x_coordinate < 840 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 165 < self.y_coordinate < 580:
                 if 210 > self.x_coordinate > 180:
                     self.x_coordinate = 180
-                if 185 < self.x_coordinate < 215:
-                    self.x_coordinate = 215
+                if 185 < self.x_coordinate < 230:
+                    self.x_coordinate = 230
                 if 830 < self.x_coordinate < 850:
                     self.x_coordinate = 850
-                if 815 < self.x_coordinate < 840:
-                    self.x_coordinate = 815
+                if 800 < self.x_coordinate < 840:
+                    self.x_coordinate = 800
             if 200 < self.x_coordinate < 840:
                 if 165 > self.y_coordinate > 160:
                     self.y_coordinate = 160
-                if 165 < self.y_coordinate < 175:
-                    self.y_coordinate = 175
+                if 165 < self.y_coordinate < 200:
+                    self.y_coordinate = 200
             if self.y_coordinate > 550:
                 if 375 < self.x_coordinate < 430:
                     self.x_coordinate = 430
@@ -5950,29 +5950,29 @@ class PlayerSorae(pygame.sprite.Sprite):
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 185 < self.x_coordinate < 405 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 610 < self.x_coordinate < 840 and self.y_coordinate > 555:
                 if self.y_coordinate < 580:
                     self.y_coordinate = 580
             if 610 < self.x_coordinate < 840 and self.y_coordinate < 555:
-                if self.y_coordinate > 550:
-                    self.y_coordinate = 550
+                if self.y_coordinate > 540:
+                    self.y_coordinate = 540
             if 165 < self.y_coordinate < 580:
                 if 210 > self.x_coordinate > 180:
                     self.x_coordinate = 180
-                if 185 < self.x_coordinate < 215:
-                    self.x_coordinate = 215
+                if 185 < self.x_coordinate < 230:
+                    self.x_coordinate = 230
                 if 830 < self.x_coordinate < 850:
                     self.x_coordinate = 850
-                if 815 < self.x_coordinate < 840:
-                    self.x_coordinate = 815
+                if 800 < self.x_coordinate < 840:
+                    self.x_coordinate = 800
             if 200 < self.x_coordinate < 840:
                 if 165 > self.y_coordinate > 160:
                     self.y_coordinate = 160
-                if 165 < self.y_coordinate < 175:
-                    self.y_coordinate = 175
-            if self.y_coordinate > 550:
+                if 165 < self.y_coordinate < 200:
+                    self.y_coordinate = 200
+            if self.y_coordinate > 540:
                 if 650 > self.x_coordinate > 600:
                     self.x_coordinate = 600
         if current_zone == "marrow ramps west" or current_zone == "marrow ramps east":
@@ -7502,15 +7502,15 @@ if __name__ == "__main__":
     marrow_entrance_music = resource_path("resources/sounds/eterna_marrow_entrance.mp3")
     boss_battle_music = resource_path("resources/sounds/eterna_boss_battle.mp3")
 
-    pygame.mixer.music.set_volume(0.40)
+    pygame.mixer.music.set_volume(0.35)
     pygame.mixer.music.load(start_screen_music)
-    pygame.mixer.music.play(loops=0)
+    pygame.mixer.music.play(loops=-1)
 
     sfx_game_over = pygame.mixer.Sound(resource_path("resources/sounds/game_over.mp3"))
-    sfx_game_over.set_volume(0.70)
+    sfx_game_over.set_volume(0.65)
 
     sfx_no_weapon_attack = pygame.mixer.Sound(resource_path("resources/sounds/no_weapon_attack.mp3"))
-    sfx_no_weapon_attack.set_volume(0.50)
+    sfx_no_weapon_attack.set_volume(0.40)
     sfx_mage_attack = pygame.mixer.Sound(resource_path("resources/sounds/mage_attack.mp3"))
     sfx_mage_attack.set_volume(0.18)
     sfx_mage_barrier = pygame.mixer.Sound(resource_path("resources/sounds/mage_barrier.mp3"))
@@ -7899,7 +7899,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -8610,18 +8610,27 @@ if __name__ == "__main__":
                             hearth_stone.update(968, 595, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "ectrenos":
+                            mini_map_overlay.update(915, 596, graphic_dict["ectrenos_mini_map"])
                             player.x_coordinate = 500
                             player.y_coordinate = 675
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "ectrenos left":
+                            mini_map_overlay.update(915, 596, graphic_dict["ectrenos_mini_map_left"])
                             player.x_coordinate = 850
                             player.y_coordinate = 530
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "ectrenos right":
+                            mini_map_overlay.update(915, 596, graphic_dict["ectrenos_mini_map_right"])
                             player.x_coordinate = 210
                             player.y_coordinate = 515
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "ectrenos front":
+                            mini_map_overlay.update(915, 596, graphic_dict["ectrenos_mini_map_front"])
+                            player.x_coordinate = 905
+                            player.y_coordinate = 500
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "ectrenos alcove":
+                            mini_map_overlay.update(915, 596, graphic_dict["ectrenos_mini_map"])
                             player.x_coordinate = 425
                             player.y_coordinate = 675
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -8631,34 +8640,41 @@ if __name__ == "__main__":
                             player.y_coordinate = 170
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow entrance":
+                            mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map"])
                             player.x_coordinate = 510
                             player.y_coordinate = 100
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow tower west":
+                            mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_tower_left"])
                             player.x_coordinate = 520
                             player.y_coordinate = 440
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow tower east":
+                            mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_tower_right"])
                             player.x_coordinate = 520
                             player.y_coordinate = 440
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps west":
                             overlay_marrow_ramps_west.update(570, 55, graphic_dict["overlay_marrow_ramps_west"])
+                            mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_ramps_left"])
                             player.x_coordinate = 515
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps east":
                             overlay_marrow_ramps_east.update(570, 55, graphic_dict["overlay_marrow_ramps_east"])
+                            mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_ramps_right"])
                             player.x_coordinate = 515
                             player.y_coordinate = 260
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps west end":
                             overlay_marrow_ramps_west.update(570, 55, graphic_dict["overlay_marrow_ramps_west"])
+                            mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_ramps_left_end"])
                             player.x_coordinate = 575
                             player.y_coordinate = 250
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "marrow ramps east end":
                             overlay_marrow_ramps_east.update(570, 55, graphic_dict["overlay_marrow_ramps_east"])
+                            mini_map_overlay.update(915, 596, graphic_dict["marrow_mini_map_ramps_right_end"])
                             player.x_coordinate = 575
                             player.y_coordinate = 250
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
