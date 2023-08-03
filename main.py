@@ -6793,19 +6793,22 @@ if __name__ == "__main__":
         Item("basic armor", "armor", 1078, 197, graphic_dict["basic_armor"], 1),
         Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
-        Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0)])
+        Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
+        Item("seldon firework", "firework", 200, 200, graphic_dict["seldon_firework"], 0)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
         Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
-        Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0)])
+        Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
+        Item("korlok firework", "firework", 200, 200, graphic_dict["korlok_firework"], 0)])
 
     npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
         Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
         Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
-        Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0)])
+        Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
+        Item("eldream firework", "firework", 200, 200, graphic_dict["eldream_firework"], 0)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
@@ -13454,7 +13457,10 @@ if __name__ == "__main__":
                                                                  graphic_dict["mythical_armor"],
                                                                  graphic_dict["pet_cookie_img"],
                                                                  graphic_dict["pet_candy_img"],
-                                                                 graphic_dict["pet_tart_img"], sfx_shop_transaction)
+                                                                 graphic_dict["pet_tart_img"], sfx_shop_transaction,
+                                                                 graphic_dict["seldon_firework"],
+                                                                 graphic_dict["korlok_firework"],
+                                                                 graphic_dict["eldream_firework"])
                             if buy_return["info 1"] != "":
                                 button_highlighted = False
                                 info_text_1 = buy_return["info 1"]
@@ -13552,7 +13558,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["pet_candy_img"],
                                                                                  graphic_dict["pet_tart_img"],
                                                                                  graphic_dict["small_health_pot_img"],
-                                                                                 graphic_dict["small_energy_pot_img"])
+                                                                                 graphic_dict["small_energy_pot_img"],
+                                                                                 graphic_dict["seldon_firework"],
+                                                                                 graphic_dict["korlok_firework"],
+                                                                                 graphic_dict["eldream_firework"])
                                     if player.current_zone == "korlok":
                                         shop_scenario.shop_keeper_inventory_draw(npc_nuldar_shopkeeper,
                                                                                  shopkeeper_items,
@@ -13563,7 +13572,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["pet_candy_img"],
                                                                                  graphic_dict["pet_tart_img"],
                                                                                  graphic_dict["small_health_pot_img"],
-                                                                                 graphic_dict["small_energy_pot_img"])
+                                                                                 graphic_dict["small_energy_pot_img"],
+                                                                                 graphic_dict["seldon_firework"],
+                                                                                 graphic_dict["korlok_firework"],
+                                                                                 graphic_dict["eldream_firework"])
                                     if player.current_zone == "ectrenos right":
                                         shop_scenario.shop_keeper_inventory_draw(npc_sorae_shopkeeper,
                                                                                  shopkeeper_items,
@@ -13574,7 +13586,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["pet_candy_img"],
                                                                                  graphic_dict["pet_tart_img"],
                                                                                  graphic_dict["small_health_pot_img"],
-                                                                                 graphic_dict["small_energy_pot_img"])
+                                                                                 graphic_dict["small_energy_pot_img"],
+                                                                                 graphic_dict["seldon_firework"],
+                                                                                 graphic_dict["korlok_firework"],
+                                                                                 graphic_dict["eldream_firework"])
 
                         if shop_button == "leave":
                             if len(buy_shop_elements) > 0:

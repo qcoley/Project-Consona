@@ -4996,6 +4996,9 @@ def load_graphics():
     loaded_dict["casing"] = items_sheet[24]
     loaded_dict["smelted_casing"] = items_sheet[25]
     loaded_dict["enchanted_casing"] = items_sheet[26]
+    loaded_dict["seldon_firework"] = items_sheet[27]
+    loaded_dict["korlok_firework"] = items_sheet[28]
+    loaded_dict["eldream_firework"] = items_sheet[29]
     # items info -------------------------------------------------------------------------------------------------------
     items_info_url = resource_path('resources/art/overlay_info_items.png')
     items_info_sheet = sprite_sheet((246, 240), items_info_url)
@@ -5028,6 +5031,9 @@ def load_graphics():
     loaded_dict["info_casing"] = items_info_sheet[26]
     loaded_dict["info_smelted_casing"] = items_info_sheet[27]
     loaded_dict["info_enchanted_casing"] = items_info_sheet[28]
+    loaded_dict["info_seldon_firework"] = items_info_sheet[29]
+    loaded_dict["info_korlok_firework"] = items_info_sheet[30]
+    loaded_dict["info_eldream_firework"] = items_info_sheet[31]
     # buy items info ---------------------------------------------------------------------------------------------------
     buy_items_url = resource_path('resources/art/overlay_buy_items.png')
     buy_items_sheet = sprite_sheet((246, 240), buy_items_url)
@@ -5040,6 +5046,9 @@ def load_graphics():
     loaded_dict["b_cookie_img"] = buy_items_sheet[6]
     loaded_dict["b_candy_img"] = buy_items_sheet[7]
     loaded_dict["b_tart_img"] = buy_items_sheet[8]
+    loaded_dict["b_seldon_firework"] = buy_items_sheet[9]
+    loaded_dict["b_korlok_firework"] = buy_items_sheet[10]
+    loaded_dict["b_eldream_firework"] = buy_items_sheet[11]
     # sell items -------------------------------------------------------------------------------------------------------
     sell_items_url = resource_path('resources/art/overlay_sell_items.png')
     sell_items_sheet = sprite_sheet((246, 240), sell_items_url)
@@ -5059,6 +5068,9 @@ def load_graphics():
     loaded_dict["s_candy_img"] = sell_items_sheet[13]
     loaded_dict["s_tart_img"] = sell_items_sheet[14]
     loaded_dict["s_bone_shard"] = sell_items_sheet[15]
+    loaded_dict["s_seldon_firework"] = sell_items_sheet[16]
+    loaded_dict["s_korlok_firework"] = sell_items_sheet[17]
+    loaded_dict["s_eldream_firework"] = sell_items_sheet[18]
     # apothecary potions -----------------------------------------------------------------------------------------------
     apothecary_potions_url = resource_path('resources/art/overlay_apothecary_potions.png')
     apothecary_potions_sheet = sprite_sheet((75, 75), apothecary_potions_url)

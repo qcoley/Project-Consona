@@ -380,6 +380,27 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["ok_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "seldon firework":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_seldon_firework"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "korlok firework":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_korlok_firework"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "eldream firework":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_eldream_firework"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["use_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -428,6 +449,24 @@ def buy_info_draw(buy_item, buy_items, yes_button, graphic):
             return buy_item
         if buy_item.name == "pet tart":
             buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_tart_img"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "seldon firework":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_seldon_firework"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "korlok firework":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_korlok_firework"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "eldream firework":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_eldream_firework"])
             buy_info_window.append(buy_items)
             yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
@@ -525,6 +564,25 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "bone shard":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_bone_shard"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+
+        if sell_item.name == "seldon firework":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_seldon_firework"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "korlok firework":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_korlok_firework"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "eldream firework":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_eldream_firework"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
@@ -1232,6 +1290,19 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "enchanted casing":
                     item_here.update(first_coord, second_coord, graphic["enchanted_casing"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+
+                if item_here.name == "seldon firework":
+                    item_here.update(first_coord, second_coord, graphic["seldon_firework"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "korlok firework":
+                    item_here.update(first_coord, second_coord, graphic["korlok_firework"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "eldream firework":
+                    item_here.update(first_coord, second_coord, graphic["eldream_firework"])
                     player_items.append(item_here)
                     inventory_counter += 1
 
