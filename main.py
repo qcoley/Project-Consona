@@ -7519,6 +7519,7 @@ if __name__ == "__main__":
     marrow_overworld_music = resource_path("resources/sounds/eterna_marrow.mp3")
     marrow_entrance_music = resource_path("resources/sounds/eterna_marrow_entrance.mp3")
     boss_battle_music = resource_path("resources/sounds/eterna_boss_battle.mp3")
+    fishing_music = resource_path("resources/sounds/eterna_fishing.mp3")
 
     pygame.mixer.music.set_volume(0.35)
     pygame.mixer.music.load(start_screen_music)
@@ -7924,7 +7925,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -8602,6 +8603,11 @@ if __name__ == "__main__":
                         if player.current_zone == "korlok":
                             player.x_coordinate = 882
                             player.y_coordinate = 290
+                            hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
+                            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+                        if player.current_zone == "fishing hut":
+                            player.x_coordinate = 335
+                            player.y_coordinate = 265
                             hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "mines":
@@ -9562,20 +9568,76 @@ if __name__ == "__main__":
                 if player.current_zone == "fishing hut" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    pygame.mixer.music.fadeout(3000)
+                    if not over_world_song_set:
+                        if pygame.mixer.music.get_busy():
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(fishing_music)
+                            pygame.mixer.music.play(loops=-1)
+                            over_world_song_set = True
+
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(fishing_hut_bg, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
+                        screen.blit(offense_meter.surf, offense_meter.rect)
+                        screen.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                         screen.blit(player.surf, player.rect)
+                        for save_window in save_check_window:
+                            screen.blit(save_window.surf, save_window.rect)
+                        for ui_elements in user_interface:
+                            if len(drawing_functions.item_info_window) != 0:
+                                if ui_elements.name != "star power":
+                                    screen.blit(ui_elements.surf, ui_elements.rect)
+                            else:
+                                screen.blit(ui_elements.surf, ui_elements.rect)
+                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        screen.blit(hp_bar.surf, hp_bar.rect)
+                        screen.blit(en_bar.surf, en_bar.rect)
+                        screen.blit(xp_bar.surf, xp_bar.rect)
+                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
+                                                         info_text_4, in_over_world)
+                        drawing_functions.draw_it(screen)
+                        if len(drawing_functions.loot_popup_container) > 0:
+                            for popup in drawing_functions.loot_popup_container:
+                                screen.blit(popup.surf, popup.rect)
+                        if len(drawing_functions.loot_text_container) > 0:
+                            for loot_text in drawing_functions.loot_text_container:
+                                screen.blit(loot_text[0], loot_text[1])
                     else:
                         game_window.blit(fishing_hut_bg, (0, 0))
                         game_window.blit(equipment_screen.surf, equipment_screen.rect)
+                        game_window.blit(offense_meter.surf, offense_meter.rect)
+                        game_window.blit(defense_meter.surf, defense_meter.rect)
+                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
                         game_window.blit(player.surf, player.rect)
+                        for save_window in save_check_window:
+                            game_window.blit(save_window.surf, save_window.rect)
+                        for ui_elements in user_interface:
+                            if len(drawing_functions.item_info_window) != 0:
+                                if ui_elements.name != "star power":
+                                    game_window.blit(ui_elements.surf, ui_elements.rect)
+                            else:
+                                game_window.blit(ui_elements.surf, ui_elements.rect)
+
+                        game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
+                        game_window.blit(hp_bar.surf, hp_bar.rect)
+                        game_window.blit(en_bar.surf, en_bar.rect)
+                        game_window.blit(xp_bar.surf, xp_bar.rect)
+                        drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
+                                                         info_text_3, info_text_4, in_over_world)
+                        drawing_functions.draw_it(game_window)
+                        if len(drawing_functions.loot_popup_container) > 0:
+                            for popup in drawing_functions.loot_popup_container:
+                                game_window.blit(popup.surf, popup.rect)
+                        if len(drawing_functions.loot_text_container) > 0:
+                            for loot_text in drawing_functions.loot_text_container:
+                                game_window.blit(loot_text[0], loot_text[1])
 
                     # move player to seldon district when they approach nascent grove exit
                     if player.x_coordinate < 50 and player.y_coordinate < 375:
                         player.current_zone = "korlok"
                         in_over_world = True
+                        over_world_song_set = False
                         player.x_coordinate = 925
                         player.y_coordinate = 545
 

@@ -622,7 +622,7 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
         if player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or \
                 player.current_zone == "reservoir c":
             text_location = font.render(str("Reservoir"), True, "black", "light yellow")
-        if player.current_zone == "korlok":
+        if player.current_zone == "korlok" or player.current_zone == "fishing hut":
             text_location = font.render(str("Korlok"), True, "black", "light yellow")
         if player.current_zone == "mines":
             text_location = font.render(str("Mines"), True, "black", "light yellow")
@@ -1955,7 +1955,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "korlok" or player.current_zone == "mines" or \
                     player.current_zone == "terra trail" or player.current_zone == "fishing hut" or \
                     player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or \
-                    player.current_zone == "reservoir c":
+                    player.current_zone == "reservoir c" or player.current_zone == "fishing hut":
                 amuna_location.update(korlok_map_button.x_coordinate,
                                       korlok_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
@@ -1988,10 +1988,11 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 amuna_location.update(seldon_map_button.x_coordinate - 75,
                                       seldon_map_button.y_coordinate - 25,
                                       graphic_dict["amuna_female"])
-            if player.current_zone == "korlok" or player.current_zone == "mines" or \
-                    player.current_zone == "terra trail" or player.current_zone == "fishing hut" or \
-                    player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or \
-                    player.current_zone == "reservoir c" or player.current_zone == "forge":
+            if (player.current_zone == "korlok" or player.current_zone == "mines" or
+                    player.current_zone == "terra trail" or player.current_zone == "fishing hut" or
+                    player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or
+                    player.current_zone == "reservoir c" or player.current_zone == "forge" or
+                    player.current_zone == "fishing hut"):
                 amuna_location.update(korlok_map_button.x_coordinate,
                                       korlok_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
@@ -2025,10 +2026,11 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 nuldar_location.update(seldon_map_button.x_coordinate - 75,
                                        seldon_map_button.y_coordinate - 25,
                                        graphic_dict["nuldar_location"])
-            if player.current_zone == "korlok" or player.current_zone == "mines" \
-                    or player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
-                    or player.current_zone == "reservoir a" or player.current_zone == "reservoir b" \
-                    or player.current_zone == "reservoir c" or player.current_zone == "forge":
+            if (player.current_zone == "korlok" or player.current_zone == "mines"
+                    or player.current_zone == "terra trail" or player.current_zone == "fishing hut"
+                    or player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
+                    or player.current_zone == "reservoir c" or player.current_zone == "forge"
+                    or player.current_zone == "fishing hut"):
                 nuldar_location.update(korlok_map_button.x_coordinate,
                                        korlok_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
@@ -2061,10 +2063,11 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 nuldar_location.update(seldon_map_button.x_coordinate - 75,
                                        seldon_map_button.y_coordinate - 25,
                                        graphic_dict["nuldar_female"])
-            if player.current_zone == "korlok" or player.current_zone == "mines" or \
-                    player.current_zone == "terra trail" or player.current_zone == "fishing hut" or \
-                    player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or \
-                    player.current_zone == "reservoir c" or player.current_zone == "forge":
+            if (player.current_zone == "korlok" or player.current_zone == "mines" or
+                    player.current_zone == "terra trail" or player.current_zone == "fishing hut" or
+                    player.current_zone == "reservoir a" or player.current_zone == "reservoir b" or
+                    player.current_zone == "reservoir c" or player.current_zone == "forge"
+                    or player.current_zone == "fishing hut"):
                 nuldar_location.update(korlok_map_button.x_coordinate,
                                        korlok_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
@@ -2098,10 +2101,11 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 sorae_location.update(seldon_map_button.x_coordinate - 75,
                                       seldon_map_button.y_coordinate - 25,
                                       graphic_dict["sorae_location"])
-            if player.current_zone == "korlok" or player.current_zone == "mines" or \
-                    player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
-                    or player.current_zone == "reservoir a" or player.current_zone == "reservoir b" \
-                    or player.current_zone == "reservoir c" or player.current_zone == "forge":
+            if (player.current_zone == "korlok" or player.current_zone == "mines" or
+                    player.current_zone == "terra trail" or player.current_zone == "fishing hut"
+                    or player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
+                    or player.current_zone == "reservoir c" or player.current_zone == "forge"
+                    or player.current_zone == "fishing hut"):
                 sorae_location.update(korlok_map_button.x_coordinate,
                                       korlok_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
@@ -2134,10 +2138,11 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
                 sorae_location.update(seldon_map_button.x_coordinate - 75,
                                       seldon_map_button.y_coordinate - 25,
                                       graphic_dict["sorae_b"])
-            if player.current_zone == "korlok" or player.current_zone == "mines" or \
-                    player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
-                    or player.current_zone == "reservoir a" or player.current_zone == "reservoir b" \
-                    or player.current_zone == "reservoir c" or player.current_zone == "forge":
+            if (player.current_zone == "korlok" or player.current_zone == "mines" or
+                    player.current_zone == "terra trail" or player.current_zone == "fishing hut"
+                    or player.current_zone == "reservoir a" or player.current_zone == "reservoir b"
+                    or player.current_zone == "reservoir c" or player.current_zone == "forge"
+                    or player.current_zone == "fishing hut"):
                 sorae_location.update(korlok_map_button.x_coordinate,
                                       korlok_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])
