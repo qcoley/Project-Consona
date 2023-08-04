@@ -996,6 +996,12 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("smelted casing", "casing", 200, 200, graphics["smelted_casing"], 0))
                 if item == "enchanted casing":
                     player.items.append(Item("enchanted casing", "casing", 200, 200, graphics["enchanted_casing"], 0))
+                if item == "seldon firework":
+                    player.items.append(Item("seldon firework", "firework", 200, 200, graphics["seldon_firework"], 0))
+                if item == "korlok firework":
+                    player.items.append(Item("korlok firework", "firework", 200, 200, graphics["korlok_firework"], 0))
+                if item == "eldream firework":
+                    player.items.append(Item("eldream firework", "firework", 200, 200, graphics["eldream_firework"], 0))
 
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":

@@ -435,6 +435,27 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # seldon fireworks -------------------------------------------------------------------------------------------------
+    seldon_fireworks_url = resource_path('resources/art/overlay_fireworks_seldon.png')
+    seldon_fireworks_sheet = sprite_sheet((200, 300), seldon_fireworks_url)
+    loaded_dict["seldon_fireworks_1"] = seldon_fireworks_sheet[0]
+    loaded_dict["seldon_fireworks_2"] = seldon_fireworks_sheet[1]
+    loaded_dict["seldon_fireworks_3"] = seldon_fireworks_sheet[2]
+    loaded_dict["seldon_fireworks_4"] = seldon_fireworks_sheet[3]
+    # korlok fireworks -------------------------------------------------------------------------------------------------
+    korlok_fireworks_url = resource_path('resources/art/overlay_fireworks_korlok.png')
+    korlok_fireworks_sheet = sprite_sheet((200, 300), korlok_fireworks_url)
+    loaded_dict["korlok_fireworks_1"] = korlok_fireworks_sheet[0]
+    loaded_dict["korlok_fireworks_2"] = korlok_fireworks_sheet[1]
+    loaded_dict["korlok_fireworks_3"] = korlok_fireworks_sheet[2]
+    loaded_dict["korlok_fireworks_4"] = korlok_fireworks_sheet[3]
+    # eldream fireworks -------------------------------------------------------------------------------------------------
+    eldream_fireworks_url = resource_path('resources/art/overlay_fireworks_eldream.png')
+    eldream_fireworks_sheet = sprite_sheet((200, 300), eldream_fireworks_url)
+    loaded_dict["eldream_fireworks_1"] = eldream_fireworks_sheet[0]
+    loaded_dict["eldream_fireworks_2"] = eldream_fireworks_sheet[1]
+    loaded_dict["eldream_fireworks_3"] = eldream_fireworks_sheet[2]
+    loaded_dict["eldream_fireworks_4"] = eldream_fireworks_sheet[3]
     # create character screen character race selections ----------------------------------------------------------------
     character_selections_url = resource_path('resources/art/overlay_character_selections.png')
     character_selections_sheet = sprite_sheet((250, 350), character_selections_url)

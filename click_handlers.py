@@ -285,7 +285,8 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
 
 
 # handles mouse clicks for inventory sub-screen
-def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics, width, height):
+def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics, width, height,
+              sfx_firework):
 
     return_dict = {"item message": ""}
 
@@ -426,14 +427,21 @@ def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snac
             else:
                 return_dict["item message"] = "You're already full health or energy."
 
-        if item.name == "seldon firework":
+        if item.name == "seldon firework" or item.name == "korlok firework" or item.name == "eldream firework":
+            pygame.mixer.find_channel(True).play(sfx_firework)
             return_dict["item message"] = "boom shakalaka."
-
-        if item.name == "korlok firework":
-            return_dict["item message"] = "boom shakalaka."
-
-        if item.name == "eldream firework":
-            return_dict["item message"] = "boom shakalaka."
+            return_dict["fireworking"] = True
+            if item.name == "seldon firework":
+                return_dict["firework_type"] = "seldon"
+            if item.name == "korlok firework":
+                return_dict["firework_type"] = "korlok"
+            if item.name == "eldream firework":
+                return_dict["firework_type"] = "eldream"
+            drawing_functions.player_items.remove(item)
+            player.items.remove(item)
+        else:
+            return_dict["fireworking"] = False
+            return_dict["firework_type"] = ""
 
         if item.type == "armor":
             if player.equipment["armor"] == "":

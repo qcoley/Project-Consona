@@ -6782,7 +6782,7 @@ if __name__ == "__main__":
     npc_boro = NPC("boro", "nuldar", "vamos vanguard", "Onur-oh", "", 580, 375, True, False, ["Items"], False,
                    graphic_dict["boro_down"])
     npc_maydria = NPC("maydria", "amuna", "vamos", "hail", "", 860, 175, True, False, ["Items"], False,
-                    graphic_dict["maydria_down"])
+                      graphic_dict["maydria_down"])
 
     npc_worker_1 = NPC("worker", "amuna", "", "", "", 618, 428, True, False, ["Items"], False,
                        graphic_dict["worker_1_a"])
@@ -7354,7 +7354,10 @@ if __name__ == "__main__":
     eldream_cart = UiElement("eldream cart", 380, 640, graphic_dict["mines_light"])
     kart_full = UiElement("kart full", 388, 636, graphic_dict["kart_overworld"])
     overlay_smelting = UiElement("smelting", 517, 150, graphic_dict["overlay_smelting"])
-    overlay_enchanting = UiElement("enchanting", 517, 150, graphic_dict["overlay_enchanting"])
+    overlay_enchanting = UiElement("enchanting", 517, 150,
+                                   graphic_dict["overlay_enchanting"])
+
+    overlay_seldon_fireworks = UiElement("seldon fireworks", 200, 200, graphic_dict["seldon_fireworks_1"])
 
     stardust_top = UiElement("stardust top", 531, 205, graphic_dict["stardust_top"])
     alcove_star = UiElement("alcove star", 979, 674, graphic_dict["alcove_star"])
@@ -7374,18 +7377,28 @@ if __name__ == "__main__":
     rock_8 = Item("rock 8", "rock", 405, 500, graphic_dict["rock_small"], 0)
 
     # flowers for apothecary
-    flower_seldon_1 = Item("flower seldon 1", "flower", 190, 185, graphic_dict["flower_seldon"], 0)
-    flower_seldon_2 = Item("flower seldon 2", "flower", 390, 185, graphic_dict["flower_seldon"], 0)
-    flower_seldon_3 = Item("flower seldon 3", "flower", 150, 425, graphic_dict["flower_seldon"], 0)
-    flower_seldon_4 = Item("flower seldon 4", "flower", 400, 500, graphic_dict["flower_seldon"], 0)
-    flower_seldon_5 = Item("flower seldon 5", "flower", 590, 380, graphic_dict["flower_seldon"], 0)
-    flower_eldream_1 = Item("flower eldream 1", "flower", 355, 530, graphic_dict["flower_eldream"], 0)
-    flower_eldream_2 = Item("flower eldream 2", "flower", 722, 530, graphic_dict["flower_eldream"], 0)
-    flower_eldream_3 = Item("flower eldream 3", "flower", 775, 50, graphic_dict["flower_eldream"], 0)
-    flower_eldream_4 = Item("flower eldream 4", "flower", 985, 450, graphic_dict["flower_eldream"], 0)
-    flower_eldream_5 = Item("flower eldream 5", "flower", 775, 670, graphic_dict["flower_eldream"], 0)
-
-    ramps_flower = Item("flower ramps", "flower", 150, 225, graphic_dict["flower_seldon"], 0)
+    flower_seldon_1 = Item("flower seldon 1", "flower", 190, 185,
+                           graphic_dict["flower_seldon"], 0)
+    flower_seldon_2 = Item("flower seldon 2", "flower", 390, 185,
+                           graphic_dict["flower_seldon"], 0)
+    flower_seldon_3 = Item("flower seldon 3", "flower", 150, 425,
+                           graphic_dict["flower_seldon"], 0)
+    flower_seldon_4 = Item("flower seldon 4", "flower", 400, 500,
+                           graphic_dict["flower_seldon"], 0)
+    flower_seldon_5 = Item("flower seldon 5", "flower", 590, 380,
+                           graphic_dict["flower_seldon"], 0)
+    flower_eldream_1 = Item("flower eldream 1", "flower", 355, 530,
+                            graphic_dict["flower_eldream"], 0)
+    flower_eldream_2 = Item("flower eldream 2", "flower", 722, 530,
+                            graphic_dict["flower_eldream"], 0)
+    flower_eldream_3 = Item("flower eldream 3", "flower", 775, 50,
+                            graphic_dict["flower_eldream"], 0)
+    flower_eldream_4 = Item("flower eldream 4", "flower", 985, 450,
+                            graphic_dict["flower_eldream"], 0)
+    flower_eldream_5 = Item("flower eldream 5", "flower", 775, 670,
+                            graphic_dict["flower_eldream"], 0)
+    ramps_flower = Item("flower ramps", "flower", 150, 225,
+                        graphic_dict["flower_seldon"], 0)
 
     quest_items_seldon = pygame.sprite.Group()
     quest_items_eldream = pygame.sprite.Group()
@@ -7470,7 +7483,8 @@ if __name__ == "__main__":
     environments.add(trees, amuna_buildings)
     quest_items_seldon.add(quest_logs_1, quest_logs_2, quest_logs_3, quest_logs_4, rohir_gate)
     quest_items_eldream.add(quest_supplies_1, quest_supplies_2, quest_supplies_3, quest_supplies_4)
-    most_sprites.add(npcs_seldon, trees, amuna_buildings, quest_items_seldon, seldon_enemies, hearth_stone, rohir_gate)
+    most_sprites.add(npcs_seldon, trees, amuna_buildings, quest_items_seldon, seldon_enemies, hearth_stone,
+                     rohir_gate)
     user_interface.add(character_button, quests_button, save_button, map_button, message_box, location_overlay,
                        star_power_meter)
     interactables_nascent.add(nascent_gate, rock_8)
@@ -7490,6 +7504,7 @@ if __name__ == "__main__":
     # music tracks
     start_screen_music = resource_path("resources/sounds/eterna_start_new.mp3")
     character_select_music = resource_path("resources/sounds/eterna_title.mp3")
+    nascent_music = resource_path("resources/sounds/eterna_nascent.mp3")
     seldon_overworld_music = resource_path("resources/sounds/eterna_seldon.mp3")
     seldon_building_music = resource_path("resources/sounds/eterna_building.mp3")
     stardust_outpost_music = resource_path("resources/sounds/eterna_stardust.mp3")
@@ -7646,6 +7661,9 @@ if __name__ == "__main__":
     sfx_cat_meow.set_volume(0.50)
     sfx_talking = pygame.mixer.Sound(resource_path("resources/sounds/prime_jezus_talk.mp3"))
     sfx_talking.set_volume(0.15)
+
+    sfx_firework = pygame.mixer.Sound(resource_path("resources/sounds/sfx_firework.mp3"))
+    sfx_firework.set_volume(0.35)
 
     # main loop variables ----------------------------------------------------------------------------------------------
     level_checked = False
@@ -7811,6 +7829,8 @@ if __name__ == "__main__":
     smelted_casing = False
     enchanted_casing = False
 
+    fireworking = False
+
     # reservoir dungeon conditions
     crate_1 = False
     crate_2 = False
@@ -7877,6 +7897,7 @@ if __name__ == "__main__":
     current_info_item = ''
     gender_choice = 'male'
     marrow_switch_phase = 'none'
+    firework_type = ''
 
     # default objects for event loops, updated when player interacts with new object
     current_enemy_battling = snake_1
@@ -7897,12 +7918,13 @@ if __name__ == "__main__":
     critter_tic = time.perf_counter()
     worker_delay_tic = time.perf_counter()
     start_logo_tic = time.perf_counter()
+    firework_tic = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        print(player.x_coordinate, player.y_coordinate)
+        # print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -9080,11 +9102,16 @@ if __name__ == "__main__":
                                 inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                            sfx_item_potion, sfx_item_equip,
                                                                            sfx_item_whistle, sfx_item_snack,
-                                                                           graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                           graphic_dict, SCREEN_WIDTH, SCREEN_HEIGHT,
+                                                                           sfx_firework)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
                                 drawing_functions.item_info_window.clear()
+                                fireworking = inventory_event["fireworking"]
+                                firework_type = inventory_event["firework_type"]
+                                if fireworking:
+                                    firework_tic = time.perf_counter()
 
                             if info_choice == "no":
                                 drawing_functions.item_info_window.clear()
@@ -9142,9 +9169,11 @@ if __name__ == "__main__":
                             if save_button.rect.collidepoint(pos):
                                 pygame.mixer.find_channel(True).play(sfx_sheet_paper)
                                 # clears other windows first, if they were open
-                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font,
+                                                                            False)
                                 character_button_clicked = False
-                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
+                                drawing_functions.journal_info_draw(journal, player, font, False,
+                                                                    marrow_switch_phase,
                                                                     npc_artherian, artherian_2)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
@@ -9241,7 +9270,8 @@ if __name__ == "__main__":
 
                             if character_button.rect.collidepoint(pos):
                                 # clears other open windows first, if they were open
-                                drawing_functions.journal_info_draw(journal, player, font, False, marrow_switch_phase,
+                                drawing_functions.journal_info_draw(journal, player, font,
+                                                                    False, marrow_switch_phase,
                                                                     npc_artherian, artherian_2)
                                 journal_button_clicked = False
                                 drawing_functions.world_map_container.clear()
@@ -9251,16 +9281,19 @@ if __name__ == "__main__":
                                 button_highlighted = False
 
                                 if character_button_clicked:
-                                    drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
+                                    drawing_functions.character_sheet_info_draw(character_sheet, player,
+                                                                                font, False)
                                     character_button_clicked = False
                                 else:
                                     pygame.mixer.find_channel(True).play(sfx_sheet_paper)
-                                    drawing_functions.character_sheet_info_draw(character_sheet, player, font, True)
+                                    drawing_functions.character_sheet_info_draw(character_sheet, player,
+                                                                                font, True)
                                     character_button_clicked = True
 
                             if quests_button.rect.collidepoint(pos):
                                 # clears other windows first, if they were open
-                                drawing_functions.character_sheet_info_draw(character_sheet, player, font, False)
+                                drawing_functions.character_sheet_info_draw(character_sheet, player, font,
+                                                                            False)
                                 character_button_clicked = False
                                 drawing_functions.world_map_container.clear()
                                 map_button_clicked = False
@@ -9437,7 +9470,13 @@ if __name__ == "__main__":
                 if player.current_zone == "nascent" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    pygame.mixer.music.fadeout(3000)
+                    if not over_world_song_set:
+                        if pygame.mixer.music.get_busy():
+                            pygame.mixer.music.fadeout(50)
+                            pygame.mixer.music.load(nascent_music)
+                            pygame.mixer.music.play(loops=-1)
+                            over_world_song_set = True
+
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(nascent_grove_bg, (0, 0))
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
@@ -9458,7 +9497,8 @@ if __name__ == "__main__":
                     except AttributeError:
                         pass
 
-                    text_rupee_surf = font.render(str(player.rupees), True, "black", "light green")
+                    text_rupee_surf = font.render(str(player.rupees), True, "black",
+                                                  "light green")
                     text_rupee_rect = text_rupee_surf.get_rect()
                     text_rupee_rect.center = (1120, 693)
 
@@ -9510,6 +9550,7 @@ if __name__ == "__main__":
 
                     # move player to seldon district when they approach nascent grove exit
                     if player.x_coordinate > 700 and player.y_coordinate < 80:
+                        over_world_song_set = False
                         player.current_zone = "seldon"
                         in_over_world = True
                         player.x_coordinate = 425
@@ -11789,6 +11830,73 @@ if __name__ == "__main__":
                             level_visual = False
                             drawing_functions.level_up_visual.clear()
 
+                    if fireworking:
+                        firework_toc = time.perf_counter()
+                        if firework_toc - firework_tic < 3:
+                            if firework_type == "seldon":
+                                if firework_toc - firework_tic < 0.025:
+                                    overlay_seldon_fireworks.update(player.x_coordinate - 25, player.y_coordinate - 150,
+                                                                    graphic_dict["seldon_fireworks_1"])
+                                if firework_toc - firework_tic > 0.5:
+                                    overlay_seldon_fireworks.update(overlay_seldon_fireworks.x_coordinate,
+                                                                    overlay_seldon_fireworks.y_coordinate,
+                                                                    graphic_dict["seldon_fireworks_2"])
+                                if firework_toc - firework_tic > 1:
+                                    overlay_seldon_fireworks.update(overlay_seldon_fireworks.x_coordinate,
+                                                                    overlay_seldon_fireworks.y_coordinate,
+                                                                    graphic_dict["seldon_fireworks_3"])
+                                if firework_toc - firework_tic > 1.5:
+                                    overlay_seldon_fireworks.update(overlay_seldon_fireworks.x_coordinate,
+                                                                    overlay_seldon_fireworks.y_coordinate,
+                                                                    graphic_dict["seldon_fireworks_4"])
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_seldon_fireworks.surf, overlay_seldon_fireworks.rect)
+                                else:
+                                    game_window.blit(overlay_seldon_fireworks.surf, overlay_seldon_fireworks.rect)
+
+                            if firework_type == "korlok":
+                                if firework_toc - firework_tic < 0.025:
+                                    overlay_seldon_fireworks.update(player.x_coordinate - 25, player.y_coordinate - 150,
+                                                                    graphic_dict["korlok_fireworks_1"])
+                                if firework_toc - firework_tic > 0.5:
+                                    overlay_seldon_fireworks.update(overlay_seldon_fireworks.x_coordinate,
+                                                                    overlay_seldon_fireworks.y_coordinate,
+                                                                    graphic_dict["korlok_fireworks_2"])
+                                if firework_toc - firework_tic > 1:
+                                    overlay_seldon_fireworks.update(overlay_seldon_fireworks.x_coordinate,
+                                                                    overlay_seldon_fireworks.y_coordinate,
+                                                                    graphic_dict["korlok_fireworks_3"])
+                                if firework_toc - firework_tic > 1.5:
+                                    overlay_seldon_fireworks.update(overlay_seldon_fireworks.x_coordinate,
+                                                                    overlay_seldon_fireworks.y_coordinate,
+                                                                    graphic_dict["korlok_fireworks_4"])
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_seldon_fireworks.surf, overlay_seldon_fireworks.rect)
+                                else:
+                                    game_window.blit(overlay_seldon_fireworks.surf, overlay_seldon_fireworks.rect)
+
+                            if firework_type == "eldream":
+                                if firework_toc - firework_tic < 0.025:
+                                    overlay_seldon_fireworks.update(player.x_coordinate - 25, player.y_coordinate - 150,
+                                                                    graphic_dict["eldream_fireworks_1"])
+                                if firework_toc - firework_tic > 0.5:
+                                    overlay_seldon_fireworks.update(overlay_seldon_fireworks.x_coordinate,
+                                                                    overlay_seldon_fireworks.y_coordinate,
+                                                                    graphic_dict["eldream_fireworks_2"])
+                                if firework_toc - firework_tic > 1:
+                                    overlay_seldon_fireworks.update(overlay_seldon_fireworks.x_coordinate,
+                                                                    overlay_seldon_fireworks.y_coordinate,
+                                                                    graphic_dict["eldream_fireworks_3"])
+                                if firework_toc - firework_tic > 1.5:
+                                    overlay_seldon_fireworks.update(overlay_seldon_fireworks.x_coordinate,
+                                                                    overlay_seldon_fireworks.y_coordinate,
+                                                                    graphic_dict["eldream_fireworks_4"])
+                                if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                    screen.blit(overlay_seldon_fireworks.surf, overlay_seldon_fireworks.rect)
+                                else:
+                                    game_window.blit(overlay_seldon_fireworks.surf, overlay_seldon_fireworks.rect)
+
+                # music button visual toggle
                 if not in_battle and not in_inn and not in_academia and not in_shop and not in_npc_interaction:
                     if player.current_zone != "nascent":
                         if len(drawing_functions.game_guide_container) == 0:
@@ -11902,7 +12010,7 @@ if __name__ == "__main__":
                                                                            sfx_item_potion, sfx_item_equip,
                                                                            sfx_item_whistle, sfx_item_snack,
                                                                            graphic_dict,
-                                                                           SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                           SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
                                 if inventory_event["item message"] != "":
                                     info_text_1 = inventory_event["item message"]
                                     info_text_2 = ""
@@ -12146,7 +12254,7 @@ if __name__ == "__main__":
                                                 current_enemy_battling.alive_status = False
                                             # player will gain knowledge based on their current role
                                             if player.role == "mage":
-                                                if player.level < 10 and player.knowledge["mage"] < 80 or \
+                                                if player.level <= 10 and player.knowledge["mage"] < 80 or \
                                                         player.level > 10 and player.knowledge["mage"] < 120:
                                                     player.knowledge["mage"] += 10
                                                     battle_info_to_return_to_main_loop["knowledge"] = "+10 mage"
@@ -12159,7 +12267,7 @@ if __name__ == "__main__":
                                                         seed_mage_count += 1
 
                                             if player.role == "fighter":
-                                                if player.level < 10 and player.knowledge["fighter"] < 80 or \
+                                                if player.level <= 10 and player.knowledge["fighter"] < 80 or \
                                                         player.level > 10 and player.knowledge["fighter"] < 120:
                                                     player.knowledge["fighter"] += 10
                                                     battle_info_to_return_to_main_loop["knowledge"] = "+10 fighter"
@@ -12172,7 +12280,7 @@ if __name__ == "__main__":
                                                         seed_fighter_count += 1
 
                                             if player.role == "scout":
-                                                if player.level < 10 and player.knowledge["scout"] < 80 or \
+                                                if player.level <= 10 and player.knowledge["scout"] < 80 or \
                                                         player.level > 10 and player.knowledge["scout"] < 120:
                                                     player.knowledge["scout"] += 10
                                                     battle_info_to_return_to_main_loop["knowledge"] = "+10 scout"
@@ -12459,7 +12567,7 @@ if __name__ == "__main__":
                                                     if combat_events["enemy defeated"]:
                                                         current_enemy_battling.alive_status = False
                                                         # player will gain knowledge based on their current role
-                                                        if player.level < 10 and player.knowledge["fighter"] < 80 or \
+                                                        if player.level <= 10 and player.knowledge["fighter"] < 80 or \
                                                                 player.level > 10 and player.knowledge["fighter"] < 120:
                                                             player.knowledge["fighter"] += 10
                                                             battle_info_to_return_to_main_loop["knowledge"] = \
@@ -14183,7 +14291,7 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -14485,7 +14593,7 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -15020,7 +15128,7 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -15634,7 +15742,7 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
@@ -16058,7 +16166,7 @@ if __name__ == "__main__":
                             inventory_event = click_handlers.inventory(pygame, player, current_info_item,
                                                                        sfx_item_potion, sfx_item_equip,
                                                                        sfx_item_whistle, sfx_item_snack, graphic_dict,
-                                                                       SCREEN_WIDTH, SCREEN_HEIGHT)
+                                                                       SCREEN_WIDTH, SCREEN_HEIGHT, sfx_firework)
                             if inventory_event["item message"] != "":
                                 info_text_1 = inventory_event["item message"]
                                 info_text_2 = ""
