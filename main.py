@@ -1545,14 +1545,30 @@ class PlayerAmuna(pygame.sprite.Sprite):
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
         if current_zone == "fishing hut":
-            if self.y_coordinate < 100:
-                self.y_coordinate = 100
-            if self.y_coordinate > 365:
-                self.y_coordinate = 365
+            if self.y_coordinate < 80:
+                self.y_coordinate = 80
+            if self.x_coordinate < 335 and self.y_coordinate < 325 or \
+                self.x_coordinate > 490 and self.y_coordinate < 325:
+                if self.y_coordinate > 305:
+                    self.y_coordinate = 305
+            if self.y_coordinate > 315:
+                if self.x_coordinate < 340:
+                    self.x_coordinate = 340
+                if self.y_coordinate < 360:
+                    if self.x_coordinate > 480:
+                        self.x_coordinate = 480
+                if self.y_coordinate > 360:
+                    if self.x_coordinate > 690:
+                        self.x_coordinate = 690
+                if self.x_coordinate > 480:
+                    if self.y_coordinate < 364:
+                        self.y_coordinate = 364
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
             if self.x_coordinate > 1005:
                 self.x_coordinate = 1005
+            if self.y_coordinate > 495:
+                self.y_coordinate = 495
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
@@ -3621,14 +3637,30 @@ class PlayerNuldar(pygame.sprite.Sprite):
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
         if current_zone == "fishing hut":
-            if self.y_coordinate < 100:
-                self.y_coordinate = 100
-            if self.y_coordinate > 365:
-                self.y_coordinate = 365
+            if self.y_coordinate < 80:
+                self.y_coordinate = 80
+            if self.x_coordinate < 335 and self.y_coordinate < 325 or \
+                    self.x_coordinate > 490 and self.y_coordinate < 325:
+                if self.y_coordinate > 305:
+                    self.y_coordinate = 305
+            if self.y_coordinate > 315:
+                if self.x_coordinate < 340:
+                    self.x_coordinate = 340
+                if self.y_coordinate < 360:
+                    if self.x_coordinate > 480:
+                        self.x_coordinate = 480
+                if self.y_coordinate > 360:
+                    if self.x_coordinate > 690:
+                        self.x_coordinate = 690
+                if self.x_coordinate > 480:
+                    if self.y_coordinate < 364:
+                        self.y_coordinate = 364
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
             if self.x_coordinate > 1005:
                 self.x_coordinate = 1005
+            if self.y_coordinate > 495:
+                self.y_coordinate = 495
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
@@ -5696,14 +5728,30 @@ class PlayerSorae(pygame.sprite.Sprite):
             elif 405 > self.y_coordinate > 400 and self.x_coordinate < 475:
                 self.y_coordinate = 405
         if current_zone == "fishing hut":
-            if self.y_coordinate < 100:
-                self.y_coordinate = 100
-            if self.y_coordinate > 365:
-                self.y_coordinate = 365
+            if self.y_coordinate < 80:
+                self.y_coordinate = 80
+            if self.x_coordinate < 335 and self.y_coordinate < 325 or \
+                    self.x_coordinate > 490 and self.y_coordinate < 325:
+                if self.y_coordinate > 305:
+                    self.y_coordinate = 305
+            if self.y_coordinate > 315:
+                if self.x_coordinate < 340:
+                    self.x_coordinate = 340
+                if self.y_coordinate < 360:
+                    if self.x_coordinate > 480:
+                        self.x_coordinate = 480
+                if self.y_coordinate > 360:
+                    if self.x_coordinate > 690:
+                        self.x_coordinate = 690
+                if self.x_coordinate > 480:
+                    if self.y_coordinate < 364:
+                        self.y_coordinate = 364
             if self.x_coordinate < 25:
                 self.x_coordinate = 25
             if self.x_coordinate > 1005:
                 self.x_coordinate = 1005
+            if self.y_coordinate > 495:
+                self.y_coordinate = 495
         if current_zone == "eldream":
             if self.x_coordinate < 20:
                 self.x_coordinate = 20
@@ -7297,6 +7345,10 @@ if __name__ == "__main__":
     water_5 = UiElement("water", 700, 525, graphic_dict["water"])
     korlok_mountains = UiElement("korlok mountains", 241, 251, graphic_dict["korlok_mountains"])
 
+    water_fish_1 = UiElement("water", 855, 630, graphic_dict["water"])
+    water_fish_3 = UiElement("water", 500, 575, graphic_dict["water"])
+    water_fish_4 = UiElement("water", 650, 680, graphic_dict["water"])
+
     eldream_riv_1 = UiElement("eldream river 1", 190, 400, graphic_dict["eldream_river"])
     eldream_riv_2 = UiElement("eldream river 2", 240, 370, graphic_dict["eldream_river"])
     eldream_riv_3 = UiElement("eldream river 3", 285, 340, graphic_dict["eldream_river"])
@@ -8606,7 +8658,7 @@ if __name__ == "__main__":
                             hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
                         if player.current_zone == "fishing hut":
-                            player.x_coordinate = 335
+                            player.x_coordinate = 410
                             player.y_coordinate = 265
                             hearth_stone.update(885, 230, graphic_dict["hearth_stone"])
                             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
@@ -9575,8 +9627,32 @@ if __name__ == "__main__":
                             pygame.mixer.music.play(loops=-1)
                             over_world_song_set = True
 
+                    # water movement animation -------------------------------------------------------------------------
+                    if 1000 > water_fish_1.x_coordinate > 35:
+                        water_fish_1.x_coordinate -= 1
+                        water_fish_1.rect.midbottom = (water_fish_1.x_coordinate, water_fish_1.y_coordinate)
+                    else:
+                        water_fish_1.update(850, water_fish_1.y_coordinate, graphic_dict["water"])
+
+                    if 1000 > water_fish_3.x_coordinate > 35:
+                        water_fish_3.x_coordinate -= 1
+                        water_fish_3.rect.midbottom = (water_fish_3.x_coordinate, water_fish_3.y_coordinate)
+                    else:
+                        water_fish_3.update(850, water_fish_3.y_coordinate, graphic_dict["water"])
+
+                    if 1000 > water_fish_4.x_coordinate > 35:
+                        water_fish_4.x_coordinate -= 1
+                        water_fish_4.rect.midbottom = (water_fish_4.x_coordinate, water_fish_4.y_coordinate)
+                    else:
+                        water_fish_4.update(850, water_fish_4.y_coordinate, graphic_dict["water"])
+                    # --------------------------------------------------------------------------------------------------
+
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(fishing_hut_bg, (0, 0))
+                        screen.blit(water_fish_1.surf, water_fish_1.rect)
+                        screen.blit(water_fish_2.surf, water_fish_2.rect)
+                        screen.blit(water_fish_3.surf, water_fish_3.rect)
+                        screen.blit(water_fish_4.surf, water_fish_4.rect)
                         screen.blit(equipment_screen.surf, equipment_screen.rect)
                         screen.blit(offense_meter.surf, offense_meter.rect)
                         screen.blit(defense_meter.surf, defense_meter.rect)
@@ -9605,6 +9681,9 @@ if __name__ == "__main__":
                                 screen.blit(loot_text[0], loot_text[1])
                     else:
                         game_window.blit(fishing_hut_bg, (0, 0))
+                        game_window.blit(water_fish_1.surf, water_fish_1.rect)
+                        game_window.blit(water_fish_3.surf, water_fish_3.rect)
+                        game_window.blit(water_fish_4.surf, water_fish_4.rect)
                         game_window.blit(equipment_screen.surf, equipment_screen.rect)
                         game_window.blit(offense_meter.surf, offense_meter.rect)
                         game_window.blit(defense_meter.surf, defense_meter.rect)
