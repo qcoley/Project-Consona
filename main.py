@@ -7168,7 +7168,7 @@ if __name__ == "__main__":
     knowledge_window = UiElement("knowledge window", 635, 680, graphic_dict["knowledge_window"])
     apothecary_window = UiElement("apothecary window", 297, 319, graphic_dict["apothecary_window"])
     menagerie_window = UiElement("menagerie window", 500, 319, graphic_dict["kasper_manage"])
-    fish_window = UiElement("fish window", 500, 319, graphic_dict["apothecary_window"])
+    fish_window = UiElement("fish window", 297, 319, graphic_dict["fishing_journal"])
     pet_hatch_window = UiElement("hatching window", 820, 440, graphic_dict["seed_hatching"])
     pet_energy_window = UiElement("pet energy", 375, 45, graphic_dict["pet_energy"])
     quest_visual = UiElement("quest visual", 500, 500, graphic_dict["pine_logs_big_img"])
@@ -7361,6 +7361,9 @@ if __name__ == "__main__":
     water_fish_1 = UiElement("water", 855, 630, graphic_dict["water"])
     water_fish_3 = UiElement("water", 500, 575, graphic_dict["water"])
     water_fish_4 = UiElement("water", 650, 680, graphic_dict["water"])
+    fishing_spot_korlok_1 = UiElement("fishing spot k1", 740, 410, graphic_dict["fishing_spot_1"])
+    fishing_spot_korlok_2 = UiElement("fishing spot k1", 575, 525, graphic_dict["fishing_spot_1"])
+    fishing_popup = UiElement("fishing popup", 510, 365, graphic_dict["basic_fish_popup"])
 
     eldream_riv_1 = UiElement("eldream river 1", 190, 400, graphic_dict["eldream_river"])
     eldream_riv_2 = UiElement("eldream river 2", 240, 370, graphic_dict["eldream_river"])
@@ -7891,6 +7894,12 @@ if __name__ == "__main__":
 
     fishing_unlocked = False
     fishing_journal_unlocked = False
+    fishing = False
+    fish_caught = False
+
+    level_1_fishing = True
+    level_2_fishing = False
+    level_3_fishing = False
 
     # reservoir dungeon conditions
     crate_1 = False
@@ -7913,7 +7922,7 @@ if __name__ == "__main__":
 
     apothecary_window_open = False
     menagerie_window_open = False
-    fish_window_open = False
+    hut_window_open = False
 
     critter_right_move = False
     critter_left_move = True
@@ -7989,6 +7998,7 @@ if __name__ == "__main__":
     worker_delay_tic = time.perf_counter()
     start_logo_tic = time.perf_counter()
     firework_tic = time.perf_counter()
+    fishing_timer = time.perf_counter()
 
     # main loop --------------------------------------------------------------------------------------------------------
     while game_running:
@@ -9048,6 +9058,10 @@ if __name__ == "__main__":
                                 if player.current_zone == "fishing hut":
                                     if pygame.Rect.colliderect(player.rect, fishing_hut_rect):
                                         interacted = True
+                                    if pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
+                                        interacted = True
+                                    if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
+                                        interacted = True
                                 if player.current_zone == "eldream":
                                     if pygame.sprite.spritecollideany(player, interactables_eldream,
                                                                       pygame.sprite.collide_rect_ratio(0.75)):
@@ -9151,6 +9165,10 @@ if __name__ == "__main__":
 
                         # continuing to use mouse position for clicking buttons
                         if event.type == pygame.MOUSEBUTTONUP:
+
+                            if fish_caught:
+                                if fishing_popup.rect.collidepoint(pos):
+                                    fish_caught = False
 
                             # turn music off and on
                             if music_toggle_button.rect.collidepoint(pos):
@@ -9652,6 +9670,55 @@ if __name__ == "__main__":
                             pygame.mixer.music.play(loops=-1)
                             over_world_song_set = True
 
+                    # if player isn't currently fishing, periodically update spots for animation
+                    if not fishing:
+                        if walk_tic % 2 > 1.75:
+                            fishing_spot_korlok_1.update(740, 410, graphic_dict["fishing_spot_1"])
+                            fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_2"])
+                        else:
+                            fishing_spot_korlok_1.update(740, 410, graphic_dict["fishing_spot_2"])
+                            fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_1"])
+
+                    # if player is fishing, check timer. If  more than 4 seconds, check if fish caught
+                    else:
+                        fishing_timer_end = time.perf_counter()
+                        if fishing_timer_end - fishing_timer >= 4:
+                            if pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
+                                fishing_spot_korlok_1.update(740, 410, graphic_dict["fishing_spot_4"])
+                            if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
+                                fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_4"])
+
+                            catch_chance = random.randrange(1, 10)
+                            if level_1_fishing:
+                                if catch_chance > 6:
+                                    basic_fish_counter += 1
+                                    fish_caught = True
+                                    print(basic_fish_counter)
+                                else:
+                                    fish_caught = False
+                            if level_2_fishing:
+                                if catch_chance > 4:
+                                    basic_fish_counter += 1
+                                    fish_caught = True
+                                else:
+                                    fish_caught = False
+                            if level_3_fishing:
+                                if catch_chance > 2:
+                                    basic_fish_counter += 1
+                                    fish_caught = True
+                                else:
+                                    fish_caught = False
+                            fishing = False
+                            movement_able = True
+
+                        # shows if player is actively engaged with a fishing spot if they're near it while fishing
+                        else:
+                            movement_able = False
+                            if pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
+                                fishing_spot_korlok_1.update(740, 410, graphic_dict["fishing_spot_3"])
+                            if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
+                                fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_3"])
+
                     # water movement animation -------------------------------------------------------------------------
                     if 1000 > water_fish_1.x_coordinate > 35:
                         water_fish_1.x_coordinate -= 1
@@ -9681,6 +9748,8 @@ if __name__ == "__main__":
                         screen.blit(offense_meter.surf, offense_meter.rect)
                         screen.blit(defense_meter.surf, defense_meter.rect)
                         drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+                        screen.blit(fishing_spot_korlok_1.surf, fishing_spot_korlok_1.rect)
+                        screen.blit(fishing_spot_korlok_2.surf, fishing_spot_korlok_2.rect)
                         screen.blit(player.surf, player.rect)
                         for save_window in save_check_window:
                             screen.blit(save_window.surf, save_window.rect)
@@ -9712,6 +9781,8 @@ if __name__ == "__main__":
                         game_window.blit(offense_meter.surf, offense_meter.rect)
                         game_window.blit(defense_meter.surf, defense_meter.rect)
                         drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+                        game_window.blit(fishing_spot_korlok_1.surf, fishing_spot_korlok_1.rect)
+                        game_window.blit(fishing_spot_korlok_2.surf, fishing_spot_korlok_2.rect)
                         game_window.blit(player.surf, player.rect)
                         for save_window in save_check_window:
                             game_window.blit(save_window.surf, save_window.rect)
@@ -9759,6 +9830,59 @@ if __name__ == "__main__":
                             movement_able = False
                             in_over_world = False
                             in_hut = True
+
+                    if not fishing:
+                        if pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
+                            interaction_popup.update(fishing_spot_korlok_1.x_coordinate,
+                                                     fishing_spot_korlok_1.y_coordinate - 50,
+                                                     graphic_dict["popup_interaction_blue"])
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(interaction_popup.surf, interaction_popup.rect)
+                            else:
+                                game_window.blit(interaction_popup.surf, interaction_popup.rect)
+                            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+                            interaction_info_rect = interaction_info_surf.get_rect()
+                            interaction_info_rect.center = (fishing_spot_korlok_1.x_coordinate,
+                                                            fishing_spot_korlok_1.y_coordinate - 50)
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(interaction_info_surf, interaction_info_rect)
+                            else:
+                                game_window.blit(interaction_info_surf, interaction_info_rect)
+                            info_text_1 = "Press 'F' key to fish."
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
+
+                            if interacted and in_over_world:
+                                fishing = True
+                                interacted = False
+                                fishing_timer = time.perf_counter()
+
+                        if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
+                            interaction_popup.update(fishing_spot_korlok_2.x_coordinate,
+                                                     fishing_spot_korlok_2.y_coordinate - 50,
+                                                     graphic_dict["popup_interaction_blue"])
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(interaction_popup.surf, interaction_popup.rect)
+                            else:
+                                game_window.blit(interaction_popup.surf, interaction_popup.rect)
+                            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+                            interaction_info_rect = interaction_info_surf.get_rect()
+                            interaction_info_rect.center = (fishing_spot_korlok_2.x_coordinate,
+                                                            fishing_spot_korlok_2.y_coordinate - 50)
+                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                                screen.blit(interaction_info_surf, interaction_info_rect)
+                            else:
+                                game_window.blit(interaction_info_surf, interaction_info_rect)
+                            info_text_1 = "Press 'F' key to fish."
+                            info_text_2 = ""
+                            info_text_3 = ""
+                            info_text_4 = ""
+
+                            if interacted and in_over_world:
+                                fishing = True
+                                interacted = False
+                                fishing_timer = time.perf_counter()
 
                     # move player to seldon district when they approach nascent grove exit
                     if player.x_coordinate < 50 and player.y_coordinate < 375:
@@ -10821,7 +10945,7 @@ if __name__ == "__main__":
                                                                      npc_tic, movement_able, equipment_screen,
                                                                      staff, sword, bow, npc_garan, offense_meter,
                                                                      defense_meter, weapon_select, pet_energy_window,
-                                                                     Item, in_battle)
+                                                                     Item, in_battle, vanished, vanish_overlay)
                     else:
                         sub_marrow_returned = zone_marrow.sub_marrow(pygame, game_window, graphic_dict, player,
                                                                      sub_marrow_bg, over_world_song_set,
@@ -10833,7 +10957,7 @@ if __name__ == "__main__":
                                                                      npc_tic, movement_able, equipment_screen,
                                                                      staff, sword, bow, npc_garan, offense_meter,
                                                                      defense_meter, weapon_select, pet_energy_window,
-                                                                     Item, in_battle)
+                                                                     Item, in_battle, vanished, vanish_overlay)
 
                     over_world_song_set = sub_marrow_returned["over_world_song_set"]
                     interacted = sub_marrow_returned["interacted"]
@@ -12002,6 +12126,12 @@ if __name__ == "__main__":
                         leveled = loot_popup_returned["leveled"]
                     except TypeError:
                         pass
+
+                if fish_caught:
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        screen.blit(fishing_popup.surf, fishing_popup.rect)
+                    else:
+                        game_window.blit(fishing_popup.surf, fishing_popup.rect)
 
                 # visual if player levels up
                 if in_over_world and not in_battle and not in_shop and not in_inn and not in_academia \
@@ -16323,7 +16453,7 @@ if __name__ == "__main__":
 
                         if npc_button_fish == "quest":
                             npc_text_reset = True
-                            if basic_fish_counter >= 4:
+                            if basic_fish_counter >= 4 and not fishing_journal_unlocked:
                                 pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                 info_text_1 = "You've completed the fishing task!"
                                 info_text_2 = "Your game has been saved. "
@@ -16363,7 +16493,7 @@ if __name__ == "__main__":
                                 else:  # quest complete popup
                                     if not fishing_complete_shown:
                                         drawing_functions.quest_complete_draw_fishing("jerry", True,
-                                                                              jerry_complete_window)
+                                                                                      jerry_complete_window)
                                         fishing_complete_shown = True
                                         quest_clicked = True
                             else:

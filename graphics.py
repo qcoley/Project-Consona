@@ -52,6 +52,7 @@ def load_graphics():
     loaded_dict = {}
 
     # non sprite sheets ------------------------------------------------------------------------------------------------
+    fishing_journal = pygame.image.load(resource_path('resources/art/fishing_journal.png')).convert_alpha()
     pet_energy_overlay = pygame.image.load(resource_path('resources/art/overlay_pet_energy.png')).convert_alpha()
     overlay_ectrene = pygame.image.load(resource_path('resources/art/overlay_ectrene.png')).convert_alpha()
     overlay_advantages = pygame.image.load(resource_path('resources/art/overlay_type_advantages.png')).convert_alpha()
@@ -256,6 +257,7 @@ def load_graphics():
     for image in color_keys:
         image.set_colorkey((255, 255, 255))
 
+    loaded_dict["fishing_journal"] = fishing_journal
     loaded_dict["marrow_mini_map"] = marrow_mini_map
     loaded_dict["marrow_mini_map_tower_left"] = mar_mini_t_l
     loaded_dict["marrow_mini_map_tower_right"] = mar_mini_t_r
@@ -437,6 +439,12 @@ def load_graphics():
     loaded_dict["overlay_enemy_vanish"] = overlay_enemy_vanish
 
     # sprite sheets ----------------------------------------------------------------------------------------------------
+    # fishing popups ---------------------------------------------------------------------------------------------------
+    fish_popups_url = resource_path('resources/art/popup_fishing_fish.png')
+    fish_popups_sheet = sprite_sheet((250, 150), fish_popups_url)
+    loaded_dict["basic_fish_popup"] = fish_popups_sheet[0]
+    loaded_dict["better_fish_popup"] = fish_popups_sheet[1]
+    loaded_dict["best_fish_popup"] = fish_popups_sheet[2]
     # seldon fireworks -------------------------------------------------------------------------------------------------
     seldon_fireworks_url = resource_path('resources/art/overlay_fireworks_seldon.png')
     seldon_fireworks_sheet = sprite_sheet((200, 300), seldon_fireworks_url)
@@ -451,7 +459,7 @@ def load_graphics():
     loaded_dict["korlok_fireworks_2"] = korlok_fireworks_sheet[1]
     loaded_dict["korlok_fireworks_3"] = korlok_fireworks_sheet[2]
     loaded_dict["korlok_fireworks_4"] = korlok_fireworks_sheet[3]
-    # eldream fireworks -------------------------------------------------------------------------------------------------
+    # eldream fireworks ------------------------------------------------------------------------------------------------
     eldream_fireworks_url = resource_path('resources/art/overlay_fireworks_eldream.png')
     eldream_fireworks_sheet = sprite_sheet((200, 300), eldream_fireworks_url)
     loaded_dict["eldream_fireworks_1"] = eldream_fireworks_sheet[0]
@@ -4827,6 +4835,7 @@ def load_graphics():
     loaded_dict["popup_interaction"] = interaction_popup_sheet[0]
     loaded_dict["popup_interaction_red"] = interaction_popup_sheet[1]
     loaded_dict["popup_interaction_purple"] = interaction_popup_sheet[2]
+    loaded_dict["popup_interaction_blue"] = interaction_popup_sheet[3]
     # pets -------------------------------------------------------------------------------------------------------------
     pets_url = resource_path('resources/art/sprites_pets.png')
     pets_sheet = sprite_sheet((100, 80), pets_url)
@@ -5185,6 +5194,13 @@ def load_graphics():
     loaded_dict["music_button"] = buttons_sheet[0]
     loaded_dict["music_button_off"] = buttons_sheet[1]
     loaded_dict["music_button_high"] = buttons_sheet[2]
+    # fishing spot overlay ---------------------------------------------------------------------------------------------
+    fishing_spot_url = resource_path('resources/art/overlay_fishing_spot.png')
+    fishing_spot_sheet = sprite_sheet((75, 75), fishing_spot_url)
+    loaded_dict["fishing_spot_1"] = fishing_spot_sheet[0]
+    loaded_dict["fishing_spot_2"] = fishing_spot_sheet[1]
+    loaded_dict["fishing_spot_3"] = fishing_spot_sheet[2]
+    loaded_dict["fishing_spot_4"] = fishing_spot_sheet[3]
     # offense/defense overlay ------------------------------------------------------------------------------------------
     offense_defense_url = resource_path('resources/art/overlay_offense_defense_level.png')
     offense_defense_sheet = sprite_sheet((82, 14), offense_defense_url)
