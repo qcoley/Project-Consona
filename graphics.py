@@ -75,6 +75,7 @@ def load_graphics():
     korlok_shop_screen = pygame.image.load(resource_path('resources/art/bg_korlok_shop.png')).convert_alpha()
     korlok_inn_screen = pygame.image.load(resource_path('resources/art/bg_korlok_inn.png')).convert_alpha()
     korlok_apothecary = pygame.image.load(resource_path('resources/art/bg_korlok_apothecary.png')).convert_alpha()
+    fishing_hut_screen = pygame.image.load(resource_path('resources/art/bg_fishing_hut_screen.png')).convert_alpha()
     korlok_forge_bg = pygame.image.load(resource_path('resources/art/bg_korlok_forge.png')).convert_alpha()
     terra_trail_bg = pygame.image.load(resource_path('resources/art/bg_terra_trail.png')).convert_alpha()
     eldream_bg_screen = pygame.image.load(resource_path('resources/art/bg_eldream_district.png')).convert_alpha()
@@ -115,7 +116,7 @@ def load_graphics():
     marrow_district_bg = pygame.image.load(resource_path('resources/art/bg_marrow_district.png')).convert_alpha()
     sub_marrow_bg = pygame.image.load(resource_path('resources/art/bg_sub_marrow.png')).convert_alpha()
     e_f_interact = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction_front.png')).convert_alpha()
-    fishing_hut_screen = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
+    fishing_hut_bg = pygame.image.load(resource_path('resources/art/bg_fishing_hut.png')).convert_alpha()
     terra_trail_screen = pygame.image.load(resource_path('resources/art/bg_terra_trail_screen.png')).convert_alpha()
     caves_battle_screen = pygame.image.load(resource_path('resources/art/bg_cave_battle_screen.png')).convert_alpha()
     mines_battle_screen = pygame.image.load(resource_path('resources/art/bg_mines_battle.png')).convert_alpha()
@@ -294,6 +295,7 @@ def load_graphics():
     loaded_dict["ectrenos_front_bg"] = ectrenos_front_bg_screen
     loaded_dict["ectrenos_alcove_bg"] = ectrenos_alcove_screen
     loaded_dict["type advantages"] = overlay_advantages
+    loaded_dict["fishing_hut_bg"] = fishing_hut_bg
     loaded_dict["fishing_hut_screen"] = fishing_hut_screen
     loaded_dict["eldream_river"] = overlay_eldream_river
     loaded_dict["apothecary_window"] = apothecary_window
@@ -5176,6 +5178,7 @@ def load_graphics():
     loaded_dict["potions_button_img"] = buttons_sheet[16]
     loaded_dict["create_potion_img"] = buttons_sheet[17]
     loaded_dict["manage_pets_img"] = buttons_sheet[18]
+    loaded_dict["fish_button_img"] = buttons_sheet[19]
     # music toggle button ----------------------------------------------------------------------------------------------
     buttons_url = resource_path('resources/art/button_music_toggle.png')
     buttons_sheet = sprite_sheet((50, 57), buttons_url)
@@ -5240,6 +5243,7 @@ def load_graphics():
     loaded_dict["artherian_quest"] = quest_windows_sheet[12]
     loaded_dict["artherian_quest_2"] = quest_windows_sheet[13]
     loaded_dict["maydria_quest"] = quest_windows_sheet[14]
+    loaded_dict["jerry_quest"] = quest_windows_sheet[15]
     # quest complete popups --------------------------------------------------------------------------------------------
     quest_popups_url = resource_path('resources/art/overlay_quest_completes.png')
     quest_popups_sheet = sprite_sheet((500, 250), quest_popups_url)
@@ -5260,6 +5264,7 @@ def load_graphics():
     loaded_dict["everett_complete"] = quest_popups_2_sheet[3]
     loaded_dict["artherian_complete"] = quest_popups_2_sheet[4]
     loaded_dict["maydria_complete"] = quest_popups_2_sheet[5]
+    loaded_dict["jerry_complete"] = quest_popups_2_sheet[6]
     # quest stars ------------------------------------------------------------------------------------------------------
     quest_stars_url = resource_path('resources/art/overlay_quest_stars.png')
     quest_stars_sheet = sprite_sheet((50, 50), quest_stars_url)

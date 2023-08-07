@@ -11,6 +11,9 @@ level_up_visual = []
 quest_box = []
 quest_complete_box = []
 quest_accept_box = []
+quest_box_fishing = []
+quest_complete_box_fishing = []
+quest_accept_box_fishing = []
 player_equipment = []
 player_items = []
 item_info_window = []
@@ -29,6 +32,7 @@ type_advantage_window = []
 weapon_container = []
 potion_window_container = []
 pets_window_container = []
+fish_window_container = []
 
 
 # draws elements on screen that have been appended to list by below functions
@@ -60,6 +64,18 @@ def draw_it(screen):
     if len(quest_complete_box) > 0:
         for quest_complete_element in quest_complete_box:
             screen.blit(quest_complete_element.surf, quest_complete_element.rect)
+    if len(quest_box_fishing) > 0:
+        for quest_element_fishing in quest_box_fishing:
+            screen.blit(quest_element_fishing.surf, quest_element_fishing.rect)
+    if len(quest_complete_box_fishing) > 0:
+        for quest_complete_element_fishing in quest_complete_box_fishing:
+            screen.blit(quest_complete_element_fishing.surf, quest_complete_element_fishing.rect)
+    if len(quest_accept_box) > 0:
+        for accept_element in quest_accept_box:
+            screen.blit(accept_element.surf, accept_element.rect)
+    if len(quest_accept_box_fishing) > 0:
+        for accept_element_fishing in quest_accept_box_fishing:
+            screen.blit(accept_element_fishing.surf, accept_element_fishing.rect)
     if len(player_equipment) > 0:
         for equipment_here in player_equipment:
             screen.blit(equipment_here.surf, equipment_here.rect)
@@ -110,9 +126,9 @@ def draw_it(screen):
     if len(pets_window_container) > 0:
         for pets_element in pets_window_container:
             screen.blit(pets_element.surf, pets_element.rect)
-    if len(quest_accept_box) > 0:
-        for accept_element in quest_accept_box:
-            screen.blit(accept_element.surf, accept_element.rect)
+    if len(fish_window_container) > 0:
+        for fish_element in fish_window_container:
+            screen.blit(fish_element.surf, fish_element.rect)
 
 
 def draw_level_up(screen, in_over_world):
@@ -126,7 +142,6 @@ def draw_level_up(screen, in_over_world):
 
 
 def weapon_draw(player, graphics, staff, sword, bow, npc_garan, weapon_select):
-
     if npc_garan.gift:
         if player.offense == 0:
             if len(weapon_container) > 3:
@@ -784,7 +799,6 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if player.current_zone == "seldon" or player.current_zone == "stardust" or player.current_zone == "rohir" or \
                 player.current_zone == "reservoir a" or player.current_zone == "reservoir b" \
                 or player.current_zone == "reservoir c":
-
             text_quest1_surf = font.render(str(list(player.current_quests)[0]), True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 145)
@@ -836,7 +850,6 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if player.current_zone == "korlok" or player.current_zone == "mines" or \
                 player.current_zone == "terra trail" or player.current_zone == "fishing hut" \
                 or player.current_zone == "forge":
-
             text_quest1_surf = font.render(str(list(player.current_quests)[4]), True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 145)
@@ -889,7 +902,6 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
                 player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" \
                 or player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" \
                 or player.current_zone == "altar":
-
             text_quest1_surf = font.render(str(list(player.current_quests)[8]), True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 145)
@@ -1130,6 +1142,24 @@ def quest_complete_draw(quest_npc, draw_condition, garan_quest_window, maurelle_
                 quest_complete_box.append(aitor_quest_window)
 
 
+def quest_box_draw_fishing(quest_npc, draw_condition, jerry_quest_window, accept_button, decline_button):
+    if not draw_condition:
+        quest_box_fishing.clear()
+    else:
+        if quest_npc == "jerry":
+            quest_box_fishing.append(jerry_quest_window)
+        quest_box_fishing.append(accept_button)
+        quest_box_fishing.append(decline_button)
+
+
+def quest_complete_draw_fishing(quest_npc, draw_condition, jerry_quest_window):
+    if not draw_condition:
+        quest_complete_box_fishing.clear()
+    else:
+        if quest_npc == "jerry":
+            quest_complete_box_fishing.append(jerry_quest_window)
+
+
 def equipment_updates(player, graphics, basic_armor, forged_armor, mythical_armor, legendary_armor, power_gloves,
                       chroma_boots):
     player_equipment.clear()
@@ -1332,7 +1362,8 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       sorae_beta_button, in_academia, mage_learn_clicked, fighter_learn_clicked,
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
                       barrier_learn_button, close_button, garan_gift, mirror_learn_button, mirror_button,
-                      vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked, music_toggle):
+                      vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked, music_toggle,
+                      in_hut):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1802,6 +1833,32 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
             # quest window accept or decline button highlights when moused over
             if quest_clicked:
                 if len(quest_box) > 0:
+                    if accept_button.rect.collidepoint(pos):
+                        button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
+                                                graphic_dict["main high"])
+                        return True
+                    elif decline_button.rect.collidepoint(pos):
+                        button_highlight.update(decline_button.x_coordinate,
+                                                decline_button.y_coordinate + 7,
+                                                graphic_dict["main high"])
+                        return True
+
+        if in_hut:
+            if quest_button.rect.collidepoint(pos):
+                button_highlight.update(quest_button.x_coordinate, quest_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif leave_button.rect.collidepoint(pos):
+                button_highlight.update(leave_button.x_coordinate, leave_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            elif potion_button.rect.collidepoint(pos):
+                button_highlight.update(potion_button.x_coordinate, potion_button.y_coordinate + 7,
+                                        graphic_dict["main high"])
+                return True
+            # quest window accept or decline button highlights when moused over
+            if quest_clicked:
+                if len(quest_box_fishing) > 0:
                     if accept_button.rect.collidepoint(pos):
                         button_highlight.update(accept_button.x_coordinate, accept_button.y_coordinate + 7,
                                                 graphic_dict["main high"])

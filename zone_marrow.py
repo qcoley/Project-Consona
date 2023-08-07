@@ -13,7 +13,7 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
                     current_npc_interacting, in_npc_interaction, hearth_stone, marrow_attuned, sfx_hearth,
                     marrow_ghouls, enemy_tic, barrier_active, sharp_sense_active, ghoul_battle_sprite, in_battle,
                     current_enemy_battling, Enemy, Item, UiElement, artherian_star, noren, boro, maydria, npcs,
-                    maydria_star, sub_marrow, sfx_ladder):
+                    maydria_star, sub_marrow, sfx_ladder, vanished, vanish_overlay):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -55,6 +55,9 @@ def marrow_district(pygame, screen, graphic_dict, player, marrow_bg, over_world_
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
@@ -550,7 +553,7 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
                       overlay_marrow_west, overlay_marrow_east, crate_1, crate_2, ramps_crate_1_got,
                       ramps_crate_2_got, sfx_item_potion, Item, necrola_1, necrola_2, necrola_rect_1, necrola_rect_2,
                       player_battle_sprite, barrier_active, sharp_sense_active, necrola_battle_sprite, in_battle,
-                      current_enemy_battling, sfx_surprise, mini_map):
+                      current_enemy_battling, sfx_surprise, mini_map, vanished, vanish_overlay):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -582,6 +585,9 @@ def marrow_tower_west(pygame, screen, graphic_dict, player, marrow_tower_w_bg, o
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
@@ -767,7 +773,7 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
                       overlay_marrow_west, overlay_marrow_east, crate_3, crate_4, ramps_crate_3_got, ramps_crate_4_got,
                       sfx_item_potion, Item, necrola_3, in_battle, necrola_rect_3, player_battle_sprite,
                       barrier_active, sharp_sense_active, necrola_battle_sprite, current_enemy_battling,
-                      sfx_surprise, mini_map):
+                      sfx_surprise, mini_map, vanished, vanish_overlay):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -797,6 +803,9 @@ def marrow_tower_east(pygame, screen, graphic_dict, player, marrow_tower_e_bg, o
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
@@ -1191,7 +1200,7 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
                           magmon_battle_sprite, bandile_battle_sprite, chinzilla_battle_sprite, in_npc_interaction,
                           necrola_battle_sprite, osodark_battle_sprite, stelli_battle_sprite, in_battle, boss_music,
                           erebyth_battle_sprite, apothis_push, apothis, apothis_popup, apothis_1, apothis_2,
-                          enemy_vanish, mini_map):
+                          enemy_vanish, mini_map, vanished, vanish_overlay):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1252,6 +1261,9 @@ def marrow_ramps_east_end(pygame, screen, graphic_dict, player, marrow_ramps_e_e
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:
@@ -1549,7 +1561,7 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
                hp_bar, en_bar, xp_bar, button_highlighted, button_highlight, in_over_world, interacted,
                info_text_1, info_text_2, info_text_3, info_text_4, npc_tic, movement_able, equipment_screen,
                staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select, pet_energy_window,
-               Item, in_battle):
+               Item, in_battle, vanished, vanish_overlay):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -1571,6 +1583,9 @@ def sub_marrow(pygame, screen, graphic_dict, player, marrow_ramps_w_end_bg, over
     except AttributeError:
         pass
     screen.blit(player.surf, player.rect)
+    if vanished:
+        vanish_overlay.update(player.x_coordinate, player.y_coordinate, graphic_dict["vanish_img"])
+        screen.blit(vanish_overlay.surf, vanish_overlay.rect)
     drawing_functions.draw_level_up(screen, in_over_world)
     try:
         for pet in player.pet:

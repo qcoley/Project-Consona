@@ -728,6 +728,96 @@ def quest_event_button(quest_event, accept_button, decline_button, pygame, SCREE
             return "decline"
 
 
+def npc_event_button_apothecary(npc_event, quest_button, leave_button, pygame, sfx_page, SCREEN_WIDTH, SCREEN_HEIGHT):
+    if npc_event.type == pygame.MOUSEBUTTONUP:
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        npc_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
+        if quest_button.rect.collidepoint(npc_mouse):
+            pygame.mixer.find_channel(True).play(sfx_page)
+            return "quest"
+        if leave_button.rect.collidepoint(npc_mouse):
+            return "leave"
+
+
+# getting event based on user click related to quest window
+def quest_event_button_apothecary(quest_event, accept_button, decline_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
+    if quest_event.type == pygame.MOUSEBUTTONUP:
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        quest_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
+        if accept_button.rect.collidepoint(quest_mouse):
+            return "accept"
+        if decline_button.rect.collidepoint(quest_mouse):
+            return "decline"
+
+
+def npc_event_button_menagerie(npc_event, quest_button, leave_button, pygame, sfx_page, SCREEN_WIDTH, SCREEN_HEIGHT):
+    if npc_event.type == pygame.MOUSEBUTTONUP:
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        npc_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
+        if quest_button.rect.collidepoint(npc_mouse):
+            pygame.mixer.find_channel(True).play(sfx_page)
+            return "quest"
+        if leave_button.rect.collidepoint(npc_mouse):
+            return "leave"
+
+
+# getting event based on user click related to quest window
+def quest_event_button_menagerie(quest_event, accept_button, decline_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
+    if quest_event.type == pygame.MOUSEBUTTONUP:
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        quest_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
+        if accept_button.rect.collidepoint(quest_mouse):
+            return "accept"
+        if decline_button.rect.collidepoint(quest_mouse):
+            return "decline"
+
+
+def npc_event_button_fishing(npc_event, quest_button, leave_button, pygame, sfx_page, SCREEN_WIDTH, SCREEN_HEIGHT):
+    if npc_event.type == pygame.MOUSEBUTTONUP:
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        npc_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
+        if quest_button.rect.collidepoint(npc_mouse):
+            pygame.mixer.find_channel(True).play(sfx_page)
+            return "quest"
+        if leave_button.rect.collidepoint(npc_mouse):
+            return "leave"
+
+
+# getting event based on user click related to quest window
+def quest_event_button_fishing(quest_event, accept_button, decline_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
+    if quest_event.type == pygame.MOUSEBUTTONUP:
+
+        init_pos = list(pygame.mouse.get_pos())
+        ratio_x = (SCREEN_WIDTH / 1280)
+        ratio_y = (SCREEN_HEIGHT / 720)
+        quest_mouse = (init_pos[0] / ratio_x, init_pos[1] / ratio_y)
+
+        if accept_button.rect.collidepoint(quest_mouse):
+            return "accept"
+        if decline_button.rect.collidepoint(quest_mouse):
+            return "decline"
+
+
 # getting event based on user click related to shop
 def stardust_upgrade_event(stardust_event, offense_button, pygame, SCREEN_WIDTH, SCREEN_HEIGHT):
     if stardust_event.type == pygame.MOUSEBUTTONUP:
