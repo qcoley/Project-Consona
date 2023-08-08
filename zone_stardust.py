@@ -293,7 +293,7 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             screen.blit(outpost_item.surf, outpost_item.rect)
 
     # move player to seldon district when they approach nascent grove exit
-    if player.x_coordinate > 925 and 175 < player.y_coordinate < 275:
+    if player.x_coordinate > 925 and 175 < player.y_coordinate < 300:
         player.current_zone = "seldon"
         stardust_song_set = False
         in_over_world = True

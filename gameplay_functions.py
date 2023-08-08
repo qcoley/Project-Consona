@@ -891,7 +891,6 @@ def load_game(player, Item, graphics, Pet):
             player.star_power = player_load_info["star power"]
             player.flowers_amuna = player_load_info["flowers amuna"]
             player.flowers_sorae = player_load_info["flowers sorae"]
-
             if player_load_info["pets"]["kasper_got"]:
                 player.pet.append(Pet("kasper", "scout", 1, player_load_info["pets"]["kasper_energy"],
                                       graphics["kasper"], False))
@@ -901,7 +900,6 @@ def load_game(player, Item, graphics, Pet):
             if player_load_info["pets"]["iriana_got"]:
                 player.pet.append(Pet("iriana", "mage", 1, player_load_info["pets"]["iriana_energy"],
                                       graphics["iriana"], False))
-
             if player.race == "amuna":
                 if player.gender == "male":
                     if player.role == "mage":
@@ -1002,7 +1000,12 @@ def load_game(player, Item, graphics, Pet):
                     player.items.append(Item("korlok firework", "firework", 200, 200, graphics["korlok_firework"], 0))
                 if item == "eldream firework":
                     player.items.append(Item("eldream firework", "firework", 200, 200, graphics["eldream_firework"], 0))
-
+                if item == "seldon bait":
+                    player.items.append(Item("seldon bait", "bait", 200, 200, graphics["seldon_bait"], 0))
+                if item == "korlok bait":
+                    player.items.append(Item("korlok bait", "bait", 200, 200, graphics["korlok_bait"], 0))
+                if item == "eldream bait":
+                    player.items.append(Item("eldream bait", "bait", 200, 200, graphics["eldream_bait"], 0))
             for equipped_item in player_load_info["equipment"]:
                 if equipped_item == "chroma boots":
                     player.equipment["boots"] = Item("chroma boots", "boots", 200, 200, graphics["boots_img"], 0)
@@ -1017,7 +1020,6 @@ def load_game(player, Item, graphics, Pet):
                 if equipped_item == "legendary armor":
                     player.equipment["armor"] = Item("legendary armor", "armor", 200, 200, graphics["legendary_armor"],
                                                      4)
-
             player.current_quests = player_load_info["quests"]
             player.quest_progress = player_load_info["quest progress"]
             player.quest_status = player_load_info["quest status"]
@@ -1035,7 +1037,6 @@ def load_game(player, Item, graphics, Pet):
             player.rupees = player_load_info["rupees"]
             player.reputation = player_load_info["reputation"]
             player.current_zone = player_load_info["zone"]
-
             if player.current_zone == "nascent":
                 player.x_coordinate = 760
                 player.y_coordinate = 510
@@ -1048,7 +1049,6 @@ def load_game(player, Item, graphics, Pet):
                 player.x_coordinate = 500
                 player.y_coordinate = 500
                 player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
-
             load_return["saved"] = player_load_info["saved"]
             load_return["garan gift"] = player_load_info["garan gift"]
             load_return["artherian gift"] = player_load_info["artherian gift"]
@@ -1108,6 +1108,14 @@ def load_game(player, Item, graphics, Pet):
             load_return["continue"] = False
             load_return["marrow switch phase"] = player_load_info["marrow switch phase"]
             load_return["erebyth defeated"] = player_load_info["erebyth defeated"]
+            load_return["fishing_unlocked"] = player_load_info["fishing_unlocked"]
+            load_return["fishing_journal_unlocked"] = player_load_info["fishing_journal_unlocked"]
+            load_return["bait_given"] = player_load_info["bait_given"]
+            load_return["basic_fish_counter"] = player_load_info["basic_fish_counter"]
+            load_return["better_fish_counter"] = player_load_info["better_fish_counter"]
+            load_return["even_better_fish_counter"] = player_load_info["even_better_fish_counter"]
+            load_return["best_fish_counter"] = player_load_info["best_fish_counter"]
+            load_return["fishing_level"] = player_load_info["fishing_level"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -1128,7 +1136,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               rock_8_con, rock_3_con, seed_scout_count, seed_fighter_count, seed_mage_count, dreth_cutscenes,
               mirror_learned, stun_learned, vanish_learned, boots_obtained, marrow_switch_phase, erebyth_defeated,
               ramps_crate_1, ramps_crate_2, ramps_crate_3, ramps_crate_4, ramps_crate_5, marrow_attuned,
-              artherian_gift, artherian_2, artherian_complete):
+              artherian_gift, artherian_2, artherian_complete, fishing_unlocked, fishing_journal_unlocked,
+              bait_given, basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter,
+              fishing_level):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1200,7 +1210,12 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "seed mage": seed_mage_count, "boots_obtained": boots_obtained,
                         "marrow switch phase": marrow_switch_phase, "erebyth defeated": erebyth_defeated,
                         "ramps_crate_1": ramps_crate_1, "ramps_crate_2": ramps_crate_2, "ramps_crate_3": ramps_crate_3,
-                        "ramps_crate_4": ramps_crate_4, "ramps_crate_5": ramps_crate_5}
+                        "ramps_crate_4": ramps_crate_4, "ramps_crate_5": ramps_crate_5,
+                        "fishing_unlocked": fishing_unlocked, "fishing_journal_unlocked": fishing_journal_unlocked,
+                        "bait_given": bait_given, "basic_fish_counter": basic_fish_counter,
+                        "better_fish_counter": better_fish_counter,
+                        "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter,
+                        "fishing_level": fishing_level}
 
     with open("save", "wb") as ff:
         pickle.dump(player_save_info, ff)

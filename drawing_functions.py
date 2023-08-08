@@ -416,6 +416,27 @@ def item_info_draw(inventory_item, info_items, item_info_button, graphic):
                                     graphic["use_button_img"])
             item_info_window.append(item_info_button)
             return inventory_item
+        if inventory_item.name == "seldon bait":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_seldon_bait"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "korlok bait":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_korlok_bait"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
+        if inventory_item.name == "eldream bait":
+            info_items.update(info_items.x_coordinate, info_items.y_coordinate, graphic["info_eldream_bait"])
+            item_info_window.append(info_items)
+            item_info_button.update(item_info_button.x_coordinate, item_info_button.y_coordinate,
+                                    graphic["ok_button_img"])
+            item_info_window.append(item_info_button)
+            return inventory_item
 
 
 def buy_info_draw(buy_item, buy_items, yes_button, graphic):
@@ -486,6 +507,24 @@ def buy_info_draw(buy_item, buy_items, yes_button, graphic):
             yes_button.update(900, 308, graphic["yes_button_img"])
             buy_info_window.append(yes_button)
             return buy_item
+        if buy_item.name == "seldon bait":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_seldon_bait"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "korlok bait":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_korlok_bait"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
+        if buy_item.name == "eldream bait":
+            buy_items.update(buy_items.x_coordinate, buy_items.y_coordinate, graphic["b_eldream_bait"])
+            buy_info_window.append(buy_items)
+            yes_button.update(900, 308, graphic["yes_button_img"])
+            buy_info_window.append(yes_button)
+            return buy_item
 
 
 def sell_info_draw(sell_item, sell_items, yes_button, graphic):
@@ -502,7 +541,6 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
-
         if sell_item.name == "basic armor":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_basic_armor"])
             sell_info_window.append(sell_items)
@@ -521,7 +559,6 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
-
         if sell_item.name == "shiny rock":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_shiny_rock_img"])
             sell_info_window.append(sell_items)
@@ -558,7 +595,6 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
-
         if sell_item.name == "pet cookie":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_cookie_img"])
             sell_info_window.append(sell_items)
@@ -583,7 +619,6 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
             return sell_item
-
         if sell_item.name == "seldon firework":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_seldon_firework"])
             sell_info_window.append(sell_items)
@@ -598,6 +633,24 @@ def sell_info_draw(sell_item, sell_items, yes_button, graphic):
             return sell_item
         if sell_item.name == "eldream firework":
             sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_eldream_firework"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "seldon bait":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_seldon_bait"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "korlok bait":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_korlok_bait"])
+            sell_info_window.append(sell_items)
+            yes_button.update(1153, 345, graphic["yes_button_img"])
+            sell_info_window.append(yes_button)
+            return sell_item
+        if sell_item.name == "eldream bait":
+            sell_items.update(sell_items.x_coordinate, sell_items.y_coordinate, graphic["s_eldream_bait"])
             sell_info_window.append(sell_items)
             yes_button.update(1153, 345, graphic["yes_button_img"])
             sell_info_window.append(yes_button)
@@ -1322,7 +1375,6 @@ def item_updates(player, graphic):
                     item_here.update(first_coord, second_coord, graphic["enchanted_casing"])
                     player_items.append(item_here)
                     inventory_counter += 1
-
                 if item_here.name == "seldon firework":
                     item_here.update(first_coord, second_coord, graphic["seldon_firework"])
                     player_items.append(item_here)
@@ -1333,6 +1385,18 @@ def item_updates(player, graphic):
                     inventory_counter += 1
                 if item_here.name == "eldream firework":
                     item_here.update(first_coord, second_coord, graphic["eldream_firework"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "seldon bait":
+                    item_here.update(first_coord, second_coord, graphic["seldon_bait"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "korlok bait":
+                    item_here.update(first_coord, second_coord, graphic["korlok_bait"])
+                    player_items.append(item_here)
+                    inventory_counter += 1
+                if item_here.name == "eldream bait":
+                    item_here.update(first_coord, second_coord, graphic["eldream_bait"])
                     player_items.append(item_here)
                     inventory_counter += 1
 
@@ -1363,7 +1427,7 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                       scout_learn_clicked, mage_learn_button, fighter_learn_button, scout_learn_button,
                       barrier_learn_button, close_button, garan_gift, mirror_learn_button, mirror_button,
                       vanish_button, stun_button, kasper_unlocked, torok_unlocked, iriana_unlocked, music_toggle,
-                      in_hut):
+                      in_hut, basic_fish, better_fish, even_better_fish, best_fish):
     # inventory rects
     inv_1 = pygame.Rect((1035, 435), (50, 50))
     inv_2 = pygame.Rect((1095, 435), (50, 50))
@@ -1868,6 +1932,23 @@ def button_highlights(pygame, player, start_chosen, new_game_chosen, new_game_bu
                                                 decline_button.y_coordinate + 7,
                                                 graphic_dict["main high"])
                         return True
+            if len(fish_window_container) > 0:
+                if basic_fish.rect.collidepoint(pos):
+                    button_highlight.update(basic_fish.x_coordinate, basic_fish.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif better_fish.rect.collidepoint(pos):
+                    button_highlight.update(better_fish.x_coordinate, better_fish.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif even_better_fish.rect.collidepoint(pos):
+                    button_highlight.update(even_better_fish.x_coordinate, even_better_fish.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
+                elif best_fish.rect.collidepoint(pos):
+                    button_highlight.update(best_fish.x_coordinate, best_fish.y_coordinate + 7,
+                                            graphic_dict["main high"])
+                    return True
 
 
 # hearth button is clicked, sets fade transition for hearth screen and then back to district bg

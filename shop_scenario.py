@@ -4,7 +4,7 @@ import drawing_functions
 # go through shop items and assign inventory slots (coordinates) to them
 def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, basic_armor, forged_armor, mythical_armor,
                                cookie, candy, tart, small_health, small_energy, seldon_firework, korlok_firework,
-                               eldream_firework):
+                               eldream_firework, seldon_bait, korlok_bait, eldream_bait):
 
     # if shopkeeper has items in their inventory
     if len(npc_amuna_shopkeeper.items) > 0:
@@ -55,6 +55,18 @@ def shop_keeper_inventory_draw(npc_amuna_shopkeeper, shopkeeper_items, basic_arm
                 buy_inventory_counter += 1
             if shop_item.name == "eldream firework":
                 shop_item.update(buy_first_coord, buy_second_coord, eldream_firework)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "seldon bait":
+                shop_item.update(buy_first_coord, buy_second_coord, seldon_bait)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "korlok bait":
+                shop_item.update(buy_first_coord, buy_second_coord, korlok_bait)
+                shopkeeper_items.append(shop_item)
+                buy_inventory_counter += 1
+            if shop_item.name == "eldream bait":
+                shop_item.update(buy_first_coord, buy_second_coord, eldream_bait)
                 shopkeeper_items.append(shop_item)
                 buy_inventory_counter += 1
             buy_first_coord += 58
@@ -232,6 +244,33 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
                     player.rupees = player.rupees + 10
                     sell_return["sold"] = True
                     drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "seldon bait":
+                    sell_return["info 1"] = "Sold Bait for 5 rupees."
+                    sell_return["info 2"] = "Bait removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 5
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "korlok bait":
+                    sell_return["info 1"] = "Sold Bait for 5 rupees."
+                    sell_return["info 2"] = "Bait removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 5
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
+                if current_sell_item.name == "eldream bait":
+                    sell_return["info 1"] = "Sold Bait for 5 rupees."
+                    sell_return["info 2"] = "Bait removed from inventory."
+                    player.items.remove(current_sell_item)
+                    drawing_functions.player_items.remove(current_sell_item)
+                    pygame.mixer.find_channel(True).play(sfx_sell)
+                    player.rupees = player.rupees + 5
+                    sell_return["sold"] = True
+                    drawing_functions.sell_info_window.clear()
             except AttributeError:
                 pass
     if sell_choice == "no":
@@ -242,7 +281,7 @@ def sell_items(pygame, player, sell_choice, current_sell_item, sfx_sell):
 
 def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img, energy_pot_img, basic_armor,
               forged_armor, mythical_armor, cookie, candy, tart, sfx_buy, seldon_firework, korlok_firework,
-              eldream_firework):
+              eldream_firework, seldon_bait, korlok_bait, eldream_bait):
     buy_return = {"info 1": "", "info 2": "", "bought": False}
 
     if buy_choice == "yes":
@@ -441,6 +480,69 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Firework cost 25 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+
+        if current_buy_item.name == "seldon bait":
+            if len(player.items) < 16:
+                if player.rupees > 9:
+                    if player.reputation["amuna"] >= 30:
+                        buy_return["info 1"] = "Bought Bait for 10 rupees."
+                        buy_return["info 2"] = "Bait added to inventory."
+                        player.items.append(Item("seldon bait", "bait", 200, 200, seldon_bait, 0))
+                        player.rupees = player.rupees - 10
+                        pygame.mixer.find_channel(True).play(sfx_buy)
+                        buy_return["bought"] = True
+                        drawing_functions.buy_info_window.clear()
+                    else:
+                        buy_return["info 1"] = "You need more reputation."
+                        buy_return["info 2"] = "30 Reputation with Amuna required."
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Bait cost 10 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+
+        if current_buy_item.name == "korlok bait":
+            if len(player.items) < 16:
+                if player.rupees > 9:
+                    if player.reputation["nuldar"] >= 30:
+                        buy_return["info 1"] = "Bought Bait for 10 rupees."
+                        buy_return["info 2"] = "Bait added to inventory."
+                        player.items.append(Item("korlok bait", "bait", 200, 200, korlok_bait, 0))
+                        player.rupees = player.rupees - 10
+                        pygame.mixer.find_channel(True).play(sfx_buy)
+                        buy_return["bought"] = True
+                        drawing_functions.buy_info_window.clear()
+                    else:
+                        buy_return["info 1"] = "You need more reputation."
+                        buy_return["info 2"] = "30 Reputation with Nuldar required."
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Bait cost 10 rupees."
+            else:
+                buy_return["info 1"] = "Your inventory is full."
+                buy_return["info 2"] = ""
+
+        if current_buy_item.name == "eldream bait":
+            if len(player.items) < 16:
+                if player.rupees > 9:
+                    if player.reputation["sorae"] >= 30:
+                        buy_return["info 1"] = "Bought Bait for 10 rupees."
+                        buy_return["info 2"] = "Bait added to inventory."
+                        player.items.append(Item("eldream bait", "bait", 200, 200, eldream_bait, 0))
+                        player.rupees = player.rupees - 10
+                        pygame.mixer.find_channel(True).play(sfx_buy)
+                        buy_return["bought"] = True
+                        drawing_functions.buy_info_window.clear()
+                    else:
+                        buy_return["info 1"] = "You need more reputation."
+                        buy_return["info 2"] = "30 Reputation with Sorae required."
+                else:
+                    buy_return["info 1"] = "You do not have enough rupees."
+                    buy_return["info 2"] = "Bait cost 10 rupees."
             else:
                 buy_return["info 1"] = "Your inventory is full."
                 buy_return["info 2"] = ""

@@ -279,12 +279,16 @@ def inventory_event_item(inventory_event_here, pygame, SCREEN_WIDTH, SCREEN_HEIG
                     or clicked_element[0].name == "eldream firework":
                 event_return["element"] = clicked_element[0]
                 event_return["clicked"] = True
+            if clicked_element[0].name == "seldon bait" or clicked_element[0].name == "korlok bait" \
+                    or clicked_element[0].name == "eldream bait":
+                event_return["element"] = clicked_element[0]
+                event_return["clicked"] = True
         except IndexError:
             pass
     return event_return
 
 
-# handles mouse clicks for inventory sub-screen
+# handles mouse clicks for inventory sub-screen for items with actions
 def inventory(pygame, player, item, sfx_potion, sfx_equip, sfx_whistle, sfx_snack, graphics, width, height,
               sfx_firework):
 
@@ -909,6 +913,15 @@ def buy_event_item(buy_event, shopkeeper_items, pygame, sfx_item, SCREEN_WIDTH, 
             if clicked_element[0].name == "eldream firework":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
+            if clicked_element[0].name == "seldon bait":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "korlok bait":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "eldream bait":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
 
         except IndexError:
             pass
@@ -983,6 +996,15 @@ def sell_event_item(sell_event, pygame, sfx_item, SCREEN_WIDTH, SCREEN_HEIGHT):
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
             if clicked_element[0].name == "eldream firework":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "seldon bait":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "korlok bait":
+                pygame.mixer.find_channel(True).play(sfx_item)
+                return clicked_element[0]
+            if clicked_element[0].name == "eldream bait":
                 pygame.mixer.find_channel(True).play(sfx_item)
                 return clicked_element[0]
 

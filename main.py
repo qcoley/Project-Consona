@@ -6606,7 +6606,9 @@ def button_highlighter(posit):
                                                               barrier_learn_button, close_button, npc_garan.gift,
                                                               mirror_learn_button, mirror_button, vanish_button,
                                                               stun_button, kasper_unlocked, torok_unlocked,
-                                                              iriana_unlocked, music_toggle_button, in_hut)
+                                                              iriana_unlocked, music_toggle_button, in_hut,
+                                                              check_basic_fish_button, check_better_fish_button,
+                                                              check_even_better_fish_button, check_best_fish_button)
     return button_highlighters
 
 
@@ -6853,21 +6855,24 @@ if __name__ == "__main__":
         Item("pet cookie", "cookie", 1078, 197, graphic_dict["pet_cookie_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
-        Item("seldon firework", "firework", 200, 200, graphic_dict["seldon_firework"], 0)])
+        Item("seldon firework", "firework", 200, 200, graphic_dict["seldon_firework"], 0),
+        Item("seldon bait", "bait", 200, 200, graphic_dict["seldon_bait"], 0)])
 
     npc_nuldar_shopkeeper = Shopkeeper("nuldar shopkeeper", "nuldar", [
         Item("forged armor", "armor", 1078, 197, graphic_dict["forged_armor"], 2),
         Item("pet candy", "candy", 1078, 197, graphic_dict["pet_candy_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
-        Item("korlok firework", "firework", 200, 200, graphic_dict["korlok_firework"], 0)])
+        Item("korlok firework", "firework", 200, 200, graphic_dict["korlok_firework"], 0),
+        Item("korlok bait", "bait", 200, 200, graphic_dict["korlok_bait"], 0)])
 
     npc_sorae_shopkeeper = Shopkeeper("sorae shopkeeper", "amuna", [
         Item("mythical armor", "armor", 1078, 197, graphic_dict["mythical_armor"], 2),
         Item("pet tart", "tart", 1078, 197, graphic_dict["pet_tart_img"], 1),
         Item("small health potion", "potion", 200, 200, graphic_dict["small_health_pot_img"], 0),
         Item("small energy potion", "potion", 200, 200, graphic_dict["small_energy_pot_img"], 0),
-        Item("eldream firework", "firework", 200, 200, graphic_dict["eldream_firework"], 0)])
+        Item("eldream firework", "firework", 200, 200, graphic_dict["eldream_firework"], 0),
+        Item("eldream bait", "firework", 200, 200, graphic_dict["eldream_firework"], 0)])
 
     npc_garan_interaction = UiElement("garan interaction", 680, 335, graphic_dict["garan_interaction"])
     npc_maurelle_interaction = UiElement("maurelle interaction", 673, 335, graphic_dict["maurelle_interaction"])
@@ -7122,6 +7127,11 @@ if __name__ == "__main__":
     iriana_manage_button = UiElement("iriana manage", 685, 460, graphic_dict["activate_button"])
     music_toggle_button = UiElement("music toggle", 1235, 44, graphic_dict["music_button"])
     fish_button = UiElement("fish button", 750, 680, graphic_dict["fish_button_img"])
+    check_basic_fish_button = UiElement("check basic", 490, 140, graphic_dict["check_button_img"])
+    check_better_fish_button = UiElement("check better", 490, 235, graphic_dict["check_button_img"])
+    check_even_better_fish_button = UiElement("check e. better", 490, 330, graphic_dict["check_button_img"])
+    check_best_fish_button = UiElement("check best", 490, 425, graphic_dict["check_button_img"])
+    fishing_level_overlay = UiElement("fish level overlay", 410, 510, graphic_dict["fishing_level_1"])
 
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
     mage_attack_button = UiElement("mage attack button", 750, 642, graphic_dict["mage_attack_button_img"])
@@ -7725,6 +7735,7 @@ if __name__ == "__main__":
     sfx_firework.set_volume(0.35)
 
     # main loop variables ----------------------------------------------------------------------------------------------
+    bait_given = False
     level_checked = False
     game_running = True
     saving = False
@@ -7850,57 +7861,42 @@ if __name__ == "__main__":
     artherian_1 = False
     artherian_2 = False
     npc_text_reset = False
-
     seed_given = False
     hatch_ready = False
     hatched = False
     hatch_show = True
     hatch_sound = False
-
     kasper_unlocked = False
     torok_unlocked = False
     iriana_unlocked = False
-
     rock_3_con = False
     rock_4_con = False
     rock_5_con = False
     rock_6_con = False
     rock_7_con = False
     rock_8_con = False
-
     over_world_song_set = False
     stardust_song_set = False
     building_song_set = False
     new_game_music = False
-
     attack_hotkey = False
     skill_1_hotkey = False
     skill_2_hotkey = False
-
     mirror_image = False
     vanished = False
     stun_them = False
     stun_visual = False
-
     beyond_seldon = False
-
     start_logo_set = False
-
     using_forge = False
     smelted_casing = False
     enchanted_casing = False
-
     fireworking = False
-
     fishing_unlocked = False
     fishing_journal_unlocked = False
     fishing = False
     fish_caught = False
-
-    level_1_fishing = True
-    level_2_fishing = False
-    level_3_fishing = False
-
+    fishing_level = 1
     # reservoir dungeon conditions
     crate_1 = False
     crate_2 = False
@@ -7910,44 +7906,33 @@ if __name__ == "__main__":
     switch_1 = False
     switch_2 = False
     switch_3 = False
-
     mini_boss_1 = False
     mini_boss_2 = False
-
     ramps_crate_1_got = False
     ramps_crate_2_got = False
     ramps_crate_3_got = False
     ramps_crate_4_got = False
     ramps_crate_5_got = False
-
     apothecary_window_open = False
     menagerie_window_open = False
     hut_window_open = False
-
     critter_right_move = False
     critter_left_move = True
     walk_move = True
-
     alpha_set = False
     logo_alpha_set = False
-
     music_toggle = False
 
     # worker position for updates on map
     worker_positions = [[618, 428], [895, 475], [655, 638]]
-
     # apothecary flower counters
     seldon_flower_counter = 0
     eldream_flower_counter = 0
-
     # fish collection counters
     basic_fish_counter = 0
     better_fish_counter = 0
     even_better_fish_counter = 0
-    still_even_better_fish_counter = 0
     best_fish_counter = 0
-    very_best_fish_counter = 0
-
     # combat event counters
     erebyth_turn_counter = 0
 
@@ -8624,6 +8609,14 @@ if __name__ == "__main__":
                         seed_scout_count = load_returned["seed scout"]
                         marrow_switch_phase = load_returned["marrow switch phase"]
                         erebyth_defeated = load_returned["erebyth defeated"]
+                        fishing_unlocked = load_returned["fishing_unlocked"]
+                        fishing_journal_unlocked = load_returned["fishing_journal_unlocked"]
+                        bait_given = load_returned["bait_given"]
+                        basic_fish_counter = load_returned["basic_fish_counter"]
+                        better_fish_counter = load_returned["better_fish_counter"]
+                        even_better_fish_counter = load_returned["even_better_fish_counter"]
+                        best_fish_counter = load_returned["best_fish_counter"]
+                        fishing_level = load_returned["fishing_level"]
 
                         if player.race == "amuna":
                             player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
@@ -9327,7 +9320,8 @@ if __name__ == "__main__":
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
                                                                  ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
-                                                                 artherian_2, npc_artherian.quest_complete)
+                                                                 artherian_2, npc_artherian.quest_complete,
+                                                                 fishing_unlocked, fishing_journal_unlocked, bait_given)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -9358,7 +9352,10 @@ if __name__ == "__main__":
                                                              erebyth_defeated, ramps_crate_1_got, ramps_crate_2_got,
                                                              ramps_crate_3_got, ramps_crate_4_got, ramps_crate_5_got,
                                                              marrow_attuned, npc_artherian.gift, artherian_2,
-                                                             npc_artherian.quest_complete)
+                                                             npc_artherian.quest_complete, fishing_unlocked,
+                                                             fishing_journal_unlocked, bait_given, basic_fish_counter,
+                                                             better_fish_counter, even_better_fish_counter,
+                                                             best_fish_counter, fishing_level)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -9689,20 +9686,19 @@ if __name__ == "__main__":
                                 fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_4"])
 
                             catch_chance = random.randrange(1, 10)
-                            if level_1_fishing:
-                                if catch_chance > 6:
-                                    basic_fish_counter += 1
-                                    fish_caught = True
-                                    print(basic_fish_counter)
-                                else:
-                                    fish_caught = False
-                            if level_2_fishing:
+                            if int(fishing_level) == 1:
                                 if catch_chance > 4:
                                     basic_fish_counter += 1
                                     fish_caught = True
                                 else:
                                     fish_caught = False
-                            if level_3_fishing:
+                            if int(fishing_level) == 2:
+                                if catch_chance > 3:
+                                    basic_fish_counter += 1
+                                    fish_caught = True
+                                else:
+                                    fish_caught = False
+                            if int(fishing_level) == 3:
                                 if catch_chance > 2:
                                     basic_fish_counter += 1
                                     fish_caught = True
@@ -9853,10 +9849,14 @@ if __name__ == "__main__":
                             info_text_3 = ""
                             info_text_4 = ""
 
-                            if interacted and in_over_world:
-                                fishing = True
-                                interacted = False
-                                fishing_timer = time.perf_counter()
+                            if interacted and in_over_world and fishing_unlocked:
+                                for item in player.items:
+                                    if item.name == "korlok bait":
+                                        fishing = True
+                                        interacted = False
+                                        fishing_timer = time.perf_counter()
+                                        player.items.remove(item)
+                                        break
 
                         if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
                             interaction_popup.update(fishing_spot_korlok_2.x_coordinate,
@@ -9879,10 +9879,14 @@ if __name__ == "__main__":
                             info_text_3 = ""
                             info_text_4 = ""
 
-                            if interacted and in_over_world:
-                                fishing = True
-                                interacted = False
-                                fishing_timer = time.perf_counter()
+                            if interacted and in_over_world and fishing_unlocked:
+                                for item in player.items:
+                                    if item.name == "korlok bait":
+                                        fishing = True
+                                        interacted = False
+                                        fishing_timer = time.perf_counter()
+                                        player.items.remove(item)
+                                        break
 
                     # move player to seldon district when they approach nascent grove exit
                     if player.x_coordinate < 50 and player.y_coordinate < 375:
@@ -13885,7 +13889,10 @@ if __name__ == "__main__":
                                                                  graphic_dict["pet_tart_img"], sfx_shop_transaction,
                                                                  graphic_dict["seldon_firework"],
                                                                  graphic_dict["korlok_firework"],
-                                                                 graphic_dict["eldream_firework"])
+                                                                 graphic_dict["eldream_firework"],
+                                                                 graphic_dict["seldon_bait"],
+                                                                 graphic_dict["korlok_bait"],
+                                                                 graphic_dict["eldream_bait"])
                             if buy_return["info 1"] != "":
                                 button_highlighted = False
                                 info_text_1 = buy_return["info 1"]
@@ -13986,7 +13993,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["small_energy_pot_img"],
                                                                                  graphic_dict["seldon_firework"],
                                                                                  graphic_dict["korlok_firework"],
-                                                                                 graphic_dict["eldream_firework"])
+                                                                                 graphic_dict["eldream_firework"],
+                                                                                 graphic_dict["seldon_bait"],
+                                                                                 graphic_dict["korlok_bait"],
+                                                                                 graphic_dict["eldream_bait"])
                                     if player.current_zone == "korlok":
                                         shop_scenario.shop_keeper_inventory_draw(npc_nuldar_shopkeeper,
                                                                                  shopkeeper_items,
@@ -14000,7 +14010,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["small_energy_pot_img"],
                                                                                  graphic_dict["seldon_firework"],
                                                                                  graphic_dict["korlok_firework"],
-                                                                                 graphic_dict["eldream_firework"])
+                                                                                 graphic_dict["eldream_firework"],
+                                                                                 graphic_dict["seldon_bait"],
+                                                                                 graphic_dict["korlok_bait"],
+                                                                                 graphic_dict["eldream_bait"])
                                     if player.current_zone == "ectrenos right":
                                         shop_scenario.shop_keeper_inventory_draw(npc_sorae_shopkeeper,
                                                                                  shopkeeper_items,
@@ -14014,7 +14027,10 @@ if __name__ == "__main__":
                                                                                  graphic_dict["small_energy_pot_img"],
                                                                                  graphic_dict["seldon_firework"],
                                                                                  graphic_dict["korlok_firework"],
-                                                                                 graphic_dict["eldream_firework"])
+                                                                                 graphic_dict["eldream_firework"],
+                                                                                 graphic_dict["seldon_bait"],
+                                                                                 graphic_dict["korlok_bait"],
+                                                                                 graphic_dict["eldream_bait"])
 
                         if shop_button == "leave":
                             if len(buy_shop_elements) > 0:
@@ -15521,7 +15537,11 @@ if __name__ == "__main__":
                                                                  ramps_crate_3_got, ramps_crate_4_got,
                                                                  ramps_crate_5_got, marrow_attuned,
                                                                  npc_artherian.gift, artherian_2,
-                                                                 npc_artherian.quest_complete)
+                                                                 npc_artherian.quest_complete, fishing_unlocked,
+                                                                 fishing_journal_unlocked, bait_given,
+                                                                 basic_fish_counter, better_fish_counter,
+                                                                 even_better_fish_counter, best_fish_counter,
+                                                                 fishing_level)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -16134,7 +16154,11 @@ if __name__ == "__main__":
                                                                  ramps_crate_1_got, ramps_crate_2_got,
                                                                  ramps_crate_3_got, ramps_crate_4_got,
                                                                  ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
-                                                                 artherian_2, npc_artherian.quest_complete)
+                                                                 artherian_2, npc_artherian.quest_complete,
+                                                                 fishing_unlocked, fishing_journal_unlocked, bait_given,
+                                                                 basic_fish_counter, better_fish_counter,
+                                                                 even_better_fish_counter, best_fish_counter,
+                                                                 fishing_level)
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
                                     drawing_functions.quest_box_draw("aitor", True, garan_quest_window,
@@ -16403,6 +16427,15 @@ if __name__ == "__main__":
                                 hut_window_open = False
                                 button_highlighted = False
 
+                            if check_basic_fish_button.rect.collidepoint(pos) and hut_window_open:
+                                pygame.mixer.find_channel(True).play(sfx_button_click)
+                                if basic_fish_counter >= 25:
+                                    fishing_level += 0.5
+                                    player.rupees += 200
+                                    info_text_1 = "You gained fishing experience"
+                                    info_text_2 = "And some Rupees!"
+                                button_highlighted = False
+
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
                         npc_button_fish = click_handlers.npc_event_button_fishing(event, quest_button, leave_button,
                                                                                   pygame, sfx_sheet_paper, SCREEN_WIDTH,
@@ -16483,7 +16516,10 @@ if __name__ == "__main__":
                                                              ramps_crate_1_got, ramps_crate_2_got,
                                                              ramps_crate_3_got, ramps_crate_4_got,
                                                              ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
-                                                             artherian_2, npc_artherian.quest_complete)
+                                                             artherian_2, npc_artherian.quest_complete,
+                                                             fishing_unlocked, fishing_journal_unlocked, bait_given,
+                                                             basic_fish_counter, better_fish_counter,
+                                                             even_better_fish_counter, best_fish_counter, fishing_level)
 
                             if not quest_clicked:
                                 if basic_fish_counter < 4:
@@ -16507,6 +16543,15 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
                                 info_text_1 = "You've accepted the task!"
                                 info_text_2 = ""
+                                if len(player.items) < 12:
+                                    if not bait_given:
+                                        for i in range(4):
+                                            player.items.append(Item("korlok bait", "bait", 200, 200,
+                                                                     graphic_dict["korlok_bait"], 0))
+                                        bait_given = True
+                                else:
+                                    info_text_1 = "Not enough inventory space. "
+                                    info_text_2 = ""
                                 button_highlighted = False
                                 quest_clicked = False
                                 drawing_functions.quest_box_fishing.clear()
@@ -16596,24 +16641,59 @@ if __name__ == "__main__":
                             screen.blit(fish_button.surf, fish_button.rect)
                             if fishing_journal_unlocked:
                                 if hut_window_open:
-                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter),
+                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /25",
                                                                            True, "black", "light yellow")
                                     basic_fish_surf_rect = basic_fish_surf.get_rect()
                                     basic_fish_surf_rect.midleft = (223, 280)
                                     screen.blit(basic_fish_surf, basic_fish_surf_rect)
                                     close_button.update(560, 110, graphic_dict["close_button"])
                                     screen.blit(close_button.surf, close_button.rect)
+
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
                         else:
                             game_window.blit(fish_button.surf, fish_button.rect)
                             if fishing_journal_unlocked:
                                 if hut_window_open:
-                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter),
+                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /25",
                                                                            True, "black", "light yellow")
                                     basic_fish_surf_rect = basic_fish_surf.get_rect()
-                                    basic_fish_surf_rect.midleft = (223, 280)
+                                    basic_fish_surf_rect.midleft = (40, 150)
                                     game_window.blit(basic_fish_surf, basic_fish_surf_rect)
+
+                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /25",
+                                                                           True, "black", "light yellow")
+                                    better_fish_surf_rect = better_fish_surf.get_rect()
+                                    better_fish_surf_rect.midleft = (40, 247)
+                                    game_window.blit(better_fish_surf, better_fish_surf_rect)
+
+                                    even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /25",
+                                                                            True, "black", "light yellow")
+                                    even_better_fish_surf_rect = even_better_fish_surf.get_rect()
+                                    even_better_fish_surf_rect.midleft = (40, 344)
+                                    game_window.blit(even_better_fish_surf, even_better_fish_surf_rect)
+
+                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /25",
+                                                                           True, "black", "light yellow")
+                                    best_fish_surf_rect = best_fish_surf.get_rect()
+                                    best_fish_surf_rect.midleft = (40, 440)
+                                    game_window.blit(best_fish_surf, best_fish_surf_rect)
+
+                                    fish_level_surf = level_up_font.render(str(fishing_level),
+                                                                           True, "black", "light yellow")
+                                    fish_level_surf_rect = fish_level_surf.get_rect()
+                                    fish_level_surf_rect.midleft = (162, 510)
+                                    game_window.blit(fish_level_surf, fish_level_surf_rect)
+
+                                    game_window.blit(check_basic_fish_button.surf, check_basic_fish_button.rect)
+                                    game_window.blit(check_better_fish_button.surf, check_better_fish_button.rect)
+                                    game_window.blit(check_even_better_fish_button.surf,
+                                                     check_even_better_fish_button.rect)
+                                    game_window.blit(check_best_fish_button.surf, check_best_fish_button.rect)
+
+                                    game_window.blit(fishing_level_overlay.surf, fishing_level_overlay.rect)
+
+
                                     close_button.update(560, 110, graphic_dict["close_button"])
                                     game_window.blit(close_button.surf, close_button.rect)
                             if button_highlighted:
@@ -16852,7 +16932,11 @@ if __name__ == "__main__":
                                                                      ramps_crate_2_got, ramps_crate_3_got,
                                                                      ramps_crate_4_got, ramps_crate_5_got,
                                                                      marrow_attuned, npc_artherian.gift, artherian_2,
-                                                                     npc_artherian.quest_complete)
+                                                                     npc_artherian.quest_complete, fishing_unlocked,
+                                                                     fishing_journal_unlocked, bait_given,
+                                                                     basic_fish_counter, better_fish_counter,
+                                                                     even_better_fish_counter, best_fish_counter,
+                                                                     fishing_level)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -17063,7 +17147,11 @@ if __name__ == "__main__":
                                                                      ramps_crate_2_got, ramps_crate_3_got,
                                                                      ramps_crate_4_got, ramps_crate_5_got,
                                                                      marrow_attuned, npc_artherian.gift, artherian_2,
-                                                                     npc_artherian.quest_complete)
+                                                                     npc_artherian.quest_complete, fishing_unlocked,
+                                                                     fishing_journal_unlocked, bait_given,
+                                                                     basic_fish_counter, better_fish_counter,
+                                                                     even_better_fish_counter, best_fish_counter,
+                                                                     fishing_level)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -17276,7 +17364,11 @@ if __name__ == "__main__":
                                                                      ramps_crate_2_got, ramps_crate_3_got,
                                                                      ramps_crate_4_got, ramps_crate_5_got,
                                                                      marrow_attuned, npc_artherian.gift, artherian_2,
-                                                                     npc_artherian.quest_complete)
+                                                                     npc_artherian.quest_complete, fishing_unlocked,
+                                                                     fishing_journal_unlocked, bait_given,
+                                                                     basic_fish_counter, better_fish_counter,
+                                                                     even_better_fish_counter, best_fish_counter,
+                                                                     fishing_level)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -17900,9 +17992,14 @@ if __name__ == "__main__":
             # player has died, show game over and give continue option -------------------------------------------------
             else:
                 if not game_over_sound_played:
-                    pygame.mixer.music.stop()
                     pygame.mixer.find_channel(True).play(sfx_game_over)
                     game_over_sound_played = True
+                if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.fadeout(50)
+                    pygame.mixer.music.load(nascent_music)
+                    pygame.mixer.music.play(loops=-1)
+                    over_world_song_set = True
+
                 button_highlight.update(lets_go_button.x_coordinate, lets_go_button.y_coordinate,
                                         graphic_dict["lets_go_button_high"])
 
@@ -17925,6 +18022,7 @@ if __name__ == "__main__":
                     if event.type == pygame.MOUSEBUTTONUP:
                         # player chooses to continue, reset character experience and half health and energy on respawn
                         if lets_go_button.rect.collidepoint(pos):
+                            over_world_song_set = False
                             game_over_sound_played = False
                             pygame.mixer.find_channel(True).play(sfx_button_start)
                             info_text_1 = ""
