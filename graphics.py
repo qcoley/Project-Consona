@@ -4670,6 +4670,31 @@ def load_graphics():
         player_battle_nuldar_female_sheet_legend_barrier_sense[6]
 
     # player fishing sprites -------------------------------------------------------------------------------------------
+    # amuna m ---------------------------------------------------------------------------------------------------------
+    amuna_m_fishing_url = resource_path('resources/art/player_amuna_m_fishing.png')
+    amuna_m_fishing_sheet = sprite_sheet((100, 100), amuna_m_fishing_url)
+    loaded_dict["amuna_m_fishing_right"] = amuna_m_fishing_sheet[0]
+    loaded_dict["amuna_m_fishing_down"] = amuna_m_fishing_sheet[1]
+    # amuna f ---------------------------------------------------------------------------------------------------------
+    amuna_f_fishing_url = resource_path('resources/art/player_amuna_f_fishing.png')
+    amuna_f_fishing_sheet = sprite_sheet((100, 100), amuna_f_fishing_url)
+    loaded_dict["amuna_f_fishing_right"] = amuna_f_fishing_sheet[0]
+    loaded_dict["amuna_f_fishing_down"] = amuna_f_fishing_sheet[1]
+    # nuldar m ---------------------------------------------------------------------------------------------------------
+    nuldar_m_fishing_url = resource_path('resources/art/player_nuldar_m_fishing.png')
+    nuldar_m_fishing_sheet = sprite_sheet((100, 100), nuldar_m_fishing_url)
+    loaded_dict["nuldar_m_fishing_right"] = nuldar_m_fishing_sheet[0]
+    loaded_dict["nuldar_m_fishing_down"] = nuldar_m_fishing_sheet[1]
+    # nuldar f ---------------------------------------------------------------------------------------------------------
+    nuldar_f_fishing_url = resource_path('resources/art/player_nuldar_f_fishing.png')
+    nuldar_f_fishing_sheet = sprite_sheet((100, 100), nuldar_f_fishing_url)
+    loaded_dict["nuldar_f_fishing_right"] = nuldar_f_fishing_sheet[0]
+    loaded_dict["nuldar_f_fishing_down"] = nuldar_f_fishing_sheet[1]
+    # sorae a ----------------------------------------------------------------------------------------------------------
+    sorae_a_fishing_url = resource_path('resources/art/player_sorae_a_fishing.png')
+    sorae_a_fishing_sheet = sprite_sheet((100, 100), sorae_a_fishing_url)
+    loaded_dict["sorae_a_fishing_right"] = sorae_a_fishing_sheet[0]
+    loaded_dict["sorae_a_fishing_down"] = sorae_a_fishing_sheet[1]
     # sorae b ----------------------------------------------------------------------------------------------------------
     sorae_b_fishing_url = resource_path('resources/art/player_sorae_b_fishing.png')
     sorae_b_fishing_sheet = sprite_sheet((100, 100), sorae_b_fishing_url)

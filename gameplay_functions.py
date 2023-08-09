@@ -9,11 +9,17 @@ import drawing_functions
 
 def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, spot_4_img, spot_1_korlok, spot_2_korlok,
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
-                     best_fish_counter, fishing, fish_caught, sorae_b_right, sorae_b_down, previous_surf):
+                     best_fish_counter, fishing, fish_caught, amuna_m_right, amuna_m_down, amuna_f_right, amuna_f_down,
+                     nuldar_m_right, nuldar_m_down, nuldar_f_right, nuldar_f_down, sorae_a_right, sorae_a_down,
+                     sorae_b_right, sorae_b_down, previous_surf):
 
     if current_zone == "fishing hut":
         fishing_timer_end = time.perf_counter()
         if fishing_timer_end - fishing_timer >= 3:
+
+            player.surf = previous_surf
+            player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+
             if pygame.sprite.collide_rect(player, spot_1_korlok):
                 spot_1_korlok.update(740, 410, spot_4_img)
             if pygame.sprite.collide_rect(player, spot_2_korlok):
@@ -40,31 +46,60 @@ def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, sp
                     fish_caught = False
             fishing = False
             movement_able = True
-            player.surf = previous_surf
-            player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
 
         # shows if player is actively engaged with a fishing spot if they're near it while fishing
         else:
             movement_able = False
             if pygame.sprite.collide_rect(player, spot_1_korlok):
                 spot_1_korlok.update(740, 410, spot_3_img)
-                if player.race == "sorae":
+                if player.race == "amuna":
+                    if player.gender == "male":
+                        player.surf = amuna_m_right
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
                     if player.gender == "female":
-                        previous_surf = player.surf
+                        player.surf = amuna_f_right
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "nuldar":
+                    if player.gender == "male":
+                        player.surf = nuldar_m_right
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        player.surf = nuldar_f_right
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "sorae":
+                    if player.gender == "male":
+                        player.surf = sorae_a_right
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
                         player.surf = sorae_b_right
                         player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
             if pygame.sprite.collide_rect(player, spot_2_korlok):
                 spot_2_korlok.update(575, 525, spot_3_img)
-                if player.race == "sorae":
+                if player.race == "amuna":
+                    if player.gender == "male":
+                        player.surf = amuna_m_down
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
                     if player.gender == "female":
-                        previous_surf = player.surf
+                        player.surf = amuna_f_down
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "nuldar":
+                    if player.gender == "male":
+                        player.surf = nuldar_m_down
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
+                        player.surf = nuldar_f_down
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                if player.race == "sorae":
+                    if player.gender == "male":
+                        player.surf = sorae_a_down
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+                    if player.gender == "female":
                         player.surf = sorae_b_down
                         player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
 
     fishing_return = {"basic_fish_counter": basic_fish_counter, "better_fish_counter": better_fish_counter,
                       "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter,
-                      "fish_caught": fish_caught, "fishing": fishing, "movement_able": movement_able, "previous_surf":
-                      previous_surf}
+                      "fish_caught": fish_caught, "fishing": fishing, "movement_able": movement_able}
 
     return fishing_return
 

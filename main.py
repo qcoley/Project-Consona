@@ -7638,7 +7638,7 @@ if __name__ == "__main__":
     sfx_enemy_erebyth_flame = pygame.mixer.Sound(resource_path("resources/sounds/enemy_erebyth_flame.mp3"))
     sfx_enemy_erebyth_flame.set_volume(0.25)
     sfx_stelli_battle = pygame.mixer.Sound(resource_path("resources/sounds/stelli_battle.mp3"))
-    sfx_stelli_battle.set_volume(0.30)
+    sfx_stelli_battle.set_volume(0.20)
 
     sfx_surprise_attack = pygame.mixer.Sound(resource_path("resources/sounds/sfx_surprise_attack.mp3"))
     sfx_surprise_attack.set_volume(0.20)
@@ -9701,6 +9701,16 @@ if __name__ == "__main__":
                                                                           fishing_level, basic_fish_counter,
                                                                           better_fish_counter, even_better_fish_counter,
                                                                           best_fish_counter, fishing, fish_caught,
+                                                                          graphic_dict["amuna_m_fishing_right"],
+                                                                          graphic_dict["amuna_m_fishing_down"],
+                                                                          graphic_dict["amuna_f_fishing_right"],
+                                                                          graphic_dict["amuna_f_fishing_down"],
+                                                                          graphic_dict["nuldar_m_fishing_right"],
+                                                                          graphic_dict["nuldar_m_fishing_down"],
+                                                                          graphic_dict["nuldar_f_fishing_right"],
+                                                                          graphic_dict["nuldar_f_fishing_down"],
+                                                                          graphic_dict["sorae_a_fishing_right"],
+                                                                          graphic_dict["sorae_a_fishing_down"],
                                                                           graphic_dict["sorae_b_fishing_right"],
                                                                           graphic_dict["sorae_b_fishing_down"],
                                                                           previous_surf)
@@ -9711,7 +9721,6 @@ if __name__ == "__main__":
                         fish_caught = fish_return["fish_caught"]
                         fishing = fish_return["fishing"]
                         movement_able = fish_return["movement_able"]
-                        previous_surf = fish_return["previous_surf"]
 
                     # water movement animation -------------------------------------------------------------------------
                     if 1000 > water_fish_1.x_coordinate > 35:
@@ -9855,6 +9864,7 @@ if __name__ == "__main__":
                                         interacted = False
                                         fishing_timer = time.perf_counter()
                                         player.items.remove(item)
+                                        previous_surf = player.surf
                                         break
 
                         if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
@@ -9885,6 +9895,7 @@ if __name__ == "__main__":
                                         interacted = False
                                         fishing_timer = time.perf_counter()
                                         player.items.remove(item)
+                                        previous_surf = player.surf
                                         break
 
                     # move player to seldon district when they approach nascent grove exit
@@ -16715,13 +16726,18 @@ if __name__ == "__main__":
                                                              info_text_3, info_text_4, in_over_world)
                             drawing_functions.draw_it(game_window)
 
-                        # if player has access to apothecary functions by completing quest and window is open
+                        if fishing_level == 1.5 or fishing_level == 2.5 or fishing_level == 3.5:
+                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
+                        else:
+                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
+
+                        # if player has access to fishing journal by completing task and window is open
                         if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                             screen.blit(fish_button.surf, fish_button.rect)
                             if fishing_journal_unlocked:
                                 if hut_window_open:
                                     basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /15",
-                                                                          True, "black", "light yellow")
+                                                                           True, "black", "light yellow")
                                     basic_fish_surf_rect = basic_fish_surf.get_rect()
                                     basic_fish_surf_rect.midleft = (40, 150)
                                     screen.blit(basic_fish_surf, basic_fish_surf_rect)
@@ -16747,9 +16763,7 @@ if __name__ == "__main__":
                                     screen.blit(fish_level_surf, fish_level_surf_rect)
                                     screen.blit(check_basic_fish_button.surf, check_basic_fish_button.rect)
                                     screen.blit(check_better_fish_button.surf, check_better_fish_button.rect)
-                                    screen.blit(check_even_better_fish_button.surf,
-                                                     check_even_better_fish_button.rect)
-                                    screen.blit(check_best_fish_button.surf, check_best_fish_button.rect)
+                                    screen.blit(check_even_better_fish_button.surf, check_even_better_fish_button.rect)
                                     screen.blit(fishing_level_overlay.surf, fishing_level_overlay.rect)
                                     close_button.update(560, 110, graphic_dict["close_button"])
                                     screen.blit(close_button.surf, close_button.rect)
@@ -16765,17 +16779,17 @@ if __name__ == "__main__":
                                     basic_fish_surf_rect.midleft = (40, 150)
                                     game_window.blit(basic_fish_surf, basic_fish_surf_rect)
                                     better_fish_surf = level_up_font.render(str(better_fish_counter) + " /20",
-                                                                           True, "black", "light yellow")
+                                                                            True, "black", "light yellow")
                                     better_fish_surf_rect = better_fish_surf.get_rect()
                                     better_fish_surf_rect.midleft = (40, 247)
                                     game_window.blit(better_fish_surf, better_fish_surf_rect)
                                     even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /25",
-                                                                            True, "black", "light yellow")
+                                                                                 True, "black", "light yellow")
                                     even_better_fish_surf_rect = even_better_fish_surf.get_rect()
                                     even_better_fish_surf_rect.midleft = (40, 344)
                                     game_window.blit(even_better_fish_surf, even_better_fish_surf_rect)
                                     best_fish_surf = level_up_font.render(str(best_fish_counter) + " /30",
-                                                                           True, "black", "light yellow")
+                                                                          True, "black", "light yellow")
                                     best_fish_surf_rect = best_fish_surf.get_rect()
                                     best_fish_surf_rect.midleft = (40, 440)
                                     game_window.blit(best_fish_surf, best_fish_surf_rect)
