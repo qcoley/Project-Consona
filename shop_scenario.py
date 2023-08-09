@@ -294,7 +294,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     player.rupees = player.rupees - 10
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
-                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Small Health Potion cost 10 rupees."
@@ -311,7 +310,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     player.rupees = player.rupees - 10
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
-                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Small Energy Potion cost 10 rupees."
@@ -328,7 +326,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     player.rupees = player.rupees - 50
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
-                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Basic Armor cost 50 rupees."
@@ -345,7 +342,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     player.rupees = player.rupees - 150
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
-                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Forged Armor cost 200 rupees."
@@ -362,7 +358,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     player.rupees = player.rupees - 400
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
-                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Mythical Armor cost 400 rupees."
@@ -379,7 +374,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     player.rupees = player.rupees - 20
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
-                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Blueberry Cookie cost 20 rupees."
@@ -396,7 +390,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     player.rupees = player.rupees - 20
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
-                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Rock Candy cost 20 rupees."
@@ -413,7 +406,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                     player.rupees = player.rupees - 20
                     pygame.mixer.find_channel(True).play(sfx_buy)
                     buy_return["bought"] = True
-                    drawing_functions.buy_info_window.clear()
                 else:
                     buy_return["info 1"] = "You do not have enough rupees."
                     buy_return["info 2"] = "Peach Tart cost 20 rupees."
@@ -431,7 +423,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         player.rupees = player.rupees - 25
                         pygame.mixer.find_channel(True).play(sfx_buy)
                         buy_return["bought"] = True
-                        drawing_functions.buy_info_window.clear()
                     else:
                         buy_return["info 1"] = "You need more reputation."
                         buy_return["info 2"] = "20 Reputation with Amuna required."
@@ -452,7 +443,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         player.rupees = player.rupees - 25
                         pygame.mixer.find_channel(True).play(sfx_buy)
                         buy_return["bought"] = True
-                        drawing_functions.buy_info_window.clear()
                     else:
                         buy_return["info 1"] = "You need more reputation."
                         buy_return["info 2"] = "20 Reputation with Nuldar required."
@@ -473,7 +463,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         player.rupees = player.rupees - 25
                         pygame.mixer.find_channel(True).play(sfx_buy)
                         buy_return["bought"] = True
-                        drawing_functions.buy_info_window.clear()
                     else:
                         buy_return["info 1"] = "You need more reputation."
                         buy_return["info 2"] = "20 Reputation with Sorae required."
@@ -494,7 +483,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         player.rupees = player.rupees - 10
                         pygame.mixer.find_channel(True).play(sfx_buy)
                         buy_return["bought"] = True
-                        drawing_functions.buy_info_window.clear()
                     else:
                         buy_return["info 1"] = "You need more reputation."
                         buy_return["info 2"] = "30 Reputation with Amuna required."
@@ -515,7 +503,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         player.rupees = player.rupees - 10
                         pygame.mixer.find_channel(True).play(sfx_buy)
                         buy_return["bought"] = True
-                        drawing_functions.buy_info_window.clear()
                     else:
                         buy_return["info 1"] = "You need more reputation."
                         buy_return["info 2"] = "30 Reputation with Nuldar required."
@@ -536,7 +523,6 @@ def buy_items(pygame, player, buy_choice, current_buy_item, Item, health_pot_img
                         player.rupees = player.rupees - 10
                         pygame.mixer.find_channel(True).play(sfx_buy)
                         buy_return["bought"] = True
-                        drawing_functions.buy_info_window.clear()
                     else:
                         buy_return["info 1"] = "You need more reputation."
                         buy_return["info 2"] = "30 Reputation with Sorae required."

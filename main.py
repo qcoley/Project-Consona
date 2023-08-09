@@ -7131,7 +7131,7 @@ if __name__ == "__main__":
     check_better_fish_button = UiElement("check better", 490, 235, graphic_dict["check_button_img"])
     check_even_better_fish_button = UiElement("check e. better", 490, 330, graphic_dict["check_button_img"])
     check_best_fish_button = UiElement("check best", 490, 425, graphic_dict["check_button_img"])
-    fishing_level_overlay = UiElement("fish level overlay", 410, 510, graphic_dict["fishing_level_1"])
+    fishing_level_overlay = UiElement("fish level overlay", 410, 510, graphic_dict["fishing_level_0"])
 
     no_role_attack_button = UiElement("no role attack button", 750, 642, graphic_dict["no_role_attack_button_img"])
     mage_attack_button = UiElement("mage attack button", 750, 642, graphic_dict["mage_attack_button_img"])
@@ -7897,6 +7897,10 @@ if __name__ == "__main__":
     fishing = False
     fish_caught = False
     fishing_level = 1
+    basic_fish_reward = False
+    better_fish_reward = False
+    even_better_fish_reward = False
+    best_fish_reward = False
     # reservoir dungeon conditions
     crate_1 = False
     crate_2 = False
@@ -7962,6 +7966,7 @@ if __name__ == "__main__":
     gender_choice = 'male'
     marrow_switch_phase = 'none'
     firework_type = ''
+    previous_surf = player.surf
 
     # default objects for event loops, updated when player interacts with new object
     current_enemy_battling = snake_1
@@ -8617,6 +8622,10 @@ if __name__ == "__main__":
                         even_better_fish_counter = load_returned["even_better_fish_counter"]
                         best_fish_counter = load_returned["best_fish_counter"]
                         fishing_level = load_returned["fishing_level"]
+                        basic_fish_reward = load_returned["basic_fish_reward"]
+                        better_fish_reward = load_returned["better_fish_reward"]
+                        even_better_fish_reward = load_returned["even_better_fish_reward"]
+                        best_fish_reward = load_returned["best_fish_reward"]
 
                         if player.race == "amuna":
                             player = PlayerAmuna(player.name, player.race, player.gender, player.role, player.items,
@@ -9321,7 +9330,11 @@ if __name__ == "__main__":
                                                                  ramps_crate_3_got, ramps_crate_4_got,
                                                                  ramps_crate_5_got, marrow_attuned, npc_artherian.gift,
                                                                  artherian_2, npc_artherian.quest_complete,
-                                                                 fishing_unlocked, fishing_journal_unlocked, bait_given)
+                                                                 fishing_unlocked, fishing_journal_unlocked, bait_given,
+                                                                 basic_fish_counter, better_fish_counter,
+                                                                 even_better_fish_counter, best_fish_counter,
+                                                                 fishing_level, basic_fish_reward, better_fish_reward,
+                                                                 even_better_fish_reward, best_fish_reward)
                                     saved = True
                                     saving = False
                                     info_text_1 = "You saved your game. "
@@ -9355,7 +9368,9 @@ if __name__ == "__main__":
                                                              npc_artherian.quest_complete, fishing_unlocked,
                                                              fishing_journal_unlocked, bait_given, basic_fish_counter,
                                                              better_fish_counter, even_better_fish_counter,
-                                                             best_fish_counter, fishing_level)
+                                                             best_fish_counter, fishing_level, basic_fish_reward,
+                                                             better_fish_reward, even_better_fish_reward,
+                                                             best_fish_reward)
                                 save_check_window.clear()
                                 button_highlighted = False
                                 saving = False
@@ -9676,44 +9691,27 @@ if __name__ == "__main__":
                             fishing_spot_korlok_1.update(740, 410, graphic_dict["fishing_spot_2"])
                             fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_1"])
 
-                    # if player is fishing, check timer. If  more than 4 seconds, check if fish caught
+                    # if player is fishing
                     else:
-                        fishing_timer_end = time.perf_counter()
-                        if fishing_timer_end - fishing_timer >= 4:
-                            if pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
-                                fishing_spot_korlok_1.update(740, 410, graphic_dict["fishing_spot_4"])
-                            if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
-                                fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_4"])
-
-                            catch_chance = random.randrange(1, 10)
-                            if int(fishing_level) == 1:
-                                if catch_chance > 4:
-                                    basic_fish_counter += 1
-                                    fish_caught = True
-                                else:
-                                    fish_caught = False
-                            if int(fishing_level) == 2:
-                                if catch_chance > 3:
-                                    basic_fish_counter += 1
-                                    fish_caught = True
-                                else:
-                                    fish_caught = False
-                            if int(fishing_level) == 3:
-                                if catch_chance > 2:
-                                    basic_fish_counter += 1
-                                    fish_caught = True
-                                else:
-                                    fish_caught = False
-                            fishing = False
-                            movement_able = True
-
-                        # shows if player is actively engaged with a fishing spot if they're near it while fishing
-                        else:
-                            movement_able = False
-                            if pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
-                                fishing_spot_korlok_1.update(740, 410, graphic_dict["fishing_spot_3"])
-                            if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
-                                fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_3"])
+                        fish_return = gameplay_functions.fishing_function(pygame, fishing_timer, player,
+                                                                          player.current_zone,
+                                                                          graphic_dict["fishing_spot_3"],
+                                                                          graphic_dict["fishing_spot_4"],
+                                                                          fishing_spot_korlok_1, fishing_spot_korlok_2,
+                                                                          fishing_level, basic_fish_counter,
+                                                                          better_fish_counter, even_better_fish_counter,
+                                                                          best_fish_counter, fishing, fish_caught,
+                                                                          graphic_dict["sorae_b_fishing_right"],
+                                                                          graphic_dict["sorae_b_fishing_down"],
+                                                                          previous_surf)
+                        basic_fish_counter = fish_return["basic_fish_counter"]
+                        better_fish_counter = fish_return["better_fish_counter"]
+                        even_better_fish_counter = fish_return["even_better_fish_counter"]
+                        best_fish_counter = fish_return["best_fish_counter"]
+                        fish_caught = fish_return["fish_caught"]
+                        fishing = fish_return["fishing"]
+                        movement_able = fish_return["movement_able"]
+                        previous_surf = fish_return["previous_surf"]
 
                     # water movement animation -------------------------------------------------------------------------
                     if 1000 > water_fish_1.x_coordinate > 35:
@@ -9849,6 +9847,7 @@ if __name__ == "__main__":
                             info_text_3 = ""
                             info_text_4 = ""
 
+                            # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
                             if interacted and in_over_world and fishing_unlocked:
                                 for item in player.items:
                                     if item.name == "korlok bait":
@@ -15541,7 +15540,8 @@ if __name__ == "__main__":
                                                                  fishing_journal_unlocked, bait_given,
                                                                  basic_fish_counter, better_fish_counter,
                                                                  even_better_fish_counter, best_fish_counter,
-                                                                 fishing_level)
+                                                                 fishing_level, basic_fish_reward, better_fish_reward,
+                                                                 even_better_fish_reward, best_fish_reward)
 
                             if not quest_clicked:
                                 if not player.quest_complete["can't apothecary it"]:
@@ -16158,7 +16158,8 @@ if __name__ == "__main__":
                                                                  fishing_unlocked, fishing_journal_unlocked, bait_given,
                                                                  basic_fish_counter, better_fish_counter,
                                                                  even_better_fish_counter, best_fish_counter,
-                                                                 fishing_level)
+                                                                 fishing_level, basic_fish_reward, better_fish_reward,
+                                                                 even_better_fish_reward, best_fish_reward)
                             if not quest_clicked:
                                 if not player.quest_complete["hatch 'em all"]:
                                     drawing_functions.quest_box_draw("aitor", True, garan_quest_window,
@@ -16429,11 +16430,87 @@ if __name__ == "__main__":
 
                             if check_basic_fish_button.rect.collidepoint(pos) and hut_window_open:
                                 pygame.mixer.find_channel(True).play(sfx_button_click)
-                                if basic_fish_counter >= 25:
-                                    fishing_level += 0.5
-                                    player.rupees += 200
-                                    info_text_1 = "You gained fishing experience"
-                                    info_text_2 = "And some Rupees!"
+                                if basic_fish_counter >= 15:
+                                    if not basic_fish_reward:
+                                        if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
+                                        else:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
+                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                        fishing_level += 0.5
+                                        player.rupees += 300
+                                        info_text_1 = "You gained fishing experience"
+                                        info_text_2 = "And some Rupees!"
+                                        basic_fish_reward = True
+                                    else:
+                                        info_text_1 = "You already claimed this reward. "
+                                        info_text_2 = ""
+                                else:
+                                    info_text_1 = "You need to catch 15 fish. "
+                                    info_text_2 = ""
+                                button_highlighted = False
+                            if check_better_fish_button.rect.collidepoint(pos) and hut_window_open:
+                                pygame.mixer.find_channel(True).play(sfx_button_click)
+                                if better_fish_counter >= 20:
+                                    if not better_fish_reward:
+                                        if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
+                                        else:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
+                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                        fishing_level += 0.5
+                                        player.rupees += 300
+                                        info_text_1 = "You gained fishing experience"
+                                        info_text_2 = "And some Rupees!"
+                                        basic_fish_reward = True
+                                    else:
+                                        info_text_1 = "You already claimed this reward. "
+                                        info_text_2 = ""
+                                else:
+                                    info_text_1 = "You need to catch 20 fish. "
+                                    info_text_2 = ""
+                                button_highlighted = False
+                            if check_even_better_fish_button.rect.collidepoint(pos) and hut_window_open:
+                                pygame.mixer.find_channel(True).play(sfx_button_click)
+                                if even_better_fish_counter >= 25:
+                                    if not even_better_fish_reward:
+                                        if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
+                                        else:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
+                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                        fishing_level += 0.5
+                                        player.rupees += 300
+                                        info_text_1 = "You gained fishing experience"
+                                        info_text_2 = "And some Rupees!"
+                                        basic_fish_reward = True
+                                    else:
+                                        info_text_1 = "You already claimed this reward. "
+                                        info_text_2 = ""
+                                else:
+                                    info_text_1 = "You need to catch 25 fish. "
+                                    info_text_2 = ""
+                                button_highlighted = False
+                            if check_best_fish_button.rect.collidepoint(pos) and hut_window_open:
+                                pygame.mixer.find_channel(True).play(sfx_button_click)
+                                if best_fish_counter >= 30:
+                                    if not best_fish_reward:
+                                        if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
+                                        else:
+                                            fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
+                                        pygame.mixer.find_channel(True).play(sfx_quest_complete)
+                                        fishing_level += 0.5
+                                        player.rupees += 300
+                                        info_text_1 = "You gained fishing experience"
+                                        info_text_2 = "And some Rupees!"
+                                        basic_fish_reward = True
+                                    else:
+                                        info_text_1 = "You already claimed this reward. "
+                                        info_text_2 = ""
+                                else:
+                                    info_text_1 = "You need to catch 30 fish. "
+                                    info_text_2 = ""
                                 button_highlighted = False
 
                         # npc was interacted with, if quest button clicked get npc name and check quest progress
@@ -16519,7 +16596,9 @@ if __name__ == "__main__":
                                                              artherian_2, npc_artherian.quest_complete,
                                                              fishing_unlocked, fishing_journal_unlocked, bait_given,
                                                              basic_fish_counter, better_fish_counter,
-                                                             even_better_fish_counter, best_fish_counter, fishing_level)
+                                                             even_better_fish_counter, best_fish_counter,
+                                                             fishing_level, basic_fish_reward, better_fish_reward,
+                                                             even_better_fish_reward, best_fish_reward)
 
                             if not quest_clicked:
                                 if basic_fish_counter < 4:
@@ -16543,9 +16622,9 @@ if __name__ == "__main__":
                                 pygame.mixer.find_channel(True).play(sfx_quest_start)
                                 info_text_1 = "You've accepted the task!"
                                 info_text_2 = ""
-                                if len(player.items) < 12:
+                                if len(player.items) < 9:
                                     if not bait_given:
-                                        for i in range(4):
+                                        for i in range(8):
                                             player.items.append(Item("korlok bait", "bait", 200, 200,
                                                                      graphic_dict["korlok_bait"], 0))
                                         bait_given = True
@@ -16641,50 +16720,70 @@ if __name__ == "__main__":
                             screen.blit(fish_button.surf, fish_button.rect)
                             if fishing_journal_unlocked:
                                 if hut_window_open:
-                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /25",
-                                                                           True, "black", "light yellow")
+                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /15",
+                                                                          True, "black", "light yellow")
                                     basic_fish_surf_rect = basic_fish_surf.get_rect()
-                                    basic_fish_surf_rect.midleft = (223, 280)
+                                    basic_fish_surf_rect.midleft = (40, 150)
                                     screen.blit(basic_fish_surf, basic_fish_surf_rect)
+                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /20",
+                                                                            True, "black", "light yellow")
+                                    better_fish_surf_rect = better_fish_surf.get_rect()
+                                    better_fish_surf_rect.midleft = (40, 247)
+                                    screen.blit(better_fish_surf, better_fish_surf_rect)
+                                    even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /25",
+                                                                                 True, "black", "light yellow")
+                                    even_better_fish_surf_rect = even_better_fish_surf.get_rect()
+                                    even_better_fish_surf_rect.midleft = (40, 344)
+                                    screen.blit(even_better_fish_surf, even_better_fish_surf_rect)
+                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /30",
+                                                                          True, "black", "light yellow")
+                                    best_fish_surf_rect = best_fish_surf.get_rect()
+                                    best_fish_surf_rect.midleft = (40, 440)
+                                    screen.blit(best_fish_surf, best_fish_surf_rect)
+                                    fish_level_surf = level_up_font.render(str(fishing_level),
+                                                                           True, "black", "light yellow")
+                                    fish_level_surf_rect = fish_level_surf.get_rect()
+                                    fish_level_surf_rect.midleft = (162, 510)
+                                    screen.blit(fish_level_surf, fish_level_surf_rect)
+                                    screen.blit(check_basic_fish_button.surf, check_basic_fish_button.rect)
+                                    screen.blit(check_better_fish_button.surf, check_better_fish_button.rect)
+                                    screen.blit(check_even_better_fish_button.surf,
+                                                     check_even_better_fish_button.rect)
+                                    screen.blit(check_best_fish_button.surf, check_best_fish_button.rect)
+                                    screen.blit(fishing_level_overlay.surf, fishing_level_overlay.rect)
                                     close_button.update(560, 110, graphic_dict["close_button"])
                                     screen.blit(close_button.surf, close_button.rect)
-
                             if button_highlighted:
                                 screen.blit(button_highlight.surf, button_highlight.rect)
                         else:
                             game_window.blit(fish_button.surf, fish_button.rect)
                             if fishing_journal_unlocked:
                                 if hut_window_open:
-                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /25",
+                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /15",
                                                                            True, "black", "light yellow")
                                     basic_fish_surf_rect = basic_fish_surf.get_rect()
                                     basic_fish_surf_rect.midleft = (40, 150)
                                     game_window.blit(basic_fish_surf, basic_fish_surf_rect)
-
-                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /25",
+                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /20",
                                                                            True, "black", "light yellow")
                                     better_fish_surf_rect = better_fish_surf.get_rect()
                                     better_fish_surf_rect.midleft = (40, 247)
                                     game_window.blit(better_fish_surf, better_fish_surf_rect)
-
                                     even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /25",
                                                                             True, "black", "light yellow")
                                     even_better_fish_surf_rect = even_better_fish_surf.get_rect()
                                     even_better_fish_surf_rect.midleft = (40, 344)
                                     game_window.blit(even_better_fish_surf, even_better_fish_surf_rect)
-
-                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /25",
+                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /30",
                                                                            True, "black", "light yellow")
                                     best_fish_surf_rect = best_fish_surf.get_rect()
                                     best_fish_surf_rect.midleft = (40, 440)
                                     game_window.blit(best_fish_surf, best_fish_surf_rect)
-
                                     fish_level_surf = level_up_font.render(str(fishing_level),
                                                                            True, "black", "light yellow")
                                     fish_level_surf_rect = fish_level_surf.get_rect()
                                     fish_level_surf_rect.midleft = (162, 510)
                                     game_window.blit(fish_level_surf, fish_level_surf_rect)
-
                                     game_window.blit(check_basic_fish_button.surf, check_basic_fish_button.rect)
                                     game_window.blit(check_better_fish_button.surf, check_better_fish_button.rect)
                                     game_window.blit(check_even_better_fish_button.surf,
@@ -16692,8 +16791,6 @@ if __name__ == "__main__":
                                     game_window.blit(check_best_fish_button.surf, check_best_fish_button.rect)
 
                                     game_window.blit(fishing_level_overlay.surf, fishing_level_overlay.rect)
-
-
                                     close_button.update(560, 110, graphic_dict["close_button"])
                                     game_window.blit(close_button.surf, close_button.rect)
                             if button_highlighted:
@@ -16936,7 +17033,9 @@ if __name__ == "__main__":
                                                                      fishing_journal_unlocked, bait_given,
                                                                      basic_fish_counter, better_fish_counter,
                                                                      even_better_fish_counter, best_fish_counter,
-                                                                     fishing_level)
+                                                                     fishing_level, basic_fish_reward,
+                                                                     better_fish_reward, even_better_fish_reward,
+                                                                     best_fish_reward)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -17151,7 +17250,9 @@ if __name__ == "__main__":
                                                                      fishing_journal_unlocked, bait_given,
                                                                      basic_fish_counter, better_fish_counter,
                                                                      even_better_fish_counter, best_fish_counter,
-                                                                     fishing_level)
+                                                                     fishing_level, basic_fish_reward,
+                                                                     better_fish_reward, even_better_fish_reward,
+                                                                     best_fish_reward)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"
@@ -17368,7 +17469,9 @@ if __name__ == "__main__":
                                                                      fishing_journal_unlocked, bait_given,
                                                                      basic_fish_counter, better_fish_counter,
                                                                      even_better_fish_counter, best_fish_counter,
-                                                                     fishing_level)
+                                                                     fishing_level, basic_fish_reward,
+                                                                     better_fish_reward, even_better_fish_reward,
+                                                                     best_fish_reward)
                                     else:
                                         info_text_1 = "You completed the quest, but "
                                         info_text_2 = "Your inventory is full!"

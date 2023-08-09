@@ -4669,6 +4669,13 @@ def load_graphics():
     loaded_dict["player_fighter_nuldar_female_strike_legend_barrier_sense"] = \
         player_battle_nuldar_female_sheet_legend_barrier_sense[6]
 
+    # player fishing sprites -------------------------------------------------------------------------------------------
+    # sorae b ----------------------------------------------------------------------------------------------------------
+    sorae_b_fishing_url = resource_path('resources/art/player_sorae_b_fishing.png')
+    sorae_b_fishing_sheet = sprite_sheet((100, 100), sorae_b_fishing_url)
+    loaded_dict["sorae_b_fishing_right"] = sorae_b_fishing_sheet[0]
+    loaded_dict["sorae_b_fishing_down"] = sorae_b_fishing_sheet[1]
+
     # damage overlays --------------------------------------------------------------------------------------------------
     damage_overlays_url = resource_path('resources/art/overlays_damage.png')
     damage_overlays_sheet = sprite_sheet((150, 200), damage_overlays_url)

@@ -16,9 +16,10 @@ def cutscenes_apothis_bridge(pygame, music, screen, scene_1, scene_2, scene_3, s
     fifth_viewed = False
     sixth_viewed = False
 
-    pygame.mixer.music.fadeout(50)
-    pygame.mixer.music.load(music)
-    pygame.mixer.music.play(loops=-1)
+    if pygame.mixer.music.get_busy():
+        pygame.mixer.music.fadeout(50)
+        pygame.mixer.music.load(music)
+        pygame.mixer.music.play(loops=-1)
 
     while in_cutscene:
 
@@ -195,8 +196,9 @@ def cutscenes_apothis_dreth(pygame, music, screen, scene_1, scene_2, scene_3, sc
     seventh_viewed = False
     eighth_viewed = False
 
-    pygame.mixer.music.load(music)
-    pygame.mixer.music.play(loops=-1)
+    if pygame.mixer.music.get_busy():
+        pygame.mixer.music.load(music)
+        pygame.mixer.music.play(loops=-1)
 
     while in_cutscene:
 

@@ -7,6 +7,68 @@ from pygame.locals import *
 import drawing_functions
 
 
+def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, spot_4_img, spot_1_korlok, spot_2_korlok,
+                     fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                     best_fish_counter, fishing, fish_caught, sorae_b_right, sorae_b_down, previous_surf):
+
+    if current_zone == "fishing hut":
+        fishing_timer_end = time.perf_counter()
+        if fishing_timer_end - fishing_timer >= 3:
+            if pygame.sprite.collide_rect(player, spot_1_korlok):
+                spot_1_korlok.update(740, 410, spot_4_img)
+            if pygame.sprite.collide_rect(player, spot_2_korlok):
+                spot_2_korlok.update(575, 525, spot_4_img)
+
+            catch_chance = random.randrange(1, 10)
+            if fishing_level == 1 or fishing_level == 1.5:
+                if catch_chance > 4:
+                    basic_fish_counter += 1
+                    fish_caught = True
+                else:
+                    fish_caught = False
+            if fishing_level == 2 or fishing_level == 2.5:
+                if catch_chance > 3:
+                    basic_fish_counter += 1
+                    fish_caught = True
+                else:
+                    fish_caught = False
+            if fishing_level == 3 or fishing_level == 3.5:
+                if catch_chance > 2:
+                    basic_fish_counter += 1
+                    fish_caught = True
+                else:
+                    fish_caught = False
+            fishing = False
+            movement_able = True
+            player.surf = previous_surf
+            player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+
+        # shows if player is actively engaged with a fishing spot if they're near it while fishing
+        else:
+            movement_able = False
+            if pygame.sprite.collide_rect(player, spot_1_korlok):
+                spot_1_korlok.update(740, 410, spot_3_img)
+                if player.race == "sorae":
+                    if player.gender == "female":
+                        previous_surf = player.surf
+                        player.surf = sorae_b_right
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+            if pygame.sprite.collide_rect(player, spot_2_korlok):
+                spot_2_korlok.update(575, 525, spot_3_img)
+                if player.race == "sorae":
+                    if player.gender == "female":
+                        previous_surf = player.surf
+                        player.surf = sorae_b_down
+                        player.rect.midbottom = (player.x_coordinate, player.y_coordinate)
+
+    fishing_return = {"basic_fish_counter": basic_fish_counter, "better_fish_counter": better_fish_counter,
+                      "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter,
+                      "fish_caught": fish_caught, "fishing": fishing, "movement_able": movement_able, "previous_surf":
+                      previous_surf}
+
+    return fishing_return
+
+
 def role_swap(pygame, player, pos, graphic_dict, staff, sword, bow, pressed_keys, sfx_swap):
     if len(drawing_functions.item_info_window) == 0 and len(drawing_functions.sell_info_window) == 0:
 
@@ -1116,6 +1178,10 @@ def load_game(player, Item, graphics, Pet):
             load_return["even_better_fish_counter"] = player_load_info["even_better_fish_counter"]
             load_return["best_fish_counter"] = player_load_info["best_fish_counter"]
             load_return["fishing_level"] = player_load_info["fishing_level"]
+            load_return["basic_fish_reward"] = player_load_info["basic_fish_reward"]
+            load_return["better_fish_reward"] = player_load_info["better_fish_reward"]
+            load_return["even_better_fish_reward"] = player_load_info["even_better_fish_reward"]
+            load_return["best_fish_reward"] = player_load_info["best_fish_reward"]
 
     # no save found, show a notification to player and reset condition
     else:
@@ -1138,7 +1204,7 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
               ramps_crate_1, ramps_crate_2, ramps_crate_3, ramps_crate_4, ramps_crate_5, marrow_attuned,
               artherian_gift, artherian_2, artherian_complete, fishing_unlocked, fishing_journal_unlocked,
               bait_given, basic_fish_counter, better_fish_counter, even_better_fish_counter, best_fish_counter,
-              fishing_level):
+              fishing_level, basic_fish_reward, better_fish_reward, even_better_fish_reward, best_fish_reward):
     inventory_save = []
     equipment_save = []
     # a sprite surface object cannot be serialized, so save the string item name instead
@@ -1215,7 +1281,9 @@ def save_game(player, barrier_learned, hard_strike_learned, sharp_sense_learned,
                         "bait_given": bait_given, "basic_fish_counter": basic_fish_counter,
                         "better_fish_counter": better_fish_counter,
                         "even_better_fish_counter": even_better_fish_counter, "best_fish_counter": best_fish_counter,
-                        "fishing_level": fishing_level}
+                        "fishing_level": fishing_level, "basic_fish_reward": basic_fish_reward,
+                        "better_fish_reward": better_fish_reward, "even_better_fish_reward": even_better_fish_reward,
+                        "best_fish_reward": best_fish_reward}
 
     with open("save", "wb") as ff:
         pickle.dump(player_save_info, ff)
