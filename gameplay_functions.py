@@ -7,12 +7,345 @@ from pygame.locals import *
 import drawing_functions
 
 
+def check_interaction(pygame, player, interactables_nascent, interactables_seldon, interactables_stardust,
+                      fishing_spot_stardust_1, fishing_spot_stardust_2, dungeon_entrance, dungeon_items,
+                      mini_boss_1, chorizon_1, mini_boss_2, chorizon_2, switch_3, dungeon_teleporter,
+                      interactables_reservoir_b, interactables_reservoir_c, interactables_korlok, forge_entrance,
+                      interactables_mines, interactables_terra_trail, eldream_gate_rect, fishing_hut_rect,
+                      fishing_spot_korlok_1, fishing_spot_korlok_2, interactables_eldream, ectrenos_entrance_rect,
+                      ectrenos_ladder_rect, npc_leyre, ectrenos_inn_entrance, ectrenos_shop_entrance,
+                      ectrenos_pet_entrance, altar_entrance, npc_everett, ectrenos_front_enemies,
+                      alcove_ladder_rect, ghouls_marrow, npc_artherian, marrow_hearth, npc_maydria, npc_noren,
+                      npc_boro, sub_marrow_rect, interactables_marrow_entrance, marrow_switch_box, ramps_crate_1,
+                      ramps_crate_2, ramps_crate_3, ramps_crate_4, overlay_marrow_ramps_west, overlay_marrow_ramps_east,
+                      dungeon_chest_ramps, dungeon_switch_ramps_2, erebyth, dungeon_switch_ramps_1, ramps_crate_5,
+                      forge_rect, interacted, event):
+    if event:
+        if player.current_zone == "nascent":
+            if pygame.sprite.spritecollideany(player, interactables_nascent):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "seldon":
+            if pygame.sprite.spritecollideany(player, interactables_seldon, pygame.sprite.collide_rect_ratio(0.75)):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "stardust":
+            if pygame.sprite.spritecollideany(player, interactables_stardust):
+                interacted = True
+            elif pygame.sprite.collide_rect(player, fishing_spot_stardust_1):
+                interacted = True
+            elif pygame.sprite.collide_rect(player, fishing_spot_stardust_2):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "rohir":
+            if pygame.sprite.collide_rect(player, dungeon_entrance):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "reservoir a":
+            if pygame.sprite.spritecollideany(player, dungeon_items):
+                interacted = True
+            if mini_boss_1:
+                if pygame.sprite.collide_rect(player, chorizon_1):
+                    interacted = True
+            if mini_boss_2:
+                if pygame.sprite.collide_rect(player, chorizon_2):
+                    interacted = True
+            if switch_3:
+                if pygame.sprite.collide_rect(player, dungeon_teleporter):
+                    interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "reservoir b":
+            if pygame.sprite.spritecollideany(player, interactables_reservoir_b):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "reservoir c":
+            if pygame.sprite.spritecollideany(player, interactables_reservoir_c):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "korlok":
+            if pygame.sprite.spritecollideany(player, interactables_korlok, pygame.sprite.collide_rect_ratio(0.75)):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, forge_entrance):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "mines":
+            if pygame.sprite.spritecollideany(player, interactables_mines, pygame.sprite.collide_rect_ratio(0.75)):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "terra trail":
+            if pygame.sprite.spritecollideany(player, interactables_terra_trail):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, eldream_gate_rect):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "fishing hut":
+            if pygame.Rect.colliderect(player.rect, fishing_hut_rect):
+                interacted = True
+            elif pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
+                interacted = True
+            elif pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "eldream":
+            if pygame.sprite.spritecollideany(player, interactables_eldream, pygame.sprite.collide_rect_ratio(0.75)):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, ectrenos_entrance_rect):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "ectrenos":
+            if pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "ectrenos right":
+            if pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "ectrenos left":
+            if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, altar_entrance):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "ectrenos front":
+            if pygame.Rect.colliderect(player.rect, npc_everett.rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                interacted = True
+            elif pygame.sprite.spritecollideany(player, ectrenos_front_enemies, pygame.sprite.collide_rect_ratio(0.75)):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "ectrenos alcove":
+            if pygame.Rect.colliderect(player.rect, alcove_ladder_rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "marrow":
+            if pygame.sprite.spritecollideany(player, ghouls_marrow):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, npc_artherian.rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, marrow_hearth.rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, npc_maydria.rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, npc_noren.rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, npc_boro.rect):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, sub_marrow_rect):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "marrow entrance":
+            if pygame.sprite.spritecollideany(player, interactables_marrow_entrance):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, marrow_switch_box):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "marrow tower west":
+            if pygame.Rect.colliderect(player.rect, ramps_crate_1):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, ramps_crate_2):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "marrow tower east":
+            if pygame.Rect.colliderect(player.rect, ramps_crate_3):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, ramps_crate_4):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "marrow ramps west":
+            if pygame.Rect.colliderect(player.rect, overlay_marrow_ramps_west):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "marrow ramps east":
+            if pygame.Rect.colliderect(player.rect, overlay_marrow_ramps_east):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "marrow ramps east end":
+            if pygame.Rect.colliderect(player.rect, dungeon_chest_ramps):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_2):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, erebyth):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "marrow ramps west end":
+            if pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, ramps_crate_5):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "forge" or player.current_zone == "altar":
+            if pygame.Rect.colliderect(player.rect, forge_rect):
+                interacted = True
+            else:
+                interacted = False
+
+    # checks if player is colliding with relevant objects outside the interaction event loop
+    # prevents interaction with subsequent objects if no action occurs with current object interaction
+    if not event:
+        if player.current_zone == "nascent":
+            if not pygame.sprite.spritecollideany(player, interactables_nascent):
+                interacted = False
+        if player.current_zone == "seldon":
+            if not pygame.sprite.spritecollideany(player, interactables_seldon, pygame.sprite.collide_rect_ratio(0.75)):
+                interacted = False
+        if player.current_zone == "stardust":
+            if (not pygame.sprite.spritecollideany(player, interactables_stardust) and
+                    not pygame.sprite.collide_rect(player, fishing_spot_stardust_1) and
+                    not pygame.sprite.collide_rect(player, fishing_spot_stardust_2)):
+                interacted = False
+
+        if player.current_zone == "rohir":
+            if not pygame.sprite.collide_rect(player, dungeon_entrance):
+                interacted = False
+        if player.current_zone == "reservoir a":
+            if not pygame.sprite.spritecollideany(player, dungeon_items):
+                interacted = False
+            if mini_boss_1:
+                if not pygame.sprite.collide_rect(player, chorizon_1):
+                    interacted = False
+            if mini_boss_2:
+                if not pygame.sprite.collide_rect(player, chorizon_2):
+                    interacted = False
+            if switch_3:
+                if not pygame.sprite.collide_rect(player, dungeon_teleporter):
+                    interacted = False
+
+        if player.current_zone == "reservoir b":
+            if not pygame.sprite.spritecollideany(player, interactables_reservoir_b):
+                interacted = False
+        if player.current_zone == "reservoir c":
+            if not pygame.sprite.spritecollideany(player, interactables_reservoir_c):
+                interacted = False
+
+        if player.current_zone == "korlok":
+            if (not pygame.sprite.spritecollideany(player, interactables_korlok, pygame.sprite.collide_rect_ratio(0.75))
+                    and not pygame.Rect.colliderect(player.rect, forge_entrance)):
+                interacted = False
+        if player.current_zone == "mines":
+            if not pygame.sprite.spritecollideany(player, interactables_mines, pygame.sprite.collide_rect_ratio(0.75)):
+                interacted = False
+        if player.current_zone == "terra trail":
+            if (not pygame.sprite.spritecollideany(player, interactables_terra_trail)
+                    and not pygame.Rect.colliderect(player.rect, eldream_gate_rect)):
+                interacted = False
+        if player.current_zone == "fishing hut":
+            if (not pygame.Rect.colliderect(player.rect, fishing_hut_rect)
+                    and not pygame.sprite.collide_rect(player, fishing_spot_korlok_1)
+                    and not pygame.sprite.collide_rect(player, fishing_spot_korlok_2)):
+                interacted = False
+        if player.current_zone == "eldream":
+            if (not pygame.sprite.spritecollideany(player, interactables_eldream,
+                                                   pygame.sprite.collide_rect_ratio(0.75))
+                    and not pygame.Rect.colliderect(player.rect, ectrenos_entrance_rect)):
+                interacted = False
+        if player.current_zone == "ectrenos":
+            if (not pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect) and not
+                    pygame.Rect.colliderect(player.rect, npc_leyre.rect)):
+                interacted = False
+        if player.current_zone == "ectrenos right":
+            if (not pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance)
+                    and not pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance)
+                    and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)):
+                interacted = False
+        if player.current_zone == "ectrenos left":
+            if (not pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance)
+                    and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)
+                    and not pygame.Rect.colliderect(player.rect, altar_entrance)):
+                interacted = False
+        if player.current_zone == "ectrenos front":
+            if (not pygame.Rect.colliderect(player.rect, npc_everett.rect)
+                    and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)
+                    and not pygame.sprite.spritecollideany(player, ectrenos_front_enemies,
+                                                           pygame.sprite.collide_rect_ratio(0.75))):
+                interacted = False
+        if player.current_zone == "ectrenos alcove":
+            if (not pygame.Rect.colliderect(player.rect, alcove_ladder_rect)
+                    and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)):
+                interacted = False
+        if player.current_zone == "marrow":
+            if (not pygame.sprite.spritecollideany(player, ghouls_marrow)
+                    and not pygame.Rect.colliderect(player.rect, npc_artherian.rect)
+                    and not pygame.Rect.colliderect(player.rect, marrow_hearth.rect)
+                    and not pygame.Rect.colliderect(player.rect, npc_maydria.rect)
+                    and not pygame.Rect.colliderect(player.rect, npc_noren.rect)
+                    and not pygame.Rect.colliderect(player.rect, npc_boro.rect)
+                    and not pygame.Rect.colliderect(player.rect, sub_marrow_rect)):
+                interacted = False
+        if player.current_zone == "marrow entrance":
+            if (not pygame.sprite.spritecollideany(player, interactables_marrow_entrance)
+                    and not pygame.Rect.colliderect(player.rect, marrow_switch_box)):
+                interacted = False
+        if player.current_zone == "marrow tower west":
+            if (not pygame.Rect.colliderect(player.rect, ramps_crate_1)
+                    and not pygame.Rect.colliderect(player.rect, ramps_crate_2)):
+                interacted = False
+        if player.current_zone == "marrow tower east":
+            if (not pygame.Rect.colliderect(player.rect, ramps_crate_3)
+                    and not pygame.Rect.colliderect(player.rect, ramps_crate_4)):
+                interacted = False
+        if player.current_zone == "marrow ramps west":
+            if not pygame.Rect.colliderect(player.rect, overlay_marrow_ramps_west):
+                interacted = False
+        if player.current_zone == "marrow ramps east":
+            if not pygame.Rect.colliderect(player.rect, overlay_marrow_ramps_east):
+                interacted = False
+        if player.current_zone == "marrow ramps east end":
+            if (not pygame.Rect.colliderect(player.rect, dungeon_chest_ramps)
+                    and not pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_2)
+                    and not pygame.Rect.colliderect(player.rect, erebyth)):
+                interacted = False
+        if player.current_zone == "marrow ramps west end":
+            if (not pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1) and not
+                    pygame.Rect.colliderect(player.rect, ramps_crate_5)):
+                interacted = False
+        if player.current_zone == "forge" or player.current_zone == "altar":
+            if not pygame.Rect.colliderect(player.rect, forge_rect):
+                interacted = False
+
+    return interacted
+
+
 def fishing_function(pygame, fishing_timer, player, current_zone, spot_3_img, spot_4_img, spot_1_korlok, spot_2_korlok,
                      fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
                      best_fish_counter, fishing, fish_caught, amuna_m_right, amuna_m_down, amuna_f_right, amuna_f_down,
                      nuldar_m_right, nuldar_m_down, nuldar_f_right, nuldar_f_down, sorae_a_right, sorae_a_down,
                      sorae_b_right, sorae_b_down, previous_surf, spot_1_stardust, spot_2_stardust):
-
     fishing_timer_end = time.perf_counter()
     if fishing_timer_end - fishing_timer >= 3:
 

@@ -318,10 +318,16 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             interaction_info_rect.center = (fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
 
-            info_text_1 = "Press 'F' key to fish."
-            info_text_2 = ""
-            info_text_3 = ""
-            info_text_4 = ""
+            if fishing_unlocked:
+                info_text_1 = "Press 'F' key to fish."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "You need to unlock fishing. "
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
 
             # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
             if interacted and in_over_world and fishing_unlocked:
@@ -344,10 +350,16 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
             interaction_info_rect.center = (fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50)
             screen.blit(interaction_info_surf, interaction_info_rect)
 
-            info_text_1 = "Press 'F' key to fish."
-            info_text_2 = ""
-            info_text_3 = ""
-            info_text_4 = ""
+            if fishing_unlocked:
+                info_text_1 = "Press 'F' key to fish."
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
+            else:
+                info_text_1 = "You need to unlock fishing. "
+                info_text_2 = ""
+                info_text_3 = ""
+                info_text_4 = ""
 
             # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
             if interacted and in_over_world and fishing_unlocked:

@@ -24,6 +24,7 @@ import zone_ectrenos
 import zone_marrow
 import zone_forge
 import zone_altar
+import zone_fishing_hut
 
 # global variable
 velocity = 3
@@ -6955,11 +6956,11 @@ if __name__ == "__main__":
                          graphic_dict["ghoul"], UiElement("ghoul hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     # friendly's -------------------------------------------------------------------------------------------------------
     # classed as enemies so players can fight with them, but cannot be killed
-    stelli_a = Enemy("stellia", "stelli", 100, 100, 3, 805, 525, True, "item", graphic_dict["stelli_a"],
+    stelli_a = Enemy("stellia", "stelli", 100, 100, 3, 700, 550, True, "item", graphic_dict["stelli_a"],
                      UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "scout")
     stelli_b = Enemy("stellib", "stelli", 100, 100, 3, 805, 140, True, "item", graphic_dict["stelli_b"],
                      UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "mage")
-    stelli_c = Enemy("stellic", "stelli", 100, 100, 3, 305, 545, True, "item", graphic_dict["stelli_c"],
+    stelli_c = Enemy("stellic", "stelli", 100, 100, 3, 305, 425, True, "item", graphic_dict["stelli_c"],
                      UiElement("stelli hp bar", 700, 90, graphic_dict["hp_100"]), "fighter")
     # reservoir enemies ------------------------------------------------------------------------------------------------
     chorizon_1 = Enemy("chorizon_1", "chorizon", 100, 100, 7, 150, 230, True, "item", graphic_dict["chorizon"],
@@ -8900,6 +8901,45 @@ if __name__ == "__main__":
                 if in_over_world and not in_battle and not in_npc_interaction and not in_shop and not in_inn \
                         and not in_academia:
 
+                    interacted = gameplay_functions.check_interaction(pygame, player, interactables_nascent,
+                                                                      interactables_seldon,
+                                                                      interactables_stardust,
+                                                                      fishing_spot_stardust_1,
+                                                                      fishing_spot_stardust_2,
+                                                                      dungeon_entrance, dungeon_items,
+                                                                      mini_boss_1, chorizon_1, mini_boss_2,
+                                                                      chorizon_2, switch_3,
+                                                                      dungeon_teleporter,
+                                                                      interactables_reservoir_b,
+                                                                      interactables_reservoir_c,
+                                                                      interactables_korlok, forge_entrance,
+                                                                      interactables_mines,
+                                                                      interactables_terra_trail,
+                                                                      eldream_gate_rect, fishing_hut_rect,
+                                                                      fishing_spot_korlok_1,
+                                                                      fishing_spot_korlok_2,
+                                                                      interactables_eldream,
+                                                                      ectrenos_entrance_rect,
+                                                                      ectrenos_ladder_rect, npc_leyre,
+                                                                      ectrenos_inn_entrance,
+                                                                      ectrenos_shop_entrance,
+                                                                      ectrenos_pet_entrance, altar_entrance,
+                                                                      npc_everett, ectrenos_front_enemies,
+                                                                      alcove_ladder_rect, ghouls_marrow,
+                                                                      npc_artherian, marrow_hearth,
+                                                                      npc_maydria, npc_noren, npc_boro,
+                                                                      sub_marrow_rect,
+                                                                      interactables_marrow_entrance,
+                                                                      marrow_switch_box, ramps_crate_1,
+                                                                      ramps_crate_2, ramps_crate_3,
+                                                                      ramps_crate_4,
+                                                                      overlay_marrow_ramps_west,
+                                                                      overlay_marrow_ramps_east,
+                                                                      dungeon_chest_ramps,
+                                                                      dungeon_switch_ramps_2, erebyth,
+                                                                      dungeon_switch_ramps_1, ramps_crate_5,
+                                                                      forge_rect, interacted, False)
+
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
                         if quest_highlight_popup:
@@ -9040,152 +9080,45 @@ if __name__ == "__main__":
                                     drawing_functions.first_quest_window.clear()
                                 if len(drawing_functions.world_map_container) > 0:
                                     drawing_functions.world_map_container.clear()
-                                if player.current_zone == "nascent":
-                                    if pygame.sprite.spritecollideany(player, interactables_nascent):
-                                        interacted = True
-                                if player.current_zone == "seldon":
-                                    if pygame.sprite.spritecollideany(player, interactables_seldon,
-                                                                      pygame.sprite.collide_rect_ratio(0.75)):
-                                        interacted = True
-                                if player.current_zone == "stardust":
-                                    if pygame.sprite.spritecollideany(player, interactables_stardust):
-                                        interacted = True
-                                    if pygame.sprite.collide_rect(player, fishing_spot_stardust_1):
-                                        interacted = True
-                                    if pygame.sprite.collide_rect(player, fishing_spot_stardust_2):
-                                        interacted = True
-                                if player.current_zone == "rohir":
-                                    if pygame.sprite.collide_rect(player, dungeon_entrance):
-                                        interacted = True
-                                if player.current_zone == "reservoir a":
-                                    if pygame.sprite.spritecollideany(player, dungeon_items):
-                                        interacted = True
-                                    if mini_boss_1:
-                                        if pygame.sprite.collide_rect(player, chorizon_1):
-                                            interacted = True
-                                    if mini_boss_2:
-                                        if pygame.sprite.collide_rect(player, chorizon_2):
-                                            interacted = True
-                                    if switch_3:
-                                        if pygame.sprite.collide_rect(player, dungeon_teleporter):
-                                            interacted = True
-                                if player.current_zone == "reservoir b":
-                                    if pygame.sprite.spritecollideany(player, interactables_reservoir_b):
-                                        interacted = True
-                                if player.current_zone == "reservoir c":
-                                    if pygame.sprite.spritecollideany(player, interactables_reservoir_c):
-                                        interacted = True
-                                if player.current_zone == "korlok":
-                                    if pygame.sprite.spritecollideany(player, interactables_korlok,
-                                                                      pygame.sprite.collide_rect_ratio(0.75)):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, forge_entrance):
-                                        interacted = True
-                                if player.current_zone == "mines":
-                                    if pygame.sprite.spritecollideany(player, interactables_mines,
-                                                                      pygame.sprite.collide_rect_ratio(0.75)):
-                                        interacted = True
-                                if player.current_zone == "terra trail":
-                                    if pygame.sprite.spritecollideany(player, interactables_terra_trail):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, eldream_gate_rect):
-                                        interacted = True
-                                if player.current_zone == "fishing hut":
-                                    if pygame.Rect.colliderect(player.rect, fishing_hut_rect):
-                                        interacted = True
-                                    if pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
-                                        interacted = True
-                                    if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
-                                        interacted = True
-                                if player.current_zone == "eldream":
-                                    if pygame.sprite.spritecollideany(player, interactables_eldream,
-                                                                      pygame.sprite.collide_rect_ratio(0.75)):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, ectrenos_entrance_rect):
-                                        interacted = True
-                                if player.current_zone == "ectrenos":
-                                    if pygame.Rect.colliderect(player.rect, ectrenos_ladder_rect):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
-                                        interacted = True
-                                if player.current_zone == "ectrenos right":
-                                    if pygame.Rect.colliderect(player.rect, ectrenos_inn_entrance):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, ectrenos_shop_entrance):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
-                                        interacted = True
-                                if player.current_zone == "ectrenos left":
-                                    if pygame.Rect.colliderect(player.rect, ectrenos_pet_entrance):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, altar_entrance):
-                                        interacted = True
-                                if player.current_zone == "ectrenos front":
-                                    if pygame.Rect.colliderect(player.rect, npc_everett.rect):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
-                                        interacted = True
-                                    if pygame.sprite.spritecollideany(player, ectrenos_front_enemies,
-                                                                      pygame.sprite.collide_rect_ratio(0.75)):
-                                        interacted = True
-                                if player.current_zone == "ectrenos alcove":
-                                    if pygame.Rect.colliderect(player.rect, alcove_ladder_rect):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_leyre.rect):
-                                        interacted = True
-                                if player.current_zone == "marrow":
-                                    if pygame.sprite.spritecollideany(player, ghouls_marrow):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_artherian.rect):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, marrow_hearth.rect):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_maydria.rect):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_noren.rect):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, npc_boro.rect):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, sub_marrow_rect):
-                                        interacted = True
-                                if player.current_zone == "marrow entrance":
-                                    if pygame.sprite.spritecollideany(player, interactables_marrow_entrance):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, marrow_switch_box):
-                                        interacted = True
-                                if player.current_zone == "marrow tower west":
-                                    if pygame.Rect.colliderect(player.rect, ramps_crate_1):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, ramps_crate_2):
-                                        interacted = True
-                                if player.current_zone == "marrow tower east":
-                                    if pygame.Rect.colliderect(player.rect, ramps_crate_3):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, ramps_crate_4):
-                                        interacted = True
-                                if player.current_zone == "marrow ramps west":
-                                    if pygame.Rect.colliderect(player.rect, overlay_marrow_ramps_west):
-                                        interacted = True
-                                if player.current_zone == "marrow ramps east":
-                                    if pygame.Rect.colliderect(player.rect, overlay_marrow_ramps_east):
-                                        interacted = True
-                                if player.current_zone == "marrow ramps east end":
-                                    if pygame.Rect.colliderect(player.rect, dungeon_chest_ramps):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_2):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, erebyth):
-                                        interacted = True
-                                if player.current_zone == "marrow ramps west end":
-                                    if pygame.Rect.colliderect(player.rect, dungeon_switch_ramps_1):
-                                        interacted = True
-                                    if pygame.Rect.colliderect(player.rect, ramps_crate_5):
-                                        interacted = True
-                                if player.current_zone == "forge" or player.current_zone == "altar":
-                                    if pygame.Rect.colliderect(player.rect, forge_rect):
-                                        interacted = True
+
+                                interacted = gameplay_functions.check_interaction(pygame, player, interactables_nascent,
+                                                                                  interactables_seldon,
+                                                                                  interactables_stardust,
+                                                                                  fishing_spot_stardust_1,
+                                                                                  fishing_spot_stardust_2,
+                                                                                  dungeon_entrance, dungeon_items,
+                                                                                  mini_boss_1, chorizon_1, mini_boss_2,
+                                                                                  chorizon_2, switch_3,
+                                                                                  dungeon_teleporter,
+                                                                                  interactables_reservoir_b,
+                                                                                  interactables_reservoir_c,
+                                                                                  interactables_korlok, forge_entrance,
+                                                                                  interactables_mines,
+                                                                                  interactables_terra_trail,
+                                                                                  eldream_gate_rect, fishing_hut_rect,
+                                                                                  fishing_spot_korlok_1,
+                                                                                  fishing_spot_korlok_2,
+                                                                                  interactables_eldream,
+                                                                                  ectrenos_entrance_rect,
+                                                                                  ectrenos_ladder_rect, npc_leyre,
+                                                                                  ectrenos_inn_entrance,
+                                                                                  ectrenos_shop_entrance,
+                                                                                  ectrenos_pet_entrance, altar_entrance,
+                                                                                  npc_everett, ectrenos_front_enemies,
+                                                                                  alcove_ladder_rect, ghouls_marrow,
+                                                                                  npc_artherian, marrow_hearth,
+                                                                                  npc_maydria, npc_noren, npc_boro,
+                                                                                  sub_marrow_rect,
+                                                                                  interactables_marrow_entrance,
+                                                                                  marrow_switch_box, ramps_crate_1,
+                                                                                  ramps_crate_2, ramps_crate_3,
+                                                                                  ramps_crate_4,
+                                                                                  overlay_marrow_ramps_west,
+                                                                                  overlay_marrow_ramps_east,
+                                                                                  dungeon_chest_ramps,
+                                                                                  dungeon_switch_ramps_2, erebyth,
+                                                                                  dungeon_switch_ramps_1, ramps_crate_5,
+                                                                                  forge_rect, interacted, True)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -9708,240 +9641,56 @@ if __name__ == "__main__":
                 if player.current_zone == "fishing hut" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
-                    if not over_world_song_set:
-                        if pygame.mixer.music.get_busy():
-                            pygame.mixer.music.fadeout(50)
-                            pygame.mixer.music.load(fishing_music)
-                            pygame.mixer.music.play(loops=-1)
-                            over_world_song_set = True
-
-                    # if player isn't currently fishing, periodically update spots for animation
-                    if not fishing:
-                        if walk_tic % 2 > 1.75:
-                            fishing_spot_korlok_1.update(740, 410, graphic_dict["fishing_spot_1"])
-                            fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_2"])
-                        else:
-                            fishing_spot_korlok_1.update(740, 410, graphic_dict["fishing_spot_2"])
-                            fishing_spot_korlok_2.update(575, 525, graphic_dict["fishing_spot_1"])
-
-                    # if player is fishing
-                    else:
-                        fish_return = gameplay_functions.fishing_function(pygame, fishing_timer, player,
-                                                                          player.current_zone,
-                                                                          graphic_dict["fishing_spot_3"],
-                                                                          graphic_dict["fishing_spot_4"],
-                                                                          fishing_spot_korlok_1, fishing_spot_korlok_2,
-                                                                          fishing_level, basic_fish_counter,
-                                                                          better_fish_counter, even_better_fish_counter,
-                                                                          best_fish_counter, fishing, fish_caught,
-                                                                          graphic_dict["amuna_m_fishing_right"],
-                                                                          graphic_dict["amuna_m_fishing_down"],
-                                                                          graphic_dict["amuna_f_fishing_right"],
-                                                                          graphic_dict["amuna_f_fishing_down"],
-                                                                          graphic_dict["nuldar_m_fishing_right"],
-                                                                          graphic_dict["nuldar_m_fishing_down"],
-                                                                          graphic_dict["nuldar_f_fishing_right"],
-                                                                          graphic_dict["nuldar_f_fishing_down"],
-                                                                          graphic_dict["sorae_a_fishing_right"],
-                                                                          graphic_dict["sorae_a_fishing_down"],
-                                                                          graphic_dict["sorae_b_fishing_right"],
-                                                                          graphic_dict["sorae_b_fishing_down"],
-                                                                          previous_surf, fishing_spot_stardust_1,
-                                                                          fishing_spot_stardust_2)
-                        basic_fish_counter = fish_return["basic_fish_counter"]
-                        better_fish_counter = fish_return["better_fish_counter"]
-                        even_better_fish_counter = fish_return["even_better_fish_counter"]
-                        best_fish_counter = fish_return["best_fish_counter"]
-                        fish_caught = fish_return["fish_caught"]
-                        fishing = fish_return["fishing"]
-                        movement_able = fish_return["movement_able"]
-
-                    # water movement animation -------------------------------------------------------------------------
-                    if 1000 > water_fish_1.x_coordinate > 35:
-                        water_fish_1.x_coordinate -= 1
-                        water_fish_1.rect.midbottom = (water_fish_1.x_coordinate, water_fish_1.y_coordinate)
-                    else:
-                        water_fish_1.update(850, water_fish_1.y_coordinate, graphic_dict["water"])
-
-                    if 1000 > water_fish_3.x_coordinate > 35:
-                        water_fish_3.x_coordinate -= 1
-                        water_fish_3.rect.midbottom = (water_fish_3.x_coordinate, water_fish_3.y_coordinate)
-                    else:
-                        water_fish_3.update(850, water_fish_3.y_coordinate, graphic_dict["water"])
-
-                    if 1000 > water_fish_4.x_coordinate > 35:
-                        water_fish_4.x_coordinate -= 1
-                        water_fish_4.rect.midbottom = (water_fish_4.x_coordinate, water_fish_4.y_coordinate)
-                    else:
-                        water_fish_4.update(850, water_fish_4.y_coordinate, graphic_dict["water"])
-                    # --------------------------------------------------------------------------------------------------
-
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                        screen.blit(fishing_hut_bg, (0, 0))
-                        screen.blit(water_fish_1.surf, water_fish_1.rect)
-                        screen.blit(water_fish_3.surf, water_fish_3.rect)
-                        screen.blit(water_fish_4.surf, water_fish_4.rect)
-                        screen.blit(equipment_screen.surf, equipment_screen.rect)
-                        screen.blit(offense_meter.surf, offense_meter.rect)
-                        screen.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                        screen.blit(fishing_spot_korlok_1.surf, fishing_spot_korlok_1.rect)
-                        screen.blit(fishing_spot_korlok_2.surf, fishing_spot_korlok_2.rect)
-                        screen.blit(player.surf, player.rect)
-                        for save_window in save_check_window:
-                            screen.blit(save_window.surf, save_window.rect)
-                        for ui_elements in user_interface:
-                            if len(drawing_functions.item_info_window) != 0:
-                                if ui_elements.name != "star power":
-                                    screen.blit(ui_elements.surf, ui_elements.rect)
-                            else:
-                                screen.blit(ui_elements.surf, ui_elements.rect)
-                        screen.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        screen.blit(hp_bar.surf, hp_bar.rect)
-                        screen.blit(en_bar.surf, en_bar.rect)
-                        screen.blit(xp_bar.surf, xp_bar.rect)
-                        drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3,
-                                                         info_text_4, in_over_world)
-                        drawing_functions.draw_it(screen)
-                        if len(drawing_functions.loot_popup_container) > 0:
-                            for popup in drawing_functions.loot_popup_container:
-                                screen.blit(popup.surf, popup.rect)
-                        if len(drawing_functions.loot_text_container) > 0:
-                            for loot_text in drawing_functions.loot_text_container:
-                                screen.blit(loot_text[0], loot_text[1])
+                        hut_returned = zone_fishing_hut.fishing_hut(pygame, screen, player, over_world_song_set,
+                                                                    fishing_music, fishing, walk_tic,
+                                                                    fishing_spot_korlok_1, fishing_spot_korlok_2,
+                                                                    graphic_dict, fishing_timer, fishing_level,
+                                                                    basic_fish_counter, better_fish_counter,
+                                                                    even_better_fish_counter, best_fish_counter,
+                                                                    fish_caught, previous_surf, water_fish_1,
+                                                                    water_fish_3, water_fish_4, fishing_hut_bg,
+                                                                    equipment_screen, offense_meter, defense_meter,
+                                                                    staff, sword, bow, npc_garan, weapon_select,
+                                                                    save_check_window, user_interface, bar_backdrop,
+                                                                    hp_bar, en_bar, xp_bar, font, info_text_1,
+                                                                    info_text_2, info_text_3, info_text_4,
+                                                                    in_over_world, fishing_hut_rect, interaction_popup,
+                                                                    interacted, fishing_unlocked, movement_able, in_hut)
                     else:
-                        game_window.blit(fishing_hut_bg, (0, 0))
-                        game_window.blit(water_fish_1.surf, water_fish_1.rect)
-                        game_window.blit(water_fish_3.surf, water_fish_3.rect)
-                        game_window.blit(water_fish_4.surf, water_fish_4.rect)
-                        game_window.blit(equipment_screen.surf, equipment_screen.rect)
-                        game_window.blit(offense_meter.surf, offense_meter.rect)
-                        game_window.blit(defense_meter.surf, defense_meter.rect)
-                        drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
-                        game_window.blit(fishing_spot_korlok_1.surf, fishing_spot_korlok_1.rect)
-                        game_window.blit(fishing_spot_korlok_2.surf, fishing_spot_korlok_2.rect)
-                        game_window.blit(player.surf, player.rect)
-                        for save_window in save_check_window:
-                            game_window.blit(save_window.surf, save_window.rect)
-                        for ui_elements in user_interface:
-                            if len(drawing_functions.item_info_window) != 0:
-                                if ui_elements.name != "star power":
-                                    game_window.blit(ui_elements.surf, ui_elements.rect)
-                            else:
-                                game_window.blit(ui_elements.surf, ui_elements.rect)
+                        hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
+                                                                    fishing_music, fishing, walk_tic,
+                                                                    fishing_spot_korlok_1, fishing_spot_korlok_2,
+                                                                    graphic_dict, fishing_timer, fishing_level,
+                                                                    basic_fish_counter, better_fish_counter,
+                                                                    even_better_fish_counter, best_fish_counter,
+                                                                    fish_caught, previous_surf, water_fish_1,
+                                                                    water_fish_3, water_fish_4, fishing_hut_bg,
+                                                                    equipment_screen, offense_meter, defense_meter,
+                                                                    staff, sword, bow, npc_garan, weapon_select,
+                                                                    save_check_window, user_interface, bar_backdrop,
+                                                                    hp_bar, en_bar, xp_bar, font, info_text_1,
+                                                                    info_text_2, info_text_3, info_text_4,
+                                                                    in_over_world, fishing_hut_rect, interaction_popup,
+                                                                    interacted, fishing_unlocked, movement_able, in_hut)
 
-                        game_window.blit(bar_backdrop.surf, bar_backdrop.rect)
-                        game_window.blit(hp_bar.surf, hp_bar.rect)
-                        game_window.blit(en_bar.surf, en_bar.rect)
-                        game_window.blit(xp_bar.surf, xp_bar.rect)
-                        drawing_functions.text_info_draw(game_window, player, font, info_text_1, info_text_2,
-                                                         info_text_3, info_text_4, in_over_world)
-                        drawing_functions.draw_it(game_window)
-                        if len(drawing_functions.loot_popup_container) > 0:
-                            for popup in drawing_functions.loot_popup_container:
-                                game_window.blit(popup.surf, popup.rect)
-                        if len(drawing_functions.loot_text_container) > 0:
-                            for loot_text in drawing_functions.loot_text_container:
-                                game_window.blit(loot_text[0], loot_text[1])
-
-                    if pygame.Rect.colliderect(player.rect, fishing_hut_rect):
-                        interaction_popup.update(847, 148, graphic_dict["popup_interaction"])
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(interaction_popup.surf, interaction_popup.rect)
-                        else:
-                            game_window.blit(interaction_popup.surf, interaction_popup.rect)
-                        interaction_info_surf = font.render(str("fishing hut"), True, "black", "light yellow")
-                        interaction_info_rect = interaction_info_surf.get_rect()
-                        interaction_info_rect.center = (847, 148)
-                        if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                            screen.blit(interaction_info_surf, interaction_info_rect)
-                        else:
-                            game_window.blit(interaction_info_surf, interaction_info_rect)
-                        info_text_1 = "Press 'F' key to enter hut."
-                        info_text_2 = ""
-                        info_text_3 = ""
-                        info_text_4 = ""
-
-                        if interacted and in_over_world:
-                            interacted = False
-                            movement_able = False
-                            in_over_world = False
-                            in_hut = True
-
-                    if not fishing:
-                        if pygame.sprite.collide_rect(player, fishing_spot_korlok_1):
-                            interaction_popup.update(fishing_spot_korlok_1.x_coordinate,
-                                                     fishing_spot_korlok_1.y_coordinate - 50,
-                                                     graphic_dict["popup_interaction_blue"])
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(interaction_popup.surf, interaction_popup.rect)
-                            else:
-                                game_window.blit(interaction_popup.surf, interaction_popup.rect)
-                            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
-                            interaction_info_rect = interaction_info_surf.get_rect()
-                            interaction_info_rect.center = (fishing_spot_korlok_1.x_coordinate,
-                                                            fishing_spot_korlok_1.y_coordinate - 50)
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(interaction_info_surf, interaction_info_rect)
-                            else:
-                                game_window.blit(interaction_info_surf, interaction_info_rect)
-                            info_text_1 = "Press 'F' key to fish."
-                            info_text_2 = ""
-                            info_text_3 = ""
-                            info_text_4 = ""
-
-                            # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
-                            if interacted and in_over_world and fishing_unlocked:
-                                for item in player.items:
-                                    if item.name == "korlok bait":
-                                        fishing = True
-                                        interacted = False
-                                        fishing_timer = time.perf_counter()
-                                        player.items.remove(item)
-                                        previous_surf = player.surf
-                                        # to clear popup
-                                        fish_caught = False
-                                        break
-
-                        if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
-                            interaction_popup.update(fishing_spot_korlok_2.x_coordinate,
-                                                     fishing_spot_korlok_2.y_coordinate - 50,
-                                                     graphic_dict["popup_interaction_blue"])
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(interaction_popup.surf, interaction_popup.rect)
-                            else:
-                                game_window.blit(interaction_popup.surf, interaction_popup.rect)
-                            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
-                            interaction_info_rect = interaction_info_surf.get_rect()
-                            interaction_info_rect.center = (fishing_spot_korlok_2.x_coordinate,
-                                                            fishing_spot_korlok_2.y_coordinate - 50)
-                            if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
-                                screen.blit(interaction_info_surf, interaction_info_rect)
-                            else:
-                                game_window.blit(interaction_info_surf, interaction_info_rect)
-                            info_text_1 = "Press 'F' key to fish."
-                            info_text_2 = ""
-                            info_text_3 = ""
-                            info_text_4 = ""
-
-                            if interacted and in_over_world and fishing_unlocked:
-                                for item in player.items:
-                                    if item.name == "korlok bait":
-                                        fishing = True
-                                        interacted = False
-                                        fishing_timer = time.perf_counter()
-                                        player.items.remove(item)
-                                        previous_surf = player.surf
-                                        fish_caught = False
-                                        break
-
-                    # move player to seldon district when they approach nascent grove exit
-                    if player.x_coordinate < 50 and player.y_coordinate < 375:
-                        player.current_zone = "korlok"
-                        in_over_world = True
-                        over_world_song_set = False
-                        player.x_coordinate = 925
-                        player.y_coordinate = 545
+                    over_world_song_set = hut_returned["over_world_song_set"]
+                    basic_fish_counter = hut_returned["basic_fish_counter"]
+                    better_fish_counter = hut_returned["better_fish_counter"]
+                    even_better_fish_counter = hut_returned["even_better_fish_counter"]
+                    best_fish_counter = hut_returned["best_fish_counter"]
+                    fish_caught = hut_returned["fish_caught"]
+                    movement_able = hut_returned["movement_able"]
+                    info_text_1 = hut_returned["info_text_1"]
+                    info_text_2 = hut_returned["info_text_2"]
+                    info_text_3 = hut_returned["info_text_3"]
+                    info_text_4 = hut_returned["info_text_4"]
+                    in_hut = hut_returned["in_hut"]
+                    fishing = hut_returned["fishing"]
+                    fishing_timer = hut_returned["fishing_timer"]
+                    previous_surf = hut_returned["previous_surf"]
+                    interacted = hut_returned["interacted"]
+                    in_over_world = hut_returned["in_over_world"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in seldon district ----------------------------------------------------------------------
@@ -16499,10 +16248,9 @@ if __name__ == "__main__":
                                 button_highlighted = False
 
                             if check_basic_fish_button.rect.collidepoint(pos) and hut_window_open:
-                                pygame.mixer.find_channel(True).play(sfx_button_click)
-                                if basic_fish_counter >= 15:
+                                if basic_fish_counter >= 10:
                                     if not basic_fish_reward:
-                                        if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
+                                        if fishing_level == 1 or fishing_level == 2.0 or fishing_level == 3.0:
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
                                         else:
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
@@ -16510,39 +16258,41 @@ if __name__ == "__main__":
                                         fishing_level += 0.5
                                         player.rupees += 300
                                         info_text_1 = "You gained fishing experience"
-                                        info_text_2 = "And some Rupees!"
+                                        info_text_2 = "And 300 Rupees!"
                                         basic_fish_reward = True
                                     else:
+                                        pygame.mixer.find_channel(True).play(sfx_button_click)
                                         info_text_1 = "You already claimed this reward. "
                                         info_text_2 = ""
                                 else:
-                                    info_text_1 = "You need to catch 15 fish. "
+                                    pygame.mixer.find_channel(True).play(sfx_button_click)
+                                    info_text_1 = "You need to catch 10 fish. "
                                     info_text_2 = ""
                                 button_highlighted = False
                             if check_better_fish_button.rect.collidepoint(pos) and hut_window_open:
-                                pygame.mixer.find_channel(True).play(sfx_button_click)
-                                if better_fish_counter >= 20:
+                                if better_fish_counter >= 15:
                                     if not better_fish_reward:
-                                        if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
+                                        if fishing_level == 1 or fishing_level == 2.0 or fishing_level == 3.0:
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
                                         else:
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                         fishing_level += 0.5
-                                        player.rupees += 300
+                                        player.rupees += 400
                                         info_text_1 = "You gained fishing experience"
-                                        info_text_2 = "And some Rupees!"
+                                        info_text_2 = "And 400 Rupees!"
                                         better_fish_reward = True
                                     else:
+                                        pygame.mixer.find_channel(True).play(sfx_button_click)
                                         info_text_1 = "You already claimed this reward. "
                                         info_text_2 = ""
                                 else:
-                                    info_text_1 = "You need to catch 20 fish. "
+                                    pygame.mixer.find_channel(True).play(sfx_button_click)
+                                    info_text_1 = "You need to catch 15 fish. "
                                     info_text_2 = ""
                                 button_highlighted = False
                             if check_even_better_fish_button.rect.collidepoint(pos) and hut_window_open:
-                                pygame.mixer.find_channel(True).play(sfx_button_click)
-                                if even_better_fish_counter >= 25:
+                                if even_better_fish_counter >= 20:
                                     if not even_better_fish_reward:
                                         if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
@@ -16550,20 +16300,21 @@ if __name__ == "__main__":
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                         fishing_level += 0.5
-                                        player.rupees += 300
+                                        player.rupees += 500
                                         info_text_1 = "You gained fishing experience"
-                                        info_text_2 = "And some Rupees!"
+                                        info_text_2 = "And 500 Rupees!"
                                         even_better_fish_reward = True
                                     else:
+                                        pygame.mixer.find_channel(True).play(sfx_button_click)
                                         info_text_1 = "You already claimed this reward. "
                                         info_text_2 = ""
                                 else:
-                                    info_text_1 = "You need to catch 25 fish. "
+                                    pygame.mixer.find_channel(True).play(sfx_button_click)
+                                    info_text_1 = "You need to catch 20 fish. "
                                     info_text_2 = ""
                                 button_highlighted = False
                             if check_best_fish_button.rect.collidepoint(pos) and hut_window_open:
-                                pygame.mixer.find_channel(True).play(sfx_button_click)
-                                if best_fish_counter >= 30:
+                                if best_fish_counter >= 25:
                                     if not best_fish_reward:
                                         if fishing_level == 1 or fishing_level == 2 or fishing_level == 3:
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_1"])
@@ -16571,15 +16322,17 @@ if __name__ == "__main__":
                                             fishing_level_overlay.update(410, 510, graphic_dict["fishing_level_0"])
                                         pygame.mixer.find_channel(True).play(sfx_quest_complete)
                                         fishing_level += 0.5
-                                        player.rupees += 300
+                                        player.rupees += 800
                                         info_text_1 = "You gained fishing experience"
-                                        info_text_2 = "And some Rupees!"
+                                        info_text_2 = "And 800 Rupees!"
                                         best_fish_reward = True
                                     else:
+                                        pygame.mixer.find_channel(True).play(sfx_button_click)
                                         info_text_1 = "You already claimed this reward. "
                                         info_text_2 = ""
                                 else:
-                                    info_text_1 = "You need to catch 30 fish. "
+                                    pygame.mixer.find_channel(True).play(sfx_button_click)
+                                    info_text_1 = "You need to catch 25 fish. "
                                     info_text_2 = ""
                                 button_highlighted = False
 
@@ -16699,8 +16452,8 @@ if __name__ == "__main__":
                                                                      graphic_dict["korlok_bait"], 0))
                                         bait_given = True
                                 else:
-                                    info_text_1 = "Not enough inventory space. "
-                                    info_text_2 = ""
+                                    info_text_1 = "Not enough inventory space "
+                                    info_text_2 = "To add bait."
                                 button_highlighted = False
                                 quest_clicked = False
                                 drawing_functions.quest_box_fishing.clear()
@@ -16795,22 +16548,22 @@ if __name__ == "__main__":
                             screen.blit(fish_button.surf, fish_button.rect)
                             if fishing_journal_unlocked:
                                 if hut_window_open:
-                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /15",
+                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /10",
                                                                            True, "black", "light yellow")
                                     basic_fish_surf_rect = basic_fish_surf.get_rect()
                                     basic_fish_surf_rect.midleft = (40, 150)
                                     screen.blit(basic_fish_surf, basic_fish_surf_rect)
-                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /20",
+                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /15",
                                                                             True, "black", "light yellow")
                                     better_fish_surf_rect = better_fish_surf.get_rect()
                                     better_fish_surf_rect.midleft = (40, 247)
                                     screen.blit(better_fish_surf, better_fish_surf_rect)
-                                    even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /25",
+                                    even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /20",
                                                                                  True, "black", "light yellow")
                                     even_better_fish_surf_rect = even_better_fish_surf.get_rect()
                                     even_better_fish_surf_rect.midleft = (40, 344)
                                     screen.blit(even_better_fish_surf, even_better_fish_surf_rect)
-                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /30",
+                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /25",
                                                                           True, "black", "light yellow")
                                     best_fish_surf_rect = best_fish_surf.get_rect()
                                     best_fish_surf_rect.midleft = (40, 440)
@@ -16832,22 +16585,22 @@ if __name__ == "__main__":
                             game_window.blit(fish_button.surf, fish_button.rect)
                             if fishing_journal_unlocked:
                                 if hut_window_open:
-                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /15",
+                                    basic_fish_surf = level_up_font.render(str(basic_fish_counter) + " /10",
                                                                            True, "black", "light yellow")
                                     basic_fish_surf_rect = basic_fish_surf.get_rect()
                                     basic_fish_surf_rect.midleft = (40, 150)
                                     game_window.blit(basic_fish_surf, basic_fish_surf_rect)
-                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /20",
+                                    better_fish_surf = level_up_font.render(str(better_fish_counter) + " /15",
                                                                             True, "black", "light yellow")
                                     better_fish_surf_rect = better_fish_surf.get_rect()
                                     better_fish_surf_rect.midleft = (40, 247)
                                     game_window.blit(better_fish_surf, better_fish_surf_rect)
-                                    even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /25",
+                                    even_better_fish_surf = level_up_font.render(str(even_better_fish_counter) + " /20",
                                                                                  True, "black", "light yellow")
                                     even_better_fish_surf_rect = even_better_fish_surf.get_rect()
                                     even_better_fish_surf_rect.midleft = (40, 344)
                                     game_window.blit(even_better_fish_surf, even_better_fish_surf_rect)
-                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /30",
+                                    best_fish_surf = level_up_font.render(str(best_fish_counter) + " /25",
                                                                           True, "black", "light yellow")
                                     best_fish_surf_rect = best_fish_surf.get_rect()
                                     best_fish_surf_rect.midleft = (40, 440)
