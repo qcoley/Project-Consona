@@ -3,6 +3,7 @@ import time
 
 import drawing_functions
 import combat_scenario
+import gameplay_functions
 
 
 def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost_music, stardust_cove_bg,
@@ -16,7 +17,10 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                      equipment_screen, staff, sword, bow, npc_garan, offense_meter, defense_meter, weapon_select,
                      rock, pet_energy_window, stardust_top, necrola_battle_sprite, osodark_battle_sprite, sfx_nede,
                      sfx_door, sfx_rupee, rock_3_con, outpost_show, outpost_notify, stellis, enemy_tic,
-                     stelli_battle_sprite, vanished, vanish_overlay, waterfall, level_checked):
+                     stelli_battle_sprite, vanished, vanish_overlay, waterfall, level_checked, fishing_spot_1,
+                     fishing_spot_2, fishing, walk_tic, fishing_unlocked, fishing_timer, fish_caught, previous_surf,
+                     fishing_level, basic_fish_counter, better_fish_counter, even_better_fish_counter,
+                     best_fish_counter):
 
     if not stardust_song_set:
         if pygame.mixer.music.get_busy():
@@ -56,6 +60,46 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
 
     for stelli in stellis:
         screen.blit(stelli.surf, stelli.rect)
+
+    if not fishing:
+        if walk_tic % 2 > 1.75:
+            fishing_spot_1.update(900, 490, graphic_dict["fishing_spot_1"])
+            fishing_spot_2.update(450, 648, graphic_dict["fishing_spot_2"])
+        else:
+            fishing_spot_1.update(900, 490, graphic_dict["fishing_spot_2"])
+            fishing_spot_2.update(450, 648, graphic_dict["fishing_spot_1"])
+    else:
+        fish_return = gameplay_functions.fishing_function(pygame, fishing_timer, player,
+                                                          player.current_zone,
+                                                          graphic_dict["fishing_spot_3"],
+                                                          graphic_dict["fishing_spot_4"],
+                                                          fishing_spot_1, fishing_spot_2,
+                                                          fishing_level, basic_fish_counter,
+                                                          better_fish_counter, even_better_fish_counter,
+                                                          best_fish_counter, fishing, fish_caught,
+                                                          graphic_dict["amuna_m_fishing_right"],
+                                                          graphic_dict["amuna_m_fishing_down"],
+                                                          graphic_dict["amuna_f_fishing_right"],
+                                                          graphic_dict["amuna_f_fishing_down"],
+                                                          graphic_dict["nuldar_m_fishing_right"],
+                                                          graphic_dict["nuldar_m_fishing_down"],
+                                                          graphic_dict["nuldar_f_fishing_right"],
+                                                          graphic_dict["nuldar_f_fishing_down"],
+                                                          graphic_dict["sorae_a_fishing_right"],
+                                                          graphic_dict["sorae_a_fishing_down"],
+                                                          graphic_dict["sorae_b_fishing_right"],
+                                                          graphic_dict["sorae_b_fishing_down"],
+                                                          previous_surf, fishing_spot_1, fishing_spot_2)
+        basic_fish_counter = fish_return["basic_fish_counter"]
+        better_fish_counter = fish_return["better_fish_counter"]
+        even_better_fish_counter = fish_return["even_better_fish_counter"]
+        best_fish_counter = fish_return["best_fish_counter"]
+        fish_caught = fish_return["fish_caught"]
+        fishing = fish_return["fishing"]
+        movement_able = fish_return["movement_able"]
+
+    screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
+    screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
 
     if player.quest_progress["where's nede?"] < 1:
         if player.quest_status["where's nede?"]:
@@ -264,6 +308,59 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                                                    osodark_battle_sprite, stelli_battle_sprite,
                                                    False, stelli_battle_sprite, 0)
 
+    if not fishing:
+        if pygame.sprite.collide_rect(player, fishing_spot_1):
+            interaction_popup.update(fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_blue"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (fishing_spot_1.x_coordinate, fishing_spot_1.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            info_text_1 = "Press 'F' key to fish."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
+            if interacted and in_over_world and fishing_unlocked:
+                for item in player.items:
+                    if item.name == "seldon bait":
+                        fishing = True
+                        interacted = False
+                        fishing_timer = time.perf_counter()
+                        player.items.remove(item)
+                        previous_surf = player.surf
+                        fish_caught = False
+                        break
+
+        if pygame.sprite.collide_rect(player, fishing_spot_2):
+            interaction_popup.update(fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50,
+                                     graphic_dict["popup_interaction_blue"])
+            screen.blit(interaction_popup.surf, interaction_popup.rect)
+            interaction_info_surf = font.render(str("fishing spot"), True, "black", "light blue")
+            interaction_info_rect = interaction_info_surf.get_rect()
+            interaction_info_rect.center = (fishing_spot_2.x_coordinate, fishing_spot_2.y_coordinate - 50)
+            screen.blit(interaction_info_surf, interaction_info_rect)
+
+            info_text_1 = "Press 'F' key to fish."
+            info_text_2 = ""
+            info_text_3 = ""
+            info_text_4 = ""
+
+            # if player interacts with fishing spot and has it unlocked and has bait, use bait and start
+            if interacted and in_over_world and fishing_unlocked:
+                for item in player.items:
+                    if item.name == "seldon bait":
+                        fishing = True
+                        interacted = False
+                        fishing_timer = time.perf_counter()
+                        player.items.remove(item)
+                        previous_surf = player.surf
+                        fish_caught = False
+                        break
+
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
@@ -339,6 +436,10 @@ def stardust_outpost(pygame, player, screen, stardust_song_set, stardust_outpost
                            info_text_3, "info_text_4": info_text_4, "movement_able": movement_able,
                        "current_building_entering": current_building_entering, "in_shop": in_shop,
                        "interacted": interacted, "npc_tic": npc_tic, "rock_3_con": rock_3_con,
-                       "outpost_show": outpost_show, "enemy_tic": enemy_tic, "level_checked": level_checked}
+                       "outpost_show": outpost_show, "enemy_tic": enemy_tic, "level_checked": level_checked,
+                       "fishing": fishing, "fishing_timer": fishing_timer, "previous_surf": previous_surf,
+                       "fish_caught": fish_caught, "basic_fish_counter": basic_fish_counter, "better_fish_counter":
+                       better_fish_counter, "even_better_fish_counter": even_better_fish_counter,
+                       "best_fish_counter": best_fish_counter}
 
     return stardust_return

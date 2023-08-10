@@ -1466,12 +1466,19 @@ class PlayerAmuna(pygame.sprite.Sprite):
         if current_zone == "stardust":
             if self.x_coordinate < 225:
                 self.x_coordinate = 225
-            elif self.x_coordinate > 955:
-                self.x_coordinate = 955
+            if self.y_coordinate < 450:
+                if self.x_coordinate > 955:
+                    self.x_coordinate = 955
+            if self.y_coordinate > 450:
+                if self.x_coordinate > 845:
+                    self.x_coordinate = 845
+            if self.x_coordinate > 846:
+                if self.y_coordinate > 446:
+                    self.y_coordinate = 446
             if self.y_coordinate <= 80:
                 self.y_coordinate = 80
-            elif self.y_coordinate >= 640:
-                self.y_coordinate = 640
+            elif self.y_coordinate >= 612:
+                self.y_coordinate = 612
             elif 360 >= self.y_coordinate >= 300 and 641 >= self.x_coordinate >= 409:
                 self.y_coordinate = 360
             elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
@@ -3568,12 +3575,19 @@ class PlayerNuldar(pygame.sprite.Sprite):
         if current_zone == "stardust":
             if self.x_coordinate < 225:
                 self.x_coordinate = 225
-            elif self.x_coordinate > 955:
-                self.x_coordinate = 955
+            if self.y_coordinate < 450:
+                if self.x_coordinate > 955:
+                    self.x_coordinate = 955
+            if self.y_coordinate > 450:
+                if self.x_coordinate > 845:
+                    self.x_coordinate = 845
+            if self.x_coordinate > 846:
+                if self.y_coordinate > 446:
+                    self.y_coordinate = 446
             if self.y_coordinate <= 80:
                 self.y_coordinate = 80
-            elif self.y_coordinate >= 640:
-                self.y_coordinate = 640
+            elif self.y_coordinate >= 612:
+                self.y_coordinate = 612
             elif 360 >= self.y_coordinate >= 300 and 641 >= self.x_coordinate >= 409:
                 self.y_coordinate = 360
             elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
@@ -5659,12 +5673,19 @@ class PlayerSorae(pygame.sprite.Sprite):
         if current_zone == "stardust":
             if self.x_coordinate < 225:
                 self.x_coordinate = 225
-            elif self.x_coordinate > 955:
-                self.x_coordinate = 955
+            if self.y_coordinate < 450:
+                if self.x_coordinate > 955:
+                    self.x_coordinate = 955
+            if self.y_coordinate > 450:
+                if self.x_coordinate > 845:
+                    self.x_coordinate = 845
+            if self.x_coordinate > 846:
+                if self.y_coordinate > 446:
+                    self.y_coordinate = 446
             if self.y_coordinate <= 80:
                 self.y_coordinate = 80
-            elif self.y_coordinate >= 640:
-                self.y_coordinate = 640
+            elif self.y_coordinate >= 612:
+                self.y_coordinate = 612
             elif 360 >= self.y_coordinate >= 300 and 641 >= self.x_coordinate >= 409:
                 self.y_coordinate = 360
             elif 300 >= self.y_coordinate >= 230 and 641 >= self.x_coordinate >= 409:
@@ -7371,8 +7392,16 @@ if __name__ == "__main__":
     water_fish_1 = UiElement("water", 855, 630, graphic_dict["water"])
     water_fish_3 = UiElement("water", 500, 575, graphic_dict["water"])
     water_fish_4 = UiElement("water", 650, 680, graphic_dict["water"])
+
     fishing_spot_korlok_1 = UiElement("fishing spot k1", 740, 410, graphic_dict["fishing_spot_1"])
-    fishing_spot_korlok_2 = UiElement("fishing spot k1", 575, 525, graphic_dict["fishing_spot_1"])
+    fishing_spot_korlok_2 = UiElement("fishing spot k2", 575, 525, graphic_dict["fishing_spot_1"])
+
+    fishing_spot_stardust_1 = UiElement("fishing spot s1", 900, 490, graphic_dict["fishing_spot_1"])
+    fishing_spot_stardust_2 = UiElement("fishing spot s2", 450, 648, graphic_dict["fishing_spot_1"])
+
+    fishing_spot_eldream_1 = UiElement("fishing spot e1", 740, 410, graphic_dict["fishing_spot_1"])
+    fishing_spot_eldream_2 = UiElement("fishing spot e2", 575, 525, graphic_dict["fishing_spot_1"])
+
     fishing_popup = UiElement("fishing popup", 510, 365, graphic_dict["basic_fish_popup"])
 
     eldream_riv_1 = UiElement("eldream river 1", 190, 400, graphic_dict["eldream_river"])
@@ -9021,6 +9050,10 @@ if __name__ == "__main__":
                                 if player.current_zone == "stardust":
                                     if pygame.sprite.spritecollideany(player, interactables_stardust):
                                         interacted = True
+                                    if pygame.sprite.collide_rect(player, fishing_spot_stardust_1):
+                                        interacted = True
+                                    if pygame.sprite.collide_rect(player, fishing_spot_stardust_2):
+                                        interacted = True
                                 if player.current_zone == "rohir":
                                     if pygame.sprite.collide_rect(player, dungeon_entrance):
                                         interacted = True
@@ -9713,7 +9746,8 @@ if __name__ == "__main__":
                                                                           graphic_dict["sorae_a_fishing_down"],
                                                                           graphic_dict["sorae_b_fishing_right"],
                                                                           graphic_dict["sorae_b_fishing_down"],
-                                                                          previous_surf)
+                                                                          previous_surf, fishing_spot_stardust_1,
+                                                                          fishing_spot_stardust_2)
                         basic_fish_counter = fish_return["basic_fish_counter"]
                         better_fish_counter = fish_return["better_fish_counter"]
                         even_better_fish_counter = fish_return["even_better_fish_counter"]
@@ -9865,6 +9899,8 @@ if __name__ == "__main__":
                                         fishing_timer = time.perf_counter()
                                         player.items.remove(item)
                                         previous_surf = player.surf
+                                        # to clear popup
+                                        fish_caught = False
                                         break
 
                         if pygame.sprite.collide_rect(player, fishing_spot_korlok_2):
@@ -9896,6 +9932,7 @@ if __name__ == "__main__":
                                         fishing_timer = time.perf_counter()
                                         player.items.remove(item)
                                         previous_surf = player.surf
+                                        fish_caught = False
                                         break
 
                     # move player to seldon district when they approach nascent grove exit
@@ -11790,7 +11827,12 @@ if __name__ == "__main__":
                                                                            stardust_stelli, enemy_tic,
                                                                            stelli_battle_sprite, vanished,
                                                                            vanish_overlay, overlay_stardust_waterfall,
-                                                                           level_checked)
+                                                                           level_checked, fishing_spot_stardust_1,
+                                                                           fishing_spot_stardust_2, fishing, walk_tic,
+                                                                           fishing_unlocked, fishing_timer, fish_caught,
+                                                                           previous_surf, fishing_level,
+                                                                           basic_fish_counter, better_fish_counter,
+                                                                           even_better_fish_counter, best_fish_counter)
                     else:
                         stardust_returned = zone_stardust.stardust_outpost(pygame, player, game_window,
                                                                            stardust_song_set, stardust_outpost_music,
@@ -11824,7 +11866,12 @@ if __name__ == "__main__":
                                                                            stardust_stelli, enemy_tic,
                                                                            stelli_battle_sprite, vanished,
                                                                            vanish_overlay, overlay_stardust_waterfall,
-                                                                           level_checked)
+                                                                           level_checked, fishing_spot_stardust_1,
+                                                                           fishing_spot_stardust_2, fishing, walk_tic,
+                                                                           fishing_unlocked, fishing_timer, fish_caught,
+                                                                           previous_surf, fishing_level,
+                                                                           basic_fish_counter, better_fish_counter,
+                                                                           even_better_fish_counter, best_fish_counter)
 
                     stardust_song_set = stardust_returned["stardust_song_set"]
                     nede_sprite_reset = stardust_returned["nede_sprite_reset"]
@@ -11844,6 +11891,14 @@ if __name__ == "__main__":
                     outpost_show = stardust_returned["outpost_show"]
                     enemy_tic = stardust_returned["enemy_tic"]
                     level_checked = stardust_returned["level_checked"]
+                    fishing = stardust_returned["fishing"]
+                    fishing_timer = stardust_returned["fishing_timer"]
+                    previous_surf = stardust_returned["previous_surf"]
+                    fish_caught = stardust_returned["fish_caught"]
+                    basic_fish_counter = stardust_returned["basic_fish_counter"]
+                    better_fish_counter = stardust_returned["better_fish_counter"]
+                    even_better_fish_counter = stardust_returned["even_better_fish_counter"]
+                    best_fish_counter = stardust_returned["best_fish_counter"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in rohir river (after apothis cutscene) -------------------------------------------------
@@ -12142,6 +12197,10 @@ if __name__ == "__main__":
                         pass
 
                 if fish_caught:
+                    if player.current_zone == "fishing hut":
+                        fishing_popup.update(510, 365, graphic_dict["basic_fish_popup"])
+                    elif player.current_zone == "stardust":
+                        fishing_popup.update(510, 365, graphic_dict["better_fish_popup"])
                     if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
                         screen.blit(fishing_popup.surf, fishing_popup.rect)
                     else:
@@ -16473,7 +16532,7 @@ if __name__ == "__main__":
                                         player.rupees += 300
                                         info_text_1 = "You gained fishing experience"
                                         info_text_2 = "And some Rupees!"
-                                        basic_fish_reward = True
+                                        better_fish_reward = True
                                     else:
                                         info_text_1 = "You already claimed this reward. "
                                         info_text_2 = ""
@@ -16494,7 +16553,7 @@ if __name__ == "__main__":
                                         player.rupees += 300
                                         info_text_1 = "You gained fishing experience"
                                         info_text_2 = "And some Rupees!"
-                                        basic_fish_reward = True
+                                        even_better_fish_reward = True
                                     else:
                                         info_text_1 = "You already claimed this reward. "
                                         info_text_2 = ""
@@ -16515,7 +16574,7 @@ if __name__ == "__main__":
                                         player.rupees += 300
                                         info_text_1 = "You gained fishing experience"
                                         info_text_2 = "And some Rupees!"
-                                        basic_fish_reward = True
+                                        best_fish_reward = True
                                     else:
                                         info_text_1 = "You already claimed this reward. "
                                         info_text_2 = ""
