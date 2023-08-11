@@ -1582,7 +1582,7 @@ def battle_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "necrola":
             necrola_battle_sprite.update(705, 300, graphics["necrola_battle"])
         if enemy.kind == "osodark":
-            osodark_battle_sprite.update(695, 300, graphics["osodark_battle"])
+            osodark_battle_sprite.update(705, 300, graphics["osodark_battle"])
         if enemy.name == "stellia":
             stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,
                                         stelli_battle_sprite.y_coordinate,
@@ -3778,7 +3778,7 @@ def attack_animation_enemy(enemy, snake_battle_sprite, ghoul_battle_sprite, chor
         if enemy.kind == "necrola":
             necrola_battle_sprite.update(705, 300, graphics["necrola_attack"])
         if enemy.kind == "osodark":
-            osodark_battle_sprite.update(695, 300, graphics["osodark_attack"])
+            osodark_battle_sprite.update(705, 300, graphics["osodark_attack"])
         if enemy.kind == "stelli":
             if enemy.name == "stellia":
                 stelli_battle_sprite.update(stelli_battle_sprite.x_coordinate,

@@ -19,7 +19,8 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                       npc_boro, sub_marrow_rect, interactables_marrow_entrance, marrow_switch_box, ramps_crate_1,
                       ramps_crate_2, ramps_crate_3, ramps_crate_4, overlay_marrow_ramps_west, overlay_marrow_ramps_east,
                       dungeon_chest_ramps, dungeon_switch_ramps_2, erebyth, dungeon_switch_ramps_1, ramps_crate_5,
-                      forge_rect, interacted, event):
+                      forge_rect, interacted, event, ectrenos_alcove_enemies, alcove_fishing_rect,
+                      alcove_fishing_rect_2):
     if event:
         if player.current_zone == "nascent":
             if pygame.sprite.spritecollideany(player, interactables_nascent):
@@ -142,6 +143,16 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
             if pygame.Rect.colliderect(player.rect, alcove_ladder_rect):
                 interacted = True
             elif pygame.Rect.colliderect(player.rect, npc_leyre.rect):
+                interacted = True
+            elif pygame.sprite.spritecollideany(player, ectrenos_alcove_enemies,
+                                                pygame.sprite.collide_rect_ratio(0.75)):
+                interacted = True
+            elif pygame.Rect.colliderect(player.rect, alcove_fishing_rect):
+                interacted = True
+            else:
+                interacted = False
+        if player.current_zone == "fishing alcove":
+            if pygame.Rect.colliderect(player.rect, alcove_fishing_rect_2):
                 interacted = True
             else:
                 interacted = False
@@ -296,7 +307,13 @@ def check_interaction(pygame, player, interactables_nascent, interactables_seldo
                 interacted = False
         if player.current_zone == "ectrenos alcove":
             if (not pygame.Rect.colliderect(player.rect, alcove_ladder_rect)
-                    and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)):
+                    and not pygame.Rect.colliderect(player.rect, npc_leyre.rect)
+                    and not pygame.sprite.spritecollideany(player, ectrenos_alcove_enemies,
+                                                           pygame.sprite.collide_rect_ratio(0.75))
+                    and not pygame.Rect.colliderect(player.rect, alcove_fishing_rect)):
+                interacted = False
+        if player.current_zone == "fishing alcove":
+            if not pygame.Rect.colliderect(player.rect, alcove_fishing_rect_2):
                 interacted = False
         if player.current_zone == "marrow":
             if (not pygame.sprite.spritecollideany(player, ghouls_marrow)
@@ -2035,7 +2052,8 @@ def level_up(player, level_up_win, level_up_font):
 # function to respawn enemies if they are less than a specified amount active in game. spawns with random coord. and lvl
 def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmons, bandiles, interactables_seldon,
                   interactables_korlok, interactables_mines, Enemy, Item, graphic_dict, UiElement, seldon_flowers,
-                  eldream_flowers, interactables_eldream, ectrenos_front_enemies, marrow_ghouls):
+                  eldream_flowers, interactables_eldream, ectrenos_front_enemies, marrow_ghouls,
+                  ectrenos_alcove_enemies):
     if player.current_zone == "seldon":
         snake_counter = 0
         ghoul_counter = 0
@@ -2171,6 +2189,28 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
                                 "scout")
             ectrenos_front_enemies.add(new_necrola)
 
+    if player.current_zone == "ectrenos alcove":
+        osodark_counter = 0
+        # generate random coordinates and level for new enemy to spawn within boundaries and level range
+        # if not scaled, coordinates set to default boundaries
+        random_osodark_x = random.randrange(250, 700)
+        random_osodark_y = random.randrange(200, 300)
+        random_osodark_level = random.randrange(20, 25)
+
+        # count current enemies active in game
+        for mob in ectrenos_alcove_enemies:
+            if mob.name == "osodark":
+                osodark_counter += 1
+
+        # if there are less than 3 snakes in game, create another snake with random level and coordinates. add to groups
+        if osodark_counter < 3:
+            new_osodark = Enemy("osodark", "osodark", 100, 100, random_osodark_level, random_osodark_x,
+                                random_osodark_y, True,
+                                Item("dried fins", "fins", 200, 200, graphic_dict["fins_img"], 0),
+                                graphic_dict["osodark"], UiElement("osodark hp bar", 700, 90, graphic_dict["hp_100"]),
+                                "fighter")
+            ectrenos_alcove_enemies.add(new_osodark)
+
     if player.current_zone == "marrow":
         marrow_ghoul_counter = 0
         # generate random coordinates and level for new enemy to spawn within boundaries and level range
@@ -2198,7 +2238,8 @@ def enemy_respawn(player, seldon_enemies, korlok_enemies, snakes, ghouls, magmon
                     "korlok_enemies": korlok_enemies, "magmons": magmons, "bandiles": bandiles, "seldon_flowers":
                         seldon_flowers, "eldream_flowers": eldream_flowers,
                     "interactables_eldream": interactables_eldream,
-                    "ectrenos_front_enemies": ectrenos_front_enemies, "marrow_ghouls": marrow_ghouls}
+                    "ectrenos_front_enemies": ectrenos_front_enemies, "marrow_ghouls": marrow_ghouls,
+                    "ectrenos_alcove_enemies": ectrenos_alcove_enemies}
 
     return respawn_dict
 

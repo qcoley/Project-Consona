@@ -18,7 +18,6 @@ def ectrenos_main(pygame, screen, graphic_dict, player, ectrenos_bg, eldream_bui
                   interactables_ectrenos, ectrene, ladder, quest_star_leyre, pet_energy_window, chroma_bridge,
                   npc_leyre, necrola_battle_sprite, osodark_battle_sprite, sfx_ladder, stelli_battle_sprite, critter,
                   right_move, left_move, critter_tic, walk_move, mini_map):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -244,7 +243,6 @@ def ectrenos_left(pygame, screen, graphic_dict, player, ectrenos_left_bg, eldrea
                   current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos, ectrenos_pet_entrance,
                   in_menagerie, quest_star_aitor, pet_energy_window, npc_leyre, sfx_find, critter, right_move,
                   left_move, critter_tic, walk_move, altar, mini_map):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -476,7 +474,6 @@ def ectrenos_right(pygame, screen, graphic_dict, player, ectrenos_right_bg, eldr
                    current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
                    ectrenos_shop_entrance, ectrenos_inn_entrance, pet_energy_window, npc_leyre, sfx_find, critter,
                    right_move, left_move, critter_tic, walk_move, mini_map):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -712,7 +709,6 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                    interactables_ectrenos, quest_star_everett, pet_energy_window, npc_everett, npc_leyre,
                    ectrenos_front_enemies, interactables_eldream, necrola_battle_sprite, osodark_battle_sprite,
                    sfx_find, stelli_battle_sprite, vanished, vanish_overlay, mini_map):
-
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -730,7 +726,8 @@ def ectrenos_front(pygame, screen, graphic_dict, player, ectrenos_front_bg, eldr
                                                       bandiles, interactables_seldon, interactables_korlok,
                                                       interactables_mines, Enemy, Item, graphic_dict, UiElement,
                                                       seldon_flowers, eldream_flowers, interactables_eldream,
-                                                      ectrenos_front_enemies, ectrenos_front_enemies)
+                                                      ectrenos_front_enemies, ectrenos_front_enemies,
+                                                      ectrenos_front_enemies)
     ectrenos_front_enemies = respawned_dict["ectrenos_front_enemies"]
 
     for enemy_sprite in ectrenos_front_enemies:  # update enemy sprite to a highlighted version
@@ -969,8 +966,8 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                     npc_garan, offense_meter, defense_meter, weapon_select, eldream_attuned, in_shop, in_inn,
                     current_building_entering, enemy_tic, eldream_flowers, interactables_ectrenos,
                     pet_energy_window, ladder, chroma_bridge, alcove_star, npc_leyre, enemies, sfx_find, sfx_ladder,
-                    vanished, vanish_overlay, mini_map):
-
+                    vanished, vanish_overlay, mini_map, osodark_battle_sprite, player_battle_sprite,
+                    barrier_active, sharp_sense_active, Enemy, Item, UiElement, alcove_rect):
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
             pygame.mixer.music.fadeout(50)
@@ -983,6 +980,12 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
     screen.blit(offense_meter.surf, offense_meter.rect)
     screen.blit(defense_meter.surf, defense_meter.rect)
     drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    respawned_dict = gameplay_functions.enemy_respawn(player, enemies, enemies, enemies, enemies, enemies, enemies,
+                                                      enemies, enemies, enemies, Enemy, Item, graphic_dict, UiElement,
+                                                      eldream_flowers, eldream_flowers, enemies, enemies, enemies,
+                                                      enemies)
+    enemies = respawned_dict["ectrenos_alcove_enemies"]
 
     if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:
         npc_leyre.update_position(563, 530)
@@ -1037,6 +1040,26 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
             player.y_coordinate = 648
             player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
 
+    if pygame.Rect.colliderect(player.rect, alcove_rect):
+        interaction_popup.update(410, 25, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Fishing alcove"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (410, 25)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to enter."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            player.current_zone = "fishing alcove"
+            player.x_coordinate = 415
+            player.y_coordinate = 575
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
     # if player collides with npc sprite and chooses to interact with it
     if player.quest_progress["las escondidas"] == 3 and player.quest_status["las escondidas"]:
         if pygame.sprite.collide_rect(player, npc_leyre):
@@ -1062,6 +1085,39 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                 info_text_2 = "You've finished hide and seek. "
                 info_text_3 = ""
                 info_text_4 = ""
+
+    # if player collides with enemy sprite, doesn't have combat cooldown and chooses to interact with it
+    enemy = pygame.sprite.spritecollideany(player, enemies)
+    if enemy:
+        interaction_popup.update(enemy.x_coordinate, enemy.y_coordinate - 40, graphic_dict["popup_interaction_red"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str(enemy.name) + " lvl " + str(enemy.level), True, "black",
+                                            (255, 204, 203))
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (enemy.x_coordinate, enemy.y_coordinate - 40)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        # lets player know if they are in range of enemy they can press f to attack it
+        info_text_1 = "Press 'F' key to attack enemy."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            current_enemy_battling = enemy
+            in_over_world = False
+            in_battle = True
+
+            drawing_functions.loot_popup_container.clear()
+            drawing_functions.loot_text_container.clear()
+            combat_scenario.battle_animation_player(player, player_battle_sprite, barrier_active,
+                                                    sharp_sense_active, graphic_dict)
+            combat_scenario.battle_animation_enemy(current_enemy_battling, osodark_battle_sprite, osodark_battle_sprite,
+                                                   osodark_battle_sprite, osodark_battle_sprite, osodark_battle_sprite,
+                                                   osodark_battle_sprite, osodark_battle_sprite, in_battle,
+                                                   in_npc_interaction, graphic_dict, osodark_battle_sprite,
+                                                   osodark_battle_sprite, osodark_battle_sprite, False,
+                                                   osodark_battle_sprite, 0)
 
     # --------------------------------------------------------------------------------------------------
     for save_window in save_check_window:
@@ -1124,8 +1180,110 @@ def ectrenos_alcove(pygame, screen, graphic_dict, player, ectrenos_alcove_bg, el
                               "in_battle": in_battle, "in_npc_interaction": in_npc_interaction,
                               "movement_able": movement_able, "current_enemy_battling": current_enemy_battling,
                               "current_npc_interacting": current_npc_interacting, "eldream_attuned": eldream_attuned,
-                              "in_shop": in_shop, "in_inn": in_inn,
+                              "in_shop": in_shop, "in_inn": in_inn, "ectrenos_alcove_enemies": enemies,
                               "current_building_entering": current_building_entering, "enemy_tic": enemy_tic,
                               "eldream_flowers": eldream_flowers, "interactables_ectrenos": interactables_ectrenos}
 
     return ectrenos_alcove_return
+
+
+def fishing_alcove(pygame, screen, player, over_world_song_set, eldream_building_music, fishing, walk_tic,
+                   fishing_spot_1, fishing_spot_2, graphic_dict, fishing_timer, fishing_level, basic_fish_counter,
+                   better_fish_counter, even_better_fish_counter, best_fish_counter, fish_caught, previous_surf,
+                   water_fish_1, water_fish_3, water_fish_4, fishing_alcove_bg, equipment_screen, offense_meter,
+                   defense_meter, staff, sword, bow, npc_garan, weapon_select, save_check_window, user_interface,
+                   bar_backdrop, hp_bar, en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                   in_over_world, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
+                   pet_energy_window, alcove_rect, mini_map):
+
+    if not over_world_song_set:
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(50)
+            pygame.mixer.music.load(eldream_building_music)
+            pygame.mixer.music.play(loops=-1)
+            over_world_song_set = True
+
+    screen.blit(fishing_alcove_bg, (0, 0))
+    screen.blit(equipment_screen.surf, equipment_screen.rect)
+    screen.blit(offense_meter.surf, offense_meter.rect)
+    screen.blit(defense_meter.surf, defense_meter.rect)
+    drawing_functions.weapon_draw(player, graphic_dict, staff, sword, bow, npc_garan, weapon_select)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                screen.blit(pet.surf, pet.rect)
+    except AttributeError:
+        pass
+    screen.blit(player.surf, player.rect)
+    drawing_functions.draw_level_up(screen, in_over_world)
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
+    if pygame.Rect.colliderect(player.rect, alcove_rect):
+        interaction_popup.update(410, 675, graphic_dict["popup_interaction"])
+        screen.blit(interaction_popup.surf, interaction_popup.rect)
+        interaction_info_surf = font.render(str("Ectrenos alcove"), True, "black", "light yellow")
+        interaction_info_rect = interaction_info_surf.get_rect()
+        interaction_info_rect.center = (410, 675)
+        screen.blit(interaction_info_surf, interaction_info_rect)
+
+        info_text_1 = "Press 'F' key to enter."
+        info_text_2 = ""
+        info_text_3 = ""
+        info_text_4 = ""
+
+        if interacted and in_over_world:
+            interacted = False
+            player.current_zone = "ectrenos alcove"
+            player.x_coordinate = 415
+            player.y_coordinate = 125
+            player.rect = player.surf.get_rect(midbottom=(player.x_coordinate, player.y_coordinate))
+
+    # --------------------------------------------------------------------------------------------------
+    for save_window in save_check_window:
+        screen.blit(save_window.surf, save_window.rect)
+    for ui_elements in user_interface:
+        if len(drawing_functions.item_info_window) != 0:
+            if ui_elements.name != "star power":
+                screen.blit(ui_elements.surf, ui_elements.rect)
+        else:
+            screen.blit(ui_elements.surf, ui_elements.rect)
+
+    if len(drawing_functions.loot_popup_container) > 0:
+        for popup in drawing_functions.loot_popup_container:
+            screen.blit(popup.surf, popup.rect)
+    if len(drawing_functions.loot_text_container) > 0:
+        for loot_text in drawing_functions.loot_text_container:
+            screen.blit(loot_text[0], loot_text[1])
+
+    screen.blit(bar_backdrop.surf, bar_backdrop.rect)
+    screen.blit(hp_bar.surf, hp_bar.rect)
+    screen.blit(en_bar.surf, en_bar.rect)
+    screen.blit(xp_bar.surf, xp_bar.rect)
+
+    screen.blit(mini_map.surf, mini_map.rect)
+
+    # draw texts to the screen, like message box, player rupees and level, inv and equ updates
+    drawing_functions.text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, info_text_4,
+                                     in_over_world)
+    drawing_functions.draw_it(screen)
+
+    fishing_alcove_return = {"over_world_song_set": over_world_song_set, "basic_fish_counter": basic_fish_counter,
+                             "better_fish_counter": better_fish_counter,
+                             "even_better_fish_counter": even_better_fish_counter,
+                             "best_fish_counter": best_fish_counter, "fish_caught": fish_caught,
+                             "movement_able": movement_able, "info_text_1": info_text_1, "info_text_2": info_text_2,
+                             "info_text_3": info_text_3, "info_text_4": info_text_4, "in_hut": in_hut,
+                             "fishing": fishing, "fishing_timer": fishing_timer, "previous_surf": previous_surf,
+                             "interacted": interacted, "in_over_world": in_over_world}
+
+    return fishing_alcove_return

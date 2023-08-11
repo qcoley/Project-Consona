@@ -700,9 +700,10 @@ def text_info_draw(screen, player, font, info_text_1, info_text_2, info_text_3, 
             text_location = font.render(str("Terra Trail"), True, "black", "light yellow")
         if player.current_zone == "eldream":
             text_location = font.render(str("Eldream"), True, "black", "light yellow")
-        if player.current_zone == "ectrenos" or player.current_zone == "ectrenos left" or \
-                player.current_zone == "ectrenos right" or player.current_zone == "ectrenos alcove" or \
-                player.current_zone == "ectrenos front" or player.current_zone == "altar":
+        if (player.current_zone == "ectrenos" or player.current_zone == "ectrenos left" or
+                player.current_zone == "ectrenos right" or player.current_zone == "ectrenos alcove" or
+                player.current_zone == "ectrenos front" or player.current_zone == "altar" or
+                player.current_zone == "fishing alcove"):
             text_location = font.render(str("Ectrenos"), True, "black", "light yellow")
         if player.current_zone == "marrow" or player.current_zone == "marrow entrance" or \
                 player.current_zone == "marrow tower east" or player.current_zone == "marrow tower west" or \
@@ -954,7 +955,7 @@ def journal_info_draw(journal, player, font, draw_condition, switch_phase, npc_a
         if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                 player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" \
                 or player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" \
-                or player.current_zone == "altar":
+                or player.current_zone == "altar" or player.current_zone == "fishing alcove":
             text_quest1_surf = font.render(str(list(player.current_quests)[8]), True, "black", "light yellow")
             text_quest1_rect = text_quest1_surf.get_rect()
             text_quest1_rect.midleft = (600, 145)
@@ -2100,7 +2101,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
                     player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar":
+                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
                 amuna_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["amuna_location"])
@@ -2137,7 +2138,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
                     player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar":
+                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
                 amuna_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["amuna_female"])
@@ -2175,7 +2176,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
                     player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar":
+                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
                 nuldar_location.update(eldream_map_button.x_coordinate,
                                        eldream_map_button.y_coordinate,
                                        graphic_dict["nuldar_location"])
@@ -2212,7 +2213,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
                     player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar":
+                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
                 nuldar_location.update(eldream_map_button.x_coordinate,
                                        eldream_map_button.y_coordinate,
                                        graphic_dict["nuldar_female"])
@@ -2250,7 +2251,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
                     player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar":
+                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
                 sorae_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["sorae_location"])
@@ -2287,7 +2288,7 @@ def mini_map(player, graphic_dict, world_map, seldon_map_button, korlok_map_butt
             if player.current_zone == "eldream" or player.current_zone == "ectrenos" or \
                     player.current_zone == "ectrenos left" or player.current_zone == "ectrenos right" or \
                     player.current_zone == "ectrenos front" or player.current_zone == "ectrenos alcove" or \
-                    player.current_zone == "altar":
+                    player.current_zone == "altar" or player.current_zone == "fishing alcove":
                 sorae_location.update(eldream_map_button.x_coordinate,
                                       eldream_map_button.y_coordinate,
                                       graphic_dict["sorae_b"])

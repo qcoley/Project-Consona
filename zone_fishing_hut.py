@@ -10,7 +10,8 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
                 water_fish_3, water_fish_4, fishing_hut_bg, equipment_screen, offense_meter, defense_meter, staff,
                 sword, bow, npc_garan, weapon_select, save_check_window, user_interface, bar_backdrop, hp_bar,
                 en_bar, xp_bar, font, info_text_1, info_text_2, info_text_3, info_text_4, in_over_world,
-                fishing_hut_rect, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut):
+                fishing_hut_rect, interaction_popup, interacted, fishing_unlocked, movement_able, in_hut,
+                pet_energy_window):
 
     if not over_world_song_set:
         if pygame.mixer.music.get_busy():
@@ -89,6 +90,19 @@ def fishing_hut(pygame, screen, player, over_world_song_set, fishing_music, fish
     screen.blit(fishing_spot_1.surf, fishing_spot_1.rect)
     screen.blit(fishing_spot_2.surf, fishing_spot_2.rect)
     screen.blit(player.surf, player.rect)
+    drawing_functions.draw_level_up(screen, in_over_world)
+
+    try:
+        for pet in player.pet:
+            if pet.active:
+                pet_energy_surf = font.render(str(pet.energy) + " /100", True, "dark green", "light yellow")
+                pet_energy_rect = pet_energy_surf.get_rect()
+                pet_energy_rect.midleft = (345, 57)
+                screen.blit(pet_energy_window.surf, pet_energy_window.rect)
+                screen.blit(pet_energy_surf, pet_energy_rect)
+    except AttributeError:
+        pass
+
     for save_window in save_check_window:
         screen.blit(save_window.surf, save_window.rect)
     for ui_elements in user_interface:

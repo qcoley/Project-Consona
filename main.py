@@ -2141,20 +2141,6 @@ class PlayerAmuna(pygame.sprite.Sprite):
                         self.x_coordinate -= velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
                         self.x_coordinate += velocity
-        if current_zone == "ectrenos alcove":
-            try:
-                if self.equipment["boots"].name != "chroma boots":
-                    if pygame.sprite.collide_rect(self, chroma_bridge):
-                        if self.y_coordinate < chroma_bridge.y_coordinate:
-                            self.y_coordinate -= velocity
-                        if self.y_coordinate < 616:
-                            self.y_coordinate += velocity
-            except AttributeError:
-                if pygame.sprite.collide_rect(self, chroma_bridge):
-                    if self.y_coordinate < chroma_bridge.y_coordinate:
-                        self.y_coordinate -= velocity
-                    if self.y_coordinate < 616:
-                        self.y_coordinate += velocity
         if current_zone == "forge":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -4240,20 +4226,6 @@ class PlayerNuldar(pygame.sprite.Sprite):
                         self.x_coordinate -= velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
                         self.x_coordinate += velocity
-        if current_zone == "ectrenos alcove":
-            try:
-                if self.equipment["boots"].name != "chroma boots":
-                    if pygame.sprite.collide_rect(self, chroma_bridge):
-                        if self.y_coordinate < chroma_bridge.y_coordinate:
-                            self.y_coordinate -= velocity
-                        if self.y_coordinate < 616:
-                            self.y_coordinate += velocity
-            except AttributeError:
-                if pygame.sprite.collide_rect(self, chroma_bridge):
-                    if self.y_coordinate < chroma_bridge.y_coordinate:
-                        self.y_coordinate -= velocity
-                    if self.y_coordinate < 616:
-                        self.y_coordinate += velocity
         if current_zone == "forge":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -6339,20 +6311,7 @@ class PlayerSorae(pygame.sprite.Sprite):
                         self.x_coordinate -= velocity
                     if self.x_coordinate > chroma_bridge.x_coordinate:
                         self.x_coordinate += velocity
-        if current_zone == "ectrenos alcove":
-            try:
-                if self.equipment["boots"].name != "chroma boots":
-                    if pygame.sprite.collide_rect(self, chroma_bridge):
-                        if self.y_coordinate < chroma_bridge.y_coordinate:
-                            self.y_coordinate -= velocity
-                        if self.y_coordinate < 616:
-                            self.y_coordinate += velocity
-            except AttributeError:
-                if pygame.sprite.collide_rect(self, chroma_bridge):
-                    if self.y_coordinate < chroma_bridge.y_coordinate:
-                        self.y_coordinate -= velocity
-                    if self.y_coordinate < 616:
-                        self.y_coordinate += velocity
+
         if current_zone == "forge":
             try:
                 if self.equipment["boots"].name != "chroma boots":
@@ -6693,6 +6652,8 @@ if __name__ == "__main__":
     ectrenos_right_bg = graphic_dict["ectrenos_right_bg"]
     ectrenos_front_bg = graphic_dict["ectrenos_front_bg"]
     ectrenos_alcove_bg = graphic_dict["ectrenos_alcove_bg"]
+    fishing_alcove_bg = graphic_dict["fishing_alcove_bg"]
+    ectrenos_alcove_battle_screen = graphic_dict["alcove_battle_screen"]
     ectrenos_interaction_bg = graphic_dict["ectrenos_interaction"]
     ectrenos_front_interaction_bg = graphic_dict["ectrenos_front_interaction"]
     amuna_character_screen = graphic_dict["a_char_screen"]
@@ -7281,7 +7242,7 @@ if __name__ == "__main__":
     bandile_battle_sprite = BattleCharacter("bandile battle", 695, 300, graphic_dict["bandile_battle"])
     chinzilla_battle_sprite = BattleCharacter("chinzilla battle", 715, 300, graphic_dict["chinzilla_battle"])
     necrola_battle_sprite = BattleCharacter("necrola battle", 705, 300, graphic_dict["necrola_battle"])
-    osodark_battle_sprite = BattleCharacter("osodark battle", 695, 300, graphic_dict["osodark_battle"])
+    osodark_battle_sprite = BattleCharacter("osodark battle", 705, 300, graphic_dict["osodark_battle"])
     stelli_battle_sprite = BattleCharacter("stelli battle", 710, 275, graphic_dict["stelli_battle_a"])
     erebyth_battle_sprite = BattleCharacter("erebyth battle", 695, 350, graphic_dict["erebyth_battle"])
 
@@ -7454,6 +7415,8 @@ if __name__ == "__main__":
     sub_marrow_rect = pygame.Rect((360, 610), (100, 100))
     fishing_hut_rect = pygame.Rect((800, 110), (100, 100))
     fishing_hut_rect_collide = pygame.Rect((800, 110), (75, 50))
+    alcove_fishing_rect_1 = pygame.Rect((375, 35), (100, 25))
+    alcove_fishing_rect_2 = pygame.Rect((375, 625), (100, 25))
 
     mines_wall = UiElement("mines wall", 780, 430, graphic_dict["mines_wall"])
     mines_light = UiElement("mines light", 322, 325, graphic_dict["mines_light"])
@@ -8024,7 +7987,7 @@ if __name__ == "__main__":
     while game_running:
 
         SCREEN_WIDTH, SCREEN_HEIGHT = game_window.get_size()
-        # print(player.x_coordinate, player.y_coordinate)
+        print(player.x_coordinate, player.y_coordinate)
 
         # hide UI elements if player walks under them ------------------------------------------------------------------
         try:
@@ -8938,7 +8901,9 @@ if __name__ == "__main__":
                                                                       dungeon_chest_ramps,
                                                                       dungeon_switch_ramps_2, erebyth,
                                                                       dungeon_switch_ramps_1, ramps_crate_5,
-                                                                      forge_rect, interacted, False)
+                                                                      forge_rect, interacted, False,
+                                                                      ectrenos_alcove_enemies, alcove_fishing_rect_1,
+                                                                      alcove_fishing_rect_2)
 
                     # checks if player has started any quest to show the quest popup info window for highlights
                     if player.quest_status["sneaky snakes"]:
@@ -9118,7 +9083,10 @@ if __name__ == "__main__":
                                                                                   dungeon_chest_ramps,
                                                                                   dungeon_switch_ramps_2, erebyth,
                                                                                   dungeon_switch_ramps_1, ramps_crate_5,
-                                                                                  forge_rect, interacted, True)
+                                                                                  forge_rect, interacted, True,
+                                                                                  ectrenos_alcove_enemies,
+                                                                                  alcove_fishing_rect_1,
+                                                                                  alcove_fishing_rect_2)
 
                         elif event.type == QUIT:
                             pygame.mixer.quit()
@@ -9656,7 +9624,8 @@ if __name__ == "__main__":
                                                                     hp_bar, en_bar, xp_bar, font, info_text_1,
                                                                     info_text_2, info_text_3, info_text_4,
                                                                     in_over_world, fishing_hut_rect, interaction_popup,
-                                                                    interacted, fishing_unlocked, movement_able, in_hut)
+                                                                    interacted, fishing_unlocked, movement_able, in_hut,
+                                                                    pet_energy_window)
                     else:
                         hut_returned = zone_fishing_hut.fishing_hut(pygame, game_window, player, over_world_song_set,
                                                                     fishing_music, fishing, walk_tic,
@@ -9672,7 +9641,8 @@ if __name__ == "__main__":
                                                                     hp_bar, en_bar, xp_bar, font, info_text_1,
                                                                     info_text_2, info_text_3, info_text_4,
                                                                     in_over_world, fishing_hut_rect, interaction_popup,
-                                                                    interacted, fishing_unlocked, movement_able, in_hut)
+                                                                    interacted, fishing_unlocked, movement_able, in_hut,
+                                                                    pet_energy_window)
 
                     over_world_song_set = hut_returned["over_world_song_set"]
                     basic_fish_counter = hut_returned["basic_fish_counter"]
@@ -11170,7 +11140,7 @@ if __name__ == "__main__":
                     interactables_ectrenos = ectrenos_front_returned["interactables_ectrenos"]
 
                 # ------------------------------------------------------------------------------------------------------
-                # if player is in eldream district ---------------------------------------------------------------------
+                # if player is in alcove -------------------------------------------------------------------------------
                 if player.current_zone == "ectrenos alcove" and in_over_world and not in_shop and not in_inn \
                         and not in_academia and not in_battle and not in_npc_interaction:
 
@@ -11201,7 +11171,12 @@ if __name__ == "__main__":
                                                                                  alcove_star, npc_leyre,
                                                                                  ectrenos_alcove_enemies, sfx_find,
                                                                                  sfx_ladder, vanished, vanish_overlay,
-                                                                                 mini_map_overlay)
+                                                                                 mini_map_overlay,
+                                                                                 osodark_battle_sprite,
+                                                                                 player_battle_sprite, barrier_active,
+                                                                                 sharp_sense_active,
+                                                                                 Enemy, Item, UiElement,
+                                                                                 alcove_fishing_rect_1)
                     else:
                         ectrenos_alcove_returned = zone_ectrenos.ectrenos_alcove(pygame, game_window, graphic_dict,
                                                                                  player, ectrenos_alcove_bg,
@@ -11229,7 +11204,12 @@ if __name__ == "__main__":
                                                                                  alcove_star, npc_leyre,
                                                                                  ectrenos_alcove_enemies, sfx_find,
                                                                                  sfx_ladder, vanished, vanish_overlay,
-                                                                                 mini_map_overlay)
+                                                                                 mini_map_overlay,
+                                                                                 osodark_battle_sprite,
+                                                                                 player_battle_sprite, barrier_active,
+                                                                                 sharp_sense_active,
+                                                                                 Enemy, Item, UiElement,
+                                                                                 alcove_fishing_rect_1)
 
                     over_world_song_set = ectrenos_alcove_returned["over_world_song_set"]
                     eldream_attuned = ectrenos_alcove_returned["eldream_attuned"]
@@ -11251,6 +11231,79 @@ if __name__ == "__main__":
                     info_text_4 = ectrenos_alcove_returned["info_text_4"]
                     eldream_flowers = ectrenos_alcove_returned["eldream_flowers"]
                     interactables_ectrenos = ectrenos_alcove_returned["interactables_ectrenos"]
+                    ectrenos_alcove_enemies = ectrenos_alcove_returned["ectrenos_alcove_enemies"]
+
+                # ------------------------------------------------------------------------------------------------------
+                # if player is in fishing alcove -----------------------------------------------------------------------
+                if player.current_zone == "fishing alcove" and in_over_world and not in_shop and not in_inn \
+                        and not in_academia and not in_battle and not in_npc_interaction:
+
+                    if SCREEN_WIDTH != 1280 and SCREEN_HEIGHT != 720:
+                        fishing_alcove_returned = zone_ectrenos.fishing_alcove(pygame, screen, player,
+                                                                               over_world_song_set,
+                                                                               eldream_building_music, fishing,
+                                                                               walk_tic, fishing_spot_eldream_1,
+                                                                               fishing_spot_eldream_1,
+                                                                               graphic_dict, fishing_timer,
+                                                                               fishing_level, basic_fish_counter,
+                                                                               better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter, fish_caught,
+                                                                               previous_surf, water_fish_1,
+                                                                               water_fish_3, water_fish_4,
+                                                                               fishing_alcove_bg, equipment_screen,
+                                                                               offense_meter, defense_meter, staff,
+                                                                               sword, bow, npc_garan, weapon_select,
+                                                                               save_check_window, user_interface,
+                                                                               bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                               font, info_text_1, info_text_2,
+                                                                               info_text_3, info_text_4, in_over_world,
+                                                                               interaction_popup, interacted,
+                                                                               fishing_unlocked, movement_able, in_hut,
+                                                                               pet_energy_window, alcove_fishing_rect_2,
+                                                                               mini_map_overlay)
+                    else:
+                        fishing_alcove_returned = zone_ectrenos.fishing_alcove(pygame, game_window, player,
+                                                                               over_world_song_set,
+                                                                               eldream_building_music, fishing,
+                                                                               walk_tic, fishing_spot_eldream_1,
+                                                                               fishing_spot_eldream_2,
+                                                                               graphic_dict, fishing_timer,
+                                                                               fishing_level, basic_fish_counter,
+                                                                               better_fish_counter,
+                                                                               even_better_fish_counter,
+                                                                               best_fish_counter, fish_caught,
+                                                                               previous_surf, water_fish_1,
+                                                                               water_fish_3, water_fish_4,
+                                                                               fishing_alcove_bg, equipment_screen,
+                                                                               offense_meter, defense_meter, staff,
+                                                                               sword, bow, npc_garan, weapon_select,
+                                                                               save_check_window, user_interface,
+                                                                               bar_backdrop, hp_bar, en_bar, xp_bar,
+                                                                               font, info_text_1, info_text_2,
+                                                                               info_text_3, info_text_4, in_over_world,
+                                                                               interaction_popup, interacted,
+                                                                               fishing_unlocked, movement_able, in_hut,
+                                                                               pet_energy_window, alcove_fishing_rect_2,
+                                                                               mini_map_overlay)
+
+                    over_world_song_set = fishing_alcove_returned["over_world_song_set"]
+                    basic_fish_counter = fishing_alcove_returned["basic_fish_counter"]
+                    better_fish_counter = fishing_alcove_returned["better_fish_counter"]
+                    even_better_fish_counter = fishing_alcove_returned["even_better_fish_counter"]
+                    best_fish_counter = fishing_alcove_returned["best_fish_counter"]
+                    fish_caught = fishing_alcove_returned["fish_caught"]
+                    movement_able = fishing_alcove_returned["movement_able"]
+                    info_text_1 = fishing_alcove_returned["info_text_1"]
+                    info_text_2 = fishing_alcove_returned["info_text_2"]
+                    info_text_3 = fishing_alcove_returned["info_text_3"]
+                    info_text_4 = fishing_alcove_returned["info_text_4"]
+                    in_hut = fishing_alcove_returned["in_hut"]
+                    fishing = fishing_alcove_returned["fishing"]
+                    fishing_timer = fishing_alcove_returned["fishing_timer"]
+                    previous_surf = fishing_alcove_returned["previous_surf"]
+                    interacted = fishing_alcove_returned["interacted"]
+                    in_over_world = fishing_alcove_returned["in_over_world"]
 
                 # ------------------------------------------------------------------------------------------------------
                 # if player is in korlok district mines ----------------------------------------------------------------
@@ -12933,6 +12986,8 @@ if __name__ == "__main__":
                                         screen.blit(caves_battle_screen, (0, 0))
                                     if player.current_zone == "ectrenos front":
                                         screen.blit(ectrenos_front_interaction_bg, (0, 0))
+                                    if player.current_zone == "ectrenos alcove":
+                                        screen.blit(ectrenos_alcove_battle_screen, (0, 0))
                                     if player.current_zone == "marrow ramps east end":
                                         screen.blit(marrow_ramparts_battle, (0, 0))
                                     if player.current_zone == "marrow tower east" or \
@@ -12965,6 +13020,8 @@ if __name__ == "__main__":
                                         game_window.blit(caves_battle_screen, (0, 0))
                                     if player.current_zone == "ectrenos front":
                                         game_window.blit(ectrenos_front_interaction_bg, (0, 0))
+                                    if player.current_zone == "ectrenos alcove":
+                                        game_window.blit(ectrenos_alcove_battle_screen, (0, 0))
                                     if player.current_zone == "marrow ramps east end":
                                         game_window.blit(marrow_ramparts_battle, (0, 0))
                                     if player.current_zone == "marrow tower east" or \

@@ -90,6 +90,8 @@ def load_graphics():
     ectrenos_right_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_right.png')).convert_alpha()
     ectrenos_front_bg_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_front.png')).convert_alpha()
     ectrenos_alcove_screen = pygame.image.load(resource_path('resources/art/bg_ectrenos_alcove.png')).convert_alpha()
+    alcove_b = pygame.image.load(resource_path('resources/art/bg_ectrenos_alcove_battle_screen.png')).convert_alpha()
+    alcove_fishing = pygame.image.load(resource_path('resources/art/bg_ectrenos_fishing.png')).convert_alpha()
     ectrenos_interaction = pygame.image.load(resource_path('resources/art/bg_ectrenos_interaction.png')).convert_alpha()
     ectrenos_mini_map = pygame.image.load(resource_path('resources/art/overlay_mini_map_ectrenos.png')).convert_alpha()
     ect_mini_l = pygame.image.load(resource_path('resources/art/overlay_mini_map_ectrenos_left.png')).convert_alpha()
@@ -299,6 +301,7 @@ def load_graphics():
     loaded_dict["type advantages"] = overlay_advantages
     loaded_dict["fishing_hut_bg"] = fishing_hut_bg
     loaded_dict["fishing_hut_screen"] = fishing_hut_screen
+    loaded_dict["fishing_alcove_bg"] = alcove_fishing
     loaded_dict["eldream_river"] = overlay_eldream_river
     loaded_dict["apothecary_window"] = apothecary_window
     loaded_dict["weapon_select"] = weapon_select
@@ -340,6 +343,7 @@ def load_graphics():
     loaded_dict["seldon_battle_screen"] = seldon_battle_screen
     loaded_dict["korlok_battle_screen"] = korlok_battle_screen
     loaded_dict["mines_battle_screen"] = mines_battle_screen
+    loaded_dict["alcove_battle_screen"] = alcove_b
     loaded_dict["seldon_shop_screen"] = seldon_shop_screen
     loaded_dict["korlok_shop_screen"] = korlok_shop_screen
     loaded_dict["eldream_shop_screen"] = eldream_shop_screen
